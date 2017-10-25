@@ -81,7 +81,7 @@ public class PlatformUserData extends DomainDataContainer implements
     /**
      * Current status of the user's account
      */
-    @Convert(converter = UserAccountStatusConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserAccountStatus status;
 
@@ -100,7 +100,7 @@ public class PlatformUserData extends DomainDataContainer implements
     /**
      * User's salutation.
      */
-    @Convert(converter = SalutaionConverter.class)
+    @Enumerated(EnumType.STRING)
     private Salutation salutation;
 
     /**

@@ -5,8 +5,6 @@
 	<projects>
 		<project>oscm-apiversioning-client-handler</project>
 		<project>oscm-app</project>
-		<project>oscm-app-converter</project>
-		<project>oscm-app-extsvc-1-0</project>
 		<project>oscm-app-extsvc-2-0</project>
 		<project>oscm-app-startup</project>
 		<project>oscm-common</project>

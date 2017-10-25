@@ -22,7 +22,7 @@ import org.oscm.vo.VODiscount;
  * @author farmaki
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.DiscountService")
+@WebService(name = "DiscountService", serviceName = "DiscountService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.DiscountService")
 public class DiscountServiceWS implements DiscountService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -37,8 +37,8 @@ public class DiscountServiceWS implements DiscountService {
             throws ObjectNotFoundException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter.convertToApi(delegate
-                    .getDiscountForService(serviceKey));
+            return VOConverter
+                    .convertToApi(delegate.getDiscountForService(serviceKey));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         }
@@ -50,8 +50,8 @@ public class DiscountServiceWS implements DiscountService {
             throws ObjectNotFoundException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter.convertToApi(delegate
-                    .getDiscountForCustomer(customerId));
+            return VOConverter
+                    .convertToApi(delegate.getDiscountForCustomer(customerId));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         }

@@ -61,7 +61,7 @@ public class APPlatformServiceBeanIT extends EJBTestBase {
     private APPAuthenticationServiceBean authSvc;
     private APPConfigurationServiceBean configSvc;
     private APPConcurrencyServiceBean concSvc;
-    private APPlatformService platformSvc;
+    private APPlatformServiceBean platformSvc;
     private APPCommunicationServiceBean commSvc;
     private ServiceInstanceDAO instanceDAO;
     private VOUser defaultUser;
@@ -98,6 +98,11 @@ public class APPlatformServiceBeanIT extends EJBTestBase {
         defaultUser = new VOUser();
         defaultUser.setUserId("user");
         defaultAuth = new PasswordAuthentication("user", "password");
+        platformSvc.setAuthService(authSvc);
+        platformSvc.setConfigService(configSvc);
+        platformSvc.setConcurrencyService(concSvc);
+        platformSvc.setMailService(commSvc);
+        platformSvc.setInstanceDAO(instanceDAO);
     }
 
     @Test
@@ -135,6 +140,7 @@ public class APPlatformServiceBeanIT extends EJBTestBase {
 
         // when
         platformSvc.storeControllerSettings("test", map, defaultAuth);
+
 
         // then
         Mockito.verify(authSvc, Mockito.times(1)).authenticateTMForController(

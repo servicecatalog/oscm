@@ -32,7 +32,7 @@ import org.oscm.vo.VOGatheredEvent;
  * @author Aleh Khomich.
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.EventService")
+@WebService(name = "EventService", serviceName = "EventService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.EventService")
 public class EventServiceWS implements EventService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -64,9 +64,9 @@ public class EventServiceWS implements EventService {
 
     @Override
     public void recordEventForSubscription(long subscriptionKey,
-            VOGatheredEvent event) throws DuplicateEventException,
-            OrganizationAuthoritiesException, ObjectNotFoundException,
-            ValidationException {
+            VOGatheredEvent event)
+            throws DuplicateEventException, OrganizationAuthoritiesException,
+            ObjectNotFoundException, ValidationException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
             delegate.recordEventForSubscription(subscriptionKey,

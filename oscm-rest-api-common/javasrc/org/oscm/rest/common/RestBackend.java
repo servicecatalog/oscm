@@ -25,7 +25,7 @@ public interface RestBackend {
      * @param <P>
      *            request parameters
      */
-    public interface Get<R extends Representation, P extends RequestParameters> {
+    interface Get<R extends Representation, P extends RequestParameters> {
 
         /**
          * Backend command called by GET frontend methods. Reads the entities
@@ -36,7 +36,7 @@ public interface RestBackend {
          * @return the requested representation or -collection
          * @throws Exception
          */
-        public R get(P params) throws Exception;
+        R get(P params) throws Exception;
     }
 
     /**
@@ -49,7 +49,7 @@ public interface RestBackend {
      * @param <P>
      *            request parameters
      */
-    public interface GetCollection<R extends Representation, P extends RequestParameters> {
+    interface GetCollection<R extends Representation, P extends RequestParameters> {
 
         /**
          * Backend command called by GET frontend methods. Reads the entities
@@ -60,7 +60,7 @@ public interface RestBackend {
          * @return the requested representation collection
          * @throws Exception
          */
-        public RepresentationCollection<R> getCollection(P params) throws Exception;
+        RepresentationCollection<R> getCollection(P params) throws Exception;
     }
 
     /**
@@ -73,7 +73,7 @@ public interface RestBackend {
      * @param <P>
      *            request parameters
      */
-    public interface Post<R extends Representation, P extends RequestParameters> {
+    interface Post<R extends Representation, P extends RequestParameters> {
 
         /**
          * Backend command called by POST frontend methods. Creates the entity
@@ -88,7 +88,7 @@ public interface RestBackend {
          *         is executed asynchronously or suspended by a trigger
          * @throws Exception
          */
-        public Object post(R content, P params) throws Exception;
+        Object post(R content, P params) throws Exception;
     }
 
     /**
@@ -101,7 +101,7 @@ public interface RestBackend {
      * @param <P>
      *            request parameters
      */
-    public interface Put<R extends Representation, P extends RequestParameters> {
+    interface Put<R extends Representation, P extends RequestParameters> {
 
         /**
          * Backend command called by PUT frontend methods. Updates the entity
@@ -115,7 +115,7 @@ public interface RestBackend {
          *         asynchronous/suspended PUT
          * @throws Exception
          */
-        public boolean put(R content, P params) throws Exception;
+        boolean put(R content, P params) throws Exception;
     }
 
     /**
@@ -126,7 +126,7 @@ public interface RestBackend {
      * @param <P>
      *            request parameters
      */
-    public interface Delete<P extends RequestParameters> {
+    interface Delete<P extends RequestParameters> {
 
         /**
          * Backend command called by DELETE frontend methods. Deletes the entity
@@ -138,7 +138,7 @@ public interface RestBackend {
          *         asynchronous/suspended DELETE
          * @throws Exception
          */
-        public boolean delete(P params) throws Exception;
+        boolean delete(P params) throws Exception;
     }
 
 }

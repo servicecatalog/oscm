@@ -7,7 +7,7 @@
   <tns:TechnicalService accessType="DIRECT" allowingOnBehalfActing="false" baseUrl=""
                         build="20140708" id="OPENSTACK_V4" loginPath=""
                         onlyOneSubscriptionPerUser="false" provisioningType="ASYNCHRONOUS"
-                        provisioningUrl="https://<host>:<port>/ProvisioningService/AsynchronousProvisioningProxy?wsdl"
+                        provisioningUrl="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl"
                         provisioningVersion="1.0">
     <AccessInfo locale="en" >OpenStack Access Info</AccessInfo>
     <LocalizedDescription locale="en">OpenStack IaaS implementation</LocalizedDescription>
@@ -95,7 +95,7 @@
                          mandatory="true" valueType="LONG">
       <LocalizedDescription locale="en">The number of VMs of IaaS subscriptions</LocalizedDescription>
     </ParameterDefinition>
-    <Operation actionURL="https://<host>:<port>/OperationService/AsynchronousOperationProxy?wsdl" id="START_VIRTUAL_SYSTEM">
+    <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="START_VIRTUAL_SYSTEM">
       <LocalizedName locale="de">Start</LocalizedName>
       <LocalizedName locale="en">Start</LocalizedName>
       <LocalizedName locale="ja">起動</LocalizedName>
@@ -103,7 +103,7 @@
       <LocalizedDescription locale="en">Start all servers</LocalizedDescription>
       <LocalizedDescription locale="ja">システムを起動します</LocalizedDescription>
     </Operation>
-    <Operation actionURL="https://<host>:<port>/OperationService/AsynchronousOperationProxy?wsdl" id="STOP_VIRTUAL_SYSTEM">
+    <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="STOP_VIRTUAL_SYSTEM">
       <LocalizedName locale="de">Stop</LocalizedName>
       <LocalizedName locale="en">Stop</LocalizedName>
       <LocalizedName locale="ja">停止</LocalizedName>
@@ -111,7 +111,7 @@
       <LocalizedDescription locale="en">Stop all servers</LocalizedDescription>
       <LocalizedDescription locale="ja">システムを停止します</LocalizedDescription>
     </Operation>
-    <Operation actionURL="https://<host>:<port>/OperationService/AsynchronousOperationProxy?wsdl" id="RESUME_VIRTUAL_SYSTEM">
+    <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="RESUME_VIRTUAL_SYSTEM">
       <LocalizedName locale="de">Fortsetzen</LocalizedName>
       <LocalizedName locale="en">Resume</LocalizedName>
       <LocalizedName locale="ja">レジューム</LocalizedName>
@@ -119,7 +119,7 @@
       <LocalizedDescription locale="en">Resume the instance</LocalizedDescription>
       <LocalizedDescription locale="ja">システムをレジュームします</LocalizedDescription>
     </Operation>
-    <Operation actionURL="https://<host>:<port>/OperationService/AsynchronousOperationProxy?wsdl" id="SUSPEND_VIRTUAL_SYSTEM">
+    <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="SUSPEND_VIRTUAL_SYSTEM">
       <LocalizedName locale="de">Aussetzen</LocalizedName>
       <LocalizedName locale="en">Suspend</LocalizedName>
       <LocalizedName locale="ja">サスペンド</LocalizedName>

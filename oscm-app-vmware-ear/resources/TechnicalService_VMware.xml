@@ -15,7 +15,7 @@
     baseUrl=""
     loginPath="/" 
     provisioningType="ASYNCHRONOUS"
-    provisioningUrl="https://HOST:PORT/ProvisioningService/AsynchronousProvisioningProxy?wsdl"
+    provisioningUrl="https://HOST:PORT/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl"
     provisioningPassword="" 
     provisioningUsername="" 
     provisioningVersion="1.0">
@@ -308,35 +308,35 @@
       <LocalizedDescription locale="en">Windows Local Administrator Password</LocalizedDescription>
     </ParameterDefinition>        
     
-    <Operation id="RESTART_VM" actionURL="https://HOST:PORT/OperationService/AsynchronousOperationProxy?wsdl">
+    <Operation id="RESTART_VM" actionURL="https://HOST:PORT/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl">
       <LocalizedName locale="de">Neustart der virtuellen Maschine</LocalizedName>
       <LocalizedName locale="en">Restart of virtual machine</LocalizedName>
       <LocalizedDescription locale="de">Die virtuelle Maschine wird runtergefahren und wieder hochgefahren</LocalizedDescription>
       <LocalizedDescription locale="en">The virtual machine will be shutdown and started again</LocalizedDescription>
     </Operation>
     
-    <Operation id="START_VM" actionURL="https://HOST:PORT/OperationService/AsynchronousOperationProxy?wsdl">
+    <Operation id="START_VM" actionURL="https://HOST:PORT/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl">
       <LocalizedName locale="de">Start der virtuellen Maschine</LocalizedName>
       <LocalizedName locale="en">Start of virtual machine</LocalizedName>
       <LocalizedDescription locale="de">Die virtuelle Maschine wird hochgefahren</LocalizedDescription>
       <LocalizedDescription locale="en">The virtual machine will be started</LocalizedDescription>
     </Operation>
     
-    <Operation id="STOP_VM" actionURL="https://HOST:PORT/OperationService/AsynchronousOperationProxy?wsdl">
+    <Operation id="STOP_VM" actionURL="https://HOST:PORT/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl">
       <LocalizedName locale="de">Stop der virtuellen Maschine</LocalizedName>
       <LocalizedName locale="en">Stop of virtual machine</LocalizedName>
       <LocalizedDescription locale="de">Die virtuelle Maschine wird runtergefahren</LocalizedDescription>
       <LocalizedDescription locale="en">The virtual machine will be shutdown</LocalizedDescription>
     </Operation>
     
-    <Operation id="SNAPSHOT_VM" actionURL="https://HOST:PORT/OperationService/AsynchronousOperationProxy?wsdl">
+    <Operation id="SNAPSHOT_VM" actionURL="https://HOST:PORT/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl">
       <LocalizedName locale="de">Snapshot</LocalizedName>
       <LocalizedName locale="en">Snapshot</LocalizedName>
       <LocalizedDescription locale="de">Erzeugt ein Snapshot</LocalizedDescription>
       <LocalizedDescription locale="en">Creates a snapshort of the VM</LocalizedDescription>
     </Operation>
     
-    <Operation id="RESTORE_VM" actionURL="https://HOST:PORT/OperationService/AsynchronousOperationProxy?wsdl">
+    <Operation id="RESTORE_VM" actionURL="https://HOST:PORT/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl">
       <LocalizedName locale="de">Restore</LocalizedName>
       <LocalizedName locale="en">Restore</LocalizedName>
       <LocalizedDescription locale="de">Stellt ein Snapshot wieder her</LocalizedDescription>

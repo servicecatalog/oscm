@@ -8,24 +8,18 @@
 
 package org.oscm.internal.vo;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.oscm.internal.types.enumtypes.ParameterValueType;
-import org.oscm.internal.vo.BaseVO;
-import org.oscm.internal.vo.VOParameterDefinition;
-import org.oscm.internal.vo.VOPricedOption;
-import org.oscm.internal.vo.VOPricedRole;
-import org.oscm.internal.vo.VOSteppedPrice;
 
 /**
  * Represents the information on service parameters that is relevant for price
  * models.
  * 
  */
-public class VOPricedParameter extends BaseVO implements Serializable {
+public class VOPricedParameter extends BaseVO  {
 
     private static final long serialVersionUID = 7663675959767010704L;
 

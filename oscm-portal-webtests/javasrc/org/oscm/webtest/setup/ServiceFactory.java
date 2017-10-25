@@ -108,9 +108,6 @@ public class ServiceFactory {
     private <T> T getEJBServiceInterface(Class<T> remoteInterface,
             String userName, String password) throws Exception {
         InitialContext initialContext = new InitialContext(props);
-        String configurl = ServiceFactory.class.getResource(
-                "/glassfish-login.conf").toString();
-        System.setProperty("java.security.auth.login.config", configurl);
         LoginHandlerFactory.getInstance().login(userName, password);
 
         @SuppressWarnings("unchecked")

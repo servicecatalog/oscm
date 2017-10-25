@@ -12,11 +12,7 @@
 
 package org.oscm.serviceprovisioningservice.bean;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import javax.ejb.EJB;
 import javax.ejb.Local;
@@ -24,28 +20,25 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
-import javax.jms.JMSException;
 
 import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
-import org.apache.solr.parser.QueryParser;
-import org.apache.solr.search.SyntaxError;
 import org.apache.lucene.search.BooleanClause.Occur;
 import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.TermQuery;
+import org.apache.solr.parser.QueryParser;
+import org.apache.solr.search.SyntaxError;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.search.FullTextQuery;
 import org.hibernate.search.FullTextSession;
 import org.hibernate.search.Search;
-
-import org.oscm.dataservice.bean.IndexMQSender;
+import org.oscm.dataservice.bean.HibernateIndexer;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.Product;
 import org.oscm.domobjects.bridge.ProductClassBridge;
-import org.oscm.domobjects.index.IndexReinitRequestMessage;
 import org.oscm.i18nservice.bean.LocalizerFacade;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
 import org.oscm.interceptor.ExceptionMapper;
@@ -63,7 +56,6 @@ import org.oscm.logging.LoggerFactory;
 import org.oscm.serviceprovisioningservice.assembler.ProductAssembler;
 import org.oscm.serviceprovisioningservice.local.ProductSearchResult;
 import org.oscm.serviceprovisioningservice.local.SearchServiceLocal;
-import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.usergroupservice.bean.UserGroupServiceLocalBean;
 import org.oscm.validation.ArgumentValidator;
 
@@ -82,38 +74,25 @@ public class SearchServiceBean implements SearchService, SearchServiceLocal {
 
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(SearchServiceBean.class);
-
-    @EJB(beanInterface = DataService.class)
-    private DataService dm;
-
-    @EJB(beanInterface = LocalizerServiceLocal.class)
-    private LocalizerServiceLocal localizer;
-
+    private static String DEFAULT_LOCALE = "en";
     @Inject
     UserGroupServiceLocalBean userGroupService;
-
-    private static String DEFAULT_LOCALE = "en";
+    @EJB(beanInterface = DataService.class)
+    private DataService dm;
+    @EJB(beanInterface = LocalizerServiceLocal.class)
+    private LocalizerServiceLocal localizer;
+    @EJB
+    private HibernateIndexer indexer;
 
     @Override
     public void initIndexForFulltextSearch(final boolean force) {
-        IndexReinitRequestMessage msg = new IndexReinitRequestMessage(force);
-        IndexMQSender messageSender = getMQSender();
-        try {
-            messageSender.sendMessage(msg);
-        } catch (JMSException e) {
-            logger.logError(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR_SEARCH_INDEX_CREATION_FAILED);
-        }
-    }
-
-    protected IndexMQSender getMQSender() {
-        return new IndexMQSender();
+        indexer.initIndexForFulltextSearch(force);
     }
 
     @Override
     public VOServiceListResult searchServices(String marketplaceId,
-            String locale, String searchPhrase) throws InvalidPhraseException,
-            ObjectNotFoundException {
+            String locale, String searchPhrase)
+            throws InvalidPhraseException, ObjectNotFoundException {
         return searchServices(marketplaceId, locale, searchPhrase,
                 PerformanceHint.ALL_FIELDS);
     }
@@ -141,12 +120,14 @@ public class SearchServiceBean implements SearchService, SearchServiceLocal {
                 FullTextSession fts = Search.getFullTextSession(session);
 
                 // (1) search in actual locale
-                org.apache.lucene.search.Query query = getLuceneQuery(searchPhrase, marketplaceId, locale, false);
+                org.apache.lucene.search.Query query = getLuceneQuery(
+                        searchPhrase, marketplaceId, locale, false);
                 searchViaLucene(query, fts, map);
 
                 if (!DEFAULT_LOCALE.equals(locale)) {
                     // (2) search in default locale
-                    query = getLuceneQuery(searchPhrase, marketplaceId, locale, true);
+                    query = getLuceneQuery(searchPhrase, marketplaceId, locale,
+                            true);
                     searchViaLucene(query, fts, map);
                 }
 
@@ -210,8 +191,8 @@ public class SearchServiceBean implements SearchService, SearchServiceLocal {
      *             in case the query cannot be parsed
      */
     private org.apache.lucene.search.Query getLuceneQuery(String searchString,
-            String mId, String locale,
-            boolean isDefaultLocaleHandling) throws SyntaxError, QueryNodeException {
+            String mId, String locale, boolean isDefaultLocaleHandling)
+            throws SyntaxError, QueryNodeException {
 
         // construct wildcard query for the actual search part
         org.apache.lucene.search.Query textQuery = LuceneQueryBuilder
@@ -274,31 +255,8 @@ public class SearchServiceBean implements SearchService, SearchServiceLocal {
         ProductSearch search = new ProductSearch(getDm(), marketplaceId,
                 listCriteria, DEFAULT_LOCALE, locale, invisibleKeys);
 
-        return convertToVoServiceList(search.execute(), locale, performanceHint);
-    }
-
-    public VOServiceListResult getAccesibleServices(
-            String marketplaceId, String locale, ListCriteria listCriteria,
-            PerformanceHint performanceHint) throws ObjectNotFoundException {
-        ArgumentValidator.notEmptyString("marketplaceId", marketplaceId);
-        ArgumentValidator.notEmptyString("locale", locale);
-        ArgumentValidator.notNull("listCriteria", listCriteria);
-
-        PlatformUser user = getDm().getCurrentUserIfPresent();
-        // temporary solution to get all services for initializing the accesible
-        // service list for unit admin
-        Set<Long> invisibleKeys = null;
-        if ((user != null) && !user.isOrganizationAdmin()
-                && !user.isUnitAdmin()) {
-            List<Long> invisibleKeyList = userGroupService
-                    .getInvisibleProductKeysForUser(user.getKey());
-            invisibleKeys = new HashSet<Long>(invisibleKeyList);
-        }
-
-        ProductSearch search = new ProductSearch(getDm(), marketplaceId,
-                listCriteria, DEFAULT_LOCALE, locale, invisibleKeys);
-
-        return convertToVoServiceList(search.execute(), locale, performanceHint);
+        return convertToVoServiceList(search.execute(), locale,
+                performanceHint);
     }
 
     VOServiceListResult convertToVoServiceList(ProductSearchResult services,
@@ -313,7 +271,7 @@ public class SearchServiceBean implements SearchService, SearchServiceLocal {
 
     /**
      * Converts the product list to transfer objects.
-     * 
+     *
      * @param productList
      *            List of domain products
      * @return found VO services

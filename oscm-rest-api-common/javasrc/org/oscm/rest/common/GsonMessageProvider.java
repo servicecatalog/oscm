@@ -52,10 +52,8 @@ public class GsonMessageProvider implements MessageBodyWriter<Representation>,
             MultivaluedMap<String, String> httpHeaders, InputStream entityStream)
             throws IOException, WebApplicationException {
 
-        InputStreamReader reader = new InputStreamReader(entityStream,
-                CommonParams.CHARSET);
-
-        try {
+        try (InputStreamReader reader = new InputStreamReader(entityStream,
+                CommonParams.CHARSET)) {
             Gson gson = new GsonBuilder().setDateFormat(
                     CommonParams.FORMAT_DATE).create();
             return gson.fromJson(reader, genericType);
@@ -65,8 +63,6 @@ public class GsonMessageProvider implements MessageBodyWriter<Representation>,
                     .message(CommonParams.ERROR_JSON_FORMAT)
                     .moreInfo(e.getMessage()).build();
 
-        } finally {
-            reader.close();
         }
     }
 
@@ -89,15 +85,13 @@ public class GsonMessageProvider implements MessageBodyWriter<Representation>,
             OutputStream entityStream) throws IOException,
             WebApplicationException {
 
-        OutputStreamWriter writer = new OutputStreamWriter(entityStream,
-                CommonParams.CHARSET);
-
-        try {
+        try (OutputStreamWriter writer = new OutputStreamWriter(entityStream,
+                CommonParams.CHARSET)) {
             GsonBuilder builder = new GsonBuilder();
             builder.setDateFormat(CommonParams.FORMAT_DATE);
 
             if (rep.getVersion() != null) {
-                builder.setVersion(rep.getVersion().intValue());
+                builder.setVersion(rep.getVersion());
             }
 
             Gson gson = builder.create();
@@ -106,8 +100,6 @@ public class GsonMessageProvider implements MessageBodyWriter<Representation>,
         } catch (JsonSyntaxException e) {
             throw WebException.internalServerError()
                     .message(CommonParams.ERROR_JSON_FORMAT).build();
-        } finally {
-            writer.close();
         }
 
     }

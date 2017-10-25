@@ -25,7 +25,17 @@ import org.apache.geronimo.transaction.manager.TransactionManagerImpl;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Environment;
 import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
+import org.oscm.dataservice.bean.DataServiceBean;
+import org.oscm.dataservice.bean.HibernateIndexer;
+import org.oscm.dataservice.local.DataService;
+import org.oscm.domobjects.enums.ModificationType;
 import org.oscm.test.db.ITestDB;
+import org.oscm.test.stubs.DataServiceStub;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Backend for persistence services for testing. A instance can be shared among
@@ -42,6 +52,7 @@ import org.oscm.test.db.ITestDB;
 public class TestPersistence {
 
     private final TransactionManager transactionManager;
+    private final HibernateIndexer hibernateIndexer;
 
     private Map<String, EntityManagerFactory> factoryCache = new HashMap<String, EntityManagerFactory>();
 
@@ -53,14 +64,22 @@ public class TestPersistence {
     public TestPersistence() {
         try {
             this.transactionManager = new TransactionManagerImpl();
+            this.hibernateIndexer = mock(HibernateIndexer.class);
+            doNothing().when(hibernateIndexer).handleIndexing(any(), any(ModificationType.class));
+            hibernateIndexer.setDataService(mock(DataService.class));
         } catch (XAException e) {
             throw new RuntimeException(e);
         }
+
     }
 
     public TransactionManager getTransactionManager() {
         return transactionManager;
     }
+    public HibernateIndexer getHibernateIndexer() {
+        return hibernateIndexer;
+    }
+
 
     public void initialize() throws Exception {
         initializedDBs.clear();
@@ -143,5 +162,6 @@ public class TestPersistence {
     public void clearEntityManagerFactoryCache() {
         factoryCache.clear();
     }
+
 
 }

@@ -20,34 +20,38 @@ import java.util.regex.Pattern;
 
 import org.oscm.mocksts.PropertyLoader;
 
-import com.sun.xml.wss.impl.callback.PasswordValidationCallback;
-import com.sun.xml.wss.impl.callback.PasswordValidationCallback.PasswordValidationException;
+//import com.sun.xml.wss.impl.callback.PasswordValidationCallback;
+//import com.sun.xml.wss.impl.callback.PasswordValidationCallback.PasswordValidationException;
 
 /**
  * @author gao
  */
-public class UserValidator implements
-        PasswordValidationCallback.PasswordValidator {
+public class UserValidator {
+        //implements PasswordValidationCallback.PasswordValidator {
 
     private static Map<String, String> userList;
     private static final String COMMON_PROPERTIES_PATH = "common.properties";
     private static final String DELIMITER = "delimiter";
 
-    @Override
-    public boolean validate(PasswordValidationCallback.Request request)
-            throws PasswordValidationCallback.PasswordValidationException {
-        PasswordValidationCallback.PlainTextPasswordRequest plainTextRequest = (PasswordValidationCallback.PlainTextPasswordRequest) request;
-        try {
-            return checkUser(plainTextRequest.getUsername(),
-                    plainTextRequest.getPassword());
-        } catch (IOException e) {
-            throw new PasswordValidationCallback.PasswordValidationException(
-                    "Load user data failed. Authentication failed.");
-        }
+//    @Override
+//    public boolean validate(PasswordValidationCallback.Request request)
+//            throws PasswordValidationCallback.PasswordValidationException {
+    public boolean validate(Object request)
+            throws Exception {
+//        PasswordValidationCallback.PlainTextPasswordRequest plainTextRequest = (PasswordValidationCallback.PlainTextPasswordRequest) request;
+//        try {
+//            return checkUser(plainTextRequest.getUsername(),
+//                    plainTextRequest.getPassword());
+//        } catch (IOException e) {
+//            throw new PasswordValidationCallback.PasswordValidationException(
+//                    "Load user data failed. Authentication failed.");
+//        }
+        return false;
     }
 
     private boolean checkUser(String userName, String password)
-            throws IOException, PasswordValidationException {
+//            throws IOException, PasswordValidationException {
+            throws IOException {
         if (userList == null) {
             loadUserList();
         }
@@ -60,8 +64,9 @@ public class UserValidator implements
                 return true;
             }
         }
-        throw new PasswordValidationCallback.PasswordValidationException(
-                "Invalid credentials provided. Authentication failed.");
+        throw new RuntimeException();
+//        throw new PasswordValidationCallback.PasswordValidationException(
+//                "Invalid credentials provided. Authentication failed.");
     }
 
     private void loadUserList() throws IOException {

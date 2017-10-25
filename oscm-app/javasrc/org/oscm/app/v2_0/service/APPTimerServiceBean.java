@@ -17,7 +17,6 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.ConcurrencyManagement;
@@ -35,6 +34,8 @@ import javax.inject.Inject;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.slf4j.Logger;
 
 import org.oscm.app.business.APPlatformControllerFactory;
 import org.oscm.app.business.InstanceFilter;
@@ -73,7 +74,6 @@ import org.oscm.string.Strings;
 import org.oscm.types.enumtypes.OperationStatus;
 import org.oscm.types.exceptions.ObjectNotFoundException;
 import org.oscm.vo.VOUserDetails;
-import org.slf4j.Logger;
 
 /**
  * The timer service implementation
@@ -1238,7 +1238,7 @@ public class APPTimerServiceBean implements Cloneable {
                         .append("/").append(EVENT_KEY_NOTIFY).append("?")
                         .append("sid=")
                         .append(URLEncoder.encode(si.getInstanceId(), "UTF-8"))
-                        .append('&').append("cid=")
+                        .append('&').append("controllerid=")
                         .append(URLEncoder.encode(si.getControllerId(),
                                 "UTF-8"))
                         .append('&').append(EVENT_KEY_RESUME).append('=')
@@ -1261,7 +1261,7 @@ public class APPTimerServiceBean implements Cloneable {
         eventLink
                 .append(configService.getProxyConfigurationSetting(
                         PlatformConfigurationKey.APP_BASE_URL))
-                .append("/controller?cid=")
+                .append("/controller?controllerid=")
                 .append(URLEncoder.encode(si.getControllerId(), "UTF-8"));
         return eventLink;
     }
@@ -1364,7 +1364,7 @@ public class APPTimerServiceBean implements Cloneable {
                     .append("sid=")
                     .append(URLEncoder.encode(instance.getInstanceId(),
                             "UTF-8"))
-                    .append('&').append("cid=")
+                    .append('&').append("controllerid=")
                     .append(URLEncoder.encode(instance.getControllerId(),
                             "UTF-8"))
                     .append('&').append(EVENT_KEY_RESUME).append('=')

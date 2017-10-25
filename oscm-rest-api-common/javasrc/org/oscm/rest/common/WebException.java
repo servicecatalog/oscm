@@ -78,14 +78,6 @@ public class WebException {
             @Override
             public void validateContent() throws WebApplicationException {
             }
-
-            @Override
-            public void update() {
-            }
-
-            @Override
-            public void convert() {
-            }
         }
 
         private ExceptionBody body;

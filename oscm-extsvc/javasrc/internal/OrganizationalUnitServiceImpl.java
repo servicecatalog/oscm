@@ -8,7 +8,6 @@ package internal;
 
 import java.util.List;
 
-import javax.jws.WebParam;
 import javax.jws.WebService;
 
 import org.oscm.intf.OrganizationalUnitService;

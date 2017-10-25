@@ -16,12 +16,7 @@ import static org.oscm.test.Numbers.TIMESTAMP;
 import static org.junit.Assert.assertEquals;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.EnumSet;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.Callable;
 
 import javax.ejb.EJBException;
@@ -213,6 +208,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         sub1.setProductInstanceId("prod1");
         sub1.setPurchaseOrderNumber("PON for Testing");
         sub1.setCutOffDay(1);
+        sub1.setUuid(UUID.randomUUID());
         mgr.persist(sub1);
         subscriptions.clear();
         subscriptions.add(sub1);
@@ -400,6 +396,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         sub1.addUser(users.get(0), null);
         sub1.setProductInstanceId("prod1");
         sub1.setCutOffDay(1);
+        sub1.setUuid(UUID.randomUUID());
         mgr.persist(sub1);
         subscriptions.clear();
         subscriptions.add(sub1);
@@ -551,6 +548,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         sub1.addUser(users.get(0), null);
         sub1.setProductInstanceId("prod1");
         sub1.setCutOffDay(1);
+        sub1.setUuid(UUID.randomUUID());
         mgr.persist(sub1);
         subscriptions.clear();
         subscriptions.add(sub1);
@@ -687,6 +685,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         sub1.addUser(users.get(0), null);
         sub1.setProductInstanceId("prod1");
         sub1.setCutOffDay(1);
+        sub1.setUuid(UUID.randomUUID());
         mgr.persist(sub1);
         subscriptions.clear();
         subscriptions.add(sub1);
@@ -843,6 +842,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         sub1.addUser(users.get(0), null);
         sub1.setProductInstanceId("prod1");
         sub1.setCutOffDay(1);
+        sub1.setUuid(UUID.randomUUID());
         mgr.persist(sub1);
     }
 
@@ -858,6 +858,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         sub1.addUser(users.get(0), null);
         sub1.setProductInstanceId("prod1");
         sub1.setCutOffDay(1);
+        sub1.setUuid(UUID.randomUUID());
         mgr.persist(sub1);
     }
 
@@ -892,6 +893,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         sub1.addUser(users.get(0), null);
         sub1.setProductInstanceId("prod1");
         sub1.setCutOffDay(1);
+        sub1.setUuid(UUID.randomUUID());
         mgr.persist(sub1);
     }
 
@@ -925,6 +927,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         sub1.addUser(users.get(0), null);
         sub1.setProductInstanceId("prod1");
         sub1.setCutOffDay(1);
+        sub1.setUuid(UUID.randomUUID());
         mgr.persist(sub1);
     }
 
@@ -992,6 +995,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         mgr.persist(pi);
         sub1.setBillingContact(bc);
         sub1.setPaymentInfo(pi);
+        sub1.setUuid(UUID.randomUUID());
         mgr.persist(sub1);
         subscriptions.clear();
         subscriptions.add(sub1);
@@ -1159,6 +1163,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
                 getInvoicePaymentType());
 
         sub1.setPaymentInfo(pi);
+        sub1.setUuid(UUID.randomUUID());
         mgr.persist(sub1);
         subscriptions.clear();
         subscriptions.add(sub1);
@@ -1344,6 +1349,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         sub.bindToProduct(prod);
         sub.setMarketplace(marketplace);
         sub.setCutOffDay(1);
+        sub.setUuid(UUID.randomUUID());
         mgr.persist(sub);
         return sub;
     }

@@ -44,7 +44,7 @@ import org.oscm.types.exceptions.ValidationException;
 import org.oscm.types.exceptions.ValidationException.ReasonEnum;
 import org.oscm.vo.VOOrganization;
 import org.oscm.vo.VOUserDetails;
-import com.sun.xml.ws.fault.ServerSOAPFaultException;
+//import com.sun.xml.ws.fault.ServerSOAPFaultException;
 
 /**
  * Tests for secured IdentityService.
@@ -625,25 +625,25 @@ public class IdentityServiceWSTest {
         }
     }
 
-    @Test
-    public void changePassword_EJBTransactionRolledbackException()
-            throws Exception {
-        try {
-            is.changePassword("oldPassword", "newPassword");
-            fail();
-
-        } catch (ServerSOAPFaultException e) {
-            checkEJBTransactionRolledbackException(e);
-        }
-    }
+//    @Test
+//    public void changePassword_EJBTransactionRolledbackException()
+//            throws Exception {
+//        try {
+//            is.changePassword("oldPassword", "newPassword");
+//            fail();
+//
+//        } catch (ServerSOAPFaultException e) {
+//            checkEJBTransactionRolledbackException(e);
+//        }
+//    }
     
-    private void checkEJBTransactionRolledbackException(
-            ServerSOAPFaultException e) {
-        assertEquals(
-                Boolean.TRUE,
-                Boolean.valueOf(e.getMessage().contains(
-                        "javax.ejb.EJBTransactionRolledbackException")));
-    }
+//    private void checkEJBTransactionRolledbackException(
+//            ServerSOAPFaultException e) {
+//        assertEquals(
+//                Boolean.TRUE,
+//                Boolean.valueOf(e.getMessage().contains(
+//                        "javax.ejb.EJBTransactionRolledbackException")));
+//    }
 
     protected static void validateException(ConcurrentModificationException e) {
         assertEquals("ex.ConcurrentModificationException", e.getMessageKey());

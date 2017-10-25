@@ -6,7 +6,7 @@
   <tns:TechnicalService accessType="DIRECT" allowingOnBehalfActing="false" baseUrl=""
     build="20140708" id="K5" loginPath=""
     onlyOneSubscriptionPerUser="false" provisioningType="ASYNCHRONOUS"
-    provisioningUrl="https://<host>:<port>/ProvisioningService/AsynchronousProvisioningProxy?wsdl"
+    provisioningUrl="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl"
     provisioningVersion="1.0">
     <AccessInfo locale="en" >K5 Access Info</AccessInfo>
     <LocalizedDescription locale="en">K5 IaaS implementation</LocalizedDescription>
@@ -194,7 +194,7 @@
       <LocalizedDescription locale="en">The address to which emails are to be sent that describe manual steps required to complete an operation. If you specify this parameter, the service controller interrupts the processing of each operation before its completion and waits for a notification about the execution of a manual action. Omit this parameter if you do not want to interrupt the processing.</LocalizedDescription>
       <LocalizedDescription locale="ja">操作を完了するために手動の手順が必要であることを知らせるemailの送信先メールアドレス。このパラメーターを指定すると、サービスコントロールは各操作の完了前に処理を中断して、手動の操作が終わったことを知らせる通知が届くまで待ちます。処理を中断したくない場合は、このパラメーターを省略してください。</LocalizedDescription>
     </ParameterDefinition>
-    <Operation actionURL="https://<host>:<port>/OperationService/AsynchronousOperationProxy?wsdl" id="START_VIRTUAL_SYSTEM">
+    <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="START_VIRTUAL_SYSTEM">
       <LocalizedName locale="de">Start</LocalizedName>
       <LocalizedName locale="en">Start</LocalizedName>
       <LocalizedName locale="ja">起動</LocalizedName>
@@ -202,7 +202,7 @@
       <LocalizedDescription locale="en">Start all servers</LocalizedDescription>
       <LocalizedDescription locale="ja">システムを起動します</LocalizedDescription>
     </Operation>
-    <Operation actionURL="https://<host>:<port>/OperationService/AsynchronousOperationProxy?wsdl" id="STOP_VIRTUAL_SYSTEM">
+    <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="STOP_VIRTUAL_SYSTEM">
       <LocalizedName locale="de">Stop</LocalizedName>
       <LocalizedName locale="en">Stop</LocalizedName>
       <LocalizedName locale="ja">停止</LocalizedName>

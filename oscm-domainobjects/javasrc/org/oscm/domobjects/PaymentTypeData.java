@@ -28,7 +28,7 @@ public class PaymentTypeData extends DomainDataContainer {
     /**
      * The collection type for this payment type
      */
-    @Convert(converter = PaymentCollectionTypeConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentCollectionType collectionType;
 

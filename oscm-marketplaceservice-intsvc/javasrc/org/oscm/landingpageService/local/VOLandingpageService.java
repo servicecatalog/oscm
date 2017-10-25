@@ -17,7 +17,7 @@ import org.oscm.internal.vo.VOService;
  * Represents a featured service on the landing page (home page) of a
  * marketplace.
  */
-public class VOLandingpageService extends BaseVO implements Serializable {
+public class VOLandingpageService extends BaseVO  {
     private static final long serialVersionUID = 2519753042468989864L;
 
     /**

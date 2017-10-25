@@ -506,7 +506,7 @@ public class Dispatcher {
                     platformService.getEventServiceUrl());
             eventLink.append("?sid=").append(
                     URLEncoder.encode(instanceId, "UTF-8"));
-            eventLink.append("&cid=").append(OpenStackController.ID);
+            eventLink.append("&controllerid=").append(OpenStackController.ID);
             eventLink.append("&command=finish");
             String subject = Messages.get(locale,
                     "mail_openstack_manual_completion.subject", new Object[] {

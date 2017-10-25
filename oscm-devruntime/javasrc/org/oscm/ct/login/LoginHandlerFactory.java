@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author Mike J&auml;ger
  * 
  */
+@Deprecated
 public class LoginHandlerFactory {
 
     public static LoginHandler getInstance() throws ClassNotFoundException,

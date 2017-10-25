@@ -33,6 +33,7 @@ class TestSessionContext implements SessionContext {
 
     private Set<String> roles = Collections.emptySet();
 
+
     TestSessionContext(TransactionManager tm,
             InterfaceMap<DeployedSessionBean> sessionBeans) {
         this.tm = tm;

@@ -54,7 +54,7 @@ import org.oscm.vo.VOUserDetails;
  * @author Aleh Khomich.
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.IdentityService")
+@WebService(name = "IdentityService", serviceName = "IdentityService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.IdentityService")
 public class IdentityServiceWS implements IdentityService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -74,13 +74,10 @@ public class IdentityServiceWS implements IdentityService {
             OperationPendingException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter
-                    .convertToApi(delegate.createUser(
-                            VOConverter.convertToUp(user),
-                            EnumConverter
-                                    .convertList(
-                                            roles,
-                                            org.oscm.internal.types.enumtypes.UserRoleType.class),
+            return VOConverter.convertToApi(
+                    delegate.createUser(VOConverter.convertToUp(user),
+                            EnumConverter.convertList(roles,
+                                    org.oscm.internal.types.enumtypes.UserRoleType.class),
                             marketplaceId));
         } catch (org.oscm.internal.types.exception.NonUniqueBusinessKeyException e) {
             throw ExceptionConverter.convertToApi(e);
@@ -131,12 +128,9 @@ public class IdentityServiceWS implements IdentityService {
             UserRoleAssignmentException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            delegate.grantUserRoles(
-                    VOConverter.convertToUp(user),
-                    EnumConverter
-                            .convertList(
-                                    roles,
-                                    org.oscm.internal.types.enumtypes.UserRoleType.class));
+            delegate.grantUserRoles(VOConverter.convertToUp(user),
+                    EnumConverter.convertList(roles,
+                            org.oscm.internal.types.enumtypes.UserRoleType.class));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.OperationNotPermittedException e) {
@@ -163,16 +157,12 @@ public class IdentityServiceWS implements IdentityService {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.TechnicalServiceNotAliveException e) {
             SaaSSystemException se = new SaaSSystemException(e);
-            LOGGER.logError(
-                    Log4jLogger.SYSTEM_LOG,
-                    se,
+            LOGGER.logError(Log4jLogger.SYSTEM_LOG, se,
                     LogMessageIdentifier.ERROR_CONVERT_TO_RUNTIME_EXCEPTION_FOR_COMPATIBILITY);
             throw se;
         } catch (org.oscm.internal.types.exception.TechnicalServiceOperationException e) {
             SaaSSystemException se = new SaaSSystemException(e);
-            LOGGER.logError(
-                    Log4jLogger.SYSTEM_LOG,
-                    se,
+            LOGGER.logError(Log4jLogger.SYSTEM_LOG, se,
                     LogMessageIdentifier.ERROR_CONVERT_TO_RUNTIME_EXCEPTION_FOR_COMPATIBILITY);
             throw se;
         }
@@ -180,17 +170,14 @@ public class IdentityServiceWS implements IdentityService {
 
     @Override
     public void revokeUserRoles(VOUser user, List<UserRoleType> roles)
-            throws ObjectNotFoundException,
-            UserModificationConstraintException, UserActiveException,
-            OperationNotPermittedException, UserRoleAssignmentException {
+            throws ObjectNotFoundException, UserModificationConstraintException,
+            UserActiveException, OperationNotPermittedException,
+            UserRoleAssignmentException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            delegate.revokeUserRoles(
-                    VOConverter.convertToUp(user),
-                    EnumConverter
-                            .convertList(
-                                    roles,
-                                    org.oscm.internal.types.enumtypes.UserRoleType.class));
+            delegate.revokeUserRoles(VOConverter.convertToUp(user),
+                    EnumConverter.convertList(roles,
+                            org.oscm.internal.types.enumtypes.UserRoleType.class));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.UserModificationConstraintException e) {
@@ -213,8 +200,8 @@ public class IdentityServiceWS implements IdentityService {
     @Override
     public VOUserDetails getCurrentUserDetailsIfPresent() {
         WS_LOGGER.logAccess(wsContext, ds);
-        return VOConverter.convertToApi(delegate
-                .getCurrentUserDetailsIfPresent());
+        return VOConverter
+                .convertToApi(delegate.getCurrentUserDetailsIfPresent());
     }
 
     @Override
@@ -222,8 +209,8 @@ public class IdentityServiceWS implements IdentityService {
             OperationNotPermittedException, OrganizationRemovedException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter.convertToApi(delegate.getUser(VOConverter
-                    .convertToUp(user)));
+            return VOConverter.convertToApi(
+                    delegate.getUser(VOConverter.convertToUp(user)));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.OperationNotPermittedException e) {
@@ -238,8 +225,8 @@ public class IdentityServiceWS implements IdentityService {
             throws ObjectNotFoundException, OperationNotPermittedException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter.convertToApi(delegate.getUserDetails(VOConverter
-                    .convertToUp(user)));
+            return VOConverter.convertToApi(
+                    delegate.getUserDetails(VOConverter.convertToUp(user)));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.OperationNotPermittedException e) {
@@ -261,8 +248,9 @@ public class IdentityServiceWS implements IdentityService {
             MailOperationException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            delegate.importLdapUsers(VOCollectionConverter.convertList(users,
-                    org.oscm.internal.vo.VOUserDetails.class),
+            delegate.importLdapUsers(
+                    VOCollectionConverter.convertList(users,
+                            org.oscm.internal.vo.VOUserDetails.class),
                     marketplaceId);
         } catch (org.oscm.internal.types.exception.NonUniqueBusinessKeyException e) {
             throw ExceptionConverter.convertToApi(e);
@@ -280,12 +268,9 @@ public class IdentityServiceWS implements IdentityService {
             ConcurrentModificationException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            delegate.lockUserAccount(
-                    VOConverter.convertToUp(userToBeLocked),
-                    EnumConverter
-                            .convert(
-                                    newStatus,
-                                    org.oscm.internal.types.enumtypes.UserAccountStatus.class),
+            delegate.lockUserAccount(VOConverter.convertToUp(userToBeLocked),
+                    EnumConverter.convert(newStatus,
+                            org.oscm.internal.types.enumtypes.UserAccountStatus.class),
                     marketplaceId);
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
@@ -301,11 +286,12 @@ public class IdentityServiceWS implements IdentityService {
             throws OperationNotPermittedException, ObjectNotFoundException,
             ValidationException, NonUniqueBusinessKeyException,
             TechnicalServiceNotAliveException,
-            TechnicalServiceOperationException, ConcurrentModificationException {
+            TechnicalServiceOperationException,
+            ConcurrentModificationException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter.convertToApi(delegate.updateUser(VOConverter
-                    .convertToUp(userDetails)));
+            return VOConverter.convertToApi(
+                    delegate.updateUser(VOConverter.convertToUp(userDetails)));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.NonUniqueBusinessKeyException e) {
@@ -410,8 +396,9 @@ public class IdentityServiceWS implements IdentityService {
             throws ObjectNotFoundException, OperationNotPermittedException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return EnumConverter.convertList(delegate
-                    .getAvailableUserRoles(VOConverter.convertToUp(user)),
+            return EnumConverter.convertList(
+                    delegate.getAvailableUserRoles(
+                            VOConverter.convertToUp(user)),
                     org.oscm.types.enumtypes.UserRoleType.class);
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
@@ -421,13 +408,13 @@ public class IdentityServiceWS implements IdentityService {
     }
 
     @Override
-    public VOUserDetails createOnBehalfUser(String organizationId, String string)
-            throws ObjectNotFoundException, OperationNotPermittedException,
-            NonUniqueBusinessKeyException {
+    public VOUserDetails createOnBehalfUser(String organizationId,
+            String string) throws ObjectNotFoundException,
+            OperationNotPermittedException, NonUniqueBusinessKeyException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter.convertToApi(delegate.createOnBehalfUser(
-                    organizationId, string));
+            return VOConverter.convertToApi(
+                    delegate.createOnBehalfUser(organizationId, string));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.NonUniqueBusinessKeyException e) {
@@ -460,12 +447,9 @@ public class IdentityServiceWS implements IdentityService {
             UserActiveException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            delegate.setUserRoles(
-                    VOConverter.convertToUp(user),
-                    EnumConverter
-                            .convertList(
-                                    roles,
-                                    org.oscm.internal.types.enumtypes.UserRoleType.class));
+            delegate.setUserRoles(VOConverter.convertToUp(user),
+                    EnumConverter.convertList(roles,
+                            org.oscm.internal.types.enumtypes.UserRoleType.class));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.OperationNotPermittedException e) {
@@ -482,8 +466,8 @@ public class IdentityServiceWS implements IdentityService {
 
     @Override
     public void importUsersInOwnOrganization(byte[] csvData,
-            String marketplaceId) throws BulkUserImportException,
-            ObjectNotFoundException {
+            String marketplaceId)
+            throws BulkUserImportException, ObjectNotFoundException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
             delegate.importUsersInOwnOrganization(csvData, marketplaceId);
@@ -496,8 +480,8 @@ public class IdentityServiceWS implements IdentityService {
 
     @Override
     public void importUsers(byte[] csvData, String organizationId,
-            String marketplaceId) throws BulkUserImportException,
-            ObjectNotFoundException {
+            String marketplaceId)
+            throws BulkUserImportException, ObjectNotFoundException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
             delegate.importUsers(csvData, organizationId, marketplaceId);

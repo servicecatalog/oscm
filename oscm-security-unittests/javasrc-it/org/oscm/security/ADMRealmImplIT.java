@@ -25,7 +25,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -34,7 +33,6 @@ import java.util.Properties;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
-import javax.naming.Context;
 import javax.security.auth.login.LoginException;
 import javax.sql.DataSource;
 
@@ -80,11 +78,9 @@ public class ADMRealmImplIT extends EJBTestBase {
         container.addBean(new ConfigurationServiceStub());
         dm = new DataServiceBean();
         container.addBean(dm);
-        Context ctxMock = mock(Context.class);
-        realm = spy(new ADMRealmImpl(mock(Logger.class), ctxMock));
+        realm = spy(new ADMRealmImpl(mock(Logger.class)));
 
         dataSource = TestDataSources.get("oscm-domainobjects").getDataSource();
-        when(ctxMock.lookup(anyString())).thenReturn(dataSource);
 
         user = runTX(new Callable<PlatformUser>() {
             @Override

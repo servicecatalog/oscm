@@ -28,7 +28,7 @@ public interface APPTemplateService {
      * The JNDI name with which the APP template service is registered in the
      * container.
      */
-    public static final String JNDI_NAME = "java:global/oscm-app/oscm-app/APPTemplateServiceBean!org.oscm.app.v2_0.intf.APPTemplateService";
+    String JNDI_NAME = "java:global/oscm-app/oscm-app/APPTemplateServiceBean!org.oscm.app.v2_0.intf.APPTemplateService";
 
     /**
      * Saves the template with the given name and content for the controller.
@@ -46,9 +46,9 @@ public interface APPTemplateService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public void saveTemplate(Template template, String controllerId,
-            PasswordAuthentication authentication)
-            throws AuthenticationException, APPlatformException;
+    void saveTemplate(Template template, String controllerId,
+                      PasswordAuthentication authentication)
+            throws APPlatformException;
 
     /**
      * Deletes the template with the given name for the controller.
@@ -66,9 +66,9 @@ public interface APPTemplateService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public void deleteTemplate(String fileName, String controllerId,
-            PasswordAuthentication authentication)
-            throws AuthenticationException, APPlatformException;
+    void deleteTemplate(String fileName, String controllerId,
+                        PasswordAuthentication authentication)
+            throws APPlatformException;
 
     /**
      * Gets all templates for the given controller id.
@@ -84,9 +84,9 @@ public interface APPTemplateService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public List<Template> getTemplateList(String controllerId,
-            PasswordAuthentication authentication)
-            throws AuthenticationException, APPlatformException;
+    List<Template> getTemplateList(String controllerId,
+                                   PasswordAuthentication authentication)
+            throws APPlatformException;
 
     /**
      * Gets the template with the given file name and the controller id.
@@ -104,7 +104,7 @@ public interface APPTemplateService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public Template getTemplate(String fileName, String controllerId,
-            PasswordAuthentication authentication)
-            throws AuthenticationException, APPlatformException;
+    Template getTemplate(String fileName, String controllerId,
+                         PasswordAuthentication authentication)
+            throws APPlatformException;
 }

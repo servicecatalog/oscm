@@ -126,7 +126,7 @@ import org.oscm.internal.vo.VOServiceDetails;
 import org.oscm.internal.vo.VOServiceLocalization;
 import org.oscm.internal.vo.VOTechnicalService;
 import org.oscm.marketplace.bean.CategorizationServiceBean;
-import org.oscm.marketplace.bean.LandingpageServiceBean;
+import org.oscm.marketplace.bean.LandingpageServiceBeanLocal;
 import org.oscm.marketplace.bean.MarketplaceServiceBean;
 import org.oscm.marketplace.bean.MarketplaceServiceLocalBean;
 import org.oscm.serviceprovisioningservice.assembler.PriceModelAssembler;
@@ -221,7 +221,7 @@ public class ServiceProvisioningServiceTestBase extends EJBTestBase {
         container.addBean(new ConfigurationServiceStub());
         container.addBean(new LocalizerServiceBean());
         container.addBean(new ServiceProvisioningServiceLocalizationBean());
-        container.addBean(new LandingpageServiceBean());
+        container.addBean(new LandingpageServiceBeanLocal());
         container.addBean(new MarketplaceServiceLocalBean());
         container.addBean(new ApplicationServiceStub() {
             @Override

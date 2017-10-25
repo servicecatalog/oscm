@@ -17,11 +17,9 @@ import java.util.logging.Logger;
 import javax.naming.Context;
 
 import org.junit.Assert;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 @Ignore
 public class LdapTest {
@@ -40,7 +38,7 @@ public class LdapTest {
     public void setup() throws Exception {
         Logger logger = Logger.getLogger(LdapTest.class.toString());
         logger.setLevel(Level.FINEST);
-        realmImpl = new ADMRealmImpl(logger, Mockito.mock(Context.class));
+        realmImpl = new ADMRealmImpl(logger);
 
         ldapProperties = new Properties();
         ldapProperties.put(Context.INITIAL_CONTEXT_FACTORY, LDAP_CTX_FACT);

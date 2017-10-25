@@ -364,7 +364,7 @@ public class UserNotificationHandler {
             final String encoding = MAIL_CHARSET;
             try {
                 Address from = new InternetAddress(
-                        session.getProperty("mail.from"));
+                        session.getProperty("mail.smtp.from"));
                 msg.setFrom(from);
                 msg.setReplyTo(new Address[] { from });
                 msg.setSubject(subject, encoding);
@@ -436,7 +436,7 @@ public class UserNotificationHandler {
 
         Properties emailProperties = new Properties();
         emailProperties.setProperty("mail.smtp.host", mailServer);
-        emailProperties.put("mail.from", returnAddress);
+        emailProperties.put("mail.smtp.from", returnAddress);
 
         if ((mailPort != null) && mailPort.length() > 0) {
             emailProperties.put("mail.smtp.port", mailPort);

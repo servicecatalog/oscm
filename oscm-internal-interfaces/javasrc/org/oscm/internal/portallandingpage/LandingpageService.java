@@ -35,4 +35,6 @@ public interface LandingpageService {
      */
     public List<VOService> servicesForLandingpage(String marketplaceId,
             String locale) throws ObjectNotFoundException;
+    
+    
 }

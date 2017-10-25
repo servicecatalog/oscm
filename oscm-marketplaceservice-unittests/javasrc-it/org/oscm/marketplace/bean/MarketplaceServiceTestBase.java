@@ -214,7 +214,7 @@ public class MarketplaceServiceTestBase extends EJBTestBase {
         container.addBean(new CategorizationServiceBean());
 
         container.addBean(new MarketplaceCacheServiceBean());
-        container.addBean(new LandingpageServiceBean());
+        container.addBean(new LandingpageServiceBeanLocal());
         container.addBean(new MarketplaceServiceLocalBean());
         container.addBean(new MarketplaceServiceBean());
 

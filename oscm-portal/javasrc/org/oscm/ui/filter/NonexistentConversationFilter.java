@@ -4,17 +4,16 @@
 
 package org.oscm.ui.filter;
 
+import static org.oscm.ui.filter.BaseBesFilter.sendRedirectStatic;
+
 import java.io.IOException;
 
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.enterprise.context.NonexistentConversationException;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jboss.weld.context.NonexistentConversationException;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.dialog.mp.subscriptionDetails.SubscriptionDetailsCtrlConstants;
 
@@ -24,7 +23,8 @@ import org.oscm.ui.dialog.mp.subscriptionDetails.SubscriptionDetailsCtrlConstant
  * in situation when conversation is lost and user is trying to continue subscription process.
  *
  */
-public class NonexistentConversationFilter extends BaseBesFilter {
+@WebFilter(filterName = "NonexistentConversationFilter", urlPatterns = {"/marketplace/subscriptions/creation/*", "/marketplace/subscriptions/upgrade/*"})
+public class NonexistentConversationFilter implements Filter  {
 
 	@Override
 	public void doFilter(ServletRequest servletRequest,
@@ -36,33 +36,33 @@ public class NonexistentConversationFilter extends BaseBesFilter {
         try {
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception t) {
-            Throwable cause = t;
-            while (cause != null) {
-                if (cause instanceof NonexistentConversationException) {
-                    //Refresh from subscription creation and upgrade
-                    String requestURI = request.getRequestURI();
-                    if (requestURI.contains("/marketplace/subscriptions/upgrade/confirmUpgrade.jsf") ||
-                            requestURI.contains("/marketplace/subscriptions/creation/confirmAdd.jsf")) {
-                        sendRedirect(request, response,
-                                "/marketplace/account/subscriptionDetails.jsf");
-                    } else {
-                        request.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
-                                SubscriptionDetailsCtrlConstants.ERROR_SUBSCRIPTION_REPEATSTEPS);
-                        sendRedirect(request, response, "/marketplace/index.jsf");
-                    }
-                    return;
+            Throwable exc = t.getCause();
+            while(exc != null && !(exc instanceof NonexistentConversationException)) {
+                exc = exc.getCause();
+            }
+            if (exc != null) {
+                //Refresh from subscription creation and upgrade
+                String requestURI = request.getRequestURI();
+                if (requestURI.contains("/marketplace/subscriptions/upgrade/confirmUpgrade.jsf") ||
+                        requestURI.contains("/marketplace/subscriptions/creation/confirmAdd.jsf")){
+                    sendRedirectStatic(request, response,
+                            "/marketplace/account/subscriptionDetails.jsf");
                 } else {
-                    cause = cause.getCause();
+                    request.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
+                            SubscriptionDetailsCtrlConstants.ERROR_SUBSCRIPTION_REPEATSTEPS);
+                    sendRedirectStatic(request, response, "/marketplace/index.jsf");
                 }
-            }
-            if (cause == null) {
-                throw t;
-            }
+            } else {
+        		throw t;
+        	}
         }
     }
 
-	@Override
-	public void init(FilterConfig arg0) throws ServletException {
+    @Override
+    public void destroy() {
+    }
 
+    @Override
+	public void init(FilterConfig arg0) throws ServletException {
 	}
 }

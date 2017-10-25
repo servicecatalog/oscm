@@ -3,7 +3,7 @@
 
 <ejb-jar xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaeeejb-jar_3_2.xsd"
          version="3.2">
   <enterprise-beans>
 
@@ -17,16 +17,16 @@
       <ejb-class>org.oscm.webservices.AccountServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.AccountServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.AccountService</local>
+        <remote>org.oscm.internal.intf.AccountService</remote>
         <ejb-link>oscm-accountmgmt.jar#AccountServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.AccountServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.AccountServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -59,16 +59,16 @@
       <ejb-class>org.oscm.webservices.AccountServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.AccountServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.AccountService</local>
+        <remote>org.oscm.internal.intf.AccountService</remote>
         <ejb-link>oscm-accountmgmt.jar#AccountServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.AccountServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.AccountServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -103,16 +103,16 @@
       <ejb-class>org.oscm.webservices.BillingServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.BillingServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.BillingService</local>
+        <remote>org.oscm.internal.intf.BillingService</remote>
         <ejb-link>oscm-billing.jar#BillingServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.BillingServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.BillingServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -145,16 +145,16 @@
       <ejb-class>org.oscm.webservices.BillingServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.BillingServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.BillingService</local>
+        <remote>org.oscm.internal.intf.BillingService</remote>
         <ejb-link>oscm-billing.jar#BillingServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.BillingServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.BillingServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -189,16 +189,16 @@
       <ejb-class>org.oscm.webservices.EventServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.EventServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.EventService</local>
+        <remote>org.oscm.internal.intf.EventService</remote>
         <ejb-link>oscm-eventmgmt.jar#EventServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.EventServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.EventServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -231,16 +231,16 @@
       <ejb-class>org.oscm.webservices.EventServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.EventServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.EventService</local>
+        <remote>org.oscm.internal.intf.EventService</remote>
         <ejb-link>oscm-eventmgmt.jar#EventServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.EventServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.EventServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -275,16 +275,16 @@
       <ejb-class>org.oscm.webservices.IdentityServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.IdentityServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.IdentityService</local>
+        <remote>org.oscm.internal.intf.IdentityService</remote>
         <ejb-link>oscm-identitymgmt.jar#IdentityServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.IdentityServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.IdentityServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -317,16 +317,16 @@
       <ejb-class>org.oscm.webservices.IdentityServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.IdentityServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.IdentityService</local>
+        <remote>org.oscm.internal.intf.IdentityService</remote>
         <ejb-link>oscm-identitymgmt.jar#IdentityServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.IdentityServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.IdentityServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -361,16 +361,16 @@
       <ejb-class>org.oscm.webservices.SessionServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.SessionServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.SessionService</local>
+        <remote>org.oscm.internal.intf.SessionService</remote>
         <ejb-link>oscm-sessionmgmt.jar#SessionServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.SessionServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.SessionServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -403,16 +403,16 @@
       <ejb-class>org.oscm.webservices.SessionServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.SessionServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.SessionService</local>
+        <remote>org.oscm.internal.intf.SessionService</remote>
         <ejb-link>oscm-sessionmgmt.jar#SessionServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.SessionServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.SessionServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -447,16 +447,16 @@
       <ejb-class>org.oscm.webservices.ReportingServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.ReportingServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.ReportingService</local>
+        <remote>org.oscm.internal.intf.ReportingService</remote>
         <ejb-link>oscm-reporting.jar#ReportingServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.ReportingServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.ReportingServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -489,16 +489,16 @@
       <ejb-class>org.oscm.webservices.ReportingServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.ReportingServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.ReportingService</local>
+        <remote>org.oscm.internal.intf.ReportingService</remote>
         <ejb-link>oscm-reporting.jar#ReportingServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.ReportingServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.ReportingServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -533,16 +533,16 @@
       <ejb-class>org.oscm.webservices.MarketplaceServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.MarketplaceServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.MarketplaceService</local>
+        <remote>org.oscm.internal.intf.MarketplaceService</remote>
         <ejb-link>oscm-marketplaceservice.jar#MarketplaceServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.MarketplaceServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.MarketplaceServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -575,16 +575,16 @@
       <ejb-class>org.oscm.webservices.MarketplaceServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.MarketplaceServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.MarketplaceService</local>
+        <remote>org.oscm.internal.intf.MarketplaceService</remote>
         <ejb-link>oscm-marketplaceservice.jar#MarketplaceServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.MarketplaceServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.MarketplaceServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -618,16 +618,16 @@
       <ejb-class>org.oscm.webservices.TagServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.TagServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.TagService</local>
+        <remote>org.oscm.internal.intf.TagService</remote>
         <ejb-link>oscm-serviceprovisioning.jar#TagServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.TagServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.TagServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -660,16 +660,16 @@
       <ejb-class>org.oscm.webservices.TagServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.TagServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.TagService</local>
+        <remote>org.oscm.internal.intf.TagService</remote>
         <ejb-link>oscm-serviceprovisioning.jar#TagServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.TagServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.TagServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -704,16 +704,16 @@
       <ejb-class>org.oscm.webservices.ServiceProvisioningServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.ServiceProvisioningServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.ServiceProvisioningService</local>
+        <remote>org.oscm.internal.intf.ServiceProvisioningService</remote>
         <ejb-link>oscm-serviceprovisioning.jar#ServiceProvisioningServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.ServiceProvisioningServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.ServiceProvisioningServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -746,16 +746,16 @@
       <ejb-class>org.oscm.webservices.ServiceProvisioningServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.ServiceProvisioningServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.ServiceProvisioningService</local>
+        <remote>org.oscm.internal.intf.ServiceProvisioningService</remote>
         <ejb-link>oscm-serviceprovisioning.jar#ServiceProvisioningServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.ServiceProvisioningServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.ServiceProvisioningServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -790,16 +790,16 @@
       <ejb-class>org.oscm.webservices.SearchServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.SearchServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.SearchService</local>
+        <remote>org.oscm.internal.intf.SearchService</remote>
         <ejb-link>oscm-serviceprovisioning.jar#SearchServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.SearchServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.SearchServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -832,16 +832,16 @@
       <ejb-class>org.oscm.webservices.SearchServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.SearchServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.SearchService</local>
+        <remote>org.oscm.internal.intf.SearchService</remote>
         <ejb-link>oscm-serviceprovisioning.jar#SearchServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.SearchServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.SearchServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -878,16 +878,16 @@
       <ejb-class>org.oscm.webservices.SubscriptionServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.SubscriptionServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.SubscriptionService</local>
+        <remote>org.oscm.internal.intf.SubscriptionService</remote>
         <ejb-link>oscm-subscriptionmgmt.jar#SubscriptionServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.SubscriptionServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.SubscriptionServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -920,16 +920,16 @@
       <ejb-class>org.oscm.webservices.SubscriptionServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.SubscriptionServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.SubscriptionService</local>
+        <remote>org.oscm.internal.intf.SubscriptionService</remote>
         <ejb-link>oscm-subscriptionmgmt.jar#SubscriptionServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.SubscriptionServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.SubscriptionServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -964,16 +964,16 @@
       <ejb-class>org.oscm.webservices.TriggerServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.TriggerServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.TriggerService</local>
+        <remote>org.oscm.internal.intf.TriggerService</remote>
         <ejb-link>oscm-triggerservice.jar#TriggerServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.TriggerServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.TriggerServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1006,16 +1006,16 @@
       <ejb-class>org.oscm.webservices.TriggerServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.TriggerServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.TriggerService</local>
+        <remote>org.oscm.internal.intf.TriggerService</remote>
         <ejb-link>oscm-triggerservice.jar#TriggerServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.TriggerServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.TriggerServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1050,16 +1050,16 @@
       <ejb-class>org.oscm.webservices.TriggerDefinitionServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.TriggerDefinitionServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.TriggerDefinitionService</local>
+        <remote>org.oscm.internal.intf.TriggerDefinitionService</remote>
         <ejb-link>oscm-triggerservice.jar#TriggerDefinitionServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.TriggerDefinitionServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.TriggerDefinitionServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1092,16 +1092,16 @@
       <ejb-class>org.oscm.webservices.TriggerDefinitionServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.TriggerDefinitionServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.TriggerDefinitionService</local>
+        <remote>org.oscm.internal.intf.TriggerDefinitionService</remote>
         <ejb-link>oscm-triggerservice.jar#TriggerDefinitionServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.TriggerDefinitionServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.TriggerDefinitionServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1136,16 +1136,16 @@
       <ejb-class>org.oscm.webservices.VatServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.VatServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.VatService</local>
+        <remote>org.oscm.internal.intf.VatService</remote>
         <ejb-link>oscm-vat.jar#VatServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.VatServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.VatServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1178,16 +1178,16 @@
       <ejb-class>org.oscm.webservices.VatServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.VatServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.VatService</local>
+        <remote>org.oscm.internal.intf.VatService</remote>
         <ejb-link>oscm-vat.jar#VatServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.VatServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.VatServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1222,16 +1222,16 @@
       <ejb-class>org.oscm.webservices.ReviewServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.ReviewServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.ReviewService</local>
+        <remote>org.oscm.internal.intf.ReviewService</remote>
         <ejb-link>oscm-extsvc-internal-impl.jar#ReviewServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.ReviewServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.ReviewServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1264,16 +1264,16 @@
       <ejb-class>org.oscm.webservices.ReviewServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.ReviewServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.ReviewService</local>
+        <remote>org.oscm.internal.intf.ReviewService</remote>
         <ejb-link>oscm-extsvc-internal-impl.jar#ReviewServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.ReviewServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.ReviewServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1308,16 +1308,16 @@
       <ejb-class>org.oscm.webservices.PaymentRegistrationServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.PaymentRegistrationServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.psp.intf.PaymentRegistrationService</local>
+        <remote>org.oscm.psp.intf.PaymentRegistrationService</remote>
         <ejb-link>oscm-paymentprocessing.jar#PaymentRegistrationServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.PaymentRegistrationServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.PaymentRegistrationServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1352,16 +1352,16 @@
       <ejb-class>org.oscm.webservices.DiscountServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.DiscountServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.DiscountService</local>
+        <remote>org.oscm.internal.intf.DiscountService</remote>
         <ejb-link>oscm-subscriptionmgmt.jar#DiscountServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.DiscountServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.DiscountServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1394,16 +1394,16 @@
       <ejb-class>org.oscm.webservices.DiscountServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.DiscountServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.DiscountService</local>
+        <remote>org.oscm.internal.intf.DiscountService</remote>
         <ejb-link>oscm-subscriptionmgmt.jar#DiscountServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.DiscountServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.DiscountServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1438,16 +1438,16 @@
       <ejb-class>org.oscm.webservices.CategorizationServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.CategorizationServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.CategorizationService</local>
+        <remote>org.oscm.internal.intf.CategorizationService</remote>
         <ejb-link>oscm-marketplaceservice.jar#CategorizationServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.CategorizationServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.CategorizationServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1480,16 +1480,16 @@
       <ejb-class>org.oscm.webservices.CategorizationServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.CategorizationServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.internal.intf.CategorizationService</local>
+        <remote>org.oscm.internal.intf.CategorizationService</remote>
         <ejb-link>oscm-marketplaceservice.jar#CategorizationServiceBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.CategorizationServiceWS</injection-target-class>
           <injection-target-name>delegate</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.CategorizationServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1524,16 +1524,16 @@
       <ejb-class>org.oscm.webservices.OrganizationalUnitServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.OrganizationalUnitServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.usergroupservice.bean.UserGroupServiceLocalBean</local>
+        <remote>org.oscm.usergroupservice.bean.UserGroupServiceLocalBean</remote>
         <ejb-link>oscm-usergroupmgmt.jar#UserGroupServiceLocalBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.OrganizationalUnitServiceWS</injection-target-class>
           <injection-target-name>localService</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.OrganizationalUnitServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
@@ -1566,16 +1566,16 @@
       <ejb-class>org.oscm.webservices.OrganizationalUnitServiceWS</ejb-class>
       <session-type>Stateless</session-type>
       <transaction-type>Container</transaction-type>
-      <ejb-local-ref>
+      <ejb-ref>
         <ejb-ref-name>org.oscm.webservices.OrganizationalUnitServiceWS/delegate</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>
-        <local>org.oscm.usergroupservice.bean.UserGroupServiceLocalBean</local>
+        <remote>org.oscm.usergroupservice.bean.UserGroupServiceLocalBean</remote>
         <ejb-link>oscm-usergroupmgmt.jar#UserGroupServiceLocalBean</ejb-link>
         <injection-target>
           <injection-target-class>org.oscm.webservices.OrganizationalUnitServiceWS</injection-target-class>
           <injection-target-name>localService</injection-target-name>
         </injection-target>
-      </ejb-local-ref>
+      </ejb-ref>
       <ejb-local-ref>
         <ejb-ref-name>org.oscm.webservices.OrganizationalUnitServiceWS/ds</ejb-ref-name>
         <ejb-ref-type>Session</ejb-ref-type>

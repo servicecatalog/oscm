@@ -1381,7 +1381,7 @@ public class APPTimerServiceBeanIT extends EJBTestBase {
         verify(timerService).sendActionMail(eq(true),
                 any(ServiceInstance.class), anyString(),
                 any(APPlatformException.class),
-                eq(baseUrl + "/controller?cid=ess.vmware"), eq(false));
+                eq(baseUrl + "/controller?controllerid=ess.vmware"), eq(false));
     }
 
     /**

@@ -9,7 +9,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-reporting"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-domainobjects"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-sessionmgmt-intsvc"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/javaee.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-configservice-intsvc"/>
@@ -50,8 +50,6 @@
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/geronimo-jta_1.1_spec-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/classmate-1.3.0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-operation"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/gf-client.jar"/>
-	<classpathentry kind="lib" path="/libraries/jersey/javalib/jersey-client.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -27,7 +27,7 @@ public class ConfigurationSettingData extends DomainDataContainer {
 
     private static final long serialVersionUID = 4236417344577567732L;
 
-    @Convert( converter=CKConverter.class )
+    @Enumerated(EnumType.STRING)
     @Column(name = "INFORMATION_ID", nullable = false)
     private ConfigurationKey informationId;
 

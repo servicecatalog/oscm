@@ -24,13 +24,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.jboss.weld.util.collections.ArraySet;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.oscm.communicationservice.local.CommunicationServiceLocal;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.BillingContact;
@@ -48,7 +47,6 @@ import org.oscm.domobjects.Subscription;
 import org.oscm.domobjects.TechnicalProduct;
 import org.oscm.domobjects.UserRole;
 import org.oscm.domobjects.enums.LocalizedObjectTypes;
-import org.oscm.types.enumtypes.EmailType;
 import org.oscm.internal.types.enumtypes.PriceModelType;
 import org.oscm.internal.types.enumtypes.ServiceAccessType;
 import org.oscm.internal.types.enumtypes.SubscriptionStatus;
@@ -59,6 +57,7 @@ import org.oscm.internal.types.exception.PaymentInformationException;
 import org.oscm.internal.types.exception.SubscriptionStateException;
 import org.oscm.internal.vo.VOInstanceInfo;
 import org.oscm.internal.vo.VOLocalizedText;
+import org.oscm.types.enumtypes.EmailType;
 
 /**
  * @author Zhao
@@ -764,7 +763,7 @@ public class SubscriptionServiceAsyncModifySubscriptionTest extends
         PlatformUser user = new PlatformUser();
         RoleAssignment roleAssignment = new RoleAssignment();
         roleAssignment.setRole(new UserRole(UserRoleType.ORGANIZATION_ADMIN));
-        Set<RoleAssignment> roleAssignSet = new ArraySet<RoleAssignment>();
+        Set<RoleAssignment> roleAssignSet = new HashSet<RoleAssignment>();
         roleAssignSet.add(roleAssignment);
         user.setAssignedRoles(roleAssignSet);
         receivers.add(new PlatformUser());

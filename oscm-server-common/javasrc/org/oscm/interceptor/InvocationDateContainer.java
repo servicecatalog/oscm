@@ -16,8 +16,11 @@ import javax.ejb.LocalBean;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
-import org.oscm.internal.types.exception.SaaSSystemException;
-import com.sun.ejb.EjbInvocation;
+
+//TODO TOMEE
+//import org.oscm.internal.types.exception.SaaSSystemException;
+//import com.sun.ejb.EjbInvocation;
+
 
 /**
  * Holds the invocation date of remote interface methods. It is set as
@@ -39,15 +42,16 @@ public class InvocationDateContainer {
     }
 
     boolean isRemoteOrMessageDrivenInvokation(InvocationContext context) {
-        if (!(context instanceof EjbInvocation)) {
-            SaaSSystemException saasEx = new SaaSSystemException(
-                    "Unexcepcted invocation context: "
-                            + context.getClass().getName());
-            // TODO LOG
-            throw saasEx;
-        }
-        EjbInvocation ec = (EjbInvocation) context;
-        return (ec.isMessageDriven || ec.isRemote || ec.isWebService);
+//        if (!(context instanceof EjbInvocation)) {
+//            SaaSSystemException saasEx = new SaaSSystemException(
+//                    "Unexcepcted invocation context: "
+//                            + context.getClass().getName());
+//            // TODO LOG
+//            throw saasEx;
+//        }
+//        EjbInvocation ec = (EjbInvocation) context;
+//        return (ec.isMessageDriven || ec.isRemote || ec.isWebService);
+        return true;
     }
 
     boolean isNoInterfaceView(InvocationContext context) {

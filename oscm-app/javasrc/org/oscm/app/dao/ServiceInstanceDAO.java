@@ -183,7 +183,7 @@ public class ServiceInstanceDAO {
     public ServiceInstance find(ServiceInstance instance)
             throws ServiceInstanceNotFoundException {
         ServiceInstance dbInstance = em.find(ServiceInstance.class,
-                Long.valueOf(instance.getTkey()));
+            instance.getTkey());
         if (dbInstance == null) {
             dbInstance = getInstanceById(instance.getInstanceId());
         }
@@ -267,10 +267,11 @@ public class ServiceInstanceDAO {
 
 
     public ServiceInstance updateVmsNumber(ServiceInstance serviceInstance, Integer vmsNumber) {
-        Query query = em.createNamedQuery("ServiceInstance.getForKey");
-        query.setParameter("key", serviceInstance.getInstanceId());
-        ServiceInstance si = (ServiceInstance) query.getSingleResult();
-        si.setVmsNumber(vmsNumber);
-        return em.merge(si);
+//        Query query = em.createNamedQuery("ServiceInstance.getForKey");
+//        query.setParameter("key", serviceInstance.getInstanceId());
+//        ServiceInstance si = (ServiceInstance) query.getSingleResult();
+//        si.setVmsNumber(vmsNumber);
+//        return em.merge(si);
+        return serviceInstance;
     }
 }

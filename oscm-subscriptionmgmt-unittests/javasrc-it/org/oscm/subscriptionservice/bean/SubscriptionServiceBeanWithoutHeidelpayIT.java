@@ -111,7 +111,7 @@ import org.oscm.internal.vo.VOSubscriptionDetails;
 import org.oscm.internal.vo.VOUda;
 import org.oscm.internal.vo.VOUsageLicense;
 import org.oscm.internal.vo.VOUser;
-import org.oscm.marketplace.bean.LandingpageServiceBean;
+import org.oscm.marketplace.bean.LandingpageServiceBeanLocal;
 import org.oscm.marketplace.bean.MarketplaceServiceBean;
 import org.oscm.marketplace.bean.MarketplaceServiceLocalBean;
 import org.oscm.serviceprovisioningservice.assembler.ProductAssembler;
@@ -354,7 +354,7 @@ public class SubscriptionServiceBeanWithoutHeidelpayIT extends EJBTestBase {
         container.addBean(new TagServiceBean());
         container.addBean(new MarketingPermissionServiceBean());
         container.addBean(new MarketplaceServiceStub());
-        container.addBean(new LandingpageServiceBean());
+        container.addBean(new LandingpageServiceBeanLocal());
         container.addBean(new ServiceProvisioningServiceLocalizationBean());
         container.addBean(new ServiceProvisioningServiceBean());
         container.addBean(new AccountServiceStub() {

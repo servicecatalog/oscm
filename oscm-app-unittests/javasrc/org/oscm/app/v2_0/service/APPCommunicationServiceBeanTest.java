@@ -19,6 +19,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.oscm.app.v2_0.service.APPCommunicationServiceBean.DEFAULT_MAIL_RESOURCE;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,9 +61,9 @@ public class APPCommunicationServiceBeanTest {
         }
         InitialContext initialContext = new InitialContext();
         Properties properties = new Properties();
-        properties.put("mail.from", "test@ess.intern");
+        properties.put("mail.smtp.from", "test@ess.intern");
         mailMock = Session.getInstance(properties);
-        initialContext.bind("mail/BSSMail", mailMock);
+        initialContext.bind("java:openejb/Resource/" + DEFAULT_MAIL_RESOURCE, mailMock);
         configurationService = mock(APPConfigurationServiceBean.class);
         commService = spy(new APPCommunicationServiceBean());
         commService.configService = configurationService;
@@ -85,7 +86,7 @@ public class APPCommunicationServiceBeanTest {
     @Test(expected = APPlatformException.class)
     public void testSendMailInvalidFromAddress() throws Exception {
         // enforce InvalidAddressException
-        mailMock.getProperties().put("mail.from", "");
+        mailMock.getProperties().put("mail.smtp.from", "");
 
         commService.sendMail(Collections.singletonList("test@noreply.de"),
                 "subject", "text");
@@ -163,7 +164,7 @@ public class APPCommunicationServiceBeanTest {
         when(
                 configurationService
                         .getProxyConfigurationSetting(PlatformConfigurationKey.APP_MAIL_RESOURCE))
-                .thenReturn("mail/BSSMail");
+                .thenReturn(DEFAULT_MAIL_RESOURCE);
 
         // when
         MimeMessage message = commService

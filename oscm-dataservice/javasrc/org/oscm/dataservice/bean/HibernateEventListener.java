@@ -5,6 +5,12 @@
 package org.oscm.dataservice.bean;
 
 import java.util.List;
+import java.util.Properties;
+
+import javax.ejb.EJB;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import org.hibernate.StatelessSession;
 import org.hibernate.Transaction;
@@ -22,39 +28,56 @@ import org.oscm.logging.LoggerFactory;
 /**
  * Hibernate specific listener implementation to catch insert, modification and
  * delete events for history object creation and index updates.
- * 
+ *
  * @author hoffmann
  */
 public class HibernateEventListener implements PostUpdateEventListener,
-    PostInsertEventListener, PostDeleteEventListener {
+        PostInsertEventListener, PostDeleteEventListener {
 
     private static final long serialVersionUID = -843967013822084583L;
 
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(HibernateEventListener.class);
-
-    private IndexMQSender messageSender;
+    @EJB
+    private HibernateIndexer hibernateIndexer;
 
     public HibernateEventListener() {
-        this.messageSender = new IndexMQSender();
     }
 
     public void onPostInsert(PostInsertEvent event) {
         createHistory(event.getPersister(), event.getEntity(),
                 ModificationType.ADD);
-        messageSender.notifyIndexer(event.getEntity(), ModificationType.ADD);
+        handleIndexing(event.getEntity(),
+                ModificationType.ADD);
     }
 
     public void onPostUpdate(PostUpdateEvent event) {
         if (event.getEntity() instanceof DomainObjectWithVersioning<?>) {
             final int i = getVersionColumn(event);
-            if (((Integer) event.getOldState()[i]).intValue() < ((Number) event
-                    .getState()[i]).intValue()) {
+            if ((Integer) event.getOldState()[i] < ((Number) event.getState()[i]).intValue()) {
                 createHistory(event.getPersister(), event.getEntity(),
-                        ModificationType.MODIFY);
-                messageSender.notifyIndexer(event.getEntity(),
-                        ModificationType.MODIFY);
+                    ModificationType.MODIFY);
+                handleIndexing(event.getEntity(), ModificationType.MODIFY);
             }
+        }
+    }
+
+    private void handleIndexing(Object entity,
+            ModificationType modType) {
+        if (entity instanceof DomainObject<?>) {
+            if (hibernateIndexer == null) {
+                try {
+                    Properties p = new Properties();
+                    p.put(Context.INITIAL_CONTEXT_FACTORY,
+                            "org.apache.openejb.client.LocalInitialContextFactory");
+                    Context context = new InitialContext(p);
+                    hibernateIndexer = (HibernateIndexer) context
+                            .lookup(HibernateIndexer.class.getName());
+                } catch (NamingException e) {
+                    throw new SaaSSystemException("Service lookup failed!", e);
+                }
+            }
+            hibernateIndexer.handleIndexing((DomainObject<?>) entity, modType);
         }
     }
 
@@ -67,8 +90,8 @@ public class HibernateEventListener implements PostUpdateEventListener,
         int i = 0;
         for (; i < event.getState().length; i++) {
             if (event.getState()[i] instanceof Integer
-                    && ((Integer) event.getState()[i]).intValue() == ((DomainObject<?>) event
-                            .getEntity()).getVersion())
+                    && (Integer) event.getState()[i] == ((DomainObject<?>) event.getEntity())
+                                    .getVersion())
                 return i;
         }
         throw new SaaSSystemException(
@@ -83,7 +106,8 @@ public class HibernateEventListener implements PostUpdateEventListener,
         removeLocalization(event.getPersister(), event.getEntity());
         createHistory(event.getPersister(), event.getEntity(),
                 ModificationType.DELETE);
-        messageSender.notifyIndexer(event.getEntity(), ModificationType.DELETE);
+        handleIndexing(event.getEntity(),
+                ModificationType.DELETE);
     }
 
     private void removeLocalization(EntityPersister persister, Object entity) {
@@ -95,9 +119,9 @@ public class HibernateEventListener implements PostUpdateEventListener,
                 final StatelessSession session = persister.getFactory()
                         .openStatelessSession();
                 Transaction tx = session.beginTransaction();
-                org.hibernate.Query query = session
-                        .createQuery("DELETE FROM LocalizedResource WHERE objectKey = :objectKey AND objectType IN (:objectType)");
-                query.setParameter("objectKey", Long.valueOf(key));
+                org.hibernate.Query query = session.createQuery(
+                        "DELETE FROM LocalizedResource WHERE objectKey = :objectKey AND objectType IN (:objectType)");
+                query.setParameter("objectKey", key);
                 query.setParameterList("objectType", objType);
                 query.executeUpdate();
                 tx.commit();
@@ -106,15 +130,13 @@ public class HibernateEventListener implements PostUpdateEventListener,
         }
     }
 
-    //Glassfish4 upgarde, added transaction to session
     private void createHistory(EntityPersister persister, Object entity,
             ModificationType type) {
         if (entity instanceof DomainObject<?>) {
             DomainObject<?> obj = (DomainObject<?>) entity;
             if (obj.hasHistory()) {
-                final DomainHistoryObject<?> hist = HistoryObjectFactory
-                        .create(obj, type,
-                                DataServiceBean.getCurrentHistoryUser());
+                final DomainHistoryObject<?> hist = HistoryObjectFactory.create(
+                        obj, type, DataServiceBean.getCurrentHistoryUser());
 
                 final StatelessSession session = persister.getFactory()
                         .openStatelessSession();
@@ -124,9 +146,9 @@ public class HibernateEventListener implements PostUpdateEventListener,
                 session.close();
 
                 if (logger.isDebugLoggingEnabled()) {
-                    logger.logDebug(String.format("%s %s[%s, v=%s]", type, obj
-                            .getClass().getSimpleName(), Long.valueOf(obj
-                            .getKey()), Long.valueOf(hist.getObjVersion())));
+                    logger.logDebug(String.format("%s %s[%s, v=%s]", type,
+                            obj.getClass().getSimpleName(), obj.getKey(),
+                            hist.getObjVersion()));
                 }
             }
         }

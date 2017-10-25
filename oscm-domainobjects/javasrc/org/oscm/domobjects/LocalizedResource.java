@@ -44,7 +44,7 @@ public class LocalizedResource extends
 
     private String locale;
     private long objectKey;
-    @Convert( converter=LOTConverter.class )
+    @Enumerated(EnumType.STRING)
     private LocalizedObjectTypes objectType;
 
     @Column(nullable = false)

@@ -20,7 +20,7 @@ import javax.xml.ws.Service;
 import org.oscm.app.v2_0.data.PasswordAuthentication;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
 
-import com.sun.xml.wss.XWSSConstants;
+
 
 /**
  * Factory for creating instances of OSCM Web services in the context of the
@@ -67,9 +67,9 @@ public class BSSWebServiceFactory {
                 new QName(targetNamespace, serviceClass.getSimpleName()
                         + portSuffix), serviceClass);
 
-        String usernameConstant = isSsoMode ? XWSSConstants.USERNAME_PROPERTY
+        String usernameConstant = isSsoMode ? "username"
                 : BindingProvider.USERNAME_PROPERTY;
-        String passwordConstant = isSsoMode ? XWSSConstants.PASSWORD_PROPERTY
+        String passwordConstant = isSsoMode ? "password"
                 : BindingProvider.PASSWORD_PROPERTY;
 
         Map<String, Object> clientRequestContext = ((BindingProvider) client)

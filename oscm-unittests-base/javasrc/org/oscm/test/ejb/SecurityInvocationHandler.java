@@ -25,8 +25,7 @@ class SecurityInvocationHandler implements IInvocationHandler {
 
     SecurityInvocationHandler(SessionContext sessionContext, Method beanMethod) {
         this.sessionContext = sessionContext;
-        RolesAllowed rolesAllowed = beanMethod
-                .getAnnotation(RolesAllowed.class);
+        RolesAllowed rolesAllowed = beanMethod.getAnnotation(RolesAllowed.class);
 
         // a somewhat nasty scenario: a bean is spied using Mockito, so the
         // roles allowed annotations have to be retrieved from the superclass...

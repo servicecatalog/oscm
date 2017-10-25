@@ -11,6 +11,7 @@ package org.oscm.app.business;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.never;
+import static org.oscm.app.common.Constants.APPLICATION_SERVER_HOME_CONSTANT;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -48,8 +49,8 @@ public class InitializerTest {
     private String oldSysSetting;
     private String log4jFolderPath;
 
-    private String FILE_PATH = "temp_unit_test/config/log4j.app.core.properties";
-    private String FILE_PATH_CONFIG = "/config/log4j.app.core.properties";
+    private String FILE_PATH = "temp_unit_test/conf/log4j.app.core.properties";
+    private String FILE_PATH_CONFIG = "/conf/log4j.app.core.properties";
     private String FUJITSU_PACKAGE = "com.fujitsu.bss.app";
     private String OSCM_PACKAGE = "org.oscm.app";
 
@@ -123,19 +124,19 @@ public class InitializerTest {
     }
 
     private void setSysSetting(String value) {
-        oldSysSetting = System.getProperty("com.sun.aas.instanceRoot");
+        oldSysSetting = System.getProperty(APPLICATION_SERVER_HOME_CONSTANT);
         if (value != null) {
-            System.setProperty("com.sun.aas.instanceRoot", value);
+            System.setProperty(APPLICATION_SERVER_HOME_CONSTANT, value);
         } else {
-            System.clearProperty("com.sun.aas.instanceRoot");
+            System.clearProperty(APPLICATION_SERVER_HOME_CONSTANT);
         }
     }
 
     private void resetSysSetting() {
         if (oldSysSetting != null) {
-            System.setProperty("com.sun.aas.instanceRoot", oldSysSetting);
+            System.setProperty(APPLICATION_SERVER_HOME_CONSTANT, oldSysSetting);
         } else {
-            System.clearProperty("com.sun.aas.instanceRoot");
+            System.clearProperty(APPLICATION_SERVER_HOME_CONSTANT);
         }
     }
 

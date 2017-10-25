@@ -30,9 +30,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import com.sun.xml.ws.security.opt.impl.incoming.SAMLAssertion;
-import com.sun.xml.wss.XWSSecurityException;
-import com.sun.xml.wss.saml.util.SAMLUtil;
+//import com.sun.xml.ws.security.opt.impl.incoming.SAMLAssertion;
+//import com.sun.xml.wss.XWSSecurityException;
+//import com.sun.xml.wss.saml.util.SAMLUtil;
 
 /**
  * Class for retrieving the userid from a saml:response received from an IdP.
@@ -295,37 +295,41 @@ public class SAMLResponseExtractor {
         return samlSessionId;
     }
 
-    public String getUserId(SAMLAssertion samlResponse)
+//    public String getUserId(SAMLAssertion samlResponse)
+    public String getUserId(Object samlResponse)
             throws UserIdNotFoundException {
-        String samlAssertionString;
-        try {
-            Element samlAssertion = SAMLUtil.createSAMLAssertion(samlResponse
-                    .getSamlReader());
-            samlAssertionString = XMLConverter.convertToString(samlAssertion,
-                    false);
-        } catch (XWSSecurityException | XMLStreamException
-                | TransformerException exception) {
-            throw new UserIdNotFoundException(
-                    "An XML exception occurred while processing the SAML response",
-                    UserIdNotFoundException.ReasonEnum.EXCEPTION_OCCURRED,
-                    exception);
-        }
-        return getUserIdDecoded(samlAssertionString);
+//        String samlAssertionString;
+//        try {
+//            Element samlAssertion = SAMLUtil.createSAMLAssertion(samlResponse
+//                    .getSamlReader());
+//            samlAssertionString = XMLConverter.convertToString(samlAssertion,
+//                    false);
+//        } catch (XWSSecurityException | XMLStreamException
+//                | TransformerException exception) {
+//            throw new UserIdNotFoundException(
+//                    "An XML exception occurred while processing the SAML response",
+//                    UserIdNotFoundException.ReasonEnum.EXCEPTION_OCCURRED,
+//                    exception);
+//        }
+//        return getUserIdDecoded(samlAssertionString);
+        return "";
     }
     
-    public String getTenantId(SAMLAssertion samlResponse)
+//    public String getTenantId(SAMLAssertion samlResponse)
+    public String getTenantId(Object samlResponse)
             throws NotExistentTenantException {
-        String samlAssertionString;
-        try {
-            Element samlAssertion = SAMLUtil.createSAMLAssertion(samlResponse
-                    .getSamlReader());
-            samlAssertionString = XMLConverter.convertToString(samlAssertion,
-                    false);
-        } catch (XWSSecurityException | XMLStreamException
-                | TransformerException exception) {
-            throw new NotExistentTenantException(MISSING_TEANT_ID_IN_SAML);
-        }
-        return getTenantIdDecoded(samlAssertionString);
+//        String samlAssertionString;
+//        try {
+//            Element samlAssertion = SAMLUtil.createSAMLAssertion(samlResponse
+//                    .getSamlReader());
+//            samlAssertionString = XMLConverter.convertToString(samlAssertion,
+//                    false);
+//        } catch (XWSSecurityException | XMLStreamException
+//                | TransformerException exception) {
+//            throw new NotExistentTenantException(MISSING_TEANT_ID_IN_SAML);
+//        }
+//        return getTenantIdDecoded(samlAssertionString);
+        return "";
     }
 
     public byte[] decode(String encodedString)

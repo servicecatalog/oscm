@@ -412,7 +412,7 @@ public class EC2Processor {
             } catch (UnsupportedEncodingException e) {
                 throw new APPlatformException(e.getMessage());
             }
-            eventLink.append("&cid=").append(controllerId);
+            eventLink.append("&controllerid=").append(controllerId);
             eventLink.append("&command=finish");
             String subject = Messages.get(locale,
                     "mail_aws_manual_completion.subject",

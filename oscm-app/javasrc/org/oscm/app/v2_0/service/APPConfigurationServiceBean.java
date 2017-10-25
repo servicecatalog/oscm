@@ -13,10 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.security.GeneralSecurityException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -494,10 +491,10 @@ public class APPConfigurationServiceBean {
     }
 
     public PasswordAuthentication getWebServiceAuthentication(
-            ServiceInstance serviceInstance, Map<String, Setting> proxySettings)
+            ServiceInstance serviceInstance, Map<String, Setting> proxySettings, Optional<String> controllerId)
             throws ConfigurationException {
-        if (serviceInstance != null) {
-            return getAuthenticationForBESTechnologyManager(null,
+        if (serviceInstance != null || controllerId.isPresent()) {
+            return getAuthenticationForBESTechnologyManager(controllerId.orElseGet(() -> serviceInstance.getControllerId()),
                     serviceInstance, proxySettings);
         }
         return getAuthenticationForAPPAdmin(proxySettings);

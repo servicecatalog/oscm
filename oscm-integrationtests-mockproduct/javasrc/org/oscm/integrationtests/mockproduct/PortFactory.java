@@ -5,16 +5,26 @@
 package org.oscm.integrationtests.mockproduct;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.namespace.QName;
+import javax.xml.soap.SOAPMessage;
+import javax.xml.ws.Binding;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
+import javax.xml.ws.handler.Handler;
+import javax.xml.ws.handler.MessageContext;
+import javax.xml.ws.handler.soap.SOAPHandler;
+import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 import org.apache.commons.httpclient.Credentials;
 import org.apache.commons.httpclient.HttpClient;
@@ -22,6 +32,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.oscm.security.SOAPSecurityHandler;
 
 /**
  * Factory to create a BSS ServicePortType to call BSS.
@@ -36,8 +47,8 @@ public class PortFactory {
     private static URL getWsdlLocation(final ConnectionInfo connection,
             final String serviceName) throws IOException {
         StringBuilder s = new StringBuilder();
-        s.append(connection.getBaseUrl()).append("oscm/");
-        s.append(connection.getVersion()).append("/");
+        s.append(connection.getBaseUrl()).append("/oscm-webservices/");
+        //s.append(connection.getVersion()).append("/");
         s.append(serviceName).append("/");
         if (connection.getAuthMode().equals(INTERNAL)) {
             if (connection.isClientCert()) {
@@ -73,6 +84,7 @@ public class PortFactory {
             final String serviceName) throws IOException {
         StringBuilder s = new StringBuilder();
         s.append(connection.getBaseUrl());
+        s.append("/oscm-webservices/");
         s.append(serviceName).append("/");
         if (INTERNAL.equals(connection.getAuthMode())) {
             if (connection.isClientCert()) {
@@ -103,14 +115,72 @@ public class PortFactory {
                 "http://oscm.org/xsd", serviceName));
 
         final T port = service.getPort(type);
-
-        final Map<String, Object> ctx = ((BindingProvider) port)
-                .getRequestContext();
+        BindingProvider bindingProvider = (BindingProvider) port;
+        final Map<String, Object> ctx = bindingProvider.getRequestContext();
         ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
                 getEndpointLocation(info, serviceName).toString());
         if (!info.isClientCert()) {
-            ctx.put(BindingProvider.USERNAME_PROPERTY, info.getUsername());
-            ctx.put(BindingProvider.PASSWORD_PROPERTY, info.getPassword());
+            Binding binding = bindingProvider.getBinding();
+            @SuppressWarnings("rawtypes")
+            List<Handler> handlerChain = binding.getHandlerChain();
+            if (handlerChain == null) {
+                handlerChain = new ArrayList<>();
+            }
+
+            handlerChain.add(new SOAPSecurityHandler(info.getUsername(), info.getPassword()));
+            handlerChain.add(new SOAPHandler<SOAPMessageContext>() {
+
+                @Override
+                public Set<QName> getHeaders() {
+                    return null;
+                }
+
+                @Override
+                public boolean handleMessage(SOAPMessageContext smc) {
+                    StringBuffer sbuf = new StringBuffer();
+                    sbuf.append("\n------------------------------------\n");
+                    sbuf.append("In SOAPHandler :handleMessage()\n");
+
+                    Boolean outboundProperty = (Boolean) smc.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
+
+                    if (outboundProperty.booleanValue()) {
+                        sbuf.append("\ndirection = outbound ");
+                    }
+                    else {
+                        sbuf.append("\ndirection = inbound ");
+                    }
+
+                    SOAPMessage message = smc.getMessage();
+                    try {
+                        sbuf.append("\n");
+                        sbuf.append(message.toString());
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        message.writeTo(baos);
+                        sbuf.append("\nMessage Desc:"+baos.toString());
+                        sbuf.append("\n");
+                    }
+                    catch (Exception e) {
+                        sbuf.append("Exception in SOAP Handler: " + e);
+                    }
+
+                    sbuf.append("Exiting SOAPHandler :handleMessage()\n");
+                    sbuf.append("------------------------------------\n");
+                    System.out.println(sbuf.toString());
+                    return true;
+                }
+
+                @Override
+                public boolean handleFault(SOAPMessageContext soapMessageContext) {
+                    return false;
+                }
+
+                @Override
+                public void close(MessageContext messageContext) {
+
+                }
+            });
+            binding.setHandlerChain(handlerChain);
+            
         } else if (SAML_SP.equals(info.getAuthMode())) {
             ctx.put("username", info.getUsername());
             ctx.put("password", info.getPassword());

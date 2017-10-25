@@ -85,6 +85,7 @@ public class EnterpriseLandingpageIT extends DomainObjectTestBase {
 
 				// create new landing page
 				EnterpriseLandingpage newLandingPage = new EnterpriseLandingpage();
+				newLandingPage.setMarketplace(marketplace);
 				mgr.persist(newLandingPage);
 				marketplace.setEnterpiseLandingpage(newLandingPage);
 				return null;

@@ -30,7 +30,7 @@ import org.oscm.vo.VOService;
 /**
  * @author cheld
  */
-@WebService(endpointInterface = "org.oscm.intf.CategorizationService")
+@WebService(name = "CategorizationService", serviceName = "CategorizationService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.CategorizationService")
 public class CategorizationServiceWS implements CategorizationService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -55,8 +55,9 @@ public class CategorizationServiceWS implements CategorizationService {
             ConcurrentModificationException, ValidationException,
             NonUniqueBusinessKeyException {
         try {
-            delegate.saveCategories(VOCollectionConverter.convertList(toBeSaved,
-                    org.oscm.internal.vo.VOCategory.class),
+            delegate.saveCategories(
+                    VOCollectionConverter.convertList(toBeSaved,
+                            org.oscm.internal.vo.VOCategory.class),
                     VOCollectionConverter.convertList(toBeDeleted,
                             org.oscm.internal.vo.VOCategory.class),
                     local);

@@ -441,7 +441,7 @@ public class LandingpageServiceBean2IT extends EJBTestBase {
         container.enableInterfaceMocking(true);
         container.addBean(new ConfigurationServiceStub());
         container.addBean(new DataServiceBean());
-        container.addBean(new LandingpageServiceBean());
+        container.addBean(new LandingpageServiceBeanLocal());
         container.addBean(new LocalizerServiceBean());
         userGroupService = mock(UserGroupServiceLocalBean.class);
         container.addBean(userGroupService);

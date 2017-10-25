@@ -546,7 +546,7 @@ public class LandingpageServiceBeanIT extends EJBTestBase {
                         .createNamedQuery(
                                 "Product.getPublishedProductTemplates")
                         .setParameter("filterOutWithStatus",
-                                LandingpageServiceBean.FILTER_OUT_WITH_STATUS)
+                                LandingpageServiceBeanLocal.FILTER_OUT_WITH_STATUS)
                         .setParameter("marketplace", marketplace);
                 @SuppressWarnings("unchecked")
                 List<Product> products = query.getResultList();
@@ -903,7 +903,7 @@ public class LandingpageServiceBeanIT extends EJBTestBase {
         container.addBean(new LocalizerServiceBean());
         localizer = container.get(LocalizerServiceLocal.class);
         container.addBean(mpCache);
-        LandingpageServiceBean lpBean = new LandingpageServiceBean();
+        LandingpageServiceBeanLocal lpBean = new LandingpageServiceBeanLocal();
         lpBean.marketplaceCache = mpCache;
         container.addBean(lpBean);
         landingpageServiceLocal = container.get(LandingpageServiceLocal.class);

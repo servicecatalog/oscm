@@ -47,6 +47,7 @@ import org.oscm.communicationservice.local.CommunicationServiceLocal;
 import org.oscm.converter.DateConverter;
 import org.oscm.converter.XMLConverter;
 import org.oscm.dataservice.bean.DataServiceBean;
+import org.oscm.dataservice.bean.HibernateIndexer;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.BillingResult;
 import org.oscm.domobjects.BillingSharesResult;
@@ -83,7 +84,7 @@ import org.oscm.internal.vo.VOOrganization;
 import org.oscm.internal.vo.VOSubscriptionDetails;
 import org.oscm.kafka.service.Producer;
 import org.oscm.marketplace.auditlog.MarketplaceAuditLogCollector;
-import org.oscm.marketplace.bean.LandingpageServiceBean;
+import org.oscm.marketplace.bean.LandingpageServiceBeanLocal;
 import org.oscm.marketplace.bean.MarketplaceServiceBean;
 import org.oscm.marketplace.bean.MarketplaceServiceLocalBean;
 import org.oscm.marketplace.dao.MarketplaceAccessDao;
@@ -290,7 +291,7 @@ public class BillingIntegrationTestBase extends StaticEJBTestBase {
         container.addBean(new UserGroupUsersDao());
         container.addBean(new UserGroupAuditLogCollector());
         container.addBean(new UserGroupServiceLocalBean());
-        container.addBean(new LandingpageServiceBean());
+        container.addBean(new LandingpageServiceBeanLocal());
         container.addBean(new ServiceProvisioningServiceLocalizationBean());
         container.addBean(new BillingAdapterLocalBean());
         container.addBean(new AccountServiceStub());
@@ -301,7 +302,7 @@ public class BillingIntegrationTestBase extends StaticEJBTestBase {
                 return true;
             }
         });
-
+        container.addBean(mock(HibernateIndexer.class));
         container.addBean(new SubscriptionListServiceBean());
         container.addBean(new SubscriptionUtilBean());
         container.addBean(new ModifyAndUpgradeSubscriptionBean());
@@ -337,7 +338,7 @@ public class BillingIntegrationTestBase extends StaticEJBTestBase {
         container.addBean(mock(TriggerServiceLocal.class));
         container.addBean(mock(TimerServiceBean.class));
         container.addBean(new OperatorServiceBean());
-        container.addBean(new LandingpageServiceBean());
+        container.addBean(new LandingpageServiceBeanLocal());
         container.addBean(new MarketplaceServiceLocalBean());
         container.addBean(new MarketplaceServiceBean());
         container.addBean(new ApplicationServiceBean());
@@ -348,6 +349,7 @@ public class BillingIntegrationTestBase extends StaticEJBTestBase {
         container.addBean(new PricingServiceBean());
         container.addBean(new MarketplaceServiceManagePartnerBean());
         container.addBean(new PublishServiceBean());
+
 
         dataService = container.get(DataService.class);
         billingService = container.get(BillingServiceLocal.class);

@@ -13,7 +13,6 @@
   <property name="adm.ue.buildscript.dir" location="${dev.dir}/oscm-build" />
   <property name="adm.ue.buildscript.file" location="${adm.ue.buildscript.dir}/build.xml" />
   <property name="build.result.package.dir" location="${adm.ue.buildscript.dir}/result/package" />
-  <property name="integration.resources.dir" location="${dev.dir}/oscm-integrationtests-setup/resources" />
   <property name="local.dir" value="${basedir}/../local/${env.HOSTNAME}" />
   <verifyFileExists filePath="${local.dir}/integration.properties" />
   <echo message="Loading integration.properties from ${local.dir}/integration.properties" />
@@ -29,68 +28,9 @@
   <available file="${build.result.package.dir}/oscm-extsvc-internal" type="dir"
     property="WebtestEnvironment.present" />
   <import file="${basedir}/../macrodefs.xml" />
-  <import file="${integration.resources.dir}/macrodefs_integration.xml" />
   <besDomainProperties />
   <clusterProperties />
   <property name="db.url.testdb" value="jdbc:postgresql://${db.host}:${db.port}/bssunittests" />
-
-  <target name="AWS.BUILD"
-    description="Builds the AWS controller project, the result can be found in oscm-build/result/package/oscm-app-aws">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-app-common,oscm-app-aws" />
-    </ant>
-  </target>
-	
-  <target name="AWS.DEPLOY" description="Deploys the AWS build result into the APP domain">
-    <delete file="${app.domain.apps}/oscm-app-aws/.glassfishStaleFiles" failonerror="false" />
-    <deployOnAppDomain target="server" appl="${build.result.package.dir}/oscm-app-aws/oscm-app-aws.ear" />
-  </target>
-
-  <target name="AWS.REDEPLOY" description="Redeploys the AWS build result into the APP domain">
-    <delete file="${app.domain.apps}/oscm-app-aws/.glassfishStaleFiles" failonerror="false" />
-    <redeployOnAppDomain target="server"
-      appl="${build.result.package.dir}/oscm-app-aws/oscm-app-aws.ear" appname="oscm-app-aws" />
-  </target>
-
-  <target name="AWS.UNDEPLOY" description="Undeploys the AWS from the APP domain">
-    <undeployFromAppDomain appl="oscm-app-aws" failonerror="false" />
-  </target>
-
-  <target name="AWS_Install.BUILD"
-    description="Builds the AWS install project, the result can be found in oscm-build/result/package/oscm-aws-install-pack">
-    <antcall target="APP.BUILD" />
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects"
-        value="oscm-app-common,oscm-app-aws,oscm-aws-install-pack" />
-    </ant>
-  </target>
-
-  <target name="VMWare_Install.BUILD"
-    description="Builds the VMware install project, the result can be found in oscm-build/result/package/oscm-vmware-install-pack">
-    <antcall target="APP.BUILD" />
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects"
-        value="oscm-app-vmware,oscm-vmware-install-pack" />
-    </ant>
-  </target>
-  
-    <target name="APP_Install.BUILD"
-    description="Builds the APP install project, the result can be found in oscm-build/result/package/oscm-app-install-pack">
-    <antcall target="APP.BUILD" />
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects"
-        value="oscm-app,oscm-app-ear,oscm-app-install-pack" />
-    </ant>
-  </target>  
-
-  <target name="OPENSTACK_Install.BUILD"
-    description="Builds the OPENSTACK install project, the result can be found in oscm-build/result/package/oscm-openstack-install-pack">
-    <antcall target="APP.BUILD" />
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects"
-        value="oscm-app-common,oscm-app-openstack,oscm-openstack-install-pack" />
-    </ant>
-  </target>  
 	
   <target name="APP.BUILD"
     description="Builds the asynchronous provisioning proxy project, the result can be found in oscm-build/result/package/oscm-app">
@@ -99,125 +39,11 @@
     </ant>
   </target>
 
-  <target name="APP.DEPLOY" description="Deploys the asynchonous provisioning proxy build result into the APP domain">
-    <delete file="${app.domain.apps}/oscm-app/.glassfishStaleFiles" failonerror="false" />
-    <deployOnAppDomain target="server" appl="${build.result.package.dir}/oscm-app-ear/oscm-app.ear" />
-  </target>
-
-  <target name="APP.REDEPLOY" description="Redeploys the asynchonous provisioning proxy build result into the APP domain">
-    <delete file="${app.domain.apps}/oscm-app/.glassfishStaleFiles" failonerror="false" />
-    <redeployOnAppDomain target="server"
-      appl="${build.result.package.dir}/oscm-app-ear/oscm-app.ear" appname="oscm-app" />
-  </target>
-
-  <target name="APP.UNDEPLOY" description="Undeploys the asynchronous provisioning proxy from the APP domain">
-    <undeployFromAppDomain appl="oscm-app" failonerror="false" />
-  </target>
-
-  <target name="APPSample.DEPLOY" description="Deploys the APP sample build result into the APP domain">
-    <delete file="${app.domain.apps}/oscm-app/.glassfishStaleFiles" failonerror="false" />
-    <deployOnAppDomain target="server"
-      appl="${build.result.package.dir}/oscm-app-sample/oscm-app-sample.ear" />
-  </target>
-
-  <target name="APPSample.REDEPLOY" description="Redeploys the APP sample build result into the APP domain">
-    <delete file="${app.domain.apps}/oscm-app/.glassfishStaleFiles" failonerror="false" />
-    <redeployOnAppDomain target="server"
-      appl="${build.result.package.dir}/oscm-app-sample/oscm-app-sample.ear" appname="oscm-app-sample" />
-  </target>
-
-  <target name="ROR.BUILD"
-    description="Builds the ROR project, the result can be found in oscm-build/result/package/oscm-app-ror">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-app-iaas,oscm-app-ror" />
-    </ant>
-  </target>
-
-  <target name="ROR.DEPLOY" description="Deploys the ROR build result into the APP domain">
-    <delete file="${app.domain.apps}/oscm-app/.glassfishStaleFiles" failonerror="false" />
-    <deployOnAppDomain target="server"
-      appl="${build.result.package.dir}/oscm-app-ror/oscm-app-ror.ear" />
-  </target>
-
-  <target name="ROR.REDEPLOY" description="Redeploys the ROR build result into the APP domain">
-    <delete file="${app.domain.apps}/oscm-app/.glassfishStaleFiles" failonerror="false" />
-    <redeployOnAppDomain target="server"
-      appl="${build.result.package.dir}/oscm-app-ror/oscm-app-ror.ear" appname="oscm-app-ror" />
-  </target>
-
-  <target name="ROR.UNDEPLOY" description="Undeploys the ROR from the APP domain">
-    <undeployFromAppDomain appl="oscm-app-ror" failonerror="false" />
-  </target>
-
   <target name="OpenStack.BUILD"
     description="Builds the OpenStack project, the result can be found in oscm-build/result/package/oscm-app-openstack">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
       <property name="projects" value="oscm-app-iaas,oscm-app-openstack" />
     </ant>
-  </target>
-
-  <target name="OpenStack.DEPLOY" description="Deploys the OpenStack build result into the APP domain">
-    <delete file="${app.domain.apps}/oscm-app-openstack/.glassfishStaleFiles" failonerror="false" />
-    <deployOnAppDomain target="server"
-      appl="${build.result.package.dir}/oscm-app-openstack/oscm-app-openstack.ear" />
-  </target>
-
-  <target name="OpenStack.UNDEPLOY" description="Undeploys the OpenStack from the APP domain">
-    <undeployFromAppDomain appl="oscm-app-openstack" failonerror="false" />
-  </target>
-
-  <target name="ROR.Stub.BUILD"
-    description="Builds the ROR stub project, to be used for integration tests. The build result can be found in oscm-build/result/package/oscm-app-ror-stub">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-app-ror-stub" />
-    </ant>
-  </target>
-
-  <target name="ROR.Stub.DEPLOY" description="Deploys the ROR stub build result into the APP domain">
-    <delete file="${example.domain.apps}/fujitsu-ror-stub/.glassfishStaleFiles" failonerror="false" />
-    <deployOnExampleDomain target="server"
-      appl="${build.result.package.dir}/oscm-app-ror-stub/fujitsu-ror-stub.war" />
-  </target>
-
-  <target name="ROR.Stub.REDEPLOY" description="Redeploys the ROR stub build result into the APP domain">
-    <delete file="${example.domain.apps}/fujitsu-ror-stub/.glassfishStaleFiles" failonerror="false" />
-    <redeployOnExampleDomain target="server"
-      appl="${build.result.package.dir}/oscm-app-ror-stub/fujitsu-ror-stub.war" appname="fujitsu-ror-stub" />
-  </target>
-
-  <target name="ROR.Stub.UNDEPLOY" description="Undeploys the ROR stub from the APP domain">
-    <undeployFromExampleDomain appl="fujitsu-ror-stub" failonerror="false" />
-  </target>
-
-  <target name="JmxInternalWar.DEPLOY" description="Deploys the JMX war into the BES domain">
-    <delete file="${bes.domain.apps}/oscm-jmx-internal/.glassfishStaleFiles" failonerror="false" />
-    <deployOnBesDomain target="server"
-      appl="${build.result.package.dir}/oscm-jmx-internal/fujitsu-jmx-internal.war" />
-  </target>
-
-  <target name="JmxInternalWar.REDEPLOY" description="Redeploys the JMX war into the BES domain">
-    <delete file="${bes.domain.apps}/oscm-jmx-internal/.glassfishStaleFiles" failonerror="false" />
-    <redeployOnBesDomain target="server"
-      appl="${build.result.package.dir}/oscm-jmx-internal/fujitsu-jmx-internal.war" appname="fujitsu-jmx-internal" />
-  </target>
-
-  <target name="JmxInternalWar.UNDEPLOY" description="Undeploys the JMX war from the BES domain">
-    <undeployFromBesDomain target="server" appl="fujitsu-jmx-internal" failonerror="false" />
-  </target>
-
-  <target name="JmxInternalHttpBridgeWar.DEPLOY" description="Deploys the jolokia war from the build results into the BES domain">
-    <delete file="${bes.domain.apps}/jolokia/.glassfishStaleFiles" failonerror="false" />
-    <deployOnBesDomain target="server" appl="${build.result.package.dir}/jolokia/jolokia.war" />
-  </target>
-
-  <target name="JmxInternalHttpBridgeWar.REDEPLOY" description="Redeploys the jolokia war from the build results into the BES domain">
-    <delete file="${bes.domain.apps}/oscm-jmx-internal/.glassfishStaleFiles" failonerror="false" />
-    <redeployOnBesDomain target="server" appl="${build.result.package.dir}/jolokia/jolokia.war"
-      appname="jolokia" />
-  </target>
-
-  <target name="JmxInternalHttpBridgeWar.UNDEPLOY" description="Undeploys the jolokia war from the BES domain">
-    <undeployFromBesDomain target="server" appl="jolokia" failonerror="false" />
   </target>
 
   <target name="ExamplesAndMocks.BUILD"
@@ -228,110 +54,11 @@
     </ant>
   </target>
 
-  <target name="ExamplesAndMocks.DEPLOY" description="Deploys the various sample applications">
-    <delete file="${example.domain.apps}/example-service/.glassfishStaleFiles" failonerror="false" />
-    <deployOnExampleDomain appl="${build.result.package.dir}/example-service/example-service.war" />
-    <delete file="${example.domain.apps}/oscm-integrationtests-mockproduct/.glassfishStaleFiles"
-      failonerror="false" />
-    <deployOnExampleDomain
-      appl="${build.result.package.dir}/oscm-integrationtests-mockproduct/oscm-integrationtests-mockproduct.war" />
-    <delete file="${example.domain.apps}/mock-psp-service/.glassfishStaleFiles" failonerror="false" />
-    <deployOnExampleDomain appl="${build.result.package.dir}/mock-psp-service/mock-psp-service.war" />
-    <delete file="${example.domain.apps}/oscm-integrationtests-saml2-sts/.glassfishStaleFiles"
-      failonerror="false" />
-    <deployOnExampleDomain target="server"
-      appl="${build.result.package.dir}/oscm-integrationtests-saml2-sts/oscm-integrationtests-saml2-sts.war" />
-    <delete file="${example.domain.apps}/oscm-psp-heidelpay/.glassfishStaleFiles" failonerror="false" />
-    <deployOnExampleDomain appl="${build.result.package.dir}/oscm-psp-heidelpay/oscm-psp-heidelpay.war" />
-  </target>
-
-  <target name="ExamplesAndMocks.UNDEPLOY" description="Undeploys the various sample applications">
-    <undeployFromExampleDomain appl="example-service" failonerror="false" />
-    <undeployFromExampleDomain appl="oscm-integrationtests-mockproduct" failonerror="false" />
-    <undeployFromExampleDomain appl="mock-psp-service" failonerror="false" />
-    <undeployFromExampleDomain appl="oscm-integrationtests-saml2-sts" failonerror="false" />
-    <undeployFromExampleDomain appl="oscm-psp-heidelpay" failonerror="false" />
-  </target>
-
-  <target name="MashupServer.BUILD"
-    description="Builds the mashup server project, the result can found in oscm-build/result/package/oscm-integrationtests-mashup-server">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-integrationtests-mashup-server" />
-    </ant>
-  </target>
-
-  <target name="MashupServer.DEPLOY" description="Deploys the mashup server war file into the example domain">
-    <delete file="${example.domain.apps}/oscm-integrationtests-mashup-server/.glassfishStaleFiles"
-      failonerror="false" />
-    <deployOnExampleDomain target="server"
-      appl="${build.result.package.dir}/oscm-integrationtests-mashup-server/oscm-integrationtests-mashup-server.war" />
-  </target>
-
-  <target name="MashupServer.REDEPLOY" description="Redeploys the mashup server war file into the example domain">
-    <delete file="${example.domain.apps}/oscm-integrationtests-mashup-server/.glassfishStaleFiles"
-      failonerror="false" />
-    <redeployOnExampleDomain target="server"
-      appl="${build.result.package.dir}/oscm-integrationtests-mashup-server/oscm-integrationtests-mashup-server.war"
-      appname="oscm-integrationtests-mashup-server" />
-  </target>
-
-  <target name="MashupServer.UNDEPLOY" description="Undeploys the mashup server war file from the example domain">
-    <undeployFromExampleDomain target="server" appl="oscm-integrationtests-mashup-server"
-      failonerror="false" />
-  </target>
-
-  <target name="MashupClient.BUILD"
-    description="Builds the mashup client project, the result can found in oscm-build/result/package/oscm-integrationtests-mashup-client">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-integrationtests-mashup-client" />
-    </ant>
-  </target>
-
-  <target name="MashupClient.DEPLOY" description="Deploys the mashup client war file into the BES domain">
-    <delete file="${bes.domain.apps}/oscm-integrationtests-mashup-client/.glassfishStaleFiles"
-      failonerror="false" />
-    <deployOnBesDomain target="server"
-      appl="${build.result.package.dir}/oscm-integrationtests-mashup-client/oscm-integrationtests-mashup-client.war" />
-  </target>
-
-  <target name="MashupClient.REDEPLOY" description="Redeploys the mashup client war file into the BES domain">
-    <delete file="${bes.domain.apps}/oscm-integrationtests-mashup-client/.glassfishStaleFiles"
-      failonerror="false" />
-    <redeployOnBesDomain target="server"
-      appl="${build.result.package.dir}/oscm-integrationtests-mashup-client/oscm-integrationtests-mashup-client.war"
-      appname="oscm-integrationtests-mashup-client" />
-  </target>
-
-  <target name="MashupClient.UNDEPLOY" description="Undeploys the mashup client war from the BES domain">
-    <undeployFromBesDomain target="server" appl="oscm-integrationtests-mashup-client"
-      failonerror="false" />
-  </target>
-
   <target name="ParameterConfigurator.BUILD"
     description="Builds the external service configurator project, the result can found in oscm-build/result/package/oscm-integrationtests-parameter-configurator">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
       <property name="projects" value="oscm-integrationtests-parameter-configurator" />
     </ant>
-  </target>
-
-  <target name="ParameterConfigurator.DEPLOY" description="Deploys the external service configurator war file into the example domain">
-    <delete file="${example.domain.apps}/oscm-integrationtests-parameter-configurator/.glassfishStaleFiles"
-      failonerror="false" />
-    <deployOnExampleDomain target="server"
-      appl="${build.result.package.dir}/oscm-integrationtests-parameter-configurator/oscm-parameter-configurator.war" />
-  </target>
-
-  <target name="ParameterConfigurator.REDEPLOY" description="Redeploys the external service configurator war file into the example domain">
-    <delete file="${example.domain.apps}/oscm-integrationtests-parameter-configurator/.glassfishStaleFiles"
-      failonerror="false" />
-    <redeployOnExampleDomain target="server"
-      appl="${build.result.package.dir}/oscm-integrationtests-parameter-configurator/oscm-parameter-configurator.war"
-      appname="oscm-service-configurator" />
-  </target>
-
-  <target name="ParameterConfigurator.UNDEPLOY" description="Undeploys the external service configurator war file from the example domain">
-    <undeployFromExampleDomain target="server" appl="oscm-service-configurator"
-      failonerror="false" />
   </target>
 
   <target name="IntegrationHelper.BUILD"
@@ -341,26 +68,6 @@
     </ant>
   </target>
 
-  <target name="IntegrationHelper.DEPLOY" description="Deploys the IntegrationHelper war file into the example domain">
-    <delete file="${example.domain.apps}/oscm-integrationhelper/.glassfishStaleFiles"
-      failonerror="false" />
-    <deployOnExampleDomain target="server"
-      appl="${build.result.package.dir}/oscm-integrationhelper/Integrationhelper.war" />
-  </target>
-
-  <target name="IntegrationHelper.REDEPLOY" description="Redeploys the IntegrationHelper war file into the example domain">
-    <delete file="${example.domain.apps}/oscm-integrationhelper/.glassfishStaleFiles"
-      failonerror="false" />
-    <redeployOnExampleDomain target="server"
-      appl="${build.result.package.dir}/oscm-integrationhelper/Integrationhelper.war"
-      appname="Integrationhelper" />
-  </target>
-
-  <target name="IntegrationHelper.UNDEPLOY" description="Undeploys the IntegrationHelper war file from the example domain">
-    <undeployFromExampleDomain target="server" appl="Integrationhelper"
-      failonerror="false" />
-  </target>
-  
   <target name="FileBilling.BUILD"
      description="Builds the File Billing project, to be used for integration tests. The build result can be found in oscm-build/result/package/oscm-file-billing-application">
      <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
@@ -374,37 +81,4 @@
        <property name="projects" value="oscm-file-billing-adapter" />
      </ant>
    </target>
-
-   <target name="FileBillingAdapter.DEPLOY" description="Deploys the oscm-file-adapter into the Example domain">
-     <delete file="${example.domain.apps}/oscm-file-adapter/.glassfishStaleFiles" failonerror="false" />
-     <deployOnExampleDomain target="server"
-       appl="${build.result.package.dir}/oscm-file-billing-adapter/oscm-file-adapter.ear" />
-   </target>
-
-   <target name="FileBillingAdapter.REDEPLOY" description="Redeploys the oscm-file-adapter build result into the Example domain">
-     <delete file="${example.domain.apps}/oscm-file-adapter/.glassfishStaleFiles" failonerror="false" />
-     <redeployOnExampleDomain target="server"
-       appl="${build.result.package.dir}/oscm-file-billing-adapter/oscm-file-adapter.ear" appname="oscm-file-adapter" />
-   </target>
-
-   <target name="FileBillingAdapter.UNDEPLOY" description="Undeploys the oscm-file-adapter from the Example domain">
-     <undeployFromExampleDomain appl="oscm-file-adapter" failonerror="false" />
-   </target>  
-   
-   <target name="FileBilling.DEPLOY" description="Deploys the file billing build result into the Example domain">
-     <delete file="${example.domain.apps}/oscm-file-billing/.glassfishStaleFiles" failonerror="false" />
-     <deployOnExampleDomain target="server"
-       appl="${build.result.package.dir}/oscm-file-billing-application/oscm-file-billing.war" />
-   </target>
-
-   <target name="FileBilling.REDEPLOY" description="Redeploys the file billing build result into the Example domain">
-     <delete file="${example.domain.apps}/oscm-file-billing/.glassfishStaleFiles" failonerror="false" />
-     <redeployOnExampleDomain target="server"
-       appl="${build.result.package.dir}/oscm-file-billing-application/oscm-file-billing.war" appname="oscm-file-billing" />
-   </target>
-
-   <target name="FileBilling.UNDEPLOY" description="Undeploys the file billing from the Example domain">
-     <undeployFromExampleDomain appl="oscm-file-billing" failonerror="false" />
-   </target>    
-  
 </project>

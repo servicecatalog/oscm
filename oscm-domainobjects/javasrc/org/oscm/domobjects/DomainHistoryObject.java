@@ -100,7 +100,7 @@ public abstract class DomainHistoryObject<D extends DomainDataContainer>
     /**
      * Reason for change (ADD, MODIFY or DELETE of domain object)
      */
-    @Convert( converter=DHOConverter.class )
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ModificationType modType;
 

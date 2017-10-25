@@ -6,6 +6,7 @@ package org.oscm.app.v2_0.service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.ejb.EJB;
@@ -32,8 +33,6 @@ import org.oscm.vo.VOUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.xml.ws.client.ClientTransportException;
-
 @Stateless
 @LocalBean
 public class APPAuthenticationServiceBean {
@@ -58,7 +57,7 @@ public class APPAuthenticationServiceBean {
             throw new IllegalArgumentException("Parameters must not be null");
         }
         return authenticateUser(null, null, auth,
-                UserRoleType.ORGANIZATION_ADMIN);
+                UserRoleType.ORGANIZATION_ADMIN, Optional.empty());
     }
 
     public VOUserDetails authenticateTMForInstance(String controllerId,
@@ -76,7 +75,7 @@ public class APPAuthenticationServiceBean {
             throw new APPlatformException(e.getMessage(), e);
         }
         return authenticateUser(serviceInstance, null, auth,
-                UserRoleType.TECHNOLOGY_MANAGER);
+                UserRoleType.TECHNOLOGY_MANAGER, Optional.of(controllerId));
     }
 
     public void authenticateTMForController(String controllerId,
@@ -115,13 +114,13 @@ public class APPAuthenticationServiceBean {
             throw ce;
         }
         return authenticateUser(null, organizationId.getValue(), auth,
-                UserRoleType.TECHNOLOGY_MANAGER);
+                UserRoleType.TECHNOLOGY_MANAGER, Optional.of(controllerId));
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     VOUserDetails authenticateUser(ServiceInstance serviceInstance,
-            String organizationId, PasswordAuthentication auth,
-            UserRoleType role) throws APPlatformException {
+                                   String organizationId, PasswordAuthentication auth,
+                                   UserRoleType role, Optional<String> controllerId) throws APPlatformException {
         // check that either user key or user id is specified
         if (Strings.isEmpty(auth.getUserName())) {
             throw new IllegalArgumentException("User id must be specified");
@@ -141,7 +140,7 @@ public class APPAuthenticationServiceBean {
         // must come from the organization currently set in the identityService
         if (organizationId == null) {
             VOUserDetails currentUserDetails = besDAO.getUserDetails(
-                    serviceInstance, null, null);
+                    serviceInstance, null, null, controllerId);
             if (currentUserDetails != null) {
                 organizationId = currentUserDetails.getOrganizationId();
                 // check if current web service user equals requesting user
@@ -150,7 +149,7 @@ public class APPAuthenticationServiceBean {
                         && (user.getUserId() == null || user.getUserId()
                                 .equals(currentUserDetails.getUserId()))) {
                     PasswordAuthentication pwAuth = configService
-                            .getWebServiceAuthentication(serviceInstance, null);
+                            .getWebServiceAuthentication(serviceInstance, null, controllerId);
                     String existingPW = String.valueOf(pwAuth.getPassword());
                     if (existingPW.equals(password)) {
                         user = userDetails = currentUserDetails;
@@ -174,15 +173,15 @@ public class APPAuthenticationServiceBean {
         if (user.getKey() == 0 && !isSsoMode) {
             // if we do not yet have the required user key
             // available we first have to get it from BSS platform
-            user = besDAO.getUser(serviceInstance, user);
+            user = besDAO.getUser(serviceInstance, user, controllerId);
         }
 
         try {
             if (userDetails == null) {
                 user = userDetails = besDAO.getUserDetails(serviceInstance,
-                        user, password);
+                        user, password, controllerId);
             }
-        } catch (ClientTransportException e) {
+        } catch (Exception e) {
             AuthenticationException ae = new AuthenticationException(
                     e.getMessage(), e);
             LOGGER.debug(

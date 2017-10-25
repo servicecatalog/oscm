@@ -31,7 +31,7 @@ import org.oscm.vo.VOServiceListResult;
  * 
  * @author Dirk Bernsau
  */
-@WebService(endpointInterface = "org.oscm.intf.SearchService")
+@WebService(name = "SearchService", serviceName = "SearchService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.SearchService")
 public class SearchServiceWS implements SearchService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -43,12 +43,12 @@ public class SearchServiceWS implements SearchService {
 
     @Override
     public VOServiceListResult searchServices(String marketplaceId,
-            String locale, String searchPhrase) throws InvalidPhraseException,
-            ObjectNotFoundException {
+            String locale, String searchPhrase)
+            throws InvalidPhraseException, ObjectNotFoundException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter.convertToApi(delegate.searchServices(
-                    marketplaceId, locale, searchPhrase));
+            return VOConverter.convertToApi(delegate
+                    .searchServices(marketplaceId, locale, searchPhrase));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.InvalidPhraseException e) {
@@ -62,9 +62,9 @@ public class SearchServiceWS implements SearchService {
             throws ObjectNotFoundException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter.convertToApi(delegate.getServicesByCriteria(
-                    marketplaceId, locale,
-                    VOConverter.convertToUp(listCriteria)));
+            return VOConverter
+                    .convertToApi(delegate.getServicesByCriteria(marketplaceId,
+                            locale, VOConverter.convertToUp(listCriteria)));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         }

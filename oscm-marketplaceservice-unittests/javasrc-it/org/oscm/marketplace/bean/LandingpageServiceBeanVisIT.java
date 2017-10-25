@@ -386,7 +386,7 @@ public class LandingpageServiceBeanVisIT extends EJBTestBase {
         container.addBean(new ConfigurationServiceStub());
         container.addBean(new DataServiceBean());
         container.addBean(new MarketplaceCacheServiceBean());
-        container.addBean(new LandingpageServiceBean());
+        container.addBean(new LandingpageServiceBeanLocal());
         container.addBean(new LocalizerServiceBean());
 
         // services

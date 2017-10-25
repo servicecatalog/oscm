@@ -31,7 +31,7 @@
 
       <a4j:outputPanel layout="block" styleClass="tablePanel">
         <adm:dataTable tableId="techServiceTable" value="#{techServiceBean.technicalServices}"
-          onRowClick="AdmUtils.selectRow(this);selectTechService(#{rowItem.key});"
+          onRowClick="AdmUtils.selectRow(this);AdmUtils.showProgress(true);selectTechService(#{rowItem.key});"
           onRowMouseOver="AdmUtils.mouseOverRow(this)" onRowMouseOut="AdmUtils.mouseOutRow(this)"
           label="#{msg['techService.import.table.header']}" >
           <rich:column>
@@ -56,7 +56,7 @@
       </a4j:outputPanel>
     </h:form>
 
-    <h:form id="selectForm" onsubmit="AdmUtils.showProgress(true);">
+    <h:form id="selectForm" onsubmit="">
       <a4j:queue requestDelay="500" ignoreDupResponses="true" />
       <a4j:jsFunction name="selectTechService" render="detailPanel"
         oncomplete="AdmUtils.showProgress(false);RichFaces.$('detailPanel').show();">

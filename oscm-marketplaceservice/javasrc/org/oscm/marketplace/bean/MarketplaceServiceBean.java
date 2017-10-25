@@ -268,7 +268,8 @@ public class MarketplaceServiceBean implements MarketplaceService {
             throws ValidationException, ObjectNotFoundException,
             OperationNotPermittedException, MarketplaceValidationException {
         boolean isMpIdProvided = false;
-        if (marketplace.getMarketplaceId() == null) {
+        final String providedMarketplaceId = marketplace.getMarketplaceId();
+        if (providedMarketplaceId == null || providedMarketplaceId.isEmpty()) {
             marketplace.setMarketplaceId("1"); // dummy Id - will be changed.
         } else {
             isMpIdProvided = true;

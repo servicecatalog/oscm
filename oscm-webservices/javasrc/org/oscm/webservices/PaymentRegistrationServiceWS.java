@@ -33,8 +33,9 @@ import org.oscm.types.exceptions.PaymentDataException;
  * @author Mike J&auml;ger
  * 
  */
-@WebService(endpointInterface = "org.oscm.psp.intf.PaymentRegistrationService")
-public class PaymentRegistrationServiceWS implements PaymentRegistrationService {
+@WebService(name = "PaymentRegistrationService", serviceName = "PaymentRegistrationService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.psp.intf.PaymentRegistrationService")
+public class PaymentRegistrationServiceWS
+        implements PaymentRegistrationService {
 
     Log4jLogger logger = LoggerFactory
             .getLogger(PaymentRegistrationServiceWS.class);
@@ -63,9 +64,9 @@ public class PaymentRegistrationServiceWS implements PaymentRegistrationService 
                     String.format(
                             "Caller with dn '%s' is not permitted to save an external identifier for payment type with key '%s'.",
                             certDN, Long.valueOf(paymentTypeKey)));
-            logger.logWarn(Log4jLogger.SYSTEM_LOG | Log4jLogger.ACCESS_LOG,
-                    onp, LogMessageIdentifier.WARN_SET_PSP_ID_UNAUTHORIZED,
-                    certDN, String.valueOf(paymentTypeKey));
+            logger.logWarn(Log4jLogger.SYSTEM_LOG | Log4jLogger.ACCESS_LOG, onp,
+                    LogMessageIdentifier.WARN_SET_PSP_ID_UNAUTHORIZED, certDN,
+                    String.valueOf(paymentTypeKey));
             throw onp;
         }
         return delegate.register(result);

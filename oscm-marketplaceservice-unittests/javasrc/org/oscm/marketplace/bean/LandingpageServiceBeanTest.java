@@ -29,11 +29,11 @@ import org.oscm.usergroupservice.bean.UserGroupServiceLocalBean;
  */
 public class LandingpageServiceBeanTest {
 
-    private LandingpageServiceBean landingpageServiceBean;
+    private LandingpageServiceBeanLocal landingpageServiceBean;
 
     @Before
     public void setup() throws Exception {
-        landingpageServiceBean = spy(new LandingpageServiceBean());
+        landingpageServiceBean = spy(new LandingpageServiceBeanLocal());
         landingpageServiceBean.dm = mock(DataService.class);
         landingpageServiceBean.userGroupService = mock(UserGroupServiceLocalBean.class);
     }

@@ -332,7 +332,7 @@ public class EventServiceWSTest {
             eventService.recordEventForSubscription(subscriptionKey, event);
         } catch (SOAPFaultException e) {
             String stackTrace = WebserviceTestBase.convertStacktrace(e);
-            assertTrue(stackTrace.contains("javax.ejb.EJBAccessException"));
+            assertTrue(stackTrace.contains("Unauthorized"));
             throw e;
         }
     }

@@ -32,7 +32,7 @@ import org.oscm.types.enumtypes.TriggerType;
 import org.oscm.types.exceptions.ObjectNotFoundException;
 import org.oscm.types.exceptions.ValidationException;
 import org.oscm.vo.VOTriggerDefinition;
-import com.sun.xml.ws.client.ClientTransportException;
+//import com.sun.xml.ws.client.ClientTransportException;
 
 public class TriggerDefinitonServiceWSTest {
 
@@ -68,7 +68,7 @@ public class TriggerDefinitonServiceWSTest {
 
     private void validateExceptionContent(SOAPFaultException ex)
             throws Exception {
-        assertTrue(ex.getMessage().contains("javax.ejb.EJBAccessException"));
+        assertTrue(ex.getMessage().contains("Unauthorized"));
     }
 
     @BeforeClass
@@ -228,14 +228,14 @@ public class TriggerDefinitonServiceWSTest {
         serviceSupplier.deleteTriggerDefinition(0);
     }
 
-    @Test(expected = ClientTransportException.class)
-    public void getTriggerTypes_WrongPassword() throws Exception {
-        TriggerDefinitionService serviceX = ServiceFactory.getDefault()
-                .getTriggerDefinitionService(setup.getSupplierUserKey(),
-                        "WrongPassword");
-        serviceX.getTriggerTypes();
-        fail();
-    }
+//    @Test(expected = ClientTransportException.class)
+//    public void getTriggerTypes_WrongPassword() throws Exception {
+//        TriggerDefinitionService serviceX = ServiceFactory.getDefault()
+//                .getTriggerDefinitionService(setup.getSupplierUserKey(),
+//                        "WrongPassword");
+//        serviceX.getTriggerTypes();
+//        fail();
+//    }
 
     @Test(expected = ValidationException.class)
     public void createTriggerDefinition_CustomerAdmin() throws Exception {

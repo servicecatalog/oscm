@@ -106,7 +106,7 @@ public class WsInfo {
      */
     public String getRemoteBssWsUrl() {
         String servletAddress = "https://" + host + ":" + port
-                + "/oscm/";
+                + "/oscm-webservices/";
         if (serviceVersion != null) {
             servletAddress += serviceVersion + "/";
         }
@@ -130,7 +130,7 @@ public class WsInfo {
      * @return URL in format: https://<host>:<port>/<service_name>/<serviceport>
      */
     public String getEndpointAddress() {
-        String endpointAddress = "https://" + host + ":" + port + "/"
+        String endpointAddress = "https://" + host + ":" + port + "/oscm-webservices/"
                 + serviceName + "/" + servicePort.name();
         return endpointAddress;
     }

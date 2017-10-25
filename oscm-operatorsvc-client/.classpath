@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="javares"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-devruntime"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/javaee.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-ant/javalib/ant.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-ant/javalib/ant-junit.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-ant/javalib/ant-launcher.jar"/>

@@ -25,12 +25,13 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.naming.CommunicationException;
 import javax.security.auth.login.LoginException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import org.apache.commons.lang3.StringUtils;
 import org.oscm.internal.intf.*;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
@@ -210,7 +211,8 @@ public class UserBean extends BaseBean implements Serializable {
      */
     public String getServiceLoginType() {
         if (Constants.REQ_ATTR_LOGIN_TYPE_NO_MPL.equals(serviceLoginType)) {
-            serviceLoginType = isServiceMarketplaceLogin() ? Constants.REQ_ATTR_LOGIN_TYPE_MPL
+            serviceLoginType = isServiceMarketplaceLogin()
+                    ? Constants.REQ_ATTR_LOGIN_TYPE_MPL
                     : Constants.REQ_ATTR_LOGIN_TYPE_NO_MPL;
         }
         return serviceLoginType;
@@ -271,13 +273,13 @@ public class UserBean extends BaseBean implements Serializable {
     }
 
     public boolean getIsUnitAdmin() {
-        return getUserFromSession().getUserRoles().contains(
-                UserRoleType.UNIT_ADMINISTRATOR);
+        return getUserFromSession().getUserRoles()
+                .contains(UserRoleType.UNIT_ADMINISTRATOR);
     }
 
     public boolean getIsSubscriptionManager() {
-        return getUserFromSession().getUserRoles().contains(
-                UserRoleType.SUBSCRIPTION_MANAGER);
+        return getUserFromSession().getUserRoles()
+                .contains(UserRoleType.SUBSCRIPTION_MANAGER);
     }
 
     /**
@@ -298,8 +300,8 @@ public class UserBean extends BaseBean implements Serializable {
      */
     public boolean isPasswordChangeRequired() {
         VOUserDetails user = getLoggedInUser();
-        return user != null
-                && user.getStatus() == UserAccountStatus.PASSWORD_MUST_BE_CHANGED;
+        return user != null && user
+                .getStatus() == UserAccountStatus.PASSWORD_MUST_BE_CHANGED;
     }
 
     /**
@@ -392,7 +394,8 @@ public class UserBean extends BaseBean implements Serializable {
 
     public String showDetails(String userId) {
         try {
-            getUserService().getUserAndSubscriptionDetails(userId, sessionBean.getTenantID());
+            getUserService().getUserAndSubscriptionDetails(userId,
+                    sessionBean.getTenantID());
             return BaseBean.OUTCOME_SHOW_DETAILS;
         } catch (ObjectNotFoundException e) {
             JSFUtils.addMessage(null, FacesMessage.SEVERITY_ERROR,
@@ -416,32 +419,24 @@ public class UserBean extends BaseBean implements Serializable {
 
         if (isServiceProvider()) {
             httpRequest.getParameterMap();
-            userId = httpRequest.getParameter(SAMPSP_FORM
-                    + Constants.REQ_PARAM_USER_ID);
-            password = httpRequest.getParameter(SAMPSP_FORM
-                    + Constants.REQ_ATTR_PASSWORD);
-            requestedRedirect = httpRequest.getParameter(SAMPSP_FORM
-                    + Constants.REQ_ATTR_REQUESTED_REDIRECT);
+            userId = httpRequest
+                    .getParameter(SAMPSP_FORM + Constants.REQ_PARAM_USER_ID);
+            password = httpRequest
+                    .getParameter(SAMPSP_FORM + Constants.REQ_ATTR_PASSWORD);
+            requestedRedirect = httpRequest.getParameter(
+                    SAMPSP_FORM + Constants.REQ_ATTR_REQUESTED_REDIRECT);
         }
 
         try {
             // set the character encoding to UTF-8 if it is unknown
             if (httpRequest.getCharacterEncoding() == null) {
                 try {
-                    httpRequest
-                            .setCharacterEncoding(Constants.CHARACTER_ENCODING_UTF8);
+                    httpRequest.setCharacterEncoding(
+                            Constants.CHARACTER_ENCODING_UTF8);
                 } catch (UnsupportedEncodingException e) {
                     // UTF-8 hardcoded => shouldn't happen
                 }
             }
-
-            httpRequest = new HttpServletRequestWrapper(httpRequest) {
-                @Override
-                public void setCharacterEncoding(String ignore) {
-                    // avoid "Unable to set request character encoding to UTF-8"
-                    // messages in the glassfish logfile
-                }
-            };
 
             HttpSession session = getRequest().getSession();
             ServiceAccess serviceAccess = ServiceAccess
@@ -459,7 +454,8 @@ public class UserBean extends BaseBean implements Serializable {
             voUser.setOrganizationId(oId);
             voUser.setUserId(uId);
             try {
-                voUser.setTenantId(getMarketplaceService().getTenantIdFromMarketplace(getMarketplaceId()));
+                voUser.setTenantId(getMarketplaceService()
+                        .getTenantIdFromMarketplace(getMarketplaceId()));
                 voUser = service.getUser(voUser);
             } catch (ObjectNotFoundException e) {
                 if (isServiceProvider() && !ADMStringUtils.isBlank(uId)) {
@@ -475,7 +471,8 @@ public class UserBean extends BaseBean implements Serializable {
             // check service key in session bean; if not set, try to read
             // them from cookie (fallback for re-login after session timeout)
             if (!getMarketplaceService().doesOrganizationHaveAccessMarketplace(
-                    getMarketplaceId(), voUser.getOrganizationId()) && !isServiceProvider()) {
+                    getMarketplaceId(), voUser.getOrganizationId())
+                    && !isServiceProvider()) {
                 throw new LoginToClosedMarketplaceException();
             }
             Object sb = session.getAttribute(Constants.SESS_ATTR_SESSION_BEAN);
@@ -483,8 +480,8 @@ public class UserBean extends BaseBean implements Serializable {
                 SessionBean sessionBean = (SessionBean) sb;
                 sessionBean.setMarketplaceBrandUrl(null);
                 // try to read selected service key from cookie
-                if (SessionBean.isValidServiceKey(sessionBean
-                        .getSelectedServiceKeyForCustomer())) {
+                if (SessionBean.isValidServiceKey(
+                        sessionBean.getSelectedServiceKeyForCustomer())) {
                     String svcKeyFromCookie = JSFUtils.getCookieValue(
                             httpRequest, Constants.REQ_PARAM_SERVICE_KEY);
                     String forwardUrl = (String) session
@@ -494,8 +491,8 @@ public class UserBean extends BaseBean implements Serializable {
                             && forwardUrl != null
                             && forwardUrl.contains(Marketplace.MARKETPLACE_ROOT
                                     + "/subscriptions")) {
-                        sessionBean.setSelectedServiceKeyForCustomer(Long
-                                .parseLong(svcKeyFromCookie));
+                        sessionBean.setSelectedServiceKeyForCustomer(
+                                Long.parseLong(svcKeyFromCookie));
 
                         ExternalContext extContext = FacesContext
                                 .getCurrentInstance().getExternalContext();
@@ -510,16 +507,18 @@ public class UserBean extends BaseBean implements Serializable {
 
             // authenticate the user
             try {
-                serviceAccess.login(voUser, password, httpRequest,
-                        getResponse());
+                serviceAccess.login(voUser, password, httpRequest, getResponse());
                 // get the service again because the credentials have been
                 // changed (important for WS usage)
                 service = serviceAccess.getService(IdentityService.class);
                 service.refreshLdapUser();
                 // check service key in session bean; if not set, try to read
-                // them from cookie (fallback for re-login after session timeout)
-                if (!getMarketplaceService().doesOrganizationHaveAccessMarketplace(
-                        getMarketplaceId(), voUser.getOrganizationId()) && isServiceProvider()) {
+                // them from cookie (fallback for re-login after session
+                // timeout)
+                if (!getMarketplaceService()
+                        .doesOrganizationHaveAccessMarketplace(
+                                getMarketplaceId(), voUser.getOrganizationId())
+                        && isServiceProvider()) {
                     session.setAttribute(Constants.SESS_ATTR_USER,
                             service.getCurrentUserDetails());
                     throw new LoginToClosedMarketplaceException();
@@ -545,7 +544,8 @@ public class UserBean extends BaseBean implements Serializable {
             logger.logInfo(Log4jLogger.ACCESS_LOG,
                     LogMessageIdentifier.INFO_USER_LOGIN_SUCCESS,
                     voUser.getUserId(),
-                    IPResolver.resolveIpAddress(httpRequest), voUser.getTenantId());
+                    IPResolver.resolveIpAddress(httpRequest),
+                    voUser.getTenantId());
 
             // read the user details value object and store it in the session
             session.setAttribute(Constants.SESS_ATTR_USER,
@@ -555,7 +555,8 @@ public class UserBean extends BaseBean implements Serializable {
             return outcomeLoginException(httpRequest);
         } catch (NumberFormatException e) {
             return outcomeNumberFormatException(httpRequest);
-        } catch (OperationNotPermittedException | OrganizationRemovedException e) {
+        } catch (OperationNotPermittedException
+                | OrganizationRemovedException e) {
             return outcomeSaaSApplicationException(httpRequest, e);
         } catch (ObjectNotFoundException e) {
             return outcomeObjectNotFoundException(httpRequest, e);
@@ -583,19 +584,20 @@ public class UserBean extends BaseBean implements Serializable {
     }
 
     private String outcomeLoginToClosedMarketplaceException(
-        HttpServletRequest httpRequest) {
+            HttpServletRequest httpRequest) {
         if (isServiceProvider()) {
             httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
                     BaseBean.ERROR_ACCESS_TO_CLOSED_MARKETPLACE);
             return OUTCOME_PUBLIC_ERROR_PAGE;
         } else {
             httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
-                BaseBean.ERROR_LOGIN_TO_CLOSED_MARKETPLACE);
+                    BaseBean.ERROR_LOGIN_TO_CLOSED_MARKETPLACE);
             return OUTCOME_STAY_ON_PAGE;
         }
     }
 
-    private String outcomeCommunicationException(HttpServletRequest httpRequest) {
+    private String outcomeCommunicationException(
+            HttpServletRequest httpRequest) {
         httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
                 BaseBean.ERROR_LOGIN_IMPOSSIBLE);
         if (isServiceProvider()) {
@@ -615,7 +617,8 @@ public class UserBean extends BaseBean implements Serializable {
         }
     }
 
-    private String outcomeNumberFormatException(HttpServletRequest httpRequest) {
+    private String outcomeNumberFormatException(
+            HttpServletRequest httpRequest) {
         if (isServiceProvider()) {
             httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
                     BaseBean.ERROR_SUBSCRIPTION_KEY);
@@ -642,13 +645,13 @@ public class UserBean extends BaseBean implements Serializable {
     /**
      * Checks if a redirect is required after the successful operation.
      */
-    String getLoginRedirect(HttpServletRequest httpRequest,
-            HttpSession session, boolean successOnEmptyRedirect) {
+    String getLoginRedirect(HttpServletRequest httpRequest, HttpSession session,
+            boolean successOnEmptyRedirect) {
         VOUserDetails user = getLoggedInUser();
 
         checkAddSubacription(user);
 
-        if (requestedRedirect != null && requestedRedirect.trim().length() > 0) {
+        if (StringUtils.isNotBlank(requestedRedirect)) {
             confirmedRedirect = requestedRedirect;
         } else if (!successOnEmptyRedirect
                 || user.getStatus() == UserAccountStatus.ACTIVE) {
@@ -681,7 +684,8 @@ public class UserBean extends BaseBean implements Serializable {
             }
         }
 
-        session.setAttribute(Constants.SESS_ATTR_FORWARD_URL, confirmedRedirect);
+        session.setAttribute(Constants.SESS_ATTR_FORWARD_URL,
+                confirmedRedirect);
         if (isPasswordChangeRequired()) {
             // return to screen in AJAX style to show changePWD fields
             return null;
@@ -715,9 +719,8 @@ public class UserBean extends BaseBean implements Serializable {
             long selectedServiceKey = sessionBean
                     .getSelectedServiceKeyForCustomer();
 
-            if (!user.hasAdminRole()
-                    && invisibleProductKeys.contains(Long
-                            .valueOf(selectedServiceKey))) {
+            if (!user.hasAdminRole() && invisibleProductKeys
+                    .contains(Long.valueOf(selectedServiceKey))) {
                 requestedRedirect = requestedRedirect.replaceAll(
                         subscriptionAddPage,
                         BaseBean.MARKETPLACE_ACCESS_DENY_PAGE);
@@ -805,8 +808,9 @@ public class UserBean extends BaseBean implements Serializable {
      * @throws UserRoleAssignmentException
      * @throws OperationPendingException
      */
-    public String createClassic() throws NonUniqueBusinessKeyException,
-            UserRoleAssignmentException, OperationPendingException, MarketplaceRemovedException {
+    public String createClassic()
+            throws NonUniqueBusinessKeyException, UserRoleAssignmentException,
+            OperationPendingException, MarketplaceRemovedException {
         if (isTokenValid()) {
             String newUserId = this.newUser.getUserId();
             String outcome = createInt(null);
@@ -836,8 +840,9 @@ public class UserBean extends BaseBean implements Serializable {
      * @throws UserRoleAssignmentException
      * @throws OperationPendingException
      */
-    String createInt(String mId) throws NonUniqueBusinessKeyException,
-            UserRoleAssignmentException, OperationPendingException, MarketplaceRemovedException {
+    String createInt(String mId)
+            throws NonUniqueBusinessKeyException, UserRoleAssignmentException,
+            OperationPendingException, MarketplaceRemovedException {
         try {
             List<UserRoleType> selectedRoles = new ArrayList<>();
             for (UserRole userRole : userRolesForNewUser) {
@@ -846,8 +851,8 @@ public class UserBean extends BaseBean implements Serializable {
                 }
             }
             newUser.getVOUserDetails().setTenantId(sessionBean.getTenantID());
-            VOUserDetails createdUser = getIdService().createUser(
-                    newUser.getVOUserDetails(), selectedRoles, mId);
+            VOUserDetails createdUser = getIdService()
+                    .createUser(newUser.getVOUserDetails(), selectedRoles, mId);
             newUser = null;
             initializeSelectdUserRole();
             boolean pending = (createdUser == null);
@@ -870,13 +875,11 @@ public class UserBean extends BaseBean implements Serializable {
                 s = JSFUtils.getText("UserRoleType." + e.getMessageParams()[0],
                         null);
                 for (int i = 1; i < e.getMessageParams().length; i++) {
-                    final Object[] roles = {
-                            s,
-                            JSFUtils.getText(
-                                    "UserRoleType." + e.getMessageParams()[i],
-                                    null) };
-                    s = JSFUtils.getText(ERROR_USER_CREATE_INSUFFICIENT_ROLES
-                            + "Concat", roles);
+                    final Object[] roles = { s, JSFUtils.getText(
+                            "UserRoleType." + e.getMessageParams()[i], null) };
+                    s = JSFUtils.getText(
+                            ERROR_USER_CREATE_INSUFFICIENT_ROLES + "Concat",
+                            roles);
                 }
             }
             addMessage(null, FacesMessage.SEVERITY_ERROR,
@@ -934,16 +937,19 @@ public class UserBean extends BaseBean implements Serializable {
             HttpServletRequest request = (HttpServletRequest) ctx.getRequest();
             HttpServletResponse response = (HttpServletResponse) ctx
                     .getResponse();
-            ServiceAccess serviceAccess = ServiceAccess
-                    .getServiceAcccessFor(getRequest().getSession());
-            serviceAccess.login(getUserFromSession().getVOUserDetails(),
-                    password, request, response);
+            request.getSession();
+            request.login(
+                    String.valueOf(
+                            getUserFromSession().getVOUserDetails().getKey()),
+                    password);
+            // ServiceAccess serviceAccess = ServiceAccess
+            // .getServiceAcccessFor(getRequest().getSession());
+            // serviceAccess.login(getUserFromSession().getVOUserDetails(),
+            // password, request, response);
         } catch (Exception e) {
             SaaSSystemException se = new SaaSSystemException(
                     "Login failed after changePassword!");
-            logger.logError(
-                    Log4jLogger.SYSTEM_LOG,
-                    se,
+            logger.logError(Log4jLogger.SYSTEM_LOG, se,
                     LogMessageIdentifier.ERROR_LOGIN_FAILED_AFTER_CHANGE_PASSWORD);
             // try to continue
         }
@@ -983,8 +989,8 @@ public class UserBean extends BaseBean implements Serializable {
      * @throws MailOperationException
      *             Thrown if the mail cannot be sent
      */
-    public String sendAccounts() throws ValidationException,
-            MailOperationException {
+    public String sendAccounts()
+            throws ValidationException, MailOperationException {
         getIdService().sendAccounts(email, getMarketplaceId());
         addMessage(null, FacesMessage.SEVERITY_INFO, INFO_USER_ACCOUNTS_SENT,
                 new String[] { email });
@@ -1071,7 +1077,8 @@ public class UserBean extends BaseBean implements Serializable {
                     session);
         } catch (SAML2AuthnRequestException e) {
             ui.handleError(null, BaseBean.ERROR_GENERATE_AUTHNREQUEST);
-        } catch (NotExistentTenantException | ObjectNotFoundException | MarketplaceRemovedException e) {
+        } catch (NotExistentTenantException | ObjectNotFoundException
+                | MarketplaceRemovedException e) {
             ui.handleError(null, BaseBean.ERROR_MISSING_TENANTID);
         } catch (WrongTenantConfigurationException e) {
             ui.handleError(null, BaseBean.ERROR_TENANT_SETTINGS_MISSING);
@@ -1081,13 +1088,15 @@ public class UserBean extends BaseBean implements Serializable {
 
     protected AuthenticationSettings getAuthenticationSettings() {
         if (authenticationSettings == null) {
-            authenticationSettings = new AuthenticationSettings(
-                    tenantService, getConfigurationService());
+            authenticationSettings = new AuthenticationSettings(tenantService,
+                    getConfigurationService());
         }
         return authenticationSettings;
     }
 
-    protected AuthenticationHandler getAuthenticationHandler() throws ObjectNotFoundException, NotExistentTenantException, WrongTenantConfigurationException, MarketplaceRemovedException {
+    protected AuthenticationHandler getAuthenticationHandler()
+            throws ObjectNotFoundException, NotExistentTenantException,
+            WrongTenantConfigurationException, MarketplaceRemovedException {
         AuthenticationSettings authenticationSettings = getAuthenticationSettings();
         authenticationSettings.init(sessionBean.getTenantID());
         return new AuthenticationHandler(getRequest(), getResponse(),
@@ -1117,7 +1126,7 @@ public class UserBean extends BaseBean implements Serializable {
             ui.handleException(ex);
             return;
         }
-        try {           
+        try {
             byte[] buffer = PartHandler.getBuffer(userImport);
             getUserService().importUsersInOwnOrganization(buffer,
                     marketplaceId);

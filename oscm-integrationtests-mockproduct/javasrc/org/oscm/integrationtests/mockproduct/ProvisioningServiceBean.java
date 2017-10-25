@@ -30,7 +30,9 @@ import org.oscm.provisioning.intf.ProvisioningService;
  * 
  * @author pock
  */
-@WebService(serviceName = "ProvisioningService", targetNamespace = "http://oscm.org/xsd", portName = "ProvisioningServicePort", endpointInterface = "org.oscm.provisioning.intf.ProvisioningService", wsdlLocation = "ProvisioningService.wsdl")
+@WebService(serviceName = "ProvisioningService", targetNamespace = "http://oscm.org/xsd", portName =
+    "ProvisioningServicePort", endpointInterface = "org.oscm.provisioning.intf.ProvisioningService", wsdlLocation =
+    "WEB-INF/wsdl/ProvisioningService.wsdl")
 public class ProvisioningServiceBean implements ProvisioningService {
 
     @Resource

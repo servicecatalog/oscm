@@ -23,7 +23,9 @@ public class TSXMLForWebService {
             + "TechnicalService></" + TNS + "TechnicalServices>";
     private static final String XML_FIRST_PART = "<" + TNS
             + "TechnicalServices " + TARGET_NAMESPACE + ">";
-    private static final String MOCK = "oscm-integrationtests-mockproduct";
+    private static final String MOCK = "oscm-soap-mock";
+    private static final String USER = "tomee";
+    private static final String PWD = "tomee";
 
     private TSXMLForWebService() {
     }
@@ -47,8 +49,8 @@ public class TSXMLForWebService {
         sb.append("onlyOneSubscriptionPerUser=\"false\" ");
         sb.append("provisioningType=\"SYNCHRONOUS\" ");
         sb.append("provisioningUrl=\"\" ");
-        sb.append("provisioningUsername=\"admin\" ");
-        sb.append("provisioningPassword=\"adminadmin\" ");
+        sb.append("provisioningUsername=\"" + USER + "\" ");
+        sb.append("provisioningPassword=\"" + PWD + "\" ");
         sb.append("provisioningVersion=\"\">");
 
         sb.append("<AccessInfo locale=\"en\">AccessInfo</AccessInfo>");
@@ -70,27 +72,18 @@ public class TSXMLForWebService {
 
         String baseUrl = WebserviceTestBase
                 .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
-        String xml = "<"
-                + TNS
-                + "TechnicalServices "
-                + TARGET_NAMESPACE
-                + ">"
-                + " <"
-                + TNS
+        String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
+                + " <" + TNS
                 + "TechnicalService id=\"tp1\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
-                + " provisioningUrl=\""
-                + baseUrl
-                + "/"
-                + MOCK
+                + " provisioningUrl=\"" + baseUrl + "/" + MOCK
                 + "/ProvisioningService?wsdl\""
                 + " provisioningVersion=\"1.0\" accessType=\"DIRECT\""
-                + " baseUrl=\""
-                + baseUrl
+                + " baseUrl=\"" + baseUrl
                 + "/oscm-integrationtests-mockproduct\""
                 + " loginPath=\"/login\" provisioningTimeout=\"50000\""
-                + " provisioningUsername=\"admin\" provisioningPassword=\"adminadmin\" allowingOnBehalfActing=\""
-                + booleanValue
-                + "\">"
+                + " provisioningUsername=\"" + USER
+                + "\" provisioningPassword=\"" + PWD
+                + "\" allowingOnBehalfActing=\"" + booleanValue + "\">"
                 + " <AccessInfo locale=\"en\">AccessInfo</AccessInfo>"
                 + " <LocalizedDescription locale=\"en\">LocalizedDescription</LocalizedDescription>"
                 + " <LocalizedLicense locale=\"en\">LocalizedLicense</LocalizedLicense>"
@@ -106,27 +99,17 @@ public class TSXMLForWebService {
     public static String createTSXML(String serviceId) throws Exception {
         String baseUrl = WebserviceTestBase
                 .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
-        String xml = "<"
-                + TNS
-                + "TechnicalServices "
-                + TARGET_NAMESPACE
-                + ">"
-                + " <"
-                + TNS
-                + "TechnicalService id=\""
-                + serviceId
+        String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
+                + " <" + TNS + "TechnicalService id=\"" + serviceId
                 + "\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
-                + " provisioningUrl=\""
-                + baseUrl
-                + "/"
-                + MOCK
+                + " provisioningUrl=\"" + baseUrl + "/" + MOCK
                 + "/ProvisioningService?wsdl\""
                 + " provisioningVersion=\"1.0\" accessType=\"DIRECT\""
-                + " baseUrl=\""
-                + baseUrl
+                + " baseUrl=\"" + baseUrl
                 + "/oscm-integrationtests-mockproduct\""
                 + " loginPath=\"/login\" provisioningTimeout=\"50000\""
-                + " provisioningUsername=\"admin\" provisioningPassword=\"adminadmin\">"
+                + " provisioningUsername=\"" + USER
+                + "\" provisioningPassword=\"" + PWD + "\">"
                 + " <AccessInfo locale=\"en\">AccessInfo</AccessInfo>"
                 + " <LocalizedDescription locale=\"en\">LocalizedDescription</LocalizedDescription>"
                 + " <LocalizedLicense locale=\"en\">LocalizedLicense</LocalizedLicense>"
@@ -139,27 +122,17 @@ public class TSXMLForWebService {
             String serviceId) throws Exception {
         String baseUrl = WebserviceTestBase
                 .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
-        String xml = "<"
-                + TNS
-                + "TechnicalServices "
-                + TARGET_NAMESPACE
-                + ">"
-                + " <"
-                + TNS
-                + "TechnicalService id=\""
-                + serviceId
+        String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
+                + " <" + TNS + "TechnicalService id=\"" + serviceId
                 + "\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
-                + " provisioningUrl=\""
-                + baseUrl
-                + "/"
-                + MOCK
+                + " provisioningUrl=\"" + baseUrl + "/" + MOCK
                 + "/ProvisioningService?wsdl\""
                 + " provisioningVersion=\"1.0\" accessType=\"DIRECT\""
-                + " baseUrl=\""
-                + baseUrl
+                + " baseUrl=\"" + baseUrl
                 + "/oscm-integrationtests-mockproduct\""
                 + " loginPath=\"/login\" provisioningTimeout=\"50000\""
-                + " provisioningUsername=\"admin\" provisioningPassword=\"adminadmin\">"
+                + " provisioningUsername=\"" + USER
+                + "\" provisioningPassword=\"" + PWD + "\">"
                 + " <AccessInfo locale=\"en\">AccessInfo</AccessInfo>"
                 + " <LocalizedDescription locale=\"en\">LocalizedDescription</LocalizedDescription>"
                 + " <LocalizedLicense locale=\"en\">LocalizedLicense</LocalizedLicense>"
@@ -183,25 +156,17 @@ public class TSXMLForWebService {
 
         String baseUrl = WebserviceTestBase
                 .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
-        String xml = "<"
-                + TNS
-                + "TechnicalServices "
-                + TARGET_NAMESPACE
-                + ">"
-                + " <"
-                + TNS
+        String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
+                + " <" + TNS
                 + "TechnicalService id=\"technicalProduct2\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
-                + " provisioningUrl=\""
-                + baseUrl
-                + "/"
-                + MOCK
+                + " provisioningUrl=\"" + baseUrl + "/" + MOCK
                 + "/ProvisioningService?wsdl\""
                 + " provisioningVersion=\"1.0\" accessType=\"DIRECT\""
-                + " baseUrl=\""
-                + baseUrl
+                + " baseUrl=\"" + baseUrl
                 + "/oscm-integrationtests-mockproduct\""
                 + " loginPath=\"/login\" provisioningTimeout=\"50000\""
-                + " provisioningUsername=\"admin\" provisioningPassword=\"adminadmin\">"
+                + " provisioningUsername=\"" + USER
+                + "\" provisioningPassword=\"" + PWD + "\">"
                 + " <AccessInfo locale=\"en\">AccessInfo</AccessInfo>"
                 + " <LocalizedDescription locale=\"en\">LocalizedDescription</LocalizedDescription>"
                 + " <LocalizedLicense locale=\"en\">LocalizedLicense</LocalizedLicense>"
@@ -220,35 +185,23 @@ public class TSXMLForWebService {
 
         String baseUrl = WebserviceTestBase
                 .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
-        String xml = "<"
-                + TNS
-                + "TechnicalServices "
-                + TARGET_NAMESPACE
-                + ">"
-                + " <"
-                + TNS
-                + "TechnicalService id=\""
-                + serviceId
+        String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
+                + " <" + TNS + "TechnicalService id=\"" + serviceId
                 + "\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
-                + " provisioningUrl=\""
-                + baseUrl
-                + "/"
-                + MOCK
+                + " provisioningUrl=\"" + baseUrl + "/" + MOCK
                 + "/ProvisioningService?wsdl\""
                 + " provisioningVersion=\"1.0\" accessType=\"DIRECT\""
-                + " baseUrl=\""
-                + baseUrl
+                + " baseUrl=\"" + baseUrl
                 + "/oscm-integrationtests-mockproduct\""
                 + " loginPath=\"/login\" provisioningTimeout=\"50000\""
-                + " provisioningUsername=\"admin\" provisioningPassword=\"adminadmin\">"
+                + " provisioningUsername=\"" + USER
+                + "\" provisioningPassword=\"" + PWD + "\">"
                 + " <AccessInfo locale=\"en\">AccessInfo</AccessInfo>"
                 + " <LocalizedDescription locale=\"en\">LocalizedDescription</LocalizedDescription>"
                 + " <LocalizedLicense locale=\"en\">LocalizedLicense</LocalizedLicense>"
                 + " <ParameterDefinition id=\"TEST\" valueType=\"INTEGER\" mandatory=\"false\""
                 + " configurable=\"true\" minValue=\"12\" maxValue=\"500\" default=\"200\""
-                + " modificationType=\""
-                + modificationType
-                + "\">"
+                + " modificationType=\"" + modificationType + "\">"
                 + "<LocalizedDescription locale=\"en\">Parameter Test</LocalizedDescription>"
                 + "</ParameterDefinition>"
                 + " <ParameterDefinition id=\"TEST1\" valueType=\"INTEGER\" mandatory=\"false\""
@@ -265,25 +218,16 @@ public class TSXMLForWebService {
 
         String baseUrl = WebserviceTestBase
                 .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
-        String xml = "<"
-                + TNS
-                + "TechnicalServices "
-                + TARGET_NAMESPACE
-                + ">"
-                + " <"
-                + TNS
+        String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
+                + " <" + TNS
                 + "TechnicalService id=\"asynTechnicalProduct\" build=\"1\" provisioningType=\"ASYNCHRONOUS\""
-                + " provisioningUrl=\""
-                + baseUrl
+                + " provisioningUrl=\"" + baseUrl
                 + "/oscm-integrationtests-mockproduct/ProvisioningService?wsdl\""
                 + " provisioningVersion=\"1.0\" accessType=\"DIRECT\""
-                + " baseUrl=\""
-                + baseUrl
-                + "/"
-                + MOCK
-                + "\""
+                + " baseUrl=\"" + baseUrl + "/" + MOCK + "\""
                 + " loginPath=\"/login\" provisioningTimeout=\"50000\""
-                + " provisioningUsername=\"admin\" provisioningPassword=\"adminadmin\">"
+                + " provisioningUsername=\"" + USER
+                + "\" provisioningPassword=\"" + PWD + "\">"
                 + " <AccessInfo locale=\"en\">AccessInfo</AccessInfo>"
                 + " <LocalizedDescription locale=\"en\">LocalizedDescription</LocalizedDescription>"
                 + " <LocalizedLicense locale=\"en\">LocalizedLicense</LocalizedLicense>"
@@ -310,34 +254,22 @@ public class TSXMLForWebService {
             throws Exception {
         String baseUrl = WebserviceTestBase
                 .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
-        String xml = "<"
-                + TNS
-                + "TechnicalServices "
-                + TARGET_NAMESPACE
-                + "><"
-                + TNS
-                + "TechnicalService id=\""
-                + id
+        String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + "><"
+                + TNS + "TechnicalService id=\"" + id
                 + "\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
-                + " provisioningUrl=\""
-                + baseUrl
-                + "/"
-                + MOCK
+                + " provisioningUrl=\"" + baseUrl + "/" + MOCK
                 + "/ProvisioningService?wsdl\""
                 + " provisioningVersion=\"1.0\" accessType=\"DIRECT\""
-                + " baseUrl=\""
-                + baseUrl
+                + " baseUrl=\"" + baseUrl
                 + "/oscm-integrationtests-mockproduct\""
                 + " loginPath=\"/login\" provisioningTimeout=\"50000\""
-                + " provisioningUsername=\"admin\" provisioningPassword=\"adminadmin\">"
+                + " provisioningUsername=\"" + USER
+                + "\" provisioningPassword=\"" + PWD + "\">"
                 + " <AccessInfo locale=\"en\">AccessInfo</AccessInfo>"
                 + " <LocalizedDescription locale=\"en\">LocalizedDescription</LocalizedDescription>"
                 + " <LocalizedLicense locale=\"en\">LocalizedLicense</LocalizedLicense>"
-                + "<Operation id=\"SNAPSHOT\" actionURL=\""
-                + baseUrl
-                + "/"
-                + MOCK
-                + "/OperationService?wsdl\">"
+                + "<Operation id=\"SNAPSHOT\" actionURL=\"" + baseUrl + "/"
+                + MOCK + "/OperationService?wsdl\">"
                 + "<LocalizedName locale=\"en\">Help</LocalizedName>"
                 + "<LocalizedDescription locale=\"en\">Help activation.</LocalizedDescription>"
                 + "<OperationParameter id=\"SERVER\" mandatory=\"true\" type=\"REQUEST_SELECT\">"

@@ -32,7 +32,7 @@ import org.oscm.types.exceptions.ValidationException;
  * @author Aleh Khomich.
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.SessionService")
+@WebService(name = "SessionService", serviceName = "SessionService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.SessionService")
 public class SessionServiceWS implements SessionService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(

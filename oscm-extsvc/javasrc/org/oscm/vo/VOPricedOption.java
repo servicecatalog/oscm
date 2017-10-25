@@ -8,7 +8,6 @@
 
 package org.oscm.vo;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
  * models.
  * 
  */
-public class VOPricedOption extends BaseVO implements Serializable {
+public class VOPricedOption extends BaseVO  {
 
     private static final long serialVersionUID = -3492198807771584164L;
 

@@ -52,16 +52,7 @@ import static org.oscm.test.Numbers.TIMESTAMP;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.Callable;
 
 import javax.persistence.NoResultException;
@@ -2398,6 +2389,7 @@ public class BillingServiceBeanIT extends EJBTestBase {
                 sub.setActivationDate(Long.valueOf(date.getTime()));
                 sub.setStatus(SubscriptionStatus.ACTIVE);
                 sub.setCutOffDay(1);
+                sub.setUuid(UUID.randomUUID());
 
                 if (historyDate != null) {
                     sub.setHistoryModificationTime(historyDate);

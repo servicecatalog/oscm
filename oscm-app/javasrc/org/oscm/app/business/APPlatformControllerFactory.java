@@ -4,15 +4,17 @@
 
 package org.oscm.app.business;
 
+import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import org.oscm.app.adapter.APPlatformControllerAdapter;
 import org.oscm.app.i18n.Messages;
 import org.oscm.app.v2_0.exceptions.ControllerLookupException;
 import org.oscm.app.v2_0.intf.APPlatformController;
-import org.oscm.app.adapter.APPlatformControllerLegacyAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Properties;
 
 public class APPlatformControllerFactory {
 
@@ -24,17 +26,16 @@ public class APPlatformControllerFactory {
         String controllerFullId = APPlatformController.JNDI_PREFIX
                 + controllerId;
         try {
-            InitialContext context = new InitialContext();
+            Properties p = new Properties();
+            p.setProperty (Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.client.LocalInitialContextFactory");
+
+            InitialContext context = new InitialContext(p);
             Object lookup = context.lookup(controllerFullId);
             APPlatformController adapter;
 
             if (APPlatformController.class.isAssignableFrom(lookup.getClass())) {
                 adapter = new APPlatformControllerAdapter(
                         (APPlatformController) lookup);
-            } else if (org.oscm.app.v1_0.intf.APPlatformController.class
-                    .isAssignableFrom(lookup.getClass())) {
-                adapter = new APPlatformControllerLegacyAdapter(
-                        (org.oscm.app.v1_0.intf.APPlatformController) lookup);
             } else {
                 logger.warn("Exception during controller lookup ["
                         + controllerFullId + "]");

@@ -14,7 +14,6 @@ import java.util.*;
 import java.util.concurrent.Callable;
 
 import javax.ejb.EJBException;
-import javax.jms.Message;
 import javax.persistence.Query;
 
 import org.junit.*;
@@ -24,6 +23,7 @@ import org.oscm.accountservice.local.MarketingPermissionServiceLocal;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;
 import org.oscm.converter.ParameterizedTypes;
 import org.oscm.dataservice.bean.DataServiceBean;
+import org.oscm.dataservice.bean.HibernateIndexer;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.*;
 import org.oscm.encrypter.AESEncrypter;
@@ -43,7 +43,6 @@ import org.oscm.marketplace.bean.CategorizationServiceBean;
 import org.oscm.marketplace.bean.MarketplaceServiceBean;
 import org.oscm.marketplace.bean.MarketplaceServiceLocalBean;
 import org.oscm.provisioning.data.User;
-import org.oscm.search.IndexRequestMasterListener;
 import org.oscm.serviceprovisioningservice.local.ProductSearchResult;
 import org.oscm.serviceprovisioningservice.local.SearchServiceLocal;
 import org.oscm.subscriptionservice.bean.SubscriptionListServiceBean;
@@ -144,7 +143,7 @@ public class SearchServiceBeanListIT extends StaticEJBTestBase {
 
     // mocked JMS queue for indexing requests
     private static FifoJMSQueue indexerQueue;
-    private static IndexRequestMasterListener irl;
+    private static HibernateIndexer irl;
 
     private static String providerOrgId;
     private static String supplierOrgId;
@@ -317,15 +316,13 @@ public class SearchServiceBeanListIT extends StaticEJBTestBase {
         container.addBean(new SearchServiceBean());
         container.addBean(new MarketplaceServiceLocalBean());
         container.addBean(new MarketplaceServiceBean());
+        container.addBean(new HibernateIndexer());
 
         setUpDirServerStub(container.get(ConfigurationServiceLocal.class));
         sps = container.get(ServiceProvisioningService.class);
         search = container.get(SearchService.class);
         searchLocal = container.get(SearchServiceLocal.class);
         ds = container.get(DataService.class);
-
-        irl = new IndexRequestMasterListener();
-        irl.dm = ds;
 
         runTX(new Callable<Void>() {
 
@@ -596,16 +593,6 @@ public class SearchServiceBeanListIT extends StaticEJBTestBase {
 
         container.login(platformOperatorAdminKey, ROLE_MARKETPLACE_OWNER);
         sps.suspendService(voSuspendedCustProd, "some Reason");
-        container.logout();
-
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() {
-                flushQueue(indexerQueue, irl, 10000);
-                return null;
-            }
-        });
-
         container.logout();
     }
 
@@ -2493,23 +2480,6 @@ public class SearchServiceBeanListIT extends StaticEJBTestBase {
             result.add(found);
         }
         return result;
-    }
-
-    protected static void flushQueue(FifoJMSQueue queue,
-            IndexRequestMasterListener reciever, int limit) {
-        Assert.assertNotNull(queue);
-        Assert.assertNotNull(reciever);
-        try {
-            Object message = null;
-            do {
-                message = queue.remove();
-                if (message instanceof Message) {
-                    reciever.onMessage((Message) message);
-                }
-            } while (message != null && (--limit > 0));
-        } catch (NoSuchElementException e) {
-            // ignore
-        }
     }
 
     private Organization getOrganizationForCurrentUser() throws Exception {

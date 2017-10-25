@@ -42,7 +42,7 @@ public class APPCommunicationServiceBean {
             .getLogger(APPCommunicationServiceBean.class);
 
     private static final String MAIL_CHARSET = "UTF-8";
-    private static final String DEFAULT_MAIL_RESOURCE = "mail/BSSMail";
+    public static final String DEFAULT_MAIL_RESOURCE = "APPMail";
 
     @EJB
     protected APPConfigurationServiceBean configService;
@@ -90,7 +90,7 @@ public class APPCommunicationServiceBean {
 
         try {
             msg = getMimeMessage(session);
-            Address from = new InternetAddress(session.getProperty("mail.from"));
+            Address from = new InternetAddress(session.getProperty("mail.smtp.from"));
             msg.setFrom(from);
             msg.setReplyTo(new Address[] { from });
             msg.setSubject(subject, encoding);
@@ -105,7 +105,7 @@ public class APPCommunicationServiceBean {
             // system exception will be thrown
             APPlatformException pe = new APPlatformException(
                     "Invalid mail address in configuration setting [Address: "
-                            + session.getProperty("mail.from") + "]", e);
+                            + session.getProperty("mail.smtp.from") + "]", e);
             LOGGER.error(pe.getMessage() + " [Cause: " + e.getMessage() + "]");
             throw pe;
         } catch (Exception e) {
@@ -176,7 +176,7 @@ public class APPCommunicationServiceBean {
         Object resource = null;
         try {
             Context context = new InitialContext();
-            resource = context.lookup(mailResource);
+            resource = context.lookup("java:openejb/Resource/" + mailResource);
         } catch (Exception e) {
             APPlatformException se = new APPlatformException(
                     "The configured JavaMail resource " + mailResource

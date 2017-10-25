@@ -76,7 +76,7 @@ public class DataServiceBean implements DataService {
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(DataServiceBean.class);
 
-    @Resource(name = "BSSDS", lookup = "BSSDS")
+    @Resource(name = "BSSDS")
     DataSource ds;
 
     public static String getCurrentHistoryUser() {

@@ -20,8 +20,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.commons.configuration2.XMLConfiguration;
 import org.oscm.app.vmware.business.balancer.XMLHostConfiguration;
 import org.oscm.app.vmware.business.model.Cluster;
 import org.oscm.app.vmware.business.model.VCenter;
@@ -231,7 +230,7 @@ public class TargetLocationBean extends UiBeanBase {
 
     private String getXml() throws Exception {
         StringWriter sw = new StringWriter();
-        xmlConfig.save(sw);
+        xmlConfig.write(sw);
         return sw.toString();
     }
 

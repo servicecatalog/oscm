@@ -353,7 +353,7 @@ public class MarketingPermissionWSTest {
                     Arrays.asList(supp1.getOrganizationId()), supp1_adminKey);
             fail();
         } catch (SOAPFaultException e) {
-            assertTrue(e.getMessage().contains("AccessException"));
+            assertTrue(e.getMessage().contains("Unauthorized"));
         }
         // similar for removing the permissions
         try {
@@ -361,14 +361,14 @@ public class MarketingPermissionWSTest {
                     Arrays.asList(supp1.getOrganizationId()), supp1_adminKey);
             fail();
         } catch (SOAPFaultException e) {
-            assertTrue(e.getMessage().contains("AccessException"));
+            assertTrue(e.getMessage().contains("Unauthorized"));
         }
         // and for the retrieval
         try {
             getPermittedSuppliers(tp1_ts1, supp1_adminKey);
             fail();
         } catch (SOAPFaultException e) {
-            assertTrue(e.getMessage().contains("AccessException"));
+            assertTrue(e.getMessage().contains("Unauthorized"));
         }
     }
 

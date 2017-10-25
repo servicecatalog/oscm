@@ -5,7 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/libraries/apache-io/javalib/commons-io-1.4.jar"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/modules/javax.ws.rs-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libraries/jersey/javalib/javax.ws.rs-api-2.0.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

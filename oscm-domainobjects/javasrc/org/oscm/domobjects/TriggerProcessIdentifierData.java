@@ -10,6 +10,8 @@ package org.oscm.domobjects;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 import org.oscm.domobjects.converters.TPINConverter;
 import org.oscm.types.enumtypes.TriggerProcessIdentifierName;
@@ -27,7 +29,7 @@ public class TriggerProcessIdentifierData extends DomainDataContainer {
     /**
      * The name of the parameter identifier.
      */
-    @Convert(converter = TPINConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TriggerProcessIdentifierName name;
 

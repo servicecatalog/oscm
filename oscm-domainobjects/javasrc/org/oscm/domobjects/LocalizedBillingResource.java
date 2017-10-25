@@ -40,7 +40,7 @@ public class LocalizedBillingResource extends
 
     private String locale;
 
-    @Convert( converter=LBRTConverter.class )
+    @Enumerated(EnumType.STRING)
     private LocalizedBillingResourceType resourceType;
 
     @Column(nullable = false)

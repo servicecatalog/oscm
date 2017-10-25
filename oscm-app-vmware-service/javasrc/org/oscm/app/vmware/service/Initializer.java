@@ -35,6 +35,8 @@ import org.oscm.app.v2_0.intf.ControllerAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.oscm.app.common.Constants.APPLICATION_SERVER_HOME_CONSTANT;
+
 @Singleton
 @Startup
 public class Initializer {
@@ -64,7 +66,7 @@ public class Initializer {
 	private void postConstruct() {
 		try {
 			// Get default config folder of GF instance
-			String instanceRoot = System.getProperty("com.sun.aas.instanceRoot");
+			String instanceRoot = System.getProperty(APPLICATION_SERVER_HOME_CONSTANT);
 			String controllerId = controllerAccess.getControllerId();
 			if (instanceRoot != null) {
 				File root = new File(instanceRoot);
@@ -93,7 +95,7 @@ public class Initializer {
 					logFile = null;
 				}
 			} else {
-				LOGGER.error("Failed to initialize log file: missing system property 'com.sun.aas.instanceRoot'");
+				LOGGER.error("Failed to initialize log file: missing system property 'catalina.home'");
 			}
 		} catch (Exception e) {
 			LOGGER.error("Failed to initialize log file", e);

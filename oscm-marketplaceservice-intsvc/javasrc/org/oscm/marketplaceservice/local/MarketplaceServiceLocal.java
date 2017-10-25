@@ -11,10 +11,6 @@ package org.oscm.marketplaceservice.local;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-
 import org.oscm.domobjects.CatalogEntry;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.Organization;
@@ -36,6 +32,8 @@ import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOCategory;
 import org.oscm.types.enumtypes.EmailType;
 
+import javax.ejb.Local;
+
 /**
  * Contains business logic performed with and on Marketplaces, that is not
  * accessible to the public API.
@@ -55,7 +53,6 @@ public interface MarketplaceServiceLocal {
      */
     List<Marketplace> getAllMarketplaces();
 
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     List<Marketplace> getAllAccessibleMarketplacesForOrganization(
             long organizationKey);
 
@@ -447,7 +444,6 @@ public interface MarketplaceServiceLocal {
             OrganizationAuthorityException, ConcurrentModificationException,
             ServiceStateException, ServiceOperationException;
 
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     Marketplace getMarketplaceForId(String marketplaceId)
             throws ObjectNotFoundException;
 
@@ -456,7 +452,6 @@ public interface MarketplaceServiceLocal {
      *
      * @return list of organizations
      */
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     List<Organization> getAllOrganizations();
 
     /**
@@ -470,7 +465,6 @@ public interface MarketplaceServiceLocal {
      * @throws ObjectNotFoundException
      * @throws NonUniqueBusinessKeyException
      */
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     Marketplace updateMarketplaceAccessType(String marketplaceId,
             boolean isRestricted)
             throws ObjectNotFoundException, NonUniqueBusinessKeyException;
@@ -483,7 +477,6 @@ public interface MarketplaceServiceLocal {
      * @param organization
      * @throws NonUniqueBusinessKeyException
      */
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     void grantAccessToMarketPlaceToOrganization(Marketplace marketplace,
             Organization organization) throws NonUniqueBusinessKeyException;
 
@@ -492,7 +485,6 @@ public interface MarketplaceServiceLocal {
      *
      * @param marketplaceKey
      */
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     void removeMarketplaceAccesses(long marketplaceKey);
 
     /**
@@ -502,7 +494,6 @@ public interface MarketplaceServiceLocal {
      * @param organizationKey
      * @throws ObjectNotFoundException
      */
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     void removeMarketplaceAccess(long marketplaceKey, long organizationKey)
             throws ObjectNotFoundException;
 
@@ -517,7 +508,6 @@ public interface MarketplaceServiceLocal {
     List<Marketplace> getMarketplacesForOrganizationWithRestrictedAccess(
             long orgKey);
 
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     boolean doesAccessToMarketplaceExistForOrganization(long marketplaceKey,
             long organizationKey);
 
@@ -567,7 +557,6 @@ public interface MarketplaceServiceLocal {
      *         found
      * @throws ObjectNotFoundException
      */
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     List<Marketplace> getAllMarketplacesForTenant(Long tenantKey)
             throws ObjectNotFoundException;
 }

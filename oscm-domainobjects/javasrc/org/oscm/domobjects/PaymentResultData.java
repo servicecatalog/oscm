@@ -45,7 +45,7 @@ public class PaymentResultData extends DomainDataContainer {
     /**
      * The current status of the payment operation.
      */
-    @Convert(converter = PaymentProcessingStatusConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentProcessingStatus processingStatus;
 

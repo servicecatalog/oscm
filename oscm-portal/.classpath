@@ -4,9 +4,6 @@
 	<classpathentry kind="src" path="javares"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="lib" path="/libraries/apache-beanutils/javalib/commons-beanutils-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-logging/javalib/commons-logging-1.1.3.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-digester/javalib/commons-digester-1.8.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/cssparser-0.9.14.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/guava-18.0.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/richfaces-components-a4j-4.5.0.Final.jar"/>
@@ -20,25 +17,32 @@
 	<classpathentry kind="lib" path="/libraries/apache-fileupload/javalib/commons-fileupload-1.2.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-io/javalib/commons-io-1.4.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomahawk/javalib/tomahawk20-1.1.14.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-el/javalib/commons-el.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-poi/javalib/poi-3.9.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-internal"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-internal-interfaces"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-serviceprovisioning-intsvc"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/javaee.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-httpclient/javalib/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/omnifaces/javalib/omnifaces-1.10.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.7.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-collections/javalib/commons-collections-3.2.2.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-saml2-api"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n"/>
-	<classpathentry kind="src" path="/oscm-app-aws"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-billing-external-interfaces"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/gf-client.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-tenantmgmt-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-tenantmgmt"/>
-	<classpathentry kind="lib" path="/libraries/apache-commons-lang/javalib/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-commons-lang/javalib/commons-lang3-3.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/oscm-marketplaceservice-intsvc"/>
+	<classpathentry kind="lib" path="/libraries/javax/javalib/servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javax.faces-2.2.12.jar"/>
+	<classpathentry kind="lib" path="/libraries/javax/javalib/javax.el-api-3.0.1-b04.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-beanutils/javalib/commons-beanutils-1.8.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-logging/javalib/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/jackson/javalib/jackson-annotations.jar"/>
+	<classpathentry kind="lib" path="/libraries/jackson/javalib/jackson-core.jar"/>
+	<classpathentry kind="lib" path="/libraries/jackson/javalib/jackson-databind.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/openejb-core-7.0.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

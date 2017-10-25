@@ -20,20 +20,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.EntityManager;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.TableGenerator;
-import javax.persistence.Version;
+import javax.persistence.*;
 
 import org.oscm.app.business.exceptions.BadResultException;
 import org.oscm.app.converters.PSConverter;
@@ -112,7 +99,7 @@ public class ServiceInstance implements Serializable {
      * instance.
      */
     @Column(nullable = false)
-    @Convert(converter = PSConverter.class)
+    @Enumerated(EnumType.STRING)
     private ProvisioningStatus provisioningStatus;
 
     /**

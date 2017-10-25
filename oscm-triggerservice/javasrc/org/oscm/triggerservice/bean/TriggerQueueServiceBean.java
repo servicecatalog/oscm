@@ -62,10 +62,10 @@ public class TriggerQueueServiceBean implements TriggerQueueServiceLocal {
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(TriggerQueueServiceBean.class);
 
-    @Resource(name = "connFactory", mappedName = "jms/bss/triggerQueueFactory")
+    @Resource(name = "JmsConnectionFactory")
     protected ConnectionFactory qFactory;
 
-    @Resource(name = "jmsQueue", mappedName = "jms/bss/triggerQueue")
+    @Resource(name = "OSCMTriggerQueue")
     protected Queue queue;
 
     @EJB(beanInterface = DataService.class)

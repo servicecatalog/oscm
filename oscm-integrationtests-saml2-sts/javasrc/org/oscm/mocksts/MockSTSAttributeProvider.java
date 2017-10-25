@@ -19,8 +19,8 @@ import java.util.Set;
 import javax.security.auth.Subject;
 import javax.xml.namespace.QName;
 
-import com.sun.xml.ws.api.security.trust.Claims;
-import com.sun.xml.ws.api.security.trust.STSAttributeProvider;
+//import com.sun.xml.ws.api.security.trust.Claims;
+//import com.sun.xml.ws.api.security.trust.STSAttributeProvider;
 
 /**
  * This implementation of STSAttributeProvider is invoked by Metro when a SAML
@@ -32,15 +32,15 @@ import com.sun.xml.ws.api.security.trust.STSAttributeProvider;
  * @author roderus
  * 
  */
-public class MockSTSAttributeProvider implements STSAttributeProvider {
+public class MockSTSAttributeProvider {// implements STSAttributeProvider {
     
     private static final String COMMON_PROPERTIES_PATH = "common.properties";
     private static final String TENANT_ID = "tenantID";
     
     
-    @Override
+//    @Override
     public Map<QName, List<String>> getClaimedAttributes(Subject subject,
-            String appliesTo, String tokenType, Claims claims) {
+            String appliesTo, String tokenType, Object claims) {
         String name = null;
         
         Set<Principal> principals = subject.getPrincipals();
@@ -56,7 +56,7 @@ public class MockSTSAttributeProvider implements STSAttributeProvider {
 
         Map<QName, List<String>> attributes = new HashMap<QName, List<String>>();
         
-        addAttribute(attributes, STSAttributeProvider.NAME_IDENTIFIER, name);
+//        addAttribute(attributes, STSAttributeProvider.NAME_IDENTIFIER, name);
         addAttribute(attributes, "dummy_id1", "test_dummy_attribute1");
         addAttribute(attributes, "userid", name);
         addAttribute(attributes, "dummy_id2", "test_dummy_attribute2");

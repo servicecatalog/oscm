@@ -53,7 +53,7 @@ public class BillingSharesResultData extends DomainDataContainer {
     @Column(nullable = false)
     private long organizationTKey;
 
-    @Convert( converter=BSRDConverter.class )
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BillingSharesResultType resultType;
 

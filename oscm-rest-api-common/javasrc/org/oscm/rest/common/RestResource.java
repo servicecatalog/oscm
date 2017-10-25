@@ -8,13 +8,16 @@
 
 package org.oscm.rest.common;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import java.net.URI;
+import java.util.List;
 
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
+
+import static org.oscm.rest.common.CommonParams.PARAM_VERSION;
 
 /**
  * Super class for REST resources and their endpoints.
@@ -23,11 +26,13 @@ import javax.ws.rs.core.UriBuilder;
  */
 public abstract class RestResource {
 
+    private VersionValidator versionValidator = new VersionValidator();
+
     /**
      * Wrapper for backend GET commands. Prepares, validates and revises data
      * for commands and assembles responses.
      * 
-     * @param request
+     * @param uriInfo
      *            the request context
      * @param backend
      *            the backend command
@@ -38,10 +43,10 @@ public abstract class RestResource {
      * @return the response with representation or -collection
      */
     protected <R extends Representation, P extends RequestParameters> Response get(
-            Request request, RestBackend.Get<R, P> backend, P params,
+            UriInfo uriInfo, RestBackend.Get<R, P> backend, P params,
             boolean id) throws Exception {
 
-        int version = getVersion(request);
+        int version = getVersion(uriInfo);
 
         prepareData(version, params, id, null, false);
 
@@ -60,8 +65,8 @@ public abstract class RestResource {
     /**
      * Wrapper for backend GET commands for getting collections. Prepares,
      * validates and revises data for commands and assembles responses.
-     * 
-     * @param request
+     *
+     * @param uriInfo
      *            the request context
      * @param backend
      *            the backend command
@@ -71,10 +76,10 @@ public abstract class RestResource {
      * @throws Exception
      */
     protected <R extends Representation, P extends RequestParameters> Response getCollection(
-            Request request, RestBackend.GetCollection<R, P> backend, P params)
+            UriInfo uriInfo, RestBackend.GetCollection<R, P> backend, P params)
             throws Exception {
 
-        int version = getVersion(request);
+        int version = getVersion(uriInfo);
 
         prepareData(version, params, false, null, false);
 
@@ -93,8 +98,8 @@ public abstract class RestResource {
     /**
      * Wrapper for backend POST commands. Prepares, validates and revises data
      * for commands and assembles responses.
-     * 
-     * @param request
+     *
+     * @param uriInfo
      *            the request context
      * @param backend
      *            the backend command
@@ -105,19 +110,16 @@ public abstract class RestResource {
      * @return the response with the new location
      */
     protected <R extends Representation, P extends RequestParameters> Response post(
-            Request request, RestBackend.Post<R, P> backend, R content,
+            UriInfo uriInfo, RestBackend.Post<R, P> backend, R content,
             P params) throws Exception {
 
-        int version = getVersion(request);
+        int version = getVersion(uriInfo);
 
         prepareData(version, params, false, content, true);
 
         Object newId = backend.post(content, params);
 
-        ContainerRequestContext cr = (ContainerRequestContext) request;
-        UriBuilder builder = cr.getUriInfo().getAbsolutePathBuilder();
-        URI uri = builder.path(newId.toString()).build();
-
+        URI uri = URI.create(newId.toString());
         return Response.created(uri).build();
     }
 
@@ -125,8 +127,8 @@ public abstract class RestResource {
      * Wrapper for backend PUT commands. Prepares, validates and revises data
      * for commands and assembles responses. Also overrides the id of the
      * representation with the id of the parameters.
-     * 
-     * @param request
+     *
+     * @param uriInfo
      *            the request context
      * @param backend
      *            the backend command
@@ -137,10 +139,10 @@ public abstract class RestResource {
      * @return the response without content
      */
     protected <R extends Representation, P extends RequestParameters> Response put(
-            Request request, RestBackend.Put<R, P> backend, R content, P params)
+            UriInfo uriInfo, RestBackend.Put<R, P> backend, R content, P params)
             throws Exception {
 
-        int version = getVersion(request);
+        int version = getVersion(uriInfo);
 
         prepareData(version, params, true, content, true);
 
@@ -157,8 +159,8 @@ public abstract class RestResource {
     /**
      * Wrapper for backend DELETE commands. Prepares, validates and revises data
      * for commands and assembles responses.
-     * 
-     * @param request
+     *
+     * @param uriInfo
      *            the request context
      * @param backend
      *            the backend command
@@ -166,10 +168,10 @@ public abstract class RestResource {
      *            the request parameters
      * @return the response without content
      */
-    protected <P extends RequestParameters> Response delete(Request request,
+    protected <P extends RequestParameters> Response delete(UriInfo uriInfo,
             RestBackend.Delete<P> backend, P params) throws Exception {
 
-        int version = getVersion(request);
+        int version = getVersion(uriInfo);
 
         prepareData(version, params, true, null, false);
 
@@ -181,23 +183,19 @@ public abstract class RestResource {
     /**
      * Extracts the version number from the container request properties. Throws
      * Exception if property is null.
-     * 
-     * @param request
+     *
+     * @param uriInfo
      *            the container request
      * @return the version number
      * @throws WebApplicationException
      */
-    protected int getVersion(Request request) throws WebApplicationException {
-
-        ContainerRequestContext cr = (ContainerRequestContext) request;
-        Object property = cr.getProperty(CommonParams.PARAM_VERSION);
-
-        if (property == null) {
+    protected int getVersion(UriInfo uriInfo) throws WebApplicationException {
+        List<String> strings = uriInfo.getPathParameters().get(PARAM_VERSION);
+        if (strings == null) {
             throw WebException.notFound()
                     .message(CommonParams.ERROR_INVALID_VERSION).build();
         }
-
-        return ((Integer) property).intValue();
+        return versionValidator.doIt(strings.get(0));
     }
 
     /**
@@ -236,7 +234,7 @@ public abstract class RestResource {
 
             rep.validateContent();
 
-            rep.setVersion(new Integer(version));
+            rep.setVersion(version);
             rep.update();
         }
     }
@@ -252,7 +250,7 @@ public abstract class RestResource {
     protected void reviseData(int version, Representation rep) {
 
         if (rep != null) {
-            rep.setVersion(new Integer(version));
+            rep.setVersion(version);
             rep.convert();
         }
     }

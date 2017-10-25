@@ -14,7 +14,6 @@ package internal;
 import java.util.List;
 import java.util.Set;
 
-import javax.jws.WebParam;
 import javax.jws.WebService;
 
 import org.oscm.intf.SubscriptionService;

@@ -977,9 +977,8 @@ public class PriceModelBean extends BaseBean implements Serializable {
             if (customerPricemodelCreation
                     && (getCurrentPMPage() == PRICEMODEL_FOR_CUSTOMER)) {
                 // we create a new price model so edit is enabled
-                editDisabled = getSelectedService() == null ? false
-                        : getSelectedService()
-                                .getAccessType() == ServiceAccessType.EXTERNAL;
+                editDisabled = getSelectedService() != null && getSelectedService()
+                        .getAccessType() == ServiceAccessType.EXTERNAL;
             } else if (getSelectedService() != null) {
                 editDisabled = getSelectedService()
                         .getStatus() == ServiceStatus.ACTIVE

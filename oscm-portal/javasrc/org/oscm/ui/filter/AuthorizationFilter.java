@@ -132,7 +132,8 @@ public class AuthorizationFilter extends BaseBesFilter {
 
     private void rollbackDefaultTimeout(HttpServletRequest httpRequest) {
         HttpSession session = httpRequest.getSession();
-        Integer attributeInt = (Integer) session.getAttribute(Constants.SESS_ATTR_DEFAULT_TIMEOUT);
+        Integer attributeInt = (Integer) session
+                .getAttribute(Constants.SESS_ATTR_DEFAULT_TIMEOUT);
         if (attributeInt != null) {
             session.setMaxInactiveInterval(attributeInt.intValue());
             session.removeAttribute(Constants.SESS_ATTR_DEFAULT_TIMEOUT);
@@ -149,12 +150,14 @@ public class AuthorizationFilter extends BaseBesFilter {
 
         // first, check if landing page is public
         if (rdo.isLandingPage()) {
-            LandingpageConfigurationService service = lookupLandingpageConfigurationService(request);
+            LandingpageConfigurationService service = lookupLandingpageConfigurationService(
+                    request);
             try {
-                LandingpageType type = service.loadLandingpageType(rdo
-                        .getMarketplaceId());
+                LandingpageType type = service
+                        .loadLandingpageType(rdo.getMarketplaceId());
                 return type.isDefault();
             } catch (Exception e) {
+                e.printStackTrace();
                 return false;
             }
         }
@@ -167,8 +170,7 @@ public class AuthorizationFilter extends BaseBesFilter {
             HttpServletRequest httpRequest) {
         ServiceAccess serviceAccess = ServiceAccess
                 .getServiceAcccessFor(httpRequest.getSession());
-        return serviceAccess
-                .getService(LandingpageConfigurationService.class);
+        return serviceAccess.getService(LandingpageConfigurationService.class);
     }
 
     private void appendParam(StringBuffer url, String param, String value,
@@ -203,10 +205,12 @@ public class AuthorizationFilter extends BaseBesFilter {
                         .getService(IdentityService.class);
                 rdo.setUserId(userId);
                 rdo.setPassword(httpRequest.getParameter(PARAM_LOGIN_PASSWORD));
-                VOUser voUser = readTechnicalUserFromDb(identityService,
-                        rdo);
-                serviceAccess.login(voUser, rdo.getPassword(), httpRequest,
-                        httpResponse);
+                VOUser voUser = readTechnicalUserFromDb(identityService, rdo);
+                httpRequest.getSession();
+                httpRequest.login(String.valueOf(voUser.getKey()),
+                        rdo.getPassword());
+                // serviceAccess.login(voUser, rdo.getPassword(), httpRequest,
+                // httpResponse);
                 httpRequest.getSession().setAttribute(Constants.SESS_ATTR_USER,
                         identityService.getCurrentUserDetails());
             } catch (Exception e2) {
@@ -246,8 +250,8 @@ public class AuthorizationFilter extends BaseBesFilter {
             AuthorizationRequestData rdo) throws IOException, ServletException {
 
         if (logger.isDebugLoggingEnabled()) {
-            logger.logDebug("Access to protected URL='" + rdo.getRelativePath()
-                    + "'");
+            logger.logDebug(
+                    "Access to protected URL='" + rdo.getRelativePath() + "'");
         }
 
         ServiceAccess serviceAccess = ServiceAccess
@@ -262,8 +266,8 @@ public class AuthorizationFilter extends BaseBesFilter {
                  * the parameters can't be accessed via the request input
                  * stream.
                  */
-                httpRequest = handleServiceUrl(chain, httpRequest,
-                        httpResponse, rdo);
+                httpRequest = handleServiceUrl(chain, httpRequest, httpResponse,
+                        rdo);
                 if (httpRequest == null) {
                     return;
                 }
@@ -294,7 +298,8 @@ public class AuthorizationFilter extends BaseBesFilter {
 
             // the httpRequest was already processed and we forwarded to the
             // corresponding page therefore we must not try to login again
-            if (httpRequest.getAttribute(Constants.REQ_ATTR_ERROR_KEY) != null) {
+            if (httpRequest
+                    .getAttribute(Constants.REQ_ATTR_ERROR_KEY) != null) {
                 chain.doFilter(httpRequest, httpResponse);
                 return;
             }
@@ -322,14 +327,14 @@ public class AuthorizationFilter extends BaseBesFilter {
                 if (ADMStringUtils.isBlank(rdo.getUserId())
                         || !rdo.isPasswordSet()) {
                     if (!rdo.isMarketplace()
-                            && (!ADMStringUtils.isBlank(rdo.getUserId()) || rdo
-                                    .isPasswordSet())) {
+                            && (!ADMStringUtils.isBlank(rdo.getUserId())
+                                    || rdo.isPasswordSet())) {
                         // login data not complete, user or password empty
                         httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
                                 BaseBean.ERROR_LOGIN);
                     }
-                    forwardToLoginPage(rdo.getRelativePath(), true,
-                            httpRequest, httpResponse, chain);
+                    forwardToLoginPage(rdo.getRelativePath(), true, httpRequest,
+                            httpResponse, chain);
                     return;
                 }
             }
@@ -338,8 +343,7 @@ public class AuthorizationFilter extends BaseBesFilter {
                     .getService(IdentityService.class);
             VOUser voUser;
             try {
-                voUser = readTechnicalUserFromDb(identityService,
-                        rdo);
+                voUser = readTechnicalUserFromDb(identityService, rdo);
             } catch (ObjectNotFoundException e) {
                 handleUserNotRegistered(chain, httpRequest, httpResponse, rdo);
                 return;
@@ -361,8 +365,8 @@ public class AuthorizationFilter extends BaseBesFilter {
                 operationSucceeded = handleChangeUserPasswordRequest(chain,
                         httpRequest, httpResponse, rdo, identityService);
             } else {
-                operationSucceeded = loginUser(chain, httpRequest,
-                        httpResponse, voUser, rdo, identityService);
+                operationSucceeded = loginUser(chain, httpRequest, httpResponse,
+                        voUser, rdo, identityService);
             }
             if (!operationSucceeded) {
                 return;
@@ -378,8 +382,8 @@ public class AuthorizationFilter extends BaseBesFilter {
                 forward(insufficientAuthoritiesUrl, httpRequest, httpResponse);
             }
             // check if user must change his password
-            if (!authSettings.isServiceProvider()
-                    && (rdo.getUserDetails().getStatus() == UserAccountStatus.PASSWORD_MUST_BE_CHANGED)) {
+            if (!authSettings.isServiceProvider() && (rdo.getUserDetails()
+                    .getStatus() == UserAccountStatus.PASSWORD_MUST_BE_CHANGED)) {
                 forwardToPwdPage(rdo.getUserDetails().getUserId(), httpRequest,
                         httpResponse);
             } else {
@@ -401,8 +405,8 @@ public class AuthorizationFilter extends BaseBesFilter {
             AuthorizationRequestData rdo, ServiceAccess serviceAccess) {
         @SuppressWarnings("unchecked")
         List<PageAuthorization> pageAuthorizationList = ((List<PageAuthorization>) httpRequest
-                .getSession().getAttribute(
-                        Constants.SESS_ATTR_PAGE_AUTHORIZATION));
+                .getSession()
+                .getAttribute(Constants.SESS_ATTR_PAGE_AUTHORIZATION));
         if (pageAuthorizationList == null) {
             PageAuthorizationBuilder builder = new PageAuthorizationBuilder(
                     serviceAccess);
@@ -414,8 +418,8 @@ public class AuthorizationFilter extends BaseBesFilter {
         }
 
         for (PageAuthorization page : pageAuthorizationList) {
-            if (page.getCurrentPageLink().equalsIgnoreCase(
-                    httpRequest.getServletPath())) {
+            if (page.getCurrentPageLink()
+                    .equalsIgnoreCase(httpRequest.getServletPath())) {
                 return !page.isAuthorized();
             }
         }
@@ -467,8 +471,8 @@ public class AuthorizationFilter extends BaseBesFilter {
             } else {
                 forwardErrorPage = Constants.INSUFFICIENT_AUTHORITIES_URI;
             }
-            JSFUtils.sendRedirect(httpResponse, httpRequest.getContextPath()
-                    + forwardErrorPage);
+            JSFUtils.sendRedirect(httpResponse,
+                    httpRequest.getContextPath() + forwardErrorPage);
         } else {
             // make sure we do not catch exceptions cause by
             // ViewExpiredException here, they'll be handled directly in the
@@ -492,10 +496,12 @@ public class AuthorizationFilter extends BaseBesFilter {
         }
     }
 
-    private void handleMarketplaceRemovedException(HttpServletRequest httpRequest, HttpServletResponse httpResponse) throws ServletException, IOException {
-            httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
-                    BaseBean.ERROR_MARKETPLACE_REMOVED);
-            forward(errorPage, httpRequest, httpResponse);
+    private void handleMarketplaceRemovedException(
+            HttpServletRequest httpRequest, HttpServletResponse httpResponse)
+            throws ServletException, IOException {
+        httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
+                BaseBean.ERROR_MARKETPLACE_REMOVED);
+        forward(errorPage, httpRequest, httpResponse);
     }
 
     private void handleUserNotRegistered(FilterChain chain,
@@ -521,8 +527,9 @@ public class AuthorizationFilter extends BaseBesFilter {
     }
 
     private void refreshData(AuthenticationSettings authSettings,
-                             AuthorizationRequestData rdo, HttpServletRequest request,
-                             HttpServletResponse response) throws ServletException, IOException, MarketplaceRemovedException {
+            AuthorizationRequestData rdo, HttpServletRequest request,
+            HttpServletResponse response)
+            throws ServletException, IOException, MarketplaceRemovedException {
 
         if (authSettings.isServiceProvider()) {
 
@@ -549,7 +556,7 @@ public class AuthorizationFilter extends BaseBesFilter {
                 }
                 rdo.setPassword(generatedPassword);
 
-                //if generated password is null, then timeout!!!
+                // if generated password is null, then timeout!!!
             }
         } else {
             rdo.refreshData(request);
@@ -559,28 +566,35 @@ public class AuthorizationFilter extends BaseBesFilter {
 
     }
 
-    public String getTenantID(AuthorizationRequestData ard, HttpServletRequest httpRequest) throws MarketplaceRemovedException {
+    public String getTenantID(AuthorizationRequestData ard,
+            HttpServletRequest httpRequest) throws MarketplaceRemovedException {
         String tenantID;
         if (ard.isMarketplace()) {
             tenantID = getTenantIDFromMarketplace(httpRequest, ard);
         } else {
             tenantID = getTenantIDFromRequest(httpRequest);
         }
-        if(StringUtils.isNotBlank(tenantID)) {
-            httpRequest.getSession().setAttribute(REQ_PARAM_TENANT_ID, tenantID);
+        if (StringUtils.isNotBlank(tenantID)) {
+            httpRequest.getSession().setAttribute(REQ_PARAM_TENANT_ID,
+                    tenantID);
         } else {
-            tenantID = (String) httpRequest.getSession().getAttribute(REQ_PARAM_TENANT_ID);
+            tenantID = (String) httpRequest.getSession()
+                    .getAttribute(REQ_PARAM_TENANT_ID);
         }
-        if(StringUtils.isBlank(tenantID)) {
+        if (StringUtils.isBlank(tenantID)) {
             logger.logDebug("TenantID is missing. Using default.");
-            tenantID = getConfigurationService(httpRequest).getVOConfigurationSetting(SSO_DEFAULT_TENANT_ID, GLOBAL_CONTEXT).getValue();
-            httpRequest.getSession().setAttribute(REQ_PARAM_TENANT_ID, tenantID);
+            tenantID = getConfigurationService(httpRequest)
+                    .getVOConfigurationSetting(SSO_DEFAULT_TENANT_ID,
+                            GLOBAL_CONTEXT)
+                    .getValue();
+            httpRequest.getSession().setAttribute(REQ_PARAM_TENANT_ID,
+                    tenantID);
         }
         return tenantID;
     }
 
     private String getTenantIDFromMarketplace(HttpServletRequest httpRequest,
-                                              AuthorizationRequestData ard) throws MarketplaceRemovedException {
+            AuthorizationRequestData ard) throws MarketplaceRemovedException {
         String marketplaceId = ard.getMarketplaceId();
         String tenantID = null;
         if (StringUtils.isNotBlank(marketplaceId)) {
@@ -639,9 +653,9 @@ public class AuthorizationFilter extends BaseBesFilter {
         httpRequest.setAttribute(Constants.REQ_PARAM_SUB_KEY,
                 rdo.getSubscriptionKey());
         httpRequest.setAttribute(Constants.REQ_PARAM_CONTEXT_PATH, contextPath);
-    
-        return processServiceUrl(httpRequest,
-                httpResponse, chain, rdo.getSubscriptionKey(), contextPath, rdo);
+
+        return processServiceUrl(httpRequest, httpResponse, chain,
+                rdo.getSubscriptionKey(), contextPath, rdo);
     }
 
     private void handleSubscriptionNotFound(FilterChain chain,
@@ -664,13 +678,13 @@ public class AuthorizationFilter extends BaseBesFilter {
     private VOMarketplace determineMarketplaceForSubscription(
             HttpServletRequest httpRequest, AuthorizationRequestData rdo)
             throws ObjectNotFoundException {
-        Map<String, VOMarketplace> cachedMarketplaces = getMarketplaceMapFromSession(httpRequest
-                .getSession());
+        Map<String, VOMarketplace> cachedMarketplaces = getMarketplaceMapFromSession(
+                httpRequest.getSession());
         VOMarketplace mpl = cachedMarketplaces.get(rdo.getSubscriptionKey());
         if (mpl == null) {
             MarketplaceService marketplaceService = ServiceAccess
-                    .getServiceAcccessFor(httpRequest.getSession()).getService(
-                            MarketplaceService.class);
+                    .getServiceAcccessFor(httpRequest.getSession())
+                    .getService(MarketplaceService.class);
             mpl = marketplaceService.getMarketplaceForSubscription(
                     ADMStringUtils.parseUnsignedLong(rdo.getSubscriptionKey()),
                     "en");
@@ -694,8 +708,8 @@ public class AuthorizationFilter extends BaseBesFilter {
             return true;
         }
 
-        if (voUser.getStatus() != null
-                && voUser.getStatus().getLockLevel() > UserAccountStatus.LOCK_LEVEL_LOGIN) {
+        if (voUser.getStatus() != null && voUser.getStatus()
+                .getLockLevel() > UserAccountStatus.LOCK_LEVEL_LOGIN) {
             httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
                     BaseBean.ERROR_USER_LOCKED);
             sendRedirect(httpRequest, httpResponse, errorPage);
@@ -712,7 +726,8 @@ public class AuthorizationFilter extends BaseBesFilter {
 
         VOUserDetails userDetails = rdo.getUserDetails();
         if (userDetails != null) {
-            httpRequest.getSession().setAttribute(PORTAL_HAS_BEEN_REQUESTED, !rdo.isMarketplace());
+            httpRequest.getSession().setAttribute(PORTAL_HAS_BEEN_REQUESTED,
+                    !rdo.isMarketplace());
 
             // if the user wants to use another organization he must login
             // again (the service sessions are destroyed as well)
@@ -720,7 +735,8 @@ public class AuthorizationFilter extends BaseBesFilter {
             // don't let a user with status PASSWORD_MUST_BE_CHANGED see any
             // site but the one to change the pwd
             if (!authSettings.isServiceProvider()) {
-                if (userDetails.getStatus() == UserAccountStatus.PASSWORD_MUST_BE_CHANGED
+                if (userDetails
+                        .getStatus() == UserAccountStatus.PASSWORD_MUST_BE_CHANGED
                         && !rdo.isRequestedToChangePwd()) {
                     forwardToPwdPage(userDetails.getUserId(), httpRequest,
                             httpResponse);
@@ -733,8 +749,8 @@ public class AuthorizationFilter extends BaseBesFilter {
                     || !rdo.isRequestedToChangePwd()) {
                 long t = System.currentTimeMillis();
                 if (ADMStringUtils.isBlank(httpRequest.getServletPath())
-                        || httpRequest.getServletPath().startsWith(
-                                MenuBean.LINK_DEFAULT)) {
+                        || httpRequest.getServletPath()
+                                .startsWith(MenuBean.LINK_DEFAULT)) {
                     String defaultUrl = getDefaultUrl(serviceAccess, rdo,
                             httpRequest);
                     forward(defaultUrl, httpRequest, httpResponse);
@@ -751,9 +767,9 @@ public class AuthorizationFilter extends BaseBesFilter {
                 }
                 chain.doFilter(httpRequest, httpResponse);
                 if (logger.isDebugLoggingEnabled()) {
-                    logger.logDebug("URL='" + rdo.getRelativePath()
-                            + "' processed in "
-                            + (System.currentTimeMillis() - t) + "ms");
+                    logger.logDebug(
+                            "URL='" + rdo.getRelativePath() + "' processed in "
+                                    + (System.currentTimeMillis() - t) + "ms");
                 }
                 return true;
             }
@@ -762,9 +778,9 @@ public class AuthorizationFilter extends BaseBesFilter {
         return false;
     }
 
-    VOUser readTechnicalUserFromDb(IdentityService service, AuthorizationRequestData ard)
-            throws ObjectNotFoundException, OperationNotPermittedException,
-            OrganizationRemovedException {
+    VOUser readTechnicalUserFromDb(IdentityService service,
+            AuthorizationRequestData ard) throws ObjectNotFoundException,
+            OperationNotPermittedException, OrganizationRemovedException {
         VOUser voUser = new VOUser();
         voUser.setUserId(ard.getUserId());
         voUser.setTenantId(ard.getTenantID());
@@ -775,8 +791,8 @@ public class AuthorizationFilter extends BaseBesFilter {
     protected boolean loginUser(FilterChain chain,
             HttpServletRequest httpRequest, HttpServletResponse httpResponse,
             VOUser voUser, AuthorizationRequestData rdo,
-            IdentityService identityService) throws ServletException,
-            IOException {
+            IdentityService identityService)
+            throws ServletException, IOException {
 
         HttpSession session = httpRequest.getSession();
         boolean onlyServiceLogin = BesServletRequestReader
@@ -821,8 +837,11 @@ public class AuthorizationFilter extends BaseBesFilter {
                     LogMessageIdentifier.INFO_USER_LOGIN_INVALID,
                     httpRequest.getRemoteHost(),
                     Integer.toString(httpRequest.getRemotePort()),
-                    StringUtils.isNotBlank(voUser.getUserId()) ? voUser.getUserId() : "",
-                    IPResolver.resolveIpAddress(httpRequest), voUser.getTenantId());
+                    StringUtils.isNotBlank(voUser.getUserId())
+                            ? voUser.getUserId()
+                            : "",
+                    IPResolver.resolveIpAddress(httpRequest),
+                    voUser.getTenantId());
             try {
                 voUser = identityService.getUser(voUser);
             } catch (ObjectNotFoundException e1) {
@@ -834,8 +853,8 @@ public class AuthorizationFilter extends BaseBesFilter {
                 return false;
             }
 
-            if (voUser.getStatus() != null
-                    && voUser.getStatus().getLockLevel() > UserAccountStatus.LOCK_LEVEL_LOGIN) {
+            if (voUser.getStatus() != null && voUser.getStatus()
+                    .getLockLevel() > UserAccountStatus.LOCK_LEVEL_LOGIN) {
                 httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
                         BaseBean.ERROR_USER_LOCKED);
                 forward(errorPage, httpRequest, httpResponse);
@@ -846,16 +865,22 @@ public class AuthorizationFilter extends BaseBesFilter {
             return false;
         }
 
-        if (!rdo.isMarketplace()
-                && !rdo.isAccessToServiceUrl() // BE09588 Login is OK if a
-                                               // service is accessed, whose
-                                               // subscription has no
-                                               // marketplace
+        if (!rdo.isMarketplace() && !rdo.isAccessToServiceUrl() // BE09588 Login
+                                                                // is OK
+                                                                // if a
+                                                                // service is
+                                                                // accessed,
+                                                                // whose
+                                                                // subscription
+                                                                // has no
+                                                                // marketplace
                 && identityService.getCurrentUserDetails()
                         .getOrganizationRoles().size() == 1
                 && identityService.getCurrentUserDetails()
                         .getOrganizationRoles()
-                        .contains(OrganizationRoleType.CUSTOMER)) {
+                        .contains(OrganizationRoleType.CUSTOMER))
+
+        {
             if (ADMStringUtils.isBlank(rdo.getMarketplaceId())) {
                 if (redirectToMpUrl(httpRequest, httpResponse)) {
                     setupUserDetail(httpRequest, rdo, identityService, session);
@@ -880,12 +905,15 @@ public class AuthorizationFilter extends BaseBesFilter {
         try {
             identityService.refreshLdapUser();
         } catch (ValidationException e) {
-            logger.logDebug("Refresh of LDAP user failed, most likely due to missing/wrong LDAP settings");
+            logger.logDebug(
+                    "Refresh of LDAP user failed, most likely due to missing/wrong LDAP settings");
         }
 
         logger.logInfo(Log4jLogger.ACCESS_LOG,
                 LogMessageIdentifier.INFO_USER_LOGIN_SUCCESS,
-                StringUtils.isNotBlank(voUser.getUserId()) ? voUser.getUserId() : "", IPResolver.resolveIpAddress(httpRequest), voUser.getTenantId());
+                StringUtils.isNotBlank(voUser.getUserId()) ? voUser.getUserId()
+                        : "",
+                IPResolver.resolveIpAddress(httpRequest), voUser.getTenantId());
         return true;
     }
 
@@ -896,12 +924,13 @@ public class AuthorizationFilter extends BaseBesFilter {
      * @param session
      */
     private void setupUserDetail(HttpServletRequest httpRequest,
-                                 AuthorizationRequestData rdo, IdentityService identityService,
-                                 HttpSession session) {
+            AuthorizationRequestData rdo, IdentityService identityService,
+            HttpSession session) {
         rdo.setUserDetails(identityService.getCurrentUserDetails());
         HttpSession httpSession = httpRequest.getSession(false);
         if (httpSession != null) {
-            session.setAttribute(Constants.SESS_ATTR_USER, rdo.getUserDetails());
+            session.setAttribute(Constants.SESS_ATTR_USER,
+                    rdo.getUserDetails());
         }
     }
 
@@ -910,16 +939,17 @@ public class AuthorizationFilter extends BaseBesFilter {
             ServiceAccess serviceAccess, AuthorizationRequestData rdo)
             throws IOException, ServletException {
 
-        String forwardUrl = (String) httpRequest.getSession().getAttribute(
-                Constants.SESS_ATTR_FORWARD_URL);
+        String forwardUrl = (String) httpRequest.getSession()
+                .getAttribute(Constants.SESS_ATTR_FORWARD_URL);
 
-        if (BesServletRequestReader.onlyServiceLogin(httpRequest.getSession())) {
+        if (BesServletRequestReader
+                .onlyServiceLogin(httpRequest.getSession())) {
             if (forwardUrl == null) {
                 forwardUrl = Constants.SERVICE_BASE_URI + "/"
                         + rdo.getSubscriptionKey() + "/";
             }
-            JSFUtils.sendRedirect(httpResponse, httpRequest.getContextPath()
-                    + forwardUrl);
+            JSFUtils.sendRedirect(httpResponse,
+                    httpRequest.getContextPath() + forwardUrl);
             return;
         }
 
@@ -928,12 +958,13 @@ public class AuthorizationFilter extends BaseBesFilter {
             forwardUrl = getDefaultUrl(serviceAccess, rdo, httpRequest);
         }
 
-        if ((ADMStringUtils.isBlank(forwardUrl) || rdo.getRelativePath()
-                .startsWith(forwardUrl)) && !rdo.isMarketplaceLoginPage()) {
+        if ((ADMStringUtils.isBlank(forwardUrl)
+                || rdo.getRelativePath().startsWith(forwardUrl))
+                && !rdo.isMarketplaceLoginPage()) {
             chain.doFilter(httpRequest, httpResponse);
         } else {
-            JSFUtils.sendRedirect(httpResponse, httpRequest.getContextPath()
-                    + forwardUrl);
+            JSFUtils.sendRedirect(httpResponse,
+                    httpRequest.getContextPath() + forwardUrl);
         }
 
     }
@@ -954,8 +985,8 @@ public class AuthorizationFilter extends BaseBesFilter {
         if (rdo.isRequestedToChangePwd()) {
 
             if (!PasswordValidator.validPasswordLength(rdo.getNewPassword())
-                    || !PasswordValidator.validPasswordLength(rdo
-                            .getNewPassword2())
+                    || !PasswordValidator
+                            .validPasswordLength(rdo.getNewPassword2())
                     || !PasswordValidator.passwordsAreEqual(
                             rdo.getNewPassword(), rdo.getNewPassword2())) {
                 // Let JSF run the validators and return the response!
@@ -978,7 +1009,8 @@ public class AuthorizationFilter extends BaseBesFilter {
                 }
 
                 @Override
-                public ServletOutputStream getOutputStream() throws IOException {
+                public ServletOutputStream getOutputStream()
+                        throws IOException {
                     return new ServletOutputStream() {
                         @Override
                         public boolean isReady() {
@@ -986,7 +1018,8 @@ public class AuthorizationFilter extends BaseBesFilter {
                         }
 
                         @Override
-                        public void setWriteListener(WriteListener writeListener) {
+                        public void setWriteListener(
+                                WriteListener writeListener) {
 
                         }
 
@@ -1016,8 +1049,8 @@ public class AuthorizationFilter extends BaseBesFilter {
 
         if (httpRequest.getAttribute(Constants.REQ_ATTR_ERROR_KEY) != null) {
             // Error occurred - check if user is locked now
-            if (voUser.getStatus() != null
-                    && voUser.getStatus().getLockLevel() > UserAccountStatus.LOCK_LEVEL_LOGIN) {
+            if (voUser.getStatus() != null && voUser.getStatus()
+                    .getLockLevel() > UserAccountStatus.LOCK_LEVEL_LOGIN) {
                 httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
                         BaseBean.ERROR_USER_LOCKED);
                 sendRedirect(httpRequest, httpResponse, errorPage);
@@ -1123,8 +1156,8 @@ public class AuthorizationFilter extends BaseBesFilter {
             }
         }
 
-        if (userDetails != null
-                && userDetails.getStatus() != UserAccountStatus.PASSWORD_MUST_BE_CHANGED) {
+        if (userDetails != null && userDetails
+                .getStatus() != UserAccountStatus.PASSWORD_MUST_BE_CHANGED) {
             // the user is already logged in
 
             if (sub == null) {
@@ -1137,13 +1170,12 @@ public class AuthorizationFilter extends BaseBesFilter {
                     UserNotAssignedException e = new UserNotAssignedException(
                             subKey, userDetails.getUserId());
                     logger.logError(
-                            Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG,
-                            e,
+                            Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG, e,
                             LogMessageIdentifier.ERROR_ACTIVE_SUBSCRIPTION_FOR_CURRENT_USER_FAILED,
                             subKey);
                     setErrorAttributesAndForward(
-                            getDefaultUrl(serviceAccess, rdo, request),
-                            request, response, e);
+                            getDefaultUrl(serviceAccess, rdo, request), request,
+                            response, e);
                     return null;
 
                 } else if (sub.getStatus() != SubscriptionStatus.ACTIVE
@@ -1152,17 +1184,17 @@ public class AuthorizationFilter extends BaseBesFilter {
                             "Subscription '" + subKey
                                     + "' not active or pending update.",
                             Reason.ONLY_ACTIVE);
-                    logger.logError(Log4jLogger.SYSTEM_LOG
-                            | Log4jLogger.AUDIT_LOG, e,
+                    logger.logError(
+                            Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG, e,
                             LogMessageIdentifier.ERROR_SUBSCRIPTION_NOT_ACTIVE,
                             subKey);
                     setErrorAttributesAndForward(
-                            getDefaultUrl(serviceAccess, rdo, request),
-                            request, response, e);
+                            getDefaultUrl(serviceAccess, rdo, request), request,
+                            response, e);
                     return null;
 
-                } else if (!sub.getServiceBaseURL().toLowerCase()
-                        .startsWith(request.getScheme().toLowerCase() + "://")) {
+                } else if (!sub.getServiceBaseURL().toLowerCase().startsWith(
+                        request.getScheme().toLowerCase() + "://")) {
                     setErrorAttributesAndForward(errorPage, request, response,
                             new ServiceSchemeException());
                     return null;
@@ -1271,7 +1303,8 @@ public class AuthorizationFilter extends BaseBesFilter {
      * @return the requested map.
      */
     @SuppressWarnings("unchecked")
-    private Map<String, VOSubscription> getSubMapFromSession(HttpSession session) {
+    private Map<String, VOSubscription> getSubMapFromSession(
+            HttpSession session) {
         Map<String, VOSubscription> map = (Map<String, VOSubscription>) session
                 .getAttribute(Constants.SESS_ATTR_ACTIVE_SUB_MAP);
         if (map != null) {
@@ -1347,6 +1380,6 @@ public class AuthorizationFilter extends BaseBesFilter {
         Boolean isSamlForward = (Boolean) httpRequest
                 .getAttribute(Constants.REQ_ATTR_IS_SAML_FORWARD);
         return isSamlForward != null && isSamlForward.booleanValue();
-    
+
     }
 }

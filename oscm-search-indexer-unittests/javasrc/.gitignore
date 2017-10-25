@@ -1,3 +1,0 @@
-# Still not sure why this is necessary. 
-# But if this folder is missing no compilation is made by ANT.
-# On the other side Git ignores empty folders so we need to put this ignore file for now here, but it should be fixed!!! 

@@ -12,11 +12,8 @@
 
 package org.oscm.domobjects;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
-import org.oscm.domobjects.converters.SessionTypeConverter;
 import org.oscm.internal.types.enumtypes.SessionType;
 
 /**
@@ -61,7 +58,7 @@ public class SessionData extends DomainDataContainer {
     /**
      * The type of the session.
      */
-    @Convert(converter = SessionTypeConverter.class)
+    @Enumerated(EnumType.STRING)
     private SessionType sessionType;
 
     /**

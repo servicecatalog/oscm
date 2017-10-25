@@ -24,7 +24,6 @@ import org.oscm.types.exceptions.MailOperationException;
 import org.oscm.types.exceptions.NonUniqueBusinessKeyException;
 import org.oscm.types.exceptions.ObjectNotFoundException;
 import org.oscm.types.exceptions.OperationNotPermittedException;
-import org.oscm.types.exceptions.UserRoleAssignmentException;
 import org.oscm.vo.VOOrganizationalUnit;
 import org.oscm.vo.VOService;
 import org.oscm.vo.VOUser;

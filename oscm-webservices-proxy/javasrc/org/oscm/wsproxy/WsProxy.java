@@ -16,7 +16,7 @@ import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceException;
 
-import com.sun.xml.wss.XWSSConstants;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -75,8 +75,8 @@ public class WsProxy {
         T proxy = createProxy(info, type);
 
         Map<String, Object> ctx = ((BindingProvider) proxy).getRequestContext();
-        ctx.put(XWSSConstants.USERNAME_PROPERTY, user.getUser());
-        ctx.put(XWSSConstants.PASSWORD_PROPERTY, user.getPassword());
+        ctx.put("username", user.getUser());
+        ctx.put("password", user.getPassword());
         ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
                 info.getEndpointAddress());
         return proxy;

@@ -13,9 +13,10 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.configuration.HierarchicalConfiguration;
-import org.apache.commons.configuration.XMLConfiguration;
-import org.apache.commons.configuration.tree.xpath.XPathExpressionEngine;
+import org.apache.commons.configuration2.HierarchicalConfiguration;
+import org.apache.commons.configuration2.XMLConfiguration;
+import org.apache.commons.configuration2.tree.ImmutableNode;
+import org.apache.commons.configuration2.tree.xpath.XPathExpressionEngine;
 import org.oscm.app.vmware.business.VMPropertyHandler;
 import org.oscm.app.vmware.persistence.APPDataAccessService;
 import org.oscm.intf.ServiceProvisioningService;
@@ -114,9 +115,9 @@ public class ServiceParamRetrieval {
         XMLConfiguration xml = new XMLConfiguration();
         xml.setSchemaValidation(false);
         xml.setExpressionEngine(new XPathExpressionEngine());
-        xml.load(in);
+        xml.read(in);
 
-        List<HierarchicalConfiguration> params = xml
+        List<HierarchicalConfiguration<ImmutableNode>> params = xml
                 .configurationsAt("//ParameterDefinition[@configurable=\"false\"]");
         for (HierarchicalConfiguration param : params) {
             if (param.getString("@id").equals(parameterId)) {

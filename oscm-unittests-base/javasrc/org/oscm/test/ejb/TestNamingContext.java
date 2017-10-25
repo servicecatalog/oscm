@@ -17,6 +17,7 @@ import java.util.Hashtable;
 
 import javax.naming.*;
 
+import org.oscm.dataservice.bean.HibernateIndexer;
 import org.oscm.internal.types.exception.UnsupportedOperationException;
 
 /**
@@ -39,6 +40,7 @@ public class TestNamingContext implements Context {
         bind("BSSAppDS", TestDataSources.get("oscm-app")
                 .getDataSource());
         bind("java:appserver/TransactionManager", env.get("java:appserver/TransactionManager"));
+        bind("org.oscm.dataservice.bean.HibernateIndexer", env.get("org.oscm.dataservice.bean.HibernateIndexer"));
     }
 
     public Object addToEnvironment(String propName, Object propVal)

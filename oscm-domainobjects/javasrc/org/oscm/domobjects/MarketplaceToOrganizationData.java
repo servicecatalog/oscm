@@ -23,7 +23,7 @@ public class MarketplaceToOrganizationData extends DomainDataContainer {
 
     private static final long serialVersionUID = -8262011730647781904L;
 
-    @Convert( converter=PAConverter.class )
+    @Enumerated(EnumType.STRING)
     private PublishingAccess publishingAccess;
 
     public PublishingAccess getPublishingAccess() {

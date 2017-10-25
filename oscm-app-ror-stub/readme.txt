@@ -1,1 +1,0 @@
-Stub implementation of the ROR RS API (Cloud Edition V3.1.1). This projected is used by ROR integration tests.

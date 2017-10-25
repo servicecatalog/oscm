@@ -4,7 +4,7 @@
   <faces-config version="2.2"
                 xmlns="http://xmlns.jcp.org/xml/ns/javaee"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+                xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaeeweb-facesconfig_2_2.xsd">
   <converter>
     <converter-id>duration.converter</converter-id>
     <converter-class>org.oscm.ui.converter.DurationConverter</converter-class>

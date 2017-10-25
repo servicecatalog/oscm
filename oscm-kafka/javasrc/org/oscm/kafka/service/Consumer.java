@@ -17,6 +17,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.log4j.Logger;
+import org.oscm.ct.login.ProgrammaticLoginHandler;
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.SubscriptionService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
@@ -26,8 +27,6 @@ import org.oscm.internal.vo.VOSubscription;
 import org.oscm.kafka.records.ReleaseRecord;
 import org.oscm.kafka.serializer.DataSerializer;
 import org.oscm.kafka.serializer.UUIDSerializer;
-
-import com.sun.enterprise.security.ee.auth.login.ProgrammaticLogin;
 
 /**
  * @author stavreva
@@ -182,13 +181,7 @@ public class Consumer implements Runnable {
      * @throws Exception
      */
     void login() throws Exception {
-        ProgrammaticLogin prlogin = new ProgrammaticLogin();
+        new ProgrammaticLoginHandler().login("1000", ("admin123"));
         // TODO dedicated kafka user? how to solve password?
-        boolean loginOutcome = prlogin
-                .login("1000", ("admin123").toCharArray(), "bss-realm", false)
-                .booleanValue();
-        if (loginOutcome == false) {
-            LOGGER.info("Consumer cannot login.");
-        }
     }
 }

@@ -35,7 +35,7 @@ import org.oscm.webservices.logger.WebServiceLogger;
  * @author Aleh Khomich.
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.AccountService")
+@WebService(name = "AccountService", serviceName = "AccountService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.AccountService")
 public class AccountServiceWS implements AccountService {
 
     private static final Log4jLogger LOGGER = LoggerFactory

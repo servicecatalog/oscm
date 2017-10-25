@@ -10,6 +10,7 @@ package org.oscm.rest.common;
 
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 /**
  * Interfaces for REST endpoints
@@ -26,32 +27,32 @@ public interface RestFrontend {
      * @param <P>
      *            request parameters
      */
-    public interface Get<P extends RequestParameters> {
+    interface Get<P extends RequestParameters> {
 
         /**
          * Gets the corresponding representation of the entry with the id in
          * params and wraps it in the response.
-         * 
-         * @param request
+         *
+         * @param uriInfo
          *            the request context
          * @param params
          *            the request parameters
          * @return the response with the representation
          * @throws Exception
          */
-        public Response getItem(Request request, P params) throws Exception;
+        Response getItem(UriInfo uriInfo, P params) throws Exception;
 
         /**
          * Gets all valid entry representations and wraps them in the response.
          * 
-         * @param request
+         * @param uriInfo
          *            the request context
          * @param params
          *            the request parameters
          * @return the response with the representations
          * @throws Exception
          */
-        public Response getCollection(Request request, P params)
+        Response getCollection(UriInfo uriInfo, P params)
                 throws Exception;
     }
 
@@ -65,13 +66,13 @@ public interface RestFrontend {
      * @param <P>
      *            request parameters
      */
-    public interface Post<R extends Representation, P extends RequestParameters> {
+    interface Post<R extends Representation, P extends RequestParameters> {
 
         /**
          * Creates a new entry from the given representation and returns its id
          * within the location header of the response.
          * 
-         * @param request
+         * @param uriInfo
          *            the request context
          * @param content
          *            the representation to create
@@ -80,7 +81,7 @@ public interface RestFrontend {
          * @return the response with the location
          * @throws Exception
          */
-        public Response postCollection(Request request, R content, P params)
+        Response postCollection(UriInfo uriInfo, R content, P params)
                 throws Exception;
     }
 
@@ -94,13 +95,13 @@ public interface RestFrontend {
      * @param <P>
      *            request parameters
      */
-    public interface Put<R extends Representation, P extends RequestParameters> {
+    interface Put<R extends Representation, P extends RequestParameters> {
 
         /**
          * Updates the entry with the id in params with the given
          * representation.
          * 
-         * @param request
+         * @param uriInfo
          *            the request context
          * @param content
          *            the representation to update
@@ -109,7 +110,7 @@ public interface RestFrontend {
          * @return the response without content
          * @throws Exception
          */
-        public Response putItem(Request request, R content, P params)
+        Response putItem(UriInfo uriInfo, R content, P params)
                 throws Exception;
     }
 
@@ -121,19 +122,19 @@ public interface RestFrontend {
      * @param <P>
      *            request parameters
      */
-    public interface Delete<P extends RequestParameters> {
+    interface Delete<P extends RequestParameters> {
 
         /**
          * Deletes the entry with the id in params.
          * 
-         * @param request
+         * @param uriInfo
          *            the request context
          * @param params
          *            the request parameters
          * @return the response without content
          * @throws Exception
          */
-        public Response deleteItem(Request request, P params) throws Exception;
+        Response deleteItem(UriInfo uriInfo, P params) throws Exception;
     }
 
     /**
@@ -146,7 +147,7 @@ public interface RestFrontend {
      * @param <P>
      *            request parameters
      */
-    public interface Crud<R extends Representation, P extends RequestParameters>
+    interface Crud<R extends Representation, P extends RequestParameters>
             extends Get<P>, Post<R, P>, Put<R, P>, Delete<P> {
     }
 

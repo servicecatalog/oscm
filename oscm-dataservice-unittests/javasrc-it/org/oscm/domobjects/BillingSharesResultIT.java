@@ -13,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 import org.junit.Test;
+import org.oscm.internal.types.enumtypes.BillingSharesResultType;
 
 /**
  * @author barzu
@@ -43,6 +44,7 @@ public class BillingSharesResultIT extends DomainObjectTestBase {
 
     private BillingSharesResult givenBillingSharesResult() {
         BillingSharesResult bsr = new BillingSharesResult();
+        bsr.setResultType(BillingSharesResultType.BROKER);
         return bsr;
     }
 

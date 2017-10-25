@@ -997,7 +997,7 @@ public class IdentityServiceWSTest {
         try {
             is.importUsers(csvData, supplier1.getOrganizationId(), "");
         } catch (Exception e) {
-            assertTrue(e.getMessage().indexOf("javax.ejb.EJBAccessException") > 0);
+            assertTrue(e.getMessage().indexOf("Unauthorized") > 0);
         }
     }
 

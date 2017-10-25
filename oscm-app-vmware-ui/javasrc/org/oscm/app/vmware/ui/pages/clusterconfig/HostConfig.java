@@ -8,7 +8,7 @@
 
 package org.oscm.app.vmware.ui.pages.clusterconfig;
 
-import org.apache.commons.configuration.HierarchicalConfiguration;
+import org.apache.commons.configuration2.HierarchicalConfiguration;
 
 /**
  * Reflects a single host configuration.

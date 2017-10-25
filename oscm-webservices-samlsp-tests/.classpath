@@ -15,11 +15,12 @@
 	<classpathentry kind="lib" path="/libraries/bouncycastle/javalib/bcprov-jdk15-145.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-accountmgmt-unittests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-unittests-base"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/javaee.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-converter"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-webservices-tests"/>
 	<classpathentry kind="lib" path="/oscm-build/result/package/oscm-extsvc-internal/oscm-extsvc-internal.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-identitymgmt-intsvc"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/geronimo-javamail_1.4_mail-1.9.0-alpha-2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

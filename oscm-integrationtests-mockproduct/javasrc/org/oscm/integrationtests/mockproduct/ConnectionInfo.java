@@ -74,7 +74,7 @@ public class ConnectionInfo {
         } catch (UnknownHostException e) {
             host = "unknown";
         }
-        info.setBaseUrl("https://" + host + ":8181/");
+        info.setBaseUrl("http://" + host + ":8080");
         info.setUsername("10000");
         info.setPassword("secret");
         info.setVersion("v1.9");

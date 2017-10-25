@@ -32,7 +32,7 @@ public class UserRoleData extends DomainDataContainer {
     /**
      * Stores the string representation of the current role.
      */
-    @Convert(converter = URTConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, unique = true)
     private UserRoleType roleName;
 

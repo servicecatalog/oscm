@@ -23,7 +23,7 @@ import org.oscm.internal.vo.BaseVO;
  * @author Mike J&auml;ger
  * 
  */
-public class VOConfigurationSetting extends BaseVO implements Serializable {
+public class VOConfigurationSetting extends BaseVO {
 
     private static final long serialVersionUID = 7420098797652288039L;
 

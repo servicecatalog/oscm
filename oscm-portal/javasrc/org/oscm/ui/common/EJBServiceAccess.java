@@ -7,21 +7,25 @@
  *******************************************************************************/
 package org.oscm.ui.common;
 
+import java.util.Properties;
 import javax.naming.CommunicationException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.security.auth.login.LoginException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.openejb.core.security.AbstractSecurityService;
+import org.apache.openejb.loader.SystemInstance;
+import org.apache.openejb.spi.SecurityService;
+import org.oscm.internal.types.exception.SaaSSystemException;
+import org.oscm.internal.vo.VOUser;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.resolver.IPResolver;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
-import org.oscm.internal.types.exception.SaaSSystemException;
-import org.oscm.internal.vo.VOUser;
-import com.sun.web.security.WebProgrammaticLoginImpl;
 
 /**
  * Implementation to access the services with EJB (IIOP)
@@ -29,8 +33,6 @@ import com.sun.web.security.WebProgrammaticLoginImpl;
 public class EJBServiceAccess extends ServiceAccess {
 
     private static String REALM = "bss-realm";
-
-    private static WebProgrammaticLoginImpl webProgrammaticLoginImpl = new WebProgrammaticLoginImpl();
 
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(EJBServiceAccess.class);
@@ -41,7 +43,9 @@ public class EJBServiceAccess extends ServiceAccess {
     @Override
     public <T> T getService(Class<T> clazz) {
         try {
-            Context context = new InitialContext();
+            Properties p = new Properties();
+            p.put(Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.client.LocalInitialContextFactory");
+            Context context = new InitialContext(p);
             T service = clazz.cast(context.lookup(clazz.getName()));
             return service;
         } catch (NamingException e) {
@@ -66,12 +70,14 @@ public class EJBServiceAccess extends ServiceAccess {
         }
 
         try {
-            Boolean rc = webProgrammaticLoginImpl.login(
-                    String.valueOf(userObject.getKey()),
-                    password.toCharArray(), REALM, request, response);
+            request.getSession();
+            request.login(String.valueOf(userObject.getKey()), password);
+            ejbLogin(userObject.getKey(), password);
 
-            if (rc == null || !rc.booleanValue()) {
-                String ipAddress = IPResolver.resolveIpAddress(request);
+        } catch (Exception e) {
+            String ipAddress = IPResolver.resolveIpAddress(request);
+            if (e instanceof ServletException) {
+
                 String msg = String.format(
                         "Login failed! User='%s' (access from %s)",
                         userObject.getUserId(), ipAddress);
@@ -80,25 +86,39 @@ public class EJBServiceAccess extends ServiceAccess {
                         le, LogMessageIdentifier.WARN_USER_LOGIN_FAILED,
                         userObject.getUserId(), ipAddress);
                 throw le;
-            }
+            } else {
 
-        } catch (Exception e) {
-            if (e instanceof LoginException) {
-                throw (LoginException) e;
-            }
-            String ipAddress = IPResolver.resolveIpAddress(request);
-            logger.logError(Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG, e,
-                    LogMessageIdentifier.ERROR_USER_LOGIN_FAILED,
-                    userObject.getUserId(), ipAddress);
+                logger.logError(Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG,
+                        e, LogMessageIdentifier.ERROR_USER_LOGIN_FAILED,
+                        userObject.getUserId(), ipAddress);
 
-            CommunicationException ex = getCausedByCommunicationException(e);
-            if (ex != null) {
-                throw ex;
-            }
+                CommunicationException ex = getCausedByCommunicationException(
+                        e);
+                if (ex != null) {
+                    throw ex;
+                }
 
-            throw new LoginException("Login failed! User='"
-                    + userObject.getUserId() + "' caused by " + e.getMessage());
+                throw new LoginException(
+                        "Login failed! User='" + userObject.getUserId()
+                                + "' caused by " + e.getMessage());
+            }
         }
+    }
+
+    private void ejbLogin(long key, String password) throws LoginException {
+        final SecurityService securityService = SystemInstance.get()
+                .getComponent(SecurityService.class);
+        final Object token;
+            securityService.disassociate();
+
+            token = securityService.login(
+                    Long.valueOf(key).toString(),
+                    password);
+            if (AbstractSecurityService.class.isInstance(securityService)
+                    && AbstractSecurityService.class.cast(securityService)
+                    .currentState() == null) {
+                securityService.associate(token);
+            }
     }
 
     @Override
@@ -121,8 +141,8 @@ public class EJBServiceAccess extends ServiceAccess {
             if (cause instanceof CommunicationException) {
                 return (CommunicationException) cause;
             }
-            if (cause.getMessage().contains(
-                    "javax.naming.CommunicationException")) {
+            if (cause.getMessage()
+                    .contains("javax.naming.CommunicationException")) {
                 return new CommunicationException();
             }
             cause = cause.getCause();

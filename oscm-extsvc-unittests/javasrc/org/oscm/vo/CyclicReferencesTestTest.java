@@ -16,9 +16,9 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 import org.objectweb.asm.ClassReader;
+import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.commons.EmptyVisitor;
 
 /**
  * Tests for the logic in {@link CyclicReferencesTest}.
@@ -84,7 +84,7 @@ public class CyclicReferencesTestTest {
             throws IOException {
         final ClassReader reader = new ClassReader(type.getName());
         final Set<String> actual = new HashSet<String>();
-        reader.accept(new EmptyVisitor() {
+        reader.accept(new ClassVisitor(Opcodes.ASM5) {
             @Override
             public FieldVisitor visitField(int access, String name,
                     String desc, String signature, Object value) {
@@ -137,7 +137,7 @@ public class CyclicReferencesTestTest {
     private void assertReferencedTypes(final Class<?> type, String... expected) {
         final Set<String> actual = cyclicRefsTest.getReferencedTypes(type
                 .getName());
-        assertEquals(new HashSet<String>(Arrays.asList(expected)), actual);
+        assertEquals(new HashSet<>(Arrays.asList(expected)), actual);
     }
 
 }

@@ -9,7 +9,7 @@
 		allowingOnBehalfActing="false" baseUrl="" build="2014-06-11" id="AWS_EC2"
 		loginPath="/Dynamically provided by the IaaS-system"
 		onlyOneSubscriptionPerUser="false" provisioningType="ASYNCHRONOUS"
-		provisioningUrl="https://<host>:<port>/ProvisioningService/AsynchronousProvisioningProxy?wsdl"
+		provisioningUrl="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl"
 		provisioningVersion="1.0">
 		<AccessInfo locale="en">AWS Access Info. </AccessInfo>
 		<LocalizedDescription locale="de">AWS EC2 Provisioning</LocalizedDescription>
@@ -121,7 +121,7 @@
 			<LocalizedDescription locale="en">Define security group(s) for the new instance</LocalizedDescription>
 		</ParameterDefinition>
 		<Operation
-			actionURL="https://<host>:<port>/OperationService/AsynchronousOperationProxy?wsdl"
+			actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl"
 			id="START_VIRTUAL_SYSTEM">
 			<LocalizedName locale="de">Start</LocalizedName>
 			<LocalizedName locale="en">Start</LocalizedName>
@@ -131,7 +131,7 @@
 			<LocalizedDescription locale="ja">システムを起動します</LocalizedDescription>
 		</Operation>
 		<Operation
-			actionURL="https://<host>:<port>/OperationService/AsynchronousOperationProxy?wsdl"
+			actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl"
 			id="STOP_VIRTUAL_SYSTEM">
 			<LocalizedName locale="de">Stop</LocalizedName>
 			<LocalizedName locale="en">Stop</LocalizedName>

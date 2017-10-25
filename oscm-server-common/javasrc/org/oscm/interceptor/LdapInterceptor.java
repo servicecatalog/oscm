@@ -10,16 +10,16 @@ package org.oscm.interceptor;
 
 import java.util.Properties;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
-import org.oscm.logging.Log4jLogger;
-import org.oscm.logging.LoggerFactory;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;
-import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.internal.types.exception.UnsupportedOperationException;
 import org.oscm.internal.vo.LdapProperties;
+import org.oscm.logging.Log4jLogger;
+import org.oscm.logging.LoggerFactory;
+import org.oscm.types.enumtypes.LogMessageIdentifier;
 
 /**
  * @author farmaki
@@ -27,7 +27,7 @@ import org.oscm.internal.vo.LdapProperties;
  */
 public class LdapInterceptor {
 
-    @Inject
+    @EJB(beanInterface = ConfigurationServiceLocal.class)
     ConfigurationServiceLocal configService;
 
     /**

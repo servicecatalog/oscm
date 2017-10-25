@@ -71,7 +71,7 @@ public class ServicePagingBean extends BaseBean implements Serializable {
     @EJB
     IdentityService identityService;
 
-    @EJB
+    @EJB(name = "MarketplaceServiceBean")
     MarketplaceService marketplaceService;
 
     @ManagedProperty(value = "#{appBean}")

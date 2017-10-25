@@ -9,22 +9,18 @@ package org.oscm.tenant.local;
 
 import java.util.List;
 
-import javax.ejb.Local;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-
 import org.oscm.domobjects.Tenant;
 import org.oscm.domobjects.TenantSetting;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 
+import javax.ejb.Local;
+
 @Local
 public interface TenantServiceLocal {
 
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     List<Tenant> getAllTenants();
 
-    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     Tenant getTenantByTenantId(String tenantId) throws ObjectNotFoundException;
 
     void saveTenant(Tenant tenant) throws NonUniqueBusinessKeyException;

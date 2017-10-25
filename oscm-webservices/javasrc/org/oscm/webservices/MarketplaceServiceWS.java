@@ -47,7 +47,7 @@ import org.oscm.webservices.logger.WebServiceLogger;
  * @author Dirk Bernsau
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.MarketplaceService")
+@WebService(name = "MarketplaceService", serviceName = "MarketplaceService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.MarketplaceService")
 public class MarketplaceServiceWS implements MarketplaceService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(

@@ -27,7 +27,7 @@ public class ModifiedEntityData extends DomainDataContainer {
 
     private String value;
 
-    @Convert( converter=METConverter.class )
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ModifiedEntityType targetObjectType;
 

@@ -20,7 +20,7 @@ public class OrganizationSettingData extends DomainDataContainer {
 
     private static final long serialVersionUID = 3881765988772914637L;
 
-    @Convert(converter = SettingTypeConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SettingType settingType;
 

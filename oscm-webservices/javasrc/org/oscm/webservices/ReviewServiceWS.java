@@ -35,7 +35,7 @@ import org.oscm.vo.VOServiceReview;
  * @author Mike J&auml;ger
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.ReviewService")
+@WebService(name = "ReviewService", serviceName = "ReviewService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.ReviewService")
 public class ReviewServiceWS implements ReviewService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -52,8 +52,8 @@ public class ReviewServiceWS implements ReviewService {
             ObjectNotFoundException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter.convertToApi(delegate.writeReview(VOConverter
-                    .convertToUp(review)));
+            return VOConverter.convertToApi(
+                    delegate.writeReview(VOConverter.convertToUp(review)));
         } catch (org.oscm.internal.types.exception.NonUniqueBusinessKeyException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
@@ -85,8 +85,8 @@ public class ReviewServiceWS implements ReviewService {
             throws ObjectNotFoundException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return VOConverter.convertToApi(delegate
-                    .getServiceFeedback(productKey));
+            return VOConverter
+                    .convertToApi(delegate.getServiceFeedback(productKey));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         }
@@ -94,8 +94,8 @@ public class ReviewServiceWS implements ReviewService {
 
     @Override
     public void deleteReviewByMarketplaceOwner(VOServiceReview review,
-            String reason) throws OperationNotPermittedException,
-            ObjectNotFoundException {
+            String reason)
+            throws OperationNotPermittedException, ObjectNotFoundException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
             delegate.deleteReviewByMarketplaceOwner(

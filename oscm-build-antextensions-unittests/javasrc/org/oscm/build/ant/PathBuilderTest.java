@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang.NotImplementedException;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.Path;
@@ -206,11 +206,11 @@ public class PathBuilderTest {
         }
 
         public List<File> getJavaSourceFolders() {
-            throw new NotImplementedException();
+            throw new NotImplementedException("");
         }
 
         public List<IEclipseProject> getDependencies() {
-            throw new NotImplementedException();
+            throw new NotImplementedException("");
         }
 
     }

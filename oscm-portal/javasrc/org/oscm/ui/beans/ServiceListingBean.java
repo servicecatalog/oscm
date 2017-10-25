@@ -5,7 +5,6 @@
 package org.oscm.ui.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,15 +15,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
 import org.oscm.converter.WhiteSpaceConverter;
-import org.oscm.ui.beans.marketplace.CategorySelectionBean;
-import org.oscm.ui.beans.marketplace.ServicePagingBean;
-import org.oscm.ui.beans.marketplace.TagCloudBean;
-import org.oscm.ui.common.Constants;
-import org.oscm.ui.common.ExceptionHandler;
-import org.oscm.ui.common.JSFUtils;
-import org.oscm.ui.converter.TrimConverter;
-import org.oscm.ui.dialog.mp.landingpage.EnterpriseLandingpageModel;
-import org.oscm.ui.model.Service;
 import org.oscm.internal.types.enumtypes.LandingpageType;
 import org.oscm.internal.types.enumtypes.OfferingType;
 import org.oscm.internal.types.enumtypes.PerformanceHint;
@@ -35,6 +25,15 @@ import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.ListCriteria;
 import org.oscm.internal.vo.VOService;
 import org.oscm.internal.vo.VOServiceListResult;
+import org.oscm.ui.beans.marketplace.CategorySelectionBean;
+import org.oscm.ui.beans.marketplace.ServicePagingBean;
+import org.oscm.ui.beans.marketplace.TagCloudBean;
+import org.oscm.ui.common.Constants;
+import org.oscm.ui.common.ExceptionHandler;
+import org.oscm.ui.common.JSFUtils;
+import org.oscm.ui.converter.TrimConverter;
+import org.oscm.ui.dialog.mp.landingpage.EnterpriseLandingpageModel;
+import org.oscm.ui.model.Service;
 
 /**
  * The ServicesListBean is responsible for serving serviceLists.

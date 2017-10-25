@@ -6,12 +6,12 @@
   xsi:schemaLocation="oscm.serviceprovisioning/1.9/TechnicalService.xsd ../../oscm-serviceprovisioning/javares/TechnicalServices.xsd">
 	<tns:TechnicalService accessType="LOGIN"
 		allowingOnBehalfActing="false"
-		baseUrl="https://<host>:<port>/oscm-integrationtests-mockproduct"
+		baseUrl="http://oscm-app:8880/oscm-integrationtests-mockproduct"
 		billingIdentifier="FILE_BILLING" build="23.10.2009"
 		id="MockService with external billing" loginPath="/login"
 		onlyOneSubscriptionPerUser="false" provisioningPassword="adminadmin"
 		provisioningType="SYNCHRONOUS"
-		provisioningUrl="https://<host>:<port>/oscm-integrationtests-mockproduct/ProvisioningService?wsdl"
+		provisioningUrl="http://oscm-app:8880/oscm-integrationtests-mockproduct/ProvisioningService?wsdl"
 		provisioningUsername="admin" provisioningVersion="1.0">
 		<LocalizedDescription locale="en">You can create
 			folders upload files and share them with other users.
@@ -265,7 +265,7 @@
 			</LocalizedDescription>
 		</Role>
 		<Operation
-			actionURL="https://<host>:<port>/oscm-integrationtests-mockproduct/OperationService?wsdl"
+			actionURL="http://oscm-app:8880/oscm-integrationtests-mockproduct/OperationService?wsdl"
 			id="HELP">
 			<LocalizedName locale="en">Help</LocalizedName>
 			<LocalizedName locale="de">Hilfe</LocalizedName>
@@ -275,7 +275,7 @@
 			</LocalizedDescription>
 		</Operation>
 		<Operation
-			actionURL="https://<host>:<port>/oscm-integrationtests-mockproduct/OperationService?wsdl"
+			actionURL="http://oscm-app:8880/oscm-integrationtests-mockproduct/OperationService?wsdl"
 			id="CAUSE_ERROR">
 			<LocalizedName locale="en">Error</LocalizedName>
 			<LocalizedName locale="de">Fehler</LocalizedName>
@@ -286,7 +286,7 @@
 			</LocalizedDescription>
 		</Operation>
 		<Operation
-			actionURL="https://<host>:<port>/oscm-integrationtests-mockproduct/OperationService?wsdl"
+			actionURL="http://oscm-app:8880/oscm-integrationtests-mockproduct/OperationService?wsdl"
 			id="SNAPSHOT">
 			<LocalizedName locale="en">SNAPSHOT</LocalizedName>
 			<LocalizedName locale="de">SNAPSHOT</LocalizedName>

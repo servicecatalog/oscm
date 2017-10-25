@@ -5,10 +5,9 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-app-extsvc-2-0"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-provisioning"/>
-	<classpathentry kind="lib" path="/libraries/slf4j/javalib/slf4j-api-1.7.7.jar"/>
-	<classpathentry kind="lib" path="/libraries/slf4j/javalib/slf4j-simple-1.7.7.jar"/>
+	<classpathentry kind="lib" path="/libraries/slf4j/javalib/slf4j-api-1.7.21.jar"/>
 	<classpathentry kind="lib" path="/libraries/slf4j-log4j/javalib/slf4j-log4j12-1.7.7.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.7.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/cssparser-0.9.14.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/guava-18.0.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/richfaces-components-a4j-4.5.0.Final.jar"/>
@@ -19,8 +18,9 @@
 	<classpathentry kind="lib" path="/libraries/apache-io/javalib/commons-io-1.4.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomahawk/javalib/tomahawk20-1.1.14.jar"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/javaee.jar"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/gf-client.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javax.faces-2.2.12.jar"/>
+	<classpathentry kind="lib" path="/libraries/javax/javalib/servlet-api-3.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

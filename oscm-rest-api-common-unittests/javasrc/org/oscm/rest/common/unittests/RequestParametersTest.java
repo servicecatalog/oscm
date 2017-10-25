@@ -40,7 +40,7 @@ public class RequestParametersTest {
 
         RequestParameters params = new TestParameters();
 
-        params.setId(new Long(1L));
+        params.setId(1L);
 
         try {
             params.validateId();

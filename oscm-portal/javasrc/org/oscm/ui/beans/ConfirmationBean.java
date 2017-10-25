@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.naming.CommunicationException;
 import javax.security.auth.login.LoginException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -96,8 +97,8 @@ public class ConfirmationBean extends BaseBean implements Serializable {
                 sessionBean.setServiceKeyForPayment(serviceKey);
             } catch (NumberFormatException ex) {
                 // The service key is invalid
-                addErrorMessage(BaseBean.ERROR_CONFIRMATION_INVALID_LINK,
-                        false, false);
+                addErrorMessage(BaseBean.ERROR_CONFIRMATION_INVALID_LINK, false,
+                        false);
                 return;
             }
         case 3:
@@ -133,7 +134,8 @@ public class ConfirmationBean extends BaseBean implements Serializable {
                     service.confirmAccount(voUser, marketplaceId);
 
                     FacesContext fc = FacesContext.getCurrentInstance();
-                    VOUserDetails currentUser = getUserFromSessionWithoutException(fc);
+                    VOUserDetails currentUser = getUserFromSessionWithoutException(
+                            fc);
                     HttpServletRequest request = getRequest();
                     HttpSession session = request.getSession(false);
                     if (currentUser != null && currentUser.getUserId() != null
@@ -143,8 +145,8 @@ public class ConfirmationBean extends BaseBean implements Serializable {
                         // session and prepare for login of the currently
                         // registered user
                         session.removeAttribute(Constants.SESS_ATTR_USER);
-                        getSessionService().deletePlatformSession(
-                                session.getId());
+                        getSessionService()
+                                .deletePlatformSession(session.getId());
                         SessionListener.cleanup(session);
 
                         session = request.getSession(true);
@@ -158,16 +160,19 @@ public class ConfirmationBean extends BaseBean implements Serializable {
                     }
 
                     if (isServiceProvider()) {
-                        String password = (String) session.getAttribute(Constants.REQ_ATTR_PASSWORD);
+                        String password = (String) session
+                                .getAttribute(Constants.REQ_ATTR_PASSWORD);
                         loginUser(voUser, password, request, session);
                     }
                 } catch (MailOperationException e) {
                     addErrorMessage(
-                            BaseBean.ERROR_REGISTRATION_ACKNOWLEDGE_MAIL, false);
+                            BaseBean.ERROR_REGISTRATION_ACKNOWLEDGE_MAIL,
+                            false);
                 } catch (OperationNotPermittedException e) {
                     addErrorMessage(BaseBean.ERROR_USER_LOCKED, false);
                 } catch (LoginException | CommunicationException e) {
-                    addErrorMessage(BaseBean.ERROR_USER_CONFIRMED_LOGIN_FAIL, true);
+                    addErrorMessage(BaseBean.ERROR_USER_CONFIRMED_LOGIN_FAIL,
+                            true);
                 }
             }
         } catch (ObjectNotFoundException e) {
@@ -248,21 +253,27 @@ public class ConfirmationBean extends BaseBean implements Serializable {
         return service.isServiceProvider();
     }
 
-    void loginUser(VOUser voUser, String password, HttpServletRequest httpRequest,
-            HttpSession session) throws LoginException, CommunicationException{
+    void loginUser(VOUser voUser, String password,
+            HttpServletRequest httpRequest, HttpSession session)
+            throws LoginException, CommunicationException {
         ServiceAccess serviceAccess = ServiceAccess
                 .getServiceAcccessFor(session);
         IdentityService service = getIdService();
 
         // authenticate the user
-        serviceAccess.login(voUser, password, httpRequest,
-                getResponse());
+        httpRequest.getSession();
+        try {
+            httpRequest.login(String.valueOf(voUser.getKey()), password);
+        } catch (ServletException e) {
+            throw new LoginException(e.getMessage());
+        }
+        serviceAccess.login(voUser, password, httpRequest, getResponse());
 
         // log info on the successful login
         logger.logInfo(Log4jLogger.ACCESS_LOG,
                 LogMessageIdentifier.INFO_USER_LOGIN_SUCCESS,
-                voUser.getUserId(),
-                IPResolver.resolveIpAddress(httpRequest), voUser.getTenantId());
+                voUser.getUserId(), IPResolver.resolveIpAddress(httpRequest),
+                voUser.getTenantId());
 
         // read the user details value object and store it in the session
         session.setAttribute(Constants.SESS_ATTR_USER,

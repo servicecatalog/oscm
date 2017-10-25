@@ -71,7 +71,7 @@ import org.oscm.vo.VOTechnicalService;
  * @author Aleh Khomich.
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.ServiceProvisioningService")
+@WebService(name = "ServiceProvisioningService", serviceName = "ServiceProvisioningService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.ServiceProvisioningService")
 public class ServiceProvisioningServiceWS
         implements ServiceProvisioningService {
 

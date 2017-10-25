@@ -8,16 +8,14 @@
 
 package org.oscm.app.vmware.business.balancer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import java.io.StringReader;
+import java.io.IOException;
 import java.text.DecimalFormat;
 
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.HierarchicalConfiguration;
-import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.commons.configuration2.HierarchicalConfiguration;
+import org.apache.commons.configuration2.XMLConfiguration;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -151,7 +149,7 @@ public class EquipartitionStorageBalancerTest {
         EquipartitionStorageBalancer balancer = getBalancer("store1");
         balancer.setInventory(inventory);
 
-        Mockito.when(new Double(properties.getTemplateDiskSpaceMB()))
+        Mockito.when(properties.getTemplateDiskSpaceMB())
                 .thenReturn(new Double(-1));
         VMwareStorage storage = balancer.next(properties);
         assertNotNull(storage);
@@ -159,13 +157,11 @@ public class EquipartitionStorageBalancerTest {
     }
 
     private EquipartitionStorageBalancer getBalancer(String storages)
-            throws ConfigurationException {
+        throws ConfigurationException, IOException {
         EquipartitionStorageBalancer balancer = new EquipartitionStorageBalancer();
-        String balancerConfig = "<host><balancer storage=\"" + storages
-                + "\" /></host>";
-        XMLConfiguration xmlConfiguration = new XMLHostConfiguration();
-        xmlConfiguration.load(new StringReader(balancerConfig));
-        balancer.setConfiguration(xmlConfiguration.configurationAt("balancer"));
+        XMLConfiguration xmlConfiguration = new XMLConfiguration();
+        xmlConfiguration.addProperty("[@storage]", storages);
+        balancer.setConfiguration(xmlConfiguration);
         return balancer;
     }
 

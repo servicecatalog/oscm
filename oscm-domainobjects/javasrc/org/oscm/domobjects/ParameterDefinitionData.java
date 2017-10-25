@@ -12,9 +12,7 @@
 
 package org.oscm.domobjects;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 import org.oscm.domobjects.converters.PMTConverter;
 import org.oscm.domobjects.converters.PTConverter;
@@ -38,7 +36,7 @@ public class ParameterDefinitionData extends DomainDataContainer {
      * The type of the parameter.
      */
     @Column(nullable = false, updatable = false)
-    @Convert(converter = PTConverter.class)
+    @Enumerated(EnumType.STRING)
     private ParameterType parameterType;
 
     /**
@@ -51,14 +49,14 @@ public class ParameterDefinitionData extends DomainDataContainer {
      * The type of the parameter value.
      */
     @Column(nullable = false)
-    @Convert(converter = PVTConverter.class)
+    @Enumerated(EnumType.STRING)
     private ParameterValueType valueType;
 
     /**
      * The type of the parameter modification type.
      */
     @Column(nullable = false)
-    @Convert(converter = PMTConverter.class)
+    @Enumerated(EnumType.STRING)
     private ParameterModificationType modificationType = ParameterModificationType.STANDARD;
 
     private String defaultValue;

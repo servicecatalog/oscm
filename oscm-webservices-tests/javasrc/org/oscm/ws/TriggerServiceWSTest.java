@@ -57,7 +57,7 @@ import org.oscm.vo.VOUda;
 import org.oscm.vo.VOUsageLicense;
 import org.oscm.vo.VOUserDetails;
 import com.google.common.collect.Lists;
-import com.sun.xml.ws.fault.ServerSOAPFaultException;
+//import com.sun.xml.ws.fault.ServerSOAPFaultException;
 
 /**
  * @author yuyin
@@ -608,19 +608,19 @@ public class TriggerServiceWSTest {
         assertEquals(updatedValue, latestValue);
     }
 
-    @Test(expected = ServerSOAPFaultException.class)
-    @Order(order = 7)
-    public void getActionParameter_NullParam_ShouldFail() throws Exception {
-        // given
-        VOTriggerProcess triggerProcess = createTriggerProcess(null);
-        waitForJmsQueueToStartTrigger();
-        assertNotNull(triggerProcess);
-
-        // when
-        tpServiceCustomer.getActionParameter(triggerProcess.getKey(), null);
-
-        // then exception
-    }
+//    @Test(expected = ServerSOAPFaultException.class)
+//    @Order(order = 7)
+//    public void getActionParameter_NullParam_ShouldFail() throws Exception {
+//        // given
+//        VOTriggerProcess triggerProcess = createTriggerProcess(null);
+//        waitForJmsQueueToStartTrigger();
+//        assertNotNull(triggerProcess);
+//
+//        // when
+//        tpServiceCustomer.getActionParameter(triggerProcess.getKey(), null);
+//
+//        // then exception
+//    }
 
     @Test
     @Order(order = 8)

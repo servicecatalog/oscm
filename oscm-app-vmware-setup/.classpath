@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="javares"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-app-common"/>
 	<classpathentry kind="lib" path="/libraries/opencsv/javalib/opencsv-3.7.jar"/>
-	<classpathentry kind="lib" path="/libraries/slf4j/javalib/slf4j-api-1.7.7.jar"/>
+	<classpathentry kind="lib" path="/libraries/slf4j/javalib/slf4j-api-1.7.21.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-devruntime"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-internal"/>

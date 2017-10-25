@@ -1113,7 +1113,7 @@ public class MarketplaceServiceWSTest {
     }
 
     private void checkAccessException(SOAPFaultException e) {
-        assertTrue(e.getMessage().contains("javax.ejb.EJBAccessException"));
+        assertTrue(e.getMessage().contains("Unauthorized"));
     }
 
     private void createMarketplaceAndPublishService(String mpOwnerId,

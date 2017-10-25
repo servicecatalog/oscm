@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -25,6 +24,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.apache.myfaces.custom.fileupload.UploadedFile;
+import org.oscm.app.v2_0.APPTemplateServiceFactory;
 import org.oscm.app.v2_0.data.PasswordAuthentication;
 import org.oscm.app.v2_0.data.Template;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
@@ -51,7 +51,6 @@ public class TemplateBean {
     private static final String STATUS_CLASS_INFO = "statusInfo";
     private static final String STATUS_CLASS_ERROR = "statusError";
 
-    @EJB(lookup = APPTemplateService.JNDI_NAME)
     private APPTemplateService templateService;
 
     @Inject
@@ -66,6 +65,9 @@ public class TemplateBean {
     private String statusClass;
 
     public APPTemplateService getTemplateService() {
+        if (templateService == null) {
+            templateService = APPTemplateServiceFactory.getInstance();
+        }
         return templateService;
     }
 
@@ -113,7 +115,7 @@ public class TemplateBean {
     public void load() {
 
         try {
-            model = templateService.getTemplateList(
+            model = getTemplateService().getTemplateList(
                     controllerAccess.getControllerId(), getAuthentication());
 
         } catch (APPlatformException e) {
@@ -136,7 +138,7 @@ public class TemplateBean {
             template.setFileName(new File(uploadedFile.getName()).getName());
             template.setContent(uploadedFile.getBytes());
 
-            templateService.saveTemplate(template,
+            getTemplateService().saveTemplate(template,
                     controllerAccess.getControllerId(), getAuthentication());
 
             load();
@@ -157,7 +159,7 @@ public class TemplateBean {
     public void delete(String fileName) {
 
         try {
-            templateService.deleteTemplate(fileName,
+            getTemplateService().deleteTemplate(fileName,
                     controllerAccess.getControllerId(), getAuthentication());
 
             load();
@@ -179,7 +181,7 @@ public class TemplateBean {
 
         OutputStream out = null;
         try {
-            Template t = templateService.getTemplate(fileName,
+            Template t = getTemplateService().getTemplate(fileName,
                     controllerAccess.getControllerId(), getAuthentication());
 
             FacesContext fc = getContext();

@@ -34,6 +34,7 @@ import org.oscm.app.v2_0.service.APPAuthenticationServiceBean;
 import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
 import org.oscm.types.enumtypes.UserRoleType;
 import org.oscm.vo.VOUserDetails;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Dirk Bernsau
@@ -44,8 +45,7 @@ public class AuthorizationFilter implements Filter {
     public static final String LOCALE_DEFAULT = "en";
     public static final String LOCALE_JA = "ja";
 
-    @Inject
-    private transient Logger logger;
+    private transient Logger logger = LoggerFactory.getLogger(AuthorizationFilter.class);
 
     @EJB
     protected APPAuthenticationServiceBean authService;

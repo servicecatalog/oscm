@@ -21,6 +21,6 @@ public interface SessionConstants {
     public static final String SESSION_USER_IS_ADMIN = "loggedInAsAppAdmin";
     public static final String SESSION_USER_LOCALE = "loggedInUserLocale";
 
-    public static final String SESSION_CTRL_ID = "cid";
+    public static final String SESSION_CTRL_ID = "controllerid";
 
 }

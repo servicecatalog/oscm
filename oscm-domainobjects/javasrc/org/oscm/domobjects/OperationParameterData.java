@@ -29,7 +29,7 @@ public class OperationParameterData extends DomainDataContainer implements
     private String id;
 
     @Column(nullable = false)
-    @Convert(converter = OPConverter.class)
+    @Enumerated(EnumType.STRING)
     private OperationParameterType type;
 
     @Column

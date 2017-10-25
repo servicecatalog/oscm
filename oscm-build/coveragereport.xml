@@ -262,14 +262,6 @@
             <fileset dir="${workspace.dir}/oscm-app/javasrc" />
           </sourcefiles>
         </group>
-        <group name="oscm-app-extsvc-1-0">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-app-extsvc-1-0/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-app-extsvc-1-0/javasrc" />
-          </sourcefiles>
-        </group>
         <group name="oscm-app-iaas">
           <classfiles>
             <fileset dir="${result.dir}/work/oscm-app-iaas/classes" />
@@ -284,15 +276,6 @@
           </classfiles>
           <sourcefiles encoding="utf-8">
             <fileset dir="${workspace.dir}/oscm-app-startup/javasrc" />
-          </sourcefiles>
-        </group>
-        
-        <group name="oscm-app-ror">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-app-ror/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-app-ror/javasrc" />
           </sourcefiles>
         </group>
 

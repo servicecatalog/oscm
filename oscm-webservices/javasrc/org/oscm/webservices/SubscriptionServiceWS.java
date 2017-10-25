@@ -74,7 +74,7 @@ import org.oscm.webservices.logger.WebServiceLogger;
  * @author Aleh Khomich.
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.SubscriptionService")
+@WebService(name = "SubscriptionService", serviceName = "SubscriptionService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.SubscriptionService")
 public class SubscriptionServiceWS implements SubscriptionService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(

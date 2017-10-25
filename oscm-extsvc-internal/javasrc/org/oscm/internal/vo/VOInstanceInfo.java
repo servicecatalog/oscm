@@ -8,12 +8,14 @@
 
 package org.oscm.internal.vo;
 
+import java.io.Serializable;
+
 /**
  * Represents an application instance and provides the data required to access
  * the instance. An instance is the set of items that an application provisions
  * for a subscription.
  */
-public class VOInstanceInfo {
+public class VOInstanceInfo implements Serializable {
 
     /**
      * Identifier of the instance defined when the instance is created.

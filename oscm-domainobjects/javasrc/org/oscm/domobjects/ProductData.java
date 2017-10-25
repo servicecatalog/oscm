@@ -50,11 +50,11 @@ public class ProductData extends DomainDataContainer implements Serializable {
      */
     private Long deprovisioningDate;
 
-    @Convert(converter = ServiceSConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ServiceStatus status;
 
-    @Convert(converter = STConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ServiceType type;
 

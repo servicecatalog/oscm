@@ -1639,136 +1639,95 @@ public class SubscriptionServiceBean
             SubscriptionStateException, TechnicalServiceNotAliveException,
             TechnicalServiceOperationException, OperationNotPermittedException,
             ConcurrentModificationException, OperationPendingException {
-        System.out.println("1");
         ArgumentValidator.notNull("subscriptionId", subscriptionId);
 
         Subscription sub = manageBean.checkSubscriptionOwner(subscriptionId, 0);
-        System.out.println("2");
 
         stateValidator.checkAddRevokeUserAllowed(sub);
-        System.out.println("3");
         // validation
         if (usersToBeAdded != null) {
-            System.out.println("4");
             for (VOUsageLicense lic : usersToBeAdded) {
-                System.out.println("5");
                 try {
                     PlatformUser user = dataManager.getReference(
                             PlatformUser.class, lic.getUser().getKey());
-                    System.out.println("6");
                     getAndCheckServiceRole(lic, sub.getProduct());
-                    System.out.println("7");
                     // fill user ID for trigger process
                     lic.getUser().setUserId(user.getUserId());
-                    System.out.println("8");
                 } catch (ObjectNotFoundException e) {
-                    System.out.println("9");
                     throw new ObjectNotFoundException(
                             DomainObjectException.ClassEnum.USER,
                             String.valueOf(lic.getUser().getUserId()));
                 }
             }
         }
-        System.out.println("10");
         if (usersToBeRevoked != null) {
-            System.out.println("11");
             for (VOUser entry : usersToBeRevoked) {
-                System.out.println("12");
                 try {
                     PlatformUser user = dataManager
                             .getReference(PlatformUser.class, entry.getKey());
-                    System.out.println("13");
                     // fill user ID for trigger process
                     entry.setUserId(user.getUserId());
-                    System.out.println("14");
                 } catch (ObjectNotFoundException e) {
-                    System.out.println("15");
                     throw new ObjectNotFoundException(
                             DomainObjectException.ClassEnum.USER,
                             String.valueOf(entry.getUserId()));
                 }
             }
         }
-        System.out.println("16");
         TriggerProcessValidator validator = new TriggerProcessValidator(
                 dataManager);
-        System.out.println("17");
         List<TriggerProcessIdentifier> pendingAddRevokeUsers = validator
                 .getPendingAddRevokeUsers(subscriptionId, usersToBeAdded,
                         usersToBeRevoked);
-        System.out.println("18");
         if (!pendingAddRevokeUsers.isEmpty()) {
-            System.out.println("19");
             String userIds = determineUserIds(pendingAddRevokeUsers);
-            System.out.println("20");
-            System.out.println("20");
             OperationPendingException ope = new OperationPendingException(
                     String.format(
                             "Operation cannot be performed. There is already another pending request for subscription '%s' to add or revoke the users: %s",
                             subscriptionId, userIds),
                     ReasonEnum.ADD_REVOKE_USER,
                     new Object[] { subscriptionId, userIds });
-            System.out.println("21");
             LOG.logWarn(Log4jLogger.SYSTEM_LOG, ope,
                     LogMessageIdentifier.WARN_ADD_REVOKE_USER_FAILED_DUE_TO_TRIGGER_CONFLICT,
                     subscriptionId);
-            System.out.println("22");
             throw ope;
         }
-        System.out.println("23");
         validateTriggerProcessForSubscription(sub);
-        System.out.println("24");
 
         // now send a suspending message for the processing
         TriggerMessage message = new TriggerMessage(
                 TriggerType.ADD_REVOKE_USER);
-        System.out.println("25");
         List<TriggerProcessMessageData> list = triggerQS
                 .sendSuspendingMessages(Collections.singletonList(message));
-        System.out.println("26");
         TriggerProcess proc = list.get(0).getTrigger();
-        System.out.println("27");
         proc.addTriggerProcessParameter(TriggerProcessParameterName.OBJECT_ID,
                 subscriptionId);
-        System.out.println("28");
         proc.addTriggerProcessParameter(
                 TriggerProcessParameterName.SUBSCRIPTION, subscriptionId);
-        System.out.println("29");
         proc.addTriggerProcessParameter(
                 TriggerProcessParameterName.USERS_TO_ADD, usersToBeAdded);
-        System.out.println("30");
         proc.addTriggerProcessParameter(
                 TriggerProcessParameterName.USERS_TO_REVOKE, usersToBeRevoked);
-        System.out.println("30");
 
         try {
             // if processing is not suspended, call finishing method
             TriggerDefinition triggerDefinition = proc.getTriggerDefinition();
-            System.out.println("31");
             if (triggerDefinition == null) {
-                System.out.println("32");
                 addRevokeUserInt(proc);
-                System.out.println("33");
                 return true;
             } else if (triggerDefinition.isSuspendProcess()) {
-                System.out.println("34");
                 proc.setTriggerProcessIdentifiers(TriggerProcessIdentifiers
                         .createAddRevokeUser(dataManager,
                                 TriggerType.ADD_REVOKE_USER, subscriptionId,
                                 usersToBeAdded, usersToBeRevoked));
-                System.out.println("35");
                 dataManager.merge(proc);
-                System.out.println("36");
             }
         } catch (ObjectNotFoundException | SubscriptionStateException
                 | TechnicalServiceNotAliveException
                 | TechnicalServiceOperationException e) {
-            System.out.println("37");
             sessionCtx.setRollbackOnly();
-            System.out.println("38");
             throw e;
         }
-        System.out.println("39");
         return false;
     }
 
@@ -5803,32 +5762,32 @@ public class SubscriptionServiceBean
         ArgumentValidator.notNull("organizationId", organizationId);
         ArgumentValidator.notNull("instance", instanceInfo);
 
-        PlatformUser user = dataManager.getCurrentUser();
-
-        Subscription subscription = manageBean.findSubscription(subscriptionId,
-                organizationId);
-        PermissionCheck.owns(subscription.getProduct().getTechnicalProduct(),
-                user.getOrganization(), LOG, null);
-
-        List<ParameterDefinition> parameterDefinitions = subscription
-                .getProduct().getTechnicalProduct().getParameterDefinitions();
-
-        for (ParameterDefinition parameterDefinition : parameterDefinitions) {
-            if (!parameterDefinition.getParameterId()
-                    .equals(VMS_NUMBER_PARAM)) {
-                continue;
-            }
-            Parameter parameter = getSubscriptionDao()
-                    .getParameterForSubscription(parameterDefinition,
-                            subscription.getParameterSet());
-            if (parameter == null) {
-                parameter = new Parameter();
-                parameter.setParameterDefinition(parameterDefinition);
-                parameter.setParameterSet(subscription.getParameterSet());
-            }
-            parameter.setValue(Integer.toString(instanceInfo.getVmsNumber()));
-            dataManager.merge(parameter);
-            return;
-        }
+//        PlatformUser user = dataManager.getCurrentUser();
+//
+//        Subscription subscription = manageBean.findSubscription(subscriptionId,
+//                organizationId);
+//        PermissionCheck.owns(subscription.getProduct().getTechnicalProduct(),
+//                user.getOrganization(), LOG, null);
+//
+//        List<ParameterDefinition> parameterDefinitions = subscription
+//                .getProduct().getTechnicalProduct().getParameterDefinitions();
+//
+//        for (ParameterDefinition parameterDefinition : parameterDefinitions) {
+//            if (!parameterDefinition.getParameterId()
+//                    .equals(VMS_NUMBER_PARAM)) {
+//                continue;
+//            }
+//            Parameter parameter = getSubscriptionDao()
+//                    .getParameterForSubscription(parameterDefinition,
+//                            subscription.getParameterSet());
+//            if (parameter == null) {
+//                parameter = new Parameter();
+//                parameter.setParameterDefinition(parameterDefinition);
+//                parameter.setParameterSet(subscription.getParameterSet());
+//            }
+//            parameter.setValue(Integer.toString(instanceInfo.getVmsNumber()));
+//            dataManager.merge(parameter);
+//            return;
+//        }
     }
 }

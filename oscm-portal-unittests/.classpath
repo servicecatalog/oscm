@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="javasrc"/>
 	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.5.jar"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/javaee.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-portal"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-1.2.16.jar"/>
@@ -20,8 +19,7 @@
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/richfaces-components-rich-4.5.0.Final.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/richfaces-core-4.5.0.Final.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/sac-1.3.jar"/>
-	<classpathentry kind="lib" path="/oscm-build/lib/internal-api-4.1.1.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-portal-stubbed"/>
+
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-serviceprovisioning-intsvc"/>
 	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all-1.8.5.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-server-common"/>
@@ -35,12 +33,14 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-serviceprovisioning"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-subscriptionmgmt-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-billing-external-interfaces"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/gf-client.jar"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/modules/web-core.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-tenantmgmt"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.7.jar"/>
-	<classpathentry kind="lib" path="/libraries/jersey/javalib/jersey-common.jar"/>
-	<classpathentry kind="lib" path="/libraries/jersey/javalib/jersey-guava.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="/libraries/javax/javalib/servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javax.faces-2.2.12.jar"/>
+	<classpathentry kind="lib" path="/libraries/jackson/javalib/jackson-annotations.jar"/>
+	<classpathentry kind="lib" path="/libraries/jackson/javalib/jackson-core.jar"/>
+	<classpathentry kind="lib" path="/libraries/jackson/javalib/jackson-databind.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

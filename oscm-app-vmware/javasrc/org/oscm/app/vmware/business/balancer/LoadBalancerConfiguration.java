@@ -12,8 +12,9 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.configuration.HierarchicalConfiguration;
-import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.commons.configuration2.HierarchicalConfiguration;
+import org.apache.commons.configuration2.XMLConfiguration;
+import org.apache.commons.configuration2.tree.ImmutableNode;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.vmware.business.VMwareDatacenterInventory;
 import org.oscm.app.vmware.business.VMwareValue;
@@ -57,10 +58,10 @@ public class LoadBalancerConfiguration {
         hostList = new ArrayList<VMwareHost>();
         storageList = new ArrayList<VMwareStorage>();
         inventory.disableHostsAndStorages();
-        xmlConfig = new XMLHostConfiguration();
-        xmlConfig.load(new StringReader(xmlData));
+        xmlConfig = new XMLConfiguration();
+        xmlConfig.read(new StringReader(xmlData));
 
-        List<HierarchicalConfiguration> hosts = xmlConfig
+        List<HierarchicalConfiguration<ImmutableNode>> hosts = xmlConfig
                 .configurationsAt(ELEMENT_HOST);
 
         for (HierarchicalConfiguration host : hosts) {
@@ -87,7 +88,7 @@ public class LoadBalancerConfiguration {
             }
         }
 
-        List<HierarchicalConfiguration> storages = xmlConfig
+        List<HierarchicalConfiguration<ImmutableNode>> storages = xmlConfig
                 .configurationsAt(ELEMENT_STORAGE);
         for (HierarchicalConfiguration storage : storages) {
             String name = storage.getString("[@name]");

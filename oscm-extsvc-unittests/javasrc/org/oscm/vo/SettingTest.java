@@ -72,7 +72,7 @@ public class SettingTest {
     }
 
     @Test
-    public void hashcode() {
+    public void hashcodeTest() {
         Setting s = new Setting();
         assertEquals(s.hashCode(), 0);
     }

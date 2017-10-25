@@ -136,12 +136,17 @@ public class WSPortConnector {
 
         Service service = getService(localWsdlUrl, serviceClass);
 
-        EndpointReference epr = determineEndpointReference();
-        T port = service.getPort(epr, serviceClass);
+        //EndpointReference epr = determineEndpointReference();
+        T port = service.getPort(serviceClass);
+        BindingProvider bindingProvider = (BindingProvider) port;
+        Map<String, Object> clientRequestContext = bindingProvider
+                .getRequestContext();
+        clientRequestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, details.getEndpointURL());
+
         if (requiresUserAuthentication(userName, password)) {
-            BindingProvider bindingProvider = (BindingProvider) port;
-            Map<String, Object> clientRequestContext = bindingProvider
-                    .getRequestContext();
+//            BindingProvider bindingProvider = (BindingProvider) port;
+//            Map<String, Object> clientRequestContext = bindingProvider
+//                    .getRequestContext();
             clientRequestContext.put(BindingProvider.USERNAME_PROPERTY,
                     userName);
             clientRequestContext.put(BindingProvider.PASSWORD_PROPERTY,

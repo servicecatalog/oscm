@@ -4,20 +4,25 @@
 
 package org.oscm.communicationservice.bean;
 
-import static org.oscm.communicationservice.Constants.*;
-
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
-
-import javax.ejb.*;
-import javax.mail.*;
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.mail.Address;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -26,9 +31,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.commons.lang3.StringUtils;
+
 import org.oscm.communicationservice.data.SendMailStatus;
 import org.oscm.communicationservice.local.CommunicationServiceLocal;
-import org.oscm.communicationservice.smtp.SMTPAuthenticator;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.Organization;
@@ -45,6 +50,19 @@ import org.oscm.types.constants.Configuration;
 import org.oscm.types.enumtypes.EmailType;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.validator.BLValidator;
+
+import static org.oscm.communicationservice.Constants.ENCODING;
+import static org.oscm.communicationservice.Constants.MAIL_PASSWORD;
+import static org.oscm.communicationservice.Constants.MAIL_PROTOCOL_SMTP;
+import static org.oscm.communicationservice.Constants.MAIL_RESOURCE;
+import static org.oscm.communicationservice.Constants.MAIL_SMTP_AUTH;
+import static org.oscm.communicationservice.Constants.MAIL_SMTP_USER;
+import static org.oscm.communicationservice.Constants.MAIL_TLS_ENABLED;
+import static org.oscm.communicationservice.Constants.RESOURCE_SUBJECT;
+import static org.oscm.communicationservice.Constants.RESOURCE_TEXT;
+import static org.oscm.communicationservice.Constants.RESOURCE_TEXT_FOOTER;
+import static org.oscm.communicationservice.Constants.RESOURCE_TEXT_HEADER;
+import static org.oscm.communicationservice.Constants.TENANT_ID;
 
 /**
  * Session Bean implementation class CommunicationServiceBean
@@ -343,41 +361,18 @@ public class CommunicationServiceBean implements CommunicationServiceLocal {
             Object resource = context.lookup(MAIL_RESOURCE);
             if (resource instanceof Session) {
                 session = (Session) resource;
-            } else if ("com.sun.enterprise.deployment.MailConfiguration"
-                    .equals(resource.getClass().getName())) {
-                // since Glassfish <3.0 has a bug here, we need reflection
-                Object propertyObject = null;
-                Exception ex = null;
-                try {
-                    Method method = resource.getClass().getMethod(
-                            "getMailProperties");
-                    propertyObject = method.invoke(resource);
-                } catch (NoSuchMethodException e) {
-                    ex = e;
-                } catch (IllegalArgumentException e) {
-                    ex = e;
-                } catch (InvocationTargetException e) {
-                    ex = e;
-                } catch (IllegalAccessException e) {
-                    ex = e;
-                }
-                if (ex != null) {
-                    SaaSSystemException se = new SaaSSystemException(
-                            "The registered JavaMail resource " + MAIL_RESOURCE
-                                    + " is not configured properly.", ex);
-                    logger.logError(Log4jLogger.SYSTEM_LOG, se,
-                            LogMessageIdentifier.ERROR_MAILING_FAILURE);
-                    throw se;
-                }
-                if (propertyObject instanceof Properties) {
-                    Properties p = (Properties) propertyObject;
-                    Authenticator authenticator = null;
-                    if (Boolean.parseBoolean(p.getProperty(MAIL_SMTP_AUTH))) {
-                        authenticator = SMTPAuthenticator.getInstance(
-                                p.getProperty(MAIL_USER),
-                                p.getProperty(MAIL_PASSWORD));
-                    }
-                    session = Session.getInstance(p, authenticator);
+                if (MAIL_PROTOCOL_SMTP.equalsIgnoreCase(session.getProperty("mail.transport.protocol"))) {
+                    Properties properties = session.getProperties();
+                    properties.putIfAbsent(MAIL_SMTP_AUTH, "true");
+                    properties.putIfAbsent(MAIL_TLS_ENABLED, "true");
+                    String username = session.getProperty(MAIL_SMTP_USER);
+                    String password = session.getProperty(MAIL_PASSWORD);
+                    session = Session.getInstance(session.getProperties(), new Authenticator() {
+                        @Override
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(username, password);
+                        }
+                    });
                 }
             }
         } catch (NamingException e) {
@@ -408,7 +403,7 @@ public class CommunicationServiceBean implements CommunicationServiceLocal {
         }
 
         try {
-            Address from = new InternetAddress(session.getProperty("mail.from"));
+            Address from = new InternetAddress(session.getProperty("mail.smtp.from"));
             msg.setFrom(from);
             msg.setReplyTo(new Address[] { from });
             msg.setSubject(subject, encoding);

@@ -19,12 +19,7 @@ import static org.oscm.test.Numbers.L_TIMESTAMP;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.Callable;
 
 import javax.ejb.EJBAccessException;
@@ -2367,6 +2362,7 @@ public class TechnicalProductImportParserIT extends EJBTestBase {
         sub.setOrganization(org);
         sub.bindToProduct(prod);
         sub.setCutOffDay(1);
+        sub.setUuid(UUID.randomUUID());
         mgr.persist(sub);
         return sub;
     }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright FUJITSU LIMITED 2017-->
+
+<openejb-jar xmlns="http://tomee.apache.org/xml/ns/openejb-jar-2.2">
+  <enterprise-beans>
+    <session>
+      <ejb-name>AsynchronousProvisioningProxy</ejb-name>
+      <jndi-name>AsynchronousProvisioningProxy</jndi-name>
+      <web-service-address>ProvisioningService/AsynchronousProvisioningProxy</web-service-address>
+      <web-service-security>
+        <security-realm-name>bss-realm</security-realm-name>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        <auth-method>CLIENT-CERT</auth-method>
+        <realm-name>bss-realm</realm-name>
+      </web-service-security>
+    </session>
+    <session>
+      <ejb-name>AsynchronousOperationProxy</ejb-name>
+      <jndi-name>AsynchronousOperationProxy</jndi-name>
+      <web-service-address>OperationService/AsynchronousOperationProxy</web-service-address>
+      <web-service-security>
+        <security-realm-name>bss-realm</security-realm-name>
+        <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        <auth-method>CLIENT-CERT</auth-method>
+        <realm-name>bss-realm</realm-name>
+      </web-service-security>
+    </session>
+  </enterprise-beans>
+</openejb-jar>
+
+

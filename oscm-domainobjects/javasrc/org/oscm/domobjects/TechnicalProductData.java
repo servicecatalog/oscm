@@ -51,7 +51,7 @@ public class TechnicalProductData extends DomainDataContainer implements
      * 
      * @see ProvisioningType
      */
-    @Convert(converter =ProvTConverter.class)
+    @Enumerated(EnumType.STRING)
     private ProvisioningType provisioningType = ProvisioningType.SYNCHRONOUS;
 
     /**
@@ -96,7 +96,7 @@ public class TechnicalProductData extends DomainDataContainer implements
      * The access integration type (direct access or access via platform with
      * reverse proxy)
      */
-    @Convert(converter =ServiceAccessTypeConverter.class)
+    @Enumerated(EnumType.STRING)
     private ServiceAccessType accessType = ServiceAccessType.LOGIN;
 
     /**

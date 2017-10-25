@@ -9,7 +9,6 @@
 package org.oscm.ui.filter;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Set;
 
@@ -45,19 +44,14 @@ import org.oscm.validator.ADMValidator;
  */
 public abstract class BaseBesFilter implements Filter {
 
-    protected static String PARAM_CONFIRM_PAGE = "confirm-page";
-    protected final static String PARAM_LOGIN_CLASS = "login-class";
     protected final static String PARAM_LOGIN_PAGE = "login-page";
     protected final static String PARAM_PUBLIC_URL_PATTERN = "public-url-pattern";
     protected final static String PARAM_PWD_PAGE = "pwd-page";
-    protected final static String PARAM_REALM = "realm";
     protected final static String PARAM_ERROR_PAGE = "error-page";
 
-    protected Method loginMethod;
     protected String loginPage = "/login.jsf";
     protected String publicUrlPattern;
     protected String pwdPage = "/public/pwd.jsf";
-    protected String realm;
     protected String errorPage = "/public/error.jsf";
     protected String defaultPage = "/default.jsf";
     protected String insufficientAuthoritiesUrl = "/insufficientAuthorities.jsf";
@@ -82,45 +76,14 @@ public abstract class BaseBesFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
 
-        String value;
-        String loginClassName = filterConfig
-                .getInitParameter(PARAM_LOGIN_CLASS);
-        if (ADMStringUtils.isBlank(loginClassName)) {
-            throw new ServletException("The filter init-param "
-                    + PARAM_LOGIN_CLASS + " is missing!");
-        }
-        ClassLoader classLoader = Thread.currentThread()
-                .getContextClassLoader();
-        if (classLoader == null) {
-            classLoader = getClass().getClassLoader();
-        }
-        try {
-            Class<?> c = classLoader.loadClass(loginClassName);
-            loginMethod = c.getMethod("login", new Class[] { String.class,
-                    char[].class, String.class, HttpServletRequest.class,
-                    HttpServletResponse.class });
-            filterConfig.getServletContext().setAttribute(
-                    Constants.CTX_ATTR_LOGIN_METHOD, loginMethod);
-            logger.logDebug("loginClassName=" + loginClassName);
-        } catch (Exception e) {
-            logger.logError(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR_INITIALIZE_LOGIN_METHOD_FAILED);
-        }
+        String value = filterConfig.getInitParameter(PARAM_LOGIN_PAGE);
 
-        value = filterConfig.getInitParameter(PARAM_LOGIN_PAGE);
         loginPage = checkPage(value, loginPage);
         logger.logDebug("loginPage=" + loginPage);
 
         value = filterConfig.getInitParameter(PARAM_PWD_PAGE);
         pwdPage = checkPage(value, pwdPage);
         logger.logDebug("pwdPage=" + pwdPage);
-
-        realm = filterConfig.getInitParameter(PARAM_REALM);
-        if (ADMStringUtils.isBlank(realm)) {
-            throw new ServletException("The filter init-param " + PARAM_REALM
-                    + " is missing!");
-        }
-        logger.logDebug("realm=" + realm);
 
         value = filterConfig.getInitParameter(PARAM_ERROR_PAGE);
         errorPage = checkPage(value, errorPage);
@@ -139,7 +102,7 @@ public abstract class BaseBesFilter implements Filter {
         try {
             authSettings.init(null);
         } catch (NotExistentTenantException e) {
-            //ait gonna happen. Configsettins will be used.
+            //ain't gonna happen. Configsettins will be used.
         } catch (WrongTenantConfigurationException e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_TENANT_MISCONFIGURED);

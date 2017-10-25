@@ -5,22 +5,17 @@
  *******************************************************************************/
 package org.oscm.app.ui.platformconfiguration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
-import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import javax.inject.Inject;
-
 import org.oscm.app.domain.PlatformConfigurationKey;
 import org.oscm.app.ui.BaseCtrl;
 import org.oscm.app.v2_0.data.Setting;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
+import java.util.*;
 
 /**
  * Created by PLGrubskiM on 2017-04-24.
@@ -34,7 +29,6 @@ public class PlatformConfigurationCtrl extends BaseCtrl {
     @ManagedProperty(value = "#{platformConfigurationModel}")
     private PlatformConfigurationModel model;
 
-    @Inject
     private APPConfigurationServiceBean appConfigService;
 
     @PostConstruct
@@ -52,7 +46,7 @@ public class PlatformConfigurationCtrl extends BaseCtrl {
         try {
             HashMap<String, String> store = new HashMap<>(
                     model.getItems());
-            appConfigService.storeAppConfigurationSettings(store);
+            getAppConfigService().storeAppConfigurationSettings(store);
             addMessage(SUCCESS_SAVED);
         } catch (Exception e) {
             addError(e);
@@ -68,7 +62,7 @@ public class PlatformConfigurationCtrl extends BaseCtrl {
     }
 
     private TreeMap<String, String> initPlatformSettings() throws ConfigurationException {
-        HashMap<String, Setting> map = appConfigService
+        HashMap<String, Setting> map = getAppConfigService()
                 .getProxyConfigurationSettings();
 
         TreeMap<String, String> result = new TreeMap<>();
@@ -112,5 +106,12 @@ public class PlatformConfigurationCtrl extends BaseCtrl {
 
     public PlatformConfigurationModel getModel() {
         return model;
+    }
+
+    public APPConfigurationServiceBean getAppConfigService() {
+        if (appConfigService == null) {
+            appConfigService = lookup(APPConfigurationServiceBean.class);
+        }
+        return appConfigService;
     }
 }

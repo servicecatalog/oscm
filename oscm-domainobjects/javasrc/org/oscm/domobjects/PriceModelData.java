@@ -15,9 +15,7 @@ package org.oscm.domobjects;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 import org.oscm.domobjects.converters.PriceModelTConverter;
 import org.oscm.domobjects.converters.PricingPeriodConverter;
@@ -37,13 +35,13 @@ public class PriceModelData extends DomainDataContainer implements Serializable 
     private static final long serialVersionUID = 1L;
 
     @Column(nullable = false)
-    @Convert(converter = PriceModelTConverter.class)
+    @Enumerated(EnumType.STRING)
     private PriceModelType type = PriceModelType.FREE_OF_CHARGE;
 
     /**
      * Period to be settled (YEAR, MONTH, WEEK, DAY)
      */
-    @Convert(converter = PricingPeriodConverter.class)
+    @Enumerated(EnumType.STRING)
     private PricingPeriod period;
 
     /**

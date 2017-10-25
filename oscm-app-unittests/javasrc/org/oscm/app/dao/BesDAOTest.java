@@ -30,13 +30,10 @@ import static org.mockito.Mockito.when;
 import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.xml.namespace.QName;
+import javax.xml.ws.Binding;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
@@ -78,8 +75,6 @@ import org.oscm.vo.VOSubscription;
 import org.oscm.vo.VOUser;
 import org.oscm.vo.VOUserDetails;
 
-import com.sun.xml.wss.XWSSConstants;
-
 public class BesDAOTest {
 
     private final static String USER = "user";
@@ -111,14 +106,16 @@ public class BesDAOTest {
     public void setup() throws APPlatformException, MalformedURLException {
         besDAO.configService = confServ;
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(idServ).when(besDAO).getBESWebService(
-                eq(IdentityService.class), any(ServiceInstance.class));
+                eq(IdentityService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(idServ).when(besDAO).getServicePort(eq(IdentityService.class),
                 anyMap());
         doReturn(subServ).when(besDAO).getServicePort(
                 eq(SubscriptionService.class), anyMap());
         doNothing().when(besDAO).validateVersion(anyString());
+        Binding mockBinding = mock(Binding.class);
+        when(idServ.getBinding()).thenReturn(mockBinding);
     }
 
     @Test
@@ -218,7 +215,7 @@ public class BesDAOTest {
         String actual = besDAO.getPasswordConstant(settings);
 
         // then
-        assertEquals(XWSSConstants.PASSWORD_PROPERTY, actual);
+        assertEquals("password", actual);
     }
 
     @Test
@@ -242,7 +239,7 @@ public class BesDAOTest {
         String actual = besDAO.getUsernameConstant(settings);
 
         // then
-        assertEquals(XWSSConstants.USERNAME_PROPERTY, actual);
+        assertEquals("username", actual);
     }
 
     @Test
@@ -258,9 +255,9 @@ public class BesDAOTest {
 
         // then
         assertNull(client.getRequestContext().get(
-                XWSSConstants.USERNAME_PROPERTY));
+                "username"));
         assertNull(client.getRequestContext().get(
-                XWSSConstants.PASSWORD_PROPERTY));
+                "password"));
         assertEquals(
                 USER,
                 client.getRequestContext().get(
@@ -288,9 +285,9 @@ public class BesDAOTest {
         assertNull(client.getRequestContext().get(
                 BindingProvider.PASSWORD_PROPERTY));
         assertEquals(USER,
-                client.getRequestContext().get(XWSSConstants.USERNAME_PROPERTY));
+                client.getRequestContext().get("username"));
         assertEquals(PASSWORD,
-                client.getRequestContext().get(XWSSConstants.PASSWORD_PROPERTY));
+                client.getRequestContext().get("password"));
     }
 
     @Test
@@ -324,7 +321,7 @@ public class BesDAOTest {
         Mockito.doReturn(is)
                 .when(besDAO)
                 .getBESWebService(Matchers.eq(IdentityService.class),
-                        Matchers.any(ServiceInstance.class));
+                        Matchers.any(ServiceInstance.class), any(Optional.class));
         Mockito.doReturn(users).when(is).getUsersForOrganization();
 
         // when
@@ -345,7 +342,7 @@ public class BesDAOTest {
         Mockito.doThrow(new RuntimeException())
                 .when(besDAO)
                 .getBESWebService(Matchers.eq(IdentityService.class),
-                        Matchers.any(ServiceInstance.class));
+                        Matchers.any(ServiceInstance.class), any(Optional.class));
 
         // when
         List<VOUserDetails> admins = besDAO
@@ -380,12 +377,12 @@ public class BesDAOTest {
             APPlatformException {
         // given
         doReturn(idServ).when(besDAO).getBESWebService(
-                eq(IdentityService.class), any(ServiceInstance.class));
+                eq(IdentityService.class), any(ServiceInstance.class), any(Optional.class));
         doThrow(new ObjectNotFoundException()).when(idServ).getUser(
                 any(VOUser.class));
 
         // when
-        besDAO.getUser(new ServiceInstance(), new VOUser());
+        besDAO.getUser(new ServiceInstance(), new VOUser(), Optional.empty());
     }
 
     @Test(expected = AuthenticationException.class)
@@ -394,12 +391,12 @@ public class BesDAOTest {
             APPlatformException {
         // given
         doReturn(idServ).when(besDAO).getBESWebService(
-                eq(IdentityService.class), any(ServiceInstance.class));
+                eq(IdentityService.class), any(ServiceInstance.class), any(Optional.class));
         doThrow(new OperationNotPermittedException()).when(idServ).getUser(
                 any(VOUser.class));
 
         // when
-        besDAO.getUser(new ServiceInstance(), new VOUser());
+        besDAO.getUser(new ServiceInstance(), new VOUser(), Optional.empty());
     }
 
     @Test(expected = AuthenticationException.class)
@@ -408,12 +405,12 @@ public class BesDAOTest {
             OrganizationRemovedException, APPlatformException {
         // given
         doReturn(idServ).when(besDAO).getBESWebService(
-                eq(IdentityService.class), any(ServiceInstance.class));
+                eq(IdentityService.class), any(ServiceInstance.class), any(Optional.class));
         doThrow(new OrganizationRemovedException()).when(idServ).getUser(
                 any(VOUser.class));
 
         // when
-        besDAO.getUser(new ServiceInstance(), new VOUser());
+        besDAO.getUser(new ServiceInstance(), new VOUser(), Optional.empty());
     }
 
     @Test(expected = APPlatformException.class)
@@ -421,9 +418,9 @@ public class BesDAOTest {
         // given
         doThrow(new APPlatformException(Arrays.asList(new LocalizedText())))
                 .when(besDAO).getBESWebService(eq(IdentityService.class),
-                        any(ServiceInstance.class));
+                        any(ServiceInstance.class), any(Optional.class));
         // when
-        besDAO.getUser(new ServiceInstance(), new VOUser());
+        besDAO.getUser(new ServiceInstance(), new VOUser(), Optional.empty());
     }
 
     @Test(expected = APPlatformException.class)
@@ -431,9 +428,9 @@ public class BesDAOTest {
         // given
         doThrow(new APPlatformException(Arrays.asList(new LocalizedText())))
                 .when(besDAO).getBESWebService(eq(IdentityService.class),
-                        any(ServiceInstance.class));
+                        any(ServiceInstance.class), any(Optional.class));
         // when
-        besDAO.getUserDetails(new ServiceInstance(), null, null);
+        besDAO.getUserDetails(new ServiceInstance(), null, null, Optional.empty());
     }
 
     @Test
@@ -442,11 +439,11 @@ public class BesDAOTest {
             APPlatformException {
         // given
         doReturn(idServ).when(besDAO).getBESWebService(
-                eq(IdentityService.class), any(ServiceInstance.class));
+                eq(IdentityService.class), any(ServiceInstance.class), any(Optional.class));
         VOUser user = new VOUser();
 
         // when
-        besDAO.getUser(new ServiceInstance(), user);
+        besDAO.getUser(new ServiceInstance(), user, Optional.empty());
 
         // then
         verify(idServ).getUser(user);
@@ -456,10 +453,10 @@ public class BesDAOTest {
     public void getUserDetails_currentUser() throws APPlatformException {
         // given
         doReturn(idServ).when(besDAO).getBESWebService(
-                eq(IdentityService.class), any(ServiceInstance.class));
+                eq(IdentityService.class), any(ServiceInstance.class), any(Optional.class));
 
         // when
-        besDAO.getUserDetails(new ServiceInstance(), null, null);
+        besDAO.getUserDetails(new ServiceInstance(), null, null, Optional.empty());
 
         // then
         verify(idServ).getCurrentUserDetails();
@@ -473,11 +470,11 @@ public class BesDAOTest {
         doReturn(settings).when(besDAO.configService)
                 .getAllProxyConfigurationSettings();
         doReturn(idServ).when(besDAO).getBESWebService(
-                eq(IdentityService.class), any(ServiceInstance.class));
+                eq(IdentityService.class), any(ServiceInstance.class), any(Optional.class));
         VOUser user = givenUser(null, "mail");
 
         // when
-        besDAO.getUserDetails(new ServiceInstance(), user, "password");
+        besDAO.getUserDetails(new ServiceInstance(), user, "password", Optional.empty());
 
         // then
         verify(besDAO).setUserCredentialsInContext(any(BindingProvider.class),
@@ -494,11 +491,11 @@ public class BesDAOTest {
         doReturn(settings).when(besDAO.configService)
                 .getAllProxyConfigurationSettings();
         doReturn(idServ).when(besDAO).getBESWebService(
-                eq(IdentityService.class), any(ServiceInstance.class));
+                eq(IdentityService.class), any(ServiceInstance.class), any(Optional.class));
         VOUser user = givenUser(null, "mail");
 
         // when
-        besDAO.getUserDetails(new ServiceInstance(), user, "password");
+        besDAO.getUserDetails(new ServiceInstance(), user, "password", Optional.empty());
 
         // then
         verify(besDAO).setUserCredentialsInContext(any(BindingProvider.class),
@@ -516,7 +513,7 @@ public class BesDAOTest {
             ValidationException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         VOInstanceInfo info = new VOInstanceInfo();
         doReturn(info).when(besDAO).getInstanceInfo(any(ServiceInstance.class),
                 any(InstanceResult.class));
@@ -540,7 +537,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         VOInstanceInfo info = new VOInstanceInfo();
         doReturn(info).when(besDAO).getInstanceInfo(any(ServiceInstance.class),
                 any(InstanceResult.class));
@@ -564,7 +561,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         VOInstanceInfo info = new VOInstanceInfo();
         doReturn(info).when(besDAO).getInstanceInfo(any(ServiceInstance.class),
                 any(InstanceResult.class));
@@ -589,7 +586,7 @@ public class BesDAOTest {
             ValidationException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -611,7 +608,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -633,7 +630,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -653,7 +650,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -673,7 +670,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -693,7 +690,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -716,7 +713,7 @@ public class BesDAOTest {
             ValidationException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -740,7 +737,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -764,7 +761,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -786,7 +783,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -808,7 +805,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -830,7 +827,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -852,7 +849,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -877,7 +874,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -902,7 +899,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -930,7 +927,7 @@ public class BesDAOTest {
             ValidationException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -957,7 +954,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -984,7 +981,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doReturn(new VOInstanceInfo()).when(besDAO).getInstanceInfo(
                 any(ServiceInstance.class), any(InstanceResult.class));
         ServiceInstance si = givenServiceInstance(false);
@@ -1009,7 +1006,7 @@ public class BesDAOTest {
             OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         VOInstanceInfo info = new VOInstanceInfo();
         doReturn(info).when(besDAO).getInstanceInfo(any(ServiceInstance.class),
                 any(InstanceResult.class));
@@ -1034,7 +1031,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         VOInstanceInfo info = new VOInstanceInfo();
         doReturn(info).when(besDAO).getInstanceInfo(any(ServiceInstance.class),
                 any(InstanceResult.class));
@@ -1061,7 +1058,7 @@ public class BesDAOTest {
             OrganizationAuthoritiesException, OperationNotPermittedException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         VOInstanceInfo info = new VOInstanceInfo();
         doReturn(info).when(besDAO).getInstanceInfo(any(ServiceInstance.class),
                 any(InstanceResult.class));
@@ -1098,7 +1095,7 @@ public class BesDAOTest {
         // given
         doThrow(new APPlatformException(Arrays.asList(new LocalizedText())))
                 .when(besDAO).getBESWebService(eq(IdentityService.class),
-                        any(ServiceInstance.class));
+                        any(ServiceInstance.class), any(Optional.class));
 
         // when
         besDAO.notifyAsyncSubscription(givenServiceInstance(false),
@@ -1184,7 +1181,7 @@ public class BesDAOTest {
 
         // when
         IdentityService client = besDAO.getBESWebService(IdentityService.class,
-                null);
+                null, Optional.empty());
 
         // then
         verify(besDAO, times(1)).setUserCredentialsInContext(
@@ -1224,7 +1221,7 @@ public class BesDAOTest {
 
         // when
         IdentityService client = besDAO.getBESWebService(IdentityService.class,
-                null);
+                null, Optional.empty());
 
         // then
         verify(besDAO, times(1)).setUserCredentialsInContext(
@@ -1266,7 +1263,7 @@ public class BesDAOTest {
 
         // when
         IdentityService client = besDAO.getBESWebService(IdentityService.class,
-                new ServiceInstance());
+                new ServiceInstance(), Optional.empty());
 
         // then
         verify(besDAO, times(1)).setUserCredentialsInContext(
@@ -1287,7 +1284,7 @@ public class BesDAOTest {
 
         // when
         IdentityService client = besDAO.getBESWebService(IdentityService.class,
-                si);
+                si, Optional.empty());
 
         // then
         verify(besDAO, times(1)).setUserCredentialsInContext(
@@ -1308,7 +1305,7 @@ public class BesDAOTest {
 
         // when
         IdentityService client = besDAO.getBESWebService(IdentityService.class,
-                si);
+                si, Optional.empty());
 
         // then
         verify(besDAO, times(1)).setUserCredentialsInContext(
@@ -1381,7 +1378,7 @@ public class BesDAOTest {
 
         // when
         IdentityService client = besDAO.getBESWebService(IdentityService.class,
-                new ServiceInstance());
+                new ServiceInstance(), Optional.empty());
 
         // then
         verify(besDAO, times(1)).setUserCredentialsInContext(
@@ -1402,7 +1399,7 @@ public class BesDAOTest {
 
         // when
         IdentityService client = besDAO.getBESWebService(IdentityService.class,
-                si);
+                si, Optional.empty());
 
         // then
         verify(besDAO, times(1)).setUserCredentialsInContext(
@@ -1423,7 +1420,7 @@ public class BesDAOTest {
 
         // when
         IdentityService client = besDAO.getBESWebService(IdentityService.class,
-                si);
+                si, Optional.of(""));
 
         // then
         verify(besDAO, times(1)).setUserCredentialsInContext(
@@ -1484,7 +1481,7 @@ public class BesDAOTest {
                 besDAO.configService).getAuthenticationForAPPAdmin(anyMap());
 
         // when
-        besDAO.getBESWebService(IdentityService.class, null);
+        besDAO.getBESWebService(IdentityService.class, null, Optional.empty());
 
         // then
         verify(besDAO.configService, times(1)).getAuthenticationForAPPAdmin(
@@ -1514,7 +1511,7 @@ public class BesDAOTest {
         ServiceInstance si = new ServiceInstance();
 
         // when
-        besDAO.getBESWebService(IdentityService.class, si);
+        besDAO.getBESWebService(IdentityService.class, si, Optional.empty());
 
         // then
         verify(besDAO.configService, times(1))
@@ -1532,7 +1529,7 @@ public class BesDAOTest {
                 .getAllProxyConfigurationSettings();
 
         // when
-        besDAO.configService.getWebServiceAuthentication(null, null);
+        besDAO.configService.getWebServiceAuthentication(null, null, Optional.empty());
 
         // then
         verify(besDAO.configService).getAllProxyConfigurationSettings();
@@ -1552,7 +1549,7 @@ public class BesDAOTest {
                 eq(IdentityService.class), anyMap());
 
         // when
-        besDAO.getBESWebService(IdentityService.class, null);
+        besDAO.getBESWebService(IdentityService.class, null, Optional.empty());
     }
 
     @SuppressWarnings("unchecked")
@@ -1567,7 +1564,7 @@ public class BesDAOTest {
                 .getAuthenticationForAPPAdmin(anyMap());
 
         // when
-        besDAO.getBESWebService(IdentityService.class, null);
+        besDAO.getBESWebService(IdentityService.class, null, Optional.empty());
     }
 
     @SuppressWarnings("unchecked")
@@ -1584,7 +1581,7 @@ public class BesDAOTest {
 
         // then
         verify(besDAO, times(0)).getBESWebService(any(Class.class),
-                any(ServiceInstance.class));
+                any(ServiceInstance.class), any(Optional.class));
     }
 
     @SuppressWarnings("unchecked")
@@ -1597,7 +1594,7 @@ public class BesDAOTest {
 
         // then
         verify(besDAO, times(0)).getBESWebService(any(Class.class),
-                any(ServiceInstance.class));
+                any(ServiceInstance.class), any(Optional.class));
     }
 
     @SuppressWarnings("unchecked")
@@ -1610,7 +1607,7 @@ public class BesDAOTest {
 
         // then
         verify(besDAO, times(0)).getBESWebService(any(Class.class),
-                any(ServiceInstance.class));
+                any(ServiceInstance.class), any(Optional.class));
     }
 
     @SuppressWarnings("unchecked")
@@ -1623,7 +1620,7 @@ public class BesDAOTest {
 
         // then
         verify(besDAO, times(0)).getBESWebService(any(Class.class),
-                any(ServiceInstance.class));
+                any(ServiceInstance.class), any(Optional.class));
     }
 
     @Test
@@ -1631,7 +1628,7 @@ public class BesDAOTest {
         // given
         doThrow(new APPlatformException("", new ConnectException())).when(
                 besDAO).getBESWebService(eq(IdentityService.class),
-                any(ServiceInstance.class));
+                any(ServiceInstance.class), any(Optional.class));
         // when
         boolean result = besDAO.isBESAvalible();
 
@@ -1647,7 +1644,7 @@ public class BesDAOTest {
 
         // then
         verify(besDAO, times(1)).getBESWebService(any(Class.class),
-                any(ServiceInstance.class));
+                any(ServiceInstance.class), any(Optional.class));
         assertTrue(result);
     }
 
@@ -1661,7 +1658,7 @@ public class BesDAOTest {
             BESNotificationException {
         // given
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
 
         ServiceInstance si = givenServiceInstance(false);
         String locale = "en";
@@ -1686,7 +1683,7 @@ public class BesDAOTest {
             ConcurrentModificationException {
         // given
         doThrow(new APPlatformException("")).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
 
         ServiceInstance si = givenServiceInstance(false);
         String locale = "en";
@@ -1716,7 +1713,7 @@ public class BesDAOTest {
         ServiceInstance si = givenServiceInstance(false);
         String locale = "en";
         doReturn(subServ).when(besDAO).getBESWebService(
-                eq(SubscriptionService.class), any(ServiceInstance.class));
+                eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doThrow(new ObjectNotFoundException("")).when(subServ)
                 .getSubscriptionForCustomer(eq(si.getOrganizationId()),
                         eq(si.getSubscriptionId()));
@@ -1741,7 +1738,7 @@ public class BesDAOTest {
         //given
         ServiceInstance si = givenServiceInstance(false);
         doReturn(subServ).when(besDAO).getBESWebService(
-            eq(SubscriptionService.class), any(ServiceInstance.class));
+            eq(SubscriptionService.class), any(ServiceInstance.class), any(Optional.class));
         doNothing().when(subServ).notifySubscriptionAboutVmsNumber(anyString(), anyString(), any(VOInstanceInfo.class));
         //when
         besDAO.notifySubscriptionAboutVmsNumber(si);

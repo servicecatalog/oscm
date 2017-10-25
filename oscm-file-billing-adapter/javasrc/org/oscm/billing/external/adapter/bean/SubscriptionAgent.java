@@ -31,8 +31,8 @@ import org.oscm.billing.external.pricemodel.service.PriceModel;
 @Stateless
 public class SubscriptionAgent {
 
-    public static final String JMS_QUEUE_FACTORY_JNDI_NAME = "jms/bss/taskQueueFactory";
-    public static final String JMS_QUEUE_JNDI_NAME = "jms/bss/taskQueue";
+    private static final String JMS_QUEUE_FACTORY_JNDI_NAME = "openejb:Resource/JmsConnectionFactory";
+    private static final String JMS_QUEUE_JNDI_NAME = "openejb:Resource/OSCMTaskQueue";
 
     /**
      * Create the initial JNDI context
@@ -115,13 +115,13 @@ public class SubscriptionAgent {
             if (session != null) {
                 try {
                     session.close();
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
             if (conn != null) {
                 try {
                     conn.close();
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 }
             }
         }

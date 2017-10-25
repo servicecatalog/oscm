@@ -6,7 +6,7 @@
   xmlns:tns="oscm.serviceprovisioning/1.9/TechnicalService.xsd">
   <tns:TechnicalService accessType="DIRECT" allowingOnBehalfActing="false" baseUrl="not_required"
     build="08.08.2012" id="VMware" loginPath="/Dynamically provided by the IaaS-system" onlyOneSubscriptionPerUser="false"
-    provisioningType="ASYNCHRONOUS" provisioningUrl="https://192.168.220.12:8781/ProvisioningService/AsynchronousProvisioningProxy?wsdl"
+    provisioningType="ASYNCHRONOUS" provisioningUrl="https://192.168.220.12:8781/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl"
     provisioningVersion="1.0">
     <AccessInfo locale="en" >VMware Access Info.</AccessInfo>
     <LocalizedDescription locale="de">VMware IaaS Implementierung.</LocalizedDescription>

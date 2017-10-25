@@ -40,7 +40,7 @@ import org.oscm.vo.VOUserDetails;
  * 
  * @author pock
  */
-@WebService(serviceName = "NotificationService", targetNamespace = "http://oscm.org/xsd", portName = "StubServicePort", endpointInterface = "org.oscm.notification.intf.NotificationService", wsdlLocation = "NotificationService.wsdl")
+@WebService(serviceName = "NotificationService", targetNamespace = "http://oscm.org/xsd", portName = "StubServicePort", endpointInterface = "org.oscm.notification.intf.NotificationService", wsdlLocation = "WEB-INF/wsdl/NotificationService.wsdl")
 public class NotificationServiceBean implements NotificationService {
 
     @Resource

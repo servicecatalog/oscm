@@ -20,13 +20,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.junit.Test;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.FieldVisitor;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.Type;
-import org.objectweb.asm.commons.EmptyVisitor;
+import org.objectweb.asm.*;
 import org.objectweb.asm.signature.SignatureReader;
 import org.objectweb.asm.signature.SignatureVisitor;
+import org.objectweb.asm.util.CheckClassAdapter;
 
 /**
  * Verifies that VOs do not have cyclic references.
@@ -45,12 +42,7 @@ public class CyclicReferencesTest {
     protected List<String> getVOClassNames() throws IOException {
         final URL voUrl = BaseVO.class.getResource("BaseVO.class");
         final File folder = new File(voUrl.getFile()).getParentFile();
-        final File[] voClassFiles = folder.listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.startsWith("VO") && name.endsWith(".class");
-            }
-        });
+        final File[] voClassFiles = folder.listFiles((dir, name) -> name.startsWith("VO") && name.endsWith(".class"));
         final List<String> result = new ArrayList<String>();
         for (final File classfile : voClassFiles) {
             FileInputStream in = null;
@@ -111,7 +103,7 @@ public class CyclicReferencesTest {
     /**
      * Finds all types directly referenced by the given type and its super
      * classes and adds them to the result set.
-     * 
+     *
      * @param type
      * @param result
      */
@@ -123,8 +115,8 @@ public class CyclicReferencesTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        reader.accept(new EmptyVisitor() {
 
+        reader.accept(new ClassVisitor(Opcodes.ASM5) {
             @Override
             public void visit(int version, int access, String name,
                     String signature, String superName, String[] interfaces) {
@@ -151,12 +143,12 @@ public class CyclicReferencesTest {
      * Finds all type references in the given signature and adds them to the
      * result set.
      * 
-     * @param desc
+     * @param signature
      * @param result
      */
     protected void getTypesFromSignature(final String signature,
             final Set<String> result) {
-        new SignatureReader(signature).acceptType(new SignatureVisitor() {
+        new SignatureReader(signature).acceptType(new SignatureVisitor(Opcodes.ASM5) {
             @Override
             public void visitClassType(String vmname) {
                 final Type type = Type.getObjectType(vmname);

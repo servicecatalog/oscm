@@ -38,7 +38,7 @@ import org.oscm.webservices.logger.WebServiceLogger;
 /**
  * Endpoint facade for {@link OrganizationalUnitService}
  */
-@WebService(endpointInterface = "org.oscm.intf.OrganizationalUnitService")
+@WebService(name = "OrganizationalUnitService", serviceName = "OrganizationalUnitService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.OrganizationalUnitService")
 public class OrganizationalUnitServiceWS implements OrganizationalUnitService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -51,8 +51,7 @@ public class OrganizationalUnitServiceWS implements OrganizationalUnitService {
     @Override
     public void grantUserRoles(VOUser user, List<UnitRoleType> roles,
             VOOrganizationalUnit organizationalUnit)
-                    throws ObjectNotFoundException,
-                    OperationNotPermittedException {
+            throws ObjectNotFoundException, OperationNotPermittedException {
         WS_LOGGER.logAccess(wsContext, dataService);
 
         PlatformUser pUser = Converter.convert(user, VOUser.class,
@@ -75,8 +74,7 @@ public class OrganizationalUnitServiceWS implements OrganizationalUnitService {
     @Override
     public void revokeUserRoles(VOUser user, List<UnitRoleType> roles,
             VOOrganizationalUnit organizationalUnit)
-                    throws ObjectNotFoundException,
-                    OperationNotPermittedException {
+            throws ObjectNotFoundException, OperationNotPermittedException {
         WS_LOGGER.logAccess(wsContext, dataService);
 
         PlatformUser pUser = Converter.convert(user, VOUser.class,
@@ -150,7 +148,8 @@ public class OrganizationalUnitServiceWS implements OrganizationalUnitService {
     @Override
     public List<VOService> getVisibleServices(String unitId,
             Pagination pagination, String marketplaceId) {
-        final org.oscm.paginator.Pagination paginationNew = Converter.convert(pagination, Pagination.class,
+        final org.oscm.paginator.Pagination paginationNew = Converter.convert(
+                pagination, Pagination.class,
                 org.oscm.paginator.Pagination.class);
         List<Product> visibleServices = localService.getVisibleServices(unitId,
                 paginationNew, marketplaceId);
@@ -161,7 +160,8 @@ public class OrganizationalUnitServiceWS implements OrganizationalUnitService {
     @Override
     public List<VOService> getAccessibleServices(String unitId,
             Pagination pagination, String marketplaceId) {
-        final org.oscm.paginator.Pagination paginationNew = Converter.convert(pagination, Pagination.class,
+        final org.oscm.paginator.Pagination paginationNew = Converter.convert(
+                pagination, Pagination.class,
                 org.oscm.paginator.Pagination.class);
         List<Product> accessibleServices = localService
                 .getAccessibleServices(unitId, paginationNew, marketplaceId);

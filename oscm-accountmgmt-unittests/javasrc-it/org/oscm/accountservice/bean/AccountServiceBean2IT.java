@@ -29,6 +29,7 @@ import org.mockito.Matchers;
 
 import org.oscm.accountservice.local.MarketingPermissionServiceLocal;
 import org.oscm.dataservice.bean.DataServiceBean;
+import org.oscm.dataservice.bean.HibernateIndexer;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.PlatformUser;

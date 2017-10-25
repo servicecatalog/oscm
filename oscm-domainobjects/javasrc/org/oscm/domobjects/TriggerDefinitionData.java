@@ -35,7 +35,7 @@ public class TriggerDefinitionData extends DomainDataContainer {
      * The name of the action (e.g. SUBSCRIBE_TO_SERVICE) for which the trigger
      * is defined.
      */
-    @Convert(converter = TTConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TriggerType type;
 
@@ -47,7 +47,7 @@ public class TriggerDefinitionData extends DomainDataContainer {
     /**
      * The type of the trigger (e.g. WEB_SERVICE or MAIL).
      */
-    @Convert(converter = TTTConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TriggerTargetType targetType;
 

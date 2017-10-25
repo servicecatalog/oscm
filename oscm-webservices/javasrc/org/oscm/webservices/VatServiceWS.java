@@ -12,17 +12,15 @@
 package org.oscm.webservices;
 
 import java.util.List;
-
 import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 
-import org.oscm.logging.LoggerFactory;
-import org.oscm.dataservice.local.DataService;
-import org.oscm.webservices.logger.WebServiceLogger;
 import org.oscm.converter.api.ExceptionConverter;
-import org.oscm.converter.api.VOConverter;
 import org.oscm.converter.api.VOCollectionConverter;
+import org.oscm.converter.api.VOConverter;
+import org.oscm.dataservice.local.DataService;
 import org.oscm.intf.VatService;
+import org.oscm.logging.LoggerFactory;
 import org.oscm.types.exceptions.ConcurrentModificationException;
 import org.oscm.types.exceptions.OperationNotPermittedException;
 import org.oscm.types.exceptions.OrganizationAuthoritiesException;
@@ -30,6 +28,7 @@ import org.oscm.types.exceptions.ValidationException;
 import org.oscm.vo.VOCountryVatRate;
 import org.oscm.vo.VOOrganizationVatRate;
 import org.oscm.vo.VOVatRate;
+import org.oscm.webservices.logger.WebServiceLogger;
 
 /**
  * End point facade for WS.
@@ -37,7 +36,7 @@ import org.oscm.vo.VOVatRate;
  * @author pock
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.VatService")
+@WebService(name = "VatService", serviceName = "VatService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.VatService")
 public class VatServiceWS implements VatService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -82,14 +81,11 @@ public class VatServiceWS implements VatService {
             ValidationException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            delegate.saveAllVats(
-                    VOConverter.convertToUp(defaultVat),
+            delegate.saveAllVats(VOConverter.convertToUp(defaultVat),
                     VOCollectionConverter.convertList(countryVats,
                             org.oscm.internal.vo.VOCountryVatRate.class),
-                    VOCollectionConverter
-                            .convertList(
-                                    organizationVats,
-                                    org.oscm.internal.vo.VOOrganizationVatRate.class));
+                    VOCollectionConverter.convertList(organizationVats,
+                            org.oscm.internal.vo.VOOrganizationVatRate.class));
         } catch (org.oscm.internal.types.exception.OrganizationAuthoritiesException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.ConcurrentModificationException e) {
@@ -108,8 +104,7 @@ public class VatServiceWS implements VatService {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
             delegate.saveCountryVats(VOCollectionConverter.convertList(
-                    countryVats,
-                    org.oscm.internal.vo.VOCountryVatRate.class));
+                    countryVats, org.oscm.internal.vo.VOCountryVatRate.class));
         } catch (org.oscm.internal.types.exception.OrganizationAuthoritiesException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.ConcurrentModificationException e) {
@@ -143,9 +138,9 @@ public class VatServiceWS implements VatService {
             ValidationException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            delegate.saveOrganizationVats(VOCollectionConverter.convertList(
-                    organizationVats,
-                    org.oscm.internal.vo.VOOrganizationVatRate.class));
+            delegate.saveOrganizationVats(
+                    VOCollectionConverter.convertList(organizationVats,
+                            org.oscm.internal.vo.VOOrganizationVatRate.class));
         } catch (org.oscm.internal.types.exception.OrganizationAuthoritiesException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.ConcurrentModificationException e) {

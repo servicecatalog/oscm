@@ -12,24 +12,10 @@
 
 package org.oscm.ui.beans;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -45,41 +31,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.components.response.Response;
-import org.oscm.internal.intf.AccountService;
-import org.oscm.internal.intf.MarketplaceService;
-import org.oscm.internal.intf.ServiceProvisioningServiceInternal;
-import org.oscm.internal.intf.SubscriptionService;
+import org.oscm.internal.intf.*;
 import org.oscm.internal.partnerservice.PartnerService;
 import org.oscm.internal.subscriptions.POSubscriptionAndCustomer;
 import org.oscm.internal.subscriptions.SubscriptionsService;
 import org.oscm.internal.types.enumtypes.ParameterValueType;
 import org.oscm.internal.types.enumtypes.PerformanceHint;
-import org.oscm.internal.types.exception.CurrencyException;
+import org.oscm.internal.types.exception.*;
 import org.oscm.internal.types.exception.DomainObjectException.ClassEnum;
-import org.oscm.internal.types.exception.ObjectNotFoundException;
-import org.oscm.internal.types.exception.OperationNotPermittedException;
-import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
-import org.oscm.internal.types.exception.SaaSApplicationException;
-import org.oscm.internal.types.exception.ServiceOperationException;
-import org.oscm.internal.types.exception.ServiceStateException;
-import org.oscm.internal.types.exception.SubscriptionStateException;
-import org.oscm.internal.types.exception.ValidationException;
-import org.oscm.internal.vo.VOCatalogEntry;
-import org.oscm.internal.vo.VOLocalizedText;
-import org.oscm.internal.vo.VOOrganization;
-import org.oscm.internal.vo.VOParameter;
-import org.oscm.internal.vo.VOParameterDefinition;
-import org.oscm.internal.vo.VOParameterOption;
-import org.oscm.internal.vo.VOPriceModel;
-import org.oscm.internal.vo.VOPriceModelLocalization;
-import org.oscm.internal.vo.VOPricedOption;
-import org.oscm.internal.vo.VOPricedParameter;
-import org.oscm.internal.vo.VOPricedRole;
-import org.oscm.internal.vo.VORoleDefinition;
-import org.oscm.internal.vo.VOService;
-import org.oscm.internal.vo.VOServiceDetails;
-import org.oscm.internal.vo.VOSubscriptionDetails;
-import org.oscm.internal.vo.VOTechnicalService;
+import org.oscm.internal.vo.*;
 import org.oscm.serviceprovisioningservice.bean.ServiceProvisioningServiceBean;
 import org.oscm.serviceprovisioningservice.bean.ServiceProvisioningServiceInternalBean;
 import org.oscm.test.stubs.MarketplaceServiceStub;
@@ -114,8 +74,9 @@ public class PriceModelBeanTest {
     private static final String COLUMN_TKEY = "tkey";
     private final static int PRICEMODEL_FOR_SUBSCRIPTION = 3;
     private static long ACTIVATION_DATE = 1383844091182L;
+    private static ServiceProvisioningServiceInternal provisioningServiceInternal;
+    private static ServiceProvisioningService provisioningService;
     private Response response;
-    private static ServiceProvisioningServiceBean provisioningService;
     private SubscriptionsService subscriptionsService;
     private PriceModelBean bean;
     private SessionBean sessionBean;
@@ -131,7 +92,7 @@ public class PriceModelBeanTest {
     private ExternalCustomerPriceModelCtrl externalCustomerPriceModelCtrl;
     private ExternalSubscriptionPriceModelCtrl externalSubscriptionPriceModelCtrl;
 
-    private List<POSubscriptionAndCustomer> subscriptionAndCustomers = new ArrayList<POSubscriptionAndCustomer>();
+    private List<POSubscriptionAndCustomer> subscriptionAndCustomers = new ArrayList<>();
     private VOPriceModel voPriceModel;
 
     @Before
@@ -150,25 +111,33 @@ public class PriceModelBeanTest {
         mockedCustomer = new Organization(voOrganization);
         mockedCustomer.setName("Name");
 
-        provisioningService = spy(new ServiceProvisioningServiceInternalBean() {
+        provisioningServiceInternal = spy(
+                new ServiceProvisioningServiceInternalBean());
+        provisioningService = spy(new ServiceProvisioningServiceBean() {
             @Override
-            public void deleteService(VOService product) throws OrganizationAuthoritiesException,
-                    ObjectNotFoundException, ServiceOperationException, ServiceStateException {
+            public void deleteService(VOService product)
+                    throws OrganizationAuthoritiesException,
+                    ObjectNotFoundException, ServiceOperationException,
+                    ServiceStateException {
                 // throw exception to simulate concurrent deletion
                 throw new ObjectNotFoundException();
             }
 
             @Override
-            public VOServiceDetails savePriceModelForCustomer(VOServiceDetails productDetails, VOPriceModel priceModel,
-                    VOOrganization customer) throws OrganizationAuthoritiesException, ObjectNotFoundException,
-                    OperationNotPermittedException, CurrencyException, ValidationException, ServiceStateException,
-                    ServiceOperationException {
+            public VOServiceDetails savePriceModelForCustomer(
+                    VOServiceDetails productDetails, VOPriceModel priceModel,
+                    VOOrganization customer)
+                    throws OrganizationAuthoritiesException,
+                    ObjectNotFoundException, OperationNotPermittedException,
+                    CurrencyException, ValidationException,
+                    ServiceStateException, ServiceOperationException {
                 productDetails.setPriceModel(priceModel);
                 return productDetails;
             }
 
             @Override
-            public VOServiceDetails getServiceDetails(VOService product) throws ObjectNotFoundException,
+            public VOServiceDetails getServiceDetails(VOService product)
+                    throws ObjectNotFoundException,
                     org.oscm.internal.types.exception.OperationNotPermittedException {
                 if (product.getKey() == vOServiceDetails.getKey()) {
                     return vOServiceDetails;
@@ -178,11 +147,14 @@ public class PriceModelBeanTest {
             };
 
             @Override
-            public List<VOService> getSuppliedServices(PerformanceHint performanceHint) {
+            public List<VOService> getSuppliedServices(
+                    PerformanceHint performanceHint) {
                 return null;
             }
         });
-
+        when(((ServiceProvisioningServiceInternalBean) provisioningServiceInternal)
+                .getServiceProvisioningServiceBean())
+                        .thenReturn(provisioningService);
         bean = spy(new PriceModelBean() {
 
             private static final long serialVersionUID = -7750160443293826170L;
@@ -193,7 +165,8 @@ public class PriceModelBeanTest {
             }
 
             @Override
-            protected void addMessage(String clientId, Severity severity, String key, Object[] params) {
+            protected void addMessage(String clientId, Severity severity,
+                    String key, Object[] params) {
             }
 
             @Override
@@ -211,8 +184,9 @@ public class PriceModelBeanTest {
             protected MarketplaceService getMarketplaceService() {
                 return new MarketplaceServiceStub() {
                     @Override
-                    public List<VOCatalogEntry> getMarketplacesForService(VOService service)
-                            throws ObjectNotFoundException, OperationNotPermittedException {
+                    public List<VOCatalogEntry> getMarketplacesForService(
+                            VOService service) throws ObjectNotFoundException,
+                            OperationNotPermittedException {
                         return null;
                     }
                 };
@@ -220,7 +194,7 @@ public class PriceModelBeanTest {
 
             @Override
             protected ServiceProvisioningServiceInternal getProvisioningServiceInternal() {
-                return (ServiceProvisioningServiceInternal) PriceModelBeanTest.provisioningService;
+                return PriceModelBeanTest.provisioningServiceInternal;
             }
         });
 
@@ -228,7 +202,8 @@ public class PriceModelBeanTest {
         subscriptionAndCustomers = givenPOSubscriptionAndCustomersList();
         subscriptionAndCustomers.add(getPOSubscriptionAndCustomer(SUB_ID));
         response = new Response(subscriptionAndCustomers);
-        when(subscriptionsService.getSubscriptionsAndCustomersForManagers()).thenReturn(response);
+        when(subscriptionsService.getSubscriptionsAndCustomersForManagers())
+                .thenReturn(response);
 
         uiMock = mock(UiDelegate.class);
         bean.ui = uiMock;
@@ -240,16 +215,24 @@ public class PriceModelBeanTest {
         doReturn(selectedServiceList).when(bean).getServices();
         doReturn(mockedCustomer).when(bean).getCustomer();
         doReturn(subscriptionsService).when(bean).getSubscriptionsService();
-        appBean = spy(new ApplicationBean());
+        appBean = spy(new ApplicationBean() {
+            @Override
+            protected VOUserDetails getUserFromSessionWithoutException() {
+                return new VOUserDetails();
+            }
+        });
         bean.setAppBean(appBean);
         doReturn("GMT").when(appBean).getTimeZoneId();
 
         model = spy(new BPLazyDataModel());
         bean.setModel(model);
-        
-        externalServicePriceModelCtrl = mock(ExternalServicePriceModelCtrl.class);
-        externalCustomerPriceModelCtrl = mock(ExternalCustomerPriceModelCtrl.class);
-        externalSubscriptionPriceModelCtrl = mock(ExternalSubscriptionPriceModelCtrl.class);
+
+        externalServicePriceModelCtrl = mock(
+                ExternalServicePriceModelCtrl.class);
+        externalCustomerPriceModelCtrl = mock(
+                ExternalCustomerPriceModelCtrl.class);
+        externalSubscriptionPriceModelCtrl = mock(
+                ExternalSubscriptionPriceModelCtrl.class);
         bean.setExtServiceBean(externalServicePriceModelCtrl);
         bean.setExtCustBean(externalCustomerPriceModelCtrl);
         bean.setExtSubBean(externalSubscriptionPriceModelCtrl);
@@ -294,7 +277,8 @@ public class PriceModelBeanTest {
         bean.setSelectedService(details);
 
         String result = bean.getSelectedServiceNameToDisplay();
-        assertEquals(JSFUtils.getText("marketplace.name.undefined", null), result);
+        assertEquals(JSFUtils.getText("marketplace.name.undefined", null),
+                result);
     }
 
     @Test
@@ -306,7 +290,8 @@ public class PriceModelBeanTest {
         bean.setSelectedService(details);
 
         String result = bean.getSelectedServiceNameToDisplay();
-        assertEquals(JSFUtils.getText("marketplace.name.undefined", null), result);
+        assertEquals(JSFUtils.getText("marketplace.name.undefined", null),
+                result);
     }
 
     @Test
@@ -378,18 +363,21 @@ public class PriceModelBeanTest {
 
         // when
         bean.updatePriceModel();
-        bean.getParameters().get(0).getPricedParameter().getRoleSpecificUserPrices().add(new VOPricedRole());
+        bean.getParameters().get(0).getPricedParameter()
+                .getRoleSpecificUserPrices().add(new VOPricedRole());
         // then
         verify(bean, times(1)).initParametersRolesForNotExistingParameter();
-        assertEquals(bean.getParameters().size(), bean.getParametersRoles().size());
-        assertEquals(1, bean.getParametersRoles().get(0).getPricedParameter().getRoleSpecificUserPrices().size());
+        assertEquals(bean.getParameters().size(),
+                bean.getParametersRoles().size());
+        assertEquals(1, bean.getParametersRoles().get(0).getPricedParameter()
+                .getRoleSpecificUserPrices().size());
     }
 
     @Test
     public void updateVOServiceDetails_Bug10257() throws Exception {
         // given
         bean.setCustomerID(null);
-        bean.setSelectedServiceKey(Long.valueOf(0));
+        bean.setSelectedServiceKey(0L);
         bean.setCurrentPMPage(PriceModelBean.PRICEMODEL_FOR_CUSTOMER);
 
         // when
@@ -403,16 +391,19 @@ public class PriceModelBeanTest {
     public void updateVOServiceDetails_Bug10700() throws Exception {
         // given
         bean.setSelectedServiceKey(Long.valueOf(0));
-        doNothing().when(bean.ui).handleException(any(ObjectNotFoundException.class));
+        doNothing().when(bean.ui)
+                .handleException(any(ObjectNotFoundException.class));
         bean.setCurrentPMPage(PriceModelBean.PRICEMODEL_FOR_SERVICE);
-        doReturn(null).when(provisioningService).getServiceDetails(any(VOServiceDetails.class));
+        doReturn(null).when(provisioningService)
+                .getServiceDetails(any(VOServiceDetails.class));
 
         // when
         bean.updateVOServiceDetails();
 
         // then
         verify(bean, times(1)).initServices();
-        verify(bean.ui, times(1)).handleException(any(SaaSApplicationException.class));
+        verify(bean.ui, times(1))
+                .handleException(any(SaaSApplicationException.class));
 
     }
 
@@ -422,13 +413,15 @@ public class PriceModelBeanTest {
         prepareForSave();
         bean.updatePriceModel();
         bean.setSelectedRole(bean.getRoles().get(0));
-        bean.getParametersSelectedRole()[1].getPricedOption().setPricePerUser(BigDecimal.valueOf(1));
+        bean.getParametersSelectedRole()[1].getPricedOption()
+                .setPricePerUser(BigDecimal.valueOf(1));
         bean.saveRoles();
         // when
         bean.save();
         // then
-        assertEquals(bean.getPriceModel().getSelectedParameters().get(0).getPricedOptions().get(0)
-                .getRoleSpecificUserPrices().get(0).getPricePerUser(), BigDecimal.valueOf(1));
+        assertEquals(bean.getPriceModel().getSelectedParameters().get(0)
+                .getPricedOptions().get(0).getRoleSpecificUserPrices().get(0)
+                .getPricePerUser(), BigDecimal.valueOf(1));
     }
 
     @Test
@@ -443,17 +436,22 @@ public class PriceModelBeanTest {
         doReturn(new VOPriceModelLocalization()).when(bean).getLocalization();
         bean.updatePriceModel();
         bean.setSelectedRole(bean.getRoles().get(0));
-        bean.getParametersSelectedRole()[1].getPricedOption().setPricePerUser(BigDecimal.valueOf(1));
+        bean.getParametersSelectedRole()[1].getPricedOption()
+                .setPricePerUser(BigDecimal.valueOf(1));
         bean.saveRoles();
         bean.setLocalization(mock(VOPriceModelLocalization.class));
         bean.provisioningService = provisioningService;
 
-        doReturn(bean.getSelectedService()).when(provisioningService).savePriceModel(any(VOServiceDetails.class), any(VOPriceModel.class));
-        doNothing().when(provisioningService).savePriceModelLocalization(any(VOPriceModel.class), any(VOPriceModelLocalization.class));
+        doReturn(bean.getSelectedService()).when(provisioningService)
+                .savePriceModel(any(VOServiceDetails.class),
+                        any(VOPriceModel.class));
+        doNothing().when(provisioningService).savePriceModelLocalization(
+                any(VOPriceModel.class), any(VOPriceModelLocalization.class));
         // when
         bean.save();
         // then
-        verify(provisioningService, atLeastOnce()).savePriceModelLocalization(any(VOPriceModel.class), any(VOPriceModelLocalization.class));
+        verify(provisioningService, atLeastOnce()).savePriceModelLocalization(
+                any(VOPriceModel.class), any(VOPriceModelLocalization.class));
     }
 
     @Test(expected = ObjectNotFoundException.class)
@@ -473,7 +471,8 @@ public class PriceModelBeanTest {
     @Test(expected = ObjectNotFoundException.class)
     public void save_subscription_VOServiceDetails_NULL() throws Exception {
         // given
-        doReturn(new Integer(PriceModelBean.PRICEMODEL_FOR_SUBSCRIPTION)).when(bean).getCurrentPMPage();
+        doReturn(new Integer(PriceModelBean.PRICEMODEL_FOR_SUBSCRIPTION))
+                .when(bean).getCurrentPMPage();
         doReturn(null).when(bean).getSelectedService();
         // when
         try {
@@ -494,8 +493,9 @@ public class PriceModelBeanTest {
 
         doReturn(null).when(bean).getRoleSpecificUserPricesForSaving();
         doNothing().when(bean).addRoleSpecificPriceToParameters();
-        doThrow(new ServiceStateException()).when(provisioningService).savePriceModelForCustomer(
-                any(VOServiceDetails.class), any(VOPriceModel.class), any(VOOrganization.class));
+        doThrow(new ServiceStateException()).when(provisioningService)
+                .savePriceModelForCustomer(any(VOServiceDetails.class),
+                        any(VOPriceModel.class), any(VOOrganization.class));
         try {
             // when
             bean.save();
@@ -508,7 +508,8 @@ public class PriceModelBeanTest {
     }
 
     @Test(expected = SubscriptionStateException.class)
-    public void save_subscription_SubscriptionStateException() throws Exception {
+    public void save_subscription_SubscriptionStateException()
+            throws Exception {
         // given
         prepareForSave();
 
@@ -521,10 +522,12 @@ public class PriceModelBeanTest {
         doReturn(null).when(bean).getRoleSpecificUserPricesForSaving();
         doNothing().when(bean).addRoleSpecificPriceToParameters();
 
-        doThrow(new SubscriptionStateException()).when(provisioningService).savePriceModelForSubscription(
-                any(VOServiceDetails.class), any(VOPriceModel.class));
-        doReturn(vOServiceDetails).when(provisioningService).getServiceForSubscription(any(VOOrganization.class),
-                anyString());
+        doThrow(new SubscriptionStateException()).when(provisioningService)
+                .savePriceModelForSubscription(any(VOServiceDetails.class),
+                        any(VOPriceModel.class));
+        doReturn(vOServiceDetails).when(provisioningService)
+                .getServiceForSubscription(any(VOOrganization.class),
+                        anyString());
         // when
         try {
             bean.save();
@@ -538,9 +541,10 @@ public class PriceModelBeanTest {
     public void save_service_ObjectNotFoundException() throws Exception {
         // given
         prepareForSave();
-        ObjectNotFoundException ex = new ObjectNotFoundException(ClassEnum.SERVICE, "test");
-        doThrow(ex).when(provisioningService).savePriceModelForSubscription(any(VOServiceDetails.class),
-                any(VOPriceModel.class));
+        ObjectNotFoundException ex = new ObjectNotFoundException(
+                ClassEnum.SERVICE, "test");
+        doThrow(ex).when(provisioningService).savePriceModelForSubscription(
+                any(VOServiceDetails.class), any(VOPriceModel.class));
 
         // when
         try {
@@ -553,11 +557,12 @@ public class PriceModelBeanTest {
         }
     }
 
-
     @Test
     public void initSubscriptions() throws Exception {
-        POSubscriptionAndCustomer subscriptionAndCustomer = getPOSubscriptionAndCustomer(SUB_ID);
-        doReturn(subscriptionAndCustomer).when(model).getSelectedSubscriptionAndCustomer();
+        POSubscriptionAndCustomer subscriptionAndCustomer = getPOSubscriptionAndCustomer(
+                SUB_ID);
+        doReturn(subscriptionAndCustomer).when(model)
+                .getSelectedSubscriptionAndCustomer();
 
         // when
         bean.initSubscriptions();
@@ -610,7 +615,8 @@ public class PriceModelBeanTest {
         bean.setCustomerId(CUST_ID);
         bean.selectSubscriptionIdAndCustomerId();
 
-        verify(bean, times(1)).setSelectedSubscription(any(POSubscriptionAndCustomer.class));
+        verify(bean, times(1))
+                .setSelectedSubscription(any(POSubscriptionAndCustomer.class));
         verify(bean, times(1)).updatePriceModel();
         assertEquals(Boolean.FALSE, Boolean.valueOf(bean.isDirty()));
     }
@@ -621,12 +627,14 @@ public class PriceModelBeanTest {
         bean.setSubscriptionId(null);
         bean.setCustomerId(null);
         bean.selectSubscriptionIdAndCustomerId();
-        
-        verify(bean, never()).setSelectedSubscription(any(POSubscriptionAndCustomer.class));
+
+        verify(bean, never())
+                .setSelectedSubscription(any(POSubscriptionAndCustomer.class));
     }
 
     @Test
-    public void getLocalization() throws ObjectNotFoundException, OperationNotPermittedException {
+    public void getLocalization()
+            throws ObjectNotFoundException, OperationNotPermittedException {
         // given
         VOServiceDetails details = new VOServiceDetails();
         details.setName("test");
@@ -637,7 +645,8 @@ public class PriceModelBeanTest {
         doReturn(voPriceModel).when(bean).getPriceModel();
 
         Response r = mock(Response.class);
-        doReturn(r).when(parterService).getPriceModelLocalization(any(VOServiceDetails.class));
+        doReturn(r).when(parterService)
+                .getPriceModelLocalization(any(VOServiceDetails.class));
 
         VOPriceModelLocalization localization = new VOPriceModelLocalization();
         List<VOLocalizedText> voDescrptionLocalizedText = new ArrayList<VOLocalizedText>();
@@ -646,7 +655,8 @@ public class PriceModelBeanTest {
         List<VOLocalizedText> voLicenceLocalizedText = new ArrayList<VOLocalizedText>();
         voLicenceLocalizedText.add(new VOLocalizedText("en", "Licence"));
         localization.setLicenses(voLicenceLocalizedText);
-        doReturn(localization).when(r).getResult(VOPriceModelLocalization.class);
+        doReturn(localization).when(r)
+                .getResult(VOPriceModelLocalization.class);
 
         List<Locale> localeList = new ArrayList<Locale>();
         localeList.add(Locale.ENGLISH);
@@ -666,7 +676,8 @@ public class PriceModelBeanTest {
         // given
         ValueChangeEvent event = prepareForReloadPriceModel();
         doReturn(null).when(event).getNewValue();
-        doNothing().when(externalCustomerPriceModelCtrl).reloadPriceModel(any(VOServiceDetails.class));
+        doNothing().when(externalCustomerPriceModelCtrl)
+                .reloadPriceModel(any(VOServiceDetails.class));
         // when
         bean.reloadPriceModel(event);
 
@@ -679,13 +690,15 @@ public class PriceModelBeanTest {
     public void reloadPriceModel() throws Exception {
         // given
         ValueChangeEvent event = prepareForReloadPriceModel();
-        doNothing().when(externalCustomerPriceModelCtrl).reloadPriceModel(any(VOServiceDetails.class));
+        doNothing().when(externalCustomerPriceModelCtrl)
+                .reloadPriceModel(any(VOServiceDetails.class));
         // when
         bean.reloadPriceModel(event);
 
         // then
         assertEquals(new Long(11000), bean.getSelectedServiceKey());
-        assertEquals(new Long(11000), sessionBean.getSelectedServiceKeyForSupplier());
+        assertEquals(new Long(11000),
+                sessionBean.getSelectedServiceKeyForSupplier());
     }
 
     @Test
@@ -702,91 +715,101 @@ public class PriceModelBeanTest {
         // then
         assertEquals(orgs.size(), result.size());
         assertEquals(orgs.get(0).getName(), result.get(0).getName());
-        assertEquals(orgs.get(0).getOrganizationId(), result.get(0).getOrganizationId());
+        assertEquals(orgs.get(0).getOrganizationId(),
+                result.get(0).getOrganizationId());
     }
 
     @Test
     public void testValidateSubscription() throws SaaSApplicationException {
-        //given
-        doReturn(new VOSubscriptionDetails()).when(provisioningService).validateSubscription(any(VOService.class));
+        // given
+        doReturn(new VOSubscriptionDetails()).when(provisioningService)
+                .validateSubscription(any(VOService.class));
 
-        //when
+        // when
         bean.validateSubscription(any(VOService.class));
 
-        //then
-        verify(provisioningService, times(1)).validateSubscription(any(VOService.class));
+        // then
+        verify(provisioningService, times(1))
+                .validateSubscription(any(VOService.class));
     }
-    
+
     @Test
     public void testUpload_forServicePage() throws SaaSApplicationException {
         // given
         bean.setCurrentPMPage(PriceModelBean.PRICEMODEL_FOR_SERVICE);
-        
+
         // when
         bean.upload();
-        
+
         // then
-        verify(externalServicePriceModelCtrl).upload(any(VOServiceDetails.class));
+        verify(externalServicePriceModelCtrl)
+                .upload(any(VOServiceDetails.class));
         assertTrue(bean.isDirty());
     }
-    
+
     @Test
-    public void testUpload_forSubscriptionPage() throws SaaSApplicationException {
+    public void testUpload_forSubscriptionPage()
+            throws SaaSApplicationException {
         // given
         bean.setCurrentPMPage(PriceModelBean.PRICEMODEL_FOR_SUBSCRIPTION);
-        
+
         // when
         bean.upload();
-        
+
         // then
-        verify(externalSubscriptionPriceModelCtrl).upload(any(VOSubscriptionDetails.class));
+        verify(externalSubscriptionPriceModelCtrl)
+                .upload(any(VOSubscriptionDetails.class));
         assertTrue(bean.isDirty());
     }
-    
+
     @Test
     public void testUpload_forCustomerPage() throws SaaSApplicationException {
         // given
         bean.setCurrentPMPage(PriceModelBean.PRICEMODEL_FOR_CUSTOMER);
-        
+
         // when
         bean.upload();
-        
+
         // then
-        verify(externalCustomerPriceModelCtrl).upload(any(VOServiceDetails.class), any(VOOrganization.class));
+        verify(externalCustomerPriceModelCtrl)
+                .upload(any(VOServiceDetails.class), any(VOOrganization.class));
         assertTrue(bean.isDirty());
     }
-    
+
     @Test
-    public void testDisplay_forServicePage() throws SaaSApplicationException, IOException {
+    public void testDisplay_forServicePage()
+            throws SaaSApplicationException, IOException {
         // given
         bean.setCurrentPMPage(PriceModelBean.PRICEMODEL_FOR_SERVICE);
-        
+
         // when
         bean.display();
-        
+
         // then
         verify(externalServicePriceModelCtrl).display();
     }
-    
+
     @Test
-    public void testDisplay_forSubscriptionPage() throws SaaSApplicationException, IOException {
+    public void testDisplay_forSubscriptionPage()
+            throws SaaSApplicationException, IOException {
         // given
         bean.setCurrentPMPage(PriceModelBean.PRICEMODEL_FOR_SUBSCRIPTION);
         // when
         bean.display();
-        
+
         // then
         assertFalse(bean.isDirty());
     }
-    
+
     @Test
-    public void testDisplay_forCustomerPage() throws SaaSApplicationException, IOException {
+    public void testDisplay_forCustomerPage()
+            throws SaaSApplicationException, IOException {
         // given
         bean.setCurrentPMPage(PriceModelBean.PRICEMODEL_FOR_CUSTOMER);
-        
+
         // when
         bean.display();
-        
+
         // then
         verify(externalCustomerPriceModelCtrl).display();
     }
@@ -843,13 +866,15 @@ public class PriceModelBeanTest {
         return poSubscriptionAndCustomers;
     }
 
-    private POSubscriptionAndCustomer getPOSubscriptionAndCustomer(String subscriptionId) {
+    private POSubscriptionAndCustomer getPOSubscriptionAndCustomer(
+            String subscriptionId) {
         POSubscriptionAndCustomer poSubscriptionAndCustomer = new POSubscriptionAndCustomer();
         poSubscriptionAndCustomer.setCustomerId(CUST_ID);
         poSubscriptionAndCustomer.setCustomerName(CUST_NAME);
         poSubscriptionAndCustomer.setServiceId(SERVICE_ID);
         poSubscriptionAndCustomer.setSubscriptionId(subscriptionId);
-        poSubscriptionAndCustomer.setActivation(String.valueOf(ACTIVATION_DATE));
+        poSubscriptionAndCustomer
+                .setActivation(String.valueOf(ACTIVATION_DATE));
         return poSubscriptionAndCustomer;
     }
 
@@ -884,7 +909,8 @@ public class PriceModelBeanTest {
         VOPricedOption vOPricedOption = new VOPricedOption();
         vOPricedOption.setKey(0);
         vOPricedOption.setPricePerUser(BigDecimal.valueOf(0));
-        vOPricedOption.setRoleSpecificUserPrices(prepareRoleSpecificUserPrice());
+        vOPricedOption
+                .setRoleSpecificUserPrices(prepareRoleSpecificUserPrice());
         pricedOptions.add(vOPricedOption);
         return pricedOptions;
 

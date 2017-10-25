@@ -40,7 +40,6 @@ import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.common.*;
-import org.oscm.ui.filter.AuthorizationRequestData;
 
 /**
  * Managed bean to store session specific values which are not persisted in the

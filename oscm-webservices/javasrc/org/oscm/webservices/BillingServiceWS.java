@@ -33,7 +33,7 @@ import org.oscm.types.exceptions.ValidationException;
  * @author Aleh Khomich.
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.BillingService")
+@WebService(name = "BillingService", serviceName = "BillingService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.BillingService")
 public class BillingServiceWS implements BillingService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -62,14 +62,9 @@ public class BillingServiceWS implements BillingService {
             OperationNotPermittedException, ValidationException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            return delegate
-                    .getRevenueShareData(
-                            from,
-                            to,
-                            EnumConverter
-                                    .convert(
-                                            roleType,
-                                            org.oscm.internal.types.enumtypes.BillingSharesResultType.class));
+            return delegate.getRevenueShareData(from, to, EnumConverter.convert(
+                    roleType,
+                    org.oscm.internal.types.enumtypes.BillingSharesResultType.class));
         } catch (org.oscm.internal.types.exception.OrganizationAuthoritiesException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.OperationNotPermittedException e) {

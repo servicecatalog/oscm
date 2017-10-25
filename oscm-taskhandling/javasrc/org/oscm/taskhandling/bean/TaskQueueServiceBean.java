@@ -13,6 +13,7 @@
 package org.oscm.taskhandling.bean;
 
 import java.util.List;
+import java.util.Properties;
 
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
@@ -135,8 +136,8 @@ public class TaskQueueServiceBean implements TaskQueueServiceLocal {
         try {
             if (messages.size() > 0) {
                 jndiContext = new InitialContext();
-                ConnectionFactory connectionFactory = (ConnectionFactory) jndiContext.lookup("jms/bss/taskQueueFactory");
-                queue = (Queue) jndiContext.lookup("jms/bss/taskQueue");
+                ConnectionFactory connectionFactory = (ConnectionFactory) jndiContext.lookup("openejb:Resource/JmsConnectionFactory");
+                queue = (Queue) jndiContext.lookup("openejb:Resource/OSCMTaskQueue");
 
                 validateJMSResources(queue, connectionFactory);
 

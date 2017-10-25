@@ -14,13 +14,7 @@ import static org.oscm.ui.common.Constants.PORTAL_HAS_BEEN_REQUESTED;
 import java.io.IOException;
 
 import javax.ejb.EJB;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -80,8 +74,8 @@ public class ClosedMarketplaceFilter extends BaseBesFilter implements Filter {
             String mId = httpRequest
                     .getParameter(Constants.REQ_PARAM_MARKETPLACE_ID);
             if (mId == null || "".equals(mId)) {
-                mId = (String) httpRequest.getSession().getAttribute(
-                        Constants.REQ_PARAM_MARKETPLACE_ID);
+                mId = (String) httpRequest.getSession()
+                        .getAttribute(Constants.REQ_PARAM_MARKETPLACE_ID);
             }
 
             VOUserDetails voUserDetails = (VOUserDetails) httpRequest
@@ -94,7 +88,8 @@ public class ClosedMarketplaceFilter extends BaseBesFilter implements Filter {
 
             MarketplaceConfiguration config = getConfig(mId);
 
-            if (config != null && voUserDetails != null && !isSameTenant(config, voUserDetails)) {
+            if (config != null && voUserDetails != null
+                    && !isSameTenant(config, voUserDetails)) {
                 forwardToErrorPage(httpRequest, httpResponse);
                 return;
             }
@@ -102,10 +97,11 @@ public class ClosedMarketplaceFilter extends BaseBesFilter implements Filter {
             if (isMkpRestricted(config)) {
                 if (voUserDetails != null
                         && voUserDetails.getOrganizationId() != null) {
-                    if (!config.getAllowedOrganizations().contains(
-                            voUserDetails.getOrganizationId())) {
+                    if (!config.getAllowedOrganizations()
+                            .contains(voUserDetails.getOrganizationId())) {
                         if (portalHasBeenRequested(httpRequest)) {
-                            httpResponse.sendRedirect(getRedirectToMkpAddress(httpRequest));
+                            httpResponse.sendRedirect(
+                                    getRedirectToMkpAddress(httpRequest));
                         } else {
                             forwardToErrorPage(httpRequest, httpResponse);
                         }
@@ -134,7 +130,8 @@ public class ClosedMarketplaceFilter extends BaseBesFilter implements Filter {
     private String getRedirectToMkpAddress(HttpServletRequest httpRequest) {
         String result;
         if (httpRequest.isSecure()) {
-            result = getRedirectMpUrlHttps(getConfigurationService(httpRequest));
+            result = getRedirectMpUrlHttps(
+                    getConfigurationService(httpRequest));
         } else {
             result = getRedirectMpUrlHttp(getConfigurationService(httpRequest));
         }
@@ -142,8 +139,10 @@ public class ClosedMarketplaceFilter extends BaseBesFilter implements Filter {
     }
 
     private boolean portalHasBeenRequested(HttpServletRequest httpRequest) {
-        Object portalRequest = httpRequest.getSession().getAttribute(PORTAL_HAS_BEEN_REQUESTED);
-        return portalRequest != null ? ((Boolean) portalRequest).booleanValue() : false;
+        Object portalRequest = httpRequest.getSession()
+                .getAttribute(PORTAL_HAS_BEEN_REQUESTED);
+        return portalRequest != null ? ((Boolean) portalRequest).booleanValue()
+                : false;
     }
 
     private boolean isMkpRestricted(MarketplaceConfiguration config) {
@@ -168,8 +167,8 @@ public class ClosedMarketplaceFilter extends BaseBesFilter implements Filter {
     }
 
     private void forwardToErrorPage(HttpServletRequest httpRequest,
-            HttpServletResponse httpResponse) throws ServletException,
-            IOException {
+            HttpServletResponse httpResponse)
+            throws ServletException, IOException {
         if (isSAMLAuthentication()) {
             RequestDispatcher requestDispatcher = httpRequest
                     .getServletContext().getRequestDispatcher(ERROR_PAGE);

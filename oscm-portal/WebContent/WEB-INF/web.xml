@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright FUJITSU LIMITED 2017-->
- 
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
-  xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-  id="WebApp_ID" version="2.5">
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-app_3_1.xsd"
+         id="WebApp_ID" version="3.0">
 
   <display-name>Business Enablement Services</display-name>
 
@@ -67,6 +67,10 @@
     <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
     <param-value>true</param-value>
   </context-param>
+  <context-param>
+    <param-name>org.richfaces.push.jms.enabled</param-name>
+    <param-value>false</param-value>
+  </context-param>
 
   <!-- SERVLETS -->
   <servlet>
@@ -91,7 +95,7 @@
 
 
   <!-- SERVLET FILTER -->
-  <filter>
+ <!-- <filter>
     <display-name>IdP Logout Filter</display-name>
     <filter-name>IdPLogoutFilter</filter-name>
     <filter-class>org.oscm.ui.filter.IdPLogoutFilter</filter-class>
@@ -99,7 +103,7 @@
       <param-name>exclude-url-pattern</param-name>
       <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*)</param-value>
     </init-param>
-  </filter>
+  </filter> -->
   <filter>
     <filter-name>DisableUrlSessionFilter</filter-name>
     <filter-class>org.oscm.ui.filter.DisableUrlSessionFilter</filter-class>
@@ -142,19 +146,11 @@
     <filter-name>mpCtx</filter-name>
     <filter-class>org.oscm.ui.filter.MarketplaceContextFilter</filter-class>
     <init-param>
-      <param-name>login-class</param-name>
-      <param-value>com.sun.web.security.WebProgrammaticLoginImpl</param-value>
-    </init-param>
-    <init-param>
-      <param-name>realm</param-name>
-      <param-value>bss-realm</param-value>
-    </init-param>
-    <init-param>
       <param-name>public-url-pattern</param-name>
       <param-value>(^/a4j/.*|^/slogout.jsf|^/saml2/redirectToIdp.jsf*|^/saml2/saml2PostInclude.jsf*|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
     </init-param>
   </filter>
-  <filter>
+  <!-- <filter>
     <display-name>IdP Response Filter</display-name>
     <filter-name>IdPResponseFilter</filter-name>
     <filter-class>org.oscm.ui.filter.IdPResponseFilter</filter-class>
@@ -162,7 +158,7 @@
       <param-name>exclude-url-pattern</param-name>
       <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*)</param-value>
     </init-param>
-  </filter>
+  </filter> -->
   <filter>
     <display-name>Closed Marketplace Filter</display-name>
     <filter-name>ClosedMarketplaceFilter</filter-name>
@@ -177,14 +173,6 @@
     <display-name>Authorization Filter</display-name>
     <filter-name>auth</filter-name>
     <filter-class>org.oscm.ui.filter.AuthorizationFilter</filter-class>
-    <init-param>
-      <param-name>login-class</param-name>
-      <param-value>com.sun.web.security.WebProgrammaticLoginImpl</param-value>
-    </init-param>
-    <init-param>
-      <param-name>realm</param-name>
-      <param-value>bss-realm</param-value>
-    </init-param>
     <init-param>
       <param-name>public-url-pattern</param-name>
       <param-value>(^/a4j/.*|^/slogout.jsf|^/saml2/redirectToIdp.jsf*|^/saml2/saml2PostInclude.jsf*|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*</param-value>
@@ -225,22 +213,10 @@
     <filter-name>RichFacesFirefox11Filter</filter-name>
     <filter-class>org.oscm.ui.filter.RichFacesFirefox11Filter</filter-class>
   </filter>
-  <filter>
-    <filter-name>NonexistentConversationFilter</filter-name>
-    <filter-class>org.oscm.ui.filter.NonexistentConversationFilter</filter-class>
-  </filter>
-  <filter>
+    <filter>
     <display-name>Role-based filter</display-name>
     <filter-name>RoleBasedFilter</filter-name>
     <filter-class>org.oscm.ui.filter.RoleBasedFilter</filter-class>
-    <init-param>
-      <param-name>login-class</param-name>
-      <param-value>com.sun.web.security.WebProgrammaticLoginImpl</param-value>
-    </init-param>
-    <init-param>
-      <param-name>realm</param-name>
-      <param-value>bss-realm</param-value>
-    </init-param>
     <init-param>
       <param-name>public-url-pattern</param-name>
       <param-value>(^/a4j/.*|^/slogout.jsf|^/saml2/redirectToIdp.jsp*|^/saml2/saml2PostInclude.jsf*|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*
@@ -268,10 +244,10 @@
     <filter-name>css</filter-name>
     <url-pattern>/public/*</url-pattern>
   </filter-mapping>  
-  <filter-mapping>
+  <!--  <filter-mapping>
     <filter-name>IdPResponseFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping>
+  </filter-mapping>-->
   <filter-mapping>
     <filter-name>IllegalRequestParameterFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -293,24 +269,16 @@
   </filter-mapping>
   <filter-mapping>
     <filter-name>NonexistentConversationFilter</filter-name>
-    <url-pattern>/marketplace/subscriptions/creation/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>NonexistentConversationFilter</filter-name>
-    <url-pattern>/marketplace/subscriptions/upgrade/*</url-pattern>
-  </filter-mapping>
-  <filter-mapping>
-    <filter-name>NonexistentConversationFilter</filter-name>
     <servlet-name>Faces Servlet</servlet-name>
     <dispatcher>REQUEST</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
-  <filter-mapping>
+  <!-- <filter-mapping>
     <filter-name>IdPLogoutFilter</filter-name>
     <url-pattern>/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
-  </filter-mapping>
+  </filter-mapping>  -->
   <filter-mapping>
     <filter-name>auth</filter-name>
     <url-pattern>/opt/*</url-pattern>
@@ -349,7 +317,7 @@
     <filter-name>RichFacesFirefox11Filter</filter-name>
     <url-pattern>/a4j/*</url-pattern>
   </filter-mapping>
-  <filter-mapping>
+ <filter-mapping>
     <filter-name>RoleBasedFilter</filter-name>
     <url-pattern>/marketplace/*</url-pattern>
   </filter-mapping>

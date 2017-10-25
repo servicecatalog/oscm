@@ -44,7 +44,7 @@ public class RevenueShareModelData extends DomainDataContainer implements
         this.revenueShare = revenueShare;
     }
 
-    @Convert(converter = RSMDConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RevenueShareModelType revenueShareModelType;
 

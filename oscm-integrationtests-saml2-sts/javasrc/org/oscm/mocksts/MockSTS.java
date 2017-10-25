@@ -24,17 +24,18 @@ import javax.xml.ws.handler.MessageContext;
 @HandlerChain(file = "handlers.xml")
 @WebServiceProvider(serviceName = "MockSTS", portName = "IMockSTS_Port", targetNamespace = "http://sts.mocksts.oscm.org/", wsdlLocation = "WEB-INF/wsdl/MockSTS/MockSTS.wsdl")
 @ServiceMode(value = Service.Mode.PAYLOAD)
-public class MockSTS extends com.sun.xml.ws.security.trust.sts.BaseSTSImpl
+public class MockSTS //extends com.sun.xml.ws.security.trust.sts.BaseSTSImpl
         implements Provider<Source> {
     @Resource
     WebServiceContext context;
 
     @Override
     public Source invoke(Source rstElement) {
-        return super.invoke(rstElement);
+//        return super.invoke(rstElement);
+        return null;
     }
 
-    @Override
+//    @Override
     protected MessageContext getMessageContext() {
         MessageContext msgCtx = context.getMessageContext();
         return msgCtx;

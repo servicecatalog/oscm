@@ -54,7 +54,6 @@ import org.oscm.internal.types.exception.UnsupportedOperationException;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.kafka.records.Operation;
 import org.oscm.kafka.result.PublishingResult;
-import org.oscm.kafka.service.KafkaServer;
 import org.oscm.kafka.service.Producer;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;

@@ -9,7 +9,6 @@
 package org.oscm.security;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
 
 import java.util.Properties;
 import java.util.logging.Level;
@@ -27,15 +26,13 @@ import org.junit.Test;
  */
 public class ADMRealmImplTest {
     private ADMRealmImpl realmImpl;
-    private Context ctx;
     private Properties ldapProps;
 
     @Before
     public void setup() {
         Logger logger = Logger.getLogger(ADMRealmImplTest.class.toString());
         logger.setLevel(Level.FINEST);
-        ctx = mock(Context.class);
-        realmImpl = new ADMRealmImpl(logger, ctx);
+        realmImpl = new ADMRealmImpl(logger);
         ldapProps = new Properties();
     }
 

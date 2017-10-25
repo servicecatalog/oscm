@@ -8,14 +8,13 @@
 
 package org.oscm.vo;
 
-import java.io.Serializable;
 
 /**
  * Represents a marketplace with a catalog of services provided by one or more
  * suppliers, brokers, or resellers.
  * 
  */
-public class VOMarketplace extends BaseVO implements Serializable {
+public class VOMarketplace extends BaseVO  {
 
     private static final long serialVersionUID = -4732615853529027987L;
 

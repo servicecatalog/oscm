@@ -33,7 +33,7 @@ public class TriggerProcessData extends DomainDataContainer {
      * The state of the process (ACTIVE, CANCELLED, FAILED, APPROVED, ERROR,
      * REJECTED).
      */
-    @Convert(converter = TPSConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TriggerProcessStatus status;
 

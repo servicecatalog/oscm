@@ -181,7 +181,7 @@ public class VatServiceBean implements VatService {
         }
 
         if (countryVats != null) {
-            Set<String> processedCountries = new HashSet<String>();
+            Set<String> processedCountries = new HashSet<>();
 
             for (VOCountryVatRate vo : countryVats) {
                 if (vo == null || vo.getCountry() == null) {

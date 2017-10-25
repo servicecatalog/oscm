@@ -13,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
@@ -24,6 +23,16 @@ import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+
+import com.sun.org.apache.xerces.internal.impl.Constants;
+import org.xml.sax.Attributes;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.XMLReader;
 
 import org.oscm.accountservice.local.MarketingPermissionServiceLocal;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;
@@ -60,7 +69,6 @@ import org.oscm.internal.types.exception.UnchangeableAllowingOnBehalfActingExcep
 import org.oscm.internal.types.exception.UpdateConstraintException;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOLocalizedText;
-import org.oscm.kafka.service.KafkaServer;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.serviceprovisioningservice.assembler.TagAssembler;
@@ -73,16 +81,6 @@ import org.oscm.types.enumtypes.PlatformEventIdentifier;
 import org.oscm.types.enumtypes.PlatformParameterIdentifiers;
 import org.oscm.types.enumtypes.ProvisioningType;
 import org.oscm.validator.BLValidator;
-import org.xml.sax.Attributes;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.XMLReader;
-
-import com.sun.org.apache.xerces.internal.impl.Constants;
 
 public class TechnicalProductImportParser extends ImportParserBase {
 

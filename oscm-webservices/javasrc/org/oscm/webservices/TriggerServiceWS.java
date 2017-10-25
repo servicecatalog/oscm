@@ -41,7 +41,7 @@ import org.oscm.vo.VOTriggerProcessParameter;
  * @author Aleh Khomich.
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.TriggerService")
+@WebService(name = "TriggerService", serviceName = "TriggerService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.TriggerService")
 public class TriggerServiceWS implements TriggerService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -52,9 +52,9 @@ public class TriggerServiceWS implements TriggerService {
     WebServiceContext wsContext;
 
     @Override
-    public void approveAction(long key) throws ObjectNotFoundException,
-            OperationNotPermittedException, TriggerProcessStatusException,
-            ExecutionTargetException {
+    public void approveAction(long key)
+            throws ObjectNotFoundException, OperationNotPermittedException,
+            TriggerProcessStatusException, ExecutionTargetException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
             delegate.approveAction(key);
@@ -111,9 +111,9 @@ public class TriggerServiceWS implements TriggerService {
     @Override
     public List<VOTriggerProcess> getAllActionsForOrganization() {
         WS_LOGGER.logAccess(wsContext, ds);
-        return VOCollectionConverter
-                .convertList(delegate.getAllActionsForOrganization(),
-                        VOTriggerProcess.class);
+        return VOCollectionConverter.convertList(
+                delegate.getAllActionsForOrganization(),
+                VOTriggerProcess.class);
     }
 
     @Override
@@ -129,8 +129,8 @@ public class TriggerServiceWS implements TriggerService {
             TriggerProcessStatusException {
         WS_LOGGER.logAccess(wsContext, ds);
         try {
-            delegate.rejectAction(key, VOCollectionConverter.convertList(
-                    reason, org.oscm.internal.vo.VOLocalizedText.class));
+            delegate.rejectAction(key, VOCollectionConverter.convertList(reason,
+                    org.oscm.internal.vo.VOLocalizedText.class));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.OperationNotPermittedException e) {
@@ -148,12 +148,9 @@ public class TriggerServiceWS implements TriggerService {
         WS_LOGGER.logAccess(wsContext, ds);
 
         try {
-            delegate.updateActionParameters(
-                    actionKey,
-                    VOCollectionConverter
-                            .convertList(
-                                    parameters,
-                                    org.oscm.internal.vo.VOTriggerProcessParameter.class));
+            delegate.updateActionParameters(actionKey,
+                    VOCollectionConverter.convertList(parameters,
+                            org.oscm.internal.vo.VOTriggerProcessParameter.class));
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
         } catch (org.oscm.internal.types.exception.OperationNotPermittedException e) {
@@ -173,12 +170,9 @@ public class TriggerServiceWS implements TriggerService {
 
         try {
             org.oscm.internal.vo.VOTriggerProcessParameter actionParameter = delegate
-                    .getActionParameter(
-                            actionKey,
-                            EnumConverter
-                                    .convert(
-                                            paramType,
-                                            org.oscm.internal.types.enumtypes.TriggerProcessParameterType.class));
+                    .getActionParameter(actionKey, EnumConverter.convert(
+                            paramType,
+                            org.oscm.internal.types.enumtypes.TriggerProcessParameterType.class));
             return VOConverter.convertToApi(actionParameter);
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);

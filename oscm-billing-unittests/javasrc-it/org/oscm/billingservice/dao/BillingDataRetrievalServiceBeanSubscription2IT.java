@@ -506,6 +506,7 @@ public class BillingDataRetrievalServiceBeanSubscription2IT
         sub.bindToProduct(prod);
         sub.setMarketplace(marketplace);
         sub.setCutOffDay(cutoffDay);
+        sub.setUuid(UUID.randomUUID());
         ds.persist(sub);
         return sub;
     }

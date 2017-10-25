@@ -49,16 +49,4 @@ public class ProcessRepresentation extends Representation {
                     .message(CommonParams.ERROR_BAD_PROPERTY).build();
         }
     }
-
-    @Override
-    public void update() {
-
-        // nothing to update
-    }
-
-    @Override
-    public void convert() {
-
-        // nothing to convert
-    }
 }

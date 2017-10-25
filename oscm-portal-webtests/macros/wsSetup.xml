@@ -7,7 +7,7 @@
       <fileset dir="../..">
         <include name="oscm-build/result/package/oscm-portal-webtests/*.jar" />
         <include name="oscm-build/result/package/oscm-extsvc/*.jar" />
-        <include name="libraries/glassfish4/javalib/*.jar" />
+        <include name="libraries/apache-tomee/javalib/*.jar" />
       </fileset>
     </classpath>
   </taskdef>

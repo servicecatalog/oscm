@@ -11,6 +11,7 @@ package org.oscm.app.common;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.never;
+import static org.oscm.app.common.Constants.APPLICATION_SERVER_HOME_CONSTANT;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -84,7 +85,7 @@ public class InitializerTest {
     private File createLog4jFile() throws IOException {
         File tmpFile = File.createTempFile("log4j", ".tmp");
         File log4jFile = new File(tmpFile.getParentFile(),
-                "temp_unit_test/config/log4j.ess.common.properties");
+                "temp_unit_test/conf/log4j.ess.common.properties");
         tmpFile.delete();
         log4jFile.getParentFile().mkdirs();
         FileWriter fw = new FileWriter(log4jFile);
@@ -97,19 +98,19 @@ public class InitializerTest {
     }
 
     private void setSysSetting(String value) {
-        oldSysSetting = System.getProperty("com.sun.aas.instanceRoot");
+        oldSysSetting = System.getProperty(APPLICATION_SERVER_HOME_CONSTANT);
         if (value != null) {
-            System.setProperty("com.sun.aas.instanceRoot", value);
+            System.setProperty(APPLICATION_SERVER_HOME_CONSTANT, value);
         } else {
-            System.clearProperty("com.sun.aas.instanceRoot");
+            System.clearProperty(APPLICATION_SERVER_HOME_CONSTANT);
         }
     }
 
     private void resetSysSetting() {
         if (oldSysSetting != null) {
-            System.setProperty("com.sun.aas.instanceRoot", oldSysSetting);
+            System.setProperty(APPLICATION_SERVER_HOME_CONSTANT, oldSysSetting);
         } else {
-            System.clearProperty("com.sun.aas.instanceRoot");
+            System.clearProperty(APPLICATION_SERVER_HOME_CONSTANT);
         }
     }
 

@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="javares"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.7.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-fileupload/javalib/commons-fileupload-1.2.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-httpclient/javalib/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-io/javalib/commons-io-1.4.jar"/>
@@ -40,11 +40,10 @@
 	<classpathentry kind="lib" path="/libraries/apache-axis2-lib/javalib/neethi-2.0.4.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-axis2-lib/javalib/woden-api-1.0M8.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-axis2-lib/javalib/woden-impl-dom-1.0M8.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-axis2-lib/javalib/wsdl4j-1.6.2.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-axis2-lib/javalib/wstx-asl-3.2.4.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-axis2-lib/javalib/XmlSchema-1.4.3.jar"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/javalib/javaee.jar"/>
-	<classpathentry kind="lib" path="/libraries/glassfish4/modules/javax.servlet.jsp.jstl.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
+	<classpathentry kind="lib" path="/libraries/javax/javalib/servlet-api-3.1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright FUJITSU LIMITED 2017-->
  
-<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
-  xmlns:application="http://java.sun.com/xml/ns/javaee/application_6.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"
-  id="Application_ID" version="6">
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/application_7.xsd"
+  id="oscm-ear" version="7">
   <display-name>Catalog Manager</display-name>
   <module>
     <ejb>oscm-usergroupmgmt.jar</ejb>
@@ -108,10 +108,10 @@
   <module>
     <ejb>oscm-kafka.jar</ejb>
   </module>
-    <module>
+   <!-- <module>
     <web>
       <web-uri>oscm-rest-api-trigger.war</web-uri>
       <context-root>oscm-trigger</context-root>
     </web>
-  </module>  
+  </module> -->
 </application>

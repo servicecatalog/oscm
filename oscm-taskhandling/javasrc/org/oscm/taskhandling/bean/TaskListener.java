@@ -19,6 +19,7 @@ import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.interceptor.Interceptors;
 import javax.jms.Message;
+import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 
 import org.oscm.logging.Log4jLogger;
@@ -53,9 +54,9 @@ import org.oscm.internal.types.exception.TaskErrorHandlingException;
  */
 @MessageDriven(activationConfig = {
         @ActivationConfigProperty(propertyName = "UserName", propertyValue = "admin"),
-        @ActivationConfigProperty(propertyName = "Password", propertyValue = "admin") }, name = "jmsQueue", mappedName = "jms/bss/taskQueue")
+        @ActivationConfigProperty(propertyName = "Password", propertyValue = "admin") }, name = "OSCMTaskQueue")
 @Interceptors({ InvocationDateContainer.class })
-public class TaskListener {
+public class TaskListener implements MessageListener {
 
     private final static Log4jLogger logger = LoggerFactory
             .getLogger(TaskListener.class);

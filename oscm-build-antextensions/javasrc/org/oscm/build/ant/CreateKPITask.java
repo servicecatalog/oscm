@@ -18,7 +18,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.commons.lang.time.DurationFormatUtils;
+import org.apache.commons.lang3.time.DurationFormatUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.xml.sax.Attributes;
@@ -102,8 +102,7 @@ public class CreateKPITask extends Task {
         }
 
         String formatDuration() {
-            return DurationFormatUtils.formatDurationHMS((long) (1000 * Double
-                    .valueOf(duration).doubleValue()));
+            return DurationFormatUtils.formatDuration((long) (1000 * duration), "H:mm:ss.SSS");
         }
     }
 
@@ -125,17 +124,13 @@ public class CreateKPITask extends Task {
         }
 
         public void startElement(String uri, String localName, String qName,
-                Attributes attributes) {
+                                 Attributes attributes) {
 
             if (qName.equalsIgnoreCase("testsuite")) {
-                tests += Integer.valueOf(attributes.getValue("tests"))
-                        .intValue();
-                bugs += Integer.valueOf(attributes.getValue("failures"))
-                        .intValue();
-                bugs += Integer.valueOf(attributes.getValue("errors"))
-                        .intValue();
-                duration += Double.valueOf(attributes.getValue("time"))
-                        .doubleValue();
+                tests += Integer.valueOf(attributes.getValue("tests"));
+                bugs += Integer.valueOf(attributes.getValue("failures"));
+                bugs += Integer.valueOf(attributes.getValue("errors"));
+                duration += Double.valueOf(attributes.getValue("time"));
             }
         }
     }

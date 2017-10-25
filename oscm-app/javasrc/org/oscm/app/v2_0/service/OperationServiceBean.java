@@ -56,7 +56,7 @@ public class OperationServiceBean {
 
         logger.info(
                 "Execute operation '{}' for instance '{}' with transactionId '{}' .",
-                new Object[] { operationId, instanceId, transactionId });
+                operationId, instanceId, transactionId);
 
         OperationResult result = new OperationResult();
         ServiceInstance instance = null;

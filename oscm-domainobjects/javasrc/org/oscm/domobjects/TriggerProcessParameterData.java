@@ -125,7 +125,7 @@ public class TriggerProcessParameterData extends DomainDataContainer {
     /**
      * The name of the parameter.
      */
-    @Convert(converter = TPPNConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TriggerProcessParameterName name;
 

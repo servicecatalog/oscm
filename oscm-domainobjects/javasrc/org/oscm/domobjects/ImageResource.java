@@ -50,7 +50,7 @@ public class ImageResource extends
 
     private String contentType;
 
-    @Convert( converter=ITConverter.class )
+    @Enumerated(EnumType.STRING)
     private ImageType imageType;
 
     private long objectKey;

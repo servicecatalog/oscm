@@ -8,15 +8,9 @@
 
 package org.oscm.app.vmware.business.balancer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
-import java.io.StringReader;
-
-import org.apache.commons.configuration.XMLConfiguration;
+import org.apache.commons.configuration2.XMLConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -71,10 +65,10 @@ public class SequentialHostBalancerTest {
 
         SequentialHostBalancer balancer = new SequentialHostBalancer();
 
-        String balancerConfig = "<essvcenter><balancer hosts=\"elm1\" /></essvcenter>";
-        XMLConfiguration xmlConfiguration = new XMLHostConfiguration();
-        xmlConfiguration.load(new StringReader(balancerConfig));
-        balancer.setConfiguration(xmlConfiguration.configurationAt("balancer"));
+        XMLConfiguration xmlConfiguration = new XMLConfiguration();
+        xmlConfiguration.addProperty("[@balancer]","elm1");
+
+        balancer.setConfiguration(xmlConfiguration);
 
         VMwareDatacenterInventory inventory = new VMwareDatacenterInventory();
 
@@ -98,10 +92,9 @@ public class SequentialHostBalancerTest {
 
         SequentialHostBalancer balancer = new SequentialHostBalancer();
 
-        String balancerConfig = "<essvcenter><balancer hosts=\"elm3,elm2,elm1,elm4\" /></essvcenter>";
-        XMLConfiguration xmlConfiguration = new XMLHostConfiguration();
-        xmlConfiguration.load(new StringReader(balancerConfig));
-        balancer.setConfiguration(xmlConfiguration.configurationAt("balancer"));
+        XMLConfiguration xmlConfiguration = new XMLConfiguration();
+        xmlConfiguration.addProperty("[@hosts]", "elm3,elm2,elm1,elm4");
+        balancer.setConfiguration(xmlConfiguration);
 
         VMwareDatacenterInventory inventory = new VMwareDatacenterInventory();
 

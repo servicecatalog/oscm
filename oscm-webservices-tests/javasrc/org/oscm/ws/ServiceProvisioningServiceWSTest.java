@@ -58,7 +58,7 @@ import org.oscm.vo.VOServiceDetails;
 import org.oscm.vo.VOSubscriptionDetails;
 import org.oscm.vo.VOTechnicalService;
 import org.oscm.vo.VOTriggerDefinition;
-import com.sun.xml.ws.fault.ServerSOAPFaultException;
+//import com.sun.xml.ws.fault.ServerSOAPFaultException;
 
 /**
  * @author barzu
@@ -288,7 +288,7 @@ public class ServiceProvisioningServiceWSTest {
                 updatedService.getConfiguratorUrl());
     }
 
-    @Test(expected = ServerSOAPFaultException.class)
+    @Test(expected = RuntimeException.class)
     public void updateService_nullService() throws Exception {
         // given
         ServiceProvisioningService provisioningService = setup

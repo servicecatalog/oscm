@@ -35,14 +35,14 @@ public class DefinitionRepresentationTest {
         trigger.setAction("SUBSCRIBE_TO_SERVICE");
 
         DefinitionRepresentation.Owner owner = new DefinitionRepresentation.Owner();
-        owner.setId(new Long(1L));
+        owner.setId(1L);
         owner.setName("abc");
         trigger.setOwner(owner);
-        trigger.setOwnerId(new Long(1L));
+        trigger.setOwnerId(1L);
 
         trigger.validateContent();
-        assertEquals(new Long(1L), trigger.getOwnerId());
-        assertEquals(new Long(1L), trigger.getOwner().getId());
+        assertEquals(1L, trigger.getOwnerId().intValue());
+        assertEquals(1L, trigger.getOwner().getId().intValue());
 
     }
 

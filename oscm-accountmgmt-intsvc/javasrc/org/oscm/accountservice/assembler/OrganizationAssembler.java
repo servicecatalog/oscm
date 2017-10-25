@@ -50,8 +50,6 @@ public class OrganizationAssembler extends BaseAssembler {
 
     public static final String FIELD_NAME_DN = "distinguishedName";
 
-    public static final String FIELD_NAME_DOMICLE_COUNTRY = "domicileCountry";
-
     public static final String FIELD_NAME_URL = "url";
 
     public static final String FIELD_NAME_DESCRIPTION = "description";

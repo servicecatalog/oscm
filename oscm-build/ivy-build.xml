@@ -1,279 +1,227 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright FUJITSU LIMITED 2017-->
 <project name="Download external libries" basedir="." default="copyLibraries" xmlns:ivy="antlib:org.apache.ivy.ant">
-  <description>This script downloads all 3rd party libraries from Maven repository.</description>
-  
-  <property name="ivy.lib.dir" value="${root.dir}/oscm-build/lib/"/>
-  
-  <target name="resolve">
-    <ivy:settings file="ivy-settings.xml"/>
-    <ivy:resolve conf="default" />
-    <ivy:retrieve />
-  </target>
-  
-  <target name="copyLibraries" depends="resolve">
-    <copy file="${ivy.lib.dir}/commons-pool2-2.4.2.jar" todir="${root.dir}/libraries/apache-commons-pool/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/opencsv-3.7.jar" todir="${root.dir}/libraries/opencsv/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/antlr4-runtime-4.1.jar" todir="${root.dir}/libraries/antlr/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/ant-1.9.4.jar" tofile="${root.dir}/libraries/apache-ant/javalib/ant.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/ant-junit-1.9.4.jar" tofile="${root.dir}/libraries/apache-ant/javalib/ant-junit.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/ant-launcher-1.9.4.jar" tofile="${root.dir}/libraries/apache-ant/javalib/ant-launcher.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/wsit-ant-tasks-1.0.7.jar" tofile="${root.dir}/libraries/apache-ant/javalib/wsit-ant-tasks.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/ivy-2.4.0.jar" todir="${root.dir}/libraries/apache-ant-contrib/lib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-csv-1.0.jar" todir="${root.dir}/libraries/apache-commons-csv/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/ant-contrib-1.0b3.jar" todir="${root.dir}/libraries/apache-ant-contrib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/annogen-0.1.0.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axiom-api-1.2.8.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axiom-dom-1.2.8.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axiom-impl-1.2.8.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-adb-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-adb-codegen-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-ant-plugin-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-clustering-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-codegen-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-corba-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-fastinfoset-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-java2wsdl-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-jaxbri-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-jaxws-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-jibx-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-json-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-kernel-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-metadata-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-mtompolicy-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-saaj-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-saaj-api-1.4.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-spring-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-transport-http-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-transport-local-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/axis2-xmlbeans-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/geronimo-stax-api_1.0_spec-1.0.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/httpcore-4.4.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/neethi-2.0.4.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/woden-api-1.0M8.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/woden-impl-dom-1.0M8.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/wsdl4j-1.6.2.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/wstx-asl-3.2.4.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/XmlSchema-1.4.3.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-beanutils-1.8.3.jar" todir="${root.dir}/libraries/apache-beanutils/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-codec-1.7.jar" todir="${root.dir}/libraries/apache-codec/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-collections-3.2.2.jar" todir="${root.dir}/libraries/apache-collections/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-lang3-3.3.2.jar" todir="${root.dir}/libraries/apache-commons-lang/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-configuration-1.8.jar" todir="${root.dir}/libraries/apache-configuration/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-dbcp-1.3.jar" todir="${root.dir}/libraries/apache-dbcp/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-pool-1.5.4.jar" todir="${root.dir}/libraries/apache-dbcp/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-digester-1.8.1.jar" todir="${root.dir}/libraries/apache-digester/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-discovery-0.2.jar" todir="${root.dir}/libraries/apache-discovery/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-el-1.0.jar" tofile="${root.dir}/libraries/apache-el/javalib/commons-el.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-fileupload-1.2.1.jar" todir="${root.dir}/libraries/apache-fileupload/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/geronimo-transaction-2.1.jar" todir="${root.dir}/libraries/apache-geronimo-transaction/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-httpclient-3.1.jar" todir="${root.dir}/libraries/apache-httpclient/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-logging-1.1.3.jar" todir="${root.dir}/libraries/apache-httpcore/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/fluent-hc-4.3.1.jar" todir="${root.dir}/libraries/apache-httpcore/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/httpclient-cache-4.3.1.jar" todir="${root.dir}/libraries/apache-httpcore/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/httpmime-4.3.1.jar" todir="${root.dir}/libraries/apache-httpcore/javalib" overwrite="true"></copy>
-  	<copy file="${ivy.lib.dir}/httpcore-4.4.1.jar" todir="${root.dir}/libraries/apache-httpcore/javalib"></copy>
-  	<copy file="${ivy.lib.dir}/httpclient-4.5.2.jar" todir="${root.dir}/libraries/apache-httpcore/javalib"></copy>
-    <copy file="${ivy.lib.dir}/commons-io-1.4.jar" todir="${root.dir}/libraries/apache-io/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/org.apache.sling.commons.json-2.0.6.jar" todir="${root.dir}/libraries/apache-json/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-lang-2.6.jar" todir="${root.dir}/libraries/apache-lang/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/log4j-1.2.16.jar" todir="${root.dir}/libraries/apache-log4j/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-logging-1.1.3.jar" todir="${root.dir}/libraries/apache-logging/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/lucene-analyzers-common-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/lucene-core-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/lucene-backward-codecs-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/lucene-queries-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/lucene-queryparser-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/lucene-facet-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/lucene-misc-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/solr-core-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/solr-solrj-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/poi-3.9.jar" todir="${root.dir}/libraries/apache-poi/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/tomahawk20-1.1.14.jar" todir="${root.dir}/libraries/apache-tomahawk/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-validator-1.4.0.jar" todir="${root.dir}/libraries/apache-validator/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/xml-resolver-1.2.jar" tofile="${root.dir}/libraries/apache-xerces/javalib/resolver.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/org.apache.xml.serializer-2.7.1.jar" tofile="${root.dir}/libraries/apache-xerces/javalib/serializer.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/xercesImpl-2.11.0.jar" tofile="${root.dir}/libraries/apache-xerces/javalib/xercesImpl.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/xml-apis-1.4.01.jar" tofile="${root.dir}/libraries/apache-xerces/javalib/xml-apis.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/asm-all-3.3.jar" todir="${root.dir}/libraries/asm/javalib/" overwrite="true"></copy>
-  	<copy file="${ivy.lib.dir}/aws-java-sdk-core-1.11.37.jar" todir="${root.dir}/libraries/aws/javalib"></copy>
-  	<copy file="${ivy.lib.dir}/aws-java-sdk-ec2-1.11.37.jar" todir="${root.dir}/libraries/aws/javalib"></copy>
-    <copy file="${ivy.lib.dir}/backport-util-concurrent-3.1.jar" todir="${root.dir}/libraries/backport/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/bcprov-jdk15-1.45.jar" tofile="${root.dir}/libraries/bouncycastle/javalib/bcprov-jdk15-145.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/dbunit-2.4.7.jar" todir="${root.dir}/libraries/dbunit/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/ecj-4.5.1.jar" todir="${root.dir}/libraries/eclipse-ecj/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/junit-4.5.jar" todir="${root.dir}/oscm-integrationtests-apiversioning-test-client/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/log4j-1.2.16.jar" todir="${root.dir}/j2ep/WebContent/WEB-INF/lib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/org.jacoco.agent-0.7.8.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true"></copy>
-    <unjar src="${ivy.lib.dir}/org.jacoco.agent-0.7.8.jar" dest="${root.dir}/libraries/jacoco/resources" overwrite="true">
-      <patternset>
-        <include name="jacocoagent.jar"/>
-      </patternset>
-    </unjar>
-    <copy file="${ivy.lib.dir}/org.jacoco.ant-0.7.8.jar" tofile="${root.dir}/libraries/jacoco/javalib/org.jacoco.ant-0.7.8.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/org.jacoco.core-0.7.8.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/asm-debug-all-5.1.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/org.jacoco.report-0.7.8.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/oro-2.0.8.jar" tofile="${root.dir}/libraries/jakarta-oro/javalib/jakarta-oro-2.0.8.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/hibernate-search-engine-5.5.4.Final.jar" todir="${root.dir}/libraries/jboss-hibernate-search/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/hibernate-search-orm-5.5.4.Final.jar" todir="${root.dir}/libraries/jboss-hibernate-search/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/cssparser-0.9.14.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/guava-18.0.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/richfaces-a4j-4.5.0.Final.jar" tofile="${root.dir}/libraries/jboss-richfaces/javalib/richfaces-components-a4j-4.5.0.Final.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/richfaces-4.5.0.Final.jar" tofile="${root.dir}/libraries/jboss-richfaces/javalib/richfaces-components-rich-4.5.0.Final.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/richfaces-core-4.5.0.Final.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/sac-1.3.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/javax.ws.rs-api-2.0.1.jar" todir="${root.dir}/libraries/jersey/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jersey-guava-2.21.jar" tofile="${root.dir}/libraries/jersey/javalib/jersey-guava.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jersey-client-2.21.jar" tofile="${root.dir}/libraries/jersey/javalib/jersey-client.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jersey-common-2.21.jar" tofile="${root.dir}/libraries/jersey/javalib/jersey-common.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jersey-server-2.21.jar" tofile="${root.dir}/libraries/jersey/javalib/jersey-server.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jolokia-core-1.1.1.jar" todir="${root.dir}/libraries/jolokia/WebContent/WEB-INF/lib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jolokia-jsr160-1.1.1.jar" todir="${root.dir}/libraries/jolokia/WebContent/WEB-INF/lib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/json-simple-1.1.jar" todir="${root.dir}/libraries/jolokia/WebContent/WEB-INF/lib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/junit-4.5.jar" todir="${root.dir}/libraries/junit/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/mockito-all-1.8.5.jar" todir="${root.dir}/libraries/mockito/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/omnifaces-1.10.jar" todir="${root.dir}/libraries/omnifaces/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-httpclient-3.1.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/not-yet-commons-ssl-0.3.9.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/bcprov-jdk15-1.45.jar" todir="${root.dir}/libraries/opensaml/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-codec-1.7.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-collections-3.2.2.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/commons-lang-2.6.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/esapi-2.0.1.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jcl-over-slf4j-1.7.7.jar" todir="${root.dir}/libraries/opensaml/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/joda-time-2.2.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jul-to-slf4j-1.7.7.jar" todir="${root.dir}/libraries/opensaml/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/log4j-over-slf4j-1.7.7.jar" todir="${root.dir}/libraries/opensaml/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/opensaml-2.6.0.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/openws-1.5.0.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/slf4j-api-1.7.7.jar" todir="${root.dir}/libraries/opensaml/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/velocity-1.7.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/xmlsec-1.5.4.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/xmltooling-1.4.0.jar" todir="${root.dir}/libraries/opensaml/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/postgresql-9.4-1206-jdbc42.jar" todir="${root.dir}/libraries/postgresql-jdbc/javalib" overwrite="true"></copy>
-  	<copy file="${ivy.lib.dir}/postgresql-9.4-1206-jdbc42.jar" todir="${root.dir}/oscm-app/resources/lib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/antlr-2.7.7.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/dom4j-1.6.1.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/hibernate-commons-annotations-5.0.1.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/hibernate-jpa-2.1-api-1.0.0.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jboss-transaction-api_1.1_spec-1.0.1.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/javassist-3.20.0-GA.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jboss-logging-3.3.0.Final.jar"
-          tofile="${root.dir}/libraries/redhat-hibernate/javalib/jboss-logging.jar"
-          overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/classmate-1.3.0.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/geronimo-jta_1.1_spec-1.1.1.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"></copy>
+    <description>This script downloads all 3rd party libraries from Maven repository.</description>
 
-    <copy file="${ivy.lib.dir}/jandex-2.0.0.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/"
-          overwrite="true"></copy>
+    <property name="ivy.lib.dir" value="${root.dir}/oscm-build/lib/"/>
 
-    <copy file="${ivy.lib.dir}/hibernate-core-5.0.9.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/hibernate-entitymanager-5.0.9.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/slf4j-api-1.7.7.jar" todir="${root.dir}/libraries/slf4j/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/slf4j-simple-1.7.7.jar" todir="${root.dir}/libraries/slf4j/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/slf4j-log4j12-1.7.7.jar" todir="${root.dir}/libraries/slf4j-log4j/javalib" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/sonar-ant-task-1.1.jar" todir="${root.dir}/libraries/sonar/javalib/" overwrite="true"></copy>
+    <target name="resolve">
+        <ivy:settings file="ivy-settings.xml"/>
+        <ivy:resolve conf="default"/>
+        <ivy:retrieve/>
+    </target>
 
-    <copy file="${ivy.lib.dir}/jaxb-impl-2.1.11.jar" tofile="${root.dir}/libraries/sun-metro/javalib/jaxb-impl.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jaxb-xjc-2.1.11.jar" tofile="${root.dir}/libraries/sun-metro/javalib/jaxb-xjc.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jaxws-rt-2.1.7.jar" tofile="${root.dir}/libraries/sun-metro/javalib/jaxws-rt.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/jaxws-tools-2.1.7.jar" tofile="${root.dir}/libraries/sun-metro/javalib/jaxws-tools.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/saaj-impl-1.3.3.jar" tofile="${root.dir}/libraries/sun-metro/javalib/saaj-impl.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/wsdl4j-1.6.2.jar" tofile="${root.dir}/libraries/wsdl4j/javalib/wsdl4j.jar" overwrite="true"></copy>
-    <copy file="${ivy.lib.dir}/gson-2.6.2.jar" tofile="${root.dir}/libraries/gson/javalib/gson-2.6.2.jar" overwrite="true"></copy>
-  	
-  	<!-- Glassfish 4.1.1 necesarry libraries -->
-  	<copy file="${ivy.lib.dir}/javaee-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/javalib/javaee.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/gf-client-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/javalib/gf-client.jar" overwrite="true"/>
-    
-    <copy file="${ivy.lib.dir}/javax.inject-1.jar" todir="${root.dir}/libraries/glassfish4/javalib" overwrite="true"></copy>
-    
+    <target name="copyLibraries" depends="resolve">
+        <copy file="${ivy.lib.dir}/commons-pool2-2.4.2.jar" todir="${root.dir}/libraries/apache-commons-pool/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/opencsv-3.7.jar" todir="${root.dir}/libraries/opencsv/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/antlr4-runtime-4.1.jar" todir="${root.dir}/libraries/antlr/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/ant-1.9.4.jar" tofile="${root.dir}/libraries/apache-ant/javalib/ant.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/ant-junit-1.9.4.jar" tofile="${root.dir}/libraries/apache-ant/javalib/ant-junit.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/ant-launcher-1.9.4.jar" tofile="${root.dir}/libraries/apache-ant/javalib/ant-launcher.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/wsit-ant-tasks-1.0.7.jar" tofile="${root.dir}/libraries/apache-ant/javalib/wsit-ant-tasks.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/bcel-5.1.jar" todir="${root.dir}/libraries/apache-ant-contrib/lib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-httpclient-3.1.jar" todir="${root.dir}/libraries/apache-ant-contrib/lib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-logging-1.1.3.jar" todir="${root.dir}/libraries/apache-ant-contrib/lib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/ivy-2.4.0.jar" todir="${root.dir}/libraries/apache-ant-contrib/lib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-csv-1.0.jar" todir="${root.dir}/libraries/apache-commons-csv/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/ant-contrib-1.0b3.jar" todir="${root.dir}/libraries/apache-ant-contrib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/annogen-0.1.0.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axiom-api-1.2.8.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axiom-dom-1.2.8.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axiom-impl-1.2.8.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-adb-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-adb-codegen-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-ant-plugin-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-clustering-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-codegen-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-corba-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-fastinfoset-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-java2wsdl-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-jaxbri-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-jaxws-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-jibx-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-json-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-kernel-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-metadata-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-mtompolicy-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-saaj-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-saaj-api-1.4.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-spring-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-transport-http-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-transport-local-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/axis2-xmlbeans-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/geronimo-stax-api_1.0_spec-1.0.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/httpcore-4.4.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/neethi-2.0.4.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/woden-api-1.0M8.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/woden-impl-dom-1.0M8.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/wsdl4j-1.6.3.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/wstx-asl-3.2.4.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/XmlSchema-1.4.3.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-beanutils-1.8.3.jar" todir="${root.dir}/libraries/apache-beanutils/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-codec-1.10.jar" todir="${root.dir}/libraries/apache-codec/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-collections-3.2.2.jar" todir="${root.dir}/libraries/apache-collections/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-lang3-3.5.jar" todir="${root.dir}/libraries/apache-commons-lang/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-configuration2-2.1.1.jar" todir="${root.dir}/libraries/apache-configuration/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-dbcp-1.3.jar" todir="${root.dir}/libraries/apache-dbcp/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-pool-1.5.4.jar" todir="${root.dir}/libraries/apache-dbcp/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-digester-1.8.1.jar" todir="${root.dir}/libraries/apache-digester/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-discovery-0.2.jar" todir="${root.dir}/libraries/apache-discovery/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-el-1.0.jar" tofile="${root.dir}/libraries/apache-el/javalib/commons-el.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-fileupload-1.2.1.jar" todir="${root.dir}/libraries/apache-fileupload/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/geronimo-transaction-2.1.jar" todir="${root.dir}/libraries/apache-geronimo-transaction/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-httpclient-3.1.jar" todir="${root.dir}/libraries/apache-httpclient/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-logging-1.1.3.jar" todir="${root.dir}/libraries/apache-httpcore/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/fluent-hc-4.3.1.jar" todir="${root.dir}/libraries/apache-httpcore/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/httpclient-cache-4.3.1.jar" todir="${root.dir}/libraries/apache-httpcore/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/httpmime-4.3.1.jar" todir="${root.dir}/libraries/apache-httpcore/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/httpcore-4.4.1.jar" todir="${root.dir}/libraries/apache-httpcore/javalib"/>
+        <copy file="${ivy.lib.dir}/httpclient-4.5.2.jar" todir="${root.dir}/libraries/apache-httpcore/javalib"/>
+        <copy file="${ivy.lib.dir}/commons-io-1.4.jar" todir="${root.dir}/libraries/apache-io/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/org.apache.sling.commons.json-2.0.6.jar" todir="${root.dir}/libraries/apache-json/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/log4j-1.2.16.jar" todir="${root.dir}/libraries/apache-log4j/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-logging-1.1.3.jar" todir="${root.dir}/libraries/apache-logging/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/lucene-analyzers-common-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/lucene-core-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/lucene-backward-codecs-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/lucene-queries-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/lucene-queryparser-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/lucene-facet-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/lucene-misc-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/solr-core-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/solr-solrj-5.3.1.jar" todir="${root.dir}/libraries/apache-lucene/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/poi-3.9.jar" todir="${root.dir}/libraries/apache-poi/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/tomahawk20-1.1.14.jar" todir="${root.dir}/libraries/apache-tomahawk/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/commons-validator-1.4.0.jar" todir="${root.dir}/libraries/apache-validator/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/xml-resolver-1.2.jar" tofile="${root.dir}/libraries/apache-xerces/javalib/resolver.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/org.apache.xml.serializer-2.7.1.jar" tofile="${root.dir}/libraries/apache-xerces/javalib/serializer.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/xercesImpl-2.11.0.jar" tofile="${root.dir}/libraries/apache-xerces/javalib/xercesImpl.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/xml-apis-1.4.01.jar" tofile="${root.dir}/libraries/apache-xerces/javalib/xml-apis.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/aws-java-sdk-core-1.11.37.jar" todir="${root.dir}/libraries/aws/javalib"/>
+        <copy file="${ivy.lib.dir}/aws-java-sdk-ec2-1.11.37.jar" todir="${root.dir}/libraries/aws/javalib"/>
+        <copy file="${ivy.lib.dir}/backport-util-concurrent-3.1.jar" todir="${root.dir}/libraries/backport/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/bcprov-jdk15-1.45.jar" tofile="${root.dir}/libraries/bouncycastle/javalib/bcprov-jdk15-145.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/dbunit-2.4.7.jar" todir="${root.dir}/libraries/dbunit/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/ecj-4.5.1.jar" todir="${root.dir}/libraries/eclipse-ecj/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/junit-4.5.jar" todir="${root.dir}/oscm-integrationtests-apiversioning-test-client/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/log4j-1.2.16.jar" todir="${root.dir}/j2ep/WebContent/WEB-INF/lib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/org.jacoco.agent-0.7.8.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true"/>
+        <unjar src="${ivy.lib.dir}/org.jacoco.agent-0.7.8.jar" dest="${root.dir}/libraries/jacoco/resources" overwrite="true">
+            <patternset>
+                <include name="jacocoagent.jar"/>
+            </patternset>
+        </unjar>
+        <copy file="${ivy.lib.dir}/org.jacoco.ant-0.7.8.jar" tofile="${root.dir}/libraries/jacoco/javalib/org.jacoco.ant-0.7.8.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/org.jacoco.core-0.7.8.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/asm-all-3.3.1.jar" todir="${root.dir}/libraries/asm/javalib/" overwrite="true"></copy>
+        <copy file="${ivy.lib.dir}/asm-debug-all-5.1.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/org.jacoco.report-0.7.8.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/oro-2.0.8.jar" tofile="${root.dir}/libraries/jakarta-oro/javalib/jakarta-oro-2.0.8.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/hibernate-search-engine-5.5.4.Final.jar" todir="${root.dir}/libraries/jboss-hibernate-search/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/hibernate-search-orm-5.5.4.Final.jar" todir="${root.dir}/libraries/jboss-hibernate-search/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/cssparser-0.9.14.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/guava-18.0.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/richfaces-a4j-4.5.0.Final.jar" tofile="${root.dir}/libraries/jboss-richfaces/javalib/richfaces-components-a4j-4.5.0.Final.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/richfaces-4.5.0.Final.jar" tofile="${root.dir}/libraries/jboss-richfaces/javalib/richfaces-components-rich-4.5.0.Final.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/richfaces-core-4.5.0.Final.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/sac-1.3.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/javax.ws.rs-api-2.0.1.jar" todir="${root.dir}/libraries/jersey/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jolokia-core-1.1.1.jar" todir="${root.dir}/libraries/jolokia/WebContent/WEB-INF/lib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jolokia-jsr160-1.1.1.jar" todir="${root.dir}/libraries/jolokia/WebContent/WEB-INF/lib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/json-simple-1.1.jar" todir="${root.dir}/libraries/jolokia/WebContent/WEB-INF/lib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/junit-4.5.jar" todir="${root.dir}/libraries/junit/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/mockito-all-1.8.5.jar" todir="${root.dir}/libraries/mockito/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/omnifaces-1.10.jar" todir="${root.dir}/libraries/omnifaces/javalib/" overwrite="true"/>
 
-  	<!-- from Class-Path of javaee.jar -->
-  	<copy file="${ivy.lib.dir}/javax.annotation-api-1.2.jar" tofile="${root.dir}/libraries/glassfish4/modules/endorsed/javax.annotation-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.faces-2.2.12.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.faces.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.ejb-api-3.2.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.ejb-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.persistence-2.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.persistence.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.servlet-api-3.1.0.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.servlet-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.servlet.jsp-api-2.3.2-b01.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.servlet.jsp-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.servlet.jsp.jstl-api-1.2.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.servlet.jsp.jstl-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/cdi-api-1.2.jar" tofile="${root.dir}/libraries/glassfish4/modules/cdi-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/webservices-osgi-2.3.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/webservices-osgi.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.mail-1.5.4.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.mail.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.jms-api-2.0.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.jms-api.jar" overwrite="true"/>  	      	
-  	<copy file="${ivy.lib.dir}/javax.el-3.0.1-b03.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.el.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.transaction-api-1.2.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.transaction-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.ws.rs-api-2.0.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.ws.rs-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/jaxb-osgi-2.2.11.jar" tofile="${root.dir}/libraries/glassfish4/modules/jaxb-osgi.jar" overwrite="true"/>
-  	
-  	<!-- from Class-Path of gf-client.jar -->
-  	<copy file="${ivy.lib.dir}/javax.inject-2.4.0-b31.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.inject.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/javax.interceptor-api-1.2.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.interceptor-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/weld-osgi-bundle-2.2.13.Final.jar" tofile="${root.dir}/libraries/glassfish4/modules/weld-osgi-bundle.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/web-core-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/web-core.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/internal-api-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/internal-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/jackson-core-2.5.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/jackson-core.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/jackson-databind-2.5.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/jackson-databind.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/jackson-annotations-2.5.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/jackson-annotations.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/security-ee-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/security-ee.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/security-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/security.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/websecurity-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/websecurity.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/appclient.security-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/appclient.security.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/ejb.security-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/ejb.security.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/glassfish-ee-api-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/glassfish-ee-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/glassfish-api-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/glassfish-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/ejb-container-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/ejb-container.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/ejb-internal-api-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/ejb-internal-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/common-util-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/common-util.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/transaction-internal-api-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/transaction-internal-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/hk2-api-2.4.0-b31.jar" tofile="${root.dir}/libraries/glassfish4/modules/hk2-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/hk2-utils-2.4.0-b31.jar" tofile="${root.dir}/libraries/glassfish4/modules/hk2-utils.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/hk2-core-2.4.0-b31.jar" tofile="${root.dir}/libraries/glassfish4/modules/hk2-core.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/hk2-locator-2.4.0-b31.jar" tofile="${root.dir}/libraries/glassfish4/modules/hk2-locator.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/hk2-config-2.4.0-b31.jar" tofile="${root.dir}/libraries/glassfish4/modules/hk2-config.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/hk2-runlevel-2.4.0-b31.jar" tofile="${root.dir}/libraries/glassfish4/modules/hk2-runlevel.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/config-types-2.4.0-b31.jar" tofile="${root.dir}/libraries/glassfish4/modules/config-types.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/class-model-2.4.0-b31.jar" tofile="${root.dir}/libraries/glassfish4/modules/class-model.jar" overwrite="true"/>		
-  	<copy file="${ivy.lib.dir}/orb-iiop-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/orb-iiop.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/orb-connector-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/orb-connector.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/orb-enabler-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/orb-enabler.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/glassfish-corba-orb-4.0.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/glassfish-corba-orb.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/glassfish-corba-csiv2-idl-4.0.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/glassfish-corba-csiv2-idl.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/glassfish-corba-omgapi-4.0.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/glassfish-corba-omgapi.jar" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/glassfish-corba-internal-api-4.0.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/glassfish-corba-internal-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/dol-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/dol.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/gms-bootstrap-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/gms-bootstrap.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/kernel-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/kernel.jar" overwrite="true"/> 	
-  	<copy file="${ivy.lib.dir}/config-api-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/config-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/internal-api-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/internal-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/ha-api-3.1.8.jar" tofile="${root.dir}/libraries/glassfish4/modules/ha-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/gmbal-4.0.0-b001.jar" tofile="${root.dir}/libraries/glassfish4/modules/gmbal.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/management-api-3.2.1-b002.jar" tofile="${root.dir}/libraries/glassfish4/modules/management-api.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/ssl-impl-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/ssl-impl.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/glassfish-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/glassfish.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/deployment-common-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/deployment-common.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/bean-validator-2.4.0-b31.jar" tofile="${root.dir}/libraries/glassfish4/modules/bean-validator.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/pfl-basic-4.0.0-b004.jar" tofile="${root.dir}/libraries/glassfish4/modules/pfl-basic.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/pfl-asm-4.0.0-b004.jar" tofile="${root.dir}/libraries/glassfish4/modules/pfl-asm.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/pfl-dynamic-4.0.0-b004.jar" tofile="${root.dir}/libraries/glassfish4/modules/pfl-dynamic.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/pfl-tf-4.0.0-b004.jar" tofile="${root.dir}/libraries/glassfish4/modules/pfl-tf.jar" overwrite="true"/>
-  	
-  	<!-- others from GF4 -->
-  	<copy file="${ivy.lib.dir}/javax.servlet.jsp.jstl-1.2.4.jar" tofile="${root.dir}/libraries/glassfish4/modules/javax.servlet.jsp.jstl.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/glassfish-naming-4.1.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/glassfish-naming.jar" overwrite="true"/>
-  	<copy file="${ivy.lib.dir}/webservices-api-osgi-2.0.1.jar" tofile="${root.dir}/libraries/glassfish4/modules/endorsed/webservices-api-osgi.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/joda-time-2.2.jar" todir="${root.dir}/libraries/joda-time/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/postgresql-9.4-1206-jdbc42.jar" todir="${root.dir}/libraries/postgresql-jdbc/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/postgresql-9.4-1206-jdbc42.jar" todir="${root.dir}/oscm-app/resources/lib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/antlr-2.7.7.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/dom4j-1.6.1.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/hibernate-commons-annotations-5.0.1.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/hibernate-jpa-2.1-api-1.0.0.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jboss-transaction-api_1.1_spec-1.0.1.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/javassist-3.20.0-GA.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jboss-logging-3.3.0.Final.jar" tofile="${root.dir}/libraries/redhat-hibernate/javalib/jboss-logging.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/classmate-1.3.0.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/geronimo-jta_1.1_spec-1.1.1.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jandex-2.0.0.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/hibernate-core-5.0.9.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/hibernate-entitymanager-5.0.9.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/slf4j-api-1.7.21.jar" todir="${root.dir}/libraries/slf4j/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/slf4j-simple-1.7.7.jar" todir="${root.dir}/libraries/slf4j/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/slf4j-log4j12-1.7.7.jar" todir="${root.dir}/libraries/slf4j-log4j/javalib" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/sonar-ant-task-1.1.jar" todir="${root.dir}/libraries/sonar/javalib/" overwrite="true"/>
 
-    <copy file="${ivy.lib.dir}/org.eclipse.persistence.antlr-2.6.3.jar" tofile="${root.dir}/libraries/glassfish4/modules/org.eclipse.persistence.antlr.jar" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/org.eclipse.persistence.asm-2.6.3.jar" tofile="${root.dir}/libraries/glassfish4/modules/org.eclipse.persistence.asm.jar" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/org.eclipse.persistence.core-2.6.3.jar" tofile="${root.dir}/libraries/glassfish4/modules/org.eclipse.persistence.core.jar" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/org.eclipse.persistence.dbws-2.6.3.jar" tofile="${root.dir}/libraries/glassfish4/modules/org.eclipse.persistence.dbws.jar" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/org.eclipse.persistence.jpa-2.6.3.jar" tofile="${root.dir}/libraries/glassfish4/modules/org.eclipse.persistence.jpa.jar" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/org.eclipse.persistence.jpa.jpql-2.6.3.jar" tofile="${root.dir}/libraries/glassfish4/modules/org.eclipse.persistence.jpa.jpql.jar" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/org.eclipse.persistence.jpa.modelgen.processor-2.6.3.jar" tofile="${root.dir}/libraries/glassfish4/modules/org.eclipse.persistence.jpa.modelgen.processor.jar" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/org.eclipse.persistence.moxy-2.6.3.jar" tofile="${root.dir}/libraries/glassfish4/modules/org.eclipse.persistence.moxy.jar" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/org.eclipse.persistence.oracle-2.6.3.jar" tofile="${root.dir}/libraries/glassfish4/modules/org.eclipse.persistence.oracle.jar" overwrite="true"/>
-    <copy file="${ivy.lib.dir}/kafka-clients-0.10.2.1.jar" tofile="${root.dir}/libraries/apache-kafka/javalib/kafka-clients.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jaxb-impl-2.2.10.jar" tofile="${root.dir}/libraries/sun-metro/javalib/jaxb-impl.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jaxb-core-2.2.10.jar" tofile="${root.dir}/libraries/sun-metro/javalib/jaxb-core.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jaxb-xjc-2.2.10.jar" tofile="${root.dir}/libraries/sun-metro/javalib/jaxb-xjc.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jaxb-jxc-2.2.10.jar" tofile="${root.dir}/libraries/sun-metro/javalib/jaxb-jxc.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jaxws-rt-2.2.10.jar" tofile="${root.dir}/libraries/sun-metro/javalib/jaxws-rt.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/jaxws-tools-2.2.10.jar" tofile="${root.dir}/libraries/sun-metro/javalib/jaxws-tools.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/policy-2.4.jar"
+              tofile="${root.dir}/libraries/sun-metro/javalib/policy-2.4.jar" overwrite="true"/>
 
-  </target>
+        <copy file="${ivy.lib.dir}/resolver-20050927.jar"
+              tofile="${root.dir}/libraries/sun-metro/javalib/resolver-20050927.jar" overwrite="true"/>
+
+        <copy file="${ivy.lib.dir}/stax-ex-1.7.7.jar"
+              tofile="${root.dir}/libraries/sun-metro/javalib/stax-ex-1.7.7.jar" overwrite="true"/>
+
+        <copy file="${ivy.lib.dir}/stax-api-1.0-2.jar"
+              tofile="${root.dir}/libraries/sun-metro/javalib/stax-api-1.0-2.jar" overwrite="true"/>
+
+        <copy file="${ivy.lib.dir}/activation-1.1.jar"
+              tofile="${root.dir}/libraries/sun-metro/javalib/activation-1.1.jar" overwrite="true"/>
+
+        <copy file="${ivy.lib.dir}/streambuffer-1.5.4.jar"
+              tofile="${root.dir}/libraries/sun-metro/javalib/streambuffer-1.5.4.jar" overwrite="true"/>
+
+
+        <copy file="${ivy.lib.dir}/saaj-impl-1.3.25.jar" tofile="${root.dir}/libraries/sun-metro/javalib/saaj-impl.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/woodstox-core-asl-4.2.0.jar" tofile="${root.dir}/libraries/sun-metro/javalib/woodstox-core-asl.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/stax2-api-3.1.1.jar" tofile="${root.dir}/libraries/sun-metro/javalib/stax2-api.jar" overwrite="true"/>
+
+        <copy file="${ivy.lib.dir}/wsdl4j-1.6.3.jar" tofile="${root.dir}/libraries/wsdl4j/javalib/wsdl4j.jar"
+              overwrite="true"/>
+        <copy file="${ivy.lib.dir}/gson-2.6.2.jar" tofile="${root.dir}/libraries/gson/javalib/gson-2.6.2.jar" overwrite="true"/>
+
+    <copy file="${ivy.lib.dir}/jackson-core-2.6.6.jar"
+          tofile="${root.dir}/libraries/jackson/javalib/jackson-core.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/jackson-databind-2.6.6.jar"
+          tofile="${root.dir}/libraries/jackson/javalib/jackson-databind.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/jackson-annotations-2.6.0.jar"
+          tofile="${root.dir}/libraries/jackson/javalib/jackson-annotations.jar" overwrite="true" />
+
+    <!-- javax -->
+    <copy file="${ivy.lib.dir}/javax.el-api-3.0.1-b04.jar" tofile="${root.dir}/libraries/javax/javalib/javax.el-api-3.0.1-b04.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/javax.servlet-api-3.1.0.jar" tofile="${root.dir}/libraries/javax/javalib/servlet-api-3.1.0.jar" overwrite="true" />
+
+        <!-- Tomee libraries-->
+        <copy file="${ivy.lib.dir}/javaee-api-7.0-1.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/geronimo-javamail_1.4_mail-1.9.0-alpha-2.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/geronimo-javamail_1.4_mail-1.9.0-alpha-2.jar"
+              overwrite="true"/>
+        <copy file="${ivy.lib.dir}/openejb-core-7.0.3.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/openejb-core-7.0.3.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/openejb-cxf-7.0.3.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/openejb-cxf-7.0.3.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/openejb-loader-7.0.3.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/openejb-loader-7.0.3.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/openejb-client-7.0.3.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/openejb-client-7.0.3.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/wss4j-bindings-2.1.7.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/wss4j-bindings-2.1.7.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/wss4j-policy-2.1.7.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/wss4j-policy-2.1.7.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/wss4j-ws-security-common-2.1.7.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/wss4j-ws-security-common-2.1.7.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/wss4j-ws-security-dom-2.1.7.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/wss4j-ws-security-dom-2.1.7.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/wss4j-ws-security-policy-stax-2.1.7.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/wss4j-ws-security-policy-stax-2.1.7.jar"
+              overwrite="true"/>
+        <copy file="${ivy.lib.dir}/javax.faces-2.2.12.jar"
+              tofile="${root.dir}/libraries/apache-tomee/javalib/javax.faces-2.2.12.jar" overwrite="true"/>
+
+        <copy file="${ivy.lib.dir}/wss4j-ws-security-stax-2.1.7.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/wss4j-ws-security-stax-2.1.7.jar" overwrite="true"/>
+
+        <copy file="${ivy.lib.dir}/policy-2.4.jar"
+              tofile="${root.dir}/libraries/apache-tomee/javalib/policy-2.4.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/kafka-clients-0.10.2.1.jar" tofile="${root.dir}/libraries/apache-kafka/javalib/kafka-clients.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/cxf-rt-frontend-jaxrs-3.1.0.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/cxf-rt-frontend-jaxrs.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/cxf-core-3.1.10.jar"
+              tofile="${root.dir}/libraries/apache-tomee/javalib/cxf-core.jar" overwrite="true"/>
+
+    </target>
 </project>

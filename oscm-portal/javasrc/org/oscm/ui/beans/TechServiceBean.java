@@ -178,8 +178,13 @@ public class TechServiceBean extends BaseBean implements Serializable {
                 getProvisioningService().validateTechnicalServiceCommunication(
                         selectedTechnicalService.getVo());
                 selectedTechnicalServiceActive = true;
-            } catch (SaaSApplicationException e) {
-                applicationException = e;
+            } catch (Exception e) {
+                e.printStackTrace();
+                Throwable th = e;
+                while(th != null && !(th instanceof SaaSApplicationException)) {
+                    th = th.getCause();
+                }
+                applicationException = (SaaSApplicationException) th;
             }
         }
     }

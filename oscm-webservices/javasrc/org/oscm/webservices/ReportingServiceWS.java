@@ -31,7 +31,7 @@ import org.oscm.vo.VOReport;
  * @author Aleh Khomich.
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.ReportingService")
+@WebService(name = "ReportingService", serviceName = "ReportingService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.ReportingService")
 public class ReportingServiceWS implements ReportingService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -44,13 +44,10 @@ public class ReportingServiceWS implements ReportingService {
     @Override
     public List<VOReport> getAvailableReports(ReportType filter) {
         WS_LOGGER.logAccess(wsContext, ds);
-        return VOCollectionConverter
-                .convertList(
-                        delegate.getAvailableReports(EnumConverter
-                                .convert(
-                                        filter,
-                                        org.oscm.internal.types.enumtypes.ReportType.class)),
-                        org.oscm.vo.VOReport.class);
+        return VOCollectionConverter.convertList(
+                delegate.getAvailableReports(EnumConverter.convert(filter,
+                        org.oscm.internal.types.enumtypes.ReportType.class)),
+                org.oscm.vo.VOReport.class);
     }
 
 }

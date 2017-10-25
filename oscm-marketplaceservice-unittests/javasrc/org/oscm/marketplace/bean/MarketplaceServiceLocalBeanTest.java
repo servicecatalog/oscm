@@ -99,7 +99,7 @@ public class MarketplaceServiceLocalBeanTest {
         service.sessionCtx = mock(SessionContext.class);
         service.audit = mock(MarketplaceAuditLogCollector.class);
         service.categorizationService = mock(CategorizationServiceBean.class);
-        service.landingpageService = mock(LandingpageServiceBean.class);
+        service.landingpageService = mock(LandingpageServiceBeanLocal.class);
         service.partnerSrvProv = mock(ServiceProvisioningPartnerServiceLocal.class);
         service.localizer = mock(LocalizerServiceLocal.class);
         service.marketplaceAccessDao = mock(MarketplaceAccessDao.class);

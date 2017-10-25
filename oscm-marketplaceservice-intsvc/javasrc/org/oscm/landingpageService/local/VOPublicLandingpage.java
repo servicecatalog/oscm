@@ -19,7 +19,7 @@ import org.oscm.internal.vo.BaseVO;
  * Represents the landing page (home page) of a marketplace with a list of
  * services.
  */
-public class VOPublicLandingpage extends BaseVO implements Serializable {
+public class VOPublicLandingpage extends BaseVO  {
     private static final long serialVersionUID = -3149524403189204525L;
 
     /**

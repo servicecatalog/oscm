@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -16,6 +15,8 @@ import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+
+import org.slf4j.Logger;
 
 import org.oscm.app.business.APPlatformControllerFactory;
 import org.oscm.app.business.AsynchronousProvisioningProxyImpl;
@@ -50,7 +51,6 @@ import org.oscm.provisioning.data.User;
 import org.oscm.provisioning.data.UserResult;
 import org.oscm.provisioning.intf.ProvisioningService;
 import org.oscm.string.Strings;
-import org.slf4j.Logger;
 
 /**
  * Implements the latest OSCM provisioning service interface.
@@ -750,7 +750,9 @@ public class AsynchronousProvisioningProxy implements ProvisioningService {
     @Override
     public BaseResult saveAttributes(String organizationId,
             List<ServiceAttribute> attributeValues, User requestingUser) {
-
+        if (attributeValues == null) {
+            return provResult.newOkBaseResult();
+        }
         try {
 
             Query q = em.createNamedQuery("CustomAttribute.deleteForOrg");
@@ -758,6 +760,9 @@ public class AsynchronousProvisioningProxy implements ProvisioningService {
             q.executeUpdate();
 
             CustomAttribute ca;
+            if (attributeValues == null) {
+                attributeValues = new ArrayList<>();
+            }
             for (ServiceAttribute attr : attributeValues) {
                 ca = new CustomAttribute();
                 ca.setOrganizationId(organizationId);

@@ -43,6 +43,7 @@ public class TestNamingContextFactoryBuilder implements
             Hashtable<?, ?> environment) throws NamingException {
         Hashtable persistence = new Hashtable<>();
         persistence.put("java:appserver/TransactionManager", PERSISTENCE.getTransactionManager());
+        persistence.put("org.oscm.dataservice.bean.HibernateIndexer", PERSISTENCE.getHibernateIndexer());
         environment.putAll(persistence);
         return new InitialContextFactory() {
             public Context getInitialContext(Hashtable<?, ?> environment)

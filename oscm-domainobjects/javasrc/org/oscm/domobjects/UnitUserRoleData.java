@@ -21,7 +21,7 @@ public class UnitUserRoleData extends DomainDataContainer {
 
     private static final long serialVersionUID = -5293824177708202797L;
 
-    @Convert(converter =UnitRoleNameConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UnitRoleType roleName;
 

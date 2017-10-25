@@ -27,7 +27,7 @@ public class OperationRecordData extends DomainDataContainer {
     /**
      * The state of the Operation (RUNNING, FINISHED, ERROR).
      */
-    @Convert(converter = OSConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private OperationStatus status;
 

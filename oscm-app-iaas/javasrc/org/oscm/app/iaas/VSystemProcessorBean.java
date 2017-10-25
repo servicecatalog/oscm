@@ -1109,7 +1109,7 @@ public class VSystemProcessorBean extends BaseProvisioningProcessor {
                         platformService.getEventServiceUrl());
                 eventLink.append("?sid=").append(
                         URLEncoder.encode(instanceId, "UTF-8"));
-                eventLink.append("&cid=").append(controllerId);
+                eventLink.append("&controllerid=").append(controllerId);
                 eventLink.append("&command=finish");
                 String subject = Messages.get(locale,
                         "mail_vsystem_manual_completion.subject", new Object[] {

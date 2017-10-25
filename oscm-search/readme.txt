@@ -1,1 +1,0 @@
-The ear project for the hibernate-search master node application.

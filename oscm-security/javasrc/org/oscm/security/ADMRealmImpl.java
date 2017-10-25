@@ -13,14 +13,19 @@ package org.oscm.security;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.naming.CompositeName;
 import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.naming.NamingEnumeration;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
@@ -39,8 +44,6 @@ import org.oscm.internal.types.exception.DigitalSignatureValidationException;
 import org.oscm.saml2.api.AssertionConsumerService;
 import org.xml.sax.SAXException;
 
-import com.sun.enterprise.security.auth.realm.NoSuchUserException;
-
 /**
  * Login implementation for supporting authentication on the base of the local
  * LDAP or an organization specific remote LDAP.
@@ -52,22 +55,18 @@ public class ADMRealmImpl {
     private static final String LOCK_USER_ACCOUNT = "UPDATE platformuser SET status = ? WHERE failedlogincounter >= COALESCE(CAST((SELECT env_value FROM configurationsetting WHERE information_id = 'MAX_NUMBER_LOGIN_ATTEMPTS' AND context_id = 'global') AS int), 3) AND tkey = ?";
     private static final String INCREASE_LOGIN_COUNTER = "UPDATE platformuser SET failedlogincounter = failedlogincounter + 1 WHERE tkey = ?";
     private static final String LOCKED_STATUS = "LOCKED_FAILED_LOGIN_ATTEMPTS";
-    private static final String DB_DATASOURCE_NAME = "BSSDS";
 
     private static final String ERR_DB_LOOKUP = "Database lookup error occured: ";
     private static final String ERR_DB_ACCESS = "Database access error occured: ";
 
     private static final String DN = "dn";
-    private static final List<String> activeStatusList = Arrays.asList(
-            "ACTIVE", "PASSWORD_MUST_BE_CHANGED");
-
-    public static final String SUBST_SUBJECT_NAME = "%s";
+    private static final List<String> activeStatusList = Arrays.asList("ACTIVE",
+            "PASSWORD_MUST_BE_CHANGED");
 
     protected static final String GROUP_USER = "PlatformUsers";
     protected static final String GROUP_ADMIN = UserRoleType.ORGANIZATION_ADMIN
             .name();
-    protected static final String[] GROUPLIST_USER = { GROUP_USER };
-    protected static final String[] GROUPLIST_ADMIN = { GROUP_USER, GROUP_ADMIN };
+    protected static final List<String> GROUPLIST_USER = new ArrayList<String>(Arrays.asList(GROUP_USER));
 
     private static final int SAML_REQUEST_ID_LEN = 43;
     private static final int SAML_TENANT_ID_LEN = 8;
@@ -75,27 +74,23 @@ public class ADMRealmImpl {
     private static final int WS_PASSWORD_AGE_MILLIS = 300000;
 
     private final Logger logger;
-    private final Context context;
 
-    ADMRealmImpl(Logger logger, Context context) {
+    ADMRealmImpl(Logger logger) {
         this.logger = logger;
-        this.context = context;
     }
 
     /**
      * Returns enumeration of groups that a particular user belongs to.
      * 
      * @return enumeration of groups that a particular user belongs to.
-     * @throws NoSuchUserException
-     *             if the userKey doesn't exist in the database
      */
-    Enumeration<String> getGroupNames(String userKey) throws SQLException,
-            NamingException {
+    Enumeration<String> getGroupNames(String userKey)
+            throws SQLException, NamingException {
         UserQuery userQuery = getUserQuery(userKey);
         userQuery.execute();
         if (userQuery.getUserId() == null) {
-            throw new SQLException("PlatformUser with user key '" + userKey
-                    + "' not found.");
+            throw new SQLException(
+                    "PlatformUser with user key '" + userKey + "' not found.");
         }
         List<String> roleNames = loadRoleNames(userKey);
         return Collections.enumeration(roleNames);
@@ -108,9 +103,8 @@ public class ADMRealmImpl {
      * @throws LoginException
      *             if the login failed.
      */
-    String[] authenticateUser(final String userKey, String password)
+    List<String> authenticateUser(final String userKey, String password)
             throws LoginException {
-        String[] groups = null;
 
         try {
             UserQuery userQuery = getUserQuery(userKey);
@@ -118,8 +112,8 @@ public class ADMRealmImpl {
                 Long.parseLong(userKey);
                 userQuery.execute();
                 if (userQuery.getOrgKey() == null) {
-                    logAndThrowException(String.format(
-                            "PlatformUser '%s' not found.", userKey));
+                    logAndThrowException(String
+                            .format("PlatformUser '%s' not found.", userKey));
                 }
             } catch (NumberFormatException ex) {
                 logger.finest("User key " + userKey
@@ -133,27 +127,27 @@ public class ADMRealmImpl {
                 // no matter what the result of the login attempt was, the
                 // account is locked, so the operation must fail, but not
                 // increase the failed login counter
-                logAndThrowException(String
-                        .format("Login for user '%s' failed as the user account is locked.",
-                                userKey));
+                logAndThrowException(String.format(
+                        "Login for user '%s' failed as the user account is locked.",
+                        userKey));
             }
 
             AuthenticationModeQuery authModeQuery = getAuthenticationModeQuery();
             authModeQuery.execute();
 
-            if (AuthenticationMode.SAML_SP.name().equals(
-                    authModeQuery.getAuthenticationMode())) {
+            if (AuthenticationMode.SAML_SP.name()
+                    .equals(authModeQuery.getAuthenticationMode())) {
                 handleSSOLogin(userKey, password, authModeQuery, userQuery);
             } else {
                 handleInternalLogin(userKey, password, userQuery);
             }
             List<String> roles = loadRoleNames(userKey);
-            groups = roles.toArray(new String[] {});
 
-            return groups;
+            return roles;
         } catch (SQLException e) {
             throw new LoginException(ERR_DB_ACCESS + e.toString());
         } catch (NamingException e) {
+            e.printStackTrace();
             throw new LoginException(ERR_DB_LOOKUP);
         }
     }
@@ -179,37 +173,37 @@ public class ADMRealmImpl {
     }
 
     void handleInternalLogin(String userKey, String password,
-            UserQuery userQuery) throws LoginException, SQLException,
-            NamingException {
+            UserQuery userQuery)
+            throws LoginException, SQLException, NamingException {
 
         if (!userQuery.isRemoteLdapActive()) {
             handleLoginAttempt(userKey, password, userQuery);
         } else {
             // use the remote LDAP for the authentication
-            OrganizationSettingQuery settingQuery = getOrganizationSettingQuery(userQuery);
+            OrganizationSettingQuery settingQuery = getOrganizationSettingQuery(
+                    userQuery);
             settingQuery.execute();
 
             if (userQuery.getRealmUserId() == null) {
                 throw new LoginException("No LDAP specific user id was found.");
             }
-            findAndBind(
-                    settingQuery.getProperties(),
-                    settingQuery.getBaseDN(),
+            findAndBind(settingQuery.getProperties(), settingQuery.getBaseDN(),
                     settingQuery.getAttrUid() + "="
-                            + userQuery.getRealmUserId(), password);
+                            + userQuery.getRealmUserId(),
+                    password);
 
         }
     }
 
     void handleOperatorClientCaller(final String userKey, String password,
-            UserQuery userQuery) throws LoginException, SQLException,
-            NamingException {
+            UserQuery userQuery)
+            throws LoginException, SQLException, NamingException {
         if (userKey.equals("1000")) {
             handleLoginAttempt(userKey, password, userQuery);
         } else {
-            logger.info(String
-                    .format("Single Sign On: User '%s' not logged in. Only the operator client with user key 1000 has permission.",
-                            userKey, password));
+            logger.info(String.format(
+                    "Single Sign On: User '%s' not logged in. Only the operator client with user key 1000 has permission.",
+                    userKey, password));
             throw new LoginException();
 
         }
@@ -221,22 +215,25 @@ public class ADMRealmImpl {
         String requestId = password.substring(SSO_CALLER_SPEC_LEN,
                 SAML_REQUEST_ID_LEN + SSO_CALLER_SPEC_LEN);
         int passwordLen = SSO_CALLER_SPEC_LEN + SAML_REQUEST_ID_LEN;
-        String tenantID = password.substring(passwordLen, passwordLen + SAML_TENANT_ID_LEN);
-        String samlResponse = password.substring(SSO_CALLER_SPEC_LEN
-                + SAML_REQUEST_ID_LEN + SAML_TENANT_ID_LEN);
+        String tenantID = password.substring(passwordLen,
+                passwordLen + SAML_TENANT_ID_LEN);
+        String samlResponse = password.substring(
+                SSO_CALLER_SPEC_LEN + SAML_REQUEST_ID_LEN + SAML_TENANT_ID_LEN);
 
-        AssertionConsumerService assertionConsumerService = getAssertionConsumerService(authModeQuery);
+        AssertionConsumerService assertionConsumerService = getAssertionConsumerService(
+                authModeQuery);
 
         try {
-            assertionConsumerService.validateResponse(samlResponse, requestId, tenantID);
+            assertionConsumerService.validateResponse(samlResponse, requestId,
+                    tenantID);
         } catch (DigitalSignatureValidationException
                 | AssertionValidationException | ParserConfigurationException
                 | SAXException | IOException e) {
-            logger.info(String
-                    .format("Single Sign On: User with key '%s' (tenantID: '%s') not logged in. Error validating the SAML response.\n" //
+            logger.info(String.format(
+                    "Single Sign On: User with key '%s' (tenantID: '%s') not logged in. Error validating the SAML response.\n" //
                             + "Reason: %s.\n" //
                             + "SAML response: %s\n", //
-                            userKey, tenantID, e.getMessage(), samlResponse));
+                    userKey, tenantID, e.getMessage(), samlResponse));
             throw new LoginException(e.getMessage());
         }
     }
@@ -244,8 +241,7 @@ public class ADMRealmImpl {
     AssertionConsumerService getAssertionConsumerService(
             AuthenticationModeQuery authModeQuery) {
         AssertionConsumerService assertionConsumerService = new AssertionConsumerService(
-                authModeQuery.getRecipient(),
-                authModeQuery.getRecipientHttps(),
+                authModeQuery.getRecipient(), authModeQuery.getRecipientHttps(),
                 authModeQuery.getIDPTruststore(),
                 authModeQuery.getIDPTruststorePassword());
         return assertionConsumerService;
@@ -259,21 +255,19 @@ public class ADMRealmImpl {
         try {
             passwordTime = Long.valueOf(wsPassword).longValue();
         } catch (NumberFormatException e) {
-            logger.info(String
-                    .format("Single Sign On: User '%s' not logged in. Validation error in realm for password %s",
-                            userKey, password));
+            logger.info(String.format(
+                    "Single Sign On: User '%s' not logged in. Validation error in realm for password %s",
+                    userKey, password));
             throw new LoginException(e.getMessage());
         }
 
         if (validationTime - passwordTime > WS_PASSWORD_AGE_MILLIS) {
-            logger.info(String
-                    .format("Single Sign On: User '%s' not logged in. Validation error in realm for password %s",
-                            userKey, password));
-            throw new LoginException(
-                    String.format(
-                            "Password too old: password time = %s, validation time= %s.",
-                            Long.valueOf(passwordTime),
-                            Long.valueOf(validationTime)));
+            logger.info(String.format(
+                    "Single Sign On: User '%s' not logged in. Validation error in realm for password %s",
+                    userKey, password));
+            throw new LoginException(String.format(
+                    "Password too old: password time = %s, validation time= %s.",
+                    Long.valueOf(passwordTime), Long.valueOf(validationTime)));
         }
     }
 
@@ -281,7 +275,8 @@ public class ADMRealmImpl {
         return password.substring(0, SSO_CALLER_SPEC_LEN);
     }
 
-    AuthenticationModeQuery getAuthenticationModeQuery() throws NamingException {
+    AuthenticationModeQuery getAuthenticationModeQuery()
+            throws NamingException {
         return new AuthenticationModeQuery(getDataSource());
     }
 
@@ -295,8 +290,8 @@ public class ADMRealmImpl {
                 userQuery.getOrgKey());
     }
 
-    List<String> loadRoleNames(final String userKey) throws NamingException,
-            SQLException {
+    List<String> loadRoleNames(final String userKey)
+            throws NamingException, SQLException {
         RoleQuery roleQuery = new RoleQuery(getDataSource(), userKey);
         roleQuery.execute();
         List<String> roles = roleQuery.getRoleNames();
@@ -305,8 +300,8 @@ public class ADMRealmImpl {
     }
 
     void handleLoginAttempt(final String userKey, String password,
-            UserQuery userQuery) throws SQLException, NamingException,
-            LoginException {
+            UserQuery userQuery)
+            throws SQLException, NamingException, LoginException {
         Connection conn = null;
         PreparedStatement stmt = null;
         try {
@@ -325,9 +320,9 @@ public class ADMRealmImpl {
                 stmt.setLong(2, Long.parseLong(userKey));
                 int rowCount = stmt.executeUpdate();
                 if (rowCount > 0) {
-                    logger.info(String
-                            .format("Locked account of user '%s' due to too many failed login attempts.",
-                                    userKey));
+                    logger.info(String.format(
+                            "Locked account of user '%s' due to too many failed login attempts.",
+                            userKey));
                 }
                 throw new LoginException(message);
             } else {
@@ -370,7 +365,10 @@ public class ADMRealmImpl {
      *             if the database data source lookup failed.
      */
     DataSource getDataSource() throws NamingException {
-        return (DataSource) context.lookup(DB_DATASOURCE_NAME);
+        Properties p = new Properties();
+        p.put(Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.core.OpenEJBInitialContextFactory");
+        Context context = new InitialContext(p);
+        return (DataSource) context.lookup("BSSDS");
     }
 
     /**
@@ -384,7 +382,8 @@ public class ADMRealmImpl {
      *            the password for the bind
      * @return true if the bind was successful
      */
-    boolean bindAsUser(Properties ldapProperties, String bindDN, String password) {
+    boolean bindAsUser(Properties ldapProperties, String bindDN,
+            String password) {
         boolean bindSuccessful = false;
 
         Properties p = (Properties) ldapProperties.clone();
@@ -406,8 +405,8 @@ public class ADMRealmImpl {
                 try {
                     ctx.close();
                 } catch (NamingException e) {
-                    logger.finest("Exception closing directory: "
-                            + e.toString());
+                    logger.finest(
+                            "Exception closing directory: " + e.toString());
                 }
             }
         }
@@ -487,8 +486,8 @@ public class ADMRealmImpl {
             String urlName = res.getName();
             int index = urlName.lastIndexOf("/");
             if (index > 0) {
-                ldapProps
-                        .put(Context.PROVIDER_URL, urlName.substring(0, index));
+                ldapProps.put(Context.PROVIDER_URL,
+                        urlName.substring(0, index));
             }
 
         }
@@ -510,14 +509,14 @@ public class ADMRealmImpl {
         try {
             realUserDN = userSearch(ldapProperties, baseDN, searchFilter);
             if (realUserDN == null) {
-                throw new LoginException("No User found for '" + searchFilter
-                        + "'.");
+                throw new LoginException(
+                        "No User found for '" + searchFilter + "'.");
             }
 
             bindSuccessful = bindAsUser(ldapProperties, realUserDN, password);
             if (bindSuccessful == false) {
-                throw new LoginException("Bind with DN '" + realUserDN
-                        + "' failed.");
+                throw new LoginException(
+                        "Bind with DN '" + realUserDN + "' failed.");
             }
 
         } catch (NamingException e) {

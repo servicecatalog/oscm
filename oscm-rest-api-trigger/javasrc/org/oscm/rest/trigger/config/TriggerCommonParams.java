@@ -14,18 +14,11 @@ package org.oscm.rest.trigger.config;
  */
 public class TriggerCommonParams {
 
-    // param names
-    public static final String PARAM_PROCESS_ID = "processid";
-    public static final String PARAM_OWNER_ID = "owner_id";
-    public static final String PARAM_AUTHOR_ID = "author_id";
-
     // trigger path names
-    public static final String PATH_TRIGGER = "/";
     public static final String PATH_DEFINITIONS = "/triggers";
     public static final String PATH_PROCESSES = "/processes";
     public static final String PATH_TRIGGER_APPROVE = "/approve";
     public static final String PATH_TRIGGER_REJECT = "/reject";
-    public static final String PATH_TRIGGER_CANCEL = "/cancel";
     public static final String PATH_ACTIONS = "/actions";
 
     // properties

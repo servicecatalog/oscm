@@ -24,7 +24,7 @@ public class TenantSettingData extends DomainDataContainer {
      */
     private static final long serialVersionUID = 6900999015801280393L;
 
-    @Convert(converter = IdpSettingTypeConverter.class)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private IdpSettingType name;
 

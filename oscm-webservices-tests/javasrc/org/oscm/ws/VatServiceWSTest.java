@@ -223,7 +223,7 @@ public class VatServiceWSTest {
     }
 
     private void checkAccessException(SOAPFaultException e) {
-        assertTrue(e.getMessage().contains("javax.ejb.EJBAccessException"));
+        assertTrue(e.getMessage().contains("Unauthorized"));
     }
 
 }

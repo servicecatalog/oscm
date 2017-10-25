@@ -28,7 +28,8 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
  * @author stavreva
  * 
  */
-public class SupportedVersionHandler implements SOAPHandler<SOAPMessageContext> {
+public class SupportedVersionHandler
+        implements SOAPHandler<SOAPMessageContext> {
 
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(SupportedVersionHandler.class);
@@ -56,12 +57,9 @@ public class SupportedVersionHandler implements SOAPHandler<SOAPMessageContext> 
                 try {
                     SOAPMessage message = context.getMessage();
                     versionFault = message.getSOAPBody().addFault();
-                    versionFault
-                            .setFaultString("The API version "
-                                    + version
-                                    + " specified in the header of the SOAP message in not supported by the server. Supported versions: "
-                                    + SupportedVersions
-                                            .getSupportedVersionsAsString());
+                    versionFault.setFaultString("The API version " + version
+                            + " specified in the header of the SOAP message in not supported by the server. Supported versions: "
+                            + SupportedVersions.getSupportedVersionsAsString());
                     throw new SOAPFaultException(versionFault);
                 } catch (SOAPException e) {
                     logger.logError(Log4jLogger.SYSTEM_LOG, e,

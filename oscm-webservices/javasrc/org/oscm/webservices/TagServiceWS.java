@@ -29,7 +29,7 @@ import org.oscm.vo.VOTag;
  * @author goebel
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.TagService")
+@WebService(name = "TagService", serviceName = "TagService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.TagService")
 public class TagServiceWS implements TagService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(
@@ -46,8 +46,7 @@ public class TagServiceWS implements TagService {
     public List<VOTag> getTagsByLocale(String locale) {
         WS_LOGGER.logAccess(wsContext, ds);
         return VOCollectionConverter.convertList(
-                delegate.getTagsByLocale(locale),
-                org.oscm.vo.VOTag.class);
+                delegate.getTagsByLocale(locale), org.oscm.vo.VOTag.class);
     }
 
     /**
@@ -55,7 +54,8 @@ public class TagServiceWS implements TagService {
      *      java.lang.String)
      */
     @Override
-    public List<VOTag> getTagsForMarketplace(String locale, String marketplaceId) {
+    public List<VOTag> getTagsForMarketplace(String locale,
+            String marketplaceId) {
         WS_LOGGER.logAccess(wsContext, ds);
         return VOCollectionConverter.convertList(
                 delegate.getTagsForMarketplace(locale, marketplaceId),

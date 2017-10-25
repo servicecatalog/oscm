@@ -33,7 +33,7 @@ import org.oscm.types.exceptions.InvalidUserSession;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.types.exception.TechnicalServiceActiveException;
-import com.sun.xml.ws.rx.rm.runtime.sequence.persistent.PersistenceException;
+//import com.sun.xml.ws.rx.rm.runtime.sequence.persistent.PersistenceException;
 
 /**
  * Test cases for the EJBExceptionMapper.
@@ -223,7 +223,8 @@ public class ExceptionMapperTest {
      * is thrown with a connect exception very deep in the cause chain.
      */
     private Exception givenHeavyNestedConnectionException() {
-        EJBException e = new EJBException(new PersistenceException("PE",
+//        EJBException e = new EJBException(new PersistenceException("PE",
+        EJBException e = new EJBException(new RuntimeException("PE",
                 new SQLException(new java.net.ConnectException())));
         return new InvalidUserSession("Invalid User", e);
     }

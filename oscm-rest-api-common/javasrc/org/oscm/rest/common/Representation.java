@@ -17,7 +17,7 @@ import org.oscm.internal.vo.BaseVO;
  * 
  * @author miethaner
  */
-public abstract class Representation {
+public class Representation {
 
     private transient Integer version;
     private Long etag;
@@ -61,36 +61,22 @@ public abstract class Representation {
         this.id = id;
     }
 
-    protected long convertIdToKey() {
-        if (getId() == null) {
-            return 0L;
-        }
-        return getId().longValue();
-    }
-
-    protected int convertETagToVersion() {
-        if (getETag() == null) {
-            return 0;
-        }
-        return getETag().intValue();
-    }
-
     /**
      * Validates the content and format of the fields to be legitimate. Throws
      * BadRequestException if not valid.
      * 
      * @throws WebApplicationException
      */
-    public abstract void validateContent() throws WebApplicationException;
+    public void validateContent() throws WebApplicationException {}
 
     /**
      * Updates the fields and format of the internal version to the current one
      */
-    public abstract void update();
+    public void update() {}
 
     /**
      * Converts the format and fields of the current version to the internal old
      * one
      */
-    public abstract void convert();
+    public void convert() {}
 }

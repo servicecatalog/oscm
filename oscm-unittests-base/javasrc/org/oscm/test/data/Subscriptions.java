@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.BillingContact;
@@ -208,6 +209,7 @@ public class Subscriptions {
 
             newSub.setBillingContact(bc);
             newSub.setCutOffDay(cutOffDay);
+            newSub.setUuid(UUID.randomUUID());
 
             if (paymentInfo != null) {
                 mgr.persist(paymentInfo);
@@ -310,6 +312,8 @@ public class Subscriptions {
 
         newSub.setBillingContact(billingContact);
         newSub.setCutOffDay(cutOffDay);
+
+        newSub.setUuid(UUID.randomUUID());
 
         if (paymentInfo != null) {
             mgr.persist(paymentInfo);

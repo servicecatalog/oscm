@@ -25,38 +25,8 @@ public class ActionRepresentation extends Representation {
 
     private Action description;
 
-    public ActionRepresentation() {
-    }
-
     public ActionRepresentation(Long id, Action description) {
         this.setId(id);
         this.description = description;
     }
-
-    public Action getDescription() {
-        return description;
-    }
-
-    public void setDescription(Action description) {
-        this.description = description;
-    }
-
-    @Override
-    public void validateContent() throws WebApplicationException {
-
-        // nothing to validate
-    }
-
-    @Override
-    public void update() {
-
-        // nothing to update
-    }
-
-    @Override
-    public void convert() {
-
-        // nothing to convert
-    }
-
 }

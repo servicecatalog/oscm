@@ -17,7 +17,7 @@ import javax.ws.rs.WebApplicationException;
  * 
  * @author miethaner
  */
-public abstract class RequestParameters {
+public class RequestParameters {
 
     private int version;
 
@@ -48,35 +48,12 @@ public abstract class RequestParameters {
         this.id = id;
     }
 
-    public String getMatch() {
-        return match;
-    }
-
     public void setMatch(String match) {
         this.match = match;
     }
 
-    public String getNoneMatch() {
-        return noneMatch;
-    }
-
-    public void setNoneMatch(String noneMatch) {
-        this.noneMatch = noneMatch;
-    }
-
     public Long getETag() {
         return etag;
-    }
-
-    public int eTagToVersion() {
-        if (etag == null) {
-            return 0;
-        }
-        return etag.intValue();
-    }
-
-    public void setETag(Long etag) {
-        this.etag = etag;
     }
 
     /**
@@ -106,7 +83,7 @@ public abstract class RequestParameters {
         if (noneMatch != null
                 && !CommonParams.ETAG_WILDCARD.equals(noneMatch)) {
             try {
-                etag = new Long(Long.parseLong(noneMatch));
+                etag = Long.parseLong(noneMatch);
             } catch (NumberFormatException e) {
                 throw WebException.badRequest()
                         .message(CommonParams.ERROR_INVALID_TAG).build();
@@ -115,7 +92,7 @@ public abstract class RequestParameters {
 
         if (match != null && !CommonParams.ETAG_WILDCARD.equals(match)) {
             try {
-                etag = new Long(Long.parseLong(match));
+                etag = Long.parseLong(match);
             } catch (NumberFormatException e) {
                 throw WebException.badRequest()
                         .message(CommonParams.ERROR_INVALID_TAG).build();
@@ -132,11 +109,16 @@ public abstract class RequestParameters {
      * 
      * @throws WebApplicationException
      */
-    public abstract void validateParameters() throws WebApplicationException;
+    public void validateParameters() throws WebApplicationException {
+    }
 
     /**
      * Updates the parameters of the internal version to the current one.
      */
-    public abstract void update();
+    public void update() {
+    }
 
+    public void setNoneMatch(String noneMatch) {
+        this.noneMatch = noneMatch;
+    }
 }

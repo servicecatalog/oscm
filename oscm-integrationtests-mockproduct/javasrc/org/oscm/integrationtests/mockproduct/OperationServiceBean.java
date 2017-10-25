@@ -32,7 +32,7 @@ import org.oscm.operation.intf.OperationService;
  * @author weiser
  * 
  */
-@WebService(serviceName = "OperationService", targetNamespace = "http://oscm.org/xsd", portName = "OperationServicePort", endpointInterface = "org.oscm.operation.intf.OperationService", wsdlLocation = "OperationService.wsdl")
+@WebService(serviceName = "OperationService", targetNamespace = "http://oscm.org/xsd", portName = "OperationServicePort", endpointInterface = "org.oscm.operation.intf.OperationService", wsdlLocation = "WEB-INF/wsdl/OperationService.wsdl")
 public class OperationServiceBean implements OperationService {
 
     private static final String CAUSE_ERROR = "CAUSE_ERROR";

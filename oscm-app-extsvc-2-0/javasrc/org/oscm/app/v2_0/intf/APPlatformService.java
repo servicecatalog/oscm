@@ -27,13 +27,12 @@ import org.oscm.app.v2_0.exceptions.ObjectNotFoundException;
  * Interface providing methods by which service controllers implemented in APP
  * can access common APP utilities.
  */
-@Remote
 public interface APPlatformService {
 
     /**
      * The JNDI name with which the APP service is registered in the container.
      */
-    public static final String JNDI_NAME = "java:global/oscm-app/oscm-app/APPlatformServiceBean!org.oscm.app.v2_0.intf.APPlatformService";
+    String JNDI_NAME = "java:global/oscm-app/oscm-app/org.oscm.app.v2_0.intf.APPlatformService";
 
     /**
      * Sends a mail with the specified subject and body to the given recipients.
@@ -46,7 +45,7 @@ public interface APPlatformService {
      *            the body of the mail
      * @throws APPlatformException
      */
-    public void sendMail(List<String> mailAddresses, String subject,
+    void sendMail(List<String> mailAddresses, String subject,
             String text) throws APPlatformException;
 
     /**
@@ -57,7 +56,7 @@ public interface APPlatformService {
      * @throws ConfigurationException
      *             if the notification handler is not configured correctly
      */
-    public String getEventServiceUrl() throws ConfigurationException;
+    String getEventServiceUrl() throws ConfigurationException;
 
     /**
      * Returns the base URL of the OSCM platform services in the following
@@ -72,7 +71,7 @@ public interface APPlatformService {
      * @throws ConfigurationException
      *             if the configuration settings cannot be loaded
      */
-    public String getBSSWebServiceUrl() throws ConfigurationException;
+    String getBSSWebServiceUrl() throws ConfigurationException;
 
     /**
      * Returns the base URL of the WSDL files of the OSCM platform services in
@@ -87,7 +86,7 @@ public interface APPlatformService {
      * @throws ConfigurationException
      *             if the configuration settings cannot be loaded
      */
-    public String getBSSWebServiceWSDLUrl() throws ConfigurationException;
+    String getBSSWebServiceWSDLUrl() throws ConfigurationException;
 
     /**
      * Provides the specified controller with a semaphore that prohibits access
@@ -117,9 +116,9 @@ public interface APPlatformService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public boolean lockServiceInstance(String controllerId, String instanceId,
+    boolean lockServiceInstance(String controllerId, String instanceId,
             PasswordAuthentication authentication)
-            throws AuthenticationException, APPlatformException;
+            throws APPlatformException;
 
     /**
      * Removes the lock (semaphore) for the specified application instance and
@@ -142,9 +141,9 @@ public interface APPlatformService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public void unlockServiceInstance(String controllerId, String instanceId,
+    void unlockServiceInstance(String controllerId, String instanceId,
             PasswordAuthentication authentication)
-            throws AuthenticationException, APPlatformException;
+            throws APPlatformException;
 
     /**
      * Checks whether an application instance with the specified ID exists for
@@ -157,7 +156,7 @@ public interface APPlatformService {
      * @return <code>true</code> if the instance exists, <code>false</code>
      *         otherwise
      */
-    public boolean exists(String controllerId, String instanceId);
+    boolean exists(String controllerId, String instanceId);
 
     /**
      * Returns the configuration settings for the given service controller.
@@ -180,10 +179,9 @@ public interface APPlatformService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public HashMap<String, Setting> getControllerSettings(String controllerId,
+    HashMap<String, Setting> getControllerSettings(String controllerId,
             PasswordAuthentication authentication)
-            throws AuthenticationException, ConfigurationException,
-            APPlatformException;
+            throws APPlatformException;
 
     /**
      * Stores the configuration settings for the given controller.
@@ -208,11 +206,10 @@ public interface APPlatformService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public void storeControllerSettings(String controllerId,
+    void storeControllerSettings(String controllerId,
             HashMap<String, Setting> controllerSettings,
             PasswordAuthentication authentication)
-            throws AuthenticationException, ConfigurationException,
-            APPlatformException;
+            throws APPlatformException;
 
     /**
      * Authenticates the user specified by the given authentication object as a
@@ -234,10 +231,9 @@ public interface APPlatformService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public User authenticate(String controllerId,
+    User authenticate(String controllerId,
             PasswordAuthentication authentication)
-            throws AuthenticationException, ConfigurationException,
-            APPlatformException;
+            throws APPlatformException;
 
     /**
      * @param controllerId
@@ -247,8 +243,8 @@ public interface APPlatformService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public void requestControllerSettings(String controllerId)
-            throws ConfigurationException, APPlatformException;
+    void requestControllerSettings(String controllerId)
+            throws APPlatformException;
 
     /**
      * Returns a collection of the IDs of all service instances that are managed
@@ -265,10 +261,9 @@ public interface APPlatformService {
      * @throws ConfigurationException
      * @throws APPlatformException
      */
-    public Collection<String> listServiceInstances(String controllerId,
+    Collection<String> listServiceInstances(String controllerId,
             PasswordAuthentication authentication)
-            throws AuthenticationException, ConfigurationException,
-            APPlatformException;
+            throws APPlatformException;
 
     /**
      * Returns the complete provisioning settings of the defined service
@@ -293,10 +288,9 @@ public interface APPlatformService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public ProvisioningSettings getServiceInstanceDetails(String controllerId,
+    ProvisioningSettings getServiceInstanceDetails(String controllerId,
             String instanceId, PasswordAuthentication authentication)
-            throws AuthenticationException, ConfigurationException,
-            APPlatformException;
+            throws APPlatformException;
 
     /**
      * Returns the complete provisioning settings of the defined service
@@ -321,7 +315,7 @@ public interface APPlatformService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public ProvisioningSettings getServiceInstanceDetails(String controllerId,
+    ProvisioningSettings getServiceInstanceDetails(String controllerId,
             String instanceId, String subscriptionId, String organizationId)
             throws APPlatformException;
 
@@ -350,11 +344,10 @@ public interface APPlatformService {
      * @throws APPlatformException
      *             if a general problem occurs in accessing APP
      */
-    public void storeServiceInstanceDetails(String controllerId,
+    void storeServiceInstanceDetails(String controllerId,
             String instanceId, ProvisioningSettings settings,
             PasswordAuthentication authentication)
-            throws AuthenticationException, ConfigurationException,
-            APPlatformException;
+            throws APPlatformException;
 
     /**
      * Checks the the hash from the given token against the decrypted hash from
@@ -367,4 +360,5 @@ public interface APPlatformService {
      * @return true if token and signature match
      */
     public boolean checkToken(String token, String signature);
+
 }

@@ -33,6 +33,8 @@ import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.oscm.app.common.Constants.APPLICATION_SERVER_HOME_CONSTANT;
+
 @Singleton
 @Startup
 public class Initializer {
@@ -57,13 +59,13 @@ public class Initializer {
         try {
             // Get default config folder of GF instance
             String instanceRoot = System
-                    .getProperty("com.sun.aas.instanceRoot");
+                    .getProperty(APPLICATION_SERVER_HOME_CONSTANT);
             String controllerId = "app.core";
             if (instanceRoot != null) {
                 File root = new File(instanceRoot);
                 if (root.isDirectory()) {
                     // Determine log file
-                    String filePath = "/config/log4j." + controllerId
+                    String filePath = "/conf/log4j." + controllerId
                             + ".properties";
                     logFile = new File(root, filePath);
 

@@ -367,7 +367,8 @@ public class VatBean extends BaseBean implements Serializable {
                 for (Iterator<VOCountryVatRate> it = getCountryVats()
                         .iterator(); it.hasNext();) {
                     VOCountryVatRate vat = it.next();
-                    if (vat.getCountry() == null) {
+                    final String country = vat.getCountry();
+                    if (country == null || country.isEmpty()) {
                         it.remove();
                     } else {
                         vat.setRate(getASBigDecimal(getVatStrings().get(vat)));
@@ -376,7 +377,8 @@ public class VatBean extends BaseBean implements Serializable {
                 for (Iterator<VOOrganizationVatRate> it = getCustomerVats()
                         .iterator(); it.hasNext();) {
                     VOOrganizationVatRate vat = it.next();
-                    if (vat.getOrganization().getOrganizationId() == null) {
+                    final String organizationId = vat.getOrganization().getOrganizationId();
+                    if (organizationId == null || organizationId.isEmpty()) {
                         it.remove();
                     } else {
                         vat.setRate(getASBigDecimal(getVatStrings().get(vat)));

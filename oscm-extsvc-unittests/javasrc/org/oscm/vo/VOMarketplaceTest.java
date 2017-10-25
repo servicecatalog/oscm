@@ -96,7 +96,7 @@ public class VOMarketplaceTest {
     }
 
     @Test
-    public void hashcode() {
+    public void hashcodeTest() {
         VOMarketplace mp = new VOMarketplace();
         assertEquals(mp.hashCode(), 0);
     }

@@ -9,20 +9,16 @@
 package org.oscm.ui.filter;
 
 import static org.junit.Assert.fail;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 
+import javax.enterprise.context.NonexistentConversationException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jboss.weld.context.NonexistentConversationException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +29,8 @@ import org.mockito.runners.MockitoJUnitRunner;
  */
 @RunWith(value = MockitoJUnitRunner.class)
 public class NonexistentConversationFilterTest {
-    NonexistentConversationFilter classUnderTests;
+
+    private NonexistentConversationFilter classUnderTests;
 
     @Before
     public void setUp() throws Exception {
@@ -46,6 +43,7 @@ public class NonexistentConversationFilterTest {
         FilterChain chain = mock(FilterChain.class);
         HttpServletResponse res = mock(HttpServletResponse.class);
         HttpServletRequest req = mock(HttpServletRequest.class);
+        when(req.getContextPath()).thenReturn("");
         when(req.getRequestURI()).thenReturn(
                 "/marketplace/subscriptions/upgrade/confirmUpgrade.jsf");
 
@@ -60,8 +58,7 @@ public class NonexistentConversationFilterTest {
         }
 
         // then
-        verify(classUnderTests).sendRedirect(req, res,
-                "/marketplace/account/subscriptionDetails.jsf");
+        verify(res).sendRedirect("/marketplace/account/subscriptionDetails.jsf");
     }
 
     @Test(expected = ServletException.class)

@@ -73,12 +73,4 @@ public class ExceptionBody extends Representation {
     @Override
     public void validateContent() throws WebApplicationException {
     }
-
-    @Override
-    public void update() {
-    }
-
-    @Override
-    public void convert() {
-    }
 }

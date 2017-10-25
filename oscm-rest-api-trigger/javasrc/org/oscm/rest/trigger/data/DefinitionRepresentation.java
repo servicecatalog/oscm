@@ -25,6 +25,17 @@ import org.oscm.validator.ADMValidator;
  */
 public class DefinitionRepresentation extends Representation {
 
+    private String description;
+    private Boolean suspend;
+    private String target_type;
+    private String target_url;
+    private Owner owner;
+    private String action;
+    private Links links;
+
+    public DefinitionRepresentation() {
+    }
+
     public static class Owner {
         private Long id;
         private String description;
@@ -73,17 +84,6 @@ public class DefinitionRepresentation extends Representation {
         }
     }
 
-    private String description;
-    private Boolean suspend;
-    private String target_type;
-    private String target_url;
-    private Owner owner;
-    private String action;
-    private Links links;
-
-    public DefinitionRepresentation() {
-    }
-
     public DefinitionRepresentation(VOTriggerDefinition definition) {
         super(definition);
 
@@ -91,7 +91,7 @@ public class DefinitionRepresentation extends Representation {
             return;
         }
 
-        setETag(new Long(definition.getVersion()));
+        setETag((long) definition.getVersion());
         this.description = definition.getName();
 
         if (definition.getTargetType() != null) {
@@ -104,13 +104,13 @@ public class DefinitionRepresentation extends Representation {
             this.action = definition.getType().toString();
         }
 
-        this.suspend = new Boolean(definition.isSuspendProcess());
+        this.suspend = definition.isSuspendProcess();
 
         if (definition.getOrganization() != null) {
-            this.owner = new Owner(new Long(definition.getOrganization()
-                    .getKey()), definition.getOrganization().getName());
-            this.links = new Links(new Long(definition.getOrganization()
-                    .getKey()));
+            this.owner = new Owner(definition.getOrganization()
+                    .getKey(), definition.getOrganization().getName());
+            this.links = new Links(definition.getOrganization()
+                    .getKey());
         }
     }
 
@@ -235,17 +235,4 @@ public class DefinitionRepresentation extends Representation {
             }
         }
     }
-
-    @Override
-    public void update() {
-
-        // nothing to do
-    }
-
-    @Override
-    public void convert() {
-
-        // nothing to do
-    }
-
 }

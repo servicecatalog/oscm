@@ -39,7 +39,7 @@ public class TimerProcessingData extends DomainDataContainer {
      * The timer type.
      */
     @Column(nullable = false, columnDefinition = "varchar")
-    @Convert(converter = TimerTConverter.class)
+    @Enumerated(EnumType.STRING)
     private TimerType timerType;
 
     /**

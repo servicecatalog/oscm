@@ -38,6 +38,7 @@ import org.oscm.billingservice.service.BillingServiceBean;
 import org.oscm.communicationservice.local.CommunicationServiceLocal;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;
 import org.oscm.dataservice.bean.DataServiceBean;
+import org.oscm.dataservice.bean.HibernateIndexer;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.CatalogEntry;
 import org.oscm.domobjects.ConfigurationSetting;
@@ -49,6 +50,7 @@ import org.oscm.domobjects.Subscription;
 import org.oscm.domobjects.TriggerProcess;
 import org.oscm.domobjects.UserRole;
 import org.oscm.domobjects.enums.LocalizedObjectTypes;
+import org.oscm.encrypter.AESEncrypter;
 import org.oscm.eventservice.bean.EventServiceBean;
 import org.oscm.i18nservice.bean.ImageResourceServiceBean;
 import org.oscm.i18nservice.bean.LocalizerServiceBean;
@@ -89,7 +91,7 @@ import org.oscm.internal.vo.VOTechnicalService;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.kafka.service.Producer;
 import org.oscm.marketplace.auditlog.MarketplaceAuditLogCollector;
-import org.oscm.marketplace.bean.LandingpageServiceBean;
+import org.oscm.marketplace.bean.LandingpageServiceBeanLocal;
 import org.oscm.marketplace.bean.MarketplaceServiceBean;
 import org.oscm.marketplace.bean.MarketplaceServiceLocalBean;
 import org.oscm.marketplace.cache.MarketplaceCacheServiceBean;
@@ -153,6 +155,7 @@ public class SubscriptionUpgradeSetup {
     private static PlatformUser adminUser;
 
     public static void setup(TestContainer container) throws Exception {
+        AESEncrypter.generateKey();
         container.addBean(new AuditLogDao());
         addConfigurationServiceStub(container);
         container.addBean(new AuditLogServiceBean());
@@ -170,6 +173,7 @@ public class SubscriptionUpgradeSetup {
         container.addBean(mock(ApplicationServiceLocal.class));
         addIdentityServiceStub(container);
         addTenantProvisioningServiceStub(container);
+        container.addBean(mock(HibernateIndexer.class));
         container.addBean(mock(CommunicationServiceLocal.class));
         container.addBean(mock(ImageResourceServiceLocal.class));
         container.addBean(mock(TaskQueueServiceLocal.class));
@@ -201,7 +205,7 @@ public class SubscriptionUpgradeSetup {
         container.addBean(new UserGroupAuditLogCollector());
         container.addBean(new UserGroupServiceLocalBean());
         container.addBean(new MarketplaceCacheServiceBean());
-        container.addBean(new LandingpageServiceBean());
+        container.addBean(new LandingpageServiceBeanLocal());
         container.addBean(new ServiceProvisioningServiceLocalizationBean());
         container.addBean(new BillingAdapterLocalBean());
 
@@ -249,12 +253,13 @@ public class SubscriptionUpgradeSetup {
         container.addBean(mock(TimerServiceBean.class));
         container.addBean(mock(TriggerServiceLocal.class));
         container.addBean(new OperatorServiceBean());
-        container.addBean(new LandingpageServiceBean());
+        container.addBean(new LandingpageServiceBeanLocal());
         container.addBean(new MarketplaceServiceLocalBean());
         container.addBean(new MarketplaceServiceBean());
         container.addBean(new ApplicationServiceBean());
         container.addBean(new AccountServiceManagementBean());
         container.addBean(new EventServiceBean());
+
     }
 
     private static LocalizerServiceLocal mockLocalizer() {

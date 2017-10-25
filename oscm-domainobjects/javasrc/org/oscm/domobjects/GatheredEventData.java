@@ -44,7 +44,7 @@ public class GatheredEventData extends DomainDataContainer {
      * The type of the event, based on the currently supported set of types.
      */
     @Column(nullable = false)
-    @Convert( converter=ETConverter.class )
+    @Enumerated(EnumType.STRING)
     private EventType type;
 
     /**

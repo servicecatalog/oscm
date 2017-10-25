@@ -50,14 +50,12 @@ public class OperatorClientTaskTest {
     public void testCreateContextProperties() {
         task.setContextFactory("testFactory");
         task.setContextProviderUrl("testUrl");
-        task.setOrbInitialHost("testHost");
-        task.setOrbInitialPort("testPort");
+        task.setRealm("testRealm");
 
         final Properties expected = new Properties();
         expected.put("java.naming.factory.initial", "testFactory");
         expected.put("java.naming.provider.url", "testUrl");
-        expected.put("org.omg.CORBA.ORBInitialHost", "testHost");
-        expected.put("org.omg.CORBA.ORBInitialPort", "testPort");
+        expected.put("openejb.authentication.realmName", "testRealm");
 
         assertEquals(expected, task.createContextProperties());
     }

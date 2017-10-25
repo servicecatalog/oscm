@@ -18,6 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 import org.junit.Assert;
@@ -912,6 +913,7 @@ public class LocalizedResourceIT extends EJBTestBase {
                 subscription.setOrganization(owner);
                 subscription.setProduct(product);
                 subscription.setCutOffDay(1);
+                subscription.setUuid(UUID.randomUUID());
                 mgr.persist(subscription);
                 return subscription;
             }

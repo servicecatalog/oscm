@@ -6,11 +6,7 @@ package org.oscm.operatorsvc.client.ant;
 
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 import javax.naming.InitialContext;
 
@@ -18,7 +14,6 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.Parameter;
-
 import org.oscm.operatorsvc.client.OperatorClient;
 
 /**
@@ -32,13 +27,11 @@ public class OperatorClientTask extends Task {
 
     private String command = null;
 
-    private String contextFactory = "com.sun.enterprise.naming.SerialInitContextFactory";
+    private String contextFactory = "org.apache.openejb.client.RemoteInitialContextFactory";
 
     private String contextProviderUrl = "http://localhost:8080";
 
-    private String orbInitialHost = "localhost";
-
-    private String orbInitialPort = "3700";
+    private String realm = "bss-realm";
 
     private final List<Parameter> parameters = new ArrayList<Parameter>();
 
@@ -62,12 +55,12 @@ public class OperatorClientTask extends Task {
         this.contextProviderUrl = contextProviderUrl;
     }
 
-    public void setOrbInitialHost(String orbInitialHost) {
-        this.orbInitialHost = orbInitialHost;
+    public String getRealm() {
+        return realm;
     }
 
-    public void setOrbInitialPort(String orbInitialPort) {
-        this.orbInitialPort = orbInitialPort;
+    public void setRealm(String realm) {
+        this.realm = realm;
     }
 
     public void addParameter(Parameter parameter) {
@@ -118,8 +111,7 @@ public class OperatorClientTask extends Task {
         final Properties properties = new Properties();
         properties.put("java.naming.factory.initial", contextFactory);
         properties.put("java.naming.provider.url", contextProviderUrl);
-        properties.put("org.omg.CORBA.ORBInitialHost", orbInitialHost);
-        properties.put("org.omg.CORBA.ORBInitialPort", orbInitialPort);
+        properties.put("openejb.authentication.realmName", realm);
         return properties;
     }
 

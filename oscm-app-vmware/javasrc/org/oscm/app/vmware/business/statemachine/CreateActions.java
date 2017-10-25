@@ -188,7 +188,7 @@ public class CreateActions extends Actions {
                 platformService.getEventServiceUrl());
         eventLink.append("?sid=")
                 .append(URLEncoder.encode(instanceId, "UTF-8"));
-        eventLink.append("&cid=").append(Controller.ID);
+        eventLink.append("&controllerid=").append(Controller.ID);
         eventLink.append("&command=finish");
         String subject = Messages.get(paramHandler.getSettings().getLocale(),
                 "mail_pause_after_creation.subject",

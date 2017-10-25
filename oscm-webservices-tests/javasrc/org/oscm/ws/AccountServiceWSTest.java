@@ -868,7 +868,7 @@ public class AccountServiceWSTest {
         try {
             accountService_Customer.getOrganizationData();
             fail();
-        } catch (com.sun.xml.ws.client.ClientTransportException e) {
+        } catch (Exception e) {
             assertTrue(e.getMessage().contains("401"));
         }
     }

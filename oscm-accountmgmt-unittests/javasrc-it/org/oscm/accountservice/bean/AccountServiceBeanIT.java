@@ -2173,6 +2173,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
         sub.setStatus(SubscriptionStatus.ACTIVE);
         sub.setCutOffDay(1);
         sub.bindToProduct(prod);
+        sub.setUuid(UUID.randomUUID());
 
         mgr.persist(sub);
     }

@@ -39,7 +39,7 @@ public class EventData extends DomainDataContainer {
      * The type of the event.
      */
     @Column(nullable = false, updatable = false, columnDefinition = "varchar")
-    @Convert( converter=ETConverter.class )
+    @Enumerated(EnumType.STRING)
     private EventType eventType;
 
     public String getEventIdentifier() {

@@ -73,8 +73,6 @@ public class RepresentationCollection<T extends Representation> extends
         for (T item : items) {
             item.update();
         }
-
-        // nothing to update
     }
 
     @Override
@@ -83,8 +81,6 @@ public class RepresentationCollection<T extends Representation> extends
         for (T item : items) {
             item.convert();
         }
-
-        // nothing to convert
     }
 
 }

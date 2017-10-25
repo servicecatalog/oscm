@@ -10,6 +10,8 @@ package org.oscm.rest.trigger.unittests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response.Status;
@@ -21,8 +23,8 @@ import org.oscm.internal.types.exception.ExecutionTargetException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.TriggerProcessStatusException;
+import org.oscm.rest.common.RequestParameters;
 import org.oscm.rest.trigger.ProcessBackend;
-import org.oscm.rest.trigger.TriggerParameters;
 import org.oscm.rest.trigger.data.ProcessRepresentation;
 
 /**
@@ -30,21 +32,18 @@ import org.oscm.rest.trigger.data.ProcessRepresentation;
  *
  */
 public class ProcessBackendTest {
-  @Test
-  public void dummyTest() {
-}
 
     @Test
     public void testPutApprove() throws Exception {
 
-        TriggerParameters params = new TriggerParameters();
+        RequestParameters params = new RequestParameters();
         ProcessRepresentation process = new ProcessRepresentation();
         params.setId(new Long(1L));
 
         TriggerService service = Mockito.mock(TriggerService.class);
 
-        ProcessBackend backend = new ProcessBackend();
-        backend.setService(service);
+        ProcessBackend backend = spy(new ProcessBackend());
+        when(backend.getService()).thenReturn(service);
         backend.putApprove().put(process, params);
 
         Mockito.verify(service).approveAction(params.getId().longValue());
@@ -58,8 +57,8 @@ public class ProcessBackendTest {
             backend.putApprove().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.NOT_FOUND.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.NOT_FOUND.getStatusCode(),
+                    e.getResponse().getStatus());
         }
 
         Mockito.reset(service);
@@ -71,8 +70,8 @@ public class ProcessBackendTest {
             backend.putApprove().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.FORBIDDEN.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.FORBIDDEN.getStatusCode(),
+                    e.getResponse().getStatus());
         }
 
         Mockito.reset(service);
@@ -84,8 +83,8 @@ public class ProcessBackendTest {
             backend.putApprove().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.CONFLICT.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.CONFLICT.getStatusCode(),
+                    e.getResponse().getStatus());
         }
 
         Mockito.reset(service);
@@ -97,8 +96,8 @@ public class ProcessBackendTest {
             backend.putApprove().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.CONFLICT.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.CONFLICT.getStatusCode(),
+                    e.getResponse().getStatus());
         }
 
         Mockito.reset(service);
@@ -110,8 +109,8 @@ public class ProcessBackendTest {
             backend.putApprove().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.FORBIDDEN.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.FORBIDDEN.getStatusCode(),
+                    e.getResponse().getStatus());
         }
     }
 
@@ -119,15 +118,15 @@ public class ProcessBackendTest {
     @Test
     public void testPutReject() throws Exception {
 
-        TriggerParameters params = new TriggerParameters();
+        RequestParameters params = new RequestParameters();
         ProcessRepresentation process = new ProcessRepresentation();
         process.setComment("comment");
         params.setId(new Long(1L));
 
         TriggerService service = Mockito.mock(TriggerService.class);
 
-        ProcessBackend backend = new ProcessBackend();
-        backend.setService(service);
+        ProcessBackend backend = spy(new ProcessBackend());
+        when(backend.getService()).thenReturn(service);
         backend.putReject().put(process, params);
 
         Mockito.verify(service).rejectAction(
@@ -135,8 +134,7 @@ public class ProcessBackendTest {
 
         Mockito.reset(service);
 
-        Mockito.doThrow(new ObjectNotFoundException())
-                .when(service)
+        Mockito.doThrow(new ObjectNotFoundException()).when(service)
                 .rejectAction(Mockito.eq(params.getId().longValue()),
                         Mockito.anyList());
 
@@ -144,14 +142,13 @@ public class ProcessBackendTest {
             backend.putReject().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.NOT_FOUND.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.NOT_FOUND.getStatusCode(),
+                    e.getResponse().getStatus());
         }
 
         Mockito.reset(service);
 
-        Mockito.doThrow(new OperationNotPermittedException())
-                .when(service)
+        Mockito.doThrow(new OperationNotPermittedException()).when(service)
                 .rejectAction(Mockito.eq(params.getId().longValue()),
                         Mockito.anyList());
 
@@ -159,14 +156,13 @@ public class ProcessBackendTest {
             backend.putReject().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.FORBIDDEN.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.FORBIDDEN.getStatusCode(),
+                    e.getResponse().getStatus());
         }
 
         Mockito.reset(service);
 
-        Mockito.doThrow(new TriggerProcessStatusException())
-                .when(service)
+        Mockito.doThrow(new TriggerProcessStatusException()).when(service)
                 .rejectAction(Mockito.eq(params.getId().longValue()),
                         Mockito.anyList());
 
@@ -174,14 +170,13 @@ public class ProcessBackendTest {
             backend.putReject().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.CONFLICT.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.CONFLICT.getStatusCode(),
+                    e.getResponse().getStatus());
         }
 
         Mockito.reset(service);
 
-        Mockito.doThrow(new javax.ejb.EJBAccessException())
-                .when(service)
+        Mockito.doThrow(new javax.ejb.EJBAccessException()).when(service)
                 .rejectAction(Mockito.eq(params.getId().longValue()),
                         Mockito.anyList());
 
@@ -189,8 +184,8 @@ public class ProcessBackendTest {
             backend.putReject().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.FORBIDDEN.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.FORBIDDEN.getStatusCode(),
+                    e.getResponse().getStatus());
         }
     }
 
@@ -198,15 +193,15 @@ public class ProcessBackendTest {
     @Test
     public void testPutCancel() throws Exception {
 
-        TriggerParameters params = new TriggerParameters();
+        RequestParameters params = new RequestParameters();
         ProcessRepresentation process = new ProcessRepresentation();
         process.setComment("comment");
         params.setId(new Long(1L));
 
         TriggerService service = Mockito.mock(TriggerService.class);
 
-        ProcessBackend backend = new ProcessBackend();
-        backend.setService(service);
+        ProcessBackend backend = spy(new ProcessBackend());
+        when(backend.getService()).thenReturn(service);
         backend.putCancel().put(process, params);
 
         Mockito.verify(service).cancelActions(Mockito.anyList(),
@@ -221,8 +216,8 @@ public class ProcessBackendTest {
             backend.putCancel().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.NOT_FOUND.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.NOT_FOUND.getStatusCode(),
+                    e.getResponse().getStatus());
         }
 
         Mockito.reset(service);
@@ -234,8 +229,8 @@ public class ProcessBackendTest {
             backend.putCancel().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.FORBIDDEN.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.FORBIDDEN.getStatusCode(),
+                    e.getResponse().getStatus());
         }
 
         Mockito.reset(service);
@@ -247,8 +242,8 @@ public class ProcessBackendTest {
             backend.putCancel().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.CONFLICT.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.CONFLICT.getStatusCode(),
+                    e.getResponse().getStatus());
         }
 
         Mockito.reset(service);
@@ -260,8 +255,8 @@ public class ProcessBackendTest {
             backend.putCancel().put(process, params);
             fail();
         } catch (WebApplicationException e) {
-            assertEquals(Status.FORBIDDEN.getStatusCode(), e.getResponse()
-                    .getStatus());
+            assertEquals(Status.FORBIDDEN.getStatusCode(),
+                    e.getResponse().getStatus());
         }
     }
 }

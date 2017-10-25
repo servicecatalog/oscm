@@ -8,6 +8,8 @@
 
 package org.oscm.app.common;
 
+import static org.oscm.app.common.Constants.APPLICATION_SERVER_HOME_CONSTANT;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,11 +22,7 @@ import java.util.Collection;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.ejb.Timeout;
-import javax.ejb.Timer;
-import javax.ejb.TimerService;
+import javax.ejb.*;
 import javax.inject.Inject;
 
 import org.apache.commons.io.FileUtils;
@@ -64,14 +62,13 @@ public class Initializer {
     @PostConstruct
     private void postConstruct() {
         try {
-            // Get default config folder of GF instance
             String instanceRoot = System
-                    .getProperty("com.sun.aas.instanceRoot");
+                    .getProperty(APPLICATION_SERVER_HOME_CONSTANT);
             String controllerId = controllerAccess.getControllerId();
             if (instanceRoot != null) {
                 File root = new File(instanceRoot);
                 if (root.isDirectory()) {
-                    String filePath = "/config/log4j." + controllerId
+                    String filePath = "/conf/log4j." + controllerId
                             + ".properties";
                     // Determine log file
                     logFile = new File(root, filePath);
@@ -101,7 +98,7 @@ public class Initializer {
                 }
             } else {
                 LOGGER.error(
-                        "Failed to initialize log file: missing system property 'com.sun.aas.instanceRoot'");
+                        "Failed to initialize log file: missing system property 'catalina.home'");
             }
         } catch (Exception e) {
             LOGGER.error("Failed to initialize log file", e);

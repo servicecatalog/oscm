@@ -39,7 +39,7 @@ import org.oscm.vo.VOTriggerDefinition;
  * 
  * 
  */
-@WebService(endpointInterface = "org.oscm.intf.TriggerDefinitionService")
+@WebService(name = "TriggerDefinitionService", serviceName = "TriggerDefinitionService", targetNamespace = "http://oscm.org/xsd", endpointInterface = "org.oscm.intf.TriggerDefinitionService")
 public class TriggerDefinitionServiceWS implements TriggerDefinitionService {
 
     WebServiceLogger WS_LOGGER = new WebServiceLogger(

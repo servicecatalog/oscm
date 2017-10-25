@@ -8,7 +8,6 @@
 
 package org.oscm.vo;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ import org.oscm.types.enumtypes.ServiceStatus;
  * Represents a marketable service based on a technical service.
  */
 @XmlRootElement
-public class VOService extends BaseVO implements Serializable {
+public class VOService extends BaseVO  {
 
     private static final long serialVersionUID = 2585748034132679028L;
 

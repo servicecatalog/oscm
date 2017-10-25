@@ -65,7 +65,7 @@ public class MarketplaceServiceBeanCRUDTest {
     @Before
     public void setup() throws Exception {
         mpSrv = spy(new MarketplaceServiceBean());
-        mpSrv.landingpageService = mock(LandingpageServiceBean.class);
+        mpSrv.landingpageService = mock(LandingpageServiceBeanLocal.class);
         mpSrv.marketplaceCache = mock(MarketplaceCacheService.class);
         doReturn(new PublicLandingpage()).when(mpSrv.landingpageService)
                 .createDefaultLandingpage();
@@ -105,7 +105,7 @@ public class MarketplaceServiceBeanCRUDTest {
         mpSrv.identityService = mock(IdentityServiceLocal.class);
         ((MarketplaceServiceLocalBean) mpSrv.marketplaceServiceLocal).identityService = mock(IdentityServiceLocal.class);
 
-        mpSrvL.landingpageService = mock(LandingpageServiceBean.class);
+        mpSrvL.landingpageService = mock(LandingpageServiceBeanLocal.class);
         when(mpSrvL.landingpageService.loadLandingpageType(anyString()))
                 .thenReturn(LandingpageType.PUBLIC);
 

@@ -26,23 +26,6 @@
   </info>
   <dependencies>
 
-    <dependency org="org.glassfish.external" name="asm-all" rev="3.3">
-      <artifact name="asm-all" ext="jar"
-                url="https://maven.java.net/content/repositories/staging/org/glassfish/external/asm-all/3.3/asm-all-3.3.jar"/>
-    </dependency>
-    
-    <dependency org="org.glassfish.hk2" name="hk2-core" rev="2.4.0-b31"/>
-    <dependency org="org.glassfish.hk2" name="hk2-locator" rev="2.4.0-b31"/>
-    <dependency org="org.glassfish.hk2" name="hk2-utils" rev="2.4.0-b31" transitive="false"/>
-    <dependency org="org.glassfish.hk2" name="hk2-api" rev="2.4.0-b31" transitive="false"/>
-    <dependency org="org.glassfish.hk2" name="hk2-config" rev="2.4.0-b31" transitive="false"/>
-    <dependency org="org.glassfish.hk2" name="hk2-runlevel" rev="2.4.0-b31" transitive="false"/>
-    <dependency org="org.glassfish.hk2" name="config-types" rev="2.4.0-b31" transitive="false"/>
-    <dependency org="org.glassfish.hk2" name="class-model" rev="2.4.0-b31" transitive="false"/>
-    <dependency org="org.glassfish.hk2.external" name="javax.inject" rev="2.4.0-b31" transitive="false"/>
-    
-    <dependency org="javax.inject" name="javax.inject" rev="1" transitive="false"/>
-    
     <dependency org="org.apache.commons" name="commons-pool2" rev="2.4.2" transitive="false"/>
     <dependency org="com.opencsv" name="opencsv" rev="3.7" transitive="false"/>
     <dependency org="org.antlr" name="antlr4-runtime" rev="4.1" transitive="false"/>
@@ -88,10 +71,10 @@
     <dependency org="org.codehaus.woodstox" name="wstx-asl" rev="3.2.4" transitive="false"/>
     <dependency org="org.apache.ws.commons.schema" name="XmlSchema" rev="1.4.3" transitive="false"/>
     <dependency org="commons-beanutils" name="commons-beanutils" rev="1.8.3" transitive="false"/>
-    <dependency org="commons-codec" name="commons-codec" rev="1.4" transitive="false"/>
+    <dependency org="commons-codec" name="commons-codec" rev="1.10" transitive="false"/>
     <dependency org="commons-collections" name="commons-collections" rev="3.2.2" transitive="false"/>
-    <dependency org="org.apache.commons" name="commons-lang3" rev="3.3.2" transitive="false"/>
-    <dependency org="commons-configuration" name="commons-configuration" rev="1.8" transitive="false"/>
+    <dependency org="org.apache.commons" name="commons-lang3" rev="3.5" transitive="false"/>
+    <dependency org="org.apache.commons" name="commons-configuration2" rev="2.1.1" transitive="false"/>
     <dependency org="commons-dbcp" name="commons-dbcp" rev="1.3" transitive="false"/>
     <dependency org="commons-pool" name="commons-pool" rev="1.5.4" transitive="false"/>
     <dependency org="commons-digester" name="commons-digester" rev="1.8.1" transitive="false"/>
@@ -107,7 +90,7 @@
     <dependency org="org.apache.httpcomponents" name="httpmime" rev="4.3.1" transitive="false"/>
     <dependency org="commons-io" name="commons-io" rev="1.4" transitive="false"/>
     <dependency org="org.apache.sling" name="org.apache.sling.commons.json" rev="2.0.6" transitive="false"/>
-    <dependency org="commons-lang" name="commons-lang" rev="2.6" transitive="false"/>
+    <!-- <dependency org="commons-lang" name="commons-lang" rev="2.6" transitive="false"/> -->
     <dependency org="log4j" name="log4j" rev="1.2.16" transitive="false"/>
     <dependency org="commons-logging" name="commons-logging" rev="1.1.1" transitive="false"/>
     <dependency org="org.apache.lucene" name="lucene-analyzers-common" rev="5.3.1" transitive="false"/>
@@ -295,12 +278,9 @@
     <dependency org="joda-time" name="joda-time" rev="2.2" transitive="false"/>
     <dependency org="org.slf4j" name="jul-to-slf4j" rev="1.7.5" transitive="false"/>
     <dependency org="org.slf4j" name="log4j-over-slf4j" rev="1.7.5" transitive="false"/>
-    <dependency org="org.opensaml" name="opensaml" rev="2.6.0" transitive="false"/>
-    <dependency org="org.opensaml" name="openws" rev="1.5.0" transitive="false"/>
     <dependency org="org.slf4j" name="slf4j-api" rev="1.7.5" transitive="false"/>
     <dependency org="org.apache.velocity" name="velocity" rev="1.7" transitive="false"/>
     <dependency org="org.apache.santuario" name="xmlsec" rev="1.5.4" transitive="false"/>
-    <dependency org="org.opensaml" name="xmltooling" rev="1.4.0" transitive="false"/>
     <dependency org="antlr" name="antlr" rev="2.7.7" transitive="false"/>
     <dependency org="dom4j" name="dom4j" rev="1.6.1" transitive="false"/>
     <dependency org="org.hibernate.common" name="hibernate-commons-annotations" rev="5.0.1.Final" transitive="false"/>
@@ -310,18 +290,16 @@
                 transitive="false"/>
     <dependency org="org.hibernate" name="hibernate-core" rev="5.0.9.Final" transitive="false"/>
     <dependency org="org.hibernate" name="hibernate-entitymanager" rev="5.0.9.Final" transitive="false"/>
-    <dependency org="org.slf4j" name="slf4j-simple" rev="1.7.5" transitive="false"/>
     <dependency org="org.codehaus.sonar-plugins" name="sonar-ant-task" rev="1.1" transitive="false"/>
     <dependency org="org.codehaus.sonar" name="sonar-ws-client" rev="4.5" transitive="false"/>
-    
+
     <dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.7.7" transitive="false"/>
-    <dependency org="org.jsoup" name="jsoup" rev="1.8.1" transitive="false"/>
     <dependency org="org.slf4j" name="jul-to-slf4j" rev="1.7.7" transitive="false"/>
     <dependency org="org.slf4j" name="log4j-over-slf4j" rev="1.7.7" transitive="false"/>
     <dependency org="org.eclipse.jgit" name="org.eclipse.jgit" rev="3.5.0.201409260305-r" transitive="false"/>
     <dependency org="org.slf4j" name="osgi-over-slf4j" rev="1.7.7" transitive="false"/>
     <dependency org="org.slf4j" name="slf4j-android" rev="1.7.7" transitive="false"/>
-    <dependency org="org.slf4j" name="slf4j-api" rev="1.7.7" transitive="false"/>
+    <dependency org="org.slf4j" name="slf4j-api" rev="1.7.21" transitive="false"/>
     <dependency org="org.slf4j" name="slf4j-ext" rev="1.7.7" transitive="false"/>
     <dependency org="org.slf4j" name="slf4j-jcl" rev="1.7.7" transitive="false"/>
     <dependency org="org.slf4j" name="slf4j-jdk14" rev="1.7.7" transitive="false"/>
@@ -331,231 +309,100 @@
     <dependency org="org.slf4j" name="slf4j-simple" rev="1.7.7" transitive="false"/>
     <dependency org="org.codehaus.sonar" name="sonar-plugin-api" rev="3.3" transitive="false"/>
 
-    <dependency org="org.glassfish.main.appclient" name="gf-client" rev="4.1.1" transitive="false">
-      <artifact name="gf-client" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.extras" name="javaee" rev="4.1.1"/>
-    <dependency org="javax.annotation" name="javax.annotation-api" rev="1.2" transitive="false"/>
-    <dependency org="org.glassfish" name="javax.faces" rev="2.2.12" transitive="false"/>
-    <dependency org="javax.ejb" name="javax.ejb-api" rev="3.2"/>
-    <dependency org="org.eclipse.persistence" name="javax.persistence" rev="2.1.1" transitive="false"/>
     <dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0" transitive="false"/>
-    <dependency org="javax.servlet.jsp" name="javax.servlet.jsp-api" rev="2.3.2-b01"/>
-    <dependency org="javax.servlet.jsp.jstl" name="javax.servlet.jsp.jstl-api" rev="1.2.1" transitive="false"/>
-    <dependency org="javax.enterprise" name="cdi-api" rev="1.2" transitive="false"/>
-    <dependency org="org.glassfish.metro" name="webservices-osgi" rev="2.3.1" transitive="false"/>
-    <dependency org="com.sun.mail" name="javax.mail" rev="1.5.4" transitive="false"/>
     <dependency org="javax.jms" name="javax.jms-api" rev="2.0.1" transitive="false"/>
-    <dependency org="org.glassfish" name="javax.el" rev="3.0.1-b03" transitive="false"/>
     <dependency org="javax.transaction" name="javax.transaction-api" rev="1.2" transitive="false"/>
     <dependency org="javax.ws.rs" name="javax.ws.rs-api" rev="2.0.1" transitive="false"/>
     <dependency org="org.apache.geronimo.specs" name="geronimo-jta_1.1_spec" rev="1.1.1"/>
-    
-    
-    <dependency org="javax.interceptor" name="javax.interceptor-api" rev="1.2" transitive="false"/>
-    <dependency org="org.jboss.weld" name="weld-osgi-bundle" rev="2.2.13.Final" transitive="false"/>
-    <dependency org="com.fasterxml.jackson.core" name="jackson-annotations" rev="2.5.1" transitive="false">
+
+    <dependency org="com.fasterxml.jackson.core" name="jackson-annotations" rev="2.6.0" transitive="false">
       <artifact name="jackson-annotations" ext="jar"/>
     </dependency>
-    <dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.5.1" transitive="false">
+    <dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.6.6" transitive="false">
       <artifact name="jackson-core" ext="jar"/>
     </dependency>
-    <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.5.1" transitive="false">
+    <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.6.6" transitive="false">
       <artifact name="jackson-databind" ext="jar"/>
     </dependency>
-    <dependency org="org.glassfish.main.security" name="security" rev="4.1.1" transitive="false">
-      <artifact name="security" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.security" name="appclient.security" rev="4.1.1" transitive="false">
-      <artifact name="appclient.security" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.security" name="ejb.security" rev="4.1.1" transitive="false">
-      <artifact name="ejb.security" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.security" name="security-ee" rev="4.1.1" transitive="false">
-      <artifact name="security-ee" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.security" name="websecurity" rev="4.1.1" transitive="false">
-      <artifact name="websecurity" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.security" name="security-services" rev="4.1.1" transitive="false">
-      <artifact name="security-services" ext="jar"/>
-    </dependency>
-    <dependency org="javax.annotation" name="javax.annotation-api" rev="1.2" transitive="false"/>
-        <dependency org="org.glassfish.main.common" name="glassfish-api" rev="4.1.1" transitive="false">
-      <artifact name="glassfish-api" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.common" name="glassfish-ee-api" rev="4.1.1" transitive="false">
-      <artifact name="glassfish-ee-api" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.ejb" name="ejb-container" rev="4.1.1" transitive="false">
-      <artifact name="ejb-container" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.ejb" name="ejb-internal-api" rev="4.1.1" transitive="false">
-      <artifact name="ejb-internal-api" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.common" name="common-util" rev="4.1.1" transitive="false">
-      <artifact name="common-util" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.transaction" name="transaction-internal-api" rev="4.1.1" transitive="false">
-      <artifact name="transaction-internal-api" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.web" name="javax.servlet.jsp.jstl" rev="1.2.4" transitive="false"/>
     <dependency org="javax.xml" name="webservices-api-osgi" rev="2.0.1"/>
-    <dependency org="org.glassfish.main.common" name="glassfish-naming" rev="4.1.1">
-      <artifact name="glassfish-naming" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.common" name="internal-api" rev="4.1.1" transitive="false">
-      <artifact name="internal-api" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.admin" name="config-api" rev="4.1.1" transitive="false">
-      <artifact name="config-api" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.orb" name="orb-iiop" rev="4.1.1" transitive="false">
-      <artifact name="orb-iiop" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.orb" name="orb-connector" rev="4.1.1" transitive="false">
-      <artifact name="orb-connector" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.orb" name="orb-enabler" rev="4.1.1" transitive="false">
-      <artifact name="orb-enabler" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.corba" name="glassfish-corba-orb" rev="4.0.1" transitive="false">
-      <artifact name="glassfish-corba-orb" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.corba" name="glassfish-corba-csiv2-idl" rev="4.0.1" transitive="false">
-      <artifact name="glassfish-corba-csiv2-idl" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.corba" name="glassfish-corba-internal-api" rev="4.0.1" transitive="false">
-      <artifact name="glassfish-corba-internal-api" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.corba" name="glassfish-corba-omgapi" rev="4.0.1" transitive="false">
-      <artifact name="glassfish-corba-omgapi" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.deployment" name="dol" rev="4.1.1" transitive="false">
-      <artifact name="dol" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.cluster" name="gms-bootstrap" rev="4.1.1" transitive="false">
-      <artifact name="gms-bootstrap" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.core" name="kernel" rev="4.1.1" transitive="false">
-      <artifact name="kernel" ext="jar"/>
-    </dependency>
-    
-    <dependency org="org.glassfish.ha" name="ha-api" rev="3.1.8"/>
-    <dependency org="org.glassfish.gmbal" name="gmbal" rev="4.0.0-b001"/>
-    <dependency org="org.glassfish.external" name="management-api" rev="3.2.1-b002"/>
-    <dependency org="org.glassfish.main.security" name="ssl-impl" rev="4.1.1">
-      <artifact name="ssl-impl" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.core" name="glassfish" rev="4.1.1">
-    	<artifact name="glassfish" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.deployment" name="deployment-common" rev="4.1.1">
-      <artifact name="deployment-common" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.common" name="scattered-archive-api" rev="4.1.1">
-      <artifact name="scattered-archive-api" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.common" name="simple-glassfish-api" rev="4.1.1">
-      <artifact name="simple-glassfish-api" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.main.grizzly" name="grizzly-config" rev="4.1.1">
-      <artifact name="grizzly-config" ext="jar"/>
-    </dependency>
-    
-    <dependency org="org.glassfish.hk2.external" name="bean-validator" rev="2.4.0-b31"/>
-    
-    <dependency org="org.glassfish.pfl" name="pfl-basic" rev="4.0.0-b004"/>
-    <dependency org="org.glassfish.pfl" name="pfl-asm" rev="4.0.0-b004"/>
-    <dependency org="org.glassfish.pfl" name="pfl-dynamic" rev="4.0.0-b004"/>
-    <dependency org="org.glassfish.pfl" name="pfl-tf" rev="4.0.0-b004"/>
-    
+
     <dependency org="org.javassist" name="javassist" rev="3.20.0-GA" transitive="false"/>
 
-    <dependency org="com.sun.xml.bind" name="jaxb-extra-osgi" rev="2.2.11" transitive="false"/>
-    <dependency org="com.sun.xml.bind.jaxb" name="isorelax" rev="20090621" transitive="false"/>
-    <dependency org="net.java.dev.msv" name="xsdlib" rev="2013.6.1" transitive="false"/>
-    <dependency org="net.java.dev.msv" name="xsdlib" rev="2013.6.1" transitive="false"/>
-    <dependency org="com.sun.xml.bind" name="jaxb-osgi" rev="2.2.11" transitive="false"/>
-    <dependency org="javax.xml" name="jaxr-api-osgi" rev="1.0-b01" transitive="false"/>
-    <dependency org="javax.xml" name="jaxrpc-api-osgi" rev="1.1-b01" transitive="false"/>
     <dependency org="org.jboss.logging" name="jboss-logging" rev="3.3.0.Final" transitive="false"/>
     <dependency org="com.fasterxml" name="classmate" rev="1.3.0" transitive="false"/>
     <dependency org="org.jboss" name="jandex" rev="2.0.0.Final" transitive="false"/>
 
-    <dependency org="org.glassfish.main.web" name="web-core" rev="4.1.1" transitive="false">
-      <artifact name="web-core" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.jersey.ext" name="jersey-bean-validation" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.ext.cdi" name="jersey-cdi1x" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.ext.cdi" name="jersey-cdi1x-servlet" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.ext.cdi" name="jersey-cdi1x-transaction" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.core" name="jersey-client" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.core" name="jersey-common" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.core" name="jersey-server" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.containers" name="jersey-container-grizzly2-http" rev="2.21"
-                transitive="false"/>
-    <dependency org="org.glassfish.jersey.containers" name="jersey-container-servlet" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.containers" name="jersey-container-servlet-core" rev="2.21"
-                transitive="false"/>
-    <dependency org="org.glassfish.jersey.ext" name="jersey-entity-filtering" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.containers.glassfish" name="jersey-gf-ejb" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.bundles.repackaged" name="jersey-guava" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.media" name="jersey-media-jaxb" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.media" name="jersey-media-json-jackson" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.media" name="jersey-media-json-jettison" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.media" name="jersey-media-json-processing" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.media" name="jersey-media-moxy" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.media" name="jersey-media-multipart" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.media" name="jersey-media-sse" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.ext" name="jersey-mvc" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.main.web" name="jersey-mvc-connector" rev="4.1.1" transitive="false">
-      <artifact name="jersey-mvc-connector" ext="jar"/>
-    </dependency>
-    <dependency org="org.glassfish.jersey.ext" name="jersey-mvc-jsp" rev="2.21" transitive="false"/>
-    <dependency org="org.glassfish.jersey.core" name="jersey-server" rev="2.21" transitive="false"/>
     <dependency org="org.codehaus.jettison" name="jettison" rev="1.3.3" transitive="false"/>
-    <dependency org="org.glassfish.main.jms" name="jms-admin" rev="4.1.1" transitive="false">
-      <artifact name="jms-admin" ext="jar"/>
-    </dependency>
-    <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.antlr" rev="2.6.3" transitive="false"/>
-    <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.asm" rev="2.6.3" transitive="false"/>
-    <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.core" rev="2.6.3" transitive="false"/>
-    <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.dbws" rev="2.6.3" transitive="false"/>
-    <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.jpa" rev="2.6.3" transitive="false"/>
-    <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.jpa.jpql" rev="2.6.3"
-                transitive="false"/>
-    <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.jpa.modelgen.processor" rev="2.6.3"
-                transitive="false"/>
-    <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.moxy" rev="2.6.3" transitive="false"/>
-    <dependency org="org.eclipse.persistence" name="org.eclipse.persistence.oracle" rev="2.6.3" transitive="false"/>
 
     <dependency org="org.codehaus.woodstox" name="stax2-api" rev="3.1.1" transitive="false"/>
-
     <dependency org="org.codehaus.woodstox" name="woodstox-core-asl" rev="4.2.0" transitive="false"/>
-    <dependency org="org.glassfish.main.connectors" name="work-management" rev="4.1.1" transitive="false">
-      <artifact name="work-management" ext="jar"/>
-    </dependency>
-    <dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.1.11" transitive="false"/>
-    <dependency org="com.sun.xml.bind" name="jaxb-xjc" rev="2.1.11" transitive="false"/>
-    <dependency org="com.sun.xml.ws" name="jaxws-rt" rev="2.1.7" transitive="false"/>
-    <dependency org="com.sun.xml.ws" name="jaxws-tools" rev="2.1.7" transitive="false"/>
-    <dependency org="com.sun.xml.messaging.saaj" name="saaj-impl" rev="1.3.3" transitive="false"/>
-    <dependency org="wsdl4j" name="wsdl4j" rev="1.6.2" transitive="false"/>
+
+    <dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.2.10" transitive="false"/>
+    <dependency org="com.sun.xml.bind" name="jaxb-core" rev="2.2.10" transitive="false"/>
+    <dependency org="com.sun.xml.bind" name="jaxb-xjc" rev="2.2.10" transitive="false"/>
+    <dependency org="com.sun.xml.bind" name="jaxb-jxc" rev="2.2.10" transitive="false"/>
+
+
+    <dependency org="com.sun.xml.ws" name="jaxws-rt" rev="2.2.10" transitive="false"/>
+    <dependency org="com.sun.xml.ws" name="jaxws-tools" rev="2.2.10" transitive="false"/>
+    <dependency org="com.sun.xml.ws" name="policy" rev="2.4"/>
+    <dependency org="com.sun.org.apache.xml.internal" name="resolver" rev="20050927"/>
+    <dependency org="org.jvnet.staxex" name="stax-ex" rev="1.7.7"/>
+    <dependency org="javax.xml.stream" name="stax-api" rev="1.0-2"/>
+    <dependency org="javax.activation" name="activation" rev="1.1"/>
+    <dependency org="com.sun.xml.bind" name="jaxb-core" rev="2.2.10-b140802.1033"/>
+    <!-- https://mvnrepository.com/artifact/com.sun.xml.stream.buffer/streambuffer -->
+    <dependency org="com.sun.xml.stream.buffer" name="streambuffer" rev="1.5.4"/>
+
+
+    <dependency org="com.sun.xml.messaging.saaj" name="saaj-impl" rev="1.3.25" transitive="false"/>
+    <dependency org="wsdl4j" name="wsdl4j" rev="1.6.3" transitive="false"/>
     <dependency org="com.google.code.gson" name="gson" rev="2.6.2" transitive="false"/>
     <dependency org="org.ow2.asm" name="asm-debug-all" rev="5.1" transitive="false"/>
-    
+    <dependency org="asm" name="asm-all" rev="3.3.1"/>
+
     <!-- AWS SDK 1.11.37-->
     <dependency org="com.amazonaws" name="aws-java-sdk-ec2" rev="1.11.37" transitive="false"/>
     <dependency org="com.amazonaws" name="aws-java-sdk-core" rev="1.11.37" transitive="false"/>
-    
-    <dependency org="org.apache.httpcomponents" name="httpcore" rev="4.4.1"  transitive="false"/>
-    <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.5.2"  transitive="false"/> 
-    
+
+    <dependency org="org.apache.httpcomponents" name="httpcore" rev="4.4.1" transitive="false"/>
+    <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.5.2" transitive="false"/>
+
     <!-- JDBC Driver-->
     <dependency org="org.postgresql" name="postgresql" rev="9.4-1206-jdbc42" transitive="false"/>
+
+    <!-- javax -->
+    <dependency org="javax.el" name="javax.el-api" rev="3.0.1-b04" transitive="false"/>
+
+    <!-- Tomee libs -->
+    <dependency org="org.apache.tomee" name="javaee-api" rev="7.0-1" transitive="false"/>
+    <dependency org="org.apache.tomee" name="openejb-core" rev="7.0.3" transitive="false"/>
+    <dependency org="org.apache.tomee" name="openejb-cxf" rev="7.0.3" transitive="false"/>
+    <dependency org="org.apache.tomee" name="openejb-client" rev="7.0.3" transitive="false"/>
+    <dependency org="org.apache.geronimo.javamail" name="geronimo-javamail_1.4_mail" rev="1.9.0-alpha-2"
+                transitive="false"/>
+    <dependency org="org.apache.wss4j" name="wss4j-bindings" rev="2.1.7" transitive="false"/>
+    <dependency org="org.apache.wss4j" name="wss4j-policy" rev="2.1.7" transitive="false"/>
+    <dependency org="org.apache.wss4j" name="wss4j-ws-security-common" rev="2.1.7" transitive="false"/>
+    <dependency org="org.apache.wss4j" name="wss4j-ws-security-dom" rev="2.1.7" transitive="false"/>
+    <dependency org="org.apache.wss4j" name="wss4j-ws-security-policy-stax" rev="2.1.7" transitive="false"/>
+    <dependency org="org.apache.wss4j" name="wss4j-ws-security-stax" rev="2.1.7" transitive="false"/>
+    <dependency org="org.apache.tomee" name="openejb-loader" rev="7.0.3" transitive="false"/>
+
+    <!-- Tomee libs for APP -->
+    <dependency org="javax.xml.ws" name="jaxws-api" rev="2.2.1" transitive="false"/>
+    <dependency org="javax.xml.bind" name="jsr173_api" rev="1.0" transitive="false"/>
+    <dependency org="javax.jws" name="jsr181-api" rev="1.0-MR1" transitive="false"/>
+    <dependency org="javax.annotation" name="jsr250-api" rev="1.0" transitive="false"/>
+    <dependency org="com.sun.xml.stream" name="sjsxp" rev="1.0.2" transitive="false"/>
+    <dependency org="net.java.dev.stax-utils" name="stax-utils" rev="20070216" transitive="false"/>
+    <dependency org="com.sun.xml.stream.buffer" name="streambuffer" rev="1.5.4" transitive="false"/>
+    <dependency org="org.codehaus.woodstox" name="woodstox-core-asl" rev="4.2.0" transitive="false"/>
+    <dependency org="org.glassfish" name="javax.faces" rev="2.2.12" transitive="false"/>
     <dependency org="org.apache.kafka" name="kafka-clients" rev="0.10.2.1" transitive="false"/>
+    <dependency org="org.apache.cxf" name="cxf-rt-frontend-jaxrs" rev="3.1.0" transitive="false"/>
+    <dependency org="org.apache.cxf" name="cxf-core" rev="3.1.10" transitive="false"/>
+
     <exclude org="org.netbeans.api"/>
     <exclude org="*" ext="*" type="source"/>
     <exclude org="*" ext="*" type="javadoc"/>
