@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright FUJITSU LIMITED 2017-->
+
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+  http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/persistence/persistence_2_1.xsd">
+
+
+  <persistence-unit name="oscm-domainobjects">
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+    <jta-data-source>BSSDS</jta-data-source>
+    <class>org.oscm.domobjects.BillingAdapter</class>
+    <class>org.oscm.domobjects.BillingContact</class>
+    <class>org.oscm.domobjects.BillingContactData</class>
+    <class>org.oscm.domobjects.BillingContactHistory</class>
+    <class>org.oscm.domobjects.BillingResult</class>
+    <class>org.oscm.domobjects.BillingResultData</class>
+    <class>org.oscm.domobjects.BillingSharesResult</class>
+    <class>org.oscm.domobjects.BillingSharesResultData</class>
+    <class>org.oscm.domobjects.BillingSubscriptionStatus</class>
+    <class>org.oscm.domobjects.BillingSubscriptionStatusData</class>
+    <class>org.oscm.domobjects.CatalogEntry</class>
+    <class>org.oscm.domobjects.CatalogEntryData</class>
+    <class>org.oscm.domobjects.CatalogEntryHistory</class>
+    <class>org.oscm.domobjects.Category</class>
+    <class>org.oscm.domobjects.CategoryData</class>
+    <class>org.oscm.domobjects.CategoryToCatalogEntry</class>
+    <class>org.oscm.domobjects.ConfigurationSetting</class>
+    <class>org.oscm.domobjects.ConfigurationSettingData</class>
+    <class>org.oscm.domobjects.Discount</class>
+    <class>org.oscm.domobjects.DiscountData</class>
+    <class>org.oscm.domobjects.DiscountHistory</class>
+    <class>org.oscm.domobjects.DomainDataContainer</class>
+    <class>org.oscm.domobjects.DomainHistoryObject</class>
+    <class>org.oscm.domobjects.DomainObject</class>
+    <class>org.oscm.domobjects.DomainObjectWithVersioning</class>
+    <class>org.oscm.domobjects.DomainObjectWithoutVersioning</class>
+    <class>org.oscm.domobjects.Event</class>
+    <class>org.oscm.domobjects.EventData</class>
+    <class>org.oscm.domobjects.EventHistory</class>
+    <class>org.oscm.domobjects.GatheredEvent</class>
+    <class>org.oscm.domobjects.GatheredEventData</class>
+    <class>org.oscm.domobjects.PublicLandingpage</class>
+    <class>org.oscm.domobjects.PublicLandingpageData</class>
+    <class>org.oscm.domobjects.LandingpageProduct</class>
+    <class>org.oscm.domobjects.LandingpageProductData</class>
+    <class>org.oscm.domobjects.LocalizedBillingResource</class>
+    <class>org.oscm.domobjects.ModifiedEntity</class>
+    <class>org.oscm.domobjects.ModifiedEntityData</class>
+    <class>org.oscm.domobjects.ModifiedUda</class>
+    <class>org.oscm.domobjects.OnBehalfUserReference</class>
+    <class>org.oscm.domobjects.OnBehalfUserReferenceData</class>
+    <class>org.oscm.domobjects.OperationParameter</class>
+    <class>org.oscm.domobjects.OperationParameterData</class>
+    <class>org.oscm.domobjects.Organization</class>
+    <class>org.oscm.domobjects.OrganizationData</class>
+    <class>org.oscm.domobjects.OrganizationHistory</class>
+    <class>org.oscm.domobjects.OrganizationReference</class>
+    <class>org.oscm.domobjects.OrganizationReferenceData</class>
+    <class>org.oscm.domobjects.OrganizationReferenceHistory</class>
+    <class>org.oscm.domobjects.OrganizationRole</class>
+    <class>org.oscm.domobjects.OrganizationRoleData</class>
+    <class>org.oscm.domobjects.OrganizationSetting</class>
+    <class>org.oscm.domobjects.OrganizationSettingData</class>
+    <class>org.oscm.domobjects.OrganizationToCountry</class>
+    <class>org.oscm.domobjects.OrganizationRefToPaymentType</class>
+    <class>org.oscm.domobjects.OrganizationRefToPaymentTypeData</class>
+    <class>org.oscm.domobjects.OrganizationToRole</class>
+    <class>org.oscm.domobjects.OrganizationToRoleHistory</class>
+    <class>org.oscm.domobjects.Parameter</class>
+    <class>org.oscm.domobjects.ParameterData</class>
+    <class>org.oscm.domobjects.ParameterDefinition</class>
+    <class>org.oscm.domobjects.ParameterDefinitionData</class>
+    <class>org.oscm.domobjects.ParameterDefinitionHistory</class>
+    <class>org.oscm.domobjects.ParameterHistory</class>
+    <class>org.oscm.domobjects.ParameterOption</class>
+    <class>org.oscm.domobjects.ParameterOptionData</class>
+    <class>org.oscm.domobjects.ParameterOptionHistory</class>
+    <class>org.oscm.domobjects.ParameterSet</class>
+    <class>org.oscm.domobjects.PaymentInfo</class>
+    <class>org.oscm.domobjects.PaymentInfoData</class>
+    <class>org.oscm.domobjects.PaymentInfoHistory</class>
+    <class>org.oscm.domobjects.PaymentResult</class>
+    <class>org.oscm.domobjects.PaymentResultData</class>
+    <class>org.oscm.domobjects.PaymentType</class>
+    <class>org.oscm.domobjects.PaymentTypeData</class>
+    <class>org.oscm.domobjects.PaymentTypeHistory</class>
+    <class>org.oscm.domobjects.PlatformUser</class>
+    <class>org.oscm.domobjects.PlatformUserData</class>
+    <class>org.oscm.domobjects.PlatformUserHistory</class>
+    <class>org.oscm.domobjects.PriceModel</class>
+    <class>org.oscm.domobjects.PriceModelData</class>
+    <class>org.oscm.domobjects.PriceModelHistory</class>
+    <class>org.oscm.domobjects.PricedEvent</class>
+    <class>org.oscm.domobjects.PricedEventData</class>
+    <class>org.oscm.domobjects.PricedEventHistory</class>
+    <class>org.oscm.domobjects.PricedOption</class>
+    <class>org.oscm.domobjects.PricedOptionData</class>
+    <class>org.oscm.domobjects.PricedOptionHistory</class>
+    <class>org.oscm.domobjects.PricedParameter</class>
+    <class>org.oscm.domobjects.PricedParameterData</class>
+    <class>org.oscm.domobjects.PricedParameterHistory</class>
+    <class>org.oscm.domobjects.PricedProductRole</class>
+    <class>org.oscm.domobjects.PricedProductRoleData</class>
+    <class>org.oscm.domobjects.PricedProductRoleHistory</class>
+    <class>org.oscm.domobjects.Product</class>
+    <class>org.oscm.domobjects.ProductData</class>
+    <class>org.oscm.domobjects.ProductHistory</class>
+    <class>org.oscm.domobjects.ProductFeedback</class>
+    <class>org.oscm.domobjects.ProductFeedbackData</class>
+    <class>org.oscm.domobjects.ProductReview</class>
+    <class>org.oscm.domobjects.ProductReviewData</class>
+    <class>org.oscm.domobjects.ProductReference</class>
+    <class>org.oscm.domobjects.PSP</class>
+    <class>org.oscm.domobjects.PSPData</class>
+    <class>org.oscm.domobjects.PSPHistory</class>
+    <class>org.oscm.domobjects.PSPAccount</class>
+    <class>org.oscm.domobjects.PSPAccountData</class>
+    <class>org.oscm.domobjects.PSPAccountHistory</class>
+    <class>org.oscm.domobjects.PSPSetting</class>
+    <class>org.oscm.domobjects.PSPSettingData</class>
+    <class>org.oscm.domobjects.PSPSettingHistory</class>
+    <class>org.oscm.domobjects.Report</class>
+    <class>org.oscm.domobjects.ReportData</class>
+    <class>org.oscm.domobjects.ReportResultCache</class>
+    <class>org.oscm.domobjects.RevenueShareModel</class>
+    <class>org.oscm.domobjects.RevenueShareModelData</class>
+    <class>org.oscm.domobjects.RevenueShareModelHistory</class>
+    <class>org.oscm.domobjects.RoleAssignment</class>
+    <class>org.oscm.domobjects.RoleDefinition</class>
+    <class>org.oscm.domobjects.RoleDefinitionData</class>
+    <class>org.oscm.domobjects.RoleDefinitionHistory</class>
+    <class>org.oscm.domobjects.Session</class>
+    <class>org.oscm.domobjects.SessionData</class>
+    <class>org.oscm.domobjects.Marketplace</class>
+    <class>org.oscm.domobjects.MarketplaceAccess</class>
+    <class>org.oscm.domobjects.MarketplaceData</class>
+    <class>org.oscm.domobjects.MarketplaceHistory</class>
+    <class>org.oscm.domobjects.SteppedPrice</class>
+    <class>org.oscm.domobjects.SteppedPriceData</class>
+    <class>org.oscm.domobjects.SteppedPriceHistory</class>
+    <class>org.oscm.domobjects.Subscription</class>
+    <class>org.oscm.domobjects.SubscriptionData</class>
+    <class>org.oscm.domobjects.SubscriptionHistory</class>
+    <class>org.oscm.domobjects.SupportedCountry</class>
+    <class>org.oscm.domobjects.SupportedCountryData</class>
+    <class>org.oscm.domobjects.SupportedCurrency</class>
+    <class>org.oscm.domobjects.SupportedCurrencyData</class>
+    <class>org.oscm.domobjects.SupportedLanguage</class>
+    <class>org.oscm.domobjects.SupportedLanguageData</class>
+    <class>org.oscm.domobjects.Tag</class>
+    <class>org.oscm.domobjects.TagData</class>
+    <class>org.oscm.domobjects.TechnicalProduct</class>
+    <class>org.oscm.domobjects.TechnicalProductData</class>
+    <class>org.oscm.domobjects.TechnicalProductHistory</class>
+    <class>org.oscm.domobjects.TechnicalProductOperation</class>
+    <class>org.oscm.domobjects.TechnicalProductOperationData</class>
+    <class>org.oscm.domobjects.TechnicalProductTag</class>
+    <class>org.oscm.domobjects.TimerProcessing</class>
+    <class>org.oscm.domobjects.TimerProcessingData</class>
+    <class>org.oscm.domobjects.TriggerDefinition</class>
+    <class>org.oscm.domobjects.TriggerDefinitionData</class>
+    <class>org.oscm.domobjects.TriggerProcess</class>
+    <class>org.oscm.domobjects.TriggerProcessData</class>
+    <class>org.oscm.domobjects.TriggerProcessParameter</class>
+    <class>org.oscm.domobjects.TriggerProcessParameterData</class>
+    <class>org.oscm.domobjects.TriggerProcessIdentifier</class>
+    <class>org.oscm.domobjects.TriggerProcessIdentifierData</class>
+    <class>org.oscm.domobjects.Uda</class>
+    <class>org.oscm.domobjects.UdaData</class>
+    <class>org.oscm.domobjects.UdaDefinition</class>
+    <class>org.oscm.domobjects.UdaDefinitionData</class>
+    <class>org.oscm.domobjects.UdaDefinitionHistory</class>
+    <class>org.oscm.domobjects.UdaHistory</class>
+    <class>org.oscm.domobjects.UsageLicense</class>
+    <class>org.oscm.domobjects.UsageLicenseData</class>
+    <class>org.oscm.domobjects.UsageLicenseHistory</class>
+    <class>org.oscm.domobjects.VatRate</class>
+    <class>org.oscm.domobjects.VatRateData</class>
+    <class>org.oscm.domobjects.VatRateHistory</class>
+    <class>org.oscm.domobjects.UserRole</class>
+    <class>org.oscm.domobjects.UserRoleData</class>
+    <class>org.oscm.domobjects.LocalizedResource</class>
+    <class>org.oscm.domobjects.ImageResource</class>
+    <class>org.oscm.domobjects.MarketplaceToOrganization</class>
+    <class>org.oscm.domobjects.ProductToPaymentType</class>
+    <class>org.oscm.domobjects.MarketingPermission</class>
+    <class>org.oscm.domobjects.PlatformSetting</class>
+    <class>org.oscm.domobjects.PlatformSettingData</class>
+    <class>org.oscm.domobjects.EnterpriseLandingpage</class>
+    <class>org.oscm.domobjects.UserGroup</class>
+    <class>org.oscm.domobjects.UserGroupHistory</class>
+    <class>org.oscm.domobjects.UserGroupData</class>
+    <class>org.oscm.domobjects.UserGroupToUser</class>
+    <class>org.oscm.domobjects.UserGroupToInvisibleProduct</class>
+    <class>org.oscm.domobjects.OperationRecord</class>
+    <class>org.oscm.domobjects.OperationRecordData</class>
+    <class>org.oscm.domobjects.UnitUserRole</class>
+    <class>org.oscm.domobjects.UnitUserRoleData</class>
+    <class>org.oscm.domobjects.UnitRoleAssignment</class>
+    <class>org.oscm.domobjects.Tenant</class>
+    <class>org.oscm.domobjects.TenantData</class>
+    <class>org.oscm.domobjects.TenantSetting</class>
+    <class>org.oscm.domobjects.TenantSettingData</class>
+
+    <properties>
+      <property name="hibernate.hbm2ddl.auto" value="validate" />
+      <property name="hibernate.jdbc.batch_size" value="100" />
+      <property name="hibernate.ejb.event.post-insert" value="org.oscm.dataservice.bean.HibernateEventListener"/>
+      <property name="hibernate.ejb.event.post-update" value="org.oscm.dataservice.bean.HibernateEventListener"/>
+      <property name="hibernate.ejb.event.post-delete" value="org.oscm.dataservice.bean.HibernateEventListener"/>
+      <property name="hibernate.show_sql" value="false" />
+      <property name="hibernate.format_sql" value="true" />
+      <property name="hibernate.jdbc.use_streams_for_binary" value="false" />
+      <property name="hibernate.search.lucene_version" value="LUCENE_5_3_1" />
+      <property name="javax.persistence.sharedCache.mode" value="ALL"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
+      <property name="hibernate.id.new_generator_mappings" value="false"/>
+      <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
+      <property name="hibernate.classloading.use_current_tccl_as_parent" value="false"/>
+      <property name="hibernate.search.default.directory_provider" value="org.hibernate.search.store.impl.RAMDirectoryProvider"/>
+    </properties>
+
+  </persistence-unit>
+
+</persistence>

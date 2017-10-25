@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="PaymentRegistrationServiceService" targetNamespace="http://oscm.org/xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://oscm.org/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+  <import namespace="http://oscm.org/xsd" schemaLocation="PaymentRegistrationService_schema1.xsd"/>
+</schema>
+  </wsdl:types>
+  <wsdl:message name="OperationNotPermittedException">
+    <wsdl:part name="OperationNotPermittedException" element="tns:OperationNotPermittedException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="register">
+    <wsdl:part name="parameters" element="tns:register">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PaymentDataException">
+    <wsdl:part name="PaymentDataException" element="tns:PaymentDataException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObjectNotFoundException">
+    <wsdl:part name="ObjectNotFoundException" element="tns:ObjectNotFoundException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="registerResponse">
+    <wsdl:part name="parameters" element="tns:registerResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PaymentRegistrationService">
+    <wsdl:operation name="register">
+      <wsdl:input name="register" message="tns:register">
+    </wsdl:input>
+      <wsdl:output name="registerResponse" message="tns:registerResponse">
+    </wsdl:output>
+      <wsdl:fault name="ObjectNotFoundException" message="tns:ObjectNotFoundException">
+    </wsdl:fault>
+      <wsdl:fault name="OperationNotPermittedException" message="tns:OperationNotPermittedException">
+    </wsdl:fault>
+      <wsdl:fault name="PaymentDataException" message="tns:PaymentDataException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PaymentRegistrationServiceServiceSoapBinding" type="tns:PaymentRegistrationService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="register">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="register">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="registerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ObjectNotFoundException">
+        <soap:fault name="ObjectNotFoundException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="OperationNotPermittedException">
+        <soap:fault name="OperationNotPermittedException" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="PaymentDataException">
+        <soap:fault name="PaymentDataException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PaymentRegistrationServiceService">
+    <wsdl:port name="PaymentRegistrationServicePort" binding="tns:PaymentRegistrationServiceServiceSoapBinding">
+      <soap:address location="http://localhost:9090/PaymentRegistrationServicePort"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

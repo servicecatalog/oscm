@@ -1,2 +1,0 @@
-ALTER TABLE "subscription" ADD COLUMN "vmsnumber" INTEGER NOT NULL DEFAULT 0;
-ALTER TABLE "subscriptionhistory" ADD COLUMN "vmsnumber" INTEGER NOT NULL DEFAULT 0;

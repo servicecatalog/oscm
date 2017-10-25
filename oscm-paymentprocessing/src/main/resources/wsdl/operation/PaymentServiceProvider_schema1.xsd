@@ -1,0 +1,134 @@
+<xs:schema xmlns:tns="http://oscm.org/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://oscm.org/xsd">
+  <xs:element name="ApplicationExceptionBean" type="tns:applicationExceptionBean"/>
+  <xs:element name="charge" type="tns:charge"/>
+  <xs:element name="chargeResponse" type="tns:chargeResponse"/>
+  <xs:element name="deregisterPaymentInformation" type="tns:deregisterPaymentInformation"/>
+  <xs:element name="deregisterPaymentInformationResponse" type="tns:deregisterPaymentInformationResponse"/>
+  <xs:element name="determineRegistrationLink" type="tns:determineRegistrationLink"/>
+  <xs:element name="determineRegistrationLinkResponse" type="tns:determineRegistrationLinkResponse"/>
+  <xs:element name="determineReregistrationLink" type="tns:determineReregistrationLink"/>
+  <xs:element name="determineReregistrationLinkResponse" type="tns:determineReregistrationLinkResponse"/>
+  <xs:complexType name="determineReregistrationLink">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:requestData"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="requestData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="currentUserLocale" type="xs:string"/>
+      <xs:element minOccurs="0" name="externalIdentifier" type="xs:string"/>
+      <xs:element minOccurs="0" name="organizationEmail" type="xs:string"/>
+      <xs:element minOccurs="0" name="organizationId" type="xs:string"/>
+      <xs:element minOccurs="0" name="organizationKey" type="xs:long"/>
+      <xs:element minOccurs="0" name="organizationName" type="xs:string"/>
+      <xs:element minOccurs="0" name="paymentInfoId" type="xs:string"/>
+      <xs:element minOccurs="0" name="paymentInfoKey" type="xs:long"/>
+      <xs:element minOccurs="0" name="paymentTypeId" type="xs:string"/>
+      <xs:element minOccurs="0" name="paymentTypeKey" type="xs:long"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="properties" nillable="true" type="tns:property"/>
+      <xs:element minOccurs="0" name="pspIdentifier" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="property">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="key" type="xs:string"/>
+      <xs:element minOccurs="0" name="value" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="determineReregistrationLinkResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:registrationLink"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="registrationLink">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="browserTarget" type="xs:string"/>
+      <xs:element minOccurs="0" name="url" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="applicationExceptionBean">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="causeStackTrace" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+      <xs:element minOccurs="0" name="messageKey" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="messageParams" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="charge">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:requestData"/>
+      <xs:element minOccurs="0" name="arg1" type="tns:chargingData"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chargingData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="address" type="xs:string"/>
+      <xs:element minOccurs="0" name="currency" type="xs:string"/>
+      <xs:element minOccurs="0" name="customerKey" type="xs:long"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+      <xs:element minOccurs="0" name="externalIdentifier" type="xs:string"/>
+      <xs:element minOccurs="0" name="grossAmount" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="netAmount" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="netDiscount" type="xs:decimal"/>
+      <xs:element minOccurs="0" name="periodEndTime" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="periodStartTime" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="pon" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="priceModelData" nillable="true" type="tns:priceModelData"/>
+      <xs:element minOccurs="0" name="sellerKey" type="xs:long"/>
+      <xs:element minOccurs="0" name="subscriptionId" type="xs:string"/>
+      <xs:element name="transactionId" type="xs:long"/>
+      <xs:element minOccurs="0" name="vat" type="xs:string"/>
+      <xs:element minOccurs="0" name="vatAmount" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="priceModelData">
+    <xs:sequence>
+      <xs:element name="endDate" type="xs:long"/>
+      <xs:element minOccurs="0" name="netAmount" type="xs:decimal"/>
+      <xs:element name="position" type="xs:int"/>
+      <xs:element name="startDate" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chargeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:chargingResult"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chargingResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="processingException" type="xs:string"/>
+      <xs:element minOccurs="0" name="processingResult" type="xs:string"/>
+      <xs:element minOccurs="0" name="processingStatus" type="tns:paymentProcessingStatus"/>
+      <xs:element name="processingTime" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="deregisterPaymentInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:requestData"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="deregisterPaymentInformationResponse">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="determineRegistrationLink">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:requestData"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="determineRegistrationLinkResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:registrationLink"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="paymentProcessingStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SUCCESS"/>
+      <xs:enumeration value="RETRY"/>
+      <xs:enumeration value="FAILED_EXTERNAL"/>
+      <xs:enumeration value="FAILED_INTERNAL"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PSPCommunicationException" nillable="true" type="tns:applicationExceptionBean"/>
+  <xs:element name="PSPProcessingException" nillable="true" type="tns:applicationExceptionBean"/>
+  <xs:element name="PaymentDeregistrationException" nillable="true" type="tns:applicationExceptionBean"/>
+</xs:schema>
