@@ -18,7 +18,7 @@ install:
   - wget https://github.com/servicecatalog/documentation/archive/master.zip
   - unzip master.zip
   - mv documentation-master/* .
-  - cd ../development
+  - cd ../oscm
 env:
   global:
     - ANT_OPTS=-Xmx6g
