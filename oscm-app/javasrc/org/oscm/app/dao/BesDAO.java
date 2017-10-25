@@ -63,9 +63,6 @@ import org.oscm.vo.VOUserDetails;
 import org.oscm.ws.BasicAuthWSDLLocator;
 import org.oscm.ws.WSVersionExtensionRegistry;
 
-import static org.oscm.app.v2_0.data.ControllerConfigurationKey.*;
-
-
 @Stateless
 public class BesDAO {
 

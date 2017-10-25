@@ -28,8 +28,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-apiversioning-client-handler"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-webservices-client"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
-	<classpathentry kind="src" path="/oscm-app-extsvc-1-0"/>
-	<classpathentry kind="src" path="/oscm-app-converter"/>
 	<classpathentry kind="lib" path="/libraries/apache-commons-lang/javalib/commons-lang3-3.5.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-io/javalib/commons-io-1.4.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

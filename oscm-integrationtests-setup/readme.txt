@@ -1,1 +1,0 @@
-Scripts for automated setup of the integration test environment.

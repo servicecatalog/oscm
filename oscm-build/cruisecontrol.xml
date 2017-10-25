@@ -5,118 +5,24 @@
 
 	<description>This script is the entry point for cruise control. The targets define the scope of the build.
   </description>
+	<target name="runAllWebtestsOnBuildCodeAndPreparedGlassfish" depends="bootstrap,_webTests, _copyResultArtifacts" />
 
-	<!-- IMPORTANT: The build targets are called in depends to avoid interrupted build if one target fails. Using "failonerror=false" 
-    will lead to successful build even if the target failed. -->
-
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runAllWebtestsBuild" depends="_libraries, _clean, _package, _setupGlassfishWithoutCoverage, _webTests, _copyResultArtifacts" />
-	<target name="runAllWebtestsOnBuildCodeAndPreparedGlassfish" depends="_webTests, _copyResultArtifacts" />
 
 	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runPart1WebtestsBuild" depends="_libraries, _clean, _package, _setupGlassfishWithoutCoverage, _webTestPart1, _copyWebtestResults, _copyResultArtifacts" />
+	<target name="runJUnitTestsBuild" depends="bootstrap,_libraries, _clean, _package, _unittests, _copyResultArtifacts" />
 
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runPart2WebtestsBuild" depends="_clean, _package, _setupGlassfishWithoutCoverage, _webTestPart2, _copyWebtestResults, _copyResultArtifacts" />
-
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runPlaygroundWebtestsBuild" depends="_libraries, _clean, _package, _setupGlassfishWithoutCoverage, _webTestPlayground, _copyWebtestResults, _copyResultArtifacts" />
-    
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runAccountWebtestsBuild" depends="_clean, _package, _setupGlassfishWithoutCoverage, _webTestAccount, _copyWebtestResults, _copyResultArtifacts" />
-
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runMarketplaceWebtestsBuild" depends="_libraries, _clean, _package, _setupGlassfishWithoutCoverage, _webTestMarketplace, _copyWebtestResults, _copyResultArtifacts" />
-
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runDeliveryBuild"
-    depends="_libraries, _clean, _package, _unittests, _integrationtests, _setupGlassfishWithoutCoverage, _webserviceTests, _copyGlassfishLogsAfterWebserviceTests, _setupGlassfishWithCoverage, _webTests, _copyWebtestResults, _coverageWebtests, _combineCoverage, _copyResultArtifacts" />
-	
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runSSOBuild"
-    depends="_libraries, _clean, _package, _setupGlassfishWithoutCoverageSAML, _webserviceSAMLTests, _copyGlassfishLogsAfterWebserviceSAMLTests, _setupGlassfishWithoutCoverageSAMLWebTests, _webTestPartSAML, _copyWebtestSAMLResults, _copyGlassfishLogsAfterWebSAMLTests, _copyResultArtifacts" />
-
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runWebserviceTestsBuild" depends="_libraries, _clean, _package, _setupGlassfishWithoutCoverage, _webserviceTests, _copyGlassfishLogsAfterWebserviceTests, _copyResultArtifacts" />
-
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runJUnitTestsBuild" depends="_libraries, _clean, _package, _unittests, _copyResultArtifacts" />
-
-	<target name="runTravisUT"  depends="_libraries">
+	<target name="runTravisUT"  depends="bootstrap,_libraries">
 		<ant antfile="build.xml" target="travisunittests" />
 	</target>
-	<target name="runTravisIT" depends="_libraries">
+	<target name="runTravisIT" depends="bootstrap,_libraries">
 		<ant antfile="build.xml" target="integrationtests" />
 	</target>
 
 	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="prepareForDocker" depends="_libraries, _clean, _package" />
+	<target name="prepareForDocker" depends="bootstrap,_libraries, _clean, _package" />
 
 	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runIntegrationTests" depends="_libraries, _clean, _package, _integrationtests, _copyResultArtifacts" />
-
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<!--<target name="runDocBuild" depends="_clean, _docBuild"/>-->
-
-	<!--<target name="_docBuild">-->
-		<!--<echo message="***** Build user documentation *****"/>-->
-		<!--<ant antfile="build.xml" dir="../UserDoc/Tools" target="overall" />-->
-	<!--</target>-->
-
-	<target name="_copyGlassfishLogsAfterWebserviceTests">
-		<echo message="***** Copy glassfish logs after webservice test run *****" />
-		<ant antfile="build.xml" target="copyGlassfishLogs">
-			<property name="glassfish.log.subdirectory" value="test-ws" />
-		</ant>
-	</target>
-
-	<target name="_copyGlassfishLogsAfterWebserviceSAMLTests">
-		<echo message="***** Copy glassfish logs after webservice SAML test run *****" />
-		<ant antfile="build.xml" target="copyGlassfishLogs">
-			<property name="glassfish.log.subdirectory" value="test-ws-SAML" />
-		</ant>
-	</target>
-
-	<target name="_copyGlassfishLogsAfterWebSAMLTests">
-		<echo message="***** Copy glassfish logs after web SAML test run *****" />
-		<ant antfile="build.xml" target="copyGlassfishLogs">
-			<property name="glassfish.log.subdirectory" value="test-web-SAML" />
-		</ant>
-	</target>
-
-	<target name="_setupGlassfishWithoutCoverage">
-		<echo message="***** Setup glassfish withOUT coverage *****" />
-		<ant antfile="../oscm-integrationtests-setup/resources/build.xml" target="STANDALONE.prepareSetup">
-			<property name="work.dir" value="../oscm-integrationtests-setup/resources/work" />
-			<property name="root.dir" value="${basedir}/.." />
-		</ant>
-		<ant antfile="build-integration-setup.xml" dir="../oscm-integrationtests-setup/resources" target="STANDALONE.setupWithoutCoverage" />
-	</target>
-
-	<target name="_setupGlassfishWithoutCoverageSAML">
-		<echo message="***** Setup glassfish withOUT coverage in SAML_SP mode *****" />
-		<ant antfile="../oscm-integrationtests-setup/resources/build.xml" target="STANDALONE.prepareSetup">
-			<property name="work.dir" value="../oscm-integrationtests-setup/resources/work" />
-			<property name="root.dir" value="${basedir}/.." />
-		</ant>
-		<ant antfile="build.xml" target="setAuthModeForIntegration_SAML_SP" />
-		<ant antfile="build-integration-setup.xml" dir="../oscm-integrationtests-setup/resources" target="STANDALONE.setupWithoutCoverage" />
-	</target>
-
-	<!-- IMPORTANT: do not delete this target. If _setupGlassfishWithoutCoverageSAML is called twice in depends it will run 
-    only once. -->
-	<target name="_setupGlassfishWithoutCoverageSAMLWebTests">
-		<antcall target="_setupGlassfishWithoutCoverageSAML" />
-	</target>
-
-	<target name="_setupGlassfishWithCoverage">
-		<echo message="***** Setup glassfish with coverage *****" />
-		<ant antfile="../oscm-integrationtests-setup/resources/build.xml" target="STANDALONE.prepareSetup">
-			<property name="work.dir" value="../oscm-integrationtests-setup/resources/work" />
-			<property name="root.dir" value="${basedir}/.." />
-		</ant>
-		<ant antfile="build-integration-setup.xml" dir="../oscm-integrationtests-setup/resources" target="STANDALONE.setup" />
-	</target>
+	<target name="runIntegrationTests" depends="bootstrap,_libraries, _clean, _package, _integrationtests, _copyResultArtifacts" />
 
 	<target name="_webserviceTests">
 		<echo message="***** Run webservice tests without cleaning former results *****" />
@@ -136,6 +42,7 @@
 	<target name="bootstrap" description="Used to install the ivy task jar">
 		<mkdir dir="${user.home}/.ant/lib"/>
 		<get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
+		<get dest="javalib/oscm-build-antextensions.jar" src="https://github.com/DawidCh/oscm-antextensions/releases/download/v0.0.3/oscm-build-antextensions-0.0.3.jar"/>
 	</target>
 
     <target name="_libraries">
@@ -161,33 +68,33 @@
 
 	<target name="_initTestDB">
 		<echo message="***** init unittest DB and appunittest DB *****" />
-		<ant antfile="build-integration-database.xml" dir="../oscm-integrationtests-setup/resources" target="initUnittestDBAndAppunittestDB" />
+		<ant antfile="build-dev-Database.xml" dir="../oscm-devruntime/javares/devscripts/" target="appunit.Init" />
 	</target>
 
 	<target name="_webTests">
 		<echo message="***** Wait for BES *****" />
-		<ant antfile="build-integration-setup.xml" dir="../oscm-integrationtests-setup/resources" target="waitForBES" />
+
 		<echo message="***** Run webtests *****" />
 		<ant dir="../oscm-portal-webtests" antfile="run_alltests.xml" target="run" />
 	</target>
 
 	<target name="_webTestPart1">
 		<echo message="***** Wait for BES *****" />
-		<ant antfile="build-integration-setup.xml" dir="../oscm-integrationtests-setup/resources" target="waitForBES" />
+
 		<echo message="***** Run webtests *****" />
 		<ant dir="../oscm-portal-webtests" antfile="run_part1.xml" target="run" />
 	</target>
 
 	<target name="_webTestPart2">
 		<echo message="***** Wait for BES *****" />
-		<ant antfile="build-integration-setup.xml" dir="../oscm-integrationtests-setup/resources" target="waitForBES" />
+
 		<echo message="***** Run webtests *****" />
 		<ant dir="../oscm-portal-webtests" antfile="run_part2.xml" target="run" />
 	</target>
 
 	<target name="_webTestPartSAML">
 		<echo message="***** Wait for BES *****" />
-		<ant antfile="build-integration-setup.xml" dir="../oscm-integrationtests-setup/resources" target="waitForBES" />
+
 		<echo message="***** Run webtests partSAML*****" />
 		<ant dir="../oscm-portal-webtests" antfile="run_partSAML.xml" target="run" />
 	</target>
@@ -219,21 +126,21 @@
 
 	<target name="_webTestPlayground">
 		<echo message="***** Wait for BES *****" />
-		<ant antfile="build-integration-setup.xml" dir="../oscm-integrationtests-setup/resources" target="waitForBES" />
+
 		<echo message="***** Run webtests *****" />
 		<ant dir="../oscm-portal-webtests" antfile="run_playground.xml" target="run" />
 	</target>
 	
 	<target name="_webTestAccount">
         <echo message="***** Wait for BES *****" />
-        <ant antfile="build-integration-setup.xml" dir="../oscm-integrationtests-setup/resources" target="waitForBES" />
+
         <echo message="***** Run webtests *****" />
         <ant dir="../oscm-portal-webtests" antfile="run_account_tests.xml" target="run" />
     </target>
 	
 	<target name="_webTestMarketplace">
         <echo message="***** Wait for BES *****" />
-        <ant antfile="build-integration-setup.xml" dir="../oscm-integrationtests-setup/resources" target="waitForBES" />
+
         <echo message="***** Run webtests *****" />
         <ant dir="../oscm-portal-webtests" antfile="run_marketplace.xml" target="run" />
     </target>

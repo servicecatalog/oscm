@@ -10,6 +10,7 @@
   <property name="root.dir" value="${basedir}/../.." />
   <property name="adm.ue.buildscript.dir" location="${root.dir}/oscm-build" />
   <property name="adm.ue.buildscript.file" location="${adm.ue.buildscript.dir}/build.xml" />
+  <property name="adm.ue.cruisecontrol.file" location="${adm.ue.buildscript.dir}/cruisecontrol.xml" />
   <property name="build.result.package.dir" location="${adm.ue.buildscript.dir}/result/package" />
   
   <target name="BUILD.LIB" description="Loads the necessary libraries for all builds">
@@ -19,6 +20,7 @@
   </target>
   
   <target name="BUILD.BES" description="Builds the MI and BES and other minor packages">
+    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.cruisecontrol.file}" target="bootstrap"/>
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package_without_doc">
       <property name="projects" value="oscm-ear,oscm-portal,oscm-portal-help,oscm-security,oscm-devruntime,oscm-reports" />
     </ant>

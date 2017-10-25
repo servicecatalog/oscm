@@ -1,1 +1,0 @@
-This project collects all resources to integrate technical products with OSCM. 

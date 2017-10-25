@@ -19,7 +19,7 @@
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/richfaces-components-rich-4.5.0.Final.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/richfaces-core-4.5.0.Final.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/sac-1.3.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-portal-stubbed"/>
+
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-serviceprovisioning-intsvc"/>
 	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all-1.8.5.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-server-common"/>

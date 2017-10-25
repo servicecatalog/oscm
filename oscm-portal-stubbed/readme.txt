@@ -1,1 +1,0 @@
-Stubs for all services to allow portal operation without EJB backend.

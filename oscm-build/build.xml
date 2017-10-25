@@ -151,11 +151,6 @@
         <exclude name=".project"/>
       </fileset>
     </copy>
-    <copy todir="${workspace.dir}/oscm-app-ror/doc">
-      <fileset dir="../../document/Development/oscm-app-ror/doc">
-        <exclude name=".project"/>
-      </fileset>
-    </copy>
     <copy todir="${workspace.dir}/oscm-app-vmware/doc">
       <fileset dir="../../document/Development/oscm-app-vmware/doc">
         <exclude name=".project"/>
@@ -168,16 +163,6 @@
     </copy>
     <copy todir="${workspace.dir}/oscm-doc-user">
       <fileset dir="../../document/Development/oscm-doc-user" />
-    </copy>
-    <copy todir="${workspace.dir}/oscm-integration-app-pack/resources/doc">
-      <fileset dir="../../document/Development/oscm-integration-app-pack/resources/doc">
-        <exclude name=".project"/>
-      </fileset>
-    </copy>
-    <copy todir="${workspace.dir}/oscm-integration-psp-pack/resources/doc">
-      <fileset dir="../../document/Development/oscm-integration-psp-pack/resources/doc">
-        <exclude name=".project"/>
-      </fileset>
     </copy>
     <copy todir="${workspace.dir}/oscm-integrationtests-parameter-configurator/doc">
       <fileset dir="../../document/Development/oscm-integrationtests-parameter-configurator/doc">
@@ -419,7 +404,7 @@
   </target>
 
   <target name="setAuthModeForIntegration_SAML_SP">
-    <property name="configsettings_integration.properties" location="${workspace.dir}/oscm-integrationtests-setup/resources/work/oscm-install-pack/databases/bes_db/configsettings.properties" />
+
     <echo level="info">Setting SAML_SP authentication mode in configsettings ${configsettings_integration.properties}</echo>
     <propertyfile file="${configsettings_integration.properties}">
       <entry key="AUTH_MODE" value="SAML_SP" />
@@ -519,20 +504,20 @@
     <copy failonerror="false" todir="${artifacts.properties.dir}" file="${result.dir}/work/oscm-portal/syntax_Messages.properties.log" />
 
     <copy failonerror="false" todir="${artifacts.delivery.dir}">
-      <fileset file="${result.package.dir}/oscm-install-pack/oscm-install-pack.zip" />
-      <fileset file="${result.package.dir}/oscm-integration-pack/oscm-integration-pack.zip" />
-      <fileset file="${result.package.dir}/oscm-integration-psp-pack/oscm-integration-psp-pack.zip" />
-      <fileset file="${result.package.dir}/oscm-integration-app-pack/oscm-integration-app-pack.zip" />
-      <fileset file="${result.package.dir}/oscm-ror-install-pack/oscm-ror-install-pack.zip" />
-      <fileset file="${result.package.dir}/oscm-openstack-install-pack/oscm-openstack-install-pack.zip" />
-      <fileset file="${result.package.dir}/oscm-aws-install-pack/oscm-aws-install-pack.zip" />
-      <fileset file="${result.package.dir}/oscm-vmware-install-pack/oscm-vmware-install-pack.zip" />
-      <fileset file="${result.package.dir}/oscm-app-install-pack/oscm-app-install-pack.zip" />
+
+
+
+
+
+
+
+
+
       <fileset file="${result.package.dir}/oscm-reports/oscm-reports.zip" />
     </copy>
 
     <!-- testing -->
-    <copy failonerror="false" todir="${artifacts.others.dir}" file="${result.package.dir}/oscm-integrationtests-pack/oscm-integrationtests-pack.zip" />
+
 
     <!-- test results -->
     <copy failonerror="false" todir="${artifacts.testing.results.dir}/web">

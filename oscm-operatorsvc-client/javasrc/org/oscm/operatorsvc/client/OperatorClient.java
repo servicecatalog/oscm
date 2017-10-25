@@ -148,9 +148,6 @@ public class OperatorClient {
 
     public static void login(final String username, final String password)
             throws Exception {
-        final String configurl = OperatorClient.class.getResource(
-                "glassfish-login.conf").toString();
-        System.setProperty("java.security.auth.login.config", configurl);
         LoginHandlerFactory.getInstance().login(username, password);
     }
 

@@ -13,7 +13,6 @@
   <property name="adm.ue.buildscript.dir" location="${dev.dir}/oscm-build" />
   <property name="adm.ue.buildscript.file" location="${adm.ue.buildscript.dir}/build.xml" />
   <property name="build.result.package.dir" location="${adm.ue.buildscript.dir}/result/package" />
-  <property name="integration.resources.dir" location="${dev.dir}/oscm-integrationtests-setup/resources" />
   <property name="local.dir" value="${basedir}/../local/${env.HOSTNAME}" />
   <verifyFileExists filePath="${local.dir}/integration.properties" />
   <echo message="Loading integration.properties from ${local.dir}/integration.properties" />
@@ -27,7 +26,6 @@
   <available file="${build.result.package.dir}/oscm-devruntime" type="dir" property="DatabaseUpgradeHandler.present" />
   <available file="${build.result.package.dir}/oscm-extsvc-internal" type="dir" property="WebtestEnvironment.present" />
   <import file="${basedir}/../macrodefs.xml" />
-  <import file="${integration.resources.dir}/macrodefs_integration.xml" />
   <besDomainProperties />
   <clusterProperties />
   <property name="db.url.testdb" value="jdbc:postgresql://${db.host}:${db.port}/bssunittests" />

@@ -61,7 +61,7 @@
         <include name="oscm-build/result/package/oscm-common/*.jar" />
         <include name="oscm-build/result/package/oscm-devruntime/*.jar" />
         <include name="oscm-build/result/package/oscm-psp-extsvc/*.jar" />
-        <include name="libraries/glassfish4/javalib/*.jar" />
+        <include name="libraries/apache-tomee/javalib/*.jar" />
       </fileset>
     </classpath>
   </taskdef>
