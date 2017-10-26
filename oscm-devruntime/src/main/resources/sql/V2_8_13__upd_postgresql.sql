@@ -1,0 +1,2 @@
+update triggerprocessparameter set serializedvalue=regexp_replace(serializedvalue, '\mcom.fujitsu.bss', 'org.oscm', 'gi');
+update triggerprocessparameter set serializedvalue=regexp_replace(serializedvalue, '\mcom.fujitsu.adm.um', 'org.oscm', 'gi');

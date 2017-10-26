@@ -8,6 +8,16 @@
   <artifactId>oscm</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+
+  <properties>
+    <flyway.version>4.2.0</flyway.version>
+    <postgres.driver.version>9.4-1206-jdbc42</postgres.driver.version>
+    <database.url>jdbc:postgresql://G02PLXNNOW29192:5432/bss</database.url>
+    <database.user>postgres</database.user>
+    <databese.password>postgres</databese.password>
+    <schema.name>bssuser</schema.name>
+  </properties>
+
   <modules>
     <module>oscm-ear</module>
     <module>oscm-accountmgmt</module>
@@ -543,6 +553,11 @@
         <version>1.8.5</version>
         <scope>test</scope>
       </dependency>
+      <dependency>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-core</artifactId>
+        <version>${flyway.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <build>
@@ -637,6 +652,19 @@
           <configuration>
             <filterDeploymentDescriptor>true</filterDeploymentDescriptor>
           </configuration>
+        </plugin>
+
+        <plugin>
+          <groupId>org.flywaydb</groupId>
+          <artifactId>flyway-maven-plugin</artifactId>
+          <version>${flyway.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.postgresql</groupId>
+              <artifactId>postgresql</artifactId>
+              <version>9.4-1206-jdbc42</version>
+            </dependency>
+          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>

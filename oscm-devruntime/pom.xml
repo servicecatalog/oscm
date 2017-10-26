@@ -129,5 +129,32 @@
       <groupId>org.apache.tomee</groupId>
       <artifactId>openejb-core</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+    </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.flywaydb</groupId>
+        <artifactId>flyway-maven-plugin</artifactId>
+        <version>${flyway.version}</version>
+        <configuration>
+          <sqlMigrationSeparator>__</sqlMigrationSeparator>
+          <locations>
+            <location>filesystem:${basedir}/src/main/resources/sql</location>
+            <location>classpath:/org/oscm/dbtask</location>
+          </locations>
+          <url>${database.url}</url>
+          <user>${database.user}</user>
+          <password>${databese.password}</password>
+          <schemas>
+            <schema>${schema.name}</schema>
+          </schemas>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

@@ -1,0 +1,1 @@
+UPDATE "imageresource" SET "imagetype" = 'ORGANIZATION_IMAGE' WHERE "imagetype" = 'SUPPLIER_IMAGE';

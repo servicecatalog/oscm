@@ -1,0 +1,1 @@
+ALTER TABLE "configurationsetting" ALTER COLUMN "env_value" TYPE VARCHAR(4096);

@@ -1,0 +1,46 @@
+package org.oscm.dbtask;
+/*******************************************************************************
+ *                                                                              
+ *  Copyright FUJITSU LIMITED 2017                                           
+ *                                                                                                                                 
+ *  Creation Date: 29.06.2017                                                      
+ *                                                                              
+ *******************************************************************************/
+
+import org.flywaydb.core.api.migration.jdbc.JdbcMigration;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.UUID;
+
+/**
+ * @author stavreva
+ *
+ */
+public class V2_9_13_1__MigrateSubscriptions extends DatabaseUpgradeTask implements JdbcMigration {
+
+    private Connection conn;
+    private static final String QUERY_SELECT_ALL = "SELECT tkey FROM subscription;";
+    private static final String QUERY_ADD_UUID = "UPDATE subscription SET uuid='";
+
+    @Override
+    public void execute() throws Exception {
+
+    }
+
+    @Override
+    public void migrate(Connection connection) throws Exception {
+        setConnection(connection);
+        conn = connection;
+        PreparedStatement pstmt = conn.prepareStatement(QUERY_SELECT_ALL);
+        ResultSet rs = pstmt.executeQuery();
+        while (rs.next()) {
+            long key = rs.getLong("tkey");
+            String query = QUERY_ADD_UUID
+                + UUID.randomUUID().toString() + "' WHERE tkey='" + String.valueOf(key)+"';";
+            PreparedStatement pstmtUpdate = conn.prepareStatement(query);
+            pstmtUpdate.executeUpdate();
+        }
+    }
+}

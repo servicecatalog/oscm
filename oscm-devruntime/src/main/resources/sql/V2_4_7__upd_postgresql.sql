@@ -1,0 +1,2 @@
+UPDATE "hibernate_sequences" SET "sequence_next_hi_value" = (select COALESCE((MAX(tkey)/1000),0)+10 FROM "revenuesharemodel") where "sequence_name" = 'RevenueShareModel';
+UPDATE "hibernate_sequences" SET "sequence_next_hi_value" = (select COALESCE((MAX(tkey)/1000),0)+10 FROM "revenuesharemodelhistory") where "sequence_name" = 'RevenueShareModelHistory';

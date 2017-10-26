@@ -1,0 +1,3 @@
+INSERT INTO "report" ("tkey", "version", "reportname", "organizationrole_tkey") VALUES ( 14, 0, 'ExternalServices', 4);
+INSERT INTO "localizedresource" ("tkey", "version", "locale", "objectkey", "objecttype", "value") VALUES ((select COALESCE(MAX(tkey), 0) + 1 from "localizedresource"), 0, 'de', 14, 'REPORT_DESC', 'External services report');
+INSERT INTO "localizedresource" ("tkey", "version", "locale", "objectkey", "objecttype", "value") VALUES ((select COALESCE(MAX(tkey), 0) + 1 from "localizedresource"), 0, 'en', 14, 'REPORT_DESC', 'External services report');
