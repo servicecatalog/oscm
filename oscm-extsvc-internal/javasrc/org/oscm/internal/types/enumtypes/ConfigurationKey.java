@@ -143,12 +143,6 @@ public enum ConfigurationKey {
     @Example("http://<your server>:<your port>/Report/ReportingServiceBean or https://<your server>:<your port>/ReportSecure/ReportingServiceSecureBean")
     REPORT_SOAP_ENDPOINT(false, "", "url"),
 
-    @Doc({ "The proxy to be used for HTTP connections, if any." })
-    HTTP_PROXY(false, "", "string"),
-
-    @Doc({ "The proxy port to be used for HTTP connections, if any." })
-    HTTP_PROXY_PORT(false, "1080", "long", Long.valueOf(1L), Long.valueOf(65535L), false),
-
     @Doc({ "Specifies whether the PSP integration is used for the",
             "current environment." })
     @Example("false")
