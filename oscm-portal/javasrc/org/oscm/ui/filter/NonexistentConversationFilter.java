@@ -36,7 +36,7 @@ public class NonexistentConversationFilter implements Filter  {
         try {
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception t) {
-            Throwable exc = t.getCause();
+            Throwable exc = t;
             while(exc != null && !(exc instanceof NonexistentConversationException)) {
                 exc = exc.getCause();
             }
