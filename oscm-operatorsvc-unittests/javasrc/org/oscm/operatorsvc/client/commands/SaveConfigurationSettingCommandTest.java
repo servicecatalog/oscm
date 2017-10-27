@@ -51,7 +51,7 @@ public class SaveConfigurationSettingCommandTest extends CommandTestBase {
         stubCallReturn = Arrays.asList(new VOConfigurationSetting(
                 ConfigurationKey.BASE_URL, "", "value"));
         final String value = "value";
-        final ConfigurationKey key = ConfigurationKey.HTTP_PROXY;
+        final ConfigurationKey key = ConfigurationKey.MP_ERROR_REDIRECT_HTTP;
 
         args.put("settingKey", key.name());
         args.put("settingValue", value);
@@ -75,7 +75,7 @@ public class SaveConfigurationSettingCommandTest extends CommandTestBase {
     @Test
     public void testSuccess_UpdateExisting() throws Exception {
         final String value = "value";
-        final ConfigurationKey key = ConfigurationKey.HTTP_PROXY;
+        final ConfigurationKey key = ConfigurationKey.MP_ERROR_REDIRECT_HTTP;
         VOConfigurationSetting cs = new VOConfigurationSetting(key, "context",
                 "oldvalue");
         cs.setKey(1234);
