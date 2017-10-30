@@ -220,7 +220,7 @@
       <property name="hibernate.id.new_generator_mappings" value="false"/>
       <property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.SunOneJtaPlatform"/>
       <property name="hibernate.classloading.use_current_tccl_as_parent" value="false"/>
-<property name="hibernate.search.default.directory_provider" value="org.hibernate.search.store.impl.RAMDirectoryProvider"/>
+      <property name="hibernate.search.default.directory_provider" value="org.hibernate.search.store.impl.RAMDirectoryProvider"/>
     </properties>
 
   </persistence-unit>
