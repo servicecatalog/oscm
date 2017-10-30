@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>oscm</artifactId>
-    <groupId>oscm</groupId>
+    <groupId>org.oscm</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -14,132 +14,132 @@
 
   <dependencies>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-subscriptionmgmt-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-common</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-serviceprovisioning-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-identitymgmt-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-communicationservices-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-intsvc-base</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-application-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-i18n-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-sessionmgmt-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-accountmgmt-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-triggerservice-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-extsvc-internal</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-extsvc-provisioning</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-taskhandling-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-extsvc-notification</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-auditlog</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-tenantprovisioning</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-triggerservice</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-usergroupmgmt</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-extsvc-operation</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-server-util</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-internal-interfaces</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
