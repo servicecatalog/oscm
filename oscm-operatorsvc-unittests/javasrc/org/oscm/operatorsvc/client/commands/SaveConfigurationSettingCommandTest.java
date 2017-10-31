@@ -65,7 +65,7 @@ public class SaveConfigurationSettingCommandTest extends CommandTestBase {
         assertEquals(key, cs.getInformationId());
         assertEquals(0, cs.getKey());
         assertEquals(0, cs.getVersion());
-        assertOut("Configuration setting 'HTTP_PROXY' with value 'value' was successfully stored.%n");
+        assertOut("Configuration setting '" + ConfigurationKey.MP_ERROR_REDIRECT_HTTP + "' with value 'value' was successfully stored.%n");
         assertErr("");
     }
 
@@ -93,7 +93,7 @@ public class SaveConfigurationSettingCommandTest extends CommandTestBase {
         assertEquals(1234, cs.getKey());
         assertEquals(5, cs.getVersion());
         assertEquals(value, cs.getValue());
-        assertOut("Configuration setting 'HTTP_PROXY' with value 'value' was successfully stored.%n");
+        assertOut("Configuration setting '"+ ConfigurationKey.MP_ERROR_REDIRECT_HTTP +"' with value 'value' was successfully stored.%n");
         assertErr("");
     }
 
