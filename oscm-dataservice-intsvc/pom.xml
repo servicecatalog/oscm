@@ -11,11 +11,7 @@
   <artifactId>oscm-dataservice-intsvc</artifactId>
 
   <dependencies>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-extsvc-internal</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>

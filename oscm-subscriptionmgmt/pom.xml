@@ -18,11 +18,7 @@
       <artifactId>oscm-subscriptionmgmt-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
@@ -83,16 +79,8 @@
       <artifactId>oscm-server-common</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-extsvc-internal</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-extsvc-provisioning</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-provisioning</artifactId>        </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-taskhandling-intsvc</artifactId>
@@ -103,11 +91,7 @@
       <artifactId>oscm-dataservice-intsvc</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-extsvc-notification</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-notification</artifactId>      </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-auditlog</artifactId>
@@ -128,11 +112,7 @@
       <artifactId>oscm-usergroupmgmt</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-extsvc-operation</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-operation</artifactId>        </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-server-util</artifactId>

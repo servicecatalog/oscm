@@ -249,10 +249,8 @@
       <type>war</type>
     </dependency>
     <dependency>
-      <groupId>org.oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
       <artifactId>oscm-rest-api-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
@@ -269,28 +267,20 @@
       <type>ejb</type>
     </dependency>
     <dependency>
-      <groupId>org.oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
       <artifactId>oscm-psp-extsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
       <artifactId>oscm-extsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
       <artifactId>oscm-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
       <artifactId>oscm-extsvc-internal</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>

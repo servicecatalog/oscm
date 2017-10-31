@@ -11,21 +11,13 @@
   <artifactId>oscm-communicationservices-intsvc</artifactId>
 
   <dependencies>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-extsvc-internal</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
 
     <dependency>
       <groupId>org.apache.tomee</groupId>

@@ -16,13 +16,21 @@
     <database.user>postgres</database.user>
     <databese.password>postgres</databese.password>
     <schema.name>bssuser</schema.name>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
 
   <modules>
     <module>oscm-ear</module>
     <module>oscm-accountmgmt</module>
     <module>oscm-domainobjects</module>
-    <module>oscm-common</module>
     <module>oscm-intsvc-base</module>
     <module>oscm-accountmgmt-intsvc</module>
     <module>oscm-communicationservices-intsvc</module>
@@ -33,7 +41,6 @@
     <module>oscm-triggerservice-intsvc</module>
     <module>oscm-application-intsvc</module>
     <module>oscm-configservice-intsvc</module>
-    <module>oscm-extsvc-internal</module>
     <module>oscm-dataservice-intsvc</module>
     <module>oscm-i18n-intsvc</module>
     <module>oscm-serviceprovisioning-intsvc</module>
@@ -41,8 +48,6 @@
     <module>oscm-subscriptionmgmt</module>
     <module>oscm-server-util</module>
     <module>oscm-marketplaceservice-intsvc</module>
-    <module>oscm-extsvc-provisioning</module>
-    <module>oscm-extsvc-operation</module>
     <module>oscm-internal-interfaces</module>
     <module>oscm-usergroupmgmt</module>
     <module>oscm-application</module>
@@ -70,17 +75,14 @@
     <module>oscm-billing-external-interfaces</module>
     <module>oscm-timermgmt</module>
     <module>oscm-paymentprocessing</module>
-    <module>oscm-psp-extsvc</module>
     <module>oscm-webservices-client</module>
     <module>oscm-converter</module>
-    <module>oscm-extsvc</module>
     <module>oscm-pspresponse</module>
     <module>oscm-reporting</module>
     <module>oscm-tenantprovisioning</module>
     <module>oscm-kafka</module>
     <module>oscm-sessionmgmt</module>
     <module>oscm-startup</module>
-    <module>oscm-extsvc-notification</module>
     <module>oscm-taskhandling</module>
     <module>oscm-vat</module>
     <module>oscm-webservices</module>
@@ -88,13 +90,54 @@
     <module>oscm-apiversioning-soapmgmt</module>
     <module>oscm-wsdldeliver</module>
     <module>oscm-rest-api-trigger</module>
-    <module>oscm-rest-api-common</module>
     <module>oscm-devruntime</module>
     <module>oscm-psp-heidelpay</module>
   </modules>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-commons</groupId>
+        <artifactId>oscm-common</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-commons</groupId>
+        <artifactId>oscm-rest-api-common</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <artifactId>oscm-extsvc-internal</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <artifactId>oscm-extsvc-notification</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <artifactId>oscm-extsvc-operation</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <artifactId>oscm-extsvc-provisioning</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <artifactId>oscm-extsvc</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <artifactId>oscm-psp-extsvc</artifactId>
+        <version>1.0</version>
+      </dependency>
+
+
       <dependency>
         <groupId>org.apache.tomee</groupId>
         <artifactId>javaee-api</artifactId>
