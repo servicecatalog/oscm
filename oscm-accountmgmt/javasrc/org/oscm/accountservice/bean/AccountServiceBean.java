@@ -3738,7 +3738,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
             "UNIT_ADMINISTRATOR" })
     public Set<VOPaymentType> getAvailablePaymentTypes() {
 
-        Query query = dm.createNamedQuery("PaymentType.getAllExceptInvoice");
+        Query query = dm.createNamedQuery("PaymentType.getAll");
         List<PaymentType> list = ParameterizedTypes.list(query.getResultList(),
                 PaymentType.class);
         Set<VOPaymentType> result = PaymentTypeAssembler.toVOPaymentTypes(list,
