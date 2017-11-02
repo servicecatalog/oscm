@@ -899,11 +899,6 @@ public class DataServiceBean implements DataService {
     public void persistPlatformUserWithTenant(PlatformUser pu, String tenantId)
             throws NonUniqueBusinessKeyException {
         setThreadLocals();
-        // Query namedQuery =
-        // createNamedQuery("PlatformUser.findByUserIdAndTenant");
-        // namedQuery.setParameter("userId", pu.getUserId());
-        // namedQuery.setParameter("tenantId", tenantId);
-        // List users = namedQuery.getResultList();
         PlatformUser user = find(pu);
         if (user != null) {
             DomainObjectException.ClassEnum classEnum = class2Enum(pu

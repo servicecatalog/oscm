@@ -1,0 +1,166 @@
+<!-- Copyright FUJITSU LIMITED 2017-->
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich">
+
+  <a4j:outputPanel id="detailsAndCustomPanel">
+  <rich:tabPanel id="detailsAndCustomTabPanel" switchType="client" activeItem="#{sessionBean.selectedTab}" rendered="#{not empty subscription}">
+    <rich:tab id="tabDetails" header="#{msg['subscriptions.table.details']}" >
+      <a4j:outputPanel id="subscriptionDetailsPanel" layout="block" styleClass="grid2span clearfix serviceBox4span">
+        <h:form id="subscriptionUsagePanelForm">
+          <span id="anchor"></span>
+          <a4j:outputPanel id="subscriptionUsagePanelPane" layout="block">
+            <!-- subscription details -->
+            <a4j:outputPanel layout="block" styleClass="leftCenterBorder clearfix">
+              <mp:subscriptionBlock fieldId="subscriptionBlock"
+                                    subscription="#{subscription}" />
+            </a4j:outputPanel>
+            <!-- subscription status / administer -->
+            <a4j:outputPanel layout="block" styleClass="right clearfix">
+
+              <ui:include src="status.xhtml">
+                <ui:param name="sub" value="#{subscription}" />
+              </ui:include>
+
+            </a4j:outputPanel>
+
+            <!-- buttons and operations -->
+            <a4j:outputPanel layout="block" styleClass="leftCenterBorder clearfix" style="padding-top:10px;">
+
+              <a4j:outputPanel id="operations" layout="block" styleClass="center clearfix" style="margin-left:115px;">
+                <!-- only render the select box and the execute button if operations are available -->
+                <ui:fragment rendered="#{subscription.operationsRendered}">
+
+                  <h:form id="executeForm">
+                    <h:selectOneMenu styleClass="selectOneMenu operationElement" id="execute"
+                                     value="#{subscription.selectedOperationId}"
+                                     onchange="AdmUtils.showProgress(true);hideMessages();selectOperation('#{subscription.subscriptionId}', this.value, 'execute');">
+                      <f:selectItem itemLabel="#{msg['common.pleaseSelect']}" itemValue="" />
+                      <f:selectItems
+                              value="#{subscription.technicalServiceOperationItems}" />
+                    </h:selectOneMenu>
+
+                    <mp:button id="executeButton" value="#{msg['button.execute']}" style="float:left;margin:0px"
+                               disabled="#{subscription.executeDisabled or !subscription.statusActive}"
+                               onclick="hideMessages();AdmUtils.showProgress(true);executeOperation('#{subscription.subscriptionId}');return false;" />
+
+                    <a4j:outputPanel layout="block" id="executeDescriptionDiv" style="clear:left;padding-top:5px;">
+                      #{sub.operationDescription}
+                    </a4j:outputPanel>
+
+                    <!-- input fields for parameters -->
+                    <adm:panelGrid columnClasses="smallPanelCol1,smallPanelCol2,smallPanelCol3">
+                      <c:forEach items="#{subscription.operationParameters}" var="op"
+                                 varStatus="opStatus">
+                        <mp:labelAndInputText id="input#{op.id}" label="#{op.name}" value="#{op.value}"
+                                              required="#{op.mandatory}" rendered="#{op.renderInput}" maxlength="#{appBean.nameLen}"
+                                              converterId="trimConverter" labelEllipsisRequired="true">
+                          <f:ajax event="change" />
+                        </mp:labelAndInputText>
+                        <mp:labelAndSelect id="select#{op.id}" label="#{op.name}" value="#{op.value}"
+                                           required="#{op.mandatory}" rendered="#{op.renderSelect}" labelEllipsisRequired="true">
+                          <f:selectItems value="#{op.values}" />
+                        </mp:labelAndSelect>
+                      </c:forEach>
+                    </adm:panelGrid>
+
+                    <a4j:jsFunction name="selectOperation" action="#{mySubscriptionsCtrl.operationChanged}"
+                                    render="operations" oncomplete="AdmUtils.showProgress(false);">
+                      <a4j:param name="param1" assignTo="#{mySubscriptionsCtrl.model.subscriptionIdForOperation}" />
+                      <a4j:param name="param2"
+                                 assignTo="#{subscription.selectedOperationId}" />
+                      <a4j:param name="param3" assignTo="#{mySubscriptionsCtrl.selectId}" />
+                    </a4j:jsFunction>
+
+                    <a4j:jsFunction name="executeOperation" action="#{mySubscriptionsCtrl.executeOperation}"
+                                    limitRender="true" render=":executeForm, :executeOperationMsgPanel"
+                                    oncomplete="AdmUtils.showProgress(false);setDirty(false);">
+                      <a4j:param name="param1" assignTo="#{mySubscriptionsCtrl.model.subscriptionIdForOperation}" />
+                    </a4j:jsFunction>
+
+                  </h:form>
+
+                  <!-- message stuff -->
+                  <a4j:outputPanel id="executeOperationMsgPanel" layout="block">
+                    <a4j:outputPanel id="executeInfoPanel" layout="block"
+                                     rendered="#{facesContext.maximumSeverity.ordinal == 0}">
+                      <mp:message infoClass="infoMsg" passedLabel="" layout="list" styleClass="messageMarkerInfo"
+                                  id="executeInfoMessages">
+                      </mp:message>
+                    </a4j:outputPanel>
+                    <a4j:outputPanel id="executeErrorPanel" layout="block"
+                                     rendered="#{facesContext.maximumSeverity.ordinal > 0}">
+                      <mp:message globalOnly="true" passedLabel="" layout="list" styleClass="messageMarkerError"
+                                  id="executeErrorMessages">
+                      </mp:message>
+                    </a4j:outputPanel>
+                  </a4j:outputPanel>
+
+                </ui:fragment>
+              </a4j:outputPanel>
+            </a4j:outputPanel>
+
+            <a4j:outputPanel layout="block" styleClass="right clearfix" style="padding-top:10px;">
+              <mp:button id="useSubscription" value="#{msg['button.useService']}"
+                         rendered="#{subscription.showUseServiceButton}"
+                         onclick="startService('#{subscription.target}', '#{subscription.accessUrl}');return false;">
+              </mp:button>
+            </a4j:outputPanel>
+          </a4j:outputPanel>
+
+        </h:form>
+
+        <h:outputText id="AccessInfoFormPart" value="#{subscription.serviceAccessInfoFormPart}"
+                      rendered="#{not empty subscription.serviceAccessInfoFormPart}" escape="false" />
+
+        <form id="subscriptionForm"></form>
+        <script type="text/javascript">
+          startService = function(subscriptionKey, accessUrl) {
+              var f = document.getElementById('subscriptionForm');
+              f.target = subscriptionKey;
+              f.action = accessUrl;
+              f.submit();
+          }
+
+          hideMessages = function() {
+              var i = 0;
+              var e = null;
+              while (document.getElementById("subscriptionSubscriptionId")) {
+                  e = document.getElementById("executeOperationMsgPanel");
+                  if (e) {
+                      e.style.display = "none";
+                  }
+                  i++;
+              }
+          }
+      </script>
+      </a4j:outputPanel>
+    </rich:tab>
+    <rich:tab id="customTab" header="#{subscription.customTabName}" rendered="#{not empty subscription.customTabName}">
+      <h:panelGroup id="loading">#{msg['info.loadingCustomTab']}
+        <h:panelGroup id="wait" />
+          <script type="text/javascript">
+            var dots = window.setInterval( function() {
+                var wait = document.getElementById("wait");
+                if ( wait.innerHTML.length > 2 ) {
+                    wait.innerHTML = "";
+                }
+                else {
+                    wait.innerHTML += ".";
+                }
+                }, 350);
+          </script>
+      </h:panelGroup>
+      <iframe id="customData" src="#{mySubscriptionsCtrl.customTabUrlWithParameters}" width="100%" height="500"
+              style="border: none" onload="$('#loading').hide();clearInterval(dots);"/>
+    </rich:tab>
+
+  </rich:tabPanel>
+  </a4j:outputPanel>
+
+</ui:composition>
