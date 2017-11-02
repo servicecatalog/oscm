@@ -20,6 +20,7 @@
  	height: 34px;
  	background: url(../img/global_header/oscm.png) left top no-repeat;
  	overflow: hidden;
+ 	cursor: pointer;
 }
  
 /* left side */
@@ -56,6 +57,7 @@
      height: 34px;
      padding-left: 0;
      width: 20px;
+     cursor: pointer;
 }
 
 /* String element */

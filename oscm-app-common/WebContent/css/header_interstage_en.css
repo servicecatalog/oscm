@@ -20,6 +20,7 @@
 	height: 34px;
 	background: url(../img/global_header/oscm.png) left top no-repeat;
 	overflow: hidden;
+	cursor: pointer;
  }
  
 /* Left side */
