@@ -96,8 +96,9 @@ public class ConfigurationSettingsBean extends BaseOperatorBean implements
                         .getConfigurationSettings();
                 fillAllConfigurationKeys();
                 // Filter the SOP configuration settings, if necessary.
-                filterSOPConfigurationSettings();
                 filterSSOConfigurationSettings();
+                filterSOPConfigurationSettings();
+                filterHiddenConfigurationSettings();
                 Collections.sort(configurationSettings,
                         new DefaultSortingOfConfigurationSettings());
             } catch (OrganizationAuthoritiesException e) {
@@ -167,6 +168,19 @@ public class ConfigurationSettingsBean extends BaseOperatorBean implements
     }
 
     /**
+     * Filters the hidden configuration settings.
+     */
+    private void filterHiddenConfigurationSettings() {
+        for (Iterator<VOConfigurationSetting> i = configurationSettings
+                .iterator(); i.hasNext();) {
+            VOConfigurationSetting setting = i.next();
+            if (isHiddenSetting(setting)) {
+                i.remove();
+            }
+        }
+    }
+
+    /**
      * returns true if a VOConfigurationSetting is an SOP configuration setting
      * and false otherwise.
      * 
@@ -200,6 +214,24 @@ public class ConfigurationSettingsBean extends BaseOperatorBean implements
             return false;
         }
         if (settingName.startsWith(SSO_STARTING_PREFIX)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * returns true if a VOConfigurationSetting is a hidden configuration setting
+     * and false otherwise.
+     *
+     * @param setting the VOConfigurationSetting to check.
+     * @return a boolean indicating if a configuration setting is a hidden
+     * setting.
+     */
+    private boolean isHiddenSetting(VOConfigurationSetting setting) {
+        final List<String> hiddenSettings = Arrays.asList("LOG_FILE_PATH", "LOG_CONFIG_FILE", "KEY_FILE_PATH");
+        final String settingName = setting.getInformationId().getKeyName();
+
+        if (hiddenSettings.contains(settingName)) {
             return true;
         }
         return false;

@@ -51,7 +51,7 @@ public class SaveConfigurationSettingCommandTest extends CommandTestBase {
         stubCallReturn = Arrays.asList(new VOConfigurationSetting(
                 ConfigurationKey.BASE_URL, "", "value"));
         final String value = "value";
-        final ConfigurationKey key = ConfigurationKey.HTTP_PROXY;
+        final ConfigurationKey key = ConfigurationKey.MP_ERROR_REDIRECT_HTTP;
 
         args.put("settingKey", key.name());
         args.put("settingValue", value);
@@ -65,7 +65,7 @@ public class SaveConfigurationSettingCommandTest extends CommandTestBase {
         assertEquals(key, cs.getInformationId());
         assertEquals(0, cs.getKey());
         assertEquals(0, cs.getVersion());
-        assertOut("Configuration setting 'HTTP_PROXY' with value 'value' was successfully stored.%n");
+        assertOut("Configuration setting '" + ConfigurationKey.MP_ERROR_REDIRECT_HTTP + "' with value 'value' was successfully stored.%n");
         assertErr("");
     }
 
@@ -75,7 +75,7 @@ public class SaveConfigurationSettingCommandTest extends CommandTestBase {
     @Test
     public void testSuccess_UpdateExisting() throws Exception {
         final String value = "value";
-        final ConfigurationKey key = ConfigurationKey.HTTP_PROXY;
+        final ConfigurationKey key = ConfigurationKey.MP_ERROR_REDIRECT_HTTP;
         VOConfigurationSetting cs = new VOConfigurationSetting(key, "context",
                 "oldvalue");
         cs.setKey(1234);
@@ -93,7 +93,7 @@ public class SaveConfigurationSettingCommandTest extends CommandTestBase {
         assertEquals(1234, cs.getKey());
         assertEquals(5, cs.getVersion());
         assertEquals(value, cs.getValue());
-        assertOut("Configuration setting 'HTTP_PROXY' with value 'value' was successfully stored.%n");
+        assertOut("Configuration setting '"+ ConfigurationKey.MP_ERROR_REDIRECT_HTTP +"' with value 'value' was successfully stored.%n");
         assertErr("");
     }
 
