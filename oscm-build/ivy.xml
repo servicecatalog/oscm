@@ -402,6 +402,7 @@
     <dependency org="org.apache.kafka" name="kafka-clients" rev="0.10.2.1" transitive="false"/>
     <dependency org="org.apache.cxf" name="cxf-rt-frontend-jaxrs" rev="3.1.0" transitive="false"/>
     <dependency org="org.apache.cxf" name="cxf-core" rev="3.1.10" transitive="false"/>
+    <dependency org="org.apache.cxf" name="cxf-rt-rs-client" rev="3.1.10" transitive="false"/>
 
     <exclude org="org.netbeans.api"/>
     <exclude org="*" ext="*" type="source"/>

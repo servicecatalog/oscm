@@ -45,7 +45,6 @@ public class NotificationServiceAdapterFactoryTest {
     }
 
     @Test
-    @Ignore
     public void getAdapter() throws Exception {
 
         TriggerDefinition td = new TriggerDefinition();
@@ -80,12 +79,6 @@ public class NotificationServiceAdapterFactoryTest {
         verify(adapter, times(1)).setConfigurationService(eq(cs));
         verify(adapter, times(1)).setDataService(eq(ds));
         verify(adapter, times(1)).setNotificationService(eq(port));
-    }
-
-    void givenVersion(String version) {
-        WSPortDescription pdMock = mock(WSPortDescription.class);
-        when(pdMock.getVersion()).thenReturn(version);
-        when(pcMock.getPortDescription()).thenReturn(pdMock);
     }
 
 }

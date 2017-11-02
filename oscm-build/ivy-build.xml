@@ -222,6 +222,8 @@
         <copy file="${ivy.lib.dir}/cxf-rt-frontend-jaxrs-3.1.0.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/cxf-rt-frontend-jaxrs.jar" overwrite="true"/>
         <copy file="${ivy.lib.dir}/cxf-core-3.1.10.jar"
               tofile="${root.dir}/libraries/apache-tomee/javalib/cxf-core.jar" overwrite="true"/>
+        <copy file="${ivy.lib.dir}/cxf-rt-rs-client-3.1.10.jar"
+              tofile="${root.dir}/libraries/apache-tomee/javalib/cxf-rt-rs-client-3.1.10.jar" overwrite="true"/>
 
     </target>
 </project>
