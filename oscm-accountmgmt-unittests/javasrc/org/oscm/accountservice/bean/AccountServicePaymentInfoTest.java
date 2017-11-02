@@ -413,7 +413,7 @@ public class AccountServicePaymentInfoTest {
                 Collections.singletonList(creditCard));
         Mockito.when(
                 dataServiceMock.createNamedQuery(Matchers
-                        .eq("PaymentType.getAllExceptInvoice"))).thenReturn(
+                        .eq("PaymentType.getAll"))).thenReturn(
                 query);
         Set<VOPaymentType> types = accountServiceBean
                 .getAvailablePaymentTypes();
