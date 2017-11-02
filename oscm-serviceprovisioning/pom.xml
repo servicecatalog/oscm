@@ -142,7 +142,7 @@
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-analyzers-common</artifactId>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
+
     <dependency>
       <groupId>org.apache.lucene</groupId>
       <artifactId>lucene-core</artifactId>
@@ -175,7 +175,7 @@
       <groupId>antlr</groupId>
       <artifactId>antlr</artifactId>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+
     <dependency>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
