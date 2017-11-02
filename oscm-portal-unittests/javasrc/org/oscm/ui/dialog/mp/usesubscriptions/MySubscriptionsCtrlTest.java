@@ -251,7 +251,6 @@ public class MySubscriptionsCtrlTest {
         assertNull(model.getSelectedSubscription());
     }
 
-    @Ignore
     @Test
     public void testCustomerTabURL() throws Exception {
         CertAndKeyGen gen = new CertAndKeyGen("RSA", "SHA1WithRSA", null);
