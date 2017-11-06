@@ -32,7 +32,7 @@ import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.i18nservice.bean.LocalizerFacade;
 import org.oscm.i18nservice.local.ImageResourceServiceLocal;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
-import org.oscm.interceptor.AuditLogDataInterceptor;
+import org.oscm.auditlog.interceptor.AuditLogDataInterceptor;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;

@@ -9,13 +9,13 @@
  *                                                                              
  *******************************************************************************/
 
-package org.oscm.interceptor;
+package org.oscm.auditlog.interceptor;
 
 import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
-import org.oscm.auditlog.AuditLogData;
+import org.oscm.auditlog.util.AuditLogData;
 import org.oscm.auditlog.bean.AuditLogServiceBean;
 
 public class AuditLogDataInterceptor {

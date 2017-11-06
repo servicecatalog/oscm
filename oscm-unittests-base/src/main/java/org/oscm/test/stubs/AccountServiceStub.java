@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-import org.oscm.accountservice.local.AccountServiceLocal;
 import org.oscm.domobjects.Discount;
 import org.oscm.domobjects.ImageResource;
 import org.oscm.domobjects.Organization;
@@ -45,7 +44,7 @@ import org.oscm.internal.vo.VOUda;
 import org.oscm.internal.vo.VOUdaDefinition;
 import org.oscm.internal.vo.VOUserDetails;
 
-public class AccountServiceStub implements AccountService, AccountServiceLocal {
+public class AccountServiceStub implements AccountService {
 
     @Override
     public void deregisterOrganization() {
@@ -103,13 +102,11 @@ public class AccountServiceStub implements AccountService, AccountServiceLocal {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public Organization addOrganizationToRole(String organizationId,
             OrganizationRoleType role) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public Organization registerOrganization(Organization organization,
             ImageResource imageResource, VOUserDetails user,
             Properties organizationProperties, String domicileCountry,
@@ -119,12 +116,10 @@ public class AccountServiceStub implements AccountService, AccountServiceLocal {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public void removeOverdueOrganization(Organization organization) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public boolean removeOverdueOrganizations(long currentTime) {
         throw new UnsupportedOperationException();
     }
@@ -183,32 +178,27 @@ public class AccountServiceStub implements AccountService, AccountServiceLocal {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public List<OrganizationReference> getOrganizationForDiscountEndNotificiation(
             long currentTimeMillis) {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public boolean sendDiscountEndNotificationMail(long currentTimeMillis)
             throws MailOperationException {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public void checkDistinguishedName(Organization organization)
             throws DistinguishedNameException {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public VOOrganization registerKnownCustomerInt(TriggerProcess tp)
             throws OrganizationAuthoritiesException, ValidationException,
             NonUniqueBusinessKeyException, MailOperationException {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public void savePaymentConfigurationInt(TriggerProcess tp)
             throws ObjectNotFoundException {
         throw new UnsupportedOperationException();
@@ -281,13 +271,11 @@ public class AccountServiceStub implements AccountService, AccountServiceLocal {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public void processImage(ImageResource imageResource, long organizationKey)
             throws ValidationException {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public void updateAccountInformation(Organization organization,
             VOUserDetails user, String marketplaceId)
             throws ValidationException, NonUniqueBusinessKeyException,
@@ -297,7 +285,6 @@ public class AccountServiceStub implements AccountService, AccountServiceLocal {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public Discount updateCustomerDiscount(Organization organization,
             Discount discount, Integer discountVersion)
             throws ObjectNotFoundException, ValidationException,
@@ -350,7 +337,6 @@ public class AccountServiceStub implements AccountService, AccountServiceLocal {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public List<PlatformUser> getOrganizationAdmins(long organizationKey) {
         throw new UnsupportedOperationException();
     }
@@ -360,7 +346,6 @@ public class AccountServiceStub implements AccountService, AccountServiceLocal {
         throw new UnsupportedOperationException();
     }
 
-    @Override
     public boolean isPaymentTypeEnabled(long serviceKey, long paymentTypeKey)
             throws ObjectNotFoundException {
         return false;
@@ -378,7 +363,6 @@ public class AccountServiceStub implements AccountService, AccountServiceLocal {
         return 0;
     }
 
-    @Override
     public boolean checkUserNum() throws MailOperationException {
         return false;
     }

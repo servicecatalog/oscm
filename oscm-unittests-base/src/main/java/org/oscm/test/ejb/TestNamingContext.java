@@ -17,7 +17,6 @@ import java.util.Hashtable;
 
 import javax.naming.*;
 
-import org.oscm.dataservice.bean.HibernateIndexer;
 import org.oscm.internal.types.exception.UnsupportedOperationException;
 
 /**

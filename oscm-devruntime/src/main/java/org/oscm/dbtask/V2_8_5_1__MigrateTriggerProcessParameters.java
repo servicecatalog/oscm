@@ -9,6 +9,7 @@
 package org.oscm.dbtask;
 
 import java.beans.XMLDecoder;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,7 +21,6 @@ import org.flywaydb.core.api.migration.jdbc.JdbcMigration;
 import org.oscm.utils.PreparedStatementBuilder;
 import org.oscm.utils.XmlStringCleaner;
 import org.oscm.converter.XMLSerializer;
-import org.oscm.stream.Streams;
 import org.oscm.internal.types.enumtypes.EventType;
 import org.oscm.internal.types.enumtypes.OfferingType;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
@@ -116,7 +116,7 @@ public class V2_8_5_1__MigrateTriggerProcessParameters extends DatabaseUpgradeTa
     }
 
     private List<VOTriggerProcessParameter> findTriggerProcessParameters()
-            throws SQLException {
+        throws SQLException, IOException {
         ResultSet resultSet = statementBuilder
                 .setQuery(QUERY_ALL_PRODUCT_PARAMETERS).build().executeQuery();
 
@@ -169,14 +169,14 @@ public class V2_8_5_1__MigrateTriggerProcessParameters extends DatabaseUpgradeTa
      * @return The object.
      */
     <T> T getObjectFromXML(ResultSet resultSet, Class<T> expectedClass)
-            throws SQLException {
+        throws SQLException, IOException {
         InputStream is = null;
         try {
             is = resultSet.getBinaryStream("value");
             XMLDecoder decoder = new XMLDecoder(is);
             return expectedClass.cast(decoder.readObject());
         } finally {
-            Streams.close(is);
+            is.close();
         }
     }
 

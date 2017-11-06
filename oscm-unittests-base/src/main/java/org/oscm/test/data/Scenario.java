@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.Currency;
 import java.util.List;
 
-import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Event;
 import org.oscm.domobjects.Marketplace;
@@ -266,10 +265,15 @@ public class Scenario {
         subUda2 = Udas.createUda(dm, subscription, udaDefSub2, "UdaSub_Value2");
 
         product.setStatus(ServiceStatus.INACTIVE);
-        voCustomer = OrganizationAssembler
-                .toVOOrganization(customer, false, lf);
-        voSecondCustomer = OrganizationAssembler.toVOOrganization(
-                secondCustomer, false, lf);
+        voCustomer = new VOOrganization();
+        voCustomer.setKey(customer.getKey());
+        voCustomer.setVersion(customer.getVersion());
+        voCustomer.setOrganizationId(customer.getOrganizationId());
+
+        voSecondCustomer = new VOOrganization();
+        voSecondCustomer.setKey(secondCustomer.getKey());
+        voSecondCustomer.setVersion(secondCustomer.getVersion());
+        voSecondCustomer.setOrganizationId(secondCustomer.getOrganizationId());
 
         // create customer specific copy of the service
         String productId = product.getProductId();

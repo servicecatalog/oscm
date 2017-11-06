@@ -8,7 +8,7 @@
 
 package org.oscm.usergroupservice.auditlog;
 
-import org.oscm.auditlog.AuditLogParameter;
+import org.oscm.auditlog.util.AuditLogParameter;
 
 /**
  * @author zhaoh.fnst

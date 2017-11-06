@@ -33,9 +33,7 @@ import org.oscm.auditlog.model.AuditLog;
 import org.oscm.auditlog.model.AuditLogEntries;
 import org.oscm.auditlog.model.AuditLogEntry;
 import org.oscm.auditlog.util.AuditLogSerializer;
-import org.oscm.configurationservice.bean.ConfigurationServiceBean;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;
-import org.oscm.dataservice.bean.DataServiceBean;
 import org.oscm.domobjects.ConfigurationSetting;
 import org.oscm.internal.types.exception.AuditLogTooManyRowsException;
 import org.oscm.test.EJBTestBase;
@@ -51,10 +49,8 @@ public class AuditLogServiceBeanIT extends EJBTestBase {
     private final List<String> operatorIds = new ArrayList<>();
 
     @Override
-    protected void setup(TestContainer beanManager) throws Exception {
+    protected void setup(final TestContainer beanManager) throws Exception {
         beanManager.addBean(new ConfigurationServiceStub());
-        beanManager.addBean(new DataServiceBean());
-        beanManager.addBean(new ConfigurationServiceBean());
         beanManager.addBean(spy(new AuditLogDao()));
         beanManager.addBean(new AuditLogServiceBean());
         logService = spy(beanManager.get(AuditLogServiceBean.class));

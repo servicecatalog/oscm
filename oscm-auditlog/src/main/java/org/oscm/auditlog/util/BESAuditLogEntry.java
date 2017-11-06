@@ -2,26 +2,26 @@
  *  Copyright FUJITSU LIMITED 2017
  *******************************************************************************/
 
-package org.oscm.auditlog;
+package org.oscm.auditlog.util;
 
-import static org.oscm.auditlog.AuditLogParameter.ACTION_NAME;
-import static org.oscm.auditlog.AuditLogParameter.CALCULATION_MODE;
-import static org.oscm.auditlog.AuditLogParameter.CURRENCY_CODE;
-import static org.oscm.auditlog.AuditLogParameter.CUSTOMER_ID;
-import static org.oscm.auditlog.AuditLogParameter.CUSTOMER_NAME;
-import static org.oscm.auditlog.AuditLogParameter.EVENT_NAME;
-import static org.oscm.auditlog.AuditLogParameter.ONE_TIME_FEE;
-import static org.oscm.auditlog.AuditLogParameter.OPTION_NAME;
-import static org.oscm.auditlog.AuditLogParameter.PARAMETER_NAME;
-import static org.oscm.auditlog.AuditLogParameter.PRICE;
-import static org.oscm.auditlog.AuditLogParameter.RANGE;
-import static org.oscm.auditlog.AuditLogParameter.RECURRING_CHARGE;
-import static org.oscm.auditlog.AuditLogParameter.SERVICE_ID;
-import static org.oscm.auditlog.AuditLogParameter.SERVICE_NAME;
-import static org.oscm.auditlog.AuditLogParameter.SUBSCRIPTION_NAME;
-import static org.oscm.auditlog.AuditLogParameter.TIMEUNIT;
-import static org.oscm.auditlog.AuditLogParameter.TRIAL_PERIOD;
-import static org.oscm.auditlog.AuditLogParameter.USER_ROLE;
+import static org.oscm.auditlog.util.AuditLogParameter.ACTION_NAME;
+import static org.oscm.auditlog.util.AuditLogParameter.CALCULATION_MODE;
+import static org.oscm.auditlog.util.AuditLogParameter.CURRENCY_CODE;
+import static org.oscm.auditlog.util.AuditLogParameter.CUSTOMER_ID;
+import static org.oscm.auditlog.util.AuditLogParameter.CUSTOMER_NAME;
+import static org.oscm.auditlog.util.AuditLogParameter.EVENT_NAME;
+import static org.oscm.auditlog.util.AuditLogParameter.ONE_TIME_FEE;
+import static org.oscm.auditlog.util.AuditLogParameter.OPTION_NAME;
+import static org.oscm.auditlog.util.AuditLogParameter.PARAMETER_NAME;
+import static org.oscm.auditlog.util.AuditLogParameter.PRICE;
+import static org.oscm.auditlog.util.AuditLogParameter.RANGE;
+import static org.oscm.auditlog.util.AuditLogParameter.RECURRING_CHARGE;
+import static org.oscm.auditlog.util.AuditLogParameter.SERVICE_ID;
+import static org.oscm.auditlog.util.AuditLogParameter.SERVICE_NAME;
+import static org.oscm.auditlog.util.AuditLogParameter.SUBSCRIPTION_NAME;
+import static org.oscm.auditlog.util.AuditLogParameter.TIMEUNIT;
+import static org.oscm.auditlog.util.AuditLogParameter.TRIAL_PERIOD;
+import static org.oscm.auditlog.util.AuditLogParameter.USER_ROLE;
 
 import java.util.HashMap;
 import java.util.Locale;

@@ -41,7 +41,7 @@ import org.oscm.domobjects.UnitUserRole;
 import org.oscm.domobjects.UserGroup;
 import org.oscm.domobjects.UserGroupToInvisibleProduct;
 import org.oscm.domobjects.UserGroupToUser;
-import org.oscm.interceptor.AuditLogDataInterceptor;
+import org.oscm.auditlog.interceptor.AuditLogDataInterceptor;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;
 import org.oscm.internal.intf.IdentityService;

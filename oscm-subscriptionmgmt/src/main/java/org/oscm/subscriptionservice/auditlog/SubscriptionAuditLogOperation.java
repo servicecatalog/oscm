@@ -4,7 +4,7 @@
 
 package org.oscm.subscriptionservice.auditlog;
 
-import org.oscm.auditlog.AuditLogParameter;
+import org.oscm.auditlog.util.AuditLogParameter;
 
 public enum SubscriptionAuditLogOperation {
     SUBSCRIBE_SERVICE("30000", AuditLogParameter.SERVICE_ID,

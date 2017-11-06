@@ -19,9 +19,9 @@ import javax.ejb.Stateless;
 import javax.interceptor.ExcludeClassInterceptors;
 import javax.interceptor.Interceptors;
 
-import org.oscm.auditlog.AuditLogData;
-import org.oscm.auditlog.AuditLogParameter;
-import org.oscm.auditlog.BESAuditLogEntry;
+import org.oscm.auditlog.util.AuditLogData;
+import org.oscm.auditlog.util.AuditLogParameter;
+import org.oscm.auditlog.util.BESAuditLogEntry;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.LocalizedResource;
 import org.oscm.domobjects.Marketplace;
@@ -29,7 +29,7 @@ import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.Product;
 import org.oscm.domobjects.UserGroup;
 import org.oscm.domobjects.enums.LocalizedObjectTypes;
-import org.oscm.interceptor.AuditLoggingEnabled;
+import org.oscm.auditlog.interceptor.AuditLoggingEnabled;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 
 /**

@@ -6,7 +6,7 @@
  *                                                                              
  *******************************************************************************/
 
-package org.oscm.auditlog;
+package org.oscm.auditlog.util;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@
  *  Creation Date: 04.05.2013                                                     
  *                                                                              
  *******************************************************************************/
-package org.oscm.auditlog;
+package org.oscm.auditlog.util;
 
 import java.util.HashMap;
 import java.util.Iterator;

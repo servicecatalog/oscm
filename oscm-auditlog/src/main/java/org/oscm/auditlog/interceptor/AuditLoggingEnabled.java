@@ -2,7 +2,7 @@
  *  Copyright FUJITSU LIMITED 2017
  *******************************************************************************/
 
-package org.oscm.interceptor;
+package org.oscm.auditlog.interceptor;
 
 import javax.ejb.EJB;
 import javax.interceptor.AroundInvoke;

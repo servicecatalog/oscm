@@ -33,7 +33,7 @@ import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.domobjects.enums.RevenueShareModelType;
 import org.oscm.i18nservice.local.ImageResourceServiceLocal;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
-import org.oscm.interceptor.AuditLogDataInterceptor;
+import org.oscm.auditlog.interceptor.AuditLogDataInterceptor;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;
 import org.oscm.landingpageService.local.LandingpageServiceLocal;

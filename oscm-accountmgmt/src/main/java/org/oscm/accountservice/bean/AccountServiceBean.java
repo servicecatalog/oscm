@@ -94,7 +94,7 @@ import org.oscm.identityservice.local.IdentityServiceLocal;
 import org.oscm.identityservice.local.LdapAccessServiceLocal;
 import org.oscm.identityservice.local.LdapConnector;
 import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
-import org.oscm.interceptor.AuditLogDataInterceptor;
+import org.oscm.auditlog.interceptor.AuditLogDataInterceptor;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;

@@ -7,7 +7,7 @@
  *******************************************************************************/
 package org.oscm.marketplace.auditlog;
 
-import org.oscm.auditlog.AuditLogParameter;
+import org.oscm.auditlog.util.AuditLogParameter;
 
 /**
  * @author Min CHEN

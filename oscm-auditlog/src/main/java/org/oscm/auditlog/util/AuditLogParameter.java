@@ -2,7 +2,7 @@
  *  Copyright FUJITSU LIMITED 2017
  *******************************************************************************/
 
-package org.oscm.auditlog;
+package org.oscm.auditlog.util;
 
 public enum AuditLogParameter {
     ADDRESS_DETAILS,
