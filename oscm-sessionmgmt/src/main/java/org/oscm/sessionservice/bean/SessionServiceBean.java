@@ -7,6 +7,7 @@ package org.oscm.sessionservice.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -92,6 +93,7 @@ public class SessionServiceBean implements SessionServiceLocal, SessionService {
     @Resource
     private SessionContext sessionCtx;
 
+//    @PostConstruct
     @Override
     public void deleteAllSessions() {
 

@@ -42,6 +42,7 @@ import java.util.ResourceBundle;
 import java.util.Spliterator;
 import java.util.UUID;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -368,6 +369,7 @@ public class LocalizerServiceBean implements LocalizerServiceLocal {
     }
 
     @Override
+    @PostConstruct
     public void checkExistenceOfBundleFiles() {
 
         for (LocalizedObjectTypes type : LocalizedObjectTypes.values()) {

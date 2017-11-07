@@ -29,7 +29,7 @@ import org.oscm.internal.types.exception.UnsupportedOperationException;
  */
 public class PlatformOperatorServiceProviderInterceptor {
 
-    @Inject
+    @EJB
     ConfigurationServiceLocal configService;
 
     @EJB

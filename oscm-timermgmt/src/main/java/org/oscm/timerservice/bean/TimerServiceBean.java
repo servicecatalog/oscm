@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -102,6 +103,11 @@ public class TimerServiceBean {
     public void reInitTimers() throws ValidationException {
         cancelAllObsoleteTimer();
         initAllTimers();
+    }
+
+    @PostConstruct
+    public void init() throws ValidationException {
+        initTimers();
     }
 
     /**

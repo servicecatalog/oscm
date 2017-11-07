@@ -14,6 +14,7 @@ package org.oscm.serviceprovisioningservice.bean;
 
 import java.util.*;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remote;
@@ -83,6 +84,11 @@ public class SearchServiceBean implements SearchService, SearchServiceLocal {
     private LocalizerServiceLocal localizer;
     @EJB
     private HibernateIndexer indexer;
+
+    @PostConstruct
+    public void initIndexing() {
+        indexer.initIndexForFulltextSearch(true);
+    }
 
     @Override
     public void initIndexForFulltextSearch(final boolean force) {
