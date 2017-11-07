@@ -30,7 +30,7 @@ import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.Session;
 import org.oscm.identityservice.bean.IdentityServiceBean;
-import org.oscm.sessionservice.bean.SessionManagementStub;
+import org.oscm.test.stubs.SessionManagementStub;
 import org.oscm.test.EJBTestBase;
 import org.oscm.test.MailDetails;
 import org.oscm.test.data.Marketplaces;

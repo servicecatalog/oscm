@@ -21,8 +21,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import org.oscm.test.ClassFilter;
-import org.oscm.test.PackageClassReader;
 
 @Ignore
 public class TransactionMandatoryTest {
@@ -161,4 +159,6 @@ public class TransactionMandatoryTest {
         assertTrue("Methods with missing annotation/mandatory-flag found: \n"
                 + sb.toString(), sb.length() == 0);
     }
+
+
 }

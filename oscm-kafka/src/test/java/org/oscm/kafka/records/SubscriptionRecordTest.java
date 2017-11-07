@@ -87,9 +87,10 @@ public class SubscriptionRecordTest {
         assertEquals(PARAM_RELEASE_VAL, jsonObj.get(LABELS).getAsJsonObject()
                 .get(PARAM_RELEASE_ID).getAsString());
         assertEquals(PARAM_VALUE_CPU_VAL, jsonObj.get(PARAMETERS)
-                .getAsJsonObject().get(PARAM_VALUE_CPU_ID).getAsString());
+                .getAsJsonObject().get("resources").getAsJsonObject().get("requests").getAsJsonObject().get("cpu").getAsString());
         assertEquals(PARAM_VALUE_MEM_VAL, jsonObj.get(PARAMETERS)
-                .getAsJsonObject().get(PARAM_VALUE_MEM_ID).getAsString());
+                .getAsJsonObject().get("resources").getAsJsonObject().get("requests").getAsJsonObject().get("memory")
+            .getAsString());
     }
 
     private Subscription getSubscriptionMessage() {

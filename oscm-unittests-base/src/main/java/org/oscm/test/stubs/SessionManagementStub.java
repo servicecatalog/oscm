@@ -2,7 +2,7 @@
  *  Copyright FUJITSU LIMITED 2017
  *******************************************************************************/
 
-package org.oscm.sessionservice.bean;
+package org.oscm.test.stubs;
 
 import java.util.ArrayList;
 import java.util.List;

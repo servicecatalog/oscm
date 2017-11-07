@@ -84,7 +84,7 @@ import org.oscm.internal.types.exception.ValidationException.ReasonEnum;
 import org.oscm.internal.vo.VOUser;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.reviewservice.bean.ReviewServiceLocalBean;
-import org.oscm.sessionservice.bean.SessionManagementStub;
+import org.oscm.test.stubs.SessionManagementStub;
 import org.oscm.subscriptionservice.local.SubscriptionServiceLocal;
 import org.oscm.taskhandling.local.TaskMessage;
 import org.oscm.taskhandling.operations.UpdateUserHandler;
