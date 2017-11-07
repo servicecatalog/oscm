@@ -178,22 +178,22 @@
       <param-value>(^/a4j/.*|^/slogout.jsf|^/saml2/redirectToIdp.jsf*|^/saml2/saml2PostInclude.jsf*|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*</param-value>
     </init-param>
   </filter>
-  <!--<filter>-->
-    <!--<filter-name>Rewriter</filter-name>-->
-    <!--<filter-class>net.sf.j2ep.RewriteFilter</filter-class>-->
-    <!--<init-param>-->
-      <!--<param-name>dataUrl</param-name>-->
-      <!--<param-value>/WEB-INF/conf/data.xml</param-value>-->
-    <!--</init-param>-->
-  <!--</filter>-->
-  <!--<filter>-->
-    <!--<filter-name>Proxy</filter-name>-->
-    <!--<filter-class>net.sf.j2ep.ProxyFilter</filter-class>-->
-    <!--<init-param>-->
-      <!--<param-name>dataUrl</param-name>-->
-      <!--<param-value>/WEB-INF/conf/data.xml</param-value>-->
-    <!--</init-param>-->
-  <!--</filter>-->
+  <filter>
+    <filter-name>Rewriter</filter-name>
+    <filter-class>net.sf.j2ep.RewriteFilter</filter-class>
+    <init-param>
+      <param-name>dataUrl</param-name>
+      <param-value>/WEB-INF/conf/data.xml</param-value>
+    </init-param>
+  </filter>
+  <filter>
+    <filter-name>Proxy</filter-name>
+    <filter-class>net.sf.j2ep.ProxyFilter</filter-class>
+    <init-param>
+      <param-name>dataUrl</param-name>
+      <param-value>/WEB-INF/conf/data.xml</param-value>
+    </init-param>
+  </filter>
   <!-- Extensions FILTER, parses multipart requests (should be to execute *AFTER* RichFaces filter) -->
   <filter>
     <filter-name>Extensions Filter</filter-name>
@@ -301,14 +301,14 @@
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
-  <!--<filter-mapping>-->
-    <!--<filter-name>Rewriter</filter-name>-->
-    <!--<url-pattern>/opt/*</url-pattern>-->
-  <!--</filter-mapping>-->
-  <!--<filter-mapping>-->
-    <!--<filter-name>Proxy</filter-name>-->
-    <!--<url-pattern>/opt/*</url-pattern>-->
-  <!--</filter-mapping>-->
+  <filter-mapping>
+    <filter-name>Rewriter</filter-name>
+    <url-pattern>/opt/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>Proxy</filter-name>
+    <url-pattern>/opt/*</url-pattern>
+  </filter-mapping>
   <filter-mapping>
     <filter-name>Extensions Filter</filter-name>
     <servlet-name>Faces Servlet</servlet-name>
@@ -335,9 +335,6 @@
   <listener>
     <listener-class>org.oscm.ui.common.SessionListener</listener-class>
   </listener>
-  <!--<listener>-->
-    <!--<listener-class>org.oscm.ui.common.LoggerInitListener</listener-class>-->
-  <!--</listener>-->
 
   <session-config>
     <session-timeout>8</session-timeout>

@@ -23,11 +23,11 @@
             <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
             <artifactId>oscm-extsvc-internal</artifactId>
         </dependency>
-        <!--<dependency>
+        <dependency>
             <groupId>com.github.servicecatalog</groupId>
             <artifactId>j2ep</artifactId>
             <classifier>classes</classifier>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.oscm</groupId>
             <artifactId>oscm-internal-interfaces</artifactId>
