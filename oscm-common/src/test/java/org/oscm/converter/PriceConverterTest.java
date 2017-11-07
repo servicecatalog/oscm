@@ -11,8 +11,8 @@
  *******************************************************************************/
 package org.oscm.converter;
 
-import static org.oscm.test.BigDecimalAsserts.checkEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
@@ -232,7 +232,7 @@ public class PriceConverterTest {
 
     @Test
     public void testParse() throws Exception {
-        checkEquals("123", priceConverter.parse("123"));
+        assertEquals(new BigDecimal("123"), priceConverter.parse("123"));
     }
 
     @Test(expected = ParseException.class)
@@ -260,14 +260,14 @@ public class PriceConverterTest {
     public void testParse_DefaultLocale() throws Exception {
         PriceConverter converter = new PriceConverter(null);
         Assert.assertEquals(Locale.ENGLISH, converter.getActiveLocale());
-        checkEquals("50", converter.parse("50"));
+        assertEquals(new BigDecimal("50"), converter.parse("50"));
     }
 
     @Test
     public void testParse_DefaultLocaleWithSeparator() throws Exception {
         PriceConverter converter = new PriceConverter(null);
         Assert.assertEquals(Locale.ENGLISH, converter.getActiveLocale());
-        checkEquals("50000.14", converter.parse("50,000.14"));
+        assertEquals(new BigDecimal("50000.14"), converter.parse("50,000.14"));
     }
 
     @Test
@@ -275,7 +275,7 @@ public class PriceConverterTest {
         PriceConverter converter = new PriceConverter(null);
         Assert.assertEquals(Locale.ENGLISH, converter.getActiveLocale());
         BigDecimal valueToStore = converter.parse(",,,.3");
-        checkEquals("0.3", valueToStore);
+        assertEquals(new BigDecimal("0.3"), valueToStore);
         String valueToDisplay = converter.getValueToDisplay(valueToStore, true);
         Assert.assertEquals("0.30", valueToDisplay);
     }
@@ -285,7 +285,7 @@ public class PriceConverterTest {
         PriceConverter converter = new PriceConverter(Locale.GERMAN);
         Assert.assertEquals(Locale.GERMAN, converter.getActiveLocale());
         BigDecimal valueToStore = converter.parse("...,3");
-        checkEquals("0.3", valueToStore);
+        assertEquals(new BigDecimal("0.3"), valueToStore);
         String valueToDisplay = converter.getValueToDisplay(valueToStore, true);
         Assert.assertEquals("0,30", valueToDisplay);
     }
@@ -295,7 +295,7 @@ public class PriceConverterTest {
         PriceConverter converter = new PriceConverter(Locale.GERMAN);
         Assert.assertEquals(Locale.GERMAN, converter.getActiveLocale());
         BigDecimal valueToStore = converter.parse("50.000,14");
-        checkEquals("50000.14", valueToStore);
+        assertEquals(new BigDecimal("50000.14"), valueToStore);
     }
 
     @Test
@@ -373,7 +373,7 @@ public class PriceConverterTest {
     public void testParse_DefaultLocaleZero() throws Exception {
         PriceConverter converter = new PriceConverter(null);
         Assert.assertEquals(Locale.ENGLISH, converter.getActiveLocale());
-        checkEquals("0.00", converter.parse("0.00"));
+        assertEquals(new BigDecimal("0.00"), converter.parse("0.00"));
     }
 
     @Test
@@ -399,7 +399,7 @@ public class PriceConverterTest {
         BigDecimal price = new BigDecimal("5000");
         String valueToDisplay = converter.getValueToDisplay(price, true);
         BigDecimal valueToStore = converter.parse(valueToDisplay);
-        checkEquals("5000.00", valueToStore);
+        assertEquals(new BigDecimal("5000.00"), valueToStore);
     }
 
     @Test(expected = ParseException.class)
@@ -413,7 +413,7 @@ public class PriceConverterTest {
     public void testParse_GermanLocale() throws Exception {
         PriceConverter converter = new PriceConverter(Locale.GERMAN);
         Assert.assertEquals(Locale.GERMAN, converter.getActiveLocale());
-        checkEquals("50.00", converter.parse("50,00"));
+        assertEquals(new BigDecimal("50.00"), converter.parse("50,00"));
     }
 
     @Test(expected = ParseException.class)
@@ -434,7 +434,7 @@ public class PriceConverterTest {
     public void testParse_GermanLocaleZero() throws Exception {
         PriceConverter converter = new PriceConverter(Locale.GERMAN);
         Assert.assertEquals(Locale.GERMAN, converter.getActiveLocale());
-        checkEquals("0.00", converter.parse("0,00"));
+        assertEquals(new BigDecimal("0.00"), converter.parse("0,00"));
     }
 
     @Test
@@ -445,7 +445,7 @@ public class PriceConverterTest {
         String valueToDisplay = converter.getValueToDisplay(new BigDecimal(
                 price), true);
         BigDecimal valueToStore = converter.parse(valueToDisplay);
-        checkEquals("50.00", valueToStore);
+        assertEquals(new BigDecimal("50.00"), valueToStore);
     }
 
     /*

@@ -8,12 +8,9 @@
 
 package org.oscm.converter;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -516,4 +513,35 @@ public class XMLConverter {
         return (Double) expr.evaluate(node, XPathConstants.NUMBER);
     }
 
+    public static byte[] getFileAsByteArray(Class<?> clazz, String path)
+        throws IOException {
+        URL fileURL = clazz.getClassLoader().getResource(path);
+
+        InputStream is = null;
+        byte[] bytes;
+        try {
+            File file = new File(fileURL.getFile());
+
+            is = new FileInputStream(file);
+
+            long length = file.length();
+            bytes = new byte[(int) length];
+
+            int offset = 0;
+            int numRead = 0;
+            while (offset < bytes.length
+                && (numRead = is.read(bytes, offset, bytes.length - offset)) >= 0) {
+                offset += numRead;
+            }
+            if (offset < bytes.length) {
+                throw new IOException("Could not completely read file "
+                    + file.getName());
+            }
+        } finally {
+            if (is != null)
+                is.close();
+        }
+        return bytes;
+
+    }
 }

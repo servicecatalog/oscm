@@ -33,8 +33,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 
-import org.oscm.test.BaseAdmUmTest;
-
 /**
  * @author kulle
  * 
@@ -47,7 +45,7 @@ public class XMLSecureParsingTest {
     public void testSecureParsing() throws IOException,
             ParserConfigurationException, SAXException {
         // given
-        byte[] fileAsByteArray = BaseAdmUmTest.getFileAsByteArray(
+        byte[] fileAsByteArray = XMLConverter.getFileAsByteArray(
                 this.getClass(), FILE_TEST);
 
         try {
@@ -64,7 +62,7 @@ public class XMLSecureParsingTest {
     public void testSaxParsing() throws ParserConfigurationException,
             SAXException, IOException {
         // given
-        byte[] fileAsByteArray = BaseAdmUmTest.getFileAsByteArray(
+        byte[] fileAsByteArray = XMLConverter.getFileAsByteArray(
                 this.getClass(), FILE_TEST);
         SAXParserFactory spf = SAXParserFactory.newInstance();
         spf.setNamespaceAware(true);

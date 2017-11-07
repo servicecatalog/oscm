@@ -64,6 +64,9 @@ public class HeadersTest {
             if (filePath.endsWith(excludePath)) {
                 return true;
             }
+            if (filePath.contains("\\target")) {
+                return true;
+            }
         }
         return false;
     }

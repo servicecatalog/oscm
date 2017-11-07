@@ -9,13 +9,13 @@
 package org.oscm.logging;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -41,7 +41,7 @@ public class Log4jLoggerTest {
 
     @Test
     public void testIsDebugEnabled() {
-        Assert.assertFalse(logger.isDebugLoggingEnabled());
+        assertFalse(logger.isDebugLoggingEnabled());
     }
 
     @Test

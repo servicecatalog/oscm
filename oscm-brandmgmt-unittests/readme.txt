@@ -1,1 +1,0 @@
-The unit tests for the brand management component.
