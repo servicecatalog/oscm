@@ -20,7 +20,10 @@
       <groupId>com.github.servicecatalog.oscm-commons</groupId>
       <artifactId>oscm-common</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>com.google.code.gson</groupId>

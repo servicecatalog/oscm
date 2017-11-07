@@ -23,11 +23,11 @@
             <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
             <artifactId>oscm-extsvc-internal</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.github.servicecatalog</groupId>
             <artifactId>j2ep</artifactId>
             <classifier>classes</classifier>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.oscm</groupId>
             <artifactId>oscm-internal-interfaces</artifactId>
@@ -35,6 +35,12 @@
         <dependency>
             <groupId>org.oscm</groupId>
             <artifactId>oscm-serviceprovisioning-intsvc</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.oscm</groupId>
@@ -43,6 +49,12 @@
         <dependency>
             <groupId>org.oscm</groupId>
             <artifactId>oscm-i18n-intsvc</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.oscm</groupId>
@@ -51,10 +63,22 @@
         <dependency>
             <groupId>org.oscm</groupId>
             <artifactId>oscm-tenantmgmt-intsvc</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.oscm</groupId>
             <artifactId>oscm-marketplaceservice-intsvc</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -64,6 +88,12 @@
         <dependency>
             <groupId>org.apache.myfaces.tomahawk</groupId>
             <artifactId>tomahawk20</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -103,7 +133,7 @@
         </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils-core</artifactId>
+            <artifactId>commons-beanutils</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -176,17 +206,6 @@
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration combine.self="override">
-                    <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                        </manifest>
-                    </archive>
-                </configuration>
-
             </plugin>
         </plugins>
     </build>

@@ -18,7 +18,6 @@
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
 
 

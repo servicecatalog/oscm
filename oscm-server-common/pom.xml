@@ -20,12 +20,10 @@
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
@@ -34,17 +32,14 @@
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-auditlog</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice-intsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-i18n-intsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>

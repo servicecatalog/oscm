@@ -15,236 +15,202 @@
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-accountmgmt</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-auditlog</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-usergroupmgmt</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-application</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-billing</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-billing-application</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-billing-adapter-service</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-brandmgmt</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-communicationservices</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-eventmgmt</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-i18n</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-identitymgmt</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-internal</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-marketplaceservice</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-operatorsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-paymentprocessing</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-pspresponse</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-reporting</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-serviceprovisioning</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-sessionmgmt</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
-      <artifactId>oscm-startup</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>runtime</scope>
-      <type>war</type>
-    </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
       <artifactId>oscm-subscriptionmgmt</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-taskhandling</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-tenantprovisioning</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-timermgmt</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-triggerservice</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-vat</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-webservices</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-review</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-wsdldeliver</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>war</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-rest-api-trigger</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <scope>runtime</scope>
+      <type>war</type>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-portal</artifactId>
       <scope>runtime</scope>
       <type>war</type>
     </dependency>
@@ -255,14 +221,12 @@
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-tenantmgmt</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-kafka</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
@@ -285,14 +249,12 @@
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-extsvc-internal-impl</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
       <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-apiversioning-soapmgmt</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>runtime</scope>
     </dependency>
   </dependencies>
@@ -471,6 +433,11 @@
               <artifactId>oscm-kafka</artifactId>
               <bundleDir>/</bundleDir>
             </ejbModule>
+            <webModule>
+              <groupId>org.oscm</groupId>
+              <artifactId>oscm-portal</artifactId>
+              <bundleDir>/</bundleDir>
+            </webModule>
           </modules>
         </configuration>
       </plugin>
