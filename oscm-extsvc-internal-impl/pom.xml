@@ -12,7 +12,7 @@
   <artifactId>oscm-extsvc-internal-impl</artifactId>
 
   <dependencies>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>

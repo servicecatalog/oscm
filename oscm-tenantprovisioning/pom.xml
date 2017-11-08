@@ -33,8 +33,14 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-application-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-provisioning</artifactId>        </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-provisioning</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.tomee</groupId>

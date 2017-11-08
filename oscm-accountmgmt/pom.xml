@@ -2,106 +2,106 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>oscm</artifactId>
-        <groupId>org.oscm</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>oscm-accountmgmt</artifactId>
+  <parent>
+    <artifactId>oscm</artifactId>
+    <groupId>org.oscm</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>oscm-accountmgmt</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.tomee</groupId>
-            <artifactId>javaee-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-domainobjects</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.servicecatalog.oscm-commons</groupId>
-            <artifactId>oscm-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-intsvc-base</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-accountmgmt-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-communicationservices-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-subscriptionmgmt</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-subscriptionmgmt-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-server-common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-paymentprocessing-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-identitymgmt-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-triggerservice-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-application-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-configservice-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
-            <artifactId>oscm-extsvc-internal</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-dataservice-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-i18n-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-serviceprovisioning-intsvc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-triggerservice</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-server-util</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.oscm</groupId>
-            <artifactId>oscm-marketplaceservice-intsvc</artifactId>
-        </dependency>
+  <dependencies>
     <dependency>
-        <groupId>org.oscm</groupId>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>javaee-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-domainobjects</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-intsvc-base</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-accountmgmt-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-communicationservices-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-subscriptionmgmt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-subscriptionmgmt-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-server-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-paymentprocessing-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-identitymgmt-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-triggerservice-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-application-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-configservice-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-dataservice-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-i18n-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-serviceprovisioning-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-triggerservice</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-server-util</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-marketplaceservice-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-unittests-base</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-identitymgmt</artifactId>
       <scope>test</scope>
     </dependency>
@@ -115,32 +115,32 @@
       <artifactId>mockito-all</artifactId>
     </dependency>
     <dependency>
-        <groupId>org.oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-i18n</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-identitymgmt</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-marketplaceservice</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-marketplaceservice</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice</artifactId>
       <scope>test</scope>
     </dependency>

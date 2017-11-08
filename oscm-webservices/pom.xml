@@ -16,7 +16,7 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc</artifactId>        </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc</artifactId>        </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice-intsvc</artifactId>
@@ -126,8 +126,8 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
-    <dependency>      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>      <artifactId>oscm-psp-extsvc</artifactId>    </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>      <artifactId>oscm-psp-extsvc</artifactId>    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-converter</artifactId>

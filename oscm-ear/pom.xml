@@ -231,11 +231,11 @@
       <type>ejb</type>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-psp-extsvc</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc</artifactId>
     </dependency>
     <dependency>
@@ -243,7 +243,7 @@
       <artifactId>oscm-common</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-internal</artifactId>
     </dependency>
     <dependency>

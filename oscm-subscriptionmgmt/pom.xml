@@ -66,8 +66,8 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-provisioning</artifactId>        </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-provisioning</artifactId>        </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-taskhandling-intsvc</artifactId>
@@ -76,7 +76,7 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-notification</artifactId>      </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-notification</artifactId>      </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-auditlog</artifactId>
@@ -93,7 +93,7 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-usergroupmgmt</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-operation</artifactId>        </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-operation</artifactId>        </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-server-util</artifactId>

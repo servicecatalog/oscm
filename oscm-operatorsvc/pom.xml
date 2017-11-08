@@ -38,7 +38,7 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-triggerservice-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice-intsvc</artifactId>

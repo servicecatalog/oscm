@@ -13,19 +13,19 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-notification</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-provisioning</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-operation</artifactId>
     </dependency>
     <dependency>

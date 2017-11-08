@@ -26,12 +26,8 @@
       <artifactId>oscm-dataservice-intsvc</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-internal</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-auditlog</artifactId>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>

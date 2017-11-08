@@ -37,7 +37,7 @@
       <artifactId>oscm-communicationservices-intsvc</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-psp-extsvc</artifactId>
     </dependency>
     <dependency>
@@ -50,7 +50,7 @@
       <artifactId>oscm-identitymgmt-intsvc</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-internal</artifactId>
     </dependency>
     <dependency>
@@ -62,7 +62,7 @@
       <artifactId>oscm-subscriptionmgmt-intsvc</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-provisioning</artifactId>
     </dependency>
     <dependency>

@@ -22,7 +22,7 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-notification</artifactId>      </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-notification</artifactId>      </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-accountmgmt-intsvc</artifactId>
@@ -59,7 +59,7 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
@@ -68,8 +68,8 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-converter</artifactId>
     </dependency>
-    <dependency>      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>      <artifactId>oscm-psp-extsvc</artifactId>    </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc</artifactId>        </dependency>
+    <dependency>      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>      <artifactId>oscm-psp-extsvc</artifactId>    </dependency>
+    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc</artifactId>        </dependency>
 
     <dependency>
       <groupId>wsdl4j</groupId>
@@ -109,7 +109,6 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.notification.intf.NotificationService</className>
-              <outputFile>${basedir}/src/main/resources/wsdl/notification/NotificationService.wsdl</outputFile>
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>

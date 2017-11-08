@@ -26,15 +26,15 @@
       <artifactId>oscm-configservice-intsvc</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-operation</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-provisioning</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-internal</artifactId>
     </dependency>
     <dependency>
@@ -95,7 +95,6 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.provisioning.intf.ProvisioningService</className>
-              <outputFile>${basedir}/src/main/resources/wsdl/provisioning/ProvisioningService.wsdl</outputFile>
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>
@@ -110,7 +109,6 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.operation.intf.OperationService</className>
-              <outputFile>${basedir}/src/main/resources/wsdl/operation/OperationService.wsdl</outputFile>
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>

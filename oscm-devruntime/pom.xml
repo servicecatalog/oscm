@@ -18,11 +18,11 @@
       <artifactId>oscm-server-common</artifactId>
     </dependency>
       <dependency>
-          <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+          <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
           <artifactId>oscm-extsvc</artifactId>
       </dependency>
       <dependency>
-          <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+          <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
           <artifactId>oscm-extsvc-internal</artifactId>
       </dependency>
 

@@ -12,7 +12,7 @@
   <properties>
     <flyway.version>4.2.0</flyway.version>
     <postgres.driver.version>9.4-1206-jdbc42</postgres.driver.version>
-    <database.url>jdbc:postgresql://G02PLXNNOW29192:5432/bss</database.url>
+    <database.url>jdbc:postgresql://localhost:5432/bss</database.url>
     <database.user>postgres</database.user>
     <databese.password>postgres</databese.password>
     <schema.name>bssuser</schema.name>
@@ -364,34 +364,34 @@
         <version>1.0</version>
       </dependency>
       <dependency>
-        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
         <artifactId>oscm-extsvc-internal</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
       </dependency>
       <dependency>
-        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
         <artifactId>oscm-extsvc-notification</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
       </dependency>
       <dependency>
-        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
         <artifactId>oscm-extsvc-operation</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
       </dependency>
       <dependency>
-        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
         <artifactId>oscm-extsvc-provisioning</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
       </dependency>
       <dependency>
-        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
         <artifactId>oscm-extsvc</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
       </dependency>
       <dependency>
-        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
         <artifactId>oscm-psp-extsvc</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
       </dependency>
       <dependency>
         <groupId>org.oscm</groupId>
@@ -647,6 +647,13 @@
         <artifactId>oscm-i18n</artifactId>
         <scope>test</scope>
         <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-psp-heidelpay</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <classifier>classes</classifier>
+        <scope>test</scope>
       </dependency>
 
       <dependency>
@@ -1172,11 +1179,6 @@
         <groupId>commons-pool</groupId>
         <artifactId>commons-pool</artifactId>
         <version>1.5.4</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-collections</groupId>
-        <artifactId>commons-collections</artifactId>
-        <version>3.2.2</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
