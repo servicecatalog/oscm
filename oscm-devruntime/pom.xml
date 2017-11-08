@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?> <!-- Copyright FUJITSU LIMITED 2017-->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -17,8 +17,14 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc</artifactId>        </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+      <dependency>
+          <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+          <artifactId>oscm-extsvc</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+          <artifactId>oscm-extsvc-internal</artifactId>
+      </dependency>
 
     <dependency>
       <groupId>org.dbunit</groupId>
@@ -128,6 +134,12 @@
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-maven-plugin</artifactId>
         <version>${flyway.version}</version>
+        <executions>
+          <execution>
+            <id>migrate-database</id>
+            <phase>deploy</phase>
+          </execution>
+        </executions>
         <configuration>
           <sqlMigrationSeparator>__</sqlMigrationSeparator>
           <locations>

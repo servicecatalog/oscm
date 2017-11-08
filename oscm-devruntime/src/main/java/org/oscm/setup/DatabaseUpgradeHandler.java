@@ -9,7 +9,6 @@
 package org.oscm.setup;
 
 import java.io.BufferedReader;
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
@@ -32,7 +31,6 @@ import java.util.regex.Pattern;
 import org.oscm.dbtask.DatabaseUpgradeTask;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
-import org.oscm.stream.Streams;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 
 /**
@@ -227,15 +225,11 @@ public class DatabaseUpgradeHandler {
                 line = reader.readLine();
             }
         } finally {
-            closeStream(fin);
-            closeStream(in);
-            closeStream(reader);
+            fin.close();
+            in.close();
+            reader.close();
         }
         return result;
-    }
-
-    void closeStream(Closeable stream) {
-        Streams.close(stream);
     }
 
     /**

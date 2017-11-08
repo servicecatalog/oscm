@@ -1,1 +1,0 @@
-The unit tests of the billing-application component.

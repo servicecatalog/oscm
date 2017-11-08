@@ -8,15 +8,15 @@
 
 package org.oscm.serviceprovisioningservice.auditlog;
 
-import static org.oscm.auditlog.AuditLogParameter.CURRENCY_CODE;
-import static org.oscm.auditlog.AuditLogParameter.CUSTOMER_ID;
-import static org.oscm.auditlog.AuditLogParameter.CUSTOMER_NAME;
-import static org.oscm.auditlog.AuditLogParameter.DESCRIPTION;
-import static org.oscm.auditlog.AuditLogParameter.LICENSE;
-import static org.oscm.auditlog.AuditLogParameter.LOCALE;
-import static org.oscm.auditlog.AuditLogParameter.PRICE;
-import static org.oscm.auditlog.AuditLogParameter.TIMEUNIT;
-import static org.oscm.auditlog.AuditLogParameter.USER_ROLE;
+import static org.oscm.auditlog.util.AuditLogParameter.CURRENCY_CODE;
+import static org.oscm.auditlog.util.AuditLogParameter.CUSTOMER_ID;
+import static org.oscm.auditlog.util.AuditLogParameter.CUSTOMER_NAME;
+import static org.oscm.auditlog.util.AuditLogParameter.DESCRIPTION;
+import static org.oscm.auditlog.util.AuditLogParameter.LICENSE;
+import static org.oscm.auditlog.util.AuditLogParameter.LOCALE;
+import static org.oscm.auditlog.util.AuditLogParameter.PRICE;
+import static org.oscm.auditlog.util.AuditLogParameter.TIMEUNIT;
+import static org.oscm.auditlog.util.AuditLogParameter.USER_ROLE;
 
 import java.math.BigDecimal;
 import java.util.BitSet;
@@ -30,9 +30,9 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
-import org.oscm.auditlog.AuditLogData;
-import org.oscm.auditlog.AuditLogParameter;
-import org.oscm.auditlog.BESAuditLogEntry;
+import org.oscm.auditlog.util.AuditLogData;
+import org.oscm.auditlog.util.AuditLogParameter;
+import org.oscm.auditlog.util.BESAuditLogEntry;
 import org.oscm.auditlog.model.AuditLogAction;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Organization;
@@ -47,7 +47,7 @@ import org.oscm.domobjects.Subscription;
 import org.oscm.domobjects.SupportedCurrency;
 import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
-import org.oscm.interceptor.AuditLoggingEnabled;
+import org.oscm.auditlog.interceptor.AuditLoggingEnabled;
 import org.oscm.serviceprovisioningservice.auditlog.PriceModelAuditLogOperation.Operation;
 import org.oscm.serviceprovisioningservice.auditlog.PriceModelAuditLogOperation.PriceModelType;
 import org.oscm.validation.ArgumentValidator;

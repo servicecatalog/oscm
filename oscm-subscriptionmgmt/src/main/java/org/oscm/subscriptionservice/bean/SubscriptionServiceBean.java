@@ -86,7 +86,7 @@ import org.oscm.i18nservice.local.LocalizerServiceLocal;
 import org.oscm.id.IdGenerator;
 import org.oscm.identityservice.assembler.UserDataAssembler;
 import org.oscm.identityservice.local.IdentityServiceLocal;
-import org.oscm.interceptor.AuditLogDataInterceptor;
+import org.oscm.auditlog.interceptor.AuditLogDataInterceptor;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;

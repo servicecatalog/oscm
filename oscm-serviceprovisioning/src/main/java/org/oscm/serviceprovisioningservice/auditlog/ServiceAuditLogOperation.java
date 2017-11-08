@@ -8,7 +8,7 @@
 
 package org.oscm.serviceprovisioningservice.auditlog;
 
-import org.oscm.auditlog.AuditLogParameter;
+import org.oscm.auditlog.util.AuditLogParameter;
 
 /**
  * @author Mao

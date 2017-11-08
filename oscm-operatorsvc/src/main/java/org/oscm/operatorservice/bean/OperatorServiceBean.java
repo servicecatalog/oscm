@@ -35,7 +35,7 @@ import javax.persistence.Query;
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.accountservice.assembler.PaymentTypeAssembler;
 import org.oscm.accountservice.local.AccountServiceLocal;
-import org.oscm.auditlog.AuditLogOperationGroups;
+import org.oscm.auditlog.util.AuditLogOperationGroups;
 import org.oscm.auditlog.bean.AuditLogServiceBean;
 import org.oscm.billingservice.service.BillingServiceLocal;
 import org.oscm.configurationservice.assembler.ConfigurationSettingAssembler;
