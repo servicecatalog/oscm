@@ -25,9 +25,18 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-operation</artifactId>        </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-provisioning</artifactId>        </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <artifactId>oscm-extsvc-operation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <artifactId>oscm-extsvc-provisioning</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-external-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-webservices-client</artifactId>
@@ -45,9 +54,8 @@
       <artifactId>oscm-kafka</artifactId>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-unittests-base</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>

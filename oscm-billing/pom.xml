@@ -55,25 +55,22 @@
             <groupId>org.oscm</groupId>
             <artifactId>oscm-communicationservices</artifactId>
         </dependency>
-    <dependency>
-      <groupId>oscm</groupId>
-      <artifactId>oscm-unittests-base</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>oscm</groupId>
-      <artifactId>oscm-dataservice</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+        <dependency>
+            <groupId>org.oscm</groupId>
+            <artifactId>oscm-unittests-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.oscm</groupId>
+            <artifactId>oscm-dataservice</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.tomee</groupId>
             <artifactId>javaee-api</artifactId>
         </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+        <groupId>org.oscm</groupId>
       <artifactId>oscm-unittests-base</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
