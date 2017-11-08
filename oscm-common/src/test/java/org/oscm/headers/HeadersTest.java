@@ -60,11 +60,11 @@ public class HeadersTest {
     }
 
     private static boolean containExcludePath(String filePath) {
+        if (filePath.contains(File.separator + "target" + File.separator)) {
+            return true;
+        }
         for (String excludePath : EXCLUDE_PATHS) {
             if (filePath.endsWith(excludePath)) {
-                return true;
-            }
-            if (filePath.contains("\\target")) {
                 return true;
             }
         }
