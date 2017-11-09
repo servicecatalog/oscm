@@ -14,7 +14,7 @@
     <postgres.driver.version>9.4-1206-jdbc42</postgres.driver.version>
     <database.url>jdbc:postgresql://localhost:5432/bss</database.url>
     <database.user>postgres</database.user>
-    <databese.password></databese.password>
+    <databese.password>postgres</databese.password>
     <schema.name>bssuser</schema.name>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
