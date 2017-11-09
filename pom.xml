@@ -27,6 +27,18 @@
     </repository>
   </repositories>
 
+  <profiles>
+    <profile>
+      <id>travis</id>
+      <properties>
+        <database.url>jdbc:postgresql://localhost:5432/bssunittests</database.url>
+        <database.user>bssunituser</database.user>
+        <databese.password>bssunituser</databese.password>
+        <schema.name>bssunituser</schema.name>
+      </properties>
+    </profile>
+  </profiles>
+
   <modules>
     <module>oscm-ear</module>
     <module>oscm-accountmgmt</module>
