@@ -10,7 +10,7 @@ cache:
 before_install:
   - sudo pip install --user codecov
 script:
- - mvn test 
+ - mvn -T 8 test
 #  - $TRAVIS_BUILD_DIR/libraries/apache-ant/apache-ant-1.10.1/bin/ant -lib $TRAVIS_BUILD_DIR/libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:$TRAVIS_BUILD_DIR/parallel/build/libs/parallel-junit-0.1.jar -file $TRAVIS_BUILD_DIR/oscm-build/cruisecontrol.xml runTravisUT
 #  - ant -lib $TRAVIS_BUILD_DIR/libraries/apache-ant-contrib/javalib -file $TRAVIS_BUILD_DIR/oscm-build/cruisecontrol.xml runTravisIT
 after_success:
