@@ -49,7 +49,7 @@ public class OperationServiceAdapterFactory {
                 password);
 
         SupportedOperationVersions supportedVersion = getSupportedVersion(portConnector);
-        OperationServiceAdapter adapter = getAdapterForVersion(supportedVersion);
+        OperationServiceAdapter adapter = new OperationServiceAdapterV1_0();
         final Object port = portConnector.getPort(
                 supportedVersion.getLocalWSDL(),
                 supportedVersion.getServiceClass(), wsTimeout);
@@ -67,25 +67,5 @@ public class OperationServiceAdapterFactory {
             supportedVersion = SupportedOperationVersions.VERSION_1_5;
         }
         return supportedVersion;
-    }
-
-    /**
-     * Initialized a notification service adapter for the version matching the
-     * the version retrieved from wsdl.
-     * 
-     * @param supportedVersion
-     *            the version retrieved from wsdl
-     * @param ds
-     *            the data source
-     * @return the {@link NotificationServiceAdapter}
-     */
-    static OperationServiceAdapter getAdapterForVersion(
-            SupportedOperationVersions supportedVersion) {
-        switch (supportedVersion) {
-        case VERSION_1_5:
-            return new OperationServiceAdapterV1_0();
-        default:
-            return new OperationServiceAdapterV1_0();
-        }
     }
 }
