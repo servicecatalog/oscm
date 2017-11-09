@@ -8,7 +8,7 @@ jdk:
 before_install:
   - sudo pip install --user codecov
   - psql -c 'create database bssunit;' -U postgres
-  - psql -c "create user bssuser with password 'bssunituser';" -U postgres
+  - psql -c "create user bssunituser with password 'bssunituser';" -U postgres
 script:
  - mvn -T 8 test
  - mvn verify
