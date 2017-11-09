@@ -39,7 +39,7 @@ public class SendMailPayload implements TaskPayload {
 
     public void addMailObjectForUser(long userKey, EmailType type,
             Object[] params, Long marketplaceKey) {
-        MailDefiniton mailParams = new MailDefiniton(Long.valueOf(userKey),
+        MailDefiniton mailParams = new MailDefiniton(userKey,
                 type, params, marketplaceKey);
         mailObjects.add(mailParams);
     }

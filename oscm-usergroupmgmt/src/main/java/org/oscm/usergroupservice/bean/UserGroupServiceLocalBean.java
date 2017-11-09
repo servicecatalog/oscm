@@ -460,7 +460,7 @@ public class UserGroupServiceLocalBean {
         for (Entry<Long, UserGroupToInvisibleProduct> existingInvisibility : existingInvisibilities
                 .entrySet()) {
             Product product = existingInvisibility.getValue().getProduct();
-            if (!newVisibleProductKeys.contains(Long.valueOf(product.getKey()))) {
+            if (!newVisibleProductKeys.contains(product.getKey())) {
                 continue;
             }
             PlatformUser currentUser = dm.getCurrentUser();
@@ -482,7 +482,7 @@ public class UserGroupServiceLocalBean {
         for (Product invisibleProd : invisibleProds) {
             PlatformUser currentUser = dm.getCurrentUser();
             if (!existingInvisibilities.keySet().contains(
-                    Long.valueOf(invisibleProd.getKey()))) {
+                invisibleProd.getKey())) {
                 newInvisibleProds.add(invisibleProd);
                 UserGroupToInvisibleProduct grpToProd = new UserGroupToInvisibleProduct();
                 grpToProd.setProduct(invisibleProd);
@@ -497,7 +497,7 @@ public class UserGroupServiceLocalBean {
                 continue;
             }
             UserGroupToInvisibleProduct existingInvisibility = existingInvisibilities
-                    .get(Long.valueOf(invisibleProd.getKey()));
+                    .get(invisibleProd.getKey());
             if (!existingInvisibility.isForallusers()) {
                 existingInvisibility.setForallusers(true);
                 dm.merge(existingInvisibility);
@@ -512,7 +512,7 @@ public class UserGroupServiceLocalBean {
 
         for (UserGroupToInvisibleProduct grpToProd : oldGroupToProducts) {
             existingProductInvisibilities.put(
-                    Long.valueOf(grpToProd.getProduct_tkey()), grpToProd);
+                grpToProd.getProduct_tkey(), grpToProd);
         }
         return existingProductInvisibilities;
     }
@@ -520,7 +520,7 @@ public class UserGroupServiceLocalBean {
     List<Long> getNewVisibleProductKeys(List<Product> visibleProducts) {
         List<Long> newVisibleProductKeys = new ArrayList<>();
         for (Product p : visibleProducts) {
-            newVisibleProductKeys.add(Long.valueOf(p.getKey()));
+            newVisibleProductKeys.add(p.getKey());
         }
         return newVisibleProductKeys;
     }

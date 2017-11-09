@@ -227,8 +227,8 @@ public class RevenueCalculatorBean implements RevenueCalculatorLocal {
         result.setOrganizationTKey(billingInput.getOrganizationKey());
         result.setPeriodStartTime(billingInput.getBillingPeriodStart());
         result.setPeriodEndTime(billingInput.getBillingPeriodEnd());
-        result.setSubscriptionKey(Long.valueOf(billingInput
-                .getSubscriptionKey()));
+        result.setSubscriptionKey(billingInput
+            .getSubscriptionKey());
         result.setUsergroupKey(billingInput.getUserGroupKey());
 
         // as the result xml and grossAmout are a mandatory fields of the
@@ -900,8 +900,7 @@ public class RevenueCalculatorBean implements RevenueCalculatorLocal {
             if (!isStepPriceDefined) {
                 userAssignment.setBasePrice(basePrice);
             }
-            userAssignment.setNumberOfUsersTotal(Long
-                    .valueOf(pNumberOfUserTotal));
+            userAssignment.setNumberOfUsersTotal((long) pNumberOfUserTotal);
             userAssignment.setFactor(overallFactor);
             userAssignment.setPrice(costsForUserAssignments);
         }

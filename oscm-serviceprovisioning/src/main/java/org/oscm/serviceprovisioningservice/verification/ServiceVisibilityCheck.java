@@ -92,7 +92,7 @@ public class ServiceVisibilityCheck {
 					}
 					final Map<Long, TriggerData> catalogEntries = map
 							.get(marketplace);
-					catalogEntries.put(Long.valueOf(triggerData.serviceKey),
+					catalogEntries.put(triggerData.serviceKey,
 							triggerData);
 				} catch (ObjectNotFoundException ex) {
 					// Deleted Marketplace? Is not allowed to happen!
@@ -162,7 +162,7 @@ public class ServiceVisibilityCheck {
 			final Map<Marketplace, Map<Long, TriggerData>> servicesOnMpls = getActiveServicesForTechnicalProduct(
 					product, supplier);
 			mergeActiveServicesWithTriggers(servicesOnMpls,
-					triggerOperations.get(Long.valueOf(product.getKey())));
+					triggerOperations.get(product.getKey()));
 
 			// For each marketplace check if there is at least one active and
 			// visible product
@@ -210,7 +210,7 @@ public class ServiceVisibilityCheck {
 		final Query query = dm
 				.createNamedQuery("Product.getActiveProductsForMarketplace");
 		query.setParameter("technicalProduct", tp);
-		query.setParameter("vendorKey", Long.valueOf(supplier.getKey()));
+		query.setParameter("vendorKey", supplier.getKey());
 		final List<CatalogEntry> prodVisList = ParameterizedTypes.list(
 				query.getResultList(), CatalogEntry.class);
 
@@ -226,7 +226,7 @@ public class ServiceVisibilityCheck {
 						new HashMap<Long, TriggerData>());
 			}
 			productsOnMarketplaces.get(marketplace).put(
-					Long.valueOf(catalogEntry.getProduct().getKey()),
+                catalogEntry.getProduct().getKey(),
 					new TriggerData(catalogEntry.getProduct().getKey(),
 							catalogEntry.getMarketplace().getKey(),
 							catalogEntry.isVisibleInCatalog(), true));
@@ -252,8 +252,8 @@ public class ServiceVisibilityCheck {
 		if (entries != null && entries.size() > 0
 				&& service.getTargetCustomer() == null) {
 			// Ok! => remember triggered service operation
-			final Long tpKey = Long.valueOf(service.getTechnicalProduct()
-					.getKey());
+			final Long tpKey = service.getTechnicalProduct()
+                .getKey();
 			if (!triggerOperations.containsKey(tpKey)) {
 				triggerOperations.put(tpKey, new ArrayList<TriggerData>());
 			}

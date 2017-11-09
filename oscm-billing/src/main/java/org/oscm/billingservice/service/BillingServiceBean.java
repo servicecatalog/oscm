@@ -242,8 +242,8 @@ public class BillingServiceBean implements BillingService, BillingServiceLocal {
         for (BillingInput billingInput : billingSubscriptionChunk
                 .getBillingInputList()) {
 
-            Long subscriptionKey = Long.valueOf(billingInput
-                    .getSubscriptionKey());
+            Long subscriptionKey = billingInput
+                .getSubscriptionKey();
 
             if (!failedSubscriptions.contains(subscriptionKey)) {
                 try {

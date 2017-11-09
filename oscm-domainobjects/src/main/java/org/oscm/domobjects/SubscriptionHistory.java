@@ -73,24 +73,23 @@ public class SubscriptionHistory extends DomainHistoryObject<SubscriptionData> {
             setProductObjKey(c.getProduct().getKey());
         }
         if (c.getAsyncTempProduct() != null) {
-            setAsyncTempProductObjKey(Long.valueOf(c.getAsyncTempProduct()
-                    .getKey()));
+            setAsyncTempProductObjKey(c.getAsyncTempProduct()
+                .getKey());
         }
         if (c.getMarketplace() != null) {
-            setMarketplaceObjKey(Long.valueOf(c.getMarketplace().getKey()));
+            setMarketplaceObjKey(c.getMarketplace().getKey());
         }
         if (c.getPaymentInfo() != null) {
-            setPaymentInfoObjKey(Long.valueOf(c.getPaymentInfo().getKey()));
+            setPaymentInfoObjKey(c.getPaymentInfo().getKey());
         }
         if (c.getBillingContact() != null) {
-            setBillingContactObjKey(Long
-                    .valueOf(c.getBillingContact().getKey()));
+            setBillingContactObjKey(c.getBillingContact().getKey());
         }
         if (c.getOwner() != null) {
-            setOwnerObjKey(Long.valueOf(c.getOwner().getKey()));
+            setOwnerObjKey(c.getOwner().getKey());
         }
         if (c.getUserGroup() != null) {
-            setUserGroupObjKey(Long.valueOf(c.getUserGroup().getKey()));
+            setUserGroupObjKey(c.getUserGroup().getKey());
         }
     }
 

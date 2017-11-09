@@ -58,7 +58,7 @@ class TechnicalProductParameterOptionImportParser extends ImportParserBase {
         obsoleteOptionDescriptions = new HashMap<Long, List<VOLocalizedText>>();
         for (ParameterOption option : obsoleteOptions) {
             long optionKey = option.getKey();
-            obsoleteOptionDescriptions.put(Long.valueOf(optionKey), localizer
+            obsoleteOptionDescriptions.put(optionKey, localizer
                     .getLocalizedValues(optionKey,
                             LocalizedObjectTypes.OPTION_PARAMETER_DEF_DESC));
         }
@@ -131,7 +131,7 @@ class TechnicalProductParameterOptionImportParser extends ImportParserBase {
      */
     public void processLocalizedOption(String locale, String localizedText) {
         List<VOLocalizedText> obsoleteLocalizedTexts = obsoleteOptionDescriptions
-                .get(Long.valueOf(parameterOption.getKey()));
+                .get(parameterOption.getKey());
 
         // Check if the localized text is modified
         VOLocalizedText obsoleteLocalizedText = getLocalizedText(locale,
@@ -171,7 +171,7 @@ class TechnicalProductParameterOptionImportParser extends ImportParserBase {
      */
     void cleanupObsoleteOptionDescriptions() throws UpdateConstraintException {
         List<VOLocalizedText> obsoleteLocalizedTexts = obsoleteOptionDescriptions
-                .get(Long.valueOf(parameterOption.getKey()));
+                .get(parameterOption.getKey());
 
         if (obsoleteLocalizedTexts != null && obsoleteLocalizedTexts.size() > 0) {
             if (parameterDef.definesParametersOfUndeletedProduct()) {
@@ -186,8 +186,8 @@ class TechnicalProductParameterOptionImportParser extends ImportParserBase {
                             lt.getLocale());
                 }
 
-                obsoleteOptionDescriptions.remove(Long.valueOf(parameterOption
-                        .getKey()));
+                obsoleteOptionDescriptions.remove(parameterOption
+                    .getKey());
             }
         }
     }

@@ -159,8 +159,8 @@ public class RestNotificationServiceAdapter implements
             Query q = ds.createNamedQuery("Subscription.findByBusinessKey");
 
             q.setParameter("subscriptionId", subId);
-            q.setParameter("organizationKey", new Long(process
-                    .getTriggerDefinition().getOrganization().getKey()));
+            q.setParameter("organizationKey", process
+                .getTriggerDefinition().getOrganization().getKey());
 
             Subscription sub = (Subscription) q.getSingleResult();
 

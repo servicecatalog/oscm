@@ -63,7 +63,7 @@ public class PaymentRegistrationServiceWS
             OperationNotPermittedException onp = new OperationNotPermittedException(
                     String.format(
                             "Caller with dn '%s' is not permitted to save an external identifier for payment type with key '%s'.",
-                            certDN, Long.valueOf(paymentTypeKey)));
+                            certDN, paymentTypeKey));
             logger.logWarn(Log4jLogger.SYSTEM_LOG | Log4jLogger.ACCESS_LOG, onp,
                     LogMessageIdentifier.WARN_SET_PSP_ID_UNAUTHORIZED, certDN,
                     String.valueOf(paymentTypeKey));

@@ -140,7 +140,7 @@ public class LoginHandler implements SOAPHandler<SOAPMessageContext> {
     protected Boolean isInboundMessage(SOAPMessageContext context) {
         Boolean outBoundProperty = (Boolean) context
                 .get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
-        return Boolean.valueOf(!outBoundProperty.booleanValue());
+        return !outBoundProperty.booleanValue();
     }
 
     protected String getUserKeyFromContext(SOAPMessageContext context)

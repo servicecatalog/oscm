@@ -111,12 +111,12 @@ public class DurationParameterValidator extends DefaultParameterValidator {
         if (parsedDuration != null) {
             // as validation passed, the value is not null
             double milliseconds = parsedDuration.doubleValue();
-            Long msLong = Long.valueOf(Math.round(milliseconds));
+            Long msLong = Math.round(milliseconds);
             if (milliseconds > Long.MAX_VALUE
                     || msLong.longValue() % MILLISECONDS_PER_DAY != 0) {
                 return null;
             } else {
-                return Long.valueOf(Math.round(milliseconds));
+                return Math.round(milliseconds);
             }
         } else {
             return null;

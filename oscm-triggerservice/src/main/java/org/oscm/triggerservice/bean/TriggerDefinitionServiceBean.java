@@ -105,7 +105,7 @@ public class TriggerDefinitionServiceBean implements TriggerDefinitionService {
         Query query = dm
                 .createNamedQuery("TriggerProcess.getAllForTriggerDefinition");
         query.setParameter("triggerDefinitionKey",
-                Long.valueOf(triggerDefinitionKey));
+            triggerDefinitionKey);
         List<TriggerProcess> triggerProcessList = ParameterizedTypes.list(
                 query.getResultList(), TriggerProcess.class);
         if (triggerProcessList.size() > 0) {
@@ -175,7 +175,7 @@ public class TriggerDefinitionServiceBean implements TriggerDefinitionService {
             dm.persist(triggerDefinition);
             dm.flush();
 
-            return new Long(triggerDefinition.getKey());
+            return triggerDefinition.getKey();
         } catch (NonUniqueBusinessKeyException e) {
             // should not happen as the saved object doesn't have a business
             // key
@@ -323,7 +323,7 @@ public class TriggerDefinitionServiceBean implements TriggerDefinitionService {
         Query query = dm
                 .createNamedQuery("TriggerProcess.getAllForTriggerDefinition");
         query.setParameter("triggerDefinitionKey",
-                Long.valueOf(triggerDefinitionKey));
+            triggerDefinitionKey);
         List<TriggerProcess> triggerProcesses = ParameterizedTypes.list(
                 query.getResultList(), TriggerProcess.class);
 

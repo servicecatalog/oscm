@@ -474,7 +474,7 @@ public class ServiceProvisioningPartnerServiceLocalBean implements
 
         Query query = dm
                 .createNamedQuery("Product.getPartnerSpecificCopiesForVendor");
-        query.setParameter("vendorKey", Long.valueOf(vendor.getKey()));
+        query.setParameter("vendorKey", vendor.getKey());
         query.setParameter("status", EnumSet.of(ServiceStatus.ACTIVE,
                 ServiceStatus.INACTIVE, ServiceStatus.SUSPENDED));
 
@@ -682,7 +682,7 @@ public class ServiceProvisioningPartnerServiceLocalBean implements
 
     Product loadProductCopyForVendor(Organization vendor, Product product) {
         Query query = dm.createNamedQuery("Product.getProductCopyForVendor");
-        query.setParameter("vendorKey", Long.valueOf(vendor.getKey()));
+        query.setParameter("vendorKey", vendor.getKey());
         query.setParameter("product", product);
 
         List<Product> resultList = ParameterizedTypes.list(
@@ -813,7 +813,7 @@ public class ServiceProvisioningPartnerServiceLocalBean implements
             EnumSet<ServiceType> serviceTypes, Organization vendor) {
         Query query = dm
                 .createNamedQuery("Product.getProductTemplatesForVendor");
-        query.setParameter("vendorKey", Long.valueOf(vendor.getKey()));
+        query.setParameter("vendorKey", vendor.getKey());
         query.setParameter("productTypes", serviceTypes);
         query.setParameter("filterOutWithStatus",
                 EnumSet.of(ServiceStatus.OBSOLETE, ServiceStatus.DELETED));

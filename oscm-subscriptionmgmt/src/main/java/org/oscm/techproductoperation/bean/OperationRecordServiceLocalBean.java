@@ -59,7 +59,7 @@ public class OperationRecordServiceLocalBean {
 
     public List<OperationRecord> getOperationRecords(boolean onlyMyOperations) {
         ArgumentValidator.notNull("onlyMyOperations",
-                Boolean.valueOf(onlyMyOperations));
+            onlyMyOperations);
         PlatformUser user = dm.getCurrentUser();
         if (onlyMyOperations) {
             return operationRecordDao.getOperationsForUser(user.getKey());

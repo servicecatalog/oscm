@@ -88,7 +88,7 @@ public class OperationRecordServiceBean implements OperationRecordService {
         for (POOperationRecord record : records) {
             verifySubscription(record);
             verifyUser(record);
-            keys.add(Long.valueOf(record.getKey()));
+            keys.add(record.getKey());
         }
         return keys;
     }

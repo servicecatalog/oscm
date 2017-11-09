@@ -215,7 +215,7 @@ public class MarketplaceServiceBean implements MarketplaceService {
         if (entries.size() != 1) {
             ValidationException e = new ValidationException(
                     ReasonEnum.INVALID_NUMBER_TARGET_CATALOG_ENTRIES, null,
-                    new Object[] { Integer.valueOf(entries.size()) });
+                    new Object[] {entries.size()});
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_SERVICE_PUBLISHED_ONLY_LOCAL_XOR_GLOBAL_MARKETPLACE);
             throw e;
@@ -635,7 +635,7 @@ public class MarketplaceServiceBean implements MarketplaceService {
         Query query = dm
                 .createNamedQuery("Product.getProductsForVendorOnMarketplace");
         query.setParameter("marketplaceId", mId);
-        query.setParameter("vendorKey", Long.valueOf(supplier.getKey()));
+        query.setParameter("vendorKey", supplier.getKey());
         List<Product> productList = ParameterizedTypes
                 .list(query.getResultList(), Product.class);
         if (productList != null) {
@@ -861,7 +861,7 @@ public class MarketplaceServiceBean implements MarketplaceService {
                             "MarketplaceToOrganization.findSuppliersForMpByPublishingAccess",
                             MarketplaceToOrganization.class);
             mtoQuery.setParameter("marketplace_tkey",
-                    Long.valueOf(mp.getKey()));
+                mp.getKey());
             mtoQuery.setParameter("publishingAccess",
                     PublishingAccess.PUBLISHING_ACCESS_DENIED);
 
@@ -869,7 +869,7 @@ public class MarketplaceServiceBean implements MarketplaceService {
             HashSet<Long> set = new HashSet<>();
 
             for (MarketplaceToOrganization mto : mtoList) {
-                set.add(new Long(mto.getOrganization_tkey()));
+                set.add(mto.getOrganization_tkey());
             }
 
             TypedQuery<Organization> orgQuery = dm.createNamedQuery(
@@ -877,7 +877,7 @@ public class MarketplaceServiceBean implements MarketplaceService {
             List<Organization> orgList = orgQuery.getResultList();
 
             for (Organization org : orgList) {
-                if (!set.contains(new Long(org.getKey()))) {
+                if (!set.contains(org.getKey())) {
                     result.add(OrganizationAssembler.toVOOrganization(org,
                             false, facade));
                 }
@@ -887,7 +887,7 @@ public class MarketplaceServiceBean implements MarketplaceService {
             TypedQuery<MarketplaceToOrganization> query = dm.createNamedQuery(
                     "MarketplaceToOrganization.findSuppliersForMpByPublishingAccess",
                     MarketplaceToOrganization.class);
-            query.setParameter("marketplace_tkey", Long.valueOf(mp.getKey()));
+            query.setParameter("marketplace_tkey", mp.getKey());
             query.setParameter("publishingAccess",
                     PublishingAccess.PUBLISHING_ACCESS_GRANTED);
 
@@ -952,7 +952,7 @@ public class MarketplaceServiceBean implements MarketplaceService {
 
         Query query = dm.createNamedQuery(
                 "MarketplaceToOrganization.findSuppliersForMpByPublishingAccess");
-        query.setParameter("marketplace_tkey", Long.valueOf(mp.getKey()));
+        query.setParameter("marketplace_tkey", mp.getKey());
         query.setParameter("publishingAccess", publishingAccess);
 
         // finally convert all domain objects to VO representation and

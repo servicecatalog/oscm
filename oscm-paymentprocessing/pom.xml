@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>oscm</artifactId>
-    <groupId>oscm</groupId>
+    <groupId>org.oscm</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
@@ -13,108 +13,89 @@
 
   <dependencies>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-accountmgmt-intsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice-intsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
       <artifactId>oscm-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-paymentprocessing-intsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-internal</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-application-intsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-psp-extsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-webservices-client</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-application</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-intsvc-base</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-i18n-intsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-converter</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-server-util</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-psp-heidelpay</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <classifier>classes</classifier>
-      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-billing</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-i18n</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-unittests-base</artifactId>
     </dependency>
 
     <dependency>
@@ -169,7 +150,6 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.psp.intf.PaymentRegistrationService</className>
-              <outputFile>${basedir}/src/main/resources/wsdl/psp/PaymentRegistrationService.wsdl</outputFile>
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>
@@ -184,7 +164,6 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.psp.intf.PaymentServiceProvider</className>
-              <outputFile>${basedir}/src/main/resources/wsdl/psp/PaymentServiceProvider.wsdl</outputFile>
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>

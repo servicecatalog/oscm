@@ -41,12 +41,12 @@ public class V2_0_45_1__MigrationPSP extends DatabaseUpgradeTask implements Jdbc
             value = rs.getString(1);
         }
 
-        stPropsInsert.setObject(1, new Integer(tkey));
+        stPropsInsert.setObject(1, tkey);
         stPropsInsert.setObject(2, key);
         stPropsInsert.setObject(3, value);
         stPropsInsert.execute();
 
-        stPropsInsertHistory.setObject(1, new Integer(tkey));
+        stPropsInsertHistory.setObject(1, tkey);
         stPropsInsertHistory.setObject(2, key);
         stPropsInsertHistory.setObject(3, value);
         stPropsInsertHistory.execute();
@@ -69,12 +69,12 @@ public class V2_0_45_1__MigrationPSP extends DatabaseUpgradeTask implements Jdbc
             .prepareStatement("INSERT INTO pspaccounthistory (tkey, objversion, objkey, invocationdate, moddate, modtype, moduser, pspidentifier, pspobjkey, organizationobjkey) VALUES (?, 0, ?, now(), now(), 'ADD', '1000', ?, 2, ?)");
         long i = 0, iHistory = 0;
         while (rs.next()) {
-            st.setObject(1, new Long(++i));
+            st.setObject(1, ++i);
             st.setObject(2, rs.getString("pspidentifier"));
             st.setObject(3, rs.getObject("tkey"));
             st.executeUpdate();
-            stHistory.setObject(1, new Long(++iHistory));
-            stHistory.setObject(2, new Long(i));
+            stHistory.setObject(1, ++iHistory);
+            stHistory.setObject(2, i);
             stHistory.setObject(3, rs.getString("pspidentifier"));
             stHistory.setObject(4, rs.getObject("tkey"));
             stHistory.executeUpdate();

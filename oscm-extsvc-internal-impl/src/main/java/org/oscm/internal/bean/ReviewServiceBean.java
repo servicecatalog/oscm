@@ -60,7 +60,7 @@ public class ReviewServiceBean implements ReviewService {
                 .getKey());
         ProductReviewAssembler.updateProductReview(domainObject, review);
         ProductReview result = localBean.writeReview(domainObject,
-                Long.valueOf(review.getProductKey()));
+            review.getProductKey());
         return ProductReviewAssembler.toVOServiceReview(result);
     }
 
@@ -68,7 +68,7 @@ public class ReviewServiceBean implements ReviewService {
     public void deleteReview(VOServiceReview review)
             throws OperationNotPermittedException, ObjectNotFoundException {
         ArgumentValidator.notNull("review", review);
-        localBean.deleteReview(Long.valueOf(review.getKey()));
+        localBean.deleteReview(review.getKey());
     }
 
     @Override
@@ -78,7 +78,7 @@ public class ReviewServiceBean implements ReviewService {
             ObjectNotFoundException {
         ArgumentValidator.notNull("review", review);
         ArgumentValidator.notEmptyString("reason", reason);
-        localBean.deleteReviewByMarketplaceOwner(Long.valueOf(review.getKey()),
+        localBean.deleteReviewByMarketplaceOwner(review.getKey(),
                 reason);
     }
 

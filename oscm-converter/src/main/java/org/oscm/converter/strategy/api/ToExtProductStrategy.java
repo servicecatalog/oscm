@@ -60,7 +60,7 @@ public class ToExtProductStrategy extends AbstractConversionStrategy implements 
 
         final List<LocalizedObjectTypes> localizedObjectTypes = product.getLocalizedObjectTypes();
         final String locale = getDataService().getCurrentUser().getLocale();
-        final List<LocalizedResource> localizedResources = getLocalizedResource(localizedObjectTypes, Long.valueOf(product.getKey()), locale);
+        final List<LocalizedResource> localizedResources = getLocalizedResource(localizedObjectTypes, product.getKey(), locale);
 
         for (LocalizedResource resource : localizedResources) {
             if (resource.getObjectType().equals(LocalizedObjectTypes.PRODUCT_SHORT_DESCRIPTION)){

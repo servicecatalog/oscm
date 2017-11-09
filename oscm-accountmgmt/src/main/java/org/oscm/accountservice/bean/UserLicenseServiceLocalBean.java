@@ -83,8 +83,8 @@ public class UserLicenseServiceLocalBean {
         SendMailStatus<PlatformUser> mailStatus = cs
                 .sendMail(
                         EmailType.USER_NUM_EXCEEDED,
-                        new Object[] { Long.valueOf(maxNum),
-                                Long.valueOf(currentNum) }, null,
+                        new Object[] {maxNum,
+                            currentNum}, null,
                         recipients.toArray(new PlatformUser[recipients.size()]));
         if (mailStatus != null) {
             for (SendMailStatusItem<PlatformUser> sendMailStatusItem : mailStatus

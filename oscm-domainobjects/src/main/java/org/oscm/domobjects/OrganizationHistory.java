@@ -59,13 +59,13 @@ public class OrganizationHistory extends DomainHistoryObject<OrganizationData> {
         super(org);
 
         if (org.getDomicileCountry() != null) {
-            setDomicileCountryObjKey(Long.valueOf(org.getDomicileCountry()
-                    .getKey()));
+            setDomicileCountryObjKey(org.getDomicileCountry()
+                .getKey());
         }
 
         if (org.getOperatorPriceModel() != null) {
-            setOperatorPriceModelObjKey(Long.valueOf(org
-                    .getOperatorPriceModel().getKey()));
+            setOperatorPriceModelObjKey(org
+                .getOperatorPriceModel().getKey());
         }
     }
 

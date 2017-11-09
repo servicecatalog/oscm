@@ -174,7 +174,7 @@ public class MarketplaceServiceLocalBean implements MarketplaceServiceLocal {
         Query query = ds.createNamedQuery(
                 "Marketplace.findMarketplacesForPublishingForOrg");
         query.setParameter("organization_tkey",
-                Long.valueOf(supplier.getKey()));
+            supplier.getKey());
         query.setParameter("publishingAccessGranted",
                 PublishingAccess.PUBLISHING_ACCESS_GRANTED);
         query.setParameter("publishingAccessDenied",
@@ -331,8 +331,8 @@ public class MarketplaceServiceLocalBean implements MarketplaceServiceLocal {
         // second retrieve relevant marketplaces by query
         Query query = ds.createNamedQuery(
                 "OrganizationToRole.getByOrganizationAndRole");
-        query.setParameter("orgTKey", new Long(org.getKey()));
-        query.setParameter("orgRoleTKey", new Long(orgRole.getKey()));
+        query.setParameter("orgTKey", org.getKey());
+        query.setParameter("orgRoleTKey", orgRole.getKey());
         List<OrganizationToRole> tempList = ParameterizedTypes
                 .list(query.getResultList(), OrganizationToRole.class);
 

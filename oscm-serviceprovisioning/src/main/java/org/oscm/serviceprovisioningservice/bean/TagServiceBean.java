@@ -111,7 +111,7 @@ public class TagServiceBean implements TagService, TagServiceLocal {
         int minScore = getTaggingMinScore();
         Query query = dm
                 .createNamedQuery("TechnicalProductTag.getAllTagsGreaterMinScore");
-        query.setParameter("tagMinScore", Long.valueOf(minScore));
+        query.setParameter("tagMinScore", (long) minScore);
         query.setParameter("locale", locale);
 
         List<Object[]> queryResult = ParameterizedTypes.list(
@@ -167,7 +167,7 @@ public class TagServiceBean implements TagService, TagServiceLocal {
         if (marketplaceId != null) {
             Query query = dm
                     .createNamedQuery("TechnicalProductTag.getAllVisibleTagsGreaterMinScore");
-            query.setParameter("tagMinScore", Long.valueOf(minScore));
+            query.setParameter("tagMinScore", (long) minScore);
             query.setParameter("marketplaceId", marketplaceId);
             query.setParameter("locale", locale);
 
@@ -315,15 +315,15 @@ public class TagServiceBean implements TagService, TagServiceLocal {
                 // check maximum number of tags per locale
                 Integer localeCount = localeCounter.get(tag.getLocale());
                 if (localeCount == null)
-                    localeCount = new Integer(1);
+                    localeCount = 1;
                 else
-                    localeCount = new Integer(localeCount.intValue() + 1);
+                    localeCount = localeCount.intValue() + 1;
                 localeCounter.put(tag.getLocale(), localeCount);
                 if (localeCount.intValue() > MAX_COUNT_TAGS) {
                     sessionCtx.setRollbackOnly();
                     throw new ValidationException(ReasonEnum.TAGS_MAX_COUNT,
                             "tags",
-                            new Object[] { Integer.valueOf(MAX_COUNT_TAGS) });
+                            new Object[] {MAX_COUNT_TAGS});
                 }
 
                 // Check whether this tag is already referenced

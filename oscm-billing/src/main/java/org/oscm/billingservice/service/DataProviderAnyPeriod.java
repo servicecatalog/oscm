@@ -130,7 +130,7 @@ public class DataProviderAnyPeriod extends DataProvider {
                         billingInput.getSubscriptionKey());
                 UserGroup unit = subscription.getUserGroup();
                 if (unit != null) {
-                    billingInput.setUserGroupKey(Long.valueOf(unit.getKey()));
+                    billingInput.setUserGroupKey(unit.getKey());
                 }
             } catch (ObjectNotFoundException ignored) {}
         }

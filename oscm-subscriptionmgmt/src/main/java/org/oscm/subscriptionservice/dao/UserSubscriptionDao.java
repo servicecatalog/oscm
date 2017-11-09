@@ -195,8 +195,8 @@ public class UserSubscriptionDao {
         Query q = dataManager.createNativeQuery(nativeQuery);
 
         q.setParameter("locale", owner.getLocale());
-        q.setParameter("orgKey", Long.valueOf(owner.getKey()));
-        q.setParameter("userKey", Long.valueOf(userKey));
+        q.setParameter("orgKey", owner.getKey());
+        q.setParameter("userKey", userKey);
         q.setParameter("states", getSubscriptionStatesAsString(states));
 
         setPaginationParameters(pagination, q);
@@ -211,8 +211,8 @@ public class UserSubscriptionDao {
         Query q = dataManager.createNativeQuery(nativeQuery);
 
         q.setParameter("locale", owner.getLocale());
-        q.setParameter("orgKey", Long.valueOf(owner.getKey()));
-        q.setParameter("userKey", Long.valueOf(userKey));
+        q.setParameter("orgKey", owner.getKey());
+        q.setParameter("userKey", userKey);
         q.setParameter("states", getSubscriptionStatesAsString(states));
 
         setPaginationParameters(pagination, q);

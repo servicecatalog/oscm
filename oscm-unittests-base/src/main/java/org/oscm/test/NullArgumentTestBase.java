@@ -187,13 +187,13 @@ public abstract class NullArgumentTestBase<R> extends EJBTestBase {
 
     static {
         INSTANCES.put(Boolean.TYPE, Boolean.FALSE);
-        INSTANCES.put(Long.TYPE, Long.valueOf(0));
-        INSTANCES.put(Long.class, Long.valueOf(0));
+        INSTANCES.put(Long.TYPE, 0L);
+        INSTANCES.put(Long.class, 0L);
         INSTANCES.put(String.class, "string");
         INSTANCES.put(Properties.class, new Properties());
         INSTANCES.put(List.class, Collections.EMPTY_LIST);
         INSTANCES.put(Set.class, Collections.EMPTY_SET);
-        INSTANCES.put(Integer.TYPE, Integer.valueOf(5));
+        INSTANCES.put(Integer.TYPE, 5);
         INSTANCES.put(byte[].class,
                 bytes("user,user1@org.com,en,MR,John,Doe,ORGANIZATION_ADMIN"));
 

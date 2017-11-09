@@ -409,12 +409,12 @@ public class TriggerServiceBean implements TriggerService, TriggerServiceLocal {
         PlatformUser currentUser = dm.getCurrentUser();
         Query query = dm.createNamedQuery(namedQuery);
         try {
-            query.setParameter("userKey", Long.valueOf(currentUser.getKey()));
+            query.setParameter("userKey", currentUser.getKey());
         } catch (IllegalArgumentException ie) {
             logger.logDebug("Parameter is not needed");
         }
         query.setParameter("organizationKey",
-            Long.valueOf(currentUser.getOrganization().getKey()));
+            currentUser.getOrganization().getKey());
         LocalizerFacade localizerFacade = new LocalizerFacade(localizer,
             currentUser.getLocale());
         for (TriggerProcess triggerProcess : ((Collection<TriggerProcess>) query
@@ -438,7 +438,7 @@ public class TriggerServiceBean implements TriggerService, TriggerServiceLocal {
         Query query = dm.createNamedQuery(
             "TriggerProcess.getAllForOrganizationRelatedSubscription");
         query.setParameter("organizationKey",
-            Long.valueOf(dm.getCurrentUser().getOrganization().getKey()));
+            dm.getCurrentUser().getOrganization().getKey());
         List<TriggerProcess> triggerProcesses = query.getResultList();
         DocumentBuilder builder = null;
         XPathExpression serviceIdXpath = null;
@@ -542,7 +542,7 @@ public class TriggerServiceBean implements TriggerService, TriggerServiceLocal {
         PlatformUser currentUser = dm.getCurrentUser();
         Query query = dm.createNamedQuery(namedQuery);
         query.setParameter("organizationKey",
-            Long.valueOf(currentUser.getOrganization().getKey()));
+            currentUser.getOrganization().getKey());
         Collection<TriggerProcess> resultList = query.getResultList();
         LocalizerFacade localizerFacade = new LocalizerFacade(localizer,
             currentUser.getLocale());
@@ -783,7 +783,7 @@ public class TriggerServiceBean implements TriggerService, TriggerServiceLocal {
         try {
             Query query = dm
                 .createNamedQuery("TriggerProcessParameter.getParam");
-            query.setParameter("actionKey", Long.valueOf(actionKey));
+            query.setParameter("actionKey", actionKey);
             query.setParameter("paramName",
                 org.oscm.types.enumtypes.TriggerProcessParameterName
                     .valueOf(paramType.name()));
@@ -837,12 +837,11 @@ public class TriggerServiceBean implements TriggerService, TriggerServiceLocal {
 
         for (VOParameter dbParam : dbService.getParameters()) {
             VOParameterDefinition dbParamDef = dbParam.getParameterDefinition();
-            keyToDefinition.put(Long.valueOf(dbParamDef.getKey()), dbParamDef);
+            keyToDefinition.put(dbParamDef.getKey(), dbParamDef);
         }
 
         for (VOParameter newParam : service.getParameters()) {
-            VOParameterDefinition paramDef = keyToDefinition.get(Long
-                .valueOf(newParam.getParameterDefinition().getKey()));
+            VOParameterDefinition paramDef = keyToDefinition.get(newParam.getParameterDefinition().getKey());
             if (paramDef != null) {
                 newParam.setParameterDefinition(paramDef);
             }

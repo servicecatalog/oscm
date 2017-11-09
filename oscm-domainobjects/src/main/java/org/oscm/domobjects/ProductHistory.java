@@ -48,20 +48,19 @@ public class ProductHistory extends DomainHistoryObject<ProductData> {
             setVendorObjKey(c.getVendor().getKey());
         }
         if (c.getPriceModel() != null) {
-            setPriceModelObjKey(Long.valueOf(c.getPriceModel().getKey()));
+            setPriceModelObjKey(c.getPriceModel().getKey());
         }
         if (c.getTechnicalProduct() != null) {
             setTechnicalProductObjKey(c.getTechnicalProduct().getKey());
         }
         if (c.getParameterSet() != null) {
-            setParameterSetObjKey(Long.valueOf(c.getParameterSet().getKey()));
+            setParameterSetObjKey(c.getParameterSet().getKey());
         }
         if (c.getTemplate() != null) {
-            setTemplateObjKey(Long.valueOf(c.getTemplate().getKey()));
+            setTemplateObjKey(c.getTemplate().getKey());
         }
         if (c.getTargetCustomer() != null) {
-            setTargetCustomerObjKey(Long
-                    .valueOf(c.getTargetCustomer().getKey()));
+            setTargetCustomerObjKey(c.getTargetCustomer().getKey());
         }
     }
 

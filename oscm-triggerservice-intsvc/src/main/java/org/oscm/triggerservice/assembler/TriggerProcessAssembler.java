@@ -187,8 +187,8 @@ public class TriggerProcessAssembler extends BaseAssembler {
 
         result.setType(TriggerProcessParameterType.valueOf(parameter.getName()
                 .name()));
-        result.setTriggerProcessKey(Long.valueOf(parameter.getTriggerProcess()
-                .getKey()));
+        result.setTriggerProcessKey(parameter.getTriggerProcess()
+            .getKey());
         result.setValue(parameter.getValue(PARAM_MAPPING.get(parameter
                 .getName())));
         result.setKey(parameter.getKey());

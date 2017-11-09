@@ -15,31 +15,31 @@ import org.oscm.converter.PriceConverter;
  */
 public class Numbers {
 
-    public static final Long L_MIN = Long.valueOf(Long.MIN_VALUE);
+    public static final Long L_MIN = Long.MIN_VALUE;
 
-    public static final Long Lm100 = Long.valueOf(-100);
-    public static final Long Lm1 = Long.valueOf(-1);
-    public static final Long L0 = Long.valueOf(0);
-    public static final Long L1 = Long.valueOf(1);
-    public static final Long L2 = Long.valueOf(2);
-    public static final Long L3 = Long.valueOf(3);
-    public static final Long L4 = Long.valueOf(4);
-    public static final Long L5 = Long.valueOf(5);
-    public static final Long L15 = Long.valueOf(15);
-    public static final Long L10 = Long.valueOf(10);
-    public static final Long L20 = Long.valueOf(20);
-    public static final Long L40 = Long.valueOf(40);
-    public static final Long L50 = Long.valueOf(50);
-    public static final Long L100 = Long.valueOf(100);
-    public static final Long L123 = Long.valueOf(123);
-    public static final Long L150 = Long.valueOf(150);
-    public static final Long L200 = Long.valueOf(200);
-    public static final Long L300 = Long.valueOf(300);
-    public static final Long L1000 = Long.valueOf(1000);
-    public static final Long L2000 = Long.valueOf(2000);
-    public static final Long L3000 = Long.valueOf(3000);
+    public static final Long Lm100 = (long) -100;
+    public static final Long Lm1 = (long) -1;
+    public static final Long L0 = 0L;
+    public static final Long L1 = 1L;
+    public static final Long L2 = 2L;
+    public static final Long L3 = 3L;
+    public static final Long L4 = 4L;
+    public static final Long L5 = 5L;
+    public static final Long L15 = 15L;
+    public static final Long L10 = 10L;
+    public static final Long L20 = 20L;
+    public static final Long L40 = 40L;
+    public static final Long L50 = 50L;
+    public static final Long L100 = 100L;
+    public static final Long L123 = 123L;
+    public static final Long L150 = 150L;
+    public static final Long L200 = 200L;
+    public static final Long L300 = 300L;
+    public static final Long L1000 = 1000L;
+    public static final Long L2000 = 2000L;
+    public static final Long L3000 = 3000L;
 
-    public static final Long L_MAX = Long.valueOf(Long.MAX_VALUE);
+    public static final Long L_MAX = Long.MAX_VALUE;
 
     public static final int BIGDECIMAL_SCALE = PriceConverter.NUMBER_OF_DECIMAL_PLACES;
     public static final BigDecimal BD3000 = BigDecimal.valueOf(3000).setScale(
@@ -155,6 +155,6 @@ public class Numbers {
      */
     public static final long TIMESTAMP = 1282816800000L;
 
-    public static final Long L_TIMESTAMP = Long.valueOf(TIMESTAMP);
+    public static final Long L_TIMESTAMP = TIMESTAMP;
 
 }

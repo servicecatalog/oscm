@@ -48,8 +48,8 @@ public class ParameterDefinitionHistory extends
     public ParameterDefinitionHistory(ParameterDefinition c) {
         super(c);
         if (c.getTechnicalProduct() != null) {
-            this.technicalProductObjKey = Long.valueOf(c.getTechnicalProduct()
-                    .getKey());
+            this.technicalProductObjKey = c.getTechnicalProduct()
+                .getKey();
         }
     }
 

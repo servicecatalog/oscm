@@ -42,7 +42,7 @@ public class ModifiedEntityDao {
         Query query = dataManager
                 .createNamedQuery("ModifiedEntity.deleteByObjectAndTypes");
         query.setParameter("targetObjectKey",
-                Long.valueOf(subscription.getKey()));
+            subscription.getKey());
         query.setParameter("targetObjectTypes", SubTypes);
         query.executeUpdate();
 
@@ -50,7 +50,7 @@ public class ModifiedEntityDao {
         Query queryUda = dataManager
                 .createNamedQuery("ModifiedUda.deleteBySubscription");
         queryUda.setParameter("subscriptionKey",
-                Long.valueOf(subscription.getKey()));
+            subscription.getKey());
         queryUda.executeUpdate();
     }
 
@@ -61,7 +61,7 @@ public class ModifiedEntityDao {
         Query query = dataManager
                 .createNamedQuery("ModifiedEntity.findByObjectAndTypes");
         query.setParameter("targetObjectKey",
-                Long.valueOf(subscription.getKey()));
+            subscription.getKey());
         query.setParameter("targetObjectTypes", modifiedEntityTypes);
         List<ModifiedEntity> modifiedEntities = ParameterizedTypes.list(
                 query.getResultList(), ModifiedEntity.class);

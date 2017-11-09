@@ -8,13 +8,7 @@
 
 package org.oscm.applicationservice.adapter;
 
-import java.net.URL;
-
-import javax.wsdl.WSDLException;
-import javax.xml.ws.WebServiceException;
-
 import org.oscm.applicationservice.data.SupportedProvisioningVersions;
-import org.oscm.applicationservice.provisioning.adapter.ProvisioningServiceAdapterV1_0;
 import org.oscm.applicationservice.provisioning.adapter.ProvisioningServiceAdapterV1_8;
 import org.oscm.domobjects.TechnicalProduct;
 import org.oscm.internal.types.exception.TechnicalServiceNotAliveException;
@@ -22,7 +16,10 @@ import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ws.WSPortConnector;
-import org.oscm.ws.WSPortDescription;
+
+import javax.wsdl.WSDLException;
+import javax.xml.ws.WebServiceException;
+import java.net.URL;
 
 /**
  * Retrieves the provisioning service adapter according to the concrete
@@ -46,17 +43,8 @@ public class ProvisioningServiceAdapterFactory {
             WSPortConnector portConnector = new WSPortConnector(
                     techProduct.getProvisioningURL(), username, password);
 
-            WSPortDescription portDescription = portConnector
-                    .getPortDescription();
-
-            String targetVersionFromWsdl = portDescription.getVersion();
-            SupportedProvisioningVersions supportedVersion = SupportedProvisioningVersions
-                    .getForVersionString(targetVersionFromWsdl);
-            if (supportedVersion == null) {
-                supportedVersion = SupportedProvisioningVersions.VERSION_1_8;
-            }
-            Class<?> serviceClass = supportedVersion.getServiceClass();
-            adapter = getAdapterForVersion(supportedVersion);
+            Class<?> serviceClass = SupportedProvisioningVersions.VERSION_1_8.getServiceClass();
+            adapter = new ProvisioningServiceAdapterV1_8();
             URL localWsdlURL = adapter.getLocalWSDL();
 
             try {
@@ -99,26 +87,6 @@ public class ProvisioningServiceAdapterFactory {
         }
 
         return adapter;
-    }
-
-    /**
-     * Initialized a provisioning service adapter for the version matching the
-     * the version retrieved from wsdl.
-     * 
-     * @param supportedVersion
-     * @return
-     */
-    private static ProvisioningServiceAdapter getAdapterForVersion(
-            SupportedProvisioningVersions supportedVersion) {
-        switch (supportedVersion) {
-        case VERSION_1_7:
-            return new ProvisioningServiceAdapterV1_0();
-        case VERSION_1_8:
-            return new ProvisioningServiceAdapterV1_8();
-
-        default:
-            return new ProvisioningServiceAdapterV1_8();
-        }
     }
 
 }

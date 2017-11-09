@@ -46,7 +46,7 @@ public class OrganizationDao {
             Set<SubscriptionStatus> states) {
         Query query = dataManager
                 .createNamedQuery("Organization.getForOffererKeyAndSubscriptionId");
-        query.setParameter("offererKey", Long.valueOf(offerer.getKey()));
+        query.setParameter("offererKey", offerer.getKey());
         query.setParameter("subscriptionId", subscriptionId);
         query.setParameter("states", states);
         return ParameterizedTypes.list(query.getResultList(),
@@ -58,7 +58,7 @@ public class OrganizationDao {
     public List<PlatformUser> getOrganizationAdmins(long organizationKey) {
         Query query = dataManager
                 .createNamedQuery("Organization.getAdministrators");
-        query.setParameter("orgkey", Long.valueOf(organizationKey));
+        query.setParameter("orgkey", organizationKey);
         return ParameterizedTypes.list(query.getResultList(),
                 PlatformUser.class);
     }
@@ -96,7 +96,7 @@ public class OrganizationDao {
                 + " r.rolename = :orgRole";
 
         final Query query = dataManager.createNativeQuery(s);
-        query.setParameter("serviceKey", Long.valueOf(serviceKey));
+        query.setParameter("serviceKey", serviceKey);
         query.setParameter("orgRole", orgRole.name());
         return ParameterizedTypes.list(query.getResultList(), Object[].class);
     }

@@ -54,7 +54,7 @@ public class PriceModelHistory extends DomainHistoryObject<PriceModelData> {
             setProductObjKey(domObj.getProduct().getKey());
         }
         if (domObj.getCurrency() != null) {
-            setCurrencyObjKey(Long.valueOf(domObj.getCurrency().getKey()));
+            setCurrencyObjKey(domObj.getCurrency().getKey());
         }
     }
 

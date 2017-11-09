@@ -16,18 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Lock;
-import javax.ejb.LockType;
-import javax.ejb.Remote;
-import javax.ejb.Schedule;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
+import javax.ejb.*;
 import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -108,6 +97,38 @@ public class ConfigurationServiceBean
                         "Keyfile at " + path + " could not be generated");
             }
 
+        }
+
+        String filePath = getConfigurationSetting(ConfigurationKey.LOG_FILE_PATH,
+                        Configuration.GLOBAL_CONTEXT)
+                .getValue();
+        String logLevel = getConfigurationSetting(ConfigurationKey.LOG_LEVEL,
+                Configuration.GLOBAL_CONTEXT).getValue();
+        String logConfigFile = getConfigurationSetting(
+                ConfigurationKey.LOG_CONFIG_FILE, getNodeName()).getValue();
+        LoggerFactory.activateRollingFileAppender(filePath, logConfigFile,
+                logLevel);
+
+        ConfigurationKey[] keys = ConfigurationKey.values();
+        for (ConfigurationKey key : keys) {
+            if (key.isMandatory()) {
+                try {
+                    getConfigurationSetting(key,
+                            Configuration.GLOBAL_CONTEXT);
+                } catch (EJBException e) {
+                    // will always log to the application server log file
+                    logger.logError(Log4jLogger.SYSTEM_LOG, e,
+                            LogMessageIdentifier.ERROR_MANDATORY_PROPERTY_NOT_SET,
+                            key.getKeyName());
+                }
+            }
+        }
+
+        // check if the node name is configured
+        String nodeName = getNodeName();
+        if (nodeName == null) {
+            logger.logError(
+                    LogMessageIdentifier.ERROR_MANDATORY_SETTING_OF_NODE_NOT_SET);
         }
 
     }

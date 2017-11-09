@@ -93,7 +93,7 @@ public class ParameterDefinition
     public void setTechnicalProduct(TechnicalProduct technicalProduct) {
         this.technicalProduct = technicalProduct;
         if (null != technicalProduct) {
-            setTechnicalProduct_tkey(Long.valueOf(technicalProduct.getKey()));
+            setTechnicalProduct_tkey(technicalProduct.getKey());
         }
     }
 

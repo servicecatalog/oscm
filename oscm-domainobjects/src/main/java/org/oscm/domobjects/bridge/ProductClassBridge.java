@@ -175,7 +175,7 @@ public class ProductClassBridge implements FieldBridge, Discriminator {
 
         Query query = em
                 .createNamedQuery("LocalizedResource.getAllTextsWithLocale");
-        query.setParameter("objectKey", Long.valueOf(key));
+        query.setParameter("objectKey", key);
         query.setParameter("objectType", type);
         for (LocalizedResource resource : ParameterizedTypes.iterable(
                 query.getResultList(), LocalizedResource.class)) {

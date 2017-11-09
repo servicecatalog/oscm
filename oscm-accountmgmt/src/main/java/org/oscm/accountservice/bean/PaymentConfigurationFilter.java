@@ -160,7 +160,7 @@ public class PaymentConfigurationFilter {
         String message = String
                 .format("Seller '%s' tried to configure payment for service '%s' that is not a global template.",
                         vendor.getOrganizationId(),
-                        Long.valueOf(product.getKey()));
+                    product.getKey());
         OperationNotPermittedException e = new OperationNotPermittedException(
                 message);
         logger.logWarn(

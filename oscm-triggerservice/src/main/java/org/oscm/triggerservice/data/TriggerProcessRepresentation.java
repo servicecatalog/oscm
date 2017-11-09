@@ -209,20 +209,18 @@ public class TriggerProcessRepresentation {
 
     public TriggerProcessRepresentation(TriggerProcess process,
             Subscription subscription, Product product) {
-        this.id = new Long(process.getKey());
+        this.id = process.getKey();
         this.activation_time = new Date(process.getActivationDate());
         this.status = process.getStatus().toString();
-        this.author = new Author(new Long(process.getUser().getKey()), process
+        this.author = new Author(process.getUser().getKey(), process
                 .getUser().getEmail());
 
         this.links = new Links(
-                new Long(process.getTriggerDefinition().getKey()), new Long(
-                        process.getUser().getKey()), null);
+            process.getTriggerDefinition().getKey(), process.getUser().getKey(), null);
 
         if (subscription != null) {
-            this.subscription = new SubscriptionRepresentation(new Long(
-                    subscription.getKey()), subscription.getSubscriptionId());
-            this.links.setSubscription_id(new Long(subscription.getKey()));
+            this.subscription = new SubscriptionRepresentation(subscription.getKey(), subscription.getSubscriptionId());
+            this.links.setSubscription_id(subscription.getKey());
         }
 
         if (product != null) {

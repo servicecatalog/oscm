@@ -255,7 +255,7 @@ public class LandingpageConfigurationServiceBean implements
     public List<Integer> getNumOfServicesRange() {
         List<Integer> numOfServicesRange = new ArrayList<Integer>();
         for (int i = MIN_RANGE; i <= MAX_RANGE; i++) {
-            numOfServicesRange.add(new Integer(i));
+            numOfServicesRange.add(i);
         }
         return numOfServicesRange;
     }

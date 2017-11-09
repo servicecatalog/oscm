@@ -48,25 +48,25 @@ public class CatalogEntryHistory extends DomainHistoryObject<CatalogEntryData> {
     public CatalogEntryHistory(CatalogEntry entry) {
         super(entry);
         if (entry.getProduct() != null) {
-            setProductObjKey(Long.valueOf(entry.getProduct().getKey()));
+            setProductObjKey(entry.getProduct().getKey());
         }
         if (entry.getMarketplace() != null) {
-            setMarketplaceObjKey(Long.valueOf(entry.getMarketplace().getKey()));
+            setMarketplaceObjKey(entry.getMarketplace().getKey());
         }
 
         if (entry.getBrokerPriceModel() != null) {
-            setBrokerPriceModelObjKey(Long.valueOf(entry.getBrokerPriceModel()
-                    .getKey()));
+            setBrokerPriceModelObjKey(entry.getBrokerPriceModel()
+                .getKey());
         }
 
         if (entry.getResellerPriceModel() != null) {
-            setResellerPriceModelObjKey(Long.valueOf(entry
-                    .getResellerPriceModel().getKey()));
+            setResellerPriceModelObjKey(entry
+                .getResellerPriceModel().getKey());
         }
 
         if (entry.getOperatorPriceModel() != null) {
-            setOperatorPriceModelObjKey(Long.valueOf(entry
-                    .getOperatorPriceModel().getKey()));
+            setOperatorPriceModelObjKey(entry
+                .getOperatorPriceModel().getKey());
         }
     }
 

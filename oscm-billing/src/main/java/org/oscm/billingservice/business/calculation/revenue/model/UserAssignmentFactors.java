@@ -101,11 +101,11 @@ public class UserAssignmentFactors {
     public void addRoleFactor(Long roleKey, double factorToAdd) {
         if (roleFactors.containsKey(roleKey)) {
             Double currentFactor = roleFactors.get(roleKey);
-            Double newFactor = Double.valueOf(currentFactor.doubleValue()
-                    + factorToAdd);
+            Double newFactor = currentFactor.doubleValue()
+                + factorToAdd;
             roleFactors.put(roleKey, newFactor);
         } else {
-            roleFactors.put(roleKey, Double.valueOf(factorToAdd));
+            roleFactors.put(roleKey, factorToAdd);
         }
     }
 }

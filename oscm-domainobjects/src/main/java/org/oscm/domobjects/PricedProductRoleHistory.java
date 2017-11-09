@@ -60,16 +60,16 @@ public class PricedProductRoleHistory extends
             setRoleDefinitionObjKey(pricedRole.getRoleDefinition().getKey());
         }
         if (pricedRole.getPriceModel() != null) {
-            setPriceModelObjKey(Long.valueOf(pricedRole.getPriceModel()
-                    .getKey()));
+            setPriceModelObjKey(pricedRole.getPriceModel()
+                .getKey());
         }
         if (pricedRole.getPricedParameter() != null) {
-            setPricedParameterObjKey(Long.valueOf(pricedRole
-                    .getPricedParameter().getKey()));
+            setPricedParameterObjKey(pricedRole
+                .getPricedParameter().getKey());
         }
         if (pricedRole.getPricedOption() != null) {
-            setPricedOptionObjKey(Long.valueOf(pricedRole.getPricedOption()
-                    .getKey()));
+            setPricedOptionObjKey(pricedRole.getPricedOption()
+                .getKey());
         }
     }
 

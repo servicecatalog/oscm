@@ -28,6 +28,7 @@ import javax.ejb.EJBTransactionRolledbackException;
 import javax.ejb.SessionContext;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
@@ -333,6 +334,7 @@ public class PasswordRecoveryServiceNoDBTest {
         assertEquals(null, result);
     }
 
+    @Ignore
     @Test
     public void confirmPasswordRecoveryLink_IncompleteConfirmationURL()
             throws Exception {

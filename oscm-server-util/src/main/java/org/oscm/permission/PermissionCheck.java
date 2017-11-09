@@ -72,7 +72,7 @@ public class PermissionCheck {
         if (bc.getOrganization() != org) {
             String message = String
                     .format("Organization '%s' tried to access billing contact '%s' that is owned by a different organization.",
-                            org.getOrganizationId(), Long.valueOf(bc.getKey()));
+                            org.getOrganizationId(), bc.getKey());
             OperationNotPermittedException e = new OperationNotPermittedException(
                     message);
             if (logger != null) {
@@ -105,7 +105,7 @@ public class PermissionCheck {
         if (pi.getOrganization() != org) {
             String message = String
                     .format("Organization '%s' tried to access payment info '%s' that is owned by a different organization",
-                            org.getOrganizationId(), Long.valueOf(pi.getKey()));
+                            org.getOrganizationId(), pi.getKey());
             OperationNotPermittedException e = new OperationNotPermittedException(
                     message);
             if (logger != null) {
@@ -138,7 +138,7 @@ public class PermissionCheck {
         if (sub.getOrganization() != org) {
             String message = String
                     .format("Organization '%s' tried to access subscription '%s' that is owned by a different organization",
-                            org.getOrganizationId(), Long.valueOf(sub.getKey()));
+                            org.getOrganizationId(), sub.getKey());
             OperationNotPermittedException e = new OperationNotPermittedException(
                     message);
             if (logger != null) {
@@ -227,7 +227,7 @@ public class PermissionCheck {
         if (def.getOrganization() != org) {
             String message = String
                     .format("Organization '%s' tried to access uda definition '%s' that is owned by a different organization",
-                            org.getOrganizationId(), Long.valueOf(def.getKey()));
+                            org.getOrganizationId(), def.getKey());
             OperationNotPermittedException e = new OperationNotPermittedException(
                     message);
             if (logger != null) {
@@ -421,7 +421,7 @@ public class PermissionCheck {
         if (mp.getOrganization() != org) {
             String message = String
                     .format("Organization '%s' tried to access marketplace '%s' that is owned by a different organization",
-                            org.getOrganizationId(), Long.valueOf(mp.getKey()));
+                            org.getOrganizationId(), mp.getKey());
             OperationNotPermittedException e = new OperationNotPermittedException(
                     message);
             if (logger != null) {
@@ -461,7 +461,7 @@ public class PermissionCheck {
             String message = String
                     .format("Organization '%s' tried to access service '%s' that is owned by a different organization",
                             org.getOrganizationId(),
-                            Long.valueOf(prod.getKey()));
+                        prod.getKey());
             OperationNotPermittedException e = new OperationNotPermittedException(
                     message);
             if (logger != null) {
@@ -533,7 +533,7 @@ public class PermissionCheck {
         if (tp.getOrganization() != org) {
             String message = String
                     .format("Organization '%s' tried to access technical service '%s' that is owned by a different organization",
-                            org.getOrganizationId(), Long.valueOf(tp.getKey()));
+                            org.getOrganizationId(), tp.getKey());
             OperationNotPermittedException e = new OperationNotPermittedException(
                     message);
             if (logger != null) {

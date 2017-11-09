@@ -304,7 +304,7 @@ public class VatServiceBean implements VatService {
             Map<String, Organization> customers = new HashMap<String, Organization>();
             Query query = dm.createNamedQuery("Organization.getForSupplierKey");
             query.setParameter("supplierKey",
-                    Long.valueOf(organization.getKey()));
+                organization.getKey());
             query.setParameter("referenceType",
                     OrganizationReferenceType.SUPPLIER_TO_CUSTOMER);
             for (Organization customer : ParameterizedTypes.iterable(
