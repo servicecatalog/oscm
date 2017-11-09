@@ -638,12 +638,6 @@
       </dependency>
       <dependency>
         <groupId>org.oscm</groupId>
-        <artifactId>oscm-dataservice</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.oscm</groupId>
         <artifactId>oscm-i18n</artifactId>
         <scope>test</scope>
         <version>1.0-SNAPSHOT</version>

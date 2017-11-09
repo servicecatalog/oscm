@@ -121,22 +121,7 @@
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
-      <artifactId>oscm-identitymgmt</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
       <artifactId>oscm-marketplaceservice</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-marketplaceservice</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-configservice</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
