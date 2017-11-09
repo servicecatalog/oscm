@@ -5,14 +5,10 @@ language: java
 sudo: required
 jdk:
   - oraclejdk8
-cache:
-  directories:
-    - $TRAVIS_BUILD_DIR/libraries
 before_install:
   - sudo pip install --user codecov
-before_script:
   - psql -c 'create database bssunit;' -U postgres
-  - psql -c 'CREATE USER bssuser WITH PASSWORD 'bssuser';' -U postgres
+  - psql -c "create user bssuser with password 'bssuser';" -U postgres
 script:
  - mvn -T 8 test
  - mvn verify
