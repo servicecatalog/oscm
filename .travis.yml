@@ -10,8 +10,7 @@ before_install:
   - psql -c 'create database bssunittests;' -U postgres
   - psql -c "create user bssunituser with password 'bssunituser';" -U postgres
 script:
- - mvn -T 8 test
- - mvn flyway:migrate -P travis verify
+ - mvn -T 8 test verify -P travis
 after_success:
   - sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=CTMG -Dsonar.projectName=CTMG -Dsonar.projectVersion=17.0.1 -Dsonar.sources=$TRAVIS_BUILD_DIR -Dsonar.tests=$TRAVIS_BUILD_DIR -Dsonar.sourceEncoding=UTF-8 -Dsonar.inclusions=**/*.java -Dsonar.exclusions=**/javasrc-it/**,**/example-service/**/*,**/*devruntime/**/*,**/*tests*/**/*,**/oscm-portal-webtests/results/**/*,**/j2ep/**/*.java,**/apache-csv/**/*.java,**/*oscm-build*/**/*.java,**/javasrc-it/**/*.java,**/*unittests*/**/*.java,**/OperationParameterType.jav,**/AccountServiceClient.java -Dsonar.test.inclusions=**/*unittests*/**/*.java -Dsonar.jacoco.reportPath=$TRAVIS_BUILD_DIR/oscm-build/result/reports/merged_jacoco.exec -Dsonar.java.source=1.8 -Dsonar.java.binaries=$TRAVIS_BUILD_DIR/oscm-build/result/work -Dsonar.java.test.binaries=$TRAVIS_BUILD_DIR/oscm-build/result
   - codecov

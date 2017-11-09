@@ -133,11 +133,14 @@
       <plugin>
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-maven-plugin</artifactId>
-        <version>${flyway.version}</version>
         <executions>
           <execution>
             <id>migrate-database</id>
-            <phase>deploy</phase>
+            <phase>verify</phase>
+            <goals>
+              <goal>clean</goal>
+              <goal>migrate</goal>
+            </goals>
           </execution>
         </executions>
         <configuration>
