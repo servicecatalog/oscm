@@ -20,10 +20,9 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-subscriptionmgmt-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
     <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-devruntime</artifactId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
     </dependency>
 
     <dependency>
@@ -45,6 +44,10 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>openejb-core</artifactId>
     </dependency>
   </dependencies>
 </project>

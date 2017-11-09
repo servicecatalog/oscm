@@ -6,7 +6,7 @@
  *                                                                              
  *******************************************************************************/
 
-package org.oscm.ct.login;
+package org.oscm.kafka.login;
 
 import org.apache.openejb.core.security.AbstractSecurityService;
 import org.apache.openejb.loader.SystemInstance;
@@ -20,9 +20,8 @@ import javax.security.auth.login.LoginException;
  * @author Mike J&auml;ger
  * 
  */
-public class ProgrammaticLoginHandler implements LoginHandler {
+public class ProgrammaticLoginHandler {
 
-    @Override
     public void login(String username, String password) throws Exception {
         final SecurityService securityService = SystemInstance.get()
                 .getComponent(SecurityService.class);
@@ -44,7 +43,6 @@ public class ProgrammaticLoginHandler implements LoginHandler {
         }
     }
 
-    @Override
     public void logout() throws Exception {
         final SecurityService securityService = SystemInstance.get()
                 .getComponent(SecurityService.class);

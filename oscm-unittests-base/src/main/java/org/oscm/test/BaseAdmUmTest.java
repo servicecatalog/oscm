@@ -8,31 +8,10 @@
 
 package org.oscm.test;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import javax.jms.*;
-import javax.jms.Session;
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.naming.spi.NamingManager;
-
 import org.junit.Ignore;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;
-import org.oscm.converter.PropertiesLoader;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.*;
 import org.oscm.domobjects.enums.BillingAdapterIdentifier;
@@ -46,7 +25,6 @@ import org.oscm.internal.vo.VOPaymentType;
 import org.oscm.internal.vo.VOUsageLicense;
 import org.oscm.internal.vo.VOUser;
 import org.oscm.logging.LoggerFactory;
-import org.oscm.setup.DefaultConfigFileCreator;
 import org.oscm.test.data.BillingAdapters;
 import org.oscm.test.data.SupportedCurrencies;
 import org.oscm.test.data.UserRoles;
@@ -57,6 +35,24 @@ import org.oscm.test.ejb.TestPersistence;
 import org.oscm.test.stubs.ObjectMessageStub;
 import org.oscm.types.constants.Configuration;
 import org.oscm.types.enumtypes.PlatformEventIdentifier;
+
+import javax.jms.*;
+import javax.jms.Session;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.naming.spi.NamingManager;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.*;
 
 /**
  * Base class for all Container Tests
@@ -986,13 +982,5 @@ public class BaseAdmUmTest {
             }
         }).when(session).createObjectMessage();
         return factoryMock;
-    }
-
-    protected static Properties loadConfigurationSettings() {
-        Properties props = PropertiesLoader.load(
-                DefaultConfigFileCreator.class, "configsettings.properties");
-        props.putAll(PropertiesLoader.load(DefaultConfigFileCreator.class,
-                "local/configsettings.properties"));
-        return props;
     }
 }

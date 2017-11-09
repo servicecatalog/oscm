@@ -41,9 +41,7 @@ public class V2_2_9_1__MigrationBillingResultAttributes extends DatabaseUpgradeT
     void updateSubscriptionKey(final Document document,
             final ResultSet billingResults, final Long tkey)
             throws SQLException, Exception {
-        if (billingResults.getLong("subscriptionkey") == null
-                || Long.valueOf(billingResults.getLong("subscriptionkey"))
-                        .longValue() == 0) {
+        if (billingResults.getLong("subscriptionkey") == 0) {
             String subscriptionId = getSubscription(document);
             Long pmKey = getPriceModel(document, subscriptionId);
             Long organizationObjKey = billingResults
