@@ -47,11 +47,11 @@ public class VatRateHistory extends DomainHistoryObject<VatRateData> {
         setOwningOrganizationObjKey(vatRate.getOwningOrganization().getKey());
         SupportedCountry country = vatRate.getTargetCountry();
         if (country != null) {
-            setTargetCountryObjKey(Long.valueOf(country.getKey()));
+            setTargetCountryObjKey(country.getKey());
         }
         Organization org = vatRate.getTargetOrganization();
         if (org != null) {
-            setTargetOrganizationObjKey(Long.valueOf(org.getKey()));
+            setTargetOrganizationObjKey(org.getKey());
         }
     }
 

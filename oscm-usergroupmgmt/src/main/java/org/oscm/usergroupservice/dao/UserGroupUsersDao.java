@@ -39,7 +39,7 @@ public class UserGroupUsersDao {
         String nativeQuery = getQueryGroupUsers(pagination);
         Query query = dm.createNativeQuery(nativeQuery, PlatformUser.class);
         query.setParameter("organization_key",
-                Long.valueOf(dm.getCurrentUser().getOrganization().getKey()));
+            dm.getCurrentUser().getOrganization().getKey());
         if (userGroupKey == null || userGroupKey.trim().equals("")) {
             userGroupKey = "0";
         }
@@ -54,7 +54,7 @@ public class UserGroupUsersDao {
         String nativeQuery = getQueryCountGroupUsers(pagination);
         Query query = dm.createNativeQuery(nativeQuery);
         query.setParameter("organization_key",
-                Long.valueOf(dm.getCurrentUser().getOrganization().getKey()));
+            dm.getCurrentUser().getOrganization().getKey());
         if (userGroupKey == null || userGroupKey.trim().equals("")) {
             userGroupKey = "0";
         }

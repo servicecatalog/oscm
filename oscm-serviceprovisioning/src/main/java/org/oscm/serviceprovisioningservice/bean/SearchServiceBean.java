@@ -147,7 +147,7 @@ public class SearchServiceBean implements SearchService, SearchServiceLocal {
                             marketplaceId, locale, listCriteria,
                             performanceHint);
                     for (VOService svc : services.getServices()) {
-                        Long key = Long.valueOf(svc.getKey());
+                        Long key = svc.getKey();
                         if (map.containsKey(key)) {
                             map.put(key, svc);
                         }

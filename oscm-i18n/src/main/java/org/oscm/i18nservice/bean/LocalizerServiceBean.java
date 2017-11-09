@@ -478,7 +478,7 @@ public class LocalizerServiceBean implements LocalizerServiceLocal {
             List<LocalizedObjectTypes> objectTypes) {
 
         KeysForOneObject result = new KeysForOneObject();
-        result.setPrimaryObjKey(Long.valueOf(objectKey));
+        result.setPrimaryObjKey(objectKey);
 
         // the object is either product related or price model related!
         boolean prRelated = false;
@@ -512,12 +512,12 @@ public class LocalizerServiceBean implements LocalizerServiceLocal {
             if (template != null) {
                 if (prRelated) {
                     result.getFallBackObjKeys().add(
-                            Long.valueOf(template.getKey()));
+                        template.getKey());
                 } else if (pmRelated) {
                     if (template.getPriceModel() != null) {
                         result.getFallBackObjKeys()
-                                .add(Long.valueOf(template.getPriceModel()
-                                        .getKey()));
+                                .add(template.getPriceModel()
+                                    .getKey());
                     }
                 }
             }
@@ -710,7 +710,7 @@ public class LocalizerServiceBean implements LocalizerServiceLocal {
         List<VOLocalizedText> results = new ArrayList<>();
         Query query = dm
                 .createNamedQuery("LocalizedResource.getAllTextsWithLocale");
-        query.setParameter("objectKey", Long.valueOf(objectKey));
+        query.setParameter("objectKey", objectKey);
         query.setParameter("objectType", objectType);
         for (LocalizedResource resource : ParameterizedTypes.iterable(
                 query.getResultList(), LocalizedResource.class)) {
@@ -831,7 +831,7 @@ public class LocalizerServiceBean implements LocalizerServiceLocal {
 
         Query query = dm
                 .createNamedQuery("LocalizedResource.deleteForObjectAndType");
-        query.setParameter("objectKey", Long.valueOf(objectKey));
+        query.setParameter("objectKey", objectKey);
         query.setParameter("objectType", objectType);
         query.executeUpdate();
 
@@ -844,7 +844,7 @@ public class LocalizerServiceBean implements LocalizerServiceLocal {
 
         Query query = dm
                 .createNamedQuery("LocalizedResource.deleteForObjectAndTypeAndLocale");
-        query.setParameter("objectKey", Long.valueOf(objectKey));
+        query.setParameter("objectKey", objectKey);
         query.setParameter("objectType", objectType);
         query.setParameter("locale", localeString);
         query.executeUpdate();

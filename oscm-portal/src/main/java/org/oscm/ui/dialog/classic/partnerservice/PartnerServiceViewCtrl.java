@@ -62,7 +62,7 @@ public class PartnerServiceViewCtrl implements Serializable {
     private void initializePriceModel() {
         final PriceModelBean pm = (PriceModelBean) ui
                 .findBean("priceModelBean");
-        pm.setSelectedServiceKey(Long.valueOf(model.getSelectedServiceKey()));
+        pm.setSelectedServiceKey(model.getSelectedServiceKey());
         if (!ui.hasErrors()) {
             pm.updatePriceModel();
             VOPriceModel priceModel = pm.getPriceModel();

@@ -58,7 +58,7 @@ public class UserGroupAuditLogCollector {
             logEntry.addParameter(AuditLogParameter.SERVICE_ID, product
                     .getTemplateOrSelf().getProductId());
             logEntry.addParameter(AuditLogParameter.SERVICE_NAME,
-                    productNameMap.get(Long.valueOf(product.getKey())));
+                    productNameMap.get(product.getKey()));
             logEntry.addParameter(AuditLogParameter.SELLER_ID, product
                     .getVendor().getOrganizationId());
             AuditLogData.add(logEntry);
@@ -182,9 +182,9 @@ public class UserGroupAuditLogCollector {
                 result = (LocalizedResource) dm.find(resource);
             }
             if (null == result) {
-                map.put(Long.valueOf(prod.getKey()), "");
+                map.put(prod.getKey(), "");
             } else {
-                map.put(Long.valueOf(prod.getKey()), result.getValue());
+                map.put(prod.getKey(), result.getValue());
             }
         }
         return map;

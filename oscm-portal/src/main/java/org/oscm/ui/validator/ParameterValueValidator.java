@@ -83,13 +83,13 @@ public class ParameterValueValidator implements Validator {
             long val = getDurationInMs(context, uiComponent, value);
             Long min = LongValidator.getMinValue(uiComponent);
             if (min != null) {
-                min = Long.valueOf(getDurationInMs(context, uiComponent,
-                        String.valueOf(min.longValue())));
+                min = getDurationInMs(context, uiComponent,
+                    String.valueOf(min.longValue()));
             }
             Long max = LongValidator.getMaxValue(uiComponent);
             if (max != null) {
-                max = Long.valueOf(getDurationInMs(context, uiComponent,
-                        String.valueOf(max.longValue())));
+                max = getDurationInMs(context, uiComponent,
+                    String.valueOf(max.longValue()));
             }
             result = LongValidator.isInRange(val, min, max);
         }

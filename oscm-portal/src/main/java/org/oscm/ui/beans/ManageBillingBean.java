@@ -58,7 +58,7 @@ public class ManageBillingBean extends BaseBean implements Serializable {
 
         List<Integer> days = new ArrayList<Integer>();
         for (int i = MIN_RANGE; i <= MAX_RANGE; i++) {
-            days.add(new Integer(i));
+            days.add(i);
         }
         List<SelectItem> dayInMonthRange = SelectItemBuilder
                 .buildSelectItems(days);

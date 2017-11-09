@@ -76,7 +76,7 @@ public class ToExtPriceModelStrategy extends AbstractConversionStrategy
                 .getLocalizedObjectTypes();
         final String locale = getDataService().getCurrentUser().getLocale();
         final List<LocalizedResource> localizedResources = getLocalizedResource(
-                localizedObjectTypes, Long.valueOf(priceModel.getKey()), locale);
+                localizedObjectTypes, priceModel.getKey(), locale);
 
         for (LocalizedResource resource : localizedResources) {
             if (resource.getObjectType().equals(

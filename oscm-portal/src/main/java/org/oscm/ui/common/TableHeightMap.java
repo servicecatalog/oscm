@@ -65,7 +65,7 @@ public class TableHeightMap implements Map<Long, Long> {
             height -= 22;
         }
 
-        return Long.valueOf(height);
+        return height;
     }
 
     public boolean isEmpty() {

@@ -435,7 +435,7 @@ public class TimerServiceBean {
         Query query = dm
                 .createNamedQuery("TimerProcessing.findDataForTimeAndTimeframe");
         query.setParameter("timerType", type);
-        query.setParameter("lowerTimeBound", Long.valueOf(lowerTimeBound));
+        query.setParameter("lowerTimeBound", lowerTimeBound);
         List<?> resultList = query.getResultList();
 
         if (resultList.isEmpty()) {

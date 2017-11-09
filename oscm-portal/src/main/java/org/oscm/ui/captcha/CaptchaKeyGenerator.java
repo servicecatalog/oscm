@@ -69,8 +69,8 @@ public class CaptchaKeyGenerator {
         int seed = 3;
         while (true) {
             final int chartype = getRandom(seed);
-            if (!set.contains(Integer.valueOf(chartype)) || set.size() == seed) {
-                set.add(Integer.valueOf(chartype));
+            if (!set.contains(chartype) || set.size() == seed) {
+                set.add(chartype);
                 final char character = getNext(chartype);
                 sbuilder.append(character);
                 break;

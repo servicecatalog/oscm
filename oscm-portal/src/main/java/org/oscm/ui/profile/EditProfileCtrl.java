@@ -112,9 +112,9 @@ public class EditProfileCtrl extends BaseBean {
         Set<SettingType> mappedAttributes = getUserMgmtSvc()
                 .getMappedAttributes();
 
-        model.setUserKey(new FieldData<Long>(Long.valueOf(user.getKey())));
-        model.setUserVersion(new FieldData<Integer>(Integer.valueOf(user
-                .getVersion())));
+        model.setUserKey(new FieldData<Long>(user.getKey()));
+        model.setUserVersion(new FieldData<Integer>(user
+            .getVersion()));
         String userTitle = user.getTitle() != null ? user.getTitle().name()
                 : null;
         model.setUserTitle(new FieldData<String>(userTitle));

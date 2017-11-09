@@ -691,8 +691,7 @@ public class SubscriptionServiceBean
         newSub.setUuid(UUID.randomUUID());
         newSub.setEventPublished(false);
 
-        Long creationTime = Long
-                .valueOf(DateFactory.getInstance().getTransactionTime());
+        Long creationTime = DateFactory.getInstance().getTransactionTime();
         newSub.setCreationDate(creationTime);
         newSub.setStatus(SubscriptionStatus.PENDING);
         // set default cut-off day (db unique constrain)
@@ -1135,8 +1134,7 @@ public class SubscriptionServiceBean
 
         Long marketplaceKey = null;
         if (subscription.getMarketplace() != null) {
-            marketplaceKey = Long
-                    .valueOf(subscription.getMarketplace().getKey());
+            marketplaceKey = subscription.getMarketplace().getKey();
         }
 
         SendMailPayload payload = new SendMailPayload();
@@ -1285,8 +1283,7 @@ public class SubscriptionServiceBean
 
         Long marketplaceKey = null;
         if (subscription.getMarketplace() != null) {
-            marketplaceKey = Long
-                    .valueOf(subscription.getMarketplace().getKey());
+            marketplaceKey = subscription.getMarketplace().getKey();
         }
 
         SendMailPayload payload = new SendMailPayload();
@@ -1449,7 +1446,7 @@ public class SubscriptionServiceBean
         }
         List<Long> invisibleProductKeys = userGroupService
                 .getInvisibleProductKeysForUser(currentUser.getKey());
-        if (invisibleProductKeys.contains(Long.valueOf(productKey))) {
+        if (invisibleProductKeys.contains(productKey)) {
             String message = String.format("Service '%s' is not avalible.",
                     productId);
             OperationNotPermittedException onp = new OperationNotPermittedException(
@@ -1797,7 +1794,7 @@ public class SubscriptionServiceBean
         if (lic.getRoleDefinition() == null) {
             String message = "User assignment to technical service '%s' without service role not possible.";
             OperationNotPermittedException onp = new OperationNotPermittedException(
-                    String.format(message, Long.valueOf(tp.getKey())));
+                    String.format(message, tp.getKey()));
             LOG.logError(Log4jLogger.SYSTEM_LOG, onp,
                     LogMessageIdentifier.ERROR_USER_ASSIGNMENT_TO_TECHNICAL_SERVICE_FAILED_NO_SERVICE_ROLE,
                     Long.toString(tp.getKey()));
@@ -1812,8 +1809,8 @@ public class SubscriptionServiceBean
         }
         String message = "Role '%s' is not defined on technical service '%s'";
         OperationNotPermittedException onp = new OperationNotPermittedException(
-                String.format(message, Long.valueOf(role.getKey()),
-                        Long.valueOf(tp.getKey())));
+                String.format(message, role.getKey(),
+                    tp.getKey()));
         LOG.logError(Log4jLogger.SYSTEM_LOG, onp,
                 LogMessageIdentifier.ERROR_NO_ROLE_FOR_TECHNICAL_SERVICE,
                 Long.toString(role.getKey()), Long.toString(tp.getKey()));
@@ -2036,8 +2033,7 @@ public class SubscriptionServiceBean
             // sent.
             Long marketplaceKey = null;
             if (subscription.getMarketplace() != null) {
-                marketplaceKey = Long
-                        .valueOf(subscription.getMarketplace().getKey());
+                marketplaceKey = subscription.getMarketplace().getKey();
             }
 
             SendMailPayload payload = new SendMailPayload();
@@ -2371,7 +2367,7 @@ public class SubscriptionServiceBean
         // deactivate subscription
         subscription.setStatus(SubscriptionStatus.DEACTIVATED);
         long txTime = DateFactory.getInstance().getTransactionTime();
-        subscription.setDeactivationDate(Long.valueOf(txTime));
+        subscription.setDeactivationDate(txTime);
 
         // log
         audit.unsubscribeFromService(dataManager, subscription);
@@ -2657,11 +2653,11 @@ public class SubscriptionServiceBean
         // replace products by customer specific products if existent
         Map<Long, Product> keyToProduct = new HashMap<>();
         for (Product prod : customerProducts) {
-            keyToProduct.put(Long.valueOf(prod.getTemplate().getKey()), prod);
+            keyToProduct.put(prod.getTemplate().getKey(), prod);
         }
         List<Product> temp = new ArrayList<>(products.size());
         for (Product prod : products) {
-            Long key = Long.valueOf(prod.getKey());
+            Long key = prod.getKey();
             if (keyToProduct.containsKey(key)) {
                 Product custSpec = keyToProduct.get(key);
                 if (custSpec.getStatus() == ServiceStatus.ACTIVE) {
@@ -4462,7 +4458,7 @@ public class SubscriptionServiceBean
         }
 
         subscription.setActivationDate(
-                Long.valueOf(DateFactory.getInstance().getTransactionTime()));
+            DateFactory.getInstance().getTransactionTime());
 
         boolean deactivateInstance = !modUpgBean
                 .isPaymentValidOrFree(subscription);
@@ -4886,7 +4882,7 @@ public class SubscriptionServiceBean
         Map<Long, OperationParameter> opParamsMap = new HashMap<>();
         if (opParams != null) {
             for (OperationParameter p : opParams) {
-                opParamsMap.put(Long.valueOf(p.getKey()), p);
+                opParamsMap.put(p.getKey(), p);
             }
         }
         if (opParamsMap.size() != list.size()) {
@@ -4894,7 +4890,7 @@ public class SubscriptionServiceBean
         }
         for (VOServiceOperationParameter parameter : list) {
             OperationParameter param = opParamsMap
-                    .get(Long.valueOf(parameter.getKey()));
+                    .get(parameter.getKey());
             if (param == null) {
                 ConcurrentModificationException cme = new ConcurrentModificationException(
                         parameter);
@@ -5454,8 +5450,7 @@ public class SubscriptionServiceBean
         EmailType emailType = EmailType.SUBSCRIPTION_ACCESSINFO_CHANGED;
         Long marketplaceKey = null;
         if (subscription.getMarketplace() != null) {
-            marketplaceKey = Long
-                    .valueOf(subscription.getMarketplace().getKey());
+            marketplaceKey = subscription.getMarketplace().getKey();
         }
         SendMailPayload payload = new SendMailPayload();
         for (UsageLicense usageLicense : userLicenses) {

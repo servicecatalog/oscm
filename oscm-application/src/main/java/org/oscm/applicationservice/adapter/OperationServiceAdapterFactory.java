@@ -43,7 +43,7 @@ public class OperationServiceAdapterFactory {
             throw new SaaSSystemException(
                     String.format(
                             "Failed to retrieve service endpoint for service operation '%s', as the target is not defined.",
-                            Long.valueOf(operation.getKey())));
+                        operation.getKey()));
         }
         WSPortConnector portConnector = new WSPortConnector(target, username,
                 password);

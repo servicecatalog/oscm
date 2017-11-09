@@ -124,7 +124,7 @@ public class UserSubscriptionsLazyDataModel extends
 
             for (POServiceRole r : roles) {
                 SelectItem si = new SelectItem(String.format("%s:%s",
-                        Long.valueOf(r.getKey()), r.getId()), r.getName());
+                    r.getKey(), r.getId()), r.getName());
                 if (r.getName().equalsIgnoreCase(UnitRoleType.USER.name())) {
                     items.add(0, si);
                 } else {
@@ -153,7 +153,7 @@ public class UserSubscriptionsLazyDataModel extends
                 long roleKey = poServiceRole.getKey();
                 String roleId = poServiceRole.getId();
 
-                selectedRole = String.format("%s:%s", Long.valueOf(roleKey),
+                selectedRole = String.format("%s:%s", roleKey,
                         roleId);
 
                 sub.setLicKey(poSub.getUsageLicense().getKey());

@@ -118,14 +118,14 @@ public class SubscriptionDao {
             Set<SubscriptionStatus> states) {
         Query q = dataManager
                 .createNamedQuery("Subscription.getForOrgFetchRoles");
-        q.setParameter("orgKey", Long.valueOf(owner.getKey()));
+        q.setParameter("orgKey", owner.getKey());
         q.setParameter("status", states);
         return ParameterizedTypes.list(q.getResultList(), Object[].class);
     }
 
     public List<Subscription> getSubscriptionsForOwner(PlatformUser owner) {
         Query q = dataManager.createNamedQuery("Subscription.getForOwner");
-        q.setParameter("ownerKey", Long.valueOf(owner.getKey()));
+        q.setParameter("ownerKey", owner.getKey());
         return ParameterizedTypes.list(q.getResultList(), Subscription.class);
     }
 
@@ -147,15 +147,15 @@ public class SubscriptionDao {
         Query query = dataManager
                 .createNamedQuery("Subscription.numberOfVisibleSubscriptions");
         query.setParameter("productKey",
-                Long.valueOf(technicalProduct.getKey()));
-        query.setParameter("orgKey", Long.valueOf(organization.getKey()));
+            technicalProduct.getKey());
+        query.setParameter("orgKey", organization.getKey());
         return (Long) query.getSingleResult();
     }
 
     public List<Subscription> getSubscriptionsForUser(PlatformUser user) {
         Query query = dataManager
                 .createNamedQuery("Subscription.getCurrentUserSubscriptions");
-        query.setParameter("userKey", Long.valueOf(user.getKey()));
+        query.setParameter("userKey", user.getKey());
         query.setParameter("status", Subscription.VISIBLE_SUBSCRIPTION_STATUS);
         return ParameterizedTypes.list(query.getResultList(),
                 Subscription.class);
@@ -167,8 +167,8 @@ public class SubscriptionDao {
                 .createNamedQuery("Subscription.hasSubscriptionsBasedOnOnBehalfServicesForTp");
         query.setParameter(
                 "tpOrgKey",
-                Long.valueOf(subscription.getProduct().getTechnicalProduct()
-                        .getOrganization().getKey()));
+            subscription.getProduct().getTechnicalProduct()
+                .getOrganization().getKey());
         return (Long) query.getSingleResult();
     }
 
@@ -215,7 +215,7 @@ public class SubscriptionDao {
             logger.logDebug("Parameters are not found in the query. Not an error, just sorting is not applied.");
         }
         query.setParameter("organization",
-                Long.valueOf(user.getOrganization().getKey()));
+            user.getOrganization().getKey());
         query.setParameter("states", statesAsString);
 
         setPaginationParameters(pagination, query);
@@ -231,7 +231,7 @@ public class SubscriptionDao {
 
         Set<String> statesAsString = getSubscriptionStatesAsString(states);
         Query query = dataManager.createNativeQuery(queryString);
-        query.setParameter("organization", Long.valueOf(user.getOrganization().getKey()));
+        query.setParameter("organization", user.getOrganization().getKey());
         query.setParameter("states", statesAsString);
         query.setParameter("udaDefinitions", getLongsAsBigInts(udaDefsFound));
 
@@ -253,7 +253,7 @@ public class SubscriptionDao {
         } catch (IllegalArgumentException exc) {
             logger.logDebug("Parameters are not found in the query. Not an error, just sorting is not applied.");
         }
-        query.setParameter("ownerKey", Long.valueOf(owner.getKey()));
+        query.setParameter("ownerKey", owner.getKey());
         query.setParameter("states", statesAsString);
 
         setPaginationParameters(pagination, query);
@@ -267,7 +267,7 @@ public class SubscriptionDao {
 
         Query query = dataManager.createNativeQuery(queryString,
                 Subscription.class);
-        query.setParameter("ownerKey", Long.valueOf(owner.getKey()));
+        query.setParameter("ownerKey", owner.getKey());
 
         setPaginationParameters(pagination, query);
 
@@ -902,7 +902,7 @@ public class SubscriptionDao {
             Set<SubscriptionStatus> states, Product template) {
         Query q = dataManager
                 .createNamedQuery("Subscription.numberOfUsableSubscriptionsForUser");
-        q.setParameter("userKey", Long.valueOf(user.getKey()));
+        q.setParameter("userKey", user.getKey());
         q.setParameter("status", states);
         q.setParameter("prodTemplate", template);
         long result = ((Long) q.getSingleResult()).longValue();
@@ -952,13 +952,13 @@ public class SubscriptionDao {
         setQueryParameter(query, "locale", user.getLocale());
         setQueryParameter(query, "objecttype",
                 LocalizedObjectTypes.PRODUCT_MARKETING_NAME.name());
-        setQueryParameter(query, "userKey", Long.valueOf(user.getKey()));
+        setQueryParameter(query, "userKey", user.getKey());
         setQueryParameter(query, "locale", user.getLocale());
         setQueryParameter(query, "states",
                 getSubscriptionStatesAsString(states));
-        setQueryParameter(query, "ownerKey", Long.valueOf(user.getKey()));
+        setQueryParameter(query, "ownerKey", user.getKey());
         setQueryParameter(query, "orgKey",
-                Long.valueOf(user.getOrganization().getKey()));
+            user.getOrganization().getKey());
     }
 
     public List<Subscription> getSubscriptionsForUserWithRolesWithFiltering(
@@ -1142,7 +1142,7 @@ public class SubscriptionDao {
         } catch (IllegalArgumentException exc) {
             logger.logDebug("Parameters are not found in the query. Not an error, just sorting is not applied.");
         }
-        query.setParameter("userKey", Long.valueOf(user.getKey()));
+        query.setParameter("userKey", user.getKey());
         query.setParameter("status",
                 getSubscriptionStatesAsString(new HashSet<>(
                         Subscription.VISIBLE_SUBSCRIPTION_STATUS)));
@@ -1176,7 +1176,7 @@ public class SubscriptionDao {
                 .createNamedQuery("Subscription.findUsageLicense");
 
         query.setParameter("userId", user.getUserId());
-        query.setParameter("subscriptionKey", Long.valueOf(subKey));
+        query.setParameter("subscriptionKey", subKey);
 
         List<UsageLicense> result = ParameterizedTypes.list(
                 query.getResultList(), UsageLicense.class);
@@ -1186,7 +1186,7 @@ public class SubscriptionDao {
     public List<RoleDefinition> getSubscriptionRoles(Organization owner,
             String subId) {
         Query q = dataManager.createNamedQuery("Subscription.getSubRoles");
-        q.setParameter("orgKey", Long.valueOf(owner.getKey()));
+        q.setParameter("orgKey", owner.getKey());
         q.setParameter("subId", subId);
         return ParameterizedTypes.list(q.getResultList(), RoleDefinition.class);
     }
@@ -1202,8 +1202,8 @@ public class SubscriptionDao {
                                 + "WHERE s.tkey=:subKey and s.status IN (:status) AND EXISTS "
                                 + "(SELECT 1 FROM UsageLicense lic WHERE lic.user_tkey=:userKey AND lic.subscription_tkey=:subKey)",
                         Subscription.class);
-        query.setParameter("userKey", Long.valueOf(user.getKey()));
-        query.setParameter("subKey", Long.valueOf(key));
+        query.setParameter("userKey", user.getKey());
+        query.setParameter("subKey", key);
         query.setParameter("status",
                 getSubscriptionStatesAsString(new HashSet<>(
                         Subscription.VISIBLE_SUBSCRIPTION_STATUS)));

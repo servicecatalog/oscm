@@ -493,8 +493,8 @@ public class LandingpageServiceBeanLocal implements LandingpageServiceLocal {
     private boolean isVisibleProduct(List<Long> invisibleProductKeys,
             Product product) {
         return (invisibleProductKeys == null)
-                || (!invisibleProductKeys.contains(Long.valueOf(product
-                        .getKey())));
+                || (!invisibleProductKeys.contains(product
+            .getKey()));
     }
 
     List<Product> removeInvisibleProducts(List<Product> products,
@@ -509,7 +509,7 @@ public class LandingpageServiceBeanLocal implements LandingpageServiceLocal {
 
         for (int i = 0; i < products.size(); i++) {
             Product prod = products.get(i);
-            if (!invisibleProductKeySet.contains(Long.valueOf(prod.getKey()))) {
+            if (!invisibleProductKeySet.contains(prod.getKey())) {
                 visibleProducts.add(prod);
             }
         }
@@ -596,7 +596,7 @@ public class LandingpageServiceBeanLocal implements LandingpageServiceLocal {
         for (Product p : products) {
             // Bug #12479 Only template keys because the localized sources
             // are only on templates
-            keys.add(Long.valueOf(p.getTemplateOrSelf().getKey()));
+            keys.add(p.getTemplateOrSelf().getKey());
         }
         return keys;
     }

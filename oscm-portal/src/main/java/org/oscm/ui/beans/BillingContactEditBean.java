@@ -60,8 +60,8 @@ public class BillingContactEditBean implements Serializable {
 		}
 		for (VOBillingContact voBillingContact : billingContactBean
 				.getBillingContacts()) {
-			if (selectedBillingContactId.equals(new Long(voBillingContact
-					.getKey()))) {
+			if (selectedBillingContactId.equals(voBillingContact
+                .getKey())) {
 				billingContact = voBillingContact;
 				return;
 			}

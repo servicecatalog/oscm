@@ -75,8 +75,8 @@ public class ConfigurationSettingsValidator {
     }
 
     private static void validateLong(ConfigurationKey key, String value) {
-        Long minValue = Long.valueOf(Long.MIN_VALUE);
-        Long maxValue = Long.valueOf(Long.MAX_VALUE);
+        Long minValue = Long.MIN_VALUE;
+        Long maxValue = Long.MAX_VALUE;
         long parsedLong = parse(key, value, minValue, maxValue);
         if (!isInRange(parsedLong, minValue, maxValue)) {
             throw new RuntimeException(

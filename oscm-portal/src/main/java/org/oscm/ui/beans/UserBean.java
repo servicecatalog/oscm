@@ -720,7 +720,7 @@ public class UserBean extends BaseBean implements Serializable {
                     .getSelectedServiceKeyForCustomer();
 
             if (!user.hasAdminRole() && invisibleProductKeys
-                    .contains(Long.valueOf(selectedServiceKey))) {
+                    .contains(selectedServiceKey)) {
                 requestedRedirect = requestedRedirect.replaceAll(
                         subscriptionAddPage,
                         BaseBean.MARKETPLACE_ACCESS_DENY_PAGE);

@@ -138,7 +138,7 @@ public abstract class RichLazyDataModel<T> extends ExtendedDataModel<T>
     @Override
     public int getRowCount() {
         if (!CACHE_ENABLED || cachedRowCount == null) {
-            cachedRowCount = Integer.valueOf(getTotalCount());
+            cachedRowCount = getTotalCount();
         }
         return cachedRowCount.intValue();
     }

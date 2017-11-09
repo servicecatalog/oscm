@@ -50,7 +50,7 @@ public class PriceModelHandler {
             long txnTime) {
         this.mgr = mgr;
         this.priceModel = priceModel;
-        this.txnTime = Long.valueOf(txnTime);
+        this.txnTime = txnTime;
     }
 
     /**

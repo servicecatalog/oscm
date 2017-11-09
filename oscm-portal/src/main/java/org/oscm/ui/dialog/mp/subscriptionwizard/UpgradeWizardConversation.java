@@ -546,7 +546,7 @@ public class UpgradeWizardConversation implements Serializable {
      */
     public Collection<VOPaymentType> getEnabledPaymentTypes() {
         return paymentInfoBean.getEnabledPaymentTypes(
-                Long.valueOf(model.getService().getKey()),
+            model.getService().getKey(),
                 getAccountingService());
     }
 

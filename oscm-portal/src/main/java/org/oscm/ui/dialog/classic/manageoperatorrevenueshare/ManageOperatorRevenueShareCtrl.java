@@ -71,8 +71,8 @@ public class ManageOperatorRevenueShareCtrl implements Serializable {
                 .getTemplateServices();
         List<POService> templates = response.getResultList(POService.class);
         for (POService templateService : templates) {
-            uiTemplateServices.add(new SelectItem(Long.valueOf(templateService
-                    .getKey()), templateService.getServiceId() + "("
+            uiTemplateServices.add(new SelectItem(templateService
+                .getKey(), templateService.getServiceId() + "("
                     + templateService.getVendorOrganizationId() + ")"));
         }
         model.setTemplates(uiTemplateServices);

@@ -201,10 +201,10 @@ public class BillingDataRetrievalServiceBean implements
 
         Query query = dm
                 .createNamedQuery("DiscountHistory.findForOrganizationAndPeriod");
-        query.setParameter("orgKey", Long.valueOf(organizationKey));
-        query.setParameter("bS", Long.valueOf(billingStart));
-        query.setParameter("bE", Long.valueOf(billingEnd));
-        query.setParameter("supplierKey", Long.valueOf(supplierKey));
+        query.setParameter("orgKey", organizationKey);
+        query.setParameter("bS", billingStart);
+        query.setParameter("bE", billingEnd);
+        query.setParameter("supplierKey", supplierKey);
 
         return ParameterizedTypes.list(query.getResultList(),
                 DiscountHistory.class);
@@ -297,7 +297,7 @@ public class BillingDataRetrievalServiceBean implements
             long startTime, long endTime) {
         Query query = dm
                 .createNamedQuery("PricedParameterHistory.findParameterDataForPriceModelAndPeriod");
-        query.setParameter("pmKey", Long.valueOf(priceModelKeyForSubscription));
+        query.setParameter("pmKey", priceModelKeyForSubscription);
         query.setParameter("startTime", new Date(startTime));
         query.setParameter("endTime", new Date(endTime));
         return ParameterizedTypes.list(query.getResultList(), Object[].class);
@@ -333,7 +333,7 @@ public class BillingDataRetrievalServiceBean implements
             long periodEndTime) {
         Query query = dm
                 .createNamedQuery("SteppedPriceHistory.getForParameterKeyAndEndDate");
-        query.setParameter("prmtrObjKey", Long.valueOf(parameterKey));
+        query.setParameter("prmtrObjKey", parameterKey);
         query.setParameter("modDate", new Timestamp(periodEndTime));
         return ParameterizedTypes.list(query.getResultList(),
                 SteppedPriceHistory.class);
@@ -427,10 +427,10 @@ public class BillingDataRetrievalServiceBean implements
                     .get(0)[1];
             parameterOption.setId(optionHistory.getOptionId());
             parameterOption.setRolePrices(roleCostsForOptions
-                    .getRolePricingDataForPricedParameterKey(Long.valueOf(pph
-                            .getObjKey())));
+                    .getRolePricingDataForPricedParameterKey(pph
+                        .getObjKey()));
             enumPeriodValue.setParameterOption(parameterOption);
-            enumPeriodValue.setKey(Long.valueOf(poh.getObjKey()));
+            enumPeriodValue.setKey(poh.getObjKey());
             updateRoleFactors(enumPeriodValue.getRolePrices(), userFactors,
                     enumPeriodValue.getKey());
             periodValue = enumPeriodValue;
@@ -441,7 +441,7 @@ public class BillingDataRetrievalServiceBean implements
             primitivePeriodValue.setPricePerSubscription(pph
                     .getPricePerSubscription());
             primitivePeriodValue.setPricePerUser(pph.getPricePerUser());
-            primitivePeriodValue.setKey(Long.valueOf(pph.getObjKey()));
+            primitivePeriodValue.setKey(pph.getObjKey());
             updateRoleFactors(primitivePeriodValue.getRolePrices(),
                     userFactors, primitivePeriodValue.getKey());
             periodValue = primitivePeriodValue;
@@ -478,7 +478,7 @@ public class BillingDataRetrievalServiceBean implements
                 .createNamedQuery("PricedOptionHistory.findOptionsForParameter");
         optionQuery.setParameter("endTimeForPeriod", new Date(endTime));
         optionQuery.setParameter("pricedparameterObjKey",
-                Long.valueOf(pph.getObjKey()));
+            pph.getObjKey());
         optionQuery.setParameter("optionId", paramHist.getValue());
         return ParameterizedTypes.list(optionQuery.getResultList(),
                 Object[].class);
@@ -576,7 +576,7 @@ public class BillingDataRetrievalServiceBean implements
             long priceModelKey, long endTimeForPeriod) {
         Query query = dm
                 .createNamedQuery("PricedEventHistory.findEventsByPriceModelKeyBeforePeriodEnd");
-        query.setParameter("priceModelKey", Long.valueOf(priceModelKey));
+        query.setParameter("priceModelKey", priceModelKey);
         final Date endTimeForPeriodTimeStamp = new Date(endTimeForPeriod);
         query.setParameter("modDate", endTimeForPeriodTimeStamp);
         return ParameterizedTypes.iterable(query.getResultList(),
@@ -604,10 +604,10 @@ public class BillingDataRetrievalServiceBean implements
         Query queryForGatheredEvents = dm
                 .createNamedQuery("GatheredEvent.getEventsForSubAndPeriod");
         queryForGatheredEvents.setParameter("startTime",
-                Long.valueOf(startTime));
-        queryForGatheredEvents.setParameter("endTime", Long.valueOf(endTime));
+            startTime);
+        queryForGatheredEvents.setParameter("endTime", endTime);
         queryForGatheredEvents.setParameter("subscriptionKey",
-                Long.valueOf(subscriptionKey));
+            subscriptionKey);
         return ParameterizedTypes.list(queryForGatheredEvents.getResultList(),
                 Object[].class);
     }
@@ -623,8 +623,8 @@ public class BillingDataRetrievalServiceBean implements
         Set<Long> containedRoleKeys = new HashSet<Long>();
 
         for (RoleDefinitionHistory currentHist : tempResult) {
-            if (containedRoleKeys.add(Long.valueOf(currentHist.getObjKey()))) {
-                result.put(Long.valueOf(currentHist.getObjKey()), currentHist);
+            if (containedRoleKeys.add(currentHist.getObjKey())) {
+                result.put(currentHist.getObjKey(), currentHist);
             }
         }
 
@@ -635,7 +635,7 @@ public class BillingDataRetrievalServiceBean implements
             long priceModelKey, long periodEndTime) {
         Query query = dm
                 .createNamedQuery("RoleDefinitionHistory.getRolesForPriceModelKey");
-        query.setParameter("pmKey", Long.valueOf(priceModelKey));
+        query.setParameter("pmKey", priceModelKey);
         query.setParameter("modDate", new Date(periodEndTime));
         return ParameterizedTypes.list(query.getResultList(),
                 RoleDefinitionHistory.class);
@@ -651,11 +651,11 @@ public class BillingDataRetrievalServiceBean implements
 
         final Map<Long, RolePricingDetails> result = new HashMap<Long, RolePricingDetails>();
         for (PricedProductRoleHistory rolePrice : rolePrices) {
-            if (!result.containsKey(Long.valueOf(rolePrice
-                    .getRoleDefinitionObjKey()))) {
+            if (!result.containsKey(rolePrice
+                .getRoleDefinitionObjKey())) {
                 RolePricingDetails returnObject = new RolePricingDetails();
                 returnObject.setPricedProductRoleHistory(rolePrice);
-                result.put(Long.valueOf(rolePrice.getRoleDefinitionObjKey()),
+                result.put(rolePrice.getRoleDefinitionObjKey(),
                         returnObject);
             }
         }
@@ -666,7 +666,7 @@ public class BillingDataRetrievalServiceBean implements
             long priceModelKey, long periodEndTime) {
         Query query = dm
                 .createNamedQuery("PricedProductRoleHistory.getForPMKeyAndEndDate");
-        query.setParameter("pmObjKey", Long.valueOf(priceModelKey));
+        query.setParameter("pmObjKey", priceModelKey);
         query.setParameter("modDate", new Date(periodEndTime));
         return ParameterizedTypes.list(query.getResultList(),
                 PricedProductRoleHistory.class);
@@ -696,12 +696,12 @@ public class BillingDataRetrievalServiceBean implements
             Map<Long, RolePricingDetails> currentRolePrices = result
                     .getRolePricesForContainerKey(currentParamKey);
             if (!currentRolePrices.keySet().contains(
-                    Long.valueOf(pricedRole.getRoleDefinitionObjKey()))) {
+                pricedRole.getRoleDefinitionObjKey())) {
                 RolePricingDetails returnObject = new RolePricingDetails(result);
                 returnObject.setPricedProductRoleHistory(pricedRole);
                 returnObject.setRoleId(roleId);
                 currentRolePrices.put(
-                        Long.valueOf(pricedRole.getRoleDefinitionObjKey()),
+                    pricedRole.getRoleDefinitionObjKey(),
                         returnObject);
             }
         }
@@ -712,7 +712,7 @@ public class BillingDataRetrievalServiceBean implements
             long periodEndTime) {
         Query query = dm
                 .createNamedQuery("PricedProductRoleHistory.getForParameterAndEndDate");
-        query.setParameter("pmKey", Long.valueOf(priceModelKey));
+        query.setParameter("pmKey", priceModelKey);
         query.setParameter("endDate", new Date(periodEndTime));
         return ParameterizedTypes.list(query.getResultList(), Object[].class);
     }
@@ -758,13 +758,13 @@ public class BillingDataRetrievalServiceBean implements
             Map<Long, RolePricingDetails> currentRolePrices = currentParamOptionPrices
                     .getRolePricesForContainerKey(currentOptionKey);
             if (!currentRolePrices.keySet().contains(
-                    Long.valueOf(rolePriceDetails.getRoleDefinitionObjKey()))) {
+                rolePriceDetails.getRoleDefinitionObjKey())) {
                 RolePricingDetails returnObject = new RolePricingDetails(
                         result.getRolePricingDataForPricedParameterKey(currentPricedParamKey));
                 returnObject.setPricedProductRoleHistory(rolePriceDetails);
                 returnObject.setRoleId(roleId);
-                currentRolePrices.put(Long.valueOf(rolePriceDetails
-                        .getRoleDefinitionObjKey()), returnObject);
+                currentRolePrices.put(rolePriceDetails
+                    .getRoleDefinitionObjKey(), returnObject);
             }
         }
 
@@ -775,7 +775,7 @@ public class BillingDataRetrievalServiceBean implements
             long periodEndTime) {
         Query query = dm
                 .createNamedQuery("PricedProductRoleHistory.getForParameterOptionAndEndDate");
-        query.setParameter("pmObjKey", Long.valueOf(priceModelKey));
+        query.setParameter("pmObjKey", priceModelKey);
         query.setParameter("modDate", new Date(periodEndTime));
         return ParameterizedTypes.list(query.getResultList(), Object[].class);
     }
@@ -796,7 +796,7 @@ public class BillingDataRetrievalServiceBean implements
                 .createNamedQuery("UsageLicenseHistory.getForSubKey_VersionDESC");
         Date startDate = new Date(startTimeForPeriod);
         query.setParameter("startTimeAsDate", startDate);
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscriptionKey", subscriptionKey);
         Date endDate = new Date(endTimeForPeriod);
         query.setParameter("endTimeAsDate", endDate);
 
@@ -848,7 +848,7 @@ public class BillingDataRetrievalServiceBean implements
             long priceModelKey, long periodEndTime) {
         Query query = dm
                 .createNamedQuery("SteppedPriceHistory.getForPMKeyAndEndDate");
-        query.setParameter("pmObjKey", Long.valueOf(priceModelKey));
+        query.setParameter("pmObjKey", priceModelKey);
         query.setParameter("modDate", new Date(periodEndTime));
         return ParameterizedTypes.list(query.getResultList(),
                 SteppedPriceHistory.class);
@@ -876,7 +876,7 @@ public class BillingDataRetrievalServiceBean implements
             long periodEndTime) {
         Query query = dm
                 .createNamedQuery("SteppedPriceHistory.getForEventKeyAndEndDate");
-        query.setParameter("evntObjKey", Long.valueOf(eventKey));
+        query.setParameter("evntObjKey", eventKey);
         query.setParameter("modDate", new Date(periodEndTime));
         return ParameterizedTypes.list(query.getResultList(),
                 SteppedPriceHistory.class);
@@ -896,9 +896,9 @@ public class BillingDataRetrievalServiceBean implements
             long chargingOrkKey) {
         Query query = dm.createNamedQuery("UdaHistory.findForOrg");
         query.setParameter("ignoredModType", ModificationType.DELETE);
-        query.setParameter("targetObjectKey", Long.valueOf(customerKey));
+        query.setParameter("targetObjectKey", customerKey);
         query.setParameter("udaTargetType", UdaTargetType.CUSTOMER);
-        query.setParameter("organizationObjKey", Long.valueOf(chargingOrkKey));
+        query.setParameter("organizationObjKey", chargingOrkKey);
         return ParameterizedTypes.list(query.getResultList(), Object[].class);
     }
 
@@ -916,10 +916,10 @@ public class BillingDataRetrievalServiceBean implements
             long chargingOrgKey) {
         Query query = dm.createNamedQuery("UdaHistory.findForSub");
         query.setParameter("ignoredModType", ModificationType.DELETE);
-        query.setParameter("targetObjectKey", Long.valueOf(subscriptionKey));
+        query.setParameter("targetObjectKey", subscriptionKey);
         query.setParameter("modTypeDeleted", ModificationType.DELETE);
         query.setParameter("udaTargetType", UdaTargetType.CUSTOMER_SUBSCRIPTION);
-        query.setParameter("organizationObjKey", Long.valueOf(chargingOrgKey));
+        query.setParameter("organizationObjKey", chargingOrgKey);
         return ParameterizedTypes.list(query.getResultList(), Object[].class);
     }
 
@@ -976,8 +976,8 @@ public class BillingDataRetrievalServiceBean implements
             long supplierKey) {
         Query query = dm
                 .createNamedQuery("VatRateHistory.findForCustomerAndSupplier");
-        query.setParameter("customerKey", Long.valueOf(customerKey));
-        query.setParameter("supplierKey", Long.valueOf(supplierKey));
+        query.setParameter("customerKey", customerKey);
+        query.setParameter("supplierKey", supplierKey);
         query.setParameter("endDate", new Date(endDate));
         return ParameterizedTypes.list(query.getResultList(),
                 VatRateHistory.class);
@@ -989,10 +989,10 @@ public class BillingDataRetrievalServiceBean implements
             long organizationKey, long startDate, long endDate, int cutOffDay) {
         Query query = dm
                 .createNamedQuery("SubscriptionHistory.getSubscriptionsForOrganization_VersionDesc");
-        query.setParameter("organizationKey", Long.valueOf(organizationKey));
+        query.setParameter("organizationKey", organizationKey);
         query.setParameter("startDate", new Date(startDate));
         query.setParameter("endDate", new Date(endDate));
-        query.setParameter("cutOffDay", Integer.valueOf(cutOffDay));
+        query.setParameter("cutOffDay", cutOffDay);
         query.setParameter("external", true);
         @SuppressWarnings("unchecked")
         List<SubscriptionHistory> result = query.getResultList();
@@ -1009,11 +1009,11 @@ public class BillingDataRetrievalServiceBean implements
         }
         Query query = dm
                 .createNamedQuery("SubscriptionHistory.getSubscriptionsForOrganizationAndUnits_VersionDesc");
-        query.setParameter("organizationKey", Long.valueOf(organizationKey));
+        query.setParameter("organizationKey", organizationKey);
         query.setParameter("units", unitKeys);
         query.setParameter("startDate", new Date(startDate));
         query.setParameter("endDate", new Date(endDate));
-        query.setParameter("cutOffDay", Integer.valueOf(cutOffDay));
+        query.setParameter("cutOffDay", cutOffDay);
         query.setParameter("external", true);
         @SuppressWarnings("unchecked")
         List<SubscriptionHistory> result = query.getResultList();
@@ -1038,7 +1038,7 @@ public class BillingDataRetrievalServiceBean implements
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public SupportedCurrency loadCurrency(long subscriptionKey, long endDate) {
         Query query = dm.createNamedQuery("SubscriptionHistory.findCurrency");
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscriptionKey", subscriptionKey);
         query.setParameter("endDate", new Date(endDate));
         @SuppressWarnings("unchecked")
         List<SupportedCurrency> result = query.getResultList();
@@ -1053,7 +1053,7 @@ public class BillingDataRetrievalServiceBean implements
     public BillingContactHistory loadBillingContact(long subscriptionKey) {
         Query query = dm
                 .createNamedQuery("SubscriptionHistory.findBillingContact");
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscriptionKey", subscriptionKey);
         @SuppressWarnings("unchecked")
         List<BillingContactHistory> result = query.getResultList();
         if (result.isEmpty()) {
@@ -1079,7 +1079,7 @@ public class BillingDataRetrievalServiceBean implements
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public long loadVendorKeyForSubscription(long subscriptionKey) {
         Query query = dm.createNamedQuery("SubscriptionHistory.getVendorKey");
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscriptionKey", subscriptionKey);
         Long result = (Long) query.getSingleResult();
         return result.longValue();
     }
@@ -1088,7 +1088,7 @@ public class BillingDataRetrievalServiceBean implements
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public long loadSupplierKeyForSubscription(long subscriptionKey) {
         Query query = dm.createNamedQuery("SubscriptionHistory.getSupplierKey");
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscriptionKey", subscriptionKey);
         query.setParameter("productType", ServiceType.PARTNER_SUBSCRIPTION);
         long result;
         try {
@@ -1106,7 +1106,7 @@ public class BillingDataRetrievalServiceBean implements
             long subscriptionKey) {
         Query query = dm
                 .createNamedQuery("SubscriptionHistory.getVendorRoleNames");
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscriptionKey", subscriptionKey);
         @SuppressWarnings({ "unchecked" })
         List<OrganizationRoleType> result = query.getResultList();
         return result;
@@ -1117,7 +1117,7 @@ public class BillingDataRetrievalServiceBean implements
     public String loadPaymentTypeIdForSubscription(long subscriptionKey) {
         Query query = dm
                 .createNamedQuery("SubscriptionHistory.getPaymentTypeId");
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscriptionKey", subscriptionKey);
         String result;
         try {
             result = (String) query.getSingleResult();
@@ -1143,11 +1143,11 @@ public class BillingDataRetrievalServiceBean implements
         final Query eventUpdateQuery = dm
                 .createNamedQuery("GatheredEvent.setResultReferenceForEventsForSubAndPeriod");
         eventUpdateQuery.setParameter("startTime",
-                Long.valueOf(startTimeForPeriod));
+            startTimeForPeriod);
         eventUpdateQuery
-                .setParameter("endTime", Long.valueOf(endTimeForPeriod));
+                .setParameter("endTime", endTimeForPeriod);
         eventUpdateQuery.setParameter("subscriptionKey",
-                Long.valueOf(subscriptionKey));
+            subscriptionKey);
         eventUpdateQuery.setParameter("billingResult", result);
         eventUpdateQuery.executeUpdate();
     }
@@ -1160,7 +1160,7 @@ public class BillingDataRetrievalServiceBean implements
 
         Query query = dm
                 .createNamedQuery("PriceModelHistory.findByKeyDescVersion");
-        query.setParameter("objKey", Long.valueOf(priceModelKeyForSubscription));
+        query.setParameter("objKey", priceModelKeyForSubscription);
         query.setParameter("modDate", new Date(endTimeForPeriod));
         return query.getResultList();
     }
@@ -1201,7 +1201,7 @@ public class BillingDataRetrievalServiceBean implements
 
         Query query = dm
                 .createNamedQuery("PriceModelHistory.findBySubscriptionHistory");
-        query.setParameter("subcriptionObjKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subcriptionObjKey", subscriptionKey);
         query.setParameter("modDate", new Date(endPeriod));
         return ParameterizedTypes.list(query.getResultList(),
                 PriceModelHistory.class);
@@ -1215,7 +1215,7 @@ public class BillingDataRetrievalServiceBean implements
         Query query = dm
                 .createNamedQuery("PriceModelHistory.findLatestBySubscriptionHistory");
         query.setParameter("prdObjKey",
-                Long.valueOf(history.getProductObjKey()));
+            history.getProductObjKey());
         query.setParameter("modDate", history.getModdate());
         return (PriceModelHistory) query.getSingleResult();
     }
@@ -1226,7 +1226,7 @@ public class BillingDataRetrievalServiceBean implements
         TypedQuery<PriceModelHistory> query = dm.createNamedQuery(
                 "PriceModelHistory.findByObjectAndProvisioningCompleted",
                 PriceModelHistory.class);
-        query.setParameter("objKey", Long.valueOf(priceModelKeyForSubscription));
+        query.setParameter("objKey", priceModelKeyForSubscription);
         query.setParameter("provisioningCompleted", Boolean.TRUE);
 
         List<PriceModelHistory> resultList = query.getResultList();
@@ -1297,7 +1297,7 @@ public class BillingDataRetrievalServiceBean implements
         TypedQuery<SubscriptionHistory> query = dm.createNamedQuery(
                 "SubscriptionHistory.findPreviousForPriceModel",
                 SubscriptionHistory.class);
-        query.setParameter("priceModelKey", Long.valueOf(priceModelKey));
+        query.setParameter("priceModelKey", priceModelKey);
         query.setParameter("modDate", new Date(timeMillis));
 
         List<SubscriptionHistory> resultList = query.getResultList();
@@ -1315,7 +1315,7 @@ public class BillingDataRetrievalServiceBean implements
         TypedQuery<SubscriptionHistory> query = dm.createNamedQuery(
                 "SubscriptionHistory.findNextForPriceModelAndState",
                 SubscriptionHistory.class);
-        query.setParameter("priceModelKey", Long.valueOf(priceModelKey));
+        query.setParameter("priceModelKey", priceModelKey);
         query.setParameter("modDate", new Date(timeMillis));
         query.setParameter("subscriptionStates", EnumSet.of(
                 SubscriptionStatus.ACTIVE, SubscriptionStatus.PENDING_UPD));
@@ -1360,7 +1360,7 @@ public class BillingDataRetrievalServiceBean implements
 
         Query query = dm
                 .createNamedQuery("ProductHistory.findByObjectDateAndModTypeDesc");
-        query.setParameter("objKey", Long.valueOf(productKey));
+        query.setParameter("objKey", productKey);
         query.setParameter("endDate", new Date(endDate));
         query.setParameter("modTypes", EnumSet.of(ModificationType.DELETE));
         query.setMaxResults(1);
@@ -1388,11 +1388,11 @@ public class BillingDataRetrievalServiceBean implements
 
         Query query = dm.createNativeQuery(queryString);
         query.setParameter("effectiveBillingEndDate",
-                Long.valueOf(effectiveBillingEndDate));
+            effectiveBillingEndDate);
         query.setParameter("cutoffBillingEndDate",
-                Long.valueOf(cutoffBillingEndDate));
+            cutoffBillingEndDate);
         query.setParameter("cutoffDeactivationDate",
-                Long.valueOf(cutoffDeactivationDate));
+            cutoffDeactivationDate);
         query.setParameter("external", true);
 
         List<Object[]> result = ParameterizedTypes.list(query.getResultList(),
@@ -1444,7 +1444,7 @@ public class BillingDataRetrievalServiceBean implements
             long endOfBillingPeriod) {
         Query query = dm
                 .createNamedQuery("UserGroupHistory.findLastValidForEndPeriod");
-        query.setParameter("objKey", Long.valueOf(groupKey));
+        query.setParameter("objKey", groupKey);
         query.setParameter("endDate", new Date(endOfBillingPeriod));
         query.setMaxResults(1);
         List<?> qryresult = query.getResultList();

@@ -523,9 +523,9 @@ public class ApplicationBean implements Serializable {
                     .getVOConfigurationSetting(
                             ConfigurationKey.REPORT_ENGINEURL,
                             Configuration.GLOBAL_CONTEXT);
-            reportingAvailable = Boolean.valueOf(reportEngineUrl != null
-                    && reportEngineUrl.getValue() != null
-                    && reportEngineUrl.getValue().trim().length() > 0);
+            reportingAvailable = reportEngineUrl != null
+                && reportEngineUrl.getValue() != null
+                && reportEngineUrl.getValue().trim().length() > 0;
         }
         return reportingAvailable.booleanValue();
     }
@@ -542,8 +542,8 @@ public class ApplicationBean implements Serializable {
             VOConfigurationSetting authMode = configurationService
                     .getVOConfigurationSetting(ConfigurationKey.AUTH_MODE,
                             Configuration.GLOBAL_CONTEXT);
-            internalAuthMode = Boolean.valueOf(authMode.getValue().equals(
-                    AuthenticationMode.INTERNAL.name()));
+            internalAuthMode = authMode.getValue().equals(
+                AuthenticationMode.INTERNAL.name());
         }
         return internalAuthMode.booleanValue();
     }
@@ -560,8 +560,8 @@ public class ApplicationBean implements Serializable {
             VOConfigurationSetting authMode = configurationService
                 .getVOConfigurationSetting(ConfigurationKey.AUTH_MODE,
                     Configuration.GLOBAL_CONTEXT);
-            samlSpAuthMode = Boolean.valueOf(authMode.getValue().equals(
-                AuthenticationMode.SAML_SP.name()));
+            samlSpAuthMode = authMode.getValue().equals(
+                AuthenticationMode.SAML_SP.name());
         }
         return samlSpAuthMode.booleanValue();
     }
@@ -676,7 +676,7 @@ public class ApplicationBean implements Serializable {
             // To keep session alive, the interval value is 1 minute less than
             // session timeout.
             long intervalValue = (long) maxInactiveInterval * 1000 - 60000L;
-            interval = Long.valueOf(intervalValue);
+            interval = intervalValue;
         }
         return interval;
     }

@@ -161,7 +161,7 @@ public class PricedProductRoleAssembler extends BaseAssembler {
                 throw new ValidationException(ReasonEnum.INVALID_REFERENCE,
                         FIELD_NAME_ROLE, new Object[] { productRole });
             }
-            if (!usedRoleKeys.add(Long.valueOf(productRole.getRole().getKey()))) {
+            if (!usedRoleKeys.add(productRole.getRole().getKey())) {
                 throw new ValidationException(ReasonEnum.DUPLICATE_VALUE,
                         FIELD_NAME_ROLE, new Object[] { productRole });
             }

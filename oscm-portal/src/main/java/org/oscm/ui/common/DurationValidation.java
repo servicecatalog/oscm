@@ -139,7 +139,7 @@ public class DurationValidation {
             if (milliseconds > Long.MAX_VALUE) {
                 return null;
             } else {
-                return Long.valueOf(Math.round(milliseconds));
+                return Math.round(milliseconds);
             }
         } else {
             return null;
@@ -147,7 +147,7 @@ public class DurationValidation {
     }
 
     public static Long getDurationMaxDaysValue() {
-        return Long.valueOf(DURATION_MAX_DAYS_VALUE);
+        return DURATION_MAX_DAYS_VALUE;
     }
 
 }

@@ -135,8 +135,8 @@ public class NotifyProvisioningServiceHandler extends TaskHandler {
 
         Long marketplaceKey = null;
         if (subscription.getMarketplace() != null) {
-            marketplaceKey = Long.valueOf(subscription.getMarketplace()
-                    .getKey());
+            marketplaceKey = subscription.getMarketplace()
+                .getKey();
         }
 
         SendMailPayload payload = new SendMailPayload();

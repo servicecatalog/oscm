@@ -333,7 +333,7 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
 
     public List<VOPaymentType> getAvailablePaymentTypesForCreation(long key, AccountService accountService) {
         ArrayList<VOPaymentType> availablePaymentTypesForCreation = new ArrayList<>();
-        Collection<VOPaymentType> enabledPaymentTypes = getEnabledPaymentTypes(Long.valueOf(key), accountService);
+        Collection<VOPaymentType> enabledPaymentTypes = getEnabledPaymentTypes(key, accountService);
         for (VOPaymentType pt : enabledPaymentTypes) {
             if (!pt.getPaymentTypeId().equals("INVOICE")) {
                 availablePaymentTypesForCreation.add(pt);
@@ -496,7 +496,7 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
             Set<VOPaymentType> types;
             types = accountService
                     .getAvailablePaymentTypesFromOrganization(
-                            Long.valueOf(key));
+                        key);
 
             List<VOPaymentInfo> infos = accountService
                     .getPaymentInfos();
@@ -519,7 +519,7 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
         }
 
         if (userBean.isLoggedInAndAdmin()) {
-            Collection<VOPaymentType> enabledPaymentTypes = getEnabledPaymentTypes(Long.valueOf(key), accountingService);
+            Collection<VOPaymentType> enabledPaymentTypes = getEnabledPaymentTypes(key, accountingService);
             return (enabledPaymentTypes != null && !enabledPaymentTypes.isEmpty());
         }
 
@@ -571,7 +571,7 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
         if (selectedPaymentInfoForSubscription == null) {
             return null;
         }
-        return Long.valueOf(selectedPaymentInfoForSubscription.getKey());
+        return selectedPaymentInfoForSubscription.getKey();
     }
 
     public void setSelectedPaymentInfoForSubscriptionKeyReadOnly(
@@ -587,7 +587,7 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
             // (Re-)read payment informations and set given pi as selected
             // only if its payment type is still available.
             getPaymentInfosForSubscription();
-            setSelectedPaymentInfoForSubscriptionKey(Long.valueOf(pi.getKey()));
+            setSelectedPaymentInfoForSubscriptionKey(pi.getKey());
         } else {
             setSelectedPaymentInfoForSubscriptionKey(null);
         }

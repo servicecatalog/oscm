@@ -103,7 +103,7 @@ public class AuthenticationHandler {
     }
 
     private String handleRedirect() throws Exception {
-        Boolean isHttps = Boolean.valueOf(request.isSecure());
+        Boolean isHttps = request.isSecure();
         String tenantID = request.getParameter(Constants.REQ_PARAM_TENANT_ID);
         String issuer;
         String url;

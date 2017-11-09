@@ -110,7 +110,7 @@ public class CostCalculatorProRata extends CostCalculator {
                     || referenceUserKey.longValue() != ulHist.getUserObjKey()) {
                 // if a new user has to be handled, only reset the
                 // temporary variables
-                referenceUserKey = Long.valueOf(ulHist.getUserObjKey());
+                referenceUserKey = ulHist.getUserObjKey();
                 periodEndTime = periodEnd;
             }
 

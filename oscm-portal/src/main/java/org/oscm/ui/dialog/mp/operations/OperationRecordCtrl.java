@@ -130,7 +130,7 @@ public class OperationRecordCtrl {
     }
 
     protected Boolean isMyOperationsOnly() {
-        return Boolean.valueOf(this.sessionBean.isMyOperationsOnly());
+        return this.sessionBean.isMyOperationsOnly();
     }
 
     public OperationRecordService getOperationRecordService() {

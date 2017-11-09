@@ -220,8 +220,8 @@ class DataProviderTimerBased {
 
             while (endOfBillingPeriod <= effectiveBillingEndDate) {
                 addToBillingPeriodMap(billingPeriodMap,
-                        Long.valueOf(endOfBillingPeriod),
-                        Long.valueOf(billingSubData.getSubscriptionKey()));
+                    endOfBillingPeriod,
+                    billingSubData.getSubscriptionKey());
                 endOfBillingPeriod = addMonths(endOfBillingPeriod, 1);
             }
         }
@@ -374,7 +374,7 @@ class DataProviderTimerBased {
                     billingInput.getSubscriptionKey());
             UserGroup unit = subscription.getUserGroup();
             if (unit != null) {
-                billingInput.setUserGroupKey(Long.valueOf(unit.getKey()));
+                billingInput.setUserGroupKey(unit.getKey());
             }
         } catch (ObjectNotFoundException ignored) {
         }

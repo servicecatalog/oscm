@@ -38,7 +38,7 @@ public class UserGroupHistory extends DomainHistoryObject<UserGroupData> {
     public UserGroupHistory(UserGroup c) {
         super(c);
         if (c.getOrganization() != null) {
-            setOrganizationObjKey(Long.valueOf(c.getOrganization().getKey()));
+            setOrganizationObjKey(c.getOrganization().getKey());
         }
     }
 

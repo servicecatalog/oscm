@@ -233,7 +233,7 @@ public class UserImportBean implements Serializable {
             }
             num = (BASE_WIDTH / num);
             // double % = escaped %
-            columnWidth = String.format("%s%%", Integer.valueOf(num));
+            columnWidth = String.format("%s%%", num);
         }
         return columnWidth;
     }

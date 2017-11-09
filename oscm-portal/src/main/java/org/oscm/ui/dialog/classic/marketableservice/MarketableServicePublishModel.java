@@ -95,15 +95,14 @@ public class MarketableServicePublishModel {
                 && getServiceDetails().getCatalogEntry().getCategories() != null) {
             for (VOCategory cat : getServiceDetails().getCatalogEntry()
                     .getCategories()) {
-                selectedCategories.add(Long.valueOf(cat.getKey()));
+                selectedCategories.add(cat.getKey());
             }
         }
         categorySelection = new ArrayList<CategoryRow>();
         if (allMarketplaceCategories != null) {
             for (VOCategory cat : allMarketplaceCategories) {
                 final CategoryRow categoryRow = new CategoryRow(cat);
-                categoryRow.setSelected(selectedCategories.contains(Long
-                        .valueOf(cat.getKey())));
+                categoryRow.setSelected(selectedCategories.contains(cat.getKey()));
                 categorySelection.add(categoryRow);
             }
         }

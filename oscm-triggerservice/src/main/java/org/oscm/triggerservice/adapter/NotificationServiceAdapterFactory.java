@@ -47,7 +47,7 @@ public class NotificationServiceAdapterFactory {
             throw new SaaSSystemException(
                     String.format(
                             "Failed to retrieve service endpoint for trigger definition '%s', as the target is not defined.",
-                            Long.valueOf(td.getKey())));
+                        td.getKey()));
         }
 
         INotificationServiceAdapter adapter = null;
@@ -79,7 +79,7 @@ public class NotificationServiceAdapterFactory {
             throw new SaaSSystemException(
                     String.format(
                             "Failed to retrieve service endpoint for trigger definition '%s', as the target type is not defined.",
-                            Long.valueOf(td.getKey())));
+                        td.getKey()));
         }
 
         return adapter;

@@ -163,7 +163,7 @@ public class TriggerProcessBean extends BaseBean implements Serializable {
             List<Long> keys = new ArrayList<Long>();
             for (TriggerProcess triggerProcess : triggerProcessList) {
                 if (triggerProcess.isSelected()) {
-                    keys.add(Long.valueOf(triggerProcess.getKey()));
+                    keys.add(triggerProcess.getKey());
                 }
             }
             try {
@@ -201,7 +201,7 @@ public class TriggerProcessBean extends BaseBean implements Serializable {
             List<Long> keys = new ArrayList<Long>();
             for (TriggerProcess triggerProcess : triggerProcessList) {
                 if (triggerProcess.isSelected()) {
-                    keys.add(Long.valueOf(triggerProcess.getKey()));
+                    keys.add(triggerProcess.getKey());
                 }
             }
             try {

@@ -127,7 +127,7 @@ public class ManageAccessCtrl {
                 @Override
                 public int compare(POOrganization org1, POOrganization org2) {
                     return Boolean.valueOf(org2.isSelected()).compareTo(
-                            Boolean.valueOf(org1.isSelected()));
+                        org1.isSelected());
                 }
             });
 

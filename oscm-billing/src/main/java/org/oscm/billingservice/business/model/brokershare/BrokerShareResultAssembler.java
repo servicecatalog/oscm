@@ -136,9 +136,9 @@ public class BrokerShareResultAssembler {
     private Supplier buildSupplier(long supplierKey) {
         Supplier supplier = new Supplier();
         OrganizationHistory organizationHistory = sharesRetrievalService
-                .loadLastOrganizationHistory(Long.valueOf(supplierKey));
+                .loadLastOrganizationHistory(supplierKey);
         String countryIsoCode = sharesRetrievalService
-                .getSupportedCountryCode(Long.valueOf(supplierKey));
+                .getSupportedCountryCode(supplierKey);
         supplier.setOrganizationData(buildSupplierData(supplierKey,
                 organizationHistory, countryIsoCode));
         return supplier;
@@ -224,8 +224,8 @@ public class BrokerShareResultAssembler {
                 .loadSubscriptionHistoryWithinPeriod(subscriptionKey,
                         periodEndTime);
         OrganizationHistory customer = sharesRetrievalService
-                .loadLastOrganizationHistory(Long.valueOf(subscriptionHistory
-                        .getOrganizationObjKey()));
+                .loadLastOrganizationHistory(subscriptionHistory
+                    .getOrganizationObjKey());
         return customer;
 
     }

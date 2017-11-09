@@ -306,7 +306,7 @@ public class TechnicalProduct
     String toStringAttributes() {
         return String.format(
                 ", technicalProductId='%s', organizationKey='%s', %nevents='%s', %nparameterDefinitions='%s'",
-                getTechnicalProductId(), Long.valueOf(getOrganizationKey()),
+                getTechnicalProductId(), getOrganizationKey(),
                 getEvents(), getParameterDefinitions());
     }
 

@@ -858,7 +858,7 @@ public class PriceModelBean extends BaseBean implements Serializable {
             return;
         }
         sessionBean.setSelectedServiceKeyForSupplier(
-                Long.valueOf(selectedService.getKey()));
+            selectedService.getKey());
         if (templatePriceModel != null) {
             priceModel = templatePriceModel;
         } else {
@@ -2102,7 +2102,7 @@ public class PriceModelBean extends BaseBean implements Serializable {
             return;
         }
         sessionBean.setSelectedServiceKeyForSupplier(
-                Long.valueOf(selectedService.getKey()));
+            selectedService.getKey());
         if (templatePriceModel != null) {
             priceModel = templatePriceModel;
         } else {
@@ -2168,7 +2168,7 @@ public class PriceModelBean extends BaseBean implements Serializable {
      *         ParameterValueValidator, in order to reuse it.
      */
     public Long getFreePeriodMinValue() {
-        return Long.valueOf(0L);
+        return 0L;
     }
 
     /**
@@ -2179,7 +2179,7 @@ public class PriceModelBean extends BaseBean implements Serializable {
      *         ParameterValueValidator, in order to reuse it.
      */
     public Long getFreePeriodMaxValue() {
-        return Long.valueOf(Integer.MAX_VALUE);
+        return (long) Integer.MAX_VALUE;
     }
 
     protected PartnerService getParterService() {

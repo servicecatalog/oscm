@@ -185,20 +185,19 @@ public class POSubscription implements Serializable {
     }
 
     public void setActivationDate(Date activationDate) {
-        Long l = activationDate == null ? null : Long.valueOf(activationDate
-                .getTime());
+        Long l = activationDate == null ? null : activationDate
+            .getTime();
         voSubscription.setActivationDate(l);
     }
 
     public void setCreationDate(Date creationDate) {
-        Long l = creationDate == null ? null : Long.valueOf(creationDate
-                .getTime());
+        Long l = creationDate == null ? null : creationDate
+            .getTime();
         voSubscription.setCreationDate(l);
     }
 
     public void setDeactivationDate(Date deactivationDate) {
-        Long l = deactivationDate == null ? null : Long
-                .valueOf(deactivationDate.getTime());
+        Long l = deactivationDate == null ? null : deactivationDate.getTime();
         voSubscription.setDeactivationDate(l);
     }
 

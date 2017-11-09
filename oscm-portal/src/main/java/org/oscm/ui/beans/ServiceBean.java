@@ -190,8 +190,7 @@ public class ServiceBean extends BaseBean implements Serializable {
                     selectedService.getServiceId());
         }
 
-        sessionBean.setSelectedServiceKeyForSupplier(Long
-                .valueOf(selectedService.getKey()));
+        sessionBean.setSelectedServiceKeyForSupplier(selectedService.getKey());
         prepareParameters();
         services = null;
 
@@ -662,7 +661,7 @@ public class ServiceBean extends BaseBean implements Serializable {
             // parameter definitions
             selectedService = new ServiceDetails(serviceDetails);
             updateMarketplacePublishedTo();
-            sessionBean.setSelectedServiceKeyForSupplier(Long.valueOf(key));
+            sessionBean.setSelectedServiceKeyForSupplier(key);
             prepareParameters();
         } catch (SaaSApplicationException e) {
             ExceptionHandler.execute(e);
@@ -1009,8 +1008,7 @@ public class ServiceBean extends BaseBean implements Serializable {
         try {
             selectedService = new ServiceDetails(getProvisioningService()
                     .copyService(service.getVoServiceDetails(), newServiceId));
-            sessionBean.setSelectedServiceKeyForSupplier(Long
-                    .valueOf(selectedService.getKey()));
+            sessionBean.setSelectedServiceKeyForSupplier(selectedService.getKey());
             updateMarketplacePublishedTo();
             prepareParameters();
             addMessage(null, FacesMessage.SEVERITY_INFO, INFO_SERVICE_CREATED,
@@ -1093,10 +1091,9 @@ public class ServiceBean extends BaseBean implements Serializable {
             ServiceDetails s = getSelectedService();
             if (s != null) {
                 try {
-                    partOfUpgradePath = Boolean
-                            .valueOf(getProvisioningService()
-                                    .isPartOfUpgradePath(
-                                            s.getVoServiceDetails()));
+                    partOfUpgradePath = getProvisioningService()
+                        .isPartOfUpgradePath(
+                            s.getVoServiceDetails());
                 } catch (SaaSApplicationException e) {
                     ExceptionHandler.execute(e);
                     partOfUpgradePath = Boolean.FALSE;

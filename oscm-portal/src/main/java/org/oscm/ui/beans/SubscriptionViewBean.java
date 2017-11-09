@@ -411,7 +411,7 @@ public class SubscriptionViewBean extends BaseBean implements Serializable {
 
     public Integer getNumberOfAssignedUsers() {
         if(getSelectedSubscriptionAndCustomer() == null) return null;
-        return Integer.valueOf(getSelectedSubscription().getUsageLicenses().size());
+        return getSelectedSubscription().getUsageLicenses().size();
     }
 
     /**

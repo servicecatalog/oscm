@@ -77,7 +77,7 @@ public class Conditions {
                 public boolean eval() {
                     Boolean flag = cache.get(c);
                     if (flag == null) {
-                        flag = Boolean.valueOf(c.eval());
+                        flag = c.eval();
                         cache.put(c, flag);
                     }
                     return flag.booleanValue();

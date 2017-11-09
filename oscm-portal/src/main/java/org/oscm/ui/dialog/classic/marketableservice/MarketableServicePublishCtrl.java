@@ -170,13 +170,13 @@ public class MarketableServicePublishCtrl extends BaseBean
                 .getResultList(POServiceDetails.class);
         List<SelectItem> templateItems = new ArrayList<SelectItem>();
         templateItems
-                .add(new SelectItemBuilder(ui).pleaseSelect(Long.valueOf(0L)));
+                .add(new SelectItemBuilder(ui).pleaseSelect(0L));
         for (POServiceDetails template : templates) {
             String id = model.isSupplier() ? template.getServiceId()
                     : template.getServiceId() + "  ("
                             + template.getOrganizationId() + ")";
             templateItems
-                    .add(new SelectItem(Long.valueOf(template.getKey()), id));
+                    .add(new SelectItem(template.getKey(), id));
         }
         model.setServiceTemplates(templateItems);
     }
@@ -272,8 +272,8 @@ public class MarketableServicePublishCtrl extends BaseBean
                 if (partner.getRevenueShare() == null) {
                     partner.setRevenueShare(rsDefault);
                 }
-                model.assignedPermissions.put(Long.valueOf(partner.getKey()),
-                        Boolean.valueOf(partner.isSelected()));
+                model.assignedPermissions.put(partner.getKey(),
+                    partner.isSelected());
             }
         }
     }
@@ -290,7 +290,7 @@ public class MarketableServicePublishCtrl extends BaseBean
         if (selectedServiceKey != model.getSelectedServiceKey()) {
             initializeModel(selectedServiceKey, null, true);
             sessionBean.setSelectedServiceKeyForSupplier(
-                    Long.valueOf(model.getSelectedServiceKey()));
+                model.getSelectedServiceKey());
         }
     }
 
@@ -445,9 +445,9 @@ public class MarketableServicePublishCtrl extends BaseBean
         }
         for (POPartner partner : allPartners) {
             if (partner.isSelected() != model.assignedPermissions
-                    .get(Long.valueOf(partner.getKey())).booleanValue()) {
-                model.assignedPermissions.put(Long.valueOf(partner.getKey()),
-                        Boolean.valueOf(partner.isSelected()));
+                    .get(partner.getKey()).booleanValue()) {
+                model.assignedPermissions.put(partner.getKey(),
+                    partner.isSelected());
             }
         }
     }
@@ -458,7 +458,7 @@ public class MarketableServicePublishCtrl extends BaseBean
         if (partners != null) {
             for (POPartner partner : partners) {
                 boolean addToList = model.assignedPermissions
-                        .get(Long.valueOf(partner.getKey())).booleanValue();
+                        .get(partner.getKey()).booleanValue();
                 if (grant) {
                     // grant permission
                     addToList = partner.isSelected() && !addToList;

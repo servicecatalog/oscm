@@ -29,7 +29,7 @@ public class ToExtRoleDefinitionStrategy extends AbstractConversionStrategy impl
         voPricedRoleDefinition.setRoleId(roleDefinition.getRoleId());
         final List<LocalizedObjectTypes> localizedObjectTypes = roleDefinition.getLocalizedObjectTypes();
         final String locale = getDataService().getCurrentUser().getLocale();
-        final List<LocalizedResource> localizedResources = getLocalizedResource(localizedObjectTypes, Long.valueOf(roleDefinition.getKey()), locale);
+        final List<LocalizedResource> localizedResources = getLocalizedResource(localizedObjectTypes, roleDefinition.getKey(), locale);
 
         for (LocalizedResource resource : localizedResources) {
             if (resource.getObjectType().equals(LocalizedObjectTypes.ROLE_DEF_DESC)){

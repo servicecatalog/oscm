@@ -329,12 +329,12 @@ public class SubscriptionAssembler extends BaseAssembler {
             LocalizerFacade facade) {
         List<Long> objectKeys = new ArrayList<Long>();
         for (Subscription sub : subscription) {
-            objectKeys.add(Long.valueOf(sub.getKey()));
+            objectKeys.add(sub.getKey());
             TechnicalProduct techProd = sub.getProduct().getTechnicalProduct();
-            objectKeys.add(Long.valueOf(techProd.getKey()));
+            objectKeys.add(techProd.getKey());
             for (TechnicalProductOperation opperation : techProd
                     .getTechnicalProductOperations()) {
-                objectKeys.add(Long.valueOf(opperation.getKey()));
+                objectKeys.add(opperation.getKey());
             }
         }
         facade.prefetch(objectKeys,

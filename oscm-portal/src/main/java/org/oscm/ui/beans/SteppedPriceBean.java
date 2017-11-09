@@ -172,7 +172,7 @@ public class SteppedPriceBean extends BaseBean implements Serializable {
             if (steps.isEmpty()) {
                 addToIndex = 0;
                 VOSteppedPrice vo = new VOSteppedPrice();
-                vo.setLimit(Long.valueOf(1));
+                vo.setLimit(1L);
                 vo.setPrice(priceModel.getPricePerUserAssignment());
                 steps.add(vo);
             }
@@ -220,7 +220,7 @@ public class SteppedPriceBean extends BaseBean implements Serializable {
             addToIndex = 1;
             if (row.getSteppedPrice() == null) {
                 VOSteppedPrice sp = new VOSteppedPrice();
-                sp.setLimit(Long.valueOf(1));
+                sp.setLimit(1L);
                 sp.setPrice(row.getPricedEvent().getEventPrice());
                 pricedEvent.getSteppedPrices().add(sp);
                 row.setSteppedPrice(sp);
@@ -288,7 +288,7 @@ public class SteppedPriceBean extends BaseBean implements Serializable {
             addToIndex = 1;
             if (row.getSteppedPrice() == null) {
                 VOSteppedPrice sp = new VOSteppedPrice();
-                sp.setLimit(Long.valueOf(1));
+                sp.setLimit(1L);
                 if (row.getMinValue() != null) {
                     sp.setLimit(row.getMinValue());
                 }

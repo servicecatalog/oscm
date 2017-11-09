@@ -39,11 +39,11 @@ public class SqlQuery {
     }
 
     private void setParameter(int index, Object value) {
-        parameters.put(Integer.valueOf(index), value);
+        parameters.put(index, value);
     }
 
     public void setLong(int index, long value) {
-        setParameter(index, Long.valueOf(value));
+        setParameter(index, value);
     }
 
     public void setDate(int index, Date date) {

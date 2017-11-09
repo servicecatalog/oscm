@@ -338,7 +338,7 @@ public class CategorizationServiceBean implements CategorizationService,
             uniqueName.setParameter("value", voCategory.getName());
             uniqueName.setParameter("marketplaceKey",
                     getMarketplaceKeyByMarketplaceId(marketplaceId));
-            uniqueName.setParameter("key", Long.valueOf(voCategory.getKey()));
+            uniqueName.setParameter("key", voCategory.getKey());
             List<Category> dbDuplicates = ParameterizedTypes.list(
                     uniqueName.getResultList(), Category.class);
             if (dbDuplicates.size() > 0) {
@@ -364,7 +364,7 @@ public class CategorizationServiceBean implements CategorizationService,
                     marketplaceId);
         }
 
-        return Long.valueOf(marketplace.getKey());
+        return marketplace.getKey();
     }
 
     private boolean containsNameMore(Collection<String> names, String targetName) {
@@ -386,8 +386,8 @@ public class CategorizationServiceBean implements CategorizationService,
 
         Long marketplaceKey = null;
         if (removedCategory.getMarketplace() != null) {
-            marketplaceKey = Long.valueOf(removedCategory.getMarketplace()
-                    .getKey());
+            marketplaceKey = removedCategory.getMarketplace()
+                .getKey();
         }
 
         SendMailPayload payload = new SendMailPayload();
@@ -407,7 +407,7 @@ public class CategorizationServiceBean implements CategorizationService,
     private List<PlatformUser> collectUsersToBeNotified(Category removedCategory) {
         Query query = dm.createNamedQuery("Category.findAdminsOfServices");
         query.setParameter("categoryKey",
-                Long.valueOf(removedCategory.getKey()));
+            removedCategory.getKey());
         List<PlatformUser> admins = ParameterizedTypes.list(
                 query.getResultList(), PlatformUser.class);
         return admins;
@@ -446,7 +446,7 @@ public class CategorizationServiceBean implements CategorizationService,
     public List<VOService> getServicesForCategory(long categoryKey) {
         final Query servicesQuery = dm
                 .createNamedQuery("Category.findServices");
-        servicesQuery.setParameter("categoryKey", Long.valueOf(categoryKey));
+        servicesQuery.setParameter("categoryKey", categoryKey);
         final List<Product> list = ParameterizedTypes.list(
                 servicesQuery.getResultList(), Product.class);
         final List<VOService> listToReturn = new ArrayList<VOService>();

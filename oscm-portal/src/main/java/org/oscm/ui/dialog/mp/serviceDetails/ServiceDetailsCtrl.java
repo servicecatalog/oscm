@@ -445,7 +445,7 @@ public class ServiceDetailsCtrl {
         }
         if (null != model.getInvisibleProductKeys()
                 && model.getInvisibleProductKeys().contains(
-                        Long.valueOf(serviceKey))) {
+            serviceKey)) {
             return false;
         }
         return true;
@@ -485,7 +485,7 @@ public class ServiceDetailsCtrl {
         for (int i = 0; i < services.size(); i++) {
             Service service = services.get(i);
             if (!invisibleProductKeySet
-                    .contains(Long.valueOf(service.getKey()))) {
+                    .contains(service.getKey())) {
                 visibleServices.add(service);
             }
         }

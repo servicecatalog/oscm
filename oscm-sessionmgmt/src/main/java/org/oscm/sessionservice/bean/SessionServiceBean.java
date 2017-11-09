@@ -133,7 +133,7 @@ public class SessionServiceBean implements SessionServiceLocal, SessionService {
         Session sessionData = new Session();
         sessionData.setPlatformUserId(currentUser.getUserId());
         sessionData.setPlatformUserKey(currentUser.getKey());
-        sessionData.setSubscriptionTKey(Long.valueOf(subscriptionKey));
+        sessionData.setSubscriptionTKey(subscriptionKey);
         sessionData.setUserToken(userToken);
         sessionData.setSessionId(sessionId);
         sessionData.setSessionType(SessionType.SERVICE_SESSION);
@@ -195,7 +195,7 @@ public class SessionServiceBean implements SessionServiceLocal, SessionService {
     public String deleteServiceSession(long subscriptionKey, String sessionId) {
         ArgumentValidator.notNull("sessionId", sessionId);
         Session findTemplate = new Session();
-        findTemplate.setSubscriptionTKey(Long.valueOf(subscriptionKey));
+        findTemplate.setSubscriptionTKey(subscriptionKey);
         findTemplate.setSessionId(sessionId);
         findTemplate.setSessionType(SessionType.SERVICE_SESSION);
         Session storedSession = (Session) dm.find(findTemplate);
@@ -217,7 +217,7 @@ public class SessionServiceBean implements SessionServiceLocal, SessionService {
 
         String userId = null;
         Session findTemplate = new Session();
-        findTemplate.setSubscriptionTKey(Long.valueOf(subscriptionKey));
+        findTemplate.setSubscriptionTKey(subscriptionKey);
         findTemplate.setSessionId(sessionId);
         findTemplate.setSessionType(SessionType.SERVICE_SESSION);
         Session storedSession = (Session) dm.find(findTemplate);
@@ -280,7 +280,7 @@ public class SessionServiceBean implements SessionServiceLocal, SessionService {
         Query query = dm.createNamedQuery("Subscription.findUsageLicense");
         query.setParameter("userId", userId);
         query.setParameter("subscriptionKey",
-                Long.valueOf(subscription.getKey()));
+            subscription.getKey());
 
         @SuppressWarnings("unchecked")
         List<UsageLicense> result = query.getResultList();
@@ -361,7 +361,7 @@ public class SessionServiceBean implements SessionServiceLocal, SessionService {
 
         // find all entries for the given session id
         Query query = dm.createNamedQuery("Session.findEntriesForSubscription");
-        query.setParameter("subscriptionTKey", Long.valueOf(subscriptionTKey));
+        query.setParameter("subscriptionTKey", subscriptionTKey);
         query.setParameter("sessionType", SessionType.SERVICE_SESSION);
         return ParameterizedTypes.list(query.getResultList(),
                 Session.class);
@@ -380,7 +380,7 @@ public class SessionServiceBean implements SessionServiceLocal, SessionService {
         sessionData.setSessionId(sessionId);
         sessionData.setPlatformUserId(user.getUserId());
         sessionData.setPlatformUserKey(user.getKey());
-        sessionData.setSubscriptionTKey(Long.valueOf(0));
+        sessionData.setSubscriptionTKey(0L);
         sessionData.setSessionId(sessionId);
         sessionData.setSessionType(SessionType.PLATFORM_SESSION);
         sessionData.setNodeName(cfgSvc.getNodeName());
@@ -411,7 +411,7 @@ public class SessionServiceBean implements SessionServiceLocal, SessionService {
     public List<Session> getSessionsForUserKey(long platformUserKey) {
 
         Query query = dm.createNamedQuery("Session.getActiveSessionsForUser");
-        query.setParameter("userKey", Long.valueOf(platformUserKey));
+        query.setParameter("userKey", platformUserKey);
         return ParameterizedTypes.list(query.getResultList(),
                 Session.class);
     }
@@ -423,7 +423,7 @@ public class SessionServiceBean implements SessionServiceLocal, SessionService {
         Query query = dm
                 .createNamedQuery("Session.getNumOfActiveSessionsForTechProduct");
         query.setParameter("technicalProductKey",
-                Long.valueOf(technicalProductKey));
+            technicalProductKey);
         Long num = (Long) query.getSingleResult();
 
         return num.longValue() != 0;

@@ -30,7 +30,7 @@ public class ToExtParameterOptionStrategy extends AbstractConversionStrategy imp
 
         final List<LocalizedObjectTypes> localizedObjectTypes = parameterOption.getLocalizedObjectTypes();
         final String locale = getDataService().getCurrentUser().getLocale();
-        final List<LocalizedResource> localizedResources = getLocalizedResource(localizedObjectTypes, Long.valueOf(parameterOption.getKey()), locale);
+        final List<LocalizedResource> localizedResources = getLocalizedResource(localizedObjectTypes, parameterOption.getKey(), locale);
 
         for (LocalizedResource resource : localizedResources) {
             if (resource.getObjectType().equals(LocalizedObjectTypes.OPTION_PARAMETER_DEF_DESC)){

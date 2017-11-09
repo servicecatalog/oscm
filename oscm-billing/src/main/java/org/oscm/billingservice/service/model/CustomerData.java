@@ -43,7 +43,7 @@ public class CustomerData {
     void determineSubscriptionKeys() {
         Set<Long> uniqueKeys = new LinkedHashSet<Long>();
         for (SubscriptionHistory subscriptionHistory : subscriptionHistoryEntries) {
-            uniqueKeys.add(Long.valueOf(subscriptionHistory.getObjKey()));
+            uniqueKeys.add(subscriptionHistory.getObjKey());
         }
         subscriptionKeys = new ArrayList<Long>(uniqueKeys);
     }

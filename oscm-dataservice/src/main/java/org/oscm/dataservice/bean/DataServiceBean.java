@@ -388,7 +388,7 @@ public class DataServiceBean implements DataService {
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public <T extends DomainObject<?>> T find(Class<T> objclazz, long id) {
         setThreadLocals();
-        return em.find(objclazz, new Long(id));
+        return em.find(objclazz, id);
     }
 
     @Override
@@ -411,7 +411,7 @@ public class DataServiceBean implements DataService {
                 .substring(className.lastIndexOf(".") + 1) + "History";
         String qryString = histClassName + ".findByObject";
         Query query = em.createNamedQuery(qryString);
-        query.setParameter("objKey", Long.valueOf(obj.getKey()));
+        query.setParameter("objKey", obj.getKey());
         List<?> qryresult = query.getResultList();
         List<DomainHistoryObject<?>> result = new ArrayList<DomainHistoryObject<?>>();
         for (Object o : qryresult) {
@@ -435,7 +435,7 @@ public class DataServiceBean implements DataService {
                 .substring(className.lastIndexOf(".") + 1) + "History";
         String qryString = histClassName + ".findByObjectDesc";
         Query query = em.createNamedQuery(qryString);
-        query.setParameter("objKey", Long.valueOf(obj.getKey()));
+        query.setParameter("objKey", obj.getKey());
         query.setMaxResults(1);
         List<?> qryresult = query.getResultList();
         if (qryresult.isEmpty()) {

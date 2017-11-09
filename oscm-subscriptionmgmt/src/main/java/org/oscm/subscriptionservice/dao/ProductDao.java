@@ -47,7 +47,7 @@ public class ProductDao {
             Organization organization) {
         Query query = dataManager
                 .createNamedQuery("Product.getForCustomerOnly");
-        query.setParameter("vendorKey", Long.valueOf(supplierKey));
+        query.setParameter("vendorKey", supplierKey);
         query.setParameter("customer", organization);
         return ParameterizedTypes.list(query.getResultList(), Product.class);
     }

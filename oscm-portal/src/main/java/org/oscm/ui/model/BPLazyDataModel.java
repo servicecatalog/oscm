@@ -97,7 +97,7 @@ public class BPLazyDataModel extends RichLazyDataModel<POSubscriptionAndCustomer
 
     @Override
     public Object getKey(POSubscriptionAndCustomer entry) {
-        return Long.valueOf(entry.getTkey());
+        return entry.getTkey();
     }
 
     @Override

@@ -173,13 +173,13 @@ public class UpdateUserCtrl {
                         model.getUser().getUserId(), model.getKey());
         Map<Long, POUserGroup> userGroupMap = new HashMap<>();
         for (POUserGroup g : userGroups) {
-            userGroupMap.put(Long.valueOf(g.getKey()), g);
+            userGroupMap.put(g.getKey(), g);
         }
         List<UserGroup> groups = new ArrayList<>();
         for (POUserGroup poUserGroup : orgUserGroups) {
             UserGroup userGroup = new UserGroup();
             userGroup.setPoUserGroup(poUserGroup);
-            if (userGroupMap.containsKey(Long.valueOf(poUserGroup.getKey()))) {
+            if (userGroupMap.containsKey(poUserGroup.getKey())) {
                 userGroup.setSelected(true);
             } else {
                 userGroup.setSelected(false);
@@ -195,9 +195,9 @@ public class UpdateUserCtrl {
                 roles.add(unitRole);
             }
             userGroup.setRoles(roles);
-            if (userGroupMap.containsKey(Long.valueOf(poUserGroup.getKey()))) {
+            if (userGroupMap.containsKey(poUserGroup.getKey())) {
                 userGroup.setSelectedRole(userGroupMap.get(
-                        Long.valueOf(poUserGroup.getKey())).getSelectedRole());
+                    poUserGroup.getKey()).getSelectedRole());
             } else {
                 userGroup.setSelectedRole(UnitRoleType.USER.name());
             }
@@ -471,7 +471,7 @@ public class UpdateUserCtrl {
                 Subscription subscription = subs.get(i);
                 rolesDefined = subscription.isRolesRendered();
             }
-            rolesColumnVisible = Boolean.valueOf(rolesDefined);
+            rolesColumnVisible = rolesDefined;
         }
 
         return rolesColumnVisible.booleanValue();

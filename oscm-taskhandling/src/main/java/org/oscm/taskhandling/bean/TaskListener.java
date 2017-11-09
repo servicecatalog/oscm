@@ -122,8 +122,8 @@ public class TaskListener implements MessageListener {
 
             handler = TaskHandlerFactory.getInstance().getTaskHandler(
                     (TaskMessage) messageObject, createServiceFacade());
-            ds.setCurrentUserKey(Long.valueOf(((TaskMessage) messageObject)
-                    .getCurrentUserKey()));
+            ds.setCurrentUserKey(((TaskMessage) messageObject)
+                .getCurrentUserKey());
 
             handler.execute();
 

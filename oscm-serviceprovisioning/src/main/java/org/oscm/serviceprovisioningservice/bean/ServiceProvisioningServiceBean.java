@@ -159,7 +159,7 @@ public class ServiceProvisioningServiceBean
     private static String BOOLEANVALUEYES = "YES";
     private static String BOOLEANVALUENO = "NO";
     public static BigDecimal DEFAULT_PRICE_VALUE = BigDecimal.ZERO;
-    public static Long DEFAULT_STEPPED_PRICE_LIMIT = Long.valueOf(0);
+    public static Long DEFAULT_STEPPED_PRICE_LIMIT = 0L;
 
     @Override
     public List<VOService> getServicesForMarketplace(String marketplaceId) {
@@ -430,21 +430,21 @@ public class ServiceProvisioningServiceBean
                             .getStatus() == ServiceStatus.SUSPENDED)) {
                 // remove the customer specific product if not visible to the
                 // customer
-                prodKeysToBeRemoved.add(Long.valueOf(product.getKey()));
+                prodKeysToBeRemoved.add(product.getKey());
                 if (template != null) {
                     // also remove the template if the customer specific is not
                     // active
-                    prodKeysToBeRemoved.add(Long.valueOf(template.getKey()));
+                    prodKeysToBeRemoved.add(template.getKey());
                 }
             } else if (template != null
                     && product.getType() == ServiceType.CUSTOMER_TEMPLATE) {
                 // if the customer specific one wasn't removed but it has a
                 // template, replace the template by the specific copy
-                prodKeysToBeReplaced.put(Long.valueOf(template.getKey()),
+                prodKeysToBeReplaced.put(template.getKey(),
                         product);
                 // the original appearance of the copy has to be removed
                 // since the copy will re-appear at its template's position
-                prodKeysToBeRemoved.add(Long.valueOf(product.getKey()));
+                prodKeysToBeRemoved.add(product.getKey());
                 replaceTemplate = true;
             }
             if (template != null && !replaceTemplate
@@ -453,10 +453,10 @@ public class ServiceProvisioningServiceBean
                             .getStatus() == ServiceStatus.SUSPENDED)) {
                 // if the template isn't visible to the customer and won't be
                 // replaced, remove it
-                prodKeysToBeRemoved.add(Long.valueOf(template.getKey()));
+                prodKeysToBeRemoved.add(template.getKey());
             }
             if (isSubscriptionLimitReached(product)) {
-                prodKeysToBeRemoved.add(Long.valueOf(product.getKey()));
+                prodKeysToBeRemoved.add(product.getKey());
             }
         }
 
@@ -483,7 +483,7 @@ public class ServiceProvisioningServiceBean
             Map<Long, Product> prodKeysToBeReplaced) {
         ListIterator<Product> productsIterator = products.listIterator();
         while (productsIterator.hasNext()) {
-            Long productKey = Long.valueOf(productsIterator.next().getKey());
+            Long productKey = productsIterator.next().getKey();
             if (prodKeysToBeRemoved.contains(productKey)
                     && !prodKeysToBeReplaced.containsKey(productKey)) {
                 // remove obsolete products (only if they won't be replaced)
@@ -560,9 +560,9 @@ public class ServiceProvisioningServiceBean
         Query query = dm
                 .createNamedQuery("Subscription.numberOfVisibleSubscriptions");
         query.setParameter("productKey",
-                Long.valueOf(product.getTechnicalProduct().getKey()));
+            product.getTechnicalProduct().getKey());
         query.setParameter("orgKey",
-                Long.valueOf(dm.getCurrentUser().getOrganization().getKey()));
+            dm.getCurrentUser().getOrganization().getKey());
         long result = ((Long) query.getSingleResult()).longValue();
         return result > 0;
     }
@@ -630,7 +630,7 @@ public class ServiceProvisioningServiceBean
         // another product
         Query query = null;
         query = dm.createNamedQuery("Product.getProductTemplatesForVendor");
-        query.setParameter("vendorKey", Long.valueOf(supplier.getKey()));
+        query.setParameter("vendorKey", supplier.getKey());
         query.setParameter("productTypes", serviceTypes);
         query.setParameter("filterOutWithStatus",
                 EnumSet.of(ServiceStatus.OBSOLETE, ServiceStatus.DELETED));
@@ -1181,12 +1181,12 @@ public class ServiceProvisioningServiceBean
             throws ConcurrentModificationException {
         Map<Long, DomainObject<?>> keyToDomainObject = new HashMap<>();
         for (DomainObject<?> domainObject : doList) {
-            keyToDomainObject.put(Long.valueOf(domainObject.getKey()),
+            keyToDomainObject.put(domainObject.getKey(),
                     domainObject);
         }
         for (BaseVO valueObject : voList) {
             DomainObject<?> correspondingDomainObject = keyToDomainObject
-                    .remove(Long.valueOf(valueObject.getKey()));
+                    .remove(valueObject.getKey());
             if (correspondingDomainObject != null) {
                 BaseAssembler.verifyVersionAndKey(correspondingDomainObject,
                         valueObject);
@@ -1316,7 +1316,7 @@ public class ServiceProvisioningServiceBean
             for (final Parameter p : customerTemplateParameterSet
                     .getParameters()) {
                 obsoleteParameters.put(
-                        Long.valueOf(p.getParameterDefinition().getKey()), p);
+                    p.getParameterDefinition().getKey(), p);
             }
         }
         if (customerTemplateParameterSet == null) {
@@ -1332,7 +1332,7 @@ public class ServiceProvisioningServiceBean
                 .getParameters();
         for (Parameter param : templateParameterSet.getParameters()) {
             final Parameter oldParam = obsoleteParameters.remove(
-                    Long.valueOf(param.getParameterDefinition().getKey()));
+                param.getParameterDefinition().getKey());
             if (oldParam == null) {
                 // add new param
                 customerTemplateParameters
@@ -1643,7 +1643,7 @@ public class ServiceProvisioningServiceBean
         // only determine obsolete parameters if there is a parameterset
         if (currentParameterSet != null) {
             for (final Parameter p : currentParameterSet.getParameters()) {
-                obsoleteParameters.put(Long.valueOf(p.getKey()), p);
+                obsoleteParameters.put(p.getKey(), p);
             }
         }
         if (parameters != null && !parameters.isEmpty()) {
@@ -1669,8 +1669,8 @@ public class ServiceProvisioningServiceBean
                     OperationNotPermittedException onp = new OperationNotPermittedException(
                             String.format(
                                     "Cannot create parameter for parameter definition '%s' as the definition is non-configurable! User was: '%s'.",
-                                    Long.valueOf(paramDef.getKey()),
-                                    Long.valueOf(currentUser.getKey())));
+                                paramDef.getKey(),
+                                currentUser.getKey()));
                     logger.logWarn(Log4jLogger.SYSTEM_LOG, onp,
                             LogMessageIdentifier.WARN_NON_CONFIGURABLE_PARAMETER_DEFINITION,
                             String.valueOf(paramDef.getKey()),
@@ -1704,7 +1704,7 @@ public class ServiceProvisioningServiceBean
                         .getParameters();
                 if (isParameterToBeSaved(isDirectAccess, parameter, paramDef)) {
                     final Parameter existingParameter = obsoleteParameters
-                            .remove(Long.valueOf(parameter.getKey()));
+                            .remove(parameter.getKey());
                     if (existingParameter == null) {
                         final Parameter param = ParameterAssembler
                                 .toParameter(parameter);
@@ -2530,23 +2530,23 @@ public class ServiceProvisioningServiceBean
         Map<Long, RoleDefinition> keyRoleMap = new HashMap<>();
         for (RoleDefinition rd : product.getTechnicalProduct()
                 .getRoleDefinitions()) {
-            keyRoleMap.put(Long.valueOf(rd.getKey()), rd);
+            keyRoleMap.put(rd.getKey(), rd);
         }
         Set<Long> roleDefinitionKeys = new HashSet<>();
         for (VOPricedRole voPpr : roleSpecificUserPrices) {
             long roleDefinitionKey = voPpr.getRole().getKey();
-            if (!roleDefinitionKeys.add(Long.valueOf(roleDefinitionKey))) {
+            if (!roleDefinitionKeys.add(roleDefinitionKey)) {
                 continue;
             }
             RoleDefinition rdToSet = keyRoleMap
-                    .get(Long.valueOf(roleDefinitionKey));
+                    .get(roleDefinitionKey);
             if (rdToSet == null) {
                 OperationNotPermittedException onp = new OperationNotPermittedException(
                         String.format(
                                 "User '%s' tried to define a price for role definition '%s' which is not supported for product '%s'.",
-                                Long.valueOf(dm.getCurrentUser().getKey()),
-                                Long.valueOf(voPpr.getRole().getKey()),
-                                Long.valueOf(product.getKey())));
+                            dm.getCurrentUser().getKey(),
+                            voPpr.getRole().getKey(),
+                            product.getKey()));
                 logger.logWarn(Log4jLogger.SYSTEM_LOG, onp,
                         LogMessageIdentifier.WARN_USER_DEFINE_PRICE_FOR_ROLE_FAILED_NOT_SUPPORTED,
                         Long.toString(dm.getCurrentUser().getKey()),
@@ -2619,19 +2619,19 @@ public class ServiceProvisioningServiceBean
 
         Map<Long, RoleDefinition> roleDefinitionMap = new HashMap<>();
         for (RoleDefinition rd : roleDefinitions) {
-            roleDefinitionMap.put(Long.valueOf(rd.getKey()), rd);
+            roleDefinitionMap.put(rd.getKey(), rd);
         }
 
         List<PricedProductRole> productRolePrices = new ArrayList<>();
 
         Map<Long, PricedProductRole> pprMap = new HashMap<>();
         for (PricedProductRole ppr : existingProductRolePrices) {
-            pprMap.put(Long.valueOf(ppr.getRoleDefinition().getKey()), ppr);
+            pprMap.put(ppr.getRoleDefinition().getKey(), ppr);
         }
 
         // now parse the input
         for (VOPricedRole voPricedProductRole : roleSpecificUserPrices) {
-            Long roleKey = Long.valueOf(voPricedProductRole.getRole().getKey());
+            Long roleKey = voPricedProductRole.getRole().getKey();
             RoleDefinition roleDefinition = roleDefinitionMap.get(roleKey);
             PricedProductRole pricedProductRole;
             boolean ifLogRequired = (voPriceModelKey != 0);
@@ -2790,20 +2790,20 @@ public class ServiceProvisioningServiceBean
         Map<Event, PricedEvent> eventToPricedEvent = new HashMap<>();
         List<PricedEvent> existing = priceModel.getConsideredEvents();
         for (PricedEvent sp : existing) {
-            keyToPricedEvent.put(Long.valueOf(sp.getKey()), sp);
+            keyToPricedEvent.put(sp.getKey(), sp);
             eventToPricedEvent.put(sp.getEvent(), sp);
         }
         // helper map for checking if the event belongs to the product
         Map<Long, Event> keyToEvent = new LinkedHashMap<>();
         for (Event event : eventDefinitions) {
-            keyToEvent.put(Long.valueOf(event.getKey()), event);
+            keyToEvent.put(event.getKey(), event);
         }
 
         String userId = dm.getCurrentUser().getUserId();
         List<PricedEvent> result = new ArrayList<>();
         for (VOPricedEvent voPricedEvent : voPricedEvents) {
             long eventDefKey = voPricedEvent.getEventDefinition().getKey();
-            Event event = keyToEvent.remove(Long.valueOf(eventDefKey));
+            Event event = keyToEvent.remove(eventDefKey);
             if (event == null) {
                 OperationNotPermittedException onp = new OperationNotPermittedException(
                         "Event conversion failed");
@@ -2816,9 +2816,9 @@ public class ServiceProvisioningServiceBean
 
             PricedEvent pricedEvent = null;
             if (keyToPricedEvent
-                    .containsKey(Long.valueOf(voPricedEvent.getKey()))) {
+                    .containsKey(voPricedEvent.getKey())) {
                 pricedEvent = keyToPricedEvent
-                        .remove(Long.valueOf(voPricedEvent.getKey()));
+                        .remove(voPricedEvent.getKey());
                 updatePricedEvent(voPricedEvent, pricedEvent, event,
                         priceModel);
             } else {
@@ -2981,7 +2981,7 @@ public class ServiceProvisioningServiceBean
 
         if (existing != null) {
             for (SteppedPrice sp : existing) {
-                keyToSteppedPrice.put(Long.valueOf(sp.getKey()), sp);
+                keyToSteppedPrice.put(sp.getKey(), sp);
             }
         }
         List<SteppedPrice> result = new ArrayList<>();
@@ -2994,10 +2994,10 @@ public class ServiceProvisioningServiceBean
 
                 SteppedPrice steppedPrice;
                 if (keyToSteppedPrice
-                        .containsKey(Long.valueOf(voSteppedPrice.getKey()))) {
+                        .containsKey(voSteppedPrice.getKey())) {
 
                     steppedPrice = keyToSteppedPrice
-                            .remove(Long.valueOf(voSteppedPrice.getKey()));
+                            .remove(voSteppedPrice.getKey());
                     updateSteppedPrice(voSteppedPrice, steppedPrice, priceModel,
                             pricedEvent, pricedParameter);
 
@@ -3587,9 +3587,9 @@ public class ServiceProvisioningServiceBean
         for (Product currentlyCompatibleProduct : referenceProduct
                 .getCompatibleProductsList()) {
             currentCompatibleProductKeys
-                    .add(Long.valueOf(currentlyCompatibleProduct.getKey()));
+                    .add(currentlyCompatibleProduct.getKey());
             obsoleteCompatibleProductKeys
-                    .add(Long.valueOf(currentlyCompatibleProduct.getKey()));
+                    .add(currentlyCompatibleProduct.getKey());
         }
 
         // now register references, determine and omit duplicates, add only new
@@ -3597,13 +3597,13 @@ public class ServiceProvisioningServiceBean
         List<ProductReference> newReferences = new ArrayList<>();
         for (Product prod : compProducts) {
             if (!currentCompatibleProductKeys
-                    .contains(Long.valueOf(prod.getKey()))) {
+                    .contains(prod.getKey())) {
                 ProductReference ref = new ProductReference(referenceProduct,
                         prod);
                 newReferences.add(ref);
-                currentCompatibleProductKeys.add(Long.valueOf(prod.getKey()));
+                currentCompatibleProductKeys.add(prod.getKey());
             }
-            obsoleteCompatibleProductKeys.remove(Long.valueOf(prod.getKey()));
+            obsoleteCompatibleProductKeys.remove(prod.getKey());
         }
 
         // finally clean up those products which are not marked as compatible
@@ -3612,8 +3612,8 @@ public class ServiceProvisioningServiceBean
         for (ProductReference currentlyCompatibleProductRef : referenceProduct
                 .getAllCompatibleProducts()) {
             if (obsoleteCompatibleProductKeys
-                    .contains(Long.valueOf(currentlyCompatibleProductRef
-                            .getTargetProduct().getKey()))) {
+                    .contains(currentlyCompatibleProductRef
+                        .getTargetProduct().getKey())) {
                 dm.remove(currentlyCompatibleProductRef);
                 objToBeRemoved.add(currentlyCompatibleProductRef);
             }
@@ -4066,7 +4066,7 @@ public class ServiceProvisioningServiceBean
         PermissionCheck.supplierOfCustomer(seller, cust, logger, sessionCtx);
         Query query = dm
                 .createNamedQuery("Product.getCustomerSpecificProducts");
-        query.setParameter("vendorKey", Long.valueOf(seller.getKey()));
+        query.setParameter("vendorKey", seller.getKey());
         query.setParameter("customer", cust);
         List<Product> list = ParameterizedTypes.list(query.getResultList(),
                 Product.class);
@@ -4368,7 +4368,7 @@ public class ServiceProvisioningServiceBean
         Map<Parameter, PricedParameter> paramToPricedParam = new HashMap<>();
         for (PricedParameter pricedParameter : priceModel
                 .getSelectedParameters()) {
-            pricedParameterMap.put(Long.valueOf(pricedParameter.getKey()),
+            pricedParameterMap.put(pricedParameter.getKey(),
                     pricedParameter);
             paramToPricedParam.put(pricedParameter.getParameter(),
                     pricedParameter);
@@ -4376,14 +4376,14 @@ public class ServiceProvisioningServiceBean
         Map<Long, Parameter> parameters = new LinkedHashMap<>();
         for (Parameter parameter : productParams) {
             parameters.put(
-                    Long.valueOf(parameter.getParameterDefinition().getKey()),
+                parameter.getParameterDefinition().getKey(),
                     parameter);
         }
         List<PricedParameter> result = new ArrayList<>();
         for (VOPricedParameter voPricedParameter : voPricedParameters) {
             PricedParameterChecks.validateParamDefSet(voPricedParameter);
             long paramDefKey = voPricedParameter.getVoParameterDef().getKey();
-            Parameter parameter = parameters.remove(Long.valueOf(paramDefKey));
+            Parameter parameter = parameters.remove(paramDefKey);
             Product product = priceModel.getProduct();
             if (parameter == null) {
                 OperationNotPermittedException onp = new OperationNotPermittedException(
@@ -4413,13 +4413,13 @@ public class ServiceProvisioningServiceBean
 
             PricedParameter pricedParameter = null;
             if (pricedParameterMap
-                    .containsKey(Long.valueOf(voPricedParameter.getKey()))) {
+                    .containsKey(voPricedParameter.getKey())) {
                 pricedParameter = pricedParameterMap
-                        .remove(Long.valueOf(voPricedParameter.getKey()));
+                        .remove(voPricedParameter.getKey());
                 pricedParameter = handleParameterUpdate(voPricedParameter,
                         pricedParameter, priceModelCreatedInTransaction);
                 pricedParameterMap
-                        .remove(Long.valueOf(voPricedParameter.getKey()));
+                        .remove(voPricedParameter.getKey());
             } else {
                 PricedParameter existingPricedParam = paramToPricedParam
                         .remove(parameter);
@@ -4531,13 +4531,13 @@ public class ServiceProvisioningServiceBean
         List<PricedOption> resultList = new ArrayList<>();
         Map<Long, PricedOption> storedOptionsMap = new HashMap<>();
         for (PricedOption pricedOption : pricedOptions) {
-            storedOptionsMap.put(Long.valueOf(pricedOption.getKey()),
+            storedOptionsMap.put(pricedOption.getKey(),
                     pricedOption);
         }
 
         for (VOPricedOption voPricedOption : voPricedOptions) {
             ParameterOption paramOption = keyToParamOption.remove(
-                    Long.valueOf(voPricedOption.getParameterOptionKey()));
+                voPricedOption.getParameterOptionKey());
             if (paramOption == null) {
                 OperationNotPermittedException onp = new OperationNotPermittedException(
                         "No ParameterOption found for PricedOption value object.");
@@ -4548,7 +4548,7 @@ public class ServiceProvisioningServiceBean
             // new option
             PricedOption pricedOption = null;
             if (!storedOptionsMap
-                    .containsKey(Long.valueOf(voPricedOption.getKey()))) {
+                    .containsKey(voPricedOption.getKey())) {
                 if (!priceModelCreatedInTransaction
                         && voPricedOption.getKey() != 0) {
                     OperationNotPermittedException onp = new OperationNotPermittedException(
@@ -4561,7 +4561,7 @@ public class ServiceProvisioningServiceBean
                         pricedParameter);
             } else {
                 pricedOption = storedOptionsMap
-                        .remove(Long.valueOf(voPricedOption.getKey()));
+                        .remove(voPricedOption.getKey());
                 updatePricedOption(voPricedOption, pricedOption);
 
             }
@@ -4627,7 +4627,7 @@ public class ServiceProvisioningServiceBean
         Map<Long, ParameterOption> keyToParamOption = new HashMap<>();
         for (ParameterOption parameterOption : pricedParameter.getParameter()
                 .getParameterDefinition().getOptionList()) {
-            keyToParamOption.put(Long.valueOf(parameterOption.getKey()),
+            keyToParamOption.put(parameterOption.getKey(),
                     parameterOption);
         }
         return keyToParamOption;
@@ -4685,8 +4685,7 @@ public class ServiceProvisioningServiceBean
                         setRoleSpecificPrices(voPriceModelKey, null, null, po,
                                 pricedOption.getRoleSpecificUserPrices(),
                                 priceModelCreatedInTransaction, targetCustomer,
-                                subscription, oldPricedOptionMap.get(Long
-                                        .valueOf(po.getParameterOptionKey())));
+                                subscription, oldPricedOptionMap.get(po.getParameterOptionKey()));
 
                     } else {
                         setRoleSpecificPrices(voPriceModelKey, null, null, po,
@@ -4718,8 +4717,7 @@ public class ServiceProvisioningServiceBean
                 if (pricedOptions != null) {
                     for (PricedOption pricedOption : pricedOptions) {
                         oldPricedOptionMap.put(
-                                Long.valueOf(
-                                        pricedOption.getParameterOptionKey()),
+                            pricedOption.getParameterOptionKey(),
                                 pricedOption.getRoleSpecificUserPrices());
                     }
                 }
@@ -5056,7 +5054,7 @@ public class ServiceProvisioningServiceBean
         Organization organization = dm.getCurrentUser().getOrganization();
         Query query = dm
                 .createNamedQuery("Product.getCustomerProductsForVendor");
-        query.setParameter("vendorKey", Long.valueOf(organization.getKey()));
+        query.setParameter("vendorKey", organization.getKey());
         List<Product> products = ParameterizedTypes.list(query.getResultList(),
                 Product.class);
         List<VOCustomerService> result = new ArrayList<>();
@@ -5496,7 +5494,7 @@ public class ServiceProvisioningServiceBean
             Query query = dm
                     .createNamedQuery("Subscription.instanceIdsForSuppliers");
             query.setParameter("providerKey",
-                    Long.valueOf(providerOrg.getKey()));
+                providerOrg.getKey());
             query.setParameter("supplierIds", organizationIds);
             query.setParameter("status", EnumSet.of(SubscriptionStatus.ACTIVE,
                     SubscriptionStatus.SUSPENDED));
@@ -5635,7 +5633,7 @@ public class ServiceProvisioningServiceBean
         if (prod.getOwningSubscription() != null) {
             String message = "Service '%s' is related to a subscription.";
             OperationNotPermittedException e = new OperationNotPermittedException(
-                    String.format(message, Long.valueOf(prod.getKey())));
+                    String.format(message, prod.getKey()));
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.WARN_VALIDATE_PERMISSION_FOR_SUSPEND_AND_RESUME,
                     message);
@@ -5655,7 +5653,7 @@ public class ServiceProvisioningServiceBean
                 || ces.get(0).getMarketplace() == null) {
             String message = "Service '%s' is not published to a marketplace.";
             OperationNotPermittedException e = new OperationNotPermittedException(
-                    String.format(message, Long.valueOf(prod.getKey())));
+                    String.format(message, prod.getKey()));
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.WARN_VALIDATE_PERMISSION_FOR_SUSPEND_AND_RESUME,
                     message);
@@ -5773,7 +5771,7 @@ public class ServiceProvisioningServiceBean
         Query q = dm
                 .createNamedQuery("Product.getPotentialCompatibleForProduct");
         q.setParameter("marketplaces", mps);
-        q.setParameter("vendorKey", Long.valueOf(supplier.getKey()));
+        q.setParameter("vendorKey", supplier.getKey());
         q.setParameter("tp", p.getTechnicalProduct());
         q.setParameter("status",
                 EnumSet.of(ServiceStatus.DELETED, ServiceStatus.OBSOLETE));
@@ -5827,7 +5825,7 @@ public class ServiceProvisioningServiceBean
     @Override
     public boolean isPartOfUpgradePath(long serviceKey) {
         Query query = dm.createNamedQuery("Product.countAllReferences");
-        query.setParameter("productKey", Long.valueOf(serviceKey));
+        query.setParameter("productKey", serviceKey);
         query.setParameter("status",
                 EnumSet.of(ServiceStatus.DELETED, ServiceStatus.OBSOLETE));
         Long count = (Long) query.getSingleResult();

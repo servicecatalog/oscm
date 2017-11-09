@@ -46,8 +46,8 @@ public class BillingSubscriptionHistoryData {
 
     void determineSubscriptions() {
         int startIndex = 0;
-        Long subscriptionKey = Long.valueOf(subscriptionHistoryEntries.get(0)
-                .getObjKey());
+        Long subscriptionKey = subscriptionHistoryEntries.get(0)
+            .getObjKey();
 
         for (int i = 1; i < subscriptionHistoryEntries.size(); i++) {
             SubscriptionHistory subscriptionHistory = subscriptionHistoryEntries
@@ -56,7 +56,7 @@ public class BillingSubscriptionHistoryData {
                 subscriptionIndexMap.put(subscriptionKey,
                         new SubscriptionIndices(startIndex, i));
                 startIndex = i;
-                subscriptionKey = Long.valueOf(subscriptionHistory.getObjKey());
+                subscriptionKey = subscriptionHistory.getObjKey();
             }
         }
         subscriptionIndexMap.put(subscriptionKey, new SubscriptionIndices(

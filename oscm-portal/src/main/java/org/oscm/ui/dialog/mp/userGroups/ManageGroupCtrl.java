@@ -546,7 +546,7 @@ public class ManageGroupCtrl extends UserGroupBaseCtrl {
         String changedUserId = manageGroupModel.getChangedUserId();
         boolean isSelect = manageGroupModel.isSelection();
         manageGroupModel.getSelectedUsersIds().put(changedUserId,
-                new Boolean(isSelect));
+            isSelect);
         manageGroupModel.getUserAndRole().put(changedUserId,
                 UnitRoleType.USER.name());
     }
@@ -561,7 +561,7 @@ public class ManageGroupCtrl extends UserGroupBaseCtrl {
             poUserInUnit.setSelected(manageGroupModel.isSelectAll());
             manageGroupModel.getSelectedUsersIds().put(
                     poUserInUnit.getUserId(),
-                    new Boolean(manageGroupModel.isSelectAll()));
+                manageGroupModel.isSelectAll());
             manageGroupModel.getUserAndRole().put(poUserInUnit.getUserId(),
                     UnitRoleType.USER.name());
         }
@@ -572,7 +572,7 @@ public class ManageGroupCtrl extends UserGroupBaseCtrl {
                 manageGroupModel.getChangedUserId(),
                 manageGroupModel.getChangedRoleName());
         manageGroupModel.getSelectedUsersIds().put(
-                manageGroupModel.getChangedUserId(), new Boolean(true));
+                manageGroupModel.getChangedUserId(), Boolean.TRUE);
     }
 
     public SessionBean getSessionBean() {

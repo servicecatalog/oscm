@@ -130,7 +130,7 @@ public class Saml2Ctrl extends BaseBean {
 
     AuthnRequestGenerator getAuthnRequestGenerator()
             throws SAML2AuthnRequestException, NotExistentTenantException, WrongTenantConfigurationException, MarketplaceRemovedException {
-        Boolean isHttps = Boolean.valueOf(getRequest().isSecure());
+        Boolean isHttps = getRequest().isSecure();
         return new AuthnRequestGenerator(getIssuer(), isHttps);
     }
 
@@ -149,7 +149,7 @@ public class Saml2Ctrl extends BaseBean {
     }
 
     Boolean isOnMarketplace() {
-        return new Boolean(super.isMarketplaceSet());
+        return super.isMarketplaceSet();
     }
 
     @Override

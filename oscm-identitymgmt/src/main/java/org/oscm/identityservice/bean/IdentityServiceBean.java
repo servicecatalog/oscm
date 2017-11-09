@@ -281,7 +281,7 @@ public class IdentityServiceBean
 
         // payload
         ImportUserPayload payload = new ImportUserPayload();
-        payload.setImportingUserKey(Long.valueOf(dm.getCurrentUser().getKey()));
+        payload.setImportingUserKey(dm.getCurrentUser().getKey());
         payload.setOrganizationId(organization.getOrganizationId());
         payload.setMarketplaceId(marketplaceId);
 
@@ -1670,7 +1670,7 @@ public class IdentityServiceBean
         Query query = dm
                 .createNamedQuery("PlatformUser.getOverdueOrganizationAdmins");
         query.setParameter("status", UserAccountStatus.LOCKED_NOT_CONFIRMED);
-        query.setParameter("date", Long.valueOf(maxTime));
+        query.setParameter("date", maxTime);
         return ParameterizedTypes.list(query.getResultList(),
                 PlatformUser.class);
     }
@@ -2644,8 +2644,7 @@ public class IdentityServiceBean
                 ConfigurationKey.PERMITTED_PERIOD_INACTIVE_ON_BEHALF_USERS,
                 Configuration.GLOBAL_CONTEXT);
         long period = setting.getLongValue();
-        Long lowerPeriodBound = Long
-                .valueOf(System.currentTimeMillis() - period);
+        Long lowerPeriodBound = System.currentTimeMillis() - period;
         List<OnBehalfUserReference> inactiveUsers = findInactiveOnBehalfUsers(
                 lowerPeriodBound);
         for (OnBehalfUserReference toBeRemoved : inactiveUsers) {
@@ -2812,7 +2811,7 @@ public class IdentityServiceBean
         UserGroup group = userGroupService.getUserGroupByName(unitName);
         for (PlatformUser user : platformUsers) {
             if (user.isOnBehalfUser()) {
-                onBehalfUserKeys.add(Long.valueOf(user.getKey()));
+                onBehalfUserKeys.add(user.getKey());
             }
         }
 
@@ -2859,7 +2858,7 @@ public class IdentityServiceBean
 
     private void validateForOnBehalfUserGroupAssignment(VOUser user,
             Set<Long> onBehalfUserKeys) throws OperationNotPermittedException {
-        if (onBehalfUserKeys.contains(Long.valueOf(user.getKey()))) {
+        if (onBehalfUserKeys.contains(user.getKey())) {
             OperationNotPermittedException onpe = new OperationNotPermittedException();
             logger.logWarn(Log4jLogger.SYSTEM_LOG, onpe,
                     LogMessageIdentifier.WARN_ADDREVOKE_USERGROUP_ASSIGNMENT_FOR_ONBEHALFUSER_NOT_PERMITTED,

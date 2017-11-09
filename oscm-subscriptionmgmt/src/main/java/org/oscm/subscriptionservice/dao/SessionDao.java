@@ -35,7 +35,7 @@ public class SessionDao {
     public List<Session> getActiveSessionsForUser(PlatformUser onbehalfUser) {
         Query query = dataManager
                 .createNamedQuery("Session.getActiveSessionsForUser");
-        query.setParameter("userKey", Long.valueOf(onbehalfUser.getKey()));
+        query.setParameter("userKey", onbehalfUser.getKey());
         return ParameterizedTypes.list(query.getResultList(), Session.class);
     }
 

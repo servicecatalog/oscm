@@ -1331,11 +1331,11 @@ public class OperatorServiceBean implements OperatorService {
         PSPSettingAssembler.validateVOSettings(pspSettings);
         Map<Long, PSPSetting> existingSettings = new HashMap<>();
         for (PSPSetting setting : pspToStore.getSettings()) {
-            existingSettings.put(Long.valueOf(setting.getKey()), setting);
+            existingSettings.put(setting.getKey(), setting);
         }
         for (VOPSPSetting setting : pspSettings) {
             PSPSetting updatedSetting = existingSettings
-                    .remove(Long.valueOf(setting.getKey()));
+                    .remove(setting.getKey());
             if (updatedSetting == null) {
                 if (setting.getKey() != 0) {
                     updatedSetting = dm.getReference(PSPSetting.class,

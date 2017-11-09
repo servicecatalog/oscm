@@ -133,7 +133,7 @@ public class DatabaseTaskHandler {
                         .build(new File(dbSourceFileLocation)));
         dataSet.addReplacementObject("[NULL]", null);
         Date now = new Date();
-        dataSet.addReplacementObject("[SYSDATE]", Long.valueOf(now.getTime()));
+        dataSet.addReplacementObject("[SYSDATE]", now.getTime());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
         dataSet.addReplacementObject("[SYSTIMESTAMP]", sdf.format(now));
 

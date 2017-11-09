@@ -31,7 +31,7 @@ public class OperationRecordDao {
 
     public List<OperationRecord> getOperationsForOrgAdmin(long orgKey) {
         Query query = dm.createNamedQuery("OperationRecord.findByOrgKey");
-        query.setParameter("organization_tkey", Long.valueOf(orgKey));
+        query.setParameter("organization_tkey", orgKey);
         List<OperationRecord> operationRecords = ParameterizedTypes.list(
                 query.getResultList(), OperationRecord.class);
         return operationRecords;
@@ -39,7 +39,7 @@ public class OperationRecordDao {
 
     public List<OperationRecord> getOperationsForSubManager(long userKey) {
         Query query = dm.createNamedQuery("OperationRecord.findBySubOwnerKey");
-        query.setParameter("subscriptionOwner_tkey", Long.valueOf(userKey));
+        query.setParameter("subscriptionOwner_tkey", userKey);
         List<OperationRecord> operationRecords = ParameterizedTypes.list(
                 query.getResultList(), OperationRecord.class);
         return operationRecords;
@@ -47,7 +47,7 @@ public class OperationRecordDao {
 
     public List<OperationRecord> getOperationsForUser(long userKey) {
         Query query = dm.createNamedQuery("OperationRecord.findByUserKey");
-        query.setParameter("platformUser_tkey", Long.valueOf(userKey));
+        query.setParameter("platformUser_tkey", userKey);
         List<OperationRecord> operationRecords = ParameterizedTypes.list(
                 query.getResultList(), OperationRecord.class);
         return operationRecords;
@@ -56,7 +56,7 @@ public class OperationRecordDao {
     public void removeOperationsForSubscription(long subscriptionKey) {
         Query query = dm
                 .createNamedQuery("OperationRecord.removeBySubscriptionKey");
-        query.setParameter("subscription_tkey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscription_tkey", subscriptionKey);
         query.executeUpdate();
     }
 }

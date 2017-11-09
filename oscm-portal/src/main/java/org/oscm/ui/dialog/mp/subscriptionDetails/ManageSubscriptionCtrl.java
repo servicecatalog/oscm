@@ -422,17 +422,17 @@ public class ManageSubscriptionCtrl implements Serializable {
         VOBillingContact bc = model.getSubscription().getBillingContact();
         if (bc != null) {
             billingContactBean
-                    .setSelectedBillingContactKey(Long.valueOf(bc.getKey()));
+                    .setSelectedBillingContactKey(bc.getKey());
         }
 
         sessionBean.setServiceKeyForPayment(
-                Long.valueOf(model.getSubscription().getServiceKey()));
+            model.getSubscription().getServiceKey());
         paymentInfoBean.getPaymentInfosForSubscription();
 
         VOPaymentInfo pi = model.getSubscription().getPaymentInfo();
         if (pi != null) {
             paymentInfoBean.setSelectedPaymentInfoForSubscriptionKey(
-                    Long.valueOf(pi.getKey()));
+                pi.getKey());
         }
     }
 

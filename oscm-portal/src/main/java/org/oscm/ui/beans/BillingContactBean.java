@@ -139,7 +139,7 @@ public class BillingContactBean implements Serializable {
         if (selectedBillingContact == null) {
             return null;
         }
-        return Long.valueOf(selectedBillingContact.getKey());
+        return selectedBillingContact.getKey();
     }
 
     public void setSelectedBillingContactKey(Long key) {

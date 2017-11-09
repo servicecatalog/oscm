@@ -660,7 +660,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
             long currentTimeMonthYear = getTimeInMillisForFirstDay(System
                     .currentTimeMillis());
             if (begin == null) {
-                begin = Long.valueOf(currentTimeMonthYear);
+                begin = currentTimeMonthYear;
             }
             if (end != null) {
                 // now discount end initialized by first day of month. Have to
@@ -669,9 +669,9 @@ public class OrganizationBean extends BaseBean implements Serializable {
                 discountEndCalendar.setTimeInMillis(end.longValue());
                 // set next month (first day)
                 discountEndCalendar.add(Calendar.MONTH, 1);
-                end = Long.valueOf(discountEndCalendar.getTimeInMillis());
+                end = discountEndCalendar.getTimeInMillis();
                 // return to needed month last day
-                end = Long.valueOf(end.longValue() - 1);
+                end = end.longValue() - 1;
                 long discountEndTimeMonthYear = getTimeInMillisForFirstDay(end
                         .longValue());
 

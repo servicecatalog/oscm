@@ -66,7 +66,7 @@ public class MarketplaceAccessDao {
 
         Query query = dataService.createNativeQuery(querySelect);
 
-        query.setParameter("marketplaceKey", Long.valueOf(marketplaceKey));
+        query.setParameter("marketplaceKey", marketplaceKey);
 
         return ParameterizedTypes.list(query.getResultList(), Object[].class);
     }
@@ -91,7 +91,7 @@ public class MarketplaceAccessDao {
 
         Query query = dataService.createNativeQuery(queryString,
                 Organization.class);
-        query.setParameter("marketplaceKey", new Long(marketplaceKey));
+        query.setParameter("marketplaceKey", marketplaceKey);
 
         return query.getResultList();
     }

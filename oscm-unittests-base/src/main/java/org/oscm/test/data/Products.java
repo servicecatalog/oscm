@@ -574,7 +574,7 @@ public class Products {
                 .createQuery("select c from ParameterOption c where optionId=:optionId and parameterdefinition_tkey=:parameterdefinition_tkey");
         query.setParameter("optionId", optionId);
         query.setParameter("parameterdefinition_tkey",
-                Long.valueOf(parameterdefinition_tkey));
+            parameterdefinition_tkey);
 
         final List<ParameterOption> parameterOptionArray = new ArrayList<ParameterOption>();
         Iterator<ParameterOption> parameterOptionIterator = ParameterizedTypes
@@ -693,12 +693,12 @@ public class Products {
             // stepped price for base price
             List<SteppedPrice> steppedPrices = new ArrayList<SteppedPrice>();
             SteppedPrice step1 = new SteppedPrice();
-            step1.setLimit(new Long(50));
+            step1.setLimit(50L);
             step1.setPrice(new BigDecimal("50.00"));
             step1.setPriceModel(priceModel);
             steppedPrices.add(step1);
             SteppedPrice step2 = new SteppedPrice();
-            step2.setLimit(new Long(450));
+            step2.setLimit(450L);
             step2.setPrice(new BigDecimal("60.00"));
             step2.setAdditionalPrice(new BigDecimal("2500.00"));
             step2.setPriceModel(priceModel);
@@ -708,12 +708,12 @@ public class Products {
             // stepped price for event
             List<SteppedPrice> steppedPricesForEvent = new ArrayList<SteppedPrice>();
             SteppedPrice evtStep1 = new SteppedPrice();
-            evtStep1.setLimit(new Long(50));
+            evtStep1.setLimit(50L);
             evtStep1.setPrice(new BigDecimal("51.00"));
             evtStep1.setPricedEvent(pricedEvent1);
             steppedPricesForEvent.add(evtStep1);
             SteppedPrice evtStep2 = new SteppedPrice();
-            evtStep2.setLimit(new Long(450));
+            evtStep2.setLimit(450L);
             evtStep2.setPrice(new BigDecimal("61.00"));
             evtStep2.setAdditionalPrice(new BigDecimal("2550.00"));
             evtStep2.setPricedEvent(pricedEvent1);
@@ -725,12 +725,12 @@ public class Products {
             PricedParameter pricedParameter = priceModel
                     .getSelectedParameters().get(0);
             SteppedPrice paramStep1 = new SteppedPrice();
-            paramStep1.setLimit(new Long(50));
+            paramStep1.setLimit(50L);
             paramStep1.setPrice(new BigDecimal("52.00"));
             paramStep1.setPricedParameter(pricedParameter);
             steppedPricesForParameter.add(paramStep1);
             SteppedPrice paramStep2 = new SteppedPrice();
-            paramStep2.setLimit(new Long(450));
+            paramStep2.setLimit(450L);
             paramStep2.setPrice(new BigDecimal("62.00"));
             paramStep2.setAdditionalPrice(new BigDecimal("2600.00"));
             paramStep2.setPricedParameter(pricedParameter);
@@ -804,7 +804,7 @@ public class Products {
         prdHist.getDataContainer().setStatus(ServiceStatus.ACTIVE);
         prdHist.setVendorObjKey(sellerKey);
         prdHist.setTechnicalProductObjKey(technicalProductObjKey);
-        prdHist.setPriceModelObjKey(Long.valueOf(priceModelObjKey));
+        prdHist.setPriceModelObjKey(priceModelObjKey);
         prdHist.getDataContainer().setType(ServiceType.SUBSCRIPTION);
 
         ds.persist(prdHist);

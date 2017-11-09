@@ -283,7 +283,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
             return;
         }
         for (VOPaymentType voPaymentType : getSelectedPSP().getPaymentTypes()) {
-            if (selectedPaymentTypeKey.equals(new Long(voPaymentType.getKey()))) {
+            if (selectedPaymentTypeKey.equals(voPaymentType.getKey())) {
                 selectedPaymentType = voPaymentType;
                 return;
             }
@@ -1076,7 +1076,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
                 && selectedPspAccountKey.longValue() != 0
                 && getPSPAccounts() != null) {
             for (VOPSPAccount acc : getPSPAccounts()) {
-                if (selectedPspAccountKey.equals(new Long(acc.getKey()))) {
+                if (selectedPspAccountKey.equals(acc.getKey())) {
                     return acc;
                 }
             }
@@ -1103,7 +1103,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     }
 
     public Long getPSPAccountPSPKey() {
-        return Long.valueOf(getSelectedPspAccount().getPsp().getKey());
+        return getSelectedPspAccount().getPsp().getKey();
     }
 
     public String getPSPAccountPaymentTypesAsString() {

@@ -102,7 +102,7 @@ public class VatBean extends BaseBean implements Serializable {
         if (vatEnabled == null) {
             defaultVat = getVatService().getDefaultVat();
             addToVatStrings(defaultVat);
-            vatEnabled = Boolean.valueOf(defaultVat != null);
+            vatEnabled = defaultVat != null;
         }
         return defaultVat;
     }

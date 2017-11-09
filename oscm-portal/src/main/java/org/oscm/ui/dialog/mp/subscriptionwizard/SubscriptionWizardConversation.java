@@ -493,7 +493,7 @@ public class SubscriptionWizardConversation implements Serializable {
         if (null != voUserDetails && !voUserDetails.hasAdminRole()) {
             List<Long> invisibleProductKeys = getUserGroupService()
                     .getInvisibleProductKeysForUser(voUserDetails.getKey());
-            if (invisibleProductKeys.contains(Long.valueOf(serviceKey))) {
+            if (invisibleProductKeys.contains(serviceKey)) {
                 retVal = false;
             }
         }
@@ -517,7 +517,7 @@ public class SubscriptionWizardConversation implements Serializable {
      */
     public Collection<VOPaymentType> getEnabledPaymentTypes() {
         return paymentInfoBean.getEnabledPaymentTypes(
-                Long.valueOf(model.getService().getKey()),
+            model.getService().getKey(),
                 getAccountingService());
     }
 

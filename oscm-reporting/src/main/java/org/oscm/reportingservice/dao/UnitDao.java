@@ -40,7 +40,7 @@ public class UnitDao {
     private List<Long> convertToResultData(DataSet rs) {
         List<Long> result = new ArrayList<Long>();
         while (rs.next()) {
-            result.add(Long.valueOf(rs.getLong(1)));
+            result.add(rs.getLong(1));
         }
         return result;
     }

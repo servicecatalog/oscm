@@ -270,8 +270,8 @@ public class SubscriptionsServiceBean implements SubscriptionsService {
             "UNIT_ADMINISTRATOR" })
     public Integer getSubscriptionsForOrgSize(Set<SubscriptionStatus> states,
             Pagination pagination) throws OrganizationAuthoritiesException {
-        return Integer.valueOf(slService.getSubscriptionsForOrganization(
-                states, pagination).size());
+        return slService.getSubscriptionsForOrganization(
+            states, pagination).size();
     }
 
     @Override
@@ -282,7 +282,7 @@ public class SubscriptionsServiceBean implements SubscriptionsService {
             throws OrganizationAuthoritiesException {
         List<Subscription> subscriptions = getSubscriptionsForOrgWithFilteringFromLocalService(
                 states, pagination);
-        return Integer.valueOf(subscriptions.size());
+        return subscriptions.size();
     }
 
     private List<Subscription> getSubscriptionsForOrgWithFilteringFromLocalService(

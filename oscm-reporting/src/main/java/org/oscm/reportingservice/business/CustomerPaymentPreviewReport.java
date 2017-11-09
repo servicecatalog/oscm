@@ -108,7 +108,7 @@ public class CustomerPaymentPreviewReport {
                 List<RDOPaymentPreviewSummary> summaries = brParser
                         .evaluateBillingResultForPaymentPreview(summaryTemplate,
                                 document, user, formatter,
-                                Long.valueOf(billingRun.getEnd()));
+                            billingRun.getEnd());
                 if (summaries != null && !summaries.isEmpty()) {
                     RDOSummary summary = summaries.get(0);
                     RDOSubscription rdoSubscription = new RDOSubscription();

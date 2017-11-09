@@ -51,7 +51,7 @@ public class TableState implements Serializable {
         public Integer get(Object key) {
             Integer value = super.get(key);
             if (value == null) {
-                value = Integer.valueOf(1);
+                value = 1;
             }
             return value;
         }
@@ -59,7 +59,7 @@ public class TableState implements Serializable {
         public void resetGroupServicePage(String page) {
             for (String key : super.keySet()) {
                 if (key.contains(page)) {
-                    super.put(key, Integer.valueOf(1));
+                    super.put(key, 1);
                     return;
                 }
             }
@@ -95,7 +95,7 @@ public class TableState implements Serializable {
     public void actionListener(DataScrollEvent dse) {
         int page = dse.getPage();
         activePages.put(ui.getClientId(dse.getComponent()),
-                Integer.valueOf(page));
+            page);
     }
 
     public ActivePageMap getActivePages() {

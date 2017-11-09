@@ -77,7 +77,7 @@ public class SharesDataRetrievalServiceBean implements
             long mpKey, long endPeriod) {
         Query query = dm
                 .createNamedQuery("RevenueShareModelHistory.findMarketplaceRevenueSharePercentage");
-        query.setParameter("mpKey", Long.valueOf(mpKey));
+        query.setParameter("mpKey", mpKey);
         query.setParameter("modDate", new Date(endPeriod));
         query.setMaxResults(1);
 
@@ -93,7 +93,7 @@ public class SharesDataRetrievalServiceBean implements
             long endPeriod) {
         Query query = dm
                 .createNamedQuery("RevenueShareModelHistory.findOperatorRevenueSharePercentage");
-        query.setParameter("productObjKey", Long.valueOf(serviceKey));
+        query.setParameter("productObjKey", serviceKey);
         query.setParameter("modDate", new Date(endPeriod));
         query.setMaxResults(1);
 
@@ -138,7 +138,7 @@ public class SharesDataRetrievalServiceBean implements
         }
 
         Query query = dm.createNamedQuery(queryName);
-        query.setParameter("productObjKey", Long.valueOf(serviceKey));
+        query.setParameter("productObjKey", serviceKey);
         query.setParameter("modDate", new Date(endPeriod));
         query.setMaxResults(1);
 
@@ -159,7 +159,7 @@ public class SharesDataRetrievalServiceBean implements
             long subscriptionKey, long endPeriod) {
         Query query = dm
                 .createNamedQuery("SubscriptionHistory.findWithinPeriod");
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscriptionKey", subscriptionKey);
         query.setParameter("modDate", new Date(endPeriod));
         query.setMaxResults(2);
 
@@ -187,7 +187,7 @@ public class SharesDataRetrievalServiceBean implements
             Long priceModelKey, long endPeriod) {
         Query query = dm.createNamedQuery("ProductHistory.findProductOfVendor");
         query.setParameter("subscriptionObjKey",
-                Long.valueOf(subscriptionObjKey));
+            subscriptionObjKey);
         query.setParameter("modDate", new Date(endPeriod));
         query.setParameter("pmKey", priceModelKey);
         try {
@@ -207,8 +207,8 @@ public class SharesDataRetrievalServiceBean implements
     private List<BillingResult> loadBillingResultsForSeller(Long sellerKey,
             long startPeriod, long endPeriod) {
         Query query = dm.createNamedQuery("BillingResult.findForSeller");
-        query.setParameter("startTime", Long.valueOf(startPeriod));
-        query.setParameter("endTime", Long.valueOf(endPeriod));
+        query.setParameter("startTime", startPeriod);
+        query.setParameter("endTime", endPeriod);
         query.setParameter("sellerKey", sellerKey);
         return query.getResultList();
     }
@@ -226,15 +226,15 @@ public class SharesDataRetrievalServiceBean implements
         // bug 9594, splitted into two queries because of sql performance bug
         Query query = dm
                 .createNamedQuery("BillingResult.findForSupplierWhenSupplierProduct");
-        query.setParameter("startTime", Long.valueOf(startPeriod));
-        query.setParameter("endTime", Long.valueOf(endPeriod));
+        query.setParameter("startTime", startPeriod);
+        query.setParameter("endTime", endPeriod);
         query.setParameter("supplierKey", supplierKey);
         List<BillingResult> result = query.getResultList();
 
         Query query2 = dm
                 .createNamedQuery("BillingResult.findForSupplierWhenPartnerProduct");
-        query2.setParameter("startTime", Long.valueOf(startPeriod));
-        query2.setParameter("endTime", Long.valueOf(endPeriod));
+        query2.setParameter("startTime", startPeriod);
+        query2.setParameter("endTime", endPeriod);
         query2.setParameter("supplierKey", supplierKey);
         List<BillingResult> result2 = query2.getResultList();
         result.addAll(result2);
@@ -295,7 +295,7 @@ public class SharesDataRetrievalServiceBean implements
             long endPeriod) {
         Query query = dm
                 .createNamedQuery("MarketplaceHistory.findWithinPeriod");
-        query.setParameter("mpKey", Long.valueOf(mpKey));
+        query.setParameter("mpKey", mpKey);
         query.setParameter("modDate", new Date(endPeriod));
         query.setMaxResults(1);
         try {
@@ -311,7 +311,7 @@ public class SharesDataRetrievalServiceBean implements
             long subscriptionKey, long endPeriod) {
         Query query = dm
                 .createNamedQuery("MarketplaceHistory.findBySubscriptionKey");
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscriptionKey", subscriptionKey);
         query.setParameter("modDate", new Date(endPeriod));
         query.setMaxResults(1);
         try {
@@ -327,7 +327,7 @@ public class SharesDataRetrievalServiceBean implements
             long organizationKey, long endPeriod) {
         Query query = dm
                 .createNamedQuery("OrganizationRole.findByOrganizationHistory");
-        query.setParameter("organizationKey", Long.valueOf(organizationKey));
+        query.setParameter("organizationKey", organizationKey);
         query.setParameter("modDate", new Date(endPeriod));
         return query.getResultList();
     }
@@ -337,7 +337,7 @@ public class SharesDataRetrievalServiceBean implements
     public List<Long> loadMarketplaceKeys(long mpOwnerKey, long endPeriod) {
         Query query = dm
                 .createNamedQuery("MarketplaceHistory.findMarketplaceKeys");
-        query.setParameter("mpOwnerKey", Long.valueOf(mpOwnerKey));
+        query.setParameter("mpOwnerKey", mpOwnerKey);
         query.setParameter("modDate", new Date(endPeriod));
         return query.getResultList();
     }
@@ -353,7 +353,7 @@ public class SharesDataRetrievalServiceBean implements
     public OrganizationHistory loadSupplierHistoryOfProduct(long serviceKey) {
         Query query = dm
                 .createNamedQuery("OrganizationHistory.findSupplierOfPartnerProduct");
-        query.setParameter("productKey", Long.valueOf(serviceKey));
+        query.setParameter("productKey", serviceKey);
         query.setMaxResults(1);
         try {
             return (OrganizationHistory) query.getSingleResult();
@@ -365,7 +365,7 @@ public class SharesDataRetrievalServiceBean implements
     private OrganizationHistory loadVendorHistoryOfProduct(long serviceKey) {
         Query query = dm
                 .createNamedQuery("OrganizationHistory.findVendorOfProduct");
-        query.setParameter("productKey", Long.valueOf(serviceKey));
+        query.setParameter("productKey", serviceKey);
         query.setMaxResults(1);
         try {
             return (OrganizationHistory) query.getSingleResult();

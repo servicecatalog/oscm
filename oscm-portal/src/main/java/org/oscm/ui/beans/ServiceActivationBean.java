@@ -170,8 +170,7 @@ public class ServiceActivationBean extends BaseBean implements Serializable {
         // Since bug 8796, the mpl owner role is cached in this bean (request
         // scope + keepalive)
         if (marketplaceOwnerRightsCache == null) {
-            marketplaceOwnerRightsCache = new Boolean(
-                    super.isMarketplaceOwner());
+            marketplaceOwnerRightsCache = super.isMarketplaceOwner();
         }
         return marketplaceOwnerRightsCache.booleanValue();
     }

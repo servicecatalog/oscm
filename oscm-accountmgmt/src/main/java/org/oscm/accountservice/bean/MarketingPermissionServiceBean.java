@@ -164,8 +164,8 @@ public class MarketingPermissionServiceBean implements
         if (permission == null) {
             appendIdToString(orgId, orgIdsThatFailed);
         } else {
-            affectedOrgRefs.add(Long.valueOf(permission
-                    .getOrganizationReference().getKey()));
+            affectedOrgRefs.add(permission
+                .getOrganizationReference().getKey());
             updateStateOfMarketingProducts(tpRef, permission
                     .getOrganizationReference().getTarget(),
                     ServiceStatus.OBSOLETE);
@@ -261,7 +261,7 @@ public class MarketingPermissionServiceBean implements
 
         Query query = null;
         query = ds.createNamedQuery("Product.getProductsForVendor");
-        query.setParameter("vendorKey", Long.valueOf(supplier.getKey()));
+        query.setParameter("vendorKey", supplier.getKey());
         query.setParameter("filterOutWithStatus",
                 EnumSet.of(ServiceStatus.DELETED));
         @SuppressWarnings("unchecked")
@@ -399,7 +399,7 @@ public class MarketingPermissionServiceBean implements
                 logger, null);
         Query query = ds
                 .createNamedQuery("MarketingPermission.getOrgsForUsingTechnicalService");
-        query.setParameter("tpKey", Long.valueOf(technicalServiceKey));
+        query.setParameter("tpKey", technicalServiceKey);
         query.setParameter("refType",
                 OrganizationReferenceType.TECHNOLOGY_PROVIDER_TO_SUPPLIER);
         List<Organization> result = ParameterizedTypes.list(
@@ -428,8 +428,8 @@ public class MarketingPermissionServiceBean implements
         // remove permissions
         Set<Long> affectedReferences = new HashSet<Long>();
         for (MarketingPermission mp : result) {
-            affectedReferences.add(Long.valueOf(mp
-                    .getOrganizationReferenceKey()));
+            affectedReferences.add(mp
+                .getOrganizationReferenceKey());
             ds.remove(mp);
         }
 

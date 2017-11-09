@@ -106,7 +106,7 @@ public class TriggerQueueServiceBean implements TriggerQueueServiceLocal {
                 try {
                     dm.persist(tp);
                     dm.flush();
-                    messages.add(Long.valueOf(tp.getKey()));
+                    messages.add(tp.getKey());
                 } catch (NonUniqueBusinessKeyException e) {
                     SaaSSystemException sse = new SaaSSystemException(e);
                     logger.logError(
@@ -272,7 +272,7 @@ public class TriggerQueueServiceBean implements TriggerQueueServiceLocal {
                         .getTriggerProcess();
                 if (tpCancelled != null) {
                     if (tpCancelled.getStatus() == TriggerProcessStatus.CANCELLED) {
-                        tpKeys.add(Long.valueOf(tpCancelled.getKey()));
+                        tpKeys.add(tpCancelled.getKey());
                     }
                 }
             }
@@ -294,7 +294,7 @@ public class TriggerQueueServiceBean implements TriggerQueueServiceLocal {
 
                 dm.persist(tp);
                 dm.flush();
-                tpKeys.add(Long.valueOf(tp.getKey()));
+                tpKeys.add(tp.getKey());
 
                 if (message.getParams() != null) {
                     for (TriggerProcessParameter param : message.getParams()) {

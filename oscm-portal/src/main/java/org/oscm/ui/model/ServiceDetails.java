@@ -417,8 +417,7 @@ public class ServiceDetails {
     }
 
     public void setAutoAssignUserEnabled(boolean autoAssignUserEnabled) {
-        voDetails.setAutoAssignUserEnabled(Boolean
-                .valueOf(autoAssignUserEnabled));
+        voDetails.setAutoAssignUserEnabled(autoAssignUserEnabled);
     }
 
     public String getConfiguratorUrl() {

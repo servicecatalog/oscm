@@ -178,7 +178,7 @@ public class POLandingpageEntryAssembler extends BasePOAssembler {
             LocalizerFacade facade) {
         List<Long> objectKeys = new ArrayList<Long>();
         for (Product product : products) {
-            objectKeys.add(Long.valueOf(product.getTemplateOrSelf().getKey()));
+            objectKeys.add(product.getTemplateOrSelf().getKey());
         }
         facade.prefetch(
                 objectKeys,
@@ -191,12 +191,12 @@ public class POLandingpageEntryAssembler extends BasePOAssembler {
             List<Subscription> subscriptions, LocalizerFacade facade) {
         List<Long> objectKeys = new ArrayList<Long>();
         for (Subscription sub : subscriptions) {
-            objectKeys.add(Long.valueOf(sub.getKey()));
+            objectKeys.add(sub.getKey());
             TechnicalProduct techProd = sub.getProduct().getTechnicalProduct();
-            objectKeys.add(Long.valueOf(techProd.getKey()));
+            objectKeys.add(techProd.getKey());
             for (TechnicalProductOperation opperation : techProd
                     .getTechnicalProductOperations()) {
-                objectKeys.add(Long.valueOf(opperation.getKey()));
+                objectKeys.add(opperation.getKey());
             }
         }
         facade.prefetch(objectKeys, Arrays.asList(new LocalizedObjectTypes[] {

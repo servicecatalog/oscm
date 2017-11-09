@@ -160,8 +160,7 @@ public class SupplierShareResultAssembler {
     }
 
     private OrganizationHistory loadLastOrganizationHistory(long organizationKey) {
-        return billingRetrievalService.loadLastOrganizationHistory(Long
-                .valueOf(organizationKey));
+        return billingRetrievalService.loadLastOrganizationHistory(organizationKey);
     }
 
     private MarketplaceOwner buildMarketplaceOwnerData(
@@ -181,7 +180,7 @@ public class SupplierShareResultAssembler {
         organizationData.setEmail(orgHistory.getEmail());
         organizationData.setAddress(orgHistory.getAddress());
         String countryIsoCode = billingRetrievalService
-                .getSupportedCountryCode(Long.valueOf(orgHistory.getObjKey()));
+                .getSupportedCountryCode(orgHistory.getObjKey());
         organizationData.setCountryIsoCode(countryIsoCode);
         return organizationData;
     }
@@ -370,8 +369,8 @@ public class SupplierShareResultAssembler {
                 .loadSubscriptionHistoryWithinPeriod(subscriptionKey,
                         periodEndTime);
         OrganizationHistory customer = billingRetrievalService
-                .loadLastOrganizationHistory(Long.valueOf(subscriptionHistory
-                        .getOrganizationObjKey()));
+                .loadLastOrganizationHistory(subscriptionHistory
+                    .getOrganizationObjKey());
         return customer;
 
     }

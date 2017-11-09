@@ -106,7 +106,7 @@ public class DiscountDateConverter implements Converter {
             throw new ConverterException(facesMessage);
         }
 
-        return Long.valueOf(date.getTime());
+        return date.getTime();
     }
 
     /**

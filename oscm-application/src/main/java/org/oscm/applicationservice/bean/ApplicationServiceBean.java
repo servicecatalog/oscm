@@ -598,7 +598,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
 
         TypedQuery<ModifiedUda> query = ds.createNamedQuery(
                 "ModifiedUda.findBySubscription", ModifiedUda.class);
-        query.setParameter("subscriptionKey", new Long(subscription.getKey()));
+        query.setParameter("subscriptionKey", subscription.getKey());
 
         return query.getResultList();
     }

@@ -33,7 +33,7 @@ import org.oscm.internal.types.exception.SaaSSystemException;
 @Local(PortLocatorLocal.class)
 public class PortLocatorBean implements PortLocatorLocal {
 
-    Integer timeout = new Integer(10000);
+    Integer timeout = 10000;
 
     @EJB
     protected DataService ds;

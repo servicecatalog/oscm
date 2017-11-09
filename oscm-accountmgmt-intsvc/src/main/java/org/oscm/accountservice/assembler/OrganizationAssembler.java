@@ -130,7 +130,7 @@ public class OrganizationAssembler extends BaseAssembler {
         List<VOOrganization> result = new ArrayList<VOOrganization>();
         List<Long> orgKeys = new ArrayList<Long>();
         for (Organization org : organizations) {
-            orgKeys.add(Long.valueOf(org.getKey()));
+            orgKeys.add(org.getKey());
         }
         localizerFacade.prefetch(orgKeys, Collections
                 .singletonList(LocalizedObjectTypes.ORGANIZATION_DESCRIPTION));
