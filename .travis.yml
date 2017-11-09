@@ -9,7 +9,7 @@ before_install:
   - sudo pip install --user codecov
   - psql -c 'create database bssunittests;' -U postgres
   - psql -c "create user bssunituser with password 'bssunituser';" -U postgres
-  - psql -c "grant all privileges on bssunittests.* to 'bssunituser'" -U postgres
+  - psql -c "grant all privileges on schema bssunittests to 'bssunituser'" -U postgres
 install:
  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P travis
 script:
