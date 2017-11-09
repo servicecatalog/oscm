@@ -1,5 +1,6 @@
 addons:
   sonarqube: true
+  postgresql: "9.4"
 language: java
 sudo: required
 jdk:
@@ -9,6 +10,9 @@ cache:
     - $TRAVIS_BUILD_DIR/libraries
 before_install:
   - sudo pip install --user codecov
+before_script:
+  - psql -c 'create database bssunit;' -U postgres
+  - psql -c 'CREATE USER bssuser WITH PASSWORD 'bssuser';' -U postgres
 script:
  - mvn -T 8 test
 #  - $TRAVIS_BUILD_DIR/libraries/apache-ant/apache-ant-1.10.1/bin/ant -lib $TRAVIS_BUILD_DIR/libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:$TRAVIS_BUILD_DIR/parallel/build/libs/parallel-junit-0.1.jar -file $TRAVIS_BUILD_DIR/oscm-build/cruisecontrol.xml runTravisUT
