@@ -136,7 +136,7 @@
         <executions>
           <execution>
             <id>migrate-database</id>
-            <phase>verify</phase>
+            <phase>pre-integration-test</phase>
             <goals>
               <goal>clean</goal>
               <goal>migrate</goal>
