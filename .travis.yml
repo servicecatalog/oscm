@@ -7,7 +7,7 @@ jdk:
   - oraclejdk8
 before_install:
   - sudo pip install --user codecov
-  - psql -c 'create database bssunit;' -U postgres
+  - psql -c 'create database bssunittests;' -U postgres
   - psql -c "create user bssunituser with password 'bssunituser';" -U postgres
 script:
  - mvn -T 8 test
