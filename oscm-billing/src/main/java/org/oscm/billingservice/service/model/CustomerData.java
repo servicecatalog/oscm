@@ -83,15 +83,15 @@ public class CustomerData {
      * @return Iterator
      */
     public Iterator<List<SubscriptionHistory>> iterator() {
-        final Iterator<Long> i = getSubscriptionKeys().iterator();
+        final Iterator<Long> iterator = getSubscriptionKeys().iterator();
         return new Iterator<List<SubscriptionHistory>>() {
 
             public boolean hasNext() {
-                return i.hasNext();
+                return iterator.hasNext();
             }
 
             public List<SubscriptionHistory> next() {
-                return getSubscriptionHistoryEntries(i.next().longValue());
+                return getSubscriptionHistoryEntries(iterator.next().longValue());
             }
 
             public void remove() {

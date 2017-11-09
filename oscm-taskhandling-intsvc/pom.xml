@@ -70,7 +70,7 @@
       <artifactId>oscm-internal-interfaces</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-billing-external-interfaces</artifactId>
     </dependency>
 
