@@ -144,6 +144,7 @@
         <configuration>
           <sqlMigrationSeparator>__</sqlMigrationSeparator>
           <locations>
+            <location>classpath:/org/oscm/propertyimport</location>
             <location>filesystem:${basedir}/src/main/resources/sql</location>
             <location>classpath:/org/oscm/dbtask</location>
           </locations>

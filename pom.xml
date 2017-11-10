@@ -30,32 +30,6 @@
   <profiles>
     <profile>
       <id>travis</id>
-      <!--<build>-->
-        <!--<plugins>-->
-          <!--<plugin>-->
-            <!--<groupId>org.flywaydb</groupId>-->
-            <!--<artifactId>flyway-maven-plugin</artifactId>-->
-            <!--<configuration>-->
-              <!--<url>jdbc:postgresql://localhost:5432/bssunittests</url>-->
-              <!--<user>bssunituser</user>-->
-              <!--<password>bssunituser</password>-->
-              <!--<schemas>-->
-                <!--<schema>bssunituser</schema>-->
-              <!--</schemas>-->
-            <!--</configuration>-->
-            <!--<executions>-->
-              <!--<execution>-->
-                <!--<id>drop-create-database</id>-->
-                <!--<phase>test</phase>-->
-                <!--<goals>-->
-                  <!--<goal>clean</goal>-->
-                  <!--<goal>migrate</goal>-->
-                <!--</goals>-->
-              <!--</execution>-->
-            <!--</executions>-->
-          <!--</plugin>-->
-        <!--</plugins>-->
-      <!--</build>-->
       <properties>
         <database.url>jdbc:postgresql://localhost:5432/bssunittests</database.url>
         <database.user>bssunituser</database.user>
@@ -1253,6 +1227,8 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
+
   <build>
     <finalName>${project.artifactId}</finalName>
     <pluginManagement>
