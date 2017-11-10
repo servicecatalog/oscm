@@ -87,10 +87,7 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-billing</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-i18n</artifactId>
-    </dependency>
+    <dependency>      <groupId>org.oscm</groupId>      <artifactId>oscm-i18n</artifactId>      <scope>test</scope>    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-unittests-base</artifactId>

@@ -87,5 +87,10 @@
       <artifactId>geronimo-javamail_1.4_mail</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>      <groupId>org.oscm</groupId>      <artifactId>oscm-i18n</artifactId>      <scope>test</scope>    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-unittests-base</artifactId>
+    </dependency>
   </dependencies>
 </project>
