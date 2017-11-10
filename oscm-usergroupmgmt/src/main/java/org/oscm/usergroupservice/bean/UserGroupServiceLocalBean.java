@@ -1093,10 +1093,7 @@ public class UserGroupServiceLocalBean {
 
             roleAssignment.setUnitUserRole(userRole);
             roleAssignment.setUserGroupToUser(userGroupToUser);
-            DomainObject<?> result = userGroupDao
-                    .getRoleAssignmentByUserAndGroup(userGroup.getKey(),
-                            dbUser.getUserId());
-            if (result == null) {
+
                 try {
                     dm.persist(roleAssignment);
                     dm.flush();
@@ -1104,7 +1101,6 @@ public class UserGroupServiceLocalBean {
                     // check already has been performed, this will not happen
                     // again
                 }
-            }
         }
     }
 

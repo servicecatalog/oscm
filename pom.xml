@@ -532,9 +532,9 @@
       </dependency>
       <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
       <dependency>
-        <groupId>org.postgresql</groupId>
-        <artifactId>postgresql</artifactId>
-        <version>9.4-1206-jdbc42</version>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>9.4-1206-jdbc42</version>
         <scope>provided</scope>
         <exclusions>
           <exclusion>
@@ -584,6 +584,12 @@
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>1.7.5</version>
+      </dependency>
+      <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>18.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
