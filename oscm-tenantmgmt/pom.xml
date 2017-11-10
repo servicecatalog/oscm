@@ -10,9 +10,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>oscm-tenantmgmt</artifactId>
-
+  <version>1.0-SNAPSHOT</version>
   <dependencies>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
@@ -25,19 +28,26 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-intsvc-base</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
+      <artifactId>oscm-dataservice</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-unittests-base</artifactId>
-      <version>1.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
 
@@ -68,4 +78,19 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <!--<dependency>-->
+        <!--<groupId>oscm</groupId>-->
+        <!--<artifactId>oscm-unittests-base</artifactId>-->
+        <!--<scope>test</scope>-->
+      <!--</dependency>-->
+      <dependency>
+        <groupId>oscm</groupId>
+        <artifactId>oscm-dataservice</artifactId>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

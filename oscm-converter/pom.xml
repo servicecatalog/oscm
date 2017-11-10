@@ -9,9 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>oscm-converter</artifactId>
-
-  <dependencies>
+  <artifactId>oscm-converter</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
     <dependency>
       <groupId>com.github.servicecatalog.oscm-commons</groupId>
       <artifactId>oscm-common</artifactId>

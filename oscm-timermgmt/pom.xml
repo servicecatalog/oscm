@@ -9,9 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>oscm-timermgmt</artifactId>
-
-  <dependencies>
+  <artifactId>oscm-timermgmt</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-accountmgmt-intsvc</artifactId>
@@ -46,11 +44,6 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-billing</artifactId>
     </dependency>
-    <dependency>
-      <groupId>oscm</groupId>
-      <artifactId>oscm-unittests-base</artifactId>
-      <scope>test</scope>
-    </dependency>
 
     <dependency>
       <groupId>org.apache.tomee</groupId>
@@ -75,4 +68,14 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>oscm</groupId>
+        <artifactId>oscm-unittests-base</artifactId>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

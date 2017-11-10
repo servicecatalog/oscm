@@ -10,9 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
 
-  <artifactId>oscm-subscriptionmgmt</artifactId>
-
-  <dependencies>
+  <artifactId>oscm-subscriptionmgmt</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-subscriptionmgmt-intsvc</artifactId>

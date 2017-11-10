@@ -11,9 +11,12 @@
 
 
   <artifactId>oscm-subscriptionmgmt-intsvc</artifactId>
-
+  <version>1.0-SNAPSHOT</version>
   <dependencies>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
@@ -38,7 +41,10 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-internal-interfaces</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.tomee</groupId>

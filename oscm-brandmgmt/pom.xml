@@ -9,9 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>oscm-brandmgmt</artifactId>
-
-  <dependencies>
+  <artifactId>oscm-brandmgmt</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
     <dependency>
       <groupId>com.github.servicecatalog.oscm-commons</groupId>
       <artifactId>oscm-common</artifactId>

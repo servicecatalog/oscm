@@ -9,9 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>oscm-reporting</artifactId>
-
-  <dependencies>
+  <artifactId>oscm-reporting</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-sessionmgmt-intsvc</artifactId>
@@ -32,12 +30,18 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
@@ -49,21 +53,6 @@
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-usergroupmgmt</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>oscm</groupId>
-      <artifactId>oscm-unittests-base</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>oscm</groupId>
-      <artifactId>oscm-eventmgmt</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>oscm</groupId>
-      <artifactId>oscm-i18n</artifactId>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -99,4 +88,24 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>oscm</groupId>
+        <artifactId>oscm-unittests-base</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>oscm</groupId>
+        <artifactId>oscm-i18n</artifactId>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>oscm</groupId>
+        <artifactId>oscm-eventmgmt</artifactId>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

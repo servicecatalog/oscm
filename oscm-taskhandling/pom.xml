@@ -10,7 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>oscm-taskhandling</artifactId>
-
+  <version>1.0-SNAPSHOT</version>
   <dependencies>
     <dependency>
       <groupId>org.oscm</groupId>
@@ -68,11 +68,6 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-internal-interfaces</artifactId>
     </dependency>
-    <dependency>
-      <groupId>oscm</groupId>
-      <artifactId>oscm-unittests-base</artifactId>
-      <scope>test</scope>
-    </dependency>
 
     <dependency>
       <groupId>org.apache.tomee</groupId>
@@ -85,6 +80,10 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-unittests-base</artifactId>
     </dependency>
   </dependencies>
 </project>
