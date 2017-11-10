@@ -12,7 +12,7 @@ before_install:
   - psql -c "create schema bssunittests" -U postgres
   - psql -c "grant all privileges on schema bssunittests to bssunituser" -U postgres
 install:
- - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P travis
+ - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -q -P travis
 script:
  - MAVEN_OPTS=-Dorg.slf4j.simpleLogger.defaultLogLevel=warn mvn -q test verify -P travis
 after_success:
