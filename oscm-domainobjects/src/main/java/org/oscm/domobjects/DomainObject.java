@@ -178,8 +178,8 @@ public abstract class DomainObject<D extends DomainDataContainer> implements
     @Override
     public final String toString() {
         String result = String.format("%s [key='%s', version='%s'%s]",
-                getDomainClass(this).getSimpleName(), Long.valueOf(getKey()),
-                Long.valueOf(getVersion()), toStringAttributes());
+                getDomainClass(this).getSimpleName(), getKey(),
+            (long) getVersion(), toStringAttributes());
         return result;
     }
 

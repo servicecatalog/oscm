@@ -194,9 +194,9 @@ public class Subscriptions {
             assertNotNull("No customerId given for the subscription", customer);
 
             Subscription newSub = new Subscription();
-            newSub.setCreationDate(Long.valueOf(creationDate));
+            newSub.setCreationDate(creationDate);
             newSub.setStatus(SubscriptionStatus.ACTIVE);
-            newSub.setActivationDate(Long.valueOf(activationDate));
+            newSub.setActivationDate(activationDate);
             newSub.setOrganization(customer);
             newSub.setSubscriptionId(subscriptionId);
             newSub.setOwner(owner);
@@ -221,7 +221,7 @@ public class Subscriptions {
                     marketplaceId));
             newSub.bindToProduct(product);
             newSub.setProductInstanceId(product.getProductId());
-            newSub.setHistoryModificationTime(Long.valueOf(creationDate));
+            newSub.setHistoryModificationTime(creationDate);
             mgr.persist(newSub);
             product.setOwningSubscription(newSub);
             mgr.flush();
@@ -298,9 +298,9 @@ public class Subscriptions {
         if(priceModel != null){
             newSub.setExternal(priceModel.isExternal());
         }
-        newSub.setCreationDate(Long.valueOf(creationDate));
+        newSub.setCreationDate(creationDate);
         newSub.setStatus(SubscriptionStatus.ACTIVE);
-        newSub.setActivationDate(Long.valueOf(activationDate));
+        newSub.setActivationDate(activationDate);
         newSub.setOrganization(customer);
         newSub.setSubscriptionId(subscriptionId);
 
@@ -324,7 +324,7 @@ public class Subscriptions {
         newSub.setMarketplace(Marketplaces.findMarketplace(mgr, marketplaceId));
         newSub.bindToProduct(product);
         newSub.setProductInstanceId(product.getProductId());
-        newSub.setHistoryModificationTime(Long.valueOf(creationDate));
+        newSub.setHistoryModificationTime(creationDate);
         mgr.persist(newSub);
         product.setOwningSubscription(newSub);
         mgr.flush();
@@ -341,12 +341,12 @@ public class Subscriptions {
      *            The product to set the history modification date for.
      */
     public static void setHistoryCreationTime(long creationDate, Product product) {
-        product.setHistoryModificationTime(Long.valueOf(creationDate));
+        product.setHistoryModificationTime(creationDate);
         PriceModel priceModel = product.getPriceModel();
         if (priceModel != null) {
-            priceModel.setHistoryModificationTime(Long.valueOf(creationDate));
+            priceModel.setHistoryModificationTime(creationDate);
             for (PricedEvent evt : priceModel.getConsideredEvents()) {
-                evt.setHistoryModificationTime(Long.valueOf(creationDate));
+                evt.setHistoryModificationTime(creationDate);
             }
         }
     }
@@ -427,16 +427,16 @@ public class Subscriptions {
         subHist.setModuser("moduser");
 
         subHist.getDataContainer().setCreationDate(
-                Long.valueOf(System.currentTimeMillis()));
+            System.currentTimeMillis());
         subHist.getDataContainer().setActivationDate(
-                Long.valueOf(System.currentTimeMillis()));
+            System.currentTimeMillis());
         subHist.getDataContainer().setStatus(subscriptionStatus);
         subHist.getDataContainer().setSubscriptionId(
                 "subscriptionid" + subscriptionObjKey);
         subHist.getDataContainer().setTimeoutMailSent(false);
         subHist.setOrganizationObjKey(customerOrganizationKey);
         subHist.setProductObjKey(productobjkey);
-        subHist.setMarketplaceObjKey(Long.valueOf(marketplaceObjKey));
+        subHist.setMarketplaceObjKey(marketplaceObjKey);
         subHist.setCutOffDay(1);
         ds.persist(subHist);
     }
@@ -457,7 +457,7 @@ public class Subscriptions {
         subHist.setOrganizationObjKey(orgKey);
         subHist.setObjVersion(version);
         subHist.getDataContainer().setActivationDate(activationDate);
-        subHist.getDataContainer().setCreationDate(new Long(1));
+        subHist.getDataContainer().setCreationDate(1L);
         subHist.getDataContainer().setStatus(SubscriptionStatus.ACTIVE);
         subHist.getDataContainer().setSubscriptionId("subid");
         subHist.setInvocationDate(new Date());
@@ -474,7 +474,7 @@ public class Subscriptions {
             Subscription subscription) throws Exception {
         Subscription sub = ds.getReference(Subscription.class,
                 subscription.getKey());
-        sub.setDeactivationDate(Long.valueOf(System.currentTimeMillis()));
+        sub.setDeactivationDate(System.currentTimeMillis());
         sub.setStatus(SubscriptionStatus.DEACTIVATED);
         sub.setSubscriptionId(String.valueOf(System.currentTimeMillis()));
         ds.persist(sub);

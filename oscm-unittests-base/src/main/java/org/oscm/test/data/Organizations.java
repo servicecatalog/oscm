@@ -559,9 +559,9 @@ public class Organizations {
             i++;
             Query query = mgr
                     .createQuery("select r from OrganizationRefToPaymentType r where r.organizationReference.key = :orgKey and r.paymentType.key = :ptKey");
-            query.setParameter("orgKey", new Long(orgToPt
-                    .getOrganizationReference().getKey()));
-            query.setParameter("ptKey", new Long(type.getKey()));
+            query.setParameter("orgKey", orgToPt
+                .getOrganizationReference().getKey());
+            query.setParameter("ptKey", type.getKey());
             if (query.getResultList().isEmpty()) {
                 mgr.persist(orgToPt);
             }
@@ -674,7 +674,7 @@ public class Organizations {
         hist.setModuser("moduser");
         hist.setObjVersion(version);
 
-        hist.setDomicileCountryObjKey(Long.valueOf(domicileCountryObjKey));
+        hist.setDomicileCountryObjKey(domicileCountryObjKey);
         hist.getDataContainer().setOrganizationId("organizationId");
         hist.getDataContainer()
                 .setRegistrationDate(hist.getModdate().getTime());

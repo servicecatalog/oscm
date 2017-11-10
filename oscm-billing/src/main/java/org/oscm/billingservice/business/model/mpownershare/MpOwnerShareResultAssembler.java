@@ -63,8 +63,8 @@ public class MpOwnerShareResultAssembler {
             for (Long marketplaceKey : marketplaceKeys) {
                 List<BillingResult> billingResults = billingRetrievalService
                         .loadBillingResultsForMarketplace(marketplaceKey,
-                                currencyCode, Long.valueOf(periodStartTime),
-                                Long.valueOf(periodEndTime));
+                                currencyCode, periodStartTime,
+                            periodEndTime);
                 for (BillingResult br : billingResults) {
                     currentBillingResult = br;
                     xmlSearch = newXmlSearch(currentBillingResult);
@@ -235,8 +235,7 @@ public class MpOwnerShareResultAssembler {
     }
 
     private OrganizationHistory loadLastOrganizationHistory(long organizationKey) {
-        return billingRetrievalService.loadLastOrganizationHistory(Long
-                .valueOf(organizationKey));
+        return billingRetrievalService.loadLastOrganizationHistory(organizationKey);
     }
 
     private BigDecimal loadMarketplaceRevenueSharePercentage(long mpKey) {
@@ -246,7 +245,7 @@ public class MpOwnerShareResultAssembler {
 
     OrganizationData buildOrganizationData(OrganizationHistory organization) {
         String countryIsoCode = billingRetrievalService
-                .getSupportedCountryCode(Long.valueOf(organization.getObjKey()));
+                .getSupportedCountryCode(organization.getObjKey());
         OrganizationData organizationData = new OrganizationData();
         organizationData.setId(organization.getOrganizationId());
         organizationData.setKey(BigInteger.valueOf(organization.getObjKey()));

@@ -303,7 +303,7 @@ public class CostCalculatorPerUnit extends CostCalculator {
         if (factor != 0) {
             UsageDetails usageDetails = new UsageDetails();
             usageDetails.setFactor(factor);
-            result.addUsageDataForUser(Long.valueOf(userKey), userId,
+            result.addUsageDataForUser(userKey, userId,
                     usageDetails);
         }
     }
@@ -382,8 +382,7 @@ public class CostCalculatorPerUnit extends CostCalculator {
 
     private void storeUserRoleFactorToResult(UserAssignmentFactors result,
             UserRoleAssignment roleAssignment, double factor, long userKey) {
-        UserAssignmentDetails detail = result.getUserAssignmentDetails(Long
-                .valueOf(userKey));
+        UserAssignmentDetails detail = result.getUserAssignmentDetails(userKey);
         if (detail != null) {
             detail.addRoleFactor(roleAssignment.getRoleKey(), factor);
         }

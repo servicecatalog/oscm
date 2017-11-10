@@ -10,6 +10,11 @@ OSCM supports configurable authentication. It can use its own user store, but al
 
 Find more details on the [OSCM homepage](http://openservicecatalogmanager.org/).
 
+## What's cool?
+How about OSCM in containers, easily installed and updated, running in an Kubernetes cluster? OSCM on Apache TomEE with small session footprint, short startup and failover times? OSCM services for provisioning containerized applications with Kubernetes helm charts? 
+
+Find what's new in [this release](https://github.com/servicecatalog/development/releases) and what's [coming next](https://openservicecatalogmanager.org/ui/forums/board/17/coming-next).
+
 ## Contributions
 All contributions are welcome - Open Service Catalog Manager uses the Apache 2.0 license and requires the contributor to agree with the [OSCM Individual CLA (ICLA)](https://github.com/servicecatalog/development/blob/master/ICLA.txt). If the contributor submits patches on behalf of a company, then additionally the [OSCM Corporate CLA (CCLA)](https://github.com/servicecatalog/development/blob/master/CCLA.txt) must be agreed. Even if the contributor is included in such CCLA, she/he is still required to agree with the ICLA. To submit the CLAs please:
 * download the [ICLA.txt](https://github.com/servicecatalog/development/blob/master/ICLA.txt) and if needed the [CCLA.txt](https://github.com/servicecatalog/development/blob/master/CCLA.txt)

@@ -66,7 +66,7 @@ public class DatabaseVersionInfo implements Comparable<DatabaseVersionInfo> {
 
         // Then schema version:
         return Integer.valueOf(getSchemaVersion()).compareTo(
-                Integer.valueOf(other.getSchemaVersion()));
+            other.getSchemaVersion());
     }
 
     public String toString() {

@@ -139,8 +139,8 @@ public class EventDao {
             for (int column = 1; column <= rrd.getColumnCount(); column++) {
                 rrd.getColumnName().add(rs.getMetaData().getColumnName(column));
                 rrd.getColumnType()
-                        .add(Integer.valueOf(rs.getMetaData().getColumnType(
-                                column)));
+                        .add(rs.getMetaData().getColumnType(
+                            column));
                 rrd.getColumnValue().add(rs.getObject(column));
             }
             result.add(rrd);

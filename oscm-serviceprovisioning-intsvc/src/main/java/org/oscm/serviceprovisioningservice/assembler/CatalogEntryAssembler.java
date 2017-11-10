@@ -173,13 +173,13 @@ public class CatalogEntryAssembler extends BaseAssembler {
         }
         HashMap<Long, CatalogEntry> entryMap = new HashMap<Long, CatalogEntry>();
         for (CatalogEntry entry : supplierCatalogEntries) {
-            entryMap.put(Long.valueOf(entry.getKey()), entry);
+            entryMap.put(entry.getKey(), entry);
         }
         Iterator<VOCatalogEntry> iterator = catalogEntries.iterator();
         while (iterator.hasNext()) {
             VOCatalogEntry voEntry = iterator.next();
-            CatalogEntry removed = entryMap.remove(Long.valueOf(voEntry
-                    .getKey()));
+            CatalogEntry removed = entryMap.remove(voEntry
+                .getKey());
             if (removed == null) {
                 CatalogEntryRemovedException e = new CatalogEntryRemovedException(
                         "Given VO catalog entry does not correspond to any existing domain catalog entry of this supplier or incoming set contains at least two items with identical key '"

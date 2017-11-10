@@ -66,7 +66,7 @@ import org.oscm.types.exceptions.SaaSSystemException;
 /**
  * Session Bean implementation class PaymentProcessServices
  */
-@WebService(serviceName = "PaymentServiceProvider", targetNamespace = "http://oscm.org/xsd", portName = "PaymentServiceProviderPort", endpointInterface = "org.oscm.psp.intf.PaymentServiceProvider", wsdlLocation = "PaymentServiceProvider.wsdl")
+@WebService(serviceName = "PaymentServiceProvider", targetNamespace = "http://oscm.org/xsd", portName = "PaymentServiceProviderPort", endpointInterface = "org.oscm.psp.intf.PaymentServiceProvider", wsdlLocation = "WEB-INF/wsdl/PaymentServiceProvider.wsdl")
 public class PaymentServiceProviderBean implements PaymentServiceProvider {
 
     private static final String BILL_DATE_FORMAT = "dd/MM/yyyy";

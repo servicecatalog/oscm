@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>oscm</groupId>
+  <groupId>org.oscm</groupId>
   <artifactId>oscm</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -12,17 +12,63 @@
   <properties>
     <flyway.version>4.2.0</flyway.version>
     <postgres.driver.version>9.4-1206-jdbc42</postgres.driver.version>
-    <database.url>jdbc:postgresql://G02PLXNNOW29192:5432/bss</database.url>
-    <database.user>postgres</database.user>
-    <databese.password>postgres</databese.password>
+    <database.url>jdbc:postgresql://localhost:5432/bss</database.url>
+    <database.user>bssuser</database.user>
+    <databese.password>bssuser</databese.password>
     <schema.name>bssuser</schema.name>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
+  <profiles>
+    <profile>
+      <id>travis</id>
+      <!--<build>-->
+        <!--<plugins>-->
+          <!--<plugin>-->
+            <!--<groupId>org.flywaydb</groupId>-->
+            <!--<artifactId>flyway-maven-plugin</artifactId>-->
+            <!--<configuration>-->
+              <!--<url>jdbc:postgresql://localhost:5432/bssunittests</url>-->
+              <!--<user>bssunituser</user>-->
+              <!--<password>bssunituser</password>-->
+              <!--<schemas>-->
+                <!--<schema>bssunituser</schema>-->
+              <!--</schemas>-->
+            <!--</configuration>-->
+            <!--<executions>-->
+              <!--<execution>-->
+                <!--<id>drop-create-database</id>-->
+                <!--<phase>test</phase>-->
+                <!--<goals>-->
+                  <!--<goal>clean</goal>-->
+                  <!--<goal>migrate</goal>-->
+                <!--</goals>-->
+              <!--</execution>-->
+            <!--</executions>-->
+          <!--</plugin>-->
+        <!--</plugins>-->
+      <!--</build>-->
+      <properties>
+        <database.url>jdbc:postgresql://localhost:5432/bssunittests</database.url>
+        <database.user>bssunituser</database.user>
+        <databese.password>bssunituser</databese.password>
+        <schema.name>bssunituser</schema.name>
+      </properties>
+    </profile>
+  </profiles>
 
   <modules>
     <module>oscm-ear</module>
     <module>oscm-accountmgmt</module>
     <module>oscm-domainobjects</module>
-    <module>oscm-common</module>
     <module>oscm-intsvc-base</module>
     <module>oscm-accountmgmt-intsvc</module>
     <module>oscm-communicationservices-intsvc</module>
@@ -33,7 +79,6 @@
     <module>oscm-triggerservice-intsvc</module>
     <module>oscm-application-intsvc</module>
     <module>oscm-configservice-intsvc</module>
-    <module>oscm-extsvc-internal</module>
     <module>oscm-dataservice-intsvc</module>
     <module>oscm-i18n-intsvc</module>
     <module>oscm-serviceprovisioning-intsvc</module>
@@ -41,8 +86,6 @@
     <module>oscm-subscriptionmgmt</module>
     <module>oscm-server-util</module>
     <module>oscm-marketplaceservice-intsvc</module>
-    <module>oscm-extsvc-provisioning</module>
-    <module>oscm-extsvc-operation</module>
     <module>oscm-internal-interfaces</module>
     <module>oscm-usergroupmgmt</module>
     <module>oscm-application</module>
@@ -67,20 +110,15 @@
     <module>oscm-operatorsvc</module>
     <module>oscm-tenantmgmt</module>
     <module>oscm-tenantmgmt-intsvc</module>
-    <module>oscm-billing-external-interfaces</module>
     <module>oscm-timermgmt</module>
     <module>oscm-paymentprocessing</module>
-    <module>oscm-psp-extsvc</module>
     <module>oscm-webservices-client</module>
     <module>oscm-converter</module>
-    <module>oscm-extsvc</module>
     <module>oscm-pspresponse</module>
     <module>oscm-reporting</module>
     <module>oscm-tenantprovisioning</module>
     <module>oscm-kafka</module>
     <module>oscm-sessionmgmt</module>
-    <module>oscm-startup</module>
-    <module>oscm-extsvc-notification</module>
     <module>oscm-taskhandling</module>
     <module>oscm-vat</module>
     <module>oscm-webservices</module>
@@ -88,14 +126,579 @@
     <module>oscm-apiversioning-soapmgmt</module>
     <module>oscm-wsdldeliver</module>
     <module>oscm-rest-api-trigger</module>
-    <module>oscm-rest-api-common</module>
     <module>oscm-devruntime</module>
     <module>oscm-psp-heidelpay</module>
     <module>oscm-unittests-base</module>
+    <module>oscm-portal</module>
   </modules>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-internal-interfaces</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-serviceprovisioning-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-saml2-api</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-i18n-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-tenantmgmt-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-marketplaceservice-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-domainobjects</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-intsvc-base</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-accountmgmt-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-communicationservices-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-subscriptionmgmt-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-subscriptionmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-server-common</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-paymentprocessing-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-identitymgmt-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-triggerservice-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-application-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-configservice-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-accountmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-dataservice-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-triggerservice</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-server-util</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-kafka</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-webservices-client</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-communicationservices</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-dataservice</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-billing-adapter-service</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-review</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-sessionmgmt-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-taskhandling-intsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-usergroupmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-marketplaceservice</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-serviceprovisioning</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-operatorsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-billing-application</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-devruntime</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-auditlog</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-billing</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-timermgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-application</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-converter</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-configservice</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-tenantprovisioning</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-apiversioning-soapmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-reporting</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-sessionmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-identitymgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-paymentprocessing</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-eventmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-brandmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-commons</groupId>
+        <artifactId>oscm-common</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-commons</groupId>
+        <artifactId>oscm-rest-api-common</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+        <artifactId>oscm-extsvc-internal</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+        <artifactId>oscm-billing-external-interfaces</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+        <artifactId>oscm-extsvc-notification</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+        <artifactId>oscm-extsvc-operation</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+        <artifactId>oscm-extsvc-provisioning</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+        <artifactId>oscm-extsvc</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+        <artifactId>oscm-psp-extsvc</artifactId>
+        <version>1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-tenantmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+
+      <!--ear modules-->
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-extsvc-internal-impl</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-tenantmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-portal</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>war</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-kafka</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-accountmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-auditlog</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-usergroupmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-billing</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-billing-application</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-billing-adapter-service</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-brandmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-communicationservices</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-configservice</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-dataservice</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-eventmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-i18n</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-identitymgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-internal</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-marketplaceservice</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-operatorsvc</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-paymentprocessing</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-pspresponse</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>war</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-reporting</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-server-common</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-serviceprovisioning</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-sessionmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-subscriptionmgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-taskhandling</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-timermgmt</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-triggerservice</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-vat</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-webservices</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-review</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-wsdldeliver</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>war</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-application</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-psp-heidelpay</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>war</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-tenantprovisioning</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-rest-api-trigger</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <type>war</type>
+      </dependency>
+
+      <!--test dependencies-->
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-unittests-base</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-i18n</artifactId>
+        <scope>test</scope>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.oscm</groupId>
+        <artifactId>oscm-psp-heidelpay</artifactId>
+        <version>1.0-SNAPSHOT</version>
+        <classifier>classes</classifier>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.github.servicecatalog</groupId>
+        <artifactId>j2ep</artifactId>
+        <classifier>classes</classifier>
+        <version>1.0</version>
+        <exclusions>
+          <exclusion>
+            <groupId>commons*</groupId>
+            <artifactId>*</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
       <dependency>
         <groupId>org.apache.tomee</groupId>
         <artifactId>javaee-api</artifactId>
@@ -106,6 +709,23 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>3.5</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>commons-collections</groupId>
+        <artifactId>commons-collections</artifactId>
+        <version>3.2.2</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>commons-fileupload</groupId>
+        <artifactId>commons-fileupload</artifactId>
+        <version>1.2.1</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-beanutils</groupId>
+        <artifactId>commons-beanutils</artifactId>
+        <version>1.8.3</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -153,7 +773,23 @@
         <version>3.1.0</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/antlr/antlr -->
+      <dependency>
+        <groupId>javax.el</groupId>
+        <artifactId>javax.el-api</artifactId>
+        <version>3.0.1-b04</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.omnifaces</groupId>
+        <artifactId>omnifaces</artifactId>
+        <version>1.10</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.poi</groupId>
+        <artifactId>poi</artifactId>
+        <version>3.9</version>
+      </dependency>
+
       <dependency>
         <groupId>antlr</groupId>
         <artifactId>antlr</artifactId>
@@ -165,7 +801,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+
       <dependency>
         <groupId>dom4j</groupId>
         <artifactId>dom4j</artifactId>
@@ -177,7 +813,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.jboss/jandex -->
+
       <dependency>
         <groupId>org.jboss</groupId>
         <artifactId>jandex</artifactId>
@@ -189,31 +825,31 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.hibernate.common/hibernate-commons-annotations -->
+
       <dependency>
         <groupId>org.hibernate.common</groupId>
         <artifactId>hibernate-commons-annotations</artifactId>
         <version>5.0.1.Final</version>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
         <version>5.0.9.Final</version>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-entitymanager</artifactId>
         <version>5.0.9.Final</version>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api -->
+
       <dependency>
         <groupId>org.hibernate.javax.persistence</groupId>
         <artifactId>hibernate-jpa-2.1-api</artifactId>
         <version>1.0.0.Final</version>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.javassist/javassist -->
+
       <dependency>
         <groupId>org.javassist</groupId>
         <artifactId>javassist</artifactId>
@@ -225,7 +861,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.jboss.logging/jboss-logging -->
+
       <dependency>
         <groupId>org.jboss.logging</groupId>
         <artifactId>jboss-logging</artifactId>
@@ -237,7 +873,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.jboss.spec.javax.transaction/jboss-transaction-api_1.1_spec -->
+
       <dependency>
         <groupId>org.jboss.spec.javax.transaction</groupId>
         <artifactId>jboss-transaction-api_1.1_spec</artifactId>
@@ -249,19 +885,19 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-analyzers-common -->
+
       <dependency>
         <groupId>org.apache.lucene</groupId>
         <artifactId>lucene-analyzers-common</artifactId>
         <version>5.3.1</version>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-core -->
+
       <dependency>
         <groupId>org.apache.lucene</groupId>
         <artifactId>lucene-core</artifactId>
         <version>5.3.1</version>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.solr/solr-core -->
+
       <dependency>
         <groupId>org.apache.solr</groupId>
         <artifactId>solr-core</artifactId>
@@ -273,7 +909,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.solr/solr-solrj -->
+
       <dependency>
         <groupId>org.apache.solr</groupId>
         <artifactId>solr-solrj</artifactId>
@@ -285,7 +921,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-engine -->
+
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-search-engine</artifactId>
@@ -297,7 +933,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-search-orm -->
+
       <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-search-orm</artifactId>
@@ -309,7 +945,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.geronimo.specs/geronimo-jta_1.1_spec -->
+
       <dependency>
         <groupId>org.apache.geronimo.specs</groupId>
         <artifactId>geronimo-jta_1.1_spec</artifactId>
@@ -321,7 +957,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/com.fasterxml/classmate -->
+
       <dependency>
         <groupId>com.fasterxml</groupId>
         <artifactId>classmate</artifactId>
@@ -333,7 +969,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-csv -->
+
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-csv</artifactId>
@@ -345,21 +981,21 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+
       <dependency>
         <groupId>commons-logging</groupId>
         <artifactId>commons-logging</artifactId>
         <version>1.1.3</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/wsdl4j/wsdl4j -->
+
       <dependency>
         <groupId>wsdl4j</groupId>
         <artifactId>wsdl4j</artifactId>
         <version>1.6.3</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-queries -->
+
       <dependency>
         <groupId>org.apache.lucene</groupId>
         <artifactId>lucene-queries</artifactId>
@@ -371,7 +1007,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.lucene/lucene-queryparser -->
+
       <dependency>
         <groupId>org.apache.lucene</groupId>
         <artifactId>lucene-queryparser</artifactId>
@@ -387,21 +1023,21 @@
         <artifactId>lucene-misc</artifactId>
         <version>5.3.1</version>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+
       <dependency>
         <groupId>com.google.code.gson</groupId>
         <artifactId>gson</artifactId>
         <version>2.6.2</version>
 
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.tomee/openejb-core -->
+
       <dependency>
         <groupId>org.apache.tomee</groupId>
         <artifactId>openejb-core</artifactId>
         <version>7.0.3</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+
       <dependency>
         <groupId>org.apache.httpcomponents</groupId>
         <artifactId>httpclient</artifactId>
@@ -413,7 +1049,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient -->
+
       <dependency>
         <groupId>commons-httpclient</groupId>
         <artifactId>commons-httpclient</artifactId>
@@ -425,7 +1061,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
+
       <dependency>
         <groupId>org.apache.kafka</groupId>
         <artifactId>kafka-clients</artifactId>
@@ -437,14 +1073,14 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.glassfish/javax.faces -->
+
       <dependency>
         <groupId>org.glassfish</groupId>
         <artifactId>javax.faces</artifactId>
         <version>2.2.12</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+
       <dependency>
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
@@ -456,49 +1092,49 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
+
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
         <version>2.6.0</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-core</artifactId>
         <version>2.6.0-rc1</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
         <version>2.6.0-rc1</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.geronimo.javamail/geronimo-javamail_1.4_mail -->
+
       <dependency>
         <groupId>org.apache.geronimo.javamail</groupId>
         <artifactId>geronimo-javamail_1.4_mail</artifactId>
         <version>1.9.0-alpha-2</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.dbunit/dbunit -->
+
       <dependency>
         <groupId>org.dbunit</groupId>
         <artifactId>dbunit</artifactId>
         <version>2.4.7</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.ant/ant -->
+
       <dependency>
         <groupId>org.apache.ant</groupId>
         <artifactId>ant</artifactId>
         <version>1.9.4</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.ant/ant-junit -->
+
       <dependency>
         <groupId>org.apache.ant</groupId>
         <artifactId>ant-junit</artifactId>
@@ -511,14 +1147,14 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.apache.ant/ant-launcher -->
+
       <dependency>
         <groupId>org.apache.ant</groupId>
         <artifactId>ant-launcher</artifactId>
         <version>1.9.4</version>
         <scope>provided</scope>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/com.codeplex.wsitbt/wsit-ant-tasks -->
+
       <dependency>
         <groupId>com.codeplex.wsitbt</groupId>
         <artifactId>wsit-ant-tasks</artifactId>
@@ -530,7 +1166,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
+
       <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
@@ -576,20 +1212,44 @@
         <version>1.5.4</version>
       </dependency>
       <dependency>
-        <groupId>commons-collections</groupId>
-        <artifactId>commons-collections</artifactId>
-        <version>3.2.2</version>
-      </dependency>
-      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>1.7.5</version>
       </dependency>
-      <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+      <dependency>
+        <groupId>org.w3c.css</groupId>
+        <artifactId>sac</artifactId>
+        <version>1.3</version>
+      </dependency>
+      <dependency>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-core</artifactId>
+        <version>4.5.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-a4j</artifactId>
+        <version>4.5.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces</artifactId>
+        <version>4.5.0.Final</version>
+      </dependency>
+      <dependency>
+        <groupId>net.sourceforge.cssparser</groupId>
+        <artifactId>cssparser</artifactId>
+        <version>0.9.14</version>
+      </dependency>
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>18.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.myfaces.tomahawk</groupId>
+        <artifactId>tomahawk20</artifactId>
+        <version>1.1.14</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -610,7 +1270,7 @@
           <version>3.2.0</version>
           <configuration>
             <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
-            <packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>
+            <!--<packagingExcludes>WEB-INF/lib/*.jar</packagingExcludes>-->
             <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
@@ -630,33 +1290,33 @@
         </plugin>
 
         <plugin>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-java2ws-plugin</artifactId>
-        <version>3.2.0</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <version>3.2.0</version>
-            <exclusions>
-              <exclusion>
-                <groupId>*</groupId>
-                <artifactId>*</artifactId>
-              </exclusion>
-            </exclusions>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-simple</artifactId>
-            <version>3.2.0</version>
-            <exclusions>
-              <exclusion>
-                <groupId>*</groupId>
-                <artifactId>*</artifactId>
-              </exclusion>
-            </exclusions>
-          </dependency>
-        </dependencies>
+          <groupId>org.apache.cxf</groupId>
+          <artifactId>cxf-java2ws-plugin</artifactId>
+          <version>3.2.0</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.apache.cxf</groupId>
+              <artifactId>cxf-rt-frontend-jaxws</artifactId>
+              <version>3.2.0</version>
+              <exclusions>
+                <exclusion>
+                  <groupId>*</groupId>
+                  <artifactId>*</artifactId>
+                </exclusion>
+              </exclusions>
+            </dependency>
+            <dependency>
+              <groupId>org.apache.cxf</groupId>
+              <artifactId>cxf-rt-frontend-simple</artifactId>
+              <version>3.2.0</version>
+              <exclusions>
+                <exclusion>
+                  <groupId>*</groupId>
+                  <artifactId>*</artifactId>
+                </exclusion>
+              </exclusions>
+            </dependency>
+          </dependencies>
         </plugin>
 
         <plugin>
@@ -710,7 +1370,7 @@
         <executions>
           <execution>
             <id>add-test-source</id>
-            <phase>process-resources</phase>
+            <phase>process-test-sources</phase>
             <goals>
               <goal>add-test-source</goal>
             </goals>

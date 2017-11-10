@@ -89,7 +89,7 @@ public class TechnicalProductCleaner {
     void deleteFromLandingPage(Product product) {
             dm.createNamedQuery(
                     "LandingpageProduct.deleteLandingpageProductForProduct")
-                    .setParameter("productKey", Long.valueOf(product.getKey()))
+                    .setParameter("productKey", product.getKey())
                     .executeUpdate();
     }
 
@@ -194,13 +194,13 @@ public class TechnicalProductCleaner {
      *            the {@link Subscription} to remove
      */
     private void deleteSubscriptionAndUdas(Subscription subscription) {
-        Long historyModificationTime = Long.valueOf(DateFactory.getInstance()
-                .getTransactionTime());
+        Long historyModificationTime = DateFactory.getInstance()
+            .getTransactionTime();
         subscription.setHistoryModificationTime(historyModificationTime);
 
         // read udas
         Query query = dm.createNamedQuery("Uda.getByTargetTypeAndKey");
-        query.setParameter("targetKey", Long.valueOf(subscription.getKey()));
+        query.setParameter("targetKey", subscription.getKey());
         query.setParameter("targetType", UdaTargetType.CUSTOMER_SUBSCRIPTION);
 
         for (Uda uda : ParameterizedTypes.iterable(query.getResultList(),

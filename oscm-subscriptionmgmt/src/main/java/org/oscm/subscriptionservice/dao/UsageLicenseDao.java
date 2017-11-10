@@ -38,7 +38,7 @@ public class UsageLicenseDao {
     public List<UsageLicense> getSubscriptionAssignments(PlatformUser user,
             Set<SubscriptionStatus> states) {
         Query q = dataManager.createNamedQuery("UsageLicense.getForUser");
-        q.setParameter("userKey", Long.valueOf(user.getKey()));
+        q.setParameter("userKey", user.getKey());
         q.setParameter("status", states);
         List<UsageLicense> result = ParameterizedTypes.list(q.getResultList(),
                 UsageLicense.class);

@@ -86,7 +86,7 @@ public class BillingResultAssembler {
         billingDetailsType.setTimezone(DateConverter
                 .getCurrentTimeZoneAsUTCString());
         if (storeResultXML) {
-            billingDetailsType.setKey(Long.valueOf(billingResult.getKey()));
+            billingDetailsType.setKey(billingResult.getKey());
         }
 
         if (orgData == null) {
@@ -99,12 +99,12 @@ public class BillingResultAssembler {
 
         // adding the period information
         billingDetailsType.setPeriod(factory.createPeriodType());
-        billingDetailsType.getPeriod().setStartDate(Long.valueOf(startDate));
+        billingDetailsType.getPeriod().setStartDate(startDate);
         billingDetailsType.getPeriod().setStartDateIsoFormat(
                 XMLGregorianCalendarImpl.parse(DateConverter
                         .convertLongToIso8601DateTimeFormat(startDate, TimeZone
                                 .getTimeZone(DateConverter.TIMEZONE_ID_GMT))));
-        billingDetailsType.getPeriod().setEndDate(Long.valueOf(endDate));
+        billingDetailsType.getPeriod().setEndDate(endDate);
         billingDetailsType.getPeriod().setEndDateIsoFormat(
                 XMLGregorianCalendarImpl.parse(DateConverter
                         .convertLongToIso8601DateTimeFormat(endDate, TimeZone
@@ -151,12 +151,12 @@ public class BillingResultAssembler {
 
         // add usage period information
         final PeriodType periodType = factory.createPeriodType();
-        periodType.setStartDate(Long.valueOf(startTimeForPeriod));
+        periodType.setStartDate(startTimeForPeriod);
         periodType.setStartDateIsoFormat(XMLGregorianCalendarImpl
                 .parse(DateConverter.convertLongToIso8601DateTimeFormat(
                         startTimeForPeriod,
                         TimeZone.getTimeZone(DateConverter.TIMEZONE_ID_GMT))));
-        periodType.setEndDate(Long.valueOf(endTimeForPeriod));
+        periodType.setEndDate(endTimeForPeriod);
         periodType.setEndDateIsoFormat(XMLGregorianCalendarImpl
                 .parse(DateConverter.convertLongToIso8601DateTimeFormat(
                         endTimeForPeriod,
@@ -177,11 +177,11 @@ public class BillingResultAssembler {
                 periodValue.getEndTime(), priceModelInput);
 
         final PeriodType periodType = factory.createPeriodType();
-        periodType.setStartDate(Long.valueOf(periodStart));
+        periodType.setStartDate(periodStart);
         periodType.setStartDateIsoFormat(XMLGregorianCalendarImpl
                 .parse(DateConverter.convertLongToIso8601DateTimeFormat(
                         periodStart, timeZone)));
-        periodType.setEndDate(Long.valueOf(periodEnd));
+        periodType.setEndDate(periodEnd);
         periodType.setEndDateIsoFormat(XMLGregorianCalendarImpl
                 .parse(DateConverter.convertLongToIso8601DateTimeFormat(
                         periodEnd, timeZone)));
@@ -464,7 +464,7 @@ public class BillingResultAssembler {
         final Set<Long> userKeys = userAssignmentsFactors.getUserKeys();
         for (long userKey : userKeys) {
             final UserAssignmentDetails user = userAssignmentsFactors
-                    .getUserAssignmentDetails(Long.valueOf(userKey));
+                    .getUserAssignmentDetails(userKey);
             final UserAssignmentCostsByUserType userAssignmentCostsByUserType = factory
                     .createUserAssignmentCostsByUserType();
             userAssignmentCostsByUserType.setUserId(user.getUserId());

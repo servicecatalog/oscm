@@ -755,7 +755,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
         OrganizationReferenceType referenceType = getCustomerReferenceType(
                 seller);
         Query query = dm.createNamedQuery("Organization.getForSupplierKey");
-        query.setParameter("supplierKey", Long.valueOf(seller.getKey()));
+        query.setParameter("supplierKey", seller.getKey());
         query.setParameter("referenceType", referenceType);
         List<Organization> list = ParameterizedTypes.list(query.getResultList(),
                 Organization.class);
@@ -774,7 +774,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
                 + "ORDER BY o.tkey ASC";
         final String referenceType = getReferenceTypeAsString(seller);
         Query query = dm.createNativeQuery(queryString);
-        query.setParameter("supplierKey", Long.valueOf(seller.getKey()));
+        query.setParameter("supplierKey", seller.getKey());
         query.setParameter("referenceType", referenceType);
         List<Object[]> result = ParameterizedTypes.list(query.getResultList(),
                 Object[].class);
@@ -948,8 +948,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
                     throw sdce;
                 }
             }
-            organization.setDeregistrationDate(Long
-                    .valueOf(DateFactory.getInstance().getTransactionTime()));
+            organization.setDeregistrationDate(DateFactory.getInstance().getTransactionTime());
 
         }
 
@@ -1793,7 +1792,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     public boolean isPaymentTypeEnabled(long serviceKey, long paymentTypeKey)
             throws ObjectNotFoundException {
         List<PaymentType> ptIntersection = getAvailablePaymentTypesIntersection(
-                Long.valueOf(serviceKey));
+            serviceKey);
         boolean isEnabled = false;
         for (PaymentType pt : ptIntersection) {
             if (pt.getKey() == paymentTypeKey) {
@@ -1904,7 +1903,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
         Organization seller = dm.getCurrentUser().getOrganization();
         Query query = dm.createNamedQuery("Organization.getForSupplierKey");
-        query.setParameter("supplierKey", Long.valueOf(seller.getKey()));
+        query.setParameter("supplierKey", seller.getKey());
         query.setParameter("referenceType", getCustomerReferenceType(seller));
         Iterable<Organization> customers = ParameterizedTypes
                 .iterable(query.getResultList(), Organization.class);
@@ -2353,7 +2352,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
                             .get(SUSPENDED_SUBSCRIPTIONS_IN_TRANSACTION),
                     Long.class);
         }
-        list.add(new Long(subKey));
+        list.add(subKey);
 
         sessionCtx.getContextData().put(SUSPENDED_SUBSCRIPTIONS_IN_TRANSACTION,
                 list);
@@ -2401,7 +2400,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
                             .get(SUSPENDED_SUBSCRIPTIONS_IN_TRANSACTION),
                     Long.class);
 
-            return list.contains(new Long(subKey));
+            return list.contains(subKey);
         }
         return false;
     }
@@ -3036,7 +3035,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
             }
 
             Integer discountVersion = voOrganization.getDiscount() != null
-                    ? Integer.valueOf(voOrganization.getDiscount().getVersion())
+                    ? voOrganization.getDiscount().getVersion()
                     : null;
             Discount discount = updateCustomerDiscount(organization,
                     DiscountAssembler.toDiscount(voOrganization.getDiscount()),
@@ -3305,8 +3304,8 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
         // discount
         Query query = dm.createNamedQuery(
                 "OrganizationReference.findOrganizationForDiscountEndNotification");
-        query.setParameter("firstMillis", Long.valueOf(firstMillis));
-        query.setParameter("lastMillis", Long.valueOf(lastMillis));
+        query.setParameter("firstMillis", firstMillis);
+        query.setParameter("lastMillis", lastMillis);
         List<OrganizationReference> list = ParameterizedTypes
                 .list(query.getResultList(), OrganizationReference.class);
 
@@ -3785,7 +3784,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
         Organization supplier = dm.getCurrentUser().getOrganization();
         Query query = dm.createNamedQuery(
                 "Product.getProductsForVendorPaymentConfiguration");
-        query.setParameter("vendorKey", Long.valueOf(supplier.getKey()));
+        query.setParameter("vendorKey", supplier.getKey());
         query.setParameter("statusToIgnore", EnumSet.of(ServiceStatus.DELETED));
         List<Product> productList = ParameterizedTypes
                 .list(query.getResultList(), Product.class);
@@ -3921,7 +3920,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public List<PlatformUser> getOrganizationAdmins(long organizationKey) {
         Query query = dm.createNamedQuery("Organization.getAdministrators");
-        query.setParameter("orgkey", Long.valueOf(organizationKey));
+        query.setParameter("orgkey", organizationKey);
         return ParameterizedTypes.list(query.getResultList(),
                 PlatformUser.class);
     }

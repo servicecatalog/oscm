@@ -1,18 +1,20 @@
 addons:
   sonarqube: true
+  postgresql: "9.4"
 language: java
 sudo: required
 jdk:
   - oraclejdk8
-cache:
-  directories:
-    - $TRAVIS_BUILD_DIR/libraries
 before_install:
   - sudo pip install --user codecov
+  - psql -c "create user bssunituser with password 'bssunituser';" -U postgres
+  - psql -c 'create database bssunittests with owner bssunituser' -U postgres
+  - psql -c "create schema bssunittests" -U postgres
+  - psql -c "grant all privileges on schema bssunittests to bssunituser" -U postgres
+install:
+ - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V -P travis
 script:
- - mvn test 
-#  - $TRAVIS_BUILD_DIR/libraries/apache-ant/apache-ant-1.10.1/bin/ant -lib $TRAVIS_BUILD_DIR/libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:$TRAVIS_BUILD_DIR/parallel/build/libs/parallel-junit-0.1.jar -file $TRAVIS_BUILD_DIR/oscm-build/cruisecontrol.xml runTravisUT
-#  - ant -lib $TRAVIS_BUILD_DIR/libraries/apache-ant-contrib/javalib -file $TRAVIS_BUILD_DIR/oscm-build/cruisecontrol.xml runTravisIT
+ - mvn -q test verify -P travis
 after_success:
   - sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=CTMG -Dsonar.projectName=CTMG -Dsonar.projectVersion=17.0.1 -Dsonar.sources=$TRAVIS_BUILD_DIR -Dsonar.tests=$TRAVIS_BUILD_DIR -Dsonar.sourceEncoding=UTF-8 -Dsonar.inclusions=**/*.java -Dsonar.exclusions=**/javasrc-it/**,**/example-service/**/*,**/*devruntime/**/*,**/*tests*/**/*,**/oscm-portal-webtests/results/**/*,**/j2ep/**/*.java,**/apache-csv/**/*.java,**/*oscm-build*/**/*.java,**/javasrc-it/**/*.java,**/*unittests*/**/*.java,**/OperationParameterType.jav,**/AccountServiceClient.java -Dsonar.test.inclusions=**/*unittests*/**/*.java -Dsonar.jacoco.reportPath=$TRAVIS_BUILD_DIR/oscm-build/result/reports/merged_jacoco.exec -Dsonar.java.source=1.8 -Dsonar.java.binaries=$TRAVIS_BUILD_DIR/oscm-build/result/work -Dsonar.java.test.binaries=$TRAVIS_BUILD_DIR/oscm-build/result
   - codecov

@@ -243,11 +243,11 @@ public class ProductSearch {
     private void setParameters(Query query) {
         if (currentUsersOrg != null) {
             query.setParameter("customerKey",
-                    Long.valueOf(currentUsersOrg.getKey()));
+                currentUsersOrg.getKey());
         }
         query.setParameter("marketplaceId", marketplaceId);
         if (tag != null) {
-            query.setParameter("tagKey", Long.valueOf(tag.getKey()));
+            query.setParameter("tagKey", tag.getKey());
         }
         if (categoryId != null) {
             addParametersForCategory(marketplace, categoryId, query);
@@ -623,6 +623,6 @@ public class ProductSearch {
             String categoryId, Query jpaQuery) {
         jpaQuery.setParameter("categoryId", categoryId);
         jpaQuery.setParameter("marketplaceKey",
-                Long.valueOf(marketplace.getKey()));
+            marketplace.getKey());
     }
 }

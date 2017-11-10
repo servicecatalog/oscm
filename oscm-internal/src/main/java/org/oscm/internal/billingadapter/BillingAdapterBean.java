@@ -203,7 +203,7 @@ public class BillingAdapterBean implements BillingAdapterService {
         try {
             BillingAdapter adapter = BillingAdapterAssembler
                     .toBillingAdapter(poBillingAdapter);
-            response = new Response(Boolean.valueOf(adapter.isActive()));
+            response = new Response(adapter.isActive());
 
         } catch (IOException e) {
             throw new SaaSApplicationException(e);

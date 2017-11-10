@@ -14,6 +14,7 @@ package org.oscm.serviceprovisioningservice.bean;
 
 import java.util.*;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Remote;
@@ -84,6 +85,11 @@ public class SearchServiceBean implements SearchService, SearchServiceLocal {
     @EJB
     private HibernateIndexer indexer;
 
+    @PostConstruct
+    public void initIndexing() {
+        indexer.initIndexForFulltextSearch(true);
+    }
+
     @Override
     public void initIndexForFulltextSearch(final boolean force) {
         indexer.initIndexForFulltextSearch(force);
@@ -141,7 +147,7 @@ public class SearchServiceBean implements SearchService, SearchServiceLocal {
                             marketplaceId, locale, listCriteria,
                             performanceHint);
                     for (VOService svc : services.getServices()) {
-                        Long key = Long.valueOf(svc.getKey());
+                        Long key = svc.getKey();
                         if (map.containsKey(key)) {
                             map.put(key, svc);
                         }

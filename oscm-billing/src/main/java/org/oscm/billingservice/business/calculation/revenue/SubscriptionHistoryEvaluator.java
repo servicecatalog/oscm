@@ -281,8 +281,8 @@ public class SubscriptionHistoryEvaluator {
             if (subscriptionStatus == SubscriptionStatus.SUSPENDED
                     || subscriptionStatus == SubscriptionStatus.EXPIRED
                     || subscriptionStatus == SubscriptionStatus.SUSPENDED_UPD) {
-                deactivationTime = Long.valueOf(subscriptionHistory
-                        .getModdate().getTime());
+                deactivationTime = subscriptionHistory
+                    .getModdate().getTime();
                 if (tempHistories.size() > 0) {
                     boolean subscriptionWasUpgraded = productHasChanged(
                             tempHistories.get(tempHistories.size() - 1),

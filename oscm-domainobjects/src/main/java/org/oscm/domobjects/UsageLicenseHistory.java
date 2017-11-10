@@ -65,8 +65,7 @@ public class UsageLicenseHistory extends DomainHistoryObject<UsageLicenseData> {
             setUserObjKey(c.getUser().getKey());
         }
         if (c.getRoleDefinition() != null) {
-            setRoleDefinitionObjKey(Long
-                    .valueOf(c.getRoleDefinition().getKey()));
+            setRoleDefinitionObjKey(c.getRoleDefinition().getKey());
         }
     }
 

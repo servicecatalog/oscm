@@ -87,8 +87,8 @@ public class TerminateSubscriptionBean extends SubscriptionUtilBean {
                             && PlatformParameterIdentifiers.PERIOD.equals(param
                                     .getParameterDefinition().getParameterId())
                             && param.getValue() != null) {
-                        permittedUsagePeriod = Long.valueOf(param
-                                .getLongValue());
+                        permittedUsagePeriod = param
+                            .getLongValue();
                         break;
                     }
                 }
@@ -213,7 +213,7 @@ public class TerminateSubscriptionBean extends SubscriptionUtilBean {
 
         // set DEACTIVATED status for the subscription
         long timeInMillis = DateFactory.getInstance().getTransactionTime();
-        subscription.setDeactivationDate(Long.valueOf(timeInMillis));
+        subscription.setDeactivationDate(timeInMillis);
         subscription.setStatus(SubscriptionStatus.DEACTIVATED);
 
         // rename the subscription as last step because id is still used for

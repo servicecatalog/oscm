@@ -66,7 +66,7 @@ public class UserAssignmentExtractor {
                     && userKeyOfPreviousHistory != ulHist.getUserObjKey()) {
                 List<UserAssignment> userAssignmentsForOneUser = extractUserAssignmentsForOneUser(ulHistListOfOneUser);
                 if (!userAssignmentsForOneUser.isEmpty()) {
-                    userAssignments.put(Long.valueOf(userKeyOfPreviousHistory),
+                    userAssignments.put(userKeyOfPreviousHistory,
                             userAssignmentsForOneUser);
                 }
                 ulHistListOfOneUser.clear();
@@ -78,7 +78,7 @@ public class UserAssignmentExtractor {
         if (!ulHistListOfOneUser.isEmpty()) {
             List<UserAssignment> userAssignmentsForOneUser = extractUserAssignmentsForOneUser(ulHistListOfOneUser);
             if (!userAssignmentsForOneUser.isEmpty()) {
-                userAssignments.put(Long.valueOf(userKeyOfPreviousHistory),
+                userAssignments.put(userKeyOfPreviousHistory,
                         userAssignmentsForOneUser);
             }
         }

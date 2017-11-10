@@ -53,7 +53,6 @@ import org.oscm.internal.types.enumtypes.ServiceType;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.SaaSSystemException;
-import com.sun.org.apache.xerces.internal.impl.Constants;
 
 /**
  * Class to import products from their xml representation. Localized resources
@@ -91,6 +90,8 @@ public class ProductImportParser extends DefaultHandler {
     private static final String ELEMENT_PRICED_EVENT = getShortName(PricedEvent.class);
     private static final String ELEMENT_PRODUCT_REFERENCE = getShortName(ProductReference.class);
     private static final String ELEMENT_TECHNICAL_PRODUCT = getShortName(TechnicalProduct.class);
+    public static final String XERCES_FEATURE_PREFIX = "http://apache.org/xml/features/";
+    public static final String DISALLOW_DOCTYPE_DECL_FEATURE = "disallow-doctype-decl";
 
     private TechnicalProduct techProduct = null;
     private String productId = null;
@@ -253,8 +254,8 @@ public class ProductImportParser extends DefaultHandler {
         }
         SAXParser saxParser = spf.newSAXParser();
         XMLReader reader = saxParser.getXMLReader();
-        reader.setFeature(Constants.XERCES_FEATURE_PREFIX
-                + Constants.DISALLOW_DOCTYPE_DECL_FEATURE, true);
+        reader.setFeature(XERCES_FEATURE_PREFIX
+                + DISALLOW_DOCTYPE_DECL_FEATURE, true);
         reader.setContentHandler(this);
         reader.parse(new InputSource(new ByteArrayInputStream(xml)));
         return 0;

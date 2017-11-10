@@ -105,8 +105,8 @@ public class V2_2_21_1__MigrationBillingResultNetAmount extends DatabaseUpgradeT
         ResultSet billingResults = getRecordsByTable(TABLE_BILLINGRESULT);
         if (billingResults != null) {
             while (billingResults.next()) {
-                Long tkey = Long.valueOf(billingResults
-                    .getLong(DatabaseUpgradeTask.COLUMN_TKEY));
+                Long tkey = billingResults
+                    .getLong(DatabaseUpgradeTask.COLUMN_TKEY);
                 String resultXml = billingResults
                     .getString(DatabaseUpgradeTask.COLUMN_RESULTXML);
                 BigDecimal netAmount = BigDecimal.ZERO;

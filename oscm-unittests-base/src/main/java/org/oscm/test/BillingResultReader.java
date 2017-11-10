@@ -29,9 +29,9 @@ public class BillingResultReader {
             long subscriptionKey, long billingPeriodStart, long billingPeriodEnd) {
 
         Query query = dm.createNamedQuery("BillingResult.findBillingResult");
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
-        query.setParameter("startPeriod", Long.valueOf(billingPeriodStart));
-        query.setParameter("endPeriod", Long.valueOf(billingPeriodEnd));
+        query.setParameter("subscriptionKey", subscriptionKey);
+        query.setParameter("startPeriod", billingPeriodStart);
+        query.setParameter("endPeriod", billingPeriodEnd);
         try {
             return (BillingResult) query.getSingleResult();
         } catch (NoResultException nre) {

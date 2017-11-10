@@ -763,7 +763,7 @@ public class Organization extends DomainObjectWithHistory<OrganizationData> {
         Set<Long> result = new HashSet<>();
         for (UdaDefinition def : definitions) {
             if (def.getTargetType() == type) {
-                result.add(Long.valueOf(def.getKey()));
+                result.add(def.getKey());
             }
         }
         return result;

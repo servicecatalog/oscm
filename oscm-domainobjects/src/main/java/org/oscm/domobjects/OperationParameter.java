@@ -70,8 +70,7 @@ public class OperationParameter extends
             TechnicalProductOperation technicalProductOperation) {
         this.technicalProductOperation = technicalProductOperation;
         if (null != technicalProductOperation) {
-            setTechnicalproductoperation_tkey(Long
-                    .valueOf(technicalProductOperation.getKey()));
+            setTechnicalproductoperation_tkey(technicalProductOperation.getKey());
         }
     }
 

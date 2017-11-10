@@ -62,7 +62,7 @@ public class SubscriptionSearchServiceBean implements SubscriptionSearchService 
         List<Long> result = new ArrayList<>();
 
         for (Subscription sub : list) {
-            result.add(new Long(sub.getKey()));
+            result.add(sub.getKey());
         }
 
         return result;

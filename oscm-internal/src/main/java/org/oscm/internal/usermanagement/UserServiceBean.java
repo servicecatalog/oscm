@@ -485,7 +485,7 @@ public class UserServiceBean implements UserService {
         }
         for (SubscriptionWithRoles swr : list) {
             for (RoleDefinition rd : swr.getRoles()) {
-                result.add(Long.valueOf(rd.getKey()));
+                result.add(rd.getKey());
             }
         }
 
@@ -533,7 +533,7 @@ public class UserServiceBean implements UserService {
         for (Entry<UserGroup, UnitUserRole> groupsWithRoles : userGroupsToBeAssigned
                 .entrySet()) {
             groupsToBeAssignedMap.put(
-                    Long.valueOf(groupsWithRoles.getKey().getKey()),
+                groupsWithRoles.getKey().getKey(),
                     groupsWithRoles);
         }
         List<UserGroup> groupsAssigned = userGroupService
@@ -541,7 +541,7 @@ public class UserServiceBean implements UserService {
         Map<UserGroup, UnitUserRole> groupsToAdd = new HashMap<>();
         List<UserGroup> groupsToRemove = new ArrayList<>();
         for (UserGroup g : groupsAssigned) {
-            Long key = Long.valueOf(g.getKey());
+            Long key = g.getKey();
             if (groupsToBeAssignedMap.containsKey(key)) {
                 groupsToBeAssignedMap.remove(key);
             } else {
@@ -605,7 +605,7 @@ public class UserServiceBean implements UserService {
             UserGroup userGroup;
             try {
                 userGroup = ds.getReference(UserGroup.class, group.getKey());
-                groupsToBeAssignedMap.put(Long.valueOf(group.getKey()),
+                groupsToBeAssignedMap.put(group.getKey(),
                         userGroup);
             } catch (ObjectNotFoundException ex) {
                 String groupName = group.getGroupName();
@@ -619,8 +619,7 @@ public class UserServiceBean implements UserService {
             for (POUserGroup group : groups) {
                 UnitUserRole unitUserRole = userGroupService
                         .getUnitRoleByName(group.getSelectedRole());
-                groupsToBeAssigned.put(groupsToBeAssignedMap.remove(Long
-                        .valueOf(group.getKey())), unitUserRole);
+                groupsToBeAssigned.put(groupsToBeAssignedMap.remove(group.getKey()), unitUserRole);
             }
         }
         return groupsToBeAssigned;

@@ -51,7 +51,7 @@ public class ReviewInternalServiceBean implements ReviewInternalService {
                 .createOrFindDomainObject(poReview.getKey());
         POServiceReviewAssembler.updateProductReview(domainObject, poReview);
         ProductReview result = reviewService.writeReview(domainObject,
-                Long.valueOf(poReview.getProductKey()));
+            poReview.getProductKey());
         return POServiceReviewAssembler.toPOServiceReview(result);
     }
 
@@ -59,7 +59,7 @@ public class ReviewInternalServiceBean implements ReviewInternalService {
     public void deleteReview(POServiceReview poReview)
             throws OperationNotPermittedException, ObjectNotFoundException {
         ArgumentValidator.notNull("poReview", poReview);
-        reviewService.deleteReview(Long.valueOf(poReview.getKey()));
+        reviewService.deleteReview(poReview.getKey());
     }
 
     @Override
@@ -70,7 +70,7 @@ public class ReviewInternalServiceBean implements ReviewInternalService {
         ArgumentValidator.notNull("poReview", poReview);
         ArgumentValidator.notEmptyString("reason", reason);
         reviewService.deleteReviewByMarketplaceOwner(
-                Long.valueOf(poReview.getKey()), reason);
+            poReview.getKey(), reason);
 
     }
 

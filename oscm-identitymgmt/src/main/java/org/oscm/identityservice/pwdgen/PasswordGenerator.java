@@ -91,7 +91,7 @@ public class PasswordGenerator {
     private void addCharsToList(List<Character> characters, int codePoint) {
         char[] chars = Character.toChars(codePoint);
         for (char c : chars) {
-            characters.add(Character.valueOf(c));
+            characters.add(c);
         }
     }
 }

@@ -209,7 +209,7 @@ public class UdaAccess {
         if (def.getKey() != existing.getUdaDefinition().getKey()) {
             String message = "Organization '%s' tried to modify UDA '%s' with an invalid UDA defintion.";
             message = String.format(message, caller.getOrganizationId(),
-                    Long.valueOf(existing.getKey()));
+                existing.getKey());
             OperationNotPermittedException e = new OperationNotPermittedException(
                     message);
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
@@ -361,14 +361,14 @@ public class UdaAccess {
     public List<Uda> getExistingUdas(long customerKey, long subscriptionKey,
             Organization supplier) {
         Query q = ds.createNamedQuery("Uda.getAllForCustomerBySupplier");
-        q.setParameter("subKey", Long.valueOf(subscriptionKey));
+        q.setParameter("subKey", subscriptionKey);
         q.setParameter("subType", UdaTargetType.CUSTOMER_SUBSCRIPTION);
-        q.setParameter("custKey", Long.valueOf(customerKey));
+        q.setParameter("custKey", customerKey);
         q.setParameter("custType", UdaTargetType.CUSTOMER);
         q.setParameter("configTypes",
                 EnumSet.of(UdaConfigurationType.USER_OPTION_MANDATORY,
                         UdaConfigurationType.USER_OPTION_OPTIONAL));
-        q.setParameter("supplierKey", Long.valueOf(supplier.getKey()));
+        q.setParameter("supplierKey", supplier.getKey());
         return ParameterizedTypes.list(q.getResultList(), Uda.class);
     }
 
@@ -421,9 +421,9 @@ public class UdaAccess {
     List<Uda> getUdas(long targetObjectKey, UdaTargetType type,
             Organization supplier) {
         Query query = ds.createNamedQuery("Uda.getByTypeAndKeyForSupplier");
-        query.setParameter("targetKey", Long.valueOf(targetObjectKey));
+        query.setParameter("targetKey", targetObjectKey);
         query.setParameter("targetType", type);
-        query.setParameter("supplierKey", Long.valueOf(supplier.getKey()));
+        query.setParameter("supplierKey", supplier.getKey());
         return ParameterizedTypes.list(query.getResultList(), Uda.class);
     }
 

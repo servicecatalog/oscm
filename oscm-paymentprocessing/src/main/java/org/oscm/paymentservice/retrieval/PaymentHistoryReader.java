@@ -71,7 +71,7 @@ public class PaymentHistoryReader {
         
         Query query = ds
                 .createNamedQuery("PaymentInfoHistory.findForSubscriptionKeyDescVersion");
-        query.setParameter("subscriptionKey", Long.valueOf(subscriptionKey));
+        query.setParameter("subscriptionKey", subscriptionKey);
         List<Object[]> paymentHistoryEntries = ParameterizedTypes.list(
                 query.getResultList(), Object[].class);
         if (paymentHistoryEntries == null || paymentHistoryEntries.size() != 1) {
@@ -92,7 +92,7 @@ public class PaymentHistoryReader {
         Object[] entry = paymentHistoryEntries.get(0);
         PSPHistory pspHistory = (PSPHistory) entry[2];
         query = ds.createNamedQuery("PSPSettingHistory.findForPSP");
-        query.setParameter("pspObjKey", Long.valueOf(pspHistory.getObjKey()));
+        query.setParameter("pspObjKey", pspHistory.getObjKey());
         List<PSPSettingHistory> settings = ParameterizedTypes.list(
                 query.getResultList(), PSPSettingHistory.class);
 
@@ -120,8 +120,8 @@ public class PaymentHistoryReader {
             }
         }
         query = ds.createNamedQuery("PaymentInfoHistory.findPSPAccount");
-        query.setParameter("organizationKey", Long.valueOf(vendorKey));
-        query.setParameter("pspKey", Long.valueOf(pspHistory.getObjKey()));
+        query.setParameter("organizationKey", vendorKey);
+        query.setParameter("pspKey", pspHistory.getObjKey());
 
         PaymentHistoryData result = new PaymentHistoryData();
         result.setPaymentInfoHistory((PaymentInfoHistory) entry[0]);

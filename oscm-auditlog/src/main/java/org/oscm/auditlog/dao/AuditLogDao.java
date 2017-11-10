@@ -72,8 +72,8 @@ public class AuditLogDao {
                     "AuditLog.countByOperationAndDateRange", Number.class);
             query.setParameter("operationIds", operationIds);
         }
-        query.setParameter("startTime", Long.valueOf(startTime));
-        query.setParameter("endTime", Long.valueOf(endTime));
+        query.setParameter("startTime", startTime);
+        query.setParameter("endTime", endTime);
         return query.getSingleResult().longValue();
     }
 
@@ -97,8 +97,8 @@ public class AuditLogDao {
                     AuditLog.class);
             query.setParameter("operationIds", operationIds);
         }
-        query.setParameter("startTime", Long.valueOf(startTime));
-        query.setParameter("endTime", Long.valueOf(endTime));
+        query.setParameter("startTime", startTime);
+        query.setParameter("endTime", endTime);
         return query.getResultList();
     }
 }

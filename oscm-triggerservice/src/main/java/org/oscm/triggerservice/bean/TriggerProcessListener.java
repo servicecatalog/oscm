@@ -136,7 +136,7 @@ public class TriggerProcessListener implements MessageListener {
             }
 
             if (process.getUser() != null) {
-                dm.setCurrentUserKey(Long.valueOf(process.getUser().getKey()));
+                dm.setCurrentUserKey(process.getUser().getKey());
             }
 
             // Handle message according to specified notification type

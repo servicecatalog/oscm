@@ -28,8 +28,8 @@ import org.oscm.internal.types.exception.SAML2AuthnRequestException;
  */
 public class AuthnRequestGenerator {
 
-    private final static Integer HTTPS_INDEX = Integer.valueOf(0);
-    private final static Integer HTTP_INDEX = Integer.valueOf(1);
+    private final static Integer HTTPS_INDEX = 0;
+    private final static Integer HTTP_INDEX = 1;
 
     private Random prng = new Random();
     private String issuer;
@@ -107,7 +107,7 @@ public class AuthnRequestGenerator {
         StringBuilder sb = new StringBuilder("ID_");
         // the rest can also contain numbers
         for (byte b : randomBytes) {
-            sb.append(String.format("%02x", Byte.valueOf(b)));
+            sb.append(String.format("%02x", b));
         }
 
         return sb.toString();

@@ -1683,7 +1683,7 @@ public class TechnicalProductImportParser extends ImportParserBase {
     boolean hasMultipleSubscriptions(TechnicalProduct techProduct) {
         Query query = dm.createNamedQuery(
                 "Subscription.organizationsWithMoreThanOneVisibleSubscription");
-        query.setParameter("productKey", Long.valueOf(techProduct.getKey()));
+        query.setParameter("productKey", techProduct.getKey());
         long result = ((Long) query.getSingleResult()).longValue();
         return result > 0;
     }
@@ -1692,7 +1692,7 @@ public class TechnicalProductImportParser extends ImportParserBase {
             TechnicalProduct techProduct) {
         Query query = dm.createNamedQuery(
                 "Subscription.numberOfVisibleSubscriptionsForTechnicalProduct");
-        query.setParameter("productKey", Long.valueOf(techProduct.getKey()));
+        query.setParameter("productKey", techProduct.getKey());
         long result = ((Long) query.getSingleResult()).longValue();
         return result > 0;
     }

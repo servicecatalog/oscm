@@ -47,14 +47,14 @@ public class SteppedPriceHistory extends DomainHistoryObject<SteppedPriceData> {
     public SteppedPriceHistory(SteppedPrice domobj) {
         super(domobj);
         if (domobj.getPricedEvent() != null) {
-            setPricedEventObjKey(Long.valueOf(domobj.getPricedEvent().getKey()));
+            setPricedEventObjKey(domobj.getPricedEvent().getKey());
         }
         if (domobj.getPricedParameter() != null) {
-            setPricedParameterObjKey(Long.valueOf(domobj.getPricedParameter()
-                    .getKey()));
+            setPricedParameterObjKey(domobj.getPricedParameter()
+                .getKey());
         }
         if (domobj.getPriceModel() != null) {
-            setPriceModelObjKey(Long.valueOf(domobj.getPriceModel().getKey()));
+            setPriceModelObjKey(domobj.getPriceModel().getKey());
         }
     }
 

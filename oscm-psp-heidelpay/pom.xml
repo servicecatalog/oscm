@@ -4,28 +4,26 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>oscm</artifactId>
-    <groupId>oscm</groupId>
+    <groupId>org.oscm</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <packaging>war</packaging>
   <artifactId>oscm-psp-heidelpay</artifactId>
+  <version>1.0-SNAPSHOT</version>
 
   <dependencies>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
       <artifactId>oscm-common</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>oscm</groupId>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-psp-extsvc</artifactId>
-      <version>1.0-SNAPSHOT</version>
     </dependency>
 
     <dependency>
@@ -78,7 +76,7 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.psp.intf.PaymentRegistrationService</className>
-              <outputFile>${basedir}/src/main/webapp/WEB-INF/wsdl/PaymentRegistrationService.wsdl</outputFile>
+
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>
@@ -93,7 +91,7 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.psp.intf.PaymentRegistrationService</className>
-              <outputFile>${basedir}/src/main/webapp/WEB-INF/wsdl/STS/PaymentRegistrationService.wsdl</outputFile>
+
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>
@@ -107,7 +105,7 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.psp.intf.PaymentRegistrationService</className>
-              <outputFile>${basedir}/src/main/webapp/WEB-INF/wsdl/CLIENTCERT/PaymentRegistrationService.wsdl</outputFile>
+
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>
@@ -121,7 +119,7 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.psp.intf.PaymentRegistrationService</className>
-              <outputFile>${basedir}/src/main/webapp/WEB-INF/wsdl/BASIC/PaymentRegistrationService.wsdl</outputFile>
+
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>
@@ -136,7 +134,7 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.psp.intf.PaymentServiceProvider</className>
-              <outputFile>${basedir}/src/main/webapp/WEB-INF/wsdl/PaymentServiceProvider.wsdl</outputFile>
+
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>
@@ -150,7 +148,7 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.psp.intf.PaymentServiceProvider</className>
-              <outputFile>${basedir}/src/main/webapp/WEB-INF/wsdl/CLIENTCERT/PaymentServiceProvider.wsdl</outputFile>
+
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>
@@ -164,7 +162,7 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.psp.intf.PaymentServiceProvider</className>
-              <outputFile>${basedir}/src/main/webapp/WEB-INF/wsdl/STS/PaymentServiceProvider.wsdl</outputFile>
+
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>
@@ -178,7 +176,7 @@
             <phase>generate-sources</phase>
             <configuration>
               <className>org.oscm.psp.intf.PaymentServiceProvider</className>
-              <outputFile>${basedir}/src/main/webapp/WEB-INF/wsdl/BASIC/PaymentServiceProvider.wsdl</outputFile>
+
               <genWsdl>true</genWsdl>
               <verbose>true</verbose>
               <argline>-createxsdimports</argline>

@@ -179,7 +179,7 @@ public class PaymentServiceBean implements PaymentService, PaymentServiceLocal {
             email = currentUser.getEmail();
         }
         data.setOrganizationEmail(email);
-        data.setOrganizationKey(Long.valueOf(customerOrg.getKey()));
+        data.setOrganizationKey(customerOrg.getKey());
         data.setOrganizationId(customerOrg.getOrganizationId());
 
         // payment info information
@@ -188,7 +188,7 @@ public class PaymentServiceBean implements PaymentService, PaymentServiceLocal {
                     paymentInfo.getKey());
             data.setExternalIdentifier(pi.getExternalIdentifier());
         }
-        data.setPaymentInfoKey(Long.valueOf(paymentInfo.getKey()));
+        data.setPaymentInfoKey(paymentInfo.getKey());
         if (paymentInfo.getId() != null) {
             try {
                 data.setPaymentInfoId(Base64.encodeBase64String(paymentInfo
@@ -199,7 +199,7 @@ public class PaymentServiceBean implements PaymentService, PaymentServiceLocal {
                                 + paymentInfo.getId(), e);
             }
         }
-        data.setPaymentTypeKey(Long.valueOf(paymentType.getKey()));
+        data.setPaymentTypeKey(paymentType.getKey());
 
         // payment type information
         data.setPaymentTypeId(paymentType.getPaymentTypeId());
@@ -476,7 +476,7 @@ public class PaymentServiceBean implements PaymentService, PaymentServiceLocal {
             }
 
             // determine supplier history data
-            Long supplierKey = Long.valueOf(billingResult.getChargingOrgKey());
+            Long supplierKey = billingResult.getChargingOrgKey();
             OrganizationHistory supplierHistory = getSupplierHistoryForObjectKey(supplierKey);
 
             // determine customer history data
@@ -577,17 +577,17 @@ public class PaymentServiceBean implements PaymentService, PaymentServiceLocal {
         // supplier information
         requestData.setOrganizationName(supplier.getOrganizationName());
         requestData.setOrganizationEmail(supplier.getEmail());
-        requestData.setOrganizationKey(Long.valueOf(supplier.getObjKey()));
+        requestData.setOrganizationKey(supplier.getObjKey());
         requestData.setOrganizationId(supplier.getOrganizationId());
 
         // payment info
         PaymentInfoHistory paymentInfoHistory = phd.getPaymentInfoHistory();
         requestData.setExternalIdentifier(paymentInfoHistory
                 .getExternalIdentifier());
-        requestData.setPaymentInfoKey(Long.valueOf(paymentInfoHistory
-                .getObjKey()));
-        requestData.setPaymentTypeKey(Long.valueOf(paymentInfoHistory
-                .getPaymentTypeObjKey()));
+        requestData.setPaymentInfoKey(paymentInfoHistory
+            .getObjKey());
+        requestData.setPaymentTypeKey(paymentInfoHistory
+            .getPaymentTypeObjKey());
         requestData.setPaymentInfoId(paymentInfoHistory.getPaymentInfoId());
 
         // payment type
@@ -640,7 +640,7 @@ public class PaymentServiceBean implements PaymentService, PaymentServiceLocal {
         chargingData.setTransactionId(billingResult.getKey());
         chargingData.setAddress(getAddress(brDocument));
         chargingData.setCurrency(billingResult.getCurrencyCode());
-        chargingData.setCustomerKey(Long.valueOf(customerKey));
+        chargingData.setCustomerKey(customerKey);
         chargingData.setEmail(getCustomersCurrentEmailAddress(customerKey));
         chargingData.setExternalIdentifier(paymentInfoHistory
                 .getExternalIdentifier());
@@ -651,7 +651,7 @@ public class PaymentServiceBean implements PaymentService, PaymentServiceLocal {
                 .setPeriodEndTime(new Date(billingResult.getPeriodEndTime()));
         chargingData.setPeriodStartTime(new Date(billingResult
                 .getPeriodStartTime()));
-        chargingData.setSellerKey(new Long(billingResult.getChargingOrgKey()));
+        chargingData.setSellerKey(billingResult.getChargingOrgKey());
         chargingData.setVatAmount(billingResult.getVATAmount());
         chargingData.setVat(billingResult.getVAT());
         chargingData.setSubscriptionId(getSubscriptionId(brDocument));
@@ -787,7 +787,7 @@ public class PaymentServiceBean implements PaymentService, PaymentServiceLocal {
             throws PSPProcessingException {
 
         Query query = dm.createNamedQuery("OrganizationHistory.getByTKeyDesc");
-        query.setParameter("objKey", Long.valueOf(organizationTKey));
+        query.setParameter("objKey", organizationTKey);
         List<OrganizationHistory> historyEntriesForCustomer = ParameterizedTypes
                 .list(query.getResultList(), OrganizationHistory.class);
         if (historyEntriesForCustomer == null
@@ -963,10 +963,10 @@ public class PaymentServiceBean implements PaymentService, PaymentServiceLocal {
         data.setCurrentUserLocale(locale);
         data.setOrganizationName(pi.getOrganization().getName());
         data.setOrganizationEmail(pi.getOrganization().getEmail());
-        data.setOrganizationKey(Long.valueOf(pi.getOrganization().getKey()));
+        data.setOrganizationKey(pi.getOrganization().getKey());
         data.setOrganizationId(pi.getOrganization().getOrganizationId());
         data.setExternalIdentifier(pi.getExternalIdentifier());
-        data.setPaymentInfoKey(Long.valueOf(pi.getKey()));
+        data.setPaymentInfoKey(pi.getKey());
         try {
             data.setPaymentInfoId(Base64.encodeBase64String(pi
                     .getPaymentInfoId().getBytes("UTF-8")));
@@ -976,7 +976,7 @@ public class PaymentServiceBean implements PaymentService, PaymentServiceLocal {
                             + pi.getPaymentInfoId(), e);
         }
         // payment type information
-        data.setPaymentTypeKey(Long.valueOf(pi.getPaymentType().getKey()));
+        data.setPaymentTypeKey(pi.getPaymentType().getKey());
         data.setPaymentTypeId(pi.getPaymentType().getPaymentTypeId());
 
         // psp information

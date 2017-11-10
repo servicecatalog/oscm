@@ -52,7 +52,7 @@ public class UserGroupDao {
         long orgKey = dm.getCurrentUser().getOrganization().getKey();
         Query query = dm
                 .createNamedQuery("UserGroup.findByOrganizationKeyWithoutDefault");
-        query.setParameter("organization_tkey", Long.valueOf(orgKey));
+        query.setParameter("organization_tkey", orgKey);
         return ParameterizedTypes.list(query.getResultList(), UserGroup.class);
     }
 
@@ -71,7 +71,7 @@ public class UserGroupDao {
         long orgKey = dm.getCurrentUser().getOrganization().getKey();
         Query query = dm.createNamedQuery("UserGroup.findByOrganizationKey");
 
-        query.setParameter("organization_tkey", Long.valueOf(orgKey));
+        query.setParameter("organization_tkey", orgKey);
         query.setFirstResult(pagination.getOffset());
         query.setMaxResults(pagination.getLimit());
 
@@ -80,7 +80,7 @@ public class UserGroupDao {
 
     public List<UserGroup> getUserGroupsForOrganization(long orgKey) {
         Query query = dm.createNamedQuery("UserGroup.findByOrganizationKey");
-        query.setParameter("organization_tkey", Long.valueOf(orgKey));
+        query.setParameter("organization_tkey", orgKey);
         return ParameterizedTypes.list(query.getResultList(), UserGroup.class);
     }
 
@@ -100,14 +100,14 @@ public class UserGroupDao {
 
     public List<Long> getInvisibleProductKeysForUser(long userKey) {
         Query query = dm.createNamedQuery("UserGroup.findInvisibleProductKeys");
-        query.setParameter("user_tkey", Long.valueOf(userKey));
+        query.setParameter("user_tkey", userKey);
         return ParameterizedTypes.list(query.getResultList(), Long.class);
     }
 
     public List<UserGroupToInvisibleProduct> getInvisibleProducts(
             long userGroupKey) {
         Query query = dm.createNamedQuery("UserGroup.getInvisibleProducts");
-        query.setParameter("usergroup_tkey", Long.valueOf(userGroupKey));
+        query.setParameter("usergroup_tkey", userGroupKey);
         return ParameterizedTypes.list(query.getResultList(),
                 UserGroupToInvisibleProduct.class);
     }
@@ -115,13 +115,13 @@ public class UserGroupDao {
     public List<Long> getInvisibleProductKeysForGroup(long userGroupKey) {
         Query query = dm
                 .createNamedQuery("UserGroup.findInvisibleProductKeysForGroup");
-        query.setParameter("usergroup_tkey", Long.valueOf(userGroupKey));
+        query.setParameter("usergroup_tkey", userGroupKey);
         return ParameterizedTypes.list(query.getResultList(), Long.class);
     }
 
     public long getUserGroupCountForUser(long userKey) {
         Query query = dm.createNamedQuery("UserGroup.countUserGroup");
-        query.setParameter("user_tkey", Long.valueOf(userKey));
+        query.setParameter("user_tkey", userKey);
         Long count = (Long) query.getSingleResult();
         return count.longValue();
 
@@ -129,7 +129,7 @@ public class UserGroupDao {
 
     public long getUserCountForGroup(long groupKey) {
         Query query = dm.createNamedQuery("UserGroup.countUser");
-        query.setParameter("usergroup_tkey", Long.valueOf(groupKey));
+        query.setParameter("usergroup_tkey", groupKey);
         Long count = (Long) query.getSingleResult();
         return count.longValue();
     }
@@ -143,14 +143,14 @@ public class UserGroupDao {
 
     public List<String> getAssignedUserIdsForGroup(long groupKey) {
         Query query = dm.createNamedQuery("UserGroup.findAssignedUserIds");
-        query.setParameter("usergroup_tkey", Long.valueOf(groupKey));
+        query.setParameter("usergroup_tkey", groupKey);
         return ParameterizedTypes.list(query.getResultList(), String.class);
     }
 
     public boolean isNotTerminatedSubscriptionAssignedToUnit(long groupKey) {
         Query query = dm
                 .createNamedQuery("Subscription.isNotTerminatedSubscriptionAssignedToUnit");
-        query.setParameter("unitKey", Long.valueOf(groupKey));
+        query.setParameter("unitKey", groupKey);
         query.setParameter("subscriptionStatus", SubscriptionStatus.DEACTIVATED);
         query.setMaxResults(1);
         try {
@@ -193,7 +193,7 @@ public class UserGroupDao {
             String userId) {
         Query query = dm
                 .createNamedQuery("UnitRoleAssignment.findByUserAndGroup");
-        query.setParameter("usergroup_tkey", Long.valueOf(groupKey));
+        query.setParameter("usergroup_tkey", groupKey);
         query.setParameter("userId", userId);
         UnitRoleAssignment unitRoleAssignment = null;
         try {
@@ -207,8 +207,8 @@ public class UserGroupDao {
     public List<UserGroup> getUserGroupsForUserWithRole(long userKey,
             long userRoleKey) {
         Query query = dm.createNamedQuery("UserGroup.findByUserWithRole");
-        query.setParameter("platformuser_tkey", Long.valueOf(userKey));
-        query.setParameter("unituserrole_tkey", Long.valueOf(userRoleKey));
+        query.setParameter("platformuser_tkey", userKey);
+        query.setParameter("unituserrole_tkey", userRoleKey);
         return ParameterizedTypes.list(query.getResultList(), UserGroup.class);
     }
 
@@ -216,8 +216,8 @@ public class UserGroupDao {
             long userKey, long userRoleKey) {
         Query query = dm
                 .createNamedQuery("UserGroup.findByUserWithRoleWithoutDefault");
-        query.setParameter("platformuser_tkey", Long.valueOf(userKey));
-        query.setParameter("unituserrole_tkey", Long.valueOf(userRoleKey));
+        query.setParameter("platformuser_tkey", userKey);
+        query.setParameter("unituserrole_tkey", userRoleKey);
         return ParameterizedTypes.list(query.getResultList(), UserGroup.class);
     }
 

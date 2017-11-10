@@ -86,7 +86,7 @@ public class TechnicalProducts {
 
         if (asyncProvisioning) {
             techProd.setProvisioningType(ProvisioningType.ASYNCHRONOUS);
-            techProd.setProvisioningTimeout(new Long(5));
+            techProd.setProvisioningTimeout(5L);
         } else {
             techProd.setProvisioningType(ProvisioningType.SYNCHRONOUS);
         }
@@ -308,7 +308,7 @@ public class TechnicalProducts {
                 ParameterDefinition paramDefLong = TechnicalProducts
                         .addParameterDefinition(ParameterValueType.LONG,
                                 "ParamLong", ParameterType.SERVICE_PARAMETER,
-                                tProd, dm, Long.valueOf(500), Long.valueOf(0),
+                                tProd, dm, 500L, 0L,
                                 true);
                 LocalizedResources.localizeParameterDef(dm,
                         paramDefLong.getKey());

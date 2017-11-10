@@ -72,8 +72,8 @@ public class SharesCalculatorBean implements SharesCalculatorLocal {
             long endOfLastMonth, Long orgKey, BillingSharesResultType resultType) {
         List<BillingSharesResult> billingSharesResult = sharesRetrievalService
                 .loadBillingSharesResultForOrganization(orgKey, resultType,
-                        Long.valueOf(startOfLastMonth),
-                        Long.valueOf(endOfLastMonth));
+                    startOfLastMonth,
+                    endOfLastMonth);
         if (billingSharesResult.size() > 0) {
             return true;
         } else {

@@ -44,8 +44,8 @@ public class EventHistory extends DomainHistoryObject<EventData> {
     public EventHistory(Event c) {
         super(c);
         if (c.getTechnicalProduct() != null) {
-            this.technicalProductObjKey = Long.valueOf(c.getTechnicalProduct()
-                    .getKey());
+            this.technicalProductObjKey = c.getTechnicalProduct()
+                .getKey();
         }
     }
 

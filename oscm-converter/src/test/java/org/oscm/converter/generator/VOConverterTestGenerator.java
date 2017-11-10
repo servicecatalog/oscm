@@ -8,6 +8,8 @@
 
 package org.oscm.converter.generator;
 
+import com.google.common.reflect.ClassPath;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileWriter;
@@ -242,24 +244,36 @@ public class VOConverterTestGenerator {
         // collect java classes
         List<Class> classes = new ArrayList<Class>();
         for (File directory : dirs) {
-            FileFilter classFilter = new FileFilter() {
-
-                @Override
-                public boolean accept(File pathname) {
-                    if (pathname.getName().endsWith(".class")) {
-                        return true;
-                    }
-                    return false;
-                }
-            };
-            File[] listFiles = directory.listFiles(classFilter);
-            for (int i = 0; i < listFiles.length; i++) {
-                classes.add(Class.forName(packageName
-                        + '.'
-                        + listFiles[i].getName().substring(0,
-                                listFiles[i].getName().length() - 6)));
+            if (directory.isDirectory()) {
+                loadClassesFromDirectory(packageName, classes, directory);
+            } else {
+                loadClassesFromJar(packageName, classes);
             }
         }
         return classes.toArray(new Class[classes.size()]);
+    }
+
+    private static void loadClassesFromJar(String packageName, List<Class> classes) throws IOException, ClassNotFoundException {
+        ClassPath cp=ClassPath.from(Thread.currentThread().getContextClassLoader());
+        for(ClassPath.ClassInfo info : cp.getTopLevelClassesRecursive(packageName)) {
+            classes.add(Class.forName(info.getName()));
+        }
+    }
+
+    private static void loadClassesFromDirectory(String packageName, List<Class> classes, File directory) throws ClassNotFoundException {
+        FileFilter classFilter = pathname -> {
+            if (pathname.getName().endsWith(".class")) {
+                return true;
+            }
+            return false;
+        };
+
+        File[] listFiles = directory.listFiles(classFilter);
+        for (int i = 0; i < listFiles.length; i++) {
+            classes.add(Class.forName(packageName
+                    + '.'
+                    + listFiles[i].getName().substring(0,
+                            listFiles[i].getName().length() - 6)));
+        }
     }
 }

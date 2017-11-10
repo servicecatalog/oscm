@@ -43,7 +43,7 @@ public class CustomerData {
     void determineSubscriptionKeys() {
         Set<Long> uniqueKeys = new LinkedHashSet<Long>();
         for (SubscriptionHistory subscriptionHistory : subscriptionHistoryEntries) {
-            uniqueKeys.add(Long.valueOf(subscriptionHistory.getObjKey()));
+            uniqueKeys.add(subscriptionHistory.getObjKey());
         }
         subscriptionKeys = new ArrayList<Long>(uniqueKeys);
     }
@@ -83,15 +83,15 @@ public class CustomerData {
      * @return Iterator
      */
     public Iterator<List<SubscriptionHistory>> iterator() {
-        final Iterator<Long> i = getSubscriptionKeys().iterator();
+        final Iterator<Long> iterator = getSubscriptionKeys().iterator();
         return new Iterator<List<SubscriptionHistory>>() {
 
             public boolean hasNext() {
-                return i.hasNext();
+                return iterator.hasNext();
             }
 
             public List<SubscriptionHistory> next() {
-                return getSubscriptionHistoryEntries(i.next().longValue());
+                return getSubscriptionHistoryEntries(iterator.next().longValue());
             }
 
             public void remove() {

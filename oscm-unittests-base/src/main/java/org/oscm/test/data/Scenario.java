@@ -288,12 +288,12 @@ public class Scenario {
         // stepped price for base price
         List<SteppedPrice> steppedPrices = new ArrayList<SteppedPrice>();
         SteppedPrice step1 = new SteppedPrice();
-        step1.setLimit(new Long(50));
+        step1.setLimit(50L);
         step1.setPrice(new BigDecimal("50.00"));
         step1.setPriceModel(priceModel);
         steppedPrices.add(step1);
         SteppedPrice step2 = new SteppedPrice();
-        step2.setLimit(new Long(450));
+        step2.setLimit(450L);
         step2.setPrice(new BigDecimal("60.00"));
         step2.setAdditionalPrice(new BigDecimal("2500.00"));
         step2.setPriceModel(priceModel);
@@ -304,12 +304,12 @@ public class Scenario {
         // stepped price for event
         List<SteppedPrice> steppedPricesForEvent = new ArrayList<SteppedPrice>();
         SteppedPrice evtStep1 = new SteppedPrice();
-        evtStep1.setLimit(new Long(50));
+        evtStep1.setLimit(50L);
         evtStep1.setPrice(new BigDecimal("51.00"));
         evtStep1.setPricedEvent(pricedEvent1);
         steppedPricesForEvent.add(evtStep1);
         SteppedPrice evtStep2 = new SteppedPrice();
-        evtStep2.setLimit(new Long(450));
+        evtStep2.setLimit(450L);
         evtStep2.setPrice(new BigDecimal("61.00"));
         evtStep2.setAdditionalPrice(new BigDecimal("2550.00"));
         evtStep2.setPricedEvent(pricedEvent1);
@@ -320,12 +320,12 @@ public class Scenario {
         // stepped price for numerical parameters
         List<SteppedPrice> steppedPricesForParameter = new ArrayList<SteppedPrice>();
         SteppedPrice paramStep1 = new SteppedPrice();
-        paramStep1.setLimit(new Long(50));
+        paramStep1.setLimit(50L);
         paramStep1.setPrice(new BigDecimal("52.00"));
         paramStep1.setPricedParameter(pricedParameter);
         steppedPricesForParameter.add(paramStep1);
         SteppedPrice paramStep2 = new SteppedPrice();
-        paramStep2.setLimit(new Long(450));
+        paramStep2.setLimit(450L);
         paramStep2.setPrice(new BigDecimal("62.00"));
         paramStep2.setAdditionalPrice(new BigDecimal("2600.00"));
         paramStep2.setPricedParameter(pricedParameter);
@@ -365,8 +365,8 @@ public class Scenario {
         LocalizedResources.localizeEvent(dm, event2.getKey());
         paramDefLong = TechnicalProducts.addParameterDefinition(
                 ParameterValueType.LONG, "ParamLong",
-                ParameterType.SERVICE_PARAMETER, tProd, dm, Long.valueOf(500),
-                Long.valueOf(0), true);
+                ParameterType.SERVICE_PARAMETER, tProd, dm, 500L,
+            0L, true);
         LocalizedResources.localizeParameterDef(dm, paramDefLong.getKey());
         paramDefBool = TechnicalProducts.addParameterDefinition(
                 ParameterValueType.BOOLEAN, "ParamBool",

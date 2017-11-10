@@ -43,13 +43,13 @@ public class OperationServiceAdapterFactory {
             throw new SaaSSystemException(
                     String.format(
                             "Failed to retrieve service endpoint for service operation '%s', as the target is not defined.",
-                            Long.valueOf(operation.getKey())));
+                        operation.getKey()));
         }
         WSPortConnector portConnector = new WSPortConnector(target, username,
                 password);
 
         SupportedOperationVersions supportedVersion = getSupportedVersion(portConnector);
-        OperationServiceAdapter adapter = getAdapterForVersion(supportedVersion);
+        OperationServiceAdapter adapter = new OperationServiceAdapterV1_0();
         final Object port = portConnector.getPort(
                 supportedVersion.getLocalWSDL(),
                 supportedVersion.getServiceClass(), wsTimeout);
@@ -67,25 +67,5 @@ public class OperationServiceAdapterFactory {
             supportedVersion = SupportedOperationVersions.VERSION_1_5;
         }
         return supportedVersion;
-    }
-
-    /**
-     * Initialized a notification service adapter for the version matching the
-     * the version retrieved from wsdl.
-     * 
-     * @param supportedVersion
-     *            the version retrieved from wsdl
-     * @param ds
-     *            the data source
-     * @return the {@link NotificationServiceAdapter}
-     */
-    static OperationServiceAdapter getAdapterForVersion(
-            SupportedOperationVersions supportedVersion) {
-        switch (supportedVersion) {
-        case VERSION_1_5:
-            return new OperationServiceAdapterV1_0();
-        default:
-            return new OperationServiceAdapterV1_0();
-        }
     }
 }

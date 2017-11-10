@@ -278,8 +278,8 @@ public class ProductAssembler extends BaseAssembler {
         if (scope == PerformanceHint.ONLY_FIELDS_FOR_LISTINGS) {
             List<Long> objectKeys = new ArrayList<Long>();
             for (Product product : products) {
-                objectKeys.add(Long.valueOf(product.getTemplateOrSelf()
-                        .getKey()));
+                objectKeys.add(product.getTemplateOrSelf()
+                    .getKey());
             }
             facade.prefetch(
                     objectKeys,
@@ -400,7 +400,7 @@ public class ProductAssembler extends BaseAssembler {
         Organization customer = product.getTargetCustomer();
         if (customer != null) {
             voProduct.setOrganizationId(customer.getOrganizationId());
-            voProduct.setOrganizationKey(Long.valueOf(customer.getKey()));
+            voProduct.setOrganizationKey(customer.getKey());
             voProduct.setOrganizationName(customer.getName());
         }
         return voProduct;
@@ -535,7 +535,7 @@ public class ProductAssembler extends BaseAssembler {
         fillBaseFields(product, facade, s,
                 PerformanceHint.ONLY_FIELDS_FOR_LISTINGS);
         updateValueObject(s, product);
-        s.setCompatible(targetKeys.contains(Long.valueOf(s.getKey())));
+        s.setCompatible(targetKeys.contains(s.getKey()));
         return s;
     }
 }
