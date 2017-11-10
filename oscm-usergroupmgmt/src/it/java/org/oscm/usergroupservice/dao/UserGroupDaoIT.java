@@ -140,18 +140,21 @@ public class UserGroupDaoIT extends EJBTestBase {
     public void getUserGroupDetails() throws Exception {
         // when
         container.login(user.getKey(), ROLE_ORGANIZATION_ADMIN);
-        UserGroup result = runTX(new Callable<UserGroup>() {
+        runTX(new Callable<Void>() {
             @Override
-            public UserGroup call() throws Exception {
-                return dao.getUserGroupDetails(group1.getKey());
+            public Void call() throws Exception {
+                UserGroup result = dao.getUserGroupDetails(group1.getKey());
+
+
+                // then
+                assertEquals(groupDescription1, result.getDescription());
+                assertEquals(groupName1, result.getName());
+                assertEquals(groupReferenceId1, result.getReferenceId());
+                assertEquals(admin, result.getOrganization());
+
+                return null;
             }
         });
-
-        // then
-        assertEquals(groupDescription1, result.getDescription());
-        assertEquals(groupName1, result.getName());
-        assertEquals(groupReferenceId1, result.getReferenceId());
-        assertEquals(admin, result.getOrganization());
 
     }
 
