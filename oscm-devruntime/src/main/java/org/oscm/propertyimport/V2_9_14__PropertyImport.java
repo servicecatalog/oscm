@@ -4,9 +4,11 @@
 
 package org.oscm.propertyimport;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.InetAddress;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,12 +19,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.flywaydb.core.Flyway;
+import org.flywaydb.core.api.configuration.FlywayConfiguration;
+import org.flywaydb.core.api.migration.jdbc.JdbcMigration;
 import org.oscm.converter.PropertiesLoader;
 import org.oscm.internal.types.enumtypes.AuthenticationMode;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.MandatoryAttributesInSamlSP;
 
-public class PropertyImport {
+public class V2_9_14__PropertyImport implements JdbcMigration {
 
     private static final String TABLE_NAME = "ConfigurationSetting";
     private static final String FIELD_TKEY = "tkey";
@@ -30,24 +35,6 @@ public class PropertyImport {
     private static final String FIELD_VALUE = "env_value";
     private static final String FIELD_CONTEXT = "context_id";
     private static final String FIELD_VERSION = "version";
-
-    /**
-     * parameters: driverClass driverURL userName userPwd propertyFile
-     * [<contextId>]
-     */
-    public static void main(String args[]) {
-
-        if (args.length < 5 || args.length > 6) {
-            throw new RuntimeException(
-                    "Usage: java PropertyImport <driverClass> <driverURL> <userName> <userPwd> <propertyFile> [<overwriteFlag>] [<contextId>]");
-        }
-
-        PropertyImport propertyImport = new PropertyImport(args[0], args[1],
-                args[2], args[3], args[4],
-                args.length >= 6 ? Boolean.parseBoolean(args[5]) : false,
-                args.length >= 7 ? args[6] : null);
-        propertyImport.execute();
-    }
 
     private int count = 0;
 
@@ -58,108 +45,6 @@ public class PropertyImport {
     private boolean overwriteFlag;
     private String contextId = "global";
 
-    public PropertyImport(String driverClass, String driverURL, String userName,
-            String userPwd, String propertyFile, boolean overwriteFlag,
-            String contextId) {
-        try {
-            Class.forName(driverClass);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException(
-                    "DriverClass '" + driverClass + "' could not be found");
-        }
-
-        this.driverURL = driverURL;
-        this.userName = userName;
-        this.userPwd = userPwd;
-        this.propertyFile = propertyFile;
-        if (contextId != null && contextId.trim().length() > 0) {
-            this.contextId = contextId.trim();
-        }
-        this.overwriteFlag = overwriteFlag;
-    }
-
-    public void execute() {
-        Connection conn;
-        try {
-            conn = getConnetion();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Could not connect to the database");
-        }
-
-        final InputStream in;
-        try {
-            in = new FileInputStream(propertyFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            throw new RuntimeException(
-                    "Could not find resource file '" + propertyFile + "'.");
-        }
-        final Properties p = PropertiesLoader.loadProperties(in);
-
-        try {
-            Map<String, String> settings = loadConfigurationSettings(conn);
-            Map<String, String> toCreate = new HashMap<>();
-            Map<String, String> toUpdate = new HashMap<>();
-
-            initStartCount(conn);
-            ConfigurationKey[] allKeys = ConfigurationKey.values();
-            boolean isSamlSP = isSamlSPMode(p);
-
-            for (ConfigurationKey key : allKeys) {
-                String keyName = key.getKeyName();
-                String value = (String) p.get(keyName);
-
-                verifyValueValid(key, value, isSamlSP);
-
-                if (value == null || value.isEmpty()) {
-                    if (key.getFallBackValue() != null) {
-                        value = key.getFallBackValue();
-                    } else {
-                        value = "";
-                    }
-                }
-
-                if (key.getType() == ConfigurationKey.TYPE_BOOLEAN
-                        || key.getType() == ConfigurationKey.TYPE_LONG
-                        || key.getType() == ConfigurationKey.TYPE_URL
-                        || key.getType() == ConfigurationKey.TYPE_STRING
-                        || key.getType() == ConfigurationKey.TYPE_PASSWORD) {
-
-                    value = value.trim();
-                }
-
-                verifyAuthMode(keyName, value);
-                verifyConfigurationValue(key, value);
-
-                if (settings.containsKey(keyName)) {
-                    toUpdate.put(keyName, value);
-                } else {
-                    toCreate.put(keyName, value);
-                }
-                settings.remove(keyName);
-            }
-
-            createEntries(conn, toCreate);
-            if (overwriteFlag) {
-                updateEntries(conn, toUpdate);
-            } else {
-                for (String key : toUpdate.keySet()) {
-                    System.out.println(
-                            "Existing Configuration " + key + " skipped");
-                }
-            }
-            deleteEntries(conn, settings);
-        } finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                throw new RuntimeException("Could not close resources");
-            }
-        }
-    }
 
     private void verifyValueValid(ConfigurationKey key, String value,
             boolean isSamlSP) {
@@ -355,5 +240,77 @@ public class PropertyImport {
     // protected to enable mocking in unit tests
     protected Connection getConnetion() throws SQLException {
         return DriverManager.getConnection(driverURL, userName, userPwd);
+    }
+
+    @Override
+    public void migrate(Connection connection) throws Exception {
+
+        InetAddress addr;
+        addr = InetAddress.getLocalHost();
+        String hostname = addr.getHostName();
+        InputStream in = this.getClass().getResourceAsStream("/" + hostname + "/conf.properties");
+
+        if (in == null) {
+            in = this.getClass().getResourceAsStream("/travis/conf.properties");
+        }
+
+        final Properties p = PropertiesLoader.loadProperties(in);
+
+        try {
+            Map<String, String> settings = loadConfigurationSettings(connection);
+            Map<String, String> toCreate = new HashMap<>();
+            Map<String, String> toUpdate = new HashMap<>();
+
+            initStartCount(connection);
+            ConfigurationKey[] allKeys = ConfigurationKey.values();
+            boolean isSamlSP = isSamlSPMode(p);
+
+            for (ConfigurationKey key : allKeys) {
+                String keyName = key.getKeyName();
+                String value = (String) p.get(keyName);
+
+                verifyValueValid(key, value, isSamlSP);
+
+                if (value == null || value.isEmpty()) {
+                    if (key.getFallBackValue() != null) {
+                        value = key.getFallBackValue();
+                    } else {
+                        value = "";
+                    }
+                }
+
+                if (key.getType() == ConfigurationKey.TYPE_BOOLEAN
+                    || key.getType() == ConfigurationKey.TYPE_LONG
+                    || key.getType() == ConfigurationKey.TYPE_URL
+                    || key.getType() == ConfigurationKey.TYPE_STRING
+                    || key.getType() == ConfigurationKey.TYPE_PASSWORD) {
+
+                    value = value.trim();
+                }
+
+                verifyAuthMode(keyName, value);
+                verifyConfigurationValue(key, value);
+
+                if (settings.containsKey(keyName)) {
+                    toUpdate.put(keyName, value);
+                } else {
+                    toCreate.put(keyName, value);
+                }
+                settings.remove(keyName);
+            }
+
+            createEntries(connection, toCreate);
+            if (overwriteFlag) {
+                updateEntries(connection, toUpdate);
+            } else {
+                for (String key : toUpdate.keySet()) {
+                    System.out.println(
+                        "Existing Configuration " + key + " skipped");
+                }
+            }
+            deleteEntries(connection, settings);
+        } finally {
+
+        }
     }
 }
