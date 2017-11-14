@@ -196,16 +196,4 @@
     </dependency>
 
   </dependencies>
-
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources/wsitconfig</directory>
-        <includes>
-          <include>*.xml</include>
-        </includes>
-        <targetPath>${project.build.outputDirectory}/javares/wsitconfig</targetPath>
-      </resource>
-    </resources>
-  </build>
 </project>
