@@ -1,1 +1,0 @@
-The unit tests of the component to handle the WS-API-related tasks.

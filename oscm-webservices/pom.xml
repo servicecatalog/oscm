@@ -9,12 +9,17 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>oscm-webservices</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
+  <artifactId>oscm-webservices</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <dependencies>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc</artifactId>        </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice-intsvc</artifactId>
@@ -111,7 +116,10 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-triggerservice</artifactId>
@@ -124,8 +132,14 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
-    <dependency>      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>      <artifactId>oscm-psp-extsvc</artifactId>    </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-psp-extsvc</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-converter</artifactId>
@@ -141,6 +155,22 @@
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-i18n-intsvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-unittests-base</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-marketplaceservice</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-extsvc-internal-impl</artifactId>
+      <type>ejb</type>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -158,6 +188,11 @@
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
       <artifactId>httpclient</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <scope>test</scope>
     </dependency>
 
   </dependencies>
