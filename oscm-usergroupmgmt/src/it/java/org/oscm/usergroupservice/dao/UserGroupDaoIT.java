@@ -140,20 +140,17 @@ public class UserGroupDaoIT extends EJBTestBase {
     public void getUserGroupDetails() throws Exception {
         // when
         container.login(user.getKey(), ROLE_ORGANIZATION_ADMIN);
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                UserGroup result = dao.getUserGroupDetails(group1.getKey());
+        runTX((Callable<Void>) () -> {
+            UserGroup result = dao.getUserGroupDetails(group1.getKey());
 
 
-                // then
-                assertEquals(groupDescription1, result.getDescription());
-                assertEquals(groupName1, result.getName());
-                assertEquals(groupReferenceId1, result.getReferenceId());
-                assertEquals(admin, result.getOrganization());
+            // then
+            assertEquals(groupDescription1, result.getDescription());
+            assertEquals(groupName1, result.getName());
+            assertEquals(groupReferenceId1, result.getReferenceId());
+            assertEquals(admin, result.getOrganization());
 
-                return null;
-            }
+            return null;
         });
 
     }
@@ -162,21 +159,18 @@ public class UserGroupDaoIT extends EJBTestBase {
     public void getUserGroupsForUserWithoutDefault() throws Exception {
         // when
         container.login(user.getKey(), ROLE_ORGANIZATION_ADMIN);
-        List<UserGroup> result = runTX(new Callable<List<UserGroup>>() {
-            @Override
-            public List<UserGroup> call() throws Exception {
-                List<UserGroup> userGroupsForUserWithoutDefault = dao.getUserGroupsForUserWithoutDefault(user.getKey());
-                assertEquals(admin, userGroupsForUserWithoutDefault.get(0).getOrganization());
-                return userGroupsForUserWithoutDefault;
+        runTX((Callable<Void>) () -> {
+            List<UserGroup> userGroupsForUserWithoutDefault = dao.getUserGroupsForUserWithoutDefault(user.getKey());
+            assertEquals(admin, userGroupsForUserWithoutDefault.get(0).getOrganization());
+            assertEquals(1, userGroupsForUserWithoutDefault.size());
+            assertEquals(groupDescription2, userGroupsForUserWithoutDefault.get(0).getDescription());
+            assertEquals(groupReferenceId2, userGroupsForUserWithoutDefault.get(0).getReferenceId());
+            assertEquals(groupName2, userGroupsForUserWithoutDefault.get(0).getName());
 
-            }
+            return null;
         });
 
         // then
-        assertEquals(1, result.size());
-        assertEquals(groupDescription2, result.get(0).getDescription());
-        assertEquals(groupReferenceId2, result.get(0).getReferenceId());
-        assertEquals(groupName2, result.get(0).getName());
 
     }
 
