@@ -43,11 +43,14 @@ import org.oscm.dataservice.bean.DataServiceBean;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.ConfigurationSetting;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
+import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.vo.VOConfigurationSetting;
+import org.oscm.logging.Log4jLogger;
 import org.oscm.test.EJBTestBase;
 import org.oscm.test.ejb.TestContainer;
 import org.oscm.test.stubs.ConfigurationServiceStub;
 import org.oscm.types.constants.Configuration;
+import org.oscm.types.enumtypes.LogMessageIdentifier;
 
 /**
  * @author jaeger
@@ -60,7 +63,18 @@ public class ConfigurationServiceBeanIT extends EJBTestBase {
     @Override
     protected void setup(TestContainer container) throws Exception {
         container.addBean(new ConfigurationServiceStub());
-        container.addBean(new DataServiceBean());
+        DataServiceBean dataServiceBean = new DataServiceBean();
+        container.addBean(dataServiceBean);
+
+        Arrays.stream(ConfigurationKey.values()).filter(ConfigurationKey::isMandatory).
+            forEach(x -> {
+                try {
+                    dataServiceBean.persist(new ConfigurationSetting(x, Configuration.GLOBAL_CONTEXT, "testValue"));
+                } catch (NonUniqueBusinessKeyException e) {
+                    e.printStackTrace();
+                }
+            });
+
         container.addBean(new ConfigurationServiceBean());
         confSvc = container.get(ConfigurationServiceBean.class);
         confSvcLocal = container.get(ConfigurationServiceLocal.class);
@@ -262,35 +276,18 @@ public class ConfigurationServiceBeanIT extends EJBTestBase {
                     }
                 });
         assertNotNull(result);
-        assertEquals(1, result.size());
-        ConfigurationSetting entry = result.get(0);
+        assertEquals(12, result.size());
+        ConfigurationSetting entry = (ConfigurationSetting) result.stream().filter(x -> x.getInformationId().equals(ConfigurationKey.BASE_URL)).toArray()[0];
         assertEquals(ConfigurationKey.BASE_URL, entry.getInformationId());
         assertEquals("initialValue", entry.getValue());
     }
 
-    @Test
-    public void testGetConfigurationSettings_NoHits() throws Exception {
-        List<ConfigurationSetting> result = runTX(
-                new Callable<List<ConfigurationSetting>>() {
-                    @Override
-                    public List<ConfigurationSetting> call() {
-                        return confSvcLocal.getAllConfigurationSettings();
-                    }
-                });
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
-
     @Test(expected = EJBException.class)
     public void testGetConfigurationSetting_NoHitsException() throws Exception {
-        final ConfigurationSetting setting = createConfigurationSetting("test",
-                true);
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                confSvcLocal.setConfigurationSetting(setting);
-                return null;
-            }
+        runTX((Callable<Void>) () -> {
+                confSvcLocal.setConfigurationSetting(
+                    new ConfigurationSetting(ConfigurationKey.BASE_URL_HTTPS, Configuration.GLOBAL_CONTEXT, null));
+            return null;
         });
 
         // BASE_URL_HTTPS not set, but mandatory
@@ -326,44 +323,6 @@ public class ConfigurationServiceBeanIT extends EJBTestBase {
         assertEquals("local", confSvcLocal.getNodeName());
     }
 
-    @Test
-    public void testGetConfigurationSettings_MultipleHits() throws Exception {
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                confSvcLocal.setConfigurationSetting(
-                        new ConfigurationSetting(ConfigurationKey.BASE_URL,
-                                Configuration.GLOBAL_CONTEXT, "initialValue"));
-                return null;
-            }
-        });
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                confSvcLocal.setConfigurationSetting(new ConfigurationSetting(
-                        ConfigurationKey.HIDDEN_UI_ELEMENTS,
-                        Configuration.GLOBAL_CONTEXT, "initialValue2"));
-                return null;
-            }
-        });
-        List<ConfigurationSetting> result = runTX(
-                new Callable<List<ConfigurationSetting>>() {
-                    @Override
-                    public List<ConfigurationSetting> call() {
-                        return confSvcLocal.getAllConfigurationSettings();
-                    }
-                });
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        ConfigurationSetting entry = result.get(0);
-        assertEquals(ConfigurationKey.BASE_URL, entry.getInformationId());
-        assertEquals("initialValue", entry.getValue());
-        entry = result.get(1);
-        assertEquals(ConfigurationKey.HIDDEN_UI_ELEMENTS,
-                entry.getInformationId());
-        assertEquals("initialValue2", entry.getValue());
-    }
-
     private static ConfigurationSetting createConfigurationSetting(String value,
             boolean mandatory) {
         ConfigurationKey key;
@@ -383,7 +342,8 @@ public class ConfigurationServiceBeanIT extends EJBTestBase {
         service.dm = mock(DataService.class);
         doReturn(mock(TypedQuery.class)).when(service.dm)
                 .createNamedQuery(anyString(), eq(ConfigurationSetting.class));
-
+        Object[] mandatories = Arrays.stream(ConfigurationKey.values()).filter(ConfigurationKey::isMandatory).map(x -> new ConfigurationSetting(x, Configuration.GLOBAL_CONTEXT, "testVal")).toArray();
+        doReturn(Arrays.asList(mandatories)).when(service).getAllConfigurationSettings();
         // when
         service.init();
 
