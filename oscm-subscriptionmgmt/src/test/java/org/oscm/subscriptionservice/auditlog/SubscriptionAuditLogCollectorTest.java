@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
 
-import org.oscm.interceptor.AuditLoggingEnabled;
+import org.oscm.auditlog.interceptor.AuditLoggingEnabled;
 
 public class SubscriptionAuditLogCollectorTest {
     @Test

@@ -13,7 +13,6 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +20,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import org.oscm.auditlog.AuditLogData;
-import org.oscm.auditlog.AuditLogParameter;
-import org.oscm.auditlog.BESAuditLogEntry;
+import org.oscm.auditlog.util.AuditLogData;
+import org.oscm.auditlog.util.AuditLogParameter;
+import org.oscm.auditlog.util.BESAuditLogEntry;
 import org.oscm.auditlog.model.AuditLogEntry;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Organization;
@@ -38,13 +37,11 @@ import org.oscm.i18nservice.local.LocalizerServiceLocal;
  * @author Qiu
  * 
  */
-public class SubscriptionAuditLogCollector_DeassignUserFromSubscriptionTest {
+public class SubscriptionAuditLogCollector_AssignUserToSubscriptionTest {
 
     private final static long SUBSCRIPTION_KEY = 1;
     private final static String SUBSCRIPTION_ID = "subscription_id";
     private final static String USER_ID = "user_id";
-    private final static String USER_ID1 = "user_id1";
-    private final static String USER_ID2 = "user_id2";
     private final static String ORGANIZATION_ID = "organization_id";
     private final static long PRODUCT_KEY = 100;
     private final static String PRODUCT_ID = "product_id";
@@ -70,47 +67,32 @@ public class SubscriptionAuditLogCollector_DeassignUserFromSubscriptionTest {
     }
 
     @Test
-    public void deassignUserFromSubscription_Null() {
+    public void assignUserToSubscription() {
 
         // given
         Subscription sub = givenSubscription();
+        UsageLicense usageLicense = givenUsageLicense();
 
         // when
-        deassignUserFromSubscription(sub, null);
-
-        // then
-        List<AuditLogEntry> logEntries = AuditLogData.get();
-        assertNull(logEntries);
-
-    }
-
-    @Test
-    public void deassignUserFromSubscription_Empty() {
-
-        // given
-        Subscription sub = givenSubscription();
-
-        // when
-        deassignUserFromSubscription(sub, new ArrayList<UsageLicense>());
-
-        // then
-        List<AuditLogEntry> logEntries = AuditLogData.get();
-        assertNull(logEntries);
-
-    }
-
-    @Test
-    public void deassignUserFromSubscription() {
-
-        // given
-        Subscription sub = givenSubscription();
-        List<UsageLicense> usageLicense = givenUsageLicenses();
-
-        // when
-        deassignUserFromSubscription(sub, usageLicense);
+        assignUserToSubscription(sub, usageLicense);
 
         // then
         verifyLogEntries();
+    }
+
+    @Test
+    public void assignUserToSubscription_Null() {
+
+        // given
+        Subscription sub = givenSubscription();
+
+        // when
+        assignUserToSubscription(sub, null);
+
+        // then
+        List<AuditLogEntry> logEntries = AuditLogData.get();
+        assertNull(logEntries);
+
     }
 
     private void verifyLogEntries() {
@@ -124,8 +106,7 @@ public class SubscriptionAuditLogCollector_DeassignUserFromSubscriptionTest {
                 logParams.get(AuditLogParameter.SERVICE_NAME));
         assertEquals(SUBSCRIPTION_ID,
                 logParams.get(AuditLogParameter.SUBSCRIPTION_NAME));
-        assertEquals(USER_ID1 + "," + USER_ID2,
-                logParams.get(AuditLogParameter.TARGET_USER));
+        assertEquals(USER_ID, logParams.get(AuditLogParameter.TARGET_USER));
     }
 
     private static PlatformUser givenUser() {
@@ -137,28 +118,10 @@ public class SubscriptionAuditLogCollector_DeassignUserFromSubscriptionTest {
         return user;
     }
 
-    private PlatformUser givenUser1() {
-        Organization org = new Organization();
-        org.setOrganizationId(ORGANIZATION_ID);
-        PlatformUser user = new PlatformUser();
-        user.setUserId(USER_ID1);
-        user.setOrganization(org);
-        return user;
-    }
-
-    private PlatformUser givenUser2() {
-        Organization org = new Organization();
-        org.setOrganizationId(ORGANIZATION_ID);
-        PlatformUser user = new PlatformUser();
-        user.setUserId(USER_ID2);
-        user.setOrganization(org);
-        return user;
-    }
-
-    private SubscriptionAuditLogCollector deassignUserFromSubscription(
-            Subscription sub, List<UsageLicense> usageLicenses) {
+    private SubscriptionAuditLogCollector assignUserToSubscription(
+            Subscription sub, UsageLicense usageLicense) {
         AuditLogData.clear();
-        logCollector.deassignUserFromSubscription(dsMock, sub, usageLicenses);
+        logCollector.assignUserToSubscription(dsMock, sub, usageLicense);
         return logCollector;
     }
 
@@ -178,14 +141,9 @@ public class SubscriptionAuditLogCollector_DeassignUserFromSubscriptionTest {
         return prod;
     }
 
-    private List<UsageLicense> givenUsageLicenses() {
-        List<UsageLicense> usageLicenses = new ArrayList<UsageLicense>();
-        UsageLicense usageLicense1 = new UsageLicense();
-        usageLicense1.setUser(givenUser1());
-        UsageLicense usageLicense2 = new UsageLicense();
-        usageLicense2.setUser(givenUser2());
-        usageLicenses.add(usageLicense1);
-        usageLicenses.add(usageLicense2);
-        return usageLicenses;
+    private UsageLicense givenUsageLicense() {
+        UsageLicense usageLicense = new UsageLicense();
+        usageLicense.setUser(givenUser());
+        return usageLicense;
     }
 }
