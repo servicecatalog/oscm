@@ -677,19 +677,24 @@ public class DataServiceBean implements DataService {
             throws ObjectNotFoundException {
         String name = CURRENT_ASYNC_USER.get() == null ? null
                 : CURRENT_ASYNC_USER.get().toString();
-        System.out.println("Current async user: " + name);
-        if (name == null) {
+        // try to parse the name to long - must work if it is a user key
+        long parseLong = Long.parseLong(name);
+        // determine the user object of the caller
+        PlatformUser user;
+        try {
+            user = getReference(PlatformUser.class, parseLong);
+        } catch (ObjectNotFoundException exc) {
             // determine the caller
             Principal callerPrincipal = sessionCtx.getCallerPrincipal();
             if (callerPrincipal == null) {
                 return null;
             }
             name = callerPrincipal.getName();
+            // try to parse the name to long - must work if it is a user key
+            parseLong = Long.parseLong(name);
+            // determine the user object of the caller
+            user = getReference(PlatformUser.class, parseLong);
         }
-        // try to parse the name to long - must work if it is a user key
-        long parseLong = Long.parseLong(name);
-        // determine the user object of the caller
-        PlatformUser user = getReference(PlatformUser.class, parseLong);
         Organization org = user.getOrganization();
         if (checkOrgDeregistration(org, lookupOnly)) {
             // org still valid => return user
