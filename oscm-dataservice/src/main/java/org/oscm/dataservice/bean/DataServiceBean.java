@@ -677,6 +677,7 @@ public class DataServiceBean implements DataService {
             throws ObjectNotFoundException {
         String name = CURRENT_ASYNC_USER.get() == null ? null
                 : CURRENT_ASYNC_USER.get().toString();
+        System.out.println("Current async user: " + name);
         if (name == null) {
             // determine the caller
             Principal callerPrincipal = sessionCtx.getCallerPrincipal();
