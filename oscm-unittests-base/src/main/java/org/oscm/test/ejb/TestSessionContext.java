@@ -41,13 +41,10 @@ class TestSessionContext implements SessionContext {
     }
 
     public void setUsername(String username) {
-        System.out.println("Setting user: " + username);
         this.username = username;
     }
 
     public void setRoles(String[] roles) {
-        System.out.println("Setting roles: ");
-        Arrays.stream(roles).forEach(System.out::println);
         this.roles = new HashSet<String>();
         this.roles.addAll(Arrays.asList(roles));
     }
@@ -60,7 +57,6 @@ class TestSessionContext implements SessionContext {
 
     @Override
     public Principal getCallerPrincipal() {
-        System.out.println("getCallerPrincipal: " + username);
         if (username == null) {
             return null;
         }
