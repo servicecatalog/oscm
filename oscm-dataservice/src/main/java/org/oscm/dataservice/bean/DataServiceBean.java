@@ -678,12 +678,25 @@ public class DataServiceBean implements DataService {
         String name = CURRENT_ASYNC_USER.get() == null ? null
                 : CURRENT_ASYNC_USER.get().toString();
         // try to parse the name to long - must work if it is a user key
-        long parseLong = Long.parseLong(name);
-        // determine the user object of the caller
+        long parseLong;
         PlatformUser user;
-        try {
-            user = getReference(PlatformUser.class, parseLong);
-        } catch (ObjectNotFoundException exc) {
+        if (StringUtils.isNotBlank(name)) {
+            parseLong = Long.parseLong(name);
+            try {
+                user = getReference(PlatformUser.class, parseLong);
+            } catch (ObjectNotFoundException exc) {
+                // determine the caller
+                Principal callerPrincipal = sessionCtx.getCallerPrincipal();
+                if (callerPrincipal == null) {
+                    return null;
+                }
+                name = callerPrincipal.getName();
+                // try to parse the name to long - must work if it is a user key
+                parseLong = Long.parseLong(name);
+                // determine the user object of the caller
+                user = getReference(PlatformUser.class, parseLong);
+            }
+        } else {
             // determine the caller
             Principal callerPrincipal = sessionCtx.getCallerPrincipal();
             if (callerPrincipal == null) {
