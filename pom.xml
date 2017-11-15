@@ -104,7 +104,7 @@
     <module>oscm-psp-heidelpay</module>
     <module>oscm-unittests-base</module>
     <module>oscm-portal</module>
-    <module></module>
+    <module>oscm-integration-tests</module>
   </modules>
 
   <dependencyManagement>
