@@ -228,7 +228,7 @@ public class ConfigurationSettingsBean extends BaseOperatorBean implements
      * setting.
      */
     private boolean isHiddenSetting(VOConfigurationSetting setting) {
-        final List<String> hiddenSettings = Arrays.asList("LOG_FILE_PATH", "LOG_CONFIG_FILE", "KEY_FILE_PATH");
+        final List<String> hiddenSettings = Arrays.asList("LOG_FILE_PATH", "LOG_CONFIG_FILE", "KEY_FILE_PATH", "BASE_URL");
         final String settingName = setting.getInformationId().getKeyName();
 
         if (hiddenSettings.contains(settingName)) {
