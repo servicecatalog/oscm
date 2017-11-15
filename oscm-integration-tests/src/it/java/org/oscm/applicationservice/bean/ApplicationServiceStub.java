@@ -4,22 +4,8 @@
 
 package org.oscm.applicationservice.bean;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-
 import org.oscm.applicationservice.local.ApplicationServiceLocal;
-import org.oscm.domobjects.PlatformUser;
-import org.oscm.domobjects.Product;
-import org.oscm.domobjects.RoleDefinition;
-import org.oscm.domobjects.Subscription;
-import org.oscm.domobjects.TechnicalProduct;
-import org.oscm.domobjects.TechnicalProductOperation;
-import org.oscm.domobjects.UsageLicense;
+import org.oscm.domobjects.*;
 import org.oscm.internal.types.exception.TechnicalServiceNotAliveException;
 import org.oscm.internal.types.exception.TechnicalServiceOperationException;
 import org.oscm.operation.data.OperationResult;
@@ -27,6 +13,13 @@ import org.oscm.provisioning.data.BaseResult;
 import org.oscm.provisioning.data.InstanceInfo;
 import org.oscm.provisioning.data.InstanceResult;
 import org.oscm.provisioning.data.User;
+
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Stateless
 @Local(ApplicationServiceLocal.class)
