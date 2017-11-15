@@ -5,27 +5,23 @@
  *  Creation Date: 24.04.2013                                                      
  *                                                                              
  *******************************************************************************/
-
 package org.oscm.subscriptionservice.auditlog;
 
-import static org.oscm.auditlog.AuditLogParameter.SERVICE_ID;
-import static org.oscm.auditlog.AuditLogParameter.SERVICE_NAME;
-import static org.oscm.auditlog.AuditLogParameter.SUBSCRIPTION_NAME;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
 import java.util.Map;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import org.oscm.auditlog.AuditLogData;
-import org.oscm.auditlog.AuditLogParameter;
-import org.oscm.auditlog.BESAuditLogEntry;
+import org.oscm.auditlog.util.AuditLogData;
+import org.oscm.auditlog.util.AuditLogParameter;
+import org.oscm.auditlog.util.BESAuditLogEntry;
+import org.oscm.auditlog.model.AuditLogEntry;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.PlatformUser;
@@ -34,13 +30,20 @@ import org.oscm.domobjects.Subscription;
 import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
 
-@SuppressWarnings("boxing")
-public class SubscriptionAuditLogCollector_UnsubscribeFromService_Test {
+/**
+ * 
+ * @author zhaohang
+ * 
+ */
+public class SubscriptionAuditLogCollector_ReportIssueTest {
 
-    private final static Long SUBSCRIPTION_KEY = 1l;
+    private final static long SUBSCRIPTION_KEY = 1;
     private final static String SUBSCRIPTION_ID = "subscription_id";
-    private final static Long PRODUCT_KEY = 100l;
+    private final static long PRODUCT_KEY = 100;
     private final static String PRODUCT_ID = "product_id";
+    private final static String USER_ID = "user_id";
+    private final static String ORGANIZATION_ID = "organization_id";
+    private final static String ISSUE_SUBJECT = "subject";
 
     private static DataService dsMock;
 
@@ -50,7 +53,8 @@ public class SubscriptionAuditLogCollector_UnsubscribeFromService_Test {
 
     @BeforeClass
     public static void setup() {
-        dsMock = mockDataService();
+        dsMock = mock(DataService.class);
+        when(dsMock.getCurrentUser()).thenReturn(givenUser());
 
         localizerMock = mock(LocalizerServiceLocal.class);
         when(
@@ -61,32 +65,48 @@ public class SubscriptionAuditLogCollector_UnsubscribeFromService_Test {
         logCollector.localizer = localizerMock;
     }
 
-    private static DataService mockDataService() {
-        DataService ds = mock(DataService.class);
+    private static PlatformUser givenUser() {
+        Organization org = new Organization();
+        org.setOrganizationId(ORGANIZATION_ID);
         PlatformUser user = new PlatformUser();
-        user.setUserId("userId");
-        Organization organization = new Organization();
-        organization.setOrganizationId("orgId");
-        organization.setName("organizationName");
-        user.setOrganization(organization);
-        doReturn(user).when(ds).getCurrentUser();
-        return ds;
-    }
-
-    @Before
-    public void before() {
-        AuditLogData.clear();
+        user.setUserId(USER_ID);
+        user.setOrganization(org);
+        return user;
     }
 
     @Test
-    public void unsubscribeFromService() {
+    public void reportIssue() {
+
         // given
-        Subscription subscription = givenSubscription();
+        Subscription sub = givenSubscription();
+
         // when
-        logCollector.unsubscribeFromService(dsMock, subscription);
+        reportIssue(sub, ISSUE_SUBJECT);
 
         // then
-        assertLogEntries();
+        verifyLogEntries();
+    }
+
+    private SubscriptionAuditLogCollector reportIssue(
+            Subscription subscription, String subject) {
+        AuditLogData.clear();
+        logCollector.reportIssueOperation(dsMock, subscription, subject);
+        return logCollector;
+    }
+
+    private void verifyLogEntries() {
+        List<AuditLogEntry> logEntries = AuditLogData.get();
+        assertEquals(1, logEntries.size());
+        BESAuditLogEntry logEntry = (BESAuditLogEntry) AuditLogData.get()
+                .get(0);
+        Map<AuditLogParameter, String> logParams = logEntry.getLogParameters();
+        assertEquals(PRODUCT_ID, logParams.get(AuditLogParameter.SERVICE_ID));
+        assertEquals(LOCALIZED_RESOURCE,
+                logParams.get(AuditLogParameter.SERVICE_NAME));
+        assertEquals(SUBSCRIPTION_ID,
+                logParams.get(AuditLogParameter.SUBSCRIPTION_NAME));
+        assertEquals(ISSUE_SUBJECT,
+                logParams.get(AuditLogParameter.SUBSCRIPTION_ISSUE_SUBJECT));
     }
 
     private Subscription givenSubscription() {
@@ -101,18 +121,8 @@ public class SubscriptionAuditLogCollector_UnsubscribeFromService_Test {
         Product prod = new Product();
         prod.setKey(PRODUCT_KEY);
         prod.setProductId(PRODUCT_ID);
+        prod.setTemplate(prod);
         return prod;
     }
 
-    private void assertLogEntries() {
-        assertEquals(1, AuditLogData.get().size());
-
-        BESAuditLogEntry logEntry = (BESAuditLogEntry) AuditLogData.get()
-                .get(0);
-        Map<AuditLogParameter, String> logParams = logEntry.getLogParameters();
-        assertEquals(PRODUCT_ID, logParams.get(SERVICE_ID));
-        assertEquals(LOCALIZED_RESOURCE,
-                logParams.get(SERVICE_NAME));
-        assertEquals(SUBSCRIPTION_ID, logParams.get(SUBSCRIPTION_NAME));
-    }
 }

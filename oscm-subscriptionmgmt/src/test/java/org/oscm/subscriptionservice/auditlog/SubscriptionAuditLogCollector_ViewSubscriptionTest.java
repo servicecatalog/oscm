@@ -2,7 +2,7 @@
  *                                                                              
  *  Copyright FUJITSU LIMITED 2017
  *                                                                                                                                 
- *  Creation Date: 25.04.2013                                                      
+ *  Creation Date: 24.04.2013                                                      
  *                                                                              
  *******************************************************************************/
 
@@ -19,39 +19,38 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import org.oscm.auditlog.AuditLogData;
-import org.oscm.auditlog.AuditLogParameter;
-import org.oscm.auditlog.BESAuditLogEntry;
+import org.oscm.auditlog.util.AuditLogData;
+import org.oscm.auditlog.util.AuditLogParameter;
+import org.oscm.auditlog.util.BESAuditLogEntry;
 import org.oscm.auditlog.model.AuditLogEntry;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.Product;
-import org.oscm.domobjects.RoleDefinition;
 import org.oscm.domobjects.Subscription;
 import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
 
 /**
- * @author Zhou
+ * @author Zhou Min
  * 
  */
-public class SubscriptionAuditLogCollector_AssignUserRoleForServiceTest {
+public class SubscriptionAuditLogCollector_ViewSubscriptionTest {
 
     private final static long SUBSCRIPTION_KEY = 1;
     private final static String SUBSCRIPTION_ID = "subscription_id";
     private final static String USER_ID = "user_id";
     private final static String ORGANIZATION_ID = "organization_id";
+    private final static String CUSTOMER_ORGANIZATION_ID = "customer_id";
+    private final static String CUSTOMER_ORGANIZATION_NAME = "customer_name";
     private final static long PRODUCT_KEY = 100;
     private final static String PRODUCT_ID = "product_id";
-    private final static String TARGET_USER_ID = "target_user_id";
-    private final static String USER_ROLE = "user_role";
+
+    private static DataService dsMock;
 
     private static LocalizerServiceLocal localizerMock;
     private final static String LOCALIZED_RESOURCE = "TEST";
     private static SubscriptionAuditLogCollector logCollector = new SubscriptionAuditLogCollector();
-
-    private static DataService dsMock;
 
     @BeforeClass
     public static void setup() {
@@ -77,14 +76,13 @@ public class SubscriptionAuditLogCollector_AssignUserRoleForServiceTest {
     }
 
     @Test
-    public void assignUserRoleForService() {
+    public void viewSubscription() {
         // given
         Subscription sub = givenSubscription();
-        PlatformUser targetUser = givenTargetUser();
-        RoleDefinition roleDef = givenRoleDef();
+        Organization customer = givenCustomer();
 
         // when
-        assignUserRoleForService(sub, targetUser, roleDef);
+        viewSubscription(sub, customer);
 
         // then
         verifyLogEntries();
@@ -101,15 +99,15 @@ public class SubscriptionAuditLogCollector_AssignUserRoleForServiceTest {
                 logParams.get(AuditLogParameter.SERVICE_NAME));
         assertEquals(SUBSCRIPTION_ID,
                 logParams.get(AuditLogParameter.SUBSCRIPTION_NAME));
-        assertEquals(TARGET_USER_ID,
-                logParams.get(AuditLogParameter.TARGET_USER));
-        assertEquals(USER_ROLE, logParams.get(AuditLogParameter.USER_ROLE));
+        assertEquals(CUSTOMER_ORGANIZATION_ID,
+                logParams.get(AuditLogParameter.CUSTOMER_ID));
+        assertEquals(CUSTOMER_ORGANIZATION_NAME,
+                logParams.get(AuditLogParameter.CUSTOMER_NAME));
     }
 
-    private void assignUserRoleForService(Subscription sub, PlatformUser usr,
-            RoleDefinition roleDef) {
+    private void viewSubscription(Subscription sub, Organization customer) {
         AuditLogData.clear();
-        logCollector.assignUserRoleForService(dsMock, sub, usr, roleDef);
+        logCollector.viewSubscription(dsMock, sub, customer);
     }
 
     private Subscription givenSubscription() {
@@ -128,15 +126,11 @@ public class SubscriptionAuditLogCollector_AssignUserRoleForServiceTest {
         return prod;
     }
 
-    private PlatformUser givenTargetUser() {
-        PlatformUser user = new PlatformUser();
-        user.setUserId(TARGET_USER_ID);
-        return user;
+    private Organization givenCustomer() {
+        Organization customer = new Organization();
+        customer.setOrganizationId(CUSTOMER_ORGANIZATION_ID);
+        customer.setName(CUSTOMER_ORGANIZATION_NAME);
+        return customer;
     }
 
-    private RoleDefinition givenRoleDef() {
-        RoleDefinition roleDef = new RoleDefinition();
-        roleDef.setRoleId(USER_ROLE);
-        return roleDef;
-    }
 }

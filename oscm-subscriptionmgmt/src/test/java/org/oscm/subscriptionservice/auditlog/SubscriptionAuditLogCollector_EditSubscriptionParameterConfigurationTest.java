@@ -22,9 +22,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import org.oscm.auditlog.AuditLogData;
-import org.oscm.auditlog.AuditLogParameter;
-import org.oscm.auditlog.BESAuditLogEntry;
+import org.oscm.auditlog.util.AuditLogData;
+import org.oscm.auditlog.util.AuditLogParameter;
+import org.oscm.auditlog.util.BESAuditLogEntry;
 import org.oscm.auditlog.model.AuditLogEntry;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Organization;

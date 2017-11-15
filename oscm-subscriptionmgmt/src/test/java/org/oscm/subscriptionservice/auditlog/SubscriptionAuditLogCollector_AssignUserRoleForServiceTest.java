@@ -2,7 +2,7 @@
  *                                                                              
  *  Copyright FUJITSU LIMITED 2017
  *                                                                                                                                 
- *  Creation Date: 24.04.2013                                                      
+ *  Creation Date: 25.04.2013                                                      
  *                                                                              
  *******************************************************************************/
 
@@ -12,7 +12,6 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,24 +19,24 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import org.oscm.auditlog.AuditLogData;
-import org.oscm.auditlog.AuditLogParameter;
-import org.oscm.auditlog.BESAuditLogEntry;
+import org.oscm.auditlog.util.AuditLogData;
+import org.oscm.auditlog.util.AuditLogParameter;
+import org.oscm.auditlog.util.BESAuditLogEntry;
 import org.oscm.auditlog.model.AuditLogEntry;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.Product;
+import org.oscm.domobjects.RoleDefinition;
 import org.oscm.domobjects.Subscription;
-import org.oscm.domobjects.TechnicalProductOperation;
 import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
 
 /**
- * @author Qiu
+ * @author Zhou
  * 
  */
-public class SubscriptionAuditLogCollector_ExecuteServiceTest {
+public class SubscriptionAuditLogCollector_AssignUserRoleForServiceTest {
 
     private final static long SUBSCRIPTION_KEY = 1;
     private final static String SUBSCRIPTION_ID = "subscription_id";
@@ -45,15 +44,14 @@ public class SubscriptionAuditLogCollector_ExecuteServiceTest {
     private final static String ORGANIZATION_ID = "organization_id";
     private final static long PRODUCT_KEY = 100;
     private final static String PRODUCT_ID = "product_id";
-    private final static String OPERATION_ID = "operation_id";
-    private final static long OPERATION_KEY = 2;
-
-    private static DataService dsMock;
+    private final static String TARGET_USER_ID = "target_user_id";
+    private final static String USER_ROLE = "user_role";
 
     private static LocalizerServiceLocal localizerMock;
     private final static String LOCALIZED_RESOURCE = "TEST";
-    private final static String PARAMETER_VALUE = "para_value1";
     private static SubscriptionAuditLogCollector logCollector = new SubscriptionAuditLogCollector();
+
+    private static DataService dsMock;
 
     @BeforeClass
     public static void setup() {
@@ -69,16 +67,24 @@ public class SubscriptionAuditLogCollector_ExecuteServiceTest {
         logCollector.localizer = localizerMock;
     }
 
-    @Test
-    public void executeService() {
+    private static PlatformUser givenUser() {
+        Organization org = new Organization();
+        org.setOrganizationId(ORGANIZATION_ID);
+        PlatformUser user = new PlatformUser();
+        user.setUserId(USER_ID);
+        user.setOrganization(org);
+        return user;
+    }
 
+    @Test
+    public void assignUserRoleForService() {
         // given
         Subscription sub = givenSubscription();
-        TechnicalProductOperation op = givenTechnicalProductOperation();
-        Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("name1", PARAMETER_VALUE);
+        PlatformUser targetUser = givenTargetUser();
+        RoleDefinition roleDef = givenRoleDef();
+
         // when
-        executeService(sub, op, parameters);
+        assignUserRoleForService(sub, targetUser, roleDef);
 
         // then
         verifyLogEntries();
@@ -95,26 +101,15 @@ public class SubscriptionAuditLogCollector_ExecuteServiceTest {
                 logParams.get(AuditLogParameter.SERVICE_NAME));
         assertEquals(SUBSCRIPTION_ID,
                 logParams.get(AuditLogParameter.SUBSCRIPTION_NAME));
-        assertEquals(OPERATION_ID,
-                logParams.get(AuditLogParameter.SERVICE_OPERATION));
-        assertEquals(Boolean.TRUE,
-                Boolean.valueOf(logEntry.getLog().contains(PARAMETER_VALUE)));
+        assertEquals(TARGET_USER_ID,
+                logParams.get(AuditLogParameter.TARGET_USER));
+        assertEquals(USER_ROLE, logParams.get(AuditLogParameter.USER_ROLE));
     }
 
-    private static PlatformUser givenUser() {
-        Organization org = new Organization();
-        org.setOrganizationId(ORGANIZATION_ID);
-        PlatformUser user = new PlatformUser();
-        user.setUserId(USER_ID);
-        user.setOrganization(org);
-        return user;
-    }
-
-    private SubscriptionAuditLogCollector executeService(Subscription sub,
-            TechnicalProductOperation op, Map<String, String> parameters) {
+    private void assignUserRoleForService(Subscription sub, PlatformUser usr,
+            RoleDefinition roleDef) {
         AuditLogData.clear();
-        logCollector.executeService(dsMock, sub, op, parameters);
-        return logCollector;
+        logCollector.assignUserRoleForService(dsMock, sub, usr, roleDef);
     }
 
     private Subscription givenSubscription() {
@@ -133,12 +128,15 @@ public class SubscriptionAuditLogCollector_ExecuteServiceTest {
         return prod;
     }
 
-    private TechnicalProductOperation givenTechnicalProductOperation() {
+    private PlatformUser givenTargetUser() {
+        PlatformUser user = new PlatformUser();
+        user.setUserId(TARGET_USER_ID);
+        return user;
+    }
 
-        TechnicalProductOperation op = new TechnicalProductOperation();
-        op.setOperationId(OPERATION_ID);
-        op.setKey(OPERATION_KEY);
-        return op;
-
+    private RoleDefinition givenRoleDef() {
+        RoleDefinition roleDef = new RoleDefinition();
+        roleDef.setRoleId(USER_ROLE);
+        return roleDef;
     }
 }

@@ -2,10 +2,9 @@
  *                                                                              
  *  Copyright FUJITSU LIMITED 2017
  *                                                                                                                                 
- *  Creation Date: 24.04.2013                                                      
+ *  Creation Date: 07.05.2013                                                      
  *                                                                              
  *******************************************************************************/
-
 package org.oscm.subscriptionservice.auditlog;
 
 import static org.junit.Assert.assertEquals;
@@ -19,9 +18,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import org.oscm.auditlog.AuditLogData;
-import org.oscm.auditlog.AuditLogParameter;
-import org.oscm.auditlog.BESAuditLogEntry;
+import org.oscm.auditlog.util.AuditLogData;
+import org.oscm.auditlog.util.AuditLogParameter;
+import org.oscm.auditlog.util.BESAuditLogEntry;
 import org.oscm.auditlog.model.AuditLogEntry;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Organization;
@@ -32,19 +31,20 @@ import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
 
 /**
- * @author Zhou Min
+ * 
+ * @author zhaohang
  * 
  */
-public class SubscriptionAuditLogCollector_ViewSubscriptionTest {
+public class SubscriptionAuditLogCollector_EditSubscriptionAttributeTest {
 
     private final static long SUBSCRIPTION_KEY = 1;
     private final static String SUBSCRIPTION_ID = "subscription_id";
-    private final static String USER_ID = "user_id";
-    private final static String ORGANIZATION_ID = "organization_id";
-    private final static String CUSTOMER_ORGANIZATION_ID = "customer_id";
-    private final static String CUSTOMER_ORGANIZATION_NAME = "customer_name";
     private final static long PRODUCT_KEY = 100;
     private final static String PRODUCT_ID = "product_id";
+    private final static String USER_ID = "user_id";
+    private final static String ORGANIZATION_ID = "organization_id";
+    private final static String ATTRIBUTE_NAME = "name";
+    private final static String ATTRIBUTE_VALUE = "value";
 
     private static DataService dsMock;
 
@@ -66,6 +66,19 @@ public class SubscriptionAuditLogCollector_ViewSubscriptionTest {
         logCollector.localizer = localizerMock;
     }
 
+    @Test
+    public void editAttribute() {
+
+        // given
+        Subscription sub = givenSubscription();
+
+        // when
+        editSubscriptionAttribute(sub, ATTRIBUTE_NAME, ATTRIBUTE_VALUE);
+
+        // then
+        verifyLogEntries();
+    }
+
     private static PlatformUser givenUser() {
         Organization org = new Organization();
         org.setOrganizationId(ORGANIZATION_ID);
@@ -73,41 +86,6 @@ public class SubscriptionAuditLogCollector_ViewSubscriptionTest {
         user.setUserId(USER_ID);
         user.setOrganization(org);
         return user;
-    }
-
-    @Test
-    public void viewSubscription() {
-        // given
-        Subscription sub = givenSubscription();
-        Organization customer = givenCustomer();
-
-        // when
-        viewSubscription(sub, customer);
-
-        // then
-        verifyLogEntries();
-    }
-
-    private void verifyLogEntries() {
-        List<AuditLogEntry> logEntries = AuditLogData.get();
-        assertEquals(1, logEntries.size());
-        BESAuditLogEntry logEntry = (BESAuditLogEntry) AuditLogData.get()
-                .get(0);
-        Map<AuditLogParameter, String> logParams = logEntry.getLogParameters();
-        assertEquals(PRODUCT_ID, logParams.get(AuditLogParameter.SERVICE_ID));
-        assertEquals(LOCALIZED_RESOURCE,
-                logParams.get(AuditLogParameter.SERVICE_NAME));
-        assertEquals(SUBSCRIPTION_ID,
-                logParams.get(AuditLogParameter.SUBSCRIPTION_NAME));
-        assertEquals(CUSTOMER_ORGANIZATION_ID,
-                logParams.get(AuditLogParameter.CUSTOMER_ID));
-        assertEquals(CUSTOMER_ORGANIZATION_NAME,
-                logParams.get(AuditLogParameter.CUSTOMER_NAME));
-    }
-
-    private void viewSubscription(Subscription sub, Organization customer) {
-        AuditLogData.clear();
-        logCollector.viewSubscription(dsMock, sub, customer);
     }
 
     private Subscription givenSubscription() {
@@ -126,11 +104,29 @@ public class SubscriptionAuditLogCollector_ViewSubscriptionTest {
         return prod;
     }
 
-    private Organization givenCustomer() {
-        Organization customer = new Organization();
-        customer.setOrganizationId(CUSTOMER_ORGANIZATION_ID);
-        customer.setName(CUSTOMER_ORGANIZATION_NAME);
-        return customer;
+    private SubscriptionAuditLogCollector editSubscriptionAttribute(
+            Subscription subscription, String parameterName,
+            String parameterValue) {
+        AuditLogData.clear();
+        logCollector.editSubscriptionAttributeByServiceManager(dsMock,
+                subscription, parameterName, parameterValue);
+        return logCollector;
     }
 
+    private void verifyLogEntries() {
+        List<AuditLogEntry> logEntries = AuditLogData.get();
+        assertEquals(1, logEntries.size());
+        BESAuditLogEntry logEntry = (BESAuditLogEntry) AuditLogData.get()
+                .get(0);
+        Map<AuditLogParameter, String> logParams = logEntry.getLogParameters();
+        assertEquals(PRODUCT_ID, logParams.get(AuditLogParameter.SERVICE_ID));
+        assertEquals(LOCALIZED_RESOURCE,
+                logParams.get(AuditLogParameter.SERVICE_NAME));
+        assertEquals(SUBSCRIPTION_ID,
+                logParams.get(AuditLogParameter.SUBSCRIPTION_NAME));
+        assertEquals(ATTRIBUTE_NAME,
+                logParams.get(AuditLogParameter.ATTRIBUTE_NAME));
+        assertEquals(ATTRIBUTE_VALUE,
+                logParams.get(AuditLogParameter.ATTRIBUTE_VALUE));
+    }
 }

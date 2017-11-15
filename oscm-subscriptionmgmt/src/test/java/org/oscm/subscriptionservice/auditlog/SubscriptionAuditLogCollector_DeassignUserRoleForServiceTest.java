@@ -2,13 +2,14 @@
  *                                                                              
  *  Copyright FUJITSU LIMITED 2017
  *                                                                                                                                 
- *  Creation Date: 24.04.2013                                                      
+ *  Creation Date: 25.04.2013                                                      
  *                                                                              
  *******************************************************************************/
 
 package org.oscm.subscriptionservice.auditlog;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -19,32 +20,33 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import org.oscm.auditlog.AuditLogData;
-import org.oscm.auditlog.AuditLogParameter;
-import org.oscm.auditlog.BESAuditLogEntry;
+import org.oscm.auditlog.util.AuditLogData;
+import org.oscm.auditlog.util.AuditLogParameter;
+import org.oscm.auditlog.util.BESAuditLogEntry;
 import org.oscm.auditlog.model.AuditLogEntry;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.Product;
+import org.oscm.domobjects.RoleDefinition;
 import org.oscm.domobjects.Subscription;
 import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
 
 /**
- * @author Zhou Min
+ * @author Zhou
  * 
  */
-public class SubscriptionAuditLogCollector_UpDowngradeSubscriptionTest {
+public class SubscriptionAuditLogCollector_DeassignUserRoleForServiceTest {
 
     private final static long SUBSCRIPTION_KEY = 1;
     private final static String SUBSCRIPTION_ID = "subscription_id";
     private final static String USER_ID = "user_id";
     private final static String ORGANIZATION_ID = "organization_id";
     private final static long PRODUCT_KEY = 100;
-    private final static long PRODUCT_KEY_2 = 200;
     private final static String PRODUCT_ID = "product_id";
-    private final static String PRODUCT_ID_2 = "product_id_2";
+    private final static String TARGET_USER_ID = "target_user_id";
+    private final static String USER_ROLE = "user_role";
 
     private static DataService dsMock;
 
@@ -62,7 +64,7 @@ public class SubscriptionAuditLogCollector_UpDowngradeSubscriptionTest {
                 localizerMock.getLocalizedTextFromDatabase(Mockito.anyString(),
                         Mockito.anyLong(),
                         Mockito.any(LocalizedObjectTypes.class))).thenReturn(
-                LOCALIZED_RESOURCE);
+                                LOCALIZED_RESOURCE);
         logCollector.localizer = localizerMock;
     }
 
@@ -72,21 +74,35 @@ public class SubscriptionAuditLogCollector_UpDowngradeSubscriptionTest {
         PlatformUser user = new PlatformUser();
         user.setUserId(USER_ID);
         user.setOrganization(org);
-        user.setLocale("en");
         return user;
     }
 
     @Test
-    public void upDowngradeSubscription() {
+    public void deassignUserRoleForService() {
         // given
         Subscription sub = givenSubscription();
-        Product targetProd = givenSubscriptionService2();
+        PlatformUser targetUser = givenTargetUser();
+        RoleDefinition roleDef = givenRoleDef();
 
         // when
-        upDowngradeSubscription(sub, targetProd);
+        deassignUserRoleForService(sub, targetUser, roleDef);
 
         // then
         verifyLogEntries();
+    }
+
+    @Test
+    public void deassignUserRoleForService_null() {
+        // given
+        Subscription sub = givenSubscription();
+        PlatformUser targetUser = givenTargetUser();
+
+        // when
+        deassignUserRoleForService(sub, targetUser, null);
+
+        // then
+        List<AuditLogEntry> logEntries = AuditLogData.get();
+        assertNull(logEntries);
     }
 
     private void verifyLogEntries() {
@@ -100,27 +116,26 @@ public class SubscriptionAuditLogCollector_UpDowngradeSubscriptionTest {
                 logParams.get(AuditLogParameter.SERVICE_NAME));
         assertEquals(SUBSCRIPTION_ID,
                 logParams.get(AuditLogParameter.SUBSCRIPTION_NAME));
-        assertEquals(PRODUCT_ID_2,
-                logParams.get(AuditLogParameter.NEW_SERVICE_ID));
-        assertEquals(LOCALIZED_RESOURCE,
-                logParams.get(AuditLogParameter.NEW_SERVICE_NAME));
+        assertEquals(TARGET_USER_ID,
+                logParams.get(AuditLogParameter.TARGET_USER));
+        assertEquals(USER_ROLE, logParams.get(AuditLogParameter.USER_ROLE));
     }
 
-    private void upDowngradeSubscription(Subscription sub, Product targetProd) {
+    private void deassignUserRoleForService(Subscription sub, PlatformUser usr,
+            RoleDefinition roleDef) {
         AuditLogData.clear();
-        logCollector.upDowngradeSubscription(dsMock, sub, sub.getProduct(),
-                targetProd);
+        logCollector.deassignUserRoleForService(dsMock, sub, usr, roleDef);
     }
 
     private Subscription givenSubscription() {
         Subscription sub = new Subscription();
         sub.setKey(SUBSCRIPTION_KEY);
         sub.setSubscriptionId(SUBSCRIPTION_ID);
-        sub.setProduct(createProduct1());
+        sub.setProduct(createProduct());
         return sub;
     }
 
-    private Product createProduct1() {
+    private Product createProduct() {
         Product prod = new Product();
         prod.setKey(PRODUCT_KEY);
         prod.setProductId(PRODUCT_ID);
@@ -128,12 +143,16 @@ public class SubscriptionAuditLogCollector_UpDowngradeSubscriptionTest {
         return prod;
     }
 
-    private Product givenSubscriptionService2() {
-        Product prod = new Product();
-        prod.setKey(PRODUCT_KEY_2);
-        prod.setProductId(PRODUCT_ID_2);
-        prod.setTemplate(prod);
-        return prod;
+    private PlatformUser givenTargetUser() {
+        PlatformUser user = new PlatformUser();
+        user.setUserId(TARGET_USER_ID);
+        return user;
+    }
+
+    private RoleDefinition givenRoleDef() {
+        RoleDefinition roleDef = new RoleDefinition();
+        roleDef.setRoleId(USER_ROLE);
+        return roleDef;
     }
 
 }
