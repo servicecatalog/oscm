@@ -99,17 +99,17 @@ public class AuthorizationFilter implements Filter {
 
             Object loggedInUserId = session
                     .getAttribute(SessionConstants.SESSION_USER_ID);
+            Object loggedInUserOrgId = session
+                    .getAttribute(SessionConstants.SESSION_USER_ORG_ID);
+            Object loggedInUserRoles = session
+                    .getAttribute(SessionConstants.SESSION_USER_ROLES);
+
             if (loggedInUserId != null) {
-                if (requireTMforOrg != null) {
-                    Object loggedInUserOrgId = session
-                            .getAttribute(SessionConstants.SESSION_USER_ORG_ID);
-                    Object loggedInUserRoles = session
-                            .getAttribute(SessionConstants.SESSION_USER_ROLES);
+                if (requireTMforOrg != null && !hasRole(UserRoleType.PLATFORM_OPERATOR, (Set<?>) loggedInUserRoles)) {
                     if (!requireTMforOrg.equals(loggedInUserOrgId)
                             || loggedInUserRoles == null
                             || !(loggedInUserRoles instanceof Set)
-                            || !((Set<?>) loggedInUserRoles)
-                                    .contains(UserRoleType.TECHNOLOGY_MANAGER)) {
+                            || !hasRole(UserRoleType.TECHNOLOGY_MANAGER, (Set<?>) loggedInUserRoles)) {
 
                         send401(httpRequest, httpResponse, session, true);
                         return;
@@ -118,7 +118,7 @@ public class AuthorizationFilter implements Filter {
                     if (!Boolean
                             .parseBoolean(""
                                     + session
-                                            .getAttribute(SessionConstants.SESSION_USER_IS_ADMIN))) {
+                                    .getAttribute(SessionConstants.SESSION_USER_IS_ADMIN))) {
                         send401(httpRequest, httpResponse, session, false);
                         return;
                     }
@@ -208,6 +208,11 @@ public class AuthorizationFilter implements Filter {
         } else {
             chain.doFilter(request, response);
         }
+    }
+
+    private boolean hasRole(UserRoleType userRoleType, Set<?> loggedInUserRoles) {
+        return loggedInUserRoles
+                .contains(userRoleType);
     }
 
     private void send401(ServletRequest httpRequest,
