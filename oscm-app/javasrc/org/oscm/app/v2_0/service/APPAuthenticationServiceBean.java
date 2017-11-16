@@ -203,7 +203,7 @@ public class APPAuthenticationServiceBean {
 
         // check role
         Set<UserRoleType> roles = user.getUserRoles();
-        if (roles == null || !roles.contains(role)) {
+        if (roles == null || !roles.contains(role) && !roles.contains(UserRoleType.PLATFORM_OPERATOR)) {
             AuthenticationException ae = new AuthenticationException(
                     "User does not have the required role");
             LOGGER.debug("User {} does not have the required role",
