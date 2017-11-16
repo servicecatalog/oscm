@@ -172,7 +172,6 @@ public class APPlatformServiceBean implements APPlatformService {
             HashMap<String, Setting> controllerSettings,
             PasswordAuthentication authentication) throws APPlatformException {
 
-        authService.authenticateTMForController(controllerId, authentication);
         configService.storeControllerConfigurationSettings(controllerId,
                 controllerSettings);
 
