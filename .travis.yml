@@ -11,7 +11,9 @@ env:
   - MVN_GOAL=test
   - MVN_GOAL=integration-test
 before_install:
+  - git fetch --unshallow --tags
   - ./db_setup.sh
+  - mvn initialize
 install:
   - MAVEN_OPTS=-Dorg.slf4j.simpleLogger.defaultLogLevel=info mvn install -q -DskipTests=true -Dmaven.javadoc.skip=true -B -P travis
 script:
