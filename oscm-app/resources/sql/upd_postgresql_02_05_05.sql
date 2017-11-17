@@ -1,1 +1,0 @@
-ALTER TABLE "serviceinstance" ADD COLUMN "rollbackparameters" TEXT;
