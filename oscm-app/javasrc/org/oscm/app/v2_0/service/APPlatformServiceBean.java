@@ -1,9 +1,9 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2017
- *                                                                              
+ *
  *  Creation Date: 16.08.2012                                                      
- *                                                                              
+ *
  *******************************************************************************/
 
 package org.oscm.app.v2_0.service;
@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author Dirk Bernsau
- * 
+ *
  */
 @Stateless(name = "org.oscm.app.v2_0.intf.APPlatformService")
 @Remote(APPlatformService.class)
@@ -106,16 +106,12 @@ public class APPlatformServiceBean implements APPlatformService {
     @Override
     public boolean lockServiceInstance(String controllerId, String instanceId,
             PasswordAuthentication authentication) throws APPlatformException {
-        authService.authenticateTMForInstance(controllerId, instanceId,
-                authentication);
         return concurrencyService.lockServiceInstance(controllerId, instanceId);
     }
 
     @Override
     public void unlockServiceInstance(String controllerId, String instanceId,
             PasswordAuthentication authentication) throws APPlatformException {
-        authService.authenticateTMForInstance(controllerId, instanceId,
-                authentication);
         concurrencyService.unlockServiceInstance(controllerId, instanceId);
     }
 
@@ -202,17 +198,13 @@ public class APPlatformServiceBean implements APPlatformService {
                 .getInstance(controllerId);
         ControllerSettings controllerSettings = new ControllerSettings(
                 settings);
-        controllerSettings.setAuthentication(
-                configService.getAuthenticationForBESTechnologyManager(
-                        controllerId, null, null));
         controller.setControllerSettings(controllerSettings);
     }
 
     @Override
     public Collection<String> listServiceInstances(String controllerId,
             PasswordAuthentication authentication)
-            throws AuthenticationException, APPlatformException {
-        authService.authenticateTMForController(controllerId, authentication);
+            throws APPlatformException {
         Collection<String> result = new ArrayList<>();
         List<ServiceInstance> instances = instanceDAO
                 .getInstancesForController(controllerId);
@@ -225,8 +217,7 @@ public class APPlatformServiceBean implements APPlatformService {
     @Override
     public ProvisioningSettings getServiceInstanceDetails(String controllerId,
             String instanceId, PasswordAuthentication authentication)
-            throws AuthenticationException, APPlatformException {
-        authService.authenticateTMForController(controllerId, authentication);
+            throws APPlatformException {
         try {
             ServiceInstance instance = instanceDAO.getInstanceById(instanceId);
             return configService.getProvisioningSettings(instance, null);
@@ -274,10 +265,7 @@ public class APPlatformServiceBean implements APPlatformService {
     public void storeServiceInstanceDetails(String controllerId,
             String instanceId, ProvisioningSettings settings,
             PasswordAuthentication authentication)
-            throws AuthenticationException, ConfigurationException,
-            APPlatformException {
-        authService.authenticateTMForInstance(controllerId, instanceId,
-                authentication);
+            throws APPlatformException {
         try {
             ServiceInstance instance = instanceDAO.getInstanceById(instanceId);
             instance.setInstanceParameters(settings.getParameters());
