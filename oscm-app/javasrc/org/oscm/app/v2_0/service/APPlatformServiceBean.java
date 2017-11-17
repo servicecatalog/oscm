@@ -163,7 +163,6 @@ public class APPlatformServiceBean implements APPlatformService {
     @Override
     public HashMap<String, Setting> getControllerSettings(String controllerId,
             PasswordAuthentication authentication) throws APPlatformException {
-        authService.authenticateTMForController(controllerId, authentication);
         return configService.getControllerConfigurationSettings(controllerId);
     }
 
