@@ -105,8 +105,7 @@ public class SamlKeyLoaderIT {
     }
 
     public String getPath(String fileName) {
-        return getClass().getClassLoader().getResource("").getPath()
-                + "/../javares/" + fileName;
+        return getClass().getClassLoader().getResource(fileName).getPath();
     }
 
 }
