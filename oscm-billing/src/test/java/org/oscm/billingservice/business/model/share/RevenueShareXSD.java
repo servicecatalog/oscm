@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.xml.sax.SAXParseException;
 
 import org.oscm.billingservice.service.BillingServiceBean;
-import org.oscm.test.XMLValidation;
+import org.oscm.XMLValidation;
 
 public abstract class RevenueShareXSD {
     protected URL schemaUrl;
