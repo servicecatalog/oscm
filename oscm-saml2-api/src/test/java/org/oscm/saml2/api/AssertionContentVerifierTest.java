@@ -37,8 +37,8 @@ import org.oscm.internal.types.exception.AssertionValidationException;
  */
 public class AssertionContentVerifierTest {
 
-    private final String FILE_UNSIGNED_ASSERTION = "javares/unsignedAssertion.xml";
-    private final String FILE_MISSING_CONFIRMATION_DATA = "javares/unsignedAssertion_noConfirmationData_noUserid.xml";
+    private final String FILE_UNSIGNED_ASSERTION = "/unsignedAssertion.xml";
+    private final String FILE_MISSING_CONFIRMATION_DATA = "/unsignedAssertion_noConfirmationData_noUserid.xml";
     private AssertionContentVerifier verifier;
     private Document assertion;
 
@@ -50,16 +50,7 @@ public class AssertionContentVerifierTest {
     }
 
     private Document loadDocument(String file) throws Exception {
-        FileInputStream inputStream = null;
-        Document document = null;
-        try {
-            inputStream = new FileInputStream(file);
-            document = XMLConverter.convertToDocument(inputStream);
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
-        }
+        Document document = XMLConverter.convertToDocument(this.getClass().getResourceAsStream(file));
         return document;
     }
 

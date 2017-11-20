@@ -9,6 +9,7 @@
 package org.oscm.saml2.api;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -121,7 +122,8 @@ public class AssertionConsumerService {
             throws DigitalSignatureValidationException {
         KeyStore keystore;
         try {
-            keystore = Keystores.initializeKeyStore(truststorePath,
+            URL resource = this.getClass().getResource(truststorePath);
+            keystore = Keystores.initializeKeyStore(resource.getFile(),
                     truststorePassword);
         } catch (KeyStoreException | NoSuchAlgorithmException
                 | CertificateException | IOException e) {
