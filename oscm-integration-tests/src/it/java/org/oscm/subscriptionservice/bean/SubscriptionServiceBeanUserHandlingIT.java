@@ -39,7 +39,7 @@ import org.oscm.domobjects.enums.OrganizationReferenceType;
 import org.oscm.encrypter.AESEncrypter;
 import org.oscm.identityservice.assembler.UserDataAssembler;
 import org.oscm.identityservice.bean.IdManagementStub;
-import org.oscm.interceptor.AuditLogDataInterceptor;
+import org.oscm.auditlog.interceptor.AuditLogDataInterceptor;
 import org.oscm.internal.intf.SubscriptionService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
