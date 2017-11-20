@@ -1226,6 +1226,16 @@
         <artifactId>tomahawk20</artifactId>
         <version>1.1.14</version>
       </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-core</artifactId>
+        <version>3.1.10</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
