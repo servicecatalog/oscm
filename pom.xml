@@ -1226,6 +1226,16 @@
         <artifactId>tomahawk20</artifactId>
         <version>1.1.14</version>
       </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        <version>3.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-core</artifactId>
+        <version>3.1.10</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -1366,22 +1376,13 @@
         <version>2.15</version>
         <executions>
           <execution>
+            <id>integration-tests</id>
             <configuration>
               <failIfNoTests>false</failIfNoTests>
             </configuration>
-            <id>failsafe-integration-tests</id>
             <phase>integration-test</phase>
             <goals>
               <goal>integration-test</goal>
-            </goals>
-          </execution>
-          <execution>
-            <configuration>
-              <failIfNoTests>false</failIfNoTests>
-            </configuration>
-            <id>integration-test</id>
-            <goals>
-              <goal>verify</goal>
             </goals>
           </execution>
         </executions>
