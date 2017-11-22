@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.TransactionPhase;
+import javax.inject.Inject;
 
 import org.oscm.auditlog.dao.AuditLogDao;
 import org.oscm.auditlog.model.AuditLog;
@@ -29,7 +30,7 @@ public class AuditLogServiceBean {
     @EJB
     AuditLogDao dao;
 
-    @EJB
+    @Inject
     Event<AuditLogEntries> logEvent;
 
     @EJB
