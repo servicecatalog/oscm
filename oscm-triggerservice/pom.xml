@@ -142,7 +142,16 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-unittests-base</artifactId>
     </dependency>
-    <dependency>      <groupId>org.oscm</groupId>      <artifactId>oscm-i18n</artifactId>      <scope>test</scope>    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-i18n</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
 
