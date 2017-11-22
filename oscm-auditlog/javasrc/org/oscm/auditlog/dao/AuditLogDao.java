@@ -17,7 +17,7 @@ import org.oscm.auditlog.model.AuditLog;
 import org.oscm.auditlog.model.AuditLogEntry;
 
 @Stateless
-@TransactionAttribute(TransactionAttributeType.MANDATORY)
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class AuditLogDao {
 
     @PersistenceContext(unitName = "oscm-auditlog")
