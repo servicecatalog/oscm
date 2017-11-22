@@ -6,6 +6,9 @@ package org.oscm.auditlog.dao;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -13,7 +16,10 @@ import javax.persistence.TypedQuery;
 import org.oscm.auditlog.model.AuditLog;
 import org.oscm.auditlog.model.AuditLogEntry;
 
+@Stateless
+@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class AuditLogDao {
+
     @PersistenceContext(unitName = "oscm-auditlog")
     EntityManager em;
     int batchSize = 100;
