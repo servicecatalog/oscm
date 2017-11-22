@@ -124,7 +124,6 @@
         <groupId>org.oscm</groupId>
         <artifactId>oscm-saml2-api</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.oscm</groupId>
@@ -366,7 +365,6 @@
         <groupId>com.github.servicecatalog.oscm-commons</groupId>
         <artifactId>oscm-common</artifactId>
         <version>1.3</version>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>com.github.servicecatalog.oscm-commons</groupId>
@@ -377,7 +375,6 @@
         <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
         <artifactId>oscm-extsvc-internal</artifactId>
         <version>1.2</version>
-        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
