@@ -9,12 +9,17 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>oscm-configservice</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
+  <artifactId>oscm-configservice</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <dependencies>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice</artifactId>
@@ -27,13 +32,16 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-intsvc-base</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
     </dependency>
     <dependency>
-        <groupId>org.oscm</groupId>
+      <groupId>org.oscm</groupId>
       <artifactId>oscm-unittests-base</artifactId>
       <scope>test</scope>
     </dependency>
@@ -58,6 +66,11 @@
     <dependency>
       <groupId>org.apache.geronimo.javamail</groupId>
       <artifactId>geronimo-javamail_1.4_mail</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
