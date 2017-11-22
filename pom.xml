@@ -104,6 +104,7 @@
     <module>oscm-psp-heidelpay</module>
     <module>oscm-unittests-base</module>
     <module>oscm-portal</module>
+    <module>oscm-security</module>
   </modules>
 
   <dependencyManagement>
@@ -122,6 +123,7 @@
         <groupId>org.oscm</groupId>
         <artifactId>oscm-saml2-api</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>org.oscm</groupId>
@@ -362,17 +364,19 @@
       <dependency>
         <groupId>com.github.servicecatalog.oscm-commons</groupId>
         <artifactId>oscm-common</artifactId>
-        <version>1.1</version>
+        <version>1.2</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>com.github.servicecatalog.oscm-commons</groupId>
         <artifactId>oscm-rest-api-common</artifactId>
-        <version>1.1</version>
+        <version>1.2</version>
       </dependency>
       <dependency>
         <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
         <artifactId>oscm-extsvc-internal</artifactId>
         <version>1.1</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
@@ -683,6 +687,18 @@
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>3.5</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.wss4j</groupId>
+        <artifactId>wss4j-ws-security-common</artifactId>
+        <version>2.1.7</version>
+        <scope>provided</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.wss4j</groupId>
+        <artifactId>wss4j-ws-security-dom</artifactId>
+        <version>2.1.7</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
@@ -1008,6 +1024,13 @@
       <dependency>
         <groupId>org.apache.tomee</groupId>
         <artifactId>openejb-core</artifactId>
+        <version>7.0.3</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.tomee</groupId>
+        <artifactId>openejb-cxf</artifactId>
         <version>7.0.3</version>
         <scope>provided</scope>
       </dependency>

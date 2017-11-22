@@ -12,6 +12,16 @@
   <artifactId>oscm-unittests-base</artifactId>
   <version>1.0-SNAPSHOT</version>
   <dependencies>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+      <scope>compile</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.oscm</groupId>

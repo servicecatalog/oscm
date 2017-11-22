@@ -22,7 +22,6 @@ import javax.jws.WebParam;
 
 import org.junit.Test;
 
-import org.oscm.string.Strings;
 import org.oscm.test.ejb.TestContainer;
 import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.types.enumtypes.PaymentInfoType;
@@ -181,10 +180,6 @@ public abstract class NullArgumentTestBase<R> extends EJBTestBase {
 
     private static final Map<Class<?>, Object> INSTANCES = new HashMap<Class<?>, Object>();
 
-    private static byte[] bytes(String value) {
-        return Strings.toBytes(value);
-    }
-
     static {
         INSTANCES.put(Boolean.TYPE, Boolean.FALSE);
         INSTANCES.put(Long.TYPE, 0L);
@@ -195,7 +190,7 @@ public abstract class NullArgumentTestBase<R> extends EJBTestBase {
         INSTANCES.put(Set.class, Collections.EMPTY_SET);
         INSTANCES.put(Integer.TYPE, 5);
         INSTANCES.put(byte[].class,
-                bytes("user,user1@org.com,en,MR,John,Doe,ORGANIZATION_ADMIN"));
+                "user,user1@org.com,en,MR,John,Doe,ORGANIZATION_ADMIN".getBytes());
 
         INSTANCES.put(PaymentInfoType.class, PaymentInfoType.INVOICE);
         INSTANCES.put(UserAccountStatus.class, UserAccountStatus.ACTIVE);
