@@ -4,17 +4,13 @@
 
 package org.oscm.auditlog.bean;
 
-import static org.oscm.internal.types.enumtypes.ConfigurationKey.AUDIT_LOG_MAX_ENTRIES_RETRIEVED;
-
 import java.util.List;
-
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.enterprise.event.Observes;
 import javax.enterprise.event.TransactionPhase;
-import javax.inject.Inject;
 
 import org.oscm.auditlog.dao.AuditLogDao;
 import org.oscm.auditlog.model.AuditLog;
@@ -23,15 +19,17 @@ import org.oscm.auditlog.model.AuditLogEntry;
 import org.oscm.auditlog.util.AuditLogSerializer;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;
 import org.oscm.domobjects.ConfigurationSetting;
-import org.oscm.types.constants.Configuration;
 import org.oscm.internal.types.exception.AuditLogTooManyRowsException;
+import org.oscm.types.constants.Configuration;
+
+import static org.oscm.internal.types.enumtypes.ConfigurationKey.AUDIT_LOG_MAX_ENTRIES_RETRIEVED;
 
 @Stateless
 public class AuditLogServiceBean {   
-    @Inject
+    @EJB
     AuditLogDao dao;
 
-    @Inject
+    @EJB
     Event<AuditLogEntries> logEvent;
 
     @EJB
