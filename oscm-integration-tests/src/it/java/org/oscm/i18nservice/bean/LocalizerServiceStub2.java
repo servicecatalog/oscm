@@ -8,16 +8,6 @@
 
 package org.oscm.i18nservice.bean;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Properties;
-import java.util.UUID;
-
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-
 import org.oscm.domobjects.LocalizedBillingResource;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.enums.LocalizedBillingResourceType;
@@ -25,6 +15,10 @@ import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.i18nservice.local.LocalizedDomainObject;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
 import org.oscm.internal.vo.VOLocalizedText;
+
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import java.util.*;
 
 /**
  * Bean implementation to provide the localized information for the given

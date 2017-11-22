@@ -105,6 +105,7 @@
     <module>oscm-unittests-base</module>
     <module>oscm-portal</module>
     <module>oscm-security</module>
+    <module>oscm-integration-tests</module>
   </modules>
 
   <dependencyManagement>
