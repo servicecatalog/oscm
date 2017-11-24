@@ -17,7 +17,7 @@ before_install:
 install:
   - MAVEN_OPTS=-Dorg.slf4j.simpleLogger.defaultLogLevel=info mvn install -q -DskipTests=true -Dmaven.javadoc.skip=true -B -P travis
 script:
-  - travis_wait 30 mvn $MVN_GOAL
-  - MAVEN_OPTS=-Dorg.slf4j.simpleLogger.defaultLogLevel=info mvn org.jacoco:jacoco-maven-plugin:prepare-agent $MVN_GOAL -q -fae -Dmaven.javadoc.skip=true -DfailIfNoTests=false -B -P travis
+  - travis_wait 30 MAVEN_OPTS=-Dorg.slf4j.simpleLogger.defaultLogLevel=info mvn org
+  .jacoco:jacoco-maven-plugin:prepare-agent $MVN_GOAL -q -fae -Dmaven.javadoc.skip=true -DfailIfNoTests=false -B -P travis
 after_script:
   - mvn sonar:sonar
