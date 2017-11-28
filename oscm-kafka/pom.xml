@@ -9,7 +9,9 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>oscm-kafka</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
+  <artifactId>oscm-kafka</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <dependencies>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
@@ -21,6 +23,11 @@
     <dependency>
       <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+      <scope>test</scope>
     </dependency>
 
     <dependency>

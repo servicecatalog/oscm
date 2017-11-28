@@ -8,7 +8,7 @@
   <tns:TechnicalService accessType="DIRECT" allowingOnBehalfActing="false" baseUrl=""
     build="2014-02-20" id="LPLATFORM" loginPath="/Dynamically provided by the IaaS-system"
     onlyOneSubscriptionPerUser="false" provisioningType="ASYNCHRONOUS"
-    provisioningUrl="https://localhost:8081/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl" provisioningVersion="1.0" billingIdentifier="NATIVE_BILLING">
+    provisioningUrl="https://localhost:8081/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app..service.AsynchronousProvisioningProxy?wsdl" provisioningVersion="1.0" billingIdentifier="NATIVE_BILLING">
 
     <AccessInfo locale="en" >Description of how to access the application.</AccessInfo>
     <AccessInfo locale="ja" />
@@ -118,13 +118,13 @@
       <LocalizedDescription locale="en">The address to which emails are to be sent that notify service users or administrators of customer organizations about a successful modification of a virtual platform or server. Such modifications result from changes in the configuration parameters at a corresponding subscription.</LocalizedDescription>
       <LocalizedDescription locale="ja">仮想プラットフォームまたはサーバの更新に成功したことを知らせるemailの送信先メールアドレス。サービスの利用者またはサービス利用部門の管理者のメールアドレスを指定します。対応する購入済サービスのサービス設定のパラメータを変更したときに、仮想プラットフォームやサーバが更新されます。</LocalizedDescription>
     </ParameterDefinition>
-    <Operation actionURL="https://localhost:8081/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="START_VIRTUAL_SYSTEM">
+    <Operation actionURL="https://localhost:8081/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app..service.AsynchronousOperationProxy?wsdl" id="START_VIRTUAL_SYSTEM">
       <LocalizedName locale="en">Start</LocalizedName>
       <LocalizedName locale="ja">起動</LocalizedName>
       <LocalizedDescription locale="en">Start the system</LocalizedDescription>
       <LocalizedDescription locale="ja">システムを起動します</LocalizedDescription>
     </Operation>
-    <Operation actionURL="https://localhost:8081/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="STOP_VIRTUAL_SYSTEM">
+    <Operation actionURL="https://localhost:8081/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app..service.AsynchronousOperationProxy?wsdl" id="STOP_VIRTUAL_SYSTEM">
       <LocalizedName locale="en">Stop</LocalizedName>
       <LocalizedName locale="ja">停止</LocalizedName>
       <LocalizedDescription locale="en">Stop the system</LocalizedDescription>

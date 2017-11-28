@@ -9,7 +9,9 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>oscm-review</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
+  <artifactId>oscm-review</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <dependencies>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
@@ -22,7 +24,10 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-server-common</artifactId>
@@ -35,7 +40,10 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-i18n-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.tomee</groupId>
@@ -48,6 +56,11 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

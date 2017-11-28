@@ -9,69 +9,51 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>oscm-configservice</artifactId>
+  <artifactId>oscm-security</artifactId>
   <version>1.0-SNAPSHOT</version>
   <dependencies>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-domainobjects</artifactId>
-    </dependency>
     <dependency>
       <groupId>com.github.servicecatalog.oscm-commons</groupId>
       <artifactId>oscm-common</artifactId>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
-      <artifactId>oscm-dataservice</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-configservice-intsvc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-intsvc-base</artifactId>
+      <artifactId>oscm-saml2-api</artifactId>
     </dependency>
     <dependency>
       <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
       <artifactId>oscm-extsvc-internal</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-server-common</artifactId>
+      <groupId>org.apache.wss4j</groupId>
+      <artifactId>wss4j-ws-security-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.wss4j</groupId>
+      <artifactId>wss4j-ws-security-dom</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>openejb-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>openejb-cxf</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
     </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-unittests-base</artifactId>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.tomee</groupId>
-      <artifactId>javaee-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
     </dependency>
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.apache.geronimo.javamail</groupId>
-      <artifactId>geronimo-javamail_1.4_mail</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <scope>test</scope>
-    </dependency>
+
   </dependencies>
 </project>
