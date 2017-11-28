@@ -13,7 +13,7 @@
 package org.oscm.subscriptionservice.assembler;
 
 import static org.junit.Assert.assertNull;
-import static org.oscm.test.Numbers.L_TIMESTAMP;
+import static org.oscm.test.Numbers.TIMESTAMP;
 
 import java.util.List;
 
@@ -109,9 +109,9 @@ public class SubscriptionAssemblerTest {
         subscription = new Subscription();
         subscription.bindToProduct(product);
         subscription.setSubscriptionId("SUB_ID");
-        subscription.setCreationDate(L_TIMESTAMP);
-        subscription.setActivationDate(L_TIMESTAMP);
-        subscription.setDeactivationDate(L_TIMESTAMP);
+        subscription.setCreationDate(TIMESTAMP);
+        subscription.setActivationDate(TIMESTAMP);
+        subscription.setDeactivationDate(TIMESTAMP);
         subscription.setTimeoutMailSent(false);
         subscription.setStatus(SubscriptionStatus.ACTIVE);
         subscription.setAccessInfo("accessInfo");

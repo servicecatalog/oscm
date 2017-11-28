@@ -106,6 +106,8 @@
     <module>oscm-portal</module>
     <module>oscm-security</module>
     <module>oscm-integration-tests</module>
+    <module>oscm-jmx-internal</module>
+    <module>oscm-operatorsvc-client</module>
   </modules>
 
   <dependencyManagement>

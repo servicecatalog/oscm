@@ -10,10 +10,14 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>oscm-operatorsvc</artifactId>
+  <version>1.0-SNAPSHOT</version>
 
 
   <dependencies>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-accountmgmt-intsvc</artifactId>
@@ -38,7 +42,10 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-triggerservice-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-configservice-intsvc</artifactId>
@@ -75,10 +82,35 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-marketplaceservice-intsvc</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-unittests-base</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.tomee</groupId>
       <artifactId>javaee-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.ant</groupId>
+      <artifactId>ant</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

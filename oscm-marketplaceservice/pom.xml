@@ -53,7 +53,10 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-accountmgmt-intsvc</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-taskhandling-intsvc</artifactId>
@@ -90,11 +93,43 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-tenantmgmt-intsvc</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-i18n</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-unittests-base</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>org.oscm</groupId>-->
+      <!--<artifactId>oscm-accountmgmt</artifactId>-->
+      <!--<scope>test</scope>-->
+    <!--</dependency>-->
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-serviceprovisioning</artifactId>
+      <scope>test</scope>
+    </dependency>
 
-    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
     </dependency>
   </dependencies>
 </project>

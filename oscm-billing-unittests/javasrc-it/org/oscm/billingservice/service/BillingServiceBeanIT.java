@@ -45,8 +45,8 @@ import static org.oscm.test.Numbers.BD600;
 import static org.oscm.test.Numbers.BD700;
 import static org.oscm.test.Numbers.BD8;
 import static org.oscm.test.Numbers.BIGDECIMAL_SCALE;
-import static org.oscm.test.Numbers.L_MAX;
-import static org.oscm.test.Numbers.L_MIN;
+import static org.oscm.test.Numbers.Long.MAX_VALUE;
+import static org.oscm.test.Numbers.Long.MIN_VALUE;
 import static org.oscm.test.Numbers.TIMESTAMP;
 
 import java.math.BigDecimal;
@@ -510,8 +510,8 @@ public class BillingServiceBeanIT extends EJBTestBase {
                 discount.setOrganizationReference(
                         organization.getSources().get(0));
                 discount.setValue(percent);
-                Long startTime = L_MIN;
-                Long endTime = L_MAX;
+                Long startTime = Long.MIN_VALUE;
+                Long endTime = Long.MAX_VALUE;
                 discount.setStartTime(startTime);
                 discount.setEndTime(endTime);
 
@@ -3866,8 +3866,8 @@ public class BillingServiceBeanIT extends EJBTestBase {
                 discount.setOrganizationReference(
                         organization.getSources().get(0));
                 discount.setValue(discnt);
-                discount.setStartTime(L_MIN);
-                discount.setEndTime(L_MAX);
+                discount.setStartTime(Long.MIN_VALUE);
+                discount.setEndTime(Long.MAX_VALUE);
                 mgr.persist(discount);
                 mgr.flush();
                 return null;

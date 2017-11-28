@@ -15,8 +15,6 @@ import org.oscm.converter.PriceConverter;
  */
 public class Numbers {
 
-    public static final Long L_MIN = Long.MIN_VALUE;
-
     public static final Long Lm100 = (long) -100;
     public static final Long Lm1 = (long) -1;
     public static final Long L0 = 0L;
@@ -39,7 +37,6 @@ public class Numbers {
     public static final Long L2000 = 2000L;
     public static final Long L3000 = 3000L;
 
-    public static final Long L_MAX = Long.MAX_VALUE;
 
     public static final int BIGDECIMAL_SCALE = PriceConverter.NUMBER_OF_DECIMAL_PLACES;
     public static final BigDecimal BD3000 = BigDecimal.valueOf(3000).setScale(
@@ -154,7 +151,5 @@ public class Numbers {
      * CEST 2010 (a sunny summer day in munich).
      */
     public static final long TIMESTAMP = 1282816800000L;
-
-    public static final Long L_TIMESTAMP = TIMESTAMP;
 
 }

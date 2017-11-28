@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: org.oscm.operatorsvc.client.OperatorClient
-Class-Path: oscm-common.jar oscm-extsvc-platform.jar oscm-extsvc-internal.jar oscm-operatorsvc.jar oscm-devruntime.jar log4j.jar appserv-rt.jar gf-client.jar commons-csv-1.0.jar
-Implementation-Version: ${buildid}

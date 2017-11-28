@@ -8,7 +8,7 @@
 
 package org.oscm.internal.landingpage;
 
-import static org.oscm.test.Numbers.L_TIMESTAMP;
+import static org.oscm.test.Numbers.TIMESTAMP;
 import static org.oscm.test.matchers.JavaMatchers.hasItems;
 import static org.oscm.test.matchers.JavaMatchers.hasNoItems;
 import static org.oscm.test.matchers.JavaMatchers.hasOneItem;
@@ -238,9 +238,9 @@ public class EnterpriseLandingpageServiceBeanTest {
         Subscription subscription = new Subscription();
         subscription.bindToProduct(givenProduct());
         subscription.setSubscriptionId("SUB_ID");
-        subscription.setCreationDate(L_TIMESTAMP);
-        subscription.setActivationDate(L_TIMESTAMP);
-        subscription.setDeactivationDate(L_TIMESTAMP);
+        subscription.setCreationDate(TIMESTAMP);
+        subscription.setActivationDate(TIMESTAMP);
+        subscription.setDeactivationDate(TIMESTAMP);
         subscription.setTimeoutMailSent(false);
         subscription.setStatus(SubscriptionStatus.ACTIVE);
         subscription.setAccessInfo("accessInfo");

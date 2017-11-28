@@ -9,8 +9,13 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>oscm-extsvc-internal-impl</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-interfaces</groupId>        <artifactId>oscm-extsvc-internal</artifactId>      </dependency>
+  <artifactId>oscm-extsvc-internal-impl</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <dependencies>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-interfaces</groupId>
+      <artifactId>oscm-extsvc-internal</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-dataservice-intsvc</artifactId>
@@ -19,7 +24,10 @@
       <groupId>org.oscm</groupId>
       <artifactId>oscm-review</artifactId>
     </dependency>
-    <dependency>        <groupId>com.github.servicecatalog.oscm-commons</groupId>        <artifactId>oscm-common</artifactId>      </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.oscm</groupId>
       <artifactId>oscm-domainobjects</artifactId>

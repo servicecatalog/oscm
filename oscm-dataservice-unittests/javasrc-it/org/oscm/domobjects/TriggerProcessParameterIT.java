@@ -12,7 +12,7 @@
 
 package org.oscm.domobjects;
 
-import static org.oscm.test.Numbers.L_TIMESTAMP;
+import static org.oscm.test.Numbers.TIMESTAMP;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -353,8 +353,8 @@ public class TriggerProcessParameterIT extends DomainObjectTestBase {
     @Test
     public void testSerializeVOSubscriptionDetails() throws Exception {
         VOSubscriptionDetails voIn = new VOSubscriptionDetails();
-        voIn.setActivationDate(L_TIMESTAMP);
-        voIn.setCreationDate(L_TIMESTAMP);
+        voIn.setActivationDate(TIMESTAMP);
+        voIn.setCreationDate(TIMESTAMP);
         voIn.setServiceAccessInfo("serviceAccessInfo");
         voIn.setServiceAccessType(ServiceAccessType.LOGIN);
         voIn.setServiceBaseURL("http://");

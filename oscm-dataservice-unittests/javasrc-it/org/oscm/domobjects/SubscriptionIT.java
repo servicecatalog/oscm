@@ -11,7 +11,6 @@
  ********************************************************************************/
 package org.oscm.domobjects;
 
-import static org.oscm.test.Numbers.L_TIMESTAMP;
 import static org.oscm.test.Numbers.TIMESTAMP;
 import static org.junit.Assert.assertEquals;
 
@@ -193,7 +192,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         prepareSomeObjects(testname);
         // Add a new subscription for product 1
         Subscription sub1 = new Subscription();
-        sub1.setCreationDate(L_TIMESTAMP);
+        sub1.setCreationDate(TIMESTAMP);
         sub1.setStatus(SubscriptionStatus.ACTIVE);
         sub1.setSubscriptionId(testname + "1");
         sub1.setOrganization(supplier);
@@ -388,7 +387,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         prepareSomeObjects(testname);
         // Add a new subscription for product 1
         Subscription sub1 = new Subscription();
-        sub1.setCreationDate(L_TIMESTAMP);
+        sub1.setCreationDate(TIMESTAMP);
         sub1.setStatus(SubscriptionStatus.ACTIVE);
         sub1.setSubscriptionId(testname + "1");
         sub1.setOrganization(supplier);
@@ -540,7 +539,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         prepareSomeObjects(testname);
         // Add a new subscription for product 1
         Subscription sub1 = new Subscription();
-        sub1.setCreationDate(L_TIMESTAMP);
+        sub1.setCreationDate(TIMESTAMP);
         sub1.setStatus(SubscriptionStatus.ACTIVE);
         sub1.setSubscriptionId(testname + "1");
         sub1.setOrganization(supplier);
@@ -671,7 +670,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         prepareSomeObjects(testname);
         // Add a new subscription for product 1
         Subscription sub1 = new Subscription();
-        sub1.setCreationDate(L_TIMESTAMP);
+        sub1.setCreationDate(TIMESTAMP);
         sub1.setStatus(SubscriptionStatus.ACTIVE);
         sub1.setSubscriptionId(testname + "1");
         sub1.setOrganization(supplier);
@@ -834,7 +833,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         prepareSomeObjects(testname);
         // Add a new subscription for product 1
         Subscription sub1 = new Subscription();
-        sub1.setCreationDate(L_TIMESTAMP);
+        sub1.setCreationDate(TIMESTAMP);
         sub1.setStatus(SubscriptionStatus.ACTIVE);
         sub1.setSubscriptionId(testname + "1");
         sub1.setOrganization(supplier);
@@ -850,7 +849,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
             throws SaaSApplicationException {
         String testname = "SubTestNonUnique";
         Subscription sub1 = new Subscription();
-        sub1.setCreationDate(L_TIMESTAMP);
+        sub1.setCreationDate(TIMESTAMP);
         sub1.setStatus(SubscriptionStatus.ACTIVE);
         sub1.setSubscriptionId(testname + "1");
         sub1.setOrganization(supplier);
@@ -886,7 +885,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         prepareSomeObjects(testname);
         // Add a new subscription for product 1
         Subscription sub1 = new Subscription();
-        sub1.setCreationDate(L_TIMESTAMP);
+        sub1.setCreationDate(TIMESTAMP);
         sub1.setStatus(SubscriptionStatus.ACTIVE);
         sub1.setSubscriptionId(testname + "1");
         sub1.bindToProduct(products.get(0));
@@ -920,7 +919,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         prepareSomeObjects(testname);
         // Add a new subscription for product 1
         Subscription sub1 = new Subscription();
-        sub1.setCreationDate(L_TIMESTAMP);
+        sub1.setCreationDate(TIMESTAMP);
         sub1.setStatus(SubscriptionStatus.ACTIVE);
         sub1.setSubscriptionId(testname + "1");
         sub1.setOrganization(supplier);
@@ -979,7 +978,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         prepareSomeObjects(testname);
         // Add a new subscription for product 1
         Subscription sub1 = new Subscription();
-        sub1.setCreationDate(L_TIMESTAMP);
+        sub1.setCreationDate(TIMESTAMP);
         sub1.setStatus(SubscriptionStatus.ACTIVE);
         sub1.setSubscriptionId(testname);
         sub1.setOrganization(supplier);
@@ -1150,7 +1149,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
         prepareSomeObjects(testname);
         // Add a new subscription for product 1
         Subscription sub1 = new Subscription();
-        sub1.setCreationDate(L_TIMESTAMP);
+        sub1.setCreationDate(TIMESTAMP);
         sub1.setStatus(SubscriptionStatus.ACTIVE);
         sub1.setSubscriptionId(testname);
         sub1.setOrganization(supplier);
@@ -1334,7 +1333,7 @@ public class SubscriptionIT extends DomainObjectTestBase {
             Organization org, Marketplace marketplace)
             throws NonUniqueBusinessKeyException {
         return createSubscription(prod, subscriptionId, org, marketplace,
-                L_TIMESTAMP.longValue());
+                TIMESTAMP.longValue());
     }
 
     Subscription createSubscription(Product prod, String subscriptionId,
