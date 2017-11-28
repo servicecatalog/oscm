@@ -551,8 +551,8 @@ public class BillingServiceBean2IT extends EJBTestBase {
                 Discount discount = new Discount();
                 discount.setOrganizationReference(customer.getSources().get(0));
                 discount.setValue(new BigDecimal("50"));
-                Long startTime = Numbers.Long.MIN_VALUE;
-                Long endTime = Numbers.Long.MAX_VALUE;
+                Long startTime = Long.MIN_VALUE;
+                Long endTime = Long.MAX_VALUE;
                 discount.setStartTime(startTime);
                 discount.setEndTime(endTime);
                 dm.persist(discount);

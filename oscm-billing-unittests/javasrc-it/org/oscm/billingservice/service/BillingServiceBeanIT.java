@@ -45,8 +45,8 @@ import static org.oscm.test.Numbers.BD600;
 import static org.oscm.test.Numbers.BD700;
 import static org.oscm.test.Numbers.BD8;
 import static org.oscm.test.Numbers.BIGDECIMAL_SCALE;
-import static org.oscm.test.Numbers.Long.MAX_VALUE;
-import static org.oscm.test.Numbers.Long.MIN_VALUE;
+import static org.oscm.test.Long.MAX_VALUE;
+import static org.oscm.test.Long.MIN_VALUE;
 import static org.oscm.test.Numbers.TIMESTAMP;
 
 import java.math.BigDecimal;
