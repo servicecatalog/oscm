@@ -42,15 +42,16 @@ import org.oscm.internal.types.exception.DigitalSignatureValidationException;
  */
 public class DigitalSignatureValidatorTest {
 
-    private final String FILE_OPENAM_RESPONSE = "javares/openamResponse.xml";
-    private final String FILE_UNSIGNED_ASSERTION = "javares/unsignedAssertion.xml";
-    private final String FILE_KEYSTORE_OPENAM = "javares/openam.jks";
+    private final String FILE_OPENAM_RESPONSE = "/openamResponse.xml";
+    private final String FILE_UNSIGNED_ASSERTION = "/unsignedAssertion.xml";
+    private final String FILE_KEYSTORE_OPENAM = "/openam.jks";
 
     private DigitalSignatureValidator validator;
 
     @Before
     public void setup() throws Exception {
-        KeyStore keystore = Keystores.initializeKeyStore(FILE_KEYSTORE_OPENAM,
+
+        KeyStore keystore = Keystores.initializeKeyStore(this.getClass().getResource(FILE_KEYSTORE_OPENAM).getFile(),
                 "changeit");
         validator = spy(new DigitalSignatureValidator(keystore));
     }
@@ -66,16 +67,7 @@ public class DigitalSignatureValidatorTest {
     @Test(expected = DigitalSignatureValidationException.class)
     public void validate_error() throws Exception {
         // given
-        FileInputStream in = null;
-        Document document = null;
-        try {
-            in = new FileInputStream(FILE_OPENAM_RESPONSE);
-            document = XMLConverter.convertToDocument(in);
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-        }
+        Document document = XMLConverter.convertToDocument(this.getClass().getResourceAsStream(FILE_OPENAM_RESPONSE));
         NodeList nl = document.getElementsByTagNameNS(XMLSignature.XMLNS,
                 "Signature");
         doThrow(new XMLSignatureException("")).when(validator)
@@ -91,16 +83,7 @@ public class DigitalSignatureValidatorTest {
     @Test
     public void validate_x509_openamResponse() throws Exception {
         // given
-        FileInputStream in = null;
-        Document document = null;
-        try {
-            in = new FileInputStream(FILE_OPENAM_RESPONSE);
-            document = XMLConverter.convertToDocument(in);
-        } finally {
-            if (in != null) {
-                in.close();
-            }
-        }
+        Document document = XMLConverter.convertToDocument(this.getClass().getResourceAsStream(FILE_OPENAM_RESPONSE));
         Element assertion = (Element) document.getElementsByTagNameNS(
                 "urn:oasis:names:tc:SAML:2.0:assertion", "Assertion").item(0);
         assertion.setIdAttribute("ID", true);
@@ -123,7 +106,7 @@ public class DigitalSignatureValidatorTest {
         FileInputStream in = null;
         Document document = null;
         try {
-            in = new FileInputStream(FILE_UNSIGNED_ASSERTION);
+            in = new FileInputStream(this.getClass().getResource(FILE_UNSIGNED_ASSERTION).getFile());
             document = builder.sign(in, keyPair);
         } finally {
             if (in != null) {
@@ -148,7 +131,7 @@ public class DigitalSignatureValidatorTest {
         FileInputStream in = null;
         Document document = null;
         try {
-            in = new FileInputStream(FILE_UNSIGNED_ASSERTION);
+            in = new FileInputStream(this.getClass().getResource(FILE_UNSIGNED_ASSERTION).getFile());
             document = builder.sign(in, keyPair);
         } finally {
             if (in != null) {
@@ -174,7 +157,7 @@ public class DigitalSignatureValidatorTest {
         FileInputStream in = null;
         Document document = null;
         try {
-            in = new FileInputStream(FILE_UNSIGNED_ASSERTION);
+            in = new FileInputStream(this.getClass().getResource(FILE_UNSIGNED_ASSERTION).getFile());
             document = builder.sign(in, keyPair);
         } finally {
             if (in != null) {
@@ -200,7 +183,7 @@ public class DigitalSignatureValidatorTest {
         FileInputStream in = null;
         Document document = null;
         try {
-            in = new FileInputStream(FILE_UNSIGNED_ASSERTION);
+            in = new FileInputStream(this.getClass().getResource(FILE_UNSIGNED_ASSERTION).getFile());
             document = builder.sign(in, keyPair);
         } finally {
             if (in != null) {

@@ -19,6 +19,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.junit.Before;
 import org.junit.Test;
 
+import org.oscm.saml2.api.model.ObjectFactoryTest;
 import org.oscm.string.Strings;
 
 /**
@@ -27,14 +28,15 @@ import org.oscm.string.Strings;
  */
 public class RedirectEncoderTest {
 
-    private final String FILE_METADATA_LINEBREAKS = "javares/metadata_linebreaks.xml";
+    private final String FILE_METADATA_LINEBREAKS = "/metadata_linebreaks.xml";
 
     private String metadataLinebreaks;
     private RedirectEncoder encodingUtils;
 
     @Before
     public void setup() throws Exception {
-        metadataLinebreaks = Strings.textFileToString(FILE_METADATA_LINEBREAKS);
+        metadataLinebreaks = ObjectFactoryTest.readFromInputStream(this.getClass().getResourceAsStream
+            (FILE_METADATA_LINEBREAKS));
         encodingUtils = new RedirectEncoder();
     }
 

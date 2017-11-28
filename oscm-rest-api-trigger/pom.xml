@@ -9,7 +9,9 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <packaging>war</packaging>
-  <artifactId>oscm-rest-api-trigger</artifactId>  <version>1.0-SNAPSHOT</version>  <dependencies>
+  <artifactId>oscm-rest-api-trigger</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <dependencies>
     <dependency>
       <groupId>com.github.servicecatalog.oscm-commons</groupId>
       <artifactId>oscm-rest-api-common</artifactId>
@@ -30,6 +32,29 @@
     <dependency>
       <groupId>org.apache.tomee</groupId>
       <artifactId>javaee-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.geronimo.javamail</groupId>
+      <artifactId>geronimo-javamail_1.4_mail</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-core</artifactId>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
