@@ -1166,9 +1166,9 @@
       </dependency>
 
       <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>9.4-1206-jdbc42</version>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>9.4-1206-jdbc42</version>
         <scope>provided</scope>
         <exclusions>
           <exclusion>
@@ -1248,6 +1248,12 @@
         <groupId>org.apache.myfaces.tomahawk</groupId>
         <artifactId>tomahawk20</artifactId>
         <version>1.1.14</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-rs-client</artifactId>
+        <version>3.1.10</version>
+        <scope>test</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
