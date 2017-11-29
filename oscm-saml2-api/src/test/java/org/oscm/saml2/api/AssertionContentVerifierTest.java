@@ -50,16 +50,7 @@ public class AssertionContentVerifierTest {
     }
 
     private Document loadDocument(String file) throws Exception {
-        FileInputStream inputStream = null;
-        Document document = null;
-        try {
-            inputStream = new FileInputStream(file);
-            document = XMLConverter.convertToDocument(inputStream);
-        } finally {
-            if (inputStream != null) {
-                inputStream.close();
-            }
-        }
+        Document document = XMLConverter.convertToDocument(this.getClass().getResourceAsStream(file));
         return document;
     }
 

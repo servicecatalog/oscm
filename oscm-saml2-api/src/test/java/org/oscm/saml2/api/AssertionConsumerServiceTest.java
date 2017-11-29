@@ -8,11 +8,16 @@
 
 package org.oscm.saml2.api;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.types.exception.AssertionValidationException;
+import org.oscm.saml2.api.model.ObjectFactoryTest;
 import org.oscm.string.Strings;
 
 /**
@@ -37,7 +42,8 @@ public class AssertionConsumerServiceTest {
         // given
         acs = new AssertionConsumerService(acsUrl, acsUrlHttps,
                 FILE_KEYSTORE_OPENAM, "changeit");
-        String response = Strings.textFileToString(FILE_OPENAM_RESPONSE);
+        String response = ObjectFactoryTest.readFromInputStream(this.getClass().getResourceAsStream
+            (FILE_OPENAM_RESPONSE));
         response = response.replace("2013-05-29T10:53:36Z", (Calendar
                 .getInstance().get(Calendar.YEAR) + 1) + "-05-29T10:53:36Z");
         response = response.replace("@RECIPIENT", acsUrl);
@@ -53,7 +59,8 @@ public class AssertionConsumerServiceTest {
         // given
         acs = new AssertionConsumerService(acsUrl, acsUrlHttps,
                 FILE_KEYSTORE_OPENAM, "changeit");
-        String response = Strings.textFileToString(FILE_OPENAM_RESPONSE);
+        String response = ObjectFactoryTest.readFromInputStream(this.getClass().getResourceAsStream
+            (FILE_OPENAM_RESPONSE));
         response = response.replace("2013-05-29T10:53:36Z", (Calendar
                 .getInstance().get(Calendar.YEAR) + 1) + "-05-29T10:53:36Z");
         response = response.replace("@RECIPIENT", acsUrlHttps);
@@ -69,7 +76,8 @@ public class AssertionConsumerServiceTest {
         // given
         acs = new AssertionConsumerService(acsUrl, acsUrlHttps,
                 FILE_KEYSTORE_OPENAM, "changeit");
-        String response = Strings.textFileToString(FILE_OPENAM_RESPONSE);
+        String response = ObjectFactoryTest.readFromInputStream(this.getClass().getResourceAsStream
+            (FILE_OPENAM_RESPONSE));
         response = response.replace("2013-05-29T10:53:36Z", (Calendar
                 .getInstance().get(Calendar.YEAR) + 1) + "-05-29T10:53:36Z");
         response = response.replace("@RECIPIENT", "https://something.else.de");

@@ -25,6 +25,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.oscm.converter.XMLConverter;
 import org.oscm.internal.types.exception.UserIdNotFoundException;
+import org.oscm.saml2.api.model.ObjectFactoryTest;
 import org.oscm.stream.Streams;
 import org.w3c.dom.Document;
 
@@ -53,7 +54,7 @@ public class SAMLResponseExtractorTest {
     private Document loadDocument(String file) throws Exception {
         FileInputStream inputStream = null;
         try {
-            inputStream = new FileInputStream(file);
+            inputStream = new FileInputStream(this.getClass().getResource(file).getFile());
             Document document = XMLConverter.convertToDocument(inputStream);
             inputStream.close();
             return document;
@@ -76,6 +77,8 @@ public class SAMLResponseExtractorTest {
     @Test
     public void getUserId_Response() throws Exception {
         // given the content of an encoded idp response
+
+
         String encodedIdpResponse = getEncodedIdpResponse(FILE_UNSIGNED_RESPONSE);
 
         // when

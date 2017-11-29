@@ -19,13 +19,13 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.tomee</groupId>
-      <artifactId>javaee-api</artifactId>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-subscriptionmgmt</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-subscriptionmgmt</artifactId>
+      <groupId>org.apache.tomee</groupId>
+      <artifactId>javaee-api</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
