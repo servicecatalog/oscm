@@ -21,7 +21,7 @@ import org.junit.Test;
 
 public class OperatorClientTest {
 
-    private static final String TEST_PROPERTIES = "test.properties";
+    private static final String TEST_PROPERTIES = "src/test/resources/test.properties";
     private CharArrayWriter err;
     private OperatorClient client;
 
