@@ -27,8 +27,8 @@ import org.oscm.string.Strings;
 public class AssertionConsumerServiceTest {
 
     private AssertionConsumerService acs;
-    private final String FILE_OPENAM_RESPONSE = "/openamResponse.xml";
-    private final String FILE_KEYSTORE_OPENAM = "/openam.jks";
+    private final String FILE_OPENAM_RESPONSE = "./src/test/resources/openamResponse.xml";
+    private final String FILE_KEYSTORE_OPENAM = "./src/test/resources/openam.jks";
     private final String acsUrl = "http://estkulle:8680/test/jsp/showPostResponse.jsp";
     private final String acsUrlHttps = "https://estkulle:8681/test/jsp/showPostResponse.jsp";
     public static final String tenantID = "8f96dede";

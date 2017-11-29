@@ -42,9 +42,9 @@ import org.oscm.internal.types.exception.DigitalSignatureValidationException;
  */
 public class DigitalSignatureValidatorTest {
 
-    private final String FILE_OPENAM_RESPONSE = "/openamResponse.xml";
-    private final String FILE_UNSIGNED_ASSERTION = "/unsignedAssertion.xml";
-    private final String FILE_KEYSTORE_OPENAM = "/openam.jks";
+    private final String FILE_OPENAM_RESPONSE = "./src/test/resources/openamResponse.xml";
+    private final String FILE_UNSIGNED_ASSERTION = "./src/test/resources/unsignedAssertion.xml";
+    private final String FILE_KEYSTORE_OPENAM = "./src/test/resources/openam.jks";
 
     private DigitalSignatureValidator validator;
 

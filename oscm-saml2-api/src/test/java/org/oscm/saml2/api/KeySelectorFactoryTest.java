@@ -8,24 +8,20 @@
 
 package org.oscm.saml2.api;
 
-import static junit.framework.Assert.fail;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.FileInputStream;
-
-import javax.xml.crypto.KeySelector;
-import javax.xml.crypto.dsig.XMLSignature;
-
 import org.junit.Before;
 import org.junit.Test;
-import org.oscm.saml2.api.model.ObjectFactoryTest;
+import org.oscm.converter.XMLConverter;
+import org.oscm.internal.types.exception.DigitalSignatureValidationException;
+import org.oscm.string.Strings;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import org.oscm.converter.XMLConverter;
-import org.oscm.string.Strings;
-import org.oscm.internal.types.exception.DigitalSignatureValidationException;
+import javax.xml.crypto.KeySelector;
+import javax.xml.crypto.dsig.XMLSignature;
+import java.io.FileInputStream;
+
+import static junit.framework.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author kulle
@@ -33,7 +29,7 @@ import org.oscm.internal.types.exception.DigitalSignatureValidationException;
  */
 public class KeySelectorFactoryTest {
 
-    private final String FILE_OPENAM_RESPONSE = "/openamResponse.xml";
+    private final String FILE_OPENAM_RESPONSE = "./src/test/resources/openamResponse.xml";
     private KeySelectorFactory factory;
 
     @Before
