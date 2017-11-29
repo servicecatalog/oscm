@@ -908,14 +908,14 @@ AdmUtils.showHelp = function(baseUrl, locale, contextId) {
 	var page = baseUrl + "-help/help/" + locale + "/help/tasks/"
 			+ contextId.replace(/\./g, "_") + ".htm";
 	
-	var defaulePage = baseUrl + "-help/help/en/help/tasks/"
+	var defaultPage = baseUrl + "-help/help/en/help/tasks/"
 			+ contextId.replace(/\./g, "_") + ".htm";
 
 	if(AdmUtils.testHttpConnection(page)){
 		AdmUtils.openWindow(page);
 		return true;
-	}else if(AdmUtils.testHttpConnection(defaulePage)){
-		AdmUtils.openWindow(defaulePage);
+	}else if(AdmUtils.testHttpConnection(defaultPage)){
+		AdmUtils.openWindow(defaultPage);
 		return true
 	}
 	return false;

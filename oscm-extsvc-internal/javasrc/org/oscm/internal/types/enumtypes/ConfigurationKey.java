@@ -364,7 +364,11 @@ public enum ConfigurationKey {
 
     @Doc({ "The Kafka configuration property bootstrap.servers." })
     @Example("localhost:9092")
-    KAFKA_BOOTSTRAP_SERVERS(false, "", "string");
+    KAFKA_BOOTSTRAP_SERVERS(false, "", "string"),
+
+    @Doc({ "URL of deployed oscm-help" })
+    @Example("localhost:8580")
+    HELP_URL(false, "", "string");
 
     // ///////////////////////////////////////////////////////////////////////////////////
 

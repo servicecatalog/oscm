@@ -488,6 +488,14 @@ public class ApplicationBean implements Serializable {
         return hiddenUIElements;
     }
 
+    public String getHelpURL() {
+        final String url = configurationService
+                .getVOConfigurationSetting(
+                        ConfigurationKey.HELP_URL,
+                        Configuration.GLOBAL_CONTEXT).getValue();
+        return url == null || url.isEmpty() ? requestContextPath : url;
+    }
+
     /**
      * Initialize the {@link ConfigurationService} if not already done.
      */
