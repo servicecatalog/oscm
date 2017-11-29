@@ -905,7 +905,10 @@ AdmUtils.findRowForDataList = function(prefix, col1Id, col1Text, col2Id, col2Tex
 }
 
 AdmUtils.showHelp = function(baseUrl, locale, contextId) {
-	var page = baseUrl + "-help/help/" + locale + "/help/tasks/"
+    if (baseUrl.endsWith('oscm-portal')) {
+        baseUrl += "-help";
+    }
+	var page = baseUrl + "/help/" + locale + "/help/tasks/"
 			+ contextId.replace(/\./g, "_") + ".htm";
 	
 	var defaultPage = baseUrl + "-help/help/en/help/tasks/"
