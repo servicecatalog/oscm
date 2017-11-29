@@ -32,7 +32,7 @@ import org.oscm.internal.types.exception.DigitalSignatureValidationException;
  */
 public class KeySelectorFactoryTest {
 
-    private final String FILE_OPENAM_RESPONSE = "openamResponse.xml";
+    private final String FILE_OPENAM_RESPONSE = "src/test/resources/openamResponse.xml";
     private KeySelectorFactory factory;
 
     @Before
@@ -44,7 +44,7 @@ public class KeySelectorFactoryTest {
     public void newKeySelector_keyinfoEmpty() throws Exception {
         // given
         String response = Strings
-                .textFileToString("openamResponse.xml");
+                .textFileToString(FILE_OPENAM_RESPONSE);
         response = response.replaceAll(System.lineSeparator(), "").replaceAll(
                 "<ds:KeyInfo>.*</ds:KeyInfo>", "<ds:KeyInfo></ds:KeyInfo>");
         Document document = XMLConverter.convertToDocument(response, true);
@@ -65,7 +65,7 @@ public class KeySelectorFactoryTest {
     public void newKeySelector_keyinfoMissing() throws Exception {
         // given
         String response = Strings
-                .textFileToString("openamResponse.xml");
+                .textFileToString(FILE_OPENAM_RESPONSE);
         response = response.replaceAll(System.lineSeparator(), "").replaceAll(
                 "<ds:KeyInfo>.*</ds:KeyInfo>", "");
         Document document = XMLConverter.convertToDocument(response, true);
@@ -110,7 +110,7 @@ public class KeySelectorFactoryTest {
     public void newKeySelector_keyValue() throws Exception {
         // given
         String response = Strings
-                .textFileToString("openamResponse.xml");
+                .textFileToString(FILE_OPENAM_RESPONSE);
         Document document = XMLConverter.convertToDocument(
                 replaceX509WithKeyValueData(response), true);
         NodeList nl = document.getElementsByTagNameNS(XMLSignature.XMLNS,
@@ -134,7 +134,7 @@ public class KeySelectorFactoryTest {
     public void newKeySelector_firstFound() throws Exception {
         // given
         String response = Strings
-                .textFileToString("openamResponse.xml");
+                .textFileToString(FILE_OPENAM_RESPONSE);
         Document document = XMLConverter.convertToDocument(
                 addKeyValueAfterX509Data(response), true);
         NodeList nl = document.getElementsByTagNameNS(XMLSignature.XMLNS,
