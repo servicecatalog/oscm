@@ -47,9 +47,13 @@ public class OperatorServiceDataHandlerTest {
         target.setKey(2);
 
         ds = mock(DataService.class);
-        doReturn(dataServiceResult).when(ds).find(any(DomainObject.class));
+        Answer<DomainObject<?>> answer = invocationOnMock -> {
+            searchTemplate = (OrganizationReference) invocationOnMock.getArguments()[0];
+            return dataServiceResult;
+        };
+        doAnswer(answer).when(ds).find(any(DomainObject.class));
         doNothing().when(ds).flush();
-        Answer<Void> answer = invocationOnMock -> {
+        answer = invocationOnMock -> {
             DomainObject dObj = (DomainObject) invocationOnMock.getArguments()[0];
             dObj.setKey(500);
             return null;
