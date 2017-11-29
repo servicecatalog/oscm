@@ -33,7 +33,7 @@ import org.oscm.internal.types.exception.DigitalSignatureValidationException;
  */
 public class KeySelectorFactoryTest {
 
-    private final String FILE_OPENAM_RESPONSE = "src/test/resources/openamResponse.xml";
+    private final String FILE_OPENAM_RESPONSE = "/openamResponse.xml";
     private KeySelectorFactory factory;
 
     @Before

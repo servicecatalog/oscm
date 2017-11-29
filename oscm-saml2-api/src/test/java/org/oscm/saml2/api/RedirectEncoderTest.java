@@ -28,7 +28,7 @@ import org.oscm.string.Strings;
  */
 public class RedirectEncoderTest {
 
-    private final String FILE_METADATA_LINEBREAKS = "src/test/resources/metadata_linebreaks.xml";
+    private final String FILE_METADATA_LINEBREAKS = "/metadata_linebreaks.xml";
 
     private String metadataLinebreaks;
     private RedirectEncoder encodingUtils;

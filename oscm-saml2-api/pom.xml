@@ -46,10 +46,5 @@
       <artifactId>oscm-unittests-base</artifactId>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.oscm</groupId>
-      <artifactId>oscm-unittests-base</artifactId>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 </project>

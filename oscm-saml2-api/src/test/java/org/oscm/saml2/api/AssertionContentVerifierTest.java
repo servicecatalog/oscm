@@ -37,8 +37,8 @@ import org.oscm.internal.types.exception.AssertionValidationException;
  */
 public class AssertionContentVerifierTest {
 
-    private final String FILE_UNSIGNED_ASSERTION = "src/test/resources/unsignedAssertion.xml";
-    private final String FILE_MISSING_CONFIRMATION_DATA = "src/test/resources/unsignedAssertion_noConfirmationData_noUserid.xml";
+    private final String FILE_UNSIGNED_ASSERTION = "/unsignedAssertion.xml";
+    private final String FILE_MISSING_CONFIRMATION_DATA = "/unsignedAssertion_noConfirmationData_noUserid.xml";
     private AssertionContentVerifier verifier;
     private Document assertion;
 
