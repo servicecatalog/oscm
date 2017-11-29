@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class GetSubscriptionUsageTest extends CommandTestBase {
 
-    private static final String CORRECT_FILE_NAME = "resources/test.csv";
+    private static final String CORRECT_FILE_NAME = "test.csv";
 
     @Override
     protected IOperatorCommand createCommand() {
