@@ -905,21 +905,12 @@ AdmUtils.findRowForDataList = function(prefix, col1Id, col1Text, col2Id, col2Tex
 }
 
 AdmUtils.showHelp = function(baseUrl, locale, contextId) {
-    if (baseUrl.endsWith('oscm-portal')) {
-        baseUrl += "-help";
-    }
 	var page = baseUrl + "/help/" + locale + "/help/tasks/"
-			+ contextId.replace(/\./g, "_") + ".htm";
-	
-	var defaultPage = baseUrl + "-help/help/en/help/tasks/"
 			+ contextId.replace(/\./g, "_") + ".htm";
 
 	if(AdmUtils.testHttpConnection(page)){
 		AdmUtils.openWindow(page);
 		return true;
-	}else if(AdmUtils.testHttpConnection(defaultPage)){
-		AdmUtils.openWindow(defaultPage);
-		return true
 	}
 	return false;
 }

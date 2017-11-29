@@ -367,7 +367,7 @@ public enum ConfigurationKey {
     KAFKA_BOOTSTRAP_SERVERS(false, "", "string"),
 
     @Doc({ "URL of deployed oscm-help" })
-    @Example("localhost:8580")
+    @Example("http://localhost:8580/oscm-portal-help")
     HELP_URL(false, "", "string");
 
     // ///////////////////////////////////////////////////////////////////////////////////
