@@ -11,6 +11,7 @@ package org.oscm.saml2.api;
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.FileInputStream;
 
 import javax.xml.crypto.KeySelector;
@@ -31,7 +32,7 @@ import org.oscm.internal.types.exception.DigitalSignatureValidationException;
  */
 public class KeySelectorFactoryTest {
 
-    private final String FILE_OPENAM_RESPONSE = "javares/openamResponse.xml";
+    private final String FILE_OPENAM_RESPONSE = "openamResponse.xml";
     private KeySelectorFactory factory;
 
     @Before
@@ -43,7 +44,7 @@ public class KeySelectorFactoryTest {
     public void newKeySelector_keyinfoEmpty() throws Exception {
         // given
         String response = Strings
-                .textFileToString("javares/openamResponse.xml");
+                .textFileToString("openamResponse.xml");
         response = response.replaceAll(System.lineSeparator(), "").replaceAll(
                 "<ds:KeyInfo>.*</ds:KeyInfo>", "<ds:KeyInfo></ds:KeyInfo>");
         Document document = XMLConverter.convertToDocument(response, true);
@@ -64,7 +65,7 @@ public class KeySelectorFactoryTest {
     public void newKeySelector_keyinfoMissing() throws Exception {
         // given
         String response = Strings
-                .textFileToString("javares/openamResponse.xml");
+                .textFileToString("openamResponse.xml");
         response = response.replaceAll(System.lineSeparator(), "").replaceAll(
                 "<ds:KeyInfo>.*</ds:KeyInfo>", "");
         Document document = XMLConverter.convertToDocument(response, true);
@@ -109,7 +110,7 @@ public class KeySelectorFactoryTest {
     public void newKeySelector_keyValue() throws Exception {
         // given
         String response = Strings
-                .textFileToString("javares/openamResponse.xml");
+                .textFileToString("openamResponse.xml");
         Document document = XMLConverter.convertToDocument(
                 replaceX509WithKeyValueData(response), true);
         NodeList nl = document.getElementsByTagNameNS(XMLSignature.XMLNS,
@@ -133,7 +134,7 @@ public class KeySelectorFactoryTest {
     public void newKeySelector_firstFound() throws Exception {
         // given
         String response = Strings
-                .textFileToString("javares/openamResponse.xml");
+                .textFileToString("openamResponse.xml");
         Document document = XMLConverter.convertToDocument(
                 addKeyValueAfterX509Data(response), true);
         NodeList nl = document.getElementsByTagNameNS(XMLSignature.XMLNS,
