@@ -12,10 +12,11 @@
   <properties>
     <database.url>jdbc:postgresql://localhost:5432/bss</database.url>
     <database.user>bssuser</database.user>
-    <databese.password>bssuser</databese.password>
+    <database.password>bssuser</database.password>
     <schema.name>bssuser</schema.name>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <flyway.skip>true</flyway.skip>
   </properties>
 
   <repositories>
@@ -31,8 +32,9 @@
       <properties>
         <database.url>jdbc:postgresql://localhost:5432/bssunittests</database.url>
         <database.user>bssunituser</database.user>
-        <databese.password>bssunituser</databese.password>
+        <database.password>bssunituser</database.password>
         <schema.name>bssunituser</schema.name>
+        <flyway.skip>false</flyway.skip>
       </properties>
     </profile>
   </profiles>
