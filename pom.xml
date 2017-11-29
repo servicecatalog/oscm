@@ -10,8 +10,6 @@
   <packaging>pom</packaging>
 
   <properties>
-    <flyway.version>4.2.0</flyway.version>
-    <postgres.driver.version>9.4-1206-jdbc42</postgres.driver.version>
     <database.url>jdbc:postgresql://localhost:5432/bss</database.url>
     <database.user>bssuser</database.user>
     <databese.password>bssuser</databese.password>
@@ -1168,7 +1166,7 @@
       <dependency>
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
-        <version>9.4-1206-jdbc42</version>
+        <version>42.1.4</version>
         <scope>provided</scope>
         <exclusions>
           <exclusion>
@@ -1186,7 +1184,7 @@
       <dependency>
         <groupId>org.flywaydb</groupId>
         <artifactId>flyway-core</artifactId>
-        <version>${flyway.version}</version>
+        <version>4.2.0</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
@@ -1363,12 +1361,12 @@
         <plugin>
           <groupId>org.flywaydb</groupId>
           <artifactId>flyway-maven-plugin</artifactId>
-          <version>${flyway.version}</version>
+          <version>4.2.0</version>
           <dependencies>
             <dependency>
               <groupId>org.postgresql</groupId>
               <artifactId>postgresql</artifactId>
-              <version>9.4-1206-jdbc42</version>
+              <version>42.1.4</version>
             </dependency>
           </dependencies>
         </plugin>
