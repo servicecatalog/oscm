@@ -152,6 +152,7 @@ public class OperatorClient {
 
     private static Properties readPropertyFile(final String file)
             throws IOException {
+        System.out.println("Loading: " + new File(file).getAbsolutePath());
         return PropertiesLoader.loadProperties(new FileInputStream(file));
     }
 

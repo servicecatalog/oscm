@@ -31,7 +31,7 @@ import static org.mockito.Mockito.*;
  */
 public class GetUserOperationLogCommandTest extends CommandTestBase {
 
-    private static final String CORRECT_FILE_NAME = "resources/test.csv";
+    private static final String CORRECT_FILE_NAME = "test.csv";
     private static final String STUB_RETURN = "09/21/2011_11:59:00:000 FSP_INTS-BSS: INFO: 30001:,log,SUBSCR,op,MODIFY,user,mdehn,subscription,Docs2Go Gold - dept. PM,customer,BMW,customer id,90349ce5,service,Docs2Go Gold,activation,09/21/2011_12:03:24.231,status, DEACTIVATED,deactivation,09/21/2011_15:46:20.859,maketplace,FUJITSU,payment type,Invoice,billing contact, my home address,reference,4711\n";
 
     @Override
