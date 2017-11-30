@@ -33,7 +33,7 @@ import org.oscm.ui.resources.DefaultMessages_en;
  * @author groch
  * 
  */
-//@Ignore
+@Ignore
 public class MessagePropertiesForExceptionsInSyncTest {
 
     private boolean showDebugOutput = true;
