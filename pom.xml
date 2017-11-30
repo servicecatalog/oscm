@@ -1265,6 +1265,13 @@
         <artifactId>cxf-core</artifactId>
         <version>3.1.10</version>
       </dependency>
+      <dependency>
+        <groupId>sun.jdk</groupId>
+        <artifactId>rt.jar</artifactId>
+        <version>1.8</version>
+        <scope>system</scope>
+        <systemPath>${java.home}/lib/rt.jar</systemPath>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <dependencies>
