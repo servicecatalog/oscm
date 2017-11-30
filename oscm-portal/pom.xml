@@ -79,6 +79,16 @@
         </exclusion>
       </exclusions>
     </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-serviceprovisioning</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.oscm</groupId>
+      <artifactId>oscm-unittests-base</artifactId>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>org.apache.tomee</groupId>
@@ -197,6 +207,10 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
     </dependency>
   </dependencies>
 

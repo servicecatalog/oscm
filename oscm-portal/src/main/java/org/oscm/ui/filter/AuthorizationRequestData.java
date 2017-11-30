@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
 import org.oscm.internal.vo.VOUserDetails;
-//import org.oscm.j2ep.AdmRule;
+import org.oscm.j2ep.AdmRule;
 import org.oscm.ui.common.ADMStringUtils;
 import org.oscm.ui.common.Constants;
 
@@ -167,13 +167,13 @@ public class AuthorizationRequestData {
      */
     void setRelativePath(String relativePath) {
         this.relativePath = relativePath == null ? "" : relativePath;
-        //Matcher matcher = AdmRule.getMatchPattern().matcher(getRelativePath());
+        Matcher matcher = AdmRule.getMatchPattern().matcher(getRelativePath());
         isAccessToServiceURL = false;
-        //if (matcher.matches()) {
-        //    subscriptionKey = matcher.group(1).substring(1);
-        //    contextPath = matcher.group(2);
-        //    isAccessToServiceURL = true;
-        //}
+        if (matcher.matches()) {
+            subscriptionKey = matcher.group(1).substring(1);
+            contextPath = matcher.group(2);
+            isAccessToServiceURL = true;
+        }
     }
 
     /**
