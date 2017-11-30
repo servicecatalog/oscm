@@ -501,12 +501,14 @@ public class ApplicationBean implements Serializable {
     public String getHelpURL() {
         if (helpUrl == null) {
             helpUrl = configurationService
-                .getVOConfigurationSetting(
-                        ConfigurationKey.HELP_URL,
-                        Configuration.GLOBAL_CONTEXT).getValue();
-
+                    .getVOConfigurationSetting(
+                            ConfigurationKey.HELP_URL,
+                            Configuration.GLOBAL_CONTEXT).getValue();
         }
-        return helpUrl.isEmpty() ? requestContextPath : helpUrl;
+        if (helpUrl.isEmpty()) {
+            helpUrl = requestContextPath + "-help";
+        }
+        return helpUrl;
     }
 
     /**
