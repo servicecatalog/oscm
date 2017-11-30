@@ -1294,6 +1294,7 @@
             <source>1.8</source>
             <target>1.8</target>
             <compilerArgument>-XDignore.symbol.file</compilerArgument>
+            <fork>true</fork>
           </configuration>
         </plugin>
         <plugin>
