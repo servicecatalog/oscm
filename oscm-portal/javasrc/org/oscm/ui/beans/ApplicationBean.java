@@ -499,12 +499,10 @@ public class ApplicationBean implements Serializable {
      * @return
      */
     public String getHelpURL() {
-        if (helpUrl == null) {
-            helpUrl = configurationService
+        helpUrl = configurationService
                     .getVOConfigurationSetting(
                             ConfigurationKey.HELP_URL,
                             Configuration.GLOBAL_CONTEXT).getValue();
-        }
         if (helpUrl.isEmpty()) {
             helpUrl = requestContextPath + "-help";
         }
