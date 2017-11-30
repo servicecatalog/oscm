@@ -11,7 +11,7 @@ env:
   - MVN_GOAL=test
   - MVN_GOAL=integration-test
 before_install:
-  - ls -al ${JAVA_HOME}/lib/rt.jar
+  - ls -al ${JAVA_HOME}/jre/lib/rt.jar
   - git fetch --unshallow --tags
   - ./db_setup.sh
   - mvn initialize
