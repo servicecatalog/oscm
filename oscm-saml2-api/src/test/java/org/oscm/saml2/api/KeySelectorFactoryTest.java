@@ -33,6 +33,7 @@ import static org.junit.Assert.assertTrue;
 public class KeySelectorFactoryTest {
 
     private final String FILE_OPENAM_RESPONSE = "./src/test/resources/openamResponse.xml";
+    private final String FILE_OPENAM_RESOURCE = "/openamResponse.xml";
     private KeySelectorFactory factory;
 
     @Before
@@ -89,7 +90,7 @@ public class KeySelectorFactoryTest {
         FileInputStream in = null;
         Document document = null;
         try {
-            in = new FileInputStream(this.getClass().getResource(FILE_OPENAM_RESPONSE).getFile());
+            in = new FileInputStream(this.getClass().getResource(FILE_OPENAM_RESOURCE).getFile());
             document = XMLConverter.convertToDocument(in);
         } finally {
             if (in != null) {
