@@ -12,6 +12,7 @@
 
 package org.oscm.serviceprovisioningservice.bean;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.accountservice.local.AccountServiceLocal;
 import org.oscm.accountservice.local.MarketingPermissionServiceLocal;
@@ -55,6 +56,7 @@ import static org.mockito.Mockito.mock;
  * @author weiser
  * 
  */
+@Ignore
 public class ServiceProvisioningServiceBeanCopyIT extends EJBTestBase {
 
     private static final String[] ENABLED_PAYMENTTYPES = new String[] {

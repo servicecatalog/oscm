@@ -19,6 +19,7 @@ import java.util.concurrent.Callable;
 
 import javax.ejb.EJBException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.applicationservice.local.ApplicationServiceLocal;
 import org.oscm.dataservice.bean.DataServiceBean;
@@ -60,6 +61,7 @@ import org.oscm.test.stubs.TriggerQueueServiceStub;
  * 
  * @author barzu
  */
+@Ignore
 public class MarketplaceServiceBeanBrandingIT extends EJBTestBase {
 
     private static final String BRANDING_URL = "http://www.fujitsu.com";

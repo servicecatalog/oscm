@@ -9,6 +9,7 @@
 package org.oscm.serviceprovisioningservice.bean;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.dataservice.bean.DataServiceBean;
 import org.oscm.dataservice.local.DataService;
@@ -42,6 +43,7 @@ import static org.mockito.Mockito.mock;
  * @author tokoda
  * 
  */
+@Ignore
 public class ServiceProvisioningServiceBeanUpdateAccessInformationIT
         extends EJBTestBase {
 

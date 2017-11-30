@@ -4,6 +4,7 @@
 
 package org.oscm.serviceprovisioningservice.bean;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.oscm.accountservice.local.MarketingPermissionServiceLocal;
@@ -44,6 +45,7 @@ import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.oscm.test.Numbers.TIMESTAMP;
 
+@Ignore
 @SuppressWarnings("boxing")
 public class TechnicalProductImportParserIT extends EJBTestBase {
 

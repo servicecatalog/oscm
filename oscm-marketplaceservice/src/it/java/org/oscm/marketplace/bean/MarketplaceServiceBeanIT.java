@@ -61,6 +61,7 @@ import org.oscm.internal.vo.VOMarketplace;
  * @author groch
  * 
  */
+@Ignore
 public class MarketplaceServiceBeanIT extends MarketplaceServiceTestBase {
 
     @Test

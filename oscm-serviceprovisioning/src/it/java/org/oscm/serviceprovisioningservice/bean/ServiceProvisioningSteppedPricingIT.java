@@ -13,6 +13,7 @@
 package org.oscm.serviceprovisioningservice.bean;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.accountservice.local.MarketingPermissionServiceLocal;
@@ -47,6 +48,7 @@ import static org.oscm.test.Numbers.*;
  * @author weiser
  * 
  */
+@Ignore
 public class ServiceProvisioningSteppedPricingIT extends EJBTestBase {
 
     private DataService dm;

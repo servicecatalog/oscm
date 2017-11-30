@@ -28,6 +28,7 @@ import javax.ejb.EJBAccessException;
 import javax.ejb.EJBException;
 import javax.persistence.Query;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.domobjects.CatalogEntry;
@@ -64,6 +65,7 @@ import org.oscm.internal.vo.VOOrganization;
  * @author groch
  * 
  */
+@Ignore
 public class MarketplaceServiceBeanDeleteMarketplaceAndOrganizationIT extends
         MarketplaceServiceTestBase {
 

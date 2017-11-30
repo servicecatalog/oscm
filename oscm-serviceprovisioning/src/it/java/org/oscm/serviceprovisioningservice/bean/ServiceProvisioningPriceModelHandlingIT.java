@@ -8,6 +8,7 @@
 
 package org.oscm.serviceprovisioningservice.bean;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.accountservice.local.MarketingPermissionServiceLocal;
 import org.oscm.converter.BigDecimalComparator;
@@ -46,6 +47,7 @@ import static org.mockito.Mockito.mock;
  * 
  * @author Mike J&auml;ger
  */
+@Ignore
 public class ServiceProvisioningPriceModelHandlingIT extends EJBTestBase {
 
     private ServiceProvisioningService svcProv;

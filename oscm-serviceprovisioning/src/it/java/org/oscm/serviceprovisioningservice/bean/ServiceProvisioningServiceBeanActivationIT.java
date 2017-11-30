@@ -12,6 +12,7 @@
 package org.oscm.serviceprovisioningservice.bean;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.accountservice.local.AccountServiceLocal;
@@ -60,7 +61,7 @@ import java.util.*;
 import java.util.concurrent.Callable;
 
 import static org.mockito.Mockito.mock;
-
+@Ignore
 public class ServiceProvisioningServiceBeanActivationIT extends EJBTestBase {
 
     private static final String EXAMPLE_ENTERPRISE = "EXAMPLE Enterprise";

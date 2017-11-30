@@ -27,6 +27,7 @@ import java.util.concurrent.Callable;
 import javax.ejb.EJBAccessException;
 import javax.ejb.EJBException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.domobjects.Marketplace;
@@ -61,6 +62,7 @@ import org.oscm.internal.vo.VOService;
  * @author groch
  * 
  */
+@Ignore
 public class MarketplaceServiceBeanGetMarketplaceAndOrganizationIT extends
         MarketplaceServiceTestBase {
 

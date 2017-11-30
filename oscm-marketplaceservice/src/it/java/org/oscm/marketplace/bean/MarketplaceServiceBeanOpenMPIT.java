@@ -31,6 +31,7 @@ import javax.ejb.EJBAccessException;
 import javax.ejb.EJBException;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
@@ -97,6 +98,7 @@ import org.oscm.types.enumtypes.EmailType;
  * @author groch
  * 
  */
+@Ignore
 public class MarketplaceServiceBeanOpenMPIT extends EJBTestBase {
 
     private static final String GLOBAL_NONOPEN_MP_ID = "GLOBAL_NONOPEN_MP";

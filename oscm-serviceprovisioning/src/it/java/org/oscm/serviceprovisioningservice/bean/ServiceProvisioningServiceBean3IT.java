@@ -13,6 +13,7 @@
 package org.oscm.serviceprovisioningservice.bean;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.invocation.InvocationOnMock;
@@ -66,6 +67,7 @@ import static org.oscm.test.Numbers.BD100;
 /**
  * @author kulle
  */
+@Ignore
 @SuppressWarnings("deprecation")
 public class ServiceProvisioningServiceBean3IT extends EJBTestBase {
 
