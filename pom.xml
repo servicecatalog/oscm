@@ -1270,7 +1270,7 @@
         <artifactId>rt.jar</artifactId>
         <version>1.8</version>
         <scope>system</scope>
-        <systemPath>${java.home}/jre/lib/rt.jar</systemPath>
+        <systemPath>${java.home}/lib/rt.jar</systemPath>
       </dependency>
     </dependencies>
   </dependencyManagement>
