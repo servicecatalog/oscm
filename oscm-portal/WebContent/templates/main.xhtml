@@ -85,7 +85,7 @@
           <h:panelGroup>
             <h:outputText value="#{msg[msgKey]}" styleClass="admHeader" id="pagelabel" />
             <span class="headerIcon" id="showHelp"
-              onclick="AdmUtils.showHelp('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}', '#{pageId}');">
+              onclick="AdmUtils.showHelp('#{appBean.helpURL}', '#{facesContext.viewRoot.locale}', '#{pageId}');">
               <h:graphicImage value="/img/transparentPixel.png" styleClass="help" /> </span>
           </h:panelGroup>
           <h:panelGroup>

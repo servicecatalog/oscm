@@ -125,6 +125,11 @@ public class ApplicationBean implements Serializable {
     private Boolean samlSpAuthMode = null;
 
     /**
+     * URL for the online help.
+     */
+    private String helpUrl;
+
+    /**
      * Read the build id and date from the ear manifest.
      */
     private void initBuildIdAndDate() {
@@ -489,6 +494,22 @@ public class ApplicationBean implements Serializable {
     }
 
     /**
+     * Retrieves the URL for the online help
+     *
+     * @return
+     */
+    public String getHelpURL() {
+        helpUrl = configurationService
+                    .getVOConfigurationSetting(
+                            ConfigurationKey.HELP_URL,
+                            Configuration.GLOBAL_CONTEXT).getValue();
+        if (helpUrl.isEmpty()) {
+            helpUrl = requestContextPath + "-help";
+        }
+        return helpUrl;
+    }
+
+    /**
      * Initialize the {@link ConfigurationService} if not already done.
      */
     private void lookupConfigurationService() {
@@ -684,9 +705,6 @@ public class ApplicationBean implements Serializable {
     /**
      * Setter for manage language service. Use it for JUnit for stubbing the
      * EJB.
-     * 
-     * @param ManageLanguageService
-     * 
      */
     protected void setManageLanguageService(
             ManageLanguageService manageLanguageService) {
