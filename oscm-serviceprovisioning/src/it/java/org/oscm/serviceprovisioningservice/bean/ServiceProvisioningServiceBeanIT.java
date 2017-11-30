@@ -5,6 +5,7 @@
 package org.oscm.serviceprovisioningservice.bean;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.converter.XMLConverter;
@@ -40,7 +41,7 @@ import java.util.concurrent.Callable;
 
 import static org.junit.Assert.*;
 import static org.oscm.test.Numbers.BD100;
-
+@Ignore
 @SuppressWarnings("boxing")
 public class ServiceProvisioningServiceBeanIT extends
         ServiceProvisioningServiceTestBase {

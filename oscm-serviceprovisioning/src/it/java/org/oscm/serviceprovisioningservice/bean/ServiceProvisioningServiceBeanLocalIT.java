@@ -9,6 +9,7 @@
 package org.oscm.serviceprovisioningservice.bean;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.accountservice.local.AccountServiceLocal;
 import org.oscm.app.control.ApplicationServiceBaseStub;
@@ -45,6 +46,7 @@ import java.util.concurrent.Callable;
 
 import static org.mockito.Mockito.mock;
 
+@Ignore
 public class ServiceProvisioningServiceBeanLocalIT extends EJBTestBase {
 
     private DataService dm;

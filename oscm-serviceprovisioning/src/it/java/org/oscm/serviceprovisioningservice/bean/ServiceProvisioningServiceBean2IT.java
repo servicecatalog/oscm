@@ -13,6 +13,7 @@
 package org.oscm.serviceprovisioningservice.bean;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.converter.XMLConverter;
 import org.oscm.domobjects.*;
@@ -39,6 +40,7 @@ import static org.junit.Assert.*;
 import java.lang.IllegalArgumentException;
 
 @SuppressWarnings("boxing")
+@Ignore
 public class ServiceProvisioningServiceBean2IT
         extends ServiceProvisioningServiceTestBase {
 

@@ -5,6 +5,7 @@
 package org.oscm.serviceprovisioningservice.bean;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.domobjects.*;
@@ -25,7 +26,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import static org.junit.Assert.*;
-
+@Ignore
 public class ServiceProvisioningServiceBeanDeleteServiceIT extends
         ServiceProvisioningServiceTestBase {
 

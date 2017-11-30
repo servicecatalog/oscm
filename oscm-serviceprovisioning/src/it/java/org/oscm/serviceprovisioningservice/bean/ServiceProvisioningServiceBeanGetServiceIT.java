@@ -14,6 +14,7 @@ package org.oscm.serviceprovisioningservice.bean;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.accountservice.local.AccountServiceLocal;
@@ -62,6 +63,7 @@ import static org.mockito.Mockito.mock;
  * 
  */
 @SuppressWarnings("boxing")
+@Ignore
 public class ServiceProvisioningServiceBeanGetServiceIT
         extends StaticEJBTestBase {
 
