@@ -18,7 +18,10 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.crypto.KeySelector;
 import javax.xml.crypto.dsig.XMLSignature;
+import java.io.File;
 import java.io.FileInputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertTrue;
@@ -130,6 +133,7 @@ public class KeySelectorFactoryTest {
     @Test
     public void newKeySelector_firstFound() throws Exception {
         // given
+        Logger.getLogger(KeySelectorFactoryTest.class.getName()).log(Level.WARNING, "Opening file: " + new File(FILE_OPENAM_RESPONSE).getAbsolutePath());
         String response = Strings
                 .textFileToString(FILE_OPENAM_RESPONSE);
         Document document = XMLConverter.convertToDocument(
