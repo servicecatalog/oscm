@@ -29,6 +29,7 @@ import java.util.concurrent.Callable;
 import javax.ejb.EJBException;
 import javax.persistence.Query;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -70,7 +71,7 @@ import org.oscm.internal.vo.VOPSP;
 import org.oscm.internal.vo.VOPSPAccount;
 import org.oscm.internal.vo.VOPSPSetting;
 import org.oscm.internal.vo.VOPaymentType;
-
+@Ignore
 public class OperatorServiceBeanPSPIT extends EJBTestBase {
 
     private OperatorService opService;

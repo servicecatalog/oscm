@@ -16,6 +16,7 @@ import java.util.concurrent.Callable;
 
 import javax.ejb.EJBException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.dataservice.bean.DataServiceBean;
 import org.oscm.dataservice.local.DataService;
@@ -41,6 +42,7 @@ import org.oscm.test.ejb.TestContainer;
  * @author stavreva
  * 
  */
+@Ignore
 public class OperatorServiceBeanUsersSqlIT extends EJBTestBase {
 
     private DataService dm;

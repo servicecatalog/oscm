@@ -21,6 +21,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.billingservice.service.BillingServiceLocal;
 import org.oscm.converter.PriceConverter;
@@ -56,6 +57,7 @@ import org.oscm.timerservice.bean.TimerServiceBean;
  * @author tokoda
  * 
  */
+@Ignore
 public class SupplierRevenueSqlResultIT extends EJBTestBase {
 
     private static final String MP_ID_S1 = "s1Id";

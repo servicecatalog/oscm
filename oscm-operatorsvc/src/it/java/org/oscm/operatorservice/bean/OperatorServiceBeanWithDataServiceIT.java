@@ -24,6 +24,7 @@ import java.util.concurrent.Callable;
 import javax.persistence.Query;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -61,6 +62,7 @@ import org.oscm.triggerservice.local.TriggerServiceLocal;
  * @author Mike J&auml;ger
  * 
  */
+@Ignore
 public class OperatorServiceBeanWithDataServiceIT extends EJBTestBase {
 
     private OperatorService operatorService;

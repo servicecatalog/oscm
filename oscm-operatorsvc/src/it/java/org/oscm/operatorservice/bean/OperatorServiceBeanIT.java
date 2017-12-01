@@ -7,6 +7,7 @@ package org.oscm.operatorservice.bean;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
@@ -40,6 +41,7 @@ import java.util.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+@Ignore
 public class OperatorServiceBeanIT extends EJBTestBase {
 
     private static final String ORGANIZATION_DESCRIPTION = "Enabling Software Technology";

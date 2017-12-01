@@ -17,6 +17,7 @@ import static org.junit.Assert.fail;
 
 import javax.ejb.EJBException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.billingservice.business.calculation.share.SharesCalculatorBean;
@@ -31,7 +32,7 @@ import org.oscm.test.EJBTestBase;
 import org.oscm.test.ejb.TestContainer;
 import org.oscm.test.stubs.ConfigurationServiceStub;
 import org.oscm.internal.intf.OperatorService;
-
+@Ignore
 public class OperatorServiceBeanBillingRunIT extends EJBTestBase {
     DataService ds;
     OperatorService operatorService;
