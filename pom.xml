@@ -9,16 +9,6 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <properties>
-    <database.url>jdbc:postgresql://localhost:5432/bss</database.url>
-    <database.user>bssuser</database.user>
-    <database.password>bssuser</database.password>
-    <schema.name>bssuser</schema.name>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <flyway.skip>true</flyway.skip>
-  </properties>
-
   <repositories>
     <repository>
       <id>jitpack.io</id>
@@ -26,18 +16,10 @@
     </repository>
   </repositories>
 
-  <profiles>
-    <profile>
-      <id>travis</id>
-      <properties>
-        <database.url>jdbc:postgresql://localhost:5432/bssunittests</database.url>
-        <database.user>bssunituser</database.user>
-        <database.password>bssunituser</database.password>
-        <schema.name>bssunituser</schema.name>
-        <flyway.skip>false</flyway.skip>
-      </properties>
-    </profile>
-  </profiles>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
 
   <modules>
     <module>oscm-ear</module>
@@ -1390,6 +1372,31 @@
               <version>42.1.4</version>
             </dependency>
           </dependencies>
+          <executions>
+            <execution>
+              <id>migrate-database</id>
+              <phase>pre-integration-test</phase>
+              <goals>
+                <goal>clean</goal>
+                <goal>migrate</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <skip>${flyway.skip}</skip>
+            <locations>
+            <sqlMigrationSeparator>__</sqlMigrationSeparator>
+              <location>classpath:/org/oscm/propertyimport</location>
+              <location>classpath:/sql</location>
+              <location>classpath:/org/oscm/dbtask</location>
+            </locations>
+            <url>${database.url}</url>
+            <user>${database.user}</user>
+            <password>${database.password}</password>
+            <schemas>
+              <schema>${schema.name}</schema>
+            </schemas>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
