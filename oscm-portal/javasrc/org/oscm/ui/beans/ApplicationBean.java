@@ -508,8 +508,19 @@ public class ApplicationBean implements Serializable {
         if (helpUrl.isEmpty()) {
             helpUrl = requestContextPath + "-help";
         }
-        helpUrl += "/help/" + locale + "/help/tasks/" + context;
+        prepareHelpUrl(context, locale);
+
         return helpUrl;
+    }
+
+    private void prepareHelpUrl(String context, Locale locale) {
+        helpUrl += "/help/" + locale + "/help/tasks/" + context;
+
+        int lastIndex = helpUrl.lastIndexOf(".");
+        if (lastIndex != -1){
+            helpUrl = helpUrl.substring(0, lastIndex) + "_" + helpUrl.substring(lastIndex + 1);
+        }
+        helpUrl += ".htm";
     }
 
     /**
