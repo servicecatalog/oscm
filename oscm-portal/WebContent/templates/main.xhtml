@@ -84,9 +84,12 @@
         <h:panelGrid style="width:100%">
           <h:panelGroup>
             <h:outputText value="#{msg[msgKey]}" styleClass="admHeader" id="pagelabel" />
-            <span class="headerIcon" id="showHelp"
-              onclick="AdmUtils.showHelp('#{appBean.helpURL}', '#{facesContext.viewRoot.locale}', '#{pageId}');">
-              <h:graphicImage value="/img/transparentPixel.png" styleClass="help" /> </span>
+            <!--<span class="headerIcon" id="showHelp"-->
+              <!--onclick="AdmUtils.showHelp('#{appBean.helpURL}', '#{facesContext.viewRoot.locale}', '#{pageId}');">-->
+            <h:outputLink value="#{appBean.helpURL}" target="_blank">
+              <h:graphicImage value="/img/transparentPixel.png" styleClass="help" />
+            <!--</span>-->
+            </h:outputLink>
           </h:panelGroup>
           <h:panelGroup>
             <a4j:outputPanel id="descriptionPanel" layout="block" styleClass="description">
