@@ -498,7 +498,7 @@ public class ApplicationBean implements Serializable {
      *
      * @return
      */
-    public String getHelpURL(String context, String locale) {
+    public String helpURL(String context, Locale locale) {
         if (helpUrl == null) {
             helpUrl = configurationService
                     .getVOConfigurationSetting(
