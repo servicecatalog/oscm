@@ -84,7 +84,7 @@
         <h:panelGrid style="width:100%">
           <h:panelGroup>
             <h:outputText value="#{msg[msgKey]}" styleClass="admHeader" id="pagelabel" />
-            <h:outputLink value="#{appBean.helpURL(pageId, facesContext.viewRoot.locale)}" target="_blank">
+            <h:outputLink value="#{appBean.helpURL(pageId, facesContext.viewRoot.locale)}" target="_blank" styleClass="helpIcon">
               <h:graphicImage value="/img/transparentPixel.png" styleClass="help" />
             </h:outputLink>
           </h:panelGroup>
