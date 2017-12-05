@@ -2252,3 +2252,8 @@ form .formHighlight div.div-for-input {
 #manageTenants th.rf-dt-hdr-c {
   padding-left: 0;
 }
+
+.helpIcon {
+    position: absolute;
+    right: 5px;
+}

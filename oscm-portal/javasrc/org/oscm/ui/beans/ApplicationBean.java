@@ -498,17 +498,29 @@ public class ApplicationBean implements Serializable {
      *
      * @return
      */
-    public String getHelpURL() {
+    public String helpURL(String context, Locale locale) {
         if (helpUrl == null) {
             helpUrl = configurationService
-                        .getVOConfigurationSetting(
-                                ConfigurationKey.HELP_URL,
-                                Configuration.GLOBAL_CONTEXT).getValue();
+                    .getVOConfigurationSetting(
+                            ConfigurationKey.HELP_URL,
+                            Configuration.GLOBAL_CONTEXT).getValue();
         }
         if (helpUrl.isEmpty()) {
             helpUrl = requestContextPath + "-help";
         }
+        prepareHelpUrl(context, locale);
+
         return helpUrl;
+    }
+
+    private void prepareHelpUrl(String context, Locale locale) {
+        helpUrl += "/help/" + locale + "/help/tasks/" + context;
+
+        int lastIndex = helpUrl.lastIndexOf(".");
+        if (lastIndex != -1){
+            helpUrl = helpUrl.substring(0, lastIndex) + "_" + helpUrl.substring(lastIndex + 1);
+        }
+        helpUrl += ".htm";
     }
 
     /**
