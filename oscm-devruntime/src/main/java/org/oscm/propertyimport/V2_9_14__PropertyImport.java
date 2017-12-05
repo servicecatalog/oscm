@@ -6,7 +6,6 @@ package org.oscm.propertyimport;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.sql.Connection;
@@ -19,8 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.flywaydb.core.Flyway;
-import org.flywaydb.core.api.configuration.FlywayConfiguration;
 import org.flywaydb.core.api.migration.jdbc.JdbcMigration;
 import org.oscm.converter.PropertiesLoader;
 import org.oscm.internal.types.enumtypes.AuthenticationMode;
@@ -250,8 +247,18 @@ public class V2_9_14__PropertyImport implements JdbcMigration {
         String hostname = addr.getHostName();
         InputStream in = this.getClass().getResourceAsStream("/" + hostname + "/conf.properties");
 
+
+
         if (in == null) {
-            in = this.getClass().getResourceAsStream("/travis/conf.properties");
+            // Check if maven was build with configsettings.path parameter set (external configsettings.properties file)
+            in = this.getClass().getResourceAsStream("/paths.properties");
+            Properties paths = PropertiesLoader.loadProperties(in);
+            String configSettingsPath = paths.getProperty("configsettings.path");
+            if (new File(configSettingsPath).exists()) {
+                in = new FileInputStream(configSettingsPath);
+            } else {
+                in = this.getClass().getResourceAsStream("/travis/conf.properties");
+            }
         }
 
         final Properties p = PropertiesLoader.loadProperties(in);

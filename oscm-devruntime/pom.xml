@@ -15,6 +15,8 @@
     <database.password>bssuser</database.password>
     <schema.name>bssuser</schema.name>
     <flyway.skip>true</flyway.skip>
+    <!--Path to external configsettings.properties file. Used for building for docker-->
+    <configsettings.path>/opt/properties/configsettings.properties</configsettings.path>
   </properties>
 
   <profiles>
@@ -153,6 +155,12 @@
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <groupId>org.flywaydb</groupId>
