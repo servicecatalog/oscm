@@ -21,12 +21,24 @@
   
   <target name="BUILD.BES" description="Builds the MI and BES and other minor packages">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.cruisecontrol.file}" target="bootstrap"/>
+    <antcall target="BUILD.BeforeHook" />
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package_without_doc">
-      <property name="projects" value="oscm-ear,oscm-portal,oscm-portal-help,oscm-security,oscm-devruntime,oscm-reports" />
+      <property name="projects" value="oscm-ear,oscm-portal,oscm-portal-help,oscm-security,oscm-devruntime,oscm-reports" />     
     </ant>
     <antcall target="backupEar" />
     <antcall target="patchApplication" />
   </target>
+  
+  <target name="checkHook">
+  	<condition name="ishookdeployed">
+      <available file="${custom.build.hook}" property="custom.build.hook" value="${custom.build.hook}"/>
+    </condition>
+  </target>
+  
+  <target name="BUILD.BeforeHook" if="ishookdeployed" depends="checkHook">
+  	<dirname property="custom.build.dir" file="${custom.build.hook}"/>
+  	<ant dir="${custom.build.dir}" antfile="${custom.build.hook}}" target="customBuildHook">
+  </target> 
   
   <target name="BUILD.APP" description="Builds the APP server ear file, also AWS and Openstack controllers and other minor packages">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package_without_doc">
