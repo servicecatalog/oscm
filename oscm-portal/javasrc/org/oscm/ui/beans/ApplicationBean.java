@@ -504,12 +504,11 @@ public class ApplicationBean implements Serializable {
                     .getVOConfigurationSetting(
                             ConfigurationKey.HELP_URL,
                             Configuration.GLOBAL_CONTEXT).getValue();
+            if (helpUrl.isEmpty()) {
+                helpUrl = requestContextPath + "-help";
+            }
+            prepareHelpUrl(context, locale);
         }
-        if (helpUrl.isEmpty()) {
-            helpUrl = requestContextPath + "-help";
-        }
-        prepareHelpUrl(context, locale);
-
         return helpUrl;
     }
 
