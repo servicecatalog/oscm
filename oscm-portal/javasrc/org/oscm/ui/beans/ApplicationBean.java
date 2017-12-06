@@ -127,7 +127,7 @@ public class ApplicationBean implements Serializable {
     /**
      * URL for the online help.
      */
-    private String helpUrl;
+    private String helpUrlBase;
 
     /**
      * Read the build id and date from the ear manifest.
@@ -499,27 +499,27 @@ public class ApplicationBean implements Serializable {
      * @return
      */
     public String helpURL(String context, Locale locale) {
-        if (helpUrl == null) {
-            helpUrl = configurationService
+        if (helpUrlBase == null) {
+            helpUrlBase = configurationService
                     .getVOConfigurationSetting(
                             ConfigurationKey.HELP_URL,
                             Configuration.GLOBAL_CONTEXT).getValue();
-            if (helpUrl.isEmpty()) {
-                helpUrl = requestContextPath + "-help";
+            if (helpUrlBase.isEmpty()) {
+                helpUrlBase = requestContextPath + "-help";
             }
-            prepareHelpUrl(context, locale);
         }
-        return helpUrl;
+        String helpUrlSuffix = "/help/" + locale + "/help/tasks/" + context;
+        String helpUrlFull = helpUrlBase + prepareHelpUrl(helpUrlSuffix);
+        return helpUrlFull;
     }
 
-    private void prepareHelpUrl(String context, Locale locale) {
-        helpUrl += "/help/" + locale + "/help/tasks/" + context;
-
-        int lastIndex = helpUrl.lastIndexOf(".");
+    private String prepareHelpUrl(String s) {
+        int lastIndex = s.lastIndexOf(".");
         if (lastIndex != -1){
-            helpUrl = helpUrl.substring(0, lastIndex) + "_" + helpUrl.substring(lastIndex + 1);
+            s = s.substring(0, lastIndex) + "_" + s.substring(lastIndex + 1);
         }
-        helpUrl += ".htm";
+        s += ".htm";
+        return s;
     }
 
     /**
