@@ -1385,7 +1385,7 @@
           <configuration>
             <skip>${flyway.skip}</skip>
             <locations>
-            <sqlMigrationSeparator>__</sqlMigrationSeparator>
+              <sqlMigrationSeparator>__</sqlMigrationSeparator>
               <location>classpath:/org/oscm/propertyimport</location>
               <location>classpath:/sql</location>
               <location>classpath:/org/oscm/dbtask</location>
