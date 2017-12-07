@@ -30,14 +30,14 @@
   </target>
   
   <target name="checkHook">
-  	<condition property="ishookdeployed">
+    <condition property="ishookdeployed">
       <available file="${custom.build.hook}" property="custom.build.hook" value="${custom.build.hook}"/>
     </condition>
   </target>
   
   <target name="BUILD.BeforeHook" if="ishookdeployed" depends="checkHook">
-  	<dirname property="custom.build.dir" file="${custom.build.hook}"/>
-  	<ant dir="${custom.build.dir}" antfile="${custom.build.hook}" target="customBuildHook"/>
+    <dirname property="custom.build.dir" file="${custom.build.hook}"/>
+    <ant dir="${custom.build.dir}" antfile="${custom.build.hook}" target="customBuildHook"/>
   </target> 
   
   <target name="BUILD.APP" description="Builds the APP server ear file, also AWS and Openstack controllers and other minor packages">
