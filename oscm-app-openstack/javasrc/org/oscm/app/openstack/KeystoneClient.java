@@ -132,9 +132,12 @@ public class KeystoneClient {
                             JSONObject endpoint = endpoints.getJSONObject(j);
                             if (endpoint != null) {
                                 String endpointUrl = endpoint.getString("url");
-                                if (endpointUrl != null
+                                String interfaceEndpoint = endpoint.getString("interface");
+                                if (interfaceEndpoint.equals("public")
+                                        && endpointUrl != null
                                         && endpointUrl.trim().length() > 0) {
                                     novaEndpoint = endpointUrl;
+                                    break;
                                 }
                             }
                         }
