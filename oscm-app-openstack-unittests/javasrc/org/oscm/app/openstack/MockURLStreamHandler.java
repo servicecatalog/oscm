@@ -272,6 +272,7 @@ public class MockURLStreamHandler extends URLStreamHandler {
                 JSONObject publicUrlNova = new JSONObject();
                 publicUrlNova.put("name", KeystoneClient.TYPE_NOVA);
                 publicUrlNova.put("url", httpMethod + "novaendpoint/");
+                publicUrlNova.put("interface", "public");
                 endpointsListNova.put(publicUrlNova);
             }
 
