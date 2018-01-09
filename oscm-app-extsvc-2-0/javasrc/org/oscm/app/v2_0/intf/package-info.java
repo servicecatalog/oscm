@@ -1,5 +1,5 @@
 /* 
- *  Copyright FUJITSU LIMITED 2017
+ *  Copyright FUJITSU LIMITED 2018
  */
 /**
  * Provides the public utilities of APP and the 

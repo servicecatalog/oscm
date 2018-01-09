@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
   xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" name="AccountService"
   targetNamespace="http://oscm.org/xsd" xmlns:tns="http://oscm.org/xsd" xmlns:wsp="http://www.w3.org/ns/ws-policy"

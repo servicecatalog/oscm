@@ -1,5 +1,5 @@
 /*
- *  Copyright FUJITSU LIMITED 2017
+ *  Copyright FUJITSU LIMITED 2018
  */
 /**
  * Provides the value objects referred to by the methods of

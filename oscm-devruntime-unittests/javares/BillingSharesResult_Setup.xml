@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
  
   <RevenueSharesResults xsi:schemaLocation="http://oscm.org/xsd/billingservice/partnermodel SupplierRevenueShareResult.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://oscm.org/xsd/billingservice/partnermodel">
     <SupplierRevenueShareResult organizationId="98cf6bbd" organizationKey="11001">

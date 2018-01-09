@@ -1,7 +1,7 @@
 /*
  * ******************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2017
+ *  Copyright FUJITSU LIMITED 2018
  *
  *   Creation Date: 08.07.15 09:52
  *

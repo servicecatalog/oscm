@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <SupplierRevenueShareResult xmlns="http://oscm.org/xsd/billingservice/partnermodel" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" organizationId="supp1" organizationKey="7897" xsi:schemaLocation="http://oscm.org/xsd/billingservice/partnermodel SupplierRSResult.xsd">
 
   <OrganizationData id="supp1" key="7897">

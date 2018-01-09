@@ -1,5 +1,5 @@
 /* 
- *  Copyright FUJITSU LIMITED 2017
+ *  Copyright FUJITSU LIMITED 2018
  */
 /**
  * Provides the enum types with the constants which are used by the methods of 

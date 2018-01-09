@@ -1,5 +1,5 @@
 /* 
- *  Copyright FUJITSU LIMITED 2017
+ *  Copyright FUJITSU LIMITED 2018
  */
 /**
  * Provides the means for passing the context for a price model 

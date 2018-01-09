@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
  
 <dataset>
   <LocalizedResource tkey="1" version="0" locale="ja" objectkey="0" objecttype="REPORT_DESC" value="利用者情報レポート" />
