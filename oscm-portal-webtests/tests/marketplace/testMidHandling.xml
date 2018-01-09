@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <!DOCTYPE project SYSTEM "../../dtd/Project.dtd">
 <project xmlns:setup="antlib:org.oscm.webtest.setup" default="testMPL_MidHandling">
   <import file="../../macros/marketplace/all.xml" />

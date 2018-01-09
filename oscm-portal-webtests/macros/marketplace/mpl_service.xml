@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <project>
   <!-- subscribe to a service (default way) -->
   <macrodef name="mpl_service.subscribe">

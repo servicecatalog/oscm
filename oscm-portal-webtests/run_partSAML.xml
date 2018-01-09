@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <project name="Run BES UI Test partSAML" default="run">
   <target name="clean">
     <delete dir="results" quiet="false" failonerror="true" />

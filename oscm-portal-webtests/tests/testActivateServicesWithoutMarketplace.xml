@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <project default="testActivateServicesWithoutMarketplace" xmlns:setup="antlib:org.oscm.webtest.setup">
   <import file="../macros/all.xml" />
   <target name="testActivateServicesWithoutMarketplace">

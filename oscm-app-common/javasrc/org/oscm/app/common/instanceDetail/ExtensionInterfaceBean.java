@@ -1,6 +1,6 @@
 /*******************************************************************************
  *                                                                              
- *  Copyright FUJITSU LIMITED 2017
+ *  Copyright FUJITSU LIMITED 2018
  *       
  *  AWS controller implementation for the 
  *  Asynchronous Provisioning Platform (APP)

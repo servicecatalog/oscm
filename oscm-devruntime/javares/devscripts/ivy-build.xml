@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <project name="Download external libraries" basedir="." default="ivyBuild" xmlns:ivy="antlib:org.apache.ivy.ant">
   <description>This script downloads all 3rd party libraries from Maven repository.
   </description>

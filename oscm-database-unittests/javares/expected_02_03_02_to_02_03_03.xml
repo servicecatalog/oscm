@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
  
 <dataset>
   <LocalizedResource tkey="1" locale="de" objectkey="12" objecttype="REPORT_DESC" value="Kostenvorschau" version="0" />

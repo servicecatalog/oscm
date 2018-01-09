@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <project default="testBug_9473" xmlns:setup="antlib:org.oscm.webtest.setup">
   <import file="../macros/all.xml" />
   <import file="../macros/marketplace/all.xml" />

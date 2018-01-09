@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <BillingDetails key="10000">
   <Period endDate="1317333600000" endDateIsoFormat="2011-09-29T22:00:00.000Z" startDate="1314828000000"
     startDateIsoFormat="2011-08-31T22:00:00.000Z"/>

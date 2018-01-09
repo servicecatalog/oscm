@@ -6,7 +6,7 @@ import org.oscm.setup.DatabaseVersionInfo;
 
 /*******************************************************************************
  *                                                                              
- *  Copyright FUJITSU LIMITED 2017
+ *  Copyright FUJITSU LIMITED 2018
  *                                                                                                                                 
  *  Creation Date: 2016-03-03                                                      
  *                                                                              

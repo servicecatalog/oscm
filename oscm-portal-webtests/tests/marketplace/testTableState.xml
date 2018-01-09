@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <!DOCTYPE project SYSTEM "../../dtd/Project.dtd">
 <project default="tests" xmlns:setup="antlib:org.oscm.webtest.setup">
   <import file="../../macros/marketplace/all.xml" />

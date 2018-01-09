@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
  
 <samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" Destination="http://estkulle:8680/test/jsp/showPostResponse.jsp" ID="s25c803be74fec120240d008a1ff922fedebf0eebd" InResponseTo="4040406c-1530-11e0-e869-0110283f4jj6" IssueInstant="2013-05-29T10:43:36Z" Version="2.0">
 <saml:Issuer xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">http://estbesdev2.lan.est.fujitsu.de:9080/openam</saml:Issuer>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <!-- Configuration of role-based marketplace filter, which will be applied only
      for marketplace pages defined in following configuration. Each
      <configEntry> defines one rule, which should consist of:

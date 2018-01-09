@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <BillingDetails timezone="UTC+08:00" key="19003">
   <Period startDate="1375286400000" startDateIsoFormat="2013-07-31T16:00:00.000Z" endDate="1377964800000" endDateIsoFormat="2013-08-31T16:00:00.000Z"/>
   <OrganizationDetails>

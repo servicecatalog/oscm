@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <project>
 	<import file="../../macros/marketplace/mpl_goto.xml" />
 	<import file="../../macros/marketplace/mpl_login.xml" />

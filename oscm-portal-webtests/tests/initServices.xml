@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <project default="initServices">
   <import file="../macros/all.xml" />
   <target name="initServices">

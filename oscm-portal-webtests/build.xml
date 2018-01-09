@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <project name="ADM UI Test" default="wt.full">
   <!--The environment varibale WEBTEST_HOME must point to the WebTest installation directory -->
 

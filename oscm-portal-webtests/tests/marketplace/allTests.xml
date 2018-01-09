@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <!-- Entry point for test. Pay attention for order of tests. -->
 <project default="mpl_all">
   <target name="mpl_all">

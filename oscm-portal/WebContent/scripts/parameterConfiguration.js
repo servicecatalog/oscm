@@ -1,5 +1,5 @@
 /* 
- *  Copyright FUJITSU LIMITED 2017
+ *  Copyright FUJITSU LIMITED 2018
  **
  * Javascript prototype representing the Parconf class. Handles the
  * communication with the external parameter configuration tool and the behavior
