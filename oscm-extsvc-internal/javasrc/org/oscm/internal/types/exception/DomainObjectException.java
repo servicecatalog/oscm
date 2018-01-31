@@ -156,65 +156,78 @@ public abstract class DomainObjectException extends SaaSApplicationException {
         /**
          * Organization.
          */
-        ORGANIZATION("organizationId"), /**
-                                         * Service.
-                                         */
-        SERVICE("productId"), /**
-                               * Subscription.
-                               */
-        SUBSCRIPTION("subscriptionId"), /**
-                                         * Registered user.
-                                         */
-        USER("userId"), /**
-                         * Payment information.
-                         */
-        PAYMENT_INFO("id"), /**
-                             * Technical service.
-                             */
-        TECHNICAL_SERVICE("technicalProductId"), /**
-                                                  * Organization role.
-                                                  */
-        ORGANIZATION_ROLE(
-                "roleName"), /**
-                              * Parameter definition of a technical service.
-                              */
-        PARAMETER_DEFINITION(
-                "parameterId"), /**
-                                 * Parameter option of parameter definition
-                                 */
-        PARAMETER_OPTION("optionId"), /**
-                                       * Parameter of a marketable service.
-                                       */
-        PARAMETER("id"), /**
-                          * Priced parameter of a marketable service.
-                          */
-        PRICED_PARAMETER("id"), /**
-                                 * Report.
-                                 */
-        REPORT("reportName"), /**
-                               * Event.
-                               */
-        EVENT("eventIdentifier"), /**
-                                   * Role.
-                                   */
-        ROLE_DEFINITION("roleId"), /**
-                                    * Technical Product Operation.
-                                    */
-        TECHNICAL_SERVICE_OPERATION(
-                "operationId"), /**
-                                 * Operation parameter of technical product
-                                 * operation.
-                                 */
-        OPERATION_PARAMETER("id"), /**
-                                    * Payment type.
-                                    */
-        PAYMENT_TYPE("paymentTypeId"), /**
-                                        * Supported currency.
-                                        */
-        SUPPORTED_CURRENCY(
-                "currencyISOCode"), /**
-                                     * Definition of a custom attribute.
-                                     */
+        ORGANIZATION("organizationId"),
+        /**
+         * Service.
+         */
+        SERVICE("productId"),
+        /**
+         * Subscription.
+         */
+        SUBSCRIPTION("subscriptionId"),
+        /**
+         * Registered user.
+         */
+        USER("userId"),
+        /**
+         * Payment information.
+         */
+        PAYMENT_INFO("id"),
+        /**
+         * Technical service.
+         */
+        TECHNICAL_SERVICE("technicalProductId"),
+        /**
+         * Organization role.
+         */
+        ORGANIZATION_ROLE("roleName"),
+        /**
+         * Parameter definition of a technical service.
+         */
+        PARAMETER_DEFINITION("parameterId"),
+        /**
+         * Parameter option of parameter definition
+         */
+        PARAMETER_OPTION("optionId"),
+        /**
+         * Parameter of a marketable service.
+         */
+        PARAMETER("id"),
+        /**
+         * Priced parameter of a marketable service.
+         */
+        PRICED_PARAMETER("id"),
+        /**
+         * Report.
+         */
+        REPORT("reportName"),
+        /**
+         * Event.
+         */
+        EVENT("eventIdentifier"),
+        /**
+         * Role.
+         */
+        ROLE_DEFINITION("roleId"),
+        /**
+         * Technical Product Operation.
+         */
+        TECHNICAL_SERVICE_OPERATION("operationId"),
+        /**
+         * Operation parameter of technical product operation.
+         */
+        OPERATION_PARAMETER("id"),
+        /**
+         * Payment type.
+         */
+        PAYMENT_TYPE("paymentTypeId"),
+        /**
+         * Supported currency.
+         */
+        SUPPORTED_CURRENCY("currencyISOCode"),
+        /**
+         * Definition of a custom attribute.
+         */
         UDA_DEFINITION("udaId"),
 
         /**
@@ -358,7 +371,6 @@ public abstract class DomainObjectException extends SaaSApplicationException {
          */
         OPERATION_RECORD("transactionid"),
 
-    
         /**
          * Billing Adapter.
          */
@@ -378,11 +390,16 @@ public abstract class DomainObjectException extends SaaSApplicationException {
          * Tenant
          */
         TENANT("tenantId"),
-        
+
         /**
          * 
          */
-        TENANT_SETTING("name, tenant_tkey");
+        TENANT_SETTING("name, tenant_tkey"),
+
+        /**
+         * 
+         */
+        MODIFIED_ENTITY("targetObjectKey, targetObjectType");
 
         /**
          * Stores the name of the fields containing the attribute name that

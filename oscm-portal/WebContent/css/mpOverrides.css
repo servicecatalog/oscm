@@ -72,6 +72,17 @@ div#subscriptionTablePanel div.suspended dt:before{
     background-position: -8px -205px;
 }
 
+div#subscriptionTablePanel div.error dt:before,
+div#subscriptionDetailsPanel div.error dt:before{
+    content: "";
+    float: left;
+    width: 29px;
+    height: 25px;
+    margin: 0 20px 0 0;
+    background: url(../marketplace/img/mp_icon_sprite.png);
+    background-position: -8px -10px;
+}
+
 div#subscriptionAdministratePanelGrid.grid2span, 
 div#subscriptionUsagePanelGrid.grid2span{
     width: 730px;

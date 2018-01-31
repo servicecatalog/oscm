@@ -127,7 +127,12 @@ public enum LocalizedObjectTypes {
      * The reason data stored for a subscription modification process .
      */
     SUBSCRIPTION_MODIFICATION_REASON(InformationSource.DATABASE),
-
+    
+    /**
+     * The error stored for a reason of subscription's related instance abortion.
+     */
+    SUBSCRIPTION_PROVISIONING_ERROR(InformationSource.DATABASE),
+    
     /**
      * The reason data stored for a trigger process.
      */

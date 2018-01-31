@@ -126,7 +126,9 @@ public class MessagePropertiesForExceptionsInSyncTest {
                     + ClassEnum.VAT_RATES,
             DeletionConstraintException.class.getSimpleName() + "."
                     + ClassEnum.MARKETPLACE_ACCESS,
-                    
+            DeletionConstraintException.class.getSimpleName() + "."
+                    + ClassEnum.MODIFIED_ENTITY,
+
             UpdateConstraintException.class.getSimpleName() + "."
                     + ClassEnum.BILLING_CONTACT,
             UpdateConstraintException.class.getSimpleName() + "."
@@ -205,22 +207,28 @@ public class MessagePropertiesForExceptionsInSyncTest {
                     + ClassEnum.USER_ROLE,
             UpdateConstraintException.class.getSimpleName() + "."
                     + ClassEnum.VAT_RATES,
+            UpdateConstraintException.class.getSimpleName() + "."
+                    + ClassEnum.MODIFIED_ENTITY,
             AssertionValidationException.class.getSimpleName() + "."
                     + WRONG_TENANT,
             NotExistentTenantException.class.getSimpleName() + "."
                     + MISSING_TENANT_PARAMETER,
             NotExistentTenantException.class.getSimpleName() + "."
                     + MISSING_TEANT_ID_IN_SAML,
+            NonUniqueBusinessKeyException.class.getSimpleName() + "."
+                    + ClassEnum.MODIFIED_ENTITY,
             UpdateConstraintException.class.getSimpleName() + "."
                     + ClassEnum.MARKETPLACE_ACCESS,
             WrongTenantConfigurationException.class.getSimpleName(),
-                    
+
             ObjectNotFoundException.class.getSimpleName() + "."
                     + ClassEnum.USER_GROUP_TO_USER,
             ObjectNotFoundException.class.getSimpleName() + "."
                     + ClassEnum.USER_GROUP_TO_INVISIBLE_PRODUCT,
             ObjectNotFoundException.class.getSimpleName() + "."
-                    + ClassEnum.MARKETPLACE_ACCESS);
+                    + ClassEnum.MARKETPLACE_ACCESS,
+            ObjectNotFoundException.class.getSimpleName() + "."
+                    + ClassEnum.MODIFIED_ENTITY);
 
     // exceptions from the rule: not covered by or contradict generic algorithm,
     // so they must be declared manually (to get aware of absent message keys)
@@ -256,8 +264,8 @@ public class MessagePropertiesForExceptionsInSyncTest {
         for (Class<?> clazz : classes) {
             final String className = clazz.getSimpleName();
             if (!(clazz.newInstance() instanceof RuntimeException
-                    || hasSpecialPattern.contains(className) || notThrownInPractice
-                        .contains(className))) {
+                    || hasSpecialPattern.contains(className)
+                    || notThrownInPractice.contains(className))) {
                 boolean hasEnum = false;
 
                 Class<?>[] innerClasses = clazz.getClasses();
@@ -320,8 +328,8 @@ public class MessagePropertiesForExceptionsInSyncTest {
     @Test
     public void missingPropKeys() throws Exception {
         if (showDebugOutput) {
-            System.out
-                    .println("\n\nMissing message texts in Messages_en.properties:");
+            System.out.println(
+                    "\n\nMissing message texts in Messages_en.properties:");
         }
         Set<String> missingKeys = new HashSet<String>();
         for (String expected : expectedExceptionMessageKeys) {
@@ -341,8 +349,8 @@ public class MessagePropertiesForExceptionsInSyncTest {
     @Test
     public void obsoletePropKeys() throws Exception {
         if (showDebugOutput) {
-            System.out
-                    .println("\n\nObsolete message texts in Messages_en.properties:");
+            System.out.println(
+                    "\n\nObsolete message texts in Messages_en.properties:");
         }
         Set<String> obsoleteKeys = new HashSet<String>();
         for (String actual : propfileMessageKeys) {

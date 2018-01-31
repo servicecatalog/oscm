@@ -1360,8 +1360,8 @@ public class APPTimerServiceBeanIT extends EJBTestBase {
                 ProvisioningStatus.WAITING_FOR_SYSTEM_MODIFICATION);
         String baseUrl = "BASEURL";
         HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("KEY1", "VALUE1");
-        parameters.put("KEY2", "VALUE2");
+        parameters.put("NAME1", "VALUE1");
+        parameters.put("NAME2", "VALUE2");
 
         // Throw exception when deletion status is invoked
         APPlatformException e = new APPlatformException("error");
@@ -1608,13 +1608,13 @@ public class APPTimerServiceBeanIT extends EJBTestBase {
                     }
                 }
                 si.setRollbackParameters(
-                        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\r\n<properties>\r\n<entry key=\"KEY2\">VALUE2</entry>\r\n<entry key=\"ROLLBACK_SUBSCRIPTIONID\">"
+                        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\r\n<properties>\r\n<entry key=\"param1.name\">NAME1</entry>\r\n<entry key=\"param1.value\">VALUE1</entry>\r\n<entry key=\"param1.encryption\">false</entry>\r\n<entry key=\"ROLLBACK_SUBSCRIPTIONID\">"
                                 + si.getSubscriptionId()
-                                + "</entry>\r\n<entry key=\"KEY1\">VALUE1</entry>\r\n</properties>\r\n");
+                                + "</entry>\r\n<entry key=\"param1.name\">NAME2</entry>\r\n<entry key=\"param1.value\">VALUE2</entry>\r\n<entry key=\"param1.encryption\">false</entry>\r\n</properties>\r\n");
                 si.setRollbackInstanceAttributes(
-                        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\r\n<properties>\r\n<entry key=\"KEY2\">VALUE2</entry>\r\n<entry key=\"ROLLBACK_SUBSCRIPTIONID\">"
+                        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\r\n<properties>\r\n<entry key=\"att1.name\">NAME1</entry>\r\n<entry key=\"att1.value\">VALUE1</entry>\r\n<entry key=\"att1.encryption\">false</entry>\r\n<entry key=\"ROLLBACK_SUBSCRIPTIONID\">"
                                 + si.getSubscriptionId()
-                                + "</entry>\r\n<entry key=\"KEY1\">VALUE1</entry>\r\n</properties>\r\n");
+                                + "</entry>\r\n<entry key=\"att2.name\">NAME2</entry>\r\n<entry key=\"att2.value\">VALUE2</entry>\r\n<entry key=\"att2.encryption\">false</entry>\r\n</properties>\r\n");
                 em.persist(si);
                 em.flush();
                 instanceId = si.getInstanceId();

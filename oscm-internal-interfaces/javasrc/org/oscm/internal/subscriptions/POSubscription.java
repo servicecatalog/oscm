@@ -55,6 +55,8 @@ public class POSubscription implements Serializable {
     private String serviceName;
 
     private String subscriptionName;
+    
+    private String provisioningWarning;
 
     public POSubscription(VOSubscription voSubscription) {
         this.voSubscription = voSubscription;
@@ -460,5 +462,26 @@ public class POSubscription implements Serializable {
 
     public String getSubscriptionName() {
         return subscriptionName;
+    }
+ 
+    public String getProvisioningError() {
+        return voSubscription.getProvisioningError();
+    }
+
+    public void setProvisioningError(String provisioningError) {
+        voSubscription.setProvisioningError(provisioningError);
+    }
+    
+    public boolean isShowProvisioningWarning() {     
+        String provisioningWarning = voSubscription.getProvisioningError(); 
+        return provisioningWarning!=null && !provisioningWarning.trim().isEmpty();
+    }
+
+    public String getProvisioningWarning() {
+        return provisioningWarning;
+    }
+
+    public void setProvisioningWarning(String provisioningWarning) {
+        this.provisioningWarning = provisioningWarning;
     }
 }

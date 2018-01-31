@@ -285,7 +285,13 @@ table td, div{
 .error {
 	color: #FFF;
 	background: #CB243F no-repeat !important;
+	margin-bottom:5px;
 }
+
+.error dl{
+	margin:0px !important;
+}
+
 .warning {
 	background: #E7B51D no-repeat !important;
 }

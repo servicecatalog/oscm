@@ -174,6 +174,12 @@ public interface APPlatformController {
      * Checks if the specified application instance is available. The remote
      * interface of the instance must be starting up or running so that
      * additional calls from APP or the controller can be executed.
+     * <p>
+     * <b>Note:</b> The controller is expected to throw an {@link AbortException} in
+     * case of any provisioning failure. The message text of this exception is
+     * required to have a maximum length of 100 UTF-8 characters and to contain the
+     * error detail (e.g. the name of the wrong parameter).
+     * 
      * 
      * @param instanceId
      *            the ID of the application instance to be checked
@@ -182,7 +188,11 @@ public interface APPlatformController {
      *            service parameters and configuration settings
      * @return an <code>InstanceStatus</code> instance with the status of the
      *         application instance
+     * 
      * @throws APPlatformException
+     *             In case of provisioning failures (AbortException), the message of this
+     *             exception is required to have a maximum length of 100 UTF-8
+     *             characters and to contain the error detail.
      */
     public InstanceStatus getInstanceStatus(String instanceId,
             ProvisioningSettings settings) throws APPlatformException;
@@ -388,8 +398,8 @@ public interface APPlatformController {
      * @throws APPlatformException
      */
     public List<OperationParameter> getOperationParameters(String userId,
-            String instanceId, String operationId, ProvisioningSettings settings)
-            throws APPlatformException;
+            String instanceId, String operationId,
+            ProvisioningSettings settings) throws APPlatformException;
 
     /**
      * Executes the service operation identified by its ID on behalf of the
@@ -438,6 +448,7 @@ public interface APPlatformController {
 
     /**
      * Writes back the number of VMs for the tenant of the given instance
+     * 
      * @param instanceId
      *            the ID of the application instance
      * @param subscriptionId
@@ -447,9 +458,8 @@ public interface APPlatformController {
      * @return the number of VMs
      * @throws APPlatformException
      */
-    default int getServersNumber(String instanceId,
-        String subscriptionId, String organizationId)
-        throws APPlatformException {
+    default int getServersNumber(String instanceId, String subscriptionId,
+            String organizationId) throws APPlatformException {
         return 1;
     }
 }

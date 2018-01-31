@@ -32,6 +32,8 @@ import static org.oscm.ui.dialog.mp.subscriptionDetails.SubscriptionDetailsCtrlC
 import static org.oscm.ui.dialog.mp.subscriptionDetails.SubscriptionDetailsCtrlConstants.SUBSCRIPTION_STATE_WARNING;
 import static org.oscm.ui.dialog.mp.subscriptionDetails.SubscriptionDetailsCtrlConstants.SUBSCRIPTION_USER_DEASSIGN_MSG_KEY;
 import static org.oscm.ui.dialog.mp.subscriptionDetails.SubscriptionDetailsCtrlConstants.VALIDATION_ERROR;
+import static org.oscm.ui.dialog.mp.subscriptionDetails.SubscriptionDetailsCtrlConstants.ERROR_SUBSCRIPTION_ABORT_CREATE;
+import static org.oscm.ui.dialog.mp.subscriptionDetails.SubscriptionDetailsCtrlConstants.ERROR_SUBSCRIPTION_ABORT_MODIFY;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -53,6 +55,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.collections.comparators.ComparatorChain;
+import org.apache.commons.lang3.StringUtils;
 import org.oscm.internal.intf.OperatorService;
 import org.oscm.internal.intf.SessionService;
 import org.oscm.internal.intf.SubscriptionService;
@@ -267,6 +270,7 @@ public class ManageSubscriptionCtrl implements Serializable {
         model.setServiceRoles(subscriptionDetails.getServiceRoles());
         model.setServiceEvents(SteppedPriceHandler.buildPricedEvents(
                 model.getSubscription().getPriceModel().getConsideredEvents()));
+        setShowProvisioningOrWarning(subscriptionDetails);
         setStateWarningAndTabDisabled(subscriptionDetails);
         model.setReadOnlyParams(model.isCfgTabDisabled());
         model.setShowSubscriptionPrices(
@@ -380,7 +384,31 @@ public class ManageSubscriptionCtrl implements Serializable {
     private boolean isPaymentTabAvailable() {
         return paymentAndBillingVisibleBean.isPaymentTabVisible();
     }
+    
+    void setShowProvisioningOrWarning(
+            final POSubscriptionDetails subscriptionDetails) {
 
+        SubscriptionStatus status = subscriptionDetails.getStatus();
+
+        String subProvisioningError = subscriptionDetails.getSubscription()
+                .getProvisioningError();
+        boolean errorExists = StringUtils.isNotEmpty(subProvisioningError);
+
+        if (errorExists && status.isPending()) {
+            model.setShowProvisioningError(Boolean.TRUE);
+            String provisioningError = ui.getText(
+                    ERROR_SUBSCRIPTION_ABORT_CREATE, subProvisioningError);
+            model.setProvisioningError(provisioningError);
+        }
+
+        if (errorExists && status.isActive()) {
+            model.setShowProvisioningWarning(Boolean.TRUE);
+            String provisioningWarning = ui.getText(
+                    ERROR_SUBSCRIPTION_ABORT_MODIFY, subProvisioningError);
+            model.setProvisioningWarning(provisioningWarning);
+        }
+    }
+    
     void setStateWarningAndTabDisabled(
             final POSubscriptionDetails subscriptionDetails) {
         SubscriptionStatus status = subscriptionDetails.getStatus();
@@ -388,8 +416,11 @@ public class ManageSubscriptionCtrl implements Serializable {
             model.setWaitingforApproval(checkTriggerProcessForSubscription(
                     subscriptionDetails.getSubscription()));
         }
-        model.setShowStateWarning(
-                status.isPending() || status.isPendingUpdOrSuspendedUpd());
+
+        boolean showedProvisioningError = model.isShowProvisioningError();
+        model.setShowStateWarning(!showedProvisioningError
+                && (status.isPending() || status.isPendingUpdOrSuspendedUpd()));
+        
         Object[] params = new Object[] {
                 JSFUtils.getText(STATUS_PREFIX + status.name(), null) };
         model.setStateWarning(

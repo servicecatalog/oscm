@@ -66,6 +66,7 @@ public class ModifyAndUpgradeSubscriptionBeanTest
         subscription = new Subscription();
         subscription.setKey(1l);
         subscription.setSubscriptionId("oldId");
+        subscription.setOrganization(new Organization());
         paymentInfo = new PaymentInfo();
         billingContact = new BillingContact();
         user = givenCurrentUser();

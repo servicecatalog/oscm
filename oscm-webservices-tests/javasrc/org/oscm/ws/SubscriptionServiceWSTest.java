@@ -87,6 +87,7 @@ import org.oscm.types.exceptions.TechnicalServiceOperationException;
 import org.oscm.types.exceptions.ValidationException;
 import org.oscm.vo.VOBillingContact;
 import org.oscm.vo.VOInstanceInfo;
+import org.oscm.vo.VOLocalizedText;
 import org.oscm.vo.VOMarketplace;
 import org.oscm.vo.VOOrganization;
 import org.oscm.vo.VOParameter;
@@ -108,6 +109,9 @@ public class SubscriptionServiceWSTest {
     private static final String SUPPLIER_ORG_NAME = "Supplier";
     private static final String RESELLER_ORG_NAME = "Reseller";
     private static final String MAIL_SUBJECT_SERVICE_TICKET_EN = "[SaaS incident] Test ReportIssue";
+    private static final String ERROR_ABORT_ASYNC_SUB_EN = "provisioning_error_message_during_subscription_abortion_in_english";
+    private static final String ERROR_ABORT_ASYNC_SUB_DE = "provisioning_error_message_during_subscription_abortion_in_german";
+    private static final String ERROR_ABORT_ASYNC_SUB_JA = "provisioning_error_message_during_subscription_abortion_in_japanese";
 
     private static WebserviceTestSetup setup;
     private static VOOrganization supplier;
@@ -537,6 +541,7 @@ public class SubscriptionServiceWSTest {
             assertEquals(customerUser.getUserId(),
                     createdSubscription.getOwnerId());
             assertEquals("default", createdSubscription.getUnitName());
+            assertTrue(createdSubscription.getProvisioningError().isEmpty());
         } finally {
             WebserviceTestBase.storeGlobalConfigurationSetting(
                     ConfigurationKey.AUDIT_LOG_ENABLED, false);
@@ -787,6 +792,7 @@ public class SubscriptionServiceWSTest {
                 createdSubscription.getStatus());
         createdSubscription = subscrServiceForCustomer
                 .getSubscriptionDetails(newSubscriptionId);
+        assertTrue(createdSubscription.getProvisioningError().isEmpty());
         terminateAsyncSubscription();
     }
 
@@ -826,7 +832,7 @@ public class SubscriptionServiceWSTest {
             assertNotNull(e.getMessage());
         }
         subscrServiceForSupplier.abortAsyncModifySubscription(
-                oldSubscriptionId, customerOrg.getOrganizationId(), null);
+                oldSubscriptionId, customerOrg.getOrganizationId(), getProvisioningErrorMessages());
 
         // then
         assertEquals(SubscriptionStatus.PENDING_UPD,
@@ -834,6 +840,7 @@ public class SubscriptionServiceWSTest {
         createdSubscription = subscrServiceForCustomer
                 .getSubscriptionDetails(oldSubscriptionId);
         assertEquals(SubscriptionStatus.ACTIVE, createdSubscription.getStatus());
+        assertEquals(ERROR_ABORT_ASYNC_SUB_EN, createdSubscription.getProvisioningError());
         terminateAsyncSubscription();
     }
 
@@ -862,10 +869,11 @@ public class SubscriptionServiceWSTest {
         // when
         subscrServiceForSupplier.abortAsyncModifySubscription(
                 createdSubscription.getSubscriptionId(),
-                customerOrg.getOrganizationId(), null);
+                customerOrg.getOrganizationId(), getProvisioningErrorMessages());
         // then
         refreshSubscriptionDetails();
         assertEquals(SubscriptionStatus.ACTIVE, createdSubscription.getStatus());
+        assertEquals(ERROR_ABORT_ASYNC_SUB_EN, createdSubscription.getProvisioningError());
         terminateAsyncSubscription();
     }
 
@@ -906,6 +914,7 @@ public class SubscriptionServiceWSTest {
                 createdSubscription.getStatus());
         refreshSubscriptionDetails();
         assertEquals(SubscriptionStatus.ACTIVE, createdSubscription.getStatus());
+        assertTrue(createdSubscription.getProvisioningError().isEmpty());
         terminateAsyncSubscription();
     }
 
@@ -1307,6 +1316,8 @@ public class SubscriptionServiceWSTest {
                 .get(0).getLicense().getUser().getUserId());
         assertEquals("Wrong user org id", customerOrg.getOrganizationId(),
                 subscriptions.get(0).getLicense().getUser().getOrganizationId());
+        
+        assertTrue(subscriptions.get(0).getProvisioningError().isEmpty());
 
         // The supplier itself has no subscription
         subscriptions = subscrServiceForSupplier
@@ -2173,6 +2184,85 @@ public class SubscriptionServiceWSTest {
 
         assertInstanceInfoSet(instanceInfo, subDetails);
     }
+    
+    @Test
+    public void abortAsyncCreateSubscription() throws Exception {
+
+        // given
+        createdSubscription = createSubscription();
+        createdSubscription = subscrServiceForCustomer.subscribeToService(
+                createdSubscription, asynFreeService, usageLicences, null, null,
+                new ArrayList<VOUda>());
+
+        VOInstanceInfo instance = new VOInstanceInfo();
+        instance.setAccessInfo("PLATFORM");
+        instance.setBaseUrl(asynFreeService.getBaseURL());
+        instance.setInstanceId(createdSubscription.getSubscriptionId());
+        instance.setLoginPath("/login");
+
+        // when
+        List<VOLocalizedText> reason = getProvisioningErrorMessages();
+        subscrServiceForSupplier.abortAsyncSubscription(
+                createdSubscription.getSubscriptionId(),
+                customerOrg.getOrganizationId(), reason);
+
+        // then
+        refreshSubscriptionDetails();
+        assertEquals(SubscriptionStatus.PENDING,
+                createdSubscription.getStatus());
+        assertEquals(ERROR_ABORT_ASYNC_SUB_EN,
+                createdSubscription.getProvisioningError());
+
+        terminateAsyncSubscription();
+    }
+
+    @Test
+    public void abortAsyncModifySubscriptionAndRecover() throws Exception {
+
+        // given
+        createdSubscription = createSubscription();
+        createdSubscription = subscrServiceForCustomer.subscribeToService(
+                createdSubscription, asynFreeService, usageLicences, null, null,
+                new ArrayList<VOUda>());
+
+        VOInstanceInfo instance = new VOInstanceInfo();
+        instance.setAccessInfo("PLATFORM");
+        instance.setBaseUrl(asynFreeService.getBaseURL());
+        instance.setInstanceId(createdSubscription.getSubscriptionId());
+        instance.setLoginPath("/login");
+        subscrServiceForSupplier.completeAsyncSubscription(
+                createdSubscription.getSubscriptionId(),
+                customerOrg.getOrganizationId(), instance);
+        refreshSubscriptionDetails();
+        String newSubscriptionId = "NewSubscrId"
+                + Long.toHexString(System.currentTimeMillis());
+        createdSubscription.setSubscriptionId(newSubscriptionId);
+        createdSubscription = subscrServiceForCustomer.modifySubscription(
+                createdSubscription, null, new ArrayList<VOUda>());
+
+        // when
+        List<VOLocalizedText> reason = getProvisioningErrorMessages();
+        subscrServiceForSupplier.abortAsyncModifySubscription(
+                createdSubscription.getSubscriptionId(),
+                customerOrg.getOrganizationId(), reason);
+
+        // then
+        refreshSubscriptionDetails();
+        assertEquals(SubscriptionStatus.ACTIVE,
+                createdSubscription.getStatus());
+        assertEquals(ERROR_ABORT_ASYNC_SUB_EN,
+                createdSubscription.getProvisioningError());
+
+        // when
+        createdSubscription = subscrServiceForCustomer.modifySubscription(
+                createdSubscription, null, new ArrayList<VOUda>());
+
+        // then
+        refreshSubscriptionDetails();
+        assertFalse(createdSubscription.getProvisioningError().isEmpty());
+
+        terminateAsyncSubscription();
+    }
 
     /**
      * Read the content from the last service ticket mail from the server.
@@ -2477,5 +2567,25 @@ public class SubscriptionServiceWSTest {
         assertEquals(info.getInstanceId(), sub.getServiceInstanceId());
         assertEquals(info.getLoginPath(), sub.getServiceLoginPath());
     }
+    
+    private List<VOLocalizedText> getProvisioningErrorMessages() {
+
+        List<VOLocalizedText> messges = new ArrayList<>();
+
+        VOLocalizedText enErrorMsg = new VOLocalizedText("en",
+                ERROR_ABORT_ASYNC_SUB_EN);
+        VOLocalizedText deErrorMsg = new VOLocalizedText("de",
+                ERROR_ABORT_ASYNC_SUB_DE);
+        VOLocalizedText jaErrorMsg = new VOLocalizedText("ja",
+                ERROR_ABORT_ASYNC_SUB_JA);
+
+        messges.add(enErrorMsg);
+        messges.add(deErrorMsg);
+        messges.add(jaErrorMsg);
+
+        return messges;
+    }
+    
+    
 
 }

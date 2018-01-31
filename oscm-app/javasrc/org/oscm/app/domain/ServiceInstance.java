@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.*;
@@ -44,11 +45,14 @@ import org.oscm.string.Strings;
         @NamedQuery(name = "ServiceInstance.getForSubscriptionAndOrg", query = "SELECT si FROM ServiceInstance si WHERE si.subscriptionId = :subscriptionId AND si.organizationId = :organizationId"),
         @NamedQuery(name = "ServiceInstance.getForCtrlKey", query = "SELECT si FROM ServiceInstance si WHERE si.instanceId = :key AND si.controllerId = :cid"),
         @NamedQuery(name = "ServiceInstance.getAllForCtrl", query = "SELECT si FROM ServiceInstance si WHERE si"
-            + ".controllerId = :cid"),
+                + ".controllerId = :cid"),
         @NamedQuery(name = "ServiceInstance.getAll", query = "SELECT si FROM ServiceInstance si") })
 public class ServiceInstance implements Serializable {
 
     private static final long serialVersionUID = 4298435124486600408L;
+
+    private static final String ROLLBACK_PARAM_PREFIX = "param";
+    private static final String ROLLBACK_ATT_PREFIX = "att";
 
     /**
      * The technical key of the entity.
@@ -665,13 +669,31 @@ public class ServiceInstance implements Serializable {
         } else {
             actualProperties.put(ROLLBACK_SUBSCRIPTIONREF, "");
         }
-        actualProperties.putAll(this.getParameterMap());
+        actualProperties.putAll(convertToStringProperties(
+                this.getParameterMap(), ROLLBACK_PARAM_PREFIX));
         this.setRollbackParameters(
                 this.convertPropertiesToXML(actualProperties));
         actualProperties.clear();
-        actualProperties.putAll(getAttributeMap());
+        actualProperties.putAll(convertToStringProperties(getAttributeMap(),
+                ROLLBACK_ATT_PREFIX));
         this.setRollbackInstanceAttributes(
                 this.convertPropertiesToXML(actualProperties));
+    }
+
+    Properties convertToStringProperties(HashMap<String, Setting> map,
+            String prefix) {
+        Properties props = new Properties();
+        Set<String> keySet = map.keySet();
+        int i = 1;
+        for (String key : keySet) {
+            Setting setting = map.get(key);
+            props.put(prefix + i + ".name", setting.getKey());
+            props.put(prefix + i + ".value", setting.getValue());
+            props.put(prefix + i + ".encrypted",
+                    String.valueOf(setting.isEncrypted()));
+            i++;
+        }
+        return props;
     }
 
     public void rollbackServiceInstance(EntityManager em)
@@ -715,31 +737,49 @@ public class ServiceInstance implements Serializable {
 
     private void rollbackInstanceAttributes(Properties backup, EntityManager em)
             throws BadResultException {
-        HashMap<String, Setting> rollbackParams = new HashMap<>();
-
-        for (String name : backup.stringPropertyNames()) {
-            rollbackParams.put(name,
-                    new Setting(name, backup.getProperty(name)));
-        }
-        this.removeAttrs(rollbackParams, em);
-        this.setInstanceAttributes(rollbackParams);
+        HashMap<String, Setting> rollbackAttrs = getRollbackMap(backup,
+                ROLLBACK_ATT_PREFIX);
+        this.removeAttrs(rollbackAttrs, em);
+        this.setInstanceAttributes(rollbackAttrs);
         this.setRollbackInstanceAttributes(null);
     }
 
     private void rollbackInstanceParameters(
             Properties rollbackInstanceParameters, EntityManager em)
             throws BadResultException {
-
-        HashMap<String, Setting> rollbackParams = new HashMap<>();
-
-        for (String name : rollbackInstanceParameters.stringPropertyNames()) {
-            rollbackParams.put(name, new Setting(name,
-                    rollbackInstanceParameters.getProperty(name)));
-        }
+        HashMap<String, Setting> rollbackParams = getRollbackMap(
+                rollbackInstanceParameters, ROLLBACK_PARAM_PREFIX);
         this.removeParams(rollbackParams, em);
         this.setInstanceParameters(rollbackParams);
         this.setRollbackParameters(null);
 
+    }
+
+    HashMap<String, Setting> getRollbackMap(Properties rollbackProperties,
+            String prefix) {
+        HashMap<String, Setting> rollbackMap = new HashMap<>();
+
+        int i = 1;
+        boolean end = false;
+        Set<String> propNames = rollbackProperties.stringPropertyNames();
+        if (!propNames.isEmpty()) {
+            while (!end) {
+                String name = (String) rollbackProperties
+                        .get(prefix + i + ".name");
+                if (name != null) {
+                    String value = (String) rollbackProperties
+                            .get(prefix + i + ".value");
+                    String encrypted = (String) rollbackProperties
+                            .get(prefix + i + ".encrypted");
+                    rollbackMap.put(name, new Setting(name, value,
+                            Boolean.valueOf(encrypted)));
+                } else {
+                    end = true;
+                }
+                i++;
+            }
+        }
+        return rollbackMap;
     }
 
     private void rollbackSubscription(String subscriptionID,

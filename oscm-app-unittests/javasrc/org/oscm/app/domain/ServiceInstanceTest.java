@@ -45,7 +45,8 @@ public class ServiceInstanceTest {
         instance.setSubscriptionId("subId");
         instance.setInstanceId("appInstanceId");
         instance.setControllerId("ess.vmware");
-        instance.setProvisioningStatus(ProvisioningStatus.WAITING_FOR_SYSTEM_CREATION);
+        instance.setProvisioningStatus(
+                ProvisioningStatus.WAITING_FOR_SYSTEM_CREATION);
         Mockito.doNothing().when(em).persist(Matchers.any());
     }
 
@@ -55,8 +56,8 @@ public class ServiceInstanceTest {
         p.setParameterKey("param1");
         p.setParameterValue("value1");
         instance.setInstanceParameters(Arrays.asList(p));
-        assertEquals("value1", instance.getParameterForKey("param1")
-                .getParameterValue());
+        assertEquals("value1",
+                instance.getParameterForKey("param1").getParameterValue());
     }
 
     @Test
@@ -65,8 +66,8 @@ public class ServiceInstanceTest {
         a.setAttributeKey("param1");
         a.setAttributeValue("value1");
         instance.setInstanceAttributes(Arrays.asList(a));
-        assertEquals("value1", instance.getAttributeForKey("param1")
-                .getAttributeValue());
+        assertEquals("value1",
+                instance.getAttributeForKey("param1").getAttributeValue());
     }
 
     @Test
@@ -141,10 +142,10 @@ public class ServiceInstanceTest {
         final Map<String, Setting> expected = new HashMap<>();
         expected.put("param1", new Setting("param1", "value1"));
         expected.put("param2", new Setting("param2", "value2"));
-        assertEquals("value1", instance.getParameterMap().get("param1")
-                .getValue());
-        assertEquals("value2", instance.getParameterMap().get("param2")
-                .getValue());
+        assertEquals("value1",
+                instance.getParameterMap().get("param1").getValue());
+        assertEquals("value2",
+                instance.getParameterMap().get("param2").getValue());
     }
 
     @Test
@@ -160,10 +161,10 @@ public class ServiceInstanceTest {
         final Map<String, String> expected = new HashMap<>();
         expected.put("param1", "value1");
         expected.put("param2", "value2");
-        assertEquals("value1", instance.getAttributeMap().get("param1")
-                .getValue());
-        assertEquals("value2", instance.getAttributeMap().get("param2")
-                .getValue());
+        assertEquals("value1",
+                instance.getAttributeMap().get("param1").getValue());
+        assertEquals("value2",
+                instance.getAttributeMap().get("param2").getValue());
     }
 
     @Test
@@ -424,10 +425,12 @@ public class ServiceInstanceTest {
         // then
         List<InstanceParameter> stored = si.getInstanceParameters();
         for (InstanceParameter instanceParameter : stored) {
-            if (instanceParameter.getParameterKey().equals(param.getParameterKey())) {
+            if (instanceParameter.getParameterKey()
+                    .equals(param.getParameterKey())) {
                 continue;
             }
-            if (instanceParameter.getParameterKey().equals(param2.getParameterKey())) {
+            if (instanceParameter.getParameterKey()
+                    .equals(param2.getParameterKey())) {
                 continue;
             }
             fail();
@@ -567,6 +570,105 @@ public class ServiceInstanceTest {
 
         // then
         assertEquals(2, si.getInstanceParameters().size());
+    }
+
+    @Test
+    public void convertToStringProperteisEmptyMap() {
+        // given
+        ServiceInstance si = new ServiceInstance();
+        HashMap<String, Setting> map = new HashMap<>();
+
+        // when
+        Properties prop = si.convertToStringProperties(map, "param");
+
+        // then
+        assertEquals(0, prop.size());
+    }
+
+    @Test
+    public void convertToStringProperteis() {
+        // given
+        ServiceInstance si = new ServiceInstance();
+        HashMap<String, Setting> map = new HashMap<>();
+        map.put("instance_image",
+                new Setting("instance_image", "image123", false));
+        map.put("disk_size", new Setting("disk_size", "100GB", false));
+        map.put("admin_pwd", new Setting("admin_pwd", "encrypted_pwd", true));
+
+        // when
+        Properties prop = si.convertToStringProperties(map, "param");
+
+        // then
+        assertEquals(9, prop.size());
+        for (int i = 1; i < 4; i++) {
+            String name = prop.getProperty("param" + i + ".name");
+            if ("instance_image".equals(name)) {
+                assertEquals("image123",
+                        prop.getProperty("param" + i + ".value"));
+                assertEquals("false",
+                        prop.getProperty("param" + i + ".encrypted"));
+            } else if ("disk_size".equals(name)) {
+                assertEquals("100GB", prop.getProperty("param" + i + ".value"));
+                assertEquals("false",
+                        prop.getProperty("param" + i + ".encrypted"));
+
+            } else if ("admin_pwd".equals(name)) {
+                assertEquals("encrypted_pwd",
+                        prop.getProperty("param" + i + ".value"));
+                assertEquals("true",
+                        prop.getProperty("param" + i + ".encrypted"));
+            } else {
+                fail();
+            }
+        }
+    }
+    
+    @Test
+    public void getRollbackMapEmptyProps() {
+        // given
+        ServiceInstance si = new ServiceInstance();
+        Properties prop = new Properties();
+
+        //when
+        HashMap<String, Setting> map = si.getRollbackMap(prop, "param");
+        
+        //then
+        assertEquals(0,  map.size());
+    }
+
+
+    @Test
+    public void getRollbackMap() {
+        // given
+        ServiceInstance si = new ServiceInstance();
+        Properties prop = new Properties();
+        prop.put("param1.name", "instance_image");
+        prop.put("param1.value", "image123");
+        prop.put("param1.encrypted", "false");
+        prop.put("param2.name", "disk_size");
+        prop.put("param2.value", "100GB");
+        prop.put("param2.encrypted", "false");
+        prop.put("param3.name", "admin_pwd");
+        prop.put("param3.value", "encrypted_pwd");
+        prop.put("param3.encrypted", "true");
+
+        //when
+        HashMap<String, Setting> map = si.getRollbackMap(prop, "param");
+        
+        //then
+        assertEquals(3,  map.size());
+        Setting s = map.get("instance_image");
+        assertEquals("instance_image", s.getKey());
+        assertEquals("image123", s.getValue());
+        assertFalse(s.isEncrypted());
+        s = map.get("disk_size");
+        assertEquals("disk_size", s.getKey());
+        assertEquals("100GB", s.getValue());
+        assertFalse(s.isEncrypted());
+        s = map.get("admin_pwd");
+        assertEquals("admin_pwd", s.getKey());
+        assertEquals("encrypted_pwd", s.getValue());
+        assertTrue(s.isEncrypted());
     }
 
     private String removeFormatting(String xml) {

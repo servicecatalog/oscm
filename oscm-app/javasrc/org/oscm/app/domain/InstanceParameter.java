@@ -157,6 +157,7 @@ public class InstanceParameter {
     public void setDecryptedValue(String parameterValue)
             throws BadResultException {
         try {
+            if (parameterValue == null) parameterValue = "";
             this.parameterValue = isEncrypted()
                     ? AESEncrypter.encrypt(parameterValue) : parameterValue;
         } catch (GeneralSecurityException e) {

@@ -37,6 +37,7 @@ public class VOSubscription extends BaseVO  {
     private String purchaseOrderNumber;
     private String subscriptionId;
     private String provisioningProgress;
+    private String provisioningError;
     private int numberOfAssignedUsers;
     private String sellerName;
     private String ownerId;
@@ -478,5 +479,24 @@ public class VOSubscription extends BaseVO  {
      */
     public void setUnitName(String unitName) {
         this.unitName = unitName;
+    }
+    
+    /**
+     * Retrieves information about the error in case provisioning operation was aborted.
+     * 
+     * @return the provisioning error
+     */
+    public String getProvisioningError() {
+        return provisioningError;
+    }
+    
+    /**
+     * Sets information about the error during provisioning operation.
+     * 
+     * @param provisioningError
+     *            the provisioning error
+     */
+    public void setProvisioningError(String provisioningError) {
+        this.provisioningError = provisioningError;
     }
 }

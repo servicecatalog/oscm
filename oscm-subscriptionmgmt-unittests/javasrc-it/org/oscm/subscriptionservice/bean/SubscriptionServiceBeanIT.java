@@ -3945,7 +3945,7 @@ public class SubscriptionServiceBeanIT extends EJBTestBase {
                 @Override
                 public Void call() {
                     checkSubscribeToProduct(true, id, asyncTestProducts.get(0),
-                            SubscriptionStatus.INVALID, 3, null, 1);
+                            SubscriptionStatus.PENDING, 3, null, 1);
                     return null;
                 }
             });
@@ -4321,7 +4321,7 @@ public class SubscriptionServiceBeanIT extends EJBTestBase {
                 @Override
                 public Void call() {
                     checkSubscribeToProduct(true, id, asyncTestProducts.get(0),
-                            SubscriptionStatus.INVALID, 5, null, 1);
+                            SubscriptionStatus.PENDING, 5, null, 1);
                     return null;
                 }
             });
@@ -4505,7 +4505,7 @@ public class SubscriptionServiceBeanIT extends EJBTestBase {
                     new ArrayList<VOUda>());
             fail("No SubscriptionStateException thrown");
         } catch (SubscriptionStateException e) {
-            assertInvalidStateException(e, SubscriptionStatus.INVALID);
+            assertInvalidStateException(e, SubscriptionStatus.PENDING);
         }
     }
 

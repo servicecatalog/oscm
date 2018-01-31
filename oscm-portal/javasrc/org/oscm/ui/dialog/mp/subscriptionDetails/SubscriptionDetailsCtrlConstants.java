@@ -74,4 +74,6 @@ public class SubscriptionDetailsCtrlConstants {
 
     public static final String SUBSCRIPTION_NAME_ALREADY_EXISTS = "ex.NonUniqueBusinessKeyException.SUBSCRIPTION";
     public static final String SUBSCRIPTIONDETAILS_VIEWID = "/marketplace/account/subscriptionDetails.xhtml";
+    public static final String ERROR_SUBSCRIPTION_ABORT_CREATE = "error.subscription.abortCreate";
+    public static final String ERROR_SUBSCRIPTION_ABORT_MODIFY = "error.subscription.abortModify";
 }

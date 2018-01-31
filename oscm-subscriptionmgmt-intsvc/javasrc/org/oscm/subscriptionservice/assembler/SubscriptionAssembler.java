@@ -282,6 +282,10 @@ public class SubscriptionAssembler extends BaseAssembler {
                                 facade));
         String message = subscription.getSuccessMessage();
         voSubscription.setSuccessInfo(message == null ? "" : message);
+        
+        voSubscription.setProvisioningError(facade.getText(
+                subscription.getKey(),
+                LocalizedObjectTypes.SUBSCRIPTION_PROVISIONING_ERROR));
     }
 
     private static void fillVOSubscriptionDetails(

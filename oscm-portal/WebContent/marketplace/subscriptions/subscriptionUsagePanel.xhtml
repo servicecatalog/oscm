@@ -15,6 +15,10 @@
         <h:form id="subscriptionUsagePanelForm">
           <span id="anchor"></span>
           <a4j:outputPanel id="subscriptionUsagePanelPane" layout="block">
+          
+		    <mp:notice rendered="#{subscription.showProvisioningWarning}"
+                noticeText="#{subscription.provisioningWarning}" />
+                
             <!-- subscription details -->
             <a4j:outputPanel layout="block" styleClass="leftCenterBorder clearfix">
               <mp:subscriptionBlock fieldId="subscriptionBlock"

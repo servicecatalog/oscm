@@ -50,7 +50,7 @@ public class CommunicationServiceStub implements CommunicationServiceLocal {
     @Override
     public String getMarketplaceUrlHttps(String marketplaceId)
             throws MailOperationException {
-        return "";
+        return null;
     }
 
     @Override

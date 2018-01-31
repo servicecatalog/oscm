@@ -230,8 +230,10 @@ public class DataServiceBean implements DataService {
             classEnum = DomainObjectException.ClassEnum.TENANT;
         } else if (objclass == TenantSetting.class) {
             classEnum = DomainObjectException.ClassEnum.TENANT_SETTING;
+        } else if (objclass == ModifiedEntity.class) {
+            classEnum = DomainObjectException.ClassEnum.MODIFIED_ENTITY;
         }
-        
+
         return classEnum;
     }
 
@@ -245,13 +247,14 @@ public class DataServiceBean implements DataService {
         String queryName = className.substring(className.lastIndexOf(".") + 1)
                 + ".findByBusinessKey";
         if (businessKeyElements == null) {
-            throw new SaaSSystemException("No BusinessKey defined for "
-                    + className);
+            throw new SaaSSystemException(
+                    "No BusinessKey defined for " + className);
         }
         // Parameter names correspond to field names
         Query qry = em.createNamedQuery(queryName);
         if (qry == null) {
-            throw new SaaSSystemException("Could not create query " + queryName);
+            throw new SaaSSystemException(
+                    "Could not create query " + queryName);
         }
         for (String par : businessKeyElements) {
             Object val = PersistenceReflection.getValue(idobj, par);
@@ -266,8 +269,8 @@ public class DataServiceBean implements DataService {
             StringBuffer qrykey = new StringBuffer("(");
             for (String par : businessKeyElements) {
                 qrykey.append(par + "='");
-                qrykey.append(PersistenceReflection.getValue(idobj, par)
-                        .toString());
+                qrykey.append(
+                        PersistenceReflection.getValue(idobj, par).toString());
                 qrykey.append("',");
             }
             qrykey.append(")");
@@ -283,6 +286,7 @@ public class DataServiceBean implements DataService {
     @Override
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public PlatformUser find(PlatformUser pu) {
+        logger.logDebug("Find user ("+ pu.getKey()+":"+pu.getUserId()+") in tenant "+pu.getTenantId());
         Query qry;
         if (isNotDefaultTenant(pu.getTenantId())) {
             qry = em.createNamedQuery("PlatformUser.findByBusinessKey",
@@ -350,12 +354,12 @@ public class DataServiceBean implements DataService {
             result = find(findTemplate);
         }
         if (result == null) {
-            DomainObjectException.ClassEnum classEnum = class2Enum(findTemplate
-                    .getClass());
+            DomainObjectException.ClassEnum classEnum = class2Enum(
+                    findTemplate.getClass());
             Map<String, String> businessKeyMap = PersistenceReflection
                     .getBusinessKeys(findTemplate);
-            throw new ObjectNotFoundException(classEnum, getBusinessKey(
-                    businessKeyMap, classEnum));
+            throw new ObjectNotFoundException(classEnum,
+                    getBusinessKey(businessKeyMap, classEnum));
         }
         return result;
     }
@@ -464,7 +468,8 @@ public class DataServiceBean implements DataService {
 
     @Override
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
-    public <T> TypedQuery<T> createNamedQuery(String jpql, Class<T> resultClass) {
+    public <T> TypedQuery<T> createNamedQuery(String jpql,
+            Class<T> resultClass) {
         return em.createNamedQuery(jpql, resultClass);
     }
 
@@ -518,8 +523,8 @@ public class DataServiceBean implements DataService {
 
     @Override
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
-    public <T extends DomainObject<?>> T getReference(Class<T> objclass, long id)
-            throws ObjectNotFoundException {
+    public <T extends DomainObject<?>> T getReference(Class<T> objclass,
+            long id) throws ObjectNotFoundException {
         setThreadLocals();
         T result = find(objclass, id);
         if (result == null) {
@@ -587,14 +592,12 @@ public class DataServiceBean implements DataService {
                 search = find(obj);
             }
             if (search != null && obj.getKey() != search.getKey()) {
-                DomainObjectException.ClassEnum classEnum = class2Enum(obj
-                        .getClass());
+                DomainObjectException.ClassEnum classEnum = class2Enum(
+                        obj.getClass());
                 String businessKey = getBusinessKey(businessKeyMap, classEnum);
                 NonUniqueBusinessKeyException e = new NonUniqueBusinessKeyException(
                         classEnum, businessKey);
-                logger.logWarn(
-                        Log4jLogger.SYSTEM_LOG,
-                        e,
+                logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                         LogMessageIdentifier.WARN_NON_UNIQUE_BUSINESS_KEY_WITH_TYPE,
                         classEnum.name(), businessKey);
                 throw e;
@@ -643,13 +646,10 @@ public class DataServiceBean implements DataService {
                 // name is set before
             }
             InvalidUserSession ius = new InvalidUserSession(
-                    "User with key '"
-                            + name
+                    "User with key '" + name
                             + "' cannot be found! The user might have been deleted by administrator.",
                     e);
-            logger.logError(
-                    Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG,
-                    e,
+            logger.logError(Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG, e,
                     LogMessageIdentifier.ERROR_USER_OPERATE_NOT_PERMITTED_THE_USER_ALREADY_DELETED);
             throw ius;
         } catch (Exception e) {
@@ -662,8 +662,8 @@ public class DataServiceBean implements DataService {
             }
             InvalidUserSession ius = new InvalidUserSession(
                     EVALUATING_SESSION_CONTEXT_FAILED, e);
-            logger.logWarn(Log4jLogger.SYSTEM_LOG | Log4jLogger.ACCESS_LOG,
-                    ius, LogMessageIdentifier.WARN_ACCESS_DINIED_NO_USER);
+            logger.logWarn(Log4jLogger.SYSTEM_LOG | Log4jLogger.ACCESS_LOG, ius,
+                    LogMessageIdentifier.WARN_ACCESS_DINIED_NO_USER);
             throw ius;
         }
     }
@@ -746,7 +746,8 @@ public class DataServiceBean implements DataService {
         }
     }
 
-    private Organization getOrganizationForDistinguishedName(boolean lookupOnly) {
+    private Organization getOrganizationForDistinguishedName(
+            boolean lookupOnly) {
         final Set<String> principalNames = Collections
                 .singleton(webServiceContext.getUserPrincipal().getName());
         final TypedQuery<Organization> query = createNamedQuery(
@@ -761,9 +762,7 @@ public class DataServiceBean implements DataService {
             }
             final InvalidUserSession ius = new InvalidUserSession(
                     EVALUATING_SESSION_CONTEXT_FAILED, e);
-            logger.logWarn(
-                    Log4jLogger.SYSTEM_LOG,
-                    ius,
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, ius,
                     LogMessageIdentifier.WARN_NO_OR_MULTIPLE_ENTRIES_FOUND_FOR_WEB_SERVICE);
             throw ius;
         }
@@ -781,7 +780,8 @@ public class DataServiceBean implements DataService {
      * @return <code>true</code> if the organization is still registered,
      *         <code>false</code> or exception otherwise
      */
-    private boolean checkOrgDeregistration(Organization org, boolean lookupOnly) {
+    private boolean checkOrgDeregistration(Organization org,
+            boolean lookupOnly) {
         if (org.getDeregistrationDate() != null) {
             if (lookupOnly) {
                 return false;
@@ -789,8 +789,8 @@ public class DataServiceBean implements DataService {
             InvalidUserSession ius = new InvalidUserSession(
                     "Organization with key '" + org.getKey()
                             + "' is deregistered!");
-            logger.logError(Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG,
-                    ius, LogMessageIdentifier.ERROR_USER_OPERATE_NOT_PERMITTED,
+            logger.logError(Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG, ius,
+                    LogMessageIdentifier.ERROR_USER_OPERATE_NOT_PERMITTED,
                     org.getOrganizationId());
             throw ius;
         }
@@ -821,8 +821,8 @@ public class DataServiceBean implements DataService {
             conn = ds.getConnection();
             stmt = conn.prepareStatement(sqlQuery.getQuery());
             for (Integer parameterIndex : sqlQuery.getParameters().keySet()) {
-                stmt.setObject(parameterIndex.intValue(), sqlQuery
-                        .getParameters().get(parameterIndex));
+                stmt.setObject(parameterIndex.intValue(),
+                        sqlQuery.getParameters().get(parameterIndex));
             }
             rs = stmt.executeQuery();
             return convertToDataSet(rs, sqlQuery.getMax());
@@ -840,7 +840,8 @@ public class DataServiceBean implements DataService {
 
     DataSet convertToDataSet(ResultSet rs, int max) throws SQLException {
         DataSet dataSet = new DataSet();
-        for (int index = 1; index <= rs.getMetaData().getColumnCount(); index++) {
+        for (int index = 1; index <= rs.getMetaData()
+                .getColumnCount(); index++) {
             dataSet.getMetaData().add(index,
                     rs.getMetaData().getColumnName(index),
                     rs.getMetaData().getColumnTypeName(index),
@@ -849,7 +850,8 @@ public class DataServiceBean implements DataService {
         int i = 0;
         while (i++ < max && rs.next()) {
             List<Object> values = new ArrayList<Object>();
-            for (int index = 1; index <= rs.getMetaData().getColumnCount(); index++) {
+            for (int index = 1; index <= rs.getMetaData()
+                    .getColumnCount(); index++) {
                 values.add(rs.getObject(index));
             }
             dataSet.addRow(values);
@@ -906,10 +908,10 @@ public class DataServiceBean implements DataService {
         // List users = namedQuery.getResultList();
         PlatformUser user = find(pu);
         if (user != null) {
-            DomainObjectException.ClassEnum classEnum = class2Enum(pu
-                    .getClass());
-            throw new NonUniqueBusinessKeyException(classEnum, pu.getUserId()
-                    + " " + tenantId);
+            DomainObjectException.ClassEnum classEnum = class2Enum(
+                    pu.getClass());
+            throw new NonUniqueBusinessKeyException(classEnum,
+                    pu.getUserId() + " " + tenantId);
         }
         em.persist(pu);
     }

@@ -536,6 +536,7 @@ public class SubscriptionServiceBeanOwnershipTest {
     private Subscription givenSubscription(PlatformUser owner) {
         Subscription sub = new Subscription();
         sub.setOwner(owner);
+        sub.setOrganization(new Organization());
         return sub;
     }
 

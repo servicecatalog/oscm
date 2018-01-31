@@ -26,6 +26,7 @@ import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.Subscription;
 import org.oscm.domobjects.TechnicalProduct;
+import org.oscm.domobjects.Tenant;
 import org.oscm.domobjects.Uda;
 import org.oscm.domobjects.UsageLicense;
 import org.oscm.domobjects.UserGroup;
@@ -74,8 +75,8 @@ public class SubscriptionUtilBean {
 
     protected List<PlatformUser> getCustomerAdminsAndSubscriptionOwner(
             Subscription subscription) {
-        List<PlatformUser> users = getOrganizationDao().getOrganizationAdmins(
-                subscription.getOrganizationKey());
+        List<PlatformUser> users = getOrganizationDao()
+                .getOrganizationAdmins(subscription.getOrganizationKey());
         for (int i = 0; i < users.size(); i++) {
             PlatformUser user = users.get(i);
             if (user.isOnBehalfUser()) {
@@ -84,7 +85,8 @@ public class SubscriptionUtilBean {
         }
 
         PlatformUser owner = subscription.getOwner();
-        if (owner != null && !users.contains(owner) && !owner.isOnBehalfUser()) {
+        if (owner != null && !users.contains(owner)
+                && !owner.isOnBehalfUser()) {
             users.add(owner);
         }
         return users;
@@ -100,7 +102,8 @@ public class SubscriptionUtilBean {
     List<PlatformUser> getCustomerAndTechnicalProductAdminForSubscription(
             Subscription subscription) {
 
-        List<PlatformUser> users = getCustomerAdminsAndSubscriptionOwner(subscription);
+        List<PlatformUser> users = getCustomerAdminsAndSubscriptionOwner(
+                subscription);
         for (PlatformUser orgAdmin : subscription.getProduct()
                 .getTechnicalProduct().getOrganization()
                 .getOrganizationAdmins()) {
@@ -117,19 +120,28 @@ public class SubscriptionUtilBean {
 
     List<Uda> getExistingUdas(Subscription subscription) {
         List<Uda> existingUdas = getUdaAccess().getExistingUdas(
-                subscription.getOrganization().getKey(),
-                subscription.getKey(),
+                subscription.getOrganization().getKey(), subscription.getKey(),
                 subscription.getProduct().getSupplierOrResellerTemplate()
                         .getVendor());
         return existingUdas;
     }
 
-    void setSubscriptionOwner(Subscription subscriptionToModify,
-            String ownerId, boolean validateOrganization)
+    void setSubscriptionOwner(Subscription subscriptionToModify, String ownerId,
+            boolean validateOrganization)
             throws ObjectNotFoundException, OperationNotPermittedException {
         if (ownerId != null && ownerId.length() != 0) {
-            PlatformUser owner = idManager.getPlatformUser(ownerId, dataManager
-                    .getCurrentUser().getTenantId(), validateOrganization);
+            // PlatformUser owner = idManager.getPlatformUser(ownerId,
+            // dataManager
+            // .getCurrentUser().getTenantId(), validateOrganization);
+            // if the method is called from platform operator (APP), the calling
+            // user tenant is different from that of the owner
+            Tenant tenant = subscriptionToModify.getOrganization().getTenant();
+            String tenantId = null;
+            if (tenant != null) {
+                tenantId = tenant.getTenantId();
+            }
+            PlatformUser owner = idManager.getPlatformUser(ownerId, tenantId,
+                    validateOrganization);
             subscriptionToModify.setOwner(owner);
         } else {
             // delete the owner of subscription
@@ -140,8 +152,8 @@ public class SubscriptionUtilBean {
     void setSubscriptionUnit(Subscription subscriptionToModify, String unitKey)
             throws ObjectNotFoundException {
         if (unitKey != null && unitKey.trim().length() != 0) {
-            UserGroup unit = dataManager.getReference(UserGroup.class, Long
-                    .valueOf(unitKey).longValue());
+            UserGroup unit = dataManager.getReference(UserGroup.class,
+                    Long.valueOf(unitKey).longValue());
             subscriptionToModify.setUserGroup(unit);
         } else {
             subscriptionToModify.setUserGroup(null);
@@ -163,12 +175,10 @@ public class SubscriptionUtilBean {
     void validateTechnoloyProvider(Subscription subscription)
             throws OperationNotPermittedException {
         Organization tp = dataManager.getCurrentUser().getOrganization();
-        if (!tp.getTechnicalProducts().contains(
-                subscription.getProduct().getTechnicalProduct())) {
+        if (!tp.getTechnicalProducts()
+                .contains(subscription.getProduct().getTechnicalProduct())) {
             OperationNotPermittedException onp = new OperationNotPermittedException();
-            LOG.logWarn(
-                    Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG,
-                    onp,
+            LOG.logWarn(Log4jLogger.SYSTEM_LOG | Log4jLogger.AUDIT_LOG, onp,
                     LogMessageIdentifier.WARN_ORGANIZATION_OWN_NO_TECHNICAL_PRODUCT_OF_SUBSCRIPTION,
                     subscription.getSubscriptionId());
             throw onp;
@@ -214,8 +224,10 @@ public class SubscriptionUtilBean {
         // as the user gets no mail when being added to a pending
         // subscription, the notification about the removal will also
         // not be sent. The same for direct access...
-        boolean needToSendMails = !(subscription.getStatus() != SubscriptionStatus.ACTIVE || subscription
-                .getProduct().getTechnicalProduct().getAccessType() == ServiceAccessType.DIRECT);
+        boolean needToSendMails = !(subscription
+                .getStatus() != SubscriptionStatus.ACTIVE
+                || subscription.getProduct().getTechnicalProduct()
+                        .getAccessType() == ServiceAccessType.DIRECT);
         List<UsageLicense> usageLicenses = new ArrayList<UsageLicense>(
                 subscription.getUsageLicenses());
         for (UsageLicense lic : usageLicenses) {
@@ -232,8 +244,8 @@ public class SubscriptionUtilBean {
             List<UsageLicense> usageLicenses) {
         Long marketplaceKey = null;
         if (subscription.getMarketplace() != null) {
-            marketplaceKey = subscription.getMarketplace()
-                    .getKey();
+            marketplaceKey = Long
+                    .valueOf(subscription.getMarketplace().getKey());
         }
 
         SendMailPayload payload = new SendMailPayload();
@@ -254,13 +266,11 @@ public class SubscriptionUtilBean {
                 .getOrganizationAdmins();
         for (PlatformUser admin : admins) {
             try {
-                commService
-                        .sendMail(
-                                admin,
-                                EmailType.SUBSCRIPTION_TERMINATE_TECHNICAL_SERVICE_ERROR,
-                                new Object[] { tp.getTechnicalProductId(),
-                                        subscription.getProductInstanceId() },
-                                subscription.getMarketplace());
+                commService.sendMail(admin,
+                        EmailType.SUBSCRIPTION_TERMINATE_TECHNICAL_SERVICE_ERROR,
+                        new Object[] { tp.getTechnicalProductId(),
+                                subscription.getProductInstanceId() },
+                        subscription.getMarketplace());
             } catch (MailOperationException e) {
                 // only log the exception and proceed
                 LOG.logWarn(Log4jLogger.SYSTEM_LOG, e,

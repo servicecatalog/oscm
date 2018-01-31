@@ -294,6 +294,9 @@ public class ManageSubscriptionCtrlTest {
         POSubscriptionDetails subscriptionDetails = new POSubscriptionDetails();
         subscriptionDetails.setUdasDefinitions(udaDefinitions);
         subscriptionDetails.setStatus(SubscriptionStatus.ACTIVE);
+        
+        VOSubscriptionDetails subscription = new VOSubscriptionDetails();
+        subscriptionDetails.setSubscription(subscription);
         return subscriptionDetails;
     }
 
@@ -1404,6 +1407,7 @@ public class ManageSubscriptionCtrlTest {
     public void setStateWarningAndTabDisabled_ACTIVE() {
         // given
         POSubscriptionDetails subscriptionDetail = givenPOSubscriptionDetails();
+        
         doReturn(Boolean.FALSE).when(ctrl).checkTriggerProcessForSubscription(
                 subscriptionDetail.getSubscription());
 

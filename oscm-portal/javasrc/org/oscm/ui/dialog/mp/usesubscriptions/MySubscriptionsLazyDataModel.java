@@ -19,6 +19,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.commons.lang3.StringUtils;
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.subscriptions.OperationModel;
 import org.oscm.internal.subscriptions.POSubscription;
@@ -32,6 +33,8 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.common.ADMStringUtils;
 import org.oscm.ui.common.Constants;
+import org.oscm.ui.common.JSFUtils;
+import org.oscm.ui.dialog.mp.subscriptionDetails.SubscriptionDetailsCtrlConstants;
 import org.oscm.ui.model.RichLazyDataModel;
 import org.oscm.validator.ADMValidator;
 
@@ -110,6 +113,8 @@ public class MySubscriptionsLazyDataModel extends RichLazyDataModel<POSubscripti
     }
 
     private void refreshSelectedSubscription() {
+        
+        
         if (selectedSubscription != null) {
             if (resultList.contains(selectedSubscription)) {
                 OperationModel selectedOperation = selectedSubscription.getSelectedOperation();
@@ -119,6 +124,12 @@ public class MySubscriptionsLazyDataModel extends RichLazyDataModel<POSubscripti
                 } else {
                     selectedSubscription.setAccessUrl(getAccessUrl(selectedSubscription));
                     selectedSubscription.setTarget(isOpenNewTab(selectedSubscription) ? "_blank" : "");
+                    
+                    if(selectedSubscription.isShowProvisioningWarning()){
+                        String provisioningWarning = JSFUtils.getText(SubscriptionDetailsCtrlConstants.ERROR_SUBSCRIPTION_ABORT_MODIFY, new Object[]{selectedSubscription.getProvisioningError()});
+                        selectedSubscription.setProvisioningWarning(provisioningWarning);
+                    }
+
                     operationChanged(selectedOperation);
                 }
             } else {

@@ -505,6 +505,7 @@ public class VOConverter {
         newVO.setOwnerId(oldVO.getOwnerId());
         newVO.setUnitKey(oldVO.getUnitKey());
         newVO.setUnitName(oldVO.getUnitName());
+        newVO.setProvisioningError(oldVO.getProvisioningError());
         return newVO;
     }
 
@@ -549,6 +550,7 @@ public class VOConverter {
         newVO.setOwnerId(oldVO.getOwnerId());
         newVO.setUnitKey(oldVO.getUnitKey());
         newVO.setUnitName(oldVO.getUnitName());
+        newVO.setProvisioningError(oldVO.getProvisioningError());
         return newVO;
     }
 
@@ -1257,6 +1259,7 @@ public class VOConverter {
         newVO.setOwnerId(oldVO.getOwnerId());
         newVO.setUnitKey(oldVO.getUnitKey());
         newVO.setUnitName(oldVO.getUnitName());
+        newVO.setProvisioningError(oldVO.getProvisioningError());
         return newVO;
     }
 
@@ -1302,6 +1305,7 @@ public class VOConverter {
         newVO.setOwnerId(oldVO.getOwnerId());
         newVO.setUnitKey(oldVO.getUnitKey());
         newVO.setUnitName(oldVO.getUnitName());
+        newVO.setProvisioningError(oldVO.getProvisioningError());
         return newVO;
     }
 
@@ -1666,6 +1670,7 @@ public class VOConverter {
         newVO.setOwnerId(oldVO.getOwnerId());
         newVO.setUnitKey(oldVO.getUnitKey());
         newVO.setUnitName(oldVO.getUnitName());
+        newVO.setProvisioningError(oldVO.getProvisioningError());
         return newVO;
     }
 
@@ -1716,6 +1721,7 @@ public class VOConverter {
         newVO.setOwnerId(oldVO.getOwnerId());
         newVO.setUnitKey(oldVO.getUnitKey());
         newVO.setUnitName(oldVO.getUnitName());
+        newVO.setProvisioningError(oldVO.getProvisioningError());
         return newVO;
     }
 
