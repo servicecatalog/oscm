@@ -85,14 +85,15 @@ public class PasswordSetup {
     public void startUp() {
 
         try {
-            if (config.initEncryption()) {
-                updatePasswords();
-            } else {
-                encryptedSettingsWithPrefix();
-            }
-        } catch (ConfigurationException | GeneralSecurityException
-                | BadResultException e) {
-            LOGGER.error("unable to update old passwords");
+            config.initEncryption();
+            
+            //TODO: handle updating password based on DB version
+            //updatePasswords();
+                
+            encryptedSettingsWithPrefix();
+            
+        } catch (ConfigurationException e) {
+            LOGGER.error(e.getMessage(), e);
             throw new RuntimeException("unable to update old passwords", e);
         }
     }
