@@ -186,11 +186,11 @@
               overwrite="true"/>
         <copy file="${ivy.lib.dir}/gson-2.6.2.jar" tofile="${root.dir}/libraries/gson/javalib/gson-2.6.2.jar" overwrite="true"/>
 
-    <copy file="${ivy.lib.dir}/jackson-core-2.6.6.jar"
+    <copy file="${ivy.lib.dir}/jackson-core-2.9.4.jar"
           tofile="${root.dir}/libraries/jackson/javalib/jackson-core.jar" overwrite="true" />
-    <copy file="${ivy.lib.dir}/jackson-databind-2.6.6.jar"
+    <copy file="${ivy.lib.dir}/jackson-databind-2.9.4.jar"
           tofile="${root.dir}/libraries/jackson/javalib/jackson-databind.jar" overwrite="true" />
-    <copy file="${ivy.lib.dir}/jackson-annotations-2.6.0.jar"
+    <copy file="${ivy.lib.dir}/jackson-annotations-2.9.4.jar"
           tofile="${root.dir}/libraries/jackson/javalib/jackson-annotations.jar" overwrite="true" />
 
     <!-- javax -->
