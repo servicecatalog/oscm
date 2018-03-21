@@ -9,7 +9,7 @@
 
 
 	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runJUnitTestsBuild" depends="bootstrap,_libraries, _clean, package_without_doc, _unittests, _copyResultArtifacts" />
+	<target name="runJUnitTestsBuild" depends="bootstrap,_libraries, _clean, _package_without_doc, _unittests, _copyResultArtifacts" />
 
 	<target name="runTravisUT"  depends="bootstrap,_libraries">
 		<ant antfile="build.xml" target="travisunittests" />
@@ -51,9 +51,14 @@
         </ant>
     </target>
 
-      <target name="_package">
+    <target name="_package">
 		<echo message="***** Build BES without running unit tests  *****" />
 		<ant antfile="build.xml" target="package" />
+	</target>
+	
+	<target name="_package_without_doc">
+		<echo message="***** Build BES without unit tests and doc  *****" />
+		<ant antfile="build.xml" target="package_without_doc" />
 	</target>
 
 	<target name="_unittests">
