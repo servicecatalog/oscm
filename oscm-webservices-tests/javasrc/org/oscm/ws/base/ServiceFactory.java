@@ -46,7 +46,8 @@ import org.oscm.test.ws.WebServiceProxy;
  *
  */
 public class ServiceFactory {
-
+    private static final String TRUST_STORE_PROPERTY = "javax.net.ssl.trustStore";
+    private static final String TRUST_STORE_PWD_PROPERTY = "javax.net.ssl.trustStorePassword";
     private static final String DEFAULT_USER_PASSWORD = "secret";
     private static final String BASIC_AUTH = "BASIC";
     private static final String STS_AUTH = "STS";
@@ -63,13 +64,10 @@ public class ServiceFactory {
         PropertiesReader reader = new PropertiesReader();
         props = reader.load();
         logProperties(props);
-        // setup environment
-        System.setProperty("javax.net.ssl.keyStore", getDomainHome()
-                + "/config/keystore.jks");
-        System.setProperty("javax.net.ssl.keyStorePassword", "changeit");
-        System.setProperty("javax.net.ssl.trustStore", getDomainHome()
-                + "/config/cacerts.jks");
-        System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
+
+        // Set system properties to pass certificates.
+        System.setProperty(TRUST_STORE_PROPERTY, props.getProperty(TRUST_STORE_PROPERTY));
+        System.setProperty(TRUST_STORE_PWD_PROPERTY, props.getProperty(TRUST_STORE_PWD_PROPERTY));
     }
 
     public static synchronized ServiceFactory getDefault() throws Exception {
@@ -339,13 +337,10 @@ public class ServiceFactory {
 
     @SuppressWarnings("unchecked")
     private <T> T connectToEJB(Class<T> remoteInterface, String userName,
-            String password) throws Exception {
+            String password) throws SaaSSystemException {
         try {
             props.put(Context.SECURITY_PRINCIPAL, userName);
             props.put(Context.SECURITY_CREDENTIALS, password);
-            props.put(Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.client.RemoteInitialContextFactory");
-            props.put("java.naming.provider.url", "http://127.0.0.1:8080/tomee/ejb");
-            props.put("openejb.authentication.realmName", "bss-realm");
 
             Context context = new InitialContext(props);
             T service = (T) context.lookup(remoteInterface.getName());
@@ -378,18 +373,15 @@ public class ServiceFactory {
     }
 
     public static void logProperties(Properties properties) {
-        System.out
-                .println("Starting WebService test with the following properties:");
+        StringBuilder sb = new StringBuilder("Starting WebService test with the following " +
+                "properties:\n");
         for (Object key : properties.keySet()) {
-            System.out.println("\t" + key + "="
-                    + properties.getProperty((String) key));
+            sb.append("\n\t").append(key).append("=").append(properties.getProperty((String) key));
         }
-        System.out.println();
-        System.out
-                .println("If the environment specific properties are wrong, especially bes.https.url and glassfish.bes.domain");
-        System.out
-                .println("\tplease override them in oscm-devruntime/javares/local/<hostname>/test.properties !");
-        System.out.println();
+        sb.append("\n\nIf the environment specific properties are wrong, especially bes" +
+                ".https.url and glassfish.bes.domain\n\tplease override them in " +
+                "oscm-devruntime/javares/local/<hostname>/test.properties!\n");
+        System.out.println(sb.toString());
     }
 
     public String getTenantId() {
