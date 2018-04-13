@@ -7,9 +7,9 @@
   </description>
 	<target name="runAllWebtestsOnBuildCodeAndPreparedGlassfish" depends="bootstrap,_webTests, _copyResultArtifacts" />
 
-
 	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runJUnitTestsBuild" depends="bootstrap,_libraries, _clean, _package_without_doc, _unittests, _copyResultArtifacts" />
+	<target name="runJUnitTestsBuild"
+			depends="bootstrap,_libraries, _clean, _package_without_doc, _unittests, _copyResultArtifacts" />
 
 	<target name="runTravisUT"  depends="bootstrap,_libraries">
 		<ant antfile="build.xml" target="travisunittests" />
@@ -22,7 +22,14 @@
 	<target name="prepareForDocker" depends="bootstrap,_libraries, _clean, _package" />
 
 	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runIntegrationTests" depends="bootstrap,_libraries, _clean, _package, _integrationtests, _copyResultArtifacts" />
+	<target name="runIntegrationTests"
+			depends="bootstrap, _libraries, _clean, _package, _integrationtests, _copyResultArtifacts" />
+
+	<target name="runWebserviceTests"
+			depends="bootstrap, _runWebserviceTests" />
+
+	<target name="_runWebserviceTests"
+			depends="_clean, _libraries, _webserviceTests, _copyResultArtifacts" />
 
 	<target name="_webserviceTests">
 		<echo message="***** Run webservice tests without cleaning former results *****" />
@@ -42,7 +49,6 @@
 	<target name="bootstrap" description="Used to install the ivy task jar">
 		<mkdir dir="${user.home}/.ant/lib"/>
 		<get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
-		<get dest="javalib/oscm-build-antextensions.jar" src="https://github.com/DawidCh/oscm-antextensions/releases/download/v0.0.3/oscm-build-antextensions-0.0.3.jar"/>
 	</target>
 
     <target name="_libraries">
