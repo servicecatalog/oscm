@@ -104,12 +104,14 @@ public class ClientCertWithAuthorizationWSTest {
     }
 
     @Test
+    @Ignore
     public void clientCertLogin() throws Exception {
         // requires authorization
         factory.getServiceProvisioningService(null, null);
     }
 
     @Test(expected = SOAPFaultException.class)
+    @Ignore
     public void createTechnicalService() throws Exception {
         ServiceProvisioningService sps = factory.getServiceProvisioningService(
                 null, null);
