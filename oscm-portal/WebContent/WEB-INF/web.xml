@@ -244,10 +244,10 @@
     <filter-name>css</filter-name>
     <url-pattern>/public/*</url-pattern>
   </filter-mapping>  
-  <!--  <filter-mapping>
+  <filter-mapping>
     <filter-name>IdPResponseFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping>-->
+  </filter-mapping>
   <filter-mapping>
     <filter-name>IllegalRequestParameterFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -274,11 +274,11 @@
         <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
-  <!-- <filter-mapping>
+  <filter-mapping>
     <filter-name>IdPLogoutFilter</filter-name>
     <url-pattern>/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
-  </filter-mapping>  -->
+  </filter-mapping>
   <filter-mapping>
     <filter-name>auth</filter-name>
     <url-pattern>/opt/*</url-pattern>

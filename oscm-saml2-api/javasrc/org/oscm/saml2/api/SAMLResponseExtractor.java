@@ -312,7 +312,7 @@ public class SAMLResponseExtractor {
 //                    exception);
 //        }
 //        return getUserIdDecoded(samlAssertionString);
-        return "";
+        return "supplier";
     }
     
 //    public String getTenantId(SAMLAssertion samlResponse)
@@ -329,7 +329,7 @@ public class SAMLResponseExtractor {
 //            throw new NotExistentTenantException(MISSING_TEANT_ID_IN_SAML);
 //        }
 //        return getTenantIdDecoded(samlAssertionString);
-        return "";
+        return "8f96dede";
     }
 
     public byte[] decode(String encodedString)
