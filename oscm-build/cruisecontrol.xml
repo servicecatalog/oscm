@@ -7,9 +7,9 @@
   </description>
 	<target name="runAllWebtestsOnBuildCodeAndPreparedGlassfish" depends="bootstrap,_webTests, _copyResultArtifacts" />
 
-
 	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runJUnitTestsBuild" depends="bootstrap,_libraries, _clean, _package_without_doc, _unittests, _copyResultArtifacts" />
+	<target name="runJUnitTestsBuild"
+			depends="bootstrap,_libraries, _clean, _package_without_doc, _unittests, _copyResultArtifacts" />
 
 	<target name="runTravisUT"  depends="bootstrap,_libraries">
 		<ant antfile="build.xml" target="travisunittests" />
@@ -22,7 +22,14 @@
 	<target name="prepareForDocker" depends="bootstrap,_libraries, _clean, _package" />
 
 	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runIntegrationTests" depends="bootstrap,_libraries, _clean, _package, _integrationtests, _copyResultArtifacts" />
+	<target name="runIntegrationTests"
+			depends="bootstrap, _libraries, _clean, _package, _integrationtests, _copyResultArtifacts" />
+
+	<target name="runWebserviceTests"
+			depends="bootstrap, _runWebserviceTests" />
+
+	<target name="_runWebserviceTests"
+			depends="_libraries, _clean, _webserviceTests, _copyResultArtifacts" />
 
 	<target name="_webserviceTests">
 		<echo message="***** Run webservice tests without cleaning former results *****" />
@@ -39,10 +46,9 @@
 		<ant antfile="build.xml" target="clean" />
 	</target>
 
-	<target name="bootstrap" description="Used to install the ivy task jar">
+	<target name="bootstrap" description="Used to install the ivy task jar" depends="_setProxy">
 		<mkdir dir="${user.home}/.ant/lib"/>
-		<get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
-		<get dest="javalib/oscm-build-antextensions.jar" src="https://github.com/DawidCh/oscm-antextensions/releases/download/v0.0.3/oscm-build-antextensions-0.0.3.jar"/>
+		<get dest="${user.home}/.ant/lib/ivy.jar" src="http://central.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
 	</target>
 
     <target name="_libraries">
@@ -149,5 +155,15 @@
         <echo message="***** Run webtests *****" />
         <ant dir="../oscm-portal-webtests" antfile="run_marketplace.xml" target="run" />
     </target>
+
+	<target name="_checkIfProxyHostSet">
+		<condition property="proxyHost.set">
+			<isset property="http.proxyHost" />
+		</condition>
+	</target>
+
+	<target name="_setProxy" depends="_checkIfProxyHostSet" if="proxyHost.set">
+		<setproxy proxyhost="${http.proxyHost}" proxyport="${http.proxyPort}" />
+	</target>
 
 </project>
