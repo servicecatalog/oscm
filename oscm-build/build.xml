@@ -87,7 +87,7 @@
   <property name="kpi.file" value="/opt/kpi/kpi.txt" />
 
   <property environment="env" />
-  <property name="env.HOSTNAME" value="${env.COMPUTERNAME}" />
+  <property name="env.HOSTNAME" value="${env.NODE_NAME}" />
   <property file="${workspace.dir}/oscm-devruntime/javares/local/${env.HOSTNAME}/integration.properties" />
 
   <property name="glassfish.domains.dir" location="${glassfish.home}/glassfish/domains" />
