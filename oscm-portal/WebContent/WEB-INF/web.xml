@@ -95,7 +95,7 @@
 
 
   <!-- SERVLET FILTER -->
- <!-- <filter>
+ <filter>
     <display-name>IdP Logout Filter</display-name>
     <filter-name>IdPLogoutFilter</filter-name>
     <filter-class>org.oscm.ui.filter.IdPLogoutFilter</filter-class>
@@ -103,7 +103,7 @@
       <param-name>exclude-url-pattern</param-name>
       <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*)</param-value>
     </init-param>
-  </filter> -->
+  </filter>
   <filter>
     <filter-name>DisableUrlSessionFilter</filter-name>
     <filter-class>org.oscm.ui.filter.DisableUrlSessionFilter</filter-class>
@@ -150,7 +150,7 @@
       <param-value>(^/a4j/.*|^/slogout.jsf|^/saml2/redirectToIdp.jsf*|^/saml2/saml2PostInclude.jsf*|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
     </init-param>
   </filter>
-  <!-- <filter>
+  <filter>
     <display-name>IdP Response Filter</display-name>
     <filter-name>IdPResponseFilter</filter-name>
     <filter-class>org.oscm.ui.filter.IdPResponseFilter</filter-class>
@@ -158,7 +158,7 @@
       <param-name>exclude-url-pattern</param-name>
       <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*)</param-value>
     </init-param>
-  </filter> -->
+  </filter>
   <filter>
     <display-name>Closed Marketplace Filter</display-name>
     <filter-name>ClosedMarketplaceFilter</filter-name>
