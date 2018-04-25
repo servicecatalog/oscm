@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright FUJITSU LIMITED 2017-->
+ 
+<dataset>
+  <Organization tkey="1100" version="0" organizationid="SUPP0" name="SUPP0" registrationdate="1234" locale="de"/>
+  <Organization tkey="1101" version="0" organizationid="SUPP1" name="SUPP1" registrationdate="1234" locale="de"/>
+  <Marketplace tkey="1100" version="0" marketplaceid="marketplaceid_1" organization_tkey="1101" creationdate="121312312"  open="false" taggingenabled="true" reviewenabled="true" socialbookmarkenabled="true"/>
+  <Marketplace tkey="1101" version="0" marketplaceid="marketplaceid_2" organization_tkey="1101" creationdate="121312312"  open="false" taggingenabled="true" reviewenabled="true" socialbookmarkenabled="true"/>
+  <MarketplaceHistory tkey="1100" marketplaceid="marketplaceid_1" organizationobjkey="1101" creationdate="121312312" moddate="2012-02-12 05:00:00.000000000" modtype="type" moduser="user" objkey="1000" objversion="1" open="false" taggingenabled="true" reviewenabled="true" socialbookmarkenabled="true"/>
+  <MarketplaceHistory tkey="1101" marketplaceid="marketplaceid_2" organizationobjkey="1101" creationdate="121312312" moddate="2012-02-12 05:00:00.000000000" modtype="type" moduser="user" objkey="1000" objversion="1" open="false" taggingenabled="true" reviewenabled="true" socialbookmarkenabled="true"/>
+</dataset>

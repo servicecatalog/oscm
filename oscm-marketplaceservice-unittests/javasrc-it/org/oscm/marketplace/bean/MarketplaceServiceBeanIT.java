@@ -105,14 +105,12 @@ public class MarketplaceServiceBeanIT extends MarketplaceServiceTestBase {
                 "GLOBAL_NO_OWNER", mplOwner);
         marketplace.setTaggingEnabled(false);
         marketplace.setReviewEnabled(false);
-        marketplace.setSocialBookmarkEnabled(true);
 
         final VOMarketplace createdMpl = marketplaceService
                 .createMarketplace(marketplace);
 
         assertFalse(createdMpl.isTaggingEnabled());
         assertFalse(createdMpl.isReviewEnabled());
-        assertTrue(createdMpl.isSocialBookmarkEnabled());
 
         // check that marketplace is created
         assertNotNull("created marketplace is null but was expected not null",
@@ -135,7 +133,6 @@ public class MarketplaceServiceBeanIT extends MarketplaceServiceTestBase {
 
                 assertFalse(mp.isTaggingEnabled());
                 assertFalse(mp.isReviewEnabled());
-                assertTrue(mp.isSocialBookmarkEnabled());
 
                 MarketplaceToOrganization ref = new MarketplaceToOrganization(
                         mp, org);
@@ -172,14 +169,12 @@ public class MarketplaceServiceBeanIT extends MarketplaceServiceTestBase {
                 "GLOBAL_NO_OWNER", mplOwner);
         marketplace.setTaggingEnabled(false);
         marketplace.setReviewEnabled(false);
-        marketplace.setSocialBookmarkEnabled(true);
 
         final VOMarketplace createdMpl = marketplaceService
                 .createMarketplace(marketplace);
 
         assertFalse(createdMpl.isTaggingEnabled());
         assertFalse(createdMpl.isReviewEnabled());
-        assertTrue(createdMpl.isSocialBookmarkEnabled());
 
         // check that marketplace is created
         assertNotNull("created marketplace is null but was expected not null",
@@ -202,7 +197,6 @@ public class MarketplaceServiceBeanIT extends MarketplaceServiceTestBase {
 
                 assertFalse(mp.isTaggingEnabled());
                 assertFalse(mp.isReviewEnabled());
-                assertTrue(mp.isSocialBookmarkEnabled());
 
                 MarketplaceToOrganization ref = new MarketplaceToOrganization(
                         mp, org);
@@ -239,14 +233,12 @@ public class MarketplaceServiceBeanIT extends MarketplaceServiceTestBase {
                 "GLOBAL_NO_OWNER", mplOwner);
         marketplace.setTaggingEnabled(false);
         marketplace.setReviewEnabled(false);
-        marketplace.setSocialBookmarkEnabled(true);
 
         final VOMarketplace createdMpl = marketplaceService
                 .createMarketplace(marketplace);
 
         assertFalse(createdMpl.isTaggingEnabled());
         assertFalse(createdMpl.isReviewEnabled());
-        assertTrue(createdMpl.isSocialBookmarkEnabled());
 
         // check that marketplace is created
         assertNotNull("created marketplace is null but was expected not null",
@@ -269,7 +261,6 @@ public class MarketplaceServiceBeanIT extends MarketplaceServiceTestBase {
 
                 assertFalse(mp.isTaggingEnabled());
                 assertFalse(mp.isReviewEnabled());
-                assertTrue(mp.isSocialBookmarkEnabled());
 
                 MarketplaceToOrganization ref = new MarketplaceToOrganization(
                         mp, org);
@@ -475,7 +466,6 @@ public class MarketplaceServiceBeanIT extends MarketplaceServiceTestBase {
 
         marketplace.setTaggingEnabled(false);
         marketplace.setReviewEnabled(false);
-        marketplace.setSocialBookmarkEnabled(false);
 
         marketplace.setName("NEW_NAME");
         marketplace.setOwningOrganizationId(null);
@@ -487,7 +477,6 @@ public class MarketplaceServiceBeanIT extends MarketplaceServiceTestBase {
 
         assertFalse(updatedMp.isTaggingEnabled());
         assertFalse(updatedMp.isReviewEnabled());
-        assertFalse(updatedMp.isSocialBookmarkEnabled());
         assertEquals(firstVers + 1, updatedMp.getVersion());
         assertNotNull("updatedMarketplace must not be null", updatedMp);
         assertEquals("unchanged organizationId", mpOwner.getOrganizationId(),

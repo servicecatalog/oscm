@@ -76,7 +76,6 @@ public class MarketplaceAssemblerTest {
 
         domMpDefault.setTaggingEnabled(false);
         domMpDefault.setReviewEnabled(false);
-        domMpDefault.setSocialBookmarkEnabled(false);
         domMpDefault.setCategoriesEnabled(true);
 
         facade = new LocalizerFacade(localizerServiceStub, "en");
@@ -112,7 +111,6 @@ public class MarketplaceAssemblerTest {
         // dom object initialize with FALSE in the setup
         assertFalse(domMpDefault.isTaggingEnabled());
         assertFalse(domMpDefault.isReviewEnabled());
-        assertFalse(domMpDefault.isSocialBookmarkEnabled());
         assertTrue(domMpDefault.isCategoriesEnabled());
     }
 
@@ -142,7 +140,6 @@ public class MarketplaceAssemblerTest {
         // The VO initialized to TRUE by default
         assertTrue(domMp.isTaggingEnabled());
         assertTrue(domMp.isReviewEnabled());
-        assertTrue(domMp.isSocialBookmarkEnabled());
         assertTrue(domMp.isCategoriesEnabled());
     }
 

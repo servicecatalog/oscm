@@ -195,7 +195,6 @@ public class UpdateMarketplaceBeanTest {
         assertFalse(model.isClosed());
         assertTrue(model.isTaggingEnabled());
         assertTrue(model.isReviewEnabled());
-        assertTrue(model.isSocialBookmarkEnabled());
         assertTrue(model.isEditDisabled());
         assertTrue(model.isPropertiesDisabled());
         assertFalse(model.isOrganizationSelectVisible());
@@ -359,8 +358,6 @@ public class UpdateMarketplaceBeanTest {
         assertEquals(vMp1.getVersion(), model.getVersion());
         assertEquals(vMp1.isOpen(), !model.isClosed());
         assertEquals(vMp1.isReviewEnabled(), model.isReviewEnabled());
-        assertEquals(vMp1.isSocialBookmarkEnabled(),
-                model.isSocialBookmarkEnabled());
         assertEquals(vMp1.isTaggingEnabled(), model.isTaggingEnabled());
         assertFalse(model.isOrganizationSelectVisible());
         assertFalse(model.isEditDisabled());
@@ -438,7 +435,6 @@ public class UpdateMarketplaceBeanTest {
         model.setOwningOrganizationId("owningOrganizationId");
         model.setOriginalOrgId("originalOrgId");
         model.setReviewEnabled(false);
-        model.setSocialBookmarkEnabled(false);
         model.setTaggingEnabled(false);
         model.setVersion(7);
         model.setMarketplaceRevenueShare(BigDecimal.TEN);
@@ -604,8 +600,6 @@ public class UpdateMarketplaceBeanTest {
         assertSame(mp.getOwningOrganizationId(), vMp2.getOwningOrganizationId());
         assertEquals(mp.isClosed(), !vMp2.isOpen());
         assertEquals(mp.isReviewEnabled(), vMp2.isReviewEnabled());
-        assertEquals(mp.isSocialBookmarkEnabled(),
-                vMp2.isSocialBookmarkEnabled());
         assertEquals(mp.isTaggingEnabled(), vMp2.isTaggingEnabled());
         assertEquals(BigDecimal.TEN, mp.getMarketplaceRevenueShare());
         assertEquals(BigDecimal.ONE, mp.getResellerRevenueShare());
@@ -690,8 +684,6 @@ public class UpdateMarketplaceBeanTest {
         assertEquals(mp.getVersion(), vMp.getVersion());
         assertEquals(mp.isClosed(), !vMp.isOpen());
         assertEquals(mp.isReviewEnabled(), vMp.isReviewEnabled());
-        assertEquals(mp.isSocialBookmarkEnabled(),
-                vMp.isSocialBookmarkEnabled());
         assertEquals(mp.isTaggingEnabled(), vMp.isTaggingEnabled());
     }
 

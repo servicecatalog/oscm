@@ -58,7 +58,6 @@ public class MarketplaceAssembler extends BaseAssembler {
 
         voResult.setTaggingEnabled(marketplace.isTaggingEnabled());
         voResult.setReviewEnabled(marketplace.isReviewEnabled());
-        voResult.setSocialBookmarkEnabled(marketplace.isSocialBookmarkEnabled());
         voResult.setCategoriesEnabled(marketplace.isCategoriesEnabled());
         voResult.setRestricted(marketplace.isRestricted());
         voResult.setHasPublicLandingPage(marketplace.getPublicLandingpage() != null);
@@ -139,7 +138,6 @@ public class MarketplaceAssembler extends BaseAssembler {
 
         domObj.setTaggingEnabled(voObj.isTaggingEnabled());
         domObj.setReviewEnabled(voObj.isReviewEnabled());
-        domObj.setSocialBookmarkEnabled(voObj.isSocialBookmarkEnabled());
         domObj.setCategoriesEnabled(voObj.isCategoriesEnabled());
     }
 }

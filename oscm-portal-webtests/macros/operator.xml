@@ -208,12 +208,11 @@
     <attribute name="name" default="" />
     <attribute name="reviewEnabled" default="true" />
     <attribute name="taggingEnabled" default="true" />
-    <attribute name="socialBookmarksEnabled" default="false" />
     <attribute name="mIdProperty" default="" />
     <attribute name="baseUrl" default="${bes.http.url}" />
     <attribute name="failonerror" default="false" />
     <sequential>
-      <setup:marketplace.create ownerId="@{ownerId}" open="@{open}" name="@{name}" mIdProperty="@{mIdProperty}" failonerror="@{failonerror}" runAs="1000" reviewEnabled="@{reviewEnabled}" taggingEnabled="@{taggingEnabled}" socialBookmarksEnabled="@{socialBookmarksEnabled}" />
+      <setup:marketplace.create ownerId="@{ownerId}" open="@{open}" name="@{name}" mIdProperty="@{mIdProperty}" failonerror="@{failonerror}" runAs="1000" reviewEnabled="@{reviewEnabled}" taggingEnabled="@{taggingEnabled}" />
     </sequential>
   </macrodef>
 

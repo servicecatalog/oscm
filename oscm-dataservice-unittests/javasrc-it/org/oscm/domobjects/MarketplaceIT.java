@@ -116,12 +116,10 @@ public class MarketplaceIT extends DomainObjectTestBase {
 
         Assert.assertFalse(saved.isTaggingEnabled());
         Assert.assertFalse(saved.isReviewEnabled());
-        Assert.assertFalse(saved.isSocialBookmarkEnabled());
         Assert.assertFalse(saved.isCategoriesEnabled());
 
         Assert.assertFalse(hist.isTaggingEnabled());
         Assert.assertFalse(hist.isReviewEnabled());
-        Assert.assertFalse(hist.isSocialBookmarkEnabled());
         Assert.assertFalse(hist.isCategoriesEnabled());
 
         assertEquals(BRANDING_URL2, saved.getBrandingUrl());
@@ -138,7 +136,6 @@ public class MarketplaceIT extends DomainObjectTestBase {
         saved = (Marketplace) mgr.find(saved);
         saved.setTaggingEnabled(false);
         saved.setReviewEnabled(false);
-        saved.setSocialBookmarkEnabled(false);
         saved.setCategoriesEnabled(false);
         saved.setBrandingUrl(BRANDING_URL2);
         saved.setTrackingCode(TRACKING_CODE2);
@@ -155,7 +152,6 @@ public class MarketplaceIT extends DomainObjectTestBase {
                 mgr);
         mp.setTaggingEnabled(true);
         mp.setReviewEnabled(true);
-        mp.setSocialBookmarkEnabled(true);
         mp.setCategoriesEnabled(true);
 
         mp.setTrackingCode(TRACKING_CODE1);
@@ -212,11 +208,9 @@ public class MarketplaceIT extends DomainObjectTestBase {
         Assert.assertTrue(saved.isTaggingEnabled());
         Assert.assertTrue(saved.isReviewEnabled());
         Assert.assertTrue(saved.isCategoriesEnabled());
-        Assert.assertTrue(saved.isSocialBookmarkEnabled());
 
         Assert.assertTrue(hist.isTaggingEnabled());
         Assert.assertTrue(hist.isReviewEnabled());
-        Assert.assertTrue(hist.isSocialBookmarkEnabled());
         Assert.assertTrue(hist.isCategoriesEnabled());
 
         assertEquals(BRANDING_URL1, saved.getBrandingUrl());
