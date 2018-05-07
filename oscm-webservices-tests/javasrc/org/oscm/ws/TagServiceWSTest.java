@@ -1,13 +1,13 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: cheld                                                     
- *                                                                              
- *  Creation Date: 16.12.2011                                                      
- *                                                                              
- *  Completion Time: 16.12.2011                                              
- *                                                                              
+ *
+ *  Author: cheld
+ *
+ *  Creation Date: 16.12.2011
+ *
+ *  Completion Time: 16.12.2011
+ *
  *******************************************************************************/
 
 package org.oscm.ws;
@@ -25,23 +25,18 @@ import org.junit.Test;
 import org.oscm.ws.base.ServiceFactory;
 import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
-import org.oscm.vo.VOMarketplace;
 import org.oscm.vo.VOTag;
 import org.oscm.vo.VOTechnicalService;
 import org.oscm.intf.TagService;
 
 /**
  * @author cheld
- * 
  */
 public class TagServiceWSTest {
 
     private static WebserviceTestSetup setup;
     private static VOTechnicalService technicalService;
-
     private static TagService tagService;
-
-    VOMarketplace mpLocal;
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -51,7 +46,7 @@ public class TagServiceWSTest {
         setup.createSupplier("Supplier1");
         technicalService = setup.createTechnicalService();
         setup.addTags(technicalService,
-                Arrays.asList(new String[] { "aaa", "abb", "bbb", "ccc" }));
+                Arrays.asList("aaa", "abb", "bbb", "ccc"));
         tagService = ServiceFactory.getDefault()
                 .getTagService(setup.getSupplierUserKey(),
                         WebserviceTestBase.DEFAULT_PASSWORD);
