@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.intf.AccountService;
@@ -130,6 +131,7 @@ public class AccountServiceWSTest {
         }
     }
 
+    @Ignore
     @Test(expected = OperationPendingException.class)
     public void savePaymentConfiguration_TriggerProcessPending()
             throws Exception {
@@ -198,6 +200,7 @@ public class AccountServiceWSTest {
         accountService_Customer.getUdaDefinitionsForCustomer("Fake-Supplier");
     }
 
+    @Ignore
     @Test
     public void getUdasForCustomer_OK() throws Exception {
         // Given - Create UdaDefinitions

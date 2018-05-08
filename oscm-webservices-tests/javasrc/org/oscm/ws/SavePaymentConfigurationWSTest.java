@@ -25,6 +25,7 @@ import java.util.Set;
 import javax.mail.MessagingException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.PaymentTypeFactory;
@@ -52,6 +53,7 @@ import org.oscm.vo.VOUserDetails;
  * @author kulle
  * 
  */
+@Ignore
 public class SavePaymentConfigurationWSTest {
 
     private static final int COUNT_CUSTOMER = 2;

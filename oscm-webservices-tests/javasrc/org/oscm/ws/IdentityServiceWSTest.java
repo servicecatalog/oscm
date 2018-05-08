@@ -421,6 +421,7 @@ public class IdentityServiceWSTest {
         }
     }
 
+    @Ignore
     @Test(expected = UserActiveException.class)
     public void setUserRoles_ActiveSession() throws Exception {
         WebserviceTestBase.getMailReader().deleteMails();

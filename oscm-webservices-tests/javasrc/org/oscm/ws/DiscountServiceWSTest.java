@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -64,6 +65,7 @@ public class DiscountServiceWSTest {
                 WebserviceTestBase.DEFAULT_PASSWORD);
     }
 
+    @Ignore
     @Test
     public void testGetDiscountForService() throws Exception {
         VODiscount voDiscount = discountService
@@ -81,6 +83,7 @@ public class DiscountServiceWSTest {
      * 
      * @throws Exception
      */
+    @Ignore
     @Test
     public void testGetDiscountFreeService() throws Exception {
         VODiscount voDiscount = discountService
@@ -96,6 +99,7 @@ public class DiscountServiceWSTest {
         discountService.getDiscountForService(invalidProductKey);
     }
 
+    @Ignore
     @Test
     public void testGetDiscountNotDefined() throws Exception {
         // Get the discount service for the customer for whom no discount has
