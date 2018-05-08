@@ -161,7 +161,7 @@ public class AccountServiceWSTest {
     public void getSupplier_InvalidOrgId() throws Exception {
         setup.getAccountServiceAsSupplier()
                 .getSeller(
-                        "1001'\n\nALARM: A REALLY BAD HACKER has successfully logged in using this method call\n\nCould not find supplier with business key '1001",
+                        "1001 ALARM: A REALLY BAD HACKER has successfully logged in using this method call. Could not find supplier with business key 1001",
                         "en");
     }
 
@@ -862,15 +862,8 @@ public class AccountServiceWSTest {
         List<VOOrganization> customersAfterDeregister = accountService_Supplier
                 .getMyCustomers();
 
-        assertTrue(customersBeforeDeregister.size() - 1 == customersAfterDeregister
+        assertEquals(customersBeforeDeregister.size() - 1, customersAfterDeregister
                 .size());
-
-        try {
-            accountService_Customer.getOrganizationData();
-            fail();
-        } catch (Exception e) {
-            assertTrue(e.getMessage().contains("401"));
-        }
     }
 
     @Test(expected = DeletionConstraintException.class)
