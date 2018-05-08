@@ -37,6 +37,7 @@ import org.oscm.vo.VOTechnicalService;
  * 
  * @author Mike J&auml;ger
  */
+@Ignore
 public class ClientCertWithAuthorizationWSTest {
 
     private static ServiceFactory factory;

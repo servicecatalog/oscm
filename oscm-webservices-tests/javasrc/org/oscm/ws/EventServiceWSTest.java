@@ -22,6 +22,7 @@ import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -57,6 +58,7 @@ import org.oscm.vo.VOUserDetails;
  * 
  * @author kulle
  */
+@Ignore
 public class EventServiceWSTest {
 
     private static ServiceProvisioningService serviceProvisioningService;

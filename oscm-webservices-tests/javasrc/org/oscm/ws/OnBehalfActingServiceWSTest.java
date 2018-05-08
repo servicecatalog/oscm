@@ -22,6 +22,7 @@ import java.util.List;
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -168,6 +169,7 @@ public class OnBehalfActingServiceWSTest {
      * 
      * @throws Exception
      */
+    @Ignore
     @Test
     public void testConditionOfCreateBehalfUser() throws Exception {
         // set up of blue line test
@@ -227,6 +229,7 @@ public class OnBehalfActingServiceWSTest {
      * 
      * @throws Exception
      */
+    @Ignore
     @Test
     public void testCreateTwoSubscription() throws Exception {
         // set up of blue line test
@@ -271,6 +274,7 @@ public class OnBehalfActingServiceWSTest {
 
     }
 
+    @Ignore
     @Test
     public void testChangeOnBehalfFlag() throws Exception {
         // create Technical Service with OnBehalfActing flag and
@@ -286,6 +290,7 @@ public class OnBehalfActingServiceWSTest {
         serviceProvisioningSV.importTechnicalServices(tsxml.getBytes("UTF-8"));
     }
 
+    @Ignore
     @Test(expected = UnchangeableAllowingOnBehalfActingException.class)
     public void testErrorChangeOnBehalfFlag() throws Exception {
         // set up of blue line test with false
@@ -300,6 +305,7 @@ public class OnBehalfActingServiceWSTest {
         serviceProvisioningSV.importTechnicalServices(tsxml.getBytes("UTF-8"));
     }
 
+    @Ignore
     @Test
     public void testRemoveLastSubscriptionChangeOnBehalfFlag() throws Exception {
         createMarketableServiceAndSubscribe(true);
@@ -325,6 +331,7 @@ public class OnBehalfActingServiceWSTest {
      * 
      * @throws Exception
      */
+    @Ignore
     @Test(expected = OperationNotPermittedException.class)
     public void testFailToCreateOnBehalfUserWithFalseFlag() throws Exception {
 
@@ -345,6 +352,7 @@ public class OnBehalfActingServiceWSTest {
      * 
      * @throws Exception
      */
+    @Ignore
     @Test(expected = OperationNotPermittedException.class)
     public void testFailToCreateOnBehalfUserWithoutTechnicalService()
             throws Exception {
@@ -366,6 +374,7 @@ public class OnBehalfActingServiceWSTest {
      * 
      * @throws Exception
      */
+    @Ignore
     @Test
     public void testFailToCreateOnBehalfUserByOperator() throws Exception {
 

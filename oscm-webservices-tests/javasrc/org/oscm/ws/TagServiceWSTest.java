@@ -20,6 +20,7 @@ import java.util.List;
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -53,6 +54,7 @@ public class TagServiceWSTest {
 
     }
 
+    @Ignore
     @Test
     public void getTagsByLocale() {
         List<VOTag> tags = tagService.getTagsByLocale("en");
