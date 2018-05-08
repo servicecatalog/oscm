@@ -3215,7 +3215,7 @@ public class VOConverter {
     public static Set<org.oscm.internal.vo.VOPaymentType> convertToUpVOPaymentType(
             Set<org.oscm.vo.VOPaymentType> oldVO) {
         if (oldVO == null) {
-            return null;
+            return new HashSet<>();
         }
         Set<org.oscm.internal.vo.VOPaymentType> newVO = new HashSet<>();
         for (org.oscm.vo.VOPaymentType tmp : oldVO) {
