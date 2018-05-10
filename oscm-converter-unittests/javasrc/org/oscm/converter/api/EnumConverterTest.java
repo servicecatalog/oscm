@@ -8,10 +8,6 @@
 
 package org.oscm.converter.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,6 +17,8 @@ import org.junit.Test;
 
 import org.oscm.types.enumtypes.SettingType;
 import org.oscm.types.enumtypes.UserRoleType;
+
+import static org.junit.Assert.*;
 
 /**
  * @author kulle
@@ -55,7 +53,7 @@ public class EnumConverterTest {
 
     @Test
     public void convert_list_null() {
-        assertNull(EnumConverter.convertList(null,
+        assertNotNull(EnumConverter.convertList(null,
                 org.oscm.internal.types.enumtypes.SettingType.class));
     }
 
