@@ -116,6 +116,7 @@ public class DiscountServiceWSTest {
     }
 
     @Test
+    @Ignore
     public void testGetDiscountForCustomer() throws Exception {
         // Get the discount service of the supplier.
         discountService = ServiceFactory.getDefault()
@@ -130,6 +131,7 @@ public class DiscountServiceWSTest {
     }
 
     @Test
+    @Ignore
     public void testGetDiscountOfAnotherSupplier() throws Exception {
 
         // Create a customer of another supplier.
