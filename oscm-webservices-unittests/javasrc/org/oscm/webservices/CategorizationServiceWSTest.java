@@ -19,6 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -79,6 +80,6 @@ public class CategorizationServiceWSTest {
         serviceWS.saveCategories(null, null, null);
 
         verify(serviceMock, times(1)).getCategories(null, null);
-        verify(serviceMock, times(1)).saveCategories(null, null, null);
+        verify(serviceMock, times(1)).saveCategories(Collections.emptyList(), Collections.emptyList(), null);
     }
 }

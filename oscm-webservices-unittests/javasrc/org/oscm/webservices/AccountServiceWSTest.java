@@ -19,6 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -41,6 +42,7 @@ public class AccountServiceWSTest {
     private AccountService serviceMock;
     private HttpServletRequest requestMock;
 
+    //
     @Before
     public void setup() {
         serviceMock = mock(AccountService.class);
@@ -125,8 +127,8 @@ public class AccountServiceWSTest {
                 null, null);
         verify(serviceMock, times(1)).saveBillingContact(null);
         verify(serviceMock, times(1)).deleteBillingContact(null);
-        verify(serviceMock, times(1)).savePaymentConfiguration(null, null,
-                null, null);
+        verify(serviceMock, times(1)).savePaymentConfiguration(Collections.emptySet(), Collections.emptyList(),
+                null, Collections.emptyList());
         verify(serviceMock, times(1)).savePaymentInfo(null);
         verify(serviceMock, times(1)).updateAccountInformation(null, null,
                 null, null);
@@ -134,8 +136,8 @@ public class AccountServiceWSTest {
         verify(serviceMock, times(1)).getUdaTargetTypes();
         verify(serviceMock, times(1)).getUdaDefinitions();
         verify(serviceMock, times(1)).getUdas(null, 0, true);
-        verify(serviceMock, times(1)).saveUdaDefinitions(null, null);
-        verify(serviceMock, times(1)).saveUdas(null);
+        verify(serviceMock, times(1)).saveUdaDefinitions(Collections.emptyList(), Collections.emptyList());
+        verify(serviceMock, times(1)).saveUdas(Collections.emptyList());
         verify(serviceMock, times(1)).getSupportedCountryCodes();
         verify(serviceMock, times(1)).loadImageOfOrganization(0);
         verify(serviceMock, times(1)).getSeller(null, null);

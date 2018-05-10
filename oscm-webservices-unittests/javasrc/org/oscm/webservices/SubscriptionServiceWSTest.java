@@ -19,6 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -105,8 +106,9 @@ public class SubscriptionServiceWSTest {
 
         verify(requestMock, times(28)).getRemoteAddr();
 
-        verify(serviceMock, times(1)).abortAsyncSubscription(null, null, null);
-        verify(serviceMock, times(1)).addRevokeUser(null, null, null);
+        verify(serviceMock, times(1)).abortAsyncSubscription(null, null, Collections.emptyList());
+        verify(serviceMock, times(1)).addRevokeUser(null, Collections.emptyList(),
+                Collections.emptyList());
         verify(serviceMock, times(1)).completeAsyncSubscription(null, null,
                 null);
         verify(serviceMock, times(1)).getSubscriptionsForCurrentUser();
@@ -119,15 +121,16 @@ public class SubscriptionServiceWSTest {
         verify(serviceMock, times(1)).getSubscriptionIdentifiers();
         verify(serviceMock, times(1)).getSubscriptionsForOrganization();
         verify(serviceMock, times(1)).getUpgradeOptions(null);
-        verify(serviceMock, times(1)).modifySubscription(null, null, null);
-        verify(serviceMock, times(1)).subscribeToService(null, null, null,
-                null, null, null);
+        verify(serviceMock, times(1)).modifySubscription(null, Collections.emptyList(),
+                Collections.emptyList());
+        verify(serviceMock, times(1)).subscribeToService(null, null,
+                Collections.emptyList(), null, null, Collections.emptyList());
         verify(serviceMock, times(1)).unsubscribeFromService((String) null);
         verify(serviceMock, times(1)).upgradeSubscription(null, null, null,
-                null, null);
+                null, Collections.emptyList());
         verify(serviceMock, times(1)).getServiceRolesForService(null);
         verify(serviceMock, times(1)).updateAsyncSubscriptionProgress(null,
-                null, null);
+                null, Collections.emptyList());
         verify(serviceMock, times(1)).executeServiceOperation(null, null);
         verify(serviceMock, times(1)).terminateSubscription(null, null);
         verify(serviceMock, times(1)).hasCurrentUserSubscriptions();

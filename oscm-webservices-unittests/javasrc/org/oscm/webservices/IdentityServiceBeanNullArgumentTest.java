@@ -32,6 +32,15 @@ public class IdentityServiceBeanNullArgumentTest extends
         addNullAllowed("unlockUserAccount", "marketplaceId");
         addNullAllowed("importUsersInOwnOrganization", "marketplaceId");
         addNullAllowed("importUsers", "marketplaceId");
+        addNullAllowed("createUser", "roles");
+        addNullAllowed("importLdapUsers", "users");
+        addNullAllowed("revokeUserRoles", "roles");
+        addNullAllowed("setUserRoles", "roles");
+        addNullAllowed("grantUserRoles", "roles");
+        addNullAllowed("addRevokeUserGroupAssignment", "usersToBeAdded");
+        addNullAllowed("addRevokeUserGroupAssignment", "usersToBeRevoked");
+        addNullAllowed("addRevokeUserUnitAssignment", "usersToBeAdded");
+        addNullAllowed("addRevokeUserUnitAssignment", "usersToBeRevoked");
     }
 
     @Override
