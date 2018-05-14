@@ -1,3 +1,26 @@
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT
+    FROM   pg_catalog.pg_roles
+    WHERE  rolname = 'vmwareuser') THEN
+    CREATE ROLE my_user LOGIN PASSWORD 'vmwareuser';
+  END IF;
+END
+$$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS(
+    SELECT schema_name
+    FROM information_schema.schemata
+    WHERE schema_name = 'vmwareuser') THEN
+      EXECUTE 'CREATE SCHEMA vmwareuser';
+    END IF;
+END
+$$;
+
+GRANT ALL PRIVILEGES ON SCHEMA vmwareuser TO vmwareuser;
 
 CREATE TABLE vcenter (
 	tkey serial primary key,
