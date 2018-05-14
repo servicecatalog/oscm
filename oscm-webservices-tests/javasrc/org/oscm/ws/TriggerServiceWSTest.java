@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -63,6 +64,7 @@ import com.google.common.collect.Lists;
  * @author yuyin
  * 
  */
+@Ignore
 @RunWith(OrderedRunner.class)
 public class TriggerServiceWSTest {
 

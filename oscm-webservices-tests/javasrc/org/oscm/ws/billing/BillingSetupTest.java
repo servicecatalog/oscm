@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -34,6 +35,7 @@ import org.oscm.vo.VOUser;
  * 
  * @author barzu
  */
+@Ignore
 public class BillingSetupTest {
 
     private VOFactory factory = new VOFactory();

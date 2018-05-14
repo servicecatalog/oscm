@@ -8,10 +8,7 @@
 
 package org.oscm.converter.api;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.oscm.dataservice.local.DataService;
 
@@ -27,7 +24,7 @@ public class VOCollectionConverter {
             Class<T> targetType, DataService ds) {
 
         if (sourceList == null) {
-            return null;
+            return Collections.emptyList();
         }
 
         List<T> targetList = new ArrayList<T>();

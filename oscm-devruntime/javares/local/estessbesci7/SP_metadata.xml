@@ -1,0 +1,12 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<md:EntityDescriptor xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+  xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" xmlns:xenc="http://www.w3.org/2001/04/xmlenc#" entityID="estessbesci7">
+  <md:SPSSODescriptor AuthnRequestsSigned="false" WantAssertionsSigned="true"
+    protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+    <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+      Location="https://estessbesci7.intern.est.fujitsu.com:8181/oscm-portal/" index="0" isDefault="true" />
+    <md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+      Location="http://estessbesci7:8180/oscm-portal/" index="1" />
+  </md:SPSSODescriptor>
+</md:EntityDescriptor>

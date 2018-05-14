@@ -32,6 +32,10 @@ public class AccountServiceBeanNullArgumentTest extends
         addNullAllowed("getSeller", "sellerId");
         addNullAllowed("getSeller", "locale");
         addNullAllowed("updateOrganization", "imageResource");
+        addNullAllowed("savePaymentConfiguration", "defaultConfiguration");
+        addNullAllowed("saveUdaDefinitions", "udaDefinitionsToSave");
+        addNullAllowed("saveUdaDefinitions", "udaDefinitionsToDelete");
+        addNullAllowed("saveUdas", "udas");
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -34,6 +35,7 @@ import org.oscm.vo.VOSubscription;
 import org.oscm.vo.VOUda;
 import org.oscm.vo.VOUserDetails;
 
+@Ignore
 public class SessionServiceWSTest {
 
     private static SessionService sessionService;

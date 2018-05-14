@@ -71,7 +71,7 @@ public class EnumConverter {
             List<? extends Enum<?>> values, Class<T> targetClass) {
         List<T> list = new ArrayList<T>();
         if (values == null) {
-            return null;
+            return Collections.emptyList();
         }
         for (Enum<?> e : values) {
             T result = convert(e, targetClass);

@@ -19,6 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -98,7 +99,7 @@ public class MarketplaceServiceWSTest {
         verify(serviceMock, times(1)).getAccessibleMarketplaces();
         verify(serviceMock, times(1)).getMarketplacesForOrganization();
         verify(serviceMock, times(1)).getMarketplacesForService(null);
-        verify(serviceMock, times(1)).publishService(null, null);
+        verify(serviceMock, times(1)).publishService(null, Collections.emptyList());
         verify(serviceMock, times(1)).getMarketplaceForSubscription(0, null);
         verify(serviceMock, times(1)).getMarketplacesOwned();
         verify(serviceMock, times(1)).getMarketplacesForOperator();

@@ -25,6 +25,7 @@ import javax.xml.ws.soap.SOAPFaultException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -59,6 +60,7 @@ import org.oscm.vo.VOUserDetails;
  * @author groch
  * 
  */
+@Ignore
 public class ReviewServiceWSTest {
 
     private static WebserviceTestSetup setup;
