@@ -4,7 +4,7 @@ BEGIN
     SELECT
     FROM   pg_catalog.pg_roles
     WHERE  rolname = 'vmwareuser') THEN
-    CREATE ROLE my_user LOGIN PASSWORD 'vmwareuser';
+      CREATE ROLE my_user LOGIN PASSWORD 'vmwareuser';
   END IF;
 END
 $$;
@@ -12,10 +12,10 @@ $$;
 DO $$
 BEGIN
   IF NOT EXISTS(
-    SELECT schema_name
+    SELECT
     FROM information_schema.schemata
     WHERE schema_name = 'vmwareuser') THEN
-      EXECUTE 'CREATE SCHEMA vmwareuser';
+      CREATE SCHEMA vmwareuser;
     END IF;
 END
 $$;
