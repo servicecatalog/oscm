@@ -2,9 +2,9 @@ DO $$
 BEGIN
   IF NOT EXISTS (
     SELECT
-    FROM   pg_catalog.pg_roles
+    FROM   bssapp.pg_catalog.pg_roles
     WHERE  rolname = 'vmwareuser') THEN
-      CREATE ROLE my_user LOGIN PASSWORD 'vmwareuser';
+    CREATE ROLE vmwareuser LOGIN PASSWORD 'vmwareuser';
   END IF;
 END
 $$;
@@ -12,8 +12,8 @@ $$;
 DO $$
 BEGIN
   IF NOT EXISTS(
-    SELECT
-    FROM information_schema.schemata
+    SELECT schema_name
+    FROM bssapp.information_schema.schemata
     WHERE schema_name = 'vmwareuser') THEN
       CREATE SCHEMA vmwareuser;
     END IF;
@@ -22,7 +22,7 @@ $$;
 
 GRANT ALL PRIVILEGES ON SCHEMA vmwareuser TO vmwareuser;
 
-CREATE TABLE vcenter (
+CREATE TABLE IF NOT EXISTS bssapp.vmwareuser.vcenter (
 	tkey serial primary key,
 	name character varying(255) NOT NULL,
 	identifier character varying(255) NOT NULL,
@@ -31,22 +31,21 @@ CREATE TABLE vcenter (
 	password character varying(255) NOT NULL
 );
 
-CREATE TABLE datacenter (
+CREATE TABLE IF NOT EXISTS bssapp.vmwareuser.datacenter (
 	tkey serial primary key,
 	name character varying(255) NOT NULL,
 	identifier character varying(255) NOT NULL,
 	vcenter_tkey int NOT NULL
 );
 
-CREATE TABLE cluster (
+CREATE TABLE IF NOT EXISTS bssapp.vmwareuser.cluster (
 	tkey serial primary key,
 	name character varying(255) NOT NULL,
     load_balancer character varying(4000),
 	datacenter_tkey int NOT NULL
 );
 
-
-CREATE TABLE vlan (
+CREATE TABLE IF NOT EXISTS bssapp.vmwareuser.vlan (
     tkey serial primary key,
     name character varying(255) NOT NULL,
 	subnet_mask character varying(50) NOT NULL,
@@ -57,27 +56,64 @@ CREATE TABLE vlan (
     cluster_tkey int NOT NULL
 );
 
-CREATE TABLE ippool (
+CREATE TABLE IF NOT EXISTS bssapp.vmwareuser.ippool (
     tkey serial primary key,
     ip_address character varying(50) NOT NULL,
     in_use boolean NOT NULL default false,
     vlan_tkey int NOT NULL
 );
 
-
-CREATE TABLE "version" (
+CREATE TABLE IF NOT EXISTS bssapp.vmwareuser.version (
 		"productmajorversion" INTEGER NOT NULL, 
 		"productminorversion" INTEGER NOT NULL, 
 		"schemaversion" INTEGER NOT NULL, 
 		"migrationdate" TIMESTAMP
-	);	
-
+	);
 	
-CREATE INDEX "ippool_vlan_idx" ON "ippool" ("vlan_tkey");
-CREATE INDEX "vlan_cluster_idx" ON "vlan" ("cluster_tkey");
-ALTER TABLE "cluster" ADD CONSTRAINT "cluster_datacenter_fk" FOREIGN KEY ("datacenter_tkey") REFERENCES "datacenter" ("tkey");	
-ALTER TABLE "datacenter" ADD CONSTRAINT "datacenter_vcenter_fk" FOREIGN KEY ("vcenter_tkey") REFERENCES "vcenter" ("tkey");	
-ALTER TABLE "ippool" ADD CONSTRAINT "ippool_vlan_fk" FOREIGN KEY ("vlan_tkey") REFERENCES "vlan" ("tkey");	
-ALTER TABLE "vlan" ADD CONSTRAINT "vlan_cluster_fk" FOREIGN KEY ("cluster_tkey") REFERENCES "cluster" ("tkey");	
+CREATE INDEX IF NOT EXISTS "ippool_vlan_idx" ON bssapp.vmwareuser.ippool ("vlan_tkey");
+CREATE INDEX IF NOT EXISTS "vlan_cluster_idx" ON bssapp.vmwareuser.vlan ("cluster_tkey");
 
+DO $$
+BEGIN
+  IF NOT EXISTS(
+      SELECT
+      FROM bssapp.pg_catalog.pg_constraint
+      WHERE conname = 'cluster_datacenter_fk'
+  ) THEN
+      ALTER TABLE bssapp.vmwareuser.cluster ADD CONSTRAINT "cluster_datacenter_fk" FOREIGN KEY ("datacenter_tkey") REFERENCES bssapp.vmwareuser.datacenter ("tkey");
+  END IF;
+END$$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS(
+      SELECT
+      FROM bssapp.pg_catalog.pg_constraint
+      WHERE conname = 'datacenter_vcenter_fk'
+  ) THEN
+    ALTER TABLE bssapp.vmwareuser.datacenter ADD CONSTRAINT "datacenter_vcenter_fk" FOREIGN KEY ("vcenter_tkey") REFERENCES bssapp.vmwareuser.vcenter ("tkey");
+  END IF;
+END$$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS(
+      SELECT
+      FROM bssapp.pg_catalog.pg_constraint
+      WHERE conname = 'ippool_vlan_fk'
+  ) THEN
+    ALTER TABLE bssapp.vmwareuser.ippool ADD CONSTRAINT "ippool_vlan_fk" FOREIGN KEY ("vlan_tkey") REFERENCES bssapp.vmwareuser.vlan ("tkey");
+  END IF;
+END$$;
+
+DO $$
+BEGIN
+  IF NOT EXISTS(
+      SELECT
+      FROM bssapp.pg_catalog.pg_constraint
+      WHERE conname = 'vlan_cluster_fk'
+  ) THEN
+    ALTER TABLE bssapp.vmwareuser.vlan ADD CONSTRAINT "vlan_cluster_fk" FOREIGN KEY ("cluster_tkey") REFERENCES bssapp.vmwareuser.cluster ("tkey");
+  END IF;
+END$$;
 
