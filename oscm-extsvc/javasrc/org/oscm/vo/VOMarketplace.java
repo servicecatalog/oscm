@@ -30,7 +30,6 @@ public class VOMarketplace extends BaseVO  {
 
     private boolean taggingEnabled = true;
     private boolean reviewEnabled = true;
-    private boolean socialBookmarkEnabled = true;
     private boolean categoriesEnabled = true;
 
     /**
@@ -158,27 +157,6 @@ public class VOMarketplace extends BaseVO  {
      */
     public void setReviewEnabled(boolean reviewEnabled) {
         this.reviewEnabled = reviewEnabled;
-    }
-
-    /**
-     * Returns whether social bookmarks are shown on the marketplace.
-     * 
-     * @return <code>true</code> if social bookmarks are enabled,
-     *         <code>false</code> otherwise
-     */
-    public boolean isSocialBookmarkEnabled() {
-        return socialBookmarkEnabled;
-    }
-
-    /**
-     * Specifies whether social bookmarks are shown on the marketplace.
-     * 
-     * @param socialBookmarkEnabled
-     *            <code>true</code> if social bookmarks are to be enabled,
-     *            <code>false</code> otherwise
-     */
-    public void setSocialBookmarkEnabled(boolean socialBookmarkEnabled) {
-        this.socialBookmarkEnabled = socialBookmarkEnabled;
     }
 
     /**

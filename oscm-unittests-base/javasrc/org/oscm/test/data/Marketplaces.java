@@ -380,7 +380,6 @@ public class Marketplaces {
         mpHist.getDataContainer().setOpen(true);
         mpHist.getDataContainer().setTaggingEnabled(true);
         mpHist.getDataContainer().setReviewEnabled(true);
-        mpHist.getDataContainer().setSocialBookmarkEnabled(true);
         mpHist.getDataContainer().setCategoriesEnabled(true);
         mpHist.setPriceModelObjKey(priceModelObjKey);
         mpHist.setBrokerPriceModelObjKey(brokerPriceModelObjKey);

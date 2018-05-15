@@ -90,7 +90,6 @@ public class VOConverter {
         newVO.setOwningOrganizationId(oldVO.getOwningOrganizationId());
         newVO.setOwningOrganizationName(oldVO.getOwningOrganizationName());
         newVO.setReviewEnabled(oldVO.isReviewEnabled());
-        newVO.setSocialBookmarkEnabled(oldVO.isSocialBookmarkEnabled());
         newVO.setTaggingEnabled(oldVO.isTaggingEnabled());
         return newVO;
     }
@@ -117,7 +116,6 @@ public class VOConverter {
         newVO.setOwningOrganizationId(oldVO.getOwningOrganizationId());
         newVO.setOwningOrganizationName(oldVO.getOwningOrganizationName());
         newVO.setReviewEnabled(oldVO.isReviewEnabled());
-        newVO.setSocialBookmarkEnabled(oldVO.isSocialBookmarkEnabled());
         newVO.setTaggingEnabled(oldVO.isTaggingEnabled());
         return newVO;
     }

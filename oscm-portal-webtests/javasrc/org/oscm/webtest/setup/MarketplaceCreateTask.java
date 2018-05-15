@@ -32,7 +32,6 @@ public class MarketplaceCreateTask extends WebtestTask {
     private String mIdProperty;
     private boolean isReviewEnabled = true;
     private boolean isTaggingEnabled = true;
-    private boolean isSocialBookmarksEnabled = true;
 
     public void setOpen(String value) {
         this.isOpen = Boolean.parseBoolean(value);
@@ -56,10 +55,6 @@ public class MarketplaceCreateTask extends WebtestTask {
 
     public void setReviewEnabled(String value) {
         this.isReviewEnabled = Boolean.parseBoolean(value);
-    }
-
-    public void setSocialBookmarksEnabled(String value) {
-        this.isSocialBookmarksEnabled = Boolean.parseBoolean(value);
     }
 
     public void setTaggingEnabled(String value) {
@@ -86,7 +81,6 @@ public class MarketplaceCreateTask extends WebtestTask {
             vo.setName(name);
             vo.setReviewEnabled(isReviewEnabled);
             vo.setTaggingEnabled(isTaggingEnabled);
-            vo.setSocialBookmarkEnabled(isSocialBookmarksEnabled);
             vo.setOwningOrganizationId(ownerId);
             vo = mpSvc.createMarketplace(vo);
             if (isEmpty(mIdProperty)) {

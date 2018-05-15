@@ -195,14 +195,6 @@ public class Marketplace extends DomainObjectWithHistory<MarketplaceData> {
         return dataContainer.isReviewEnabled();
     }
 
-    public void setSocialBookmarkEnabled(boolean socialBookmarkEnabled) {
-        dataContainer.setSocialBookmarkEnabled(socialBookmarkEnabled);
-    }
-
-    public boolean isSocialBookmarkEnabled() {
-        return dataContainer.isSocialBookmarkEnabled();
-    }
-
     public void setCategoriesEnabled(boolean categoriesEnabled) {
         dataContainer.setCategoriesEnabled(categoriesEnabled);
     }
