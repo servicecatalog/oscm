@@ -22,7 +22,6 @@ $$;
 
 GRANT CONNECT ON DATABASE bssapp TO vmwareuser;
 GRANT ALL PRIVILEGES ON SCHEMA vmwareuser TO vmwareuser;
-GRANT ALL ON ALL TABLES IN SCHEMA vmwareuser TO vmwareuser;
 
 CREATE TABLE IF NOT EXISTS bssapp.vmwareuser.vcenter (
 	tkey serial primary key,
@@ -119,3 +118,4 @@ BEGIN
   END IF;
 END$$;
 
+GRANT ALL ON ALL TABLES IN SCHEMA vmwareuser TO vmwareuser;
