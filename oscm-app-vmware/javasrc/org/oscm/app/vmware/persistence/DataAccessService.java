@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import javax.annotation.Resource;
+import javax.ejb.Stateless;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -961,10 +963,10 @@ public class DataAccessService {
     protected DataSource getDatasource() throws Exception {
         if (ds == null) {
             try {
-                final Properties ctxProperties = new Properties();
-                ctxProperties.putAll(System.getProperties());
-                Context namingContext = new InitialContext(ctxProperties);
-                ds = (DataSource) namingContext.lookup(DATASOURCE);
+                Properties p = new Properties();
+                p.put(Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.core.OpenEJBInitialContextFactory");
+                Context context = new InitialContext(p);
+                ds = (DataSource) context.lookup(DATASOURCE);
             } catch (Exception e) {
                 throw new Exception("Datasource " + DATASOURCE + " not found.",
                         e);
