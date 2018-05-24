@@ -11,7 +11,7 @@ before_install:
   - sudo pip install --user codecov
 install:
   - wget -P libraries/apache-ant-contrib/javalib/ http://central.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar
-  - wget -P libraries/apache-ant/ https://www.apache.org/dist/ant/binaries/apache-ant-1.10.2-bin.zip
+  - wget -P libraries/apache-ant/ https://www.apache.org/dist/ant/binaries/apache-ant-1.10.3-bin.zip
   - unzip -o -d libraries/apache-ant/ libraries/apache-ant/apache-ant-1.10.2-bin.zip
   - mkdir ../document
   - cd ../document

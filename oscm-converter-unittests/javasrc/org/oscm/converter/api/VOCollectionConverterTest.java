@@ -8,10 +8,6 @@
 
 package org.oscm.converter.api;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -22,6 +18,8 @@ import org.junit.Test;
 
 import org.oscm.internal.types.enumtypes.OperationParameterType;
 import org.oscm.internal.vo.VOServiceOperationParameterValues;
+
+import static org.junit.Assert.*;
 
 /**
  * @author kulle
@@ -42,7 +40,7 @@ public class VOCollectionConverterTest {
 
     @Test
     public void convertList_null() {
-        assertNull(VOCollectionConverter.convertList(null,
+        assertNotNull(VOCollectionConverter.convertList(null,
                 org.oscm.internal.vo.VOUser.class));
     }
 

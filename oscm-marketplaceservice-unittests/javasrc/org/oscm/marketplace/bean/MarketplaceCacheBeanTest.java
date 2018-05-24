@@ -54,7 +54,6 @@ public class MarketplaceCacheBeanTest {
         marketplace = new VOMarketplace();
         marketplace.setMarketplaceId("dummy");
         marketplace.setReviewEnabled(true);
-        marketplace.setSocialBookmarkEnabled(true);
         marketplace.setTaggingEnabled(true);
         marketplace.setCategoriesEnabled(true);
         marketplace.setRestricted(true);
@@ -82,7 +81,6 @@ public class MarketplaceCacheBeanTest {
     public void testGetConfiguration() {
         MarketplaceConfiguration mpc = beanSpy.getConfiguration("dummy");
         Assert.assertTrue(mpc.isReviewEnabled());
-        Assert.assertTrue(mpc.isSocialBookmarkEnabled());
         Assert.assertTrue(mpc.isTaggingEnabled());
         Assert.assertTrue(mpc.isCategoriesEnabled());
         Assert.assertTrue(mpc.isRestricted());
@@ -93,14 +91,12 @@ public class MarketplaceCacheBeanTest {
     public void testGetConfiguration_disabledAll() {
         marketplace.setMarketplaceId("dummy");
         marketplace.setReviewEnabled(false);
-        marketplace.setSocialBookmarkEnabled(false);
         marketplace.setTaggingEnabled(false);
         marketplace.setCategoriesEnabled(false);
         marketplace.setRestricted(false);
         marketplace.setHasPublicLandingPage(false);
         MarketplaceConfiguration mpc = beanSpy.getConfiguration("dummy");
         Assert.assertFalse(mpc.isReviewEnabled());
-        Assert.assertFalse(mpc.isSocialBookmarkEnabled());
         Assert.assertFalse(mpc.isTaggingEnabled());
         Assert.assertFalse(mpc.isCategoriesEnabled());
         Assert.assertFalse(mpc.isRestricted());
@@ -136,15 +132,13 @@ public class MarketplaceCacheBeanTest {
         // Cache it
         MarketplaceConfiguration mpc = beanSpy.getConfiguration("dummy");
         Assert.assertTrue(mpc.isReviewEnabled());
-        Assert.assertTrue(mpc.isSocialBookmarkEnabled());
         Assert.assertTrue(mpc.isTaggingEnabled());
         // Remove "dummy" from cache
         beanSpy.resetConfiguration("dummy");
         // Insert a new one with different "ReviewEnabled",
-        // "SocialBookmarkEnabled", "TaggingEnabled"
+        // "TaggingEnabled"
         marketplace.setMarketplaceId("dummy");
         marketplace.setReviewEnabled(false);
-        marketplace.setSocialBookmarkEnabled(false);
         marketplace.setTaggingEnabled(false);
         marketplace.setCategoriesEnabled(false);
         marketplace.setRestricted(false);
@@ -152,7 +146,6 @@ public class MarketplaceCacheBeanTest {
         // Fetch the newly created one and verify the filed respectively
         mpc = beanSpy.getConfiguration("dummy");
         Assert.assertFalse(mpc.isReviewEnabled());
-        Assert.assertFalse(mpc.isSocialBookmarkEnabled());
         Assert.assertFalse(mpc.isTaggingEnabled());
         Assert.assertFalse(mpc.isCategoriesEnabled());
         Assert.assertFalse(mpc.isRestricted());

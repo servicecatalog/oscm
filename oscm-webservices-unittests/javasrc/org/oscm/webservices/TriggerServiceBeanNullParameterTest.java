@@ -21,6 +21,7 @@ public class TriggerServiceBeanNullParameterTest extends
         addNullAllowed("cancelActions", "reason");
         addNullAllowed("deleteActions", "actionKeys");
         addNullAllowed("rejectAction", "reason");
+        addNullAllowed("updateActionParameters", "parameters");
     }
 
     @Override

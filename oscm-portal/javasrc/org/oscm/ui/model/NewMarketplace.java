@@ -24,7 +24,6 @@ public class NewMarketplace {
     private boolean closed = false;
     private boolean taggingEnabled = true;
     private boolean reviewEnabled = true;
-    private boolean socialBookmarkEnabled = true;
     private boolean categoriesEnabled = true;
 
     /**
@@ -85,21 +84,6 @@ public class NewMarketplace {
      */
     public void setReviewEnabled(boolean reviewEnabled) {
         this.reviewEnabled = reviewEnabled;
-    }
-
-    /**
-     * @return the socialBookmarkEnabled
-     */
-    public boolean isSocialBookmarkEnabled() {
-        return socialBookmarkEnabled;
-    }
-
-    /**
-     * @param socialBookmarkEnabled
-     *            the socialBookmarkEnabled to set
-     */
-    public void setSocialBookmarkEnabled(boolean socialBookmarkEnabled) {
-        this.socialBookmarkEnabled = socialBookmarkEnabled;
     }
 
     /**

@@ -27,6 +27,7 @@ import java.util.Set;
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -108,6 +109,7 @@ public class MarketingPermissionWSTest {
         tp2_ts5 = createTechnicalService("TS5", tp2_adminKey);
     }
 
+    @Ignore
     @Test
     public void handleTestScenario() throws Exception {
         unauthorizedAccess();

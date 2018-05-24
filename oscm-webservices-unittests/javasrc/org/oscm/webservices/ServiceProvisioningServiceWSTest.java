@@ -20,6 +20,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -130,7 +131,7 @@ public class ServiceProvisioningServiceWSTest {
         verify(serviceMock, times(1)).deleteService((VOService) null);
         verify(serviceMock, times(1)).deleteTechnicalService(
                 (VOTechnicalService) null);
-        verify(serviceMock, times(1)).exportTechnicalServices(null);
+        verify(serviceMock, times(1)).exportTechnicalServices(Collections.emptyList());
         verify(serviceMock, times(1)).getAllCustomerSpecificServices();
         verify(serviceMock, times(1)).getCompatibleServices(null);
         verify(serviceMock, times(1)).getServicesForCustomer(null);
@@ -150,7 +151,7 @@ public class ServiceProvisioningServiceWSTest {
         verify(serviceMock, times(1)).savePriceModelLocalization(null, null);
         verify(serviceMock, times(1)).saveServiceLocalization(null, null);
         verify(serviceMock, times(1)).saveTechnicalServiceLocalization(null);
-        verify(serviceMock, times(1)).setCompatibleServices(null, null);
+        verify(serviceMock, times(1)).setCompatibleServices(null, Collections.emptyList());
         verify(serviceMock, times(1)).updateService(null, null);
         verify(serviceMock, times(1)).validateTechnicalServiceCommunication(
                 null);
@@ -160,7 +161,7 @@ public class ServiceProvisioningServiceWSTest {
         verify(serviceMock, times(1)).loadImageForSupplier(null, null);
         verify(serviceMock, times(1)).getPriceModelLicenseTemplateLocalization(
                 null);
-        verify(serviceMock, times(1)).setActivationStates(null);
+        verify(serviceMock, times(1)).setActivationStates(Collections.emptyList());
         verify(serviceMock, times(1)).getRelatedServicesForMarketplace(null,
                 null, null);
         verify(serviceMock, times(1))
