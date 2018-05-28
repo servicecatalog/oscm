@@ -1,3 +1,5 @@
+SET search_path TO vmware;
+
 CREATE TABLE IF NOT EXISTS vcenter (
 	tkey serial primary key,
 	name character varying(255) NOT NULL,
