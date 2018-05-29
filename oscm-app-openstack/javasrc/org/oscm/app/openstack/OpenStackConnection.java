@@ -153,28 +153,9 @@ public class OpenStackConnection {
         } catch (IOException e) {
             int responseCode = -1;
             String responseBody = "";
-
-            try {
-                if (connection != null) {
-                    responseCode = connection.getResponseCode();
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(connection.getErrorStream()));
-                    StringBuilder sb = new StringBuilder();
-                    try {
-                        String line;
-                        while ((line = in.readLine()) != null) {
-                            if (line.trim().length() > 1) {
-                                sb.append(line);
-                            }
-                        }
-                    } finally {
-                        in.close();
-                    }
-                    responseBody = sb.toString();
-                }
-            } catch (IOException e1) {
-                responseCode = -1;
-                responseBody = "Cannot get any response body";
+            if (connection != null) {
+                responseCode = getResponseCode(connection);
+                responseBody = getErrorResponse(connection);
             }
             final String code = " (HTTP " + responseCode + ", URI " + restUri
                     + ", responseBody " + responseBody + "): " + e.getMessage();
@@ -182,14 +163,15 @@ public class OpenStackConnection {
             case 400:
                 throw new OpenStackConnectionException(
                         "either input parameter format error or security key is not correct"
-                                + code, responseCode);
+                                + code,
+                        responseCode);
             case 401:
                 throw new OpenStackConnectionException("unauthorized" + code,
                         responseCode);
 
             case 404:
-                throw new OpenStackConnectionException("resource not found"
-                        + code, responseCode);
+                throw new OpenStackConnectionException(
+                        "resource not found" + code, responseCode);
 
             case 504:
                 throw new OpenStackConnectionException(
@@ -215,6 +197,58 @@ public class OpenStackConnection {
                 }
             }
         }
+    }
+
+    /**
+     * @param connection
+     * @return
+     */
+    private String getErrorResponse(HttpURLConnection connection) {
+        String responseBody;
+        try {
+            responseBody = readErrorResponseBody(connection);
+        } catch (IOException e1) {
+            responseBody = "Cannot get any response body";
+        }
+        return responseBody;
+    }
+
+    /**
+     * @param connection
+     * @return
+     */
+    private int getResponseCode(HttpURLConnection connection) {
+        int responseCode;
+        try {
+            responseCode = connection.getResponseCode();
+        } catch (IOException e1) {
+            responseCode = -1;
+        }
+        return responseCode;
+    }
+
+    protected String readErrorResponseBody(HttpURLConnection connection)
+            throws IOException {
+        String responseBody;
+        if (null != connection.getErrorStream()) {
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(connection.getErrorStream()));
+            StringBuilder sb = new StringBuilder();
+            try {
+                String line;
+                while ((line = in.readLine()) != null) {
+                    if (line.trim().length() > 1) {
+                        sb.append(line);
+                    }
+                }
+            } finally {
+                in.close();
+            }
+            responseBody = sb.toString();
+        } else {
+            throw new IOException("Cannot get any response body");
+        }
+        return responseBody;
     }
 
     private HttpURLConnection connectUsingProxy(String restUri,
@@ -291,8 +325,8 @@ public class OpenStackConnection {
     }
 
     protected Proxy resolveProxy(String proxyHost, int proxyPortInt) {
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(
-                proxyHost, proxyPortInt));
+        Proxy proxy = new Proxy(Proxy.Type.HTTP,
+                new InetSocketAddress(proxyHost, proxyPortInt));
         return proxy;
     }
 
