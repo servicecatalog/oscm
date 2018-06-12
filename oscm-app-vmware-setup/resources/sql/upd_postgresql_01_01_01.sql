@@ -1,4 +1,4 @@
-SET search_path TO vmware;
+SET search_path TO vmwareuser;
 
 CREATE TABLE IF NOT EXISTS vcenter (
 	tkey serial primary key,
