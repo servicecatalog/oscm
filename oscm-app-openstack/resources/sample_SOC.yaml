@@ -1,0 +1,84 @@
+heat_template_version: 2015-10-15
+
+description: Template to deploy a network stack with a single instance connected and exposed to the external world
+
+parameters:
+  image:
+    type: string
+    label: Image ID
+    description: Image to be used for compute instance
+    default: Dreamer
+  flavor:
+    type: string
+    label: Instance Type
+    description: Type of instance (flavor) to be used
+    default: m1.tiny
+  external_network:
+    type: string
+    label: External Network
+    description: External network
+    default: floating
+  mystack_subnet_network_id:
+    type: string
+    label: Network ID
+    description: Network ID used when creating a subnet
+    default: 192.168.99.0/24
+
+resources:
+  my-server:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      networks:
+        - port: { get_resource: my-server_port }
+  my-server_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: mystack_network }
+      security_groups:
+        - { get_resource: mystack_ssh_secgroup }
+      fixed_ips:
+        - subnet_id: { get_resource: mystack_subnet }
+  mystack_network:
+    type: OS::Neutron::Net
+  mystack_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      network_id: { get_resource: mystack_network }
+      cidr: { get_param: mystack_subnet_network_id }
+  mystack_router:
+    type: OS::Neutron::Router
+    properties:
+      external_gateway_info: { network: { get_param: external_network } }
+  mystack_router_interface:
+    type: OS::Neutron::RouterInterface
+    properties:
+      router_id: { get_resource: mystack_router }
+      subnet: { get_resource: mystack_subnet }
+  mystack_ssh_secgroup:
+    type: OS::Neutron::SecurityGroup
+    properties:
+      description: Security Group for SSH Traffic
+      rules:
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: tcp
+          port_range_min: 22
+          port_range_max: 22
+        - remote_ip_prefix: 0.0.0.0/0
+          protocol: icmp
+  my-server_floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: { get_param: external_network }
+  association:
+    type: OS::Neutron::FloatingIPAssociation
+    properties:
+      floatingip_id: { get_resource: my-server_floating_ip }
+      port_id: { get_resource: my-server_port }
+outputs:
+  floating_ip:
+    value:
+      get_attr:
+      - my-server_floating_ip
+      - floating_ip_address
