@@ -1,3 +1,5 @@
+SET search_path TO vmwareuser;
+
 CREATE TABLE IF NOT EXISTS vcenter (
 	tkey serial primary key,
 	name character varying(255) NOT NULL,
@@ -49,46 +51,7 @@ CREATE TABLE IF NOT EXISTS version (
 CREATE INDEX IF NOT EXISTS "ippool_vlan_idx" ON ippool ("vlan_tkey");
 CREATE INDEX IF NOT EXISTS "vlan_cluster_idx" ON vlan ("cluster_tkey");
 
-DO $$
-BEGIN
-  IF NOT EXISTS(
-      SELECT
-      FROM pg_catalog.pg_constraint
-      WHERE conname = 'cluster_datacenter_fk'
-  ) THEN
-      ALTER TABLE cluster ADD CONSTRAINT "cluster_datacenter_fk" FOREIGN KEY ("datacenter_tkey") REFERENCES datacenter ("tkey");
-  END IF;
-END$$;
-
-DO $$
-BEGIN
-  IF NOT EXISTS(
-      SELECT
-      FROM pg_catalog.pg_constraint
-      WHERE conname = 'datacenter_vcenter_fk'
-  ) THEN
-    ALTER TABLE datacenter ADD CONSTRAINT "datacenter_vcenter_fk" FOREIGN KEY ("vcenter_tkey") REFERENCES vcenter ("tkey");
-  END IF;
-END$$;
-
-DO $$
-BEGIN
-  IF NOT EXISTS(
-      SELECT
-      FROM pg_catalog.pg_constraint
-      WHERE conname = 'ippool_vlan_fk'
-  ) THEN
-    ALTER TABLE ippool ADD CONSTRAINT "ippool_vlan_fk" FOREIGN KEY ("vlan_tkey") REFERENCES vlan ("tkey");
-  END IF;
-END$$;
-
-DO $$
-BEGIN
-  IF NOT EXISTS(
-      SELECT
-      FROM pg_catalog.pg_constraint
-      WHERE conname = 'vlan_cluster_fk'
-  ) THEN
-    ALTER TABLE vlan ADD CONSTRAINT "vlan_cluster_fk" FOREIGN KEY ("cluster_tkey") REFERENCES cluster ("tkey");
-  END IF;
-END$$;
+ALTER TABLE cluster ADD CONSTRAINT "cluster_datacenter_fk" FOREIGN KEY ("datacenter_tkey") REFERENCES datacenter ("tkey");
+ALTER TABLE datacenter ADD CONSTRAINT "datacenter_vcenter_fk" FOREIGN KEY ("vcenter_tkey") REFERENCES vcenter ("tkey");
+ALTER TABLE ippool ADD CONSTRAINT "ippool_vlan_fk" FOREIGN KEY ("vlan_tkey") REFERENCES vlan ("tkey");
+ALTER TABLE vlan ADD CONSTRAINT "vlan_cluster_fk" FOREIGN KEY ("cluster_tkey") REFERENCES cluster ("tkey");
