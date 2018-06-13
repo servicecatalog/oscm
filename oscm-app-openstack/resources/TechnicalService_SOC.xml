@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright FUJITSU LIMITED 2018-->
 <tns:TechnicalServices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="oscm.serviceprovisioning/1.9/TechnicalService.xsd ../../oscm-serviceprovisioning/javares/TechnicalServices.xsd" xmlns:tns="oscm.serviceprovisioning/1.9/TechnicalService.xsd">
   <tns:TechnicalService accessType="DIRECT" allowingOnBehalfActing="false" baseUrl="" billingIdentifier="NATIVE_BILLING" build="20171108" id="SOC_Sample" loginPath="/" onlyOneSubscriptionPerUser="false" provisioningPassword="" provisioningType="ASYNCHRONOUS" provisioningUrl="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl" provisioningUsername="" provisioningVersion="1.0">
     <AccessInfo locale="en">SOC Instance</AccessInfo>
