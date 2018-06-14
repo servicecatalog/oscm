@@ -58,8 +58,8 @@ public abstract class ProvisioningValidator {
             } catch (PatternSyntaxException e) {
                 logger.error("Compile error on stack name pattern: ["
                         + stackNamePattern + "]");
-                throw new APPlatformException(Messages.getAll(
-                        "error_invalid_pattern",
+                throw new APPlatformException(
+                        Messages.getAll("error_invalid_pattern",
                         new Object[] { stackNamePattern }));
             }
 
@@ -67,9 +67,9 @@ public abstract class ProvisioningValidator {
             if (!m.matches()) {
                 logger.error("Validation error on stack name: [" + stackName
                         + "/" + stackNamePattern + "]");
-                throw new APPlatformException(Messages.getAll(
-                        "error_name_match", new Object[] { stackName,
-                                stackNamePattern }));
+                throw new APPlatformException(
+                        Messages.getAll("error_name_match",
+                                new Object[] { stackName, stackNamePattern }));
             }
         }
     }
@@ -96,7 +96,8 @@ public abstract class ProvisioningValidator {
         if (readyTimeout != 0 && startTimeStr != null
                 && TIMEOUT_OPERATION.contains(ph.getState())) {
             if (startTimeStr.equals(TIMEOUT)) {
-                logger.warn("This request already timeout. This should not occur.");
+                logger.warn(
+                        "This request already timeout. This should not occur.");
                 throw new APPlatformException(Messages.getAll(
                         "error_operation_timeout", Long.valueOf(readyTimeout)));
             }
@@ -129,7 +130,8 @@ public abstract class ProvisioningValidator {
                     }
                 }
             } catch (NumberFormatException ex) {
-                logger.warn("The action timeout is not a number and therefore ignored.");
+                logger.warn(
+                        "The action timeout is not a number and therefore ignored.");
             }
         }
 

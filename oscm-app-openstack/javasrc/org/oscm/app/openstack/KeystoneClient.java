@@ -115,16 +115,18 @@ public class KeystoneClient {
                     if (TYPE_HEAT.equals(type)) {
                         JSONArray endpoints = entry.getJSONArray("endpoints");
                         int endpointSize = endpoints.length();
-						for (int j = 0; j < endpointSize; j++) {
-							JSONObject endpoint = endpoints.getJSONObject(j);
-							String endpointUrl = endpoint.getString("url");
-							String interfaceEndpoint = endpoint.getString("interface");
-							if (interfaceEndpoint.equals("public")) {
-								heatEndpoint = endpointUrl;
-								LOGGER.debug("PUBLIC Heat URL found: " + heatEndpoint);
-								break;
-							}
-						}
+                        for (int j = 0; j < endpointSize; j++) {
+                            JSONObject endpoint = endpoints.getJSONObject(j);
+                            String endpointUrl = endpoint.getString("url");
+                            String interfaceEndpoint = endpoint
+                                    .getString("interface");
+                            if (interfaceEndpoint.equals("public")) {
+                                heatEndpoint = endpointUrl;
+                                LOGGER.debug("PUBLIC Heat URL found: "
+                                        + heatEndpoint);
+                                break;
+                            }
+                        }
                     } else if (TYPE_NOVA.equals(type)) {
                         JSONArray endpoints = entry.getJSONArray("endpoints");
                         int endpointSize = endpoints.length();
@@ -132,7 +134,8 @@ public class KeystoneClient {
                             JSONObject endpoint = endpoints.getJSONObject(j);
                             if (endpoint != null) {
                                 String endpointUrl = endpoint.getString("url");
-                                String interfaceEndpoint = endpoint.getString("interface");
+                                String interfaceEndpoint = endpoint
+                                        .getString("interface");
                                 if (interfaceEndpoint.equals("public")
                                         && endpointUrl != null
                                         && endpointUrl.trim().length() > 0) {

@@ -15,6 +15,9 @@ package org.oscm.app.openstack.data;
  * may be set by the controller and the status dispatcher.
  */
 public enum FlowState {
+
+    CREATE_PROJECT, DELETE_PROJECT, UPDATE_PROJECT,
+
     /**
      * The creation of a new application instance was started.
      */

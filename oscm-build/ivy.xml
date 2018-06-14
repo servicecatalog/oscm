@@ -365,6 +365,10 @@
     <dependency org="com.amazonaws" name="aws-java-sdk-ec2" rev="1.11.37" transitive="false"/>
     <dependency org="com.amazonaws" name="aws-java-sdk-core" rev="1.11.37" transitive="false"/>
 
+	<!-- OpenStack4J -->
+	<dependency org="org.pacesys" name="openstack4j" rev="3.1.0" transitive="false"/>
+	
+
     <dependency org="org.apache.httpcomponents" name="httpcore" rev="4.4.1" transitive="false"/>
     <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.5.2" transitive="false"/>
 
