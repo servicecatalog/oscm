@@ -1,4 +1,4 @@
-Copyright FUJITSU LIMITED 2018
+&copy; Copyright FUJITSU LIMITED 2018
 
 ## Openstack Project Provisioning
 You need to configure following technical service parameters to create and 
