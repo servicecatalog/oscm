@@ -24,6 +24,7 @@ import org.oscm.app.v2_0.BSSWebServiceFactory;
 import org.oscm.app.v2_0.data.PasswordAuthentication;
 import org.oscm.app.v2_0.data.ProvisioningSettings;
 import org.oscm.app.v2_0.data.Setting;
+import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -438,7 +439,8 @@ public class PropertyHandler {
     /**
      * Returns service interfaces for BSS web service calls.
      */
-    public <T> T getWebService(Class<T> serviceClass) throws Exception {
+    public <T> T getWebService(Class<T> serviceClass)
+            throws ConfigurationException, MalformedURLException {
         return BSSWebServiceFactory.getBSSWebService(serviceClass,
                 settings.getAuthentication());
     }
