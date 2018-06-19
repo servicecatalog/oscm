@@ -32,6 +32,7 @@ import javax.ejb.TransactionAttributeType;
 import org.oscm.app.openstack.NovaProcessor;
 import org.oscm.app.openstack.data.FlowState;
 import org.oscm.app.openstack.i18n.Messages;
+import org.oscm.app.openstack.usage.UsageConverter;
 import org.oscm.app.v2_0.APPlatformServiceFactory;
 import org.oscm.app.v2_0.data.Context;
 import org.oscm.app.v2_0.data.ControllerSettings;
@@ -583,5 +584,27 @@ public class OpenStackController extends ProvisioningValidator
             LOGGER.warn(e.getMessage());
         }
         return SERVERS_NUMBER_CANNOT_BE_CHECKED;
+    }
+    
+    @Override
+    public boolean gatherUsageData(String controllerId, String instanceId,
+            String startTime, String endTime, ProvisioningSettings settings)
+            throws APPlatformException {
+
+        PropertyHandler ph = new PropertyHandler(settings);
+        if ("OS::Keystone::Project".equals(ph.getResourceType())) {
+            ph.setInstanceId(instanceId);
+            if (ph.isCharging()) {
+                try {
+                    new UsageConverter(ph).registerUsageEvents(startTime,
+                            endTime);
+                } catch (Exception e) {
+                    throw new APPlatformException("Failed to gather usage data",
+                            e);
+                }
+                return true;
+            }
+        }
+        return false;
     }
 }

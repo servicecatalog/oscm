@@ -7,13 +7,8 @@
  *******************************************************************************/
 package org.oscm.app.openstack.usage;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
-import static java.time.Instant.ofEpochMilli;
 import static java.time.LocalDateTime.parse;
-import static java.time.ZoneId.of;
 import static java.time.ZoneOffset.UTC;
-import static java.time.ZonedDateTime.now;
-import static java.time.ZonedDateTime.ofInstant;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
 import java.math.BigDecimal;
@@ -33,14 +28,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ * Handle usage data and register events.
  */
 public class UsageConverter {
 
-    public static final String EVENT_DISK = "EVENT_DISK_GIGABYTE_HOURS";
-    public static final String EVENT_CPU = "EVENT_CPU_HOURS";
-    public static final String EVENT_RAM = "EVENT_RAM_MEGABYTE_HOURS";
-    public static final String EVENT_TOTAL = "EVENT_TOTAL_HOURS";
+    static final String EVENT_DISK = "EVENT_DISK_GIGABYTE_HOURS";
+    static final String EVENT_CPU = "EVENT_CPU_HOURS";
+    static final String EVENT_RAM = "EVENT_RAM_MEGABYTE_HOURS";
+    static final String EVENT_TOTAL = "EVENT_TOTAL_HOURS";
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UsageConverter.class);
@@ -49,7 +44,6 @@ public class UsageConverter {
 
     PropertyHandler ph;
     OpenstackClient osClient;
-    AppDb appDb;
 
     public UsageConverter() {
 
@@ -58,12 +52,13 @@ public class UsageConverter {
     public UsageConverter(PropertyHandler ph) throws MalformedURLException {
         this.ph = ph;
         osClient = new OpenstackClient(ph);
-        appDb = new AppDb();
     }
 
-    public void registerUsageEvents() throws Exception {
-        String startTime = getStartTime();
-        String endTime = now(of(ZONEID_UTC)).format(ISO_LOCAL_DATE_TIME);
+    public void registerUsageEvents(String startTime, String endTime)
+            throws ConfigurationException, MalformedURLException,
+            ObjectNotFoundException, OrganizationAuthoritiesException,
+            ValidationException {
+
         SimpleTenantUsage usage = osClient.getUsage(startTime, endTime);
 
         if (usage.getTotalHours() != null) {
@@ -86,18 +81,6 @@ public class UsageConverter {
             submit(EVENT_DISK, totalGb, endTime);
         }
 
-        appDb.updateLastUsageFetch(ph.getInstanceId(), endTime);
-    }
-
-    String getStartTime() throws Exception {
-        String lastUsageFetch = ph.getLastUsageFetch();
-        if (!isNullOrEmpty(lastUsageFetch)) {
-            return lastUsageFetch;
-        }
-
-        long requestTime = appDb.loadRequestTime(ph.getInstanceId());
-        return ofInstant(ofEpochMilli(requestTime), of(ZONEID_UTC))
-                .format(ISO_LOCAL_DATE_TIME);
     }
 
     void submit(String eventId, long multiplier, String occurence)

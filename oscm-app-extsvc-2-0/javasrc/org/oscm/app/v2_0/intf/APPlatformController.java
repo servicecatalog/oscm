@@ -175,10 +175,11 @@ public interface APPlatformController {
      * interface of the instance must be starting up or running so that
      * additional calls from APP or the controller can be executed.
      * <p>
-     * <b>Note:</b> The controller is expected to throw an {@link AbortException} in
-     * case of any provisioning failure. The message text of this exception is
-     * required to have a maximum length of 100 UTF-8 characters and to contain the
-     * error detail (e.g. the name of the wrong parameter).
+     * <b>Note:</b> The controller is expected to throw an
+     * {@link AbortException} in case of any provisioning failure. The message
+     * text of this exception is required to have a maximum length of 100 UTF-8
+     * characters and to contain the error detail (e.g. the name of the wrong
+     * parameter).
      * 
      * 
      * @param instanceId
@@ -190,9 +191,10 @@ public interface APPlatformController {
      *         application instance
      * 
      * @throws APPlatformException
-     *             In case of provisioning failures (AbortException), the message of this
-     *             exception is required to have a maximum length of 100 UTF-8
-     *             characters and to contain the error detail.
+     *             In case of provisioning failures (AbortException), the
+     *             message of this exception is required to have a maximum
+     *             length of 100 UTF-8 characters and to contain the error
+     *             detail.
      */
     public InstanceStatus getInstanceStatus(String instanceId,
             ProvisioningSettings settings) throws APPlatformException;
@@ -462,4 +464,33 @@ public interface APPlatformController {
             String organizationId) throws APPlatformException {
         return 1;
     }
+
+    /**
+     * Notify the APP controller to gather usage data for the given time frame. It
+     * is up to the controller to handle the usage data and send it back to BES.
+     * This hook is called with timer, by default once a day. The frequency can
+     * be adjusted with
+     * <code>PlatformConfigurationKey#APP_TIMER_REFRESH_USAGEDATA</code>.
+     * 
+     * @param controllerId
+     *            - the ID of the controller
+     * @param instanceId
+     *            - the ID of the application instance
+     * @param startTime
+     *            - start time of the usage period for querying the data
+     * @param endTime
+     *            - end time of the usage period
+     * @param settings
+     *            a <code>ProvisioningSettings</code> object specifying the
+     *            service parameters and configuration settings
+     * @return <code>true</true> if usage data was fetched and handled
+     *         successfully
+     * @throws APPlatformException
+     */
+    default public boolean gatherUsageData(String controllerId,
+            String instanceId, String startTime, String endTime,
+            ProvisioningSettings settings) throws APPlatformException {
+        return false;
+    }
+
 }
