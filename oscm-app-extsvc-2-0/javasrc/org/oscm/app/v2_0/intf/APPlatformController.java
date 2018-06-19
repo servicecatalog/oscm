@@ -466,10 +466,15 @@ public interface APPlatformController {
     }
 
     /**
-     * Notify the APP controller to gather usage data for the given time frame. It
-     * is up to the controller to handle the usage data and send it back to BES.
-     * This hook is called with timer, by default once a day. The frequency can
-     * be adjusted with
+     * Notify the APP controller to gather usage metrics for the given time
+     * frame. It is completely up to the controller to obtain the resource data
+     * and send it back to BES. The point of this interface method is to provide
+     * a hook that is called with timer, by default once a day, and which
+     * triggers the collection process of usage data that has accumulated within
+     * the give time span.
+     * <p>
+     * The invocation frequency can be adjusted with the
+     * configuration setting
      * <code>PlatformConfigurationKey#APP_TIMER_REFRESH_USAGEDATA</code>.
      * 
      * @param controllerId
@@ -477,9 +482,11 @@ public interface APPlatformController {
      * @param instanceId
      *            - the ID of the application instance
      * @param startTime
-     *            - start time of the usage period for querying the data
+     *            - start time of the usage period formatted as
+     *            <code>java.time.format.DateTimeFormatter#ISO_LOCAL_DATE_TIME</code>
      * @param endTime
-     *            - end time of the usage period
+     *            - end time of the usage period formatted as
+     *            <code>java.time.format.DateTimeFormatter#ISO_LOCAL_DATE_TIME</code>
      * @param settings
      *            a <code>ProvisioningSettings</code> object specifying the
      *            service parameters and configuration settings
