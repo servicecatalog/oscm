@@ -176,7 +176,7 @@ public interface APPlatformController {
      * additional calls from APP or the controller can be executed.
      * <p>
      * <b>Note:</b> The controller is expected to throw an
-     * {@link AbortException} in case of any provisioning failure. The message
+     * {@link org.oscm.app.v2_0.exceptions.AbortException} in case of any provisioning failure. The message
      * text of this exception is required to have a maximum length of 100 UTF-8
      * characters and to contain the error detail (e.g. the name of the wrong
      * parameter).

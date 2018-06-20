@@ -554,7 +554,10 @@ public interface ProvisioningService {
      * @param requestingUser
      *            a <code>User</code> object specifying the platform user who
      *            requests the instance operation.
-     * @return
+     * @return a <code>BaseResult</code> object with a status message and the
+     *         return code of the operation in the application. A value of 0
+     *         indicates that the operation was successful. A value greater than
+     *         0 indicates an error.
      */
     @WebMethod(action = "urn:saveAttributes")
     @WebResult(name = "return")

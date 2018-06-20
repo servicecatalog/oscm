@@ -163,6 +163,7 @@ public class OpenstackClient {
                 adminId, adminRole.getId());
     }
 
+    @SuppressWarnings("boxing")
     public void updateQuota() throws MalformedURLException {
         OSClientV3 client = authenticate(ph.getUserName(), ph.getPassword(),
                 ph.getProjectId());
