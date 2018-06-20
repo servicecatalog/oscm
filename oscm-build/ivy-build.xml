@@ -100,6 +100,7 @@
         <copy file="${ivy.lib.dir}/aws-java-sdk-core-1.11.37.jar" todir="${root.dir}/libraries/aws/javalib"/>
         <copy file="${ivy.lib.dir}/aws-java-sdk-ec2-1.11.37.jar" todir="${root.dir}/libraries/aws/javalib"/>
         <copy file="${ivy.lib.dir}/openstack4j-3.1.0.jar" todir="${root.dir}/libraries/openstack4j/javalib"/>
+        <copy file="${ivy.lib.dir}/openstack4j-httpclient-3.1.0.jar" todir="${root.dir}/libraries/openstack4j/javalib"/>
         <copy file="${ivy.lib.dir}/backport-util-concurrent-3.1.jar" todir="${root.dir}/libraries/backport/javalib" overwrite="true"/>
         <copy file="${ivy.lib.dir}/bcprov-jdk15-1.45.jar" tofile="${root.dir}/libraries/bouncycastle/javalib/bcprov-jdk15-145.jar" overwrite="true"/>
         <copy file="${ivy.lib.dir}/dbunit-2.4.7.jar" todir="${root.dir}/libraries/dbunit/javalib" overwrite="true"/>
