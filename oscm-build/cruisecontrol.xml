@@ -9,7 +9,7 @@
 
 	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
 	<target name="runJUnitTestsBuild"
-			depends="bootstrap,_libraries, _clean, _package_without_doc, _unittests, _copyResultArtifacts" />
+			depends="bootstrap, _libraries, _clean, _package_without_doc, _unittests, _copyResultArtifacts" />
 
 	<target name="runTravisUT"  depends="bootstrap,_libraries">
 		<ant antfile="build.xml" target="travisunittests" />
@@ -23,7 +23,7 @@
 
 	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
 	<target name="runIntegrationTests"
-			depends="bootstrap, _libraries, _clean, _package, _integrationtests, _copyResultArtifacts" />
+			depends="bootstrap, _libraries, _clean, _package_without_doc, _integrationtests, _copyResultArtifacts" />
 
 	<target name="runWebserviceTests"
 			depends="bootstrap, _runWebserviceTests" />
