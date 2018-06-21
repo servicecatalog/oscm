@@ -893,7 +893,7 @@ public class DataAccessService {
         return cluster_tkey;
     }
 
-    protected DataSource getDatasource() throws Exception {
+    public DataSource getDatasource() throws Exception {
         if (ds == null) {
             try {
                 Properties p = new Properties();

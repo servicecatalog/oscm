@@ -3,18 +3,37 @@ package org.oscm.app.vmware.importer;
 import org.oscm.app.vmware.parser.DatacenterParser;
 import org.oscm.app.vmware.parser.model.Datacenter;
 import org.oscm.app.vmware.persistence.DataAccessService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class DatacenterImporter implements Importer {
-    private static final Logger LOGGER = LoggerFactory.getLogger(VLANImporter.class);
-
     private final DataAccessService das;
 
-    private void save(Datacenter datacenter) {
-        // TODO save/update vcenter
+    private void save(Datacenter datacenter) throws Exception {
+        int vCenterKey = this.getVCenterKey(datacenter.vCenter);
+        String query = "INSERT INTO datacenter (TKEY, NAME, IDENTIFIER, VCENTER_TKEY) VALUES (DEFAULT, ?, ?, ?)";
+        try (PreparedStatement stmt = this.das.getDatasource().getConnection().prepareStatement(query)) {
+            stmt.setString(1, datacenter.datacenter);
+            stmt.setString(2, datacenter.datacenterID);
+            stmt.setInt(3, vCenterKey);
+            stmt.execute();
+        }
+    }
+
+    private int getVCenterKey(String vCenter) throws Exception {
+        String query = "SELECT tkey FROM vcenter WHERE name = ?";
+        try(PreparedStatement stmt = this.das.getDatasource().getConnection().prepareStatement(query)) {
+            stmt.setString(1, vCenter);
+            ResultSet rs = stmt.executeQuery();
+
+            if(!rs.next()) {
+                throw new Exception("VCenter " + vCenter + " not found");
+            }
+
+            return rs.getInt(1);
+        }
     }
 
     DatacenterImporter(DataAccessService das) {

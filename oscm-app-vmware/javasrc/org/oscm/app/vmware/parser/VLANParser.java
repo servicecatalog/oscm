@@ -14,7 +14,10 @@ public class VLANParser extends CSVParser<VLAN> {
         CLUSTER("Cluster"),
         NAME("Name"),
         GATEWAY("Gateway"),
-        SUBNET_MASK("SubnetMask");
+        SUBNET_MASK("SubnetMask"),
+        DNS_SERVER("DnsServer"),
+        DNS_SUFFIX("DnsSuffix"),
+        ENABLED("Enabled");
 
         private final String text;
 
@@ -40,7 +43,10 @@ public class VLANParser extends CSVParser<VLAN> {
                 Columns.CLUSTER.toString(),
                 Columns.NAME.toString(),
                 Columns.GATEWAY.toString(),
-                Columns.SUBNET_MASK.toString()
+                Columns.SUBNET_MASK.toString(),
+                Columns.DNS_SERVER.toString(),
+                Columns.DNS_SUFFIX.toString(),
+                Columns.ENABLED.toString()
         );
     }
 
@@ -59,6 +65,9 @@ public class VLANParser extends CSVParser<VLAN> {
         result.name = entries.get(Columns.NAME.toString());
         result.gateway = entries.get(Columns.GATEWAY.toString());
         result.subnetMask = entries.get(Columns.SUBNET_MASK.toString());
+        result.dnsServer = entries.get(Columns.DNS_SERVER.toString());
+        result.dnsSuffix = entries.get(Columns.DNS_SUFFIX.toString());
+        result.enabled = entries.get(Columns.ENABLED.toString());
 
         return result;
     }
