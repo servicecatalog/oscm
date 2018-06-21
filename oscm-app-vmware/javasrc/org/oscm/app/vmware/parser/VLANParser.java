@@ -1,17 +1,20 @@
 package org.oscm.app.vmware.parser;
 
-import org.oscm.app.vmware.parser.model.Datacenter;
+import org.oscm.app.vmware.parser.model.VLAN;
 
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class DatacenterParser extends CSVParser<Datacenter> {
+public class VLANParser extends CSVParser<VLAN> {
     enum Columns {
         VCENTER("VCenter"),
         DATACENTER("Datacenter"),
-        DATACENTER_ID("DatacenterID");
+        CLUSTER("Cluster"),
+        NAME("Name"),
+        GATEWAY("Gateway"),
+        SUBNET_MASK("SubnetMask");
 
         private final String text;
 
@@ -25,7 +28,7 @@ public class DatacenterParser extends CSVParser<Datacenter> {
         }
     }
 
-    public DatacenterParser(InputStream stream) throws Exception {
+    public VLANParser(InputStream stream) throws Exception {
         super(stream);
     }
 
@@ -34,13 +37,16 @@ public class DatacenterParser extends CSVParser<Datacenter> {
         return Arrays.asList(
                 Columns.VCENTER.toString(),
                 Columns.DATACENTER.toString(),
-                Columns.DATACENTER_ID.toString()
+                Columns.CLUSTER.toString(),
+                Columns.NAME.toString(),
+                Columns.GATEWAY.toString(),
+                Columns.SUBNET_MASK.toString()
         );
     }
 
     @Override
-    public Datacenter readNextObject() throws Exception {
-        Datacenter result = new Datacenter();
+    public VLAN readNextObject() throws Exception {
+        VLAN result = new VLAN();
         Map<String, String> entries = this.readNext();
 
         if(entries == null) {
@@ -49,7 +55,10 @@ public class DatacenterParser extends CSVParser<Datacenter> {
 
         result.vCenter = entries.get(Columns.VCENTER.toString());
         result.datacenter = entries.get(Columns.DATACENTER.toString());
-        result.datacenterID = entries.get(Columns.DATACENTER_ID.toString());
+        result.cluster = entries.get(Columns.CLUSTER.toString());
+        result.name = entries.get(Columns.NAME.toString());
+        result.gateway = entries.get(Columns.GATEWAY.toString());
+        result.subnetMask = entries.get(Columns.SUBNET_MASK.toString());
 
         return result;
     }

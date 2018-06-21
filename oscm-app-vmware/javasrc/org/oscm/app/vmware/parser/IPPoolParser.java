@@ -1,17 +1,19 @@
 package org.oscm.app.vmware.parser;
 
-import org.oscm.app.vmware.parser.model.Datacenter;
+import org.oscm.app.vmware.parser.model.IPPool;
 
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class DatacenterParser extends CSVParser<Datacenter> {
+public class IPPoolParser extends CSVParser<IPPool> {
     enum Columns {
         VCENTER("VCenter"),
         DATACENTER("Datacenter"),
-        DATACENTER_ID("DatacenterID");
+        CLUSTER("Cluster"),
+        VLAN("VLAN"),
+        IP_ADDRESS("IPAddress");
 
         private final String text;
 
@@ -25,7 +27,7 @@ public class DatacenterParser extends CSVParser<Datacenter> {
         }
     }
 
-    public DatacenterParser(InputStream stream) throws Exception {
+    public IPPoolParser(InputStream stream) throws Exception {
         super(stream);
     }
 
@@ -34,13 +36,15 @@ public class DatacenterParser extends CSVParser<Datacenter> {
         return Arrays.asList(
                 Columns.VCENTER.toString(),
                 Columns.DATACENTER.toString(),
-                Columns.DATACENTER_ID.toString()
+                Columns.CLUSTER.toString(),
+                Columns.VLAN.toString(),
+                Columns.IP_ADDRESS.toString()
         );
     }
 
     @Override
-    public Datacenter readNextObject() throws Exception {
-        Datacenter result = new Datacenter();
+    public IPPool readNextObject() throws Exception {
+        IPPool result = new IPPool();
         Map<String, String> entries = this.readNext();
 
         if(entries == null) {
@@ -49,7 +53,9 @@ public class DatacenterParser extends CSVParser<Datacenter> {
 
         result.vCenter = entries.get(Columns.VCENTER.toString());
         result.datacenter = entries.get(Columns.DATACENTER.toString());
-        result.datacenterID = entries.get(Columns.DATACENTER_ID.toString());
+        result.cluster = entries.get(Columns.CLUSTER.toString());
+        result.vlan = entries.get(Columns.VLAN.toString());
+        result.ipAddress = entries.get(Columns.IP_ADDRESS.toString());
 
         return result;
     }

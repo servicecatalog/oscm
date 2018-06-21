@@ -10,6 +10,8 @@ package org.oscm.app.vmware.ui.pages.clusterconfig;
 
 import org.oscm.app.vmware.business.model.VCenter;
 import org.oscm.app.vmware.i18n.Messages;
+import org.oscm.app.vmware.importer.Importer;
+import org.oscm.app.vmware.importer.ImporterFactory;
 import org.oscm.app.vmware.persistence.DataAccessService;
 import org.oscm.app.vmware.ui.UiBeanBase;
 import org.slf4j.Logger;
@@ -21,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -169,6 +172,11 @@ public class TargetLocationBean extends UiBeanBase {
             return "" + session.getAttribute("loggedInUserId");
         }
         return null;
+    }
+
+    public void importData(String tableName, InputStream csvFile) {
+        Importer importer = ImporterFactory.getImporter(tableName, this.settings.getDataAccessService());
+        importer.load(csvFile);
     }
 
     protected FacesContext getFacesContext() {

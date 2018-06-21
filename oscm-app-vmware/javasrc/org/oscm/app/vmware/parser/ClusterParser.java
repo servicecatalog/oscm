@@ -1,17 +1,17 @@
 package org.oscm.app.vmware.parser;
 
-import org.oscm.app.vmware.parser.model.Datacenter;
+import org.oscm.app.vmware.parser.model.Cluster;
 
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public class DatacenterParser extends CSVParser<Datacenter> {
+public class ClusterParser extends CSVParser<Cluster> {
     enum Columns {
         VCENTER("VCenter"),
         DATACENTER("Datacenter"),
-        DATACENTER_ID("DatacenterID");
+        CLUSTER_NAME("Clustername");
 
         private final String text;
 
@@ -25,7 +25,7 @@ public class DatacenterParser extends CSVParser<Datacenter> {
         }
     }
 
-    public DatacenterParser(InputStream stream) throws Exception {
+    public ClusterParser(InputStream stream) throws Exception {
         super(stream);
     }
 
@@ -34,13 +34,13 @@ public class DatacenterParser extends CSVParser<Datacenter> {
         return Arrays.asList(
                 Columns.VCENTER.toString(),
                 Columns.DATACENTER.toString(),
-                Columns.DATACENTER_ID.toString()
+                Columns.CLUSTER_NAME.toString()
         );
     }
 
     @Override
-    public Datacenter readNextObject() throws Exception {
-        Datacenter result = new Datacenter();
+    public Cluster readNextObject() throws Exception {
+        Cluster result = new Cluster();
         Map<String, String> entries = this.readNext();
 
         if(entries == null) {
@@ -49,7 +49,7 @@ public class DatacenterParser extends CSVParser<Datacenter> {
 
         result.vCenter = entries.get(Columns.VCENTER.toString());
         result.datacenter = entries.get(Columns.DATACENTER.toString());
-        result.datacenterID = entries.get(Columns.DATACENTER_ID.toString());
+        result.clusterName = entries.get(Columns.CLUSTER_NAME.toString());
 
         return result;
     }
