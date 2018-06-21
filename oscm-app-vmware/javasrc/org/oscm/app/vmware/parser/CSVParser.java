@@ -76,7 +76,7 @@ abstract class CSVParser<T> implements AutoCloseable {
      * Reads next line in file and validates read data, then transforms it into key[column name] - value[column value]
      * map and returns to the user.
      *
-     * @return map of key-value entries build based on line read from the CSV file
+     * @return map of key-value entries build based on line read from the CSV file or null if EOF
      */
     Map<String, String> readNext() throws Exception {
         List<String> values = this.next();

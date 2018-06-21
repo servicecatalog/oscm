@@ -7,10 +7,18 @@ public class ImporterFactory {
 
     public static Importer getImporter(String tableName, DataAccessService das) {
         switch(tableName) {
+            case "Cluster":
+                return new ClusterImporter(das);
+            case "Datacenter":
+                return new DatacenterImporter(das);
+            case "IPPool":
+                return new IPPoolImporter(das);
             case "VCenter":
                 return new VCenterImporter(das);
+            case "VLAN":
+                return new VLANImporter(das);
             default:
-                throw new UnsupportedOperationException(tableName + " importer not supported.");
+                throw new UnsupportedOperationException(tableName + " import not supported.");
         }
     }
 }

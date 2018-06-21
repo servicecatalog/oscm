@@ -176,7 +176,12 @@ public class TargetLocationBean extends UiBeanBase {
 
     public void importData(String tableName, InputStream csvFile) {
         Importer importer = ImporterFactory.getImporter(tableName, this.settings.getDataAccessService());
-        importer.load(csvFile);
+
+        try {
+            importer.load(csvFile);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        }
     }
 
     protected FacesContext getFacesContext() {

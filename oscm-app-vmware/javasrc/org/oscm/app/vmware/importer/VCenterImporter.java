@@ -22,14 +22,12 @@ public class VCenterImporter implements Importer {
     }
 
     @Override
-    public void load(InputStream csvFile) {
+    public void load(InputStream csvFile) throws Exception {
         try(VCenterParser parser = new VCenterParser(csvFile)) {
             VCenter vCenter;
             while((vCenter = parser.readNextObject()) != null) {
                 this.save(vCenter);
             }
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage());
         }
     }
 }
