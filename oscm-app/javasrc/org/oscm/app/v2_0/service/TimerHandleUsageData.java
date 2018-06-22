@@ -211,7 +211,11 @@ public class TimerHandleUsageData {
             em.refresh(instance);
             Setting usage = instance.getParameterMap().get("LAST_USAGE_FETCH");
             if (usage != null) {
-                em.refresh(usage);
+                if (!em.contains(usage)) {
+                    em.persist(usage);
+                } else {
+                    em.refresh(usage);
+                }
                 return usage.getValue();
             }
         } catch (BadResultException e) {
