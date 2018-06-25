@@ -40,6 +40,7 @@ public class TargetLocationBean extends UiBeanBase {
     private int currentCluster = -1;
     private VCenter selectedVCenter;
     private List<SelectItem> vcenterList = new ArrayList<>();
+    private List<SelectItem> importFileTypes = new ArrayList<>();
     private boolean dirty = false;
 
     List<VCenter> vcenter;
@@ -63,6 +64,15 @@ public class TargetLocationBean extends UiBeanBase {
                 currentVCenter = vc.tkey;
             }
         }
+
+        // TODO refactor
+        int i = 0;
+        importFileTypes.add(new SelectItem(i++, "vCenter"));
+        importFileTypes.add(new SelectItem(i++, "Datacenter"));
+        importFileTypes.add(new SelectItem(i++, "Cluster"));
+        importFileTypes.add(new SelectItem(i++, "VLAN"));
+        importFileTypes.add(new SelectItem(i++, "IP Pool"));
+
         parseConfiguration();
     }
 
@@ -88,8 +98,7 @@ public class TargetLocationBean extends UiBeanBase {
             dirty = false;
         } catch (Exception e) {
             status = Messages.get(getDefaultLanguage(),
-                    "ui.config.status.save.failed",
-                    new Object[]{e.getMessage()});
+                    "ui.config.status.save.failed", e.getMessage());
             logger.error(
                     "Failed to save load balancer settings to VMware controller database.",
                     e);
@@ -115,6 +124,10 @@ public class TargetLocationBean extends UiBeanBase {
 
     public List<SelectItem> getVcenterList() {
         return vcenterList;
+    }
+
+    public List<SelectItem> getImportFileTypes() {
+        return importFileTypes;
     }
 
     public String getUnsavedChangesMsg() {

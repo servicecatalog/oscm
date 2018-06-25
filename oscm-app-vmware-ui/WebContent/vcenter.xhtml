@@ -173,6 +173,11 @@
               <td class="rf-dt-c">
                 <h:inputText id="csvFileType" size="70" onchange="setDirty(true);"
                              value="#{targetLocationBean.selectedVCenter.url}"/>
+                  <h:selectOneMenu value="#{targetLocationBean.currentVCenter}"
+                                   styleClass="select"
+                                   immediate="true">
+                    <f:selectItems value="#{targetLocationBean.importFileTypes}" />
+                    </h:selectOneMenu>
               </td>
             </tr>
             <tr class="rf-dt-r rowEven">
