@@ -50,8 +50,6 @@
     <table id="vcenterTable">
       <tr>
         <th>vCenter</th>
-        <!--<th>Datacenter</th>
-        <th>Cluster</th>-->
       </tr>
       <tr>
         <td>
@@ -65,40 +63,19 @@
             </h:selectOneMenu>
           </a4j:outputPanel>
         </td>
-
-        <!--
-        <td><a4j:outputPanel id="second" layout="block">
-            <h:selectOneMenu value="#{targetLocationBean.currentDatacenter}" rendered="#{true}"
-              onclick="javascript:AdmUtils.storeValue(this);"
-              valueChangeListener="#{targetLocationBean.valueChangeDatacenter}">
-              <f:selectItems value="#{targetLocationBean.datacenterList}" />
-              <a4j:ajax event="valueChange" render="status third balancer_form" execute="@this"
-                onbeforesubmit="if(AdmUtils.isNotDirtyOrConfirmed()){setDirty(false); } else {AdmUtils.restoreValue(this);return false;}" />
-            </h:selectOneMenu>
-          </a4j:outputPanel></td>
-        <td><a4j:outputPanel id="third" layout="block">
-            <h:selectOneMenu value="#{targetLocationBean.currentCluster}" rendered="#{true}"
-              onclick="javascript:AdmUtils.storeValue(this);"
-              valueChangeListener="#{targetLocationBean.valueChangeCluster}">
-              <f:selectItems value="#{targetLocationBean.clusterList}" />
-              <a4j:ajax event="valueChange" render="status balancer_form" execute="@this"
-                onbeforesubmit="if(AdmUtils.isNotDirtyOrConfirmed()){setDirty(false); } else {AdmUtils.restoreValue(this);return false;}" />
-            </h:selectOneMenu>
-          </a4j:outputPanel></td>
-          -->
       </tr>
     </table>
   </h:form>
 
   <div class="box_area_class">
-    <!--▼ Heading data 3 ▼-->
-    <div class="heading_data_3_class">
-      <div class="heading_data_3_bg_class">
-        <h4>
-          <h:outputText value="#{msg['ui.config.part.vsphereapi']}"/>
-        </h4>
-      </div>
+  <!--▼ Heading data 3 ▼-->
+  <div class="heading_data_3_class">
+    <div class="heading_data_3_bg_class">
+      <h4>
+        <h:outputText value="#{msg['ui.config.part.vsphereapi']}"/>
+      </h4>
     </div>
+  </div>
 
   <h:form id="balancer_form" styleClass="configurationSettings_area">
     <h:inputHidden id="selectedRowNum" value="#{targetLocationBean.selectedRowNum}" />
@@ -150,114 +127,10 @@
         </table>
       </div>
     </div>
-    <!--
-    <h2>
-      <h:outputText value="#{msg['ui.config.part.hbsettings']}" />
-    </h2>
-    <table class="box" cellspacing="3">
-      <tr>
-        <td><h:outputText value="#{msg['ui.config.part.hbsettings.balancer']}" /></td>
-        <td><h:selectOneMenu value="#{targetLocationBean.hostBalancer.balancer}" onchange="setDirty(true);">
-            <f:selectItems value="#{targetLocationBean.hostBalancerList}" />
-          </h:selectOneMenu></td>
-      </tr>
-      <tr>
-        <td><h:outputText value="#{msg['ui.config.part.hbsettings.mw']}" /></td>
-        <td><h:inputText id="hbProp1" size="4" onchange="setDirty(true);"
-            value="#{targetLocationBean.hostBalancer.memoryWeight}" /></td>
-      </tr>
-      <tr>
-        <td><h:outputText value="#{msg['ui.config.part.hbsettings.cw']}" /></td>
-        <td><h:inputText id="hbProp2" size="4" onchange="setDirty(true);"
-            value="#{targetLocationBean.hostBalancer.cpuWeight}" /></td>
-      </tr>
-      <tr>
-        <td><h:outputText value="#{msg['ui.config.part.hbsettings.vw']}" /></td>
-        <td><h:inputText id="hbProp3" size="4" onchange="setDirty(true);"
-            value="#{targetLocationBean.hostBalancer.vmWeight}" /></td>
-      </tr>
-    </table>
-    <table class="box">
-      <tr>
-        <td><b><h:outputText value="#{msg['ui.config.part.hosts']}" /></b></td>
-      </tr>
-    </table>
-    <rich:dataTable value="#{targetLocationBean.hosts}" var="item" rowClasses="rowOdd,rowEven" headerClass="rowTitle"
-      rowKeyVar="rowNum">
-      <rich:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg['ui.config.column.enabled']}" />
-        </f:facet>
-        <h:selectBooleanCheckbox id="cbenabled" onchange="setDirty(true);" value="#{item.enabled}" />
-      </rich:column>
-      <rich:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg['ui.config.column.name']}" />
-        </f:facet>
-        <h:inputText id="nameValue" size="30" onchange="setDirty(true);" value="#{item.name}" />
-      </rich:column>
-      <rich:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg['ui.config.column.assstorages']}" />
-        </f:facet>
-        <h:inputText id="storagesValue" size="30" onchange="setDirty(true);" value="#{item.balancer.storages}" />
-      </rich:column>
-      <rich:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg['ui.config.column.storage.balancer']}" />
-        </f:facet>
-        <h:selectOneMenu value="#{item.balancer.balancer}" onchange="setDirty(true);">
-          <f:selectItems value="#{targetLocationBean.storageBalancerList}" />
-        </h:selectOneMenu>
-      </rich:column>
-      <rich:column>
-        <h:commandLink value="#{msg['ui.config.action.delete']}" type="submit"
-          onclick="#{rich:element('selectedRowNum')}.value='#{rowNum}';#{rich:element('deleteHost')}.click();setDirty(true);return false;" />
-      </rich:column>
-    </rich:dataTable>
-    <h:commandLink value="#{msg['ui.config.action.addhost']}" type="submit" action="#{targetLocationBean.addHost}"
-      onclick="setDirty(false);" styleClass="box" />
-    <br />
-    <table class="box">
-      <tr>
-        <td><b><h:outputText value="#{msg['ui.config.part.storages']}" /></b></td>
-      </tr>
-    </table>
-    <rich:dataTable value="#{targetLocationBean.storages}" var="item" rowClasses="rowOdd,rowEven" headerClass="rowTitle"
-      rowKeyVar="rowNum">
-      <rich:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg['ui.config.column.enabled']}" />
-        </f:facet>
-        <h:selectBooleanCheckbox id="cbenabled" onchange="setDirty(true);" value="#{item.enabled}" />
-      </rich:column>
-      <rich:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg['ui.config.column.name']}" />
-        </f:facet>
-        <h:inputText id="nameValue" size="30" onchange="setDirty(true);" value="#{item.name}" />
-      </rich:column>
-      <rich:column>
-        <f:facet name="header">
-          <h:outputText value="#{msg['ui.config.column.limit']}" />
-        </f:facet>
-        <h:inputText id="limitValue" size="6" onchange="setDirty(true);" value="#{item.limit}" />
-      </rich:column>
-      <rich:column>
-        <h:commandLink value="#{msg['ui.config.action.delete']}" type="submit"
-          onclick="#{rich:element('selectedRowNum')}.value='#{rowNum}';#{rich:element('deleteStorage')}.click();setDirty(true);return false;" />
-      </rich:column>
-    </rich:dataTable>
-    <h:commandLink value="#{msg['ui.config.action.addstorage']}" type="submit" action="#{targetLocationBean.addStorage}"
-      onclick="setDirty(false);" styleClass="box" />
-      -->
     <br />
 
     <a4j:outputPanel layout="block" styleClass="description buttonPanel">
       <div class="button_main_area_class">
-        <!--<h:commandButton value="#{msg['ui.config.action.reset']}" onclick="setDirty(false);" type="submit"
-          action="#{targetLocationBean.reset}" /> -->
-
         <span class="button_right_part_class">
           <span class="button_content_class">
             <h:commandButton class="button_normal_class" value="#{msg['ui.config.action.save']}" type="submit"
@@ -268,5 +141,70 @@
     </a4j:outputPanel>
   </h:form>
   </div>
+
+  <div class="box_area_class">
+  <div class="heading_data_3_class">
+    <div class="heading_data_3_bg_class">
+      <h4>
+        <h:outputText value="#{msg['ui.config.part.csv']}"/>
+      </h4>
+    </div>
+  </div>
+  <h:form id="csv_form" styleClass="configurationSettings_area">
+    <div class="nested_heading_data_class">
+      <div class="accordion_area1">
+        <table id="csvUploadTable" class="rf-dt table_row_linetitle_class">
+          <colgroup span="2"></colgroup>
+          <thead class="rf-dt-thd">
+            <tr class="rf-dt-shdr">
+              <th class="rf-dt-shdr-c rf-dt-keyColumn table_header_title_class">
+                <h:outputText value="#{msg['ui.config.column.key']}"/>
+              </th>
+              <th class="rf-dt-shdr-c">
+                <h:outputText value="#{msg['ui.config.column.value']}"/>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="rf-dt-b">
+            <tr class="rf-dt-r rowOdd">
+              <td class="rf-dt-c">
+                <h:outputText value="#{msg['ui.config.part.csv.type']}"/>
+              </td>
+              <td class="rf-dt-c">
+                <h:inputText id="csvFileType" size="70" onchange="setDirty(true);"
+                             value="#{targetLocationBean.selectedVCenter.url}"/>
+              </td>
+            </tr>
+            <tr class="rf-dt-r rowEven">
+              <td class="rf-dt-c">
+                <h:outputText value="#{msg['ui.config.part.csv.file']}"/>
+              </td>
+              <td class="rf-dt-c">
+                <h:inputFile id="csvFile"
+                             label="#{msg[key]}"
+                             size="20"
+                             onchange="setDirty(true);"
+                             value="#{targetLocationBean.selectedVCenter.userid}"
+                             styleClass="fileChooser" />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br />
+    <a4j:outputPanel layout="block" styleClass="description buttonPanel">
+      <div class="button_main_area_class">
+        <span class="button_right_part_class">
+          <span class="button_content_class">
+            <h:commandButton class="button_normal_class" value="#{msg['ui.config.action.upload']}" type="submit"
+                             action="#{targetLocationBean.save}" oncomplete="setDirty(#{targetLocationBean.dirty});" />
+          </span>
+        </span>
+      </div>
+    </a4j:outputPanel>
+  </h:form>
+  </div>
+
 </h:body>
 </html>
