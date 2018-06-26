@@ -1,9 +1,14 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
-  xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:t="http://myfaces.apache.org/tomahawk"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
 <h:head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -28,13 +33,16 @@
   <h:outputStylesheet name="override_richfaces.css" />
   <adm:header userId="#{targetLocationBean.loggedInUserId}"/>
 
-  <a4j:outputPanel id="titleArea" layout="block" styleClass="heading_data_1_class">
+  <a4j:outputPanel id="titleArea"
+                   layout="block"
+                   styleClass="heading_data_1_class">
     <div class="heading_data_1_bg_class no-height">
       <h2>
         <h:outputText value="#{msg['ui.config.title']}" />
       </h2>
 
-      <ui:repeat value="#{menu.items}" var="item">
+      <ui:repeat value="#{menu.items}"
+                 var="item">
         <h:outputLink value="#{facesContext.externalContext.requestContextPath}#{item.link}">
           <h:outputText value="#{item.label}" />
         </h:outputLink>
@@ -44,22 +52,30 @@
 
   </a4j:outputPanel>
 
-  <h:outputText value="#{msg['ui.config.description.cluster']}" styleClass="description" />
+  <h:outputText value="#{msg['ui.config.description.cluster']}"
+                styleClass="description" />
   <h:form>
-    <h:outputText id="status" value="#{targetLocationBean.status}" styleClass="statusPanelClass" />
+    <h:outputText id="status"
+                  value="#{targetLocationBean.status}"
+                  styleClass="statusPanelClass" />
     <table id="vcenterTable">
       <tr>
         <th>vCenter</th>
       </tr>
       <tr>
         <td>
-          <a4j:outputPanel styleClass="jqSelect" layout="block">
+          <a4j:outputPanel styleClass="jqSelect"
+                           layout="block">
             <h:selectOneMenu value="#{targetLocationBean.currentVCenter}"
-              onclick="javascript:AdmUtils.storeValue(this);" styleClass="select"
-              valueChangeListener="#{targetLocationBean.valueChangeVCenter}" immediate="true">
+                             onclick="javascript:AdmUtils.storeValue(this);"
+                             styleClass="select"
+                             valueChangeListener="#{targetLocationBean.valueChangeVCenter}"
+                             immediate="true">
               <f:selectItems value="#{targetLocationBean.vcenterList}" />
-              <a4j:ajax event="valueChange" render="status second third balancer_form" execute="@this"
-                onbeforesubmit="if(AdmUtils.isNotDirtyOrConfirmed()){setDirty(false); } else {AdmUtils.restoreValue(this);return false;}" />
+              <a4j:ajax event="valueChange"
+                        render="status second third balancer_form"
+                        execute="@this"
+                        onbeforesubmit="if(AdmUtils.isNotDirtyOrConfirmed()){setDirty(false); } else {AdmUtils.restoreValue(this);return false;}" />
             </h:selectOneMenu>
           </a4j:outputPanel>
         </td>
@@ -77,13 +93,20 @@
     </div>
   </div>
 
-  <h:form id="balancer_form" styleClass="configurationSettings_area">
-    <h:inputHidden id="selectedRowNum" value="#{targetLocationBean.selectedRowNum}" />
-    <h:commandButton id="deleteHost" action="#{targetLocationBean.deleteHost}" style="display: none;" />
-    <h:commandButton id="deleteStorage" action="#{targetLocationBean.deleteStorage}" style="display: none;"/>
+  <h:form id="balancer_form"
+          styleClass="configurationSettings_area">
+    <h:inputHidden id="selectedRowNum"
+                   value="#{targetLocationBean.selectedRowNum}" />
+    <h:commandButton id="deleteHost"
+                     action="#{targetLocationBean.deleteHost}"
+                     style="display: none;" />
+    <h:commandButton id="deleteStorage"
+                     action="#{targetLocationBean.deleteStorage}"
+                     style="display: none;"/>
     <div class="nested_heading_data_class">
       <div class="accordion_area1">
-        <table id="vsphereSettings" class="rf-dt table_row_linetitle_class">
+        <table id="vsphereSettings"
+               class="rf-dt table_row_linetitle_class">
           <colgroup span="2"></colgroup>
           <thead class="rf-dt-thd">
           <tr class="rf-dt-shdr">
@@ -101,7 +124,9 @@
               <h:outputText value="#{msg['ui.config.part.vsphereapi.url']}"/>
             </td>
             <td class="rf-dt-c">
-              <h:inputText id="vsphere_api_url" size="70" onchange="setDirty(true);"
+              <h:inputText id="vsphere_api_url"
+                           size="70"
+                           onchange="setDirty(true);"
                            value="#{targetLocationBean.selectedVCenter.url}"/>
             </td>
           </tr>
@@ -110,7 +135,9 @@
               <h:outputText value="#{msg['ui.config.part.vsphereapi.userid']}"/>
             </td>
             <td class="rf-dt-c">
-              <h:inputText id="vsphere_api_user" size="20" onchange="setDirty(true);"
+              <h:inputText id="vsphere_api_user"
+                           size="20"
+                           onchange="setDirty(true);"
                            value="#{targetLocationBean.selectedVCenter.userid}"/>
             </td>
           </tr>
@@ -119,8 +146,11 @@
               <h:outputText value="#{msg['ui.config.part.vsphereapi.password']}"/>
             </td>
             <td class="rf-dt-c">
-              <h:inputSecret id="vsphere_api_pwd" size="20" onchange="setDirty(true);"
-                             value="#{targetLocationBean.selectedVCenter.password}" redisplay="true"/>
+              <h:inputSecret id="vsphere_api_pwd"
+                             size="20"
+                             onchange="setDirty(true);"
+                             value="#{targetLocationBean.selectedVCenter.password}"
+                             redisplay="true"/>
             </td>
           </tr>
           </tbody>
@@ -129,12 +159,16 @@
     </div>
     <br />
 
-    <a4j:outputPanel layout="block" styleClass="description buttonPanel">
+    <a4j:outputPanel layout="block"
+                     styleClass="description buttonPanel">
       <div class="button_main_area_class">
         <span class="button_right_part_class">
           <span class="button_content_class">
-            <h:commandButton class="button_normal_class" value="#{msg['ui.config.action.save']}" type="submit"
-              action="#{targetLocationBean.save}" oncomplete="setDirty(#{targetLocationBean.dirty});" />
+            <h:commandButton class="button_normal_class"
+                             value="#{msg['ui.config.action.save']}"
+                             type="submit"
+                             action="#{targetLocationBean.save}"
+                             oncomplete="setDirty(#{targetLocationBean.dirty});" />
           </span>
         </span>
       </div>
@@ -150,10 +184,13 @@
       </h4>
     </div>
   </div>
-  <h:form id="csv_form" styleClass="configurationSettings_area">
+  <h:form id="csv_form"
+          styleClass="configurationSettings_area"
+          enctype="multipart/form-data">
     <div class="nested_heading_data_class">
       <div class="accordion_area1">
-        <table id="csvUploadTable" class="rf-dt table_row_linetitle_class">
+        <table id="csvUploadTable"
+               class="rf-dt table_row_linetitle_class">
           <colgroup span="2"></colgroup>
           <thead class="rf-dt-thd">
             <tr class="rf-dt-shdr">
@@ -172,6 +209,7 @@
               </td>
               <td class="rf-dt-c">
                 <h:selectOneMenu value="#{targetLocationBean.currentImportFileType}"
+                                 onchange="setDirty(true);"
                                  styleClass="select"
                                  immediate="true">
                   <f:selectItems value="#{targetLocationBean.importFileTypes}" />
@@ -184,10 +222,9 @@
               </td>
               <td class="rf-dt-c">
                 <h:inputFile id="csvFile"
-                             label="#{msg[key]}"
                              size="20"
                              onchange="setDirty(true);"
-                             value="#{targetLocationBean.selectedVCenter.userid}"
+                             value="#{targetLocationBean.file}"
                              styleClass="fileChooser" />
               </td>
             </tr>
@@ -196,12 +233,16 @@
       </div>
     </div>
     <br />
-    <a4j:outputPanel layout="block" styleClass="description buttonPanel">
+    <a4j:outputPanel layout="block"
+                     styleClass="description buttonPanel">
       <div class="button_main_area_class">
         <span class="button_right_part_class">
           <span class="button_content_class">
-            <h:commandButton class="button_normal_class" value="#{msg['ui.config.action.upload']}" type="submit"
-                             action="#{targetLocationBean.save}" oncomplete="setDirty(#{targetLocationBean.dirty});" />
+            <h:commandButton class="button_normal_class"
+                             value="#{msg['ui.config.action.upload']}"
+                             type="submit"
+                             action="#{targetLocationBean.uploadCSV}"
+                             oncomplete="setDirty(#{targetLocationBean.dirty});" />
           </span>
         </span>
       </div>

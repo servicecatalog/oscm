@@ -23,6 +23,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,16 @@ public class TargetLocationBean extends UiBeanBase {
     private List<SelectItem> importFileTypes = new ArrayList<>();
     private int currentImportFileType;
     private boolean dirty = false;
+
+    private Part file;
+
+    public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) {
+        this.file = file;
+    }
 
     List<VCenter> vcenter;
 
@@ -209,5 +220,28 @@ public class TargetLocationBean extends UiBeanBase {
 
     public void setCurrentImportFileType(String currentImportFileType) {
         this.currentImportFileType = Integer.parseInt(currentImportFileType);
+    }
+
+    static String convertStreamToString(java.io.InputStream is) {
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
+    }
+
+    public void uploadCSV() {
+        status = null;
+        //dirty = true; // TODO dirty for csv
+
+        try {
+            System.out.println("======================");
+            System.out.println(convertStreamToString(this.file.getInputStream()));
+            System.out.println("======================");
+
+            //settings.saveTargetVCenter(selectedVCenter);
+            //dirty = false;
+        } catch (Exception e) {
+//            status = Messages.get(getDefaultLanguage(),
+//                    "ui.config.status.save.failed", e.getMessage());
+            logger.error("Failed to upload CSV configuration file.", e);
+        }
     }
 }
