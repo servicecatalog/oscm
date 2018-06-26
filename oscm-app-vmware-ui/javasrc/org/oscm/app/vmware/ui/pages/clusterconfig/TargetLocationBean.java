@@ -27,6 +27,7 @@ import javax.servlet.http.Part;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ManagedBean(name = "targetLocationBean")
 @ViewScoped
@@ -38,7 +39,6 @@ public class TargetLocationBean extends UiBeanBase {
 
     private int selectedRowNum;
     private int currentVCenter;
-    private int currentCluster = -1;
     private VCenter selectedVCenter;
     private List<SelectItem> vcenterList = new ArrayList<>();
     private List<SelectItem> importFileTypes = new ArrayList<>();
@@ -69,7 +69,7 @@ public class TargetLocationBean extends UiBeanBase {
     private void initBean() {
         vcenter = settings.getTargetVCenter();
         for (VCenter vc : vcenter) {
-            SelectItem item = new SelectItem(Integer.valueOf(vc.tkey), vc.name);
+            SelectItem item = new SelectItem(vc.tkey, vc.name);
             vcenterList.add(item);
             if (vcenterList.size() == 1) {
                 selectedVCenter = vc;
@@ -77,31 +77,15 @@ public class TargetLocationBean extends UiBeanBase {
             }
         }
 
-        // TODO refactor
-        int i = 0;
-        importFileTypes.add(new SelectItem(i++, "vCenter"));
-        importFileTypes.add(new SelectItem(i++, "Datacenter"));
-        importFileTypes.add(new SelectItem(i++, "Cluster"));
-        importFileTypes.add(new SelectItem(i++, "VLAN"));
-        importFileTypes.add(new SelectItem(i, "IP Pool"));
+        importFileTypes = ConfigurationFileType.ALL
+                .entrySet()
+                .stream()
+                .map(e -> new SelectItem(e.getKey(), e.getValue().getDisplayName()))
+                .collect(Collectors.toList());
+
         currentImportFileType = 0;
-
-        parseConfiguration();
     }
 
-    /**
-     * Convert the XML for the host and storage configuration to Java objects.
-     */
-    private void parseConfiguration() {
-        if (currentCluster == -1) {
-            logger.debug("Cluster not yet set");
-            return;
-        }
-    }
-
-    /**
-     * Save modified values to database
-     */
     public void save() {
         status = null;
         dirty = true;
@@ -113,7 +97,7 @@ public class TargetLocationBean extends UiBeanBase {
             status = Messages.get(getDefaultLanguage(),
                     "ui.config.status.save.failed", e.getMessage());
             logger.error(
-                    "Failed to save load balancer settings to VMware controller database.",
+                    "Failed to save vSphere API settings to VMware controller database.",
                     e);
         }
     }
@@ -174,14 +158,6 @@ public class TargetLocationBean extends UiBeanBase {
         this.currentVCenter = Integer.parseInt(currentVCenter);
     }
 
-    public String getCurrentCluster() {
-        return Integer.toString(currentCluster);
-    }
-
-    public void setCurrentCluster(String currentCluster) {
-        this.currentCluster = Integer.parseInt(currentCluster);
-    }
-
     public VCenter getSelectedVCenter() {
         return selectedVCenter;
     }
@@ -200,8 +176,26 @@ public class TargetLocationBean extends UiBeanBase {
         return null;
     }
 
-    public void importData(String tableName, InputStream csvFile) {
-        Importer importer = ImporterFactory.getImporter(tableName, this.settings.getDataAccessService());
+    public void uploadConfig() {
+        status = null;
+        //dirty = true; // TODO dirty for csv
+
+        try {
+            String tableName = ConfigurationFileType.ALL
+                    .get(this.currentImportFileType).getTableName();
+            importData(tableName, this.file.getInputStream());
+
+            //dirty = false;
+        } catch (Exception e) {
+//            status = Messages.get(getDefaultLanguage(),
+//                    "ui.config.status.save.failed", e.getMessage());
+            logger.error("Failed to upload CSV configuration file.", e);
+        }
+    }
+
+    private void importData(String tableName, InputStream csvFile) {
+        Importer importer = ImporterFactory.getImporter(tableName,
+                this.settings.getDataAccessService());
 
         try {
             importer.load(csvFile);
@@ -220,28 +214,5 @@ public class TargetLocationBean extends UiBeanBase {
 
     public void setCurrentImportFileType(String currentImportFileType) {
         this.currentImportFileType = Integer.parseInt(currentImportFileType);
-    }
-
-    static String convertStreamToString(java.io.InputStream is) {
-        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-        return s.hasNext() ? s.next() : "";
-    }
-
-    public void uploadCSV() {
-        status = null;
-        //dirty = true; // TODO dirty for csv
-
-        try {
-            System.out.println("======================");
-            System.out.println(convertStreamToString(this.file.getInputStream()));
-            System.out.println("======================");
-
-            //settings.saveTargetVCenter(selectedVCenter);
-            //dirty = false;
-        } catch (Exception e) {
-//            status = Messages.get(getDefaultLanguage(),
-//                    "ui.config.status.save.failed", e.getMessage());
-            logger.error("Failed to upload CSV configuration file.", e);
-        }
     }
 }
