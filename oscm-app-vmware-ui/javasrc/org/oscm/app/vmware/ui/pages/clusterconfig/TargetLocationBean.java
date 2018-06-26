@@ -41,6 +41,7 @@ public class TargetLocationBean extends UiBeanBase {
     private VCenter selectedVCenter;
     private List<SelectItem> vcenterList = new ArrayList<>();
     private List<SelectItem> importFileTypes = new ArrayList<>();
+    private int currentImportFileType;
     private boolean dirty = false;
 
     List<VCenter> vcenter;
@@ -71,7 +72,8 @@ public class TargetLocationBean extends UiBeanBase {
         importFileTypes.add(new SelectItem(i++, "Datacenter"));
         importFileTypes.add(new SelectItem(i++, "Cluster"));
         importFileTypes.add(new SelectItem(i++, "VLAN"));
-        importFileTypes.add(new SelectItem(i++, "IP Pool"));
+        importFileTypes.add(new SelectItem(i, "IP Pool"));
+        currentImportFileType = 0;
 
         parseConfiguration();
     }
@@ -199,5 +201,13 @@ public class TargetLocationBean extends UiBeanBase {
 
     protected FacesContext getFacesContext() {
         return FacesContext.getCurrentInstance();
+    }
+
+    public String getCurrentImportFileType() {
+        return Integer.toString(currentImportFileType);
+    }
+
+    public void setCurrentImportFileType(String currentImportFileType) {
+        this.currentImportFileType = Integer.parseInt(currentImportFileType);
     }
 }
