@@ -205,18 +205,14 @@ public class TimerHandleUsageData {
                 .format(ISO_LOCAL_DATE_TIME);
     }
 
+   
     String getLastUsageTime(ServiceInstance instance) {
         try {
 
             em.refresh(instance);
-            Setting usage = instance.getParameterMap().get("LAST_USAGE_FETCH");
-            if (usage != null) {
-                if (!em.contains(usage)) {
-                    em.persist(usage);
-                } else {
-                    em.refresh(usage);
-                }
-                return usage.getValue();
+            Setting lastUsageFetch = instance.getParameterMap().get("LAST_USAGE_FETCH");
+            if (lastUsageFetch != null) {
+                return lastUsageFetch.getValue();
             }
         } catch (BadResultException e) {
             LOG.debug(e.getMessage());
