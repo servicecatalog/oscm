@@ -32,6 +32,7 @@ import javax.persistence.PersistenceContext;
 
 import org.oscm.app.business.APPlatformControllerFactory;
 import org.oscm.app.business.exceptions.BadResultException;
+import org.oscm.app.dao.ServiceInstanceDAO;
 import org.oscm.app.domain.PlatformConfigurationKey;
 import org.oscm.app.domain.ServiceInstance;
 import org.oscm.app.v2_0.APPlatformServiceFactory;
@@ -70,6 +71,9 @@ public class TimerHandleUsageData {
 
     @Inject
     protected ServiceInstanceServiceBean serviceInstanceService;
+    
+    @Inject
+    protected ServiceInstanceDAO siDao;
 
     @EJB
     protected APPConfigurationServiceBean configService;
@@ -205,18 +209,14 @@ public class TimerHandleUsageData {
                 .format(ISO_LOCAL_DATE_TIME);
     }
 
+   
     String getLastUsageTime(ServiceInstance instance) {
         try {
 
             em.refresh(instance);
-            Setting usage = instance.getParameterMap().get("LAST_USAGE_FETCH");
-            if (usage != null) {
-                if (!em.contains(usage)) {
-                    em.persist(usage);
-                } else {
-                    em.refresh(usage);
-                }
-                return usage.getValue();
+            Setting lastUsageFetch = instance.getParameterMap().get("LAST_USAGE_FETCH");
+            if (lastUsageFetch != null) {
+                return lastUsageFetch.getValue();
             }
         } catch (BadResultException e) {
             LOG.debug(e.getMessage());
@@ -231,11 +231,7 @@ public class TimerHandleUsageData {
 
     void updateLastUsageFetch(ServiceInstance serviceInstance, String endTime)
             throws SQLException, Exception {
-        serviceInstance.getParameterMap().put("LAST_USAGE_FETCH",
-                new Setting("LAST_USAGE_FETCH", endTime, false,
-                        serviceInstance.getControllerId()));
-        em.merge(serviceInstance);
-        em.flush();
+        siDao.updateParam(serviceInstance, endTime, "LAST_USAGE_FETCH");
     }
 
 }
