@@ -1,24 +1,26 @@
 package org.oscm.app.vmware.importer;
 
+import org.oscm.app.vmware.importer.model.ConfigurationType;
 import org.oscm.app.vmware.persistence.DataAccessService;
 
 public class ImporterFactory {
     private ImporterFactory() {}
 
-    public static Importer getImporter(String tableName, DataAccessService das) {
-        switch(tableName) {
-            case "Cluster":
+    public static Importer getImporter(ConfigurationType ct, DataAccessService das) {
+        switch(ct) {
+            case CLUSTER:
                 return new ClusterImporter(das);
-            case "Datacenter":
+            case DATACENTER:
                 return new DatacenterImporter(das);
-            case "IPPool":
+            case IPPOOL:
                 return new IPPoolImporter(das);
-            case "VCenter":
+            case VCENTER:
                 return new VCenterImporter(das);
-            case "VLAN":
+            case VLAN:
                 return new VLANImporter(das);
             default:
-                throw new UnsupportedOperationException(tableName + " import not supported.");
+                throw new UnsupportedOperationException(ct.getTableName()
+                        + " import not supported.");
         }
     }
 }

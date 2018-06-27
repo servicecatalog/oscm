@@ -12,6 +12,7 @@ import org.oscm.app.vmware.business.model.VCenter;
 import org.oscm.app.vmware.i18n.Messages;
 import org.oscm.app.vmware.importer.Importer;
 import org.oscm.app.vmware.importer.ImporterFactory;
+import org.oscm.app.vmware.importer.model.ConfigurationType;
 import org.oscm.app.vmware.persistence.DataAccessService;
 import org.oscm.app.vmware.ui.UiBeanBase;
 import org.slf4j.Logger;
@@ -35,13 +36,14 @@ public class TargetLocationBean extends UiBeanBase {
     private static final Logger logger = LoggerFactory.getLogger(UiBeanBase.class);
     private int selectedRowNum;
     private int currentVCenter;
+    private List<VCenter> vcenter;
     private VCenter selectedVCenter;
     private List<SelectItem> vcenterList = new ArrayList<>();
     private int currentConfigFileType = 0;
     private List<SelectItem> configFileTypes = new ArrayList<>();
     private boolean dirty = false;
     private Part file;
-    private List<VCenter> vcenter;
+
 
     public TargetLocationBean(DataAccessService das) {
         settings.useMock(das);
@@ -71,11 +73,13 @@ public class TargetLocationBean extends UiBeanBase {
     }
 
     private void initConfigFileTypes() {
-        configFileTypes = ConfigurationFileType.ALL
-                .entrySet()
-                .stream()
-                .map(e -> new SelectItem(e.getKey(), e.getValue().getDisplayName()))
-                .collect(Collectors.toList());
+        for (ConfigurationType ct : ConfigurationType.values()) {
+            configFileTypes.add(new SelectItem(ct.getId(), ct.getDisplayName()));
+        }
+
+        if(configFileTypes.size() >= 1) {
+            currentConfigFileType = 0;
+        }
     }
 
     public void save() {
@@ -98,10 +102,8 @@ public class TargetLocationBean extends UiBeanBase {
         status = null;
 
         try {
-            String tableName = ConfigurationFileType.ALL
-                    .get(this.currentConfigFileType).getTableName();
-
-            Importer importer = ImporterFactory.getImporter(tableName,
+            ConfigurationType ct = ConfigurationType.values()[this.currentConfigFileType];
+            Importer importer = ImporterFactory.getImporter(ct,
                     this.settings.getDataAccessService());
             importer.load(this.file.getInputStream());
 
