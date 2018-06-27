@@ -26,6 +26,7 @@ import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,9 +74,9 @@ public class TargetLocationBean extends UiBeanBase {
     }
 
     private void initConfigFileTypes() {
-        for (ConfigurationType ct : ConfigurationType.values()) {
-            configFileTypes.add(new SelectItem(ct.getId(), ct.getDisplayName()));
-        }
+        configFileTypes = Arrays.stream(ConfigurationType.values())
+                .map(ct -> new SelectItem(ct.getId(), ct.getDisplayName()))
+                .collect(Collectors.toList());
 
         if(configFileTypes.size() >= 1) {
             currentConfigFileType = 0;
