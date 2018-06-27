@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class VCenterParser extends CSVParser<VCenter> {
     enum Columns {
@@ -42,14 +43,9 @@ public class VCenterParser extends CSVParser<VCenter> {
 
     @Override
     public List<String> getRequiredColumns() {
-        return Arrays.asList(
-                Columns.TKEY.toString(),
-                Columns.NAME.toString(),
-                Columns.IDENTIFIER.toString(),
-                Columns.URL.toString(),
-                Columns.USER_ID.toString(),
-                Columns.PASSWORD.toString()
-        );
+        return Arrays.stream(Columns.values())
+                .map(Columns::toString)
+                .collect(Collectors.toList());
     }
 
     @Override
