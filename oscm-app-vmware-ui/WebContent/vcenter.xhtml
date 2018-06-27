@@ -208,11 +208,10 @@
                 <h:outputText value="#{msg['ui.config.part.csv.type']}"/>
               </td>
               <td class="rf-dt-c">
-                <h:selectOneMenu value="#{targetLocationBean.currentImportFileType}"
-                                 onchange="setDirty(true);"
+                <h:selectOneMenu value="#{targetLocationBean.currentConfigFileType}"
                                  styleClass="select"
                                  immediate="true">
-                  <f:selectItems value="#{targetLocationBean.importFileTypes}" />
+                  <f:selectItems value="#{targetLocationBean.configFileTypes}" />
                 </h:selectOneMenu>
               </td>
             </tr>
@@ -223,7 +222,6 @@
               <td class="rf-dt-c">
                 <h:inputFile id="csvFile"
                              size="20"
-                             onchange="setDirty(true);"
                              value="#{targetLocationBean.file}"
                              styleClass="fileChooser" />
               </td>
@@ -241,8 +239,7 @@
             <h:commandButton class="button_normal_class"
                              value="#{msg['ui.config.action.upload']}"
                              type="submit"
-                             action="#{targetLocationBean.uploadConfig}"
-                             oncomplete="setDirty(#{targetLocationBean.dirty});" />
+                             action="#{targetLocationBean.uploadConfig}"/>
           </span>
         </span>
       </div>

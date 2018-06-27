@@ -24,7 +24,6 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,30 +31,17 @@ import java.util.stream.Collectors;
 @ManagedBean(name = "targetLocationBean")
 @ViewScoped
 public class TargetLocationBean extends UiBeanBase {
-
     private static final long serialVersionUID = 4584243999849571470L;
-    private static final Logger logger = LoggerFactory
-            .getLogger(UiBeanBase.class);
-
+    private static final Logger logger = LoggerFactory.getLogger(UiBeanBase.class);
     private int selectedRowNum;
     private int currentVCenter;
     private VCenter selectedVCenter;
     private List<SelectItem> vcenterList = new ArrayList<>();
-    private List<SelectItem> importFileTypes = new ArrayList<>();
-    private int currentImportFileType;
+    private int currentConfigFileType = 0;
+    private List<SelectItem> configFileTypes = new ArrayList<>();
     private boolean dirty = false;
-
     private Part file;
-
-    public Part getFile() {
-        return file;
-    }
-
-    public void setFile(Part file) {
-        this.file = file;
-    }
-
-    List<VCenter> vcenter;
+    private List<VCenter> vcenter;
 
     public TargetLocationBean(DataAccessService das) {
         settings.useMock(das);
@@ -67,23 +53,29 @@ public class TargetLocationBean extends UiBeanBase {
     }
 
     private void initBean() {
-        vcenter = settings.getTargetVCenter();
-        for (VCenter vc : vcenter) {
-            SelectItem item = new SelectItem(vc.tkey, vc.name);
-            vcenterList.add(item);
-            if (vcenterList.size() == 1) {
-                selectedVCenter = vc;
-                currentVCenter = vc.tkey;
-            }
-        }
+        initVCenters();
+        initConfigFileTypes();
+    }
 
-        importFileTypes = ConfigurationFileType.ALL
+    private void initVCenters() {
+        vcenter = settings.getTargetVCenter();
+        vcenterList = vcenter
+                .stream()
+                .map(e -> new SelectItem(e.tkey, e.name))
+                .collect(Collectors.toList());
+
+        if(vcenter.size() >= 1) {
+            selectedVCenter = vcenter.get(0);
+            currentVCenter = selectedVCenter.tkey;
+        }
+    }
+
+    private void initConfigFileTypes() {
+        configFileTypes = ConfigurationFileType.ALL
                 .entrySet()
                 .stream()
                 .map(e -> new SelectItem(e.getKey(), e.getValue().getDisplayName()))
                 .collect(Collectors.toList());
-
-        currentImportFileType = 0;
     }
 
     public void save() {
@@ -102,34 +94,24 @@ public class TargetLocationBean extends UiBeanBase {
         }
     }
 
-    public boolean isDirty() {
-        return dirty;
-    }
+    public void uploadConfig() {
+        status = null;
 
-    protected String getDefaultLanguage() {
-        return FacesContext.getCurrentInstance().getApplication()
-                .getDefaultLocale().getLanguage();
-    }
+        try {
+            String tableName = ConfigurationFileType.ALL
+                    .get(this.currentConfigFileType).getTableName();
 
-    public int getSelectedRowNum() {
-        return selectedRowNum;
-    }
+            Importer importer = ImporterFactory.getImporter(tableName,
+                    this.settings.getDataAccessService());
+            importer.load(this.file.getInputStream());
 
-    public void setSelectedRowNum(int selectedRowNum) {
-        this.selectedRowNum = selectedRowNum;
-    }
-
-    public List<SelectItem> getVcenterList() {
-        return vcenterList;
-    }
-
-    public List<SelectItem> getImportFileTypes() {
-        return importFileTypes;
-    }
-
-    public String getUnsavedChangesMsg() {
-        return Messages.get(getDefaultLanguage(),
-                "confirm.unsavedChanges.lost");
+            status = Messages.get(getDefaultLanguage(),
+                    "ui.config.status.uploaded");
+        } catch (Exception e) {
+            status = Messages.get(getDefaultLanguage(),
+                    "ui.config.status.upload.failed", e.getMessage());
+            logger.error("Failed to upload CSV configuration file.", e);
+        }
     }
 
     public void valueChangeVCenter(ValueChangeEvent event) {
@@ -150,6 +132,58 @@ public class TargetLocationBean extends UiBeanBase {
         return null;
     }
 
+    public String getLoggedInUserId() {
+        FacesContext facesContext = getFacesContext();
+        HttpSession session = (HttpSession) facesContext.getExternalContext()
+                .getSession(false);
+        if (session != null) {
+            return "" + session.getAttribute("loggedInUserId");
+        }
+        return null;
+    }
+
+    public String getUnsavedChangesMsg() {
+        return Messages.get(getDefaultLanguage(),
+                "confirm.unsavedChanges.lost");
+    }
+
+    protected String getDefaultLanguage() {
+        return FacesContext.getCurrentInstance().getApplication()
+                .getDefaultLocale().getLanguage();
+    }
+
+    protected FacesContext getFacesContext() {
+        return FacesContext.getCurrentInstance();
+    }
+
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    public List<SelectItem> getVcenterList() {
+        return vcenterList;
+    }
+
+    public List<SelectItem> getConfigFileTypes() {
+        return configFileTypes;
+    }
+
+    public int getSelectedRowNum() {
+        return selectedRowNum;
+    }
+
+    public void setSelectedRowNum(int selectedRowNum) {
+        this.selectedRowNum = selectedRowNum;
+    }
+
+    public String getCurrentConfigFileType() {
+        return Integer.toString(currentConfigFileType);
+    }
+
+    public void setCurrentConfigFileType(String currentConfigFileType) {
+        this.currentConfigFileType = Integer.parseInt(currentConfigFileType);
+    }
+
     public String getCurrentVCenter() {
         return Integer.toString(currentVCenter);
     }
@@ -166,53 +200,11 @@ public class TargetLocationBean extends UiBeanBase {
         this.selectedVCenter = selectedVCenter;
     }
 
-    public String getLoggedInUserId() {
-        FacesContext facesContext = getFacesContext();
-        HttpSession session = (HttpSession) facesContext.getExternalContext()
-                .getSession(false);
-        if (session != null) {
-            return "" + session.getAttribute("loggedInUserId");
-        }
-        return null;
+    public Part getFile() {
+        return file;
     }
 
-    public void uploadConfig() {
-        status = null;
-        //dirty = true; // TODO dirty for csv
-
-        try {
-            String tableName = ConfigurationFileType.ALL
-                    .get(this.currentImportFileType).getTableName();
-            importData(tableName, this.file.getInputStream());
-
-            //dirty = false;
-        } catch (Exception e) {
-//            status = Messages.get(getDefaultLanguage(),
-//                    "ui.config.status.save.failed", e.getMessage());
-            logger.error("Failed to upload CSV configuration file.", e);
-        }
-    }
-
-    private void importData(String tableName, InputStream csvFile) {
-        Importer importer = ImporterFactory.getImporter(tableName,
-                this.settings.getDataAccessService());
-
-        try {
-            importer.load(csvFile);
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-        }
-    }
-
-    protected FacesContext getFacesContext() {
-        return FacesContext.getCurrentInstance();
-    }
-
-    public String getCurrentImportFileType() {
-        return Integer.toString(currentImportFileType);
-    }
-
-    public void setCurrentImportFileType(String currentImportFileType) {
-        this.currentImportFileType = Integer.parseInt(currentImportFileType);
+    public void setFile(Part file) {
+        this.file = file;
     }
 }
