@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class VLANParser extends CSVParser<VLAN> {
     enum Columns {
@@ -45,17 +46,9 @@ public class VLANParser extends CSVParser<VLAN> {
 
     @Override
     public List<String> getRequiredColumns() {
-        return Arrays.asList(
-                Columns.VCENTER.toString(),
-                Columns.DATACENTER.toString(),
-                Columns.CLUSTER.toString(),
-                Columns.NAME.toString(),
-                Columns.GATEWAY.toString(),
-                Columns.SUBNET_MASK.toString(),
-                Columns.DNS_SERVER.toString(),
-                Columns.DNS_SUFFIX.toString(),
-                Columns.ENABLED.toString()
-        );
+        return Arrays.stream(Columns.values())
+                .map(Columns::toString)
+                .collect(Collectors.toList());
     }
 
     @Override

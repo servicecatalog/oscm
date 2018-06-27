@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class IPPoolParser extends CSVParser<IPPool> {
     enum Columns {
@@ -41,13 +42,9 @@ public class IPPoolParser extends CSVParser<IPPool> {
 
     @Override
     public List<String> getRequiredColumns() {
-        return Arrays.asList(
-                Columns.VCENTER.toString(),
-                Columns.DATACENTER.toString(),
-                Columns.CLUSTER.toString(),
-                Columns.VLAN.toString(),
-                Columns.IP_ADDRESS.toString()
-        );
+        return Arrays.stream(Columns.values())
+                .map(Columns::toString)
+                .collect(Collectors.toList());
     }
 
     @Override

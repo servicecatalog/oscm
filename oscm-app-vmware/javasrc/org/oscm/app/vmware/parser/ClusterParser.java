@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ClusterParser extends CSVParser<Cluster> {
     enum Columns {
@@ -39,11 +40,9 @@ public class ClusterParser extends CSVParser<Cluster> {
 
     @Override
     public List<String> getRequiredColumns() {
-        return Arrays.asList(
-                Columns.VCENTER.toString(),
-                Columns.DATACENTER.toString(),
-                Columns.CLUSTER_NAME.toString()
-        );
+        return Arrays.stream(Columns.values())
+                .map(Columns::toString)
+                .collect(Collectors.toList());
     }
 
     @Override

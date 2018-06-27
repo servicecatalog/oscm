@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class DatacenterParser extends CSVParser<Datacenter> {
     enum Columns {
@@ -39,11 +40,9 @@ public class DatacenterParser extends CSVParser<Datacenter> {
 
     @Override
     public List<String> getRequiredColumns() {
-        return Arrays.asList(
-                Columns.VCENTER.toString(),
-                Columns.DATACENTER.toString(),
-                Columns.DATACENTER_ID.toString()
-        );
+        return Arrays.stream(Columns.values())
+                .map(Columns::toString)
+                .collect(Collectors.toList());
     }
 
     @Override
