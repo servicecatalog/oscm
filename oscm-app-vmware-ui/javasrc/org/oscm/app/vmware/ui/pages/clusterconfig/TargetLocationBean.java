@@ -107,6 +107,7 @@ public class TargetLocationBean extends UiBeanBase {
             Importer importer = ImporterFactory.getImporter(ct,
                     this.settings.getDataAccessService());
             importer.load(this.file.getInputStream());
+            this.initBean();
 
             status = Messages.get(getDefaultLanguage(),
                     "ui.config.status.uploaded");
