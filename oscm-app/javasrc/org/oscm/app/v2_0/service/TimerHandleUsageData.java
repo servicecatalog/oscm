@@ -32,7 +32,6 @@ import javax.persistence.PersistenceContext;
 
 import org.oscm.app.business.APPlatformControllerFactory;
 import org.oscm.app.business.exceptions.BadResultException;
-import org.oscm.app.dao.ServiceInstanceDAO;
 import org.oscm.app.domain.PlatformConfigurationKey;
 import org.oscm.app.domain.ServiceInstance;
 import org.oscm.app.v2_0.APPlatformServiceFactory;
@@ -71,9 +70,7 @@ public class TimerHandleUsageData {
 
     @Inject
     protected ServiceInstanceServiceBean serviceInstanceService;
-    
-    @Inject
-    protected ServiceInstanceDAO siDao;
+        
 
     @EJB
     protected APPConfigurationServiceBean configService;
@@ -135,7 +132,7 @@ public class TimerHandleUsageData {
                 startTime, endTime);
 
         if (updated) {
-            updateLastUsageFetch(serviceInstance, endTime);
+            serviceInstanceService.updateLastUsageFetch(serviceInstance, endTime);
         }
     }
 
@@ -229,9 +226,5 @@ public class TimerHandleUsageData {
         return now(of("UTC")).format(ISO_LOCAL_DATE_TIME);
     }
 
-    void updateLastUsageFetch(ServiceInstance serviceInstance, String endTime)
-            throws SQLException, Exception {
-        siDao.updateParam(serviceInstance, endTime, "LAST_USAGE_FETCH");
-    }
-
+    
 }
