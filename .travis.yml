@@ -11,8 +11,8 @@ before_install:
   - sudo pip install --user codecov
 install:
   - wget -P libraries/apache-ant-contrib/javalib/ http://central.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar
-  - wget -P libraries/apache-ant/ https://www.apache.org/dist/ant/binaries/apache-ant-1.10.3-bin.zip
-  - unzip -o -d libraries/apache-ant/ libraries/apache-ant/apache-ant-1.10.2-bin.zip
+  - wget -P libraries/apache-ant/ https://www.apache.org/dist/ant/binaries/apache-ant-1.10.4-bin.zip
+  - unzip -o -d libraries/apache-ant/ libraries/apache-ant/apache-ant-1.10.4-bin.zip
   - mkdir ../document
   - cd ../document
   - wget https://github.com/servicecatalog/documentation/archive/master.zip
@@ -25,7 +25,7 @@ env:
     - COMUPTERNAME=travis
     - HOSTNAME=travis
 script:
-  - $TRAVIS_BUILD_DIR/libraries/apache-ant/apache-ant-1.10.2/bin/ant -lib $TRAVIS_BUILD_DIR/libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:$TRAVIS_BUILD_DIR/parallel/build/libs/parallel-junit-0.1.jar -file $TRAVIS_BUILD_DIR/oscm-build/cruisecontrol.xml runTravisUT
+  - $TRAVIS_BUILD_DIR/libraries/apache-ant/apache-ant-1.10.4/bin/ant -lib $TRAVIS_BUILD_DIR/libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:$TRAVIS_BUILD_DIR/parallel/build/libs/parallel-junit-0.1.jar -file $TRAVIS_BUILD_DIR/oscm-build/cruisecontrol.xml runTravisUT
 #  - ant -lib $TRAVIS_BUILD_DIR/libraries/apache-ant-contrib/javalib -file $TRAVIS_BUILD_DIR/oscm-build/cruisecontrol.xml runTravisIT
 after_success:
   - sonar-scanner -Dsonar.login=$SONAR_TOKEN -Dsonar.projectKey=CTMG -Dsonar.projectName=CTMG -Dsonar.projectVersion=17.0.1 -Dsonar.sources=$TRAVIS_BUILD_DIR -Dsonar.tests=$TRAVIS_BUILD_DIR -Dsonar.sourceEncoding=UTF-8 -Dsonar.inclusions=**/*.java -Dsonar.exclusions=**/javasrc-it/**,**/example-service/**/*,**/*devruntime/**/*,**/*tests*/**/*,**/oscm-portal-webtests/results/**/*,**/j2ep/**/*.java,**/apache-csv/**/*.java,**/*oscm-build*/**/*.java,**/javasrc-it/**/*.java,**/*unittests*/**/*.java,**/OperationParameterType.jav,**/AccountServiceClient.java -Dsonar.test.inclusions=**/*unittests*/**/*.java -Dsonar.jacoco.reportPath=$TRAVIS_BUILD_DIR/oscm-build/result/reports/merged_jacoco.exec -Dsonar.java.source=1.8 -Dsonar.java.binaries=$TRAVIS_BUILD_DIR/oscm-build/result/work -Dsonar.java.test.binaries=$TRAVIS_BUILD_DIR/oscm-build/result
