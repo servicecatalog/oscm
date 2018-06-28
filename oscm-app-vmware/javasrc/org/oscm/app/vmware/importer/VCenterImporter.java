@@ -98,7 +98,7 @@ public class VCenterImporter implements Importer {
         try (VCenterParser parser = new VCenterParser(csvFile)) {
             VCenter vCenter;
             while ((vCenter = parser.readNextObject()) != null) {
-                if (exists(vCenter.tKey)) {
+                if (!exists(vCenter.tKey)) {
                     this.save(vCenter);
                 } else {
                     this.update(vCenter);
