@@ -317,8 +317,7 @@ public class APPDataAccessService {
                 "BSS_USER_PWD"));
 
         logger.debug("loaded technology provider credentials for user "
-                + credentials.getUserId() + "(" + credentials.getUserKey()
-                + "), " + credentials.getPassword());
+                + credentials.getUserId() + "(" + credentials.getUserKey());
         return credentials;
     }
 
