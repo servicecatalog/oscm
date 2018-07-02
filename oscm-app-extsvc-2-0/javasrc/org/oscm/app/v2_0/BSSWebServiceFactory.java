@@ -10,17 +10,20 @@ package org.oscm.app.v2_0;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.jws.WebService;
 import javax.xml.namespace.QName;
+import javax.xml.ws.Binding;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
+import javax.xml.ws.handler.Handler;
 
 import org.oscm.app.v2_0.data.PasswordAuthentication;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
-
-
+import org.oscm.security.SOAPSecurityHandler;
 
 /**
  * Factory for creating instances of OSCM Web services in the context of the
@@ -55,8 +58,9 @@ public class BSSWebServiceFactory {
                 .getBSSWebServiceWSDLUrl();
         wsdlUrl = wsdlUrl.replace("{SERVICE}", serviceClass.getSimpleName());
         String serviceUrl = APPlatformServiceFactory.getInstance()
-        .getBSSWebServiceUrl();
-        serviceUrl=serviceUrl.replace("{SERVICE}", serviceClass.getSimpleName());
+                .getBSSWebServiceUrl();
+        serviceUrl = serviceUrl.replace("{SERVICE}",
+                serviceClass.getSimpleName());
         Service service = Service.create(new URL(wsdlUrl), serviceQName);
 
         boolean isSsoMode = wsdlUrl != null
@@ -64,22 +68,65 @@ public class BSSWebServiceFactory {
         String portSuffix = isSsoMode ? "PortSTS" : "PortBASIC";
 
         T client = service.getPort(
-                new QName(targetNamespace, serviceClass.getSimpleName()
-                        + portSuffix), serviceClass);
+                new QName(targetNamespace,
+                        serviceClass.getSimpleName() + portSuffix),
+                serviceClass);
 
         String usernameConstant = isSsoMode ? "username"
                 : BindingProvider.USERNAME_PROPERTY;
         String passwordConstant = isSsoMode ? "password"
                 : BindingProvider.PASSWORD_PROPERTY;
 
+        setUserCredentialsInContext(((BindingProvider) client),
+                authentication.getUserName(), authentication.getPassword(),
+                isSsoMode);
+
+        setEndpointInContext(serviceUrl, client);
+
+        setBinding((BindingProvider) client, authentication.getUserName(),
+                authentication.getPassword());
+        return client;
+    }
+
+    private static <T> void setEndpointInContext(String serviceUrl, T client) {
         Map<String, Object> clientRequestContext = ((BindingProvider) client)
                 .getRequestContext();
-        clientRequestContext
-                .put(usernameConstant, authentication.getUserName());
-        clientRequestContext
-                .put(passwordConstant, authentication.getPassword());
+
         clientRequestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY,
-                serviceUrl );
-        return client;
+                serviceUrl);
+    }
+
+    private static void setBinding(BindingProvider client, String userName,
+            String password) {
+        final Binding binding = client.getBinding();
+        @SuppressWarnings("rawtypes")
+        List<Handler> handlerList = binding.getHandlerChain();
+        if (handlerList == null)
+            handlerList = new ArrayList<>();
+        handlerList.add(new SOAPSecurityHandler(userName, password));
+        binding.setHandlerChain(handlerList);
+    }
+
+    private static void setUserCredentialsInContext(BindingProvider client,
+            String user, String password, boolean isSSO) {
+        Map<String, Object> clientRequestContext = client.getRequestContext();
+        clientRequestContext.put(getUsernameConstant(isSSO), user);
+        clientRequestContext.put(getPasswordConstant(isSSO), password);
+    }
+
+    private static String getUsernameConstant(boolean isSSO) {
+        if (isSSO) {
+            return "username";
+        } else {
+            return BindingProvider.USERNAME_PROPERTY;
+        }
+    }
+
+    private static String getPasswordConstant(boolean isSso) {
+        if (isSso) {
+            return "password";
+        } else {
+            return BindingProvider.PASSWORD_PROPERTY;
+        }
     }
 }
