@@ -16,7 +16,20 @@ package org.oscm.app.openstack.data;
  */
 public enum FlowState {
 
-    CREATE_PROJECT, DELETE_PROJECT, UPDATE_PROJECT,
+    /**
+     * Request to create a new project tenant.
+     */
+    CREATE_PROJECT, 
+    
+    /**
+     * Request to delete project tenant.
+     */
+    DELETE_PROJECT, 
+    
+    /**
+     * Request to update quota of project tenant.
+     */
+    UPDATE_PROJECT,
 
     /**
      * The creation of a new application instance was started.
