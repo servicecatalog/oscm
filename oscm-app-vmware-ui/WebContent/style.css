@@ -86,12 +86,14 @@ td {
 	margin: 10px 25px;
 }
 
-#vsphereSettings.rf-dt {
+#vsphereSettings.rf-dt,
+#csvUploadTable.rf-dt{
 	margin: 0px;
 	margin-top: 10px;
 }
 
-#vsphereSettings input {
+#vsphereSettings input,
+#csvUploadTable input{
   background-image: none;
 }
 
@@ -115,7 +117,8 @@ input.button_normal_class {
   background-color: transparent !important;
 }
 
-#balancer_form .rf-dt-c > input {
+#balancer_form .rf-dt-c > input,
+#csv_form .rf-dt-c > input {
   font-size: inherit !important;
   font-family: inherit !important;
   border-color: #C4C0B9;
