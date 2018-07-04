@@ -11,6 +11,7 @@ package org.oscm.app.vmware.persistence;
 import org.oscm.app.vmware.business.model.Cluster;
 import org.oscm.app.vmware.business.model.VCenter;
 import org.oscm.app.vmware.business.model.VLAN;
+import org.oscm.app.vmware.encryption.AESEncrypter;
 import org.oscm.app.vmware.i18n.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,13 +116,16 @@ public class DataAccessService {
      */
     public void setVCenter(VCenter vcenter) throws Exception {
         logger.debug("vcenter: " + vcenter.name);
-
-        try (Connection con = getDatasource().getConnection();) {
+        try (Connection con = getDatasource().getConnection()) {
             String query1 = "UPDATE vcenter SET url = ?, userid = ?, password = ? WHERE tkey = ?";
-            try (PreparedStatement stmt = con.prepareStatement(query1);) {
+            try (PreparedStatement stmt = con.prepareStatement(query1)) {
                 stmt.setString(1, vcenter.getUrl());
                 stmt.setString(2, vcenter.getUserid());
-                stmt.setString(3, vcenter.getPassword());
+
+                // Encrypt password before storing it in database.
+                stmt.setString(3,
+                        AESEncrypter.encrypt(vcenter.getPassword()));
+
                 stmt.setInt(4, vcenter.tkey);
                 stmt.executeUpdate();
             }
@@ -146,7 +150,10 @@ public class DataAccessService {
                 vc.identifier = rs.getString("identifier");
                 vc.setUrl(rs.getString("url"));
                 vc.setUserid(rs.getString("userid"));
-                vc.setPassword(rs.getString("password"));
+
+                // Decrypt password after loading it from database.
+                vc.setPassword(AESEncrypter.decrypt(rs.getString("password")));
+
                 vc.tkey = rs.getInt("tkey");
                 vcenter.add(vc);
             }
