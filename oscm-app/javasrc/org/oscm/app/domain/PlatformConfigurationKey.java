@@ -29,6 +29,12 @@ public enum PlatformConfigurationKey {
      * and updates respective subscription parameters, e.g. the number of VMs.
      */
     APP_TIMER_REFRESH_SUBSCRIPTIONS("long"),
+    
+    /**
+     * The interval (in milliseconds) at which APP updates the usage data of instances
+     */
+    APP_TIMER_REFRESH_USAGEDATA(false, "long"),
+
 
     /**
      * Defines the mail resource to be used for communication.

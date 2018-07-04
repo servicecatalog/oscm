@@ -140,4 +140,12 @@ public class APPlatformControllerAdapter implements APPlatformController {
         throws APPlatformException {
         return delegate.getServersNumber(instanceId,subscriptionId, organizationId);
     }
+    
+    @Override
+    public boolean gatherUsageData(String controllerId,
+            String instanceId, String startTime, String endTime,
+            ProvisioningSettings settings) throws APPlatformException {
+        return delegate.gatherUsageData(controllerId, instanceId, startTime, endTime, settings);
+    }
+    
 }

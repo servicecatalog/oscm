@@ -12,8 +12,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.ejb.Remote;
-
 import org.oscm.app.v2_0.data.PasswordAuthentication;
 import org.oscm.app.v2_0.data.ProvisioningSettings;
 import org.oscm.app.v2_0.data.Setting;
@@ -256,7 +254,7 @@ public interface APPlatformService {
      *            a <code>PasswordAuthentication</code> object identifying a
      *            technology manager registered in the organization which is
      *            responsible for the controller
-     * @return
+     * @return a collection of the IDs of service instances
      * @throws AuthenticationException
      * @throws ConfigurationException
      * @throws APPlatformException
