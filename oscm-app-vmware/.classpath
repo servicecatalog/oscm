@@ -16,6 +16,7 @@
 	<classpathentry kind="lib" path="/libraries/apache-io/javalib/commons-io-1.4.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-commons-pool/javalib/commons-pool2-2.4.2.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
+	<classpathentry kind="lib" path="/libraries/opencsv/javalib/opencsv-3.7.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
