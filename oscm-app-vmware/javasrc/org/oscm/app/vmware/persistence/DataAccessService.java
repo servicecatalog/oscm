@@ -121,11 +121,8 @@ public class DataAccessService {
             try (PreparedStatement stmt = con.prepareStatement(query1)) {
                 stmt.setString(1, vcenter.getUrl());
                 stmt.setString(2, vcenter.getUserid());
-
-                // Encrypt password before storing it in database.
                 stmt.setString(3,
                         AESEncrypter.encrypt(vcenter.getPassword()));
-
                 stmt.setInt(4, vcenter.tkey);
                 stmt.executeUpdate();
             }
@@ -150,10 +147,7 @@ public class DataAccessService {
                 vc.identifier = rs.getString("identifier");
                 vc.setUrl(rs.getString("url"));
                 vc.setUserid(rs.getString("userid"));
-
-                // Decrypt password after loading it from database.
                 vc.setPassword(AESEncrypter.decrypt(rs.getString("password")));
-
                 vc.tkey = rs.getInt("tkey");
                 vcenter.add(vc);
             }

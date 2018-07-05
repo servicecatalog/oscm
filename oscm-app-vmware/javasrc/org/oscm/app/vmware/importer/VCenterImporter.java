@@ -99,7 +99,6 @@ public class VCenterImporter implements Importer {
         try (VCenterParser parser = new VCenterParser(csvFile)) {
             VCenter vCenter;
             while ((vCenter = parser.readNextObject()) != null) {
-                // Encrypt password before storing it in database.
                 vCenter.password = AESEncrypter.encrypt(vCenter.password);
 
                 if (!exists(vCenter.tKey)) {
