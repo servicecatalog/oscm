@@ -168,8 +168,10 @@ public class DataAccessService {
             stmt.setString(1, vcenter);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                credentials = new VMwareCredentials(rs.getString("url"),
-                        rs.getString("userid"), rs.getString("password"));
+                credentials = new VMwareCredentials(
+                        rs.getString("url"),
+                        rs.getString("userid"),
+                        AESEncrypter.decrypt(rs.getString("password")));
             }
         } catch (SQLException e) {
             logger.error(
