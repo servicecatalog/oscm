@@ -8,6 +8,7 @@
 
 package org.oscm.app.vmware.importer;
 
+import org.oscm.app.vmware.encryption.AESEncrypter;
 import org.oscm.app.vmware.parser.VCenterParser;
 import org.oscm.app.vmware.parser.model.VCenter;
 import org.oscm.app.vmware.persistence.DataAccessService;
@@ -98,6 +99,8 @@ public class VCenterImporter implements Importer {
         try (VCenterParser parser = new VCenterParser(csvFile)) {
             VCenter vCenter;
             while ((vCenter = parser.readNextObject()) != null) {
+                vCenter.password = AESEncrypter.encrypt(vCenter.password);
+
                 if (!exists(vCenter.tKey)) {
                     this.save(vCenter);
                 } else {

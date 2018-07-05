@@ -17,7 +17,6 @@ import org.apache.commons.codec.binary.Base64;
 
 /**
  * Simple AES Encryption
- *
  */
 public class AESEncrypter {
     /** The Constant ENCRYPTION_KEY - generated only once here. */
@@ -25,8 +24,6 @@ public class AESEncrypter {
             .decode(new long[] { 0x1BD9AC5E8CE971CDL, 0x98034879ACCC8904L,
                     0xF962DCA0907D0398L, 0xF54F221334184933L })
             .getBytes();
-
-    /* => "aERkc2TCpkw58zLWR2YiIh" */
 
     /**
      * Encrypts a given string based on a shared secret.
@@ -46,18 +43,16 @@ public class AESEncrypter {
      * @param bytes
      * @return the encrypted bytes as Base64
      * @throws GeneralSecurityException
-     *             on any problem during encryption
+     *           on any problem during encryption
      */
     public static byte[] encrypt(byte[] bytes) throws GeneralSecurityException {
-
         SecretKeySpec skeySpec = new SecretKeySpec(
                 Base64.decodeBase64(ENCRYPTION_KEY), "AES");
 
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.ENCRYPT_MODE, skeySpec);
 
-        byte[] encrypted = cipher.doFinal(bytes);
-        return Base64.encodeBase64(encrypted);
+        return Base64.encodeBase64(cipher.doFinal(bytes));
     }
 
     /**
@@ -83,13 +78,11 @@ public class AESEncrypter {
      */
     public static byte[] decrypt(byte[] encrypted)
             throws GeneralSecurityException {
-
         SecretKeySpec skeySpec = new SecretKeySpec(
                 Base64.decodeBase64(ENCRYPTION_KEY), "AES");
 
-        byte[] decoded = Base64.decodeBase64(encrypted);
         Cipher cipher = Cipher.getInstance("AES");
         cipher.init(Cipher.DECRYPT_MODE, skeySpec);
-        return cipher.doFinal(decoded);
+        return cipher.doFinal(Base64.decodeBase64(encrypted));
     }
 }
