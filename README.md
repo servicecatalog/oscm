@@ -71,6 +71,6 @@ host all all <host-ipv6>/128 trust
 3. Run targets Build.LIB and Build.BES
 
 #### Deploying the application
-TBD
+Find details [here](https://github.com/servicecatalog/oscm-dockerbuild).
 
 
