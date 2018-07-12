@@ -206,11 +206,7 @@ public class AuthorizationFilter implements Filter {
         boolean check = service.checkToken(token, signature);
 
         // check if token is expired
-        if (check && timestamp + TOKEN_EXPIRE > System.currentTimeMillis()) {
-            return true;
-        } else {
-            return false;
-        }
+        return check && timestamp + TOKEN_EXPIRE > System.currentTimeMillis();
     }
 
     @Override
