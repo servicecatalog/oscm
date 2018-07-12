@@ -11,6 +11,8 @@ import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -85,7 +87,8 @@ public class BesDAO {
      * @return a service interface to the requested OSCM service
      */
     public <T> T getBESWebService(Class<T> serviceClass,
-                                  ServiceInstance serviceInstance, Optional<String> controllerId) throws APPlatformException {
+            ServiceInstance serviceInstance, Optional<String> controllerId)
+            throws APPlatformException {
 
         try {
             // the BES WSDL files are not protected with BasicAuth, but only by
@@ -95,7 +98,8 @@ public class BesDAO {
             T client = getServicePort(serviceClass, proxySettings);
 
             PasswordAuthentication pwAuth = configService
-                    .getWebServiceAuthentication(serviceInstance, proxySettings, controllerId);
+                    .getWebServiceAuthentication(serviceInstance, proxySettings,
+                            controllerId);
 
             final String userName = pwAuth.getUserName();
             final String password = pwAuth.getPassword();
@@ -116,17 +120,24 @@ public class BesDAO {
         }
     }
 
-    private void setBinding(BindingProvider client, String userName, String password) {
+    private void setBinding(BindingProvider client, String userName,
+            String password) {
         final Binding binding = client.getBinding();
         List<Handler> handlerList = binding.getHandlerChain();
+        
         if (handlerList == null)
             handlerList = new ArrayList<>();
-        handlerList.add(new SOAPSecurityHandler(userName, password));
-        binding.setHandlerChain(handlerList);
+
+        List<Handler> handlers = handlerList.stream()
+                .filter(handler -> !(handler instanceof SOAPSecurityHandler))
+                .collect(Collectors.toList());
+        
+        handlers.add(new SOAPSecurityHandler(userName, password));
+        binding.setHandlerChain(handlers);
     }
 
-    public void setUserCredentialsInContext(BindingProvider client,
-            String user, String password, Map<String, Setting> settings) {
+    public void setUserCredentialsInContext(BindingProvider client, String user,
+            String password, Map<String, Setting> settings) {
         Map<String, Object> clientRequestContext = client.getRequestContext();
         clientRequestContext.put(getUsernameConstant(settings), user);
         clientRequestContext.put(getPasswordConstant(settings), password);
@@ -137,12 +148,12 @@ public class BesDAO {
         Map<String, Object> clientRequestContext = client.getRequestContext();
         String wsUrl = "";
         if (isSsoMode(settings)) {
-            wsUrl = settings.get(
-                    PlatformConfigurationKey.BSS_STS_WEBSERVICE_URL.name())
+            wsUrl = settings
+                    .get(PlatformConfigurationKey.BSS_STS_WEBSERVICE_URL.name())
                     .getValue();
         } else {
-            wsUrl = settings.get(
-                    PlatformConfigurationKey.BSS_WEBSERVICE_URL.name())
+            wsUrl = settings
+                    .get(PlatformConfigurationKey.BSS_WEBSERVICE_URL.name())
                     .getValue();
         }
         wsUrl = wsUrl.replace("{SERVICE}", serviceClass.getSimpleName());
@@ -162,11 +173,12 @@ public class BesDAO {
         List<VOUserDetails> mailUsers = new ArrayList<>();
         try {
             // Get all technology managers of TP organization
-            IdentityService is = getBESWebService(IdentityService.class, si, Optional.empty());
+            IdentityService is = getBESWebService(IdentityService.class, si,
+                    Optional.empty());
             List<VOUserDetails> orgUsers = is.getUsersForOrganization();
             for (VOUserDetails user : orgUsers) {
-                if (user.getUserRoles().contains(
-                        UserRoleType.TECHNOLOGY_MANAGER)
+                if (user.getUserRoles()
+                        .contains(UserRoleType.TECHNOLOGY_MANAGER)
                         && !Strings.isEmpty(user.getEMail())) {
                     mailUsers.add(user);
                 }
@@ -174,7 +186,8 @@ public class BesDAO {
         } catch (Exception ex) {
             LOGGER.warn(
                     "Technology managers mail addresses cannot be retrieved from CT_MG. [Cause: "
-                            + ex.getMessage() + "]", ex);
+                            + ex.getMessage() + "]",
+                    ex);
         }
         if (mailUsers.isEmpty()) {
             LOGGER.warn("No technology managers mails set.");
@@ -232,9 +245,9 @@ public class BesDAO {
         String wsdlUrl = null;
 
         if (isSsoMode(settings)) {
-            wsdlUrl = settings
-                    .get(PlatformConfigurationKey.BSS_STS_WEBSERVICE_WSDL_URL
-                            .name()).getValue();
+            wsdlUrl = settings.get(
+                    PlatformConfigurationKey.BSS_STS_WEBSERVICE_WSDL_URL.name())
+                    .getValue();
         } else {
             wsdlUrl = settings.get(
                     PlatformConfigurationKey.BSS_WEBSERVICE_WSDL_URL.name())
@@ -242,7 +255,7 @@ public class BesDAO {
         }
 
         wsdlUrl = wsdlUrl.replace("{SERVICE}", serviceClass.getSimpleName());
-//        validateVersion(wsdlUrl);
+        // validateVersion(wsdlUrl);
         return new URL(wsdlUrl);
 
     }
@@ -259,11 +272,13 @@ public class BesDAO {
             serviceDefinition = wsdlReader.readWSDL(locator);
             Element versionElement = serviceDefinition
                     .getDocumentationElement();
-            if (!CTMGApiVersion.version.equals(versionElement.getTextContent())) {
-                LOGGER.warn("Web service mismatches and the version value, expected: "
-                        + CTMGApiVersion.version
-                        + " and the one got from wsdl: "
-                        + versionElement.getTextContent());
+            if (!CTMGApiVersion.version
+                    .equals(versionElement.getTextContent())) {
+                LOGGER.warn(
+                        "Web service mismatches and the version value, expected: "
+                                + CTMGApiVersion.version
+                                + " and the one got from wsdl: "
+                                + versionElement.getTextContent());
             }
         } catch (WSDLException e) {
             LOGGER.warn("Remote wsdl cannot be retrieved from CT_MG. [Cause: "
@@ -281,8 +296,8 @@ public class BesDAO {
     }
 
     boolean isSsoMode(Map<String, Setting> settings) {
-        return "SAML_SP".equals(settings.get(
-                PlatformConfigurationKey.BSS_AUTH_MODE.name()).getValue());
+        return "SAML_SP".equals(settings
+                .get(PlatformConfigurationKey.BSS_AUTH_MODE.name()).getValue());
     }
 
     public void terminateSubscription(ServiceInstance currentSI, String locale)
@@ -322,8 +337,7 @@ public class BesDAO {
 
                 VOInstanceInfo voInstanceInfo = getInstanceInfo(currentSI,
                         instanceResult);
-                subServ.completeAsyncSubscription(
-                        currentSI.getSubscriptionId(),
+                subServ.completeAsyncSubscription(currentSI.getSubscriptionId(),
                         currentSI.getOrganizationId(), voInstanceInfo);
             } else {
                 subServ.abortAsyncSubscription(currentSI.getSubscriptionId(),
@@ -362,9 +376,8 @@ public class BesDAO {
             } else {
                 subServ.abortAsyncModifySubscription(
                         currentSI.getSubscriptionId(),
-                        currentSI.getOrganizationId(),
-                        cause == null ? null : toBES(cause
-                                .getLocalizedMessages()));
+                        currentSI.getOrganizationId(), cause == null ? null
+                                : toBES(cause.getLocalizedMessages()));
             }
 
         } catch (SubscriptionStateException se) {
@@ -380,8 +393,8 @@ public class BesDAO {
         }
     }
 
-
-    public void notifySubscriptionAboutVmsNumber(ServiceInstance currentSI) throws BESNotificationException {
+    public void notifySubscriptionAboutVmsNumber(ServiceInstance currentSI)
+            throws BESNotificationException {
         if (currentSI.isDeleted()) {
             return;
         }
@@ -389,9 +402,10 @@ public class BesDAO {
         voInstanceInfo.setVmsNumber(currentSI.getVmsNumber());
         try {
             SubscriptionService subServ = getBESWebService(
-                SubscriptionService.class, currentSI, Optional.empty());
-            subServ.notifySubscriptionAboutVmsNumber(currentSI.getSubscriptionId(), currentSI.getOrganizationId(),
-                voInstanceInfo);
+                    SubscriptionService.class, currentSI, Optional.empty());
+            subServ.notifySubscriptionAboutVmsNumber(
+                    currentSI.getSubscriptionId(),
+                    currentSI.getOrganizationId(), voInstanceInfo);
         } catch (Exception e) {
             handleException(currentSI, e);
         }
@@ -407,7 +421,8 @@ public class BesDAO {
 
         SubscriptionService subServ;
         try {
-            subServ = getBESWebService(SubscriptionService.class, currentSI, Optional.empty());
+            subServ = getBESWebService(SubscriptionService.class, currentSI,
+                    Optional.empty());
             subServ.updateAsyncOperationProgress(transactionId, status,
                     toBES(list));
             if (currentSI.getServiceAccessInfo() != null) {
@@ -432,12 +447,12 @@ public class BesDAO {
 
         SubscriptionService subServ;
         try {
-            subServ = getBESWebService(SubscriptionService.class, currentSI, Optional.empty());
+            subServ = getBESWebService(SubscriptionService.class, currentSI,
+                    Optional.empty());
             VOInstanceInfo vo = new VOInstanceInfo();
             vo.setInstanceId(currentSI.getInstanceId());
             vo.setAccessInfo(currentSI.getServiceAccessInfo());
-            subServ.updateAsyncSubscriptionStatus(
-                    currentSI.getSubscriptionId(),
+            subServ.updateAsyncSubscriptionStatus(currentSI.getSubscriptionId(),
                     currentSI.getOrganizationId(), vo);
 
         } catch (Exception e) {
@@ -465,7 +480,8 @@ public class BesDAO {
         // Forward mapped BES notification exception
         BESNotificationException bne = new BESNotificationException(
                 "Could not notify OSCM on processing result. Current status is "
-                        + statusText, e);
+                        + statusText,
+                e);
         LOGGER.error(bne.getMessage(), e);
         throw bne;
     }
@@ -518,9 +534,8 @@ public class BesDAO {
             } else {
                 subServ.abortAsyncUpgradeSubscription(
                         currentSI.getSubscriptionId(),
-                        currentSI.getOrganizationId(),
-                        cause == null ? null : toBES(cause
-                                .getLocalizedMessages()));
+                        currentSI.getOrganizationId(), cause == null ? null
+                                : toBES(cause.getLocalizedMessages()));
             }
         } catch (SubscriptionStateException se) {
             handleSubscriptionStateException(currentSI, instanceResult,
@@ -611,11 +626,14 @@ public class BesDAO {
      * @throws BESNotificationException
      */
     public VOUserDetails getUserDetails(ServiceInstance si, VOUser user,
-                                        String password, Optional<String> controllerId) throws APPlatformException {
+            String password, Optional<String> controllerId)
+            throws APPlatformException {
         VOUserDetails userDetails = null;
-        IdentityService idServ = getBESWebService(IdentityService.class, si, controllerId);
+        IdentityService idServ = getBESWebService(IdentityService.class, si,
+                controllerId);
         if (user != null) {
-            setBinding((BindingProvider) idServ, String.valueOf(user.getKey()), password);
+            setBinding((BindingProvider) idServ, String.valueOf(user.getKey()),
+                    password);
         }
 
         try {
@@ -627,10 +645,11 @@ public class BesDAO {
         return userDetails;
     }
 
-    public VOUser getUser(ServiceInstance si, VOUser user, Optional<String> controllerId)
-            throws APPlatformException {
+    public VOUser getUser(ServiceInstance si, VOUser user,
+            Optional<String> controllerId) throws APPlatformException {
         VOUser retrunUser = null;
-        IdentityService idServ = getBESWebService(IdentityService.class, si, controllerId);
+        IdentityService idServ = getBESWebService(IdentityService.class, si,
+                controllerId);
         try {
             retrunUser = idServ.getUser(user);
         } catch (SaaSApplicationException e) {
@@ -652,7 +671,8 @@ public class BesDAO {
         List<VOLocalizedText> result = new ArrayList<>();
         if (texts != null) {
             for (LocalizedText text : texts) {
-                result.add(new VOLocalizedText(text.getLocale(), text.getText()));
+                result.add(
+                        new VOLocalizedText(text.getLocale(), text.getText()));
             }
         }
         return result;
@@ -660,7 +680,8 @@ public class BesDAO {
 
     public boolean isBESAvalible() {
         try {
-            IdentityService is = getBESWebService(IdentityService.class, null, Optional.empty());
+            IdentityService is = getBESWebService(IdentityService.class, null,
+                    Optional.empty());
             is.getCurrentUserDetails();
         } catch (APPlatformException e) {
             return !isCausedByConnectionException(e);
