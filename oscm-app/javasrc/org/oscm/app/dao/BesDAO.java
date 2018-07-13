@@ -120,7 +120,7 @@ public class BesDAO {
         }
     }
 
-    private void setBinding(BindingProvider client, String userName,
+    public void setBinding(BindingProvider client, String userName,
             String password) {
         final Binding binding = client.getBinding();
         List<Handler> handlerList = binding.getHandlerChain();
