@@ -1,6 +1,6 @@
 /*******************************************************************************
  *                                                                              
- *  Copyright FUJITSU LIMITED 2018
+ *  Copyright FUJITSU LIMITED 2018                                           
  *                                                                                                                                 
  *  Creation Date: Feb 8, 2017                                                      
  *                                                                              
@@ -11,111 +11,164 @@ package org.oscm.portal;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import javax.security.auth.login.LoginException;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
+import org.oscm.webtest.PortalHtmlElements;
+import org.oscm.webtest.PortalPathSegments;
+import org.oscm.webtest.PortalTester;
 import org.oscm.webtest.WebTester;
 
 /**
  * Integration web test to create an organization.
  * 
- * @author miethaner
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PortalOrganizationWT {
 
-    private static final String USER = "administrator";
-    private static final String PASSWORD = "admin123";
-
-    private static final String ORG = "mp_owner_31";
-    private static final String ORG_ADMIN = ORG + "_admin";
-
+    private static final String ORG = PlaygroundSuiteTest.currentTimestampe;
+    private static final String ORG_ADMIN = "mp_admin_" + ORG;
     private static final int PASSWORD_LENGTH = 8;
+    private static final int USERKEY_LENGTH = 5;
+    private static String passwordOrgAdmin = "";
+    private static PortalTester tester;
 
-    private static WebTester tester;
-    private static String password;
+    @Rule
+    public TestWatcher testWatcher = new JUnitHelper();
 
     @BeforeClass
     public static void setup() throws Exception {
-        tester = new WebTester();
-        tester.visitPortal("");
-        tester.loginPortal(USER, PASSWORD);
+
+        tester = new PortalTester();
+        String userid = tester.getPropertie(WebTester.BES_ADMIN_USER_ID);
+        String userpassword = tester.getPropertie(WebTester.BES_ADMIN_USER_PWD);
+        tester.loginPortal(userid, userpassword);
     }
 
     @AfterClass
     public static void cleanUp() {
+
         tester.logoutPortal();
         tester.close();
     }
 
     @Test
-    public void test01Create() {
+    public void test01createSupplierOrg() throws Exception {
+        tester.visitPortal(PortalPathSegments.CREATE_ORGANIZATION);
 
-        tester.visitPortal("operator/createOrganization.jsf");
-
-        // org admin
-        tester.writeValue("editForm:administratorEmail",
+        tester.writeValue(
+                PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ADMINEMAIL,
                 tester.getEmailAddress());
-        tester.writeValue("editForm:administratorUserId", ORG_ADMIN);
-        tester.selectDropdown("editForm:administratorLocale", "en");
+        tester.writeValue(
+                PortalHtmlElements.CREATE_ORGANIZATION_INPUT_DESIRED_USERID,
+                ORG_ADMIN);
+        tester.selectDropdown(
+                PortalHtmlElements.CREATE_ORGANIZATION_DROPDOWN_LANGUAGE, "en");
 
-        // org
-        tester.clickElement("editForm:checkboxRoleTechnologyProvider");
-        tester.waitForElement("editForm:image", 10);
-        tester.clickElement("editForm:checkboxRoleSupplier");
-        tester.waitForElement("editForm:operatorRevenueShare", 10);
-        tester.writeValue("editForm:operatorRevenueShare", "5");
-        tester.writeValue("editForm:organizationName", ORG);
-        tester.writeValue("editForm:organizationEmail",
+        tester.clickElement(
+                PortalHtmlElements.CREATE_ORGANIZATION_CHECKBOX_TPROVIDER);
+        tester.waitForElement(
+                By.id(PortalHtmlElements.CREATE_ORGANIZATION_FORM_UPLOADIMAGE),
+                10);
+        tester.clickElement(
+                PortalHtmlElements.CREATE_ORGANIZATION_CHECKBOX_SUPPLIER);
+        tester.waitForElement(By.id(
+                PortalHtmlElements.CREATE_ORGANIZATION_INPUT_REVENUESHARE), 10);
+        tester.writeValue(
+                PortalHtmlElements.CREATE_ORGANIZATION_INPUT_REVENUESHARE, "5");
+        tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGNAME,
+                ORG);
+        tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGEMAIL,
                 tester.getEmailAddress());
-        tester.selectDropdown("editForm:organizationLocale", "en");
-        tester.writeValue("editForm:organizationPhone", "123");
-        tester.writeValue("editForm:organizationUrl", "http://abc.de");
-        tester.writeValue("editForm:organizationAddress", "ADDRESS");
-        tester.selectDropdown("editForm:organizationCountry", "DE");
+        tester.selectDropdown(
+                PortalHtmlElements.CREATE_ORGANIZATION_DROPDOWN_ORGLOCALE,
+                "en");
+        tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGPHONE,
+                "123");
+        tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGURL,
+                "http://abc.de");
+        tester.writeValue(
+                PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGADDRESS,
+                "ADDRESS");
+        tester.selectDropdown(
+                PortalHtmlElements.CREATE_ORGANIZATION_DROPDOWN_ORGCOUNTRY,
+                "DE");
 
-        tester.clickElement("editForm:saveButtonLink");
+        tester.clickElement(PortalHtmlElements.CREATE_ORGANIZATION_BUTTON_SAVE);
 
+        assertTrue(tester.getExecutionResult());
+        PlaygroundSuiteTest.supplierOrgName = ORG;
         PlaygroundSuiteTest.supplierOrgId = tester.readInfoMessage()
                 .split(" ")[2];
-
-        System.out.println(PlaygroundSuiteTest.supplierOrgId);
+        PlaygroundSuiteTest.supplierOrgAdminId = ORG_ADMIN;
+        PlaygroundSuiteTest.supplierOrgAdminMail = tester.getEmailAddress();
     }
 
     @Test
-    public void test02ReadEmail() throws Exception {
-
+    public void test02readEmailForPassword() throws Exception {
         Thread.sleep(30000);
 
-        String body = tester.readLatestEmailWithSubject("Account created");
+        String body = tester.readLatestEmailWithSubject(
+                tester.getPropertie("email.createaccount.head"));
 
-        String phrase = "Your initial password is: ";
-
+        String phrasePassword = tester
+                .getPropertie("email.createaccount.phrase.password") + " ";
         assertNotNull(body);
 
-        int index = body.indexOf(phrase);
-
+        int index = body.indexOf(phrasePassword);
         assertTrue(index > 0);
-
-        password = body.substring(index + phrase.length(),
-                index + phrase.length() + PASSWORD_LENGTH);
-
-        System.out.println(password);
+        passwordOrgAdmin = body.substring(index + phrasePassword.length(),
+                index + phrasePassword.length() + PASSWORD_LENGTH);
+        assertTrue(passwordOrgAdmin != "");
+        tester.log("password from " + tester.getEmailAddress() + " is: "
+                + passwordOrgAdmin);
     }
 
     @Test
-    public void test03ChangePassword() {
-
+    public void test03ChangePassword()
+            throws LoginException, InterruptedException {
         tester.logoutPortal();
+        tester.loginPortal(PlaygroundSuiteTest.supplierOrgAdminId,
+                passwordOrgAdmin);
 
-        tester.loginPortal(ORG_ADMIN, password);
+        tester.writeValue(PortalHtmlElements.PORTAL_PASSWORD_INPUT_CURRENT,
+                passwordOrgAdmin);
+        tester.writeValue(PortalHtmlElements.PORTAL_PASSWORD_INPUT_CHANGE,
+                tester.getPropertie(WebTester.BES_ADMIN_USER_PWD));
+        tester.writeValue(PortalHtmlElements.PORTAL_PASSWORD_INPUT_REPEAT,
+                tester.getPropertie(WebTester.BES_ADMIN_USER_PWD));
+        tester.clickElement(PortalHtmlElements.PORTAL_PASSWORD_BUTTON_SAVE);
+        tester.wait(WebTester.IMPLICIT_WAIT);
+        String currentURL = tester.getCurrentUrl();
+        assertTrue(currentURL
+                .contains(PortalPathSegments.IMPORT_TECHNICALSERVICE));
+        PlaygroundSuiteTest.supplierOrgAdminPwd = tester
+                .getPropertie(WebTester.BES_ADMIN_USER_PWD);
+    }
 
-        tester.writeValue("passwordform:currentPassword", password);
-        tester.writeValue("passwordform:password", PASSWORD);
-        tester.writeValue("passwordform:password2", PASSWORD);
+    @Test
+    public void test04readEmailForUserkey() throws Exception {
 
-        tester.clickElement("passwordform:changeButtonLink");
+        String body = tester.readLatestEmailWithSubject(
+                tester.getPropertie("email.createaccount.head"));
+        String phraseUserKey = tester
+                .getPropertie("email.createaccount.phrase.userkey") + " ";
+        assertNotNull(body);
+
+        int index = body.indexOf(phraseUserKey);
+        assertTrue(index > 0);
+        String userKey = body.substring(index + phraseUserKey.length(),
+                index + phraseUserKey.length() + USERKEY_LENGTH);
+        assertTrue(userKey != "");
+        tester.log("userKey from " + PlaygroundSuiteTest.supplierOrgAdminId
+                + " is: " + userKey);
+        PlaygroundSuiteTest.supplierOrgAdminUserkey = userKey;
     }
 }
