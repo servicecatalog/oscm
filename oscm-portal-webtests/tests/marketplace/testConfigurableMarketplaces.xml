@@ -11,14 +11,14 @@
         Creates test data.
         Expected Outcome:
         (1) Supplier account is created
-        (2) A marketplace is created with disabled settings (reviews, bookmarks and tagging)
+        (2) A marketplace is created with disabled settings (reviews and tagging)
         (3) Proxy service SERVICE_1 is created, published on the MP (enabled settings)
         (4) Proxy service SERVICE_2 is created, published on in point 2 created marketplace
 	  </testInfo>
 
-      <operator.createMarketplace mIdProperty="mId" name="Global Marketplace" socialBookmarksEnabled="true" />
+      <operator.createMarketplace mIdProperty="mId" name="Global Marketplace"/>
       <landingpage.setSortOrderForLandingpageWithLogin mId="${mId}" />
-      <operator.createMarketplace mIdProperty="mId2" name="Global Marketplace2" socialBookmarksEnabled="false" />
+      <operator.createMarketplace mIdProperty="mId2" name="Global Marketplace2" />
       <landingpage.setSortOrderForLandingpageWithLogin mId="${mId2}" />
       
       <!-- (1) Supplier account is created -->
@@ -29,7 +29,7 @@
       <setup:store.settings userkey="#{userKey}" password="secret" />
 
       <!-- (2) Create global marketplace -->
-      <operator.createMarketplace mIdProperty="MID1" ownerId="${supplierId}" name="mp1" taggingEnabled="false" reviewEnabled="false" socialBookmarksEnabled="false" baseurl="${bes.http.url}/oscm-portal" failonerror="true" />
+      <operator.createMarketplace mIdProperty="MID1" ownerId="${supplierId}" name="mp1" taggingEnabled="false" reviewEnabled="false" baseurl="${bes.http.url}/oscm-portal" failonerror="true" />
 
       <!-- (3) Service is created and published on the marketplace -->
       <setup:techservice.createProxy id="PROXY_SERVICE" serviceUrl="http://techService1.de" provisioningUrl="${example.https.url}/example-service/services/ProvisioningService?wsdl" tags="FNST,EST" />
@@ -233,7 +233,7 @@
 	
   <target name="testMPL_ConfigurableMarketplaces_Filter">
 	<webtest name="testMPL_ConfigurableMarketplaces_Bug9695">
-	  <operator.createMarketplace mIdProperty="mId" name="local Marketplace" socialBookmarksEnabled="true" />
+	  <operator.createMarketplace mIdProperty="mId" name="local Marketplace"/>
 	  <landingpage.setSortOrderForLandingpageWithLogin mId="${mId}" />
 
 	  <!-- (1) Supplier account is created -->
@@ -241,7 +241,7 @@
 	  <operator.addSupplierToGlobalMarketplace marketplaceId="${mId}" supplierId="${supplierId}" baseurl="#{baseUrl}" />
       <setup:store.settings userkey="#{userKey}" password="secret" />
 	  <!-- (2) Create local marketplace -->
-	  <operator.createMarketplace mIdProperty="MID1" ownerId="${supplierId}" name="mp1" taggingEnabled="false" reviewEnabled="false" socialBookmarksEnabled="false" baseurl="${bes.http.url}/oscm-portal" failonerror="true" />
+	  <operator.createMarketplace mIdProperty="MID1" ownerId="${supplierId}" name="mp1" taggingEnabled="false" reviewEnabled="false" baseurl="${bes.http.url}/oscm-portal" failonerror="true" />
 	  <!-- (3) Service is created and published on the marketplace -->
 	  <setup:techservice.createProxy id="PROXY_SERVICE1" serviceUrl="http://techService1.de" provisioningUrl="${example.https.url}/example-service/services/ProvisioningService?wsdl" tags="OFFICE" />
 	  <setup:techservice.createProxy id="PROXY_SERVICE2" serviceUrl="http://techService2.de" provisioningUrl="${example.https.url}/example-service/services/ProvisioningService?wsdl" tags="BUSINESS" />

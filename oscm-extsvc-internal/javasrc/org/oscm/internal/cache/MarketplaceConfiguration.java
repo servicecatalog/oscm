@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 /**
- * UI model for Marketplace configurations(tagging, review, social bookmark)
+ * UI model for Marketplace configurations(tagging, review)
  */
 public class MarketplaceConfiguration implements Serializable {
 
@@ -21,8 +21,6 @@ public class MarketplaceConfiguration implements Serializable {
     private boolean taggingEnabled = true;
 
     private boolean reviewEnabled = true;
-
-    private boolean socialBookmarkEnabled = true;
 
     private boolean categoriesEnabled;
 
@@ -70,25 +68,6 @@ public class MarketplaceConfiguration implements Serializable {
      */
     public void setReviewEnabled(boolean reviewEnabled) {
         this.reviewEnabled = reviewEnabled;
-    }
-
-    /**
-     * Indicating if the social bookmarks are shown.
-     * 
-     * @return the socialBookmarkEnabled
-     */
-    public boolean isSocialBookmarkEnabled() {
-        return socialBookmarkEnabled;
-    }
-
-    /**
-     * Set if the social bookmarks should be shown.
-     * 
-     * @param socialBookmarkEnabled
-     *            the socialBookmarkEnabled to set
-     */
-    public void setSocialBookmarkEnabled(boolean socialBookmarkEnabled) {
-        this.socialBookmarkEnabled = socialBookmarkEnabled;
     }
 
     /**

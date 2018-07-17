@@ -30,11 +30,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-//import com.sun.xml.ws.client.ClientTransportException;
-//import com.sun.xml.ws.fault.ServerSOAPFaultException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.internal.intf.OperatorService;
@@ -103,7 +102,7 @@ import org.oscm.vo.VOUdaDefinition;
 import org.oscm.vo.VOUsageLicense;
 import org.oscm.vo.VOUserDetails;
 
-
+@Ignore
 public class SubscriptionServiceWSTest {
 
     private static final String SUPPLIER_ORG_NAME = "Supplier";

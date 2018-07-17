@@ -62,12 +62,6 @@ public class MarketplaceData extends DomainDataContainer implements
     private boolean reviewEnabled;
 
     /**
-     * Flag indicating if the social bookmarks are shown.
-     */
-    @Column(nullable = false)
-    private boolean socialBookmarkEnabled;
-
-    /**
      * Flag indicating if the categories are shown.
      */
     @Column(nullable = false)
@@ -122,14 +116,6 @@ public class MarketplaceData extends DomainDataContainer implements
 
     public boolean isReviewEnabled() {
         return reviewEnabled;
-    }
-
-    public void setSocialBookmarkEnabled(boolean socialBookmarkEnabled) {
-        this.socialBookmarkEnabled = socialBookmarkEnabled;
-    }
-
-    public boolean isSocialBookmarkEnabled() {
-        return socialBookmarkEnabled;
     }
 
     public String getBrandingUrl() {

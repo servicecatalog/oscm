@@ -9,6 +9,7 @@ package org.oscm.app.v2_0.service;
 
 import java.util.EnumSet;
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -17,8 +18,6 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
-import org.slf4j.Logger;
 
 import org.oscm.app.business.AsynchronousProvisioningProxyImpl;
 import org.oscm.app.business.UserMapper;
@@ -42,6 +41,7 @@ import org.oscm.provisioning.data.InstanceResult;
 import org.oscm.provisioning.data.User;
 import org.oscm.types.enumtypes.OperationStatus;
 import org.oscm.types.exceptions.ObjectNotFoundException;
+import org.slf4j.Logger;
 
 /**
  * @author goebel
@@ -51,10 +51,8 @@ import org.oscm.types.exceptions.ObjectNotFoundException;
 public class ServiceInstanceServiceBean {
 
     private static final String ALLOWED_STATUS_ABORT_COMPLETE = ProvisioningStatus.WAITING_FOR_SYSTEM_CREATION
-            .name()
-            + ", "
-            + ProvisioningStatus.WAITING_FOR_SYSTEM_MODIFICATION.name()
-            + ", "
+            .name() + ", "
+            + ProvisioningStatus.WAITING_FOR_SYSTEM_MODIFICATION.name() + ", "
             + ProvisioningStatus.WAITING_FOR_SYSTEM_UPGRADE.name();
 
     @Inject
@@ -108,8 +106,8 @@ public class ServiceInstanceServiceBean {
         try {
             return dao.find(instance);
         } catch (ServiceInstanceNotFoundException e) {
-            throw new ServiceInstanceException(Messages.get(locale,
-                    "error_service_instance_not_found"));
+            throw new ServiceInstanceException(
+                    Messages.get(locale, "error_service_instance_not_found"));
         }
     }
 
@@ -127,8 +125,9 @@ public class ServiceInstanceServiceBean {
         try {
             return dao.getInstanceParameters(serviceInstance);
         } catch (IllegalArgumentException ex) {
-            throw new ServiceInstanceException(Messages.get(locale,
-                    "error_instance_not_exist"), "[serviceInstance is null]");
+            throw new ServiceInstanceException(
+                    Messages.get(locale, "error_instance_not_exist"),
+                    "[serviceInstance is null]");
         }
     }
 
@@ -147,8 +146,9 @@ public class ServiceInstanceServiceBean {
 
         String locale = user.getLocale();
         if (serviceInstance == null) {
-            throw new ServiceInstanceException(Messages.get(locale,
-                    "error_instance_not_exist"), "[serviceInstance is null]");
+            throw new ServiceInstanceException(
+                    Messages.get(locale, "error_instance_not_exist"),
+                    "[serviceInstance is null]");
         }
 
         serviceInstance = em.getReference(ServiceInstance.class,
@@ -197,8 +197,8 @@ public class ServiceInstanceServiceBean {
             timerServcie.initTimers();
 
             if (dbInstance.getProvisioningStatus().isWaitingForOperation()) {
-                Operation operation = opDao.getOperationByInstanceId(dbInstance
-                        .getInstanceId());
+                Operation operation = opDao
+                        .getOperationByInstanceId(dbInstance.getInstanceId());
                 if (operation != null) {
                     besDao.notifyAsyncOperationStatus(dbInstance,
                             operation.getTransactionId(),
@@ -275,9 +275,9 @@ public class ServiceInstanceServiceBean {
                 try {
                     dao.restoreInstance(changedSI);
                 } catch (ServiceInstanceNotFoundException e1) {
-                    throw new ServiceInstanceException(Messages.get(locale,
-                            "error_instance_not_exist",
-                            serviceInstance.getInstanceId()));
+                    throw new ServiceInstanceException(
+                            Messages.get(locale, "error_instance_not_exist",
+                                    serviceInstance.getInstanceId()));
                 }
                 throw new ServiceInstanceException(getMessage(e));
             }
@@ -374,26 +374,25 @@ public class ServiceInstanceServiceBean {
                         createInstanceResult(dbInstance), false, null);
                 break;
             case WAITING_FOR_SYSTEM_OPERATION:
-                Operation operation = opDao.getOperationByInstanceId(dbInstance
-                        .getInstanceId());
+                Operation operation = opDao
+                        .getOperationByInstanceId(dbInstance.getInstanceId());
                 if (operation != null) {
                     besDao.notifyAsyncOperationStatus(dbInstance,
-                            operation.getTransactionId(),
-                            OperationStatus.ERROR,
+                            operation.getTransactionId(), OperationStatus.ERROR,
                             Messages.getAll("abort_system_operation"));
                     em.remove(operation);
                 }
                 break;
             default:
-                throw new ServiceInstanceException(Messages.get(locale,
-                        "error_instance_status_wrong",
-                        ALLOWED_STATUS_ABORT_COMPLETE));
+                throw new ServiceInstanceException(
+                        Messages.get(locale, "error_instance_status_wrong",
+                                ALLOWED_STATUS_ABORT_COMPLETE));
             }
             dbInstance.setProvisioningStatus(ProvisioningStatus.COMPLETED);
             dbInstance.setControllerReady(true);
         } catch (ServiceInstanceNotFoundException e) {
-            throw new ServiceInstanceException(Messages.get(locale,
-                    "error_instance_not_exist"),
+            throw new ServiceInstanceException(
+                    Messages.get(locale, "error_instance_not_exist"),
                     serviceInstance.getInstanceId());
         } catch (BESNotificationException e) {
             throw new ServiceInstanceException(getMessage(e));
@@ -419,9 +418,8 @@ public class ServiceInstanceServiceBean {
                             createInstanceResult(dbInstance), true, null);
                     break;
                 case WAITING_FOR_SYSTEM_OPERATION:
-                    Operation operation = opDao
-                            .getOperationByInstanceId(dbInstance
-                                    .getInstanceId());
+                    Operation operation = opDao.getOperationByInstanceId(
+                            dbInstance.getInstanceId());
                     if (operation != null) {
                         besDao.notifyAsyncOperationStatus(dbInstance,
                                 operation.getTransactionId(),
@@ -430,20 +428,20 @@ public class ServiceInstanceServiceBean {
                     }
                     break;
                 default:
-                    throw new ServiceInstanceException(Messages.get(locale,
-                            "error_instance_status_wrong",
-                            ALLOWED_STATUS_ABORT_COMPLETE));
+                    throw new ServiceInstanceException(
+                            Messages.get(locale, "error_instance_status_wrong",
+                                    ALLOWED_STATUS_ABORT_COMPLETE));
                 }
 
             } else {
-                throw new ServiceInstanceException(Messages.get(locale,
-                        "error_bes_notification",
-                        serviceInstance.getInstanceId()));
+                throw new ServiceInstanceException(
+                        Messages.get(locale, "error_bes_notification",
+                                serviceInstance.getInstanceId()));
             }
             dbInstance.setProvisioningStatus(ProvisioningStatus.COMPLETED);
         } catch (ServiceInstanceNotFoundException e) {
-            throw new ServiceInstanceException(Messages.get(locale,
-                    "error_instance_not_exist"),
+            throw new ServiceInstanceException(
+                    Messages.get(locale, "error_instance_not_exist"),
                     serviceInstance.getInstanceId());
         } catch (BESNotificationException e) {
             throw new ServiceInstanceException(getMessage(e));
@@ -462,15 +460,23 @@ public class ServiceInstanceServiceBean {
         return EnumSet.allOf(InstanceOperation.class);
     }
 
-    public ServiceInstance updateVmsNumber(ServiceInstance serviceInstance, Integer vmsNumber) {
+    public ServiceInstance updateVmsNumber(ServiceInstance serviceInstance,
+            Integer vmsNumber) {
         return dao.updateVmsNumber(serviceInstance, vmsNumber);
     }
 
-    public void notifySubscriptionAboutVmsNumber(ServiceInstance serviceInstance) {
+    public void notifySubscriptionAboutVmsNumber(
+            ServiceInstance serviceInstance) {
         try {
             besDao.notifySubscriptionAboutVmsNumber(serviceInstance);
         } catch (BESNotificationException e) {
             logger.error(e.getMessage());
         }
     }
+
+    public void updateLastUsageFetch(ServiceInstance serviceInstance,
+            String endTime) {
+        dao.updateParam(serviceInstance, endTime, "LAST_USAGE_FETCH");
+    }
+
 }

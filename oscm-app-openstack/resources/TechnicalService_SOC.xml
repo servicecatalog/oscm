@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright FUJITSU LIMITED 2018-->
+<tns:TechnicalServices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="oscm.serviceprovisioning/1.9/TechnicalService.xsd ../../oscm-serviceprovisioning/javares/TechnicalServices.xsd" xmlns:tns="oscm.serviceprovisioning/1.9/TechnicalService.xsd">
+  <tns:TechnicalService accessType="DIRECT" allowingOnBehalfActing="false" baseUrl="" billingIdentifier="NATIVE_BILLING" build="20171108" id="SOC_Sample" loginPath="/" onlyOneSubscriptionPerUser="false" provisioningPassword="" provisioningType="ASYNCHRONOUS" provisioningUrl="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl" provisioningUsername="" provisioningVersion="1.0">
+    <AccessInfo locale="en">SOC Instance</AccessInfo>
+    <LocalizedDescription locale="en">Simple SOC instance</LocalizedDescription>
+    <LocalizedLicense locale="en"/>
+    <LocalizedTag locale="en">escm_sample_inst</LocalizedTag>
+    <ParameterDefinition configurable="false" default="ess.openstack" id="APP_CONTROLLER_ID" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">ID of the controller implementation</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="STACK_NAME" mandatory="true" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">OpenStack instance name</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="([A-Za-z][A-Za-z0-9_-]*){1,30}" id="STACK_NAME_PATTERN" mandatory="true" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Validation pattern for the stack name (regex)</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="Sample.yaml" id="TEMPLATE_NAME" mandatory="true" modificationType="ONE_TIME" valueType="ENUMERATION">
+      <Options>
+        <Option id="sample_SOC.yaml">
+          <LocalizedOption locale="en">sample_SOC.yaml</LocalizedOption>
+        </Option>
+      </Options>
+      <LocalizedDescription locale="en">Template files for resource orchestration</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="External (floating) network address: {floating_ip}" id="ACCESS_INFO_PATTERN" mandatory="true" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Pattern for access information</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="TP_image" mandatory="true" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Image ID</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="m1.tiny" id="TP_flavor" mandatory="true" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Instance type (flavor)</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="floating" id="TP_external_network" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">Public Network Name</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="MAIL_FOR_COMPLETION" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="ja">操作を完了するために手動の手順が必要であることを知らせるemailの送信先メールアドレス。このパラメーターを指定すると、サービスコントロールは各操作の完了前に処理を中断して、手動の操作が終わったことを知らせる通知が届くまで待ちます。処理を中断したくない場合は、このパラメーターを省略してください。</LocalizedDescription>
+      <LocalizedDescription locale="en">The address to which emails are to be sent that describe manual steps required to complete an operation. If you specify this parameter, the service controller interrupts the processing of each operation before its completion and waits for a notification about the execution of a manual action. Omit this parameter if you do not want to interrupt the processing.</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="false" default="0" id="VMS_NUMBER" mandatory="true" valueType="LONG">
+      <LocalizedDescription locale="en">The number of VMs of IaaS subscriptions</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="START_VIRTUAL_SYSTEM">
+      <LocalizedName locale="de">Start</LocalizedName>
+      <LocalizedName locale="en">Start</LocalizedName>
+      <LocalizedName locale="ja">起動</LocalizedName>
+      <LocalizedDescription locale="de">Startet alle Server</LocalizedDescription>
+      <LocalizedDescription locale="en">Start all servers</LocalizedDescription>
+      <LocalizedDescription locale="ja">システムを起動します</LocalizedDescription>
+    </Operation>
+    <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="STOP_VIRTUAL_SYSTEM">
+      <LocalizedName locale="de">Stop</LocalizedName>
+      <LocalizedName locale="en">Stop</LocalizedName>
+      <LocalizedName locale="ja">停止</LocalizedName>
+      <LocalizedDescription locale="de">Stoppt alle Server</LocalizedDescription>
+      <LocalizedDescription locale="en">Stop all servers</LocalizedDescription>
+      <LocalizedDescription locale="ja">システムを停止します</LocalizedDescription>
+    </Operation>
+    <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="RESUME_VIRTUAL_SYSTEM">
+      <LocalizedName locale="de">Fortsetzen</LocalizedName>
+      <LocalizedName locale="en">Resume</LocalizedName>
+      <LocalizedName locale="ja">レジューム</LocalizedName>
+      <LocalizedDescription locale="de">Setzt den Betrieb der Instanz fort</LocalizedDescription>
+      <LocalizedDescription locale="en">Resume the instance</LocalizedDescription>
+      <LocalizedDescription locale="ja">システムをレジュームします</LocalizedDescription>
+    </Operation>
+    <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="SUSPEND_VIRTUAL_SYSTEM">
+      <LocalizedName locale="de">Aussetzen</LocalizedName>
+      <LocalizedName locale="en">Suspend</LocalizedName>
+      <LocalizedName locale="ja">サスペンド</LocalizedName>
+      <LocalizedDescription locale="de">Setzt die Instanz aus</LocalizedDescription>
+      <LocalizedDescription locale="en">Suspend the instance</LocalizedDescription>
+      <LocalizedDescription locale="ja">システムをサスペンドします</LocalizedDescription>
+    </Operation>
+  </tns:TechnicalService>
+</tns:TechnicalServices>

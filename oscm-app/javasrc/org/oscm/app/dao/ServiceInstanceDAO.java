@@ -55,9 +55,8 @@ public class ServiceInstanceDAO {
         }
     }
 
-    public ServiceInstance getInstance(String instanceId,
-            String subscriptionId, String organizationId)
-            throws ServiceInstanceNotFoundException {
+    public ServiceInstance getInstance(String instanceId, String subscriptionId,
+            String organizationId) throws ServiceInstanceNotFoundException {
         if (!Strings.isEmpty(instanceId)) {
             return getInstanceById(instanceId);
         }
@@ -69,7 +68,8 @@ public class ServiceInstanceDAO {
     public ServiceInstance getInstanceBySubscriptionAndOrganization(
             String subscriptionId, String organizationId)
             throws ServiceInstanceNotFoundException {
-        if (Strings.isEmpty(subscriptionId) || Strings.isEmpty(organizationId)) {
+        if (Strings.isEmpty(subscriptionId)
+                || Strings.isEmpty(organizationId)) {
             throw new ServiceInstanceNotFoundException(
                     "Subscription or organization ID not set or empty.");
         }
@@ -116,7 +116,8 @@ public class ServiceInstanceDAO {
         try {
             instance = (ServiceInstance) query.getSingleResult();
         } catch (NoResultException e) {
-            LOGGER.logError(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR);
+            LOGGER.logError(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR);
         }
         return instance;
     }
@@ -182,8 +183,9 @@ public class ServiceInstanceDAO {
 
     public ServiceInstance find(ServiceInstance instance)
             throws ServiceInstanceNotFoundException {
+        @SuppressWarnings("boxing")
         ServiceInstance dbInstance = em.find(ServiceInstance.class,
-            instance.getTkey());
+                instance.getTkey());
         if (dbInstance == null) {
             dbInstance = getInstanceById(instance.getInstanceId());
         }
@@ -193,7 +195,8 @@ public class ServiceInstanceDAO {
     /**
      * Fetch all instances for the given controller.
      */
-    public List<ServiceInstance> getInstancesForController(String controllerId) {
+    public List<ServiceInstance> getInstancesForController(
+            String controllerId) {
         if (controllerId == null) {
             throw new IllegalArgumentException();
         }
@@ -253,19 +256,37 @@ public class ServiceInstanceDAO {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     public List<ServiceInstance> getInstancesSuspendedbyApp() {
         Query query = em
-            .createNamedQuery("ServiceInstance.getForSuspendedByApp");
+                .createNamedQuery("ServiceInstance.getForSuspendedByApp");
         return query.getResultList();
     }
 
+    @SuppressWarnings("unchecked")
     public List<ServiceInstance> getInstances() {
-        Query query = em
-            .createNamedQuery("ServiceInstance.getAll");
+        Query query = em.createNamedQuery("ServiceInstance.getAll");
         return query.getResultList();
     }
 
+    public ServiceInstance updateParam(ServiceInstance serviceInstance,
+            String value, String param) {
+        if (value == null || param == null) {
+            throw new IllegalArgumentException();
+        }
+        Query query = em.createNamedQuery("ServiceInstance.getForKey");
+        query.setParameter("key", serviceInstance.getInstanceId());
+        ServiceInstance si = (ServiceInstance) query.getSingleResult();
 
+        InstanceParameter ipm = si.getParameterForKey(param);
+        if (ipm != null) {
+            ipm.setParameterValue(value);
+            em.flush();
+        }
+        
+        return serviceInstance;
+    }    
+    
     public ServiceInstance updateVmsNumber(ServiceInstance serviceInstance, Integer vmsNumber) {
 //        Query query = em.createNamedQuery("ServiceInstance.getForKey");
 //        query.setParameter("key", serviceInstance.getInstanceId());

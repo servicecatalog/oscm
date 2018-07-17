@@ -85,7 +85,6 @@ public class UpdateMarketplaceBean extends BaseBean {
         vmp.setOwningOrganizationId(mp.getOwningOrganizationId());
         vmp.setTaggingEnabled(mp.isTaggingEnabled());
         vmp.setReviewEnabled(mp.isReviewEnabled());
-        vmp.setSocialBookmarkEnabled(mp.isSocialBookmarkEnabled());
         vmp.setCategoriesEnabled(mp.isCategoriesEnabled());
         vmp.setTenantId(mp.getTenantId());
         return vmp;
@@ -262,7 +261,6 @@ public class UpdateMarketplaceBean extends BaseBean {
         mp.setOwningOrganizationId(vmp.getOwningOrganizationId());
         mp.setOriginalOrgId(vmp.getOwningOrganizationId());
         mp.setReviewEnabled(vmp.isReviewEnabled());
-        mp.setSocialBookmarkEnabled(vmp.isSocialBookmarkEnabled());
         mp.setCategoriesEnabled(vmp.isCategoriesEnabled());
         mp.setTaggingEnabled(vmp.isTaggingEnabled());
         mp.setVersion(vmp.getVersion());

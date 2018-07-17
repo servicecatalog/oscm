@@ -90,7 +90,6 @@ public class VOConverter {
         newVO.setOwningOrganizationId(oldVO.getOwningOrganizationId());
         newVO.setOwningOrganizationName(oldVO.getOwningOrganizationName());
         newVO.setReviewEnabled(oldVO.isReviewEnabled());
-        newVO.setSocialBookmarkEnabled(oldVO.isSocialBookmarkEnabled());
         newVO.setTaggingEnabled(oldVO.isTaggingEnabled());
         return newVO;
     }
@@ -117,7 +116,6 @@ public class VOConverter {
         newVO.setOwningOrganizationId(oldVO.getOwningOrganizationId());
         newVO.setOwningOrganizationName(oldVO.getOwningOrganizationName());
         newVO.setReviewEnabled(oldVO.isReviewEnabled());
-        newVO.setSocialBookmarkEnabled(oldVO.isSocialBookmarkEnabled());
         newVO.setTaggingEnabled(oldVO.isTaggingEnabled());
         return newVO;
     }
@@ -3215,7 +3213,7 @@ public class VOConverter {
     public static Set<org.oscm.internal.vo.VOPaymentType> convertToUpVOPaymentType(
             Set<org.oscm.vo.VOPaymentType> oldVO) {
         if (oldVO == null) {
-            return null;
+            return new HashSet<>();
         }
         Set<org.oscm.internal.vo.VOPaymentType> newVO = new HashSet<>();
         for (org.oscm.vo.VOPaymentType tmp : oldVO) {

@@ -37,6 +37,7 @@ public class OpenStackControllerAccess implements ControllerAccess {
         result.add(PropertyHandler.TENANT_ID);
         result.add(PropertyHandler.DOMAIN_NAME);
         result.add(PropertyHandler.TEMPLATE_BASE_URL);
+        result.add(PropertyHandler.TIMER_INTERVAL);
         return result;
     }
 }

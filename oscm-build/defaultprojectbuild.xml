@@ -17,7 +17,12 @@
   <target name="_init">
 
     <property environment="env" />
-    <property name="env.HOSTNAME" value="${env.COMPUTERNAME}" />
+    <property name="env.HOSTNAME" value="${env.NODE_NAME}" />
+
+    <script language="javascript">
+      arr = project.getProperty('env.HOSTNAME').split('.');
+      project.setProperty('env.HOSTNAME', arr[0]);
+    </script>
 
     <!-- Input properties should already be filled in -->
     <property name="project.dir" location="." />
@@ -73,6 +78,7 @@
     <echo level="info">Project Source: ${project.dir}</echo>
     <echo level="info">Working Dir:    ${result.work.dir}</echo>
     <echo level="info">Packaging Dir:  ${result.package.dir}</echo>
+    <echo level="info">Hostname:  ${env.HOSTNAME}</echo>
 
     <mkdir dir="${result.log.dir}" />
     <record action="start" name="${result.log.file}" />
@@ -209,7 +215,7 @@
   </target>
 
   <target name="javadoc" if="createjavadoc" depends="_init, compile">
-    <javadoc sourcepath="${javasrc.dir}" destdir="${result.work.javadoc.dir}" windowtitle="Fujitsu BES ${buildid}" author="no" breakiterator="yes" packagenames="${javadocpackagenames}">
+    <javadoc additionalparam="-Xdoclint:none" sourcepath="${javasrc.dir}" destdir="${result.work.javadoc.dir}" windowtitle="Fujitsu BES ${buildid}" author="no" breakiterator="yes" packagenames="${javadocpackagenames}">
       <classpath refid="dependencies.compile.path" />
     </javadoc>
   </target>

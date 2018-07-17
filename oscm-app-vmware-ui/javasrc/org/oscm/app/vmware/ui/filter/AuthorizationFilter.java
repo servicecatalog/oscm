@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author Dirk Bernsau
- * 
+ *
  */
 public class AuthorizationFilter implements Filter {
 
@@ -50,7 +50,7 @@ public class AuthorizationFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+                         FilterChain chain) throws IOException, ServletException {
 
         if (!(request instanceof HttpServletRequest)
                 || !(response instanceof HttpServletResponse)) {
@@ -91,7 +91,7 @@ public class AuthorizationFilter implements Filter {
                         try {
                             // Check authority by loading controller settings
                             APPlatformService pSvc = getPlatformService();
-                            pSvc.getControllerSettings(Controller.ID, tpUser);
+                            pSvc.authenticate(Controller.ID, tpUser);
 
                             session.setAttribute("loggedInUserId", username);
                             session.setAttribute("loggedInUserPassword",
@@ -112,7 +112,7 @@ public class AuthorizationFilter implements Filter {
                 "WWW-Authenticate",
                 "Basic realm=\""
                         + Messages
-                                .get(clientLocale, "ui.config.authentication")
+                        .get(clientLocale, "ui.config.authentication")
                         + "\"");
         httpResponse.setStatus(401);
     }

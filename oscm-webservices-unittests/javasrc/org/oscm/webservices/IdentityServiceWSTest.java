@@ -19,6 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -103,29 +104,29 @@ public class IdentityServiceWSTest {
 
         verify(requestMock, times(25)).getRemoteAddr();
 
-        verify(serviceMock, times(1)).createUser(null, null, null);
+        verify(serviceMock, times(1)).createUser(null, Collections.emptyList(), null);
         verify(serviceMock, times(1)).changePassword(null, null);
         verify(serviceMock, times(1)).confirmAccount(null, null);
-        verify(serviceMock, times(1)).grantUserRoles(null, null);
+        verify(serviceMock, times(1)).grantUserRoles(null, Collections.emptyList());
         verify(serviceMock, times(1)).deleteUser(null, null);
-        verify(serviceMock, times(1)).revokeUserRoles(null, null);
+        verify(serviceMock, times(1)).revokeUserRoles(null, Collections.emptyList());
         verify(serviceMock, times(1)).getCurrentUserDetails();
         verify(serviceMock, times(1)).getCurrentUserDetailsIfPresent();
         verify(serviceMock, times(1)).getUser(null);
         verify(serviceMock, times(1)).getUserDetails(null);
         verify(serviceMock, times(1)).getUsersForOrganization();
-        verify(serviceMock, times(1)).importLdapUsers(null, null);
+        verify(serviceMock, times(1)).importLdapUsers(Collections.emptyList(), null);
         verify(serviceMock, times(1)).lockUserAccount(null, null, null);
         verify(serviceMock, times(1)).updateUser(null);
         verify(serviceMock, times(1)).notifyOnLoginAttempt(null, true);
         verify(serviceMock, times(1)).requestResetOfUserPassword(null, null);
         verify(serviceMock, times(1)).searchLdapUsers(null);
-        verify(serviceMock, times(2)).addRevokeUserUnitAssignment(null, null,
-                null);
+        verify(serviceMock, times(2)).addRevokeUserUnitAssignment(null, Collections.emptyList(),
+                Collections.emptyList());
         verify(serviceMock, times(1)).sendAccounts(null, null);
         verify(serviceMock, times(1)).unlockUserAccount(null, null);
         verify(serviceMock, times(1)).getAvailableUserRoles(null);
-        verify(serviceMock, times(1)).setUserRoles(null, null);
+        verify(serviceMock, times(1)).setUserRoles(null, Collections.emptyList());
         verify(serviceMock, times(1)).createOnBehalfUser(null, null);
         verify(serviceMock, times(1)).cleanUpCurrentUser();
 

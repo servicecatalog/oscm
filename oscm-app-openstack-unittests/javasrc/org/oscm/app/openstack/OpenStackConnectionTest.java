@@ -10,6 +10,7 @@ package org.oscm.app.openstack;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -81,8 +82,8 @@ public class OpenStackConnectionTest {
             assertTrue("Test must fail with HeatException!", false);
         } catch (OpenStackConnectionException ex) {
             // then
-            assertTrue(ex.getMessage().indexOf(
-                    "Expected http(s) connection for URL") > -1);
+            assertTrue(ex.getMessage()
+                    .indexOf("Expected http(s) connection for URL") > -1);
             assertTrue(ex.getMessage().indexOf(url) > -1);
         }
     }
@@ -108,8 +109,8 @@ public class OpenStackConnectionTest {
 
                     @Override
                     public synchronized InputStream getErrorStream() {
-                        return new ByteArrayInputStream("401 error occurred"
-                                .getBytes());
+                        return new ByteArrayInputStream(
+                                "401 error occurred".getBytes());
                     }
                 };
             }
@@ -126,8 +127,8 @@ public class OpenStackConnectionTest {
             // then
             assertTrue(ex.getMessage().indexOf("unauthorized") > -1);
             assertTrue(ex.getMessage().indexOf("HTTP 401") > -1);
-            assertTrue(ex.getMessage().indexOf(
-                    "http://openservicecatalogmanager.org") > -1);
+            assertTrue(ex.getMessage()
+                    .indexOf("http://openservicecatalogmanager.org") > -1);
             assertTrue(ex.getMessage().indexOf("401 error occurred") > -1);
         }
 
@@ -153,8 +154,8 @@ public class OpenStackConnectionTest {
 
                     @Override
                     public synchronized InputStream getErrorStream() {
-                        return new ByteArrayInputStream("400 error occurred"
-                                .getBytes());
+                        return new ByteArrayInputStream(
+                                "400 error occurred".getBytes());
                     }
                 };
             }
@@ -167,11 +168,11 @@ public class OpenStackConnectionTest {
             assertTrue("Test must fail with HeatException!", false);
         } catch (OpenStackConnectionException ex) {
             // then
-            assertTrue(ex.getMessage().indexOf(
-                    "either input parameter format error") > -1);
+            assertTrue(ex.getMessage()
+                    .indexOf("either input parameter format error") > -1);
             assertTrue(ex.getMessage().indexOf("HTTP 400") > -1);
-            assertTrue(ex.getMessage().indexOf(
-                    "http://openservicecatalogmanager.org") > -1);
+            assertTrue(ex.getMessage()
+                    .indexOf("http://openservicecatalogmanager.org") > -1);
             assertTrue(ex.getMessage().indexOf("400 error occurred") > -1);
         }
     }
@@ -196,8 +197,8 @@ public class OpenStackConnectionTest {
 
                     @Override
                     public synchronized InputStream getErrorStream() {
-                        return new ByteArrayInputStream("404 error occurred"
-                                .getBytes());
+                        return new ByteArrayInputStream(
+                                "404 error occurred".getBytes());
                     }
                 };
             }
@@ -212,8 +213,8 @@ public class OpenStackConnectionTest {
             // then
             assertTrue(ex.getMessage().indexOf("resource not found") > -1);
             assertTrue(ex.getMessage().indexOf("HTTP 404") > -1);
-            assertTrue(ex.getMessage().indexOf(
-                    "http://openservicecatalogmanager.org") > -1);
+            assertTrue(ex.getMessage()
+                    .indexOf("http://openservicecatalogmanager.org") > -1);
             assertTrue(ex.getMessage().indexOf("404 error occurred") > -1);
         }
     }
@@ -240,14 +241,14 @@ public class OpenStackConnectionTest {
                     @Override
                     public synchronized InputStream getInputStream()
                             throws IOException {
-                        return new ByteArrayInputStream("exception test"
-                                .getBytes());
+                        return new ByteArrayInputStream(
+                                "exception test".getBytes());
                     }
 
                     @Override
                     public synchronized InputStream getErrorStream() {
-                        return new ByteArrayInputStream("406 error occurred"
-                                .getBytes());
+                        return new ByteArrayInputStream(
+                                "406 error occurred".getBytes());
                     }
                 };
             }
@@ -262,8 +263,8 @@ public class OpenStackConnectionTest {
             // then
             assertTrue(ex.getMessage().indexOf("send failed") > -1);
             assertTrue(ex.getMessage().indexOf("HTTP 406") > -1);
-            assertTrue(ex.getMessage().indexOf(
-                    "http://openservicecatalogmanager.org") > -1);
+            assertTrue(ex.getMessage()
+                    .indexOf("http://openservicecatalogmanager.org") > -1);
             assertTrue(ex.getMessage().indexOf("406 error occurred") > -1);
             assertTrue(ex.getMessage().indexOf(msg) > -1);
         }
@@ -289,8 +290,8 @@ public class OpenStackConnectionTest {
 
                     @Override
                     public synchronized InputStream getErrorStream() {
-                        return new ByteArrayInputStream("504 error occurred"
-                                .getBytes());
+                        return new ByteArrayInputStream(
+                                "504 error occurred".getBytes());
                     }
                 };
             }
@@ -305,8 +306,8 @@ public class OpenStackConnectionTest {
             // then
             assertTrue(ex.getMessage().indexOf("Gateway/proxy timeout") > -1);
             assertTrue(ex.getMessage().indexOf("HTTP 504") > -1);
-            assertTrue(ex.getMessage().indexOf(
-                    "http://openservicecatalogmanager.org") > -1);
+            assertTrue(ex.getMessage()
+                    .indexOf("http://openservicecatalogmanager.org") > -1);
             assertTrue(ex.getMessage().indexOf("504 error occurred") > -1);
         }
     }
@@ -341,7 +342,8 @@ public class OpenStackConnectionTest {
     }
 
     @Test
-    public void processRequest_usingProxy() throws OpenStackConnectionException {
+    public void processRequest_usingProxy()
+            throws OpenStackConnectionException {
         // given
         System.setProperty(HTTPS_PROXY_HOST, "host.fqdn");
         System.setProperty(HTTPS_PROXY_PORT, "9876");
@@ -376,8 +378,8 @@ public class OpenStackConnectionTest {
         OpenStackConnection.setURLStreamHandler(st);
 
         // when
-        givenOpenStackConnetion().processRequest(
-                "http://processUsingProxy.de/hoge", "POST");
+        givenOpenStackConnetion()
+                .processRequest("http://processUsingProxy.de/hoge", "POST");
 
         // then
         assertTrue("finish connection", true);
@@ -425,7 +427,7 @@ public class OpenStackConnectionTest {
         OpenStackConnection.setURLStreamHandler(st);
 
         OpenStackConnection os = givenOpenStackConnetion();
-        
+
         // when
         os.processRequest("http://testHost/hoge", "POST");
 
@@ -475,8 +477,8 @@ public class OpenStackConnectionTest {
         OpenStackConnection.setURLStreamHandler(st);
 
         // when
-        givenOpenStackConnetion()
-                .processRequest("http://testHost/hoge", "POST");
+        givenOpenStackConnetion().processRequest("http://testHost/hoge",
+                "POST");
 
         // then
         assertTrue("finish connection", true);
@@ -524,8 +526,8 @@ public class OpenStackConnectionTest {
         OpenStackConnection.setURLStreamHandler(st);
 
         // when
-        givenOpenStackConnetion()
-                .processRequest("http://testHost/hoge", "POST");
+        givenOpenStackConnetion().processRequest("http://testHost/hoge",
+                "POST");
 
         // then
         assertTrue("finish connection", true);
@@ -537,7 +539,8 @@ public class OpenStackConnectionTest {
         // given
         System.setProperty(HTTPS_PROXY_HOST, "host.fqdn");
         System.setProperty(HTTPS_PROXY_PORT, "9876");
-        System.setProperty(HTTP_NON_PROXY_HOSTS, "localhost|127.0.0.1|testHost");
+        System.setProperty(HTTP_NON_PROXY_HOSTS,
+                "localhost|127.0.0.1|testHost");
         System.setProperty(HTTPS_PROXY_USER, "testuser");
         System.setProperty(HTTPS_PROXY_PASSWORD, "testpassword");
         MockURLStreamHandler st = new MockURLStreamHandler() {
@@ -572,11 +575,55 @@ public class OpenStackConnectionTest {
         OpenStackConnection.setURLStreamHandler(st);
 
         // when
-        givenOpenStackConnetion()
-                .processRequest("http://testHost/hoge", "POST");
+        givenOpenStackConnetion().processRequest("http://testHost/hoge",
+                "POST");
 
         // then
         assertTrue("finish connection", true);
+    }
+
+    @Test
+    public void processRequest_connectionFailure()
+            throws OpenStackConnectionException {
+        // given
+        System.setProperty(HTTPS_PROXY_HOST, "host.fqdn");
+        System.setProperty(HTTPS_PROXY_PORT, "9876");
+        System.setProperty(HTTP_NON_PROXY_HOSTS,
+                "localhost|127.0.0.1|testHost");
+        System.setProperty(HTTPS_PROXY_USER, "testuser");
+        System.setProperty(HTTPS_PROXY_PASSWORD, "testpassword");
+
+        MockURLStreamHandler st = new MockURLStreamHandler() {
+            @Override
+            protected URLConnection openConnection(URL u, Proxy p)
+                    throws IOException {
+
+                return new HttpURLConnection(u, p) {
+                    @Override
+                    public void connect() throws IOException {
+                        throw new IOException("Cannot connect!");
+                    }
+
+                    @Override
+                    public int getResponseCode() throws IOException {
+                        return -1;
+                    }
+
+                };
+
+            }
+        };
+        OpenStackConnection.setURLStreamHandler(st);
+
+        // when
+        try {
+            givenOpenStackConnetion().processRequest("http://testHost/hoge",
+                    "POST");
+            fail("Test must fail with Exception!");
+        } catch (OpenStackConnectionException ex) {
+            // then
+            assertTrue(ex.getMessage(), ex.getMessage().indexOf("send failed") > -1);
+        }
     }
 
     OpenStackConnection givenOpenStackConnetion() {

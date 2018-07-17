@@ -98,7 +98,6 @@ public class MarketplaceCacheServiceBean implements MarketplaceCacheService {
     private void copyAttribute(VOMarketplace voMarketPlace,
             MarketplaceConfiguration conf) {
         conf.setReviewEnabled(voMarketPlace.isReviewEnabled());
-        conf.setSocialBookmarkEnabled(voMarketPlace.isSocialBookmarkEnabled());
         conf.setTaggingEnabled(voMarketPlace.isTaggingEnabled());
         conf.setCategoriesEnabled(voMarketPlace.isCategoriesEnabled());
         conf.setRestricted(voMarketPlace.isRestricted());

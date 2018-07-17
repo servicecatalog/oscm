@@ -108,10 +108,6 @@ public class MarketplaceHistory extends DomainHistoryObject<MarketplaceData> {
         return dataContainer.isReviewEnabled();
     }
 
-    public boolean isSocialBookmarkEnabled() {
-        return dataContainer.isSocialBookmarkEnabled();
-    }
-
     public boolean isCategoriesEnabled() {
         return dataContainer.isCategoriesEnabled();
     }

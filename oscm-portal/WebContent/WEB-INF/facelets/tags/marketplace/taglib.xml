@@ -75,10 +75,6 @@
     <source>tagCloudLink.xhtml</source>
   </tag>
   <tag>
-    <tag-name>socialMedia</tag-name>
-    <source>socialMedia.xhtml</source>
-  </tag>
-  <tag>
     <tag-name>breadcrumbs</tag-name>
     <source>breadcrumbs.xhtml</source>
   </tag>

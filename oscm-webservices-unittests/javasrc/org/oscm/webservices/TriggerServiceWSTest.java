@@ -19,6 +19,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -63,13 +64,13 @@ public class TriggerServiceWSTest {
         serviceWS.updateActionParameters(0, null);
 
         verify(serviceMock, times(1)).approveAction(0);
-        verify(serviceMock, times(1)).cancelActions(null, null);
+        verify(serviceMock, times(1)).cancelActions(null, Collections.emptyList());
         verify(serviceMock, times(1)).deleteActions(null);
         verify(serviceMock, times(1)).getAllActions();
         verify(serviceMock, times(1)).getAllActionsForOrganization();
         verify(serviceMock, times(1)).getAllDefinitions();
-        verify(serviceMock, times(1)).rejectAction(0, null);
-        verify(serviceMock, times(1)).updateActionParameters(0, null);
+        verify(serviceMock, times(1)).rejectAction(0, Collections.emptyList());
+        verify(serviceMock, times(1)).updateActionParameters(0, Collections.emptyList());
     }
 
     @Test

@@ -24,6 +24,7 @@ import org.oscm.app.v2_0.BSSWebServiceFactory;
 import org.oscm.app.v2_0.data.PasswordAuthentication;
 import org.oscm.app.v2_0.data.ProvisioningSettings;
 import org.oscm.app.v2_0.data.Setting;
+import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +42,11 @@ public class PropertyHandler {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(PropertyHandler.class);
 
+    public static final String RESOURCETYPE_PROJ = "OS::Keystone::Project";
+
     private final ProvisioningSettings settings;
+
+    public static final String INSTANCE_ID = "INSTANCE_ID";
 
     public static final String STACK_NAME = "STACK_NAME";
     public static final String STACK_ID = "STACK_ID";
@@ -94,6 +99,59 @@ public class PropertyHandler {
     public static final String TEMPLATE_PARAMETER_ARRAY_PREFIX = "TP_ARRAY_";
 
     /**
+     * OS::Nova::Server, OS::Keystone::Project
+     */
+    public static final String RESOURCE_TYPE = "RESOURCE_TYPE";
+
+    public static final String PROJECT_ID = "PROJECT_ID";
+
+    public static final String PROJECT_USER_ID = "PROJECT_USER_ID";
+
+    public static final String PROJECT_NAME = "PROJECT_NAME";
+
+    public static final String PROJECT_USER = "PROJECT_USER";
+
+    public static final String PROJECT_USER_PWD = "PROJECT_USER_PWD";
+
+    public static final String PROJECT_QUOTA_CORES = "PROJECT_QUOTA_CORES";
+
+    public static final String PROJECT_QUOTA_IP = "PROJECT_QUOTA_IP";
+
+    public static final String PROJECT_QUOTA_DISK = "PROJECT_QUOTA_DISK";
+
+    public static final String PROJECT_QUOTA_INSTANCES = "PROJECT_QUOTA_INSTANCES";
+
+    public static final String PROJECT_QUOTA_KEYS = "PROJECT_QUOTA_KEYS";
+
+    public static final String PROJECT_QUOTA_RAM = "PROJECT_QUOTA_RAM";
+
+    public static final String PROJECT_QUOTA_VOLUMES = "PROJECT_QUOTA_VOLUMES";
+
+    /**
+     * Execution interval in milliseconds for theEventTimer that generates
+     * billing events for Openstack tenant subscriptions. This is a controller
+     * setting (not a service instance parameter).
+     */
+    public static final String TIMER_INTERVAL = "TIMER_INTERVAL";
+
+    /**
+     * To create a billing event the technical service id is required and will
+     * be stored as service parameter.
+     */
+    public static final String TECHNICAL_SERVICE_ID = "TECHNICAL_SERVICE_ID";
+
+    /**
+     * Boolean service parameter.
+     * <ul>
+     * <li>True: Billing events will be generated for this tenant subscription
+     * <li>False: Service is free of charge. No billing events will be generated
+     * <ul>
+     */
+    public static final String IS_CHARGING = "IS_CHARGING";
+
+    public static final String LAST_USAGE_FETCH = "LAST_USAGE_FETCH";
+
+    /**
      * Default constructor.
      * 
      * @param settings
@@ -103,6 +161,12 @@ public class PropertyHandler {
      */
     public PropertyHandler(ProvisioningSettings settings) {
         this.settings = settings;
+    }
+
+    public boolean isCharging() {
+        Setting setting = settings.getParameters().get(IS_CHARGING);
+        return setting == null ? false
+                : Boolean.parseBoolean(setting.getValue());
     }
 
     /**
@@ -375,7 +439,8 @@ public class PropertyHandler {
     /**
      * Returns service interfaces for BSS web service calls.
      */
-    public <T> T getWebService(Class<T> serviceClass) throws Exception {
+    public <T> T getWebService(Class<T> serviceClass)
+            throws ConfigurationException, MalformedURLException {
         return BSSWebServiceFactory.getBSSWebService(serviceClass,
                 settings.getAuthentication());
     }
@@ -456,6 +521,10 @@ public class PropertyHandler {
         return 0;
 
     }
+    
+    public String getResourceType() {
+        return getValue(RESOURCE_TYPE, settings.getParameters());
+    }
 
     private String getValue(String key, Map<String, Setting> source) {
         Setting setting = source.get(key);
@@ -465,6 +534,114 @@ public class PropertyHandler {
     private void setValue(String key, String value,
             Map<String, Setting> target) {
         target.put(key, new Setting(key, value));
+    }
+
+    public String getProjectName() {
+        return getValue(PROJECT_NAME, settings.getParameters());
+    }
+
+    public String getProjectUser() {
+        return getValue(PROJECT_USER, settings.getParameters());
+    }
+
+    public String getProjectUserPwd() {
+        return getValue(PROJECT_USER_PWD, settings.getParameters());
+    }
+
+    public void setProjectId(String projectId) {
+        setValue(PROJECT_ID, projectId, settings.getParameters());
+    }
+
+    public String getProjectId() {
+        return getValue(PROJECT_ID, settings.getParameters());
+    }
+
+    public void setProjectUserId(String userId) {
+        setValue(PROJECT_USER_ID, userId, settings.getParameters());
+    }
+
+    public String getProjectUserId() {
+        return getValue(PROJECT_USER_ID, settings.getParameters());
+    }
+
+    public String getQuotaCores() {
+        return getValue(PROJECT_QUOTA_CORES, settings.getParameters());
+    }
+
+    public String getQuotaIp() {
+        return getValue(PROJECT_QUOTA_IP, settings.getParameters());
+    }
+
+    public String getQuotaGb() {
+        return getValue(PROJECT_QUOTA_DISK, settings.getParameters());
+    }
+
+    public String getQuotaInstances() {
+        return getValue(PROJECT_QUOTA_INSTANCES, settings.getParameters());
+    }
+
+    public String getQuotaKeys() {
+        return getValue(PROJECT_QUOTA_KEYS, settings.getParameters());
+    }
+
+    public String getQuotaRam() {
+        return getValue(PROJECT_QUOTA_RAM, settings.getParameters());
+    }
+
+    public String getQuotaVolumes() {
+        return getValue(PROJECT_QUOTA_VOLUMES, settings.getParameters());
+    }
+
+    public void setQuotaCores(String value) {
+        setValue(PROJECT_QUOTA_CORES, value, settings.getParameters());
+    }
+
+    public void setQuotaIp(String value) {
+        setValue(PROJECT_QUOTA_IP, value, settings.getParameters());
+    }
+
+    public void setQuotaGb(String value) {
+        setValue(PROJECT_QUOTA_DISK, value, settings.getParameters());
+    }
+
+    public void setQuotaInstances(String value) {
+        setValue(PROJECT_QUOTA_INSTANCES, value, settings.getParameters());
+    }
+
+    public void setQuotaKeys(String value) {
+        setValue(PROJECT_QUOTA_KEYS, value, settings.getParameters());
+    }
+
+    public void setQuotaRam(String value) {
+        setValue(PROJECT_QUOTA_RAM, value, settings.getParameters());
+    }
+
+    public void setQuotaVolumes(String value) {
+        setValue(PROJECT_QUOTA_VOLUMES, value, settings.getParameters());
+    }
+
+    public String getLastUsageFetch() {
+        return getValue(LAST_USAGE_FETCH, settings.getParameters());
+    }
+
+    public void setLastUsageFetch(String value) {
+        setValue(LAST_USAGE_FETCH, value, settings.getParameters());
+    }
+
+    public String getInstanceId() {
+        return getValue(INSTANCE_ID, settings.getParameters());
+    }
+
+    public void setInstanceId(String value) {
+        setValue(INSTANCE_ID, value, settings.getParameters());
+    }
+
+    public String getTechnicalServiceId() {
+        return getValue(TECHNICAL_SERVICE_ID, settings.getParameters());
+    }
+
+    public void setTechnicalServiceId(String value) {
+        setValue(TECHNICAL_SERVICE_ID, value, settings.getParameters());
     }
 
 }

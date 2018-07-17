@@ -423,9 +423,6 @@
             <verifyXPath description="Check review checkbox enabled" xpath="//input[@id='updateForm:reviewEnabled']/@disabled" />
           </not>
           <not>
-            <verifyXPath description="Check social bookmark checkbox enabled" xpath="//input[@id='updateForm:socialBookmarkEnabled']/@disabled" />
-          </not>
-          <not>
             <verifyXPath description="Check 'Authorized suppliers only' checkbox enabled" xpath="//input[@id='updateForm:closed']/@disabled" />
           </not>
           <not>
@@ -436,7 +433,6 @@
           <verifyXPath description="Check marketpace name disabled" xpath="//input[@id='updateForm:marketplaceName']/@disabled" />
           <verifyXPath description="Check tagging checkbox disabled" xpath="//input[@id='updateForm:taggingEnabled']/@disabled" />
           <verifyXPath description="Check review checkbox disabled" xpath="//input[@id='updateForm:reviewEnabled']/@disabled" />
-          <verifyXPath description="Check socialBookmark checkbox disabled" xpath="//input[@id='updateForm:socialBookmarkEnabled']/@disabled" />
           <verifyXPath description="Check categories checkbox disabled" xpath="//input[@id='updateForm:categoriesEnabled']/@disabled" />
           <verifyXPath description="Check 'Authorized suppliers only' checkbox disabled" xpath="//input[@id='updateForm:closed']/@disabled" />
         </else>
@@ -778,7 +774,6 @@
     <attribute name="mpOwner" />
     <attribute name="tagging" default="true" />
     <attribute name="review" default="true" />
-    <attribute name="socialbookmark" default="true" />
     <attribute name="categories" default="true" />
     <attribute name="closed" default="false" />
     <sequential>
@@ -787,7 +782,6 @@
 
       <setCheckbox htmlId="createMarketplaceForm:taggingEnabled" checked="@{tagging}" />
       <setCheckbox htmlId="createMarketplaceForm:reviewEnabled" checked="@{review}" />
-      <setCheckbox htmlId="createMarketplaceForm:socialBookmarkEnabled" checked="@{socialbookmark}" />
       <setCheckbox htmlId="createMarketplaceForm:closed" checked="@{closed}" />
       <setCheckbox htmlId="createMarketplaceForm:categoriesEnabled" checked="@{categories}" />
 

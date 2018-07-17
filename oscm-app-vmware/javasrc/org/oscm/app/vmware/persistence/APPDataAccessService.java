@@ -306,8 +306,7 @@ public class APPDataAccessService {
             ResultSet resultSet = stmt.executeQuery();
 
             while (resultSet.next()) {
-                credentials.setUserKey(Long.valueOf(resultSet.getString("key"))
-                        .longValue());
+                credentials.setUserKey(Long.valueOf(resultSet.getString("key")));
                 credentials.setUserId(resultSet.getString("id"));
                 credentials.setPassword(resultSet.getString("password"));
             }
@@ -317,8 +316,7 @@ public class APPDataAccessService {
                 "BSS_USER_PWD"));
 
         logger.debug("loaded technology provider credentials for user "
-                + credentials.getUserId() + "(" + credentials.getUserKey()
-                + "), " + credentials.getPassword());
+                + credentials.getUserId() + "(" + credentials.getUserKey());
         return credentials;
     }
 
@@ -395,8 +393,7 @@ public class APPDataAccessService {
         return ds;
     }
 
-    protected Context getNamingContext(Properties ctxProperties)
-            throws Exception {
+    protected Context getNamingContext(Properties ctxProperties) throws Exception {
         return new InitialContext(ctxProperties);
     }
 }

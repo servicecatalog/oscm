@@ -25,6 +25,9 @@ public class ServiceProvisioningServiceBeanNullArgumentTest extends
         addNullAllowed("getRelatedServicesForMarketplace", "locale");
         addNullAllowed("getServiceForMarketplace", "locale");
         addNullAllowed("importService", "image");
+        addNullAllowed("setCompatibleServices", "compatibleServices");
+        addNullAllowed("exportTechnicalServices", "technicalServices");
+        addNullAllowed("setActivationStates", "activations");
     }
 
     @Override

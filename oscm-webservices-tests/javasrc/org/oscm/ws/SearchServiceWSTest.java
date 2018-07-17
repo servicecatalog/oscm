@@ -24,6 +24,7 @@ import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -55,6 +56,7 @@ import org.oscm.vo.VOUserDetails;
  * 
  * @author Enes Sejfi
  */
+@Ignore
 public class SearchServiceWSTest {
 
     private static WebserviceTestSetup setup;

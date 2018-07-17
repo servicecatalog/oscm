@@ -370,8 +370,12 @@ public class APPConfigurationServiceIT extends EJBTestBase {
                 "http://abc.de");
         createConfigSetting(PlatformConfigurationKey.APP_TIMER_INTERVAL.name(),
                 "15000");
-        createConfigSetting(PlatformConfigurationKey.APP_TIMER_REFRESH_SUBSCRIPTIONS.name(),
-            "86400000");
+        createConfigSetting(
+                PlatformConfigurationKey.APP_TIMER_REFRESH_SUBSCRIPTIONS.name(),
+                "86400000");
+        createConfigSetting(
+                PlatformConfigurationKey.APP_TIMER_REFRESH_USAGEDATA.name(),
+                "86400000");
         createConfigSetting(PlatformConfigurationKey.BSS_WEBSERVICE_URL.name(),
                 "http://abc.de");
         createConfigSetting(

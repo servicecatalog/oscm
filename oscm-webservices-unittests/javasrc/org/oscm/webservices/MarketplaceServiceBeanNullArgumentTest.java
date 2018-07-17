@@ -34,6 +34,7 @@ public class MarketplaceServiceBeanNullArgumentTest extends
         super(MarketplaceService.class);
         addNullAllowed("getMarketplaceForSubscription", "locale");
         addNullAllowed("saveBrandingUrl", "brandingUrl");
+        addNullAllowed("publishService", "entries");
     }
 
     @Override

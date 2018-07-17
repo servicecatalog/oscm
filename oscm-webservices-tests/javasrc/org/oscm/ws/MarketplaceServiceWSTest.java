@@ -31,6 +31,7 @@ import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.types.exceptions.*;
@@ -176,7 +177,6 @@ public class MarketplaceServiceWSTest {
                 .createMarketplaceVO(PLATFORM_OPERATOR, false, "localMp");
         marketplace.setTaggingEnabled(false);
         marketplace.setReviewEnabled(false);
-        marketplace.setSocialBookmarkEnabled(false);
         marketplace = createAndValidateMarketplace(marketplace);
 
         VOMarketplace marketplace2 = mpService_Operator
@@ -184,23 +184,14 @@ public class MarketplaceServiceWSTest {
 
         assertEquals(marketplace.isReviewEnabled(),
                 marketplace2.isReviewEnabled());
-        assertEquals(marketplace.isSocialBookmarkEnabled(),
-                marketplace2.isSocialBookmarkEnabled());
-        assertEquals(marketplace.isSocialBookmarkEnabled(),
-                marketplace2.isSocialBookmarkEnabled());
 
         marketplace.setTaggingEnabled(true);
         marketplace.setReviewEnabled(true);
-        marketplace.setSocialBookmarkEnabled(true);
         mpService_Operator.updateMarketplace(marketplace);
         marketplace2 = mpService_Operator
                 .getMarketplaceById(marketplace.getMarketplaceId());
         assertEquals(marketplace.isReviewEnabled(),
                 marketplace2.isReviewEnabled());
-        assertEquals(marketplace.isSocialBookmarkEnabled(),
-                marketplace2.isSocialBookmarkEnabled());
-        assertEquals(marketplace.isSocialBookmarkEnabled(),
-                marketplace2.isSocialBookmarkEnabled());
     }
 
     @Test(expected = ValidationException.class)
@@ -367,6 +358,7 @@ public class MarketplaceServiceWSTest {
         }
     }
 
+    @Ignore
     @Test
     public void testDeleteMarketplaceWithServices() throws Exception {
         VOMarketplace marketplace = factory.createMarketplaceVO(
@@ -861,6 +853,7 @@ public class MarketplaceServiceWSTest {
                                               // marketplace
     }
 
+    @Ignore
     @Test
     public void testGetMarketplaceForSubscription() throws Exception {
         VOMarketplace marketplace = factory.createMarketplaceVO(

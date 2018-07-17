@@ -886,7 +886,6 @@
           <xs:element name="owningOrganizationId" type="xs:string" minOccurs="0"/>
           <xs:element name="owningOrganizationName" type="xs:string" minOccurs="0"/>
           <xs:element name="reviewEnabled" type="xs:boolean"/>
-          <xs:element name="socialBookmarkEnabled" type="xs:boolean"/>
           <xs:element name="taggingEnabled" type="xs:boolean"/>
         </xs:sequence>
       </xs:extension>

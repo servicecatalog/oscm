@@ -24,6 +24,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -176,6 +177,7 @@ public class ServiceProvisioningServiceWSTest {
                 serviceDetails, priceModel, supplier);
     }
 
+    @Ignore
     @Test(expected = OperationNotPermittedException.class)
     public void savePriceModelForSubscription_FreePeriod() throws Exception {
         VOPriceModel priceModel = createVOPriceModel();
@@ -209,6 +211,7 @@ public class ServiceProvisioningServiceWSTest {
                 .savePriceModelForSubscription(serviceDetails, priceModel);
     }
 
+    @Ignore
     @Test(expected = PriceModelException.class)
     public void savePriceModelForSubscription_ChangeTimeUnit() throws Exception {
         VOPriceModel priceModel = createVOPriceModel();
@@ -222,6 +225,7 @@ public class ServiceProvisioningServiceWSTest {
                 .savePriceModelForSubscription(serviceDetails, priceModel);
     }
 
+    @Ignore
     @Test(expected = PriceModelException.class)
     public void savePriceModelForSubscription_ChangeCurrency() throws Exception {
         VOPriceModel priceModel = createVOPriceModel();
@@ -235,6 +239,7 @@ public class ServiceProvisioningServiceWSTest {
                 .savePriceModelForSubscription(serviceDetails, priceModel);
     }
 
+    @Ignore
     @Test(expected = PriceModelException.class)
     public void savePriceModelForSubscription_ChangePriceModelType()
             throws Exception {
@@ -303,6 +308,7 @@ public class ServiceProvisioningServiceWSTest {
         }
     }
 
+    @Ignore
     @Test(expected = OperationPendingException.class)
     public void activateService_TriggerProcessPending() throws Exception {
         // create a trigger definition on activate service
@@ -324,6 +330,7 @@ public class ServiceProvisioningServiceWSTest {
         }
     }
 
+    @Ignore
     @Test(expected = OperationPendingException.class)
     public void deactivateService_TriggerProcessPending() throws Exception {
         // create and activate a service
@@ -348,6 +355,7 @@ public class ServiceProvisioningServiceWSTest {
         }
     }
 
+    @Ignore
     @Test(expected = OperationPendingException.class)
     public void setActivationStates_TriggerProcessPending() throws Exception {
         // create a trigger definition on activate service

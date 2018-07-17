@@ -8,6 +8,17 @@
 
 package org.oscm.app.vmware.persistence;
 
+import org.oscm.app.vmware.business.model.Cluster;
+import org.oscm.app.vmware.business.model.VCenter;
+import org.oscm.app.vmware.business.model.VLAN;
+import org.oscm.app.vmware.encryption.AESEncrypter;
+import org.oscm.app.vmware.i18n.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,17 +26,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
-import org.oscm.app.vmware.business.model.Cluster;
-import org.oscm.app.vmware.business.model.VCenter;
-import org.oscm.app.vmware.business.model.VLAN;
-import org.oscm.app.vmware.i18n.Messages;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Provides data access to the vmware controller database.
@@ -116,27 +116,16 @@ public class DataAccessService {
      */
     public void setVCenter(VCenter vcenter) throws Exception {
         logger.debug("vcenter: " + vcenter.name);
-
-        try (Connection con = getDatasource().getConnection();) {
+        try (Connection con = getDatasource().getConnection()) {
             String query1 = "UPDATE vcenter SET url = ?, userid = ?, password = ? WHERE tkey = ?";
-            try (PreparedStatement stmt = con.prepareStatement(query1);) {
+            try (PreparedStatement stmt = con.prepareStatement(query1)) {
                 stmt.setString(1, vcenter.getUrl());
                 stmt.setString(2, vcenter.getUserid());
-                stmt.setString(3, vcenter.getPassword());
+                stmt.setString(3,
+                        AESEncrypter.encrypt(vcenter.getPassword()));
                 stmt.setInt(4, vcenter.tkey);
                 stmt.executeUpdate();
             }
-
-            /*
-             * String query2 =
-             * "UPDATE cluster SET load_balancer = ? WHERE tkey = ?"; try
-             * (PreparedStatement stmt = con.prepareStatement(query2);) { for
-             * (Datacenter dc : vcenter.datacenter) { for (Cluster cluster :
-             * dc.cluster) { logger.debug("dc: " + dc.name + " vcenter: " +
-             * vcenter.tkey + " cluster: " + cluster.name + "  loadbalancer: " +
-             * cluster.loadbalancer); stmt.setString(1, cluster.loadbalancer);
-             * stmt.setInt(2, cluster.tkey); stmt.executeUpdate(); } } }
-             */
         } catch (SQLException e) {
             logger.error("Failed to save controller configuration", e);
             throw new Exception(Messages.get(locale, "error_db_save_conf"));
@@ -158,7 +147,7 @@ public class DataAccessService {
                 vc.identifier = rs.getString("identifier");
                 vc.setUrl(rs.getString("url"));
                 vc.setUserid(rs.getString("userid"));
-                vc.setPassword(rs.getString("password"));
+                vc.setPassword(AESEncrypter.decrypt(rs.getString("password")));
                 vc.tkey = rs.getInt("tkey");
                 vcenter.add(vc);
             }
@@ -166,62 +155,9 @@ public class DataAccessService {
             logger.error("Failed to retrieve vCenter server list", e);
             throw e;
         }
-        /*
-         * for (VCenter vc : vcenter) { retrieveDatacenter(vc); }
-         */
 
         return vcenter;
     }
-
-    /*
-     * private void retrieveDatacenter(VCenter vcenter) throws Exception {
-     * logger.debug("vcenter: " + vcenter.name + " vcenter_tkey: " +
-     * vcenter.tkey); vcenter.datacenter = new ArrayList<Datacenter>(); String
-     * query =
-     * "SELECT tkey,name,identifier FROM datacenter WHERE vcenter_tkey = ?"; try
-     * (Connection con = getDatasource().getConnection(); PreparedStatement stmt
-     * = con.prepareStatement(query);) { stmt.setInt(1, vcenter.tkey);
-     * 
-     * ResultSet rs = stmt.executeQuery();
-     * 
-     * while (rs.next()) { Datacenter dc = new Datacenter(); dc.tkey =
-     * rs.getInt("tkey"); dc.name = rs.getString("name"); dc.id =
-     * rs.getString("identifier"); dc.vcenter_tkey = vcenter.tkey;
-     * vcenter.datacenter.add(dc); } } catch (SQLException e) {
-     * logger.error("Failed to retrieve datacenter list for vCenter " +
-     * vcenter.name, e); throw e; }
-     * 
-     * if (vcenter.datacenter.size() == 0) {
-     * logger.error("No datacenter defined for vcenter " + vcenter.name); }
-     * 
-     * for (Datacenter dc : vcenter.datacenter) { retrieveCluster(vcenter, dc);
-     * }
-     * 
-     * }
-     * 
-     * private void retrieveCluster(VCenter vc, Datacenter dc) throws Exception
-     * { logger.debug("vcenter: " + vc.name + " datacenter: " + dc.name);
-     * dc.cluster = new ArrayList<Cluster>(); String query =
-     * "SELECT tkey,datacenter_tkey,name,load_balancer FROM cluster WHERE datacenter_tkey = ?"
-     * ; try (Connection con = getDatasource().getConnection();
-     * PreparedStatement stmt = con.prepareStatement(query);) { stmt.setInt(1,
-     * dc.tkey);
-     * 
-     * ResultSet rs = stmt.executeQuery();
-     * 
-     * while (rs.next()) { Cluster cluster = new Cluster(); cluster.tkey =
-     * rs.getInt("tkey"); cluster.datacenter_tkey =
-     * rs.getInt("datacenter_tkey"); cluster.name = rs.getString("name");
-     * cluster.loadbalancer = rs.getString("load_balancer");
-     * dc.cluster.add(cluster); } } catch (SQLException e) {
-     * logger.error("Failed to retrieve cluster list for vCenter server " +
-     * vc.name + " and datacenter " + dc.name, e); throw e; }
-     * 
-     * if (dc.cluster.size() == 0) {
-     * logger.error("No cluster defined for datacenter " + dc.name); }
-     * 
-     * }
-     */
 
     public VMwareCredentials getCredentials(String vcenter) throws Exception {
         logger.debug("vcenter=" + vcenter);
@@ -232,8 +168,10 @@ public class DataAccessService {
             stmt.setString(1, vcenter);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                credentials = new VMwareCredentials(rs.getString("url"),
-                        rs.getString("userid"), rs.getString("password"));
+                credentials = new VMwareCredentials(
+                        rs.getString("url"),
+                        rs.getString("userid"),
+                        AESEncrypter.decrypt(rs.getString("password")));
             }
         } catch (SQLException e) {
             logger.error(
@@ -958,13 +896,13 @@ public class DataAccessService {
         return cluster_tkey;
     }
 
-    protected DataSource getDatasource() throws Exception {
+    public DataSource getDatasource() throws Exception {
         if (ds == null) {
             try {
-                final Properties ctxProperties = new Properties();
-                ctxProperties.putAll(System.getProperties());
-                Context namingContext = new InitialContext(ctxProperties);
-                ds = (DataSource) namingContext.lookup(DATASOURCE);
+                Properties p = new Properties();
+                p.put(Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.core.OpenEJBInitialContextFactory");
+                Context context = new InitialContext(p);
+                ds = (DataSource) context.lookup(DATASOURCE);
             } catch (Exception e) {
                 throw new Exception("Datasource " + DATASOURCE + " not found.",
                         e);

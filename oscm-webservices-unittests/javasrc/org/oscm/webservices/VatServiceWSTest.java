@@ -19,6 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.security.Principal;
+import java.util.Collections;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.ws.WebServiceContext;
@@ -90,10 +91,11 @@ public class VatServiceWSTest {
         verify(serviceMock, times(1)).getDefaultVat();
         verify(serviceMock, times(1)).getOrganizationVats();
         verify(serviceMock, times(1)).getVatSupport();
-        verify(serviceMock, times(1)).saveAllVats(null, null, null);
-        verify(serviceMock, times(1)).saveCountryVats(null);
+        verify(serviceMock, times(1)).saveAllVats(null, Collections.emptyList(),
+                Collections.emptyList());
+        verify(serviceMock, times(1)).saveCountryVats(Collections.emptyList());
         verify(serviceMock, times(1)).saveDefaultVat(null);
-        verify(serviceMock, times(1)).saveOrganizationVats(null);
+        verify(serviceMock, times(1)).saveOrganizationVats(Collections.emptyList());
     }
 
 }

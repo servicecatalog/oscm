@@ -239,6 +239,7 @@ public class PropertyImportControllerTest {
                 "here@there.com");
         p.put(PlatformConfigurationKey.APP_TIMER_INTERVAL.name(), "15000");
         p.put(PlatformConfigurationKey.APP_TIMER_REFRESH_SUBSCRIPTIONS.name(), "86400000");
+        p.put(PlatformConfigurationKey.APP_TIMER_REFRESH_USAGEDATA.name(), "86400000");
         p.put(PlatformConfigurationKey.BSS_WEBSERVICE_URL.name(),
                 "http://localhost:8680/{service}/BASIC?wsdl");
 

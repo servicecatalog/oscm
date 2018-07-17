@@ -41,15 +41,6 @@
 
         <h:panelGroup />
         <h:panelGroup>
-          <h:selectBooleanCheckbox id="socialBookmarkEnabled" value="#{newMarketplaceBean.model.socialBookmarkEnabled}"
-            onchange="setDirty(true)">
-          </h:selectBooleanCheckbox>
-          <h:outputLabel value="#{msg['marketplace.socialBookmarkEnabled']}" />
-        </h:panelGroup>
-        <h:panelGroup />
-
-        <h:panelGroup />
-        <h:panelGroup>
           <h:selectBooleanCheckbox id="closed" value="#{newMarketplaceBean.model.closed}" onchange="setDirty(true)">
           </h:selectBooleanCheckbox>
           <h:outputLabel value="#{msg['marketplace.publishingRules.closed']}" />
