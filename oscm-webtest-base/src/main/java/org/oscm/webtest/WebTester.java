@@ -1,8 +1,8 @@
 /*******************************************************************************
  *                                                                              
- *  Copyright FUJITSU LIMITED 2018
+ *  Copyright FUJITSU LIMITED 2018                                           
  *                                                                                                                                 
- *  Creation Date: Feb 7, 2017                                                      
+ *  Creation Date: 20 6, 2018                                                      
  *                                                                              
  *******************************************************************************/
 
@@ -10,19 +10,14 @@ package org.oscm.webtest;
 
 import java.io.FileInputStream;
 import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import javax.mail.Authenticator;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.mail.search.SubjectTerm;
-
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -40,99 +35,84 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class WebTester {
 
-    // selenium parameters
-    private static final int IMPLICIT_WAIT = 10;
-
+    public static final int IMPLICIT_WAIT = 10;
     // property keys
-    private static final String BES_SECURE = "bes.secure";
-    private static final String BES_HTTP_URL = "bes.http.url";
-    private static final String BES_HTTPS_URL = "bes.https.url";
-    private static final String EMAIL_ADDRESS = "email.address";
-    private static final String EMAIL_HOST = "email.host";
-    private static final String EMAIL_USER = "email.user";
-    private static final String EMAIL_PASSWORD = "email.password";
-    private static final String EMAIL_PROTOCOL = "email.protocol";
+    public static final String BES_SECURE = "bes.secure";
+    public static final String BES_HTTP_URL = "bes.http.url";
+    public static final String BES_HTTPS_URL = "bes.https.url";
+    public static final String BES_ADMIN_USER_ID = "bes.user.id";
+    public static final String BES_ADMIN_USER_PWD = "bes.user.password";
+    public static final String BES_ADMIN_USER_KEY = "bes.user.key";
+
+    public static final String APP_SECURE = "app.secure";
+    public static final String APP_HTTP_URL = "app.http.url";
+    public static final String APP_HTTPS_URL = "app.https.url";
+    public static final String APP_ADMIN_USER_ID = "app.user.id";
+    public static final String APP_ADMIN_USER_PWD = "app.user.password";
+    public static final String TIME_INTERVAL = "create.subscription.waiting.seconds";
+
+    protected static final Logger logger = Logger.getLogger(WebTester.class);
+    // web element keys
+    protected static final String ATTRIUBTE_VALUE = "value";
+    protected String baseUrl = "";
+    protected WebDriver driver;
+    protected Properties prop;
+    private int waitingTime;
 
     // path schemas
     private static final String PROPERTY_PATH = "../oscm-devruntime/javares/local/%s/webtest.properties";
-    private static final String BASE_PATH_PORTAL = "%s/oscm-portal/%s";
-    private static final String BASE_PATH_MARKETPLACE = "%s/oscm-portal/marketplace/%s";
-
-    // email parameters
-    private static final String MAIL_INBOX = "INBOX";
-
-    // web element keys
-    private static final String ATTRIUBTE_VALUE = "value";
-
-    private static final String ELEMENT_PORTAL_USERID = "userId";
-    private static final String ELEMENT_PORTAL_PASSWORD = "password";
-    private static final String ELEMENT_PORTAL_LOGIN = "loginButton";
-    private static final String ELEMENT_PORTAL_LOGOUT = "formLogout:logout";
-
-    private static final String ELEMENT_PORTAL_ERRORS = "errorMessages:";
-    private static final String ELEMENT_PORTAL_ERRORCLASS = "rf-msgs-sum";
-
-    private static final String ELEMENT_PORTAL_INFOS = "infoMessages:";
-    private static final String ELEMENT_PORTAL_INFOCLASS = "rf-msgs-sum";
-
-    private static final String ELEMENT_MARKETPLACE_USERID = "loginForm:loginUserId";
-    private static final String ELEMENT_MARKETPLACE_PASSWORD = "loginForm:loginPassword";
-    private static final String ELEMENT_MARKETPLACE_LOGIN = "loginForm:loginButtonLink";
-    private static final String ELEMENT_MARKETPLACE_LOGOUT = "formLogout:logout";
-
-    private String base;
-    private WebDriver driver;
-
-    private String address;
-    private Session mailSession;
 
     public WebTester() throws Exception {
+
+        loadPropertiesFile();
+        driver = new HtmlUnitDriver(true);
+        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT,
+                TimeUnit.SECONDS);
+        setWaitingTime(IMPLICIT_WAIT);
+
+    }
+
+    /**
+     * Load properties from personal devruntime folder
+     * 
+     */
+    private void loadPropertiesFile() throws Exception {
+
         Map<String, String> env = System.getenv();
-        // load properties from personal devruntime folder
         String localhost = env.get("HOSTNAME");
         if (StringUtils.isEmpty(localhost)) {
             localhost = InetAddress.getLocalHost().getHostName();
         }
         String filePath = String.format(PROPERTY_PATH, localhost);
 
-        Properties prop = new Properties();
+        prop = new Properties();
         FileInputStream fis = new FileInputStream(filePath);
         prop.load(fis);
         fis.close();
 
-        boolean secure = Boolean.parseBoolean(prop.getProperty(BES_SECURE));
+    }
 
+    /**
+     * load Url
+     * 
+     * @param prefix
+     * @return
+     * @throws NoSuchFieldException
+     * @throws SecurityException
+     */
+    protected String loadUrl(String secureUrl, String httpsUrl, String httpUrl)
+            throws NoSuchFieldException, SecurityException {
+
+        boolean secure = Boolean.parseBoolean(prop.getProperty(secureUrl));
         if (secure) {
-            base = prop.getProperty(BES_HTTPS_URL);
+            return prop.getProperty(httpUrl);
         } else {
-            base = prop.getProperty(BES_HTTP_URL);
+            return prop.getProperty(httpsUrl);
         }
+    }
 
-        // initialize selenium webdriver
-        driver = new HtmlUnitDriver(true);
-        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT,
-                TimeUnit.SECONDS);
-
-        // initialize java mail session
-        address = prop.getProperty(EMAIL_ADDRESS);
-        String host = prop.getProperty(EMAIL_HOST);
-        final String user = prop.getProperty(EMAIL_USER);
-        final String password = prop.getProperty(EMAIL_PASSWORD);
-        String protocol = prop.getProperty(EMAIL_PROTOCOL);
-
-        Properties emailProp = new Properties();
-        emailProp.setProperty("mail.store.protocol", protocol);
-        emailProp.setProperty("mail.host", host);
-        emailProp.setProperty("mail.user", user);
-        emailProp.setProperty("mail.from", address);
-        emailProp.setProperty("mail.debug", "true");
-
-        mailSession = Session.getInstance(emailProp, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(user, password);
-            }
-        });
+    public String getPropertie(String propertie) {
+        return prop.getProperty(propertie);
     }
 
     /**
@@ -143,98 +123,20 @@ public class WebTester {
     }
 
     /**
-     * Attempts a login to the OSCM portal with the given credentials. Note that
-     * this method assumes the webdriver to be at the login page.
+     * found the text between two given text in String
      * 
-     * @param user
-     *            the user name
-     * @param password
-     *            the password
+     * @param msg
+     * @param before
+     * @param after
+     * @return
      */
-    public void loginPortal(String user, String password) {
-        WebElement userInput = driver.findElement(By.id(ELEMENT_PORTAL_USERID));
-        userInput.sendKeys(user);
+    protected String findTextBetween(String msg, String before, String after) {
 
-        WebElement pwdInput = driver
-                .findElement(By.name(ELEMENT_PORTAL_PASSWORD));
-        pwdInput.sendKeys(password);
+        msg = msg.substring(msg.indexOf(before) + before.length(),
+                msg.indexOf(after));
 
-        driver.findElement(By.id(ELEMENT_PORTAL_LOGIN)).click();
+        return msg;
 
-        System.out.println("Login OSCM Portal");
-    }
-
-    /**
-     * Navigates the webdriver to the given page of the OSCM portal.
-     * 
-     * @param page
-     *            the page of the portal
-     */
-    public void visitPortal(String page) {
-        String target = String.format(BASE_PATH_PORTAL, base, page);
-
-        driver.navigate().to(target);
-
-        System.out.println("Goto " + target);
-    }
-
-    /**
-     * Logs out the current user from the OSCM portal. Note that this method
-     * assumes that there is a logged in user and that the driver is at a portal
-     * page.
-     */
-    public void logoutPortal() {
-        driver.findElement(By.id(ELEMENT_PORTAL_LOGOUT)).click();
-
-        System.out.println("Logout OSCM Portal");
-    }
-
-    /**
-     * Attempts a login to the OSCM marketplace with the given credentials. Note
-     * that this method assumes the webdriver to be at the login page.
-     * 
-     * @param user
-     *            the user name
-     * @param password
-     *            the password
-     */
-    public void loginMarketplace(String user, String password) {
-        WebElement userInput = driver
-                .findElement(By.id(ELEMENT_MARKETPLACE_USERID));
-        userInput.sendKeys(user);
-
-        WebElement pwdInput = driver
-                .findElement(By.id(ELEMENT_MARKETPLACE_PASSWORD));
-        pwdInput.sendKeys(password);
-
-        driver.findElement(By.id(ELEMENT_MARKETPLACE_LOGIN)).click();
-
-        System.out.println("Login OSCM Marketplace");
-    }
-
-    /**
-     * Navigates the webdriver to the given page of the OSCM marketplace.
-     * 
-     * @param page
-     *            the page of the portal
-     */
-    public void visitMarketplace(String context) {
-        String target = String.format(BASE_PATH_MARKETPLACE, base, context);
-
-        driver.navigate().to(target);
-
-        System.out.println("Goto " + target);
-    }
-
-    /**
-     * Logs out the current user from the OSCM marketplace. Note that this
-     * method assumes that there is a logged in user and that the driver is at a
-     * marketplace page.
-     */
-    public void logoutMarketplace() {
-        driver.findElement(By.id(ELEMENT_MARKETPLACE_LOGOUT)).click();
-
-        System.out.println("Logout OSCM Marketplace");
     }
 
     /**
@@ -245,22 +147,38 @@ public class WebTester {
      *             if error message is not present
      */
     public String readErrorMessage() {
-        WebElement element = driver.findElement(By.id(ELEMENT_PORTAL_ERRORS));
-        return element.findElement(By.className(ELEMENT_PORTAL_ERRORCLASS))
-                .getText();
+        return "";
+
+    }
+
+    public String readInfoMessage() {
+        return "";
+    }
+
+    public boolean getExecutionResult() {
+        return false;
     }
 
     /**
-     * Reads the info message from the page notification.
+     * Verifies if found the required element
      * 
-     * @return the info message
+     * @param id
+     *            the element id
+     * @param value
+     *            the value to compare with
+     * @return true if equal
      * @throws NoSuchElementException
-     *             if info message is not present
+     *             if element is not present
      */
-    public String readInfoMessage() {
-        WebElement element = driver.findElement(By.id(ELEMENT_PORTAL_INFOS));
-        return element.findElement(By.className(ELEMENT_PORTAL_INFOCLASS))
-                .getText();
+    public boolean verifyFoundElement(By by) {
+
+        try {
+            if (driver.findElement(by) != null)
+                return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+        return false;
     }
 
     /**
@@ -275,8 +193,11 @@ public class WebTester {
      * @throws NoSuchElementException
      *             if element is not present
      */
-    public boolean verifyElement(String id, String value) {
+    public boolean verifyEqualElement(String id, String value) {
         WebElement element = driver.findElement(By.id(id));
+        if (element == null)
+            return false;
+
         String attribute = element.getAttribute(ATTRIUBTE_VALUE);
 
         if (attribute != null && attribute.equals(value)) {
@@ -386,46 +307,42 @@ public class WebTester {
      * @throws TimeoutException
      *             if the timeout is reached
      */
-    public void waitForElement(String id, int seconds) {
+    public void waitForElement(By by, int seconds) {
         (new WebDriverWait(driver, seconds))
-                .until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
+                .until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     /**
-     * Reads the latest email with the given subject from the email inbox.
+     * Waits for the element with the given id to be present or until the given
+     * amount of seconds has passed.
      * 
-     * @param subject
-     *            the email subject
-     * @return the email body or null if no email was found
-     * @throws Exception
+     * @param id
+     *            the element id
+     * @param seconds
+     *            the seconds until timeout
+     * @throws TimeoutException
+     *             if the timeout is reached
      */
-    public String readLatestEmailWithSubject(String subject) throws Exception {
-        Store store = mailSession.getStore();
-        store.connect();
+    public void waitForElementVisible(By by, int seconds) {
+        (new WebDriverWait(driver, seconds))
+                .until(ExpectedConditions.elementToBeClickable(by));
 
-        Folder folder = store.getFolder(MAIL_INBOX);
-        folder.open(Folder.READ_WRITE);
+    }
 
-        Message[] messages = null;
-
-        messages = folder.search(new SubjectTerm(subject));
-
-        String body = null;
-        if (messages.length > 0) {
-            Message latest = messages[0];
-
-            for (Message m : messages) {
-                if (latest.getSentDate().compareTo(m.getSentDate()) < 0) {
-                    latest = m;
-                }
-            }
-            body = (String) latest.getContent();
-        }
-
-        folder.close(false);
-        store.close();
-
-        return body;
+    /**
+     * Waits for the element with the given id to be present or until the given
+     * amount of seconds has passed.
+     * 
+     * @param id
+     *            the element id
+     * @param seconds
+     *            the seconds until timeout
+     * @throws InterruptedException
+     * @throws TimeoutException
+     *             if the timeout is reached
+     */
+    public void wait(int seconds) throws InterruptedException {
+        driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
 
     /**
@@ -437,12 +354,29 @@ public class WebTester {
         return driver.getCurrentUrl();
     }
 
-    /**
-     * Returns the configured email address.
-     * 
-     * @return the email address
-     */
-    public String getEmailAddress() {
-        return address;
+    public void log(String msg) {
+        logger.info(msg);
+    }
+
+    public WebDriver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public static String getCurrentTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date();
+        return formatter.format(date);
+    }
+
+    public int getWaitingTime() {
+        return waitingTime;
+    }
+
+    public void setWaitingTime(int waitingTime) {
+        this.waitingTime = waitingTime;
     }
 }
