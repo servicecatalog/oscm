@@ -2,26 +2,14 @@
  *                                                                              
  *  Copyright FUJITSU LIMITED 2018                                           
  *                                                                                                                                 
- *  Creation Date: Feb 8, 2017                                                      
+ *  Creation Date: 20 6, 2018                                                      
  *                                                                              
  *******************************************************************************/
+package org.oscm.webtest;
 
-package org.oscm.portal;
+public class AppPathSegments {
+    public static final String APP_CONFIGURATION = "/oscm-app/default.jsf";
+    public static final String APP_SAMPLE_CONTROLLER = "/oscm-app-sample/";
+    public static final String APP_SERVICE_INSTANCE = "oscm-app/controller/?cid=";
 
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
-
-/**
- * Integration web test to create a new user.
- * 
- * @author miethaner
- */
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class PortalUserTest {
-
-    @Test
-    public void test01Create() {
-
-    }
 }
