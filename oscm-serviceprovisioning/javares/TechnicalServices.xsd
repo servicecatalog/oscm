@@ -118,7 +118,7 @@
 			<xsd:element name="LocalizedDescription" type="tns:LocalizedDescriptionType"
 				maxOccurs="unbounded" minOccurs="1" />
 		</xsd:sequence>
-		<xsd:attribute name="id" type="tns:StrId" use="required" />
+		<xsd:attribute name="id" type="tns:Str255" use="required" />
 		<xsd:attribute name="mandatory" type="xsd:boolean" use="optional" />
 		<xsd:attribute name="configurable" type="xsd:boolean"
 			use="optional" />
@@ -172,7 +172,7 @@
 			<xsd:element name="OperationParameter" type="tns:OperationParameterType"
 				minOccurs="0" maxOccurs="unbounded" />
 		</xsd:sequence>
-		<xsd:attribute name="id" type="tns:StrId" use="required" />
+		<xsd:attribute name="id" type="tns:Str255" use="required" />
 		<xsd:attribute name="actionURL" type="tns:Str255" use="required" />
 	</xsd:complexType>
 
@@ -181,7 +181,7 @@
 			<xsd:element name="LocalizedName" type="tns:LocalizedDescriptionType"
 				minOccurs="1" maxOccurs="unbounded" />
 		</xsd:sequence>
-		<xsd:attribute name="id" type="tns:StrId" use="required" />
+		<xsd:attribute name="id" type="tns:Str255" use="required" />
 		<xsd:attribute name="type" type="tns:OperationParameterTypeType"
 			use="required" />
 		<xsd:attribute name="mandatory" type="xsd:boolean"
