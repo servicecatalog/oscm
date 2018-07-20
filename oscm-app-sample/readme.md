@@ -57,3 +57,4 @@ Login to APP UI `https://<FQDN>:8881/oscm-app`. In section `Controller ID` add t
 2. Get the technical service template and import it into OSCM. Select 'Technical service > Import service definition' and upload the Technical Service XML file (see Contents).
 3. Define a marketable service and price model on base of AppSampleService and publish it on your marketplace. See [Supplier's Guide](https://github.com/servicecatalog/documentation) for details on how to publish services.
 4. Login to the marketplace and subscribe the service.
+5. Create, manage, and delete subscriptions to see how the service controller works. 
