@@ -18,7 +18,6 @@ You can either build `oscm-app-sample.ear` from source or download and extract i
 docker cp oscm-app-sample.ear oscm-app:/opt/apache-tomee/controllers/
 ```
 
-
 ## Insert database settings
 
 Ensure oscm-db is running with 'docker ps' and note the image name. Note the root password DB_SUPERPWD you have defined in your env settings, e.g. `less /docker/var.env | grep DB_SUPERPWD` 
@@ -50,7 +49,7 @@ Stop temporary container with exit.
 ``` 
 docker-compose -f docker-compose-oscm.yml restart oscm-app
 ```
-## Register controller in APP
+## Register it in APP
 Login to APP UI `https://<FQDN>:8881/oscm-app`. In section `Controller ID` add the key `ess.sample` with value `PLATFORM_OPERATOR`, repsectively the organization key of the responsible technology provider you defined above. 
 
 ## Deploy and use the service
