@@ -20,7 +20,7 @@ docker cp oscm-app-sample.ear oscm-app:/opt/apache-tomee/controllers/
 
 ## Insert database settings
 
-Ensure oscm-db is running with 'docker ps' and note the image name. Note the root password DB_SUPERPWD you have defined in your env settings, e.g. `less /docker/var.env | grep DB_SUPERPWD` 
+Ensure oscm-db is running with `docker ps` and note the image name. Note the root password `DB_SUPERPWD` you have defined in your env settings, e.g. `less /docker/var.env | grep DB_SUPERPWD` 
 
 Start a temporary container from oscm-db image with a shell
 
