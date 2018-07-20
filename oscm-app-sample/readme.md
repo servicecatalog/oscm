@@ -32,7 +32,7 @@ Set database root password
 export PGPASSWORD=<DB_SUPERPW>
 ```
 
-Insert following configuration settings for ess.sample. This assumes you have granted the platform administrator technology manager and service manager roles. Otherwise replace read here to grant the roles, or replace `BSS_ORGANIZATION_ID`, `BSS_USER_ID`, `BSS_USER_KEY` and `BSS_USER_PWD` for using a different technology provider.
+Insert following configuration settings for ess.sample. This assumes you have granted the platform administrator technology manager and service manager roles. Otherwise read [here](https://github.com/servicecatalog/oscm/wiki/Getting-Started#adding-organization-roles) to grant the roles. If you want to use any differnt different technology provider replace `BSS_ORGANIZATION_ID`, `BSS_USER_ID`, `BSS_USER_KEY` and `BSS_USER_PWD` with respecive values.
 
 ```
 psql -h oscm-db -U postgres -d bssapp -c "INSERT INTO bssappuser.configurationsetting (controllerid, settingkey, settingvalue) VALUES ('ess.sample', 'VERSION', '1.0');"
