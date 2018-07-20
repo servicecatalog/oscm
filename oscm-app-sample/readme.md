@@ -1,4 +1,4 @@
-## APP Sample Controller
+# APP Sample Controller
 Sample implementation of a service controller based on the Application Provisioning Platform (APP).
 
 The sample shows how the methods of a service controller could be implemented using the automatic polling mechanisms of APP.
@@ -7,14 +7,15 @@ a dispatcher and sends information emails.
 
 For details, refer to the documentation in the source code.  
 
-# Deploy ear file into TomEE deployment directory 
+## Deploy ear file
+Deploy oscm-app-sample.ear in TomEE deployment directory in APP container.
 ```
 docker cp oscm-app-sample.ear oscm-app:/opt/apache-tomee/controllers/
 ```
 
 Run docker ps. Ensure oscm-db is running and note the image name. Note the root password DB_SUPERPWD you have defined in env settings, e.g. 'less /docker/var.env | grep DB_SUPERPWD'
 
-# Insert database settings
+## Insert database settings
 
 Start a temporary container from oscm-db image with a shell
 
@@ -38,7 +39,9 @@ psql -h oscm-db -U postgres -d bssapp -c "INSERT INTO bssappuser.configurationse
 psql -h oscm-db -U postgres -d bssapp -c "INSERT INTO bssappuser.configurationsetting (controllerid, settingkey, settingvalue) VALUES ('ess.sample', 'BSS_USER_PWD', '_crypt:admin123');"
 ```
 
-Stop temporary container with exit and restart oscm-app
+Stop temporary container with exit. 
+
+## Restart oscm-app
 ``` 
 docker-compose -f docker-compose-oscm.yml restart oscm-app
 ```
