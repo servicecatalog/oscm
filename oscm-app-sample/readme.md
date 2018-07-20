@@ -45,6 +45,9 @@ Stop temporary container with exit.
 ``` 
 docker-compose -f docker-compose-oscm.yml restart oscm-app
 ```
+## Register controller in APP
+Login to APP UI `https://<FQDN>:8881/oscm-app`. In section `Controller ID` add the key `ess.sample` with value `PLATFORM_OPERATOR`, repsectively the organization key of the responsible technology provider you defined above. 
+
 ## Deploy and use the service
 1. Login as technology manager to the OSCM administrator portal `https://<FQDN>:8081/oscm-portal`. 
 2. Get the technical service template and import it into OSCM. Select 'Technical service > Import service definition' and upload the XML file.
