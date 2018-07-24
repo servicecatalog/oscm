@@ -46,7 +46,6 @@ import org.oscm.app.v2_0.data.ProvisioningSettings;
 import org.oscm.app.v2_0.data.Setting;
 import org.oscm.app.v2_0.data.User;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
-import org.oscm.app.v2_0.exceptions.AuthenticationException;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.oscm.app.v2_0.exceptions.ControllerLookupException;
 import org.oscm.app.v2_0.exceptions.ObjectNotFoundException;
@@ -106,12 +105,14 @@ public class APPlatformServiceBean implements APPlatformService {
     @Override
     public boolean lockServiceInstance(String controllerId, String instanceId,
             PasswordAuthentication authentication) throws APPlatformException {
+        authService.authenticateTMForInstance(controllerId, instanceId, authentication);
         return concurrencyService.lockServiceInstance(controllerId, instanceId);
     }
 
     @Override
     public void unlockServiceInstance(String controllerId, String instanceId,
             PasswordAuthentication authentication) throws APPlatformException {
+        authService.authenticateTMForInstance(controllerId, instanceId, authentication);
         concurrencyService.unlockServiceInstance(controllerId, instanceId);
     }
 
@@ -159,6 +160,7 @@ public class APPlatformServiceBean implements APPlatformService {
     @Override
     public HashMap<String, Setting> getControllerSettings(String controllerId,
             PasswordAuthentication authentication) throws APPlatformException {
+        authService.authenticateTMForController(controllerId, authentication);
         return configService.getControllerConfigurationSettings(controllerId);
     }
 
@@ -166,7 +168,7 @@ public class APPlatformServiceBean implements APPlatformService {
     public void storeControllerSettings(String controllerId,
             HashMap<String, Setting> controllerSettings,
             PasswordAuthentication authentication) throws APPlatformException {
-
+        authService.authenticateTMForController(controllerId, authentication);
         configService.storeControllerConfigurationSettings(controllerId,
                 controllerSettings);
 
