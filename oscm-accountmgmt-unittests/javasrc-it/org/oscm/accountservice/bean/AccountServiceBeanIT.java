@@ -840,6 +840,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
     /**
      * Test for getting mail type.
      */
+
     @Test
     public void testGetMailType() {
         AccountServiceBean bean = new AccountServiceBean();
@@ -876,6 +877,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
      * added yet.
      * 
      */
+
     @Test
     public void testGetOrganizationForDiscountEndNotificiation()
             throws Exception {
@@ -900,6 +902,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
      * Test for getting organization. One organization is expected.
      * 
      */
+
     @Test
     public void testGetOrganizationForDiscountEndNotificiationWithData()
             throws Exception {
@@ -964,6 +967,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
      * inform about discount end
      * 
      */
+
     @Test
     public void testGetOrganizationForDiscountEndNotificiationWithDataNotInPeriod()
             throws Exception {
@@ -1026,6 +1030,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
     /**
      * Test for manage organization discount. Operation is not permitted.
      */
+
     @Test(expected = OperationNotPermittedException.class)
     public void testUpdateCustomerDiscount_NotPermitted() throws Exception {
 
@@ -1100,6 +1105,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
     /**
      * Test for manage organization discount.
      */
+
     @Test
     public void testUpdateCustomerDiscount_CreateDiscount() throws Exception {
         final BigDecimal discountValue = new BigDecimal("1.00");
@@ -1157,6 +1163,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
     /**
      * Test for manage organization discount.
      */
+
     @Test
     public void testUpdateCustomerDiscount_UpdateDiscount() throws Exception {
         final BigDecimal valueBefore = new BigDecimal("2.00");
@@ -1297,6 +1304,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
     /**
      * Test for manage organization discount.
      */
+
     @Test
     public void testUpdateCustomerDiscount_DeleteDiscount() throws Exception {
         final BigDecimal valueBefore = new BigDecimal("2.00");
@@ -1364,6 +1372,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
     /**
      * Test for manage organization discount.
      */
+
     @Test
     public void testUpdateCustomerDiscount_WithoutDiscount() throws Exception {
 
@@ -1704,10 +1713,9 @@ public class AccountServiceBeanIT extends EJBTestBase {
 
                 // history moddate of organization and user must be exactly the
                 // same as they were created inside one transaction
-                assertEquals(
-                        "Organization " + organization.getOrganizationId()
-                                + " and user " + user.getUserId()
-                                + " must have the same history moddate (created in same transaction)",
+                assertEquals("Organization " + organization.getOrganizationId()
+                        + " and user " + user.getUserId()
+                        + " must have the same history moddate (created in same transaction)",
                         orgHist.getModdate(), userHist.getModdate());
                 return null;
             }
@@ -1927,6 +1935,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
     /**
      * Client organizations are not allowed to have images
      */
+
     @Test(expected = ImageException.class)
     public void testUpdateClientWithImage() throws Throwable {
 
@@ -2336,6 +2345,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
     }
 
     // Refers to bug 6551
+
     @Test(expected = ValidationException.class)
     public void testRegisterOrganizationSupplierInvalidUserDataPhone()
             throws Exception {
@@ -2363,6 +2373,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
     }
 
     // Refers to bug 6555
+
     @Test
     public void testRegisterOrganizationSupplierInvalidUserDataPhoneCheckRollback()
             throws Exception {
@@ -5357,6 +5368,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
      * 
      * @throws Exception
      */
+
     @Test
     public void testRegisterOrganizationWithCountry() throws Exception {
         final Organization organization = new Organization();
@@ -5430,6 +5442,7 @@ public class AccountServiceBeanIT extends EJBTestBase {
      * 
      * @throws Exception
      */
+
     @Test
     public void testRegisterOrganizationWithInvalidCountry_checkRollback()
             throws Exception {
@@ -5566,9 +5579,9 @@ public class AccountServiceBeanIT extends EJBTestBase {
                 ROLE_SUBSCRIPTION_MANAGER);
         Set<VOPaymentType> types = accountMgmt.getAvailablePaymentTypes();
         Assert.assertNotNull(types);
-        Assert.assertEquals(2, types.size());
+        Assert.assertEquals(3, types.size());
         Set<String> set = new HashSet<>(Arrays.asList(PaymentType.CREDIT_CARD,
-                PaymentType.DIRECT_DEBIT));
+                PaymentType.DIRECT_DEBIT, PaymentType.INVOICE));
         for (VOPaymentType pt : types) {
             Assert.assertTrue(set.remove(pt.getPaymentTypeId()));
         }
@@ -5581,9 +5594,9 @@ public class AccountServiceBeanIT extends EJBTestBase {
                 ROLE_ORGANIZATION_ADMIN);
         Set<VOPaymentType> types = accountMgmt.getAvailablePaymentTypes();
         Assert.assertNotNull(types);
-        Assert.assertEquals(2, types.size());
+        Assert.assertEquals(3, types.size());
         Set<String> set = new HashSet<>(Arrays.asList(PaymentType.CREDIT_CARD,
-                PaymentType.DIRECT_DEBIT));
+                PaymentType.DIRECT_DEBIT, PaymentType.INVOICE));
         for (VOPaymentType pt : types) {
             Assert.assertTrue(set.remove(pt.getPaymentTypeId()));
         }
@@ -6618,11 +6631,10 @@ public class AccountServiceBeanIT extends EJBTestBase {
                     accountMgmt.savePaymentConfiguration(pts, null, pts,
                             servicePaymentTypeConfiguration);
                 }
-                conf2.setEnabledPaymentTypes(
-                        suspendService
-                                ? createVOPaymentTypes(CREDIT_CARD,
-                                        DIRECT_DEBIT, INVOICE)
-                                : createVOPaymentTypes());
+                conf2.setEnabledPaymentTypes(suspendService
+                        ? createVOPaymentTypes(CREDIT_CARD, DIRECT_DEBIT,
+                                INVOICE)
+                        : createVOPaymentTypes());
                 return servicePaymentTypeConfiguration;
             }
 
