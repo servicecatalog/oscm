@@ -5,7 +5,6 @@
 package org.oscm.serviceprovisioningservice.bean;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -19,7 +18,13 @@ import static org.oscm.test.Numbers.L_TIMESTAMP;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 import javax.ejb.EJBAccessException;
@@ -1755,12 +1760,9 @@ public class TechnicalProductImportParserIT extends EJBTestBase {
         String[] actionUrls = new String[] { "http://someUrl0",
                 "http://someUrl1" };
         String[] locales = new String[] { "en" };
-        String[][] params = new String[][] {
-                new String[] {
-                        "param1:true:"
-                                + OperationParameterType.REQUEST_SELECT.name(),
-                        "param2:false:"
-                                + OperationParameterType.INPUT_STRING.name() },
+        String[][] params = new String[][] { new String[] {
+                "param1:true:" + OperationParameterType.REQUEST_SELECT.name(),
+                "param2:false:" + OperationParameterType.INPUT_STRING.name() },
                 new String[] { "param1:false:"
                         + OperationParameterType.INPUT_STRING.name() } };
         String xml = TSXML.createTSXMLWithOperationsAndOperationParams(opIds,
@@ -2038,55 +2040,39 @@ public class TechnicalProductImportParserIT extends EJBTestBase {
     }
 
     /**
-     * Corresponds to bug 6633 - the parser must realize when a new technical
-     * service element is read. However, in this case the endElement method id
-     * not called, so the internal collection members are not cleared. Hence Ids
-     * of one service might interfere with those of another one. Bug is to
-     * reproduce this scenario and to ensure that this does not happen. There is
-     * no persistence problem, but a check that no service was created has been
-     * added.
+     * Workaround to bug 6633 is not needed - the parser must realize when a new
+     * technical service element is read. In this case the endElement method id
+     * called and internal collection members are cleared. Two services must be
+     * correctly imported.
      */
     @Test
     public void testImportTechnicalServices_MultipleEntriesWrongParamId()
             throws Exception {
         String fileName = "TwoServicesWrongParamId.xml";
-        try {
-            svcProv.importTechnicalServices(readBytesFromFile(fileName));
-            fail("Must fail as parameter id is wrong");
-        } catch (ImportException e) {
-            String details = e.getDetails();
-            assertNotNull(details);
-            assertTrue(details.startsWith("21: cvc-pattern-valid"));
-            assertFalse(details.contains("Dupli"));
-        }
+
+        svcProv.importTechnicalServices(readBytesFromFile(fileName));
+
         List<VOTechnicalService> technicalServices = svcProv
                 .getTechnicalServices(OrganizationRoleType.TECHNOLOGY_PROVIDER);
-        assertEquals(0, technicalServices.size());
+        assertEquals(2, technicalServices.size());
     }
 
     /**
-     * Corresponds to bug 6633 - see above method
+     *  Workaround to bug 6633 is not needed - see above method
      * {@link #testImportTechnicalServices_MultipleEntriesWrongParamId()} - here
      * no duplicate option must be detected, as it belongs to another service.
-     * 
-     * @throws Exception
+     * Two services must be correctly imported.
      */
     @Test
     public void testImportTechnicalServices_MultipleEntriesWrongParamIdOptionIdClash()
             throws Exception {
         String fileName = "TwoServicesWrongParamIdOptionConflict.xml";
-        try {
-            svcProv.importTechnicalServices(readBytesFromFile(fileName));
-            fail("Must fail as parameter id is wrong");
-        } catch (ImportException e) {
-            String details = e.getDetails();
-            assertNotNull(details);
-            assertTrue(details.startsWith("22: cvc-pattern-valid: "));
-            assertFalse(details.contains("Option: Dupli"));
-        }
+
+        svcProv.importTechnicalServices(readBytesFromFile(fileName));
+
         List<VOTechnicalService> technicalServices = svcProv
                 .getTechnicalServices(OrganizationRoleType.TECHNOLOGY_PROVIDER);
-        assertEquals(0, technicalServices.size());
+        assertEquals(2, technicalServices.size());
     }
 
     /**
