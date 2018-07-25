@@ -22,7 +22,7 @@
       valueType="LONG">
       <LocalizedDescription locale="en">LONG</LocalizedDescription>
     </ParameterDefinition>
-    <ParameterDefinition configurable="true" default="200" id="PARAM2" mandatory="false" valueType="ENUMERATION">
+    <ParameterDefinition configurable="true" default="1" id="PARAM2" mandatory="false" valueType="ENUMERATION">
       <Options>
         <Option id="1">
           <LocalizedOption locale="en">Minimum Storage (100GB)</LocalizedOption>
@@ -45,7 +45,7 @@
     <AccessInfo locale="en" />
     <LocalizedDescription locale="en" />
     <LocalizedLicense locale="en" />
-    <ParameterDefinition configurable="true" default="200" id="PARAM3" mandatory="false" valueType="ENUMERATION">
+    <ParameterDefinition configurable="true" default="1" id="PARAM3" mandatory="false" valueType="ENUMERATION">
       <Options>
         <Option id="1">
           <LocalizedOption locale="en">Minimum Storage (100GB)</LocalizedOption>

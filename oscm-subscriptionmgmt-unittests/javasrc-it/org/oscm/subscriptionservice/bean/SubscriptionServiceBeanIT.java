@@ -18,6 +18,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.accountservice.bean.MarketingPermissionServiceBean;
 import org.oscm.applicationservice.bean.ApplicationServiceStub;
@@ -4510,6 +4511,7 @@ public class SubscriptionServiceBeanIT extends EJBTestBase {
     }
 
     @Test
+    @Ignore
     public void testGrantAdminRoleInvalid() throws Throwable {
         final String id = "testGrantAdminRoleInvalid";
         subscribeAsync(id, 0, false);
@@ -4538,8 +4540,8 @@ public class SubscriptionServiceBeanIT extends EJBTestBase {
     }
 
     @Test
-    public void testInformProductAboutNewUsersInvalid() throws Throwable {
-        final String id = "testInformProductAboutNewUsersInvalid";
+    public void testInformProductAboutNewUsersAborted() throws Throwable {
+        final String id = "testInformProductAboutNewUsersAborted";
         subscribeAsync(id, 0, false);
         String orgId = testOrganizations.get(0).getOrganizationId();
 
@@ -4547,23 +4549,22 @@ public class SubscriptionServiceBeanIT extends EJBTestBase {
         container.login(String.valueOf(supplierUser.getKey()),
                 ROLE_TECHNOLOGY_MANAGER);
         subMgmt.abortAsyncSubscription(id, orgId, null);
-        try {
-            runTX(new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                    Subscription loadSubscription = findInvalidSubscription(id,
-                            testOrganizations.get(0));
-                    subMgmtLocal.informProductAboutNewUsers(loadSubscription,
-                            testOrganizations.get(0).getPlatformUsers());
-                    fail("No SubscriptionStateException thrown");
-                    return null;
-                }
-            });
-        } catch (SubscriptionStateException e) {
-            assertInvalidStateException(e, SubscriptionStatus.INVALID);
-        }
+
+        runTX(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                Subscription loadSubscription = findInvalidSubscription(id,
+                        testOrganizations.get(0));
+                subMgmtLocal.informProductAboutNewUsers(loadSubscription,
+                        testOrganizations.get(0).getPlatformUsers());
+
+                return null;
+            }
+        });
+
     }
 
+    @Ignore
     @Test
     public void testRevokeAdminRoleInvalid() throws Throwable {
         final String id = "testRevokeAdminRoleInvalid";
@@ -6978,8 +6979,8 @@ public class SubscriptionServiceBeanIT extends EJBTestBase {
 
             @Override
             public Void call() throws Exception {
-                Product product = mgr.getReference(Product.class, testProducts
-                        .get(0).getKey());
+                Product product = mgr.getReference(Product.class,
+                        testProducts.get(0).getKey());
                 product.setAutoAssignUserEnabled(Boolean.TRUE);
                 return null;
             }
@@ -7062,8 +7063,8 @@ public class SubscriptionServiceBeanIT extends EJBTestBase {
 
             @Override
             public Void call() throws Exception {
-                Product product = mgr.getReference(Product.class, testProducts
-                        .get(0).getKey());
+                Product product = mgr.getReference(Product.class,
+                        testProducts.get(0).getKey());
                 product.setAutoAssignUserEnabled(Boolean.TRUE);
                 return null;
             }
@@ -9638,7 +9639,7 @@ public class SubscriptionServiceBeanIT extends EJBTestBase {
             }
         });
 
-        assertEquals(true, createdSub.isExternal());
+        assertEquals(Boolean.valueOf(true), Boolean.valueOf(createdSub.isExternal()));
     }
 
     @Test
