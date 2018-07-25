@@ -1360,7 +1360,8 @@ public class APPTimerServiceBeanIT extends EJBTestBase {
                 ProvisioningStatus.WAITING_FOR_SYSTEM_MODIFICATION);
         String baseUrl = "BASEURL";
         HashMap<String, String> parameters = new HashMap<>();
-        parameters.put("NAME1", "VALUE1");
+        
+        // parameters.put("NAME1", "VALUE1");
         parameters.put("NAME2", "VALUE2");
 
         // Throw exception when deletion status is invoked
@@ -1447,7 +1448,7 @@ public class APPTimerServiceBeanIT extends EJBTestBase {
                     Assert.assertNull(currentEntry.getRollbackParameters());
                     List<InstanceParameter> params = currentEntry
                             .getInstanceParameters();
-                    Assert.assertEquals(parameterMap.size(), params.size());
+                   Assert.assertEquals(parameterMap.size(), params.size());
 
                     for (InstanceParameter tempParameter : params) {
                         assertTrue(parameterMap
