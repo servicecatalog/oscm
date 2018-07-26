@@ -1361,7 +1361,7 @@ public class APPTimerServiceBeanIT extends EJBTestBase {
         String baseUrl = "BASEURL";
         HashMap<String, String> parameters = new HashMap<>();
         
-        // parameters.put("NAME1", "VALUE1");
+        parameters.put("NAME1", "VALUE1");
         parameters.put("NAME2", "VALUE2");
 
         // Throw exception when deletion status is invoked
