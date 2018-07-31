@@ -90,6 +90,8 @@ public class TargetLocationBean extends UiBeanBase {
         try {
             settings.saveTargetVCenter(selectedVCenter);
             dirty = false;
+            status = Messages.get(getDefaultLanguage(),
+                    "ui.config.status.saved");
         } catch (Exception e) {
             status = Messages.get(getDefaultLanguage(),
                     "ui.config.status.save.failed", e.getMessage());

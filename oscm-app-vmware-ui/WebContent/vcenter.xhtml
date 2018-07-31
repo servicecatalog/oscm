@@ -1,12 +1,9 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<html xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:t="http://myfaces.apache.org/tomahawk"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:rich="http://richfaces.org/rich"
       xmlns:a4j="http://richfaces.org/a4j"
       xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
@@ -14,6 +11,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>#{msg['ui.config.title']}</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
+
   <ui:include src="head.xhtml">
     <ui:param name="dirty" value="#{dirty}" />
   </ui:include>
@@ -126,7 +124,6 @@
             <td class="rf-dt-c">
               <h:inputText id="vsphere_api_url"
                            size="70"
-                           onchange="setDirty(true);"
                            value="#{targetLocationBean.selectedVCenter.url}"/>
             </td>
           </tr>
@@ -137,7 +134,6 @@
             <td class="rf-dt-c">
               <h:inputText id="vsphere_api_user"
                            size="20"
-                           onchange="setDirty(true);"
                            value="#{targetLocationBean.selectedVCenter.userid}"/>
             </td>
           </tr>
@@ -148,7 +144,6 @@
             <td class="rf-dt-c">
               <h:inputSecret id="vsphere_api_pwd"
                              size="20"
-                             onchange="setDirty(true);"
                              value="#{targetLocationBean.selectedVCenter.password}"
                              redisplay="true"/>
             </td>
@@ -167,8 +162,7 @@
             <h:commandButton class="button_normal_class"
                              value="#{msg['ui.config.action.save']}"
                              type="submit"
-                             action="#{targetLocationBean.save}"
-                             oncomplete="setDirty(#{targetLocationBean.dirty});" />
+                             action="#{targetLocationBean.save}"/>
           </span>
         </span>
       </div>
