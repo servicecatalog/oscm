@@ -23,6 +23,7 @@ import org.apache.wss4j.dom.validate.Credential;
 public class WSValidator
         extends org.apache.openejb.server.cxf.OpenEJBLoginValidator {
         
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public Credential validate(Credential credential, RequestData requestData) {
         try {

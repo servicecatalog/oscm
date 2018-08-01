@@ -122,7 +122,7 @@ public class ProvisioningSettings extends ControllerSettings
     /**
      * Sets the instance attributes.
      * 
-     * @param parameters
+     * @param attributes
      *            the instance attributes, consisting of a key and a value each
      */
     public void setAttributes(HashMap<String, Setting> attributes) {
@@ -312,7 +312,7 @@ public class ProvisioningSettings extends ControllerSettings
     /**
      * Returns the service access information for instance.
      * 
-     * @return
+     * @return service access information for instance.
      */
     public String getServiceAccessInfo() {
         return serviceAccessInfo;

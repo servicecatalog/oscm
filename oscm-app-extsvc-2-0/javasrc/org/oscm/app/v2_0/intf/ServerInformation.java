@@ -84,12 +84,12 @@ public interface ServerInformation extends Serializable {
     public void setPrivateIP(List<String> privateIP);
 
     /**
-     * @return
+     * @return Private IP as String
      */
     public String getPrivateIPasString();
 
     /**
-     * @return
+     * @return Public IP as String
      */
     public String getPublicIPasString();
 }
