@@ -7,7 +7,6 @@
 		<project>oscm-app-extsvc-2-0</project>
 		<project>oscm-app-vmware</project>
 		<project>oscm-app-vmware-service</project>
-		<project>oscm-app-vmware-setup</project>
 		<project>oscm-app-vmware-ui</project>
 		<project>oscm-common</project>
 		<project>oscm-extsvc</project>
