@@ -166,9 +166,10 @@
           <span class="button_content_class">
             <h:commandButton class="button_normal_class"
                              value="#{msg['ui.config.action.save']}"
+                             onclick="setDirty(false);"
                              type="submit"
                              action="#{targetLocationBean.save}"
-                             oncomplete="setDirty(#{targetLocationBean.dirty});" />
+                             />
           </span>
         </span>
       </div>
