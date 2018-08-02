@@ -14,6 +14,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>#{msg['ui.config.title']}</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
+
   <ui:include src="head.xhtml">
     <ui:param name="dirty" value="#{dirty}" />
   </ui:include>
@@ -126,7 +127,6 @@
             <td class="rf-dt-c">
               <h:inputText id="vsphere_api_url"
                            size="70"
-                           onchange="setDirty(true);"
                            value="#{targetLocationBean.selectedVCenter.url}"/>
             </td>
           </tr>
@@ -137,7 +137,6 @@
             <td class="rf-dt-c">
               <h:inputText id="vsphere_api_user"
                            size="20"
-                           onchange="setDirty(true);"
                            value="#{targetLocationBean.selectedVCenter.userid}"/>
             </td>
           </tr>
@@ -148,7 +147,6 @@
             <td class="rf-dt-c">
               <h:inputSecret id="vsphere_api_pwd"
                              size="20"
-                             onchange="setDirty(true);"
                              value="#{targetLocationBean.selectedVCenter.password}"
                              redisplay="true"/>
             </td>
@@ -166,10 +164,8 @@
           <span class="button_content_class">
             <h:commandButton class="button_normal_class"
                              value="#{msg['ui.config.action.save']}"
-                             onclick="setDirty(false);"
                              type="submit"
-                             action="#{targetLocationBean.save}"
-                             />
+                             action="#{targetLocationBean.save}"/>
           </span>
         </span>
       </div>
