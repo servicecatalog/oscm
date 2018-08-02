@@ -9,6 +9,8 @@
 package org.oscm.app.vmware.business;
 
 import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vmware.vim25.GuestInfo;
 import com.vmware.vim25.GuestNicInfo;
@@ -17,6 +19,9 @@ import com.vmware.vim25.GuestNicInfo;
  * Custom generation of access information output.
  */
 public class VMwareAccessInfo {
+    
+    private static final Logger logger = LoggerFactory
+            .getLogger(VMPropertyHandler.class);
 
     private static final String PATTERN_IP = "${IP}";
     private static final String PATTERN_HOST = "${HOST}";
@@ -42,14 +47,15 @@ public class VMwareAccessInfo {
         if (myHOST != null) {
             hostName = guestInfo.getHostName().split("\\.", 2)[0];
         } else {
-            hostName = "Unkown hostname (probably missing vmware tools).\nInstance name "
+            hostName = "Unknown hostname (probably missing vmware tools).\nInstance name "
                     + paramHandler.getInstanceName() + ".";
-            myHOST = "Unkown(InstanceName " + paramHandler.getInstanceName()
+            myHOST = "Unknown (InstanceName " + paramHandler.getInstanceName()
                     + ")";
         }
 
         String accessInfoPattern = paramHandler.getAccessInfo();
         if (accessInfoPatternUndefined(accessInfoPattern)) {
+            logger.debug("No access info pattern defined.");
             return hostName;
         }
 
@@ -62,6 +68,7 @@ public class VMwareAccessInfo {
                 paramHandler.formatMBasGB(paramHandler.getConfigMemoryMB()));
         accessInfo = accessInfo.replace(PATTERN_DISKS,
                 paramHandler.getDataDisksAsString());
+
         accessInfo = accessInfo.replace(PATTERN_RESPUSER, getResponsibleUser());
         accessInfo = accessInfo.replace("<br>", "<br>\r\n");
         return accessInfo;
@@ -73,19 +80,30 @@ public class VMwareAccessInfo {
     }
 
     private String getIpAddress(GuestInfo guestInfo) {
+        String iplist = getIpAddressFromConfiguredNetAdapters(guestInfo);
+        if (iplist.length() == 0) {
+            logger.debug("No matching adapters found for " + guestInfo.getHostName());
+            return guestInfo.getIpAddress();
+        }
+        return iplist;
+    }
+
+    private String getIpAddressFromConfiguredNetAdapters(GuestInfo guestInfo) {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= paramHandler.getNumberOfNetworkAdapter(); i++) {
             GuestNicInfo info = getNicInfo(guestInfo,
                     paramHandler.getNetworkAdapter(i));
             if (info != null) {
+                logger.debug("Taking info from adapter " +  paramHandler.getNetworkAdapter(i));
+                if (sb.length() > 0) {
+                    sb.append(", ");
+                }
                 if (paramHandler.getNetworkAdapter(i) != null && !paramHandler
                         .getNetworkAdapter(i).trim().isEmpty()) {
                     sb.append(paramHandler.getNetworkAdapter(i) + ": ");
                 }
                 sb.append(info.getIpAddress());
-                if (i < paramHandler.getNumberOfNetworkAdapter()) {
-                    sb.append(", ");
-                }
+
             }
         }
         return sb.toString();
