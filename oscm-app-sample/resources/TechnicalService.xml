@@ -4,8 +4,8 @@
 <tns:TechnicalServices xmlns:tns="oscm.serviceprovisioning/1.9/TechnicalService.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="oscm.serviceprovisioning/1.9/TechnicalService.xsd ../../oscm-serviceprovisioning/javares/TechnicalServices.xsd">
 
-  <tns:TechnicalService id="AppSampleService" build="06.09.2012" provisioningType="ASYNCHRONOUS"
-    provisioningUrl="https://localhost:8081/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl" provisioningVersion="1.0"
+  <tns:TechnicalService id="AppSampleService" build="2018.07.20" provisioningType="ASYNCHRONOUS"
+    provisioningUrl="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl" provisioningVersion="1.0"
     accessType="DIRECT" loginPath="Dynamically provided." baseUrl="">
 
     <AccessInfo locale="en">Description of how to access the application.</AccessInfo>

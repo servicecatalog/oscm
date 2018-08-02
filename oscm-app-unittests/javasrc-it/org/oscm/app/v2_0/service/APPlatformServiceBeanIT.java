@@ -204,7 +204,7 @@ public class APPlatformServiceBeanIT extends EJBTestBase {
     public void testUnlockServiceInstance() throws Exception {
         // when
         platformSvc.unlockServiceInstance("ctrl.id", "inst.id", defaultAuth);
-
+       
         // then
         Mockito.verify(concSvc, Mockito.times(1)).unlockServiceInstance(
                 Matchers.eq("ctrl.id"), Matchers.eq("inst.id"));

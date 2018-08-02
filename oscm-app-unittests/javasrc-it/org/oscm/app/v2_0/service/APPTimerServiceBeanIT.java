@@ -1360,6 +1360,7 @@ public class APPTimerServiceBeanIT extends EJBTestBase {
                 ProvisioningStatus.WAITING_FOR_SYSTEM_MODIFICATION);
         String baseUrl = "BASEURL";
         HashMap<String, String> parameters = new HashMap<>();
+        
         parameters.put("NAME1", "VALUE1");
         parameters.put("NAME2", "VALUE2");
 
@@ -1447,7 +1448,7 @@ public class APPTimerServiceBeanIT extends EJBTestBase {
                     Assert.assertNull(currentEntry.getRollbackParameters());
                     List<InstanceParameter> params = currentEntry
                             .getInstanceParameters();
-                    Assert.assertEquals(parameterMap.size(), params.size());
+                   Assert.assertEquals(parameterMap.size(), params.size());
 
                     for (InstanceParameter tempParameter : params) {
                         assertTrue(parameterMap
@@ -1610,7 +1611,7 @@ public class APPTimerServiceBeanIT extends EJBTestBase {
                 si.setRollbackParameters(
                         "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\r\n<properties>\r\n<entry key=\"param1.name\">NAME1</entry>\r\n<entry key=\"param1.value\">VALUE1</entry>\r\n<entry key=\"param1.encryption\">false</entry>\r\n<entry key=\"ROLLBACK_SUBSCRIPTIONID\">"
                                 + si.getSubscriptionId()
-                                + "</entry>\r\n<entry key=\"param1.name\">NAME2</entry>\r\n<entry key=\"param1.value\">VALUE2</entry>\r\n<entry key=\"param1.encryption\">false</entry>\r\n</properties>\r\n");
+                                + "</entry>\r\n<entry key=\"param2.name\">NAME2</entry>\r\n<entry key=\"param2.value\">VALUE2</entry>\r\n<entry key=\"param2.encryption\">false</entry>\r\n</properties>\r\n");
                 si.setRollbackInstanceAttributes(
                         "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\r\n<properties>\r\n<entry key=\"att1.name\">NAME1</entry>\r\n<entry key=\"att1.value\">VALUE1</entry>\r\n<entry key=\"att1.encryption\">false</entry>\r\n<entry key=\"ROLLBACK_SUBSCRIPTIONID\">"
                                 + si.getSubscriptionId()
