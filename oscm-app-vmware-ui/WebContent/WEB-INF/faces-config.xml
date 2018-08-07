@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright FUJITSU LIMITED 2018-->
 
-<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_0.xsd"
-  version="2.2">
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+          version="2.1">
 
   <managed-bean>
     <managed-bean-name>appBean</managed-bean-name>
     <managed-bean-class>org.oscm.app.vmware.ui.ApplicationBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
-
+    <managed-bean>
+    <managed-bean-name>configurationBean</managed-bean-name>
+    <managed-bean-class>org.oscm.app.common.ui.ConfigurationBean</managed-bean-class>
+    <managed-bean-scope>session</managed-bean-scope>
+  </managed-bean>
   <application>
     <locale-config>
       <default-locale>en</default-locale>
