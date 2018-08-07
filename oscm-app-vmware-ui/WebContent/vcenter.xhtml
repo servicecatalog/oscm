@@ -34,26 +34,64 @@
   <h:outputStylesheet name="override_richfaces.css" />
   <adm:header userId="#{targetLocationBean.loggedInUserId}"/>
 
-  <a4j:outputPanel id="titleArea"
-                   layout="block"
-                   styleClass="heading_data_1_class">
-    <div class="heading_data_1_bg_class no-height">
-      <h2>
-        <h:outputText value="#{msg['ui.config.title']}" />
-      </h2>
+	<a4j:outputPanel id="titleArea" layout="block"
+		styleClass="heading_data_1_class">
+		<div class="heading_data_1_bg_class no-height">
+			<h2>
+				<h:outputText value="#{msg['ui.config.title']}" />
+			</h2>
 
-      <ui:repeat value="#{menu.items}"
-                 var="item">
-        <h:outputLink value="#{facesContext.externalContext.requestContextPath}#{item.link}">
-          <h:outputText value="#{item.label}" />
-        </h:outputLink>
-        <h:outputText value="&#160;&#160;|&#160;&#160;" />
-      </ui:repeat>
-    </div>
+			<ui:repeat value="#{menu.items}" var="item">
+				<h:outputLink
+					value="#{facesContext.externalContext.requestContextPath}#{item.link}">
+					<h:outputText value="#{item.label}" />
+				</h:outputLink>
+				<h:outputText value="&#160;&#160;|&#160;&#160;" />
+			</ui:repeat>
+		</div>
+  	</a4j:outputPanel>
+  	
+  	
+  	<h:form id="configurationSettings">
+			<h:inputHidden value="#{configurationBean.token}" />
+			<!--▲ Heading data 3 ▲-->
+			<div class="nested_heading_data_class">
+				<!--▼ Heading data 4 ▼-->
+				<div class="heading_data_4_class">
+					<div class="heading_data_4_bg_class">
+						<h4 id="heading_data4_1" class="heading_data_4_open_mark_class"
+							onclick="accordion(this, 'accordion_area1')">
+							<h:outputText value="#{msg['ui.config.part.access']}" />
+						</h4>
+					</div>
+				</div>	
+  				<div id="accordion_area1">
+					<ui:include src="keyValueEditor.xhtml">
+					<ui:param name="dataItems" value="#{configurationBean.accessItems}" />
+					<ui:param name="saveBarElementId"
+						value="#{msg['ui.config.action.save']}" />
+					</ui:include>
+				</div>
+			</div>
+			 <a4j:outputPanel layout="block"
+                                styleClass="description buttonPanel">
+                                <div class="button_main_area_class">
+                                        <span class="button_right_part_class">
+                                                <span class="button_content_class">
+                                                        <h:commandButton class="button_normal_class"
+                                                                value="#{msg['ui.config.action.save']}"
+                                                                onclick="setDirty(false);"
+                                                                type="submit"
+                                                                action="#{configurationBean.save}"
+                                                        />
+                                                </span>
+                                        </span>
+                                </div>
+                        </a4j:outputPanel>
+			
+	</h:form>	
 
-  </a4j:outputPanel>
-
-  <h:outputText value="#{msg['ui.config.description.cluster']}"
+	<h:outputText value="#{msg['ui.config.description.cluster']}"
                 styleClass="description" />
   <h:form>
     <h:outputText id="status"
