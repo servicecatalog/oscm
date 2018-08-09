@@ -3,7 +3,7 @@
 	<name>oscm-app-azure</name>
 	<comment></comment>
 	<projects>
-    		<project>oscm-app-extsvc-1-0</project>
+    		<project>oscm-app-extsvc-2-0</project>
     </projects>
 	<buildSpec>
 		<buildCommand>

@@ -7,11 +7,6 @@
  *******************************************************************************/
 package org.oscm.app.azure.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Collections;
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.app.azure.AzureCommunication;
 import org.oscm.app.azure.data.AzureState;
@@ -19,18 +14,20 @@ import org.oscm.app.azure.data.FlowState;
 import org.oscm.app.azure.exception.AzureClientException;
 import org.oscm.app.azure.exception.AzureServiceException;
 import org.oscm.app.azure.i18n.Messages;
-
-
-import org.oscm.app.v1_0.data.InstanceStatus;
-import org.oscm.app.v1_0.data.LocalizedText;
-import org.oscm.app.v1_0.exceptions.APPlatformException;
-import org.oscm.app.v1_0.exceptions.AbortException;
-import org.oscm.app.v1_0.exceptions.InstanceNotAliveException;
-import org.oscm.app.v1_0.exceptions.SuspendException;
-import org.oscm.app.v1_0.intf.APPlatformService;
+import org.oscm.app.v2_0.data.InstanceStatus;
+import org.oscm.app.v2_0.data.LocalizedText;
+import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.AbortException;
+import org.oscm.app.v2_0.exceptions.InstanceNotAliveException;
+import org.oscm.app.v2_0.exceptions.SuspendException;
+import org.oscm.app.v2_0.intf.APPlatformService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Dispatcher for triggering the next step in a provisioning operation depending
@@ -59,7 +56,7 @@ public class Dispatcher {
     /**
      * Reference to an APPlatformService instance.
      */
-    private  APPlatformService platformService=null;
+    private APPlatformService platformService = null;
     private AzureCommunication azureCom;
 
     FlowState flowState;
@@ -77,24 +74,20 @@ public class Dispatcher {
     /**
      * Constructs a new dispatcher.
      *
-     * @param platformService
-     *            an <code>APPlatformService</code> instance which provides
-     *            helper methods for accessing common APP utilities, for
-     *            example, send emails
-     * @param instanceId
-     *            the ID of the application instance in question
-     * @param ph
-     *            a property handler for reading and writing service parameters
-     *            and controller configuration settings
+     * @param platformService an <code>APPlatformService</code> instance which provides
+     *                        helper methods for accessing common APP utilities, for
+     *                        example, send emails
+     * @param instanceId      the ID of the application instance in question
+     * @param ph              a property handler for reading and writing service parameters
+     *                        and controller configuration settings
      */
     public Dispatcher(APPlatformService platformService, String instanceId,
-            PropertyHandler ph) {
+                      PropertyHandler ph) {
         this.platformService = platformService;
         this.instanceId = instanceId;
         this.ph = ph;
     }
-    
-   
+
 
     /**
      * Triggers the next step of a provisioning operation depending on the
@@ -108,7 +101,7 @@ public class Dispatcher {
      * status or the result of operations triggered from the outside.
      *
      * @return an <code>InstanceStatus</code> instance with the overall status
-     *         of the application instance
+     * of the application instance
      * @throws APPlatformException
      */
     public InstanceStatus dispatch() throws APPlatformException {
@@ -123,29 +116,29 @@ public class Dispatcher {
         try {
             // Dispatch next step depending on current internal status
             switch (flowState) {
-            case CREATION_REQUESTED: 
-            case CREATING: 
-            case MODIFICATION_REQUESTED:
-            case UPDATING:
-            case DELETION_REQUESTED:
-            case DELETING:
-            case FINISHED:
-                nextFlowState = dispatchProvisioningProcess(flowState, status);
-                break;
+                case CREATION_REQUESTED:
+                case CREATING:
+                case MODIFICATION_REQUESTED:
+                case UPDATING:
+                case DELETION_REQUESTED:
+                case DELETING:
+                case FINISHED:
+                    nextFlowState = dispatchProvisioningProcess(flowState, status);
+                    break;
 
-            case START_REQUESTED:
-            case STARTING:
-            case STOP_REQUESTED:
-            case STOPPING:
-                nextFlowState = dispatchOperationProcess(flowState, status);
-                break;
+                case START_REQUESTED:
+                case STARTING:
+                case STOP_REQUESTED:
+                case STOPPING:
+                    nextFlowState = dispatchOperationProcess(flowState, status);
+                    break;
 
-            case ACTIVATION_REQUESTED:
-            case DEACTIVATION_REQUESTED:
-                nextFlowState = dispatchActivationProcess(flowState, status);
-                break;
+                case ACTIVATION_REQUESTED:
+                case DEACTIVATION_REQUESTED:
+                    nextFlowState = dispatchActivationProcess(flowState, status);
+                    break;
 
-            default:
+                default:
 
             }
         } catch (APPlatformException e) {
@@ -198,219 +191,209 @@ public class Dispatcher {
     }
 
     /**
-     * @param flowState
-     *            current <code>FlowState</code>
-     * @param status
-     *            an <code>InstanceStatus</code> instance with the overall
-     *            status of the application instance
+     * @param flowState current <code>FlowState</code>
+     * @param status    an <code>InstanceStatus</code> instance with the overall
+     *                  status of the application instance
      * @return next <code>FlowState</code>
      * @throws APPlatformException
      */
     protected FlowState dispatchProvisioningProcess(final FlowState flowState,
-            InstanceStatus status) throws APPlatformException {
+                                                    InstanceStatus status) throws APPlatformException {
         logger.debug("Dispatcher.dispatchProvisioningProcess entered");
-        
+
         String mail = ph.getMailForCompletion();
         AzureCommunication azureCom = getAzureCommunication();
         AzureState azureState;
         FlowState nextFlowState = null;
         switch (flowState) {
-        case CREATION_REQUESTED:
-            azureCom.createInstance();
-            //azureCom.test();
-        	nextFlowState = FlowState.CREATING;
-            break;
+            case CREATION_REQUESTED:
+                azureCom.createInstance();
+                //azureCom.test();
+                nextFlowState = FlowState.CREATING;
+                break;
 
-        case CREATING:
-            azureState = azureCom.getDeploymentState();
-            if (azureState.isSucceeded()) {
-                status.setAccessInfo(azureCom.getAccessInfo("RUNNING").getOutput(
-                        ph.getCustomerLocale()));
-                if (StringUtils.isNotEmpty(mail)) {
-                    dispatchManualOperation(flowState);
-                    nextFlowState = FlowState.MANUAL;
+            case CREATING:
+                azureState = azureCom.getDeploymentState();
+                if (azureState.isSucceeded()) {
+                    status.setAccessInfo(azureCom.getAccessInfo("RUNNING").getOutput(
+                            ph.getCustomerLocale()));
+                    if (StringUtils.isNotEmpty(mail)) {
+                        dispatchManualOperation(flowState);
+                        nextFlowState = FlowState.MANUAL;
+                    } else {
+                        nextFlowState = FlowState.FINISHED;
+                    }
+                } else if (azureState.isFailed()) {
+                    throw new AbortException(
+                            Messages.getAll("error_create_failed_customer"),
+                            Messages.getAll("error_create_failed_provider",
+                                    azureState.getStatusCode()));
                 } else {
-                    nextFlowState = FlowState.FINISHED;
+                    logger.info(flowState
+                            + " Instance is not yet ready, provisioning status: "
+                            + azureState.getProvisioningState()
+                            + ". Nothing will be done.");
                 }
-            } else if (azureState.isFailed()) {
-                throw new AbortException(
-                        Messages.getAll("error_create_failed_customer"),
-                        Messages.getAll("error_create_failed_provider",
-                                azureState.getStatusCode()));
-            } else {
-                logger.info(flowState
-                        + " Instance is not yet ready, provisioning status: "
-                        + azureState.getProvisioningState()
-                        + ". Nothing will be done.");
-            }
-            break;
+                break;
 
-        case MODIFICATION_REQUESTED:
-            azureCom.updateInstance();
-            nextFlowState = FlowState.UPDATING;
-            break;
+            case MODIFICATION_REQUESTED:
+                azureCom.updateInstance();
+                nextFlowState = FlowState.UPDATING;
+                break;
 
-        case UPDATING:
-            azureState = azureCom.getDeploymentState();
-            if (azureState.isSucceeded()) {
-            	status.setAccessInfo(azureCom.getAccessInfo("RUNNING").getOutput(
-                        ph.getCustomerLocale()));
-                if (StringUtils.isNotEmpty(mail)) {
-                    dispatchManualOperation(flowState);
-                    nextFlowState = FlowState.FINISHED;
+            case UPDATING:
+                azureState = azureCom.getDeploymentState();
+                if (azureState.isSucceeded()) {
+                    status.setAccessInfo(azureCom.getAccessInfo("RUNNING").getOutput(
+                            ph.getCustomerLocale()));
+                    if (StringUtils.isNotEmpty(mail)) {
+                        dispatchManualOperation(flowState);
+                        nextFlowState = FlowState.FINISHED;
+                    } else {
+                        nextFlowState = FlowState.FINISHED;
+                    }
+                } else if (azureState.isFailed()) {
+                    throw new AbortException(
+                            Messages.getAll("error_update_failed_customer"),
+                            Messages.getAll("error_update_failed_provider",
+                                    azureState.getStatusCode()));
                 } else {
-                    nextFlowState = FlowState.FINISHED;
+                    logger.info(flowState
+                            + " Instance is not yet ready, provisioning status: "
+                            + azureState.getProvisioningState()
+                            + ". Nothing will be done.");
                 }
-            } else if (azureState.isFailed()) {
-                throw new AbortException(
-                        Messages.getAll("error_update_failed_customer"),
-                        Messages.getAll("error_update_failed_provider",
-                                azureState.getStatusCode()));
-            } else {
-                logger.info(flowState
-                        + " Instance is not yet ready, provisioning status: "
-                        + azureState.getProvisioningState()
-                        + ". Nothing will be done.");
-            }
-            break;
+                break;
 
-        case DELETION_REQUESTED:
-            azureCom.deleteInstance();
-            nextFlowState = FlowState.DELETING;
-            break;
+            case DELETION_REQUESTED:
+                azureCom.deleteInstance();
+                nextFlowState = FlowState.DELETING;
+                break;
 
-        case DELETING:
-            azureState = azureCom.getDeletingState();
-            if (azureState.isDeleted()) {
-                if (StringUtils.isNotEmpty(mail)) {
-                    dispatchManualOperation(flowState);
-                    nextFlowState = FlowState.DESTROYED;
+            case DELETING:
+                azureState = azureCom.getDeletingState();
+                if (azureState.isDeleted()) {
+                    if (StringUtils.isNotEmpty(mail)) {
+                        dispatchManualOperation(flowState);
+                        nextFlowState = FlowState.DESTROYED;
+                    } else {
+                        nextFlowState = FlowState.DESTROYED;
+                    }
                 } else {
-                    nextFlowState = FlowState.DESTROYED;
+                    logger.info(flowState
+                            + " Instance is not yet ready, provisioning status: "
+                            + azureState.getProvisioningState()
+                            + ". Nothing will be done.");
                 }
-            } else {
-                logger.info(flowState
-                        + " Instance is not yet ready, provisioning status: "
-                        + azureState.getProvisioningState()
-                        + ". Nothing will be done.");
-            }
-            break;
+                break;
 
-        case FINISHED:
-            // CREATING -> mail'command=finish' -> FINISHED
-            azureState = azureCom.getDeploymentState();
-            if (azureState.isSucceeded()) {
-                status.setAccessInfo(azureCom.getAccessInfo("RUNNING").getOutput(
-                        ph.getCustomerLocale()));
-            }
-            break;
+            case FINISHED:
+                // CREATING -> mail'command=finish' -> FINISHED
+                azureState = azureCom.getDeploymentState();
+                if (azureState.isSucceeded()) {
+                    status.setAccessInfo(azureCom.getAccessInfo("RUNNING").getOutput(
+                            ph.getCustomerLocale()));
+                }
+                break;
 
-        default:
+            default:
         }
-        logger.info("left dispatchProvisioningProcess :: nextFlowState-" +nextFlowState);
+        logger.info("left dispatchProvisioningProcess :: nextFlowState-" + nextFlowState);
         return nextFlowState;
     }
 
     /**
-     * @param flowState
-     *            current <code>FlowState</code>
-     * @param status
-     *            an <code>InstanceStatus</code> instance with the overall
-     *            status of the application instance
+     * @param flowState current <code>FlowState</code>
+     * @param status    an <code>InstanceStatus</code> instance with the overall
+     *                  status of the application instance
      * @return next <code>FlowState</code>
      */
     protected FlowState dispatchOperationProcess(final FlowState flowState,
-            InstanceStatus status) {
+                                                 InstanceStatus status) {
         logger.debug("Dispatcher.dispatchOperationProcess entered");
         azureCom = getAzureCommunication();
         AzureState azureState;
         FlowState nextFlowState = null;
         switch (flowState) {
-        case START_REQUESTED:
-            azureCom.startInstance();
-            status.setAccessInfo(azureCom.getAccessInfo("STARTING").getOutput(
-                    ph.getCustomerLocale()));
-            nextFlowState = FlowState.STARTING;
-            break;
-
-        case STARTING:
-            azureState = azureCom.getStartingState();
-            if (azureState.isSucceeded()) {
-                status.setAccessInfo(azureCom.getAccessInfo("RUNNING").getOutput(
+            case START_REQUESTED:
+                azureCom.startInstance();
+                status.setAccessInfo(azureCom.getAccessInfo("STARTING").getOutput(
                         ph.getCustomerLocale()));
-                nextFlowState = FlowState.FINISHED;
-            } else {
-                logger.info(flowState
-                        + " Instance is not yet ready, provisioning status: "
-                        + azureState.getProvisioningState()
-                        + ". Nothing will be done.");
-            }
-            break;
+                nextFlowState = FlowState.STARTING;
+                break;
 
-        case STOP_REQUESTED:
-            azureCom.stopInstance();
-            status.setAccessInfo(azureCom.getAccessInfo("STOPPING").getOutput(
-                    ph.getCustomerLocale()));
-            nextFlowState = FlowState.STOPPING;
-            break;
+            case STARTING:
+                azureState = azureCom.getStartingState();
+                if (azureState.isSucceeded()) {
+                    status.setAccessInfo(azureCom.getAccessInfo("RUNNING").getOutput(
+                            ph.getCustomerLocale()));
+                    nextFlowState = FlowState.FINISHED;
+                } else {
+                    logger.info(flowState
+                            + " Instance is not yet ready, provisioning status: "
+                            + azureState.getProvisioningState()
+                            + ". Nothing will be done.");
+                }
+                break;
 
-        case STOPPING:
-            azureState = azureCom.getStoppingState();
-            if (azureState.isSucceeded()) {
-                status.setAccessInfo(azureCom.getAccessInfo("STOPPED").getOutput(ph.getCustomerLocale()));
-                nextFlowState = FlowState.FINISHED;
-            } else {
-                logger.info(flowState
-                        + " Instance is not yet ready, provisioning status: "
-                        + azureState.getProvisioningState()
-                        + ". Nothing will be done.");
-            }
-            break;
+            case STOP_REQUESTED:
+                azureCom.stopInstance();
+                status.setAccessInfo(azureCom.getAccessInfo("STOPPING").getOutput(
+                        ph.getCustomerLocale()));
+                nextFlowState = FlowState.STOPPING;
+                break;
 
-        default:
+            case STOPPING:
+                azureState = azureCom.getStoppingState();
+                if (azureState.isSucceeded()) {
+                    status.setAccessInfo(azureCom.getAccessInfo("STOPPED").getOutput(ph.getCustomerLocale()));
+                    nextFlowState = FlowState.FINISHED;
+                } else {
+                    logger.info(flowState
+                            + " Instance is not yet ready, provisioning status: "
+                            + azureState.getProvisioningState()
+                            + ". Nothing will be done.");
+                }
+                break;
+
+            default:
         }
         return nextFlowState;
     }
 
     public AzureCommunication getAzureCommunication() {
-            return new AzureCommunication(ph);
+        return new AzureCommunication(ph);
     }
 
     /**
-     * @param flowState
-     *            current <code>FlowState</code>
-     * @param status
-     *            an <code>InstanceStatus</code> instance with the overall
-     *            status of the application instance
+     * @param flowState current <code>FlowState</code>
+     * @param status    an <code>InstanceStatus</code> instance with the overall
+     *                  status of the application instance
      * @return next <code>FlowState</code>
      */
     protected FlowState dispatchActivationProcess(final FlowState flowState,
-            InstanceStatus status) {
+                                                  InstanceStatus status) {
         logger.debug("Dispatcher.dispatchActivationProcess entered");
 
         FlowState nextFlowState = null;
         switch (flowState) {
-        case ACTIVATION_REQUESTED:
-            nextFlowState = dispatchOperationProcess(FlowState.START_REQUESTED,
-                    status);
-            break;
+            case ACTIVATION_REQUESTED:
+                nextFlowState = dispatchOperationProcess(FlowState.START_REQUESTED,
+                        status);
+                break;
 
-        case DEACTIVATION_REQUESTED:
-            nextFlowState = dispatchOperationProcess(FlowState.STOP_REQUESTED,
-                    status);
-            break;
+            case DEACTIVATION_REQUESTED:
+                nextFlowState = dispatchOperationProcess(FlowState.STOP_REQUESTED,
+                        status);
+                break;
 
-        default:
+            default:
         }
         return nextFlowState;
     }
 
     /**
-     * @param flowState
-     *            current <code>FlowState</code>
-     * @param status
-     *            an <code>InstanceStatus</code> instance with the overall
-     *            status of the application instance
+     * @param flowState current <code>FlowState</code>
      * @throws APPlatformException
      */
     private void dispatchManualOperation(final FlowState flowState)
@@ -425,59 +408,59 @@ public class Dispatcher {
         String details;
         String text;
         switch (flowState) {
-        case CREATING:
-            StringBuffer eventLink = new StringBuffer(
-                    platformService.getEventServiceUrl());
-            try {
-                eventLink.append("?sid=").append(
-                        URLEncoder.encode(instanceId, "UTF-8"));
-            } catch (UnsupportedEncodingException e) {
-                throw new APPlatformException(e.getMessage());
-            }
-            eventLink.append("&cid=").append(AzureController.ID);
-            eventLink.append("&command=finish");
-            subject = Messages.get(locale,
-                    "mail_azure_manual_completion.subject", new Object[] {
-                            instanceId, subscriptionId });
-            details = ph.getConfigurationAsString();
-            text = Messages.get(locale, "mail_azure_manual_completion.text",
-                    new Object[] { instanceId, subscriptionId, details,
-                            eventLink.toString() });
-            break;
+            case CREATING:
+                StringBuffer eventLink = new StringBuffer(
+                        platformService.getEventServiceUrl());
+                try {
+                    eventLink.append("?sid=").append(
+                            URLEncoder.encode(instanceId, "UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    throw new APPlatformException(e.getMessage());
+                }
+                eventLink.append("&cid=").append(AzureController.ID);
+                eventLink.append("&command=finish");
+                subject = Messages.get(locale,
+                        "mail_azure_manual_completion.subject", new Object[]{
+                                instanceId, subscriptionId});
+                details = ph.getConfigurationAsString();
+                text = Messages.get(locale, "mail_azure_manual_completion.text",
+                        new Object[]{instanceId, subscriptionId, details,
+                                eventLink.toString()});
+                break;
 
-        case UPDATING:
-            subject = Messages.get(locale,
-                    "mail_azure_manual_modification.subject", new Object[] {
-                            instanceId, subscriptionId });
-            details = ph.getConfigurationAsString();
-            text = Messages.get(locale, "mail_azure_manual_modification.text",
-                    new Object[] { instanceId, subscriptionId, details });
-            break;
+            case UPDATING:
+                subject = Messages.get(locale,
+                        "mail_azure_manual_modification.subject", new Object[]{
+                                instanceId, subscriptionId});
+                details = ph.getConfigurationAsString();
+                text = Messages.get(locale, "mail_azure_manual_modification.text",
+                        new Object[]{instanceId, subscriptionId, details});
+                break;
 
-        case DELETING:
-            subject = Messages.get(locale, "mail_azure_manual_delete.subject",
-                    new Object[] { instanceId, subscriptionId });
-            text = Messages.get(locale, "mail_azure_manual_delete.text",
-                    new Object[] { instanceId, subscriptionId });
-            break;
+            case DELETING:
+                subject = Messages.get(locale, "mail_azure_manual_delete.subject",
+                        new Object[]{instanceId, subscriptionId});
+                text = Messages.get(locale, "mail_azure_manual_delete.text",
+                        new Object[]{instanceId, subscriptionId});
+                break;
 
-        default:
-            return;
+            default:
+                return;
         }
 
         platformService.sendMail(
                 Collections.singletonList(ph.getMailForCompletion()), subject,
                 text);
     }
-    
-    
+
+
     public void test(PropertyHandler ph) throws Exception {
 
-    	InstanceStatus instanceStatus;
+        InstanceStatus instanceStatus;
 
-    	Dispatcher dispatcher=new Dispatcher(null, "ess.azureARM", ph);
+        Dispatcher dispatcher = new Dispatcher(null, "ess.azureARM", ph);
 
-    	instanceStatus=dispatcher.dispatch();
-    	logger.debug("instanceStatus= "+instanceStatus.toString()+",flowwstate= "+ph.getFlowState()+",check= "+ph.getFlowState().equals(FlowState.FINISHED));
+        instanceStatus = dispatcher.dispatch();
+        logger.debug("instanceStatus= " + instanceStatus.toString() + ",flowwstate= " + ph.getFlowState() + ",check= " + ph.getFlowState().equals(FlowState.FINISHED));
     }
 }

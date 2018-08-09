@@ -7,6 +7,8 @@
  *******************************************************************************/
 package org.oscm.app.azure.i18n;
 
+import org.oscm.app.v2_0.data.LocalizedText;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +17,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
-import org.oscm.app.v1_0.data.LocalizedText;
 
 /**
  * Class representing a singleton (GoF) facility for I18N handling based on
