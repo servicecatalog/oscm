@@ -32,7 +32,8 @@
 
 	<h:outputStylesheet name="css/override_richfaces.css" />
 	<adm:header userId="#{targetLocationBean.loggedInUserId}" />
-
+	<adm:initialize initializingMethod="#{configurationBean.initialize}" />
+:
 	<a4j:outputPanel id="titleArea" layout="block"
 		styleClass="heading_data_1_class">
 		<div class="heading_data_1_bg_class no-height">
@@ -67,7 +68,7 @@
 					</h4>
 				</div>
 			</div>
-			<div id="accordion_area1">
+			<div id="accordion_area1" class="box_area_class">
 				<ui:include src="keyValueEditor.xhtml">
 					<ui:param name="dataItems" value="#{configurationBean.accessItems}" />
 					<ui:param name="saveBarElementId"
@@ -137,7 +138,7 @@
 						action="#{targetLocationBean.deleteStorage}"
 						style="display: none;" />
 					<div>
-						<div class="accordion_area1">
+						<div>
 							<table id="vsphereSettings"
 								class="rf-dt table_row_linetitle_class">
 								<colgroup span="2"></colgroup>
@@ -206,7 +207,7 @@
 				<h:form id="csv_form" styleClass="configurationSettings_area"
 					enctype="multipart/form-data">
 					<div>
-						<div class="accordion_area1">
+						<div>
 							<table id="csvUploadTable"
 								class="rf-dt table_row_linetitle_class">
 								<colgroup span="2"></colgroup>
