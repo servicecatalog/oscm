@@ -96,16 +96,13 @@
 		<h:form>
 			<div class="heading_data_4_class">
 				<div class="heading_data_4_bg_class">
-					<h4 id="heading_data4_2" class="heading_data_4_open_mark_class"
-						onclick="accordion(this, 'accordion_area2')">
+					<h4 id="heading_data4_1" class="heading_data_4_open_mark_class"
+						onclick="accordion(this, 'accordion_area_vcenter')">
 						<h:outputText value="vCenter" />
 					</h4>
 				</div>
 			</div>
-		</h:form>
-		
-		<div id="accordion_area2">
-		<div style="margin-top: 12px;">
+			<div style="margin-top: 5px;">
 				<a4j:outputPanel styleClass="jqSelect" layout="block">
 					<h:selectOneMenu value="#{targetLocationBean.currentVCenter}"
 						onclick="javascript:AdmUtils.storeValue(this);"
@@ -119,6 +116,8 @@
 					</h:selectOneMenu>
 				</a4j:outputPanel>
 			</div>
+		</h:form>
+		<div id="accordion_area_vcenter">
 			<div class="box_area_class">
 				<!--▼ Heading data 3 ▼-->
 				<div class="heading_data_3_class">
@@ -137,7 +136,7 @@
 					<h:commandButton id="deleteStorage"
 						action="#{targetLocationBean.deleteStorage}"
 						style="display: none;" />
-					<div class="">
+					<div>
 						<div class="accordion_area1">
 							<table id="vsphereSettings"
 								class="rf-dt table_row_linetitle_class">
@@ -206,7 +205,7 @@
 				</div>
 				<h:form id="csv_form" styleClass="configurationSettings_area"
 					enctype="multipart/form-data">
-					<div class="">
+					<div>
 						<div class="accordion_area1">
 							<table id="csvUploadTable"
 								class="rf-dt table_row_linetitle_class">
