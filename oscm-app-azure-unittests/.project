@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>oscm-app-azure-unittests</name>
+	<comment></comment>
+	<projects>
+		<project>oscm-app-azure</project>
+		<project>oscm-app-iaas</project>
+		<project>oscm-app-openstack</project>
+		<project>oscm-app-ror</project>
+		<project>oscm-common</project>
+		<project>oscm-devruntime</project>
+		<project>oscm-extsvc</project>
+		<project>oscm-extsvc-internal</project>
+		<project>oscm-extsvc-operation</project>
+		<project>oscm-extsvc-provisioning</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+</projectDescription>

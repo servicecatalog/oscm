@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright FUJITSU LIMITED 2017-->
+
+<tns:TechnicalServices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="oscm.serviceprovisioning/1.9/TechnicalService.xsd ../../oscm-serviceprovisioning/javares/TechnicalServices.xsd" xmlns:tns="oscm.serviceprovisioning/1.9/TechnicalService.xsd">
+  <tns:TechnicalService accessType="DIRECT" allowingOnBehalfActing="false" baseUrl="" billingIdentifier="NATIVE_BILLING" build="03.03.2016" id="AzureARM_Example" loginPath="/Dynamically provided." onlyOneSubscriptionPerUser="false" provisioningPassword="" provisioningType="ASYNCHRONOUS" provisioningUrl="https://<server>:<port>/ProvisioningService/AsynchronousProvisioningProxy?wsdl" provisioningUsername="" provisioningVersion="1.0">
+    <AccessInfo locale="en">Description of how to access the application.</AccessInfo>
+    <LocalizedDescription locale="en">Azure ARM Implementation</LocalizedDescription>
+    <LocalizedLicense locale="en"/>
+    <ParameterDefinition configurable="false" default="ess.azureARM" id="APP_CONTROLLER_ID" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">The ID of the BSS APP based controller implementation.</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="false" default="<subscription id>" id="SUBSCRIPTION_ID" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">The ID of Azure subscription.</LocalizedDescription>
+      <LocalizedDescription locale="ja">AzureサブスクリプションID</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="false" default="<tenant id>" id="TENANT_ID" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">The ID of Azure tenant.</LocalizedDescription>
+      <LocalizedDescription locale="ja">AzureテナントID</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="false" default="<client id>" id="CLIENT_ID" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">The ID of Azure client.</LocalizedDescription>
+      <LocalizedDescription locale="ja">AzureクライアントID</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="false" default="<client secret>" id="CLIENT_SECRET" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">The Secret of Azure client.</LocalizedDescription>
+      <LocalizedDescription locale="ja">Azureクライアントシークレット</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="REGION" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">The Location of Azure Region.</LocalizedDescription>
+      <LocalizedDescription locale="ja">Azureリージョン</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="RESOURCE_GROUP_NAME" mandatory="true" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Resource group name</LocalizedDescription>
+      <LocalizedDescription locale="ja">リソースグループ名</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="VIRTUAL_NETWORK" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">Virtual Network</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="SUBNET" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">Subnet</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="VIRTUAL_MACHINE_IMAGE_ID" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">Virtual Machine Image ID</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="STORAGE_ACCOUNT" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">Storage Account</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="TEMPLATE_NAME" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">Template File Name</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="TEMPLATE_PARAMETERS_NAME" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">Template Parameter File Name</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="http://<app>/templates/" id="TEMPLATE_BASE_URL" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">Template Base URL</LocalizedDescription>
+      <LocalizedDescription locale="ja"></LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" id="VM_NAME" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">Virtual machine Name</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="1" id="INSTANCE_COUNT" mandatory="true" valueType="STRING">
+      <LocalizedDescription locale="en">Instance count</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <Operation actionURL="https://<server>:<port>/OperationService/AsynchronousOperationProxy?wsdl" id="START_VIRTUAL_SYSTEM">
+      <LocalizedName locale="de">Start</LocalizedName>
+      <LocalizedName locale="en">Start</LocalizedName>
+      <LocalizedName locale="ja">起動</LocalizedName>
+      <LocalizedDescription locale="de">Startet die Instanz</LocalizedDescription>
+      <LocalizedDescription locale="en">Start the instance</LocalizedDescription>
+      <LocalizedDescription locale="ja">システムを起動します</LocalizedDescription>
+    </Operation>
+    <Operation actionURL="https://<server>:<port>/OperationService/AsynchronousOperationProxy?wsdl" id="STOP_VIRTUAL_SYSTEM">
+      <LocalizedName locale="de">Stop</LocalizedName>
+      <LocalizedName locale="en">Stop</LocalizedName>
+      <LocalizedName locale="ja">停止</LocalizedName>
+      <LocalizedDescription locale="de">Stoppt die Instanz</LocalizedDescription>
+      <LocalizedDescription locale="en">Stop the instance</LocalizedDescription>
+      <LocalizedDescription locale="ja">システムを停止します</LocalizedDescription>
+    </Operation>
+  </tns:TechnicalService>
+</tns:TechnicalServices>

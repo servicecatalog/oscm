@@ -1,0 +1,64 @@
+/*
+ *  Copyright FUJITSU LIMITED 2017
+ */
+body {
+	margin: 0px 0px;
+	padding: 0;
+	background-color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 0px;
+	padding: 5px;
+	background-color: #203080;
+	color: #FFFFFF;
+}
+
+.description {
+	background-color: #F2F3F4;
+	border-bottom: 1px solid #D2DBDC;
+    color: #333333;	
+	padding: 12px 5px 12px 5px;
+	display: block;
+}
+
+.statusPanelClass {
+    color: #c39313;	
+	padding: 12px 5px 4px 5px;
+	display: block;
+	font-weight: bold;
+}
+
+.rich-table {
+	margin: 10px 5px;
+	border-right: 1px solid #D2DBDC;
+}
+
+.rich-table td {
+	vertical-align:top;
+	border-left: 1px solid #D2DBDC;
+	padding: 4px;
+	height: 25px;
+	line-height: 25px;
+}
+
+.rich-table th {
+	border-left: 1px solid #808080;
+	text-align: left;
+	background-color: #203080;
+	color: #FFFFFF;
+	padding: 3px;
+}
+
+.rowEven td {
+	background-color: #F2F3F4;
+}
+
+.rowOdd td {
+	background-color: #FFFFFF;
+}
