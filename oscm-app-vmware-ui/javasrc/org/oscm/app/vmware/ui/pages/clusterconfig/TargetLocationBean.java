@@ -44,7 +44,10 @@ public class TargetLocationBean extends UiBeanBase {
     private List<SelectItem> configFileTypes = new ArrayList<>();
     private boolean dirty = false;
     private Part file;
-
+    // Status styles
+    private static final String STATUS_CLASS_INFO = "statusInfo";
+    private static final String STATUS_CLASS_ERROR = "statusError";    
+    private String statusClass;
 
     public TargetLocationBean(DataAccessService das) {
         settings.useMock(das);
@@ -54,7 +57,7 @@ public class TargetLocationBean extends UiBeanBase {
     public TargetLocationBean() {
         initBean();
     }
-
+    
     private void initBean() {
         initVCenters();
         initConfigFileTypes();
@@ -82,7 +85,7 @@ public class TargetLocationBean extends UiBeanBase {
             currentConfigFileType = 0;
         }
     }
-
+    
     public void save() {
         status = null;
         dirty = true;
@@ -93,9 +96,11 @@ public class TargetLocationBean extends UiBeanBase {
             initVCenters();
             status = Messages.get(getDefaultLanguage(),
                     "ui.config.status.saved");
+            setInfoStatusClass();
         } catch (Exception e) {
             status = Messages.get(getDefaultLanguage(),
                     "ui.config.status.save.failed", e.getMessage());
+            setErrorStatusClass();
             logger.error(
                     "Failed to save vSphere API settings to VMware controller database.",
                     e);
@@ -114,9 +119,11 @@ public class TargetLocationBean extends UiBeanBase {
 
             status = Messages.get(getDefaultLanguage(),
                     "ui.config.status.uploaded");
+            setInfoStatusClass();
         } catch (Exception e) {
             status = Messages.get(getDefaultLanguage(),
                     "ui.config.status.upload.failed", e.getMessage());
+            setErrorStatusClass();
             logger.error("Failed to upload CSV configuration file.", e);
         }
     }
@@ -213,5 +220,39 @@ public class TargetLocationBean extends UiBeanBase {
 
     public void setFile(Part file) {
         this.file = file;
+    }
+    
+    /**
+     * Returns status message of last operation.
+     */
+    public String getStatus() {
+        return status;
+    }
+    
+    /**
+     * Returns the status of the most recent operation.
+     * 
+     * @return the status
+     */
+    public String getStatusClass() {
+        return statusClass;
+    }
+
+    /**
+     * Sets an error status which will be displayed to the user
+     */
+    private void setErrorStatusClass() {
+        statusClass = STATUS_CLASS_ERROR;
+    }
+
+    /**
+     * Sets an info status which will be displayed to the user
+     */
+    private void setInfoStatusClass() {
+        statusClass = STATUS_CLASS_INFO;
+    }
+    
+    public void clearStatus() {
+    	status=null;
     }
 }

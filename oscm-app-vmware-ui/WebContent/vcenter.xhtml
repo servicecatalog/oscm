@@ -13,7 +13,7 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>#{msg['ui.config.title']}</title>
-	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
 
 	<ui:include src="head.xhtml">
 		<ui:param name="dirty" value="#{dirty}" />
@@ -21,7 +21,6 @@
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta content="IE=8" http-equiv="X-UA-Compatible" />
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="icon" href="img/favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="css/import_en.css" />
 	<script type="text/javascript" src="js/heading_data_4.js"></script>
@@ -33,6 +32,7 @@
 	<h:outputStylesheet name="css/override_richfaces.css" />
 	<adm:header userId="#{targetLocationBean.loggedInUserId}" />
 	<adm:initialize initializingMethod="#{configurationBean.initialize}" />
+	
 :
 	<a4j:outputPanel id="titleArea" layout="block"
 		styleClass="heading_data_1_class">
@@ -81,7 +81,9 @@
 									class="button_normal_class"
 									value="#{msg['ui.config.action.save']}"
 									onclick="setDirty(false);" type="submit"
-									action="#{configurationBean.save}" />
+									action="#{configurationBean.save}">
+									<f:actionListener binding="#{targetLocationBean.clearStatus()}" />
+								</h:commandButton>
 						</span>
 						</span>
 					</div>
@@ -92,12 +94,14 @@
 
 	</h:form>
 	<h:outputText id="status" value="#{targetLocationBean.status}"
-		styleClass="statusPanelClass" />
+		styleClass="statusPanel #{targetLocationBean.statusClass}"
+		rendered="#{targetLocationBean.status != null}" />
+
 	<div class="nested_heading_data_class">
 		<h:form>
 			<div class="heading_data_4_class">
 				<div class="heading_data_4_bg_class">
-					<h4 id="heading_data4_1" class="heading_data_4_open_mark_class"
+					<h4 id="heading_data4_2" class="heading_data_4_open_mark_class"
 						onclick="accordion(this, 'accordion_area_vcenter')">
 						<h:outputText value="vCenter" />
 					</h4>

@@ -94,13 +94,6 @@ public abstract class UiBeanBase implements Serializable {
         return FacesContext.getCurrentInstance();
     }
 
-    /**
-     * Returns status message of last operation.
-     */
-    public String getStatus() {
-        return status;
-    }
-
     public boolean isReportingSupported() {
         String folder = settings
                 .getControllerSetting(VMPropertyHandler.CTL_REPORT_FOLDER);
