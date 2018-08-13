@@ -16,9 +16,10 @@ import java.util.Locale;
 import javax.faces.context.FacesContext;
 
 import org.oscm.app.azure.i18n.Messages;
-import org.oscm.app.v1_0.APPlatformServiceFactory;
-import org.oscm.app.v1_0.data.PasswordAuthentication;
-import org.oscm.app.v1_0.intf.APPlatformService;
+import org.oscm.app.v2_0.APPlatformServiceFactory;
+import org.oscm.app.v2_0.data.PasswordAuthentication;
+import org.oscm.app.v2_0.data.Setting;
+import org.oscm.app.v2_0.intf.APPlatformService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,14 +34,14 @@ public class ConfigurationBean {
     private APPlatformService platformService;
 
     // The configuration settings
-    private HashMap<String, String> items;
+    private HashMap<String, Setting> items;
 
     // Status of the most recent operation
     private String status;
 
     // Credentials of the controller administrator
     private final String username = "manager_A";
-    private final String password = "secreat";
+    private final String password = "secret";
 
     /**
      * Constructor.
@@ -64,7 +65,7 @@ public class ConfigurationBean {
      *
      * @return the settings
      */
-    public HashMap<String, String> getItems() {
+    public HashMap<String, Setting> getItems() {
         if (items == null) {
             try {
                 // Read settings once
@@ -73,11 +74,11 @@ public class ConfigurationBean {
 
             } catch (Exception e) {
                 // Fail until correct credentials are set
-                items = new HashMap<String, String>();
-                items.put("key A", "value A");
-                items.put("key B", "value B");
-                items.put("key C", "value C");
-                items.put("key D", "value D");
+                items = new HashMap<>();
+                items.put("key A", new Setting("value A", "value A"));
+                items.put("key B", new Setting("value B", "value B"));
+                items.put("key C", new Setting("value C", "value C"));
+                items.put("key D", new Setting("value D", "value D"));
             }
         }
         return items;

@@ -24,5 +24,6 @@
 	<classpathentry kind="lib" path="/libraries/jersey-bundle/javalib/jersey-bundle-1.18.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-lang/javalib/commons-lang-2.6.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javax.faces-2.2.12.jar"/>
 	<classpathentry kind="output" path="/oscm-app-azure/bin"/>
 </classpath>
