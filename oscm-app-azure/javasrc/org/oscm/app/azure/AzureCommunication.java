@@ -283,12 +283,12 @@ public class AzureCommunication {
     /**
      * Updating the template parameters
      */
+    @SuppressWarnings("unchecked")
     private String getTemplateParameters(String url, String operation)
             throws AbortException {
         String parameters = getTemplate(url, operation);
         int numberOfInstances = Integer.parseInt(ph.getInstanceCount());
         try {
-            @SuppressWarnings("unchecked")
             Map<String, Object> parametersMap = getParametersMap(parameters);
 
             //  updateParameter(parametersMap);
@@ -322,7 +322,7 @@ public class AzureCommunication {
 
             if (numberOfInstances > 1) {
                 Map<String, Integer> numberOfInstancesMap = (Map<String, Integer>) map.get("numberOfInstances");
-                numberOfInstancesMap.put("value", Integer.parseInt(ph.getInstanceCount()));
+                numberOfInstancesMap.put("value", Integer.valueOf(ph.getInstanceCount()));
             }
 
             logger.info("value of updated parameter is " + parametersMap.get("parameters"));
@@ -336,6 +336,7 @@ public class AzureCommunication {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected Map<String, Object> getParametersMap(String parameters) {
         return new Gson().fromJson(parameters, HashMap.class);
     }
@@ -458,7 +459,7 @@ public class AzureCommunication {
             }
             Iterator<String> nicIterator = nicNames.iterator();
             while (nicIterator.hasNext()) {
-                String nicName = (String) nicIterator.next();
+                String nicName = nicIterator.next();
                 //Deleting Network Interface
                 logger.info("Deleting Network Interface- " + nicName + "...");
                 getNetworkClient().getNetworkInterfacesOperations().beginDeleting(ph.getResourceGroupName(), nicName);
@@ -470,32 +471,27 @@ public class AzureCommunication {
                 String key1 = getStorageClient().getStorageAccountsOperations().listKeys(ph.getResourceGroupName(), ph.getStorageAccount()).getStorageAccountKeys().getKey1();
 
                 String connectionString = "DefaultEndpointsProtocol=https;AccountName=" + ph.getStorageAccount() + ";AccountKey=" + key1 + ";";
-                CloudStorageAccount account = null;
                 try {
-                    account = parseConnectionString(connectionString);
+                    CloudStorageAccount account = parseConnectionString(connectionString);
+                    CloudBlobClient client = account.createCloudBlobClient();
+                    Iterator<CloudBlobContainer> containerIterator = getCloudBlobContainerIterator(client);
+                    int i = 0;
+                    while (containerIterator.hasNext()) {
+                        i++;
+                        containerIterator.next();
+                    }
+                    if (i > 1) {  //checking whether the storage account contains more than 1 container
+                        deleteVMContainer();
+                    } else {
+                        getStorageClient().getStorageAccountsOperations().delete(ph.getResourceGroupName(), ph.getStorageAccount());
+                        logger.info("Deleting Storage Account-" + ph.getStorageAccount() + "...");
+                        logger.info("Storage Account deleted !!");
+                    }
                 } catch (InvalidKeyException e) {
                     logger.debug("Invalid Key !!");
                     e.printStackTrace();
                 }
-
-                CloudBlobClient client = account.createCloudBlobClient();
-
-                Iterator<CloudBlobContainer> containerIterator = getCloudBlobContainerIterator(client);
-                int i = 0;
-                while (containerIterator.hasNext()) {
-                    i++;
-                    containerIterator.next();
-                }
-                if (i > 1)   //checking whether the storage account contains more than 1 container
-                {
-                    deleteVMContainer();
-                } else {
-                    getStorageClient().getStorageAccountsOperations().delete(ph.getResourceGroupName(), ph.getStorageAccount());
-                    logger.info("Deleting Storage Account-" + ph.getStorageAccount() + "...");
-                    logger.info("Storage Account deleted !!");
-                }
             } else {
-                //Deleting VM Container
                 deleteVMContainer();
             }
 
@@ -554,7 +550,7 @@ public class AzureCommunication {
         Iterator<CloudBlobContainer> containerIterator = getCloudBlobContainerIterator(client);
         boolean isDelete = false;
         while (containerIterator.hasNext()) {
-            CloudBlobContainer cloudBlobContainer = (CloudBlobContainer) containerIterator.next();
+            CloudBlobContainer cloudBlobContainer = containerIterator.next();
             try {
                 if (cloudBlobContainer.getName().contains(ph.getVMName().toLowerCase())) {
                     isDelete = cloudBlobContainer.deleteIfExists();
@@ -756,7 +752,7 @@ public class AzureCommunication {
 
                     logger.debug("NIC: {}, Is primary: {}", nic.getName(),
                             nic.isPrimary());
-                    if (nic.isPrimary()) {
+                    if (nic.isPrimary() == Boolean.TRUE) {
                         // find public ip address
                         List<NetworkInterfaceIpConfiguration> ips = nic
                                 .getIpConfigurations();
@@ -959,7 +955,7 @@ public class AzureCommunication {
         try {
             Iterator<StorageAccount> iterator = getStorageAccounts();
             while (iterator.hasNext()) {
-                StorageAccount strAcc = (StorageAccount) iterator.next();
+                StorageAccount strAcc = iterator.next();
                 if (strAcc.getName().equals(storageAccount)) {
                     logger.info("Existing Storage account: true");
                     return true;
