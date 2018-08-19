@@ -9,7 +9,7 @@
   <module>
     <web>
       <web-uri>oscm-app-azure.war</web-uri>
-      <context-root>oscm-app-azure</context-root>
+      <context-root>/oscm-app-azure</context-root>
     </web>
   </module>
 </application>

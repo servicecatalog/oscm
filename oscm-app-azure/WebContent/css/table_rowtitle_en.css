@@ -1,0 +1,93 @@
+/* 
+ *  Copyright FUJITSU LIMITED 2018
+ */ 
+@charset "utf-8";
+
+/*************************
+ Table(row title)
+*************************/
+
+/* Main area */
+.table_main_area_class {
+	width: auto;
+	padding: 0px;
+	font-size: 75%;
+}
+.table_main_area_class:hover {
+	cursor: default;
+}
+
+/* Display area */
+.table_rowtitle_class {
+	width: 100%;
+	line-height: 160%;
+	margin-top: 1px;
+	border-collapse: collapse;
+	border-bottom: 1px solid #d2d2d2;
+}
+
+/* Header background */
+.table_rowtitle_class th {
+	margin: 0px;
+	padding: 2px 7px;
+	color: #282E3C;
+	background: #ADB7C3 url("../img/table_rowtitle/th_bg.gif") bottom repeat-x;
+}
+
+/* Cell with sort icon */
+.table_rowtitle_class th.table_column_header_sort_class {
+	margin: 0px;
+	padding: 2px 7px;
+	border-right: 1px solid #6C7485;
+	background: #9DBEE9 url("../img/table_rowtitle/th_bg_sort.gif") left bottom repeat-x;
+}
+
+/* Display position of label of cell with sort icon */
+.table_rowtitle_class th.table_column_header_sort_class span {
+	float: left;
+}
+
+/* Display position of sort icon */
+.table_rowtitle_class th.table_column_header_sort_class img {
+	float: right;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+/* Header's right line */
+.table_rowtitle_class th.table_column_header_class {
+	border-right: 1px solid #6C7485;
+}
+
+/* Light blue background */
+.table_row_1_class {
+	background-color: #E5EBF1;
+}
+
+/* White background */
+.table_row_2_class {
+	background-color: #FFFFFF;
+}
+
+/* Selected line */
+.table_rowtitle_class tr.table_row_select_class {
+	color: #FFFFFF;
+	background-color: #2E75D2;
+}
+
+/* Header background(hover) */
+th.table_column_header_class:hover,
+th.table_column_header1_class:hover {
+	background: #CBD7F5 url("../img/table_rowtitle/th_bg_over.gif") bottom repeat-x;
+}
+
+/* Background(hover) */
+tr.table_row_1_class:hover, 
+tr.table_row_2_class:hover {
+	background-color: #CBD7F5;
+}
+
+/* Cell with right line */
+td.table_cell_data_line_class {
+	border-right: 1px solid #D2D2D2;
+}

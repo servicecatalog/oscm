@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.oscm.app.azure.i18n.Messages;
 import org.oscm.app.v2_0.APPlatformServiceFactory;
@@ -43,20 +44,25 @@ public class ConfigurationBean {
     private final String username = "manager_A";
     private final String password = "secret";
 
+    protected FacesContext getFacesContext() {
+        return FacesContext.getCurrentInstance();
+    }
+
     /**
      * Constructor.
      */
-    public ConfigurationBean(APPlatformService platformService) {
-        try {
-            if (platformService == null) {
-                this.platformService = APPlatformServiceFactory.getInstance();
-            } else {
-                this.platformService = platformService;
-            }
-        } catch (IllegalStateException e) {
-            logger.error(e.getMessage());
-            throw e;
+    public ConfigurationBean() {
+        this.platformService = APPlatformServiceFactory.getInstance();
+    }
+
+    public String getLoggedInUserId() {
+        FacesContext facesContext = getFacesContext();
+        HttpSession session = (HttpSession) facesContext.getExternalContext()
+                .getSession(false);
+        if (session != null) {
+            return "" + session.getAttribute("loggedInUserId");
         }
+        return null;
     }
 
     /**

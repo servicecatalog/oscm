@@ -1,0 +1,71 @@
+/* 
+ *  Copyright FUJITSU LIMITED 2018
+ */ 
+@charset "utf-8";
+
+/*************************
+ Table(line title)
+*************************/
+
+/* Main area */
+.table_main_area_class {
+	width: auto;
+	padding: 0px;
+	font-size: 75%;
+}
+.table_main_area_class:hover {
+	cursor: default;
+}
+
+/* Display area */
+.table_linetitle_class {
+	width: 100%;
+	line-height: 160%;
+	margin-top: 1px;
+	border-bottom: 1px solid #d2d2d2;
+	border-collapse: collapse;
+}
+
+/* Header background */
+.table_linetitle_class th.table_cell_title_1_class {
+	margin: 0px;
+	padding: 2px 7px;
+	border-right: 1px solid #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	background-color: #C5CCD5;
+}
+
+/* First row last line cell */
+.table_linetitle_class th.table_cell_title1_bottom_class {
+	margin: 0px;
+	padding: 2px 7px;
+	border-right: 1px solid #FFFFFF;
+	background-color: #C5CCD5;
+}
+
+/* Light blue background */
+.table_row_1_class {
+	background-color: #E5EBF1;
+}
+
+/* White background */
+.table_row_2_class {
+	background-color: #FFFFFF;
+}
+
+/* Selected line */
+.table_linetitle_class tr.table_row_select_class td {
+	color: #FFFFFF;
+	background-color: #2E75D2;
+}
+
+/* Background(hover) */
+tr.table_row_1_class:hover,
+tr.table_row_2_class:hover {
+	background-color: #CBD7F5;
+}
+
+/* Cell with right line */
+td.table_cell_data_line_class {
+	border-right: 1px solid #D2D2D2;
+}

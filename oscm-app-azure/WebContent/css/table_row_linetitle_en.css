@@ -1,0 +1,128 @@
+/* 
+ *  Copyright FUJITSU LIMITED 2018
+ */ 
+@charset "utf-8";
+
+/*************************
+ Table(Row line title)
+*************************/
+
+/* Main area */
+.table_main_area_class {
+	width: auto;
+	padding: 0px;
+	font-size: 75%;
+}
+.table_main_area_class:hover {
+	cursor: default;
+}
+
+/* Display area */
+.table_row_linetitle_class {
+	width: 100%;
+	line-height: 160%;
+	margin-top: 1px;
+	border-collapse: collapse;
+	border-bottom: 1px solid #d2d2d2;
+	text-align: left;
+}
+
+/* Header Background */
+.table_row_linetitle_class tr.rf-dt-shdr th {
+   background: #BBC2C8;
+   border-bottom: 1px solid #808080;
+   text-align: left;}
+
+/* padding: 2px 7px; */
+
+/* Cell with sort icon */
+.table_row_linetitle_class tr.rf-dt-shd th.table_header_sort_title_class {
+	margin: 0px;
+	padding: 2px 7px;
+	border-right: 1px solid #6c7485;
+	background: #9DBEE9 url("../img/table_row_linetitle/th_bg_sort.gif") left bottom repeat-x;
+}
+
+/* Display position of label of cell with sort icon */
+.table_row_linetitle_class tr.rf-dt-shd th.table_header_sort_title_class span {
+	float: left;
+}
+
+/* Display position of sort icon */
+.table_row_linetitle_class tr.rf-dt-shd th.table_header_sort_title_class img {
+	float: right;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+
+/* Header's right line */
+.table_row_linetitle_class th.table_header_title_class {
+	border-right: 1px solid #6C7485;
+	width:25%;
+}
+
+/* First row header */
+.table_row_linetitle_class th.table_cell_title_1_class {
+	margin: 0px;
+	padding: 2px 7px;
+	border-right: 1px solid #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	background-color: #C5CCD5;
+}
+
+/* Second row header */
+.table_row_linetitle_class th.table_cell_title_1_bottom_class {
+	margin: 0px;
+	padding: 2px 7px;
+	border-right: 1px solid #FFFFFF;
+	background-color: #C5CCD5;
+}
+
+/* First row last line header */
+.table_row_linetitle_class th.table_cell_title_2_class {
+	margin: 0px;
+	padding: 2px 7px;
+	border-right: 1px solid #FFFFFF;
+	border-bottom: 1px solid #FFFFFF;
+	background-color: #D7DDE2;
+}
+ 
+/* Second row last line header */
+.table_row_linetitle_class th.table_cell_title_2_bottom_class {
+	margin: 0px;
+	padding: 2px 7px;
+	border-right: 1px solid #FFFFFF;
+	background-color: #D7DDE2;
+}
+
+/* Light blue background */
+.table_row_1_class {
+	background-color: #E5EBF1;
+}
+
+/* White background */
+.table_row_2_class {
+	background-color: #FFFFFF;
+}
+
+/* Selected line */
+.table_row_linetitle_class tr.table_row_select_class td {
+	color: #FFFFFF;
+	background-color: #2E75D2;
+}
+
+/* Header background(hover) */
+tr.rf-dt-shd th.table_header_mouseover_class:hover {
+	background: #CBD7F5 url("../img/table_row_linetitle/th_bg_over.gif") bottom repeat-x;
+}
+
+/* Background(hover) */
+tr.table_row_1_class:hover, 
+tr.table_row_2_class:hover {
+	background-color: #CBD7F5;
+}
+
+/* Cell with right line(ex. third row) */
+td.table_cell_data_line_class {
+	border-right: 1px solid #D2D2D2;
+}

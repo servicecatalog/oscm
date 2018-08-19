@@ -1,0 +1,27 @@
+/* 
+ *  Copyright FUJITSU LIMITED 2018
+ */ 
+@charset "utf-8";
+
+/*************************
+ Heading data 2
+*************************/
+
+/* main area */
+.heading_data_2_class {
+	width: 100%;
+	overflow: hidden;
+}
+
+/* Make this selector heading data 2 */
+.heading_data_2_class h3 {
+	width: 100%;
+	height: 21px;
+	line-height: 160%;
+	margin: 0px;
+	padding-left: 6px;
+	border-left: 3px solid #717D98;
+	color: #717D98;
+	font-size: 10pt;
+	font-weight: bold;
+}
