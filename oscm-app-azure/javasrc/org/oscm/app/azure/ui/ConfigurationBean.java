@@ -8,11 +8,14 @@
 
 package org.oscm.app.azure.ui;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -28,7 +31,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Bean for reading and writing controller configuration settings.
  */
-public class ConfigurationBean {
+@ManagedBean(name = "configurationBean")
+@ViewScoped
+public class ConfigurationBean implements Serializable {
     private static final Logger logger = LoggerFactory.getLogger(ConfigurationBean.class);
 
     // Reference to an APPlatformService instance
@@ -131,3 +136,4 @@ public class ConfigurationBean {
         return status;
     }
 }
+
