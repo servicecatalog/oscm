@@ -41,8 +41,8 @@ public class ConfigurationBean {
     private String status;
 
     // Credentials of the controller administrator
-    private final String username = "manager_A";
-    private final String password = "secret";
+    private final String username = "administrator";
+    private final String password = "admin123";
 
     protected FacesContext getFacesContext() {
         return FacesContext.getCurrentInstance();

@@ -1,77 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright FUJITSU LIMITED 2017-->
 
-<web-app id="ADMUM_AzureUI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
-
-  <display-name>APP Azure User Interface</display-name>
-
-  <welcome-file-list>
-    <welcome-file>default.xhtml</welcome-file>
-  </welcome-file-list>
-
+<web-app id="ADMUM_AppSampleUI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+  version="2.5">
+  
+  <display-name>APP Sample User Interface</display-name>
+  
   <context-param>
-    <param-name>javax.faces.PROJECT_STAGE</param-name>
-    <param-value>Production</param-value>
+    <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+    <param-value>.xhtml</param-value>
   </context-param>
-
   <context-param>
-    <param-name>org.richfaces.SKIN</param-name>
-    <param-value>DEFAULT</param-value>
+    <param-name>facelets.REFRESH_PERIOD</param-name>
+    <param-value>2</param-value>
   </context-param>
-
   <context-param>
-    <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
-    <param-value>/WEB-INF/facelets/tags/taglib.xml</param-value>
+    <!-- Setting this to true will cause the FaceletViewHandler to print out debug information in an easy to use screen when 
+      an error occurs during the rendering process. -->
+    <param-name>facelets.DEVELOPMENT</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+    <param-value>server</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.skin</param-name>
+    <param-value>template</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.enableControlSkinning</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.richfaces.enableControlSkinningClasses</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>facelets.SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <!-- The following parameters are set to reduce memory consumption. These parameters might affect browser navigation. This 
+    was accepted, because at the current point it is not working anyway. -->
+  <context-param>
+    <description></description>
+    <param-name>com.sun.faces.numberOfViewsInSession</param-name>
+    <param-value>1</param-value>
+  </context-param>
+  <context-param>
+    <description></description>
+    <param-name>com.sun.faces.numberOfLogicalViews</param-name>
+    <param-value>1</param-value>
   </context-param>
 
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
     <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-    <load-on-startup>0</load-on-startup>
+    <load-on-startup>1</load-on-startup>
   </servlet>
-
-  <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.xhtml</url-pattern>
-  </servlet-mapping>
-
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
     <url-pattern>*.jsf</url-pattern>
   </servlet-mapping>
 
-  <context-param>
-    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
-    <param-value>true</param-value>
-  </context-param>
-
-  <context-param>
-    <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-    <param-value>.xhtml</param-value>
-  </context-param>
-
-  <!--<filter>-->
-    <!--<display-name>Authorization Filter</display-name>-->
-    <!--<filter-name>auth</filter-name>-->
-    <!--<filter-class>org.oscm.app.azure.ui.filter.AuthorizationFilter</filter-class>-->
-  <!--</filter>-->
-
-  <!--<filter-mapping>-->
-    <!--<filter-name>auth</filter-name>-->
-    <!--<servlet-name>Faces Servlet</servlet-name>-->
-    <!--<dispatcher>REQUEST</dispatcher>-->
-    <!--<dispatcher>FORWARD</dispatcher>-->
-    <!--<dispatcher>INCLUDE</dispatcher>-->
-  <!--</filter-mapping>-->
-
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
 
-  <error-page>
-    <error-code>500</error-code>
-    <location>/error.jsp</location>
-  </error-page>
+
 </web-app>
