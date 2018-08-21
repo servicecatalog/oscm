@@ -26,7 +26,7 @@
           <h:outputText value="#{msg['ui.config.column.value']}"/>
         </f:facet>
 
-        <h:inputText id="configurationValue" onchange="setDirty(true)" value="#{configurationBean.items[key]}"/>
+        <h:inputText id="configurationValue" onchange="setDirty(true)" value="#{configurationBean.val}"/>
       </rich:column>
     </rich:dataTable>
 

@@ -42,6 +42,9 @@ public class ConfigurationBean implements Serializable {
     // The configuration settings
     private HashMap<String, Setting> items;
 
+    // test
+    private String val;
+
     // Status of the most recent operation
     private String status;
 
@@ -95,6 +98,10 @@ public class ConfigurationBean implements Serializable {
         return items;
     }
 
+    public void setItems(HashMap<String, Setting> items) {
+        this.items = items;
+    }
+
     /**
      * Returns the keys of all controller configuration settings.
      *
@@ -134,6 +141,14 @@ public class ConfigurationBean implements Serializable {
      */
     public String getStatus() {
         return status;
+    }
+
+    public String getVal() {
+        return val;
+    }
+
+    public void setVal(String val) {
+        this.val = val;
     }
 }
 
