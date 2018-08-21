@@ -108,9 +108,7 @@ public class ConfigurationBean implements Serializable {
      * @return the list of keys
      */
     public List<String> getItemKeys() {
-        List<String> keys = new ArrayList<String>();
-        keys.addAll(getItems().keySet());
-        return keys;
+        return new ArrayList<>(getItems().keySet());
     }
 
     /**
