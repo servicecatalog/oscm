@@ -6,7 +6,7 @@
               version="2.2">
 
   <managed-bean>
-    <managed-bean-name>appBean</managed-bean-name>
+    <managed-bean-name>configurationBean</managed-bean-name>
     <managed-bean-class>org.oscm.app.azure.ui.ConfigurationBean</managed-bean-class>
     <managed-bean-scope>session</managed-bean-scope>
   </managed-bean>
