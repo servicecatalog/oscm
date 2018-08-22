@@ -26,7 +26,7 @@
         <f:facet name="header">
           <h:outputText value="#{msg['ui.config.column.value']}"/>
         </f:facet>
-        <h:inputText id="configurationValue" onchange="setDirty(true)" value="#{configurationBean.val}"/>
+        <h:inputText id="configurationValue" onchange="setDirty(true)" value="#{configurationBean.items[key].value}"/>
       </h:column>
     </h:dataTable>
     <a4j:outputPanel layout="block" styleClass="description">
