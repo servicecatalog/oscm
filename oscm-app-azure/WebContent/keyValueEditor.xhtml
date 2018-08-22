@@ -14,22 +14,21 @@
                 rendered="#{configurationBean.status != null}"/>
 
   <h:form id="configurationSettings">
-    <rich:dataTable value="#{configurationBean.itemKeys}" var="key" rowClasses="rowOdd,rowEven" headerClass="rowTitle">
-      <rich:column>
+    <!-- todo s/h:dataTable/rich:dataTable and s/h:column/rich:column -->
+    <h:dataTable value="#{configurationBean.itemKeys}" var="key" rowClasses="rowOdd,rowEven" headerClass="rowTitle">
+      <h:column>
         <f:facet name="header">
           <h:outputText value="#{msg['ui.config.column.key']}"/>
         </f:facet>
         <h:outputText value="#{key}"/>
-      </rich:column>
-      <rich:column>
+      </h:column>
+      <h:column>
         <f:facet name="header">
           <h:outputText value="#{msg['ui.config.column.value']}"/>
         </f:facet>
-
         <h:inputText id="configurationValue" onchange="setDirty(true)" value="#{configurationBean.val}"/>
-      </rich:column>
-    </rich:dataTable>
-
+      </h:column>
+    </h:dataTable>
     <a4j:outputPanel layout="block" styleClass="description">
       <h:commandButton value="#{msg['ui.config.action.save']}" type="submit" action="#{configurationBean.save}"/>
     </a4j:outputPanel>
