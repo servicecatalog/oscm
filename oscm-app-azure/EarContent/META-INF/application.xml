@@ -8,8 +8,8 @@
   </module>
   <module>
     <web>
-      <web-uri>oscm-app-azure.war</web-uri>
-      <context-root>/oscm-app-azure</context-root>
+      <web-uri>oscm-app-common.war</web-uri>
+      <context-root>oscm-app-azure</context-root>
     </web>
   </module>
 </application>

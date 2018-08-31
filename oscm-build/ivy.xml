@@ -246,7 +246,7 @@
     <dependency org="org.eclipse.birt.runtime.3_7_1" name="org.w3c.css.sac" rev="1.3.0" transitive="false"/>
     <dependency org="org.eclipse.birt.runtime.3_7_1" name="org.w3c.dom.smil" rev="1.0.0" transitive="false"/>
     <dependency org="org.eclipse.birt.runtime.3_7_1" name="org.w3c.dom.svg" rev="1.1.0" transitive="false"/>
-    <dependency org="org.apache.axis" name="axis-saaj" rev="1.4" transitive="false"/>
+    <!--<dependency org="org.apache.axis" name="axis-saaj" rev="1.4" transitive="false"/>-->
     <dependency org="org.eclipse.birt.runtime" name="viewservlets" rev="4.3.1" transitive="false"/>
     <dependency org="org.eclipse.jdt.core.compiler" name="ecj" rev="4.5.1" transitive="false"/>
     <dependency org="org.jacoco" name="org.jacoco.agent" rev="0.7.8" transitive="false"/>
