@@ -51,7 +51,7 @@
       <LocalizedDescription locale="de"/>
       <LocalizedDescription locale="ja"/>
     </ParameterDefinition>
-    <ParameterDefinition configurable="true" id="VIRTUAL_MACHINE_IMAGE_ID" mandatory="true" valueType="STRING">
+    <ParameterDefinition configurable="true" default="WindowsServer 2012-R2-Datacenter" id="VIRTUAL_MACHINE_IMAGE_ID" mandatory="true" valueType="STRING">
       <LocalizedDescription locale="en">Virtual Machine Image ID</LocalizedDescription>
       <LocalizedDescription locale="de"/>
       <LocalizedDescription locale="ja"/>

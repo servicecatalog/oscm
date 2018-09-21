@@ -237,6 +237,11 @@ public class PropertyHandler {
      * Azure
      */
     public String getMailForCompletion() {
+        Setting mailParam = settings.getParameters().get(MAIL_FOR_COMPLETION);
+        if(mailParam == null) {
+            return null;
+        }
+
         String value = settings.getParameters().get(MAIL_FOR_COMPLETION).getValue();
         return StringUtils.isBlank(value) ? null : value;
     }
@@ -341,8 +346,7 @@ public class PropertyHandler {
      */
     public String getTemplateUrl() {
         try {
-            String url = new URL(new URL(getTemplateBaseUrl()), getTemplateName()).toExternalForm();
-            return url;
+            return new URL(new URL(getTemplateBaseUrl()), getTemplateName()).toExternalForm();
         } catch (MalformedURLException e) {
             throw new RuntimeException("Cannot generate template URL: "
                     + e.getMessage(), e);

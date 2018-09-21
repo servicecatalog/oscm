@@ -5,23 +5,6 @@
  *******************************************************************************/
 package org.oscm.app.azure;
 
-import java.io.IOException;
-import java.net.Authenticator;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.security.InvalidKeyException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import javax.naming.ServiceUnavailableException;
-
 import com.google.gson.Gson;
 import com.microsoft.aad.adal4j.AuthenticationContext;
 import com.microsoft.aad.adal4j.AuthenticationResult;
@@ -39,15 +22,7 @@ import com.microsoft.azure.management.network.models.NetworkInterfaceIpConfigura
 import com.microsoft.azure.management.network.models.PublicIpAddress;
 import com.microsoft.azure.management.resources.ResourceManagementClient;
 import com.microsoft.azure.management.resources.ResourceManagementService;
-import com.microsoft.azure.management.resources.models.Deployment;
-import com.microsoft.azure.management.resources.models.DeploymentMode;
-import com.microsoft.azure.management.resources.models.DeploymentOperation;
-import com.microsoft.azure.management.resources.models.DeploymentOperationProperties;
-import com.microsoft.azure.management.resources.models.DeploymentProperties;
-import com.microsoft.azure.management.resources.models.DeploymentPropertiesExtended;
-import com.microsoft.azure.management.resources.models.ProviderResourceType;
-import com.microsoft.azure.management.resources.models.ProvisioningState;
-import com.microsoft.azure.management.resources.models.ResourceGroupExtended;
+import com.microsoft.azure.management.resources.models.*;
 import com.microsoft.azure.management.storage.StorageManagementClient;
 import com.microsoft.azure.management.storage.StorageManagementService;
 import com.microsoft.azure.management.storage.models.StorageAccount;
@@ -62,10 +37,6 @@ import com.microsoft.windowsazure.management.configuration.ManagementConfigurati
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.oscm.app.v2_0.exceptions.AbortException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.oscm.app.azure.controller.PropertyHandler;
 import org.oscm.app.azure.data.AccessInfo;
 import org.oscm.app.azure.data.AzureAccess;
@@ -76,6 +47,20 @@ import org.oscm.app.azure.exception.AzureServiceException;
 import org.oscm.app.azure.i18n.Messages;
 import org.oscm.app.azure.proxy.ProxyAuthenticator;
 import org.oscm.app.azure.proxy.ProxySettings;
+import org.oscm.app.v2_0.exceptions.AbortException;
+import org.oscm.app.v2_0.exceptions.AuthenticationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.naming.ServiceUnavailableException;
+import java.io.IOException;
+import java.net.*;
+import java.security.InvalidKeyException;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class AzureCommunication {
 
@@ -139,6 +124,8 @@ public class AzureCommunication {
                     proxyPassword));
         }
 
+        this.clearProxyProperties();
+
         this.ph = ph;
         Configuration config = createConfiguration();
         this.resourceClient = ResourceManagementService.create(config);
@@ -149,6 +136,16 @@ public class AzureCommunication {
 
     public PropertyHandler getPh() {
         return this.ph;
+    }
+
+    private void clearProxyProperties() {
+        List<String> properties = Arrays.asList("http.proxyHost", "http.proxyPort", "https.proxyHost", "https.proxyPort");
+
+        for(String prop : properties) {
+           if(System.getProperty(prop) == null || System.getProperty(prop).length() == 0) {
+               System.clearProperty(prop);
+           }
+        }
     }
 
     /***
@@ -167,8 +164,7 @@ public class AzureCommunication {
             } else {
                 result = getAccessTokenFromClientCredentials(ph.getTenantId(), ph.getClientId(), ph.getClientSecret());
             }
-        } catch (MalformedURLException | ServiceUnavailableException
-                | InterruptedException | ExecutionException e) {
+        } catch (MalformedURLException | ServiceUnavailableException | InterruptedException | ExecutionException | AuthenticationException e) {
             throw createAndLogAzureException("Get api access token failed: "
                     + e.getMessage(), e);
         }
@@ -225,9 +221,7 @@ public class AzureCommunication {
      */
     protected AuthenticationResult getAccessTokenFromClientCredentials(
             String tenantId, String clientId,
-            String clientSecret) throws MalformedURLException,
-            InterruptedException, ExecutionException,
-            ServiceUnavailableException {
+            String clientSecret) throws ServiceUnavailableException, AuthenticationException {
         AuthenticationResult result = null;
         ExecutorService service = Executors.newFixedThreadPool(1);
         try {
@@ -237,6 +231,7 @@ public class AzureCommunication {
             result = acquireToken(context, clientCredential);
         } catch (Exception e) {
             logger.error("Exception while authentication: " + e);
+            throw new AuthenticationException(e.getMessage(), e.getCause());
         } finally {
             service.shutdown();
         }
@@ -383,7 +378,7 @@ public class AzureCommunication {
     /**
      * Creating the instance (Azure VMs)
      */
-    public void createInstance() throws AbortException {
+    public void createInstance() {
         logger.debug("AzureCommunication.createInstance entered");
         logger.debug("ResourceGroupName: {}, Region: {}",
                 ph.getResourceGroupName(), ph.getRegion());
@@ -982,7 +977,8 @@ public class AzureCommunication {
 
     protected AuthenticationResult acquireToken(AuthenticationContext context,
                                                 ClientCredential clientCredential) throws ExecutionException, InterruptedException {
-        return context.acquireToken(RESOURCE_BASE_URL, clientCredential, null).get();
+        Future<AuthenticationResult> future = context.acquireToken(RESOURCE_BASE_URL, clientCredential, null);
+        return future.get();
     }
 
     public ResourceManagementClient getResourceClient() {
