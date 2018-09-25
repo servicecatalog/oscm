@@ -73,6 +73,6 @@ public class AccessInfo {
 
             messages.add(message);
         }
-        return StringUtils.join(messages, "; ");
+        return StringUtils.join(messages, "; ").replace("\n", " ");
     }
 }

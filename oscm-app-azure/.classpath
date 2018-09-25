@@ -4,6 +4,7 @@
 	<classpathentry kind="lib" path="/libraries/apache-commons-lang/javalib/commons-lang3-3.5.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-httpcore/javalib/httpclient-4.5.2.jar"/>
+	<classpathentry kind="lib" path="/libraries/jackson/javalib/jackson-core.jar"/>
 	<classpathentry kind="lib" path="/libraries/jackson-core-asl/javalib/jackson-core-asl-1.9.13.jar"/>
 	<classpathentry kind="lib" path="/libraries/jackson-mapper-asl/javalib/jackson-mapper-asl-1.9.13.jar"/>
 	<classpathentry kind="lib" path="/libraries/azure-core/javalib/azure-core-0.9.7.jar"/>

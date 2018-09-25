@@ -417,14 +417,12 @@ public class AzureCommunication {
      */
     public void deleteInstance() {
         logger.debug("AzureCommunication.deleteInstance entered");
-        ArrayList<VirtualMachine> virtualMachines = getVirtualMachines();
+        List<VirtualMachine> virtualMachines = getVirtualMachines();
         Iterator<VirtualMachine> iterator = virtualMachines.iterator();
-
-        ArrayList<String> nicNames = new ArrayList<String>();
+        List<String> nicNames = new ArrayList<>();
 
         try {
             while (iterator.hasNext()) {
-
                 VirtualMachine machine = iterator.next();
 
                 getComputeClient().getVirtualMachinesOperations().beginDeleting(ph.getResourceGroupName(), machine.getName());
@@ -464,8 +462,7 @@ public class AzureCommunication {
             //Deleting Storage Account
             if (!exisitingStorageAccount) {
                 String key1 = getStorageClient().getStorageAccountsOperations().listKeys(ph.getResourceGroupName(), ph.getStorageAccount()).getStorageAccountKeys().getKey1();
-
-                String connectionString = "DefaultEndpointsProtocol=https;AccountName=" + ph.getStorageAccount() + ";AccountKey=" + key1 + ";";
+                String connectionString = "DefaultEndpointsProtocol=https;AccountName=" + ph.getStorageAccount() + ";AccountKey=" + key1 + ";EndpointSuffix=core.windows.net";
                 try {
                     CloudStorageAccount account = parseConnectionString(connectionString);
                     CloudBlobClient client = account.createCloudBlobClient();
@@ -509,7 +506,6 @@ public class AzureCommunication {
             logger.info("Deployment deleted !!");
         } catch (IOException | ServiceException | URISyntaxException | ExecutionException | InterruptedException | InvalidKeyException e) {
             throw createAndLogAzureException("Delete Resources failed: ", e);
-
         }
 
     }
@@ -532,7 +528,7 @@ public class AzureCommunication {
         logger.info("Deleting VM Container inside Storage Account: " + ph.getStorageAccount());
         String key1 = getStorageClient().getStorageAccountsOperations().listKeys(ph.getResourceGroupName(), ph.getStorageAccount()).getStorageAccountKeys().getKey1();
 
-        String connectionString = "DefaultEndpointsProtocol=https;AccountName=" + ph.getStorageAccount() + ";AccountKey=" + key1 + ";";
+        String connectionString = "DefaultEndpointsProtocol=https;AccountName=" + ph.getStorageAccount() + ";AccountKey=" + key1 + ";EndpointSuffix=core.windows.net";
         CloudStorageAccount account = null;
         try {
             account = parseConnectionString(connectionString);
@@ -879,9 +875,9 @@ public class AzureCommunication {
      * Retrieving all the Virtual Machines created
      *
      */
-    private ArrayList<VirtualMachine> getVirtualMachines() {
+    private List<VirtualMachine> getVirtualMachines() {
         try {
-            ArrayList<VirtualMachine> vmList = new ArrayList<VirtualMachine>();
+            List<VirtualMachine> vmList = new ArrayList<>();
             int n = Integer.parseInt(ph.getInstanceCount());
             if (n > 1) {
                 for (int i = 1; i <= n; i++) {
@@ -893,6 +889,9 @@ public class AzureCommunication {
             logger.info("Size of final VM list : " + vmList.size());
             return vmList;
         } catch (IOException | URISyntaxException | ServiceException e) {
+            if(e instanceof ServiceException && ((ServiceException) e).getHttpStatusCode() == HttpURLConnection.HTTP_NOT_FOUND) {
+                return Collections.emptyList();
+            }
             throw createAndLogAzureException("Get virtual machines failed: "
                     + e.getMessage(), e);
         }
