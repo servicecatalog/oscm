@@ -3,7 +3,7 @@ package org.oscm.app.azure.controller;
 import org.oscm.app.azure.i18n.Messages;
 import org.oscm.app.v2_0.intf.ControllerAccess;
 
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 
 public class AzureControllerAccess implements ControllerAccess {
@@ -22,10 +22,6 @@ public class AzureControllerAccess implements ControllerAccess {
 
     @Override
     public List<String> getControllerParameterKeys() {
-        LinkedList<String> result = new LinkedList<>();
-        result.add(PropertyHandler.API_USER_NAME);
-        result.add(PropertyHandler.API_USER_PWD);
-        result.add(PropertyHandler.TENANT_ID);
-        return result;
+        return Collections.emptyList();
     }
 }
