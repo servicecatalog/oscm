@@ -31,6 +31,7 @@ import com.microsoft.azure.storage.StorageException;
 import com.microsoft.azure.storage.blob.CloudBlobClient;
 import com.microsoft.azure.storage.blob.CloudBlobContainer;
 import com.microsoft.windowsazure.Configuration;
+import com.microsoft.windowsazure.core.OperationResponse;
 import com.microsoft.windowsazure.core.utils.BOMInputStream;
 import com.microsoft.windowsazure.exception.ServiceException;
 import com.microsoft.windowsazure.management.configuration.ManagementConfiguration;
@@ -457,6 +458,12 @@ public class AzureCommunication {
                 logger.info("Deleting Network Interface- " + nicName + "...");
                 getNetworkClient().getNetworkInterfacesOperations().beginDeleting(ph.getResourceGroupName(), nicName);
                 logger.info("Network Interface deleted !!");
+            }
+
+            // Delete virtual network
+            Future<OperationResponse> response = getNetworkClient().getVirtualNetworksOperations().deleteAsync(ph.getResourceGroupName(), ph.getVirtualNetwork());
+            while(!response.isDone()) {
+                Thread.sleep(5000);
             }
 
             //Deleting Storage Account
