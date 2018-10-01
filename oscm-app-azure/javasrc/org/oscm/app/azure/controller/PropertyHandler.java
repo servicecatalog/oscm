@@ -357,8 +357,12 @@ public class PropertyHandler {
      * Azure
      */
     protected String getTemplateParametersName() {
-        String value = settings.getParameters().get(TEMPLATE_PARAMETERS_NAME).getValue();
-        return StringUtils.isBlank(value) ? null : value;
+        Setting value = settings.getParameters().get(TEMPLATE_PARAMETERS_NAME);
+        if(value == null || StringUtils.isBlank(value.getValue())) {
+            return null;
+        }
+
+        return value.getValue();
     }
 
     /**

@@ -3,10 +3,9 @@
 	<classpathentry kind="src" path="javasrc"/>
 	<classpathentry kind="src" path="javares"/>
     <classpathentry combineaccessrules="false" kind="src" path="/oscm-app-azure"/>
-	<classpathentry kind="lib" path="/libraries/slf4j/javalib/slf4j-api-1.7.7.jar"/>
-	<classpathentry kind="lib" path="/libraries/slf4j-log4j/javalib/slf4j-log4j12-1.7.7.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-commons-lang/javalib/commons-lang3-3.3.2.jar"/>
-    <classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.7.jar"/>
+	<classpathentry kind="lib" path="/libraries/slf4j/javalib/slf4j-api-1.7.21.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-commons-lang/javalib/commons-lang3-3.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-httpcore/javalib/httpclient-4.5.2.jar"/>
 	<classpathentry kind="lib" path="/libraries/jackson-core-asl/javalib/jackson-core-asl-1.9.13.jar"/>
 	<classpathentry kind="lib" path="/libraries/jackson-mapper-asl/javalib/jackson-mapper-asl-1.9.13.jar"/>
@@ -29,7 +28,7 @@
     <classpathentry kind="lib" path="/libraries/apache-lang/javalib/commons-lang-2.6.jar"/>
     <classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.5.jar"/>
     <classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all-1.8.5.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-app-extsvc-1-0"/>
-    <classpathentry kind="lib" path="/libraries/glassfish4/javalib/javaee.jar"/>
+    <classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/oscm-app-extsvc-2-0"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

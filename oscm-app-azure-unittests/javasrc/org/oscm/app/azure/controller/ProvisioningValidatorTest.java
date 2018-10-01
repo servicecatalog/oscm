@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.oscm.app.azure.AzureCommunication;
-import org.oscm.app.v1_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.APPlatformException;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;

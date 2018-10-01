@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import javax.naming.ServiceUnavailableException;
 
 import com.google.common.collect.AbstractIterator;
@@ -32,12 +33,8 @@ import com.microsoft.azure.management.compute.models.VirtualMachineInstanceView;
 import com.microsoft.azure.management.network.NetworkInterfaceOperations;
 import com.microsoft.azure.management.network.NetworkResourceProviderClient;
 import com.microsoft.azure.management.network.PublicIpAddressOperations;
-import com.microsoft.azure.management.network.models.NetworkInterface;
-import com.microsoft.azure.management.network.models.NetworkInterfaceGetResponse;
-import com.microsoft.azure.management.network.models.NetworkInterfaceIpConfiguration;
-import com.microsoft.azure.management.network.models.PublicIpAddress;
-import com.microsoft.azure.management.network.models.PublicIpAddressGetResponse;
-import com.microsoft.azure.management.network.models.ResourceId;
+import com.microsoft.azure.management.network.VirtualNetworkOperations;
+import com.microsoft.azure.management.network.models.*;
 import com.microsoft.azure.management.resources.DeploymentOperationOperations;
 import com.microsoft.azure.management.resources.DeploymentOperations;
 import com.microsoft.azure.management.resources.ProviderOperations;
@@ -79,8 +76,9 @@ import org.oscm.app.azure.data.AccessInfo;
 import org.oscm.app.azure.data.AzureState;
 import org.oscm.app.azure.data.PowerState;
 import org.oscm.app.azure.exception.AzureClientException;
-import org.oscm.app.v1_0.exceptions.APPlatformException;
-import org.oscm.app.v1_0.exceptions.AbortException;
+import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.AbortException;
+import org.oscm.app.v2_0.exceptions.AuthenticationException;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
@@ -99,6 +97,7 @@ public class AzureCommunicationTest {
     private static final String PASSWORD = "password";
     private static final String REGION = "region";
     private static final String VMNAME = "vmname";
+    private static final String VNETWORK_NAME = "myvnetwork";
     private static final String RERSOURCE_GROUP_NAME = "resGroup";
     private static final String TENANT_ID = "tenant";
     private static final String STORAGE_ACCOUNT_NAME = "storageAcc";
@@ -289,6 +288,7 @@ public class AzureCommunicationTest {
         when(ph.getInstanceCount()).thenReturn("1");
         when(ph.getVirtualMachineImageID()).thenReturn(IMAGE_ID_WINDOWS_SERVER_2012);
         when(ph.getVMName()).thenReturn(VMNAME);
+        when(ph.getVirtualNetwork()).thenReturn(VNETWORK_NAME);
         azureComm = prepareAzureCommWithMocks();
         // when
         azureComm.deleteInstance();
@@ -297,7 +297,7 @@ public class AzureCommunicationTest {
     }
 
     @Test
-    public void getAccessTokenFromClientCredentialsTest() throws InterruptedException, MalformedURLException, ExecutionException, ServiceUnavailableException {
+    public void getAccessTokenFromClientCredentialsTest() throws InterruptedException, MalformedURLException, ExecutionException, ServiceUnavailableException, AuthenticationException {
         // given
         when(ph.getRegion()).thenReturn(REGION);
         when(ph.getResourceGroupName()).thenReturn(RERSOURCE_GROUP_NAME);
@@ -317,7 +317,7 @@ public class AzureCommunicationTest {
     }
 
     @Test(expected = ServiceUnavailableException.class)
-    public void getAccessTokenFromClientCredentialsTest_nullResult() throws InterruptedException, MalformedURLException, ExecutionException, ServiceUnavailableException {
+    public void getAccessTokenFromClientCredentialsTest_nullResult() throws InterruptedException, MalformedURLException, ExecutionException, ServiceUnavailableException, AuthenticationException {
         // given
         tokenNull = true;
 
@@ -1015,8 +1015,11 @@ public class AzureCommunicationTest {
             public NetworkResourceProviderClient getNetworkClient() {
                 networkClient = mock(NetworkResourceProviderClient.class);
                 NetworkInterfaceOperations networkInterfacesOperations = mock(NetworkInterfaceOperations.class);
+                VirtualNetworkOperations virtualNetworkOperations = mock(VirtualNetworkOperations.class);
                 try {
                     NetworkInterfaceGetResponse response = mock(NetworkInterfaceGetResponse.class);
+                    Future vnResponse = mock(Future.class);
+                    when(vnResponse.isDone()).thenReturn(true);
                     NetworkInterface networkInterface = mock(NetworkInterface.class);
                     ArrayList<NetworkInterfaceIpConfiguration> configurations = new ArrayList<>();
                     NetworkInterfaceIpConfiguration networkInterfaceConfiguration = mock(NetworkInterfaceIpConfiguration.class);
@@ -1035,6 +1038,7 @@ public class AzureCommunicationTest {
                     when(networkInterface.isPrimary()).thenReturn(true);
                     when(response.getNetworkInterface()).thenReturn(networkInterface);
                     when(networkInterfacesOperations.get(any(String.class), any(String.class))).thenReturn(response);
+                    when(virtualNetworkOperations.deleteAsync(any(String.class), any(String.class))).thenReturn(vnResponse);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (ServiceException e) {
@@ -1054,6 +1058,7 @@ public class AzureCommunicationTest {
                 }
                 when(networkClient.getPublicIpAddressesOperations()).thenReturn(pubIpOperations);
                 when(networkClient.getNetworkInterfacesOperations()).thenReturn(networkInterfacesOperations);
+                when(networkClient.getVirtualNetworksOperations()).thenReturn(virtualNetworkOperations);
                 return networkClient;
             }
         };

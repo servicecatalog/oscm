@@ -6,7 +6,6 @@
 		<project>oscm-app-azure</project>
 		<project>oscm-app-iaas</project>
 		<project>oscm-app-openstack</project>
-		<project>oscm-app-ror</project>
 		<project>oscm-common</project>
 		<project>oscm-devruntime</project>
 		<project>oscm-extsvc</project>

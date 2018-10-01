@@ -16,7 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.oscm.app.azure.AzureCommunication;
-import org.oscm.app.v1_0.exceptions.AbortException;
+import org.oscm.app.v2_0.exceptions.AbortException;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
