@@ -1,3 +1,10 @@
+/*******************************************************************************
+ *
+ *  Copyright FUJITSU LIMITED 2018
+ *
+ *  Creation Date: 2018-10-01
+ *
+ *******************************************************************************/
 package org.oscm.app.azure.controller;
 
 import org.oscm.app.azure.i18n.Messages;

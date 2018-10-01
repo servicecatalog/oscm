@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2017-->
+<!-- Copyright FUJITSU LIMITED 2018-->
 <project name="oscm-app-azure" default="BUILD ALL" basedir=".">
 
   <!-- set global properties for this build -->
