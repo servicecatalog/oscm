@@ -41,7 +41,7 @@ public class HeadersTest {
     @Test
     public void testIsContainCopyrightHeader() {
 
-        ArrayList<String> projectCollection = new ArrayList<String>();
+        ArrayList<String> projectCollection = new ArrayList<>();
         File dir = new File(System.getProperty("user.dir") + "/..");
         File[] files = dir.listFiles();
         for (int i = 0; i < files.length; i++) {
