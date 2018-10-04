@@ -83,7 +83,7 @@
       <LocalizedDescription locale="de"/>
       <LocalizedDescription locale="ja"/>
     </ParameterDefinition>
-    <ParameterDefinition configurable="true" id="DOMAIN_NAME" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
+    <ParameterDefinition configurable="true" id="DOMAIN_NAME" mandatory="true" modificationType="ONE_TIME" valueType="STRING">
       <LocalizedDescription locale="en">Domain name</LocalizedDescription>
       <LocalizedDescription locale="de"/>
       <LocalizedDescription locale="ja"/>
