@@ -68,7 +68,7 @@ public class SnapshotActions extends Actions {
                     + instanceId + " and snapshot id "
                     + ph.getServiceSetting(VMPropertyHandler.SNAPSHOT_ID);
             logger.error(message, e);
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         }
     }
@@ -101,7 +101,7 @@ public class SnapshotActions extends Actions {
             String message = "Failed to create snapshot for instance "
                     + instanceId;
             logger.error(message, e);
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (client != null) {

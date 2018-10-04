@@ -87,7 +87,7 @@ public class DeleteActions extends Actions {
                     e);
             String message = Messages.get(ph.getLocale(), "error_release_ip",
                     new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
         }
 
         return eventId;
@@ -112,7 +112,7 @@ public class DeleteActions extends Actions {
             logger.error("Failed to delete VM for instance " + instanceId, e);
             String message = Messages.get(ph.getLocale(), "error_delete_vm",
                     new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -149,7 +149,7 @@ public class DeleteActions extends Actions {
                     + instanceId, e);
             String message = Messages.get(ph.getLocale(),
                     "error_pause_after_creation", new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
         }
 
         return eventId;
