@@ -76,7 +76,7 @@ public class Actions {
             logger.error("Failed to configure VM of instance " + instanceId, e);
             String message = Messages.get(ph.getLocale(), "error_configure_vm",
                     new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -112,7 +112,7 @@ public class Actions {
             logger.error("Failed to shutdown VM of instance " + instanceId, e);
             String message = Messages.get(ph.getLocale(), "error_shutdown_vm",
                     new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -149,7 +149,7 @@ public class Actions {
             logger.error("Failed to power off VM of instance " + instanceId, e);
             String message = Messages.get(ph.getLocale(), "error_poweroff_vm",
                     new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -183,7 +183,7 @@ public class Actions {
             logger.error("Failed to start VM of instance " + instanceId, e);
             String message = Messages.get(ph.getLocale(), "error_start_vm",
                     new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -222,7 +222,7 @@ public class Actions {
             String message = Messages.get(ph.getLocale(),
                     "error_check_vm_running",
                     new Object[] { instanceName, instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -259,7 +259,7 @@ public class Actions {
             String message = Messages.get(ph.getLocale(),
                     "error_check_vm_running",
                     new Object[] { instanceName, instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -295,7 +295,7 @@ public class Actions {
                     e);
             String message = Messages.get(ph.getLocale(),
                     "error_finalize_provisioning", new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -381,7 +381,7 @@ public class Actions {
             String message = Messages.get(ph.getLocale(),
                     "error_check_task_result",
                     new Object[] { instanceId, taskKey });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_ERROR;
         } finally {
             if (vmClient != null) {

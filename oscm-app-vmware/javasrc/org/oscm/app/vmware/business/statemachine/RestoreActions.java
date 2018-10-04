@@ -66,7 +66,7 @@ public class RestoreActions extends Actions {
             String message = "Failed to restore snapshot for instance "
                     + instanceId;
             logger.error(message, e);
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_ERROR;
         } finally {
             if (client != null) {

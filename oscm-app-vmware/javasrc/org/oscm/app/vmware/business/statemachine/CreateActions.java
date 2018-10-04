@@ -99,7 +99,7 @@ public class CreateActions extends Actions {
             logger.error("Failed to create VM of instance " + instanceId, e);
             String message = Messages.get(ph.getLocale(), "error_create_vm",
                     new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -138,7 +138,7 @@ public class CreateActions extends Actions {
                     e);
             String message = Messages.get(ph.getLocale(),
                     "error_execute_script", new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -174,7 +174,7 @@ public class CreateActions extends Actions {
                     + instanceId, e);
             String message = Messages.get(ph.getLocale(),
                     "error_pause_after_creation", new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
             return EVENT_FAILED;
         }
     }
