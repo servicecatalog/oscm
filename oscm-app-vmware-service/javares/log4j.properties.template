@@ -22,7 +22,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%d [%t] - %-5p - %m%n
 
 # Rolling File Appender system
 log4j.appender.FILE=org.apache.log4j.RollingFileAppender
-log4j.appender.FILE.File=opt/apache-tomee/logs/app-vmware.log
+log4j.appender.FILE.File=/opt/apache-tomee/logs/app-vmware.log
 log4j.appender.FILE.MaxFileSize=10MB
 log4j.appender.FILE.MaxBackupIndex=5
 log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
