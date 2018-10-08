@@ -1,20 +1,20 @@
-# Copyright FUJITSU LIMITED 2018
+# TEMPLATE FILE for the log4j configuration of the Azure controller.
+
 # ignore standard logger
 log4j.rootLogger=OFF
 org.apache.commons.logging.Log=org.apache.commons.logging.impl.NoOpLog
 log4j.logger.org.apache=OFF
 log4j.logger.httpclient=OFF
-log4j.logger.org.oscm.app=DEBUG, FILE
+log4j.logger.org.oscm.app.azure=WARN, FILE
 
 # CONSOLE is set to be a ConsoleAppender using a PatternLayout.
 log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
 log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%d [%t] - %-5p - %m%n
 
-
 # Rolling File Appender system
 log4j.appender.FILE=org.apache.log4j.RollingFileAppender
-log4j.appender.FILE.File=../logs/app-azureARM.log
+log4j.appender.FILE.File=/opt/apache-tomee/logs/app-azure.log
 log4j.appender.FILE.MaxFileSize=10MB
 log4j.appender.FILE.MaxBackupIndex=5
 log4j.appender.FILE.layout=org.apache.log4j.PatternLayout

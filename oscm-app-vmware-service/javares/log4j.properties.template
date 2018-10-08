@@ -1,4 +1,4 @@
-# TEMPLATE FILE for the log4j configuration of the VMware controller.
+# TEMPLATE FILE for the log4j configuration of the VMWare controller.
 
 #Source path:
 #<DOMAIN_ROOT>\applications\oscm-app-vmware\oscm-app-vmware-service_jar\log4j.properties.template
@@ -13,29 +13,17 @@ log4j.rootLogger=OFF
 org.apache.commons.logging.Log=org.apache.commons.logging.impl.NoOpLog
 log4j.logger.org.apache=OFF
 log4j.logger.httpclient=OFF
-#log4j.logger.org.oscm.app.vmware=DEBUG, DEBUGFILE
-log4j.logger.org.oscm.app.vmware=INFO, INFOFILE
+log4j.logger.org.oscm.app.vmware=WARN, FILE
 
-
-# CONSOLE appender
+# CONSOLE is set to be a ConsoleAppender using a PatternLayout.
 log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
 log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%d [%t] - %-5p - %m%n
 
-
-# DEBUG file appender
-#log4j.appender.DEBUGFILE=org.apache.log4j.RollingFileAppender
-#log4j.appender.DEBUGFILE.File=/opt/apache-tomee/logs/app-vmware-debug.log
-#log4j.appender.DEBUGFILE.MaxFileSize=10MB
-#log4j.appender.DEBUGFILE.MaxBackupIndex=5
-#log4j.appender.DEBUGFILE.layout=org.apache.log4j.PatternLayout
-#log4j.appender.DEBUGFILE.layout.ConversionPattern=[%d{yyyy-MM-dd HH:mm:ss}] [%t] %-5p %C{1} %M %m%n
-
-
-# INFO file appender
-log4j.appender.INFOFILE=org.apache.log4j.RollingFileAppender
-log4j.appender.INFOFILE.File=/opt/apache-tomee/logs/app-vmware.log
-log4j.appender.INFOFILE.MaxFileSize=10MB
-log4j.appender.INFOFILE.MaxBackupIndex=5
-log4j.appender.INFOFILE.layout=org.apache.log4j.PatternLayout
-log4j.appender.INFOFILE.layout.ConversionPattern=[%d{yyyy-MM-dd HH:mm:ss}] [%t] %-5p %m%n
+# Rolling File Appender system
+log4j.appender.FILE=org.apache.log4j.RollingFileAppender
+log4j.appender.FILE.File=opt/apache-tomee/logs/app-vmware.log
+log4j.appender.FILE.MaxFileSize=10MB
+log4j.appender.FILE.MaxBackupIndex=5
+log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
+log4j.appender.FILE.layout.ConversionPattern=[%d{MM/dd HH:mm:ss}] [%t] %-5p %m%n
