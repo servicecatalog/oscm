@@ -8,7 +8,12 @@
 
 package org.oscm.app.vmware.business.statemachine;
 
+import static org.oscm.app.vmware.business.VMPropertyHandler.SM_ERROR_MESSAGE;
+import static org.oscm.app.vmware.business.VMPropertyHandler.TS_IMPORT_EXISTING_VM;
+import static org.oscm.app.vmware.business.VMPropertyHandler.TS_TARGET_VCENTER_SERVER;
+
 import java.net.URLEncoder;
+import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,9 +40,52 @@ public class CreateActions extends Actions {
 
     private static final String EVENT_CREATING = "creating";
 
-    // TODO rename method to validateInstanceName
     @StateMachineAction
-    public String createInstanceName(String instanceId,
+    public String importVM(String instanceId, ProvisioningSettings settings,
+            InstanceStatus result) {
+
+        VMPropertyHandler ph = new VMPropertyHandler(settings);
+        if (!ph.isServiceSettingTrue(TS_IMPORT_EXISTING_VM)) {
+            return "skipped";
+        }
+        String vcenter = ph.getServiceSetting(TS_TARGET_VCENTER_SERVER);
+        VMwareClient vmClient = null;
+        try {
+            vmClient = VMClientPool.getInstance().getPool()
+                    .borrowObject(vcenter);
+            VM vm = new VM(vmClient, instanceId);
+            vm.updateServiceParameter(ph);
+            return "imported";
+        } catch (Exception e) {
+            logger.error("Failed to import VM of instance " + instanceId, e);
+            String message = get(ph.getLocale(), "error_import_vm",
+                    new Object[] { instanceId });
+            ph.setSetting(SM_ERROR_MESSAGE, message);
+            return EVENT_FAILED;
+        } finally {
+            if (vmClient != null) {
+                returnVmwareClient(vcenter, vmClient);
+            }
+        }
+    }
+
+    public static String get(String locale, String key, Object... args) {
+        return MessageFormat.format(get(locale, key), args);
+    }
+
+    private void returnVmwareClient(String vcenter, VMwareClient vmClient) {
+
+        try {
+            VMClientPool.getInstance().getPool().returnObject(vcenter,
+                    vmClient);
+        } catch (Exception e) {
+            logger.error("Failed to return VMware client into pool", e);
+        }
+
+    }
+
+    @StateMachineAction
+    public String validateInstanceName(String instanceId,
             ProvisioningSettings settings,
             @SuppressWarnings("unused") InstanceStatus result)
             throws Exception {
@@ -64,7 +112,8 @@ public class CreateActions extends Actions {
 
     @StateMachineAction
     public String reserveIPAddress(String instanceId,
-            ProvisioningSettings settings, @SuppressWarnings("unused") InstanceStatus result)
+            ProvisioningSettings settings,
+            @SuppressWarnings("unused") InstanceStatus result)
             throws Exception {
         VMPropertyHandler ph = new VMPropertyHandler(settings);
 
@@ -99,7 +148,8 @@ public class CreateActions extends Actions {
             logger.error("Failed to create VM of instance " + instanceId, e);
             String message = Messages.get(ph.getLocale(), "error_create_vm",
                     new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE,
+                    message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -138,7 +188,8 @@ public class CreateActions extends Actions {
                     e);
             String message = Messages.get(ph.getLocale(),
                     "error_execute_script", new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE,
+                    message.concat(e.getMessage()));
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -174,7 +225,8 @@ public class CreateActions extends Actions {
                     + instanceId, e);
             String message = Messages.get(ph.getLocale(),
                     "error_pause_after_creation", new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE,
+                    message.concat(e.getMessage()));
             return EVENT_FAILED;
         }
     }
