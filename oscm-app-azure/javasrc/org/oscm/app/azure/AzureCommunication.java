@@ -11,10 +11,7 @@ import com.microsoft.aad.adal4j.AuthenticationResult;
 import com.microsoft.aad.adal4j.ClientCredential;
 import com.microsoft.azure.management.compute.ComputeManagementClient;
 import com.microsoft.azure.management.compute.ComputeManagementService;
-import com.microsoft.azure.management.compute.models.InstanceViewStatus;
-import com.microsoft.azure.management.compute.models.NetworkInterfaceReference;
-import com.microsoft.azure.management.compute.models.VirtualMachine;
-import com.microsoft.azure.management.compute.models.VirtualMachineInstanceView;
+import com.microsoft.azure.management.compute.models.*;
 import com.microsoft.azure.management.network.NetworkResourceProviderClient;
 import com.microsoft.azure.management.network.NetworkResourceProviderService;
 import com.microsoft.azure.management.network.models.NetworkInterface;
@@ -143,9 +140,9 @@ public class AzureCommunication {
         List<String> properties = Arrays.asList("http.proxyHost", "http.proxyPort", "https.proxyHost", "https.proxyPort");
 
         for(String prop : properties) {
-           if(System.getProperty(prop) == null || System.getProperty(prop).length() == 0) {
-               System.clearProperty(prop);
-           }
+            if (System.getProperty(prop) == null || System.getProperty(prop).length() == 0) {
+                System.clearProperty(prop);
+            }
         }
     }
 
@@ -419,98 +416,23 @@ public class AzureCommunication {
     public void deleteInstance() {
         logger.debug("AzureCommunication.deleteInstance entered");
         List<VirtualMachine> virtualMachines = getVirtualMachines();
-        Iterator<VirtualMachine> iterator = virtualMachines.iterator();
-        List<String> nicNames = new ArrayList<>();
 
         try {
-            while (iterator.hasNext()) {
-                VirtualMachine machine = iterator.next();
-
-                getComputeClient().getVirtualMachinesOperations().beginDeleting(ph.getResourceGroupName(), machine.getName());
-
-                logger.info("Deleting VM-" + machine.getName() + "...");
-
-                List<NetworkInterfaceReference> nics = machine.getNetworkProfile().getNetworkInterfaces();
-                for (NetworkInterfaceReference nicReference : nics) {
-                    String[] nicURI = nicReference.getReferenceUri().split("/");
-                    NetworkInterface nic = getNetworkClient().getNetworkInterfacesOperations()
-                            .get(ph.getResourceGroupName(), nicURI[nicURI.length - 1]).getNetworkInterface();
-                    nicNames.add(nic.getName());
-
-                }
-                if (!iterator.hasNext()) {
-                    String state = getComputeClient().getVirtualMachinesOperations().get(ph.getResourceGroupName(), machine.getName()).getVirtualMachine().getProvisioningState();
-                    while (!state.equals(ProvisioningState.DELETED)) {
-                        try {
-                            state = computeClient.getVirtualMachinesOperations().get(ph.getResourceGroupName(), machine.getName()).getVirtualMachine().getProvisioningState();
-                            Thread.sleep(5000);
-                        } catch (Exception exception) {
-                            logger.info("All VMs deleted");
-                            break;
-                        }
-                    }
-                }
-            }
-            Iterator<String> nicIterator = nicNames.iterator();
-            while (nicIterator.hasNext()) {
-                String nicName = nicIterator.next();
-                //Deleting Network Interface
-                logger.info("Deleting Network Interface- " + nicName + "...");
-                getNetworkClient().getNetworkInterfacesOperations().beginDeleting(ph.getResourceGroupName(), nicName);
-                logger.info("Network Interface deleted !!");
+            for(VirtualMachine vm : virtualMachines) {
+                deleteVirtualMachine(vm);
+                deleteNetworkInterface(vm);
             }
 
-            // Delete virtual network
-            Future<OperationResponse> response = getNetworkClient().getVirtualNetworksOperations().deleteAsync(ph.getResourceGroupName(), ph.getVirtualNetwork());
-            while(!response.isDone()) {
-                Thread.sleep(5000);
-            }
+            deleteVirtualNetwork();
 
-            //Deleting Storage Account
-            if (!exisitingStorageAccount) {
-                String key1 = getStorageClient().getStorageAccountsOperations().listKeys(ph.getResourceGroupName(), ph.getStorageAccount()).getStorageAccountKeys().getKey1();
-                String connectionString = "DefaultEndpointsProtocol=https;AccountName=" + ph.getStorageAccount() + ";AccountKey=" + key1 + ";EndpointSuffix=core.windows.net";
-                try {
-                    CloudStorageAccount account = parseConnectionString(connectionString);
-                    CloudBlobClient client = account.createCloudBlobClient();
-                    Iterator<CloudBlobContainer> containerIterator = getCloudBlobContainerIterator(client);
-                    int i = 0;
-                    while (containerIterator.hasNext()) {
-                        i++;
-                        containerIterator.next();
-                    }
-                    if (i > 1) {  //checking whether the storage account contains more than 1 container
-                        deleteVMContainer();
-                    } else {
-                        getStorageClient().getStorageAccountsOperations().delete(ph.getResourceGroupName(), ph.getStorageAccount());
-                        logger.info("Deleting Storage Account-" + ph.getStorageAccount() + "...");
-                        logger.info("Storage Account deleted !!");
-                    }
-                } catch (InvalidKeyException e) {
-                    logger.debug("Invalid Key !!");
-                    e.printStackTrace();
-                }
+            if (checkStorageAccountExists(ph.getStorageAccount())) {
+                deleteStorageAccount(ph.getStorageAccount());
             } else {
                 deleteVMContainer();
             }
 
-            int n = Integer.parseInt(ph.getInstanceCount());
-            if (n > 1) {
-                //Deleting Availability Set
-                String availabilitySetName = ph.getVMName() + "_AvailabilitySet";
-                logger.info("Deleting Availability Set-" + availabilitySetName + "...");
-                computeClient.getAvailabilitySetsOperations().delete(ph.getResourceGroupName(), availabilitySetName);
-                logger.info("Availability Set deleted !!");
-            }
-
-            //Deleting Deployment
-            logger.info("Deleting deployment-" + ph.getDeploymentName() + "..");
-            getResourceClient().getDeploymentsOperations().beginDeleting(ph.getResourceGroupName(), ph.getDeploymentName());
-            boolean exist = getResourceClient().getDeploymentsOperations().checkExistence(ph.getResourceGroupName(), ph.getDeploymentName()).isExists();
-            while (exist) {
-                exist = getResourceClient().getDeploymentsOperations().checkExistence(ph.getResourceGroupName(), ph.getDeploymentName()).isExists();
-            }
-            logger.info("Deployment deleted !!");
+            deleteAvailabilitySet();
+            deleteDeployment();
         } catch (IOException | ServiceException | URISyntaxException | ExecutionException | InterruptedException | InvalidKeyException e) {
             throw createAndLogAzureException("Delete Resources failed: ", e);
         }
@@ -530,13 +452,22 @@ public class AzureCommunication {
      * Deleting VM Container
      *
      */
-    public void deleteVMContainer() throws IOException, ServiceException, URISyntaxException, InvalidKeyException {
+    public void deleteVMContainer() throws IOException, URISyntaxException, InvalidKeyException, ServiceException {
         //Deleting VM Container
         logger.info("Deleting VM Container inside Storage Account: " + ph.getStorageAccount());
-        String key1 = getStorageClient().getStorageAccountsOperations().listKeys(ph.getResourceGroupName(), ph.getStorageAccount()).getStorageAccountKeys().getKey1();
+        String key1;
+        try {
+            key1 = getStorageClient().getStorageAccountsOperations().listKeys(ph.getResourceGroupName(), ph.getStorageAccount()).getStorageAccountKeys().getKey1();
+        } catch (ServiceException e) {
+            if(e.getHttpStatusCode() == HttpURLConnection.HTTP_NOT_FOUND) {
+                return;
+            }
+
+            throw e;
+        }
 
         String connectionString = "DefaultEndpointsProtocol=https;AccountName=" + ph.getStorageAccount() + ";AccountKey=" + key1 + ";EndpointSuffix=core.windows.net";
-        CloudStorageAccount account = null;
+        CloudStorageAccount account;
         try {
             account = parseConnectionString(connectionString);
         } catch (InvalidKeyException e) {
@@ -862,6 +793,115 @@ public class AzureCommunication {
         }
     }
 
+    private void deleteVirtualMachine(VirtualMachine vm) throws InterruptedException {
+        logger.info("Deleting VM: " + vm.getName());
+
+        Future<DeleteOperationResponse> response = getComputeClient().getVirtualMachinesOperations().deleteAsync(ph.getResourceGroupName(), vm.getName());
+        waitForResponse(response);
+    }
+
+    private void deleteNetworkInterface(VirtualMachine vm) throws IOException, InterruptedException, ServiceException {
+        List<NetworkInterfaceReference> nics = vm.getNetworkProfile().getNetworkInterfaces();
+        for (NetworkInterfaceReference nicRef : nics) {
+            String[] nicURI = nicRef.getReferenceUri().split("/");
+            NetworkInterface nic;
+            try {
+                nic = getNetworkClient().getNetworkInterfacesOperations()
+                        .get(ph.getResourceGroupName(), nicURI[nicURI.length - 1]).getNetworkInterface();
+            } catch(ServiceException e) {
+                if(e.getHttpStatusCode() == HttpURLConnection.HTTP_NOT_FOUND) {
+                    return;
+                }
+
+                throw e;
+            }
+            logger.info("Deleting Network Interface: " + nic.getName());
+            Future<OperationResponse> response = getNetworkClient().getNetworkInterfacesOperations()
+                    .deleteAsync(ph.getResourceGroupName(), nic.getName());
+            waitForResponse(response);
+        }
+    }
+
+    private void deleteAvailabilitySet() throws ServiceException, ExecutionException, InterruptedException, IOException, URISyntaxException {
+        String availabilitySetName = ph.getVMName() + "_AvailabilitySet";
+        logger.info("Deleting Availability Set: " + availabilitySetName);
+
+        int n = Integer.parseInt(ph.getInstanceCount());
+        if (n > 1) {
+            computeClient.getAvailabilitySetsOperations().delete(ph.getResourceGroupName(), availabilitySetName);
+            logger.info("Availability Set deleted");
+        }
+    }
+
+    private void deleteVirtualNetwork() throws InterruptedException {
+        logger.info("Deleting Virtual Network: " + ph.getVirtualNetwork());
+        try {
+            getNetworkClient().getVirtualNetworksOperations().get(ph.getResourceGroupName(), ph.getVirtualNetwork());
+        } catch (IOException | ServiceException e) {
+            if(e instanceof ServiceException && ((ServiceException) e).getHttpStatusCode() == HttpURLConnection.HTTP_NOT_FOUND) {
+                return;
+            }
+
+            throw createAndLogAzureException("Could not check if virtual network " + ph.getVirtualNetwork() + " exists.", e);
+        }
+
+        Future<OperationResponse> response = getNetworkClient().getVirtualNetworksOperations()
+                .deleteAsync(ph.getResourceGroupName(), ph.getVirtualNetwork());
+        waitForResponse(response);
+    }
+
+    private void deleteDeployment() throws InterruptedException {
+        logger.info("Deleting deployment: " + ph.getDeploymentName());
+        Future<OperationResponse> response = getResourceClient().getDeploymentsOperations()
+                .deleteAsync(ph.getResourceGroupName(), ph.getDeploymentName());
+        waitForResponse(response);
+
+        logger.info("Deployment deleted");
+    }
+
+    private void deleteStorageAccount(String storageName) throws IOException, URISyntaxException, ServiceException {
+        logger.info("Deleting Storage Account: " + storageName);
+        String key1 = getStorageClient().getStorageAccountsOperations().listKeys(ph.getResourceGroupName(), ph.getStorageAccount()).getStorageAccountKeys().getKey1();
+        String connectionString = "DefaultEndpointsProtocol=https;AccountName=" + ph.getStorageAccount() + ";AccountKey=" + key1 + ";EndpointSuffix=core.windows.net";
+
+        try {
+            CloudStorageAccount account = parseConnectionString(connectionString);
+            CloudBlobClient client = account.createCloudBlobClient();
+            Iterator<CloudBlobContainer> containerIterator = getCloudBlobContainerIterator(client);
+            int i = 0;
+            while (containerIterator.hasNext()) {
+                i++;
+                containerIterator.next();
+            }
+
+            if (i > 1) {  //checking whether the storage account contains more than 1 container
+                deleteVMContainer();
+            } else {
+                getStorageClient().getStorageAccountsOperations().delete(ph.getResourceGroupName(), ph.getStorageAccount());
+                logger.info("Storage Account deleted");
+            }
+        } catch (ServiceException | InvalidKeyException e) {
+            if(e instanceof ServiceException && ((ServiceException) e).getHttpStatusCode() == HttpURLConnection.HTTP_NOT_FOUND) {
+                return;
+            }
+
+            logger.debug("Invalid Key");
+            e.printStackTrace();
+        }
+    }
+
+    private void waitForResponse(Future<? extends OperationResponse> response) throws InterruptedException {
+        int waitTime = 5000;
+        // Let's wait no more than 5 minutes (waitTime * 12 * 5)
+        int repeat = 12 * 5;
+        while(!response.isDone()) {
+            Thread.sleep(waitTime);
+            if(--repeat == 0) {
+                throw new AzureClientException("No response received. Aborting current operation.");
+            }
+        }
+    }
+
     /***
      *
      * Checking whether the Resource Group exists or not
@@ -947,18 +987,12 @@ public class AzureCommunication {
         return powerStates;
     }
 
-    /***
-     *
-     * Retrieving the Power State of all the Virtual Machines
-     *
-     */
     public boolean checkStorageAccountExists(String storageAccount) {
         try {
             Iterator<StorageAccount> iterator = getStorageAccounts();
             while (iterator.hasNext()) {
                 StorageAccount strAcc = iterator.next();
                 if (strAcc.getName().equals(storageAccount)) {
-                    logger.info("Existing Storage account: true");
                     return true;
                 }
             }
@@ -966,7 +1000,7 @@ public class AzureCommunication {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        logger.info("Existing Storage account: false");
+
         return false;
     }
 
