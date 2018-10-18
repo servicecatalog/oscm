@@ -24,12 +24,7 @@ import com.microsoft.aad.adal4j.AuthenticationResult;
 import com.microsoft.aad.adal4j.ClientCredential;
 import com.microsoft.azure.management.compute.ComputeManagementClient;
 import com.microsoft.azure.management.compute.VirtualMachineOperations;
-import com.microsoft.azure.management.compute.models.InstanceViewStatus;
-import com.microsoft.azure.management.compute.models.NetworkInterfaceReference;
-import com.microsoft.azure.management.compute.models.NetworkProfile;
-import com.microsoft.azure.management.compute.models.VirtualMachine;
-import com.microsoft.azure.management.compute.models.VirtualMachineGetResponse;
-import com.microsoft.azure.management.compute.models.VirtualMachineInstanceView;
+import com.microsoft.azure.management.compute.models.*;
 import com.microsoft.azure.management.network.NetworkInterfaceOperations;
 import com.microsoft.azure.management.network.NetworkResourceProviderClient;
 import com.microsoft.azure.management.network.PublicIpAddressOperations;
@@ -277,7 +272,7 @@ public class AzureCommunicationTest {
     }
 
     @Test
-    public void deleteInstanceTest() throws AbortException {
+    public void deleteInstanceTest() {
         // given
         when(ph.getRegion()).thenReturn(REGION);
         when(ph.getResourceGroupName()).thenReturn(RERSOURCE_GROUP_NAME);
@@ -293,7 +288,7 @@ public class AzureCommunicationTest {
         // when
         azureComm.deleteInstance();
         // then
-        verify(resourceManagementClient, times(2)).getDeploymentsOperations();
+        verify(resourceManagementClient, times(1)).getDeploymentsOperations();
     }
 
     @Test
@@ -859,6 +854,7 @@ public class AzureCommunicationTest {
             @Override
             public ResourceManagementClient getResourceClient() {
                 DeploymentOperations operations = mock(DeploymentOperations.class);
+                Future<OperationResponse> operationResponse = mock(Future.class);
                 try {
                     DeploymentOperationsCreateResult value = mock(DeploymentOperationsCreateResult.class);
                     when(operations.createOrUpdate(any(String.class), any(String.class), any(Deployment.class)))
@@ -874,6 +870,8 @@ public class AzureCommunicationTest {
                     when(deplPropsExtended.getProvisioningState()).thenReturn(state);
                     when(deployment.getProperties()).thenReturn(deplPropsExtended);
                     when(deploymentGetResult.getDeployment()).thenReturn(deployment);
+                    when(operations.deleteAsync(any(String.class), any(String.class))).thenReturn(operationResponse);
+                    when(operationResponse.isDone()).thenReturn(true);
                     if (throwResourceClientEx) {
                         when(operations.get(any(String.class), any(String.class))).thenThrow(new IOException("ex"));
                     }
@@ -931,6 +929,7 @@ public class AzureCommunicationTest {
             public ComputeManagementClient getComputeClient() {
                 computeManagementClient = mock(ComputeManagementClient.class);
                 VirtualMachineOperations vmOps = mock(VirtualMachineOperations.class);
+                Future<DeleteOperationResponse> delOperationResponse = mock(Future.class);
                 try {
                     VirtualMachineGetResponse responseValue = mock(VirtualMachineGetResponse.class);
                     VirtualMachine vmMock = mock(VirtualMachine.class);
@@ -956,6 +955,8 @@ public class AzureCommunicationTest {
                     VirtualMachineGetResponse vmGetResponse = mock(VirtualMachineGetResponse.class);
                     when(vmGetResponse.getVirtualMachine()).thenReturn(vmMock);
                     when(vmOps.getWithInstanceView(any(String.class), any(String.class))).thenReturn(vmGetResponse);
+                    when(vmOps.deleteAsync(any(String.class), any(String.class))).thenReturn(delOperationResponse);
+                    when(delOperationResponse.isDone()).thenReturn(true);
                     if (throwInstanceStartingEx) {
                         when(vmOps.beginStarting(any(String.class), any(String.class))).thenThrow(new IOException("ex"));
                     }
@@ -1016,9 +1017,10 @@ public class AzureCommunicationTest {
                 networkClient = mock(NetworkResourceProviderClient.class);
                 NetworkInterfaceOperations networkInterfacesOperations = mock(NetworkInterfaceOperations.class);
                 VirtualNetworkOperations virtualNetworkOperations = mock(VirtualNetworkOperations.class);
+                Future<OperationResponse> operationResponse = mock(Future.class);
                 try {
                     NetworkInterfaceGetResponse response = mock(NetworkInterfaceGetResponse.class);
-                    Future vnResponse = mock(Future.class);
+                    Future<OperationResponse> vnResponse = mock(Future.class);
                     when(vnResponse.isDone()).thenReturn(true);
                     NetworkInterface networkInterface = mock(NetworkInterface.class);
                     ArrayList<NetworkInterfaceIpConfiguration> configurations = new ArrayList<>();
@@ -1038,7 +1040,10 @@ public class AzureCommunicationTest {
                     when(networkInterface.isPrimary()).thenReturn(true);
                     when(response.getNetworkInterface()).thenReturn(networkInterface);
                     when(networkInterfacesOperations.get(any(String.class), any(String.class))).thenReturn(response);
+                    when(networkInterfacesOperations.deleteAsync(any(String.class), any(String.class))).thenReturn(operationResponse);
                     when(virtualNetworkOperations.deleteAsync(any(String.class), any(String.class))).thenReturn(vnResponse);
+                    when(vnResponse.isDone()).thenReturn(true);
+                    when(operationResponse.isDone()).thenReturn(true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (ServiceException e) {
