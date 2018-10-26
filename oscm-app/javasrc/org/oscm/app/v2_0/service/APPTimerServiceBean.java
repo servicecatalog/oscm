@@ -33,6 +33,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 
 import org.slf4j.Logger;
@@ -389,7 +390,8 @@ public class APPTimerServiceBean implements Cloneable {
                     }
                 }
             }
-        } catch (ControllerLookupException e) {
+        } catch (ControllerLookupException | EntityNotFoundException e) {
+            logger.error(e.getMessage());
             return;
         } catch (BESNotificationException bne) {
             handleBESNotificationException(serviceInstance, provisioningStatus,
