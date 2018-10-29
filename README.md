@@ -68,7 +68,7 @@ host all all <host-ipv6>/128 trust
 #### Building the application
 1. Add the following arguments to JVM running Ant: `-Dhttp.proxyHost=<proxy-host> -Dhttp.proxyPort=8080`.
 2. Add the following scripts to Ant view in your IDE: `/oscm-devruntime/build-oscmaas.xml`
-3. Run targets Build.LIB and Build.BES
+3. Run targets Build.LIB, Build.BES and BUILD.APP
 
 #### Deploying the application
 Find details [here](https://github.com/servicecatalog/oscm-dockerbuild).
