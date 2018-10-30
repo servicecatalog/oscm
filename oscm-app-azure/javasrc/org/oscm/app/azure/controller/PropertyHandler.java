@@ -84,12 +84,12 @@ public class PropertyHandler {
     /**
      * Azure‚
      */
-    public static final String CLIENT_ID = "CLIENT_ID";
+    public static final String CLIENT_ID = "CLIENT_ID_PWD";
 
     /**
      * Azure
      */
-    public static final String CLIENT_SECRET = "CLIENT_SECRET";
+    public static final String CLIENT_SECRET = "CLIENT_SECRET_PWD";
 
     /**
      * Azure

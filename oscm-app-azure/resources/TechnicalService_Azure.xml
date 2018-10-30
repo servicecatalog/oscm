@@ -21,12 +21,12 @@
       <LocalizedDescription locale="ja">AzureテナントID</LocalizedDescription>
       <LocalizedDescription locale="de"/>
     </ParameterDefinition>
-    <ParameterDefinition configurable="true" default="" id="CLIENT_ID" mandatory="true" valueType="STRING">
+    <ParameterDefinition configurable="true" id="CLIENT_ID_PWD" mandatory="true" valueType="STRING">
       <LocalizedDescription locale="en">The ID of Azure client</LocalizedDescription>
       <LocalizedDescription locale="ja">AzureクライアントID</LocalizedDescription>
       <LocalizedDescription locale="de"/>
     </ParameterDefinition>
-    <ParameterDefinition configurable="true" default="" id="CLIENT_SECRET" mandatory="true" valueType="STRING">
+    <ParameterDefinition configurable="true" id="CLIENT_SECRET_PWD" mandatory="true" valueType="STRING">
       <LocalizedDescription locale="en">The Secret of Azure client</LocalizedDescription>
       <LocalizedDescription locale="ja">Azureクライアントシークレット</LocalizedDescription>
       <LocalizedDescription locale="de"/>
