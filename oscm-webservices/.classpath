@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="javares"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-configservice"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-configservice-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-accountmgmt"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-accountmgmt-intsvc"/>
@@ -43,5 +42,6 @@
 	<classpathentry kind="src" path="/oscm-i18n-intsvc"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/openejb-core-7.0.3.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-httpcore/javalib/httpclient-4.5.2.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

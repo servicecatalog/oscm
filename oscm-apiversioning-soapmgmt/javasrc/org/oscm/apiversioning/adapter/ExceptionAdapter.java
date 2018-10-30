@@ -72,8 +72,7 @@ public class ExceptionAdapter implements IAdapter {
     }
 
     private String getSaaSApplicationExceptionName() {
-        String exception = org.oscm.types.exceptions.SaaSApplicationException.class
-                .getName();
+        String exception = "SaaSApplicationException.class";
         String exceptionName = exception
                 .substring(exception.lastIndexOf(".") + 1);
         return exceptionName;

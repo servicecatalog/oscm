@@ -54,7 +54,7 @@ public class VOClassTest {
     @Test
     public void testVODefaultConstructors() throws Exception {
         StringBuffer errors = new StringBuffer();
-        List<Class<?>> classes = PackageClassReader.getClasses(BaseVO.class,
+        List<Class<?>> classes = PackageClassReader.getClasses(VOService.class,
                 null, ClassFilter.CLASSES_ONLY);
         for (Class<?> clazz : classes) {
             try {
