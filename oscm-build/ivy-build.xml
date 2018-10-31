@@ -16,7 +16,7 @@
     <unzip src="${root.dir}/libraries/servicecatalog/oscm-extsvc/javalib/oscm-extsvc.jar" dest="${root.dir}/oscm-extsvc/javres"/>
     
     <get dest="${root.dir}/libraries/servicecatalog/oscm-app-extsvc/javalib/oscm-app-extsvc.jar" src="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-app-extsvc/master-SNAPSHOT/oscm-app-extsvc-master-SNAPSHOT.jar"/>
-    <unzip src="${root.dir}/libraries/servicecatalog/oscm-app-extsvc/javalib/oscm-app-extsvc.jar" dest="${root.dir}/libraries/servicecatalog/oscm-extsvc/classes"/>
+    <unzip src="${root.dir}/libraries/servicecatalog/oscm-app-extsvc/javalib/oscm-app-extsvc.jar" dest="${root.dir}/oscm-app-extsvc-2-0/javares"/>
     
     <copy file="${ivy.lib.dir}/commons-pool2-2.4.2.jar" todir="${root.dir}/libraries/apache-commons-pool/javalib"
           overwrite="true"/>
