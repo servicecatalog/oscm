@@ -8,19 +8,6 @@
 
 package org.oscm.app.vmware.ui.filter;
 
-import java.io.IOException;
-import java.util.StringTokenizer;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.codec.binary.Base64;
 import org.oscm.app.v2_0.APPlatformServiceFactory;
 import org.oscm.app.v2_0.data.PasswordAuthentication;
@@ -30,9 +17,15 @@ import org.oscm.app.vmware.i18n.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.StringTokenizer;
+
 /**
  * @author Dirk Bernsau
- *
  */
 public class AuthorizationFilter implements Filter {
 
@@ -40,7 +33,7 @@ public class AuthorizationFilter implements Filter {
             .getLogger(AuthorizationFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) {
         // nothing to init
     }
 
@@ -61,12 +54,28 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpSession session = httpRequest.getSession();
+        PasswordAuthentication user = getPasswordAuthentication(httpRequest);
 
-        if (session.getAttribute("loggedInUserId") != null) {
-            chain.doFilter(httpRequest, response);
+        if (authenticated(user)) {
+            session.setAttribute("loggedInUserId", user.getUserName());
+            session.setAttribute("loggedInUserPassword", user.getPassword());
+            chain.doFilter(httpRequest, httpResponse);
             return;
         }
 
+        String clientLocale = httpRequest.getLocale().getLanguage();
+        httpResponse.setHeader(
+                "WWW-Authenticate",
+                "Basic realm=\""
+                        + Messages
+                        .get(clientLocale, "ui.config.authentication")
+                        + "\"");
+        httpResponse.setStatus(401);
+
+        response.getWriter().print(HttpServletResponse.SC_UNAUTHORIZED);
+    }
+
+    private PasswordAuthentication getPasswordAuthentication(HttpServletRequest httpRequest) {
         // Check HTTP Basic authentication
         String authHeader = httpRequest.getHeader("Authorization");
         if (authHeader != null) {
@@ -85,36 +94,24 @@ public class AuthorizationFilter implements Filter {
                     if (p != -1) {
                         String username = userPass.substring(0, p);
                         String password = userPass.substring(p + 1);
-                        PasswordAuthentication tpUser = new PasswordAuthentication(
-                                username, password);
-
-                        try {
-                            // Check authority by loading controller settings
-                            APPlatformService pSvc = getPlatformService();
-                            pSvc.authenticate(Controller.ID, tpUser);
-
-                            session.setAttribute("loggedInUserId", username);
-                            session.setAttribute("loggedInUserPassword",
-                                    password);
-
-                            chain.doFilter(httpRequest, response);
-                            return;
-                        } catch (Exception e) {
-                            getLogger().debug("doFilter: " + e.getMessage());
-                        }
+                        return new PasswordAuthentication(username, password);
                     }
                 }
             }
         }
 
-        String clientLocale = httpRequest.getLocale().getLanguage();
-        httpResponse.setHeader(
-                "WWW-Authenticate",
-                "Basic realm=\""
-                        + Messages
-                        .get(clientLocale, "ui.config.authentication")
-                        + "\"");
-        httpResponse.setStatus(401);
+        return new PasswordAuthentication("", "");
+    }
+
+    private boolean authenticated(PasswordAuthentication user) {
+        try {
+            // Check authority by loading controller settings
+            APPlatformService pSvc = getPlatformService();
+            pSvc.authenticate(Controller.ID, user);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     APPlatformService getPlatformService() {
