@@ -22,6 +22,9 @@ All contributions are welcome - Open Service Catalog Manager uses the Apache 2.0
 ## Releases
 The latest releases can be found [here](https://github.com/servicecatalog/oscm/releases).
 
+#### Deploying the application
+Find details [here](https://github.com/servicecatalog/oscm-dockerbuild).
+
 ## Getting started and building from sources
 Please follow this guide from top to bottom, this is the easiest way to avoid errors later on.
 
@@ -48,15 +51,20 @@ or higher.
 
 #### Building the application
 1. If your network requires a proxy to access the internet you need to specify following arguments to JVM running Ant: 
-`-Dhttp.proxyHost=<proxy-host> 
+```
+ -Dhttp.proxyHost=<proxy-host> 
  -Dhttp.proxyPort=<proxy-port> 
  -Dhttps.proxyHost=<proxy-host>
- -Dhttps.proxyPort=<proxy-port>`
-Where `<proxy-host>` refers to the host of your web proxy and `<proxy-port>` the respective port where it is provided.
+ -Dhttps.proxyPort=<proxy-port>
+```
+Fill the placeholders `<proxy-host>` and `<proxy-port>` with the respective host and port where the proxy is provided.
 2. Add the following scripts to Ant view in your IDE: `/oscm-devruntime/build-oscmaas.xml`
 3. Run targets `Build.LIB`, `Build.BES` and `BUILD.APP`
-You'll find the After the build has susccessfully finished.
 
-#### Deploying the application
-Find details [here](https://github.com/servicecatalog/oscm-dockerbuild).
+After the build has susccessfully finished you'll find the deployable artifacts in`/oscm-build/result/package`. 
+You may want to deploy and test your build artifact in a running OSCM container. 
 
+For example:
+```
+docker cp /workspace/oscm-build/result/package/oscm-app-openstack/oscm-app-openstack.ear oscm-app:/opt/apache-tomee/controllers/
+```
