@@ -48,9 +48,11 @@ or higher.
 
 #### Building the application
 1. If your network requires a proxy to access the internet you need to specify following arguments to JVM running Ant: 
-`-Dhttp.proxyHost=<proxy-host> -Dhttp.proxyPort=<proxy-port>` 
-`-Dhttps.proxyHost=<proxy-host> -Dhttps.proxyPort=<proxy-port>`
-Where '<proxy-host>' refers to the host of your web proxy and '<proxy-port>' the respective port where it is provided.
+`-Dhttp.proxyHost=<proxy-host> 
+ -Dhttp.proxyPort=<proxy-port> 
+ -Dhttps.proxyHost=<proxy-host>
+ -Dhttps.proxyPort=<proxy-port>`
+Where `<proxy-host>` refers to the host of your web proxy and `<proxy-port>` the respective port where it is provided.
 2. Add the following scripts to Ant view in your IDE: `/oscm-devruntime/build-oscmaas.xml`
 3. Run targets `Build.LIB`, `Build.BES` and `BUILD.APP`
 You'll find the After the build has susccessfully finished.
