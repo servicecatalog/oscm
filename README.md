@@ -22,9 +22,6 @@ All contributions are welcome - Open Service Catalog Manager uses the Apache 2.0
 ## Releases
 The latest releases can be found [here](https://github.com/servicecatalog/oscm/releases).
 
-#### Deploying the application
-Find details [here](https://github.com/servicecatalog/oscm-dockerbuild).
-
 ## Getting started and building from sources
 Please follow this guide from top to bottom, this is the easiest way to avoid errors later on.
 
@@ -68,3 +65,6 @@ For example:
 ```
 docker cp /workspace/oscm-build/result/package/oscm-app-openstack/oscm-app-openstack.ear oscm-app:/opt/apache-tomee/controllers/
 ```
+
+#### Deploying the application
+Find details [here](https://github.com/servicecatalog/oscm-dockerbuild).
