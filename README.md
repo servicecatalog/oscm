@@ -26,51 +26,47 @@ The latest releases can be found [here](https://github.com/servicecatalog/oscm/r
 Please follow this guide from top to bottom, this is the easiest way to avoid errors later on.
 
 #### Prerequisites
+Basic:
 * Installed [JDK 8u121](http://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html#jdk-8u121-oth-JPR)
 or higher.
-
-* [PostgreSQL 9.3](http://www.enterprisedb.com/products-services-training/pgdownload) database installer.
-* [tomee-plume-7.0.4](http://tomee.apache.org/download-ng.html) server installer.
+* [Apache Ivy 2.4.0](http://www.apache.org/dist/ant/ivy/2.4.0/) library.
+* [Eclipse ECJ 4.5.1](http://mvnrepository.com/artifact/org.eclipse.jdt.core.compiler/ecj/4.5.1) library.
 
 #### Setting up a workspace
-1. Import the project into your IDE. You should adjust some of the preferences:
+1. Download the latest sources for [this](https://github.com/servicecatalog/oscm). 
+2. Import the project into your IDE. You should adjust some of the preferences:
   * Set the compiler level to the installed version of Java 1.8.
   * Set UTF-8 file encoding and Unix line endings.
-
-#### Setting up the database
-1. Install the database using a path without any whitespaces for the installation directory. During installation, a system-startup service and a database-specific user should be created.
-2. Update `<postgres-root-dir>/data/postgresql.conf` properties:
-
-| Property  | Value |  Comment  |
-| ------------- | ------------- | ------------- |
-| `max_prepared_transactions`  | `50`  |  Sets the maximum number of transactions that can simultaneously be in the "prepared" state.  |
-| `max_connections`  | `210`  |  Determines the maximum number of concurrent connections to the database server.  |
-| `listen_addresses`  |  `'*'`  |  Specifies the TCP/IP address(es) on which the server is to listen for connections from client applications.  |
-
-3. Update `<postgres-root-dir>/data/pg_hba.conf` properties:
-
-```
-host all all 127.0.0.1/32 trust
-host all all 0.0.0.0/0 trust
-host all all <host-ipv6>/128 trust
-```
-
-4. Confirm all changes and restart the PostgreSQL service to apply changes.
+3. Import and configure the code formatting rules and code templates.
+  * Download the files from the [codestyle folder](https://github.com/servicecatalog/oscm/tree/master/oscm-devruntime/javares/codestyle).
+  * Import them into your Eclipse IDE ([Help](https://github.com/servicecatalog/oscm/tree/master/oscm-devruntime/javares/codestyle/README.md))
+  * Configure the formatting for non-Java files ([Rules and Help](https://github.com/servicecatalog/oscm/tree/master/oscm-devruntime/javares/codestyle/README.md))
 
 #### Setting up the mail server
 1. Download and install any mail server.
 2. Create any domain and at least one user account in it.
 
-#### Setting up the application server
-1. Install the Tomee plume server 7.0.4. 
-2. Configure it -TBD
-
 #### Building the application
-1. Add the following arguments to JVM running Ant: `-Dhttp.proxyHost=<proxy-host> -Dhttp.proxyPort=8080`.
+1. If your network requires a proxy to access the internet you need to specify following arguments to JVM running Ant: 
+   ```
+   -Dhttp.proxyHost=<proxy-host> 
+   -Dhttp.proxyPort=<proxy-port> 
+   -Dhttps.proxyHost=<proxy-host>
+   -Dhttps.proxyPort=<proxy-port>
+   ```
+   Fill the placeholders `<proxy-host>` and `<proxy-port>` with the respective host and port where the proxy is provided.
+
 2. Add the following scripts to Ant view in your IDE: `/oscm-devruntime/build-oscmaas.xml`
-3. Run targets Build.LIB, Build.BES and BUILD.APP
+
+3. Run targets `Build.LIB`, `Build.BES` and `BUILD.APP`
+
+After the build has susccessfully finished you'll find the deployable artifacts in`/oscm-build/result/package`. 
+You may want to deploy and test your build artifact in a running OSCM container. 
+
+For example:
+```
+docker cp /workspace/oscm-build/result/package/oscm-app-openstack/oscm-app-openstack.ear oscm-app:/opt/apache-tomee/controllers/
+```
 
 #### Deploying the application
 Find details [here](https://github.com/servicecatalog/oscm-dockerbuild).
-
-
