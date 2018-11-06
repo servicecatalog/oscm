@@ -54,7 +54,7 @@ or higher.
    -Dhttps.proxyHost=<proxy-host>
    -Dhttps.proxyPort=<proxy-port>
    ```
-   Fill the placeholders `<proxy-host>` and `<proxy-port>` with the respective host and port where the proxy is provided.
+   Fill the placeholders `<proxy-host>` and `<proxy-port>` with the respective host and port number where the proxy is provided.
 
 2. Add the following scripts to Ant view in your IDE: `/oscm-devruntime/build-oscmaas.xml`
 
