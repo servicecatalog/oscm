@@ -60,8 +60,8 @@ or higher.
 
 3. Run targets `Build.LIB`, `Build.BES` and `BUILD.APP`
 
-After the build has susccessfully finished you'll find the deployable artifacts in`/oscm-build/result/package`. 
-You may want to deploy and test your build artifact in a running OSCM container. 
+After the build has finished successfully you'll find the deployable artifacts in`/oscm-build/result/package`. 
+You may want to deploy and test your modifications in a running OSCM environment. Simply copy or replace your build artifact into the respective container.
 
 For example:
 ```
