@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="ENUMERATION"/>
  *     &lt;enumeration value="INTEGER"/>
  *     &lt;enumeration value="DURATION"/>
+ *     &lt;enumeration value="PWD"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -41,7 +42,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ParameterDataType {
 
-    LONG, STRING, BOOLEAN, ENUMERATION, INTEGER, DURATION;
+    LONG, STRING, BOOLEAN, ENUMERATION, INTEGER, DURATION, PWD;
 
     public String value() {
         return name();
