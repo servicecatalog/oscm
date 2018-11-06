@@ -51,6 +51,9 @@ public enum ParameterDataType {
     }
 
     public static ParameterDataType fromValue(String v) {
+        if (v.toUpperCase().equals("PWD")) {
+            return STRING;
+        }
         return valueOf(v);
     }
 
