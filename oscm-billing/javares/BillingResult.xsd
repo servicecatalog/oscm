@@ -580,6 +580,7 @@
       <xsd:enumeration value="ENUMERATION"></xsd:enumeration>
       <xsd:enumeration value="INTEGER"></xsd:enumeration>
       <xsd:enumeration value="DURATION"></xsd:enumeration>
+      <xsd:enumeration value="PWD"></xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
 

@@ -9,18 +9,20 @@
 // Generated on: 2013.03.05 at 01:29:11 PM CET 
 //
 
-
 package org.oscm.billingservice.business.model.billingresult;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for parameterDataType.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
  * <p>
+ * Java class for parameterDataType.
+ * 
+ * <p>
+ * The following schema fragment specifies the expected content contained within
+ * this class.
+ * <p>
+ * 
  * <pre>
  * &lt;simpleType name="parameterDataType">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -30,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;enumeration value="ENUMERATION"/>
  *     &lt;enumeration value="INTEGER"/>
  *     &lt;enumeration value="DURATION"/>
+ *     &lt;enumeration value="PWD"/>
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
@@ -39,12 +42,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum ParameterDataType {
 
-    LONG,
-    STRING,
-    BOOLEAN,
-    ENUMERATION,
-    INTEGER,
-    DURATION;
+    LONG, STRING, BOOLEAN, ENUMERATION, INTEGER, DURATION, PWD;
 
     public String value() {
         return name();
