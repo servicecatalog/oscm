@@ -36,7 +36,9 @@ public class HeadersTest {
             "oscm-portal-webtests" + java.io.File.separator + "results",
             "oscm-build" + java.io.File.separator + "result",
             java.io.File.separator + "bin",
-            "oscm-app-sample" + java.io.File.separator + "resources");
+            "oscm-app-sample" + java.io.File.separator + "resources",
+            "oscm-app-extsvc-2-0" + java.io.File.separator + "javares",
+            "oscm-extsvc" + java.io.File.separator + "javares");
 
     @Test
     public void testIsContainCopyrightHeader() {
