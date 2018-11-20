@@ -105,7 +105,7 @@ public class HeadersTest {
                         continue;
                     }
                     checkFile(fileName,
-                            "<!-- Copyright FUJITSU LIMITED 2018-->");
+                            "<!-- Copyright FUJITSU LIMITED 2018");
                 } else if (fileName.toLowerCase().endsWith(".properties")) {
                     if (fileName.toLowerCase()
                             .contains("oscm-common-unittests"
