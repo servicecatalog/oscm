@@ -230,7 +230,7 @@ public class Dispatcher {
             final Setting setting = item.getValue();
             String key = setting.getKey();
             String value = setting.getValue();
-            sb.append(String.format("[%s] %s=%s", name, key, value));
+            sb.append(String.format("[%s] %s=%s\n", name, key, value));
         }
     }
 
