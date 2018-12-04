@@ -24,12 +24,12 @@
 	<classpathentry kind="lib" path="/libraries/apache-validator/javalib/commons-validator-1.4.0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-server-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-internal"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/libraries/postgresql-jdbc/javalib/postgresql-9.4-1206-jdbc42.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/geronimo-javamail_1.4_mail-1.9.0-alpha-2.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/openejb-core-7.0.3.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -201,15 +201,7 @@
             <fileset dir="${workspace.dir}/oscm-eventmgmt/javasrc" />
           </sourcefiles>
         </group>
-
-        <group name="oscm-extsvc">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-extsvc/classes" excludes="**/jaxws/*,internal/*" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-extsvc/javasrc" />
-          </sourcefiles>
-        </group>
+    
         <group name="oscm-extsvc-internal">
           <classfiles>
             <fileset dir="${result.dir}/work/oscm-extsvc-internal/classes" excludes="**/jaxws/*,internal/*" />
@@ -270,6 +262,7 @@
             <fileset dir="${workspace.dir}/oscm-app-iaas/javasrc" />
           </sourcefiles>
         </group>
+        
         <group name="oscm-app-startup">
           <classfiles>
             <fileset dir="${result.dir}/work/oscm-app-startup/classes" />

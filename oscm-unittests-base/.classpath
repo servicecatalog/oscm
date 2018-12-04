@@ -44,12 +44,12 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-taskhandling-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-marketplaceservice-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-internal-interfaces"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-operation"/>
 	<classpathentry kind="src" path="/oscm-apiversioning-client-handler"/>
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/geronimo-jta_1.1_spec-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/classmate-1.3.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/libraries/slf4j/javalib/slf4j-api-1.7.21.jar"/>
+	<classpathentry exported="true" kind="lib" path="/oscm-extsvc/javares"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
