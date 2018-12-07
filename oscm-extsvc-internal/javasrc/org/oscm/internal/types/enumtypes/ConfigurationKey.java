@@ -336,16 +336,16 @@ public enum ConfigurationKey {
     HIDE_PAYMENT_INFORMATION(false, null, "boolean", true),
 
     @Doc({ "The alias of the private key to be used for signing SAML and custom tab requests" })
-    @Example("s1as")
-    SSO_SIGNING_KEY_ALIAS(false, "s1as", "string"),
+    @Example("1")
+    SSO_SIGNING_KEY_ALIAS(false, "1", "string"),
 
     @Doc({ "The password for the keystore containing the private key for signing SAML and custom tab requests" })
     @Example("changeit")
     SSO_SIGNING_KEYSTORE_PASS(false, "changeit", "password"),
 
     @Doc({ "The path of the keystore holding the private key for signing SAML and custom tab requests." })
-    @Example("<path>/keystore.jks")
-    SSO_SIGNING_KEYSTORE(false, "./keystore.jks", "string"),
+    @Example("<path>/ssl.p12")
+    SSO_SIGNING_KEYSTORE(false, "/opt/apache-tomee/conf/ssl.p12", "string"),
 
     @Doc({ "The ID of the default tenant for user authentication in SAML_SP mode. ",
            "The value must consist of 8 alphanumeric characters." })
