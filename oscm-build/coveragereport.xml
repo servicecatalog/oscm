@@ -210,25 +210,7 @@
             <fileset dir="${workspace.dir}/oscm-extsvc-internal/javasrc" />
           </sourcefiles>
         </group>
-
-        <group name="oscm-extsvc-notification">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-extsvc-notification/classes" excludes="**/jaxws/*,internal/*" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-extsvc-notification/javasrc" />
-          </sourcefiles>
-        </group>
-
-        <group name="oscm-extsvc-provisioning">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-extsvc-provisioning/classes" excludes="**/jaxws/*,internal/*" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-extsvc-provisioning/javasrc" />
-          </sourcefiles>
-        </group>
-
+        
         <group name="oscm-i18n">
           <classfiles>
             <fileset dir="${result.dir}/work/oscm-i18n/classes" />
