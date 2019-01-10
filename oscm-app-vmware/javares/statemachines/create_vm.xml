@@ -1,12 +1,18 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
 <states class="org.oscm.app.vmware.business.statemachine.CreateActions">
 
-  <state id="BEGIN" action="reserveIPAddress">
-    <event id="success" state="CREATE_INSTANCENAME" />
+  <state id="BEGIN" action="importVM">
+    <event id="skipped" state="RESERVE_IP_ADDRESS" />
+    <event id="imported" state="END" />
     <event id="failed" state="ERROR" />
   </state>
 
-  <state id="CREATE_INSTANCENAME" action="createInstanceName">
+  <state id="RESERVE_IP_ADDRESS" action="reserveIPAddress">
+    <event id="success" state="VALIDATE_INSTANCENAME" />
+    <event id="failed" state="ERROR" />
+  </state> 
+
+  <state id="VALIDATE_INSTANCENAME" action="validateInstanceName">
     <event id="success" state="CREATE_VM" />
     <event id="failed" state="ERROR" />
   </state>
