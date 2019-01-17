@@ -16,7 +16,7 @@ import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.Pattern; 
 
 import org.oscm.app.v2_0.data.InstanceStatus;
 import org.oscm.app.v2_0.data.ProvisioningSettings;
@@ -53,7 +53,7 @@ public class CreateActions extends Actions {
         try {
             vmClient = VMClientPool.getInstance().getPool()
                     .borrowObject(vcenter);
-            VM vm = new VM(vmClient, instanceId);
+            VM vm = new VM(vmClient, ph.getInstanceName());
             vm.updateServiceParameter(ph);
             return "imported";
         } catch (Exception e) {
