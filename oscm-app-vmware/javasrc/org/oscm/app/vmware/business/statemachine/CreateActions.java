@@ -53,7 +53,7 @@ public class CreateActions extends Actions {
         try {
             vmClient = VMClientPool.getInstance().getPool()
                     .borrowObject(vcenter);
-            VM vm = new VM(vmClient, instanceId);
+            VM vm = new VM(vmClient, ph.getInstanceName());
             vm.updateServiceParameter(ph);
             return "imported";
         } catch (Exception e) {
