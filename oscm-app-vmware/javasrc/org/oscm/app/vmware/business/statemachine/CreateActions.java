@@ -16,7 +16,7 @@ import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.Pattern; 
 
 import org.oscm.app.v2_0.data.InstanceStatus;
 import org.oscm.app.v2_0.data.ProvisioningSettings;
