@@ -150,6 +150,10 @@ public enum ProvisioningStatus {
             mailMessage = "mail_deactivation_error";
         } else if (this.isWaitingForOperation()) {
             mailMessage = "mail_operation_error";
+        } else if (this.isWaitingForUserCreation()) {
+            mailMessage = "mail_update_error";
+        } else if (this.isWaitingForUserDeletion()) {
+            mailMessage = "mail_update_error";
         }
         return mailMessage;
     }
@@ -188,6 +192,14 @@ public enum ProvisioningStatus {
 
     public boolean isWaitingForOperation() {
         return getWaitingForOperation().contains(this);
+    }
+    
+    public boolean isWaitingForUserCreation() {
+        return WAITING_FOR_USER_CREATION.equals(this);
+    }
+    
+    public boolean isWaitingForUserDeletion() {
+        return WAITING_FOR_USER_DELETION.equals(this);
     }
 
     public boolean isCompleted() {

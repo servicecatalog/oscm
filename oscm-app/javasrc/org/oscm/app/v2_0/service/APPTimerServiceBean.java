@@ -619,7 +619,32 @@ public class APPTimerServiceBean implements Cloneable {
             em.persist(currentSI);
             sendInfoMail(true, currentSI,
                     instanceProvStatus.getErrorMailMessage(), cause);
+        } else if (instanceProvStatus.isWaitingForUserCreation()) {
+            InstanceResult instanceResult = new InstanceResult();
+            try {
+                notifyOnProvisioningAbortion(currentSI, instanceResult, cause);
+            } catch (BESNotificationException bne) {
+                handleBESNotificationException(currentSI, instanceProvStatus,
+                        cause.getChangedParameters(), bne);
+            }
+            currentSI.setProvisioningStatus(ProvisioningStatus.COMPLETED);
+            em.persist(currentSI);
+            sendInfoMail(true, currentSI,
+                    instanceProvStatus.getErrorMailMessage(), cause);
+        } else if (instanceProvStatus.isWaitingForUserDeletion()) {
+            InstanceResult instanceResult = new InstanceResult();
+            try {
+                notifyOnProvisioningAbortion(currentSI, instanceResult, cause);
+            } catch (BESNotificationException bne) {
+                handleBESNotificationException(currentSI, instanceProvStatus,
+                        cause.getChangedParameters(), bne);
+            }
+            currentSI.setProvisioningStatus(ProvisioningStatus.COMPLETED);
+            em.persist(currentSI);
+            sendInfoMail(true, currentSI,
+                    instanceProvStatus.getErrorMailMessage(), cause);
         }
+        
     }
 
     void handleSuspendException(ServiceInstance currentSI,
