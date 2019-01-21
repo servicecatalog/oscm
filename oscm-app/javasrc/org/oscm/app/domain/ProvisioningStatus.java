@@ -94,8 +94,8 @@ public enum ProvisioningStatus {
 
     public static EnumSet<ProvisioningStatus> getWaitingForModification() {
         return EnumSet.of(WAITING_FOR_SYSTEM_MODIFICATION,
-                WAITING_FOR_SYSTEM_UPGRADE, WAITING_FOR_USER_CREATION,
-                WAITING_FOR_USER_MODIFICATION, WAITING_FOR_USER_DELETION);
+                WAITING_FOR_SYSTEM_UPGRADE,
+                WAITING_FOR_USER_MODIFICATION);
     }
 
     public static EnumSet<ProvisioningStatus> getWaitingForCreation() {

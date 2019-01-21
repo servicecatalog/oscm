@@ -540,6 +540,9 @@ public class APPTimerServiceBean implements Cloneable {
     void handleException(ServiceInstance currentSI,
             final ProvisioningStatus instanceProvStatus, Exception e) {
         APPlatformException cause = getPlatformException(e);
+        logger.error("handlingexception");
+        logger.error(e.getMessage());
+        logger.error(instanceProvStatus.name());
         logger.warn(
                 "Failure during processing for service instance '{}' with message '{}'",
                 currentSI.getIdentifier(), cause.getMessage());
@@ -551,6 +554,7 @@ public class APPTimerServiceBean implements Cloneable {
         }
 
         if (instanceProvStatus.isWaitingForCreation()) {
+            logger.error("waitingforcreation");
             InstanceResult instanceResult = new InstanceResult();
             instanceResult.setRc(0);
             instanceResult.setInstance(new InstanceInfo());
@@ -566,10 +570,12 @@ public class APPTimerServiceBean implements Cloneable {
                         instanceProvStatus.getErrorMailMessage(), cause);
             }
         } else if (instanceProvStatus.isWaitingForDeletion()) {
+            logger.error("waitingfordeletion");
             em.remove(currentSI);
             sendInfoMail(true, currentSI,
                     instanceProvStatus.getErrorMailMessage(), cause);
         } else if (instanceProvStatus.isWaitingForModification()) {
+            logger.error("waitingformodification");
             InstanceResult instanceResult = new InstanceResult();
             instanceResult.setRc(1);
             instanceResult.setInstance(new InstanceInfo());
@@ -603,11 +609,13 @@ public class APPTimerServiceBean implements Cloneable {
         } else if (instanceProvStatus.isWaitingForActivation()
                 || instanceProvStatus.isWaitingForDeactivation()) {
             // no BES notification yet
+            logger.error("waitingforactiveordeactivation");
             currentSI.setProvisioningStatus(ProvisioningStatus.COMPLETED);
             em.persist(currentSI);
             sendInfoMail(true, currentSI,
                     instanceProvStatus.getErrorMailMessage(), cause);
         } else if (instanceProvStatus.isWaitingForOperation()) {
+            logger.error("waitingforoperation");
             InstanceResult instanceResult = new InstanceResult();
             try {
                 notifyOnProvisioningAbortion(currentSI, instanceResult, cause);
@@ -620,6 +628,7 @@ public class APPTimerServiceBean implements Cloneable {
             sendInfoMail(true, currentSI,
                     instanceProvStatus.getErrorMailMessage(), cause);
         } else if (instanceProvStatus.isWaitingForUserCreation()) {
+            logger.error("waitingforusercreation");
             InstanceResult instanceResult = new InstanceResult();
             try {
                 notifyOnProvisioningAbortion(currentSI, instanceResult, cause);
@@ -629,9 +638,11 @@ public class APPTimerServiceBean implements Cloneable {
             }
             currentSI.setProvisioningStatus(ProvisioningStatus.COMPLETED);
             em.persist(currentSI);
+            logger.error("sendinginfomail");
             sendInfoMail(true, currentSI,
                     instanceProvStatus.getErrorMailMessage(), cause);
         } else if (instanceProvStatus.isWaitingForUserDeletion()) {
+            logger.error("waitingforuserdeletion");
             InstanceResult instanceResult = new InstanceResult();
             try {
                 notifyOnProvisioningAbortion(currentSI, instanceResult, cause);
@@ -641,6 +652,7 @@ public class APPTimerServiceBean implements Cloneable {
             }
             currentSI.setProvisioningStatus(ProvisioningStatus.COMPLETED);
             em.persist(currentSI);
+            logger.error("sendinginfomail");
             sendInfoMail(true, currentSI,
                     instanceProvStatus.getErrorMailMessage(), cause);
         }
