@@ -251,6 +251,20 @@ public class APPTimerServiceBean implements Cloneable {
         } catch (Throwable e) {
             logger.error(ERROR_TIMER, e);
         }
+        
+        try {
+            doHandleSystems(result,
+                    ProvisioningStatus.getWaitingForUserCreation());
+        } catch (Throwable e) {
+            logger.error(ERROR_TIMER, e);
+        }
+        
+        try {
+            doHandleSystems(result,
+                    ProvisioningStatus.getWaitingForUserDeletion());
+        } catch (Throwable e) {
+            logger.error(ERROR_TIMER, e);
+        }
 
     }
 

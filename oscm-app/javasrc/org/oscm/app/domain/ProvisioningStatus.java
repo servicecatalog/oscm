@@ -117,6 +117,14 @@ public enum ProvisioningStatus {
     public static EnumSet<ProvisioningStatus> getWaitingForDeactivation() {
         return EnumSet.of(WAITING_FOR_SYSTEM_DEACTIVATION);
     }
+    
+    public static EnumSet<ProvisioningStatus> getWaitingForUserCreation() {
+        return EnumSet.of(WAITING_FOR_USER_CREATION);
+    }
+    
+    public static EnumSet<ProvisioningStatus> getWaitingForUserDeletion() {
+        return EnumSet.of(WAITING_FOR_USER_DELETION);
+    }
 
     public String getSuspendMailMessage() {
         String mailMessage = "mail_inconsistent_instance_state";
