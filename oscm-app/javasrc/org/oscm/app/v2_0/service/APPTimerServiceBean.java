@@ -17,6 +17,8 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.ConcurrencyManagement;
@@ -35,8 +37,6 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
-
-import org.slf4j.Logger;
 
 import org.oscm.app.business.APPlatformControllerFactory;
 import org.oscm.app.business.InstanceFilter;
@@ -75,6 +75,7 @@ import org.oscm.string.Strings;
 import org.oscm.types.enumtypes.OperationStatus;
 import org.oscm.types.exceptions.ObjectNotFoundException;
 import org.oscm.vo.VOUserDetails;
+import org.slf4j.Logger;
 
 /**
  * The timer service implementation
@@ -156,9 +157,9 @@ public class APPTimerServiceBean implements Cloneable {
         Collection<Timer> timers = timerService.getTimers();
         boolean appTimerExist = false;
         for (Timer timerAPP : timers) {
-        	if (APP_TIMER_INFO.equals(timerAPP.getInfo())) {
-        		appTimerExist = true;
-        	}
+            if (APP_TIMER_INFO.equals(timerAPP.getInfo())) {
+                appTimerExist = true;
+            }
         }
         if (!appTimerExist) {
             logger.info("Timer create.");
@@ -251,36 +252,26 @@ public class APPTimerServiceBean implements Cloneable {
         } catch (Throwable e) {
             logger.error(ERROR_TIMER, e);
         }
-        
-        try {
-            doHandleSystems(result,
-                    ProvisioningStatus.getWaitingForUserCreation());
-        } catch (Throwable e) {
-            logger.error(ERROR_TIMER, e);
-        }
-        
-        try {
-            doHandleSystems(result,
-                    ProvisioningStatus.getWaitingForUserDeletion());
-        } catch (Throwable e) {
-            logger.error(ERROR_TIMER, e);
-        }
 
+        try {
+            doHandleSystems(result,
+                    ProvisioningStatus.getWaitingForUserAction());
+        } catch (Throwable e) {
+            logger.error(ERROR_TIMER, e);
+        }
     }
 
-    List<ServiceInstance> filterList(List<?> result,
+    List<ServiceInstance> filterList(List<ServiceInstance> result,
             EnumSet<ProvisioningStatus> status) {
-        List<ServiceInstance> filteredList = new ArrayList<>();
-        for (Object entry : result) {
-            ServiceInstance currentSI = (ServiceInstance) entry;
-            if (status.contains(currentSI.getProvisioningStatus())) {
-                filteredList.add(currentSI);
-            }
-        }
+
+        List<ServiceInstance> filteredList = result.stream()
+                .filter(si -> status.contains(si.getProvisioningStatus()))
+                .collect(Collectors.toList());
+
         return filteredList;
     }
 
-    void doHandleSystems(List<?> result,
+    void doHandleSystems(List<ServiceInstance> result,
             EnumSet<ProvisioningStatus> provisioningStatus) {
 
         List<ServiceInstance> serviceInstanceList = filterList(result,
@@ -554,9 +545,6 @@ public class APPTimerServiceBean implements Cloneable {
     void handleException(ServiceInstance currentSI,
             final ProvisioningStatus instanceProvStatus, Exception e) {
         APPlatformException cause = getPlatformException(e);
-        logger.error("handlingexception");
-        logger.error(e.getMessage());
-        logger.error(instanceProvStatus.name());
         logger.warn(
                 "Failure during processing for service instance '{}' with message '{}'",
                 currentSI.getIdentifier(), cause.getMessage());
@@ -568,7 +556,6 @@ public class APPTimerServiceBean implements Cloneable {
         }
 
         if (instanceProvStatus.isWaitingForCreation()) {
-            logger.error("waitingforcreation");
             InstanceResult instanceResult = new InstanceResult();
             instanceResult.setRc(0);
             instanceResult.setInstance(new InstanceInfo());
@@ -584,12 +571,10 @@ public class APPTimerServiceBean implements Cloneable {
                         instanceProvStatus.getErrorMailMessage(), cause);
             }
         } else if (instanceProvStatus.isWaitingForDeletion()) {
-            logger.error("waitingfordeletion");
             em.remove(currentSI);
             sendInfoMail(true, currentSI,
                     instanceProvStatus.getErrorMailMessage(), cause);
         } else if (instanceProvStatus.isWaitingForModification()) {
-            logger.error("waitingformodification");
             InstanceResult instanceResult = new InstanceResult();
             instanceResult.setRc(1);
             instanceResult.setInstance(new InstanceInfo());
@@ -623,13 +608,11 @@ public class APPTimerServiceBean implements Cloneable {
         } else if (instanceProvStatus.isWaitingForActivation()
                 || instanceProvStatus.isWaitingForDeactivation()) {
             // no BES notification yet
-            logger.error("waitingforactiveordeactivation");
             currentSI.setProvisioningStatus(ProvisioningStatus.COMPLETED);
             em.persist(currentSI);
             sendInfoMail(true, currentSI,
                     instanceProvStatus.getErrorMailMessage(), cause);
         } else if (instanceProvStatus.isWaitingForOperation()) {
-            logger.error("waitingforoperation");
             InstanceResult instanceResult = new InstanceResult();
             try {
                 notifyOnProvisioningAbortion(currentSI, instanceResult, cause);
@@ -641,8 +624,7 @@ public class APPTimerServiceBean implements Cloneable {
             em.persist(currentSI);
             sendInfoMail(true, currentSI,
                     instanceProvStatus.getErrorMailMessage(), cause);
-        } else if (instanceProvStatus.isWaitingForUserCreation()) {
-            logger.error("waitingforusercreation");
+        } else if (instanceProvStatus.isWaitingForUserAction()) {
             InstanceResult instanceResult = new InstanceResult();
             try {
                 notifyOnProvisioningAbortion(currentSI, instanceResult, cause);
@@ -652,25 +634,10 @@ public class APPTimerServiceBean implements Cloneable {
             }
             currentSI.setProvisioningStatus(ProvisioningStatus.COMPLETED);
             em.persist(currentSI);
-            logger.error("sendinginfomail");
-            sendInfoMail(true, currentSI,
-                    instanceProvStatus.getErrorMailMessage(), cause);
-        } else if (instanceProvStatus.isWaitingForUserDeletion()) {
-            logger.error("waitingforuserdeletion");
-            InstanceResult instanceResult = new InstanceResult();
-            try {
-                notifyOnProvisioningAbortion(currentSI, instanceResult, cause);
-            } catch (BESNotificationException bne) {
-                handleBESNotificationException(currentSI, instanceProvStatus,
-                        cause.getChangedParameters(), bne);
-            }
-            currentSI.setProvisioningStatus(ProvisioningStatus.COMPLETED);
-            em.persist(currentSI);
-            logger.error("sendinginfomail");
             sendInfoMail(true, currentSI,
                     instanceProvStatus.getErrorMailMessage(), cause);
         }
-        
+
     }
 
     void handleSuspendException(ServiceInstance currentSI,

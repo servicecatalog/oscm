@@ -94,8 +94,7 @@ public enum ProvisioningStatus {
 
     public static EnumSet<ProvisioningStatus> getWaitingForModification() {
         return EnumSet.of(WAITING_FOR_SYSTEM_MODIFICATION,
-                WAITING_FOR_SYSTEM_UPGRADE,
-                WAITING_FOR_USER_MODIFICATION);
+                WAITING_FOR_SYSTEM_UPGRADE);
     }
 
     public static EnumSet<ProvisioningStatus> getWaitingForCreation() {
@@ -117,13 +116,10 @@ public enum ProvisioningStatus {
     public static EnumSet<ProvisioningStatus> getWaitingForDeactivation() {
         return EnumSet.of(WAITING_FOR_SYSTEM_DEACTIVATION);
     }
-    
-    public static EnumSet<ProvisioningStatus> getWaitingForUserCreation() {
-        return EnumSet.of(WAITING_FOR_USER_CREATION);
-    }
-    
-    public static EnumSet<ProvisioningStatus> getWaitingForUserDeletion() {
-        return EnumSet.of(WAITING_FOR_USER_DELETION);
+
+    public static EnumSet<ProvisioningStatus> getWaitingForUserAction() {
+        return EnumSet.of(WAITING_FOR_USER_CREATION, WAITING_FOR_USER_DELETION,
+                WAITING_FOR_USER_MODIFICATION);
     }
 
     public String getSuspendMailMessage() {
@@ -158,11 +154,9 @@ public enum ProvisioningStatus {
             mailMessage = "mail_deactivation_error";
         } else if (this.isWaitingForOperation()) {
             mailMessage = "mail_operation_error";
-        } else if (this.isWaitingForUserCreation()) {
-            mailMessage = "mail_update_error";
-        } else if (this.isWaitingForUserDeletion()) {
-            mailMessage = "mail_update_error";
-        }
+        } else if (this.isWaitingForUserAction()) {
+            mailMessage = "mail_user_error";
+        } 
         return mailMessage;
     }
 
@@ -201,13 +195,9 @@ public enum ProvisioningStatus {
     public boolean isWaitingForOperation() {
         return getWaitingForOperation().contains(this);
     }
-    
-    public boolean isWaitingForUserCreation() {
-        return WAITING_FOR_USER_CREATION.equals(this);
-    }
-    
-    public boolean isWaitingForUserDeletion() {
-        return WAITING_FOR_USER_DELETION.equals(this);
+
+    public boolean isWaitingForUserAction() {
+        return getWaitingForUserAction().contains(this);
     }
 
     public boolean isCompleted() {
