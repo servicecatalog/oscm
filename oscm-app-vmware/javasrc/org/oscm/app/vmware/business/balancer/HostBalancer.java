@@ -11,12 +11,13 @@ package org.oscm.app.vmware.business.balancer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.oscm.app.vmware.business.VMPropertyHandler;
 import org.oscm.app.vmware.business.VMwareDatacenterInventory;
 import org.oscm.app.vmware.business.model.VMwareHost;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Common superclass for all host balancers.
@@ -33,13 +34,16 @@ public abstract class HostBalancer implements VMwareBalancer<VMwareHost> {
     protected List<String> hostNames = new ArrayList<String>();
 
     @Override
-    public void setConfiguration(HierarchicalConfiguration xmlConfig) {
+    public void setConfiguration(Node xmlConfig) {
         if (xmlConfig != null) {
-            String hosts = xmlConfig.getString("[@hosts]");
+            NodeList hosts = xmlConfig.getOwnerDocument()
+                    .getElementsByTagName("hosts");
             if (hosts != null) {
-                String[] elms = hosts.split(",");
-                for (String x : elms) {
-                    hostNames.add(x.toString().trim());
+                for (int i = 1; i < hosts.getLength(); i++) {
+                    Node h = hosts.item(i);
+
+                    hostNames
+                            .add(XMLHelper.getAttributeValue(h, "name").trim());
                 }
             }
         }

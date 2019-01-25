@@ -13,10 +13,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.configuration2.HierarchicalConfiguration;
-import org.apache.commons.configuration2.XMLConfiguration;
-import org.apache.commons.configuration2.tree.ImmutableNode;
-import org.apache.commons.configuration2.tree.xpath.XPathExpressionEngine;
+
 import org.oscm.app.vmware.business.VMPropertyHandler;
 import org.oscm.app.vmware.persistence.APPDataAccessService;
 import org.oscm.intf.ServiceProvisioningService;
@@ -112,18 +109,20 @@ public class ServiceParamRetrieval {
         technicalServices.add(service.getTechnicalService());
         byte[] tsvc = sps.exportTechnicalServices(technicalServices);
         InputStream in = new ByteArrayInputStream(tsvc);
-        XMLConfiguration xml = new XMLConfiguration();
-        xml.setSchemaValidation(false);
-        xml.setExpressionEngine(new XPathExpressionEngine());
-        xml.read(in);
-
-        List<HierarchicalConfiguration<ImmutableNode>> params = xml
-                .configurationsAt("//ParameterDefinition[@configurable=\"false\"]");
-        for (HierarchicalConfiguration param : params) {
-            if (param.getString("@id").equals(parameterId)) {
-                return param.getString("@default");
-            }
-        }
+       
+        
+//        XMLConfiguration xml = new XMLConfiguration();
+//        xml.setSchemaValidation(false);
+//        xml.setExpressionEngine(new XPathExpressionEngine());
+//        xml.read(in);
+//
+//        List<HierarchicalConfiguration<ImmutableNode>> params = xml
+//                .configurationsAt("//ParameterDefinition[@configurable=\"false\"]");
+//        for (HierarchicalConfiguration param : params) {
+//            if (param.getString("@id").equals(parameterId)) {
+//                return param.getString("@default");
+//            }
+//        }
 
         throw new Exception("Failed to retrieve service parameter "
                 + parameterId);

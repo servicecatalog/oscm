@@ -10,10 +10,10 @@ package org.oscm.app.vmware.business.balancer;
 
 import java.util.List;
 
-import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.vmware.business.VMPropertyHandler;
 import org.oscm.app.vmware.business.VMwareDatacenterInventory;
+import org.w3c.dom.Node;
 
 /**
  * Interface for deployment balancer.
@@ -25,7 +25,7 @@ public interface VMwareBalancer<T> {
     /**
      * Sets property container for this balancer.
      */
-    public void setConfiguration(HierarchicalConfiguration xmlConfig);
+    public void setConfiguration(Node node);
 
     /**
      * Returns next element to process.

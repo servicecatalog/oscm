@@ -11,13 +11,13 @@ package org.oscm.app.vmware.business.balancer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.vmware.business.VMPropertyHandler;
 import org.oscm.app.vmware.business.model.VMwareHost;
 import org.oscm.app.vmware.i18n.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
 
 /**
  * Balancer implementation determining the best host for deployment by
@@ -36,28 +36,28 @@ public class EquipartitionHostBalancer extends HostBalancer {
     private double vmWeight = 1;
 
     @Override
-    public void setConfiguration(HierarchicalConfiguration xmlConfig) {
+    public void setConfiguration(Node xmlConfig) {
         super.setConfiguration(xmlConfig);
         if (xmlConfig != null) {
             try {
-                cpuWeight = Double.parseDouble(xmlConfig.getString(
-                        "[@cpuWeight]", "1"));
+                cpuWeight = Double.parseDouble(XMLHelper.getAttributeValue(xmlConfig, 
+                        "cpuWeight", "1"));
             } catch (NullPointerException e) {
                 // ignore
             } catch (NumberFormatException e) {
                 // ignore
             }
             try {
-                memWeight = Double.parseDouble(xmlConfig.getString(
-                        "[@memoryWeight]", "1"));
+                memWeight = Double.parseDouble(XMLHelper.getAttributeValue(xmlConfig, 
+                        "memoryWeight", "1"));
             } catch (NullPointerException e) {
                 // ignore
             } catch (NumberFormatException e) {
                 // ignore
             }
             try {
-                vmWeight = Double.parseDouble(xmlConfig.getString(
-                        "[@vmWeight]", "1"));
+                vmWeight = Double.parseDouble(XMLHelper.getAttributeValue(xmlConfig, 
+                        "vmWeight", "1"));
             } catch (NullPointerException e) {
                 // ignore
             } catch (NumberFormatException e) {

@@ -11,11 +11,12 @@ package org.oscm.app.vmware.business.balancer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.vmware.business.VMPropertyHandler;
 import org.oscm.app.vmware.business.VMwareDatacenterInventory;
 import org.oscm.app.vmware.business.model.VMwareStorage;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * Common superclass for all storage balancers.
@@ -29,17 +30,23 @@ public abstract class StorageBalancer implements VMwareBalancer<VMwareStorage> {
     protected VMwareDatacenterInventory inventory;
 
     @Override
-    public void setConfiguration(HierarchicalConfiguration config) {
-        if (config != null) {
-            String storages = config.getString("[@storage]");
-            if (storages == null || storages.trim().length() == 0) {
+    public void setConfiguration(Node node) {
+        if (node != null) {
+
+            NodeList storages = node.getOwnerDocument()
+                    .getElementsByTagName("storage");
+
+            if (storages == null || storages.getLength() == 0) {
                 throw new IllegalArgumentException(
                         "No storage reference defined for balancer");
             }
-            String[] elms = storages.split(",");
-            for (String x : elms) {
-                datastoreNames.add(x.toString().trim());
+
+            for (int i = 1; i < storages.getLength(); i++) {
+                Node s = storages.item(i);
+                datastoreNames
+                        .add(XMLHelper.getAttributeValue(s, "name").trim());
             }
+
         }
     }
 
@@ -76,10 +83,10 @@ public abstract class StorageBalancer implements VMwareBalancer<VMwareStorage> {
      *            the properties defining the requested instance
      * @return <code>true</code> when all conditions and limits are met
      */
-    public boolean isValid(VMwareStorage storage, VMPropertyHandler properties) {
-        return storage != null
-                && storage.isEnabled()
-                // add memory because respective swap space will be required
+    public boolean isValid(VMwareStorage storage,
+            VMPropertyHandler properties) {
+        return storage != null && storage.isEnabled()
+        // add memory because respective swap space will be required
                 && storage.checkLimit(properties.getTemplateDiskSpaceMB()
                         + properties.getConfigMemoryMB());
     }
