@@ -9,6 +9,7 @@
 package org.oscm.app.vmware.business.balancer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.oscm.app.vmware.business.VMPropertyHandler;
@@ -37,13 +38,19 @@ public abstract class HostBalancer implements VMwareBalancer<VMwareHost> {
     public void setConfiguration(Node xmlConfig) {
         if (xmlConfig != null) {
             NodeList hosts = xmlConfig.getOwnerDocument()
-                    .getElementsByTagName("hosts");
-            if (hosts != null) {
+                    .getElementsByTagName("host");
+
+            String str = XMLHelper.getAttributeValue(xmlConfig, "hosts", "");
+            List<String> hostList = Arrays.asList(str.split(","));
+            if (hostList.size() > 0) {
                 for (int i = 1; i < hosts.getLength(); i++) {
                     Node h = hosts.item(i);
+                    String hostName = XMLHelper.getAttributeValue(h, "name")
+                            .trim();
+                    if (hostList.contains(hostName)) {
+                        hostNames.add(hostName);
+                    }
 
-                    hostNames
-                            .add(XMLHelper.getAttributeValue(h, "name").trim());
                 }
             }
         }

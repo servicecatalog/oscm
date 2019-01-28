@@ -41,7 +41,7 @@ public abstract class StorageBalancer implements VMwareBalancer<VMwareStorage> {
                         "No storage reference defined for balancer");
             }
 
-            for (int i = 1; i < storages.getLength(); i++) {
+            for (int i = 0; i < storages.getLength(); i++) {
                 Node s = storages.item(i);
                 datastoreNames
                         .add(XMLHelper.getAttributeValue(s, "name").trim());

@@ -25,7 +25,7 @@ public interface VMwareBalancer<T> {
     /**
      * Sets property container for this balancer.
      */
-    public void setConfiguration(Node node);
+    public void setConfiguration(Node balancerConfig);
 
     /**
      * Returns next element to process.
