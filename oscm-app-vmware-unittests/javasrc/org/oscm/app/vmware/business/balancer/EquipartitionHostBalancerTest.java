@@ -13,16 +13,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
-import java.io.StringReader;
 import java.util.HashMap;
 
-import org.apache.commons.configuration2.HierarchicalConfiguration;
-import org.apache.commons.configuration2.XMLConfiguration;
-import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.oscm.app.v2_0.data.ProvisioningSettings;
 import org.oscm.app.v2_0.data.Setting;
@@ -34,6 +28,8 @@ import org.oscm.app.vmware.business.VMwareValue;
 import org.oscm.app.vmware.business.model.VMwareHost;
 import org.oscm.app.vmware.i18n.Messages;
 import org.slf4j.impl.SimpleLogger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * @author Dirk Bernsau
@@ -60,8 +56,8 @@ public class EquipartitionHostBalancerTest {
 
     @Test
     public void testSpreadEmpty() {
-        double[] spread = EquipartitionHostBalancer.calculateSpread(
-                new double[0], 0, new double[0]);
+        double[] spread = EquipartitionHostBalancer
+                .calculateSpread(new double[0], 0, new double[0]);
         assertTrue(spread.length == 0);
     }
 
@@ -202,13 +198,13 @@ public class EquipartitionHostBalancerTest {
     @Test
     public void testAssess_equalFirst() {
         // simulate a case where debugging is disabled
-        Mockito.when(new Boolean(mogger.isDebugEnabled())).thenReturn(
-                Boolean.FALSE);
+        Mockito.when(new Boolean(mogger.isDebugEnabled()))
+                .thenReturn(Boolean.FALSE);
         double[] values1 = { 1, 1 };
         double[] values2 = { 1, 1 };
         double[] weights = {}; // no weights default to 1
-        int result = EquipartitionHostBalancer.assess(new double[][] { values1,
-                values2 }, weights);
+        int result = EquipartitionHostBalancer
+                .assess(new double[][] { values1, values2 }, weights);
         assertTrue(result == 0);
     }
 
@@ -217,8 +213,8 @@ public class EquipartitionHostBalancerTest {
         double[] values1 = { 1, 0.4 };
         double[] values2 = { 1, 1 };
         double[] weights = {}; // no weights default to 1
-        int result = EquipartitionHostBalancer.assess(new double[][] { values1,
-                values2 }, weights);
+        int result = EquipartitionHostBalancer
+                .assess(new double[][] { values1, values2 }, weights);
         assertTrue(result == 1);
     }
 
@@ -227,8 +223,8 @@ public class EquipartitionHostBalancerTest {
         double[] values1 = { 0.6, 1 };
         double[] values2 = { 1, 0.6 };
         double[] weights = { 2, 1 };
-        int result = EquipartitionHostBalancer.assess(new double[][] { values1,
-                values2 }, weights);
+        int result = EquipartitionHostBalancer
+                .assess(new double[][] { values1, values2 }, weights);
         assertTrue(result == 0);
     }
 
@@ -237,8 +233,8 @@ public class EquipartitionHostBalancerTest {
         double[] values1 = { 0.6, 1 };
         double[] values2 = { 1, 0.6 };
         double[] weights = { 1, 2 };
-        int result = EquipartitionHostBalancer.assess(new double[][] { values1,
-                values2 }, weights);
+        int result = EquipartitionHostBalancer
+                .assess(new double[][] { values1, values2 }, weights);
         assertTrue(result == 1);
     }
 
@@ -247,8 +243,8 @@ public class EquipartitionHostBalancerTest {
         double[] values1 = { 0.2, 0.1 };
         double[] values2 = { 0.1, 0.29 };
         double[] weights = { 2, 1 };
-        int result = EquipartitionHostBalancer.assess(new double[][] { values1,
-                values2 }, weights);
+        int result = EquipartitionHostBalancer
+                .assess(new double[][] { values1, values2 }, weights);
         assertTrue(result == 1);
     }
 
@@ -260,7 +256,8 @@ public class EquipartitionHostBalancerTest {
         createHost(inventory, "host2", true, 4096, 1024, 4, 2, 4);
         createHost(inventory, "host3", true, 4096, 512, 4, 2, 4);
 
-        EquipartitionHostBalancer balancer = getBalancer(1, 1, 1);
+        EquipartitionHostBalancer balancer = getBalancerWithoutHostObjects(1, 1,
+                1);
         balancer.setInventory(inventory);
 
         setCreateParameters(1024, 4);
@@ -278,7 +275,8 @@ public class EquipartitionHostBalancerTest {
         createHost(inventory, "host2", true, 4096, 2048, 4, 1, 4);
         createHost(inventory, "host3", false, 4096, 2048, 4, 2, 4);
 
-        EquipartitionHostBalancer balancer = getBalancer(1, 1, 1);
+        EquipartitionHostBalancer balancer = getBalancerWithoutHostObjects(1, 1,
+                1);
         balancer.setInventory(inventory);
 
         setCreateParameters(1024, 4);
@@ -296,7 +294,8 @@ public class EquipartitionHostBalancerTest {
         createHost(inventory, "host2", true, 4096, 2048, 16, 6, 4);
         createHost(inventory, "host3", true, 4096, 2048, 16, 9, 4);
 
-        EquipartitionHostBalancer balancer = getBalancer(1, 0.5, 0.25);
+        EquipartitionHostBalancer balancer = getBalancerWithoutHostObjects(1,
+                0.5, 0.25);
         balancer.setInventory(inventory);
 
         setCreateParameters(256, 4);
@@ -308,8 +307,8 @@ public class EquipartitionHostBalancerTest {
         setCreateParameters(1024, 1);
 
         // simulate a case where debugging is disabled
-        Mockito.when(new Boolean(mogger.isDebugEnabled())).thenReturn(
-                Boolean.FALSE);
+        Mockito.when(new Boolean(mogger.isDebugEnabled()))
+                .thenReturn(Boolean.FALSE);
 
         result = balancer.next(properties);
         assertNotNull(result);
@@ -322,7 +321,8 @@ public class EquipartitionHostBalancerTest {
         VMwareDatacenterInventory inventory = new VMwareDatacenterInventory();
         createHost(inventory, "host1", false, 4096, 1900, 16, 8, 4);
 
-        EquipartitionHostBalancer balancer = getBalancer(1, 0.5, 0.25);
+        EquipartitionHostBalancer balancer = getBalancerWithoutHostObjects(1,
+                0.5, 0.25);
         balancer.setInventory(inventory);
 
         setCreateParameters(256, 4);
@@ -343,7 +343,8 @@ public class EquipartitionHostBalancerTest {
         createHost(inventory, "host1", true, 8192, 2048, 16, 8, 4);
         createHost(inventory, "host2", true, 2048, 1024, 16, 8, 4);
 
-        EquipartitionHostBalancer balancer = getBalancer(1, 0.5, 0.25);
+        EquipartitionHostBalancer balancer = getBalancerWithoutHostObjects(1,
+                0.5, 0.25);
         balancer.setInventory(inventory);
 
         setCreateParameters(256, 4);
@@ -355,8 +356,8 @@ public class EquipartitionHostBalancerTest {
         setCreateParameters(1024, 1);
 
         // simulate a case where debugging is disabled
-        Mockito.when(new Boolean(mogger.isDebugEnabled())).thenReturn(
-                Boolean.FALSE);
+        Mockito.when(new Boolean(mogger.isDebugEnabled()))
+                .thenReturn(Boolean.FALSE);
 
         result = balancer.next(properties);
         assertNotNull(result);
@@ -375,7 +376,8 @@ public class EquipartitionHostBalancerTest {
         createHost(inventory, "host1", true, 8192, 2048, 4, 8, 4);
         createHost(inventory, "host2", true, 4096, 1024, 8, 8, 4);
 
-        EquipartitionHostBalancer balancer = getBalancer(1, 0.5, 0.25);
+        EquipartitionHostBalancer balancer = getBalancerWithoutHostObjects(1,
+                0.5, 0.25);
         balancer.setInventory(inventory);
 
         // CPU intensive VM
@@ -402,14 +404,30 @@ public class EquipartitionHostBalancerTest {
 
     @Test
     public void testBalancer_wrongConfig() throws Exception {
-        // wrong configuration values should simply be ignored
+
+        final String hostlist = "host1,host2,host3,host4,host5";
+
+        String wrongValue = "wrong";
+
+        final String balancerXML = String.format(""
+                + "<balancer class=\"org.oscm.app.vmware.business.balancer.EquipartitionHostBalancer\" "
+                + "cpuWeight=\"%s\" " + "memoryWeight=\"%s\" "
+                + "vmWeight=\"%s\" " + "hosts=\"%s\" " + "/>\r\n", wrongValue,
+                wrongValue, wrongValue, hostlist);
+
+        String doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n"
+                + "\r\n" + "<essvcenter>\r\n" + "\r\n" + "    " + balancerXML
+                + "</essvcenter>";
+
+        Document xmlDoc = XMLHelper.convertToDocument(doc);
+
+        Node xmlConfiguration = xmlDoc.getElementsByTagName("balancer").item(1);
         EquipartitionHostBalancer balancer = new EquipartitionHostBalancer();
-        XMLConfiguration xmlConfiguration = new XMLConfiguration();
-        xmlConfiguration.addProperty("[@hosts]", "host1,host2,host3,host4,host5");
-        xmlConfiguration.addProperty("[@memoryWeight]", "wrong");
-        xmlConfiguration.addProperty("[@cpuWeight]", "wrong");
-        xmlConfiguration.addProperty("[@vmWeight]", "");
+
+        // when
         balancer.setConfiguration(xmlConfiguration);
+
+        // no exception - wrong configuration values should simply be ignored
     }
 
     @Test
@@ -421,23 +439,30 @@ public class EquipartitionHostBalancerTest {
     @Test
     public void testBalancer_noHostsObject() throws Exception {
         // no host elements should not create an exception
-        HierarchicalConfiguration configuration = Mockito
-                .mock(HierarchicalConfiguration.class);
-        // the mock shall not return a list on getList call
-        Mockito.when(configuration.getList(Matchers.anyString())).thenReturn(
-                null);
-        new EquipartitionHostBalancer().setConfiguration(configuration);
-        // no exception must occur
+        getBalancerWithoutHostObjects(9, 6, 3);
+
     }
 
-    private EquipartitionHostBalancer getBalancer(double memWeight,
-            double cpuWeight, double vmWeight) throws IOException, ConfigurationException {
+    private EquipartitionHostBalancer getBalancerWithoutHostObjects(
+            double memWeight, double cpuWeight, double vmWeight)
+            throws Exception {
         EquipartitionHostBalancer balancer = new EquipartitionHostBalancer();
-        XMLConfiguration xmlConfiguration = new XMLConfiguration();
-        xmlConfiguration.addProperty("[@hosts]", "host1,host2,host3,host4,host5");
-        xmlConfiguration.addProperty("[@memoryWeight]", memWeight);
-        xmlConfiguration.addProperty("[@cpuWeight]", cpuWeight);
-        xmlConfiguration.addProperty("[@vmWeight]", vmWeight);
+        final String hostlist = "host1,host2,host3,host4,host5";
+        @SuppressWarnings("boxing")
+        final String balancerXML = String.format(""
+                + "<balancer class=\"org.oscm.app.vmware.business.balancer.EquipartitionHostBalancer\" "
+                + "cpuWeight=\"%s\" " + "memoryWeight=\"%s\" "
+                + "vmWeight=\"%s\" " + "hosts=\"%s\" " + "/>\r\n", cpuWeight,
+                memWeight, vmWeight, hostlist);
+
+        String doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n"
+                + "\r\n" + "<essvcenter>\r\n" + "\r\n" + "    " + balancerXML
+                + "</essvcenter>";
+
+        Document xmlDoc = XMLHelper.convertToDocument(doc);
+
+        Node xmlConfiguration = xmlDoc.getElementsByTagName("balancer").item(0);
+
         balancer.setConfiguration(xmlConfiguration);
         return balancer;
     }
@@ -460,10 +485,9 @@ public class EquipartitionHostBalancerTest {
     private VMwareHost createHost(VMwareDatacenterInventory inventory,
             String name, boolean enabled, int memoryAvail, int memoryAlloc,
             int cpuAvail, int cpuAlloc, int vmAlloc) {
-        VMwareHost host = inventory
-                .addHostSystem((VMwareDatacenterInventoryTest
-                        .createHostSystemProperties(name, "" + memoryAvail, ""
-                                + cpuAvail)));
+        VMwareHost host = inventory.addHostSystem(
+                (VMwareDatacenterInventoryTest.createHostSystemProperties(name,
+                        "" + memoryAvail, "" + cpuAvail)));
         host.setEnabled(enabled);
         host.setAllocatedCPUs(cpuAlloc);
         host.setAllocatedMemoryMB(memoryAlloc);
