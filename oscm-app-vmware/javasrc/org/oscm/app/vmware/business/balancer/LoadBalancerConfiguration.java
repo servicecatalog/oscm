@@ -51,7 +51,7 @@ public class LoadBalancerConfiguration {
             VMwareDatacenterInventory inventory) throws Exception {
         initialize(xmlData, inventory);
     }
-
+ 
     /**
      * Parses the given XML configuration and adds the information to the
      * inventory.
