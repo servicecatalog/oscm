@@ -43,7 +43,7 @@ public class EquipartitionHostBalancer extends HostBalancer {
                 cpuWeight = Double.parseDouble(XMLHelper.getAttributeValue(xmlConfig, 
                         "cpuWeight", "1"));
             } catch (NullPointerException e) {
-                // ignore
+                logger.warn("wrong cpuWeight format xml configuration");
             } catch (NumberFormatException e) {
                 // ignore
             }
@@ -51,7 +51,7 @@ public class EquipartitionHostBalancer extends HostBalancer {
                 memWeight = Double.parseDouble(XMLHelper.getAttributeValue(xmlConfig, 
                         "memoryWeight", "1"));
             } catch (NullPointerException e) {
-                // ignore
+            	logger.warn("wrong memWeight format xml configuration");
             } catch (NumberFormatException e) {
                 // ignore
             }
@@ -59,7 +59,7 @@ public class EquipartitionHostBalancer extends HostBalancer {
                 vmWeight = Double.parseDouble(XMLHelper.getAttributeValue(xmlConfig, 
                         "vmWeight", "1"));
             } catch (NullPointerException e) {
-                // ignore
+            	logger.warn("wrong vmWeight format in the xml configuration");
             } catch (NumberFormatException e) {
                 // ignore
             }

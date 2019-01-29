@@ -10,7 +10,6 @@ package org.oscm.app.vmware.business.balancer;
 
 import static org.junit.Assert.*;
 
-import org.apache.commons.configuration2.XMLConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -67,9 +66,7 @@ public class SequentialHostBalancerTest {
 
         SequentialHostBalancer balancer = getSequentialHostBalancer();
 
-        XMLConfiguration xmlConfiguration = new XMLConfiguration();
-        xmlConfiguration.addProperty("[@balancer]", "elm1");
-
+       
     
 
         VMwareDatacenterInventory inventory = new VMwareDatacenterInventory();

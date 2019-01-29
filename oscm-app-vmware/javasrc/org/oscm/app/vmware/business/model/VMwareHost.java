@@ -28,7 +28,7 @@ public class VMwareHost {
     private static final VMwareValue DEFAULT_CPU_LIMIT = VMwareValue
             .parse("500%");
     private static final VMwareValue DEFAULT_MEMORY_LIMIT = VMwareValue
-            .parse("-8GB");
+            .parse("-1GB");
     private static final VMwareValue DEFAULT_VM_LIMIT = VMwareValue.parse("40");
 
     private static final DecimalFormat DF = new DecimalFormat("#0.##");

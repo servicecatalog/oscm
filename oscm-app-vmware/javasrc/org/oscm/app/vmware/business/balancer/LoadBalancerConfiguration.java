@@ -47,7 +47,7 @@ public class LoadBalancerConfiguration {
 	/**
 	 * Parses the given XML configuration and adds the information to the inventory.
 	 */
-	protected synchronized void initialize(String xmlData, VMwareDatacenterInventory inventory) throws Exception {
+	protected void initialize(String xmlData, VMwareDatacenterInventory inventory) throws Exception {
 
 		hostList = new ArrayList<VMwareHost>();
 		storageList = new ArrayList<VMwareStorage>();

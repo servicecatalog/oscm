@@ -23,13 +23,13 @@ import org.xml.sax.InputSource;
  * @author goebel
  *
  */
-class XMLHelper {
+public class XMLHelper {
 
     protected static String getAttributeValue(Node node, String name) {
         return getAttributeValue(node, name, "");
     }
 
-    protected static String getAttributeValue(Node node, String name,
+    public static String getAttributeValue(Node node, String name,
             String defaultValue) {
         Node attr = node.getAttributes().getNamedItem(name);
         if (attr != null)
@@ -38,7 +38,7 @@ class XMLHelper {
 
     }
 
-    protected static Document convertToDocument(String string)
+    public static Document convertToDocument(String string)
             throws Exception {
 
         DocumentBuilderFactory dfactory = DocumentBuilderFactory.newInstance();
@@ -49,7 +49,7 @@ class XMLHelper {
         return doc;
     }
 
-    protected static List<Node> getChildrenByTag(Node parent, String tagName) {
+    public static List<Node> getChildrenByTag(Node parent, String tagName) {
         NodeList childs = parent.getChildNodes();
         List<Node> children = new ArrayList<Node>();
         for (int j = 0; j < childs.getLength(); j++) {
