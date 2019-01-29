@@ -79,7 +79,7 @@ public class EquipartitionHostBalancer extends HostBalancer {
         int cnt = validHosts.size();
         if (cnt == 0) {
             logger.debug("No valid host available");
-            return null;
+            throw new APPlatformException(Messages.getAll("error_outof_host"));
         }
         double[] vmCounts = new double[cnt];
         double[] memCounts = new double[cnt];
