@@ -11,9 +11,6 @@ package org.oscm.app.vmware.business.balancer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.StringReader;
-
-import org.apache.commons.configuration2.XMLConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -23,6 +20,8 @@ import org.oscm.app.vmware.business.VMwareDatacenterInventory;
 import org.oscm.app.vmware.business.VMwareDatacenterInventoryTest;
 import org.oscm.app.vmware.business.VMwareValue;
 import org.oscm.app.vmware.business.model.VMwareStorage;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * @author Oliver Soehnges
@@ -71,11 +70,8 @@ public class SequentialStorageBalancerTest {
     @Test
     public void testSingle() throws Exception {
 
-        SequentialStorageBalancer balancer = new SequentialStorageBalancer();
-
-        XMLConfiguration xmlConfiguration = new XMLConfiguration();
-        xmlConfiguration.addProperty("[@storage]", "elm1");
-        balancer.setConfiguration(xmlConfiguration);
+        SequentialStorageBalancer balancer = getSequentialStorageBalancer(
+                "elm1");
 
         VMwareDatacenterInventory inventory = new VMwareDatacenterInventory();
 
@@ -99,11 +95,8 @@ public class SequentialStorageBalancerTest {
     @Test
     public void testMultiple() throws Exception {
 
-        SequentialStorageBalancer balancer = new SequentialStorageBalancer();
-
-        XMLConfiguration xmlConfiguration = new XMLConfiguration();
-        xmlConfiguration.addProperty("[@storage]", "elm1,elm2,elm3,elm4");
-        balancer.setConfiguration(xmlConfiguration);
+        SequentialStorageBalancer balancer = getSequentialStorageBalancer(
+                "elm1,elm2,elm3,elm4");
 
         VMwareDatacenterInventory inventory = new VMwareDatacenterInventory();
 
@@ -150,12 +143,8 @@ public class SequentialStorageBalancerTest {
     @Test
     public void testMultipleReduce() throws Exception {
 
-        SequentialStorageBalancer balancer = new SequentialStorageBalancer();
-
-        String balancerConfig = "<host><balancer storage=\"elm1,elm2,elm3\" /></host>";
-        XMLConfiguration xmlConfiguration = new XMLConfiguration();
-        xmlConfiguration.addProperty("[@storage]", "elm1,elm2,elm3");
-        balancer.setConfiguration(xmlConfiguration);
+        SequentialStorageBalancer balancer = getSequentialStorageBalancer(
+                "elm1,elm2,elm3");
 
         VMwareDatacenterInventory inventory = new VMwareDatacenterInventory();
 
@@ -188,6 +177,33 @@ public class SequentialStorageBalancerTest {
         elm = balancer.next(properties);
         assertNotNull(elm);
         assertEquals("elm3", elm.getName());
+    }
+
+    static SequentialStorageBalancer getSequentialStorageBalancer(
+            String storageList) throws Exception {
+        SequentialStorageBalancer balancer = new SequentialStorageBalancer();
+
+        final String balancerXML = String.format(""
+                + "<balancer class=\"org.oscm.app.vmware.business.balancer.SequentialStorageBalancer\" "
+                + "storage=\"%s\" " + "/>\r\n", storageList);
+
+        StringBuffer doc = new StringBuffer();
+        doc.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n");
+        doc.append("<essvcenter>\r\n");
+        doc.append("    <host enabled=\"true\" name=\"host1\">\r\n");
+        doc.append("          " + balancerXML);
+        doc.append("    </host>" + "\r\n");
+        for (String storage : storageList.split(",")) {
+            doc.append(String.format("    <storage enabled=\"true\" limit=\"85\" name=\"%s\"/>\r\n", storage));
+        }
+        doc.append("</essvcenter>");
+
+        Document xmlDoc = XMLHelper.convertToDocument(doc.toString());
+
+        Node xmlConfiguration = xmlDoc.getElementsByTagName("host").item(0);
+
+        balancer.setConfiguration(xmlConfiguration);
+        return balancer;
     }
 
 }

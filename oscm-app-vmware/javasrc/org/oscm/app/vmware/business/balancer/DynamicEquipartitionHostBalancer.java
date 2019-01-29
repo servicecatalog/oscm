@@ -10,11 +10,11 @@ package org.oscm.app.vmware.business.balancer;
 
 import java.util.Collection;
 
-import org.apache.commons.configuration2.HierarchicalConfiguration;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.vmware.business.VMPropertyHandler;
 import org.oscm.app.vmware.business.model.VMwareHost;
 import org.oscm.app.vmware.i18n.Messages;
+import org.w3c.dom.Node;
 
 /**
  * Balancer implementation determining dynamically from vSphere the host with
@@ -26,7 +26,7 @@ import org.oscm.app.vmware.i18n.Messages;
 public class DynamicEquipartitionHostBalancer extends HostBalancer {
 
     @Override
-    public void setConfiguration(HierarchicalConfiguration xmlConfig) {
+    public void setConfiguration(Node xmlConfig) {
         super.setConfiguration(xmlConfig);
     }
 

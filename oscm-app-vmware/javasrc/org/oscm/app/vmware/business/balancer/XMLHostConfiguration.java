@@ -8,7 +8,7 @@
 
 package org.oscm.app.vmware.business.balancer;
 
-import org.apache.commons.configuration2.XMLConfiguration;
+
 
 /**
  * Same as the default apache XML configuration entity, but with disabled
@@ -16,7 +16,7 @@ import org.apache.commons.configuration2.XMLConfiguration;
  *
  * @author soehnges
  */
-public class XMLHostConfiguration extends XMLConfiguration {
+public class XMLHostConfiguration   {
 
     private static final long serialVersionUID = -2209965493418921967L;
 

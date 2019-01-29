@@ -8,17 +8,14 @@
 
 package org.oscm.app.vmware.business.balancer;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 
-import org.apache.commons.configuration2.HierarchicalConfiguration;
-import org.apache.commons.configuration2.XMLConfiguration;
-import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.vmware.business.VMPropertyHandler;
@@ -27,6 +24,8 @@ import org.oscm.app.vmware.business.VMwareDatacenterInventoryTest;
 import org.oscm.app.vmware.business.VMwareValue;
 import org.oscm.app.vmware.business.VMwareValue.Unit;
 import org.oscm.app.vmware.business.model.VMwareStorage;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * @author Dirk Bernsau
@@ -61,12 +60,7 @@ public class EquipartitionStorageBalancerTest {
     @Test(expected = IllegalArgumentException.class)
     public void testBalancer_noStorageObject() throws Exception {
         // no storage elements should create an exception
-        HierarchicalConfiguration configuration = Mockito
-                .mock(HierarchicalConfiguration.class);
-        // the mock shall not return a list on getList call
-        Mockito.when(configuration.getList(Matchers.anyString())).thenReturn(
-                null);
-        new EquipartitionStorageBalancer().setConfiguration(configuration);
+        getBalancerNoStorageObject("storage1");
     }
 
     @Test
@@ -111,7 +105,8 @@ public class EquipartitionStorageBalancerTest {
         store6.setFreeStorage(null);
         assertTrue(store6.getLevel() == 1); // 100% full
 
-        EquipartitionStorageBalancer balancer = getBalancer("store1,store2,store3,store5,store6");
+        EquipartitionStorageBalancer balancer = getBalancer(
+                "store1,store2,store3,store5,store6");
         balancer.setInventory(inventory);
 
         VMwareStorage storage = balancer.next(properties);
@@ -141,6 +136,7 @@ public class EquipartitionStorageBalancerTest {
         assertTrue(limit == storage.getLimit());
     }
 
+    @SuppressWarnings("boxing")
     @Test(expected = IllegalArgumentException.class)
     public void testBalancer_negativeStoreSize() throws Exception {
         VMwareDatacenterInventory inventory = new VMwareDatacenterInventory();
@@ -156,11 +152,40 @@ public class EquipartitionStorageBalancerTest {
         assertEquals("store1", storage.getName());
     }
 
-    private EquipartitionStorageBalancer getBalancer(String storages)
-        throws ConfigurationException, IOException {
+    private EquipartitionStorageBalancer getBalancer(String storages) throws Exception {
+        return getBalancer(storages, false);
+    }
+    private EquipartitionStorageBalancer getBalancerNoStorageObject(String storages) throws Exception {
+        return getBalancer(storages, true);
+    }
+    
+
+    private EquipartitionStorageBalancer getBalancer(String storages,
+            boolean omitStorageList) throws Exception {
         EquipartitionStorageBalancer balancer = new EquipartitionStorageBalancer();
-        XMLConfiguration xmlConfiguration = new XMLConfiguration();
-        xmlConfiguration.addProperty("[@storage]", storages);
+
+        @SuppressWarnings("boxing")
+        final String balancerXML = String.format(""
+                + "<balancer class=\"org.oscm.app.vmware.business.balancer.EquipartitionStorageBalancer\" "
+                + "cpuWeight=\"%s\" " + "memoryWeight=\"%s\" "
+                + "vmWeight=\"%s\" " + "storage=\"%s\" " + "/>\r\n", 1, 1, 1,
+                storages);
+        String doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n"
+                + "<essvcenter>\r\n" + "\r\n" + "    " + balancerXML;
+
+        if (!omitStorageList) {
+            for (String storage : storages.split(",")) {
+                doc += String.format(
+                        "\r\n   <storage enabled=\"true\" limit=\"85\" name=\"%s\" />",
+                        storage);
+            }
+        }
+        doc += "\r\n</essvcenter>";
+
+        Document xmlDoc = XMLHelper.convertToDocument(doc);
+
+        Node xmlConfiguration = xmlDoc.getElementsByTagName("balancer").item(0);
+
         balancer.setConfiguration(xmlConfiguration);
         return balancer;
     }
@@ -172,8 +197,9 @@ public class EquipartitionStorageBalancerTest {
         VMwareStorage storage = inventory.addStorage(null,
                 (VMwareDatacenterInventoryTest.createDataStoreProperties(name,
                         DF.format(VMwareValue.fromGigaBytes(capacityGB)
-                                .getValue(Unit.BY)), DF.format(VMwareValue
-                                .fromGigaBytes(freeGB).getValue(Unit.BY)))));
+                                .getValue(Unit.BY)),
+                        DF.format(VMwareValue.fromGigaBytes(freeGB)
+                                .getValue(Unit.BY)))));
         storage.setEnabled(enabled);
         if (limit != null) {
             storage.setLimit(VMwareValue.parse(limit));

@@ -10,7 +10,6 @@ package org.oscm.app.vmware.business.balancer;
 
 import static org.junit.Assert.*;
 
-import org.apache.commons.configuration2.XMLConfiguration;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -20,6 +19,8 @@ import org.oscm.app.vmware.business.VMwareDatacenterInventory;
 import org.oscm.app.vmware.business.VMwareDatacenterInventoryTest;
 import org.oscm.app.vmware.business.VMwareValue;
 import org.oscm.app.vmware.business.model.VMwareHost;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 /**
  * @author Dirk Bernsau
@@ -63,12 +64,10 @@ public class SequentialHostBalancerTest {
     @Test
     public void testBalancerStorageSequentialSingle() throws Exception {
 
-        SequentialHostBalancer balancer = new SequentialHostBalancer();
+        SequentialHostBalancer balancer = getSequentialHostBalancer();
 
-        XMLConfiguration xmlConfiguration = new XMLConfiguration();
-        xmlConfiguration.addProperty("[@balancer]","elm1");
-
-        balancer.setConfiguration(xmlConfiguration);
+       
+    
 
         VMwareDatacenterInventory inventory = new VMwareDatacenterInventory();
 
@@ -87,15 +86,44 @@ public class SequentialHostBalancerTest {
         assertEquals("elm1", elm.getName());
     }
 
+    static SequentialHostBalancer getSequentialHostBalancer() throws Exception {
+        
+        final String hostlist = "elm3,elm2,elm1,elm4";
+        return getSequentialHostBalancer(hostlist);
+    }
+        
+    static SequentialHostBalancer getSequentialHostBalancer(String hostlist) throws Exception {
+        SequentialHostBalancer balancer = new SequentialHostBalancer();
+        
+        
+        StringBuffer doc = new StringBuffer();
+        doc.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n");
+        doc.append("<essvcenter>\r\n");
+        
+        doc.append("<balancer class=\"org.oscm.app.vmware.business.balancer.SequentialHostBalancer\" ");
+        
+        doc.append(String.format("hosts=\"%s\" " + "/>\r\n", hostlist));
+        
+      
+        
+        for (String host : hostlist.split(",")) {
+            doc.append(String.format("    <host enabled=\"true\" limit=\"85\" name=\"%s\"/>\r\n", host));
+        }
+        doc.append("</essvcenter>");
+        Document xmlDoc = XMLHelper.convertToDocument(doc.toString());
+        
+
+        Node xmlConfiguration = xmlDoc.getElementsByTagName("balancer").item(0);
+        balancer.setConfiguration(xmlConfiguration);
+        return balancer;
+    }
+
     @Test
     public void testBalancerStorageSequentialMultiple() throws Exception {
 
-        SequentialHostBalancer balancer = new SequentialHostBalancer();
-
-        XMLConfiguration xmlConfiguration = new XMLConfiguration();
-        xmlConfiguration.addProperty("[@hosts]", "elm3,elm2,elm1,elm4");
-        balancer.setConfiguration(xmlConfiguration);
-
+        SequentialHostBalancer balancer = getSequentialHostBalancer("elm3,elm2,elm1,elm4");
+       
+        
         VMwareDatacenterInventory inventory = new VMwareDatacenterInventory();
 
         VMwareHost elm = inventory.addHostSystem((VMwareDatacenterInventoryTest
