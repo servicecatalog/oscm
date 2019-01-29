@@ -1669,7 +1669,7 @@ public class APPTimerServiceBeanIT extends EJBTestBase {
         ServiceInstance si_activation = new ServiceInstance();
         si_activation.setProvisioningStatus(
                 ProvisioningStatus.WAITING_FOR_SYSTEM_ACTIVATION);
-        List<?> result = Arrays.asList(si_creation, si_deletion, si_activation);
+        List<ServiceInstance> result = Arrays.asList(si_creation, si_deletion, si_activation);
 
         // when
         List<ServiceInstance> filteredList = timerService.filterList(result,
