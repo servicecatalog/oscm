@@ -1,3 +1,11 @@
+/*******************************************************************************
+ *
+ *  Copyright FUJITSU LIMITED 2019
+ *
+ *  Creation Date: 2019-01-29
+ *
+ *******************************************************************************/
+
 package org.oscm.app.vmware.remote.bes;
 
 import static org.junit.Assert.*;
