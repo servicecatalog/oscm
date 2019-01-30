@@ -8,6 +8,7 @@
 
 package org.oscm.app.vmware.importer;
 
+import org.oscm.app.vmware.business.balancer.XMLHelper;
 import org.oscm.app.vmware.parser.ClusterParser;
 import org.oscm.app.vmware.parser.model.Cluster;
 import org.oscm.app.vmware.persistence.DataAccessService;
@@ -21,12 +22,13 @@ public class ClusterImporter implements Importer {
 
     private void save(Cluster cluster) throws Exception {
         int datacenterKey = this.getDatacenterKey(cluster.vCenter, cluster.datacenter);
-        String loadBalancer = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><essvcenter><balancer class=\"org.oscm.app.vmware.business.balancer.DynamicEquipartitionHostBalancer\" cpuWeight=\"\" memoryWeight=\"\" vmWeight=\"\"/></essvcenter>";
+        
         String query = "INSERT INTO cluster (TKEY, NAME, LOAD_BALANCER, DATACENTER_TKEY) VALUES (DEFAULT, ?, ?, ?)";
-
+        
         try(PreparedStatement stmt = this.das.getDatasource().getConnection().prepareStatement(query)) {
+            XMLHelper.convertToDocument(cluster.loadBalancer);
             stmt.setString(1, cluster.clusterName);
-            stmt.setString(2, loadBalancer);
+            stmt.setString(2, cluster.loadBalancer);
             stmt.setInt(3, datacenterKey);
             stmt.execute();
         } catch (Exception e) {
