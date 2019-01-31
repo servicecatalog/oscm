@@ -20,8 +20,8 @@ public class ClusterParser extends CSVParser<Cluster> {
     enum Columns {
         VCENTER("VCenter"),
         DATACENTER("Datacenter"),
-        CLUSTER_NAME("Clustername");
-
+        CLUSTER_NAME("Clustername"),
+        LOAD_BALANCER("Load_balancer");
         private final String text;
 
         Columns(final String text) {
@@ -57,7 +57,8 @@ public class ClusterParser extends CSVParser<Cluster> {
         result.vCenter = entries.get(Columns.VCENTER.toString());
         result.datacenter = entries.get(Columns.DATACENTER.toString());
         result.clusterName = entries.get(Columns.CLUSTER_NAME.toString());
-
+        result.loadBalancer = entries.get(Columns.LOAD_BALANCER.toString());
+        
         return result;
     }
 }

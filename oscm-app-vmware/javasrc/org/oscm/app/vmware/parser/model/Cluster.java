@@ -12,4 +12,5 @@ public class Cluster {
     public String vCenter;
     public String datacenter;
     public String clusterName;
+    public String loadBalancer;
 }
