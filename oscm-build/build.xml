@@ -140,50 +140,6 @@
     <dependencyresolver workspacedir="${dependency.resolver.dir}" projects="${projects}" />
   </target>
 
-  <target name="_copyDocument">
-    <copy todir="${workspace.dir}/oscm-app-aws/doc">
-      <fileset dir="../../document/Development/oscm-app-aws/doc">
-        <exclude name=".project"/>
-      </fileset>
-    </copy>
-    <copy todir="${workspace.dir}/oscm-app-openstack/doc">
-      <fileset dir="../../document/Development/oscm-app-openstack/doc">
-        <exclude name=".project"/>
-      </fileset>
-    </copy>
-    <copy todir="${workspace.dir}/oscm-app-vmware/doc">
-      <fileset dir="../../document/Development/oscm-app-vmware/doc">
-        <exclude name=".project"/>
-      </fileset>
-    </copy>
-    <copy todir="${workspace.dir}/oscm-app-sample/doc">
-      <fileset dir="../../document/Development/oscm-app-sample/doc">
-        <exclude name=".project"/>
-      </fileset>
-    </copy>
-    <copy todir="${workspace.dir}/oscm-doc-user">
-      <fileset dir="../../document/Development/oscm-doc-user" />
-    </copy>
-    <copy todir="${workspace.dir}/oscm-integrationtests-parameter-configurator/doc">
-      <fileset dir="../../document/Development/oscm-integrationtests-parameter-configurator/doc">
-        <exclude name=".project"/>
-      </fileset>
-    </copy>
-    <copy todir="${workspace.dir}/oscm-file-billing-adapter/doc">
-      <fileset dir="../../document/Development/oscm-file-billing-adapter/doc">
-        <exclude name=".project"/>
-      </fileset>
-    </copy>
-    <copy todir="${workspace.dir}/oscm-portal/resources/branding/Readme">
-      <fileset dir="../../document/Development/oscm-portal/resources/branding/Readme">
-        <exclude name=".project"/>
-      </fileset>
-    </copy>
-    <!--<copy todir="${workspace.dir}/UserDoc">-->
-      <!--<fileset dir="../../document/Development/UserDoc" />-->
-    <!--</copy>-->
-  </target>
-
   <macrodef name="buildproject">
     <attribute name="target" />
     <sequential>
@@ -309,19 +265,17 @@
     <buildproject target="javadoc" />
   </target>
 
-
-  <target name="package" depends="_log, _dependencies, _copyDocument" description="Resolves dependencies, compiles, creates javadoc and packages">
+  <target name="package" depends="_log, _dependencies" description="Resolves dependencies, compiles and packages">
     <buildproject target="package" />
   </target>
   
-  <target name="package_without_doc" depends="_log, _dependencies" description="Resolves dependencies, compiles, creates javadoc and packages">
+  <target name="package_without_doc" depends="_log, _dependencies" description="Resolves dependencies, compiles and packages">
     <buildproject target="package" />
   </target>
 
   <target name="clean">
     <delete dir="${result.dir}" />
   </target>
-
 
   <target name="createKPI" description="only call createKPI macro">
     <createKPI inputFile="${result.reports.test.dir}/TESTS-TestSuites.xml" outputFile="${artifacts.kpi.file}" />
