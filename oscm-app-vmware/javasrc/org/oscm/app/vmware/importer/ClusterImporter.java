@@ -12,6 +12,8 @@ import org.oscm.app.vmware.business.balancer.XMLHelper;
 import org.oscm.app.vmware.parser.ClusterParser;
 import org.oscm.app.vmware.parser.model.Cluster;
 import org.oscm.app.vmware.persistence.DataAccessService;
+import org.xml.sax.SAXParseException;
+
 
 import java.io.InputStream;
 import java.sql.PreparedStatement;
@@ -24,17 +26,15 @@ public class ClusterImporter implements Importer {
         int datacenterKey = this.getDatacenterKey(cluster.vCenter, cluster.datacenter);
         
         String query = "INSERT INTO cluster (TKEY, NAME, LOAD_BALANCER, DATACENTER_TKEY) VALUES (DEFAULT, ?, ?, ?)";
-        try {
-        XMLHelper.convertToDocument(cluster.loadBalancer);
-        } catch(Exception e) {
-            throw new Exception("Failed to import balancer config for cluster" + cluster.clusterName, e);
-        }
-        
+
         try(PreparedStatement stmt = this.das.getDatasource().getConnection().prepareStatement(query)) {
+            XMLHelper.convertToDocument(cluster.loadBalancer);
             stmt.setString(1, cluster.clusterName);
             stmt.setString(2, cluster.loadBalancer);
             stmt.setInt(3, datacenterKey);
             stmt.execute();
+        } catch (SAXParseException saxe) {
+            throw new Exception("Failed to import cluster " + cluster.clusterName + ". " + saxe.getMessage());
         } catch (Exception e) {
             throw new Exception("Failed to import cluster " + cluster.clusterName, e);
         }
