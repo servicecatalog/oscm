@@ -26,7 +26,7 @@ public class ClusterImporterTest {
 
     final String testXML = ""
             + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>"
-            + "<essvcenter xmlns:ess=\"http://oscm.org/xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://oscm.org/xsd ../../oscm-app-vmware\\resources\\XSD\\Loadbalancer_schema.xsd\">"
+            + "<ess:essvcenter xmlns:ess=\"http://oscm.org/xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://oscm.org/xsd ../../oscm-app-vmware\\resources\\XSD\\Loadbalancer_schema.xsd\">"
             + "<balancer class=\"org.oscm.app.vmware.business.balancer.EquipartitionHostBalancer\" cpuWeight=\"0.5\" memoryWeight=\"1\" vmWeight=\"1\"/>"
             + "<host enabled=\"true\" name=\"estvmwdev1.intern.est.fujitsu.com\">"
             + "<balancer class=\"org.oscm.app.vmware.business.balancer.EquipartitionStorageBalancer\" storage=\"VMdev0,VMdev1\"/>"
@@ -36,7 +36,7 @@ public class ClusterImporterTest {
             + "</host>"
             + "<storage enabled=\"true\" limit=\"85%\" name=\"VMdev0\"/>"
             + "<storage enabled=\"true\" limit=\"85%\" name=\"VMdev1\"/>"
-            + "</essvcenter>";
+            + "</ess:essvcenter>";
 
     final String testWrongXML = ""
             + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>"
@@ -49,7 +49,8 @@ public class ClusterImporterTest {
             + "<balancer class=\"org.oscm.app.vmware.business.balancer.EquipartitionStorageBalancer\" storage=\"VMdev0,VMdev1\"/>"
             + "</host>"
             + "<storage enabled=\"true\" limit=\"85%\" name=\"VMdev0\"/>"
-            + "<storage enabled=\"true\" limit=\"85%\"/>" + "</ess:essvcenter>";
+            + "<storage enabled=\"true\" limit=\"85%\"/>" 
+            + "</ess:essvcenter>";
 
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalErr = System.err;

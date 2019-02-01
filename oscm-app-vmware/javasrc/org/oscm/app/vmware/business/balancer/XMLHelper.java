@@ -7,24 +7,24 @@
  *******************************************************************************/
 package org.oscm.app.vmware.business.balancer;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.IOException;
 import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
+import com.sun.org.apache.xml.internal.utils.DefaultErrorHandler;
 
 /**
  * @author goebel
@@ -45,11 +45,12 @@ public class XMLHelper {
 
     }
 
-    public static Document convertToDocument(String string) throws Exception {
+    public static Document convertToDocument(String string)
+            throws SAXException, ParserConfigurationException, IOException {
 
         URL schemaURL = XMLHelper.class.getClassLoader()
                 .getResource("META-INF/Loadbalancer_schema.xsd");
-        
+
         String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
         SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
         Schema schema = xsdFactory.newSchema(schemaURL);
@@ -59,6 +60,7 @@ public class XMLHelper {
         dfactory.setNamespaceAware(true);
         dfactory.setSchema(schema);
         DocumentBuilder builder = dfactory.newDocumentBuilder();
+        builder.setErrorHandler(new DefaultErrorHandler());
         Document doc = builder.parse(new InputSource(new StringReader(string)));
         return doc;
     }
