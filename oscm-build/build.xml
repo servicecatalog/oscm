@@ -265,11 +265,11 @@
     <buildproject target="javadoc" />
   </target>
 
-  <target name="package" depends="_log, _dependencies" description="Resolves dependencies, compiles, creates javadoc and packages">
+  <target name="package" depends="_log, _dependencies" description="Resolves dependencies, compiles and packages">
     <buildproject target="package" />
   </target>
   
-  <target name="package_without_doc" depends="_log, _dependencies" description="Resolves dependencies, compiles, creates javadoc and packages">
+  <target name="package_without_doc" depends="_log, _dependencies" description="Resolves dependencies, compiles and packages">
     <buildproject target="package" />
   </target>
 
