@@ -437,20 +437,7 @@ public class EquipartitionHostBalancerTest {
 		            + "<ess:essvcenter xmlns:ess=\"http://oscm.org/xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://oscm.org/xsd ../../oscm-app-vmware\\resources\\XSD\\Loadbalancer_schema.xsd\">"
 				+ "\r\n" + "    " + balancerXML + "</ess:essvcenter>";
 		
-	        File file = new File(
-	                "../../oscm/oscm-app-vmware/javares/META-INF/Loadbalancer_schema.xsd");
-	        String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
-	        SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
-	        Schema schema = xsdFactory.newSchema(file);
-	        DocumentBuilderFactory dfactory = DocumentBuilderFactory.newInstance();
-	        dfactory.setNamespaceAware(true);
-
-	        dfactory.setValidating(false);
-	        dfactory.setIgnoringElementContentWhitespace(true);
-	        dfactory.setSchema(schema);
-	        DocumentBuilder builder = dfactory.newDocumentBuilder();
-	        Document xmlDoc = builder
-	                .parse(new InputSource(new StringReader(doc)));
+		Document xmlDoc = XMLHelper.convertToDocument(doc);
 
 		Node xmlConfiguration = xmlDoc.getElementsByTagName("balancer").item(0);
 
