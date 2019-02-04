@@ -42,7 +42,7 @@ public class LoadBalancerConfigurationTest {
     private final static long _220_GB = (1024L * 1024L * 1024L * 220L);
     final String xml = ""
             + "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>"
-            + "<essvcenter>"
+            + "<ess:essvcenter>"
             + "    <balancer class=\"org.oscm.app.vmware.business.balancer.EquipartitionHostBalancer\" cpuWeight=\"0.5\" memoryWeight=\"1\" vmWeight=\"1\"/>"
             + "<host enabled=\"true\" name=\"estvmwdev1.intern.est.fujitsu.com\">"
             + "<balancer class=\"org.oscm.app.vmware.business.balancer.EquipartitionStorageBalancer\" storage=\"VMdev0,VMdev1\"/>"
@@ -52,7 +52,7 @@ public class LoadBalancerConfigurationTest {
             + "</host>"
             + "<storage enabled=\"true\" limit=\"85%\" name=\"VMdev0\"/>"
             + "<storage enabled=\"true\" limit=\"85%\" name=\"VMdev1\"/>"
-            + "</essvcenter>";
+            + "</ess:essvcenter>";
 
     @Before
     public void setup() throws Exception {
