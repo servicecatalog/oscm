@@ -1,70 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright FUJITSU LIMITED 2018-->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ess="http://oscm.org/xsd" targetNamespace="http://oscm.org/xsd">
-<xs:element name="essvcenter">
+  <xs:element name="essvcenter">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="balancer" maxOccurs="unbounded" minOccurs="0">
           <xs:complexType>
             <xs:simpleContent>
               <xs:extension base="xs:string">
-				<xs:attribute name="class">
-				  <xs:simpleType>
-				    <xs:restriction base="xs:string">
-					  <xs:enumeration value="org.oscm.app.vmware.business.balancer.EquipartitionHostBalancer"/>
-					  <xs:enumeration value="org.oscm.app.vmware.business.balancer.DynamicEquipartitionHostBalancer"/>
-					  <xs:enumeration value="org.oscm.app.vmware.business.balancer.SequentialHostBalancer"/>
-					  <xs:enumeration value="org.oscm.app.vmware.business.balancer.EquipartitionStorageBalancer"/>
-					  <xs:enumeration value="org.oscm.app.vmware.business.balancer.DynamicEquipartitionStorageBalancer"/>
-				      <xs:enumeration value="org.oscm.app.vmware.business.balancer.SequentialStorageBalancer"/>
-				    </xs:restriction>
-				  </xs:simpleType>
-				</xs:attribute> 
+                <xs:attribute name="class">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:enumeration value="org.oscm.app.vmware.business.balancer.EquipartitionHostBalancer"/>
+                      <xs:enumeration value="org.oscm.app.vmware.business.balancer.DynamicEquipartitionHostBalancer"/>
+                      <xs:enumeration value="org.oscm.app.vmware.business.balancer.SequentialHostBalancer"/>
+                      <xs:enumeration value="org.oscm.app.vmware.business.balancer.EquipartitionStorageBalancer"/>
+                      <xs:enumeration value="org.oscm.app.vmware.business.balancer.DynamicEquipartitionStorageBalancer"/>
+                      <xs:enumeration value="org.oscm.app.vmware.business.balancer.SequentialStorageBalancer"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute> 
                 <xs:attribute name="cpuWeight">
-					<xs:simpleType>
-					  <xs:restriction base="xs:float">
-					    <xs:minInclusive value="0"/>
-					    <xs:maxInclusive value="1"/>
-					  </xs:restriction>
-					</xs:simpleType>
-				</xs:attribute> 
-				<xs:attribute name="memoryWeight">
-					<xs:simpleType>
-					  <xs:restriction base="xs:float">
-					    <xs:minInclusive value="0"/>
-					    <xs:maxInclusive value="1"/>
-					  </xs:restriction>
-					</xs:simpleType>
-				</xs:attribute> 
-				<xs:attribute name="vmWeight">
-					<xs:simpleType>
-					  <xs:restriction base="xs:float">
-					    <xs:minInclusive value="0"/>
-					    <xs:maxInclusive value="1"/>
-					  </xs:restriction>
-					</xs:simpleType>
-				</xs:attribute>
-				<xs:anyAttribute processContents="skip"/>
-              </xs:extension>
-            </xs:simpleContent>
-          </xs:complexType>
-        </xs:element>
-        <xs:element name="host" maxOccurs="unbounded" minOccurs="0">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element name="balancer" maxOccurs="unbounded" minOccurs="0">
-                <xs:complexType>
-                  <xs:simpleContent>
-                    <xs:extension base="xs:string">
-					  <xs:attribute name="class">
-					    <xs:simpleType>
-						  <xs:restriction base="xs:string">
-						    <xs:enumeration value="org.oscm.app.vmware.business.balancer.EquipartitionStorageBalancer"/>
-							<xs:enumeration value="org.oscm.app.vmware.business.balancer.DynamicEquipartitionStorageBalancer"/>
-							<xs:enumeration value="org.oscm.app.vmware.business.balancer.SequentialStorageBalancer"/>
-						    </xs:restriction>
-						  </xs:simpleType>
-						</xs:attribute> 
+                  <xs:simpleType>
+                    <xs:restriction base="xs:float">
+                      <xs:minInclusive value="0"/>
+                      <xs:maxInclusive value="1"/>
+                    </xs:restriction>
+                  </xs:simpleType>
+                 </xs:attribute> 
+                 <xs:attribute name="memoryWeight">
+                   <xs:simpleType>
+                     <xs:restriction base="xs:float">
+                       <xs:minInclusive value="0"/>
+                       <xs:maxInclusive value="1"/>
+                     </xs:restriction>
+                   </xs:simpleType>
+                 </xs:attribute> 
+                 <xs:attribute name="vmWeight">
+                   <xs:simpleType>
+                     <xs:restriction base="xs:float">
+                       <xs:minInclusive value="0"/>
+                       <xs:maxInclusive value="1"/>
+                     </xs:restriction>
+                   </xs:simpleType>
+                 </xs:attribute>
+                 <xs:anyAttribute processContents="skip"/>
+               </xs:extension>
+             </xs:simpleContent>
+           </xs:complexType>
+         </xs:element>
+         <xs:element name="host" maxOccurs="unbounded" minOccurs="0">
+           <xs:complexType>
+             <xs:sequence>
+               <xs:element name="balancer" maxOccurs="unbounded" minOccurs="0">
+                 <xs:complexType>
+                   <xs:simpleContent>
+                     <xs:extension base="xs:string">
+                       <xs:attribute name="class">
+                         <xs:simpleType>
+                           <xs:restriction base="xs:string">
+                             <xs:enumeration value="org.oscm.app.vmware.business.balancer.EquipartitionStorageBalancer"/>
+                             <xs:enumeration value="org.oscm.app.vmware.business.balancer.DynamicEquipartitionStorageBalancer"/>
+                             <xs:enumeration value="org.oscm.app.vmware.business.balancer.SequentialStorageBalancer"/>
+                           </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute> 
                       <xs:attribute type="xs:string" name="storage" use="required"/>
                     </xs:extension>
                   </xs:simpleContent>
@@ -91,5 +91,3 @@
     </xs:complexType>
   </xs:element>
 </xs:schema>
-
-
