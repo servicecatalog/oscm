@@ -12,7 +12,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.StringReader;
 import java.text.DecimalFormat;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +34,7 @@ import org.oscm.app.vmware.business.VMwareValue.Unit;
 import org.oscm.app.vmware.business.model.VMwareStorage;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
 
 /**
  * @author Dirk Bernsau
@@ -171,7 +180,7 @@ public class EquipartitionStorageBalancerTest {
                 + "vmWeight=\"%s\" " + "storage=\"%s\" " + "/>\r\n", 1, 1, 1,
                 storages);
         String doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n"
-                + "<essvcenter>\r\n" + "\r\n" + "    " + balancerXML;
+                + "<ess:essvcenter xmlns:ess=\"http://oscm.org/xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://oscm.org/xsd ../../oscm-app-vmware\\resources\\XSD\\Loadbalancer_schema.xsd\">\r\n" + "\r\n" + "    " + balancerXML;
 
         if (!omitStorageList) {
             for (String storage : storages.split(",")) {
@@ -180,7 +189,7 @@ public class EquipartitionStorageBalancerTest {
                         storage);
             }
         }
-        doc += "\r\n</essvcenter>";
+        doc += "\r\n</ess:essvcenter>";
 
         Document xmlDoc = XMLHelper.convertToDocument(doc);
 

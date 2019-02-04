@@ -98,7 +98,7 @@ public class SequentialHostBalancerTest {
         
         StringBuffer doc = new StringBuffer();
         doc.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n");
-        doc.append("<essvcenter>\r\n");
+        doc.append("<ess:essvcenter xmlns:ess=\"http://oscm.org/xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://oscm.org/xsd ../../oscm-app-vmware\\resources\\XSD\\Loadbalancer_schema.xsd\">" + "\r\n");
         
         doc.append("<balancer class=\"org.oscm.app.vmware.business.balancer.SequentialHostBalancer\" ");
         
@@ -109,7 +109,7 @@ public class SequentialHostBalancerTest {
         for (String host : hostlist.split(",")) {
             doc.append(String.format("    <host enabled=\"true\" limit=\"85\" name=\"%s\"/>\r\n", host));
         }
-        doc.append("</essvcenter>");
+        doc.append("</ess:essvcenter>");
         Document xmlDoc = XMLHelper.convertToDocument(doc.toString());
         
 
