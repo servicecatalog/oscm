@@ -11,9 +11,7 @@ package org.oscm.app.vmware.business.balancer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
 import java.util.HashMap;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -30,6 +28,7 @@ import org.oscm.app.vmware.i18n.Messages;
 import org.slf4j.impl.SimpleLogger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.xml.sax.SAXParseException;
 
 /**
  * @author Dirk Bernsau
@@ -373,7 +372,7 @@ public class EquipartitionHostBalancerTest {
 		assertEquals("host2", result.getName());
 	}
 
-	@Test
+	@Test(expected=SAXParseException.class)
 	public void testBalancer_wrongConfig() throws Exception {
 
 		final String hostlist = "host1,host2,host3,host4,host5";
@@ -385,8 +384,9 @@ public class EquipartitionHostBalancerTest {
 				+ "cpuWeight=\"%s\" " + "memoryWeight=\"%s\" " + "vmWeight=\"%s\" " + "hosts=\"%s\" " + "/>\r\n",
 				wrongValue, wrongValue, wrongValue, hostlist);
 
-		String doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" + "\r\n" + "<essvcenter>\r\n"
-				+ "\r\n" + "    " + balancerXML + "</essvcenter>";
+		String doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" + "\r\n"
+		            + "<ess:essvcenter xmlns:ess=\"http://oscm.org/xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://oscm.org/xsd ../../oscm-app-vmware\\resources\\XSD\\Loadbalancer_schema.xsd\">"
+				+ "\r\n" + "    " + balancerXML + "</ess:essvcenter>";
 
 		Document xmlDoc = XMLHelper.convertToDocument(doc);
 
@@ -408,7 +408,7 @@ public class EquipartitionHostBalancerTest {
 	@Test
 	public void testBalancer_noHostsObject() throws Exception {
 		// no host elements should not create an exception
-		getBalancerWithoutHostObjects(9, 6, 3);
+		getBalancerWithoutHostObjects(0.9, 0.6, 0.3);
 
 	}
 
@@ -422,9 +422,10 @@ public class EquipartitionHostBalancerTest {
 				+ "cpuWeight=\"%s\" " + "memoryWeight=\"%s\" " + "vmWeight=\"%s\" " + "hosts=\"%s\" " + "/>\r\n",
 				cpuWeight, memWeight, vmWeight, hostlist);
 
-		String doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\r\n" + "\r\n" + "<essvcenter>\r\n"
-				+ "\r\n" + "    " + balancerXML + "</essvcenter>";
-
+		String doc = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>"
+		            + "<ess:essvcenter xmlns:ess=\"http://oscm.org/xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://oscm.org/xsd ../../oscm-app-vmware\\resources\\XSD\\Loadbalancer_schema.xsd\">"
+				+ "\r\n" + "    " + balancerXML + "</ess:essvcenter>";
+		
 		Document xmlDoc = XMLHelper.convertToDocument(doc);
 
 		Node xmlConfiguration = xmlDoc.getElementsByTagName("balancer").item(0);

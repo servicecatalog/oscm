@@ -10,8 +10,15 @@ package org.oscm.app.vmware.remote.bes;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import org.apache.commons.io.IOUtils;
 import org.oscm.app.vmware.business.VMPropertyHandler;
@@ -30,6 +37,9 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
+import com.sun.org.apache.xml.internal.utils.DefaultErrorHandler;
 
 public class ServiceParamRetrieval {
 
@@ -109,7 +119,13 @@ public class ServiceParamRetrieval {
 	}
 
 	protected static String readServiceParameter(String parameterId, String technicalService) throws Exception {
-		Document document = XMLHelper.convertToDocument(technicalService);
+	    
+	        DocumentBuilderFactory dfactory = DocumentBuilderFactory.newInstance();
+	        dfactory.setValidating(false);
+	        dfactory.setIgnoringElementContentWhitespace(true);
+	        dfactory.setNamespaceAware(true);
+	        DocumentBuilder builder = dfactory.newDocumentBuilder();
+	        Document document = builder.parse(new InputSource(new StringReader(technicalService)));
 		NodeList serviceParameters = document.getElementsByTagName("ParameterDefinition");
 
 		for (int i = 0; i < serviceParameters.getLength(); i++) {
