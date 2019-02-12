@@ -8,17 +8,18 @@
 
 package org.oscm.app.vmware.service;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.util.HashMap;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.oscm.app.v2_0.data.ProvisioningSettings;
 import org.oscm.app.v2_0.data.Setting;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.vmware.business.VMPropertyHandler;
+
+import static org.junit.Assert.*;
 
 /**
  * @author kulle
@@ -26,6 +27,7 @@ import org.oscm.app.vmware.business.VMPropertyHandler;
  */
 public class VMControllerTest {
 
+    @InjectMocks
     private VMController controller;
     private ProvisioningSettings settings;
 
@@ -191,4 +193,57 @@ public class VMControllerTest {
 
     }
 
+    @Test
+    @Ignore("Not implemented")
+    public void shouldValidateConfiguration_whenControllerConfigIsValid_givenCanPingRequest() {
+        //TODO: Prep step - mockito?
+
+        boolean result = controller.canPing();
+
+        assertTrue("Controller configuration should be valid", result);
+    }
+
+    @Test
+    @Ignore("Not implemented")
+    public void shouldNotValidateConfiguration_whenControllerConfigIsInvalid_givenCanPingRequest() {
+        //TODO: Prep step - mockito?
+
+        boolean result = controller.canPing();
+
+        assertFalse("Controller configuration should be invalid", result);
+    }
+
+    @Test
+    @Ignore("Not implemented")
+    public void shouldValidateConnection_whenServiceInstanceIsReachable_givenPingRequest() {
+        //TODO: Prep step - mockito?
+        boolean result = false;
+        Exception exception = null;
+
+        try {
+            result = controller.ping("vmwareControllerId");
+        } catch (APPlatformException ex) {
+            exception = ex;
+        }
+
+        assertTrue("Instance should be reachable", result);
+        assertNull("There should be no exception thrown", exception);
+    }
+
+    @Test
+    @Ignore("Not implemented")
+    public void shouldNotValidateConnection_whenServiceInstanceIsUnreachable_givenPingRequest() {
+        //TODO: Prep step - mockito?
+        boolean result = true;
+        Exception exception = null;
+
+        try {
+            result = controller.ping("vmwareControllerId");
+        } catch (APPlatformException ex) {
+            exception = ex;
+        }
+
+        assertFalse("Instance should not be reachable", result);
+        assertNull("There should be no exception thrown", exception);
+    }
 }

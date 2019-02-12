@@ -14,6 +14,7 @@
     function setOnSubmit(flag) { onSubmitFlag = flag; }
     setDirty(getDirty() || #{appConfigurationModel.dirty});
 
+
     </script>
     <div class="heading_data_1_class">
         <div class="heading_data_1_bg_class">
@@ -77,12 +78,22 @@
                                onclick="setOnSubmit(true);setDirty(false);#{rich:element('selectedControllerId')}.value='#{key}';#{rich:element('deleteController')}.click();return false;"/>
             </rich:column>
             <rich:column>
-                <h:commandButton value="TEMP_CANPING" type="submit"
-                               onclick=""/>
-            </rich:column>
-            <rich:column>
-                <h:commandButton value="TEMP_PING" type="submit"
-                               onclick=""/>
+                <h:panelGroup class="button_right_part_class">
+                    <h:panelGroup class="button_content_class">
+                        <h:commandButton id="canPingButton" class="button_normal_class"
+                                         value="#{msg['ui.config.action.can-ping']}"
+                                         onmouseup="location.reload()"
+                                         action="#{appConfigurationCtrl.invokeCanPing(key)}"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup class="button_right_part_class"
+                              rendered="#{appConfigurationModel.pingButtonVisibilityMap[key]}">
+                    <h:panelGroup class="button_content_class">
+                        <h:commandButton id="pingButton" class="button_normal_class"
+                                         value="#{msg['ui.config.action.ping']}" onclick="alert('Ping?')"
+                                         action="#{appConfigurationCtrl.invokePing(key)}"/>
+                    </h:panelGroup>
+                </h:panelGroup>
             </rich:column>
         </rich:dataTable>
 

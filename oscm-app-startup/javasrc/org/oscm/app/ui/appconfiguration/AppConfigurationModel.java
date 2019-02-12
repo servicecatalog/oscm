@@ -1,25 +1,25 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018
- *                                                                                                                                 
+ *
  *  Creation Date: 13 Mar 2014                                                      
- *                                                                              
+ *
  *******************************************************************************/
 
 package org.oscm.app.ui.appconfiguration;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import org.oscm.app.ui.BaseModel;
+import org.oscm.types.constants.Configuration;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import org.oscm.app.ui.BaseModel;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Mao
- * 
  */
 @ViewScoped
 @ManagedBean
@@ -36,7 +36,14 @@ public class AppConfigurationModel extends BaseModel {
     private boolean pageDirty;
     private String loggedInUserId;
     private boolean restartRequired = false;
-    
+    private Map<String, Boolean> pingButtonVisibilityMap = new HashMap<String, Boolean>() {{
+        put(Configuration.AWS_CONTROLLER_ID, false);
+        put(Configuration.AZURE_CONTROLLER_ID, false);
+        put(Configuration.OPENSTACK_CONTROLLER_ID, false);
+        put(Configuration.SHELL_CONTROLLER_ID, false);
+        put(Configuration.VMWARE_CONTROLLER_ID, false);
+    }};
+
     public boolean isInitialized() {
         return initialized;
     }
@@ -125,4 +132,11 @@ public class AppConfigurationModel extends BaseModel {
         this.restartRequired = restartRequired;
     }
 
+    public Map<String, Boolean> getPingButtonVisibilityMap() {
+        return pingButtonVisibilityMap;
+    }
+
+    public void setPingButtonVisibilityMap(Map<String, Boolean> pingButtonVisibilityMap) {
+        this.pingButtonVisibilityMap = pingButtonVisibilityMap;
+    }
 }

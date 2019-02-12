@@ -497,6 +497,18 @@ public class VMController implements APPlatformController {
     }
 
     @Override
+    public boolean ping(String controllerId) throws APPlatformException {
+        logger.debug(">>>>> INVOKED PING METHOD");
+        return false;
+    }
+
+    @Override
+    public boolean canPing() {
+        logger.debug(">>>>> INVOKED CAN-PING METHOD");
+        return false;
+    }
+
+    @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<LocalizedText> getControllerStatus(ControllerSettings arg0)
             throws APPlatformException {

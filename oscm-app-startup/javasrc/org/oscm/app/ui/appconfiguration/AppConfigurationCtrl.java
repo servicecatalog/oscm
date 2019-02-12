@@ -8,12 +8,9 @@
  *******************************************************************************/
 package org.oscm.app.ui.appconfiguration;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -23,8 +20,10 @@ import javax.servlet.http.HttpSession;
 
 import org.oscm.app.ui.BaseCtrl;
 import org.oscm.app.ui.SessionConstants;
+import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
 import org.oscm.app.v2_0.service.APPTimerServiceBean;
+import org.oscm.types.constants.Configuration;
 
 /**
  * This controller of manage app configuration settings.
@@ -35,8 +34,11 @@ import org.oscm.app.v2_0.service.APPTimerServiceBean;
 @ManagedBean
 public class AppConfigurationCtrl extends BaseCtrl {
 
+    private static final Logger log = Logger.getLogger(AppConfigurationCtrl.class.getName());
+
     private APPConfigurationServiceBean appConfigService;
     private APPTimerServiceBean timerService;
+    private boolean pingButtonVisibility = false;
     
     @ManagedProperty(value="#{appConfigurationModel}")
     private AppConfigurationModel model;
@@ -210,5 +212,42 @@ public class AppConfigurationCtrl extends BaseCtrl {
 
     private boolean isAPPSuspend() {
         return getAppConfigService().isAPPSuspend();
+    }
+
+    public void invokeCanPing(String controllerId) throws APPlatformException {
+
+
+        Map<String, Boolean> updatedMap = new HashMap<>();
+        boolean canPing = false;
+
+        switch (controllerId) {
+            case Configuration.VMWARE_CONTROLLER_ID:
+                //TODO: Execute canPingImplementation
+                updatedMap.put(Configuration.VMWARE_CONTROLLER_ID, true);
+//                updatedMap.put(Configuration.VMWARE_CONTROLLER_ID, canPing);
+                break;
+            case Configuration.AWS_CONTROLLER_ID:
+                updatedMap.put(Configuration.AWS_CONTROLLER_ID, true);
+                break;
+            default:
+                addErrorMessage("Unsupported controller ID");
+        }
+
+        updatePingButtonVisibilityMap(updatedMap);
+    }
+
+    private void updatePingButtonVisibilityMap(Map<String, Boolean> updatedMap) {
+        model.getPingButtonVisibilityMap().putAll(updatedMap);
+        Map<String, Boolean> lookup = model.getPingButtonVisibilityMap();
+    }
+
+    public void invokePing(String controllerId) throws APPlatformException {
+        switch (controllerId) {
+            case Configuration.VMWARE_CONTROLLER_ID:
+                break;
+            default:
+                addErrorMessage("Unsupported controller ID");
+
+        }
     }
 }

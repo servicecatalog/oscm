@@ -36,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Matchers;
@@ -304,5 +305,29 @@ public class AppConfigurationCtrlTest {
         // then
         assertEquals(OUTCOME_SUCCESS, result);
         assertEquals(Boolean.FALSE, Boolean.valueOf(model.isRestartRequired()));
+    }
+
+    @Test
+    @Ignore("Not implemented")
+    public void shouldInvokeCanPing_whenCanPingIsRequested_givenWMwareControllerId() {
+
+    }
+
+    @Test
+    @Ignore("Not implemented")
+    public void shouldThrowAnException_whenCanPingIsRequested_givenUnsupportedControllerId() {
+
+    }
+
+    @Test
+    @Ignore("Not implemented")
+    public void shouldInvokeCanPing_whenPingIsRequested_givenWMwareControllerId() {
+
+    }
+
+    @Test
+    @Ignore("Not implemented")
+    public void shouldThrowAnException_whenPingIsRequested_givenUnsupportedControllerId() {
+
     }
 }
