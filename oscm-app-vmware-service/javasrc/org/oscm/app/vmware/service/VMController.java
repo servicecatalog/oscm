@@ -8,26 +8,8 @@
 
 package org.oscm.app.vmware.service;
 
-import java.util.List;
-import java.util.Properties;
-
-import javax.annotation.PostConstruct;
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
-
 import org.oscm.app.v2_0.APPlatformServiceFactory;
-import org.oscm.app.v2_0.data.Context;
-import org.oscm.app.v2_0.data.ControllerSettings;
-import org.oscm.app.v2_0.data.InstanceDescription;
-import org.oscm.app.v2_0.data.InstanceStatus;
-import org.oscm.app.v2_0.data.InstanceStatusUsers;
-import org.oscm.app.v2_0.data.LocalizedText;
-import org.oscm.app.v2_0.data.OperationParameter;
-import org.oscm.app.v2_0.data.ProvisioningSettings;
-import org.oscm.app.v2_0.data.ServiceUser;
+import org.oscm.app.v2_0.data.*;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.v2_0.exceptions.LogAndExceptionConverter;
 import org.oscm.app.v2_0.exceptions.SuspendException;
@@ -43,6 +25,15 @@ import org.oscm.app.vmware.i18n.Messages;
 import org.oscm.app.vmware.remote.bes.Credentials;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.inject.Inject;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * Controller implementation for integration of VMWare.
@@ -498,14 +489,14 @@ public class VMController implements APPlatformController {
 
     @Override
     public boolean ping(String controllerId) throws APPlatformException {
-        logger.debug(">>>>> INVOKED PING METHOD");
+        //TODO: Implement
         return false;
     }
 
     @Override
     public boolean canPing() {
-        logger.debug(">>>>> INVOKED CAN-PING METHOD");
-        return false;
+        //TODO: Implement
+        return true;
     }
 
     @Override

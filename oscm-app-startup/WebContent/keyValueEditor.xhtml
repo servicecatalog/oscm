@@ -15,6 +15,7 @@
     setDirty(getDirty() || #{appConfigurationModel.dirty});
 
 
+
     </script>
     <div class="heading_data_1_class">
         <div class="heading_data_1_bg_class">
@@ -90,7 +91,7 @@
                               rendered="#{appConfigurationModel.pingButtonVisibilityMap[key]}">
                     <h:panelGroup class="button_content_class">
                         <h:commandButton id="pingButton" class="button_normal_class"
-                                         value="#{msg['ui.config.action.ping']}" onclick="alert('Ping?')"
+                                         value="#{msg['ui.config.action.ping']}"
                                          action="#{appConfigurationCtrl.invokePing(key)}"/>
                     </h:panelGroup>
                 </h:panelGroup>

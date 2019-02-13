@@ -1,48 +1,53 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018
- *                                                           
- *                                                                              
+ *
+ *
  *  Creation Date: 13 Mar 2014                                       
- *                                                                              
+ *
  *******************************************************************************/
 package org.oscm.app.ui.appconfiguration;
 
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.google.common.collect.Lists;
+import org.oscm.app.business.APPlatformControllerFactory;
+import org.oscm.app.ui.BaseCtrl;
+import org.oscm.app.ui.SessionConstants;
+import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.ControllerLookupException;
+import org.oscm.app.v2_0.intf.APPlatformController;
+import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
+import org.oscm.app.v2_0.service.APPTimerServiceBean;
+import org.oscm.types.constants.Configuration;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-
-import org.oscm.app.ui.BaseCtrl;
-import org.oscm.app.ui.SessionConstants;
-import org.oscm.app.v2_0.exceptions.APPlatformException;
-import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
-import org.oscm.app.v2_0.service.APPTimerServiceBean;
-import org.oscm.types.constants.Configuration;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This controller of manage app configuration settings.
- * 
+ * <p>
  * Mao
  */
 @ViewScoped
 @ManagedBean
 public class AppConfigurationCtrl extends BaseCtrl {
 
-    private static final Logger log = Logger.getLogger(AppConfigurationCtrl.class.getName());
+    private static final String ERROR_PING_UNSUPPORTED = "app.message.error.controller.not.pingable";
+    private static final String ERROR_PING_FAILED = "app.message.error.controller.unreachable";
+    private static final String INFO_PING_SUCCEEDED = "app.message.info.controller.reachable";
 
     private APPConfigurationServiceBean appConfigService;
     private APPTimerServiceBean timerService;
-    private boolean pingButtonVisibility = false;
-    
-    @ManagedProperty(value="#{appConfigurationModel}")
+
+    private Map<String, APPlatformController> controllerInstanceMap = new ConcurrentHashMap<>();
+
+    @ManagedProperty(value = "#{appConfigurationModel}")
     private AppConfigurationModel model;
-    
+
     public String getInitialize() {
 
         AppConfigurationModel model = getModel();
@@ -214,23 +219,14 @@ public class AppConfigurationCtrl extends BaseCtrl {
         return getAppConfigService().isAPPSuspend();
     }
 
-    public void invokeCanPing(String controllerId) throws APPlatformException {
-
-
+    public void invokeCanPing(String controllerId) throws APPlatformException { //TODO: This should not have throws clause!
         Map<String, Boolean> updatedMap = new HashMap<>();
-        boolean canPing = false;
 
-        switch (controllerId) {
-            case Configuration.VMWARE_CONTROLLER_ID:
-                //TODO: Execute canPingImplementation
-                updatedMap.put(Configuration.VMWARE_CONTROLLER_ID, true);
-//                updatedMap.put(Configuration.VMWARE_CONTROLLER_ID, canPing);
-                break;
-            case Configuration.AWS_CONTROLLER_ID:
-                updatedMap.put(Configuration.AWS_CONTROLLER_ID, true);
-                break;
-            default:
-                addErrorMessage("Unsupported controller ID");
+        if(Configuration.pingableControllersList.contains(controllerId)) {
+            APPlatformController controller = getControllerInstance(controllerId);
+            updatedMap.put(controllerId, controller != null && controller.canPing());
+        } else {
+            addError(ERROR_PING_UNSUPPORTED);
         }
 
         updatePingButtonVisibilityMap(updatedMap);
@@ -238,16 +234,26 @@ public class AppConfigurationCtrl extends BaseCtrl {
 
     private void updatePingButtonVisibilityMap(Map<String, Boolean> updatedMap) {
         model.getPingButtonVisibilityMap().putAll(updatedMap);
-        Map<String, Boolean> lookup = model.getPingButtonVisibilityMap();
     }
 
-    public void invokePing(String controllerId) throws APPlatformException {
-        switch (controllerId) {
-            case Configuration.VMWARE_CONTROLLER_ID:
-                break;
-            default:
-                addErrorMessage("Unsupported controller ID");
+    public void invokePing(String controllerId) {
+        try {
+            APPlatformController controller = getControllerInstance(controllerId);
 
+            if (controller == null) addError(ERROR_PING_UNSUPPORTED);
+            else if(controller.ping(controllerId)) addMessage(INFO_PING_SUCCEEDED);
+            else addError(ERROR_PING_FAILED);
+
+        } catch (APPlatformException ex) {
+            addError(ex.getMessage());
         }
+    }
+
+    private APPlatformController getControllerInstance(String controllerId) throws ControllerLookupException {
+        if (!controllerInstanceMap.containsKey(controllerId))
+            controllerInstanceMap.put(
+                    controllerId, APPlatformControllerFactory.getInstance(Configuration.VMWARE_CONTROLLER_ID));
+
+        return controllerInstanceMap.get(controllerId);
     }
 }

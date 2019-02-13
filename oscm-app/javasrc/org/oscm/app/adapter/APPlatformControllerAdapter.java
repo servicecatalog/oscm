@@ -147,5 +147,14 @@ public class APPlatformControllerAdapter implements APPlatformController {
             ProvisioningSettings settings) throws APPlatformException {
         return delegate.gatherUsageData(controllerId, instanceId, startTime, endTime, settings);
     }
-    
+
+    @Override
+    public boolean ping(String controllerId) throws APPlatformException {
+        return delegate.ping(controllerId);
+    }
+
+    @Override
+    public boolean canPing() {
+        return delegate.canPing();
+    }
 }

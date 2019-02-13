@@ -12,6 +12,9 @@
 
 package org.oscm.types.constants;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Provides constants used in the context of the configuration setting service.
  * 
@@ -35,4 +38,8 @@ public interface Configuration {
     public static final String OPENSTACK_CONTROLLER_ID = "ess.openstack";
     public static final String SHELL_CONTROLLER_ID = "ess.shell";
     public static final String VMWARE_CONTROLLER_ID = "ess.vmware";
+
+    public static final List<String> pingableControllersList = Arrays.asList(
+      VMWARE_CONTROLLER_ID
+    );
 }

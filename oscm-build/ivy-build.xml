@@ -23,7 +23,7 @@
     <!--TODO: Change this command to originate from MASTER!! -->
     <antcall target="getAndUnzip">
       <param name="from"
-        value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-app-extsvc/oscm~217-ping-for-vmware-SNAPSHOT/oscm-app-extsvc-oscm~217-ping-for-vmware-SNAPSHOT.jar" />
+        value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-app-extsvc/feature~connectivity-tests-SNAPSHOT/oscm-app-extsvc-feature~connectivity-tests-SNAPSHOT.jar" />
       <param name="to" value="${root.dir}/libraries/servicecatalog/oscm-app-extsvc/javalib/oscm-app-extsvc.jar" />
       <param name="deployin" value="${root.dir}/oscm-app-extsvc-2-0/javares" />
     </antcall>

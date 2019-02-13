@@ -1,54 +1,49 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018
- *                                                           
+ *
  *  Sample controller implementation for the 
  *  BSS Asynchronous Provisioning Proxy (APP)
- *                                                                              
+ *
  *  Creation Date: 06.09.2012                                                      
- *                                                                              
+ *
  *******************************************************************************/
 package org.oscm.app.ui;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Locale;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.mockito.*;
+import org.oscm.app.ui.appconfiguration.AppConfigurationCtrl;
+import org.oscm.app.ui.appconfiguration.AppConfigurationModel;
+import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.intf.APPlatformController;
+import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
+import org.oscm.app.v2_0.service.APPTimerServiceBean;
+import org.oscm.test.ejb.TestNamingContextFactoryBuilder;
+import org.oscm.types.constants.Configuration;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.naming.spi.NamingManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Locale;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Matchers;
-import org.mockito.Mockito;
-import org.oscm.app.ui.appconfiguration.AppConfigurationCtrl;
-import org.oscm.app.ui.appconfiguration.AppConfigurationModel;
-import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
-import org.oscm.app.v2_0.service.APPTimerServiceBean;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Test case for AppConfigurationCtrl
- * 
+ * <p>
  * Mao
  */
 public class AppConfigurationCtrlTest {
@@ -56,8 +51,10 @@ public class AppConfigurationCtrlTest {
     protected static final String OUTCOME_SAMEPAGE = "refresh";
     protected static final String OUTCOME_SUCCESS = "success";
 
+    @Spy
     private AppConfigurationCtrl ctrl;
     private AppConfigurationModel model;
+    private APPlatformController serviceController;
     private FacesContext facesContext;
     private ExternalContext externalContext;
     private HttpSession httpSession;
@@ -95,7 +92,7 @@ public class AppConfigurationCtrlTest {
 
         initialContext = mock(InitialContext.class);
         model = new AppConfigurationModel();
-        ctrl = new AppConfigurationCtrl() {
+        ctrl = spy(new AppConfigurationCtrl() {
             @Override
             protected FacesContext getFacesContext() {
                 return facesContext;
@@ -106,7 +103,7 @@ public class AppConfigurationCtrlTest {
                 return initialContext;
             }
 
-        };
+        });
 
         ctrl.setModel(model);
         appConfigService = mock(APPConfigurationServiceBean.class);
@@ -119,6 +116,9 @@ public class AppConfigurationCtrlTest {
         items.put("key2", "value2");
         doNothing().when(appConfigService).storeControllerOrganizations(
                 any(HashMap.class));
+
+        MockitoAnnotations.initMocks(this);
+        serviceController = mock(APPlatformController.class);
     }
 
     @Test
@@ -308,26 +308,100 @@ public class AppConfigurationCtrlTest {
     }
 
     @Test
-    @Ignore("Not implemented")
-    public void shouldInvokeCanPing_whenCanPingIsRequested_givenWMwareControllerId() {
+    public void shouldInvokeCanPingImplementation_whenCanPingIsRequested_givenWMWareControllerId() {
+        setServiceControllerContext(Configuration.VMWARE_CONTROLLER_ID);
 
+        try {
+            ctrl.invokeCanPing(Configuration.VMWARE_CONTROLLER_ID);
+        } catch (APPlatformException e) {
+            fail("An exception has occurred: " + e.getMessage());
+        }
+
+        verify(serviceController, atLeastOnce()).canPing();
     }
 
     @Test
-    @Ignore("Not implemented")
-    public void shouldThrowAnException_whenCanPingIsRequested_givenUnsupportedControllerId() {
+    public void shouldShowError_whenCanPingIsRequested_givenUnsupportedControllerId() {
+        String controllerId = "unsupported.controller.id";
+        setServiceControllerContext(controllerId);
 
+        try {
+            ctrl.invokeCanPing(controllerId);
+        } catch (APPlatformException e) {
+            fail("An exception has occurred: " + e.getMessage());
+        }
+
+        verify(serviceController, Mockito.never()).canPing();
+        verify(ctrl, atLeastOnce()).addError(anyString());
     }
 
     @Test
-    @Ignore("Not implemented")
-    public void shouldInvokeCanPing_whenPingIsRequested_givenWMwareControllerId() {
+    public void shouldPassPing_whenPingIsRequested_givenWMWareControllerId() {
+        setServiceControllerContext(Configuration.VMWARE_CONTROLLER_ID);
+        try {
+            when(serviceController.ping(anyString())).thenReturn(true);
 
+            ctrl.invokePing(Configuration.VMWARE_CONTROLLER_ID);
+
+            verify(serviceController, atLeastOnce()).ping(Configuration.VMWARE_CONTROLLER_ID);
+        } catch (APPlatformException e) {
+            fail("An exception has occurred: " + e.getMessage());
+
+        }
+        verify(ctrl, atLeastOnce()).addMessage(anyString());
     }
 
     @Test
-    @Ignore("Not implemented")
-    public void shouldThrowAnException_whenPingIsRequested_givenUnsupportedControllerId() {
+    public void shouldFailPing_whenPingIsRequested_givenWMWareControllerId() {
+        setServiceControllerContext(Configuration.VMWARE_CONTROLLER_ID);
+        try {
+            when(serviceController.ping(anyString())).thenReturn(false);
 
+            ctrl.invokePing(Configuration.VMWARE_CONTROLLER_ID);
+
+            verify(serviceController, atLeastOnce()).ping(anyString());
+        } catch (APPlatformException e) {
+            fail("An exception has occurred: " + e.getMessage());
+
+        }
+        verify(ctrl, never()).addMessage(anyString());
+        verify(ctrl, atLeastOnce()).addError("app.message.error.controller.unreachable");
+    }
+
+    @Test
+    public void shouldShowError_whenPingIsRequested_givenUnsupportedControllerId() {
+        String controllerId = "unsupported.controller.id";
+        setServiceControllerContext(controllerId);
+
+        try {
+            ctrl.invokePing(controllerId);
+
+            verify(serviceController, never()).ping(controllerId);
+        } catch (APPlatformException e) {
+            fail("An exception has occurred: " + e.getMessage());
+
+        }
+        verify(ctrl, atLeastOnce()).addError(anyString());
+    }
+
+
+    private void setServiceControllerContext(String controllerId) {
+        doReturn(session).when(request).getSession();
+        doReturn("uid").when(session).getAttribute(
+                SessionConstants.SESSION_USER_ID);
+        doReturn("en").when(session).getAttribute(
+                SessionConstants.SESSION_USER_LOCALE);
+
+        try {
+            if (!NamingManager.hasInitialContextFactoryBuilder()) {
+                NamingManager
+                        .setInitialContextFactoryBuilder(new TestNamingContextFactoryBuilder());
+            }
+            InitialContext context = new InitialContext();
+            context.bind(APPlatformController.JNDI_PREFIX + controllerId,
+                    serviceController);
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
     }
 }
