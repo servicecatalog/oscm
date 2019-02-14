@@ -388,7 +388,7 @@ public class EquipartitionHostBalancerTest {
 		            + "<ess:essvcenter xmlns:ess=\"http://oscm.org/xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://oscm.org/xsd ../../oscm-app-vmware\\resources\\XSD\\Loadbalancer_schema.xsd\">"
 				+ "\r\n" + "    " + balancerXML + "</ess:essvcenter>";
 
-		Document xmlDoc = XMLHelper.convertToDocument(doc);
+		Document xmlDoc = XMLHelper.convertToDocument(doc, true);
 
 		Node xmlConfiguration = xmlDoc.getElementsByTagName("balancer").item(1);
 		EquipartitionHostBalancer balancer = new EquipartitionHostBalancer();
@@ -426,7 +426,7 @@ public class EquipartitionHostBalancerTest {
 		            + "<ess:essvcenter xmlns:ess=\"http://oscm.org/xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://oscm.org/xsd ../../oscm-app-vmware\\resources\\XSD\\Loadbalancer_schema.xsd\">"
 				+ "\r\n" + "    " + balancerXML + "</ess:essvcenter>";
 		
-		Document xmlDoc = XMLHelper.convertToDocument(doc);
+		Document xmlDoc = XMLHelper.convertToDocument(doc, true);
 
 		Node xmlConfiguration = xmlDoc.getElementsByTagName("balancer").item(0);
 

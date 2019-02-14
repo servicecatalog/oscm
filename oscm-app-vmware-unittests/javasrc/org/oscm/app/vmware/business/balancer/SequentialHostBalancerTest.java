@@ -110,7 +110,7 @@ public class SequentialHostBalancerTest {
             doc.append(String.format("    <host enabled=\"true\" limit=\"85\" name=\"%s\"/>\r\n", host));
         }
         doc.append("</ess:essvcenter>");
-        Document xmlDoc = XMLHelper.convertToDocument(doc.toString());
+        Document xmlDoc = XMLHelper.convertToDocument(doc.toString(), true);
         
 
         Node xmlConfiguration = xmlDoc.getElementsByTagName("balancer").item(0);
