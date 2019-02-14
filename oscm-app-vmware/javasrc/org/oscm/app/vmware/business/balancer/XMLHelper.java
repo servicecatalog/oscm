@@ -57,12 +57,16 @@ public class XMLHelper {
             Schema schema = xsdFactory.newSchema(schemaURL);
             dfactory.setSchema(schema);
         }
-        
+
         dfactory.setValidating(false);
         dfactory.setIgnoringElementContentWhitespace(true);
         dfactory.setNamespaceAware(true);
         DocumentBuilder builder = dfactory.newDocumentBuilder();
-        builder.setErrorHandler(new DefaultErrorHandler());
+        
+        if (checkSchema) {
+            builder.setErrorHandler(new DefaultErrorHandler());
+        }
+
         Document doc = builder.parse(new InputSource(new StringReader(string)));
         return doc;
     }
