@@ -198,7 +198,7 @@ public class SequentialStorageBalancerTest {
         }
         doc.append("</ess:essvcenter>");
 
-        Document xmlDoc = XMLHelper.convertToDocument(doc.toString());
+        Document xmlDoc = XMLHelper.convertToDocument(doc.toString(), true);
 
         Node xmlConfiguration = xmlDoc.getElementsByTagName("host").item(0);
 

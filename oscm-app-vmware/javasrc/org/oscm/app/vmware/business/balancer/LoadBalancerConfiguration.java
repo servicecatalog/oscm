@@ -57,7 +57,7 @@ public class LoadBalancerConfiguration {
         storageList = new ArrayList<VMwareStorage>();
         inventory.disableHostsAndStorages();
 
-        Document document = XMLHelper.convertToDocument(xmlData);
+        Document document = XMLHelper.convertToDocument(xmlData, false);
 
         NodeList hosts = document.getElementsByTagName(ELEMENT_HOST);
         NodeList balancers = document.getElementsByTagName(ELEMENT_BALANCER);

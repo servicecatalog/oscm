@@ -28,7 +28,7 @@ public class ClusterImporter implements Importer {
         String query = "INSERT INTO cluster (TKEY, NAME, LOAD_BALANCER, DATACENTER_TKEY) VALUES (DEFAULT, ?, ?, ?)";
 
         try(PreparedStatement stmt = this.das.getDatasource().getConnection().prepareStatement(query)) {
-            XMLHelper.convertToDocument(cluster.loadBalancer);
+            XMLHelper.convertToDocument(cluster.loadBalancer, true);
             stmt.setString(1, cluster.clusterName);
             stmt.setString(2, cluster.loadBalancer);
             stmt.setInt(3, datacenterKey);

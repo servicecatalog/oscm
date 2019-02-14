@@ -45,20 +45,22 @@ public class XMLHelper {
 
     }
 
-    public static Document convertToDocument(String string)
+    public static Document convertToDocument(String string, boolean checkSchema)
             throws SAXException, ParserConfigurationException, IOException {
 
-        URL schemaURL = XMLHelper.class.getClassLoader()
-                .getResource("META-INF/Loadbalancer_schema.xsd");
-
-        String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
-        SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
-        Schema schema = xsdFactory.newSchema(schemaURL);
         DocumentBuilderFactory dfactory = DocumentBuilderFactory.newInstance();
+        if (checkSchema) {
+            URL schemaURL = XMLHelper.class.getClassLoader()
+                    .getResource("META-INF/Loadbalancer_schema.xsd");
+            String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
+            SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
+            Schema schema = xsdFactory.newSchema(schemaURL);
+            dfactory.setSchema(schema);
+        }
+        
         dfactory.setValidating(false);
         dfactory.setIgnoringElementContentWhitespace(true);
         dfactory.setNamespaceAware(true);
-        dfactory.setSchema(schema);
         DocumentBuilder builder = dfactory.newDocumentBuilder();
         builder.setErrorHandler(new DefaultErrorHandler());
         Document doc = builder.parse(new InputSource(new StringReader(string)));
