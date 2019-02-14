@@ -141,8 +141,6 @@
       overwrite="true" />
     <copy file="${ivy.lib.dir}/commons-lang3-3.5.jar" todir="${root.dir}/libraries/apache-commons-lang/javalib"
       overwrite="true" />
-    <copy file="${ivy.lib.dir}/commons-configuration2-2.1.1.jar" todir="${root.dir}/libraries/apache-configuration/javalib"
-      overwrite="true" />
     <copy file="${ivy.lib.dir}/commons-dbcp-1.3.jar" todir="${root.dir}/libraries/apache-dbcp/javalib" overwrite="true" />
     <copy file="${ivy.lib.dir}/commons-pool-1.5.4.jar" todir="${root.dir}/libraries/apache-dbcp/javalib" overwrite="true" />
     <copy file="${ivy.lib.dir}/commons-digester-1.8.1.jar" todir="${root.dir}/libraries/apache-digester/javalib"
