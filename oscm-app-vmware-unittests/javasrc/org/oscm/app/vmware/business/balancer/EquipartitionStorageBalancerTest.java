@@ -191,7 +191,7 @@ public class EquipartitionStorageBalancerTest {
         }
         doc += "\r\n</ess:essvcenter>";
 
-        Document xmlDoc = XMLHelper.convertToDocument(doc);
+        Document xmlDoc = XMLHelper.convertToDocument(doc, true);
 
         Node xmlConfiguration = xmlDoc.getElementsByTagName("balancer").item(0);
 
