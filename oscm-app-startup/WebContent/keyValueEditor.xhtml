@@ -78,7 +78,7 @@
                 <h:commandLink value="#{msg['ui.config.action.delete']}" type="submit"
                                onclick="setOnSubmit(true);setDirty(false);#{rich:element('selectedControllerId')}.value='#{key}';#{rich:element('deleteController')}.click();return false;"/>
             </rich:column>
-            <rich:column>
+            <rich:column class="connectivity_tests_column">
                 <h:panelGroup class="button_right_part_class">
                     <h:panelGroup class="button_content_class">
                         <h:commandButton id="canPingButton" class="button_normal_class"

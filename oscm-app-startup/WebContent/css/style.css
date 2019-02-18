@@ -323,3 +323,11 @@ background-color: #DCDCDC;
 .rf-pp-hdr{
 	background: #717980 !important;
 }
+
+.connectivity_tests_column {
+	max-width: 8.5em;
+}
+
+.connectivity_tests_column input {
+	max-width: 9em;
+}
