@@ -11,12 +11,13 @@
 package org.oscm.app.ui;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.*;
 import org.oscm.app.ui.appconfiguration.AppConfigurationCtrl;
 import org.oscm.app.ui.appconfiguration.AppConfigurationModel;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.ConfigurationException;
+import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
 import org.oscm.app.v2_0.service.APPTimerServiceBean;
@@ -91,7 +92,7 @@ public class AppConfigurationCtrlTest {
         when(application.getDefaultLocale()).thenReturn(Locale.FRANCE);
 
         initialContext = mock(InitialContext.class);
-        model = new AppConfigurationModel();
+        model = spy(new AppConfigurationModel());
         ctrl = spy(new AppConfigurationCtrl() {
             @Override
             protected FacesContext getFacesContext() {
@@ -311,13 +312,13 @@ public class AppConfigurationCtrlTest {
     public void shouldInvokeCanPingImplementation_whenCanPingIsRequested_givenWMWareControllerId() {
         setServiceControllerContext(Configuration.VMWARE_CONTROLLER_ID);
 
-        try {
-            ctrl.invokeCanPing(Configuration.VMWARE_CONTROLLER_ID);
-        } catch (APPlatformException e) {
-            fail("An exception has occurred: " + e.getMessage());
-        }
+        ctrl.invokeCanPing(Configuration.VMWARE_CONTROLLER_ID);
 
-        verify(serviceController, atLeastOnce()).canPing();
+        try {
+            verify(serviceController, atLeastOnce()).canPing();
+        } catch (ConfigurationException e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -325,14 +326,32 @@ public class AppConfigurationCtrlTest {
         String controllerId = "unsupported.controller.id";
         setServiceControllerContext(controllerId);
 
+        ctrl.invokeCanPing(controllerId);
+
         try {
-            ctrl.invokeCanPing(controllerId);
-        } catch (APPlatformException e) {
-            fail("An exception has occurred: " + e.getMessage());
+            verify(serviceController, Mockito.never()).canPing();
+        } catch (ConfigurationException e) {
+            fail(e.getMessage());
         }
 
-        verify(serviceController, Mockito.never()).canPing();
         verify(ctrl, atLeastOnce()).addError(anyString());
+    }
+
+    @Test
+    public void shouldShowErrorWithDetails_whenCanPingIsRequested_givenExceptionThrown() {
+        String controllerId = Configuration.VMWARE_CONTROLLER_ID;
+        setServiceControllerContext(controllerId);
+
+        try {
+            doThrow(new ConfigurationException("Controller Lookup Exception")).when(serviceController).canPing();
+        } catch (ConfigurationException e) {
+        }
+
+        ctrl.invokeCanPing(controllerId);
+
+        verify(ctrl, atLeastOnce()).addError("app.message.error.controller.not.pingable");
+        verify(model, atLeastOnce()).setDetailedExceptionInfo(anyString());
+        verify(model, atLeastOnce()).setEnableExceptionInfo(true);
     }
 
     @Test
@@ -369,21 +388,21 @@ public class AppConfigurationCtrlTest {
     }
 
     @Test
-    public void shouldShowError_whenPingIsRequested_givenUnsupportedControllerId() {
-        String controllerId = "unsupported.controller.id";
+    public void shouldShowErrorWithDetails_whenPingIsRequested_givenExceptionThrown() {
+        String controllerId = "not.reachable.service.instance";
         setServiceControllerContext(controllerId);
 
         try {
-            ctrl.invokePing(controllerId);
-
-            verify(serviceController, never()).ping(controllerId);
-        } catch (APPlatformException e) {
-            fail("An exception has occurred: " + e.getMessage());
-
+            doThrow(new ServiceNotReachableException("Service Not Reachable Exception")).when(serviceController).ping(controllerId);
+        } catch (ServiceNotReachableException e) {
         }
-        verify(ctrl, atLeastOnce()).addError(anyString());
-    }
 
+        ctrl.invokePing(controllerId);
+
+        verify(ctrl, atLeastOnce()).addError("app.message.error.controller.unreachable");
+        verify(model, atLeastOnce()).setDetailedExceptionInfo(anyString());
+        verify(model, atLeastOnce()).setEnableExceptionInfo(true);
+    }
 
     private void setServiceControllerContext(String controllerId) {
         doReturn(session).when(request).getSession();

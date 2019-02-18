@@ -83,6 +83,49 @@ td:first-child {
 	color: #006600;
 }
 
+.mail-solid.icon {
+  color: #000;
+  position: absolute;
+  margin-left: 2px;
+  margin-top: 4px;
+  width: 15px;
+  height: 10px;
+  border-radius: 1px;
+  border: solid 1px currentColor;
+  background-color: currentColor;
+  left: 98%;
+}
+
+.mail-solid.icon:before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: -4px;
+  width: 1px;
+  height: 10px;
+  color: white;
+  background-color: currentColor;
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transform: rotate(-54deg);
+          transform: rotate(-54deg);
+}
+
+.mail-solid.icon:after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: -4px;
+  width: 1px;
+  height: 10px;
+  color: white;
+  background-color: currentColor;
+  -webkit-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transform: rotate(54deg);
+          transform: rotate(54deg);
+}
+
 .rich-table {
 	margin: 10px 35px;
 	border-right: 1px solid #D2DBDC;

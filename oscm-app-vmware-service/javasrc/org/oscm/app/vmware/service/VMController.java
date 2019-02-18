@@ -10,9 +10,7 @@ package org.oscm.app.vmware.service;
 
 import org.oscm.app.v2_0.APPlatformServiceFactory;
 import org.oscm.app.v2_0.data.*;
-import org.oscm.app.v2_0.exceptions.APPlatformException;
-import org.oscm.app.v2_0.exceptions.LogAndExceptionConverter;
-import org.oscm.app.v2_0.exceptions.SuspendException;
+import org.oscm.app.v2_0.exceptions.*;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.oscm.app.v2_0.intf.APPlatformService;
 import org.oscm.app.v2_0.intf.ControllerAccess;
@@ -33,11 +31,13 @@ import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Controller implementation for integration of VMWare.
- * 
+ *
  * @author soehnges
  */
 @Stateless(mappedName = "bss/app/controller/" + Controller.ID)
@@ -53,14 +53,21 @@ public class VMController implements APPlatformController {
     private static final String OPERATION_SNAPSHOT = "SNAPSHOT_VM";
     private static final String OPERATION_RESTORE = "RESTORE_VM";
 
+    private static final String CREDENTIALS_URL = "URL";
+    private static final String CREDENTIALS_USERNAME = "USERNAME";
+    private static final String CREDENTIALS_PASSWORD = "PASSWORD";
+
     protected APPlatformService platformService;
 
     private VMwareControllerAccess controllerAccess;
+
+    private Map<String, String> connectionCredentials;
 
     @PostConstruct
     public void initialize() {
         try {
             platformService = APPlatformServiceFactory.getInstance();
+            connectionCredentials = new ConcurrentHashMap<>();
         } catch (IllegalStateException e) {
             logger.error(e.getMessage());
             throw e;
@@ -86,7 +93,7 @@ public class VMController implements APPlatformController {
                                 + id.getInstanceId() + "]");
                 throw new APPlatformException(
                         Messages.getAll("error_instance_exists",
-                                new Object[] { id.getInstanceId() }));
+                                new Object[]{id.getInstanceId()}));
             }
 
             validateParameters(null, ph, settings.getOrganizationId(),
@@ -107,7 +114,7 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus deleteInstance(String instanceId,
-            ProvisioningSettings settings) throws APPlatformException {
+                                         ProvisioningSettings settings) throws APPlatformException {
 
         logger.info("deleteInstance({})",
                 LogAndExceptionConverter.getLogText(instanceId, settings));
@@ -126,8 +133,8 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus modifyInstance(String instanceId,
-            ProvisioningSettings currentSettings,
-            ProvisioningSettings newSettings) throws APPlatformException {
+                                         ProvisioningSettings currentSettings,
+                                         ProvisioningSettings newSettings) throws APPlatformException {
 
         try {
             VMPropertyHandler currentParameters = new VMPropertyHandler(
@@ -157,7 +164,7 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus getInstanceStatus(String instanceId,
-            ProvisioningSettings settings) throws APPlatformException {
+                                            ProvisioningSettings settings) throws APPlatformException {
         logger.debug("{}",
                 LogAndExceptionConverter.getLogText(instanceId, settings));
 
@@ -182,33 +189,33 @@ public class VMController implements APPlatformController {
     }
 
     private void updateProvisioningSettings(VMPropertyHandler ph,
-            StateMachine stateMachine, String instanceId)
+                                            StateMachine stateMachine, String instanceId)
             throws StateMachineException, SuspendException, Exception {
 
         String nextState = stateMachine.getStateId();
         switch (nextState) {
-        case "REPEAT_FAILED_STATE":
-            String failedState = stateMachine
-                    .loadPreviousStateFromHistory(ph.getProvisioningSettings());
-            ph.setSetting(VMPropertyHandler.TASK_KEY, "");
-            ph.setSetting(VMPropertyHandler.TASK_STARTTIME, "");
-            ph.setSetting(VMPropertyHandler.SM_STATE, failedState);
-            Credentials cred = ph.getTPUser();
-            platformService.storeServiceInstanceDetails(Controller.ID,
-                    instanceId, ph.getProvisioningSettings(),
-                    cred.toPasswordAuthentication());
-            String errorMessage = ph
-                    .getServiceSetting(VMPropertyHandler.SM_ERROR_MESSAGE);
-            throw new SuspendException(errorMessage);
-        case "ERROR":
-            errorMessage = ph
-                    .getServiceSetting(VMPropertyHandler.SM_ERROR_MESSAGE);
-            throw new SuspendException(errorMessage);
-        default:
-            ph.setSetting(VMPropertyHandler.SM_STATE_HISTORY,
-                    stateMachine.getHistory());
-            ph.setSetting(VMPropertyHandler.SM_STATE, nextState);
-            break;
+            case "REPEAT_FAILED_STATE":
+                String failedState = stateMachine
+                        .loadPreviousStateFromHistory(ph.getProvisioningSettings());
+                ph.setSetting(VMPropertyHandler.TASK_KEY, "");
+                ph.setSetting(VMPropertyHandler.TASK_STARTTIME, "");
+                ph.setSetting(VMPropertyHandler.SM_STATE, failedState);
+                Credentials cred = ph.getTPUser();
+                platformService.storeServiceInstanceDetails(Controller.ID,
+                        instanceId, ph.getProvisioningSettings(),
+                        cred.toPasswordAuthentication());
+                String errorMessage = ph
+                        .getServiceSetting(VMPropertyHandler.SM_ERROR_MESSAGE);
+                throw new SuspendException(errorMessage);
+            case "ERROR":
+                errorMessage = ph
+                        .getServiceSetting(VMPropertyHandler.SM_ERROR_MESSAGE);
+                throw new SuspendException(errorMessage);
+            default:
+                ph.setSetting(VMPropertyHandler.SM_STATE_HISTORY,
+                        stateMachine.getHistory());
+                ph.setSetting(VMPropertyHandler.SM_STATE, nextState);
+                break;
         }
     }
 
@@ -216,17 +223,14 @@ public class VMController implements APPlatformController {
      * Validates the given parameters before contacting VMware API. When both
      * oldParams and newParams are set, also modification rules (e.g. no disk
      * reduce) are checked.
-     * 
-     * @param currentParameters
-     *            the existing parameters (optional)
-     * @param newParameters
-     *            the requested parameters
-     * @throws APPlatformException
-     *             thrown when validation fails
+     *
+     * @param currentParameters the existing parameters (optional)
+     * @param newParameters     the requested parameters
+     * @throws APPlatformException thrown when validation fails
      */
     private void validateParameters(VMPropertyHandler currentParameters,
-            VMPropertyHandler newParameters, String customerOrgId,
-            String instanceId) throws APPlatformException {
+                                    VMPropertyHandler newParameters, String customerOrgId,
+                                    String instanceId) throws APPlatformException {
 
         validateMemory(newParameters);
         validateDataDiskMountPoints(newParameters);
@@ -258,8 +262,8 @@ public class VMController implements APPlatformController {
                         mointPointKey, mountPoint, validationPattern);
                 throw new APPlatformException(
                         Messages.getAll("error_invalid_data_disk_mount_point",
-                                new Object[] { mointPointKey, mountPoint,
-                                        validationPattern }));
+                                new Object[]{mointPointKey, mountPoint,
+                                        validationPattern}));
             }
         }
     }
@@ -272,7 +276,7 @@ public class VMController implements APPlatformController {
             logger.debug("Validation error on memory size [" + memory + "MB]");
             throw new APPlatformException(
                     Messages.getAll("error_invalid_memory",
-                            new Object[] { Long.valueOf(memory) }));
+                            new Object[]{Long.valueOf(memory)}));
         }
     }
 
@@ -359,7 +363,7 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus notifyInstance(String instanceId,
-            ProvisioningSettings settings, Properties properties)
+                                         ProvisioningSettings settings, Properties properties)
             throws APPlatformException {
 
         logger.info("notifyInstance({})",
@@ -388,7 +392,7 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus activateInstance(String instanceId,
-            ProvisioningSettings settings) throws APPlatformException {
+                                           ProvisioningSettings settings) throws APPlatformException {
         logger.info("activateInstance({})",
                 LogAndExceptionConverter.getLogText(instanceId, settings));
         try {
@@ -406,7 +410,7 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus deactivateInstance(String instanceId,
-            ProvisioningSettings settings) throws APPlatformException {
+                                             ProvisioningSettings settings) throws APPlatformException {
         logger.info("deactivateInstance({})",
                 LogAndExceptionConverter.getLogText(instanceId, settings));
         try {
@@ -424,7 +428,7 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatusUsers createUsers(String instanceId,
-            ProvisioningSettings settings, List<ServiceUser> users)
+                                           ProvisioningSettings settings, List<ServiceUser> users)
             throws APPlatformException {
         return null;
     }
@@ -432,7 +436,7 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus deleteUsers(String instanceId,
-            ProvisioningSettings settings, List<ServiceUser> users)
+                                      ProvisioningSettings settings, List<ServiceUser> users)
             throws APPlatformException {
         return null;
     }
@@ -440,7 +444,7 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus updateUsers(String instanceId,
-            ProvisioningSettings settings, List<ServiceUser> users)
+                                      ProvisioningSettings settings, List<ServiceUser> users)
             throws APPlatformException {
         return null;
     }
@@ -448,32 +452,32 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus executeServiceOperation(String userId,
-            String instanceId, String transactionId, String operationId,
-            List<OperationParameter> parameters, ProvisioningSettings settings)
+                                                  String instanceId, String transactionId, String operationId,
+                                                  List<OperationParameter> parameters, ProvisioningSettings settings)
             throws APPlatformException {
 
         try {
             switch (operationId) {
-            case OPERATION_RESTART:
-                StateMachine.initializeProvisioningSettings(settings,
-                        "restart_vm.xml");
-                break;
-            case OPERATION_START:
-                StateMachine.initializeProvisioningSettings(settings,
-                        "start_vm.xml");
-                break;
-            case OPERATION_STOP:
-                StateMachine.initializeProvisioningSettings(settings,
-                        "stop_vm.xml");
-                break;
-            case OPERATION_SNAPSHOT:
-                StateMachine.initializeProvisioningSettings(settings,
-                        "snapshot_vm.xml");
-                break;
-            case OPERATION_RESTORE:
-                StateMachine.initializeProvisioningSettings(settings,
-                        "restore_vm.xml");
-                break;
+                case OPERATION_RESTART:
+                    StateMachine.initializeProvisioningSettings(settings,
+                            "restart_vm.xml");
+                    break;
+                case OPERATION_START:
+                    StateMachine.initializeProvisioningSettings(settings,
+                            "start_vm.xml");
+                    break;
+                case OPERATION_STOP:
+                    StateMachine.initializeProvisioningSettings(settings,
+                            "stop_vm.xml");
+                    break;
+                case OPERATION_SNAPSHOT:
+                    StateMachine.initializeProvisioningSettings(settings,
+                            "snapshot_vm.xml");
+                    break;
+                case OPERATION_RESTORE:
+                    StateMachine.initializeProvisioningSettings(settings,
+                            "restore_vm.xml");
+                    break;
             }
             InstanceStatus result = new InstanceStatus();
             result.setChangedParameters(settings.getParameters());
@@ -488,16 +492,58 @@ public class VMController implements APPlatformController {
     }
 
     @Override
-    public boolean ping(String controllerId) throws APPlatformException {
-        //TODO: Implement
-        return false;
+    public boolean ping(String controllerId) throws ServiceNotReachableException {
+//        String url = getConnectionCredentials(CREDENTIALS_URL);
+//        String username = getConnectionCredentials(CREDENTIALS_USERNAME);
+//        String password = getConnectionCredentials(CREDENTIALS_PASSWORD);
+//
+//        VMPropertyHandler handler = new VMPropertyHandler(new ProvisioningSettings())
+//        VMwareClient client = new VMwareClientFactory("en").getInstance();
+//
+//        try {
+//            client.connect();
+//            return client.isConnected();
+//        } catch (Exception e) {
+//            throw new ServiceNotReachableException("Connection failed") {
+//                @Override
+//                public StackTraceElement[] getStackTrace() {
+//                    return e.getStackTrace();
+//                }
+//            };
+//        }
+        throw new ServiceNotReachableException("ERR");
     }
 
     @Override
-    public boolean canPing() {
-        //TODO: Implement
+    public boolean canPing() throws ConfigurationException {
+//        String username = getConnectionCredentials(CREDENTIALS_USERNAME);
+//        String password = getConnectionCredentials(CREDENTIALS_PASSWORD);
+//
+//
+//        try {
+//            Map<String, Setting> settingMap = platformService.getControllerSettings("ess.vmware", new PasswordAuthentication(userName, password));
+//            logger.error(">>>> MAP: " + settingMap.toString());
+//        } catch (APPlatformException e) {
+//            e.printStackTrace();
+//        }
+//
         return true;
     }
+
+//    private String getConnectionCredentials(String credentialItem) {
+//        if (connectionCredentials.isEmpty() || connectionCredentials.containsValue(null)) {
+//
+//            FacesContext context = FacesContext.getCurrentInstance();
+//            HttpSession session = (HttpSession) context.getExternalContext()
+//                    .getSession(false);
+//
+//            String userName = session != null ? "" + session.getAttribute("loggedInUserId") : "";
+//            String password = session != null ? "" + session.getAttribute("loggedInUserPassword") : "";
+//
+//            logger.error(">>>>> USERNAME: " + userName);
+//            logger.error(">>>>> PASSWORD: " + password);
+//        }
+//    }
 
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
@@ -509,7 +555,7 @@ public class VMController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public List<OperationParameter> getOperationParameters(String arg0,
-            String arg1, String arg2, ProvisioningSettings arg3)
+                                                           String arg1, String arg2, ProvisioningSettings arg3)
             throws APPlatformException {
         return null;
     }

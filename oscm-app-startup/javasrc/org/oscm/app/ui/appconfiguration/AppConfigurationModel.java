@@ -13,10 +13,7 @@ import org.oscm.types.constants.Configuration;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Mao
@@ -43,6 +40,7 @@ public class AppConfigurationModel extends BaseModel {
         put(Configuration.SHELL_CONTROLLER_ID, false);
         put(Configuration.VMWARE_CONTROLLER_ID, false);
     }};
+    private List<String> canPingExceptionMessageList = new ArrayList<>();
 
     public boolean isInitialized() {
         return initialized;
@@ -138,5 +136,13 @@ public class AppConfigurationModel extends BaseModel {
 
     public void setPingButtonVisibilityMap(Map<String, Boolean> pingButtonVisibilityMap) {
         this.pingButtonVisibilityMap = pingButtonVisibilityMap;
+    }
+
+    public List<String> getCanPingExceptionMessageList() {
+        return canPingExceptionMessageList;
+    }
+
+    public void setCanPingExceptionMessageList(List<String> canPingExceptionMessageList) {
+        this.canPingExceptionMessageList = canPingExceptionMessageList;
     }
 }

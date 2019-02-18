@@ -30,6 +30,14 @@
         <h:messages styleClass="statusMessages" errorClass="statusRed" infoClass="statusGreen"/>
     </a4j:outputPanel>
 
+
+    <h:panelGroup class="statusPanel canPingMessagePanel">
+        <ui:repeat value="#{appConfigurationModel.keys}" var="k">
+            <span class="statusRed" onclick="alert('TEST: +#{k}')">#{k}</span>
+            <ui:fragment><br/></ui:fragment>
+        </ui:repeat>
+    </h:panelGroup>
+
     <a4j:outputPanel rendered="#{appConfigurationModel.restartRequired}" layout="block" styleClass="restartPanel">
         <h:form id="restartForm">
             <span class="statusRed"><h:outputText value="#{msg['ui.app.suspend']}"/> </span>
@@ -79,14 +87,6 @@
                                onclick="setOnSubmit(true);setDirty(false);#{rich:element('selectedControllerId')}.value='#{key}';#{rich:element('deleteController')}.click();return false;"/>
             </rich:column>
             <rich:column class="connectivity_tests_column">
-                <h:panelGroup class="button_right_part_class">
-                    <h:panelGroup class="button_content_class">
-                        <h:commandButton id="canPingButton" class="button_normal_class"
-                                         value="#{msg['ui.config.action.can-ping']}"
-                                         onmouseup="location.reload()"
-                                         action="#{appConfigurationCtrl.invokeCanPing(key)}"/>
-                    </h:panelGroup>
-                </h:panelGroup>
                 <h:panelGroup class="button_right_part_class"
                               rendered="#{appConfigurationModel.pingButtonVisibilityMap[key]}">
                     <h:panelGroup class="button_content_class">

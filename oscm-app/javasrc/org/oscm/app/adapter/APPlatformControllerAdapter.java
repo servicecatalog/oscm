@@ -20,6 +20,8 @@ import org.oscm.app.v2_0.data.OperationParameter;
 import org.oscm.app.v2_0.data.ProvisioningSettings;
 import org.oscm.app.v2_0.data.ServiceUser;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.ConfigurationException;
+import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
 import org.oscm.app.v2_0.intf.APPlatformController;
 
 public class APPlatformControllerAdapter implements APPlatformController {
@@ -149,12 +151,12 @@ public class APPlatformControllerAdapter implements APPlatformController {
     }
 
     @Override
-    public boolean ping(String controllerId) throws APPlatformException {
+    public boolean ping(String controllerId) throws ServiceNotReachableException {
         return delegate.ping(controllerId);
     }
 
     @Override
-    public boolean canPing() {
+    public boolean canPing() throws ConfigurationException {
         return delegate.canPing();
     }
 }

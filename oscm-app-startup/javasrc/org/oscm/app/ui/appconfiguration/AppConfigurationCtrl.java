@@ -8,16 +8,18 @@
  *******************************************************************************/
 package org.oscm.app.ui.appconfiguration;
 
-import com.google.common.collect.Lists;
 import org.oscm.app.business.APPlatformControllerFactory;
 import org.oscm.app.ui.BaseCtrl;
 import org.oscm.app.ui.SessionConstants;
-import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.oscm.app.v2_0.exceptions.ControllerLookupException;
+import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
 import org.oscm.app.v2_0.service.APPTimerServiceBean;
 import org.oscm.types.constants.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -36,9 +38,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @ManagedBean
 public class AppConfigurationCtrl extends BaseCtrl {
 
+    private static final Logger logger = LoggerFactory
+            .getLogger(AppConfigurationCtrl.class.getName());
+
     private static final String ERROR_PING_UNSUPPORTED = "app.message.error.controller.not.pingable";
     private static final String ERROR_PING_FAILED = "app.message.error.controller.unreachable";
     private static final String INFO_PING_SUCCEEDED = "app.message.info.controller.reachable";
+    private static final String DETAILED_MESSAGE_SUFFIX = ".detailed";
 
     private APPConfigurationServiceBean appConfigService;
     private APPTimerServiceBean timerService;
@@ -49,7 +55,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
     private AppConfigurationModel model;
 
     public String getInitialize() {
-
+        logger.error(">>>>> TEST LOG");
         AppConfigurationModel model = getModel();
         try {
             if (model == null) {
@@ -65,10 +71,20 @@ public class AppConfigurationCtrl extends BaseCtrl {
                 model.setRestartRequired(isAPPSuspend());
                 setModel(model);
             }
+
+            invokeCanPingForControllers(model.getKeys());
         } catch (Exception e) {
             addError(e);
         }
+
+
         return "";
+    }
+
+    private void invokeCanPingForControllers(List<String> keys) {
+        for(String key : keys) {
+            invokeCanPing(key);
+        }
     }
 
     public String getLoggedInUserId() {
@@ -219,14 +235,16 @@ public class AppConfigurationCtrl extends BaseCtrl {
         return getAppConfigService().isAPPSuspend();
     }
 
-    public void invokeCanPing(String controllerId) throws APPlatformException { //TODO: This should not have throws clause!
+    public void invokeCanPing(String controllerId) {
         Map<String, Boolean> updatedMap = new HashMap<>();
 
-        if(Configuration.pingableControllersList.contains(controllerId)) {
-            APPlatformController controller = getControllerInstance(controllerId);
-            updatedMap.put(controllerId, controller != null && controller.canPing());
-        } else {
-            addError(ERROR_PING_UNSUPPORTED);
+        try {
+            if (Configuration.pingableControllersList.contains(controllerId)) {
+                APPlatformController controller = getControllerInstance(controllerId);
+                updatedMap.put(controllerId, controller != null && controller.canPing());
+            }
+        } catch (ControllerLookupException | ConfigurationException e) {
+            displayError(ERROR_PING_UNSUPPORTED, Arrays.toString(e.getStackTrace()), true);
         }
 
         updatePingButtonVisibilityMap(updatedMap);
@@ -240,20 +258,32 @@ public class AppConfigurationCtrl extends BaseCtrl {
         try {
             APPlatformController controller = getControllerInstance(controllerId);
 
-            if (controller == null) addError(ERROR_PING_UNSUPPORTED);
-            else if(controller.ping(controllerId)) addMessage(INFO_PING_SUCCEEDED);
-            else addError(ERROR_PING_FAILED);
+            if (controller == null) displayError(ERROR_PING_UNSUPPORTED, null, false);
+            else if (controller.ping(controllerId)) addMessage(INFO_PING_SUCCEEDED);
+            else displayError(ERROR_PING_FAILED, null, false);
 
-        } catch (APPlatformException ex) {
-            addError(ex.getMessage());
+        } catch (ControllerLookupException | ServiceNotReachableException e) {
+            displayError(ERROR_PING_FAILED, Arrays.toString(e.getStackTrace()), true);
+            displayError(ERROR_PING_FAILED, "STACK2", false);
+            displayError(ERROR_PING_FAILED, "STACK3", true);
+            displayError(ERROR_PING_FAILED, "STACK4", true);
+            displayError(ERROR_PING_FAILED, "STACK5", true);
         }
+
     }
 
     private APPlatformController getControllerInstance(String controllerId) throws ControllerLookupException {
         if (!controllerInstanceMap.containsKey(controllerId))
             controllerInstanceMap.put(
-                    controllerId, APPlatformControllerFactory.getInstance(Configuration.VMWARE_CONTROLLER_ID));
+                    controllerId, APPlatformControllerFactory.getInstance(controllerId));
 
         return controllerInstanceMap.get(controllerId);
+    }
+
+    private void displayError(String message, String stackTrace, boolean enableDetailsPopup) {
+        if(enableDetailsPopup) message += DETAILED_MESSAGE_SUFFIX;
+        addError(message);
+//        model.setDetailedExceptionInfo(stackTrace);
+//        model.setEnableExceptionInfo(enableDetailsPopup);
     }
 }

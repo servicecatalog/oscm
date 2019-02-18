@@ -13,10 +13,16 @@ import java.util.HashMap;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.oscm.app.v2_0.data.ProvisioningSettings;
 import org.oscm.app.v2_0.data.Setting;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.ConfigurationException;
+import org.oscm.app.v2_0.intf.APPlatformService;
 import org.oscm.app.vmware.business.VMPropertyHandler;
 
 import static org.junit.Assert.*;
@@ -27,6 +33,9 @@ import static org.junit.Assert.*;
  */
 public class VMControllerTest {
 
+    @Mock
+    private APPlatformService platformService;
+
     @InjectMocks
     private VMController controller;
     private ProvisioningSettings settings;
@@ -36,6 +45,8 @@ public class VMControllerTest {
         controller = new VMController();
         settings = new ProvisioningSettings(new HashMap<String, Setting>(),
                 new HashMap<String, Setting>(), "en");
+
+        MockitoAnnotations.initMocks(this);
     }
 
     @Test
@@ -196,9 +207,14 @@ public class VMControllerTest {
     @Test
     @Ignore("Not implemented")
     public void shouldValidateConfiguration_whenControllerConfigIsValid_givenCanPingRequest() {
-        //TODO: Prep step - mockito?
 
-        boolean result = controller.canPing();
+
+        boolean result = false;
+        try {
+            result = controller.canPing();
+        } catch (ConfigurationException e) {
+            fail(e.getMessage());
+        }
 
         assertTrue("Controller configuration should be valid", result);
     }
@@ -207,8 +223,14 @@ public class VMControllerTest {
     @Ignore("Not implemented")
     public void shouldNotValidateConfiguration_whenControllerConfigIsInvalid_givenCanPingRequest() {
         //TODO: Prep step - mockito?
+        //TODO: Implement
 
-        boolean result = controller.canPing();
+        boolean result = false;
+        try {
+            result = controller.canPing();
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+        }
 
         assertFalse("Controller configuration should be invalid", result);
     }
@@ -217,23 +239,24 @@ public class VMControllerTest {
     @Ignore("Not implemented")
     public void shouldValidateConnection_whenServiceInstanceIsReachable_givenPingRequest() {
         //TODO: Prep step - mockito?
+        //TODO: Implement
+
         boolean result = false;
-        Exception exception = null;
 
         try {
             result = controller.ping("vmwareControllerId");
         } catch (APPlatformException ex) {
-            exception = ex;
+            fail(ex.getMessage());
         }
 
         assertTrue("Instance should be reachable", result);
-        assertNull("There should be no exception thrown", exception);
     }
 
     @Test
     @Ignore("Not implemented")
     public void shouldNotValidateConnection_whenServiceInstanceIsUnreachable_givenPingRequest() {
-        //TODO: Prep step - mockito?
+        //TODO: Prep step - mockito?\
+        //TODO: Implement
         boolean result = true;
         Exception exception = null;
 
