@@ -403,12 +403,12 @@ public class VMPropertyHandler {
      * It requires <code>TS_PORTGROUP</code>. 
      * Give the UUID of the switch. 
      */
-    public static final String TS_SWITCH_UUID = "TS_SWITCH_UUID";
+    public static final String TS_SWITCH_UUID = "SWITCH_UUID";
 
     /**
      *
     */
-    public static final String TS_PORTGROUP = "TS_PORTGROUP";
+    public static final String TS_PORTGROUP = "PORTGROUP";
 
     /**
      * internal settings for state machine execution
