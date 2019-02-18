@@ -163,10 +163,7 @@ public class VMPropertyHandler {
      * several stages until it is automatically deleted
      */
     public enum SubscriptionEndStatus {
-        UNDEFINED,
-        SCHEDULED_FOR_NOTIFICATION,
-        SCHEDULED_FOR_DEACTIVATION,
-        SCHEDULED_FOR_DELETION
+        UNDEFINED, SCHEDULED_FOR_NOTIFICATION, SCHEDULED_FOR_DEACTIVATION, SCHEDULED_FOR_DELETION
     };
 
     public static final String SUBSCRIPTION_END_STATUS = "SUBSCRIPTION_END_STATUS";
@@ -400,6 +397,18 @@ public class VMPropertyHandler {
      * A pattern which describes the naming rules for the access info.
      */
     public static final String TS_ACCESS_INFO = "ACCESS_INFO";
+
+    /**
+     * If distributed virtual switches are used, this parameter is mandatory.
+     * It requires <code>TS_PORTGROUP</code>. 
+     * Give the UUID of the switch. 
+     */
+    public static final String TS_SWITCH_UUID = "TS_SWITCH_UUID";
+
+    /**
+     *
+    */
+    public static final String TS_PORTGROUP = "TS_PORTGROUP";
 
     /**
      * internal settings for state machine execution
@@ -991,15 +1000,18 @@ public class VMPropertyHandler {
 
         XMLGregorianCalendar queueT = info.getQueueTime();
         String queueTime = queueT != null
-                ? queueT.toGregorianCalendar().getTime().toString() : "";
+                ? queueT.toGregorianCalendar().getTime().toString()
+                : "";
 
         XMLGregorianCalendar startT = info.getStartTime();
         String startTime = startT != null
-                ? startT.toGregorianCalendar().getTime().toString() : "";
+                ? startT.toGregorianCalendar().getTime().toString()
+                : "";
 
         XMLGregorianCalendar completeT = info.getCompleteTime();
         String completeTime = completeT != null
-                ? completeT.toGregorianCalendar().getTime().toString() : "";
+                ? completeT.toGregorianCalendar().getTime().toString()
+                : "";
 
         logger.debug("Save task info key: " + info.getKey() + " name: "
                 + info.getName() + " target: " + info.getEntityName()
