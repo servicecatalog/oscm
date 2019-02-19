@@ -399,16 +399,22 @@ public class VMPropertyHandler {
     public static final String TS_ACCESS_INFO = "ACCESS_INFO";
 
     /**
-     * If distributed virtual switches are used, this parameter is mandatory.
-     * It requires <code>TS_PORTGROUP</code>. 
-     * Give the UUID of the switch. 
+     * If distributed virtual switches are used, this parameter is mandatory. It
+     * requires <code>TS_PORTGROUP</code>. Give the UUID of the switch.
      */
-    public static final String TS_SWITCH_UUID = "SWITCH_UUID";
+    public static final String TS_NIC1_SWITCH_UUID = "NIC1_SWITCH_UUID";
+    public static final String TS_NIC2_SWITCH_UUID = "NIC2_SWITCH_UUID";
+    public static final String TS_NIC3_SWITCH_UUID = "NIC3_SWITCH_UUID";
+    public static final String TS_NIC4_SWITCH_UUID = "NIC4_SWITCH_UUID";
+
+    private static final String TS_NIC1_PORTGROUP = "NIC1_PORTGROUP";
+    private static final String TS_NIC2_PORTGROUP = "NIC2_PORTGROUP";
+    private static final String TS_NIC3_PORTGROUP = "NIC3_PORTGROUP";
+    private static final String TS_NIC4_PORTGROUP = "NIC4_PORTGROUP";
 
     /**
      *
     */
-    public static final String TS_PORTGROUP = "PORTGROUP";
 
     /**
      * internal settings for state machine execution
@@ -1375,6 +1381,78 @@ public class VMPropertyHandler {
     }
 
     /**
+     * Get the port group for the given NIC.
+     * 
+     * @param i
+     *            NIC identifier, i=[1,4]
+     * @return the UUID of the port group
+     * @exception IllegalArgumentException
+     *                if identifier is out of range
+     */
+    public String getPortGroup(int i) {
+        String group = "";
+        switch (i) {
+        case 1:
+            group = getServiceSetting(TS_NIC1_PORTGROUP);
+            break;
+        case 2:
+            group = getServiceSetting(TS_NIC2_PORTGROUP);
+            break;
+        case 3:
+            group = getServiceSetting(TS_NIC3_PORTGROUP);
+            break;
+        case 4:
+            group = getServiceSetting(TS_NIC4_PORTGROUP);
+            break;
+        default:
+            throw new IllegalArgumentException("NIC identifier " + i
+                    + " is out of range. Valid range is [1-4].");
+        }
+
+        if (group == null) {
+            group = "";
+        }
+
+        return group;
+    }
+    
+    /**
+     * Get the distributed switch UUID for the given NIC.
+     * 
+     * @param i
+     *            NIC identifier, i=[1,4]
+     * @return the UUID of the port group
+     * @exception IllegalArgumentException
+     *                if identifier is out of range
+     */
+    public String getSwitchUUID(int i) {
+        String switchUUID = "";
+        switch (i) {
+        case 1:
+            switchUUID = getServiceSetting(TS_NIC1_SWITCH_UUID);
+            break;
+        case 2:
+            switchUUID = getServiceSetting(TS_NIC2_SWITCH_UUID);
+            break;
+        case 3:
+            switchUUID = getServiceSetting(TS_NIC3_SWITCH_UUID);
+            break;
+        case 4:
+            switchUUID = getServiceSetting(TS_NIC4_SWITCH_UUID);
+            break;
+        default:
+            throw new IllegalArgumentException("NIC identifier " + i
+                    + " is out of range. Valid range is [1-4].");
+        }
+
+        if (switchUUID == null) {
+            switchUUID = "";
+        }
+
+        return switchUUID;
+    }
+
+    /**
      * Get a comma separated list of DNS servers for the given NIC.
      * 
      * @param i
@@ -1602,4 +1680,5 @@ public class VMPropertyHandler {
             Map<String, Setting> target) {
         target.put(key, new Setting(key, value));
     }
+
 }
