@@ -8,20 +8,12 @@
 
 package org.oscm.app.vmware.remote.vmware;
 
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
 import java.util.List;
 import java.util.Map;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import javax.security.cert.X509Certificate;
 import javax.xml.ws.BindingProvider;
 
 import org.oscm.app.vmware.persistence.VMwareCredentials;
@@ -77,14 +69,12 @@ public class VMwareClient implements AutoCloseable {
             }
         };
 
-        HttpsURLConnection.setDefaultHostnameVerifier(hv);
-        LOG.info("FIXME - Allowing all SSL.");
-        HttpsTrustManager.allowAllSSL();
         int numFailedLogins = 0;
         boolean repeatLogin = true;
 
         while (repeatLogin) {
             try {
+                HttpsURLConnection.setDefaultHostnameVerifier(hv);
 
                 VimService vimService = new VimService();
                 VimPortType vimPort = vimService.getVimPort();
@@ -103,7 +93,7 @@ public class VMwareClient implements AutoCloseable {
                 vimPort.login(serviceContent.getSessionManager(), user,
                         password, null);
                 connection = new ServiceConnection(vimPort, serviceContent);
-                LOG.info("Established connection to vSphere. URL: " + url
+                LOG.debug("Established connection to vSphere. URL: " + url
                         + ", UserId: " + user);
 
                 repeatLogin = false;
@@ -237,82 +227,6 @@ public class VMwareClient implements AutoCloseable {
 
         return ((TaskInfo) getServiceUtil().getDynamicProperty(task,
                 PROPERTY_INFO));
-    }
-
-    static class HttpsTrustManager implements X509TrustManager {
-        private static TrustManager[] trustManagers;
-        java.security.cert.X509Certificate[] _AcceptedIssuers = new java.security.cert.X509Certificate[] {};
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see
-         * javax.net.ssl.X509TrustManager#checkClientTrusted(java.security.cert.
-         * X509Certificate[], java.lang.String)
-         */
-        @Override
-        public void checkClientTrusted(
-                java.security.cert.X509Certificate[] arg0, String arg1)
-                throws CertificateException {
-            // TODO Auto-generated method stub
-
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see
-         * javax.net.ssl.X509TrustManager#checkServerTrusted(java.security.cert.
-         * X509Certificate[], java.lang.String)
-         */
-        @Override
-        public void checkServerTrusted(
-                java.security.cert.X509Certificate[] chain, String authType)
-                throws CertificateException {
-            // TODO Auto-generated method stub
-
-        }
-
-        public boolean isClientTrusted(X509Certificate[] chain) {
-            return true;
-        }
-
-        public boolean isServerTrusted(X509Certificate[] chain) {
-            return true;
-        }
-
-        @Override
-        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-            return _AcceptedIssuers;
-        }
-
-        public static void allowAllSSL() {
-            HttpsURLConnection
-                    .setDefaultHostnameVerifier(new HostnameVerifier() {
-
-                        @Override
-                        public boolean verify(String arg0, SSLSession arg1) {
-                            return true;
-                        }
-
-                    });
-
-            SSLContext context = null;
-            if (trustManagers == null) {
-                trustManagers = new TrustManager[] { new HttpsTrustManager() };
-            }
-
-            try {
-                context = SSLContext.getInstance("TLS");
-                context.init(null, trustManagers, new SecureRandom());
-            } catch (NoSuchAlgorithmException | KeyManagementException e) {
-                LOG.error("Error allowing SSL", e);
-            }
-
-            HttpsURLConnection.setDefaultSSLSocketFactory(
-                    context != null ? context.getSocketFactory() : null);
-        }
-
     }
 
 }
