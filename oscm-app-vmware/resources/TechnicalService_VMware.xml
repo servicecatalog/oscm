@@ -1003,6 +1003,16 @@
       <LocalizedDescription locale="de"/>
       <LocalizedDescription locale="ja"/>
     </ParameterDefinition>
+        <ParameterDefinition configurable="true" default="" id="NIC1_SWITCH_UUID" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Distributed virtual switch (NIC1)</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="" id="NIC1_PORTGROUP" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Port group (NIC1)</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
     <ParameterDefinition configurable="true" id="NIC2_IP_ADDRESS" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
       <LocalizedDescription locale="en">IP address (NIC2)</LocalizedDescription>
       <LocalizedDescription locale="de"/>
@@ -1046,6 +1056,16 @@
     </ParameterDefinition>
     <ParameterDefinition configurable="true" id="NIC2_SUBNET_MASK" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
       <LocalizedDescription locale="en">Subnet mask (NIC2)</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="" id="NIC2_SWITCH_UUID" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Distributed virtual switch (NIC2)</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="" id="NIC2_PORTGROUP" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Port group (NIC2)</LocalizedDescription>
       <LocalizedDescription locale="de"/>
       <LocalizedDescription locale="ja"/>
     </ParameterDefinition>
@@ -1095,6 +1115,17 @@
       <LocalizedDescription locale="de"/>
       <LocalizedDescription locale="ja"/>
     </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="" id="NIC3_SWITCH_UUID" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Distributed virtual switch (NIC3)</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    
+    <ParameterDefinition configurable="true" default="" id="NIC3_PORTGROUP" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Port group (NIC3)</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
     <ParameterDefinition configurable="true" id="NIC4_IP_ADDRESS" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
       <LocalizedDescription locale="en">IP address (NIC4)</LocalizedDescription>
       <LocalizedDescription locale="de"/>
@@ -1120,6 +1151,18 @@
       <LocalizedDescription locale="de"/>
       <LocalizedDescription locale="ja"/>
     </ParameterDefinition>
+    <ParameterDefinition configurable="true" default="" id="NIC4_SWITCH_UUID" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Distributed virtual switch (NIC4)</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    
+    <ParameterDefinition configurable="true" default="" id="NIC4_PORTGROUP" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
+      <LocalizedDescription locale="en">Port group (NIC4)</LocalizedDescription>
+      <LocalizedDescription locale="de"/>
+      <LocalizedDescription locale="ja"/>
+    </ParameterDefinition>
+    
     <ParameterDefinition configurable="true" default="DHCP" id="NIC4_NETWORK_SETTINGS" mandatory="true" valueType="ENUMERATION">
       <Options>
         <Option id="DHCP">
@@ -1259,17 +1302,7 @@
       <LocalizedDescription locale="ja"/>
     </ParameterDefinition>
     
-    <ParameterDefinition configurable="true" default="" id="SWITCH_UUID" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
-      <LocalizedDescription locale="en"></LocalizedDescription>
-      <LocalizedDescription locale="de"/>
-      <LocalizedDescription locale="ja"/>
-    </ParameterDefinition>
     
-    <ParameterDefinition configurable="true" default="" id="PORTGROUP" mandatory="false" modificationType="ONE_TIME" valueType="STRING">
-      <LocalizedDescription locale="en"></LocalizedDescription>
-      <LocalizedDescription locale="de"/>
-      <LocalizedDescription locale="ja"/>
-    </ParameterDefinition>
     
     <Operation actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl" id="RESTART_VM">
       <LocalizedName locale="de">Neustart der virtuellen Maschine</LocalizedName>

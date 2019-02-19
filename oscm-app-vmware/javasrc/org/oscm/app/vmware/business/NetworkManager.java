@@ -15,7 +15,6 @@ import org.oscm.app.vmware.remote.vmware.VMwareClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vmware.vim25.DistributedVirtualPortgroupInfo;
 import com.vmware.vim25.DistributedVirtualSwitchPortConnection;
 import com.vmware.vim25.HostSystemInfo;
 import com.vmware.vim25.ManagedObjectReference;
@@ -104,32 +103,33 @@ public class NetworkManager {
                             + numberOfNICs);
         }
 
-        String switchUIID = paramHandler
-                .getServiceSetting(VMPropertyHandler.TS_SWITCH_UUID);
-
-        String portGroup = paramHandler
-                .getServiceSetting(VMPropertyHandler.TS_PORTGROUP);
-
-        if (switchUIID != null && switchUIID.length() > 0) {
-            if (portGroup == null || portGroup.length() > 0)
-                throw new Exception(String.format(
-                        "TS parameter PORTGROUP has to be specified for using the switch %s. Expecting generated UUID of the portgroup.",
-                        switchUIID));
-
-        }
-
-        logger.info("TS_SWITCH_UUID: " + switchUIID);
-
         for (int i = 1; i <= numberOfNICs; i++) {
             String newNetworkName = paramHandler.getNetworkAdapter(i);
+            String newGroup = paramHandler.getPortGroup(i);
+            String switchUIID = paramHandler.getSwitchUUID(i);
+
+            logger.info(String.format("TS_NIC%s_SWITCH_UUID: %s",
+                    String.valueOf(i), switchUIID));
+            logger.info(String.format("TS_NIC%s_PORTGROUP: %s",
+                    String.valueOf(i), newGroup));
+
+            if (switchUIID != null && switchUIID.length() > 0) {
+                if (newGroup == null || newGroup.length() > 0)
+                    throw new Exception(String.format(
+                            "Parameter PORTGROUP has to be specified for using the switch %s. Expecting generated UUID of the portgroup.",
+                            switchUIID));
+
+            }
+
             VirtualEthernetCard vmNic = vmNics.get(i - 1);
 
             String vmNetworkName = getNetworkName(vmw, vmwInstance, i);
             if (newNetworkName != null && newNetworkName.length() > 0
                     && !newNetworkName.equals(vmNetworkName)) {
+
                 ManagedObjectReference newNetworkRef = getNetworkFromHost(vmw,
                         vmwInstance, newNetworkName, vmNic, switchUIID,
-                        portGroup);
+                        newGroup);
 
                 replaceNetworkAdapter(vmConfigSpec, vmNic, newNetworkRef,
                         newNetworkName);
@@ -146,14 +146,13 @@ public class NetworkManager {
             throws Exception {
         logger.debug("networkName: " + networkName);
         logger.debug("portGroup: " + portGroup);
-        
+
         VirtualMachineRuntimeInfo vmRuntimeInfo = (VirtualMachineRuntimeInfo) vmw
                 .getServiceUtil().getDynamicProperty(vmwInstance, "runtime");
         ManagedObjectReference hostRef = vmRuntimeInfo.getHost();
         HostSystemInfo i = new HostSystemInfo();
 
         if (switchUUID != null && switchUUID.trim().length() > 0) {
-           
 
             ManagedObjectReference man = vmw.getConnection().getServiceContent()
                     .getDvSwitchManager();
@@ -180,12 +179,12 @@ public class NetworkManager {
             if (portGrp == null) {
                 String hostName = (String) vmw.getServiceUtil()
                         .getDynamicProperty(hostRef, "name");
-                
+
                 StringBuffer b = new StringBuffer();
                 b.append("PortGroup " + portGroup + " not found on host "
                         + hostName);
                 b.append("\nExpecting generated UUID of the portgroup.");
-                b.append("\nAvailable groups are: " + groups.toString()); 
+                b.append("\nAvailable groups are: " + groups.toString());
                 logger.error(b.toString());
 
             } else {
@@ -203,7 +202,7 @@ public class NetworkManager {
         for (ManagedObjectReference networkRef : networkRefList) {
             String netCardName = (String) vmw.getServiceUtil()
                     .getDynamicProperty(networkRef, "name");
-           
+
             networks.append(netCardName + " ");
             if (netCardName.equalsIgnoreCase(networkName)) {
                 netCard = networkRef;
