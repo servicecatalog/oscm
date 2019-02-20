@@ -108,16 +108,16 @@ public class NetworkManager {
             String newGroup = paramHandler.getPortGroup(i);
             String switchUIID = paramHandler.getSwitchUUID(i);
 
-            logger.info(String.format("TS_NIC%s_SWITCH_UUID: %s",
+            logger.info(String.format("NIC%s_SWITCH_UUID: %s",
                     String.valueOf(i), switchUIID));
-            logger.info(String.format("TS_NIC%s_PORTGROUP: %s",
+            logger.info(String.format("NIC%s_PORTGROUP: %s",
                     String.valueOf(i), newGroup));
 
             if (switchUIID != null && switchUIID.length() > 0) {
-                if (newGroup == null || newGroup.length() > 0)
+                if (newGroup == null || newGroup.length() == 0)
                     throw new Exception(String.format(
-                            "Parameter PORTGROUP has to be specified for using the switch %s. Expecting generated UUID of the portgroup.",
-                            switchUIID));
+                            "Parameter NIC%s_PORTGROUP has to be specified for using the switch %s. Expecting generated UUID of the portgroup.",
+                            String.valueOf(i), switchUIID));
 
             }
 
@@ -232,7 +232,7 @@ public class NetworkManager {
 
         final VirtualEthernetCardDistributedVirtualPortBackingInfo dvPortBacking = new VirtualEthernetCardDistributedVirtualPortBackingInfo();
         final DistributedVirtualSwitchPortConnection dvPortConnection = new DistributedVirtualSwitchPortConnection();
-
+        
         dvPortConnection.setSwitchUuid(switchUuid);
         dvPortConnection.setPortgroupKey(group.getValue());
         dvPortBacking.setPort(dvPortConnection);
@@ -277,15 +277,7 @@ public class NetworkManager {
         vmDeviceSpec.setDevice(oldNIC);
         vmConfigSpec.getDeviceChange().add(vmDeviceSpec);
     }
-
-    private static void replacePortGroup(VirtualMachineConfigSpec vmConfigSpec,
-            VirtualDevice oldNIC, ManagedObjectReference newNetworkRef,
-            String newNetworkName) throws Exception {
-        logger.debug("new network: " + newNetworkName);
-
-        VirtualEthernetCardNetworkBackingInfo nicBacking = new VirtualEthernetCardNetworkBackingInfo();
-    }
-
+    
     private static void connectNIC(VirtualMachineConfigSpec vmConfigSpec,
             VirtualDevice oldNIC, String vmNetworkName) throws Exception {
 

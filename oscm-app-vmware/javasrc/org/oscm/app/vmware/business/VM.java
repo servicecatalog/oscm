@@ -336,6 +336,11 @@ public class VM extends Template {
         boolean validHostname = isValidHostname();
         boolean validIp = isValidIp(properties);
 
+        LOG.debug(String.format(
+                "getState networkCardsConnected=%s validHostname=%s, validIp=%s",
+                String.valueOf(networkCardsConnected),
+                String.valueOf(validHostname), String.valueOf(validIp)));
+
         if (isLinux()) {
             boolean firstStart = isNotEmpty(guestInfo.getHostName()) && !validIp
                     && isGuestSystemRunning() && areGuestToolsRunning()
@@ -430,11 +435,16 @@ public class VM extends Template {
             }
 
             if (configuration.isAdapterConfiguredManually(i)) {
+                LOG.debug(String.format("Manual configured IP %s",
+                        configuration.getIpAddress(i)));
                 if (!containsIpAddress(info, configuration.getIpAddress(i))) {
                     return false;
                 }
             } else {
                 if (!ipAddressExists(info)) {
+                    LOG.debug(
+                            String.format("GuestInfo for network %s has no IPs",
+                                    info.getNetwork()));
                     return false;
                 }
             }
@@ -445,12 +455,23 @@ public class VM extends Template {
 
     GuestNicInfo getNicInfo(VMPropertyHandler configuration, int i) {
         if (configuration.getNetworkAdapter(i) == null) {
+            LOG.debug(String.format("No network adapter %s", i));
             return null;
         }
+
+        LOG.debug(String.format("NIC adapter %s",
+                configuration.getNetworkAdapter(i)));
+
         for (GuestNicInfo info : guestInfo.getNet()) {
-            if (configuration.isAdapterConfiguredByDhcp(i)) {
+            boolean dhcp = configuration.isAdapterConfiguredByDhcp(i);
+            LOG.debug(String.format("GuestInfo IP %s dhcp=%s",
+                    info.getIpAddress(), String.valueOf(dhcp)));
+            if (dhcp) {
                 return info;
             }
+
+            LOG.debug(String.format("GuestNicInfo.getNetwork = %s",
+                    info.getNetwork()));
             if (configuration.getNetworkAdapter(i).equals(info.getNetwork())) {
                 return info;
             }
