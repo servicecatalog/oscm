@@ -8,7 +8,7 @@
 
 package org.oscm.app.vmware.service;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.oscm.app.v2_0.APPlatformServiceFactory;
@@ -16,6 +16,7 @@ import org.oscm.app.v2_0.data.ControllerSettings;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.v2_0.intf.ControllerAccess;
 import org.oscm.app.vmware.business.Controller;
+import org.oscm.app.vmware.business.VMPropertyHandler;
 import org.oscm.app.vmware.i18n.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +43,11 @@ public class VMwareControllerAccess implements ControllerAccess {
 
     @Override
     public List<String> getControllerParameterKeys() {
-        // not needed here because common configuration UI is not used
-        return new ArrayList<>();
+        LinkedList<String> result = new LinkedList<>();
+        result.add(VMPropertyHandler.BSS_USER_KEY);
+        result.add(VMPropertyHandler.BSS_USER_ID);
+        result.add(VMPropertyHandler.BSS_USER_PWD);
+        return result;
     }
 
     public ControllerSettings getSettings() {
