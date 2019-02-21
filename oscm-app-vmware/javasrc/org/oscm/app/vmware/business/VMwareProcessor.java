@@ -30,9 +30,9 @@ public class VMwareProcessor {
             VMDetails.add("CPUs: " + String.valueOf(ph.getConfigCPUs()));
             VMDetails.add("Disc Space MB: " + String.valueOf(ph.getConfigDiskSpaceMB()));
             VMDetails.add("Memory MB: " + String.valueOf(ph.getConfigMemoryMB()));
-            serverInformation.add("Cluster = " + ph.getTargetCluster());
-            serverInformation.add("Datacenter = " + ph.getTargetDatacenter());
-            serverInformation.add("VCenter server = " + ph.getTargetVCenterServer());
+            serverInformation.add("Cluster: " + ph.getTargetCluster());
+            serverInformation.add("Datacenter: " + ph.getTargetDatacenter());
+            serverInformation.add("VCenter: " + ph.getTargetVCenterServer());
             
             VM vm = new VM(vmClient, instanceName);
             Server server = new Server();
@@ -40,9 +40,9 @@ public class VMwareProcessor {
             server.setId(instanceName);
             server.setName(vm.getGuestFullName());
             publicIp.add(ph.getAccessInfo().toString().replace(instanceName + ", ", ""));
-            server.setPublicIP(publicIp);
+            server.setPublicIP(serverInformation);
             server.setPrivateIP(VMDetails);
-            server.setType(getStringFromList(serverInformation));
+            server.setType(getStringFromList(publicIp));
             servers.add(server);
             
         } catch (Exception e) {
@@ -50,7 +50,6 @@ public class VMwareProcessor {
         }
         return servers;
     }
-    
     
     public String getStringFromList(List list) {
         StringBuilder sb = new StringBuilder();
