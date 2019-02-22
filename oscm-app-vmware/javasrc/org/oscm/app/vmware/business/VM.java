@@ -8,6 +8,8 @@
 
 package org.oscm.app.vmware.business;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +32,9 @@ import com.vmware.vim25.VirtualMachineConfigInfo;
 import com.vmware.vim25.VirtualMachineConfigSpec;
 import com.vmware.vim25.VirtualMachinePowerState;
 import com.vmware.vim25.VirtualMachineRuntimeInfo;
+import com.vmware.vim25.VirtualMachineSnapshotInfo;
+import com.vmware.vim25.VirtualMachineSnapshotTree;
+import com.vmware.vim25.VirtualMachineSummary;
 
 public class VM extends Template {
 
@@ -43,6 +48,8 @@ public class VM extends Template {
     private ManagedObjectReference folder;
     private GuestInfo guestInfo;
     private String instanceName;
+    private VirtualMachineSummary virtualMachineSummary;
+    private VirtualMachineSnapshotInfo virtualMachineSnapshotInfo;
 
     public VM(VMwareClient vmw, String instanceName) throws Exception {
         this.vmw = vmw;
@@ -56,6 +63,10 @@ public class VM extends Template {
                 .getDynamicProperty(vmInstance, "parent");
         guestInfo = (GuestInfo) vmw.getServiceUtil()
                 .getDynamicProperty(vmInstance, "guest");
+        virtualMachineSummary = (VirtualMachineSummary) vmw.getServiceUtil()
+                .getDynamicProperty(vmInstance, "summary");
+        virtualMachineSnapshotInfo = (VirtualMachineSnapshotInfo) vmw
+                .getServiceUtil().getDynamicProperty(vmInstance, "snapshot");
 
         if (vmInstance == null || configSpec == null || folder == null
                 || guestInfo == null) {
@@ -63,6 +74,45 @@ public class VM extends Template {
             throw new Exception(
                     "Failed to retrieve information of VM " + instanceName);
         }
+    }
+
+    public List<String> getSnashotsAsList() {
+        List<String> snapshots = new ArrayList<String>();
+        if (virtualMachineSnapshotInfo != null) {
+            virtualMachineSnapshotInfo.getCurrentSnapshot();
+            List<VirtualMachineSnapshotTree> snap = virtualMachineSnapshotInfo
+                    .getRootSnapshotList();
+            snapshots.addAll(getSnapshots(snap, new ArrayList<String>(), ""));
+        }
+        return snapshots;
+    }
+
+    private List<String> getSnapshots(List<VirtualMachineSnapshotTree> vmst,
+            ArrayList<String> snaps, String indent) {
+        for (Iterator<VirtualMachineSnapshotTree> iterator = vmst
+                .iterator(); iterator.hasNext();) {
+            VirtualMachineSnapshotTree snap = iterator.next();
+            snap.getName();
+            snaps.add(indent + "Snapshot: " + snap.getName());
+            getSnapshots(snap.getChildSnapshotList(), snaps, indent + " ");
+        }
+        return snaps;
+    }
+
+    public Integer getGuestMemoryUsage() {
+        return virtualMachineSummary.getQuickStats().getGuestMemoryUsage();
+    }
+
+    public Integer getOverallCpuUsage() {
+        return virtualMachineSummary.getQuickStats().getOverallCpuUsage();
+    }
+
+    public Integer getUptimeSeconds() {
+        return virtualMachineSummary.getQuickStats().getUptimeSeconds();
+    }
+
+    public String getStatus() {
+        return guestInfo.getGuestState();
     }
 
     public String getGuestFullName() {
@@ -575,7 +625,6 @@ public class VM extends Template {
 
         return (String) vmw.getServiceUtil().getDynamicProperty(hostRef,
                 "summary.hardware.cpuModel");
-
     }
 
     /**
