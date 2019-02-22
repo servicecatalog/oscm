@@ -92,7 +92,6 @@ public class VM extends Template {
         for (Iterator<VirtualMachineSnapshotTree> iterator = vmst
                 .iterator(); iterator.hasNext();) {
             VirtualMachineSnapshotTree snap = iterator.next();
-            snap.getName();
             snaps.add(indent + "Snapshot: " + snap.getName());
             getSnapshots(snap.getChildSnapshotList(), snaps, indent + " ");
         }
