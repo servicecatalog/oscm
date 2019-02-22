@@ -16,9 +16,11 @@ import org.oscm.app.vmware.remote.vmware.VMwareClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 public class VMwareProcessor {
     private static final Logger logger = LoggerFactory
             .getLogger(VMwareProcessor.class);
+
     public List<Server> getServersDetails(VMPropertyHandler ph) {
 
         String instanceName = "";
@@ -32,25 +34,31 @@ public class VMwareProcessor {
             vmClient = VMClientPool.getInstance().getPool()
                     .borrowObject(vcenter);
             instanceName = ph.getInstanceName();
+            VM vm = new VM(vmClient, instanceName);
             VMDetails.add("CPUs: " + String.valueOf(ph.getConfigCPUs()));
-            VMDetails.add("Disc Space MB: " + String.valueOf(ph.getConfigDiskSpaceMB()));
-            VMDetails.add("Memory MB: " + String.valueOf(ph.getConfigMemoryMB()));
+            VMDetails.add("Disc Space MB: "
+                    + String.valueOf(ph.getConfigDiskSpaceMB()));
+            VMDetails.add(
+                    "Memory MB: " + String.valueOf(ph.getConfigMemoryMB()));
+            VMDetails.add("Memory used MB: " + vm.getGuestMemoryUsage());
+            VMDetails.add("CPU used MHz:  " + vm.getOverallCpuUsage());
+            VMDetails.add("Uptime sec: " + vm.getUptimeSeconds());
             serverInformation.add("Cluster: " + ph.getTargetCluster());
             serverInformation.add("Datacenter: " + ph.getTargetDatacenter());
             serverInformation.add("VCenter: " + ph.getTargetVCenterServer());
-            VM vm = new VM(vmClient, instanceName);
+            serverInformation.addAll(vm.getSnashotsAsList());
             Server server = new Server();
-            server.setStatus(vm.getState(ph).name());
+            server.setStatus(vm.getStatus());
             server.setId(instanceName);
             server.setName(vm.getGuestFullName());
             server.setPublicIP(serverInformation);
             server.setPrivateIP(VMDetails);
-            server.setType(ph.getAccessInfo().toString().replace(instanceName + ", ", ""));
+            server.setType(ph.getAccessInfo().toString()
+                    .replace(instanceName + ", ", ""));
             servers.add(server);
         } catch (Exception e) {
             logger.error("Failed to create serverlist");
-        }
-        finally {
+        } finally {
             if (vmClient != null) {
                 try {
                     VMClientPool.getInstance().getPool().returnObject(vcenter,
@@ -62,4 +70,5 @@ public class VMwareProcessor {
         }
         return servers;
     }
+
 }
