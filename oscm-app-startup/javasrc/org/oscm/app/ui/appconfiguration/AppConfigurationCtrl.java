@@ -11,6 +11,7 @@ package org.oscm.app.ui.appconfiguration;
 import org.oscm.app.business.APPlatformControllerFactory;
 import org.oscm.app.ui.BaseCtrl;
 import org.oscm.app.ui.SessionConstants;
+import org.oscm.app.ui.i18n.Messages;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.oscm.app.v2_0.exceptions.ControllerLookupException;
 import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
@@ -38,13 +39,10 @@ import java.util.concurrent.ConcurrentHashMap;
 @ManagedBean
 public class AppConfigurationCtrl extends BaseCtrl {
 
-    private static final Logger logger = LoggerFactory
-            .getLogger(AppConfigurationCtrl.class.getName());
-
-    private static final String ERROR_PING_UNSUPPORTED = "app.message.error.controller.not.pingable";
+    private static final String ERROR_DETAILED_PING_UNSUPPORTED = "app.message.error.controller.not.pingable.detailed";
     private static final String ERROR_PING_FAILED = "app.message.error.controller.unreachable";
+    private static final String ERROR_DETAILED_PING_FAILED = "app.message.error.controller.unreachable.detailed";
     private static final String INFO_PING_SUCCEEDED = "app.message.info.controller.reachable";
-    private static final String DETAILED_MESSAGE_SUFFIX = ".detailed";
 
     private APPConfigurationServiceBean appConfigService;
     private APPTimerServiceBean timerService;
@@ -55,7 +53,6 @@ public class AppConfigurationCtrl extends BaseCtrl {
     private AppConfigurationModel model;
 
     public String getInitialize() {
-        logger.error(">>>>> TEST LOG");
         AppConfigurationModel model = getModel();
         try {
             if (model == null) {
@@ -73,6 +70,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
             }
 
             invokeCanPingForControllers(model.getKeys());
+
         } catch (Exception e) {
             addError(e);
         }
@@ -82,7 +80,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
     }
 
     private void invokeCanPingForControllers(List<String> keys) {
-        for(String key : keys) {
+        for (String key : keys) {
             invokeCanPing(key);
         }
     }
@@ -244,7 +242,10 @@ public class AppConfigurationCtrl extends BaseCtrl {
                 updatedMap.put(controllerId, controller != null && controller.canPing());
             }
         } catch (ControllerLookupException | ConfigurationException e) {
-            displayError(ERROR_PING_UNSUPPORTED, Arrays.toString(e.getStackTrace()), true);
+            displayDetailedError(
+                    String.format(getLocalizedErrorMessage(ERROR_DETAILED_PING_UNSUPPORTED), controllerId),
+                    Arrays.toString(e.getStackTrace())
+            );
         }
 
         updatePingButtonVisibilityMap(updatedMap);
@@ -258,18 +259,22 @@ public class AppConfigurationCtrl extends BaseCtrl {
         try {
             APPlatformController controller = getControllerInstance(controllerId);
 
-            if (controller == null) displayError(ERROR_PING_UNSUPPORTED, null, false);
+            if (controller == null) addError(ERROR_DETAILED_PING_UNSUPPORTED);
             else if (controller.ping(controllerId)) addMessage(INFO_PING_SUCCEEDED);
-            else displayError(ERROR_PING_FAILED, null, false);
+            else addError(ERROR_PING_FAILED);
 
         } catch (ControllerLookupException | ServiceNotReachableException e) {
-            displayError(ERROR_PING_FAILED, Arrays.toString(e.getStackTrace()), true);
-            displayError(ERROR_PING_FAILED, "STACK2", false);
-            displayError(ERROR_PING_FAILED, "STACK3", true);
-            displayError(ERROR_PING_FAILED, "STACK4", true);
-            displayError(ERROR_PING_FAILED, "STACK5", true);
+            displayDetailedError(
+                    getLocalizedErrorMessage(ERROR_DETAILED_PING_FAILED),
+                    Arrays.toString(e.getStackTrace())
+            );
         }
 
+    }
+
+    private String getLocalizedErrorMessage(String messageKey) {
+        String locale = readUserFromSession().getLocale();
+        return Messages.get(locale, messageKey);
     }
 
     private APPlatformController getControllerInstance(String controllerId) throws ControllerLookupException {
@@ -280,10 +285,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
         return controllerInstanceMap.get(controllerId);
     }
 
-    private void displayError(String message, String stackTrace, boolean enableDetailsPopup) {
-        if(enableDetailsPopup) message += DETAILED_MESSAGE_SUFFIX;
-        addError(message);
-//        model.setDetailedExceptionInfo(stackTrace);
-//        model.setEnableExceptionInfo(enableDetailsPopup);
+    private void displayDetailedError(String errorMessage, String stackTrace) {
+        model.addCanPingException(new CanPingErrorWrapper(errorMessage, stackTrace));
     }
 }

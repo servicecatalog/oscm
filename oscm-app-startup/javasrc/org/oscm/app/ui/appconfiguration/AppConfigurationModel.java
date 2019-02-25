@@ -40,7 +40,7 @@ public class AppConfigurationModel extends BaseModel {
         put(Configuration.SHELL_CONTROLLER_ID, false);
         put(Configuration.VMWARE_CONTROLLER_ID, false);
     }};
-    private List<String> canPingExceptionMessageList = new ArrayList<>();
+    private Set<CanPingErrorWrapper> canPingExceptionMessageSet = new HashSet<>();
 
     public boolean isInitialized() {
         return initialized;
@@ -138,11 +138,15 @@ public class AppConfigurationModel extends BaseModel {
         this.pingButtonVisibilityMap = pingButtonVisibilityMap;
     }
 
-    public List<String> getCanPingExceptionMessageList() {
-        return canPingExceptionMessageList;
+    public List<CanPingErrorWrapper> getCanPingExceptionMessageSet() {
+        return new ArrayList<>(canPingExceptionMessageSet);
     }
 
-    public void setCanPingExceptionMessageList(List<String> canPingExceptionMessageList) {
-        this.canPingExceptionMessageList = canPingExceptionMessageList;
+    public void addCanPingException(CanPingErrorWrapper wrapper) {
+        this.canPingExceptionMessageSet.add(wrapper);
+    }
+
+    public void clearCanPingExceptions() {
+        this.canPingExceptionMessageSet.clear();
     }
 }

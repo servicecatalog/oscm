@@ -207,66 +207,24 @@ public class VMControllerTest {
     @Test
     @Ignore("Not implemented")
     public void shouldValidateConfiguration_whenControllerConfigIsValid_givenCanPingRequest() {
-
-
-        boolean result = false;
-        try {
-            result = controller.canPing();
-        } catch (ConfigurationException e) {
-            fail(e.getMessage());
-        }
-
-        assertTrue("Controller configuration should be valid", result);
+        //TODO: To be implemented in oscm/#217
     }
 
     @Test
     @Ignore("Not implemented")
     public void shouldNotValidateConfiguration_whenControllerConfigIsInvalid_givenCanPingRequest() {
-        //TODO: Prep step - mockito?
-        //TODO: Implement
-
-        boolean result = false;
-        try {
-            result = controller.canPing();
-        } catch (ConfigurationException e) {
-            e.printStackTrace();
-        }
-
-        assertFalse("Controller configuration should be invalid", result);
+        //TODO: To be implemented in oscm/#217
     }
 
     @Test
     @Ignore("Not implemented")
     public void shouldValidateConnection_whenServiceInstanceIsReachable_givenPingRequest() {
-        //TODO: Prep step - mockito?
-        //TODO: Implement
-
-        boolean result = false;
-
-        try {
-            result = controller.ping("vmwareControllerId");
-        } catch (APPlatformException ex) {
-            fail(ex.getMessage());
-        }
-
-        assertTrue("Instance should be reachable", result);
+        //TODO: To be implemented in oscm/#217
     }
 
     @Test
     @Ignore("Not implemented")
     public void shouldNotValidateConnection_whenServiceInstanceIsUnreachable_givenPingRequest() {
-        //TODO: Prep step - mockito?\
-        //TODO: Implement
-        boolean result = true;
-        Exception exception = null;
-
-        try {
-            result = controller.ping("vmwareControllerId");
-        } catch (APPlatformException ex) {
-            exception = ex;
-        }
-
-        assertFalse("Instance should not be reachable", result);
-        assertNull("There should be no exception thrown", exception);
+        //TODO: To be implemented in oscm/#217
     }
 }

@@ -98,6 +98,10 @@ td:first-child {
 	margin-bottom: 5px;
 }
 
+.canPingMessagePanel span:hover {
+  cursor: pointer;
+}
+
 .canPingMessagePanel .statusRed {
 	display: inline-block;
 	width: 100%;

@@ -7,16 +7,14 @@
 >
 
     <script language="JavaScript1.2" type="text/javascript">
-    var onSubmitFlag = false;
-    function getUnloadMessage() { return "#{msg['ui.unsavedChanges.lost']}"; }
-    function setDirty(flag) { if ((onSubmitFlag &amp;&amp; (!flag)) || (!onSubmitFlag)) { window.onbeforeunload = (flag) ? getUnloadMessage : null; } }
-    function getDirty() { return null != window.onbeforeunload; }
-    function setOnSubmit(flag) { onSubmitFlag = flag; }
-    setDirty(getDirty() || #{appConfigurationModel.dirty});
-
-
-
+        var onSubmitFlag = false;
+        function getUnloadMessage() { return "#{msg['ui.unsavedChanges.lost']}"; }
+        function setDirty(flag) { if ((onSubmitFlag &amp;&amp; (!flag)) || (!onSubmitFlag)) { window.onbeforeunload = (flag) ? getUnloadMessage : null; } }
+        function getDirty() { return null != window.onbeforeunload; }
+        function setOnSubmit(flag) { onSubmitFlag = flag; }
+        setDirty(getDirty() || #{appConfigurationModel.dirty});
     </script>
+
     <div class="heading_data_1_class">
         <div class="heading_data_1_bg_class">
             <h2>
@@ -32,8 +30,8 @@
 
 
     <h:panelGroup class="statusPanel canPingMessagePanel">
-        <ui:repeat value="#{appConfigurationModel.keys}" var="k">
-            <span class="statusRed" onclick="alert('TEST: +#{k}')">#{k}</span>
+        <ui:repeat value="#{appConfigurationModel.canPingExceptionMessageSet}" var="e">
+            <span class="statusRed" onclick="alert('#{e.stackTrace}')">#{e.errorMessage}</span>
             <ui:fragment><br/></ui:fragment>
         </ui:repeat>
     </h:panelGroup>
@@ -86,7 +84,8 @@
                 <h:commandLink value="#{msg['ui.config.action.delete']}" type="submit"
                                onclick="setOnSubmit(true);setDirty(false);#{rich:element('selectedControllerId')}.value='#{key}';#{rich:element('deleteController')}.click();return false;"/>
             </rich:column>
-            <rich:column class="connectivity_tests_column">
+            <rich:column class="connectivity_tests_column"
+                         rendered="#{appConfigurationModel.pingButtonVisibilityMap.containsValue(true)}">
                 <h:panelGroup class="button_right_part_class"
                               rendered="#{appConfigurationModel.pingButtonVisibilityMap[key]}">
                     <h:panelGroup class="button_content_class">

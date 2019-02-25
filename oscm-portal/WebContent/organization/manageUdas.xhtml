@@ -52,9 +52,9 @@
 
             <rich:column>
               <f:facet name="header">
-                <h:outputText value="#{msg['udaDefinition.controllerId']}" />
+                <h:outputText value="#{msg['udaDefinition.errorMessage']}" />
               </f:facet>
-              <h:outputText id="udaControllerId" value="#{rowItem.controllerId}" styleClass="fieldS" maxlength="#{appBean.idLen}" />
+              <h:outputText id="udaControllerId" value="#{rowItem.errorMessage}" styleClass="fieldS" maxlength="#{appBean.idLen}" />
             </rich:column>
 
             <rich:column>
@@ -146,9 +146,9 @@
             
             <rich:column>
               <f:facet name="header">
-                <h:outputText value="#{msg['udaDefinition.controllerId']}" />
+                <h:outputText value="#{msg['udaDefinition.errorMessage']}" />
               </f:facet>
-              <h:outputText id="udaControllerId" value="#{rowItem.controllerId}" styleClass="fieldS" maxlength="#{appBean.idLen}" />
+              <h:outputText id="udaControllerId" value="#{rowItem.errorMessage}" styleClass="fieldS" maxlength="#{appBean.idLen}" />
             </rich:column>
 
             <rich:column>

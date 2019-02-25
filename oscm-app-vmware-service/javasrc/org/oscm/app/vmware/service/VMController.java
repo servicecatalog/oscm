@@ -493,57 +493,16 @@ public class VMController implements APPlatformController {
 
     @Override
     public boolean ping(String controllerId) throws ServiceNotReachableException {
-//        String url = getConnectionCredentials(CREDENTIALS_URL);
-//        String username = getConnectionCredentials(CREDENTIALS_USERNAME);
-//        String password = getConnectionCredentials(CREDENTIALS_PASSWORD);
-//
-//        VMPropertyHandler handler = new VMPropertyHandler(new ProvisioningSettings())
-//        VMwareClient client = new VMwareClientFactory("en").getInstance();
-//
-//        try {
-//            client.connect();
-//            return client.isConnected();
-//        } catch (Exception e) {
-//            throw new ServiceNotReachableException("Connection failed") {
-//                @Override
-//                public StackTraceElement[] getStackTrace() {
-//                    return e.getStackTrace();
-//                }
-//            };
-//        }
-        throw new ServiceNotReachableException("ERR");
+        //TODO: To be implemented in oscm/#217
+        return false;
     }
 
     @Override
     public boolean canPing() throws ConfigurationException {
-//        String username = getConnectionCredentials(CREDENTIALS_USERNAME);
-//        String password = getConnectionCredentials(CREDENTIALS_PASSWORD);
-//
-//
-//        try {
-//            Map<String, Setting> settingMap = platformService.getControllerSettings("ess.vmware", new PasswordAuthentication(userName, password));
-//            logger.error(">>>> MAP: " + settingMap.toString());
-//        } catch (APPlatformException e) {
-//            e.printStackTrace();
-//        }
-//
-        return true;
+        //TODO: To be implemented in oscm/#217
+        return false;
     }
 
-//    private String getConnectionCredentials(String credentialItem) {
-//        if (connectionCredentials.isEmpty() || connectionCredentials.containsValue(null)) {
-//
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            HttpSession session = (HttpSession) context.getExternalContext()
-//                    .getSession(false);
-//
-//            String userName = session != null ? "" + session.getAttribute("loggedInUserId") : "";
-//            String password = session != null ? "" + session.getAttribute("loggedInUserPassword") : "";
-//
-//            logger.error(">>>>> USERNAME: " + userName);
-//            logger.error(">>>>> PASSWORD: " + password);
-//        }
-//    }
 
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
