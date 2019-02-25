@@ -28,7 +28,6 @@ public class Server implements ServerInformation{
 
     @Override
     public String getId() {
-        // TODO Auto-generated method stub
         return id;
     }
 
@@ -40,7 +39,6 @@ public class Server implements ServerInformation{
 
     @Override
     public String getName() {
-        // TODO Auto-generated method stub
         return name;
     }
 
@@ -52,7 +50,6 @@ public class Server implements ServerInformation{
 
     @Override
     public String getStatus() {
-        // TODO Auto-generated method stub
         return status;
     }
 
@@ -64,7 +61,6 @@ public class Server implements ServerInformation{
 
     @Override
     public String getType() {
-        // TODO Auto-generated method stub
         return type;
     }
 
