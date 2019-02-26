@@ -44,8 +44,8 @@
                                  value="#{manageUdaDefinitionBean.newUda.defaultValue}" maxlength="#{appBean.descriptionLen}"
                                  converterId="trimConverter" styleClass="fieldXS" rendered="#{not empty manageUdaDefinitionBean.newUda}" />
                                  
-          <adm:labelAndInputText id="createUdaControllerIdInput" label="#{msg['udaDefinition.errorMessage']}"
-                                 value="#{manageUdaDefinitionBean.newUda.errorMessage}" maxlength="#{appBean.descriptionLen}"
+          <adm:labelAndInputText id="createUdaControllerIdInput" label="#{msg['udaDefinition.controllerId']}"
+                                 value="#{manageUdaDefinitionBean.newUda.controllerId}" maxlength="#{appBean.descriptionLen}"
                                  converterId="trimConverter" styleClass="fieldXS" rendered="#{not empty manageUdaDefinitionBean.newUda}" />
 
           <adm:outputLabel value="#{msg['udaDefinition.userOption']}" required="false" />

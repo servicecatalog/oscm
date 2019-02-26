@@ -67,8 +67,8 @@
           <adm:message id="updateUdaDefaultValueInputSecretErrorMsg" for="updateUdaDefaultValueInputSecret"
                        rendered="#{not empty manageUdaDefinitionBean.currentUda and manageUdaDefinitionBean.currentUda.encrypted}"/>
 
-          <adm:labelAndInputText id="updateUdaControllerIdInput" label="#{msg['udaDefinition.errorMessage']}"
-            value="#{manageUdaDefinitionBean.currentUda.errorMessage}" maxlength="#{appBean.descriptionLen}"
+          <adm:labelAndInputText id="updateUdaControllerIdInput" label="#{msg['udaDefinition.controllerId']}"
+            value="#{manageUdaDefinitionBean.currentUda.controllerId}" maxlength="#{appBean.descriptionLen}"
             converterId="trimConverter" styleClass="fieldXS" rendered="#{not empty manageUdaDefinitionBean.currentUda}" />
             
           <adm:outputLabel value="#{msg['udaDefinition.userOption']}" required="false" />

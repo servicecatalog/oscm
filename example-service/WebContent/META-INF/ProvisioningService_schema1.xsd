@@ -48,7 +48,7 @@
     <xs:complexType name="serviceAttribute">
         <xs:sequence>
             <xs:element name="attributeId" type="xs:string" minOccurs="0"/>
-            <xs:element name="errorMessage" type="xs:string" minOccurs="0"/>
+            <xs:element name="controllerId" type="xs:string" minOccurs="0"/>
             <xs:element name="encrypted" type="xs:boolean"/>
             <xs:element name="value" type="xs:string" minOccurs="0"/>
         </xs:sequence>

@@ -7,37 +7,39 @@ import java.util.Objects;
  */
 public class CanPingErrorWrapper {
 
-    private String errorMessage;
-    private String stackTrace;
+        private String errorMessage;
+        private String stackTrace;
 
-    /**
-     * @param errorMessage Final, formatted, localized error message
-     * @param stackTrace   stacktrace of an error
-     */
-    public CanPingErrorWrapper(String errorMessage, String stackTrace) {
-        this.errorMessage = errorMessage;
-        this.stackTrace = stackTrace;
-    }
+        /**
+         * @param errorMessage Final, formatted, localized error message
+         * @param stackTrace   stacktrace of an error
+         */
+        public CanPingErrorWrapper(String errorMessage, String stackTrace) {
+                this.errorMessage = errorMessage;
+                this.stackTrace = stackTrace;
+        }
 
-    public String getErrorMessage() {
-        return errorMessage;
-    }
+        public String getErrorMessage() {
+                return errorMessage;
+        }
 
-    public String getStackTrace() {
-        return stackTrace;
-    }
+        public String getStackTrace() {
+                return stackTrace;
+        }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CanPingErrorWrapper that = (CanPingErrorWrapper) o;
-        return errorMessage.equals(that.errorMessage) &&
-                stackTrace.equals(that.stackTrace);
-    }
+        @Override
+        public boolean equals(Object o) {
+                if (this == o)
+                        return true;
+                if (o == null || getClass() != o.getClass())
+                        return false;
+                CanPingErrorWrapper that = (CanPingErrorWrapper) o;
+                return errorMessage.equals(that.errorMessage) &&
+                        stackTrace.equals(that.stackTrace);
+        }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(errorMessage, stackTrace);
-    }
+        @Override
+        public int hashCode() {
+                return Objects.hash(errorMessage, stackTrace);
+        }
 }
