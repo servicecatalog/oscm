@@ -1,3 +1,11 @@
+/*******************************************************************************
+ *
+ *  Copyright FUJITSU LIMITED 2018
+ *
+ *  Creation Date: 23.05.2016
+ *
+ *******************************************************************************/
+
 package org.oscm.app.ui.appconfiguration;
 
 import java.util.Objects;
