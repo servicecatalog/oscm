@@ -16,11 +16,13 @@ import org.oscm.app.v2_0.intf.APPlatformService;
 import org.oscm.app.v2_0.intf.ControllerAccess;
 import org.oscm.app.vmware.business.Controller;
 import org.oscm.app.vmware.business.VMPropertyHandler;
+import org.oscm.app.vmware.business.model.VCenter;
 import org.oscm.app.vmware.business.statemachine.CreateActions;
 import org.oscm.app.vmware.business.statemachine.StateMachine;
-import org.oscm.app.vmware.business.statemachine.api.StateMachineException;
 import org.oscm.app.vmware.i18n.Messages;
+import org.oscm.app.vmware.persistence.VMwareCredentials;
 import org.oscm.app.vmware.remote.bes.Credentials;
+import org.oscm.app.vmware.remote.vmware.VMwareClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,11 +31,12 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Controller implementation for integration of VMWare.
@@ -53,22 +56,17 @@ public class VMController implements APPlatformController {
         private static final String OPERATION_SNAPSHOT = "SNAPSHOT_VM";
         private static final String OPERATION_RESTORE = "RESTORE_VM";
 
-        private static final String CREDENTIALS_URL = "URL";
-        private static final String CREDENTIALS_USERNAME = "USERNAME";
-        private static final String CREDENTIALS_PASSWORD = "PASSWORD";
-
         protected APPlatformService platformService;
 
         private VMwareControllerAccess controllerAccess;
-
-        private Map<String, String> connectionCredentials;
+        private VMwareCredentials cachedCredentials;
+        private VMwareClient client;
 
         @PostConstruct
         public void initialize() {
                 try {
                         platformService = APPlatformServiceFactory
                                 .getInstance();
-                        connectionCredentials = new ConcurrentHashMap<>();
                 } catch (IllegalStateException e) {
                         logger.error(e.getMessage());
                         throw e;
@@ -96,8 +94,7 @@ public class VMController implements APPlatformController {
                                                 + id.getInstanceId() + "]");
                                 throw new APPlatformException(
                                         Messages.getAll("error_instance_exists",
-                                                new Object[] {
-                                                        id.getInstanceId() }));
+                                                id.getInstanceId()));
                         }
 
                         validateParameters(null, ph,
@@ -209,7 +206,7 @@ public class VMController implements APPlatformController {
 
         private void updateProvisioningSettings(VMPropertyHandler ph,
                 StateMachine stateMachine, String instanceId)
-                throws StateMachineException, SuspendException, Exception {
+                throws Exception {
 
                 String nextState = stateMachine.getStateId();
                 switch (nextState) {
@@ -293,9 +290,9 @@ public class VMController implements APPlatformController {
                                 throw new APPlatformException(
                                         Messages.getAll(
                                                 "error_invalid_data_disk_mount_point",
-                                                new Object[] { mointPointKey,
-                                                        mountPoint,
-                                                        validationPattern }));
+                                                mointPointKey,
+                                                mountPoint,
+                                                validationPattern));
                         }
                 }
         }
@@ -310,7 +307,7 @@ public class VMController implements APPlatformController {
                                         + "MB]");
                         throw new APPlatformException(
                                 Messages.getAll("error_invalid_memory",
-                                        new Object[] { Long.valueOf(memory) }));
+                                        Long.valueOf(memory)));
                 }
         }
 
@@ -557,14 +554,222 @@ public class VMController implements APPlatformController {
         @Override
         public boolean ping(String controllerId)
                 throws ServiceNotReachableException {
-                //TODO: To be implemented in oscm/#217
-                return false;
+
+                boolean pingResult = false;
+                ServiceNotReachableException exception;
+                client = getClient();
+
+                try {
+                        client.connect();
+                        pingResult = client.isConnected();
+                } catch (Exception e) {
+                        logger.error("Unable to connect to VMware service", e);
+                        exception = new ServiceNotReachableException(
+                                "Unable to connect to VMWare service");
+                        exception.setStackTrace(e.getStackTrace());
+                        throw exception;
+                }
+
+                return pingResult;
         }
 
         @Override
         public boolean canPing() throws ConfigurationException {
-                //TODO: To be implemented in oscm/#217
-                return false;
+                HashMap<String, Setting> controllerSettings = getControllerSettings();
+                VCenter vCenter = getVCenter(controllerSettings);
+                boolean areParamsValid = false;
+
+                if (vCenter != null)
+                        areParamsValid = validateControllerParams(vCenter);
+
+                if (areParamsValid)
+                        cacheCredentials(vCenter);
+                return areParamsValid;
+        }
+
+        /**
+         * Fetches controller setting from platformService.
+         * Throws an error when config is unable to obtain or is incomplete
+         *
+         * @return Controller settings map
+         * @throws ConfigurationException
+         */
+        private HashMap<String, Setting> getControllerSettings()
+                throws ConfigurationException {
+
+                ConfigurationException exception;
+                HashMap<String, Setting> controllerSettings = null;
+
+                try {
+                        PasswordAuthentication tpUser = getPasswordAuthentication();
+                        controllerSettings = platformService
+                                .getControllerSettings(
+                                        Controller.ID, tpUser);
+                } catch (APPlatformException e) {
+                        exception = new ConfigurationException(
+                                "Unable to get controller settings");
+                        exception.setStackTrace(e.getStackTrace());
+                        throw exception;
+                }
+
+                if (controllerSettings == null) {
+                        exception = new ConfigurationException(
+                                "Unable to get controller settings. Controller settings are null");
+                        throw exception;
+                } else if (controllerSettings.isEmpty()) {
+                        exception = new ConfigurationException(
+                                "Unable to get controller settings. Controller settings map is empty");
+                        throw exception;
+                }
+
+                return controllerSettings;
+        }
+
+        /**
+         * Gets password authentication data for current user from session data
+         *
+         * @return Password Authentication object
+         */
+        private PasswordAuthentication getPasswordAuthentication() {
+                FacesContext facesContext = getContext();
+                HttpSession session = (HttpSession) facesContext
+                        .getExternalContext()
+                        .getSession(false);
+                Object userId = session.getAttribute("loggedInUserId");
+                Object password = session
+                        .getAttribute("loggedInUserPassword");
+
+                return new PasswordAuthentication(
+                        userId.toString(), password.toString());
+        }
+
+        /**
+         * Gets first available VCenter config
+         *
+         * @param controllerSettings
+         * @return VCenter
+         * @throws ConfigurationException
+         */
+        private VCenter getVCenter(
+                HashMap<String, Setting> controllerSettings)
+                throws ConfigurationException {
+
+                ConfigurationException exception;
+
+                List<VCenter> vCenters = getVCenterList(controllerSettings);
+
+                if (vCenters == null) {
+                        exception = new ConfigurationException(
+                                "Unable to get controller settings. VCenter list is null");
+                        throw exception;
+                } else if (vCenters.isEmpty()) {
+                        exception = new ConfigurationException(
+                                "Unable to get controller settings. VCenter list is empty");
+                        throw exception;
+                }
+
+                return vCenters.get(0);
+        }
+
+        /**
+         * Fetches list of available vCenters for provided controller settings
+         *
+         * @param controllerSettings
+         * @return
+         */
+        protected List<VCenter> getVCenterList(
+                HashMap<String, Setting> controllerSettings) {
+                ProvisioningSettings settings = new ProvisioningSettings(
+                        new HashMap<>(), controllerSettings,
+                        Messages.DEFAULT_LOCALE);
+
+                VMPropertyHandler propertyHandler = new VMPropertyHandler(
+                        settings);
+
+                return propertyHandler.getTargetVCenter();
+        }
+
+        private boolean validateControllerParams(VCenter vCenter)
+                throws ConfigurationException {
+
+                if (checkIfParamsAreNull(vCenter)) {
+                        return checkIfParamsAreEmpty(vCenter);
+
+                } else
+                        return false;
+
+        }
+
+        /**
+         * Checks if config params for provided VCenter are not null
+         *
+         * @param vCenter
+         * @return true - if checks passes
+         * @throws ConfigurationException
+         */
+
+        private boolean checkIfParamsAreNull(VCenter vCenter)
+                throws ConfigurationException {
+                if (vCenter.getUrl() == null
+                        || vCenter.getUserid() == null
+                        || vCenter.getPassword() == null) {
+                        throw new ConfigurationException(
+                                "One of controller config parameters is null");
+                } else
+                        return true;
+        }
+
+        /**
+         * Checks if config params for provided VCenter are not empty
+         *
+         * @param vCenter
+         * @return
+         * @throws ConfigurationException
+         */
+        private boolean checkIfParamsAreEmpty(VCenter vCenter)
+                throws ConfigurationException {
+                if (vCenter.getUrl().isEmpty()
+                        || vCenter.getUserid().isEmpty()
+                        || vCenter.getPassword().isEmpty()) {
+                        throw new ConfigurationException(
+                                "One of controller config parameters is empty");
+                } else {
+                        return true;
+                }
+        }
+
+        /**
+         * Copies acquired vCenter credentials to external variable
+         *
+         * @param vCenter
+         */
+        private void cacheCredentials(VCenter vCenter) {
+                cachedCredentials = new VMwareCredentials(
+                        vCenter.getUrl(),
+                        vCenter.getUserid(),
+                        vCenter.getPassword()
+                );
+        }
+
+        /**
+         * Gets current instance of FacesContext
+         *
+         * @return Current FacesContext
+         */
+        protected FacesContext getContext() {
+                return FacesContext.getCurrentInstance();
+        }
+
+        /**
+         * Gets VMware client instance for provided credentials
+         *
+         * @return VMWare Client
+         */
+        protected VMwareClient getClient() {
+                if (client == null)
+                        return new VMwareClient(cachedCredentials);
+                else
+                        return client;
         }
 
         @Override
