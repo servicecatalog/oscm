@@ -32,6 +32,7 @@
   
   <state id="DELETE" action="deleteVM">
     <event id="deleting" state="DELETING" />
+    <event id="stoping" state="STOP" />
     <event id="failed" state="ERROR" />
   </state>
   
