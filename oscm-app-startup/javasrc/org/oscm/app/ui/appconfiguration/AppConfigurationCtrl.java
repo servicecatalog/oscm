@@ -18,7 +18,10 @@ import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
 import org.oscm.app.v2_0.service.APPTimerServiceBean;
+import org.oscm.logging.Log4jLogger;
+import org.oscm.logging.LoggerFactory;
 import org.oscm.types.constants.Configuration;
+import org.oscm.types.enumtypes.LogMessageIdentifier;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -36,6 +39,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @ViewScoped
 @ManagedBean
 public class AppConfigurationCtrl extends BaseCtrl {
+
+        private static final Log4jLogger logger = LoggerFactory
+                .getLogger(AppConfigurationCtrl.class);
 
         private static final String ERROR_DETAILED_PING_UNSUPPORTED = "app.message.error.controller.not.pingable.detailed";
         private static final String ERROR_PING_FAILED = "app.message.error.controller.unreachable";
@@ -260,6 +266,8 @@ public class AppConfigurationCtrl extends BaseCtrl {
                                                 .canPing());
                         }
                 } catch (ControllerLookupException | ConfigurationException e) {
+                        logger.logError(Log4jLogger.SYSTEM_LOG, e,
+                                LogMessageIdentifier.ERROR_PING_NOT_SUPPORTED);
                         displayDetailedError(
                                 String.format(getLocalizedErrorMessage(
                                         ERROR_DETAILED_PING_UNSUPPORTED),
@@ -302,6 +310,8 @@ public class AppConfigurationCtrl extends BaseCtrl {
                                 addError(ERROR_PING_FAILED);
 
                 } catch (ControllerLookupException | ServiceNotReachableException e) {
+                        logger.logError(Log4jLogger.SYSTEM_LOG, e,
+                                LogMessageIdentifier.ERROR_PING_FAILED);
                         displayDetailedError(
                                 getLocalizedErrorMessage(
                                         ERROR_DETAILED_PING_FAILED),
