@@ -83,6 +83,30 @@ td:first-child {
 	color: #006600;
 }
 
+.canPingMessagePanel {
+  margin-bottom: 0.5em;
+
+}
+
+.canPingMessagePanel span {
+  font-weight:  bold;
+	margin-bottom: 5px;
+}
+
+.canPingMessagePanel span {
+  font-weight:  bold;
+	margin-bottom: 5px;
+}
+
+.canPingMessagePanel span:hover {
+  cursor: pointer;
+}
+
+.canPingMessagePanel .statusRed {
+	display: inline-block;
+	width: 100%;
+}
+
 .rich-table {
 	margin: 10px 35px;
 	border-right: 1px solid #D2DBDC;
@@ -322,4 +346,12 @@ background-color: #DCDCDC;
 }
 .rf-pp-hdr{
 	background: #717980 !important;
+}
+
+.connectivity_tests_column {
+	max-width: 8.5em;
+}
+
+.connectivity_tests_column input {
+	max-width: 9em;
 }

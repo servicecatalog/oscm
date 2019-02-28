@@ -1,128 +1,153 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018
- *                                                                                                                                 
+ *
  *  Creation Date: 13 Mar 2014                                                      
- *                                                                              
+ *
  *******************************************************************************/
 
 package org.oscm.app.ui.appconfiguration;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import org.oscm.app.ui.BaseModel;
+import org.oscm.types.constants.Configuration;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
-import org.oscm.app.ui.BaseModel;
+import java.util.*;
 
 /**
  * @author Mao
- * 
  */
 @ViewScoped
 @ManagedBean
 public class AppConfigurationModel extends BaseModel {
 
-    private static final long serialVersionUID = -3308378616927999618L;
-    private boolean initialized;
-    private HashMap<String, String> items;
-    private Set<String> controllerIds;
-    private List<String> keys;
-    private String selectedControllerId;
-    private String newControllerId;
-    private String newOrganizationId;
-    private boolean pageDirty;
-    private String loggedInUserId;
-    private boolean restartRequired = false;
-    
-    public boolean isInitialized() {
-        return initialized;
-    }
+        private static final long serialVersionUID = -3308378616927999618L;
+        private boolean initialized;
+        private HashMap<String, String> items;
+        private Set<String> controllerIds;
+        private List<String> keys;
+        private String selectedControllerId;
+        private String newControllerId;
+        private String newOrganizationId;
+        private boolean pageDirty;
+        private String loggedInUserId;
+        private boolean restartRequired = false;
+        private Map<String, Boolean> pingButtonVisibilityMap = new HashMap<String, Boolean>() {{
+                put(Configuration.AWS_CONTROLLER_ID, false);
+                put(Configuration.AZURE_CONTROLLER_ID, false);
+                put(Configuration.OPENSTACK_CONTROLLER_ID, false);
+                put(Configuration.SHELL_CONTROLLER_ID, false);
+                put(Configuration.VMWARE_CONTROLLER_ID, false);
+        }};
+        private Set<CanPingErrorWrapper> canPingExceptionMessageSet = new HashSet<>();
 
-    public void setInitialized(boolean initialized) {
-        this.initialized = initialized;
-    }
+        public boolean isInitialized() {
+                return initialized;
+        }
 
-    public boolean isDirty() {
-        return pageDirty;
-    }
+        public void setInitialized(boolean initialized) {
+                this.initialized = initialized;
+        }
 
-    public void setDirty(boolean dirty) {
-        pageDirty = dirty;
-    }
+        public boolean isDirty() {
+                return pageDirty;
+        }
 
-    public String getSelectedControllerId() {
-        return selectedControllerId;
-    }
+        public void setDirty(boolean dirty) {
+                pageDirty = dirty;
+        }
 
-    public void setSelectedControllerId(String controllerId) {
-        selectedControllerId = controllerId;
-    }
+        public String getSelectedControllerId() {
+                return selectedControllerId;
+        }
 
-    public String getNewControllerId() {
-        return newControllerId;
-    }
+        public void setSelectedControllerId(String controllerId) {
+                selectedControllerId = controllerId;
+        }
 
-    public void setNewControllerId(String controllerId) {
-        newControllerId = controllerId;
-    }
+        public String getNewControllerId() {
+                return newControllerId;
+        }
 
-    public String getNewOrganizationId() {
-        return newOrganizationId;
-    }
+        public void setNewControllerId(String controllerId) {
+                newControllerId = controllerId;
+        }
 
-    public void setNewOrganizationId(String controllerId) {
-        newOrganizationId = controllerId;
-    }
+        public String getNewOrganizationId() {
+                return newOrganizationId;
+        }
 
-    public HashMap<String, String> getItems() {
-        return items;
-    }
+        public void setNewOrganizationId(String controllerId) {
+                newOrganizationId = controllerId;
+        }
 
-    public Set<String> getControllerIds() {
-        return controllerIds;
-    }
+        public HashMap<String, String> getItems() {
+                return items;
+        }
 
-    public boolean isPageDirty() {
-        return pageDirty;
-    }
+        public Set<String> getControllerIds() {
+                return controllerIds;
+        }
 
-    public void setItems(HashMap<String, String> items) {
-        this.items = items;
-    }
+        public boolean isPageDirty() {
+                return pageDirty;
+        }
 
-    public void setControllerIds(Set<String> controllerIds) {
-        this.controllerIds = controllerIds;
-    }
+        public void setItems(HashMap<String, String> items) {
+                this.items = items;
+        }
 
-    public void setPageDirty(boolean pageDirty) {
-        this.pageDirty = pageDirty;
-    }
+        public void setControllerIds(Set<String> controllerIds) {
+                this.controllerIds = controllerIds;
+        }
 
-    public List<String> getKeys() {
-        return keys;
-    }
+        public void setPageDirty(boolean pageDirty) {
+                this.pageDirty = pageDirty;
+        }
 
-    public void setKeys(List<String> keys) {
-        this.keys = keys;
-    }
+        public List<String> getKeys() {
+                return keys;
+        }
 
-    public String getLoggedInUserId() {
-        return loggedInUserId;
-    }
+        public void setKeys(List<String> keys) {
+                this.keys = keys;
+        }
 
-    public void setLoggedInUserId(String loggedInUserId) {
-        this.loggedInUserId = loggedInUserId;
-    }
+        public String getLoggedInUserId() {
+                return loggedInUserId;
+        }
 
-    public boolean isRestartRequired() {
-        return restartRequired;
-    }
+        public void setLoggedInUserId(String loggedInUserId) {
+                this.loggedInUserId = loggedInUserId;
+        }
 
-    public void setRestartRequired(boolean restartRequired) {
-        this.restartRequired = restartRequired;
-    }
+        public boolean isRestartRequired() {
+                return restartRequired;
+        }
 
+        public void setRestartRequired(boolean restartRequired) {
+                this.restartRequired = restartRequired;
+        }
+
+        public Map<String, Boolean> getPingButtonVisibilityMap() {
+                return pingButtonVisibilityMap;
+        }
+
+        public void setPingButtonVisibilityMap(
+                Map<String, Boolean> pingButtonVisibilityMap) {
+                this.pingButtonVisibilityMap = pingButtonVisibilityMap;
+        }
+
+        public List<CanPingErrorWrapper> getCanPingExceptionMessageSet() {
+                return new ArrayList<>(canPingExceptionMessageSet);
+        }
+
+        public void addCanPingException(CanPingErrorWrapper wrapper) {
+                this.canPingExceptionMessageSet.add(wrapper);
+        }
+
+        public void clearCanPingExceptions() {
+                this.canPingExceptionMessageSet.clear();
+        }
 }

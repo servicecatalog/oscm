@@ -717,6 +717,9 @@ public enum LogMessageIdentifier {
     ERROR_MARKETPLACE_ID_INVALID("70318"), //
     ERROR_MARKETPLACE_ID_NOT_UNIQUE("70319"), //
 
+    ERROR_PING_NOT_SUPPORTED("70320"), //
+    ERROR_PING_FAILED("70321"), //
+
     ERROR("-00001"), DEBUG("00000"); /* Debug Log */
 
     String msgId;
