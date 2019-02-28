@@ -295,7 +295,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
          * Tries to invoke controller's implementation of ping() method.
          * Checks if it is possible to connect to service instance and presents the outcome to the user.
          *
-         * @param controllerId ID of controller for which ping() method has to be invoked
+         * @param controllerId ID of controller for which ping() method has to be invoked 
          */
         public void invokePing(String controllerId) {
                 try {
