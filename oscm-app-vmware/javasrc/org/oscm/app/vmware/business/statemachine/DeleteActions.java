@@ -30,6 +30,7 @@ public class DeleteActions extends Actions {
             .getLogger(DeleteActions.class);
 
     private static final String EVENT_DELETING = "deleting";
+    private static final String EVENT_STOP = "stoping";
 
     @StateMachineAction
     public String checkVMExists(String instanceId,
@@ -106,6 +107,9 @@ public class DeleteActions extends Actions {
                     .borrowObject(vcenter);
             VM vm = new VM(vmClient, ph.getInstanceName());
             TaskInfo taskInfo = vm.delete();
+            if (vm.isRunning()) {
+                return EVENT_STOP;
+            }
             ph.setTask(taskInfo);
             return EVENT_DELETING;
         } catch (Exception e) {
