@@ -2,16 +2,16 @@
 name: Bug report
 about: Create a report to help us improve
 title: ''
-labels: ''
+labels: bug
 assignees: ''
 
 ---
 
 **Version Info**
 Information about the OSCM version you are you using.
- 
+
 **Describe the bug**
-A clear and concise description of what the bug is.
+Clear and concise description of what the bug is.
 
 **How to Reproduce**
 Steps to reproduce the behavior:
@@ -21,13 +21,13 @@ Steps to reproduce the behavior:
 4. See error
 
 **Observed behavior**
-A clear description of what you observed to happen.
+A clear description of what was observed to happen.
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+A clear and concise description of what is expected to happen.
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+If applicable, screenshots to help explain your problem.
 
 **Additional context**
-Add any other context about the problem here.
+Any other context about the problem here.
