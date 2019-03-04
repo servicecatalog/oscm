@@ -74,6 +74,11 @@ public class VMwareInstanceAccess implements InstanceAccess {
         ProvisioningSettings settings = platformService
                 .getServiceInstanceDetails(Controller.ID, instanceId,
                         subscriptionId, organizationId);
+        VMPropertyHandler ph = new VMPropertyHandler(settings);
+        VMwareProcessor vmp = new  VMwareProcessor();
+        String test = vmp.getvmAccessURL(ph);
+        test.length();
+        
         return settings.getServiceAccessInfo();
     }
 

@@ -35,6 +35,7 @@ import com.vmware.vim25.VirtualMachineRuntimeInfo;
 import com.vmware.vim25.VirtualMachineSnapshotInfo;
 import com.vmware.vim25.VirtualMachineSnapshotTree;
 import com.vmware.vim25.VirtualMachineSummary;
+import com.vmware.vim25.VirtualMachineTicket;
 
 public class VM extends Template {
 
@@ -50,6 +51,7 @@ public class VM extends Template {
     private String instanceName;
     private VirtualMachineSummary virtualMachineSummary;
     private VirtualMachineSnapshotInfo virtualMachineSnapshotInfo;
+    VirtualMachineTicket vmTicket;
 
     public VM(VMwareClient vmw, String instanceName) throws Exception {
         this.vmw = vmw;
@@ -67,6 +69,9 @@ public class VM extends Template {
                 .getDynamicProperty(vmInstance, "summary");
         virtualMachineSnapshotInfo = (VirtualMachineSnapshotInfo) vmw
                 .getServiceUtil().getDynamicProperty(vmInstance, "snapshot");
+        
+        vmTicket = vmw.getConnection().getService().acquireTicket(vmInstance, "guestControl");
+        
 
         if (vmInstance == null || configSpec == null || folder == null
                 || guestInfo == null) {
@@ -75,6 +80,30 @@ public class VM extends Template {
                     "Failed to retrieve information of VM " + instanceName);
         }
     }
+    
+   public String createVMURL(VMPropertyHandler ph){
+       
+       StringBuilder URL = new StringBuilder();
+       URL.append("https://");
+       URL.append(ph.getTargetVCenterServer());
+       URL.append(":9443");
+       URL.append("/vsphere-client/webconsole.html?vmId=");
+       URL.append(vmInstance.getValue().toString());
+       URL.append("&vmName=");
+       URL.append(configSpec.getName());
+       URL.append("&serverGuid=");
+       URL.append(configSpec.getInstanceUuid());
+       URL.append("&locale=en");
+       URL.append(ph.getTargetVCenterServer());
+       URL.append(":443");
+       URL.append("&sessionTicket=");
+       URL.append(vmTicket.getTicket().toString());
+       URL.append("&thumbprint=");
+       URL.append(vmTicket.getSslThumbprint());
+                
+       
+       return URL.toString();
+   }
 
     public List<String> getSnashotsAsList() {
         List<String> snapshots = new ArrayList<String>();
@@ -89,11 +118,16 @@ public class VM extends Template {
 
     private List<String> getSnapshots(List<VirtualMachineSnapshotTree> vmst,
             ArrayList<String> snaps, String indent) {
+        
+        vmInstance.getValue().toString();
         for (Iterator<VirtualMachineSnapshotTree> iterator = vmst
                 .iterator(); iterator.hasNext();) {
             VirtualMachineSnapshotTree snap = iterator.next();
             snaps.add(indent + "Snapshot: " + snap.getName());
             getSnapshots(snap.getChildSnapshotList(), snaps, indent + " ");
+            
+            
+            
         }
         return snaps;
     }
