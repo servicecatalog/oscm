@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Copyright FUJITSU LIMITED 2019-->
 <tns:TechnicalServices xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="oscm.serviceprovisioning/1.9/TechnicalService.xsd ../../oscm-serviceprovisioning/javares/TechnicalServices.xsd"
   xmlns:tns="oscm.serviceprovisioning/1.9/TechnicalService.xsd">
