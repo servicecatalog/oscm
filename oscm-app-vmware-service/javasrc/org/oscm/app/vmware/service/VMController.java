@@ -768,10 +768,8 @@ public class VMController implements APPlatformController {
          * @return VMWare Client
          */
         protected VMwareClient getClient() {
-                if (client == null)
-                        return new VMwareClient(cachedCredentials);
-                else
-                        return client;
+                return new VMwareClient(cachedCredentials);
+  
         }
 
         @Override
