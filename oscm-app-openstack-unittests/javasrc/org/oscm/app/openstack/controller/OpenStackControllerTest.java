@@ -10,41 +10,43 @@
 
 package org.oscm.app.openstack.controller;
 
-import static java.time.Instant.ofEpochMilli;
-import static java.time.ZoneId.of;
-import static java.time.ZonedDateTime.ofInstant;
-import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Properties;
-import java.util.concurrent.Callable;
-
-import javax.naming.InitialContext;
-
+import junit.framework.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Matchers;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.oscm.app.openstack.HeatProcessor;
 import org.oscm.app.openstack.MockHttpURLConnection;
 import org.oscm.app.openstack.MockURLStreamHandler;
 import org.oscm.app.openstack.OpenStackConnection;
 import org.oscm.app.openstack.data.FlowState;
-import org.oscm.app.v2_0.data.InstanceDescription;
-import org.oscm.app.v2_0.data.InstanceStatus;
-import org.oscm.app.v2_0.data.InstanceStatusUsers;
-import org.oscm.app.v2_0.data.ProvisioningSettings;
-import org.oscm.app.v2_0.data.ServiceUser;
-import org.oscm.app.v2_0.data.Setting;
+import org.oscm.app.v2_0.data.*;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.oscm.app.v2_0.intf.APPlatformService;
 import org.oscm.test.EJBTestBase;
 import org.oscm.test.ejb.TestContainer;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.Callable;
+
+import static java.time.Instant.ofEpochMilli;
+import static java.time.ZoneId.of;
+import static java.time.ZonedDateTime.ofInstant;
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 /**
  * 
@@ -70,6 +72,34 @@ public class OpenStackControllerTest extends EJBTestBase {
         context.bind(APPlatformService.JNDI_NAME, platformService);
         container.addBean(new OpenStackController());
         controller = container.get(APPlatformController.class);
+    }
+
+    @Test
+    public void canPing_success() throws APPlatformException {
+    }
+
+    @Test
+    public void canPing_failure() throws APPlatformException {
+    }
+
+    private HashMap<String, Setting> getCompleteSettings() {
+        HashMap<String, Setting> settings = new HashMap<>();
+        settings.put(PropertyHandler.KEYSTONE_API_URL, new Setting(PropertyHandler.KEYSTONE_API_URL, "http://keystone:8080/v3"));
+        settings.put(PropertyHandler.API_USER_NAME, new Setting(PropertyHandler.API_USER_NAME, "username"));
+        settings.put(PropertyHandler.API_USER_PWD, new Setting(PropertyHandler.API_USER_PWD, "password"));
+        settings.put(PropertyHandler.DOMAIN_NAME, new Setting(PropertyHandler.DOMAIN_NAME, "default"));
+        settings.put(PropertyHandler.TENANT_ID, new Setting(PropertyHandler.TENANT_ID, "admin"));
+        return settings;
+    }
+
+    private HashMap<String, Setting> getEmptySettings() {
+        HashMap<String, Setting> settings = new HashMap<>();
+        settings.put(PropertyHandler.KEYSTONE_API_URL, new Setting(PropertyHandler.KEYSTONE_API_URL, ""));
+        settings.put(PropertyHandler.API_USER_NAME, new Setting(PropertyHandler.API_USER_NAME, ""));
+        settings.put(PropertyHandler.API_USER_PWD, new Setting(PropertyHandler.API_USER_PWD, ""));
+        settings.put(PropertyHandler.DOMAIN_NAME, new Setting(PropertyHandler.DOMAIN_NAME, ""));
+        settings.put(PropertyHandler.TENANT_ID, new Setting(PropertyHandler.TENANT_ID, ""));
+        return settings;
     }
 
     @Test

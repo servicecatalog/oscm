@@ -10,46 +10,37 @@
  *******************************************************************************/
 package org.oscm.app.openstack.controller;
 
-import static org.oscm.app.openstack.controller.PropertyHandler.RESOURCETYPE_PROJ;
-import static org.oscm.app.openstack.controller.PropertyHandler.STACK_NAME;
-import static org.oscm.app.openstack.data.FlowState.CREATE_PROJECT;
-import static org.oscm.app.openstack.data.FlowState.CREATION_REQUESTED;
-import static org.oscm.app.openstack.data.FlowState.DELETE_PROJECT;
-import static org.oscm.app.openstack.data.FlowState.DELETION_REQUESTED;
-import static org.oscm.app.openstack.data.FlowState.MODIFICATION_REQUESTED;
-import static org.oscm.app.openstack.data.FlowState.UPDATE_PROJECT;
-
-import java.util.List;
-import java.util.Properties;
-import java.util.UUID;
-
-import javax.annotation.PostConstruct;
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-
+import org.oscm.app.openstack.KeystoneClient;
 import org.oscm.app.openstack.NovaProcessor;
+import org.oscm.app.openstack.OpenStackConnection;
 import org.oscm.app.openstack.data.FlowState;
+import org.oscm.app.openstack.exceptions.OpenStackConnectionException;
 import org.oscm.app.openstack.i18n.Messages;
 import org.oscm.app.openstack.usage.UsageConverter;
 import org.oscm.app.v2_0.APPlatformServiceFactory;
-import org.oscm.app.v2_0.data.Context;
-import org.oscm.app.v2_0.data.ControllerSettings;
-import org.oscm.app.v2_0.data.InstanceDescription;
-import org.oscm.app.v2_0.data.InstanceStatus;
-import org.oscm.app.v2_0.data.InstanceStatusUsers;
-import org.oscm.app.v2_0.data.LocalizedText;
-import org.oscm.app.v2_0.data.OperationParameter;
-import org.oscm.app.v2_0.data.ProvisioningSettings;
-import org.oscm.app.v2_0.data.ServiceUser;
-import org.oscm.app.v2_0.data.Setting;
+import org.oscm.app.v2_0.data.*;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.v2_0.exceptions.LogAndExceptionConverter;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.oscm.app.v2_0.intf.APPlatformService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.annotation.PostConstruct;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Properties;
+import java.util.UUID;
+
+import static org.oscm.app.openstack.controller.PropertyHandler.RESOURCETYPE_PROJ;
+import static org.oscm.app.openstack.controller.PropertyHandler.STACK_NAME;
+import static org.oscm.app.openstack.data.FlowState.*;
 
 /**
  * Implementation of an OpenStack service controller based on the Asynchronous
@@ -607,4 +598,66 @@ public class OpenStackController extends ProvisioningValidator
         }
         return false;
     }
+
+    private HashMap<String, Setting> settings;
+
+    @Override
+    public boolean ping(String controllerId) {
+        try {
+            settings = getOpenstackSettings();
+        } catch (APPlatformException e) {
+            LOGGER.error("Failed to get controller settings. ", e);
+            return false;
+        }
+        OpenStackConnection connection = new OpenStackConnection(
+                settings.get("KEYSTONE_API_URL").getValue());
+        KeystoneClient client = new KeystoneClient(connection);
+        try {
+            client.authenticate(settings.get("API_USER_NAME").getValue(),
+                    settings.get("API_USER_PWD").getValue(),
+                    settings.get("DOMAIN_NAME").getValue(),
+                    settings.get("TENANT_ID").getValue());
+            LOGGER.info("Verification of connection to Openstack successful. " +
+                    "Keystone API URL: " + settings.get("KEYSTONE_API_URL").getValue());
+            return true;
+        } catch (OpenStackConnectionException | APPlatformException e) {
+            LOGGER.error("Exception caught while trying to ping controller! " + e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean canPing() {
+        try {
+            settings = getOpenstackSettings();
+        } catch (APPlatformException e) {
+            LOGGER.error("Failed to get controller settings. ", e);
+            return false;
+        }
+        String keystoneApiUrl = settings.get("KEYSTONE_API_URL").getValue();
+        String apiUserName = settings.get("API_USER_NAME").getValue();
+        String apiUserPassword = settings.get("API_USER_PWD").getValue();
+        String domainName = settings.get("DOMAIN_NAME").getValue();
+        String tenantId = settings.get("TENANT_ID").getValue();
+        return !keystoneApiUrl.equals("") && !apiUserName.equals("") &&
+                !apiUserPassword.equals("") && !domainName.equals("") && !tenantId.equals("");
+    }
+
+    private HashMap<String, Setting> getOpenstackSettings() throws APPlatformException {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext
+                .getExternalContext().getSession(false);
+        String username = "" + session.getAttribute("loggedInUserId");
+        String password = "" + session.getAttribute("loggedInUserPassword");
+        HashMap<String, Setting> settings;
+        try {
+            settings = platformService.getControllerSettings(
+                    new OpenStackControllerAccess().getControllerId(),
+                    new PasswordAuthentication(username, password));
+            return settings;
+        } catch (APPlatformException e) {
+            throw new APPlatformException("Failed to get controller settings.");
+        }
+    }
+
 }
