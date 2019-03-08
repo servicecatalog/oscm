@@ -40,8 +40,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ManagedBean
 public class AppConfigurationCtrl extends BaseCtrl {
 
-        private static final Log4jLogger logger = LoggerFactory
-                .getLogger(AppConfigurationCtrl.class);
+        private Log4jLogger logger = null;
 
         private static final String ERROR_DETAILED_PING_UNSUPPORTED = "app.message.error.controller.not.pingable.detailed";
         private static final String ERROR_PING_FAILED = "app.message.error.controller.unreachable";
@@ -57,6 +56,10 @@ public class AppConfigurationCtrl extends BaseCtrl {
         private AppConfigurationModel model;
 
         public String getInitialize() {
+                LoggerFactory
+                        .activateRollingFileAppender("/logs", null, "ERROR");
+                logger = LoggerFactory.getLogger(AppConfigurationCtrl.class);
+
                 AppConfigurationModel model = getModel();
                 try {
                         if (model == null) {
@@ -272,7 +275,8 @@ public class AppConfigurationCtrl extends BaseCtrl {
                                 String.format(getLocalizedErrorMessage(
                                         ERROR_DETAILED_PING_UNSUPPORTED),
                                         controllerId),
-                                Arrays.toString(e.getStackTrace())
+                                e.getLocalizedMessage() + "\\n" + Arrays
+                                        .toString(e.getStackTrace())
                         );
                 }
 
@@ -295,7 +299,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
          * Tries to invoke controller's implementation of ping() method.
          * Checks if it is possible to connect to service instance and presents the outcome to the user.
          *
-         * @param controllerId ID of controller for which ping() method has to be invoked 
+         * @param controllerId ID of controller for which ping() method has to be invoked
          */
         public void invokePing(String controllerId) {
                 try {
@@ -315,7 +319,8 @@ public class AppConfigurationCtrl extends BaseCtrl {
                         displayDetailedError(
                                 getLocalizedErrorMessage(
                                         ERROR_DETAILED_PING_FAILED),
-                                Arrays.toString(e.getStackTrace())
+                                e.getLocalizedMessage() + "\\n" + Arrays
+                                        .toString(e.getStackTrace())
                         );
                 }
 

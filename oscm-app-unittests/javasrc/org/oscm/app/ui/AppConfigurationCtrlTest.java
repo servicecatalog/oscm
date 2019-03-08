@@ -352,6 +352,7 @@ public class AppConfigurationCtrlTest {
         public void shouldShowErrorWithDetails_whenCanPingIsRequested_givenExceptionThrown() {
                 String controllerId = Configuration.VMWARE_CONTROLLER_ID;
                 setServiceControllerContext(controllerId);
+                ctrl.getInitialize();
 
                 try {
                         doThrow(new ConfigurationException(
@@ -411,6 +412,7 @@ public class AppConfigurationCtrlTest {
         public void shouldShowErrorWithDetails_whenPingIsRequested_givenExceptionThrown() {
                 String controllerId = "not.reachable.service.instance";
                 setServiceControllerContext(controllerId);
+                ctrl.getInitialize();
 
                 try {
                         doThrow(new ServiceNotReachableException(
