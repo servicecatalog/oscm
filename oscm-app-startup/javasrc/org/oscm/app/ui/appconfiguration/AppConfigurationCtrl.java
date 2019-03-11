@@ -262,18 +262,12 @@ public class AppConfigurationCtrl extends BaseCtrl {
                                 APPlatformController controller = getControllerInstance(
                                         controllerId);
                                 updatedMap.put(controllerId,
-                                        controller != null && controller
-                                                .canPing());
+                                        controller == null ? false : controller.canPing());
                         }
                 } catch (ControllerLookupException | ConfigurationException e) {
                         logger.logError(Log4jLogger.SYSTEM_LOG, e,
                                 LogMessageIdentifier.ERROR_PING_NOT_SUPPORTED);
-                        displayDetailedError(
-                                String.format(getLocalizedErrorMessage(
-                                        ERROR_DETAILED_PING_UNSUPPORTED),
-                                        controllerId),
-                                Arrays.toString(e.getStackTrace())
-                        );
+                        updatedMap.put(controllerId, false);
                 }
 
                 updatePingButtonVisibilityMap(updatedMap);
