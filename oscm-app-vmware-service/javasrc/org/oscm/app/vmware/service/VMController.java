@@ -56,6 +56,9 @@ public class VMController implements APPlatformController {
         private static final String OPERATION_SNAPSHOT = "SNAPSHOT_VM";
         private static final String OPERATION_RESTORE = "RESTORE_VM";
 
+        private static final String SESSION_USER_ID = "loggedInUserId";
+        private static final String SESSION_USER_LOCALE = "loggedInUserLocale";
+
         protected APPlatformService platformService;
 
         private VMwareControllerAccess controllerAccess;
@@ -565,9 +568,8 @@ public class VMController implements APPlatformController {
                         if (pingResult)
                                 client.close();
                 } catch (Exception e) {
-                        logger.error("Unable to connect to VMware service", e);
                         exception = new ServiceNotReachableException(
-                                "Unable to connect to VMWare service");
+                                getLocalizedErrorMessage("app.message.error.unable.to.connect.to.vmware"));
                         exception.setStackTrace(e.getStackTrace());
                         throw exception;
                 }
@@ -609,18 +611,18 @@ public class VMController implements APPlatformController {
                                         Controller.ID, tpUser);
                 } catch (APPlatformException e) {
                         exception = new ConfigurationException(
-                                "Unable to get controller settings");
+                                getLocalizedErrorMessage("app.message.error.unable.to.get.settings"));
                         exception.setStackTrace(e.getStackTrace());
                         throw exception;
                 }
 
                 if (controllerSettings == null) {
                         exception = new ConfigurationException(
-                                "Unable to get controller settings. Controller settings are null");
+                                getLocalizedErrorMessage("app.message.error.unable.to.get.settings"));
                         throw exception;
                 } else if (controllerSettings.isEmpty()) {
                         exception = new ConfigurationException(
-                                "Unable to get controller settings. Controller settings map is empty");
+                                getLocalizedErrorMessage("app.message.error.unable.to.get.settings"));
                         throw exception;
                 }
 
@@ -634,15 +636,19 @@ public class VMController implements APPlatformController {
          */
         private PasswordAuthentication getPasswordAuthentication() {
                 FacesContext facesContext = getContext();
-                HttpSession session = (HttpSession) facesContext
-                        .getExternalContext()
-                        .getSession(false);
+                HttpSession session = getSession(facesContext);
                 Object userId = session.getAttribute("loggedInUserId");
                 Object password = session
                         .getAttribute("loggedInUserPassword");
 
                 return new PasswordAuthentication(
                         userId.toString(), password.toString());
+        }
+
+        protected HttpSession getSession(FacesContext facesContext) {
+                return (HttpSession) facesContext
+                        .getExternalContext()
+                        .getSession(false);
         }
 
         /**
@@ -662,11 +668,11 @@ public class VMController implements APPlatformController {
 
                 if (vCenters == null) {
                         exception = new ConfigurationException(
-                                "Unable to get controller settings. VCenter list is null");
+                                getLocalizedErrorMessage("app.message.error.unable.to.get.settings.no.vcenters"));
                         throw exception;
                 } else if (vCenters.isEmpty()) {
                         exception = new ConfigurationException(
-                                "Unable to get controller settings. VCenter list is empty");
+                                getLocalizedErrorMessage("app.message.error.unable.to.get.settings.no.vcenters"));
                         throw exception;
                 }
 
@@ -691,6 +697,13 @@ public class VMController implements APPlatformController {
                 return propertyHandler.getTargetVCenter();
         }
 
+        /**
+         * Validates configuration for provided VCenter
+         *
+         * @param vCenter
+         * @return validation result
+         * @throws ConfigurationException
+         */
         private boolean validateControllerParams(VCenter vCenter)
                 throws ConfigurationException {
 
@@ -716,9 +729,43 @@ public class VMController implements APPlatformController {
                         || vCenter.getUserid() == null
                         || vCenter.getPassword() == null) {
                         throw new ConfigurationException(
-                                "One of controller config parameters is null");
+                                getLocalizedErrorMessage("app.message.error.controller.param.empty"));
                 } else
                         return true;
+        }
+
+        /**
+         * Retrieves localized message, based on provided property key and
+         * current user's locale settings
+         *
+         * @param messageKey property key of the message
+         * @return localized message
+         */
+        private String getLocalizedErrorMessage(String messageKey) {
+                String locale = readUserFromSession().getLocale();
+                return Messages.get(locale, messageKey);
+        }
+
+        /**
+         * Fetches user from current session, along with his locale
+         *
+         * @return user from current session
+         */
+        protected ServiceUser readUserFromSession() {
+                ServiceUser user = null;
+                FacesContext facesContext = getContext();
+                HttpSession httpSession = getSession(facesContext);
+
+                String userId = (String) httpSession
+                        .getAttribute(SESSION_USER_ID);
+                String locale = (String) httpSession
+                        .getAttribute(SESSION_USER_LOCALE);
+                if (userId != null && userId.trim().length() > 0) {
+                        user = new ServiceUser();
+                        user.setUserId(userId);
+                        user.setLocale(locale);
+                }
+                return user;
         }
 
         /**
@@ -734,7 +781,7 @@ public class VMController implements APPlatformController {
                         || vCenter.getUserid().isEmpty()
                         || vCenter.getPassword().isEmpty()) {
                         throw new ConfigurationException(
-                                "One of controller config parameters is empty");
+                                getLocalizedErrorMessage("app.message.error.controller.param.empty"));
                 } else {
                         return true;
                 }

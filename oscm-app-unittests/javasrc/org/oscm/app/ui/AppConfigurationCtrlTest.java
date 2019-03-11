@@ -349,7 +349,7 @@ public class AppConfigurationCtrlTest {
         }
 
         @Test
-        public void shouldShowErrorWithDetails_whenCanPingIsRequested_givenExceptionThrown() {
+        public void shouldUpdateVisibilityMap_whenCanPingIsRequested_givenExceptionThrown() {
                 String controllerId = Configuration.VMWARE_CONTROLLER_ID;
                 setServiceControllerContext(controllerId);
 
@@ -362,7 +362,6 @@ public class AppConfigurationCtrlTest {
 
                 ctrl.invokeCanPing(controllerId);
 
-                verify(ctrl, times(1)).readUserFromSession();
                 verify(model, atLeastOnce()).getPingButtonVisibilityMap();
 
         }
