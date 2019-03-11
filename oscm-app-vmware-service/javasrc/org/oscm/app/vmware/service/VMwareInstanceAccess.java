@@ -76,10 +76,10 @@ public class VMwareInstanceAccess implements InstanceAccess {
                         subscriptionId, organizationId);
         VMPropertyHandler ph = new VMPropertyHandler(settings);
         VMwareProcessor vmp = new  VMwareProcessor();
-        String test = vmp.getvmAccessURL(ph);
-        test.length();
+        String aceessURL = vmp.getvmAccessURL(ph);
+        String htmlLink =  "<a href=\"" + aceessURL +"\">Console</a>";
         
-        return settings.getServiceAccessInfo();
+        return settings.getServiceAccessInfo()+ " " + htmlLink;
     }
 
     @Override

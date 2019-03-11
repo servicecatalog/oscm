@@ -23,13 +23,16 @@ import org.slf4j.LoggerFactory;
 
 import com.vmware.vim25.GuestInfo;
 import com.vmware.vim25.GuestNicInfo;
+import com.vmware.vim25.InvalidStateFaultMsg;
 import com.vmware.vim25.ManagedObjectReference;
+import com.vmware.vim25.RuntimeFaultFaultMsg;
 import com.vmware.vim25.TaskInfo;
 import com.vmware.vim25.VimPortType;
 import com.vmware.vim25.VirtualDevice;
 import com.vmware.vim25.VirtualDisk;
 import com.vmware.vim25.VirtualMachineConfigInfo;
 import com.vmware.vim25.VirtualMachineConfigSpec;
+import com.vmware.vim25.VirtualMachineMksTicket;
 import com.vmware.vim25.VirtualMachinePowerState;
 import com.vmware.vim25.VirtualMachineRuntimeInfo;
 import com.vmware.vim25.VirtualMachineSnapshotInfo;
@@ -70,8 +73,6 @@ public class VM extends Template {
         virtualMachineSnapshotInfo = (VirtualMachineSnapshotInfo) vmw
                 .getServiceUtil().getDynamicProperty(vmInstance, "snapshot");
         
-        vmTicket = vmw.getConnection().getService().acquireTicket(vmInstance, "guestControl");
-        
 
         if (vmInstance == null || configSpec == null || folder == null
                 || guestInfo == null) {
@@ -81,7 +82,7 @@ public class VM extends Template {
         }
     }
     
-   public String createVMURL(VMPropertyHandler ph){
+   public String createVMURL(VMPropertyHandler ph) throws InvalidStateFaultMsg, RuntimeFaultFaultMsg{
        
        StringBuilder URL = new StringBuilder();
        URL.append("https://");
@@ -92,19 +93,16 @@ public class VM extends Template {
        URL.append("&vmName=");
        URL.append(configSpec.getName());
        URL.append("&serverGuid=");
-       URL.append(configSpec.getInstanceUuid());
-       URL.append("&locale=en");
+       URL.append(vmw.getConnection().getServiceContent().getAbout().getInstanceUuid());
+       URL.append("&host=");
        URL.append(ph.getTargetVCenterServer());
        URL.append(":443");
        URL.append("&sessionTicket=");
-       URL.append(vmTicket.getTicket().toString());
-       URL.append("&thumbprint=");
-       URL.append(vmTicket.getSslThumbprint());
-                
+       URL.append("cst-VCT");
        
        return URL.toString();
    }
-
+   
     public List<String> getSnashotsAsList() {
         List<String> snapshots = new ArrayList<String>();
         if (virtualMachineSnapshotInfo != null) {

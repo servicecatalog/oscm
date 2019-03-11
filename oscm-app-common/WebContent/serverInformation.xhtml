@@ -36,7 +36,7 @@
   </h2>
   <dl class="clearfix">
       <dt><h:outputText value="#{msg['ui.extensionInterface.accessInfoTitle']}" /></dt>
-          <dd><h:outputText value="#{extensionInterfaceBean.accessInfo}"/></dd>
+          <dd><h:outputText value="#{extensionInterfaceBean.accessInfo}" escape="false" /></dd>
   </dl>
   <h:form>
       <rich:dataTable id="testTable" value="#{extensionInterfaceBean.instanceDetails}" var="detail" headerClass="rowTitle" footerClass="navigation" rowClasses="rowOdd,rowEven">
