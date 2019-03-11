@@ -54,7 +54,6 @@ public class VM extends Template {
     private String instanceName;
     private VirtualMachineSummary virtualMachineSummary;
     private VirtualMachineSnapshotInfo virtualMachineSnapshotInfo;
-    VirtualMachineTicket vmTicket;
 
     public VM(VMwareClient vmw, String instanceName) throws Exception {
         this.vmw = vmw;
