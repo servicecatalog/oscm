@@ -20,7 +20,9 @@ import org.oscm.app.openstack.usage.UsageConverter;
 import org.oscm.app.v2_0.APPlatformServiceFactory;
 import org.oscm.app.v2_0.data.*;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.oscm.app.v2_0.exceptions.LogAndExceptionConverter;
+import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.oscm.app.v2_0.intf.APPlatformService;
 import org.slf4j.Logger;
@@ -602,16 +604,14 @@ public class OpenStackController extends ProvisioningValidator
     private HashMap<String, Setting> settings;
 
     @Override
-    public boolean ping(String controllerId) {
+    public boolean ping(String controllerId) throws ServiceNotReachableException {
         try {
-            settings = getOpenstackSettings();
+            settings = getOpenStackSettings();
         } catch (APPlatformException e) {
-            LOGGER.error("Failed to get controller settings. ", e);
-            return false;
+            throw new ServiceNotReachableException("Failed to get controller settings. ", e);
         }
-        OpenStackConnection connection = new OpenStackConnection(
-                settings.get("KEYSTONE_API_URL").getValue());
-        KeystoneClient client = new KeystoneClient(connection);
+        OpenStackConnection connection = getOpenstackConnection();
+        KeystoneClient client = getKeystoneClient(connection);
         try {
             client.authenticate(settings.get("API_USER_NAME").getValue(),
                     settings.get("API_USER_PWD").getValue(),
@@ -621,30 +621,41 @@ public class OpenStackController extends ProvisioningValidator
                     "Keystone API URL: " + settings.get("KEYSTONE_API_URL").getValue());
             return true;
         } catch (OpenStackConnectionException | APPlatformException e) {
-            LOGGER.error("Exception caught while trying to ping controller! " + e);
-            return false;
+            throw new ServiceNotReachableException("Exception caught while trying to ping controller! " + e);
         }
     }
 
+    protected KeystoneClient getKeystoneClient(OpenStackConnection connection) {
+        return new KeystoneClient(connection);
+    }
+
+    protected OpenStackConnection getOpenstackConnection() {
+        return new OpenStackConnection(settings.get("KEYSTONE_API_URL").getValue());
+    }
+
     @Override
-    public boolean canPing() {
+    public boolean canPing() throws ConfigurationException {
         try {
-            settings = getOpenstackSettings();
+            settings = getOpenStackSettings();
         } catch (APPlatformException e) {
-            LOGGER.error("Failed to get controller settings. ", e);
-            return false;
+            ConfigurationException exception = new ConfigurationException("Unable to get Openstack settings");
+            exception.setStackTrace(e.getStackTrace());
+            throw exception;
         }
         String keystoneApiUrl = settings.get("KEYSTONE_API_URL").getValue();
         String apiUserName = settings.get("API_USER_NAME").getValue();
         String apiUserPassword = settings.get("API_USER_PWD").getValue();
         String domainName = settings.get("DOMAIN_NAME").getValue();
         String tenantId = settings.get("TENANT_ID").getValue();
-        return !keystoneApiUrl.equals("") && !apiUserName.equals("") &&
-                !apiUserPassword.equals("") && !domainName.equals("") && !tenantId.equals("");
+        if (keystoneApiUrl.equals("") && apiUserName.equals("") &&
+                apiUserPassword.equals("") && domainName.equals("") && tenantId.equals("")) {
+            throw new ConfigurationException("One of the settings is not complete.");
+        }
+        return true;
     }
 
-    private HashMap<String, Setting> getOpenstackSettings() throws APPlatformException {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
+    protected HashMap<String, Setting> getOpenStackSettings() throws APPlatformException {
+        FacesContext facesContext = getFacesContext();
         HttpSession session = (HttpSession) facesContext
                 .getExternalContext().getSession(false);
         String username = "" + session.getAttribute("loggedInUserId");
@@ -656,8 +667,12 @@ public class OpenStackController extends ProvisioningValidator
                     new PasswordAuthentication(username, password));
             return settings;
         } catch (APPlatformException e) {
-            throw new APPlatformException("Failed to get controller settings.");
+            throw new ConfigurationException("Failed to get controller settings.");
         }
+    }
+
+    protected FacesContext getFacesContext() {
+        return FacesContext.getCurrentInstance();
     }
 
 }

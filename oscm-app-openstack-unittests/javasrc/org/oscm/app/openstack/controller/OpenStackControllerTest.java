@@ -11,19 +11,14 @@
 package org.oscm.app.openstack.controller;
 
 import junit.framework.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Matchers;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.oscm.app.openstack.HeatProcessor;
-import org.oscm.app.openstack.MockHttpURLConnection;
-import org.oscm.app.openstack.MockURLStreamHandler;
-import org.oscm.app.openstack.OpenStackConnection;
+import org.oscm.app.openstack.*;
 import org.oscm.app.openstack.data.FlowState;
+import org.oscm.app.openstack.exceptions.OpenStackConnectionException;
 import org.oscm.app.v2_0.data.*;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
-import org.oscm.app.v2_0.intf.APPlatformController;
+import org.oscm.app.v2_0.exceptions.ConfigurationException;
+import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
 import org.oscm.app.v2_0.intf.APPlatformService;
 import org.oscm.test.EJBTestBase;
 import org.oscm.test.ejb.TestContainer;
@@ -43,17 +38,17 @@ import static java.time.ZonedDateTime.ofInstant;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * 
  */
 public class OpenStackControllerTest extends EJBTestBase {
 
-    private APPlatformController controller;
+
+    private OpenStackController controller;
     private APPlatformService platformService;
 
     private final HashMap<String, Setting> parameters = new HashMap<String, Setting>();
@@ -63,6 +58,12 @@ public class OpenStackControllerTest extends EJBTestBase {
     private InitialContext context;
     private final MockURLStreamHandler streamHandler = new MockURLStreamHandler();
 
+    private HttpSession httpSession;
+    private FacesContext facesContext;
+    private ExternalContext externalContext;
+    private OpenStackConnection openStackConnection;
+    private KeystoneClient keystoneClient;
+
     @Override
     protected void setup(TestContainer container) throws Exception {
 
@@ -71,15 +72,140 @@ public class OpenStackControllerTest extends EJBTestBase {
         context = new InitialContext();
         context.bind(APPlatformService.JNDI_NAME, platformService);
         container.addBean(new OpenStackController());
-        controller = container.get(APPlatformController.class);
+
+        controller = spy(container.get(OpenStackController.class));
+        httpSession = mock(HttpSession.class);
+        facesContext = mock(FacesContext.class);
+        externalContext = mock(ExternalContext.class);
+        openStackConnection = mock(OpenStackConnection.class);
+        keystoneClient = mock(KeystoneClient.class);
+    }
+
+    private void setupContext() {
+        when(controller.getFacesContext()).thenReturn(facesContext);
+        doReturn(openStackConnection).when(controller).getOpenstackConnection();
+        when(controller.getKeystoneClient(any())).thenReturn(keystoneClient);
+        when(facesContext.getExternalContext()).thenReturn(externalContext);
+        when(externalContext.getSession(anyBoolean())).thenReturn(httpSession);
+        when(httpSession.getAttribute(anyString())).thenReturn("string");
     }
 
     @Test
-    public void canPing_success() throws APPlatformException {
+    public void ping_success() {
+        //given
+        setupContext();
+        HashMap<String, Setting> settings = getCompleteSettings();
+
+        //when
+        try {
+            when(platformService.getControllerSettings(any(), any())).thenReturn(settings);
+            controller.ping(anyString());
+        } catch (APPlatformException e) {
+            fail("Keystone authentication failed");
+        }
+
+        //then
+        //no exception is thrown
     }
 
     @Test
-    public void canPing_failure() throws APPlatformException {
+    public void canPing_failWhenGettingOpenStackSettings() {
+        //given
+        setupContext();
+        HashMap<String, Setting> settings = getCompleteSettings();
+        Exception exception = null;
+
+        //when
+        try {
+            doThrow(new APPlatformException("Could not get Openstack Settings."))
+                    .when(platformService).getControllerSettings(any(), any());
+            controller.canPing();
+        } catch (APPlatformException e) {
+            exception = e;
+        }
+
+        //then
+        Assert.assertNotNull("Exception is null.", exception);
+    }
+
+    @Test
+    public void ping_failWhenGettingOpenStackSettings() {
+        //given
+        setupContext();
+        HashMap<String, Setting> settings = getCompleteSettings();
+        Exception exception = null;
+
+        //when
+        try {
+            doThrow(new APPlatformException("Could not get Openstack Settings."))
+                    .when(platformService).getControllerSettings(any(), any());
+            controller.ping(anyString());
+        } catch (APPlatformException e) {
+            exception = e;
+        }
+
+        //then
+        Assert.assertNotNull("Exception is null.", exception);
+    }
+
+    @Test
+    public void ping_failWhenAuthenticatingWithKeystone() {
+        //given
+        setupContext();
+        HashMap<String, Setting> settings = getCompleteSettings();
+        Exception exception = null;
+
+        //when
+        try {
+            doThrow(new OpenStackConnectionException("Could not authenticate.")).when(keystoneClient).authenticate(anyString(), anyString(), anyString(), anyString());
+            when(platformService.getControllerSettings(any(), any())).thenReturn(settings);
+            controller.ping(anyString());
+        } catch (ServiceNotReachableException | OpenStackConnectionException e) {
+            exception = e;
+        } catch (APPlatformException e) {
+            fail("Wrong exception is thrown");
+        }
+
+        //then
+        Assert.assertNotNull("Exception is null.", exception);
+    }
+
+    @Test
+    public void canPing_success() {
+        //given
+        setupContext();
+        HashMap<String, Setting> settings = getCompleteSettings();
+
+        //when
+        boolean result = false;
+        try {
+            when(platformService.getControllerSettings(any(), any())).thenReturn(settings);
+            result = controller.canPing();
+        } catch (APPlatformException e) {
+            fail(e.getMessage());
+        }
+
+        //then
+        Assert.assertTrue("canPing fail", result);
+    }
+
+    @Test
+    public void canPing_failure() {
+        //given
+        setupContext();
+        HashMap<String, Setting> settings = getEmptySettings();
+        Exception exception = null;
+
+        //when
+        try {
+            when(platformService.getControllerSettings(any(), any())).thenReturn(settings);
+            controller.canPing();
+        } catch (APPlatformException e) {
+            exception = e;
+        }
+
+        //then
+        Assert.assertNotNull("Exception is null", exception);
     }
 
     private HashMap<String, Setting> getCompleteSettings() {
