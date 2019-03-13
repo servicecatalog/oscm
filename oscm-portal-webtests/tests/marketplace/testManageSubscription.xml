@@ -128,7 +128,7 @@
 
         <!-- Verify that no error is present -->
 
-        <mpl_verify.success label="The users have been successfully assigned." />
+        <mpl_verify.success label="The user assignment has been successfully triggered. Please check your email." />
       </sequential>
       <common.ignorePageScriptError />
       <mpl_login.logout />
