@@ -310,7 +310,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
                         displayDetailedError(
                                 getLocalizedErrorMessage(
                                         ERROR_DETAILED_PING_FAILED),
-                                Arrays.toString(e.getStackTrace())
+                                e.getMessage()+"\\n"+Arrays.toString(e.getStackTrace())
                         );
                 }
 
