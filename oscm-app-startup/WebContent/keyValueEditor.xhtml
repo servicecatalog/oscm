@@ -15,8 +15,26 @@
         function setDirty(flag) { if ((onSubmitFlag &amp;&amp; (!flag)) || (!onSubmitFlag)) { window.onbeforeunload = (flag) ? getUnloadMessage : null; } }
         function getDirty() { return null != window.onbeforeunload; }
         function setOnSubmit(flag) { onSubmitFlag = flag; }
-        setDirty(getDirty() || #{appConfigurationModel.dirty});
 
+        function doCheckConnection() {
+            this.blur();
+        }
+
+        function doShowProgress(flag) {
+	        var e = document.getElementById("progressDiv");
+	        if (e) {
+		        if (flag) {
+			        e.style.display = "";
+			        document.body.style.cursor = "wait";
+		        } else {
+			        e.style.display = "none";
+			        document.body.style.cursor = "auto";
+		        }
+	        }
+	        return false;
+        }
+
+        setDirty(getDirty() || #{appConfigurationModel.dirty});
     </script>
 
     <div class="heading_data_1_class">
@@ -25,6 +43,14 @@
                 <h:outputText value="#{msg['ui.config.title']}"/>
             </h2>
         </div>
+    </div>
+
+    <div id="progressDiv" class="progressOverlay">
+        <table width="98%">
+            <tr>
+                <td></td>
+            </tr>
+        </table>
     </div>
     <span class="description"><h:outputText
             value="#{msg['ui.config.description']}"/> </span>
@@ -105,7 +131,7 @@
             </rich:column>
             <rich:column class="connectivity_tests_column">
                 <h:commandButton id="pingButton" class="connectivity_check_button"
-                                 onclick="this.blur();"
+                                 onclick=" this.blur(); doShowProgress(true);"
                                  disabled="#{!appConfigurationModel.pingButtonVisibilityMap[key]}"
                                  value="#{msg['ui.config.action.ping']}"
                                  action="#{appConfigurationCtrl.invokePing(key)}"/>

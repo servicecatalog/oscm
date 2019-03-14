@@ -221,6 +221,7 @@ span.button_right_part_class {
 }
 
 .connectivity_check_button:hover {
+   cursor: inherit;
    border:1px solid #7D7D7D;
    background-color: #EDEDED; background-image: -webkit-gradient(linear, left top, left bottom, from(#EDEDED), to(#C4C4C4));
    background-image: -webkit-linear-gradient(top, #EDEDED, #C4C4C4);
