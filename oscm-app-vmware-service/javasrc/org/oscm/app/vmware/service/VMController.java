@@ -569,7 +569,7 @@ public class VMController implements APPlatformController {
                                 client.close();
                 } catch (Exception e) {
                         exception = new ServiceNotReachableException(
-                                getLocalizedErrorMessage("app.message.error.unable.to.connect.to.vmware"));
+                                getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.vmware"));
                         exception.setStackTrace(e.getStackTrace());
                         throw exception;
                 }
@@ -611,18 +611,18 @@ public class VMController implements APPlatformController {
                                         Controller.ID, tpUser);
                 } catch (APPlatformException e) {
                         exception = new ConfigurationException(
-                                getLocalizedErrorMessage("app.message.error.unable.to.get.settings"));
+                                getLocalizedErrorMessage("ui.config.error.unable.to.get.settings"));
                         exception.setStackTrace(e.getStackTrace());
                         throw exception;
                 }
 
                 if (controllerSettings == null) {
                         exception = new ConfigurationException(
-                                getLocalizedErrorMessage("app.message.error.unable.to.get.settings"));
+                                getLocalizedErrorMessage("ui.config.error.unable.to.get.settings"));
                         throw exception;
                 } else if (controllerSettings.isEmpty()) {
                         exception = new ConfigurationException(
-                                getLocalizedErrorMessage("app.message.error.unable.to.get.settings"));
+                                getLocalizedErrorMessage("ui.config.error.unable.to.get.settings"));
                         throw exception;
                 }
 
@@ -668,11 +668,11 @@ public class VMController implements APPlatformController {
 
                 if (vCenters == null) {
                         exception = new ConfigurationException(
-                                getLocalizedErrorMessage("app.message.error.unable.to.get.settings.no.vcenters"));
+                                getLocalizedErrorMessage("ui.config.error.unable.to.get.settings.no.vcenters"));
                         throw exception;
                 } else if (vCenters.isEmpty()) {
                         exception = new ConfigurationException(
-                                getLocalizedErrorMessage("app.message.error.unable.to.get.settings.no.vcenters"));
+                                getLocalizedErrorMessage("ui.config.error.unable.to.get.settings.no.vcenters"));
                         throw exception;
                 }
 
@@ -729,7 +729,7 @@ public class VMController implements APPlatformController {
                         || vCenter.getUserid() == null
                         || vCenter.getPassword() == null) {
                         throw new ConfigurationException(
-                                getLocalizedErrorMessage("app.message.error.controller.param.empty"));
+                                getLocalizedErrorMessage("ui.config.error.controller.param.empty"));
                 } else
                         return true;
         }
@@ -781,7 +781,7 @@ public class VMController implements APPlatformController {
                         || vCenter.getUserid().isEmpty()
                         || vCenter.getPassword().isEmpty()) {
                         throw new ConfigurationException(
-                                getLocalizedErrorMessage("app.message.error.controller.param.empty"));
+                                getLocalizedErrorMessage("ui.config.error.controller.param.empty"));
                 } else {
                         return true;
                 }
