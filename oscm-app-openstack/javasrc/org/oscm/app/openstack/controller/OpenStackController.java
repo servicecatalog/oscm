@@ -646,8 +646,8 @@ public class OpenStackController extends ProvisioningValidator
         String apiUserPassword = settings.get("API_USER_PWD").getValue();
         String domainName = settings.get("DOMAIN_NAME").getValue();
         String tenantId = settings.get("TENANT_ID").getValue();
-        if (keystoneApiUrl.equals("") && apiUserName.equals("") &&
-                apiUserPassword.equals("") && domainName.equals("") && tenantId.equals("")) {
+        if (keystoneApiUrl.equals("") || apiUserName.equals("") ||
+                apiUserPassword.equals("") || domainName.equals("") || tenantId.equals("")) {
             throw new ConfigurationException(getLocalizedErrorMessage(
                     "ui.config.error.missing.configuration"));
         }
@@ -702,7 +702,7 @@ public class OpenStackController extends ProvisioningValidator
     }
 
     private PasswordAuthentication getPasswordAuthentication() {
-        FacesContext facesContext = getContext();
+        FacesContext facesContext = getFacesContext();
         HttpSession session = getSession(facesContext);
         Object userId = session.getAttribute("loggedInUserId");
         Object password = session

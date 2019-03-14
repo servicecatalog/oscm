@@ -63,6 +63,7 @@ public class OpenStackControllerTest extends EJBTestBase {
     private ExternalContext externalContext;
     private OpenStackConnection openStackConnection;
     private KeystoneClient keystoneClient;
+    private PasswordAuthentication passwordAuthentication;
 
     @Override
     protected void setup(TestContainer container) throws Exception {
@@ -79,14 +80,17 @@ public class OpenStackControllerTest extends EJBTestBase {
         externalContext = mock(ExternalContext.class);
         openStackConnection = mock(OpenStackConnection.class);
         keystoneClient = mock(KeystoneClient.class);
+        passwordAuthentication = mock(PasswordAuthentication.class);
     }
 
     private void setupContext() {
-        when(controller.getFacesContext()).thenReturn(facesContext);
+        doReturn(httpSession).when(controller).getSession(any());
         doReturn(openStackConnection).when(controller).getOpenstackConnection();
+        when(controller.getFacesContext()).thenReturn(facesContext);
         when(controller.getKeystoneClient(any())).thenReturn(keystoneClient);
-        when(facesContext.getExternalContext()).thenReturn(externalContext);
         when(externalContext.getSession(anyBoolean())).thenReturn(httpSession);
+        when(externalContext.getContext()).thenReturn(passwordAuthentication);
+        when(facesContext.getExternalContext()).thenReturn(externalContext);
         when(httpSession.getAttribute(anyString())).thenReturn("string");
     }
 
@@ -157,7 +161,9 @@ public class OpenStackControllerTest extends EJBTestBase {
 
         //when
         try {
-            doThrow(new OpenStackConnectionException("Could not authenticate.")).when(keystoneClient).authenticate(anyString(), anyString(), anyString(), anyString());
+            doThrow(new OpenStackConnectionException("Could not authenticate."))
+                    .when(keystoneClient)
+                    .authenticate(anyString(), anyString(), anyString(), anyString());
             when(platformService.getControllerSettings(any(), any())).thenReturn(settings);
             controller.ping(anyString());
         } catch (ServiceNotReachableException | OpenStackConnectionException e) {
