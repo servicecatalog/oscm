@@ -66,12 +66,16 @@ import static org.oscm.app.openstack.data.FlowState.*;
 public class OpenStackController extends ProvisioningValidator
         implements APPlatformController {
 
+
     public static final String ID = "ess.openstack";
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OpenStackController.class);
 
     private static final int SERVERS_NUMBER_CANNOT_BE_CHECKED = 0;
+
+    private static final String SESSION_USER_ID = "loggedInUserId";
+    private static final String SESSION_USER_LOCALE = "loggedInUserLocale";
 
     private APPlatformService platformService;
 
@@ -608,7 +612,8 @@ public class OpenStackController extends ProvisioningValidator
         try {
             settings = getOpenStackSettings();
         } catch (APPlatformException e) {
-            throw new ServiceNotReachableException("Failed to get controller settings. ", e);
+            throw new ServiceNotReachableException(getLocalizedErrorMessage(
+                    "ui.config.error.unable.to.get.openstack.controller.settings"));
         }
         OpenStackConnection connection = getOpenstackConnection();
         KeystoneClient client = getKeystoneClient(connection);
@@ -621,16 +626,9 @@ public class OpenStackController extends ProvisioningValidator
                     "Keystone API URL: " + settings.get("KEYSTONE_API_URL").getValue());
             return true;
         } catch (OpenStackConnectionException | APPlatformException e) {
-            throw new ServiceNotReachableException("Exception caught while trying to ping controller! " + e);
+            throw new ServiceNotReachableException(getLocalizedErrorMessage(
+                    "ui.config.error.unable.to.connect.to.openstack"));
         }
-    }
-
-    protected KeystoneClient getKeystoneClient(OpenStackConnection connection) {
-        return new KeystoneClient(connection);
-    }
-
-    protected OpenStackConnection getOpenstackConnection() {
-        return new OpenStackConnection(settings.get("KEYSTONE_API_URL").getValue());
     }
 
     @Override
@@ -638,7 +636,8 @@ public class OpenStackController extends ProvisioningValidator
         try {
             settings = getOpenStackSettings();
         } catch (APPlatformException e) {
-            ConfigurationException exception = new ConfigurationException("Unable to get Openstack settings");
+            ConfigurationException exception = new ConfigurationException(getLocalizedErrorMessage(
+                    "ui.config.error.unable.to.connect.to.openstack"));
             exception.setStackTrace(e.getStackTrace());
             throw exception;
         }
@@ -649,7 +648,8 @@ public class OpenStackController extends ProvisioningValidator
         String tenantId = settings.get("TENANT_ID").getValue();
         if (keystoneApiUrl.equals("") && apiUserName.equals("") &&
                 apiUserPassword.equals("") && domainName.equals("") && tenantId.equals("")) {
-            throw new ConfigurationException("One of the settings is not complete.");
+            throw new ConfigurationException(getLocalizedErrorMessage(
+                    "ui.config.error.missing.configuration"));
         }
         return true;
     }
@@ -667,8 +667,60 @@ public class OpenStackController extends ProvisioningValidator
                     new PasswordAuthentication(username, password));
             return settings;
         } catch (APPlatformException e) {
-            throw new ConfigurationException("Failed to get controller settings.");
+            throw new ConfigurationException(getLocalizedErrorMessage(
+                    "ui.config.error.unable.to.get.openstack.controller.settings"));
         }
+    }
+
+    protected KeystoneClient getKeystoneClient(OpenStackConnection connection) {
+        return new KeystoneClient(connection);
+    }
+
+    protected OpenStackConnection getOpenstackConnection() {
+        return new OpenStackConnection(settings.get("KEYSTONE_API_URL").getValue());
+    }
+
+    protected ServiceUser readUserFromSession() {
+        ServiceUser user = null;
+        FacesContext facesContext = getContext();
+        HttpSession httpSession = getSession(facesContext);
+
+        String userId = (String) httpSession
+                .getAttribute(SESSION_USER_ID);
+        String locale = (String) httpSession
+                .getAttribute(SESSION_USER_LOCALE);
+        if (userId != null && userId.trim().length() > 0) {
+            user = new ServiceUser();
+            user.setUserId(userId);
+            user.setLocale(locale);
+        }
+        return user;
+    }
+
+    protected FacesContext getContext() {
+        return FacesContext.getCurrentInstance();
+    }
+
+    private PasswordAuthentication getPasswordAuthentication() {
+        FacesContext facesContext = getContext();
+        HttpSession session = getSession(facesContext);
+        Object userId = session.getAttribute("loggedInUserId");
+        Object password = session
+                .getAttribute("loggedInUserPassword");
+
+        return new PasswordAuthentication(
+                userId.toString(), password.toString());
+    }
+
+    protected HttpSession getSession(FacesContext facesContext) {
+        return (HttpSession) facesContext
+                .getExternalContext()
+                .getSession(false);
+    }
+
+    private String getLocalizedErrorMessage(String messageKey) {
+        String locale = readUserFromSession().getLocale();
+        return Messages.get(locale, messageKey);
     }
 
     protected FacesContext getFacesContext() {
