@@ -702,7 +702,7 @@ public class OpenStackController extends ProvisioningValidator
     }
 
     private PasswordAuthentication getPasswordAuthentication() {
-        FacesContext facesContext = getContext();
+        FacesContext facesContext = getFacesContext();
         HttpSession session = getSession(facesContext);
         Object userId = session.getAttribute("loggedInUserId");
         Object password = session
