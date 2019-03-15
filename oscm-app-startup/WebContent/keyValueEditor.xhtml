@@ -127,7 +127,7 @@
                                onclick="setOnSubmit(true);setDirty(false);#{rich:element('selectedControllerId')}.value='#{key}';#{rich:element('deleteController')}.click();return false;"/>
             </rich:column>
             <rich:column class="connectivity_tests_column">
-                <h:commandButton id="pingButton" class="connectivity_check_button"
+                <h:commandButton id="pingButton" class="oscm_app_button"
                                  onclick=" this.blur(); doShowProgress(true);"
                                  disabled="#{!appConfigurationModel.pingButtonVisibilityMap[key]}"
                                  value="#{msg['ui.config.action.ping']}"
