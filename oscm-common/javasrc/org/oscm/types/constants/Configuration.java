@@ -42,6 +42,7 @@ public interface Configuration {
          */
         public static final List<String> pingableControllersList = Arrays
                 .asList(
-                        VMWARE_CONTROLLER_ID
+                        VMWARE_CONTROLLER_ID,
+                        OPENSTACK_CONTROLLER_ID
                 );
 }

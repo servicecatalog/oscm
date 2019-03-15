@@ -163,23 +163,19 @@ public class OpenStackConnection {
             case 400:
                 throw new OpenStackConnectionException(
                         "either input parameter format error or security key is not correct"
-                                + code,
-                        responseCode);
+                                + code, responseCode);
             case 401:
-                throw new OpenStackConnectionException("unauthorized" + code,
-                        responseCode);
-
+                throw new OpenStackConnectionException(
+                        "unauthorized" + code, responseCode);
             case 404:
                 throw new OpenStackConnectionException(
                         "resource not found" + code, responseCode);
-
             case 504:
                 throw new OpenStackConnectionException(
                         " Gateway/proxy timeout." + code, responseCode);
-
             default:
-                throw new OpenStackConnectionException("send failed" + code,
-                        responseCode);
+                throw new OpenStackConnectionException(
+                        "send failed" + code, responseCode);
             }
         } finally {
             if (out != null) {
