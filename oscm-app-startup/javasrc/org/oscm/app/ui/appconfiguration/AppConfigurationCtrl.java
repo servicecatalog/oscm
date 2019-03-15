@@ -12,6 +12,7 @@ import org.oscm.app.business.APPlatformControllerFactory;
 import org.oscm.app.ui.BaseCtrl;
 import org.oscm.app.ui.SessionConstants;
 import org.oscm.app.ui.i18n.Messages;
+import org.oscm.app.v2_0.data.ServiceUser;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.oscm.app.v2_0.exceptions.ControllerLookupException;
 import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
@@ -262,18 +263,12 @@ public class AppConfigurationCtrl extends BaseCtrl {
                                 APPlatformController controller = getControllerInstance(
                                         controllerId);
                                 updatedMap.put(controllerId,
-                                        controller != null && controller
-                                                .canPing());
+                                        controller == null ? false : controller.canPing());
                         }
                 } catch (ControllerLookupException | ConfigurationException e) {
                         logger.logError(Log4jLogger.SYSTEM_LOG, e,
                                 LogMessageIdentifier.ERROR_PING_NOT_SUPPORTED);
-                        displayDetailedError(
-                                String.format(getLocalizedErrorMessage(
-                                        ERROR_DETAILED_PING_UNSUPPORTED),
-                                        controllerId),
-                                Arrays.toString(e.getStackTrace())
-                        );
+                        updatedMap.put(controllerId, false);
                 }
 
                 updatePingButtonVisibilityMap(updatedMap);
@@ -295,7 +290,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
          * Tries to invoke controller's implementation of ping() method.
          * Checks if it is possible to connect to service instance and presents the outcome to the user.
          *
-         * @param controllerId ID of controller for which ping() method has to be invoked 
+         * @param controllerId ID of controller for which ping() method has to be invoked
          */
         public void invokePing(String controllerId) {
                 try {
@@ -315,7 +310,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
                         displayDetailedError(
                                 getLocalizedErrorMessage(
                                         ERROR_DETAILED_PING_FAILED),
-                                Arrays.toString(e.getStackTrace())
+                                e.getMessage()+"\\n"+Arrays.toString(e.getStackTrace())
                         );
                 }
 
@@ -332,6 +327,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
                 String locale = readUserFromSession().getLocale();
                 return Messages.get(locale, messageKey);
         }
+
 
         private APPlatformController getControllerInstance(String controllerId)
                 throws ControllerLookupException {
