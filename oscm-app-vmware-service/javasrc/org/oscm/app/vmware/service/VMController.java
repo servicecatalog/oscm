@@ -616,17 +616,13 @@ public class VMController implements APPlatformController {
                         throw exception;
                 }
 
-                if (controllerSettings == null) {
-                        exception = new ConfigurationException(
-                                getLocalizedErrorMessage("ui.config.error.unable.to.get.settings"));
-                        throw exception;
-                } else if (controllerSettings.isEmpty()) {
+                if (controllerSettings != null && !controllerSettings.isEmpty())
+                        return controllerSettings;
+                else {
                         exception = new ConfigurationException(
                                 getLocalizedErrorMessage("ui.config.error.unable.to.get.settings"));
                         throw exception;
                 }
-
-                return controllerSettings;
         }
 
         /**
@@ -666,17 +662,13 @@ public class VMController implements APPlatformController {
 
                 List<VCenter> vCenters = getVCenterList(controllerSettings);
 
-                if (vCenters == null) {
-                        exception = new ConfigurationException(
-                                getLocalizedErrorMessage("ui.config.error.unable.to.get.settings.no.vcenters"));
-                        throw exception;
-                } else if (vCenters.isEmpty()) {
+                if (vCenters != null && !vCenters.isEmpty())
+                        return vCenters.get(0);
+                else {
                         exception = new ConfigurationException(
                                 getLocalizedErrorMessage("ui.config.error.unable.to.get.settings.no.vcenters"));
                         throw exception;
                 }
-
-                return vCenters.get(0);
         }
 
         /**
@@ -816,7 +808,7 @@ public class VMController implements APPlatformController {
          */
         protected VMwareClient getClient() {
                 return new VMwareClient(cachedCredentials);
-  
+
         }
 
         @Override
