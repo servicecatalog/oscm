@@ -16,10 +16,6 @@
         function getDirty() { return null != window.onbeforeunload; }
         function setOnSubmit(flag) { onSubmitFlag = flag; }
 
-        function doCheckConnection() {
-            this.blur();
-        }
-
         function doShowProgress(flag) {
 	        var e = document.getElementById("progressDiv");
 	        if (e) {
@@ -52,6 +48,7 @@
             </tr>
         </table>
     </div>
+    
     <span class="description"><h:outputText
             value="#{msg['ui.config.description']}"/> </span>
 
