@@ -664,6 +664,10 @@ public class OpenStackController extends ProvisioningValidator
             settings = platformService.getControllerSettings(
                     new OpenStackControllerAccess().getControllerId(),
                     new PasswordAuthentication(username, password));
+            if (settings == null) {
+                throw new ConfigurationException(getLocalizedErrorMessage(
+                        "ui.config.error.unable.to.get.openstack.controller.settings"));
+            }
             return settings;
         } catch (APPlatformException e) {
             throw new ConfigurationException(getLocalizedErrorMessage(
