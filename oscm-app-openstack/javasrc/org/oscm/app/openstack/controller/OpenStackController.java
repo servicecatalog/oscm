@@ -641,17 +641,16 @@ public class OpenStackController extends ProvisioningValidator
             exception.setStackTrace(e.getStackTrace());
             throw exception;
         }
-        String keystoneApiUrl = settings.get("KEYSTONE_API_URL").getValue();
-        String apiUserName = settings.get("API_USER_NAME").getValue();
-        String apiUserPassword = settings.get("API_USER_PWD").getValue();
-        String domainName = settings.get("DOMAIN_NAME").getValue();
-        String tenantId = settings.get("TENANT_ID").getValue();
-        if (keystoneApiUrl.equals("") || apiUserName.equals("") ||
-                apiUserPassword.equals("") || domainName.equals("") || tenantId.equals("")) {
+        if ((settings.get("KEYSTONE_API_URL") != null) ||
+                (settings.get("API_USER_NAME") != null) ||
+                (settings.get("API_USER_PWD") != null) ||
+                (settings.get("DOMAIN_NAME") != null) ||
+                (settings.get("TENANT_ID") != null)) {
+            return true;
+        } else {
             throw new ConfigurationException(getLocalizedErrorMessage(
                     "ui.config.error.missing.configuration"));
         }
-        return true;
     }
 
     protected HashMap<String, Setting> getOpenStackSettings() throws APPlatformException {

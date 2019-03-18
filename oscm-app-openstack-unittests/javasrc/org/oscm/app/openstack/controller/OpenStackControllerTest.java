@@ -50,7 +50,6 @@ public class OpenStackControllerTest extends EJBTestBase {
 
     private OpenStackController controller;
     private APPlatformService platformService;
-
     private final HashMap<String, Setting> parameters = new HashMap<String, Setting>();
     private final HashMap<String, Setting> configSettings = new HashMap<String, Setting>();
     private final ProvisioningSettings settings = new ProvisioningSettings(
@@ -226,11 +225,6 @@ public class OpenStackControllerTest extends EJBTestBase {
 
     private HashMap<String, Setting> getEmptySettings() {
         HashMap<String, Setting> settings = new HashMap<>();
-        settings.put(PropertyHandler.KEYSTONE_API_URL, new Setting(PropertyHandler.KEYSTONE_API_URL, ""));
-        settings.put(PropertyHandler.API_USER_NAME, new Setting(PropertyHandler.API_USER_NAME, ""));
-        settings.put(PropertyHandler.API_USER_PWD, new Setting(PropertyHandler.API_USER_PWD, ""));
-        settings.put(PropertyHandler.DOMAIN_NAME, new Setting(PropertyHandler.DOMAIN_NAME, ""));
-        settings.put(PropertyHandler.TENANT_ID, new Setting(PropertyHandler.TENANT_ID, ""));
         return settings;
     }
 
