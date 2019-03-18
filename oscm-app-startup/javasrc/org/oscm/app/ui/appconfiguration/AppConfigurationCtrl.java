@@ -23,6 +23,7 @@ import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.constants.Configuration;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
+import org.slf4j.Logger;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -296,26 +297,28 @@ public class AppConfigurationCtrl extends BaseCtrl {
          * @param controllerId ID of controller for which ping() method has to be invoked
          */
         public void invokePing(String controllerId) {
-                try {
-                        APPlatformController controller = getControllerInstance(
-                                controllerId);
-
-                        if (controller == null)
-                                addError(ERROR_DETAILED_PING_UNSUPPORTED);
-                        else if (controller.ping(controllerId))
-                                addMessage(INFO_PING_SUCCEEDED);
-                        else
-                                addError(ERROR_PING_FAILED);
-
-                } catch (ControllerLookupException | ServiceNotReachableException e) {
-                        logger.logError(Log4jLogger.SYSTEM_LOG, e,
-                                LogMessageIdentifier.ERROR_PING_FAILED);
-                        displayDetailedError(
-                                getLocalizedErrorMessage(
-                                        ERROR_DETAILED_PING_FAILED),
-                                e.getMessage()+"\\n"+Arrays.toString(e.getStackTrace())
-                        );
-                }
+                Logger logger = org.slf4j.LoggerFactory.getLogger(AppConfigurationCtrl.class);
+                logger.error(">>>>>>>>>>>>>>>>> TEST LOG");
+//                try {
+//                        APPlatformController controller = getControllerInstance(
+//                                controllerId);
+//
+//                        if (controller == null)
+//                                addError(ERROR_DETAILED_PING_UNSUPPORTED);
+//                        else if (controller.ping(controllerId))
+//                                addMessage(INFO_PING_SUCCEEDED);
+//                        else
+//                                addError(ERROR_PING_FAILED);
+//
+//                } catch (ControllerLookupException | ServiceNotReachableException e) {
+//                        logger.logError(Log4jLogger.SYSTEM_LOG, e,
+//                                LogMessageIdentifier.ERROR_PING_FAILED);
+//                        displayDetailedError(
+//                                getLocalizedErrorMessage(
+//                                        ERROR_DETAILED_PING_FAILED),
+//                                e.getMessage()+"\\n"+Arrays.toString(e.getStackTrace())
+//                        );
+//                }
 
         }
 

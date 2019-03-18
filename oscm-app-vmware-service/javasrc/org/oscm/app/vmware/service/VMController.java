@@ -557,38 +557,42 @@ public class VMController implements APPlatformController {
         @Override
         public boolean ping(String controllerId)
                 throws ServiceNotReachableException {
-
-                boolean pingResult = false;
-                ServiceNotReachableException exception;
-                client = getClient();
-
-                try {
-                        client.connect();
-                        pingResult = client.isConnected();
-                        if (pingResult)
-                                client.close();
-                } catch (Exception e) {
-                        exception = new ServiceNotReachableException(
-                                getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.vmware"));
-                        exception.setStackTrace(e.getStackTrace());
-                        throw exception;
-                }
-
-                return pingResult;
+//
+//                boolean pingResult = false;
+//                ServiceNotReachableException exception;
+//                client = getClient();
+//
+//                try {
+//                        client.connect();
+//                        pingResult = client.isConnected();
+//                        if (pingResult)
+//                                client.close();
+//                } catch (Exception e) {
+//                        exception = new ServiceNotReachableException(
+//                                getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.vmware"));
+//                        exception.setStackTrace(e.getStackTrace());
+//                        throw exception;
+//                }
+//
+//                return pingResult;
+                //TODO: Throws ex for test
+                throw new ServiceNotReachableException("EXCEPTION MESSAGE");
         }
 
         @Override
         public boolean canPing() throws ConfigurationException {
-                HashMap<String, Setting> controllerSettings = getControllerSettings();
-                VCenter vCenter = getVCenter(controllerSettings);
-                boolean areParamsValid = false;
-
-                if (vCenter != null)
-                        areParamsValid = validateControllerParams(vCenter);
-
-                if (areParamsValid)
-                        cacheCredentials(vCenter);
-                return areParamsValid;
+//                HashMap<String, Setting> controllerSettings = getControllerSettings();
+//                VCenter vCenter = getVCenter(controllerSettings);
+//                boolean areParamsValid = false;
+//
+//                if (vCenter != null)
+//                        areParamsValid = validateControllerParams(vCenter);
+//
+//                if (areParamsValid)
+//                        cacheCredentials(vCenter);
+//                return areParamsValid;
+                //TODO: Returns true for test
+                return true;
         }
 
         /**
