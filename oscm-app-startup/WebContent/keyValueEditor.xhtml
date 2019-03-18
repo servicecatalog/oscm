@@ -31,6 +31,8 @@
         }
 
         setDirty(getDirty() || #{appConfigurationModel.dirty});
+
+
     </script>
 
     <div class="heading_data_1_class">
@@ -48,7 +50,7 @@
             </tr>
         </table>
     </div>
-    
+
     <span class="description"><h:outputText
             value="#{msg['ui.config.description']}"/> </span>
 
@@ -71,15 +73,11 @@
         <h:form id="restartForm">
             <span class="statusRed"><h:outputText
                     value="#{msg['ui.app.suspend']}"/> </span>
-            <span class="button_right_part_class">
-            <span class="button_content_class">
-              <h:commandButton
-                      class="button_normal_class"
-                      value="#{msg['ui.config.action.restart']}" type="submit"
-                      onclick="setOnSubmit(true);setDirty(false);"
-                      action="#{appConfigurationCtrl.restart}"/>
-            </span>
-          </span>
+            <h:commandButton
+                    class="oscm_app_button"
+                    value="#{msg['ui.config.action.restart']}" type="submit"
+                    onclick="setOnSubmit(true);setDirty(false);"
+                    action="#{appConfigurationCtrl.restart}"/>
             <h:inputHidden value="#{appConfigurationModel.token}"/>
         </h:form>
     </a4j:outputPanel>
@@ -140,13 +138,11 @@
         </rich:dataTable>
 
         <a4j:outputPanel layout="block" styleClass="description buttonPanel">
-            <div class="button_main_area_class">
-      <span class="button_right_part_class"><span class="button_content_class"><h:commandButton
-              class="button_normal_class"
-              value="#{msg['ui.config.action.save']}" type="submit"
-              onclick="setOnSubmit(true);setDirty(false);"
-              action="#{appConfigurationCtrl.save}"/></span></span>
-            </div>
+            <h:commandButton
+                    class="oscm_app_button"
+                    value="#{msg['ui.config.action.save']}" type="submit"
+                    onclick="setOnSubmit(true);setDirty(false);"
+                    action="#{appConfigurationCtrl.save}"/>
         </a4j:outputPanel>
     </h:form>
 </ui:composition>
