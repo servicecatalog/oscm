@@ -355,3 +355,18 @@ background-color: #DCDCDC;
 .connectivity_tests_column input {
 	max-width: 9em;
 }
+
+.controller_not_configured_label {
+    font-size: 12px;
+    margin-left: 8px;
+}
+
+.org_id_column {
+    width: 26%;
+}
+
+.progressOverlay {
+    display: none;
+    width: 0px;
+    height: 0px;
+}

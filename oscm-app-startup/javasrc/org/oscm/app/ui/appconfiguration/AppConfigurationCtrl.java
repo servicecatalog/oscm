@@ -12,6 +12,7 @@ import org.oscm.app.business.APPlatformControllerFactory;
 import org.oscm.app.ui.BaseCtrl;
 import org.oscm.app.ui.SessionConstants;
 import org.oscm.app.ui.i18n.Messages;
+import org.oscm.app.v2_0.data.ServiceUser;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.oscm.app.v2_0.exceptions.ControllerLookupException;
 import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
@@ -265,19 +266,12 @@ public class AppConfigurationCtrl extends BaseCtrl {
                                 APPlatformController controller = getControllerInstance(
                                         controllerId);
                                 updatedMap.put(controllerId,
-                                        controller != null && controller
-                                                .canPing());
+                                        controller == null ? false : controller.canPing());
                         }
                 } catch (ControllerLookupException | ConfigurationException e) {
                         logger.logError(Log4jLogger.SYSTEM_LOG, e,
                                 LogMessageIdentifier.ERROR_PING_NOT_SUPPORTED);
-                        displayDetailedError(
-                                String.format(getLocalizedErrorMessage(
-                                        ERROR_DETAILED_PING_UNSUPPORTED),
-                                        controllerId),
-                                e.getLocalizedMessage() + "\\n" + Arrays
-                                        .toString(e.getStackTrace())
-                        );
+                        updatedMap.put(controllerId, false);
                 }
 
                 updatePingButtonVisibilityMap(updatedMap);
@@ -319,8 +313,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
                         displayDetailedError(
                                 getLocalizedErrorMessage(
                                         ERROR_DETAILED_PING_FAILED),
-                                e.getLocalizedMessage() + "\\n" + Arrays
-                                        .toString(e.getStackTrace())
+                                e.getMessage()+"\\n"+Arrays.toString(e.getStackTrace())
                         );
                 }
 
@@ -337,6 +330,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
                 String locale = readUserFromSession().getLocale();
                 return Messages.get(locale, messageKey);
         }
+
 
         private APPlatformController getControllerInstance(String controllerId)
                 throws ControllerLookupException {

@@ -10,46 +10,39 @@
  *******************************************************************************/
 package org.oscm.app.openstack.controller;
 
-import static org.oscm.app.openstack.controller.PropertyHandler.RESOURCETYPE_PROJ;
-import static org.oscm.app.openstack.controller.PropertyHandler.STACK_NAME;
-import static org.oscm.app.openstack.data.FlowState.CREATE_PROJECT;
-import static org.oscm.app.openstack.data.FlowState.CREATION_REQUESTED;
-import static org.oscm.app.openstack.data.FlowState.DELETE_PROJECT;
-import static org.oscm.app.openstack.data.FlowState.DELETION_REQUESTED;
-import static org.oscm.app.openstack.data.FlowState.MODIFICATION_REQUESTED;
-import static org.oscm.app.openstack.data.FlowState.UPDATE_PROJECT;
-
-import java.util.List;
-import java.util.Properties;
-import java.util.UUID;
+import org.oscm.app.openstack.KeystoneClient;
+import org.oscm.app.openstack.NovaProcessor;
+import org.oscm.app.openstack.OpenStackConnection;
+import org.oscm.app.openstack.data.FlowState;
+import org.oscm.app.openstack.exceptions.OpenStackConnectionException;
+import org.oscm.app.openstack.i18n.Messages;
+import org.oscm.app.openstack.usage.UsageConverter;
+import org.oscm.app.v2_0.APPlatformServiceFactory;
+import org.oscm.app.v2_0.data.*;
+import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.ConfigurationException;
+import org.oscm.app.v2_0.exceptions.LogAndExceptionConverter;
+import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
+import org.oscm.app.v2_0.intf.APPlatformController;
+import org.oscm.app.v2_0.intf.APPlatformService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Properties;
+import java.util.UUID;
 
-import org.oscm.app.openstack.NovaProcessor;
-import org.oscm.app.openstack.data.FlowState;
-import org.oscm.app.openstack.i18n.Messages;
-import org.oscm.app.openstack.usage.UsageConverter;
-import org.oscm.app.v2_0.APPlatformServiceFactory;
-import org.oscm.app.v2_0.data.Context;
-import org.oscm.app.v2_0.data.ControllerSettings;
-import org.oscm.app.v2_0.data.InstanceDescription;
-import org.oscm.app.v2_0.data.InstanceStatus;
-import org.oscm.app.v2_0.data.InstanceStatusUsers;
-import org.oscm.app.v2_0.data.LocalizedText;
-import org.oscm.app.v2_0.data.OperationParameter;
-import org.oscm.app.v2_0.data.ProvisioningSettings;
-import org.oscm.app.v2_0.data.ServiceUser;
-import org.oscm.app.v2_0.data.Setting;
-import org.oscm.app.v2_0.exceptions.APPlatformException;
-import org.oscm.app.v2_0.exceptions.LogAndExceptionConverter;
-import org.oscm.app.v2_0.intf.APPlatformController;
-import org.oscm.app.v2_0.intf.APPlatformService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.oscm.app.openstack.controller.PropertyHandler.RESOURCETYPE_PROJ;
+import static org.oscm.app.openstack.controller.PropertyHandler.STACK_NAME;
+import static org.oscm.app.openstack.data.FlowState.*;
 
 /**
  * Implementation of an OpenStack service controller based on the Asynchronous
@@ -73,12 +66,16 @@ import org.slf4j.LoggerFactory;
 public class OpenStackController extends ProvisioningValidator
         implements APPlatformController {
 
+
     public static final String ID = "ess.openstack";
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(OpenStackController.class);
 
     private static final int SERVERS_NUMBER_CANNOT_BE_CHECKED = 0;
+
+    private static final String SESSION_USER_ID = "loggedInUserId";
+    private static final String SESSION_USER_LOCALE = "loggedInUserLocale";
 
     private APPlatformService platformService;
 
@@ -607,4 +604,127 @@ public class OpenStackController extends ProvisioningValidator
         }
         return false;
     }
+
+    private HashMap<String, Setting> settings;
+
+    @Override
+    public boolean ping(String controllerId) throws ServiceNotReachableException {
+        try {
+            settings = getOpenStackSettings();
+        } catch (APPlatformException e) {
+            throw new ServiceNotReachableException(getLocalizedErrorMessage(
+                    "ui.config.error.unable.to.get.openstack.controller.settings"));
+        }
+        OpenStackConnection connection = getOpenstackConnection();
+        KeystoneClient client = getKeystoneClient(connection);
+        try {
+            client.authenticate(settings.get("API_USER_NAME").getValue(),
+                    settings.get("API_USER_PWD").getValue(),
+                    settings.get("DOMAIN_NAME").getValue(),
+                    settings.get("TENANT_ID").getValue());
+            LOGGER.info("Verification of connection to Openstack successful. " +
+                    "Keystone API URL: " + settings.get("KEYSTONE_API_URL").getValue());
+            return true;
+        } catch (OpenStackConnectionException | APPlatformException e) {
+            throw new ServiceNotReachableException(getLocalizedErrorMessage(
+                    "ui.config.error.unable.to.connect.to.openstack"));
+        }
+    }
+
+    @Override
+    public boolean canPing() throws ConfigurationException {
+        try {
+            settings = getOpenStackSettings();
+        } catch (APPlatformException e) {
+            ConfigurationException exception = new ConfigurationException(getLocalizedErrorMessage(
+                    "ui.config.error.unable.to.connect.to.openstack"));
+            exception.setStackTrace(e.getStackTrace());
+            throw exception;
+        }
+        String keystoneApiUrl = settings.get("KEYSTONE_API_URL").getValue();
+        String apiUserName = settings.get("API_USER_NAME").getValue();
+        String apiUserPassword = settings.get("API_USER_PWD").getValue();
+        String domainName = settings.get("DOMAIN_NAME").getValue();
+        String tenantId = settings.get("TENANT_ID").getValue();
+        if (keystoneApiUrl.equals("") || apiUserName.equals("") ||
+                apiUserPassword.equals("") || domainName.equals("") || tenantId.equals("")) {
+            throw new ConfigurationException(getLocalizedErrorMessage(
+                    "ui.config.error.missing.configuration"));
+        }
+        return true;
+    }
+
+    protected HashMap<String, Setting> getOpenStackSettings() throws APPlatformException {
+        FacesContext facesContext = getFacesContext();
+        HttpSession session = (HttpSession) facesContext
+                .getExternalContext().getSession(false);
+        String username = "" + session.getAttribute("loggedInUserId");
+        String password = "" + session.getAttribute("loggedInUserPassword");
+        HashMap<String, Setting> settings;
+        try {
+            settings = platformService.getControllerSettings(
+                    new OpenStackControllerAccess().getControllerId(),
+                    new PasswordAuthentication(username, password));
+            return settings;
+        } catch (APPlatformException e) {
+            throw new ConfigurationException(getLocalizedErrorMessage(
+                    "ui.config.error.unable.to.get.openstack.controller.settings"));
+        }
+    }
+
+    protected KeystoneClient getKeystoneClient(OpenStackConnection connection) {
+        return new KeystoneClient(connection);
+    }
+
+    protected OpenStackConnection getOpenstackConnection() {
+        return new OpenStackConnection(settings.get("KEYSTONE_API_URL").getValue());
+    }
+
+    protected ServiceUser readUserFromSession() {
+        ServiceUser user = null;
+        FacesContext facesContext = getContext();
+        HttpSession httpSession = getSession(facesContext);
+
+        String userId = (String) httpSession
+                .getAttribute(SESSION_USER_ID);
+        String locale = (String) httpSession
+                .getAttribute(SESSION_USER_LOCALE);
+        if (userId != null && userId.trim().length() > 0) {
+            user = new ServiceUser();
+            user.setUserId(userId);
+            user.setLocale(locale);
+        }
+        return user;
+    }
+
+    protected FacesContext getContext() {
+        return FacesContext.getCurrentInstance();
+    }
+
+    private PasswordAuthentication getPasswordAuthentication() {
+        FacesContext facesContext = getFacesContext();
+        HttpSession session = getSession(facesContext);
+        Object userId = session.getAttribute("loggedInUserId");
+        Object password = session
+                .getAttribute("loggedInUserPassword");
+
+        return new PasswordAuthentication(
+                userId.toString(), password.toString());
+    }
+
+    protected HttpSession getSession(FacesContext facesContext) {
+        return (HttpSession) facesContext
+                .getExternalContext()
+                .getSession(false);
+    }
+
+    private String getLocalizedErrorMessage(String messageKey) {
+        String locale = readUserFromSession().getLocale();
+        return Messages.get(locale, messageKey);
+    }
+
+    protected FacesContext getFacesContext() {
+        return FacesContext.getCurrentInstance();
+    }
+
 }

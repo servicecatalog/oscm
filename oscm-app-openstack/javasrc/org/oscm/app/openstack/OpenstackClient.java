@@ -8,21 +8,6 @@
 
 package org.oscm.app.openstack;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
-import static java.lang.System.getProperty;
-import static org.openstack4j.model.common.Identifier.byId;
-import static org.openstack4j.model.common.Identifier.byName;
-import static org.oscm.app.openstack.proxy.ProxySettings.HTTPS_PROXY_HOST;
-import static org.oscm.app.openstack.proxy.ProxySettings.HTTPS_PROXY_PASSWORD;
-import static org.oscm.app.openstack.proxy.ProxySettings.HTTPS_PROXY_PORT;
-import static org.oscm.app.openstack.proxy.ProxySettings.HTTPS_PROXY_USER;
-import static org.oscm.app.openstack.proxy.ProxySettings.useProxyByPass;
-import static org.oscm.string.Strings.isEmpty;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Date;
-
 import org.openstack4j.api.Builders;
 import org.openstack4j.api.OSClient.OSClientV3;
 import org.openstack4j.core.transport.Config;
@@ -40,6 +25,17 @@ import org.openstack4j.openstack.compute.domain.NovaAbsoluteLimit;
 import org.oscm.app.openstack.controller.PropertyHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Date;
+
+import static com.google.common.base.Strings.isNullOrEmpty;
+import static java.lang.System.getProperty;
+import static org.openstack4j.model.common.Identifier.byId;
+import static org.openstack4j.model.common.Identifier.byName;
+import static org.oscm.app.openstack.proxy.ProxySettings.*;
+import static org.oscm.string.Strings.isEmpty;
 
 /**
  * @author kulle
