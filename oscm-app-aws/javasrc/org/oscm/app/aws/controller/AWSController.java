@@ -434,6 +434,10 @@ public class AWSController implements APPlatformController {
             }
             return status;
         } catch (Throwable t) {
+            LOGGER.debug("Failed to execute service operation "
+                    + operationId
+                    + " for instance " + instanceId + " and user "
+                    + userId);
             throw LogAndExceptionConverter.createAndLogPlatformException(t,
                     Context.OPERATION);
         }

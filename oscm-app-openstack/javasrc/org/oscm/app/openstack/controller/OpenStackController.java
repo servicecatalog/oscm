@@ -311,6 +311,7 @@ public class OpenStackController extends ProvisioningValidator
                         "Got finish event but instance is in state "
                                 + propertyHandler.getState()
                                 + " => nothing changed");
+                LOGGER.debug(pe.getMessage());
                 throw pe;
             }
         }
