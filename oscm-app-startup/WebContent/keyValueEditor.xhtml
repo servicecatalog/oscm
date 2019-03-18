@@ -34,6 +34,7 @@
 
 
 
+
     </script>
 
     <div class="heading_data_1_class">
@@ -138,10 +139,12 @@
             </rich:column>
         </rich:dataTable>
 
-        <h:commandButton
-                class="oscm_app_button"
-                value="#{msg['ui.config.action.save']}" type="submit"
-                onclick="this.blur(); setOnSubmit(true);setDirty(false);"
-                action="#{appConfigurationCtrl.save}"/>
+        <div class="oscm_app_button_offset">
+            <h:commandButton
+                    class="oscm_app_button"
+                    value="#{msg['ui.config.action.save']}" type="submit"
+                    onclick="this.blur(); setOnSubmit(true);setDirty(false);"
+                    action="#{appConfigurationCtrl.save}"/>
+        </div>
     </h:form>
 </ui:composition>

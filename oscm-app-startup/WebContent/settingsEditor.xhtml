@@ -45,9 +45,12 @@
             </rich:column>
         </rich:dataTable>
 
-        <h:commandButton class="oscm_app_button"
-                         value="#{msg['ui.config.action.save']}" type="submit"
-                         onclick="this.blur(); setOnSubmit(true);setDirty(false);"
-                         action="#{platformConfigurationCtrl.save}"/>
+        <div class="oscm_app_button_offset">
+            <h:commandButton class="oscm_app_button"
+                             value="#{msg['ui.config.action.save']}"
+                             type="submit"
+                             onclick="this.blur(); setOnSubmit(true);setDirty(false);"
+                             action="#{platformConfigurationCtrl.save}"/>
+        </div>
     </h:form>
 </ui:composition>
