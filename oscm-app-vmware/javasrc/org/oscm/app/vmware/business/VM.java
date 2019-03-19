@@ -503,7 +503,7 @@ public class VM extends Template {
     }
 
     GuestNicInfo getNicInfo(VMPropertyHandler configuration, int i) {
-        if (configuration.getNetworkAdapter(i) == null) {
+        if (configuration.getNetworkAdapter(i).isEmpty()) {
             LOG.debug(String.format("No network adapter %s", i));
             return null;
         }

@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vmware.vim25.DistributedVirtualSwitchPortConnection;
-import com.vmware.vim25.HostSystemInfo;
 import com.vmware.vim25.ManagedObjectReference;
 import com.vmware.vim25.NetworkSummary;
 import com.vmware.vim25.VirtualDevice;
@@ -114,39 +113,38 @@ public class NetworkManager {
             logger.info(String.format("NIC%s_PORTGROUP: %s", String.valueOf(i),
                     newGroup));
 
+            VirtualEthernetCard vmNic = vmNics.get(i - 1);
+            boolean connectNic = true;
             if (switchUIID != null && switchUIID.length() > 0) {
                 if (newGroup == null || newGroup.length() == 0)
                     throw new Exception(String.format(
                             "Parameter NIC%s_PORTGROUP has to be specified for using the switch %s. Expecting generated UUID of the portgroup.",
                             String.valueOf(i), switchUIID));
+                ManagedObjectReference group = getPortGroupFromHost(vmw,
+                        vmwInstance, vmNic, switchUIID, newGroup);
 
-            }
+                replaceNetworkAdapter(vmConfigSpec, vmNic, group, newGroup);
+                connectNic = false;
+            } else {
 
-            VirtualEthernetCard vmNic = vmNics.get(i - 1);
-
-            String vmNetworkName = getNetworkName(vmw, vmwInstance, i);
-            if (newNetworkName != null && newNetworkName.length() > 0
-                    && !newNetworkName.equals(vmNetworkName)) {
-
-                if (switchUIID != null && switchUIID.length() > 0) {
-
-                    ManagedObjectReference group = getPortGroupFromHost(vmw,
-                            vmwInstance, vmNic, switchUIID, newGroup);
-
-                    replaceNetworkAdapter(vmConfigSpec, vmNic, group, newGroup);
-
-                } else {
+                String vmNetworkName = getNetworkName(vmw, vmwInstance, i);
+                if (newNetworkName != null && newNetworkName.length() > 0
+                        && !newNetworkName.equals(vmNetworkName)) {
 
                     ManagedObjectReference newNetworkRef = getNetworkFromHost(
                             vmw, vmwInstance, vmNic, newNetworkName);
 
                     replaceNetworkAdapter(vmConfigSpec, vmNic, newNetworkRef,
                             newNetworkName);
+                    connectNic = false;
                 }
 
-            } else {
+            }
+            // TODO remove condition - no duplicate code
+            if (connectNic) {
                 connectNIC(vmConfigSpec, vmNic);
             }
+
         }
     }
 
@@ -159,7 +157,7 @@ public class NetworkManager {
         VirtualMachineRuntimeInfo vmRuntimeInfo = (VirtualMachineRuntimeInfo) vmw
                 .getServiceUtil().getDynamicProperty(vmwInstance, "runtime");
         ManagedObjectReference hostRef = vmRuntimeInfo.getHost();
-        
+
         ManagedObjectReference man = vmw.getConnection().getServiceContent()
                 .getDvSwitchManager();
 
@@ -286,7 +284,7 @@ public class NetworkManager {
             logger.debug(String.format("Switch UID: %s",
                     ((VirtualEthernetCardDistributedVirtualPortBackingInfo) vdbi)
                             .getPort().getSwitchUuid()));
-            
+
             VirtualEthernetCardDistributedVirtualPortBackingInfo nicBacking = new VirtualEthernetCardDistributedVirtualPortBackingInfo();
             nicBacking.setPort(new DistributedVirtualSwitchPortConnection());
             nicBacking.getPort().setPortgroupKey(
@@ -298,14 +296,13 @@ public class NetworkManager {
             oldNIC.setBacking(nicBacking);
         } else {
             VirtualEthernetCardNetworkBackingInfo nicBacking = new VirtualEthernetCardNetworkBackingInfo();
-            logger.debug(String.format("setDeviceName: %s" , networkName));
+            logger.debug(String.format("setDeviceName: %s", networkName));
             nicBacking.setDeviceName(networkName);
             nicBacking.setNetwork(groupOrNetworkRef);
             nicBacking.setUseAutoDetect(true);
             oldNIC.setBacking(nicBacking);
         }
-      
-        
+
         VirtualDeviceConnectInfo info = new VirtualDeviceConnectInfo();
         info.setConnected(true);
         info.setStartConnected(true);
@@ -319,8 +316,6 @@ public class NetworkManager {
         logger.debug("Adding DeviceChange");
         vmConfigSpec.getDeviceChange().add(vmDeviceSpec);
     }
-
-    
 
     private static void connectNIC(VirtualMachineConfigSpec vmConfigSpec,
             VirtualDevice oldNIC) throws Exception {
