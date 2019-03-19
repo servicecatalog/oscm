@@ -255,6 +255,7 @@ span.button_right_part_class {
 }
 
 .oscm_app_button_offset {
+    display: inline;
 	margin: 5px;
 }
 
