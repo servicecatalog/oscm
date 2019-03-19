@@ -27,9 +27,7 @@ import org.oscm.app.vmware.business.VMPropertyHandler;
 import org.oscm.app.vmware.business.VMwareProcessor;
 import org.oscm.app.vmware.i18n.Messages;
 
-
 public class VMwareInstanceAccess implements InstanceAccess {
-
 
     /**
      * 
@@ -62,7 +60,7 @@ public class VMwareInstanceAccess implements InstanceAccess {
                         subscriptionId, organizationId);
         VMPropertyHandler ph = new VMPropertyHandler(settings);
         List<Server> servers = new ArrayList<>();
-        VMwareProcessor vmp = new  VMwareProcessor();
+        VMwareProcessor vmp = new VMwareProcessor();
         servers = vmp.getServersDetails(ph);
         return servers;
     }
@@ -74,12 +72,18 @@ public class VMwareInstanceAccess implements InstanceAccess {
         ProvisioningSettings settings = platformService
                 .getServiceInstanceDetails(Controller.ID, instanceId,
                         subscriptionId, organizationId);
+
+        String accessInfo = "";
+        accessInfo = settings.getServiceAccessInfo();
         VMPropertyHandler ph = new VMPropertyHandler(settings);
-        VMwareProcessor vmp = new  VMwareProcessor();
-        String aceessURL = vmp.getvmAccessURL(ph);
-        String htmlLink =  "<a href=\"" + aceessURL +"\">Console</a>";
-        
-        return settings.getServiceAccessInfo()+ " " + htmlLink;
+        if (ph.getVsphereConsolePort() != null
+                && !ph.getVsphereConsolePort().isEmpty()) {
+            VMwareProcessor vmp = new VMwareProcessor();
+            String aceessUrl = vmp.getVmAccessUrl(ph);
+            String htmlLink = "<a href=\"" + aceessUrl + "\">Console</a>";
+            accessInfo = accessInfo + " " + htmlLink;
+        }
+        return accessInfo;
     }
 
     @Override

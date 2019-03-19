@@ -70,18 +70,18 @@ public class VMwareProcessor {
         return servers;
     }
 
-    public String getvmAccessURL(VMPropertyHandler ph) {
+    public String getVmAccessUrl(VMPropertyHandler ph) {
         String instanceName = "";
         String vcenter = ph
                 .getServiceSetting(VMPropertyHandler.TS_TARGET_VCENTER_SERVER);
         VMwareClient vmClient = null;
-        String URL  = "";
+        String url  = "";
         try {
             vmClient = VMClientPool.getInstance().getPool()
                     .borrowObject(vcenter);
             instanceName = ph.getInstanceName();
             VM vm = new VM(vmClient, instanceName);
-            URL = vm.createVMURL(ph);
+            url = vm.createVmUrl(ph);
         } catch (Exception e) {
             logger.error("Failed to create serverlist");
         } finally {
@@ -94,7 +94,7 @@ public class VMwareProcessor {
                 }
             }
         }
-        return URL;
+        return url;
     }
 
 }
