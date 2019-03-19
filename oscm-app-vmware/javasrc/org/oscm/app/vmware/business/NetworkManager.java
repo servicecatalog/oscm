@@ -161,9 +161,6 @@ public class NetworkManager {
         ManagedObjectReference man = vmw.getConnection().getServiceContent()
                 .getDvSwitchManager();
 
-        List<ManagedObjectReference> s = (List<ManagedObjectReference>) vmw
-                .getServiceUtil()
-                .getDynamicProperty(vmwInstance, "distributedVirtualSwitch");
         ManagedObjectReference sw = vmw.getConnection().getService()
                 .queryDvsByUuid(man, switchUUID);
 
