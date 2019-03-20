@@ -15,11 +15,11 @@ import org.oscm.app.ui.SessionConstants;
 import org.oscm.app.ui.i18n.Messages;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.oscm.app.v2_0.exceptions.ControllerLookupException;
+import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.oscm.app.v2_0.service.APPConfigurationServiceBean;
 import org.oscm.app.v2_0.service.APPTimerServiceBean;
 import org.oscm.types.constants.Configuration;
-import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +40,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ManagedBean
 public class AppConfigurationCtrl extends BaseCtrl {
 
-  private final static Logger LOGGER = LoggerFactory.getLogger(AppConfigurationCtrl.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AppConfigurationCtrl.class);
 
   private static final String ERROR_DETAILED_PING_UNSUPPORTED =
       "app.message.error.controller.not.pingable.detailed";
@@ -246,7 +246,7 @@ public class AppConfigurationCtrl extends BaseCtrl {
         updatedMap.put(controllerId, controller == null ? false : controller.canPing());
       }
     } catch (ControllerLookupException | ConfigurationException e) {
-//      logger.logError(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_PING_NOT_SUPPORTED);
+      LOGGER.error(e.getMessage(), e);
       updatedMap.put(controllerId, false);
     }
 
@@ -271,31 +271,19 @@ public class AppConfigurationCtrl extends BaseCtrl {
    * @param controllerId ID of controller for which ping() method has to be invoked
    */
   public void invokePing(String controllerId) {
-          LOGGER.error("test error dupa");
-          LOGGER.warn("test warn dupa");
-          LOGGER.info("test info dupa");
-          LOGGER.debug("test debug dupa");
-    //                try {
-    //                        APPlatformController controller = getControllerInstance(
-    //                                controllerId);
-    //
-    //                        if (controller == null)
-    //                                addError(ERROR_DETAILED_PING_UNSUPPORTED);
-    //                        else if (controller.ping(controllerId))
-    //                                addMessage(INFO_PING_SUCCEEDED);
-    //                        else
-    //                                addError(ERROR_PING_FAILED);
-    //
-    //                } catch (ControllerLookupException | ServiceNotReachableException e) {
-    //                        logger.logError(Log4jLogger.SYSTEM_LOG, e,
-    //                                LogMessageIdentifier.ERROR_PING_FAILED);
-    //                        displayDetailedError(
-    //                                getLocalizedErrorMessage(
-    //                                        ERROR_DETAILED_PING_FAILED),
-    //                                e.getMessage()+"\\n"+Arrays.toString(e.getStackTrace())
-    //                        );
-    //                }
+    try {
+      APPlatformController controller = getControllerInstance(controllerId);
 
+      if (controller == null) addError(ERROR_DETAILED_PING_UNSUPPORTED);
+      else if (controller.ping(controllerId)) addMessage(INFO_PING_SUCCEEDED);
+      else addError(ERROR_PING_FAILED);
+
+    } catch (ControllerLookupException | ServiceNotReachableException e) {
+      LOGGER.error(e.getMessage(), e);
+      displayDetailedError(
+          getLocalizedErrorMessage(ERROR_DETAILED_PING_FAILED),
+          e.getMessage() + "\\n" + Arrays.toString(e.getStackTrace()));
+    }
   }
 
   /**
