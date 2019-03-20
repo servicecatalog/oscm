@@ -109,7 +109,7 @@
 			<LocalizedDescription locale="ja" />
 		</ParameterDefinition>
 
-		<ParameterDefinition configurable="false" default="<your.mail>"
+		<ParameterDefinition configurable="false" default="lukasz.wiecek@ts.fujitsu.com"
 			id="MAIL_FOR_COMPLETION" mandatory="false" modificationType="ONE_TIME"
 			valueType="STRING">
 			<LocalizedDescription locale="en">The address to which emails are to be sent that describe manual steps required to complete an operation. If you specify this parameter, the service controller interrupts the processing of each operation before its completion and waits for a notification about the execution of a manual action. Omit this parameter if you do not want to interrupt the processing.</LocalizedDescription>

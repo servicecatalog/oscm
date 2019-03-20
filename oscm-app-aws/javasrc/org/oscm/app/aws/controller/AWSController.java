@@ -11,34 +11,25 @@
 
 package org.oscm.app.aws.controller;
 
-import java.util.List;
-import java.util.Properties;
-import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.ejb.Remote;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-
 import org.oscm.app.aws.data.FlowState;
 import org.oscm.app.aws.data.Operation;
 import org.oscm.app.aws.i18n.Messages;
-import org.oscm.app.v2_0.data.Context;
-import org.oscm.app.v2_0.data.ControllerSettings;
-import org.oscm.app.v2_0.data.InstanceDescription;
-import org.oscm.app.v2_0.data.InstanceStatus;
-import org.oscm.app.v2_0.data.InstanceStatusUsers;
-import org.oscm.app.v2_0.data.LocalizedText;
-import org.oscm.app.v2_0.data.OperationParameter;
-import org.oscm.app.v2_0.data.ProvisioningSettings;
-import org.oscm.app.v2_0.data.ServiceUser;
+import org.oscm.app.v2_0.data.*;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.v2_0.exceptions.LogAndExceptionConverter;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import java.util.List;
+import java.util.Properties;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * AWS implementation of a service controller based on the Asynchronous
