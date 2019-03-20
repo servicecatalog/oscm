@@ -40,7 +40,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @ManagedBean
 public class AppConfigurationCtrl extends BaseCtrl {
 
-  private Logger LOGGER = null;
+  private final static Logger LOGGER = LoggerFactory.getLogger(AppConfigurationCtrl.class);
 
   private static final String ERROR_DETAILED_PING_UNSUPPORTED =
       "app.message.error.controller.not.pingable.detailed";
@@ -58,9 +58,6 @@ public class AppConfigurationCtrl extends BaseCtrl {
   private AppConfigurationModel model;
 
   public String getInitialize() {
-    //                LoggerFactory
-    //                        .activateRollingFileAppender("/logs", null, "ERROR");
-    LOGGER = LoggerFactory.getLogger(AppConfigurationCtrl.class);
 
     AppConfigurationModel model = getModel();
     try {
@@ -274,10 +271,10 @@ public class AppConfigurationCtrl extends BaseCtrl {
    * @param controllerId ID of controller for which ping() method has to be invoked
    */
   public void invokePing(String controllerId) {
-          LOGGER.error("test error");
-          LOGGER.warn("test warn");
-          LOGGER.info("test info");
-          LOGGER.debug("test debug");
+          LOGGER.error("test error dupa");
+          LOGGER.warn("test warn dupa");
+          LOGGER.info("test info dupa");
+          LOGGER.debug("test debug dupa");
     //                try {
     //                        APPlatformController controller = getControllerInstance(
     //                                controllerId);
