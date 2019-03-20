@@ -408,6 +408,13 @@ public class VMPropertyHandler {
     public static final String SM_STATE_HISTORY = "SM_STATE_HISTORY";
     public static final String SM_STATE_MACHINE = "SM_STATE_MACHINE";
     public static final String SM_ERROR_MESSAGE = "SM_ERROR_MESSAGE";
+    
+    /**
+     * The port which is used to access the vm remote console
+     */
+
+    public static final String TS_VSPHERE_CONSOLE_PORT = "VSPHERE_CONSOLE_PORT";
+    
 
     public VMPropertyHandler(ProvisioningSettings settings) {
         this.settings = settings;
@@ -737,6 +744,10 @@ public class VMPropertyHandler {
         } catch (Exception e) {
             logger.error("Failed to update VLANs.", e);
         }
+    }
+    
+    public String getVsphereConsolePort() {
+        return getServiceSetting(VMPropertyHandler.TS_VSPHERE_CONSOLE_PORT);
     }
 
     public String getTargetDatacenter() {
