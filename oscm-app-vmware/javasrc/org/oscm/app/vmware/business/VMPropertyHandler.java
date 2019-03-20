@@ -163,9 +163,9 @@ public class VMPropertyHandler {
      * several stages until it is automatically deleted
      */
     public enum SubscriptionEndStatus {
-        UNDEFINED, 
-        SCHEDULED_FOR_NOTIFICATION, 
-        SCHEDULED_FOR_DEACTIVATION, 
+        UNDEFINED,
+        SCHEDULED_FOR_NOTIFICATION,
+        SCHEDULED_FOR_DEACTIVATION,
         SCHEDULED_FOR_DELETION
     };
 
@@ -400,12 +400,6 @@ public class VMPropertyHandler {
      * A pattern which describes the naming rules for the access info.
      */
     public static final String TS_ACCESS_INFO = "ACCESS_INFO";
-
-    /**
-     * The port which is used to access the vm remote console
-     */
-
-    public static final String TS_VSPHERE_CONSOLE_PORT = "VSPHERE_CONSOLE_PORT";
 
     /**
      * internal settings for state machine execution
@@ -791,10 +785,7 @@ public class VMPropertyHandler {
 
     public String getTargetVCenterServer() {
         return getServiceSetting(VMPropertyHandler.TS_TARGET_VCENTER_SERVER);
-    }
 
-    public String getVsphereConsolePort() {
-        return getServiceSetting(VMPropertyHandler.TS_VSPHERE_CONSOLE_PORT);
     }
 
     public String getTargetCluster() {
@@ -1000,18 +991,15 @@ public class VMPropertyHandler {
 
         XMLGregorianCalendar queueT = info.getQueueTime();
         String queueTime = queueT != null
-                ? queueT.toGregorianCalendar().getTime().toString()
-                : "";
+                ? queueT.toGregorianCalendar().getTime().toString() : "";
 
         XMLGregorianCalendar startT = info.getStartTime();
         String startTime = startT != null
-                ? startT.toGregorianCalendar().getTime().toString()
-                : "";
+                ? startT.toGregorianCalendar().getTime().toString() : "";
 
         XMLGregorianCalendar completeT = info.getCompleteTime();
         String completeTime = completeT != null
-                ? completeT.toGregorianCalendar().getTime().toString()
-                : "";
+                ? completeT.toGregorianCalendar().getTime().toString() : "";
 
         logger.debug("Save task info key: " + info.getKey() + " name: "
                 + info.getName() + " target: " + info.getEntityName()
