@@ -238,7 +238,7 @@ public class AWSController implements APPlatformController {
                         "Got finish event but instance is in state "
                                 + propertyHandler.getState()
                                 + " => nothing changed");
-                LOGGER.debug(pe.getMessage());
+                LOGGER.warn(pe.getMessage());
                 throw pe;
             }
         }
@@ -425,7 +425,7 @@ public class AWSController implements APPlatformController {
             }
             return status;
         } catch (Throwable t) {
-            LOGGER.debug("Failed to execute service operation "
+            LOGGER.warn("Failed to execute service operation "
                     + operationId
                     + " for instance " + instanceId + " and user "
                     + userId);
