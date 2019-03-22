@@ -408,6 +408,16 @@ public class VM extends Template {
                 "info");
     }
 
+    private String getPortGroup(VMPropertyHandler properties) {
+        String portGroup = "";
+        int numberOfNICs = Integer.parseInt(properties
+                .getServiceSetting(VMPropertyHandler.TS_NUMBER_OF_NICS));
+        for (int i = 1; i <= numberOfNICs; i++) {
+            portGroup = portGroup + properties.getPortGroup(i);
+        }
+        return portGroup;
+    }
+
     public VMwareGuestSystemStatus getState(VMPropertyHandler properties)
             throws Exception {
 
@@ -440,8 +450,10 @@ public class VM extends Template {
             return VMwareGuestSystemStatus.GUEST_NOTREADY;
         }
 
-        if (validHostname && networkCardsConnected && validIp
-                && isGuestSystemRunning() && areGuestToolsRunning()) {
+        if ((validHostname && networkCardsConnected && validIp
+                && isGuestSystemRunning() && areGuestToolsRunning())
+                || (validHostname && networkCardsConnected && !getPortGroup(properties).isEmpty()
+                        && isGuestSystemRunning() && areGuestToolsRunning())) {
             return VMwareGuestSystemStatus.GUEST_READY;
         }
 
