@@ -305,7 +305,7 @@ public class VMController implements APPlatformController {
 
                 long memory = newParameters.getConfigMemoryMB();
                 if (memory % 4 != 0) {
-                        logger.debug(
+                        logger.warn(
                                 "Validation error on memory size [" + memory
                                         + "MB]");
                         throw new APPlatformException(
@@ -433,6 +433,7 @@ public class VMController implements APPlatformController {
                         }
                         return status;
                 } catch (Throwable t) {
+                        logger.warn(t.getMessage());
                         throw LogAndExceptionConverter
                                 .createAndLogPlatformException(t,
                                         Context.STATUS);
@@ -543,7 +544,7 @@ public class VMController implements APPlatformController {
                         result.setChangedParameters(settings.getParameters());
                         return result;
                 } catch (Exception t) {
-                        logger.debug("Failed to execute service operation "
+                        logger.warn("Failed to execute service operation "
                                 + operationId
                                 + " for instance " + instanceId + " and user "
                                 + userId);

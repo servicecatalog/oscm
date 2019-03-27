@@ -1,24 +1,37 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:a4j="http://richfaces.org/a4j">
-  <a4j:outputPanel id="#{id}" ajaxRendered="true">
-    <a4j:outputPanel layout="block" styleClass="description buttonPanel" rendered="#{not disabled}" ajaxRendered="true">
-     <div class="button_main_area_class">
-     <span class="button_right_part_class"><span class="button_content_class"><h:commandButton class="button_normal_class" value="#{msg['ui.config.action.save']}" type="submit" onclick="#{onsaveclick}" /></span></span>
-      &nbsp;&nbsp;
-      
-      <span class="button_right_part_class"><span class="button_content_class"><h:commandButton class="button_normal_class" value="#{msg['ui.config.action.undo']}" type="submit" onclick="#{onundoclick}" /></span></span>
-    
-     </div>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a4j="http://richfaces.org/a4j">
+    <a4j:outputPanel id="#{id}" ajaxRendered="true">
+        <a4j:outputPanel layout="block" styleClass="description buttonPanel"
+                         rendered="#{not disabled}" ajaxRendered="true">
+            <div class="oscm_app_button_offset">
+                <h:commandButton class="oscm_app_button"
+                                 value="#{msg['ui.config.action.save']}"
+                                 type="submit"
+                                 onclick="this.blur(); #{onsaveclick}"/>
+                <h:commandButton class="oscm_app_button"
+                                 value="#{msg['ui.config.action.undo']}"
+                                 type="submit"
+                                 onclick="this.blur(); #{onundoclick}"/>
+            </div>
+        </a4j:outputPanel>
+
+        <a4j:outputPanel layout="block" styleClass="description buttonPanel"
+                         rendered="#{disabled}" ajaxRendered="true">
+            <div class="oscm_app_button_offset">
+                <h:commandButton
+                        class="oscm_app_button"
+                        value="#{msg['ui.config.action.save']}" type="submit"
+                        disabled="true"/>
+                <h:commandButton
+                        class="oscm_app_button"
+                        value="#{msg['ui.config.action.undo']}" type="submit"
+                        disabled="true"/>
+            </div>
+        </a4j:outputPanel>
     </a4j:outputPanel>
-    <a4j:outputPanel layout="block" styleClass="description buttonPanel" rendered="#{disabled}" ajaxRendered="true">
-       <div class="button_main_area_class">
-      <span class="button_right_part_class"><span class="button_content_class"><h:commandButton class="button_disabled_class" value="#{msg['ui.config.action.save']}" type="submit" disabled="true" /></span></span>
-      &nbsp;&nbsp;
-       <span class="button_right_part_class"><span class="button_content_class"><h:commandButton class="button_disabled_class" value="#{msg['ui.config.action.undo']}" type="submit" disabled="true" /></span></span>
-     </div>
-    </a4j:outputPanel>
-  </a4j:outputPanel>
 </ui:composition>

@@ -13,6 +13,7 @@ import org.oscm.app.azure.i18n.Messages;
 import org.oscm.app.v2_0.APPlatformServiceFactory;
 import org.oscm.app.v2_0.data.*;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.LogAndExceptionConverter;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.oscm.app.v2_0.intf.APPlatformService;
 import org.slf4j.Logger;
@@ -99,7 +100,6 @@ public class AzureController implements APPlatformController {
     @Override
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceDescription createInstance(ProvisioningSettings settings) throws APPlatformException {
-        logger.info("Inside createInstance");
         String instanceId = INSTANCE_ID_PREFIX
                 + UUID.randomUUID().toString();
         PropertyHandler ph = new PropertyHandler(settings);
@@ -110,7 +110,8 @@ public class AzureController implements APPlatformController {
         InstanceDescription id = new InstanceDescription();
         id.setInstanceId(instanceId);
         id.setChangedParameters(settings.getParameters());
-        logger.info("exiting createInstance with id: " + id.getInstanceId());
+        logger.info("createInstance({})", LogAndExceptionConverter
+                .getLogText(id.getInstanceId(), settings));
         return id;
 
     }
@@ -138,8 +139,8 @@ public class AzureController implements APPlatformController {
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus deleteInstance(String instanceId,
                                          ProvisioningSettings settings) throws APPlatformException {
-       /* logger.info("deleteInstance({})",
-                LogAndExceptionConverter.getLogText(instanceId, settings));*/
+        logger.info("deleteInstance({})",
+                LogAndExceptionConverter.getLogText(instanceId, settings));
         try {
             PropertyHandler ph = new PropertyHandler(settings);
             ph.setStartTime(String.valueOf(System.currentTimeMillis()));
@@ -184,6 +185,8 @@ public class AzureController implements APPlatformController {
 
             InstanceStatus status = new InstanceStatus();
             status.setChangedParameters(newSettings.getParameters());
+            logger.info("modifyInstance({})", LogAndExceptionConverter
+                    .getLogText(instanceId, currentSettings));
             return status;
         } catch (Exception t) {
             throw t;
@@ -210,12 +213,12 @@ public class AzureController implements APPlatformController {
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus getInstanceStatus(String instanceId,
                                             ProvisioningSettings settings) throws APPlatformException {
-        logger.info("Inside getInstanceStatus");
+        logger.debug("Inside getInstanceStatus");
         try {
             PropertyHandler ph = new PropertyHandler(settings);
             Dispatcher dp = new Dispatcher(platformService, instanceId, ph);
             InstanceStatus status = dp.dispatch();
-            logger.info("exiting getInstanceStatus || isReady: " + status.isReady());
+            logger.debug("exiting getInstanceStatus || isReady: " + status.isReady());
             return status;
         } catch (Exception t) {
             throw t;
@@ -238,6 +241,8 @@ public class AzureController implements APPlatformController {
     public InstanceStatus notifyInstance(String instanceId,
                                          ProvisioningSettings settings, Properties properties)
             throws APPlatformException {
+        logger.info("notifyInstance({})",
+                LogAndExceptionConverter.getLogText(instanceId, settings));
         InstanceStatus status = null;
         if (instanceId == null || settings == null || properties == null) {
             return status;
@@ -257,6 +262,7 @@ public class AzureController implements APPlatformController {
                 APPlatformException pe = new APPlatformException(
                         "Got finish event but instance is in state "
                                 + ph.getFlowState() + " => nothing changed");
+                logger.warn(pe.getMessage());
                 throw pe;
             }
         }
@@ -285,6 +291,8 @@ public class AzureController implements APPlatformController {
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus activateInstance(String instanceId,
                                            ProvisioningSettings settings) throws APPlatformException {
+        logger.info("activateInstance({})",
+                LogAndExceptionConverter.getLogText(instanceId, settings));
         try {
             // Set status to store for application instance
             PropertyHandler ph = new PropertyHandler(settings);
@@ -318,6 +326,8 @@ public class AzureController implements APPlatformController {
     @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
     public InstanceStatus deactivateInstance(String instanceId,
                                              ProvisioningSettings settings) throws APPlatformException {
+        logger.info("deactivateInstance({})",
+                LogAndExceptionConverter.getLogText(instanceId, settings));
         try {
             // Set status to store for application instance
             PropertyHandler ph = new PropertyHandler(settings);
@@ -337,6 +347,9 @@ public class AzureController implements APPlatformController {
                                                   String instanceId, String transactionId, String operationId,
                                                   List<OperationParameter> parameters, ProvisioningSettings settings)
             throws APPlatformException {
+        logger.info("executeServiceOperation({})",
+                LogAndExceptionConverter.getLogText(instanceId, settings)
+                        + " | OperationIdID: " + operationId);
         InstanceStatus status = null;
         if (instanceId == null || operationId == null || settings == null) {
             return status;
