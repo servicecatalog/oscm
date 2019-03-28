@@ -41,6 +41,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="/oscm-i18n-intsvc"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/openejb-core-7.0.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/openejb-loader-7.0.3.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-httpcore/javalib/httpclient-4.5.2.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc"/>
 	<classpathentry kind="output" path="bin"/>
