@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.app.v2_0.data.ProvisioningSettings;
 import org.oscm.app.v2_0.data.Setting;
@@ -223,6 +224,48 @@ public class ProvisioningSettingsTest {
         assertTrue(configSettings.get("key4").isEncrypted());
         assertTrue(parameters.get("key4").isEncrypted());
         assertTrue(customAttributes.get("key4").isEncrypted());
+        assertFalse(attributes.get("key4").isEncrypted());
+    }
+    
+    @Ignore
+    @Test
+    public void testOverwriteCrossReference() {
+        String controllerId = "controllerId";
+
+        HashMap<String, Setting> configSettings = new HashMap<>();
+        configSettings.put("key3", new Setting("key3", "value3s"));
+        configSettings.put("key4", new Setting("key4", "value4s"));
+
+        HashMap<String, Setting> parameters = new HashMap<>();
+        parameters.put("key3", new Setting("key3", "value3p"));
+        parameters.put("key4", new Setting("key4", "value4p"));
+
+        HashMap<String, Setting> customAttributes = new HashMap<>();
+        customAttributes.put("key3", new Setting("key3", "value3c", false,
+                controllerId));
+        customAttributes.put("key4", new Setting("key4", "value4c", false,
+                controllerId));
+
+        HashMap<String, Setting> attributes = new HashMap<>();
+        attributes.put("key4", new Setting("key4", "${key3}", false, controllerId));
+
+        ProvisioningSettings pSettings = new ProvisioningSettings(parameters,
+                attributes, customAttributes, configSettings, "en");
+
+        pSettings.overwriteProperties(controllerId);
+
+        assertEquals("value3c", configSettings.get("key3").getValue());
+        assertEquals("value3c", configSettings.get("key4").getValue());
+
+        assertEquals("value3c", parameters.get("key3").getValue());
+        assertEquals("value3c", parameters.get("key4").getValue());
+        
+        assertEquals("value4c", customAttributes.get("key4").getValue());
+        
+
+        assertFalse(configSettings.get("key4").isEncrypted());
+        assertFalse(parameters.get("key4").isEncrypted());
+        assertFalse(customAttributes.get("key4").isEncrypted());
         assertFalse(attributes.get("key4").isEncrypted());
     }
 }
