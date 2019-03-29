@@ -7,8 +7,12 @@ git config --global user.name "Travis CI"
 git config --global push.default simple
 git remote set-url origin https://${GITHUB_TOKEN}@github.com/servicecatalog/oscm.git
 
-git add *.java
-git commit -m "Applied code formatting [ci skip]"
-git push origin HEAD:$TRAVIS_BRANCH
+if [ git diff --stat --name-only $(echo $TRAVIS_COMMIT_RANGE) | grep "\.java$" ] ; then
+    git add *.java
+    git commit -m "Applied code formatting [ci skip]"
+    git push origin HEAD:$TRAVIS_BRANCH
+else
+    echo "NOTHING TO PUSH. ABORTING..."
+fi
 
 echo "DONE!"
