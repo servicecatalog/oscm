@@ -5,6 +5,9 @@
 *.tmp
 *.iml
 *~
+*.jar
+*.zip
+**zip**
 
 # Ignore folders
 Debug/
