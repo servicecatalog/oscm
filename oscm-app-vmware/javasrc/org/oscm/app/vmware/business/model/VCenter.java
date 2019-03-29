@@ -10,6 +10,8 @@ package org.oscm.app.vmware.business.model;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class VCenter {
     public List<Datacenter> datacenter;
     public String name;
@@ -41,6 +43,11 @@ public class VCenter {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+  
+  
+    public boolean paramsNotNullOrEmpty() {
+        return !StringUtils.isAnyEmpty(url, userid, password);
     }
 
 }

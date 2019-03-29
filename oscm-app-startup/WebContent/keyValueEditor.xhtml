@@ -2,14 +2,13 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j"
->
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
 
-    <script language="JavaScript1.2" type="text/javascript">
+	<script language="JavaScript1.2" type="text/javascript">
         var onSubmitFlag = false;
         function getUnloadMessage() { return "#{msg['ui.unsavedChanges.lost']}"; }
         function setDirty(flag) { if ((onSubmitFlag &amp;&amp; (!flag)) || (!onSubmitFlag)) { window.onbeforeunload = (flag) ? getUnloadMessage : null; } }
@@ -39,116 +38,113 @@
 
     </script>
 
-    <div class="heading_data_1_class">
-        <div class="heading_data_1_bg_class">
-            <h2>
-                <h:outputText value="#{msg['ui.config.title']}"/>
-            </h2>
-        </div>
-    </div>
+	<div class="heading_data_1_class">
+		<div class="heading_data_1_bg_class">
+			<h2>
+				<h:outputText value="#{msg['ui.config.title']}" />
+			</h2>
+		</div>
+	</div>
 
-    <div id="progressDiv" class="progressOverlay">
-        <table width="98%">
-            <tr>
-                <td></td>
-            </tr>
-        </table>
-    </div>
+	<div id="progressDiv" class="progressOverlay">
+		<table width="98%">
+			<tr>
+				<td></td>
+			</tr>
+		</table>
+	</div>
 
-    <span class="description"><h:outputText
-            value="#{msg['ui.config.description']}"/> </span>
+	<span class="description"><h:outputText
+			value="#{msg['ui.config.description']}" /> </span>
 
-    <a4j:outputPanel layout="block" styleClass="statusPanel">
-        <h:messages styleClass="statusMessages" errorClass="statusRed"
-                    infoClass="statusGreen"/>
-    </a4j:outputPanel>
+	<a4j:outputPanel layout="block" styleClass="statusPanel">
+		<h:messages styleClass="statusMessages" errorClass="statusRed"
+			infoClass="statusGreen" />
+	</a4j:outputPanel>
 
 
-    <h:panelGroup class="statusPanel canPingMessagePanel">
-        <ui:repeat value="#{appConfigurationModel.canPingExceptionMessageSet}"
-                   var="e">
-            <span class="statusRed" onclick="alert('#{e.stackTrace}')">#{e.errorMessage}</span>
-            <ui:fragment><br/></ui:fragment>
-        </ui:repeat>
-    </h:panelGroup>
+	<h:panelGroup class="statusPanel canPingMessagePanel">
+		<ui:repeat value="#{appConfigurationModel.canPingExceptionMessageSet}"
+			var="e">
+			<span class="statusRed" onclick="alert('#{e.stackTrace}')">#{e.errorMessage}</span>
+			<ui:fragment>
+				<br />
+			</ui:fragment>
+		</ui:repeat>
+	</h:panelGroup>
 
-    <a4j:outputPanel rendered="#{appConfigurationModel.restartRequired}"
-                     layout="block" styleClass="restartPanel">
-        <h:form id="restartForm">
-            <span class="statusRed"><h:outputText
-                    value="#{msg['ui.app.suspend']}"/> </span>
-            <h:commandButton
-                    class="oscm_app_button"
-                    value="#{msg['ui.config.action.restart']}" type="submit"
-                    onclick="this.blur(); setOnSubmit(true); setDirty(false);"
-                    action="#{appConfigurationCtrl.restart}"/>
-            <h:inputHidden value="#{appConfigurationModel.token}"/>
-        </h:form>
-    </a4j:outputPanel>
+	<a4j:outputPanel rendered="#{appConfigurationModel.restartRequired}"
+		layout="block" styleClass="restartPanel">
+		<h:form id="restartForm">
+			<span class="statusRed"><h:outputText
+					value="#{msg['ui.app.suspend']}" /> </span>
+			<h:commandButton class="oscm_app_button"
+				value="#{msg['ui.config.action.restart']}" type="submit"
+				onclick="this.blur(); setOnSubmit(true); setDirty(false);"
+				action="#{appConfigurationCtrl.restart}" />
+			<h:inputHidden value="#{appConfigurationModel.token}" />
+		</h:form>
+	</a4j:outputPanel>
 
-    <h:form id="configurationSettings" styleClass="configurationSettings_area">
-        <h:inputHidden value="#{appConfigurationModel.token}"/>
-        <h:inputHidden id="dirty" value="#{appConfigurationModel.dirty}"/>
-        <h:inputHidden id="selectedControllerId"
-                       value="#{appConfigurationModel.selectedControllerId}"/>
-        <a4j:commandButton id="deleteController"
-                           action="#{appConfigurationCtrl.deleteController}"
-                           style="display: none;"
-                           render="configurationSettings"/>
+	<h:form id="configurationSettings"
+		styleClass="configurationSettings_area">
+		<h:inputHidden value="#{appConfigurationModel.token}" />
+		<h:inputHidden id="dirty" value="#{appConfigurationModel.dirty}" />
+		<h:inputHidden id="selectedControllerId"
+			value="#{appConfigurationModel.selectedControllerId}" />
+		<a4j:commandButton id="deleteController"
+			action="#{appConfigurationCtrl.deleteController}"
+			style="display: none;" render="configurationSettings" />
 
-        <rich:dataTable styleClass="table_row_linetitle_class"
-                        value="#{appConfigurationModel.keys}" var="key"
-                        rowClasses="rowOdd,rowEven">
-            <rich:column headerClass="rf-dt-keyColumn table_header_title_class">
-                <f:facet name="header">
-                    <h:outputText value="#{msg['ui.config.column.key']}"/>
-                </f:facet>
-                <h:outputText value="#{key}"/>
-                <f:facet name="footer">
-                    <h:inputText id="newControllerId"
-                                 value="#{appConfigurationModel.newControllerId}"
-                                 onchange="setDirty(true)"/>
-                </f:facet>
-            </rich:column>
-            <rich:column class="org_id_column">
-                <f:facet name="header">
-                    <h:outputText value="#{msg['ui.config.column.value']}"/>
-                </f:facet>
-                <h:inputText id="configurationValue"
-                             value="#{appConfigurationModel.items[key]}"
-                             onchange="setDirty(true)"/>
-                <f:facet name="footer">
-                    <h:inputText id="newOrgnizationId"
-                                 value="#{appConfigurationModel.newOrganizationId}"
-                                 onchange="setDirty(true)"/>
-                </f:facet>
-            </rich:column>
-            <rich:column>
-                <h:commandLink value="#{msg['ui.config.action.delete']}"
-                               type="submit"
-                               onclick="setOnSubmit(true);setDirty(false);#{rich:element('selectedControllerId')}.value='#{key}';#{rich:element('deleteController')}.click();return false;"/>
-            </rich:column>
-            <rich:column class="connectivity_tests_column">
-                <h:commandButton id="pingButton" class="oscm_app_button"
-                                 onclick=" this.blur(); doShowProgress(true);"
-                                 disabled="#{!appConfigurationModel.pingButtonVisibilityMap[key]}"
-                                 value="#{msg['ui.config.action.ping']}"
-                                 action="#{appConfigurationCtrl.invokePing(key)}"/>
-                <h:outputLabel for="pingButton"
-                               class="controller_not_configured_label"
-                               rendered="#{!appConfigurationModel.pingButtonVisibilityMap[key]}"
-                               value="#{msg['ui.app.controller.not.configured']}"/>
-            </rich:column>
-        </rich:dataTable>
+		<rich:dataTable styleClass="table_row_linetitle_class"
+			value="#{appConfigurationModel.keys}" var="key"
+			rowClasses="rowOdd,rowEven">
+			<rich:column headerClass="rf-dt-keyColumn table_header_title_class">
+				<f:facet name="header">
+					<h:outputText value="#{msg['ui.config.column.key']}" />
+				</f:facet>
+				<h:outputText value="#{key}" />
+				<f:facet name="footer">
+					<h:inputText id="newControllerId"
+						value="#{appConfigurationModel.newControllerId}"
+						onchange="setDirty(true)" />
+				</f:facet>
+			</rich:column>
+			<rich:column class="org_id_column">
+				<f:facet name="header">
+					<h:outputText value="#{msg['ui.config.column.value']}" />
+				</f:facet>
+				<h:inputText id="configurationValue"
+					value="#{appConfigurationModel.items[key]}"
+					onchange="setDirty(true)" />
+				<f:facet name="footer">
+					<h:inputText id="newOrgnizationId"
+						value="#{appConfigurationModel.newOrganizationId}"
+						onchange="setDirty(true)" />
+				</f:facet>
+			</rich:column>
+			<rich:column>
+				<h:commandLink value="#{msg['ui.config.action.delete']}"
+					type="submit"
+					onclick="setOnSubmit(true);setDirty(false);#{rich:element('selectedControllerId')}.value='#{key}';#{rich:element('deleteController')}.click();return false;" />
+			</rich:column>
+			<rich:column class="connectivity_tests_column">
 
-        <div class="description buttonPanel">
-            <div class="oscm_app_button_offset">
-                <h:commandButton
-                        class="oscm_app_button"
-                        value="#{msg['ui.config.action.save']}" type="submit"
-                        onclick="this.blur(); setOnSubmit(true);setDirty(false);"
-                        action="#{appConfigurationCtrl.save}"/>
-            </div>
-        </div>
-    </h:form>
+				<h:commandButton id="pingButton" class="oscm_app_button"
+					onclick=" this.blur(); doShowProgress(true);"
+					disabled="#{!appConfigurationModel.pingButtonVisibilityMap[key]}"
+					value="#{appConfigurationModel.pingButtonVisibilityMap[key] ? msg['ui.config.action.ping'] : msg['ui.app.controller.not.configured'] }"
+					action="#{appConfigurationCtrl.invokePing(key)}" />
+			</rich:column>
+		</rich:dataTable>
+
+		<div class="description buttonPanel">
+			<div class="oscm_app_button_offset">
+				<h:commandButton class="oscm_app_button"
+					value="#{msg['ui.config.action.save']}" type="submit"
+					onclick="this.blur(); setOnSubmit(true);setDirty(false);"
+					action="#{appConfigurationCtrl.save}" />
+			</div>
+		</div>
+	</h:form>
 </ui:composition>

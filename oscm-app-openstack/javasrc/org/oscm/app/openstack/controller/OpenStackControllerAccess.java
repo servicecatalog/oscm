@@ -12,11 +12,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.oscm.app.openstack.i18n.Messages;
+import org.oscm.app.v2_0.APPlatformServiceFactory;
+import org.oscm.app.v2_0.data.ControllerSettings;
+import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.v2_0.intf.ControllerAccess;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OpenStackControllerAccess implements ControllerAccess {
-
+    private Logger LOGGER = LoggerFactory
+            .getLogger(OpenStackControllerAccess.class);
     private static final long serialVersionUID = 8912611326487987648L;
+    private ControllerSettings settings;
 
     @Override
     public String getControllerId() {
@@ -39,5 +46,27 @@ public class OpenStackControllerAccess implements ControllerAccess {
         result.add(PropertyHandler.TEMPLATE_BASE_URL);
         result.add(PropertyHandler.TIMER_INTERVAL);
         return result;
+    }
+    
+
+    public ControllerSettings getSettings() {
+        if (settings == null) {
+            try {
+                APPlatformServiceFactory.getInstance()
+                        .requestControllerSettings(getControllerId());
+                LOGGER.debug(
+                        "Settings were NULL. Requested from APP and got {}",
+                        settings);
+            } catch (APPlatformException e) {
+                LOGGER.error(
+                        "Error while ControllerAcces was requesting controller setting from APP",
+                        e);
+            }
+        }
+        return settings;
+    }
+    
+    public void storeSettings(ControllerSettings settings) {
+        this.settings = settings;
     }
 }
