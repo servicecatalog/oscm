@@ -9,7 +9,7 @@ git remote set-url origin https://${GITHUB_TOKEN}@github.com/servicecatalog/oscm
 
 GIT_DIFF_OUTPUT=$(git diff --stat --name-only $(echo $TRAVIS_COMMIT_RANGE) | grep "\.java$")
 
-if [ "$GIT_DIFF_OUTPUT" -ne "" ] ; then
+if [[ ! -z "$GIT_DIFF_OUTPUT" ]] ; then
     git add *.java
     git commit -m "Applied code formatting [ci skip]"
     git push origin HEAD:$TRAVIS_BRANCH
