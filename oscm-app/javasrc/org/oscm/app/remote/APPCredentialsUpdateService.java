@@ -5,6 +5,6 @@ import javax.ejb.Remote;
 @Remote
 public interface APPCredentialsUpdateService {
 	
-	void updateUserCredentials(long userId, String username, String password);
+	String updateUserCredentials(long userId, String username, String password);
 	
 }
