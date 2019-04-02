@@ -148,6 +148,7 @@ public class APPlatformServiceBean implements APPlatformService {
 
     @Override
     public String getBSSWebServiceUrl() throws ConfigurationException {
+    	logger.info("INSIDE webservice url");
         if ("SAML_SP".equals(configService.getProxyConfigurationSetting(
                 PlatformConfigurationKey.BSS_AUTH_MODE))) {
             return configService.getProxyConfigurationSetting(
