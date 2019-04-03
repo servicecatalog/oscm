@@ -16,12 +16,13 @@ env:
 
 jobs:
   include:
-    - stage: verify_code
-      name: Verify Code
-      script:
-        - bash scripts/format_code.sh
-        - bash scripts/check_copyrights.sh
-        - bash scripts/repush_formatted_code.sh
+    # FIXME: Commented this stage out due to issues with auto-formatter. Will be fixed in scope of #264 
+    # - stage: verify_code
+    #   name: Verify Code
+    #   script:
+    #     - bash scripts/format_code.sh
+    #     - bash scripts/check_copyrights.sh
+    #     - bash scripts/repush_formatted_code.sh
     - stage: run_tests
       name: Run Tests
       script:
