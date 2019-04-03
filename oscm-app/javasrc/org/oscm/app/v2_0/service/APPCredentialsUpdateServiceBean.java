@@ -1,21 +1,20 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2019
- *                                                                              
- *  Creation Date: 03-04-2019                                                      
- *                                                                              
- *******************************************************************************/
-
- package org.oscm.app.v2_0.service;
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2019
+ *
+ * <p>Creation Date: 03-04-2019
+ *
+ * <p>*****************************************************************************
+ */
+package org.oscm.app.v2_0.service;
 
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-
 import org.oscm.app.remote.APPCredentialsUpdateService;
 import org.oscm.app.v2_0.data.Setting;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
@@ -49,8 +48,7 @@ public class APPCredentialsUpdateServiceBean implements APPCredentialsUpdateServ
       }
     }
 
-    controllers
-        .stream()
+    controllers.stream()
         .filter(id -> !PROXY_CONTROLLER_ID.equals(id))
         .forEach(
             id -> {
