@@ -1,4 +1,12 @@
-package org.oscm.app.v2_0.service;
+/*******************************************************************************
+ *                                                                              
+ *  Copyright FUJITSU LIMITED 2019
+ *                                                                              
+ *  Creation Date: 03-04-2019                                                      
+ *                                                                              
+ *******************************************************************************/
+
+ package org.oscm.app.v2_0.service;
 
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
