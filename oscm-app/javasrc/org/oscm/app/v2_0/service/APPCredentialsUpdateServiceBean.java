@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -31,8 +30,7 @@ public class APPCredentialsUpdateServiceBean implements APPCredentialsUpdateServ
     List<String> controllers = configService.getUserConfiguredControllers(username);
 
     Map<String, Setting> settings =
-        controllers
-            .stream()
+        controllers.stream()
             .filter(controllerId -> controllerId.equals("ess.aws"))
             .collect(
                 Collectors.toMap(
@@ -42,7 +40,7 @@ public class APPCredentialsUpdateServiceBean implements APPCredentialsUpdateServ
       configService.storeControllerConfigurationSettings(
           "ess.aws", (HashMap<String, Setting>) settings);
     } catch (ConfigurationException e) { // TODO Auto-generated catch block
-      LOGGER.error(e.getMessage(),e);
+      LOGGER.error(e.getMessage(), e);
     }
     return userId + ", " + username + ", " + password;
   }

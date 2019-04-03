@@ -16,7 +16,6 @@ import java.nio.file.StandardOpenOption;
 import java.security.GeneralSecurityException;
 import java.util.*;
 import java.util.stream.Collectors;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -398,14 +397,14 @@ public class APPConfigurationServiceBean {
   public List<String> getUserConfiguredControllers(String username) {
 
     LOGGER.info("Getting user [" + username + "] configured controllers:");
-    
+
     Query query = em.createNamedQuery("ConfigurationSetting.getUserControllers");
     query.setParameter("username", username);
 
     List<?> resultList = query.getResultList();
     List<String> controllers =
         resultList.stream().map(result -> (String) result).collect(Collectors.toList());
-    
+
     LOGGER.info(controllers.toString());
 
     return controllers;
