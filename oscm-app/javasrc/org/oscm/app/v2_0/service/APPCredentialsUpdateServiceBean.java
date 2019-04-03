@@ -29,22 +29,23 @@ public class APPCredentialsUpdateServiceBean implements APPCredentialsUpdateServ
       LoggerFactory.getLogger(APPCredentialsUpdateServiceBean.class);
 
   private static final String PROXY_CONTROLLER_ID = "PROXY";
+  private static final String PWD_KEY = "BSS_USER_PWD";
 
   @EJB protected APPConfigurationServiceBean configService;
 
   @Override
-  public String updateUserCredentials(long userId, String username, String password) {
+  public void updateUserCredentials(long userId, String username, String password) {
 
     List<String> controllers = configService.getUserConfiguredControllers(username);
 
     if (controllers.contains(PROXY_CONTROLLER_ID)) {
       HashMap<String, String> settings = new HashMap<>();
-      settings.put("BSS_USER_PWD", password);
+      settings.put(PWD_KEY, password);
       try {
         configService.storeAppConfigurationSettings(settings);
-        logSuccessInfo(username);
+        logSuccessInfo(username, PROXY_CONTROLLER_ID);
       } catch (ConfigurationException | GeneralSecurityException e) {
-        LOGGER.error("Unable to store proxy settings " + settings, e.getMessage(), e);
+        logErrorMsg(PROXY_CONTROLLER_ID, PWD_KEY, e);
       }
     }
 
@@ -53,19 +54,22 @@ public class APPCredentialsUpdateServiceBean implements APPCredentialsUpdateServ
         .forEach(
             id -> {
               HashMap<String, Setting> settings = new HashMap<>();
-              settings.put("BSS_USER_PWD", new Setting("BSS_USER_PWD", password));
+              settings.put(PWD_KEY, new Setting(PWD_KEY, password));
               try {
                 configService.storeControllerConfigurationSettings(id, settings);
-                logSuccessInfo(username);
+                logSuccessInfo(username, id);
               } catch (ConfigurationException e) {
-                LOGGER.error("Unable to store controller settings " + settings, e.getMessage(), e);
+                logErrorMsg(id, PWD_KEY, e);
               }
             });
-
-    return userId + ", " + username + ", " + password;
   }
 
-  private void logSuccessInfo(String username) {
-    LOGGER.info("User [" + username + "] password updated");
+  private void logSuccessInfo(String username, String id) {
+    LOGGER.info("User [" + username + "] password for controller [" + id + "] updated");
+  }
+
+  private void logErrorMsg(String controllerId, String settingKey, Exception excp) {
+    LOGGER.error(
+        "Unable to store controller [" + controllerId + "] setting [" + settingKey + "]", excp);
   }
 }
