@@ -8,6 +8,7 @@
 
 package org.oscm.app.vmware.ui.pages.clusterconfig;
 
+import org.oscm.app.vmware.business.model.Cluster;
 import org.oscm.app.vmware.business.model.VCenter;
 import org.oscm.app.vmware.i18n.Messages;
 import org.oscm.app.vmware.importer.Importer;
@@ -34,30 +35,38 @@ import java.util.stream.Collectors;
 @ViewScoped
 public class TargetLocationBean extends UiBeanBase {
     private static final long serialVersionUID = 4584243999849571470L;
-    private static final Logger logger = LoggerFactory.getLogger(UiBeanBase.class);
+    private static final Logger logger = LoggerFactory
+            .getLogger(UiBeanBase.class);
     private int selectedRowNum;
     private int currentVCenter;
     private List<VCenter> vcenter;
     private VCenter selectedVCenter;
     private List<SelectItem> vcenterList = new ArrayList<>();
+    private List<Cluster> clusterList = new ArrayList<>();
     private int currentConfigFileType = 0;
     private List<SelectItem> configFileTypes = new ArrayList<>();
     private boolean dirty = false;
     private Part file;
     // Status styles
     private static final String STATUS_CLASS_INFO = "statusInfo";
-    private static final String STATUS_CLASS_ERROR = "statusError";    
+    private static final String STATUS_CLASS_ERROR = "statusError";
     private String statusClass;
+    private static ClusterDetailsBean clusterDetailsBean;
+    
 
     public TargetLocationBean(DataAccessService das) {
         settings.useMock(das);
         initBean();
     }
+    
+    public void closePopup() {
+        clusterDetailsBean = null;
+    }
 
     public TargetLocationBean() {
         initBean();
     }
-    
+
     private void initBean() {
         initVCenters();
         initConfigFileTypes();
@@ -65,25 +74,41 @@ public class TargetLocationBean extends UiBeanBase {
 
     private void initVCenters() {
         vcenter = settings.getTargetVCenter();
-        vcenterList = vcenter
-                .stream()
-                .map(e -> new SelectItem(e.tkey, e.name))
+        vcenterList = vcenter.stream().map(e -> new SelectItem(e.tkey, e.name))
                 .collect(Collectors.toList());
 
-        if(vcenter.size() >= 1) {
+        if (vcenter.size() >= 1) {
             selectedVCenter = vcenter.get(0);
+            
+            clusterList = settings.getClusters().stream()
+                    .filter(e -> e.datacenter_tkey == selectedVCenter.tkey)
+                    .collect(Collectors.toList());
+        
             currentVCenter = selectedVCenter.tkey;
         }
     }
-
+    
     private void initConfigFileTypes() {
         configFileTypes = Arrays.stream(ConfigurationType.values())
                 .map(ct -> new SelectItem(ct.getId(), ct.getDisplayName()))
                 .collect(Collectors.toList());
 
-        if(configFileTypes.size() >= 1) {
+        if (configFileTypes.size() >= 1) {
             currentConfigFileType = 0;
         }
+    }
+    
+    public String showClusterDetails(Cluster cluster) {
+        clusterDetailsBean = new ClusterDetailsBean(settings, cluster); 
+        return null;
+    }
+
+    public ClusterDetailsBean getClusterDetailsBean() {
+        return clusterDetailsBean;
+    }
+    
+    public void setClusterDetailsBean(ClusterDetailsBean cbb) {
+        this.clusterDetailsBean = cbb;
     }
     
     public void save() {
@@ -111,7 +136,8 @@ public class TargetLocationBean extends UiBeanBase {
         status = null;
 
         try {
-            ConfigurationType ct = ConfigurationType.values()[this.currentConfigFileType];
+            ConfigurationType ct = ConfigurationType
+                    .values()[this.currentConfigFileType];
             Importer importer = ImporterFactory.getImporter(ct,
                     this.settings.getDataAccessService());
             importer.load(this.file.getInputStream());
@@ -144,6 +170,14 @@ public class TargetLocationBean extends UiBeanBase {
             }
         }
         return null;
+    }
+
+    public List<Cluster> getClusterList() {
+        return clusterList;
+    }
+    
+    public void setClusterList(List<Cluster> clusterList) {
+        this.clusterList = clusterList;
     }
 
     public String getLoggedInUserId() {
@@ -221,14 +255,14 @@ public class TargetLocationBean extends UiBeanBase {
     public void setFile(Part file) {
         this.file = file;
     }
-    
+
     /**
      * Returns status message of last operation.
      */
     public String getStatus() {
         return status;
     }
-    
+
     /**
      * Returns the status of the most recent operation.
      * 
@@ -251,8 +285,8 @@ public class TargetLocationBean extends UiBeanBase {
     private void setInfoStatusClass() {
         statusClass = STATUS_CLASS_INFO;
     }
-    
+
     public void clearStatus() {
-    	status=null;
+        status = null;
     }
 }

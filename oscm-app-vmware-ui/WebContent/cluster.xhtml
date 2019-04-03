@@ -1,0 +1,120 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+	template="WEB-INF/facelets/tags/modalDialog.xhtml">
+
+
+	<ui:define name="dialogScripts">
+		<c:set var="cancelHandler"
+			value="setDirty(false);cancelDialog();return false;" />
+		<c:set var="modalFocusElement" value="#{dialogId}Form:title" />
+	</ui:define>
+
+	<ui:define name="dialogTitle">
+		<h2>
+			<h:outputText id="#{dialogId}DialogTitle"
+				style="white-space: nowrap;"
+				value="#{msg['ui.popup.cluster.details.title']}" />
+		</h2>
+	</ui:define>
+
+
+	<ui:define name="dialogContent">
+
+		<a4j:outputPanel id="#{dialogId}titleArea" layout="block"
+			styleClass="heading_data_1_class">
+			<div class="heading_data_1_bg_class no-height">
+				<h2>
+					<h:outputText value="#{msg['ui.config.title']}" />
+				</h2>
+
+				<ui:repeat value="#{menu.items}" var="item">
+					<h:outputLink
+						value="#{facesContext.externalContext.requestContextPath}#{item.link}">
+						<h:outputText value="#{item.label}" />
+					</h:outputLink>
+					<h:outputText value="&#160;&#160;|&#160;&#160;" />
+				</ui:repeat>
+			</div>
+		</a4j:outputPanel>
+
+		<h:outputText id="#{dialogId}status"
+			value="#{targetLocationBean.status}"
+			styleClass="statusPanel #{targetLocationBean.statusClass}"
+			rendered="#{targetLocationBean.status != null}" />
+
+		<div class="nested_heading_data_class">
+			<div id="#{dialogId}accordion_area_vcenter">
+				<div class="box_area_class">
+					<!--▼ Heading data 3 ▼-->
+					<div class="heading_data_3_class">
+						<div class="heading_data_3_bg_class">
+							<h4>
+								<h:outputText value="#{msg['ui.config.part.vsphereapi']}" />
+							</h4>
+						</div>
+					</div>
+					<h:form id="#{dialogId}balancer_form"
+						styleClass="configurationSettings_area">
+						<div>
+							<div>
+								<table id="clusterXml" class="rf-dt table_row_linetitle_class">
+									<colgroup span="1"></colgroup>
+									<thead class="rf-dt-thd">
+										<tr class="rf-dt-shdr">
+											<th class="rf-dt-shdr-c"><h:outputText
+													value="#{msg['ui.config.column.config']}" /></th>
+										</tr>
+									</thead>
+									<tbody class="rf-dt-b">
+										<tr class="rf-dt-r rowOdd">
+											<td><pre>
+												<h:outputText
+														value="#{targetLocationBean.clusterDetailsBean.xml}"
+														style="overflow-x: scroll; display:block; height: 300px;" />
+											</pre></td>
+										</tr>
+									</tbody>
+								</table>
+								<rich:dataTable styleClass="table_row_linetitle_class"
+									value="#{targetLocationBean.clusterDetailsBean.vlans}" var="c"
+									rowClasses="rowOdd,rowEven">
+									<rich:column
+										headerClass="rf-dt-keyColumn table_header_title_class">
+										<f:facet name="header">
+											<h:outputText value="#{msg['ui.config.column.vlan']}" />
+										</f:facet>
+										<h:outputText value="#{c.name}" />
+									</rich:column>
+									<rich:column
+										headerClass="rf-dt-keyColumn table_header_title_class">
+										<f:facet name="header">
+											<h:outputText value="#{msg['ui.config.column.ippool']}" />
+										</f:facet>
+										<h:outputText
+											value="#{targetLocationBean.clusterDetailsBean.getIpsAsString(c.tkey)}" />
+									</rich:column>
+								</rich:dataTable>
+
+							</div>
+						</div>
+					</h:form>
+				</div>
+			</div>
+		</div>
+		<h:form>
+			<a4j:jsFunction name="cancelDialog"
+				action="#{targetLocationBean.closePopup}" render="#{dialogId}"
+				onbeforedomupdate="#{rich:component(dialogId)}.hide();" />
+		</h:form>
+	</ui:define>
+</ui:composition>

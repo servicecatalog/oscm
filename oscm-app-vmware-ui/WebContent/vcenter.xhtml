@@ -133,6 +133,10 @@
 					</div>
 				</div>
 
+				<ui:include id="clusterInclude" src="cluster.xhtml">
+					<ui:param name="dialogId" value="clusterDetails" />
+				</ui:include>
+
 				<h:form id="balancer_form" styleClass="configurationSettings_area">
 					<h:inputHidden id="selectedRowNum"
 						value="#{targetLocationBean.selectedRowNum}" />
@@ -141,6 +145,8 @@
 					<h:commandButton id="deleteStorage"
 						action="#{targetLocationBean.deleteStorage}"
 						style="display: none;" />
+
+
 					<div>
 						<div>
 							<table id="vsphereSettings"
@@ -178,6 +184,21 @@
 												size="20"
 												value="#{targetLocationBean.selectedVCenter.password}"
 												redisplay="true" /></td>
+									</tr>
+									<tr class="rf-dt-r rowEven">
+										<td class="rf-dt-c"><h:outputText
+												value="#{msg['ui.config.part.vsphereapi.cluster']}" /></td>
+
+										<td class="rf-dt-c"><ui:repeat var="c"
+												value="#{targetLocationBean.clusterList}" varStatus="status">
+
+												<a4j:commandLink id="cluster"
+													action="#{targetLocationBean.showClusterDetails(c)}"
+													value="#{c.name}" render="clusterDetails"
+													oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();#{rich:component('clusterDetails')}.show();">
+													<h:outputText value=", " rendered="#{!status.last}" />
+												</a4j:commandLink>
+											</ui:repeat></td>
 									</tr>
 								</tbody>
 							</table>
