@@ -33,7 +33,8 @@ import org.oscm.encrypter.AESEncrypter;
         @NamedQuery(name = "ConfigurationSetting.getForProxyKey", query = "SELECT cs FROM ConfigurationSetting cs WHERE cs.settingKey = :key AND cs.controllerId = 'PROXY'"),
         @NamedQuery(name = "ConfigurationSetting.getAllProxy", query = "SELECT cs FROM ConfigurationSetting cs WHERE cs.controllerId = 'PROXY'"),
         @NamedQuery(name = "ConfigurationSetting.getForController", query = "SELECT cs FROM ConfigurationSetting cs WHERE cs.controllerId = :controllerId"),
-        @NamedQuery(name = "ConfigurationSetting.getControllersForKey", query = "SELECT cs FROM ConfigurationSetting cs WHERE cs.settingKey = :key AND cs.controllerId != 'PROXY'") })
+        @NamedQuery(name = "ConfigurationSetting.getControllersForKey", query = "SELECT cs FROM ConfigurationSetting cs WHERE cs.settingKey = :key AND cs.controllerId != 'PROXY'"),
+        @NamedQuery(name = "ConfigurationSetting.getUserControllers", query = "SELECT cs.controllerId FROM ConfigurationSetting cs WHERE cs.settingKey='BSS_USER_ID' AND cs.settingValue = :username")})
 public class ConfigurationSetting {
 
     /**

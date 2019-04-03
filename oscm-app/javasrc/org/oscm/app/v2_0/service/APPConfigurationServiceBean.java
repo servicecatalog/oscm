@@ -421,6 +421,18 @@ public class APPConfigurationServiceBean {
         }
     }
 
+  @TransactionAttribute(TransactionAttributeType.MANDATORY)
+  public List<String> getUserConfiguredControllers(String username) {
+
+    LOGGER.info("Getting user[" + username + "] configured controller");
+    Query query = em.createNamedQuery("ConfigurationSetting.getUserControllers");
+    query.setParameter("username", username);
+
+    List<?> resultList = query.getResultList();
+    LOGGER.info(resultList.toString());
+
+    return null;
+  }
 
     /**
      * Creates settings instance from given service instance.
