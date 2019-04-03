@@ -11,12 +11,7 @@
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.List;
-<<<<<<< bb1f6e20d4e050cde439cde44288fc37bd37152b
-import java.util.Map;
-import java.util.stream.Collectors;
-=======
 
->>>>>>> Updated method for storing credentials
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -43,20 +38,6 @@ public class APPCredentialsUpdateServiceBean implements APPCredentialsUpdateServ
 
     List<String> controllers = configService.getUserConfiguredControllers(username);
 
-<<<<<<< bb1f6e20d4e050cde439cde44288fc37bd37152b
-    Map<String, Setting> settings =
-        controllers.stream()
-            .filter(controllerId -> controllerId.equals("ess.aws"))
-            .collect(
-                Collectors.toMap(
-                    controllerId -> controllerId, x -> new Setting("BSS_USER_ID", "test123")));
-    settings.values().stream().forEach(s -> LOGGER.info(s.getKey() + s.getValue()));
-    try {
-      configService.storeControllerConfigurationSettings(
-          "ess.aws", (HashMap<String, Setting>) settings);
-    } catch (ConfigurationException e) { // TODO Auto-generated catch block
-      LOGGER.error(e.getMessage(), e);
-=======
     if (controllers.contains(PROXY_CONTROLLER_ID)) {
       HashMap<String, String> settings = new HashMap<>();
       settings.put("BSS_USER_PWD", password);
@@ -66,7 +47,6 @@ public class APPCredentialsUpdateServiceBean implements APPCredentialsUpdateServ
       } catch (ConfigurationException | GeneralSecurityException e) {
         LOGGER.error("Unable to store proxy settings " + settings, e.getMessage(), e);
       }
->>>>>>> Updated method for storing credentials
     }
 
     controllers
@@ -86,9 +66,8 @@ public class APPCredentialsUpdateServiceBean implements APPCredentialsUpdateServ
 
     return userId + ", " + username + ", " + password;
   }
-  
-  private void logSuccessInfo(String username){
-	  LOGGER.info("User [" + username + "] password updated");
+
+  private void logSuccessInfo(String username) {
+    LOGGER.info("User [" + username + "] password updated");
   }
- 
 }
