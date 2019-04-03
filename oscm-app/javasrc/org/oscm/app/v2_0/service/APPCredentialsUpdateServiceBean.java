@@ -3,7 +3,6 @@ package org.oscm.app.v2_0.service;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
-
 import org.oscm.app.remote.APPCredentialsUpdateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
