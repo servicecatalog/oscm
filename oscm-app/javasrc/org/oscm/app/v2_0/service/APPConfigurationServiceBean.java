@@ -15,6 +15,8 @@ import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import java.security.GeneralSecurityException;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -395,14 +397,18 @@ public class APPConfigurationServiceBean {
   @TransactionAttribute(TransactionAttributeType.MANDATORY)
   public List<String> getUserConfiguredControllers(String username) {
 
-    LOGGER.info("Getting user[" + username + "] configured controller");
+    LOGGER.info("Getting user [" + username + "] configured controllers:");
+    
     Query query = em.createNamedQuery("ConfigurationSetting.getUserControllers");
     query.setParameter("username", username);
 
     List<?> resultList = query.getResultList();
-    LOGGER.info(resultList.toString());
+    List<String> controllers =
+        resultList.stream().map(result -> (String) result).collect(Collectors.toList());
+    
+    LOGGER.info(controllers.toString());
 
-    return null;
+    return controllers;
   }
 
   /** Creates settings instance from given service instance. */
