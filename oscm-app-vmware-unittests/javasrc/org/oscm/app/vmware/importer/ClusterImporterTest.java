@@ -57,8 +57,7 @@ public class ClusterImporterTest {
             + "<balancer class=\"org.oscm.app.vmware.business.balancer.EquipartitionStorageBalancer\" storage=\"VMdev0,VMdev1\"/>"
             + "</host>"
             + "<storage enabled=\"true\" limit=\"85%\" name=\"VMdev0\"/>"
-            + "<storage enabled=\"true\" limit=\"85%\"/>" 
-            + "</ess:essvcenter>";
+            + "<storage enabled=\"true\" limit=\"85%\"/>" + "</ess:essvcenter>";
 
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalErr = System.err;
