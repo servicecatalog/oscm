@@ -12,14 +12,13 @@ import static org.junit.Assert.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintStream;
 import java.io.StringReader;
+import java.net.URL;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
@@ -28,7 +27,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 public class ClusterImporterTest {
 
@@ -57,8 +55,7 @@ public class ClusterImporterTest {
             + "<balancer class=\"org.oscm.app.vmware.business.balancer.EquipartitionStorageBalancer\" storage=\"VMdev0,VMdev1\"/>"
             + "</host>"
             + "<storage enabled=\"true\" limit=\"85%\" name=\"VMdev0\"/>"
-            + "<storage enabled=\"true\" limit=\"85%\"/>" 
-            + "</ess:essvcenter>";
+            + "<storage enabled=\"true\" limit=\"85%\"/>" + "</ess:essvcenter>";
 
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
     private final PrintStream originalErr = System.err;
@@ -73,13 +70,18 @@ public class ClusterImporterTest {
         System.setErr(originalErr);
     }
 
+    private File getSource(String filename) throws Exception {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        URL url = loader.getResource("META-INF/" + filename);
+        File file = new File(url.toURI());
+        return file;
+    }
+
     @Test
-    public void testValidSchema()
-            throws SAXException, IOException, ParserConfigurationException {
+    public void testValidSchema() throws Exception {
 
         // given
-        File file = new File(
-                "../../oscm/oscm-app-vmware/javares/META-INF/Loadbalancer_schema.xsd");
+        File file = getSource("Loadbalancer_schema.xsd");
         String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
         SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
         Schema schema = xsdFactory.newSchema(file);
@@ -96,13 +98,13 @@ public class ClusterImporterTest {
 
         // then
     }
+
     @Test
     public void testInvalidSchema()
-            throws SAXException, IOException, ParserConfigurationException {
+            throws Exception {
 
         // given
-        File file = new File(
-                "../../oscm/oscm-app-vmware/javares/META-INF/Loadbalancer_schema.xsd");
+        File file = getSource("Loadbalancer_schema.xsd");
         String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
         SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
         Schema schema = xsdFactory.newSchema(file);
@@ -118,7 +120,8 @@ public class ClusterImporterTest {
                 .parse(new InputSource(new StringReader(testWrongXML)));
 
         // then
-        assertTrue(errContent.toString().contains("Attribute 'name' must appear on element 'storage'"));
+        assertTrue(errContent.toString()
+                .contains("Attribute 'name' must appear on element 'storage'"));
     }
 
 }
