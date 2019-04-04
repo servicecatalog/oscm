@@ -19,7 +19,6 @@ import org.oscm.app.v2_0.exceptions.ConfigurationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Remote(APPCredentialsUpdateService.class)
 @Stateless
 public class APPCredentialsUpdateServiceBean implements APPCredentialsUpdateService {
 
