@@ -1,3 +1,12 @@
+/*******************************************************************************
+ *
+ *  Copyright FUJITSU LIMITED 2018
+ *
+ *  Creation Date: 2019-04-04
+ *
+ *******************************************************************************/
+
+
 package org.oscm.app.vmware.ui.pages.clusterconfig;
 
 import java.io.StringReader;
