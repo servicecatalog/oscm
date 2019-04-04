@@ -78,8 +78,8 @@ public class ClusterImporterTest {
             throws SAXException, IOException, ParserConfigurationException {
 
         // given
-        File file = new File(
-                "../../oscm/oscm-app-vmware/javares/META-INF/Loadbalancer_schema.xsd");
+        File file = new File(System.getProperty("user.dir")
+                + "/../../oscm/oscm-app-vmware/javares/META-INF/Loadbalancer_schema.xsd");
         String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
         SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
         Schema schema = xsdFactory.newSchema(file);
@@ -96,13 +96,14 @@ public class ClusterImporterTest {
 
         // then
     }
+
     @Test
     public void testInvalidSchema()
             throws SAXException, IOException, ParserConfigurationException {
 
         // given
-        File file = new File(
-                "../../oscm/oscm-app-vmware/javares/META-INF/Loadbalancer_schema.xsd");
+        File file = new File(System.getProperty("user.dir")
+                + "/../../oscm/oscm-app-vmware/javares/META-INF/Loadbalancer_schema.xsd");
         String constant = XMLConstants.W3C_XML_SCHEMA_NS_URI;
         SchemaFactory xsdFactory = SchemaFactory.newInstance(constant);
         Schema schema = xsdFactory.newSchema(file);
@@ -118,7 +119,8 @@ public class ClusterImporterTest {
                 .parse(new InputSource(new StringReader(testWrongXML)));
 
         // then
-        assertTrue(errContent.toString().contains("Attribute 'name' must appear on element 'storage'"));
+        assertTrue(errContent.toString()
+                .contains("Attribute 'name' must appear on element 'storage'"));
     }
 
 }
