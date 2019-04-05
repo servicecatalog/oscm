@@ -239,7 +239,7 @@ public class EC2Processor {
             break;
 
         case CREATING:
-            LOGGER.info("trying to check sataus");
+            LOGGER.info("Trying to check instance status...");
             if (isInstanceRunning(ec2comm)) {
                 accessInfo = Messages.get(ph.getCustomerLocale(),
                         "accessInfo_DNS", new Object[] {

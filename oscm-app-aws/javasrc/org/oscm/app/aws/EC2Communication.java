@@ -258,9 +258,9 @@ public class EC2Communication {
                 request.withSubnetIds(subnetString));
         List<Subnet> subnets = result.getSubnets();
         if (!subnets.isEmpty()) {
-            LOGGER.debug(" number of subnets found: " + subnets.size());
+            LOGGER.debug("Number of subnets found: " + subnets.size());
             for (Subnet subnet : subnets) {
-                LOGGER.debug("return subnet with id " + subnet.getSubnetId());
+                LOGGER.debug("Return subnet with id " + subnet.getSubnetId());
                 return subnet;
             }
 
@@ -323,7 +323,7 @@ public class EC2Communication {
                                 + sb.toString());
             }
         }
-        LOGGER.debug("Done with Searching for securityGroups " + result);
+        LOGGER.debug("Done with searching for securityGroups " + result);
         return result;
     }
 
@@ -386,7 +386,7 @@ public class EC2Communication {
             networkInterface.setSubnetId(subnetId);
             networkInterface.setDeleteOnTermination(Boolean.TRUE);
             runInstancesRequest.withNetworkInterfaces(networkInterface);
-            LOGGER.info("add networkInterface parameters in instacne request");
+            LOGGER.info("Add networkInterface parameters in instance request");
         }
 
         // if disk size is defined change the disk size of the new instance
@@ -417,12 +417,12 @@ public class EC2Communication {
             }
         }
 
-        LOGGER.info("disk type Done");
+        LOGGER.info("Disk type Done");
         String userData = ph.getUserData();
         if (userData != null && userData.trim().length() > 0) {
             runInstancesRequest.setUserData(getTextBASE64(userData));
         }
-        LOGGER.info("runInstancesRequest :: " + runInstancesRequest.toString());
+        LOGGER.info("runInstancesRequest : " + runInstancesRequest.toString());
         RunInstancesResult result = getEC2().runInstances(runInstancesRequest);
 
         List<Instance> reservedInstances = result.getReservation()
