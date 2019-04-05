@@ -70,7 +70,7 @@ public class CreateActions extends Actions {
     }
 
     public static String get(String locale, String key, Object... args) {
-        return MessageFormat.format(get(locale, key), args);
+        return MessageFormat.format(Messages.get(locale, key), args);
     }
 
     private void returnVmwareClient(String vcenter, VMwareClient vmClient) {

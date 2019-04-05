@@ -23,18 +23,22 @@ import org.slf4j.LoggerFactory;
 
 import com.vmware.vim25.GuestInfo;
 import com.vmware.vim25.GuestNicInfo;
+import com.vmware.vim25.InvalidStateFaultMsg;
 import com.vmware.vim25.ManagedObjectReference;
+import com.vmware.vim25.RuntimeFaultFaultMsg;
 import com.vmware.vim25.TaskInfo;
 import com.vmware.vim25.VimPortType;
 import com.vmware.vim25.VirtualDevice;
 import com.vmware.vim25.VirtualDisk;
 import com.vmware.vim25.VirtualMachineConfigInfo;
 import com.vmware.vim25.VirtualMachineConfigSpec;
+import com.vmware.vim25.VirtualMachineMksTicket;
 import com.vmware.vim25.VirtualMachinePowerState;
 import com.vmware.vim25.VirtualMachineRuntimeInfo;
 import com.vmware.vim25.VirtualMachineSnapshotInfo;
 import com.vmware.vim25.VirtualMachineSnapshotTree;
 import com.vmware.vim25.VirtualMachineSummary;
+import com.vmware.vim25.VirtualMachineTicket;
 
 public class VM extends Template {
 
@@ -76,6 +80,30 @@ public class VM extends Template {
         }
     }
 
+    public String createVmUrl(VMPropertyHandler ph)
+            throws InvalidStateFaultMsg, RuntimeFaultFaultMsg {
+
+        StringBuilder url = new StringBuilder();
+        url.append("https://");
+        url.append(ph.getTargetVCenterServer());
+        url.append(":");
+        url.append(ph.getVsphereConsolePort());
+        url.append("/vsphere-client/webconsole.html?vmId=");
+        url.append(vmInstance.getValue().toString());
+        url.append("&vmName=");
+        url.append(configSpec.getName());
+        url.append("&serverGuid=");
+        url.append(vmw.getConnection().getServiceContent().getAbout()
+                .getInstanceUuid());
+        url.append("&host=");
+        url.append(ph.getTargetVCenterServer());
+        url.append(":443");
+        url.append("&sessionTicket=");
+        url.append("cst-VCT");
+
+        return url.toString();
+    }
+
     public List<String> getSnashotsAsList() {
         List<String> snapshots = new ArrayList<String>();
         if (virtualMachineSnapshotInfo != null) {
@@ -89,11 +117,13 @@ public class VM extends Template {
 
     private List<String> getSnapshots(List<VirtualMachineSnapshotTree> vmst,
             ArrayList<String> snaps, String indent) {
+
         for (Iterator<VirtualMachineSnapshotTree> iterator = vmst
                 .iterator(); iterator.hasNext();) {
             VirtualMachineSnapshotTree snap = iterator.next();
             snaps.add(indent + "Snapshot: " + snap.getName());
             getSnapshots(snap.getChildSnapshotList(), snaps, indent + " ");
+
         }
         return snaps;
     }
