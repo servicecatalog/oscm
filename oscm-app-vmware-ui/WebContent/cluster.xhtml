@@ -30,23 +30,6 @@
 
 	<ui:define name="dialogContent">
 
-		<a4j:outputPanel id="#{dialogId}titleArea" layout="block"
-			styleClass="heading_data_1_class">
-			<div class="heading_data_1_bg_class no-height">
-				<h2>
-					<h:outputText value="#{msg['ui.config.title']}" />
-				</h2>
-
-				<ui:repeat value="#{menu.items}" var="item">
-					<h:outputLink
-						value="#{facesContext.externalContext.requestContextPath}#{item.link}">
-						<h:outputText value="#{item.label}" />
-					</h:outputLink>
-					<h:outputText value="&#160;&#160;|&#160;&#160;" />
-				</ui:repeat>
-			</div>
-		</a4j:outputPanel>
-
 		<h:outputText id="#{dialogId}status"
 			value="#{targetLocationBean.status}"
 			styleClass="statusPanel #{targetLocationBean.statusClass}"
