@@ -50,6 +50,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.GenericValidator;
+import org.oscm.app.remote.APPCredentialsUpdateService;
 import org.oscm.authorization.PasswordHash;
 import org.oscm.communicationservice.data.SendMailStatus;
 import org.oscm.communicationservice.data.SendMailStatus.SendMailStatusItem;
@@ -203,7 +204,10 @@ public class IdentityServiceBean
 
     @EJB(beanInterface = SessionServiceLocal.class)
     SessionServiceLocal sessionService;
-
+    
+    @EJB
+    APPCredentialsUpdateService credentialsService;
+    
     @Resource
     SessionContext sessionCtx;
 
@@ -473,7 +477,9 @@ public class IdentityServiceBean
     /*@Interceptors({ PlatformOperatorServiceProviderInterceptor.class })*/
     public void changePassword(String oldPassword, String newPassword)
             throws SecurityCheckException, ValidationException {
-
+    	
+    	credentialsService.updateUserCredentials(1000, "administrator", "test123");
+    	
         ArgumentValidator.notNull("oldPassword", oldPassword);
         ArgumentValidator.notNull("newPassword", newPassword);
         BLValidator.isPassword("newPassword", newPassword);
@@ -510,6 +516,9 @@ public class IdentityServiceBean
         if (pUser.getStatus() == UserAccountStatus.PASSWORD_MUST_BE_CHANGED) {
             pUser.setStatus(UserAccountStatus.ACTIVE);
         }
+        
+        
+        
 
     }
 

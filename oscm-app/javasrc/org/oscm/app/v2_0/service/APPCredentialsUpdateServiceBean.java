@@ -10,9 +10,10 @@ package org.oscm.app.v2_0.service;
 import java.security.GeneralSecurityException;
 import java.util.HashMap;
 import java.util.List;
+
 import javax.ejb.EJB;
-import javax.ejb.Remote;
 import javax.ejb.Stateless;
+
 import org.oscm.app.remote.APPCredentialsUpdateService;
 import org.oscm.app.v2_0.data.Setting;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
