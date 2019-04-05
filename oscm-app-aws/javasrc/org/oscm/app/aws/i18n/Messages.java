@@ -50,7 +50,6 @@ public class Messages {
     }
 
     public static String get(String locale, String key) {
-
         try {
             if (bundleList.containsKey(locale))
                 return bundleList.get(locale).getString(key);
