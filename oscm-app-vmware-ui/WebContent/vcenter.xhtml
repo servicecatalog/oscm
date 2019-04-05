@@ -4,10 +4,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:rich="http://richfaces.org/rich"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+      xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+      xmlns:rich="http://richfaces.org/rich">
 
 <h:head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -139,7 +139,6 @@
                 <ui:include id="clusterInclude" src="cluster.xhtml">
 					<ui:param name="dialogId" value="clusterDetails" />
 				</ui:include>
-                
 
                 <h:form id="balancer_form"
                         styleClass="configurationSettings_area">
@@ -204,21 +203,21 @@
                                                        redisplay="true"/>
                                     </td>
                                 </tr>
-                                <tr class="rf-dt-r rowEven">
-									<td class="rf-dt-c"><h:outputText
-											value="#{msg['ui.config.part.vsphereapi.cluster']}" /></td>
+                               	<tr class="rf-dt-r rowEven">
+										<td class="rf-dt-c"><h:outputText
+												value="#{msg['ui.config.part.vsphereapi.cluster']}" /></td>
 
-									<td class="rf-dt-c"><ui:repeat var="c"
-											value="#{targetLocationBean.clusterList}" varStatus="status">
+										<td class="rf-dt-c"><ui:repeat var="c"
+												value="#{targetLocationBean.clusterList}" varStatus="status">
 
-											<a4j:commandLink id="cluster"
-												action="#{targetLocationBean.showClusterDetails(c)}"
-												value="#{c.name}" render="clusterDetails"
-												oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();#{rich:component('clusterDetails')}.show();">
-												<h:outputText value=", " rendered="#{!status.last}" />
-											</a4j:commandLink>
-										</ui:repeat></td>
-								</tr>
+												<a4j:commandLink id="cluster"
+													action="#{targetLocationBean.showClusterDetails(c)}"
+													value="#{c.name}" render="clusterDetails"
+													oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();#{rich:component('clusterDetails')}.show();">
+													<h:outputText value=", " rendered="#{!status.last}" />
+												</a4j:commandLink>
+											</ui:repeat></td>
+									</tr>
                                 </tbody>
                             </table>
                         </div>
