@@ -43,6 +43,8 @@ public class Messages {
                 ResourceBundle.getBundle(BUNDLE_NAME, new Locale("en")));
         bundleList.put("de",
                 ResourceBundle.getBundle(BUNDLE_NAME, new Locale("de")));
+        bundleList.put("ja",
+                ResourceBundle.getBundle(BUNDLE_NAME, new Locale("ja")));
     };
 
     private Messages() {
