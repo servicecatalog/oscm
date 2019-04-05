@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. ./common.sh
+. ./scripts/common.sh
 
 echo "PUSHING FORMATTED CODE BACK TO THE REPOSITORY..."
 
