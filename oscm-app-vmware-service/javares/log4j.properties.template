@@ -13,7 +13,7 @@ log4j.rootLogger=OFF
 org.apache.commons.logging.Log=org.apache.commons.logging.impl.NoOpLog
 log4j.logger.org.apache=OFF
 log4j.logger.httpclient=OFF
-log4j.logger.org.oscm.app.vmware=WARN, FILE
+log4j.logger.org.oscm.app.vmware=INFO, FILE
 
 # CONSOLE is set to be a ConsoleAppender using a PatternLayout.
 log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender

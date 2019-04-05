@@ -16,7 +16,6 @@ import org.oscm.app.vmware.remote.vmware.VMwareClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class VMwareProcessor {
     private static final Logger logger = LoggerFactory
             .getLogger(VMwareProcessor.class);
@@ -69,6 +68,33 @@ public class VMwareProcessor {
             }
         }
         return servers;
+    }
+
+    public String getVmAccessUrl(VMPropertyHandler ph) {
+        String instanceName = "";
+        String vcenter = ph
+                .getServiceSetting(VMPropertyHandler.TS_TARGET_VCENTER_SERVER);
+        VMwareClient vmClient = null;
+        String url  = "";
+        try {
+            vmClient = VMClientPool.getInstance().getPool()
+                    .borrowObject(vcenter);
+            instanceName = ph.getInstanceName();
+            VM vm = new VM(vmClient, instanceName);
+            url = vm.createVmUrl(ph);
+        } catch (Exception e) {
+            logger.error("Failed to create serverlist");
+        } finally {
+            if (vmClient != null) {
+                try {
+                    VMClientPool.getInstance().getPool().returnObject(vcenter,
+                            vmClient);
+                } catch (Exception e) {
+                    logger.error("Failed to return VMware client into pool", e);
+                }
+            }
+        }
+        return url;
     }
 
 }
