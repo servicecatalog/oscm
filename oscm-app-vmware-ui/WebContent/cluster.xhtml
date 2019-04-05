@@ -59,7 +59,7 @@
 					<div class="heading_data_3_class">
 						<div class="heading_data_3_bg_class">
 							<h4>
-								<h:outputText value="#{msg['ui.config.part.vsphereapi']}" />
+								<h:outputText value="#{msg['ui.popup.cluster.details.title']}" />
 							</h4>
 						</div>
 					</div>
@@ -87,6 +87,7 @@
 								</table>
 								<rich:dataTable styleClass="table_row_linetitle_class"
 									value="#{targetLocationBean.clusterDetailsBean.vlans}" var="c"
+									rendered="#{not empty targetLocationBean.clusterDetailsBean.vlans}"
 									rowClasses="rowOdd,rowEven">
 									<rich:column
 										headerClass="rf-dt-keyColumn table_header_title_class">

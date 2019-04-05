@@ -54,8 +54,11 @@ public class ClusterDetailsBean {
             StreamResult xmlOutput = new StreamResult(stringWriter);
             TransformerFactory transformerFactory = TransformerFactory
                     .newInstance();
-            transformerFactory.setAttribute("indent-number", 2);
             Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty("http://www.oracle.com/xml/is-standalone", "yes");
+            transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2"); 
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.transform(xml, xmlOutput);
             return xmlOutput.getWriter().toString();
