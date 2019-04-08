@@ -24,6 +24,7 @@ import org.oscm.app.v2_0.data.Setting;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.vmware.business.VMwareValue.Unit;
 import org.oscm.app.vmware.business.model.Cluster;
+import org.oscm.app.vmware.business.model.IPPool;
 import org.oscm.app.vmware.business.model.VCenter;
 import org.oscm.app.vmware.business.model.VLAN;
 import org.oscm.app.vmware.i18n.Messages;
@@ -800,6 +801,30 @@ public class VMPropertyHandler {
         return vcenter;
     }
 
+    public List<Cluster> getClusters() {
+        List<Cluster> clusters;
+        DataAccessService das = getDataAccessService();
+        try {
+            clusters = das.getCluster();
+        } catch (Exception e) {
+            logger.error("Failed to retrieve vCenter server list.", e);
+            clusters = new ArrayList<>();
+        }
+        return clusters;
+    }
+
+    public List<IPPool> getIPPool(VLAN vlan) {
+        List<IPPool> ipPools;
+        DataAccessService das = getDataAccessService();
+        try {
+            ipPools = das.getIPPool(vlan);
+        } catch (Exception e) {
+            logger.error("Failed to retrieve ipPool list.", e);
+            ipPools = new ArrayList<>();
+        }
+        return ipPools;
+    }
+
     public void saveTargetVCenter(VCenter vcenter) {
         DataAccessService das = getDataAccessService();
         try {
@@ -1426,7 +1451,7 @@ public class VMPropertyHandler {
 
         return group;
     }
-    
+
     /**
      * Get the distributed switch UUID for the given NIC.
      * 

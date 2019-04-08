@@ -9,6 +9,7 @@
 package org.oscm.app.vmware.persistence;
 
 import org.oscm.app.vmware.business.model.Cluster;
+import org.oscm.app.vmware.business.model.IPPool;
 import org.oscm.app.vmware.business.model.VCenter;
 import org.oscm.app.vmware.business.model.VLAN;
 import org.oscm.app.vmware.encryption.AESEncrypter;
@@ -121,8 +122,7 @@ public class DataAccessService {
             try (PreparedStatement stmt = con.prepareStatement(query1)) {
                 stmt.setString(1, vcenter.getUrl());
                 stmt.setString(2, vcenter.getUserid());
-                stmt.setString(3,
-                        AESEncrypter.encrypt(vcenter.getPassword()));
+                stmt.setString(3, AESEncrypter.encrypt(vcenter.getPassword()));
                 stmt.setInt(4, vcenter.tkey);
                 stmt.executeUpdate();
             }
@@ -159,6 +159,58 @@ public class DataAccessService {
         return vcenter;
     }
 
+    public List<Cluster> getCluster() throws Exception {
+        logger.debug("getCluster");
+        List<Cluster> clusters = new ArrayList<>();
+        String query = "SELECT tkey,name,load_balancer,datacenter_tkey FROM cluster";
+        try (Connection con = getDatasource().getConnection();
+                PreparedStatement stmt = con.prepareStatement(query);) {
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Cluster cl = new Cluster();
+                cl.name = rs.getString("name");
+                cl.loadbalancer = rs.getString("load_balancer");
+                cl.datacenter_tkey = rs.getInt("datacenter_tkey");
+                cl.tkey = rs.getInt("tkey");
+                clusters.add(cl);
+            }
+        } catch (SQLException e) {
+            logger.error("Failed to retrieve cluster list", e);
+            throw e;
+        }
+        return clusters;
+    }
+  
+    public List<IPPool> getIPPool(VLAN vlan) throws Exception {
+        List<IPPool> ipPools = new ArrayList<>();
+        logger.debug(
+                "vlan: " + vlan.getName() + " vlan_tkey: " + vlan.getTkey()
+                        + " vlan IpAdress: " + vlan.getIPAddresses());
+
+        String query = "SELECT tkey,ip_address,in_use, vlan_Tkey FROM ippool WHERE vlan_tkey = ?";
+        try (Connection con = getDatasource().getConnection();
+                PreparedStatement stmt = con.prepareStatement(query);) {
+            stmt.setInt(1, vlan.getTkey());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                IPPool cl = new IPPool();
+                cl.setTkey(rs.getInt("tkey"));
+                cl.setIp_adress(rs.getString("ip_address"));
+                cl.setIn_use(rs.getBoolean("in_use"));
+                cl.setVlan_tkey(rs.getInt("vlan_tkey"));
+                ipPools.add(cl);
+            }
+        } catch (SQLException e) {
+            logger.error("Failed to retrieve ippools for cluster " + vlan.getName(),
+                    e);
+            throw e;
+        }
+
+        return ipPools;
+    }
+
     public VMwareCredentials getCredentials(String vcenter) throws Exception {
         logger.debug("vcenter=" + vcenter);
         String query = "SELECT url,userid,password FROM vcenter WHERE name = ?";
@@ -168,8 +220,7 @@ public class DataAccessService {
             stmt.setString(1, vcenter);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                credentials = new VMwareCredentials(
-                        rs.getString("url"),
+                credentials = new VMwareCredentials(rs.getString("url"),
                         rs.getString("userid"),
                         AESEncrypter.decrypt(rs.getString("password")));
             }
@@ -266,7 +317,7 @@ public class DataAccessService {
                 VLAN vlan = new VLAN();
                 vlan.setName(rs.getString("name"));
                 vlan.setEnabled(rs.getBoolean("enabled"));
-                vlan.setTKey(rs.getInt("tkey"));
+                vlan.setTkey(rs.getInt("tkey"));
                 vlan.setClusterTKey(cluster.tkey);
                 vlans.add(vlan);
             }
@@ -312,10 +363,10 @@ public class DataAccessService {
                 PreparedStatement stmt = con.prepareStatement(query);) {
             for (VLAN vlan : vlans) {
                 logger.debug(
-                        "name: " + vlan.getName() + " tkey: " + vlan.getTKey());
+                        "name: " + vlan.getName() + " tkey: " + vlan.getTkey());
                 stmt.setBoolean(1, vlan.isEnabled());
                 stmt.setString(2, vlan.getName());
-                stmt.setInt(3, vlan.getTKey());
+                stmt.setInt(3, vlan.getTkey());
                 stmt.addBatch();
             }
             int[] affectedRecords = stmt.executeBatch();
@@ -324,11 +375,11 @@ public class DataAccessService {
     }
 
     public void deleteVLAN(VLAN vlan) throws Exception {
-        logger.debug("name: " + vlan.getName() + " tkey: " + vlan.getTKey());
+        logger.debug("name: " + vlan.getName() + " tkey: " + vlan.getTkey());
         String query = "DELETE FROM VLAN WHERE TKEY = ?";
         try (Connection con = getDatasource().getConnection();
                 PreparedStatement stmt = con.prepareStatement(query);) {
-            stmt.setInt(1, vlan.getTKey());
+            stmt.setInt(1, vlan.getTkey());
             int affectedRows = stmt.executeUpdate();
             logger.debug("number of records deleted: " + affectedRows);
         }
@@ -900,7 +951,8 @@ public class DataAccessService {
         if (ds == null) {
             try {
                 Properties p = new Properties();
-                p.put(Context.INITIAL_CONTEXT_FACTORY,"org.apache.openejb.core.OpenEJBInitialContextFactory");
+                p.put(Context.INITIAL_CONTEXT_FACTORY,
+                        "org.apache.openejb.core.OpenEJBInitialContextFactory");
                 Context context = new InitialContext(p);
                 ds = (DataSource) context.lookup(DATASOURCE);
             } catch (Exception e) {

@@ -33,11 +33,11 @@ public class VLAN {
         this.ipList = ipList;
     }
 
-    public int getTKey() {
+    public int getTkey() {
         return tkey;
     }
 
-    public void setTKey(int tkey) {
+    public void setTkey(int tkey) {
         this.tkey = tkey;
     }
 
