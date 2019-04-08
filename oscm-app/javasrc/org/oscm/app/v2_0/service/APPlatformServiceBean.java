@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.KeyStore;
@@ -58,8 +59,11 @@ import org.slf4j.LoggerFactory;
 @Remote(APPlatformService.class)
 public class APPlatformServiceBean implements APPlatformService {
 
-  private static final Logger logger = LoggerFactory.getLogger(APPlatformServiceBean.class);
-
+  private static final Logger LOGGER = LoggerFactory.getLogger(APPlatformServiceBean.class);
+  
+  private static final String PROXY_CONTROLLER_ID = "PROXY";
+  private static final String PWD_KEY = "BSS_USER_PWD";
+  
   public void setConfigService(APPConfigurationServiceBean configService) {
     this.configService = configService;
   }
@@ -117,7 +121,7 @@ public class APPlatformServiceBean implements APPlatformService {
     try {
       mailService.sendMail(mailAddresses, subject, text);
     } catch (Exception e) {
-      logger.warn("Controller cannot send mail for instance processing.", e);
+      LOGGER.warn("Controller cannot send mail for instance processing.", e);
       SuspendException se =
           new SuspendException("Controller cannot send mail for instance processing.", e);
       throw se;
@@ -137,7 +141,7 @@ public class APPlatformServiceBean implements APPlatformService {
 
   @Override
   public String getBSSWebServiceUrl() throws ConfigurationException {
-    logger.info("INSIDE webservice url");
+    LOGGER.info("INSIDE webservice url");
     if ("SAML_SP"
         .equals(
             configService.getProxyConfigurationSetting(PlatformConfigurationKey.BSS_AUTH_MODE))) {
@@ -283,7 +287,7 @@ public class APPlatformServiceBean implements APPlatformService {
               PlatformConfigurationKey.APP_TRUSTSTORE_BSS_ALIAS);
 
       if (loc == null || pwd == null || alias == null) {
-        logger.error("Missing configuration settings for token check");
+        LOGGER.error("Missing configuration settings for token check");
         return false;
       }
 
@@ -301,7 +305,7 @@ public class APPlatformServiceBean implements APPlatformService {
       Certificate cert = keystore.getCertificate(alias);
 
       if (cert == null) {
-        logger.error("Unable to find certificate with alias " + alias);
+        LOGGER.error("Unable to find certificate with alias " + alias);
         return false;
       }
 
@@ -309,7 +313,7 @@ public class APPlatformServiceBean implements APPlatformService {
       Key key = cert.getPublicKey();
 
       if (key == null) {
-        logger.error("Certificate returned null key");
+        LOGGER.error("Certificate returned null key");
         return false;
       }
 
@@ -332,7 +336,7 @@ public class APPlatformServiceBean implements APPlatformService {
         | IllegalBlockSizeException
         | BadPaddingException
         | ConfigurationException e) {
-      logger.error(e.getMessage());
+      LOGGER.error(e.getMessage());
     } finally {
       try {
         if (is != null) {
@@ -344,5 +348,46 @@ public class APPlatformServiceBean implements APPlatformService {
     }
 
     return false;
+  }
+
+  @Override
+  public void updateUserCredentials(long useKey, String username, String password) {
+
+    List<String> controllers = configService.getUserConfiguredControllers(username);
+
+    if (controllers.contains(PROXY_CONTROLLER_ID)) {
+      HashMap<String, String> settings = new HashMap<>();
+      settings.put(PWD_KEY, password);
+      try {
+        configService.storeAppConfigurationSettings(settings);
+        logSuccessInfo(username, PROXY_CONTROLLER_ID);
+      } catch (ConfigurationException | GeneralSecurityException e) {
+        logErrorMsg(PROXY_CONTROLLER_ID, PWD_KEY, e);
+      }
+    }
+
+    controllers
+        .stream()
+        .filter(id -> !PROXY_CONTROLLER_ID.equals(id))
+        .forEach(
+            id -> {
+              HashMap<String, Setting> settings = new HashMap<>();
+              settings.put(PWD_KEY, new Setting(PWD_KEY, password));
+              try {
+                configService.storeControllerConfigurationSettings(id, settings);
+                logSuccessInfo(username, id);
+              } catch (ConfigurationException e) {
+                logErrorMsg(id, PWD_KEY, e);
+              }
+            });
+  }
+
+  private void logSuccessInfo(String username, String id) {
+    LOGGER.info("User [" + username + "] password for controller [" + id + "] updated");
+  }
+
+  private void logErrorMsg(String controllerId, String settingKey, Exception excp) {
+    LOGGER.error(
+        "Unable to store controller [" + controllerId + "] setting [" + settingKey + "]", excp);
   }
 }
