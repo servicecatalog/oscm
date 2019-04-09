@@ -1,3 +1,11 @@
+/*******************************************************************************
+ *                                                                              
+ *  Copyright FUJITSU LIMITED 2019
+ *                                                                                                                                 
+ *  Creation Date: 09.04.2019                                                     
+ *                                                                              
+ *******************************************************************************/
+
 package org.oscm.app.v2_0.service;
 
 import static org.mockito.Matchers.any;
