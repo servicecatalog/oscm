@@ -76,7 +76,7 @@ public class VM extends Template {
                 || guestInfo == null) {
             LOG.warn("failed to retrieve VM");
             throw new Exception(
-                    "Failed to retrieve information of VM " + instanceName);
+                    "VM " + instanceName +" does not exist or failed to retrieve information.");
         }
     }
 

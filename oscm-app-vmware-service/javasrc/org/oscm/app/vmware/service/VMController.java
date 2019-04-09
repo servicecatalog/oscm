@@ -239,9 +239,9 @@ public class VMController implements APPlatformController {
                                 .contains(Messages.get(ph.getLocale(), "error_import_vm",
                                         new Object[] { instanceId }).toString())) {
                             throw new AbortException(
-                                    Messages.getAll("error_import_vm",
+                                    Messages.getAll("error_import_vm_not_found",
                                             ph.getInstanceName()),
-                                    Messages.getAll("error_import_vm",
+                                    Messages.getAll("error_import_vm_not_found",
                                             ph.getInstanceName()));
                         } else {
                             throw new SuspendException(errorMessage);
