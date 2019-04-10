@@ -38,6 +38,5 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-server-util"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="/oscm-app"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
