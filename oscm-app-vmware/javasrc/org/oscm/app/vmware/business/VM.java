@@ -408,6 +408,17 @@ public class VM extends Template {
                 "info");
     }
 
+    private boolean arePortgroupsAvailable(VMPropertyHandler properties) {
+        int numberOfNICs = Integer.parseInt(properties
+                .getServiceSetting(VMPropertyHandler.TS_NUMBER_OF_NICS));
+        for (int i = 1; i <= numberOfNICs; i++) {
+            if (!properties.getPortGroup(i).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public VMwareGuestSystemStatus getState(VMPropertyHandler properties)
             throws Exception {
 
@@ -422,11 +433,9 @@ public class VM extends Template {
 
         if (isLinux()) {
             boolean firstStart = isNotEmpty(guestInfo.getHostName()) && !validIp
-                    && isGuestSystemRunning() && areGuestToolsRunning()
-                    && networkCardsConnected;
+                    && guestIsReady() && networkCardsConnected;
 
-            boolean secondStart = validHostname && validIp
-                    && isGuestSystemRunning() && areGuestToolsRunning()
+            boolean secondStart = validHostname && validIp && guestIsReady()
                     && networkCardsConnected;
 
             if (firstStart || secondStart) {
@@ -440,14 +449,19 @@ public class VM extends Template {
             return VMwareGuestSystemStatus.GUEST_NOTREADY;
         }
 
-        if (validHostname && networkCardsConnected && validIp
-                && isGuestSystemRunning() && areGuestToolsRunning()) {
+        if (validHostname && networkCardsConnected
+                && (validIp || arePortgroupsAvailable(properties))
+                && guestIsReady()) {
             return VMwareGuestSystemStatus.GUEST_READY;
         }
 
         LOG.debug(createLogForGetState(validHostname, properties,
                 networkCardsConnected, validIp));
         return VMwareGuestSystemStatus.GUEST_NOTREADY;
+    }
+
+    private boolean guestIsReady() {
+        return (isGuestSystemRunning() && areGuestToolsRunning());
     }
 
     private String createLogForGetState(boolean validHostname,
