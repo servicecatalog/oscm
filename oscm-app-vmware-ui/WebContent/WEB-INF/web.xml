@@ -60,6 +60,10 @@
     <display-name>Authorization Filter</display-name>
     <filter-name>auth</filter-name>
     <filter-class>org.oscm.app.vmware.ui.filter.AuthorizationFilter</filter-class>
+    <init-param>
+      <param-name>exclude-url-pattern</param-name>
+      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|.*/org.richfaces.resources|.*/javax.faces.resource/.*|^/public/.*)</param-value>
+    </init-param>
   </filter>
 
   <filter-mapping>
@@ -69,28 +73,7 @@
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
-
-  <!--  filter -->
-    <!-- Parses multipart requests (should be to execute *AFTER* RichFaces filter) -->
-    <!-- filter-name>Extensions Filter</filter-name>
-    <filter-class>org.apache.myfaces.webapp.filter.ExtensionsFilter</filter-class>
-    <init-param>
-      <description>Set the size limit for uploaded files.
-        Format: 10 - 10 bytes
-                10k - 10 KB
-                10m - 10 MB
-                1g - 1 GB
-      </description>
-      <param-name>uploadMaxFileSize</param-name>
-      <param-value>1m</param-value>
-    </init-param>
-  </filter>
   
-  <filter-mapping>
-    <filter-name>Extensions Filter</filter-name>
-    <servlet-name>Faces Servlet</servlet-name>
-  </filter-mapping -->
-
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
