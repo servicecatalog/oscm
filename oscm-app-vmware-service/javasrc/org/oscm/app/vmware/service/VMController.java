@@ -195,6 +195,8 @@ public class VMController implements APPlatformController {
                         return status;
                 } catch (SuspendException e) {
                         throw e;
+                } catch (AbortException e) {
+                    throw e;
                 } catch (Throwable t) {
                         logger.error(
                                 "Failed to get instance status for instance "
@@ -232,9 +234,18 @@ public class VMController implements APPlatformController {
                         throw new SuspendException(errorMessage);
                 case "ERROR":
                         errorMessage = ph
-                                .getServiceSetting(
-                                        VMPropertyHandler.SM_ERROR_MESSAGE);
-                        throw new SuspendException(errorMessage);
+                        .getServiceSetting(VMPropertyHandler.SM_ERROR_MESSAGE);
+                        if (errorMessage
+                                .contains(Messages.get(ph.getLocale(), "error_import_vm",
+                                        new Object[] { instanceId }).toString())) {
+                            throw new AbortException(
+                                    Messages.getAll("error_import_vm_not_found",
+                                            ph.getInstanceName()),
+                                    Messages.getAll("error_import_vm_not_found",
+                                            ph.getInstanceName()));
+                        } else {
+                            throw new SuspendException(errorMessage);
+                        }
                 default:
                         ph.setSetting(VMPropertyHandler.SM_STATE_HISTORY,
                                 stateMachine.getHistory());
