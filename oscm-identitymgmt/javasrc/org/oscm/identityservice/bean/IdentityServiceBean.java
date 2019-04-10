@@ -203,7 +203,7 @@ public class IdentityServiceBean
 
     @EJB(beanInterface = SessionServiceLocal.class)
     SessionServiceLocal sessionService;
-
+    
     @Resource
     SessionContext sessionCtx;
 
@@ -473,7 +473,7 @@ public class IdentityServiceBean
     /*@Interceptors({ PlatformOperatorServiceProviderInterceptor.class })*/
     public void changePassword(String oldPassword, String newPassword)
             throws SecurityCheckException, ValidationException {
-
+    	
         ArgumentValidator.notNull("oldPassword", oldPassword);
         ArgumentValidator.notNull("newPassword", newPassword);
         BLValidator.isPassword("newPassword", newPassword);
@@ -510,6 +510,9 @@ public class IdentityServiceBean
         if (pUser.getStatus() == UserAccountStatus.PASSWORD_MUST_BE_CHANGED) {
             pUser.setStatus(UserAccountStatus.ACTIVE);
         }
+        
+        
+        
 
     }
 
