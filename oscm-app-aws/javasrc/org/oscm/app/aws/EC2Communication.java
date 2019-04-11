@@ -236,7 +236,7 @@ public class EC2Communication {
             }
         }
         throw new APPlatformException(
-                Messages.getAll("error_invalid_subnet_id") + subnetString);
+                Messages.getAll("error_invalid_subnet_id", subnetString));
     }
 
     /**
@@ -288,7 +288,7 @@ public class EC2Communication {
                     sb.append(name);
                 }
                 throw new APPlatformException(
-                        Messages.get("en", "error_invalid_security_group",
+                        Messages.getAll("error_invalid_security_group",
                                 sb.toString()));
             }
         }
