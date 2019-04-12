@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+. ./scripts/common.sh
+
 echo "PROCEEDING WITH GOOGLE JAVA FORMAT STEP..."
 
-GIT_DIFF_OUTPUT=$(git diff --stat --name-only $(echo $TRAVIS_COMMIT_RANGE) | grep "\.java$")
+determine_files_to_process
 
 if [[ ! -z "$GIT_DIFF_OUTPUT" ]] ; then
     if [ ! -f libraries/google-java-format.jar ] ; then 
@@ -10,7 +12,7 @@ if [[ ! -z "$GIT_DIFF_OUTPUT" ]] ; then
         chmod 755 libraries/google-java-format.jar
     fi
 
-    echo $GIT_DIFF_OUTPUT | while read -r line ; do
+    echo $GIT_DIFF_OUTPUT | tr " " "\n" | while read -r line ; do
         echo "FORMATING FILE $line..."
         java -jar libraries/google-java-format.jar -r $line
     done

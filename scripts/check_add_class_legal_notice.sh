@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-prepend_legal_notice () {    
+prepend_legal_notice () {
     tmpFile=$(mktemp)
     cat $tmpNotice $CLASS_FILE > $tmpFile
     mv "$tmpFile" $CLASS_FILE
