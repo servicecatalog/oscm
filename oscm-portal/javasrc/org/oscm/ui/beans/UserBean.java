@@ -62,9 +62,8 @@ public class UserBean extends BaseBean implements Serializable {
 
   private static final Log4jLogger logger = LoggerFactory.getLogger(UserBean.class);
 
-  private static final Logger logger4j = Logger.getLogger(UserBean.class);
+  private static final Logger log4jLoger= Logger.getLogger(UserBean.class);
 
-  private static final Logger loggerJul = Logger.getLogger(UserBean.class.getName());
 
   static final String OUTCOME_ADD_USER = "addUser";
   static final String OUTCOME_IMPORT_USER = "importUsers";
@@ -842,6 +841,7 @@ public class UserBean extends BaseBean implements Serializable {
    * @throws SaaSApplicationException
    */
   public String change() throws SaaSApplicationException {
+	  log4jLoger.info("changing pasword initiated");
     boolean wasPwdChangeRequired = isPasswordChangeRequired();
 
     try {
@@ -895,17 +895,13 @@ public class UserBean extends BaseBean implements Serializable {
     }
 
     try {
-      loggerJul.info("changing pasword");
+      log4jLoger.info("changing pasword");
       VOUserDetails userDetails = getIdService().getCurrentUserDetails();
-
-      System.out.println("Updating Password");
+      log4jLoger.info(userDetails);
       APPlatformService platformService = getService(APPlatformService.class, null);
-
-      System.out.println(userDetails);
-      platformService.updateUserCredentials(
-          userDetails.getKey(), userDetails.getUserId(), password);
+      platformService.updateUserCredentials(userDetails.getKey(), userDetails.getUserId(), password);
     } catch (Exception e) {
-      loggerJul.info("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!" + e.getMessage());
+      log4jLoger.error("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!" + e.getMessage(), e);
       throw e;
     }
     return OUTCOME_SUCCESS;
