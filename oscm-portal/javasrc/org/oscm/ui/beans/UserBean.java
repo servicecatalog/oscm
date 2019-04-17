@@ -970,7 +970,7 @@ public class UserBean extends BaseBean implements Serializable {
         	VOUserDetails userDetails = getIdService().getCurrentUserDetails();
         	logger.logInfo(Log4jLogger.ACCESS_LOG,
                     LogMessageIdentifier.INFO_USER_PWDRECOVERY_COMPLETE,
-                    userDetails.getUserId()+"updating passss");
+                    userDetails.getUserId()+"change pass");
         	System.out.println("Updating Password" ); 
         	APPlatformService platformService = getService(APPlatformService.class, null);
         	
