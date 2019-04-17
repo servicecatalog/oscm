@@ -1,18 +1,18 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2018
+ * <p>Copyright FUJITSU LIMITED 2018
  *
- *  Creation Date: Jun 5, 2012
+ * <p>Creation Date: Jun 5, 2012
  *
- *******************************************************************************/
+ * <p>*****************************************************************************
+ */
 package org.oscm.ui.delegates;
 
 import java.util.Properties;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
 import org.oscm.internal.types.exception.SaaSSystemException;
 
 public class ServiceLocator {
