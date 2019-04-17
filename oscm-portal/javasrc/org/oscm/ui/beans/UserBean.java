@@ -63,6 +63,8 @@ public class UserBean extends BaseBean implements Serializable {
   private static final Log4jLogger logger = LoggerFactory.getLogger(UserBean.class);
 
   private static final Logger logger4j = Logger.getLogger(UserBean.class);
+  
+  private static final Logger loggerJul = Logger.getLogger(UserBean.class.getName());
 
   static final String OUTCOME_ADD_USER = "addUser";
   static final String OUTCOME_IMPORT_USER = "importUsers";
@@ -893,7 +895,7 @@ public class UserBean extends BaseBean implements Serializable {
     }
 
     try {
-
+    	loggerJul.info("changing pasword");
       VOUserDetails userDetails = getIdService().getCurrentUserDetails();
 
       System.out.println("Updating Password");
@@ -903,7 +905,7 @@ public class UserBean extends BaseBean implements Serializable {
       platformService.updateUserCredentials(
           userDetails.getKey(), userDetails.getUserId(), password);
     } catch (Exception e) {
-      logger4j.info("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!" + e.getMessage());
+      loggerJul.info("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!" + e.getMessage());
       throw e;
     }
     return OUTCOME_SUCCESS;
