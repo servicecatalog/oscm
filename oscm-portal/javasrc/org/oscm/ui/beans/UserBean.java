@@ -32,6 +32,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.apache.commons.lang3.StringUtils;
+import org.oscm.app.v2_0.intf.APPlatformService;
 import org.oscm.internal.intf.*;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
@@ -964,7 +965,12 @@ public class UserBean extends BaseBean implements Serializable {
             return getLoginRedirect(getRequest(), getSession(),
                     !wasPwdChangeRequired);
         }
-
+        
+        APPlatformService platformService = getService(APPlatformService.class, null);
+        VOUserDetails userDetails = getIdService().getCurrentUserDetails();
+        
+        platformService.updateUserCredentials(userDetails.getKey(), userDetails.getUserId(), password);
+        
         return OUTCOME_SUCCESS;
     }
 
