@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.oscm.app.v2_0.intf.APPlatformService;
 import org.oscm.internal.intf.*;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
@@ -60,7 +61,9 @@ public class UserBean extends BaseBean implements Serializable {
   private static final long serialVersionUID = -5436122605762958859L;
 
   private static final Log4jLogger logger = LoggerFactory.getLogger(UserBean.class);
-
+  
+  private static final Logger logger4j = Logger.getLogger(UserBean.class);
+  
   static final String OUTCOME_ADD_USER = "addUser";
   static final String OUTCOME_IMPORT_USER = "importUsers";
   static final String OUTCOME_EDIT_LDAP = "ldapSettings";
@@ -889,18 +892,20 @@ public class UserBean extends BaseBean implements Serializable {
       return getLoginRedirect(getRequest(), getSession(), !wasPwdChangeRequired);
     }
 
+    try {
+    
       VOUserDetails userDetails = getIdService().getCurrentUserDetails();
-      logger.logInfo(
-          Log4jLogger.ACCESS_LOG,
-          LogMessageIdentifier.INFO_USER_PWDRECOVERY_COMPLETE,
-          userDetails.getUserId() + "change pass");
-      System.out.println("Updating Password");
+
+      logger4j.info("Updating Password");
       APPlatformService platformService = getService(APPlatformService.class, null);
 
       System.out.println(userDetails);
       platformService.updateUserCredentials(
           userDetails.getKey(), userDetails.getUserId(), password);
-    
+    } catch (Exception e) {
+    	logger4j.info("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!"+e.getMessage());
+      throw e;
+    }
     return OUTCOME_SUCCESS;
   }
 
