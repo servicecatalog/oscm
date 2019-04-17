@@ -967,15 +967,18 @@ public class UserBean extends BaseBean implements Serializable {
         }
         
         try{
+        	VOUserDetails userDetails = getIdService().getCurrentUserDetails();
+        	logger.logInfo(Log4jLogger.ACCESS_LOG,
+                    LogMessageIdentifier.INFO_USER_PWDRECOVERY_COMPLETE,
+                    userDetails.getUserId()+"updating passss");
         	System.out.println("Updating Password" ); 
         	APPlatformService platformService = getService(APPlatformService.class, null);
-        	VOUserDetails userDetails = getIdService().getCurrentUserDetails();
+        	
         	System.out.println(userDetails ); 
         	platformService.updateUserCredentials(userDetails.getKey(), userDetails.getUserId(), password);
         } catch (Exception e){
         	System.out.println("ERROR !!!!!!!!!!" + e.getMessage() ); 
         }
-        
         return OUTCOME_SUCCESS;
     }
 
