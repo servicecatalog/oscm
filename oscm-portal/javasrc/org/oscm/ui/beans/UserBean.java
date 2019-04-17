@@ -61,9 +61,9 @@ public class UserBean extends BaseBean implements Serializable {
   private static final long serialVersionUID = -5436122605762958859L;
 
   private static final Log4jLogger logger = LoggerFactory.getLogger(UserBean.class);
-  
+
   private static final Logger logger4j = Logger.getLogger(UserBean.class);
-  
+
   static final String OUTCOME_ADD_USER = "addUser";
   static final String OUTCOME_IMPORT_USER = "importUsers";
   static final String OUTCOME_EDIT_LDAP = "ldapSettings";
@@ -893,7 +893,7 @@ public class UserBean extends BaseBean implements Serializable {
     }
 
     try {
-    
+
       VOUserDetails userDetails = getIdService().getCurrentUserDetails();
 
       System.out.println("Updating Password");
@@ -903,7 +903,7 @@ public class UserBean extends BaseBean implements Serializable {
       platformService.updateUserCredentials(
           userDetails.getKey(), userDetails.getUserId(), password);
     } catch (Exception e) {
-    	logger4j.info("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!"+e.getMessage());
+      logger4j.info("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!" + e.getMessage());
       throw e;
     }
     return OUTCOME_SUCCESS;
