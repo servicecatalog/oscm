@@ -896,7 +896,7 @@ public class UserBean extends BaseBean implements Serializable {
     
       VOUserDetails userDetails = getIdService().getCurrentUserDetails();
 
-      logger4j.info("Updating Password");
+      System.out.println("Updating Password");
       APPlatformService platformService = getService(APPlatformService.class, null);
 
       System.out.println(userDetails);
