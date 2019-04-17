@@ -889,7 +889,6 @@ public class UserBean extends BaseBean implements Serializable {
       return getLoginRedirect(getRequest(), getSession(), !wasPwdChangeRequired);
     }
 
-    try {
       VOUserDetails userDetails = getIdService().getCurrentUserDetails();
       logger.logInfo(
           Log4jLogger.ACCESS_LOG,
@@ -901,9 +900,7 @@ public class UserBean extends BaseBean implements Serializable {
       System.out.println(userDetails);
       platformService.updateUserCredentials(
           userDetails.getKey(), userDetails.getUserId(), password);
-    } catch (Exception e) {
-      System.out.println("ERROR !!!!!!!!!!" + e.getMessage());
-    }
+    
     return OUTCOME_SUCCESS;
   }
 
