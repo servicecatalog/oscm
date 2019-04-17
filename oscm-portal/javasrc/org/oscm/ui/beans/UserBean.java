@@ -889,18 +889,17 @@ public class UserBean extends BaseBean implements Serializable {
       return getLoginRedirect(getRequest(), getSession(), !wasPwdChangeRequired);
     }
 
-      VOUserDetails userDetails = getIdService().getCurrentUserDetails();
-      logger.logInfo(
-          Log4jLogger.ACCESS_LOG,
-          LogMessageIdentifier.INFO_USER_PWDRECOVERY_COMPLETE,
-          userDetails.getUserId() + "change pass");
-      System.out.println("Updating Password");
-      APPlatformService platformService = getService(APPlatformService.class, null);
+    VOUserDetails userDetails = getIdService().getCurrentUserDetails();
+    logger.logInfo(
+        Log4jLogger.ACCESS_LOG,
+        LogMessageIdentifier.INFO_USER_PWDRECOVERY_COMPLETE,
+        userDetails.getUserId() + "change pass");
+    System.out.println("Updating Password");
+    APPlatformService platformService = getService(APPlatformService.class, null);
 
-      System.out.println(userDetails);
-      platformService.updateUserCredentials(
-          userDetails.getKey(), userDetails.getUserId(), password);
-    
+    System.out.println(userDetails);
+    platformService.updateUserCredentials(userDetails.getKey(), userDetails.getUserId(), password);
+
     return OUTCOME_SUCCESS;
   }
 
