@@ -49,9 +49,11 @@ public class ClusterDetailsBean {
 
     public String formatXML(String xmlFile) {
         try {
-            Source xml = new StreamSource(new StringReader(xmlFile));
+            String trimmedXml = whitspaceCharacterFilter(xmlFile);
+            Source xml = new StreamSource(new StringReader(trimmedXml));
             StringWriter stringWriter = new StringWriter();
             StreamResult xmlOutput = new StreamResult(stringWriter);
+            
             TransformerFactory transformerFactory = TransformerFactory
                     .newInstance();
             Transformer transformer = transformerFactory.newTransformer();
@@ -65,6 +67,11 @@ public class ClusterDetailsBean {
         } catch (Exception e) {
             return "No Valid XML";
         }
+    }
+    
+    private String whitspaceCharacterFilter(String xmlFile) {
+        String xmlWithoutWhitspaceCharacter = xmlFile.replaceAll(">\\s+?<", "><");
+        return xmlWithoutWhitspaceCharacter;
     }
 
     private void initBean() {
