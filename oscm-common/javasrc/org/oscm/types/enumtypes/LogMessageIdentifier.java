@@ -42,6 +42,7 @@ public enum LogMessageIdentifier {
     INFO_USER_PAYMENT_RUN_STARTED("00022"), //
     INFO_USER_PAYMENT_RUN_FINISHED("00023"), //
     INFO_INSUFFICIENT_ROLE("00024"), //
+    INFO_CUSTOM_MSG("00025"), //
 
     // User operation log
     INFO_OPERATION_LOG_SUBSCR("30001"), //

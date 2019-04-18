@@ -62,7 +62,7 @@ public class UserBean extends BaseBean implements Serializable {
 
   private static final Log4jLogger logger = LoggerFactory.getLogger(UserBean.class);
 
-  private static final Logger log4jLoger = Logger.getLogger(UserBean.class);
+  private static final Logger log4jLogger = Logger.getLogger(UserBean.class);
 
   static final String OUTCOME_ADD_USER = "addUser";
   static final String OUTCOME_IMPORT_USER = "importUsers";
@@ -840,7 +840,10 @@ public class UserBean extends BaseBean implements Serializable {
    * @throws SaaSApplicationException
    */
   public String change() throws SaaSApplicationException {
-    log4jLoger.info("changing pasword initiated");
+    
+	log4jLogger.info("Changing pasword initiated");
+	logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.INFO_CUSTOM_MSG, "Change password started !!!!!");
+	
     boolean wasPwdChangeRequired = isPasswordChangeRequired();
 
     try {
@@ -894,14 +897,14 @@ public class UserBean extends BaseBean implements Serializable {
     }
 
     try {
-      log4jLoger.info("changing pasword");
+    	logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.INFO_CUSTOM_MSG, "Entering remote access block");
       VOUserDetails userDetails = getIdService().getCurrentUserDetails();
-      log4jLoger.info(userDetails);
+      logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.INFO_CUSTOM_MSG, "USERID: "+userDetails.getUserId());
       APPlatformService platformService = getService(APPlatformService.class, null);
       platformService.updateUserCredentials(
           userDetails.getKey(), userDetails.getUserId(), password);
     } catch (Exception e) {
-      log4jLoger.error("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRR!!!!!!!!!!!!!!!!!!!!!" + e.getMessage(), e);
+    	logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.INFO_CUSTOM_MSG, "Error exception:"+e.getMessage());
       throw e;
     }
     return OUTCOME_SUCCESS;
