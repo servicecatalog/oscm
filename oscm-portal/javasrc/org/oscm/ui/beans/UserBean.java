@@ -905,7 +905,7 @@ public class UserBean extends BaseBean implements Serializable {
       APPlatformService platformService = sl.findRemoteService(APPlatformService.class);
       platformService.updateUserCredentials(
           userDetails.getKey(), userDetails.getUserId(), password);
-      
+
     } catch (Exception e) {
       logger.logInfo(
           Log4jLogger.SYSTEM_LOG,
