@@ -900,18 +900,12 @@ public class UserBean extends BaseBean implements Serializable {
     }
 
     try {
-      logger.logInfo(
-          Log4jLogger.SYSTEM_LOG,
-          LogMessageIdentifier.INFO_CUSTOM_MSG,
-          "Entering remote access block");
+
       VOUserDetails userDetails = getIdService().getCurrentUserDetails();
-      logger.logInfo(
-          Log4jLogger.SYSTEM_LOG,
-          LogMessageIdentifier.INFO_CUSTOM_MSG,
-          "USERID: " + userDetails.getUserId());
-      APPlatformService platformService = getService(APPlatformService.class, null);
+      APPlatformService platformService = sl.findRemoteService(APPlatformService.class);
       platformService.updateUserCredentials(
           userDetails.getKey(), userDetails.getUserId(), password);
+      
     } catch (Exception e) {
       logger.logInfo(
           Log4jLogger.SYSTEM_LOG,
