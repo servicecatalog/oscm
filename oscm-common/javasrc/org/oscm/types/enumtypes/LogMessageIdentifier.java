@@ -40,7 +40,6 @@ public enum LogMessageIdentifier {
   INFO_USER_PAYMENT_RUN_STARTED("00022"), //
   INFO_USER_PAYMENT_RUN_FINISHED("00023"), //
   INFO_INSUFFICIENT_ROLE("00024"), //
-  INFO_CUSTOM_MSG("00025"), //
 
   // User operation log
   INFO_OPERATION_LOG_SUBSCR("30001"), //
@@ -716,7 +715,8 @@ public enum LogMessageIdentifier {
 
   ERROR_PING_NOT_SUPPORTED("70320"), //
   ERROR_PING_FAILED("70321"), //
-
+  ERROR_REMOTE_SERVICE_ACCESS("70322"), //
+  
   ERROR("-00001"),
   DEBUG("00000"); /* Debug Log */
 

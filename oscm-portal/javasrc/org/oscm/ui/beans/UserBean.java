@@ -62,8 +62,6 @@ public class UserBean extends BaseBean implements Serializable {
 
   private static final Log4jLogger logger = LoggerFactory.getLogger(UserBean.class);
 
-  private static final Logger log4jLogger = Logger.getLogger(UserBean.class);
-
   static final String OUTCOME_ADD_USER = "addUser";
   static final String OUTCOME_IMPORT_USER = "importUsers";
   static final String OUTCOME_EDIT_LDAP = "ldapSettings";
@@ -841,18 +839,12 @@ public class UserBean extends BaseBean implements Serializable {
    */
   public String change() throws SaaSApplicationException {
 
-    log4jLogger.info("Changing pasword initiated");
-    logger.logInfo(
-        Log4jLogger.SYSTEM_LOG,
-        LogMessageIdentifier.INFO_CUSTOM_MSG,
-        "Change password started !!!!!");
-
     boolean wasPwdChangeRequired = isPasswordChangeRequired();
-
+    VOUserDetails user = getIdService().getCurrentUserDetails();
+    
     try {
       getIdService().changePassword(currentPassword, password);
     } catch (SecurityCheckException e) {
-      VOUserDetails user = getIdService().getCurrentUserDetails();
       if (user.getStatus() == UserAccountStatus.LOCKED_FAILED_LOGIN_ATTEMPTS) {
         if (!isChangePwdOnLogin()) {
           return logoff();
@@ -867,7 +859,7 @@ public class UserBean extends BaseBean implements Serializable {
 
     if (wasPwdChangeRequired) {
       // store updated user account status in session
-      setUserInSession(getIdService().getCurrentUserDetails());
+      setUserInSession(user);
     }
 
     try {
@@ -900,19 +892,16 @@ public class UserBean extends BaseBean implements Serializable {
     }
 
     try {
-
-      VOUserDetails userDetails = getIdService().getCurrentUserDetails();
       APPlatformService platformService = sl.findRemoteService(APPlatformService.class);
-      platformService.updateUserCredentials(
-          userDetails.getKey(), userDetails.getUserId(), password);
-
+      platformService.updateUserCredentials(user.getKey(), user.getUserId(), password);
     } catch (Exception e) {
-      logger.logInfo(
+      logger.logError(
           Log4jLogger.SYSTEM_LOG,
-          LogMessageIdentifier.INFO_CUSTOM_MSG,
-          "Error exception:" + e.getMessage());
-      throw e;
+          e,
+          LogMessageIdentifier.ERROR_REMOTE_SERVICE_ACCESS,
+          APPlatformService.class.getName());
     }
+
     return OUTCOME_SUCCESS;
   }
 
