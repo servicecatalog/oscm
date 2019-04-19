@@ -30,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.oscm.app.v2_0.intf.APPlatformService;
 import org.oscm.internal.intf.*;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
@@ -841,7 +840,7 @@ public class UserBean extends BaseBean implements Serializable {
 
     boolean wasPwdChangeRequired = isPasswordChangeRequired();
     VOUserDetails user = getIdService().getCurrentUserDetails();
-    
+
     try {
       getIdService().changePassword(currentPassword, password);
     } catch (SecurityCheckException e) {

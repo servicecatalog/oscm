@@ -716,7 +716,7 @@ public enum LogMessageIdentifier {
   ERROR_PING_NOT_SUPPORTED("70320"), //
   ERROR_PING_FAILED("70321"), //
   ERROR_REMOTE_SERVICE_ACCESS("70322"), //
-  
+
   ERROR("-00001"),
   DEBUG("00000"); /* Debug Log */
 
