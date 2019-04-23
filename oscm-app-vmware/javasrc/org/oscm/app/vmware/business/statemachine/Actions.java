@@ -8,6 +8,9 @@
 
 package org.oscm.app.vmware.business.statemachine;
 
+import static org.oscm.app.vmware.business.VMPropertyHandler.SM_ERROR_MESSAGE;
+
+import java.text.MessageFormat;
 import java.util.List;
 
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -293,9 +296,9 @@ public class Actions {
         } catch (Exception e) {
             logger.error("Failed to set access info for instance " + instanceId,
                     e);
-            String message = Messages.get(ph.getLocale(),
+            String message = get(ph.getLocale(),
                     "error_finalize_provisioning", new Object[] { instanceId });
-            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message.concat(e.getMessage()));
+            ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, message);
             return EVENT_FAILED;
         } finally {
             if (vmClient != null) {
@@ -309,6 +312,10 @@ public class Actions {
         }
     }
 
+    public static String get(String locale, String key, Object... args) {
+        return MessageFormat.format(Messages.get(locale, key), args);
+    }
+    
     @SuppressWarnings("unused")
     @StateMachineAction
     public String finish(String instanceId, ProvisioningSettings settings,
