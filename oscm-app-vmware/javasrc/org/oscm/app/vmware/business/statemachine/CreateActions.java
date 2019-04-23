@@ -119,7 +119,7 @@ public class CreateActions extends Actions {
 
         String eventId = EVENT_FAILED;
         try {
-            ph.getNetworkSettingsFromDatabase();
+            ph.getConfiguredNetworkSettings();
             eventId = EVENT_SUCCESS;
         } catch (Exception e) {
             ph.setSetting(VMPropertyHandler.SM_ERROR_MESSAGE, e.getMessage());

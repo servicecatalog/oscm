@@ -8,8 +8,6 @@
 
 package org.oscm.app.vmware.business.statemachine;
 
-import static org.oscm.app.vmware.business.VMPropertyHandler.SM_ERROR_MESSAGE;
-
 import java.text.MessageFormat;
 import java.util.List;
 
