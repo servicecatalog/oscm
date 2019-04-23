@@ -199,7 +199,7 @@ public class VMController implements APPlatformController {
                                 + instanceId,
                         new APPlatformException(t.getMessage()));
             }
-        }
+        } 
     } 
 
     private void updateProvisioningSettings(VMPropertyHandler ph,
