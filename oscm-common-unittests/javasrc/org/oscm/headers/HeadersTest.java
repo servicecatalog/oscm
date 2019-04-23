@@ -93,7 +93,7 @@ public class HeadersTest {
 					if (fileName.contains("book.css") || fileName.contains("import_en.css")) {
 						continue;
 					}
-					checkFile(fileName, "*  Copyright FUJITSU LIMITED 201");
+					checkFile(fileName, "Copyright FUJITSU LIMITED 201");
 				} else if (fileName.toLowerCase().endsWith(".xml") || fileName.toLowerCase().endsWith(".xhtml")) {
 					if (fileName.contains("TechnicalServiceImportEmptyFile.xml")) {
 						continue;
