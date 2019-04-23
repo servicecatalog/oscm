@@ -200,7 +200,7 @@ public class VMController implements APPlatformController {
                         new APPlatformException(t.getMessage()));
             }
         }
-    }
+    } 
 
     private void updateProvisioningSettings(VMPropertyHandler ph,
             StateMachine stateMachine, String instanceId) throws Exception {
