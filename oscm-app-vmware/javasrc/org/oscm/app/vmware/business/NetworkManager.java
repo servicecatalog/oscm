@@ -303,22 +303,11 @@ public class NetworkManager {
             oldNIC.setBacking(nicBacking);
         }
 
-        VirtualDeviceConnectInfo info = new VirtualDeviceConnectInfo();
-        info.setConnected(true);
-        info.setStartConnected(true);
-        info.setAllowGuestControl(true);
-        oldNIC.setConnectable(info);
-        // oldNIC.getConnectable().setConnected(true);
-        // oldNIC.getConnectable().setStartConnected(true);
-        VirtualDeviceConfigSpec vmDeviceSpec = new VirtualDeviceConfigSpec();
-        vmDeviceSpec.setOperation(VirtualDeviceConfigSpecOperation.EDIT);
-        vmDeviceSpec.setDevice(oldNIC);
-        logger.debug("Adding DeviceChange");
-        vmConfigSpec.getDeviceChange().add(vmDeviceSpec);
+        connectNIC(vmConfigSpec, oldNIC);
     }
 
     private static void connectNIC(VirtualMachineConfigSpec vmConfigSpec,
-            VirtualDevice oldNIC) throws Exception {
+            VirtualDevice oldNIC) {
         logger.debug("Connecting nic" + oldNIC.getKey());
         VirtualDeviceConnectInfo info = new VirtualDeviceConnectInfo();
         info.setConnected(true);

@@ -24,7 +24,7 @@ public class PortgroupIpSettings {
     PortgroupIpSettings(VMPropertyHandler ph) {
         this.ph = ph;
         this.ips = getIpList();
-        if(inUse == null) {
+        if (inUse == null) {
             inUse = new HashMap<String, Boolean>();
         }
     }
@@ -32,7 +32,14 @@ public class PortgroupIpSettings {
     private List<String> getIpList() {
         String ippools = ph.getIpPoolForPortgroup();
         String[] ips = ippools.split(",");
-        return Arrays.asList(ips);
+        return Arrays.asList(trim(ips));
+    }
+
+    private String[] trim(String[] ips) {
+        for (int i = 0; i < ips.length; i++) {
+            ips[i] = ips[i].trim();
+        }
+        return ips;
     }
 
     public String getIpAdressFromIpPool() throws APPlatformException {
@@ -45,7 +52,7 @@ public class PortgroupIpSettings {
         throw new APPlatformException(
                 "No IP address found Check whether you have specified an IP pool for the port group in the Technical Service. If so, there may not be IPs left in this pool");
     }
-    
+
     private boolean ipIsInUse(String ip) {
         boolean ipExists = inUse.containsKey(ip);
         if (ipExists) {
@@ -66,15 +73,15 @@ public class PortgroupIpSettings {
         }
     }
 
-    
-    public void returnIpAdressToIpPool(String ip) throws IllegalArgumentException {
+    public void returnIpAdressToIpPool(String ip)
+            throws IllegalArgumentException {
         boolean ipExists = inUse.containsKey(ip);
         if (ipExists) {
             inUse.put(ip, false);
         } else {
-            throw new IllegalArgumentException(
-                    "The ip adress " + ip + " can not be returned. The Ip does not exist");
+            throw new IllegalArgumentException("The ip adress " + ip
+                    + " can not be returned. The Ip does not exist");
         }
     }
-    
+
 }
