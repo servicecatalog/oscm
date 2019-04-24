@@ -1,39 +1,39 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2018
+ * <p>Copyright FUJITSU LIMITED 2018
  *
- *  Creation Date: 2019-04-16
+ * <p>Creation Date: 2019-04-16
  *
- *******************************************************************************/
-
+ * <p>*****************************************************************************
+ */
 package org.oscm.app.vmware.business;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 
 public class PortgroupIpSettings {
 
-    private VMPropertyHandler ph;
+   private VMPropertyHandler ph;
     private List<String> ips;
     private static Map<String, Boolean> inUse;
 
-    PortgroupIpSettings(VMPropertyHandler ph) {
-        this.ph = ph;
-        this.ips = getIpList();
-        if (inUse == null) {
-            inUse = new HashMap<String, Boolean>();
-        }
+  PortgroupIpSettings(VMPropertyHandler ph) {
+    this.ph = ph;
+    this.ips = getIpList();
+    if (inUse == null) {
+      inUse = new HashMap<String, Boolean>();
     }
+  }
 
-    private List<String> getIpList() {
-        String ippools = ph.getIpPoolForPortgroup();
-        String[] ips = ippools.split(",");
-        return Arrays.asList(trim(ips));
-    }
+  private List<String> getIpList() {
+    String ippools = ph.getIpPoolForPortgroup();
+    String[] ips = ippools.split(",");
+    return Arrays.asList(ips);
+  }
 
     private String[] trim(String[] ips) {
         for (int i = 0; i < ips.length; i++) {
@@ -83,5 +83,4 @@ public class PortgroupIpSettings {
                     + " can not be returned. The Ip does not exist");
         }
     }
-
 }
