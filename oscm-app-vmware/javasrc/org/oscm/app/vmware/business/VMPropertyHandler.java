@@ -424,13 +424,14 @@ public class VMPropertyHandler {
     public static final String SM_STATE_HISTORY = "SM_STATE_HISTORY";
     public static final String SM_STATE_MACHINE = "SM_STATE_MACHINE";
     public static final String SM_ERROR_MESSAGE = "SM_ERROR_MESSAGE";
-    
+
     /**
      * The port which is used to access the vm remote console
      */
 
     public static final String TS_VSPHERE_CONSOLE_PORT = "VSPHERE_CONSOLE_PORT";
-    
+
+    public static final String TS_IPPOOL_FOR_PORTGROUP = "IPPOOL_FOR_PORTGROUP";
 
     public VMPropertyHandler(ProvisioningSettings settings) {
         this.settings = settings;
@@ -537,101 +538,105 @@ public class VMPropertyHandler {
      * </ul>
      */
     public void getNetworkSettingsFromDatabase() throws APPlatformException {
-        DataAccessService das = getDataAccessService();
-        String vcenter = getTargetVCenterServer();
-        String datacenter = getTargetDatacenter();
-        String cluster = getTargetCluster();
-        logger.debug("vcenter: " + vcenter + " datacenter: " + datacenter
-                + " cluster: " + cluster);
 
         int numberOfNICs = Integer.parseInt(
                 getServiceSetting(VMPropertyHandler.TS_NUMBER_OF_NICS));
         for (int i = 1; i <= numberOfNICs; i++) {
 
             if (isAdapterConfiguredByDatabase(i)) {
-                String vlan = das.getVLANwithMostIPs(vcenter, datacenter,
-                        cluster);
-                if (vlan == null) {
-                    throw new APPlatformException(Messages.getAll(
-                            "error_read_vlans",
-                            new Object[] { vcenter, datacenter, cluster })
-                            .get(0).getText());
-                }
-
-                settings.getParameters().put("NIC" + i + "_NETWORK_ADAPTER",
-                        new Setting("NIC" + i + "_NETWORK_ADAPTER", vlan));
-
-                String ipAddress;
-                VMwareNetwork nw;
-                try {
-                    ipAddress = das.reserveIPAddress(vcenter, datacenter,
-                            cluster, vlan);
-                    nw = das.getNetworkSettings(vcenter, datacenter, cluster,
-                            vlan);
-                } catch (Exception e) {
-                    throw new APPlatformException(Messages.getAll(
-                            "error_read_static_network_config",
-                            new Object[] { Integer.valueOf(i), e.getMessage() })
-                            .get(0).getText());
-                }
-
-                logger.debug("NIC" + i + " VLAN: " + vlan + " IP address: "
-                        + ipAddress + " SubnetMask: " + nw.getSubnetMask()
-                        + " Gateway: " + nw.getGateway() + " DNS Server: "
-                        + nw.getDnsServer() + " DNS Suffix: "
-                        + nw.getDnsSuffix());
-
+                configureByDatabase(i);
+            } else if (!getIpPoolForPortgroup().isEmpty()) {
+                PortgroupIpSettings pis = new PortgroupIpSettings(this);
+                String ipAddress = pis.getIpAdressFromIpPool();
                 if (i == 1) {
                     settings.getParameters().put(TS_NIC1_IP_ADDRESS,
                             new Setting(TS_NIC1_IP_ADDRESS, ipAddress));
-                    settings.getParameters().put(TS_NIC1_SUBNET_MASK,
-                            new Setting(TS_NIC1_SUBNET_MASK,
-                                    nw.getSubnetMask()));
-                    settings.getParameters().put(TS_NIC1_GATEWAY,
-                            new Setting(TS_NIC1_GATEWAY, nw.getGateway()));
-                    settings.getParameters().put(TS_NIC1_DNS_SERVER,
-                            new Setting(TS_NIC1_DNS_SERVER, nw.getDnsServer()));
-                    settings.getParameters().put(TS_NIC1_DNS_SUFFIX,
-                            new Setting(TS_NIC1_DNS_SUFFIX, nw.getDnsSuffix()));
-                } else if (i == 2) {
-                    settings.getParameters().put(TS_NIC2_IP_ADDRESS,
-                            new Setting(TS_NIC1_IP_ADDRESS, ipAddress));
-                    settings.getParameters().put(TS_NIC2_SUBNET_MASK,
-                            new Setting(TS_NIC1_SUBNET_MASK,
-                                    nw.getSubnetMask()));
-                    settings.getParameters().put(TS_NIC2_GATEWAY,
-                            new Setting(TS_NIC1_GATEWAY, nw.getGateway()));
-                    settings.getParameters().put(TS_NIC2_DNS_SERVER,
-                            new Setting(TS_NIC1_DNS_SERVER, nw.getDnsServer()));
-                    settings.getParameters().put(TS_NIC2_DNS_SUFFIX,
-                            new Setting(TS_NIC1_DNS_SUFFIX, nw.getDnsSuffix()));
-                } else if (i == 3) {
-                    settings.getParameters().put(TS_NIC3_IP_ADDRESS,
-                            new Setting(TS_NIC1_IP_ADDRESS, ipAddress));
-                    settings.getParameters().put(TS_NIC3_SUBNET_MASK,
-                            new Setting(TS_NIC1_SUBNET_MASK,
-                                    nw.getSubnetMask()));
-                    settings.getParameters().put(TS_NIC3_GATEWAY,
-                            new Setting(TS_NIC1_GATEWAY, nw.getGateway()));
-                    settings.getParameters().put(TS_NIC3_DNS_SERVER,
-                            new Setting(TS_NIC1_DNS_SERVER, nw.getDnsServer()));
-                    settings.getParameters().put(TS_NIC3_DNS_SUFFIX,
-                            new Setting(TS_NIC1_DNS_SUFFIX, nw.getDnsSuffix()));
-                } else if (i == 4) {
-                    settings.getParameters().put(TS_NIC4_IP_ADDRESS,
-                            new Setting(TS_NIC1_IP_ADDRESS, ipAddress));
-                    settings.getParameters().put(TS_NIC4_SUBNET_MASK,
-                            new Setting(TS_NIC1_SUBNET_MASK,
-                                    nw.getSubnetMask()));
-                    settings.getParameters().put(TS_NIC4_GATEWAY,
-                            new Setting(TS_NIC1_GATEWAY, nw.getGateway()));
-                    settings.getParameters().put(TS_NIC4_DNS_SERVER,
-                            new Setting(TS_NIC1_DNS_SERVER, nw.getDnsServer()));
-                    settings.getParameters().put(TS_NIC4_DNS_SUFFIX,
-                            new Setting(TS_NIC1_DNS_SUFFIX, nw.getDnsSuffix()));
                 }
-
             }
+        }
+    }
+
+    public void configureByDatabase(int i) throws APPlatformException {
+
+        DataAccessService das = getDataAccessService();
+        String vcenter = getTargetVCenterServer();
+        String datacenter = getTargetDatacenter();
+        String cluster = getTargetCluster();
+        logger.debug("vcenter: " + vcenter + " datacenter: " + datacenter
+                + " cluster: " + cluster);
+        String vlan = das.getVLANwithMostIPs(vcenter, datacenter, cluster);
+        if (vlan == null) {
+            throw new APPlatformException(Messages
+                    .getAll("error_read_vlans",
+                            new Object[] { vcenter, datacenter, cluster })
+                    .get(0).getText());
+        }
+
+        settings.getParameters().put("NIC" + i + "_NETWORK_ADAPTER",
+                new Setting("NIC" + i + "_NETWORK_ADAPTER", vlan));
+
+        String ipAddress;
+        VMwareNetwork nw;
+        try {
+            ipAddress = das.reserveIPAddress(vcenter, datacenter, cluster,
+                    vlan);
+            nw = das.getNetworkSettings(vcenter, datacenter, cluster, vlan);
+        } catch (Exception e) {
+            throw new APPlatformException(Messages
+                    .getAll("error_read_static_network_config",
+                            new Object[] { Integer.valueOf(i), e.getMessage() })
+                    .get(0).getText());
+        }
+
+        logger.debug("NIC" + i + " VLAN: " + vlan + " IP address: " + ipAddress
+                + " SubnetMask: " + nw.getSubnetMask() + " Gateway: "
+                + nw.getGateway() + " DNS Server: " + nw.getDnsServer()
+                + " DNS Suffix: " + nw.getDnsSuffix());
+
+        if (i == 1) {
+            settings.getParameters().put(TS_NIC1_IP_ADDRESS,
+                    new Setting(TS_NIC1_IP_ADDRESS, ipAddress));
+            settings.getParameters().put(TS_NIC1_SUBNET_MASK,
+                    new Setting(TS_NIC1_SUBNET_MASK, nw.getSubnetMask()));
+            settings.getParameters().put(TS_NIC1_GATEWAY,
+                    new Setting(TS_NIC1_GATEWAY, nw.getGateway()));
+            settings.getParameters().put(TS_NIC1_DNS_SERVER,
+                    new Setting(TS_NIC1_DNS_SERVER, nw.getDnsServer()));
+            settings.getParameters().put(TS_NIC1_DNS_SUFFIX,
+                    new Setting(TS_NIC1_DNS_SUFFIX, nw.getDnsSuffix()));
+        } else if (i == 2) {
+            settings.getParameters().put(TS_NIC2_IP_ADDRESS,
+                    new Setting(TS_NIC1_IP_ADDRESS, ipAddress));
+            settings.getParameters().put(TS_NIC2_SUBNET_MASK,
+                    new Setting(TS_NIC1_SUBNET_MASK, nw.getSubnetMask()));
+            settings.getParameters().put(TS_NIC2_GATEWAY,
+                    new Setting(TS_NIC1_GATEWAY, nw.getGateway()));
+            settings.getParameters().put(TS_NIC2_DNS_SERVER,
+                    new Setting(TS_NIC1_DNS_SERVER, nw.getDnsServer()));
+            settings.getParameters().put(TS_NIC2_DNS_SUFFIX,
+                    new Setting(TS_NIC1_DNS_SUFFIX, nw.getDnsSuffix()));
+        } else if (i == 3) {
+            settings.getParameters().put(TS_NIC3_IP_ADDRESS,
+                    new Setting(TS_NIC1_IP_ADDRESS, ipAddress));
+            settings.getParameters().put(TS_NIC3_SUBNET_MASK,
+                    new Setting(TS_NIC1_SUBNET_MASK, nw.getSubnetMask()));
+            settings.getParameters().put(TS_NIC3_GATEWAY,
+                    new Setting(TS_NIC1_GATEWAY, nw.getGateway()));
+            settings.getParameters().put(TS_NIC3_DNS_SERVER,
+                    new Setting(TS_NIC1_DNS_SERVER, nw.getDnsServer()));
+            settings.getParameters().put(TS_NIC3_DNS_SUFFIX,
+                    new Setting(TS_NIC1_DNS_SUFFIX, nw.getDnsSuffix()));
+        } else if (i == 4) {
+            settings.getParameters().put(TS_NIC4_IP_ADDRESS,
+                    new Setting(TS_NIC1_IP_ADDRESS, ipAddress));
+            settings.getParameters().put(TS_NIC4_SUBNET_MASK,
+                    new Setting(TS_NIC1_SUBNET_MASK, nw.getSubnetMask()));
+            settings.getParameters().put(TS_NIC4_GATEWAY,
+                    new Setting(TS_NIC1_GATEWAY, nw.getGateway()));
+            settings.getParameters().put(TS_NIC4_DNS_SERVER,
+                    new Setting(TS_NIC1_DNS_SERVER, nw.getDnsServer()));
+            settings.getParameters().put(TS_NIC4_DNS_SUFFIX,
+                    new Setting(TS_NIC1_DNS_SUFFIX, nw.getDnsSuffix()));
         }
     }
 
@@ -761,7 +766,7 @@ public class VMPropertyHandler {
             logger.error("Failed to update VLANs.", e);
         }
     }
-    
+
     public String getVsphereConsolePort() {
         return getServiceSetting(VMPropertyHandler.TS_VSPHERE_CONSOLE_PORT);
     }
@@ -832,6 +837,17 @@ public class VMPropertyHandler {
         } catch (Exception e) {
             logger.error("Failed to save vCenter server configuration.", e);
         }
+    }
+
+    /**
+     * Returns the ippools.
+     * 
+     * @return the ip adresses defined in the portgroup
+     */
+    public String getIpPoolForPortgroup() {
+        String value = "";
+        value = getServiceSetting(TS_IPPOOL_FOR_PORTGROUP);
+        return value;
     }
 
     public String getTargetVCenterServer() {
