@@ -32,7 +32,7 @@ public class PortgroupIpSettings {
   private List<String> getIpList() {
     String ippools = ph.getIpPoolForPortgroup();
     String[] ips = ippools.split(",");
-    return Arrays.asList(ips);
+    return Arrays.asList(trim(ips));
   }
 
   private String[] trim(String[] ips) {
