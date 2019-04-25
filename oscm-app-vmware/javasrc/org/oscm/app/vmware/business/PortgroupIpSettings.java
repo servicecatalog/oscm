@@ -79,6 +79,6 @@ public class PortgroupIpSettings {
     } else {
       throw new IllegalArgumentException(
           "The ip adress " + ip + " can not be returned. The Ip does not exist");
+        }
     }
-  }
 }
