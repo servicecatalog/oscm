@@ -13,7 +13,11 @@ public enum ConfigurationType {
     DATACENTER("Datacenter", "datacenter"),
     CLUSTER("Cluster", "cluster"),
     VLAN("VLAN", "vlan"),
-    IPPOOL("IP Pool", "ippool");
+    IPPOOL("IP Pool", "ippool"),
+    DISTRIBUTEDVIRTUALSWITCH("Distributed Virtual Switch", "distributedvirtualswitch"),
+    PORTGROUP("Portgroup", "portgroup"),
+    PORTGROUPIPPOOL("Portgroup IP Pool", "portgroupippool");
+    
 
     // Ordinal number.
     private int id;

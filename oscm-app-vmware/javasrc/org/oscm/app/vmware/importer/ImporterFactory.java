@@ -26,6 +26,12 @@ public class ImporterFactory {
                 return new VCenterImporter(das);
             case VLAN:
                 return new VLANImporter(das);
+            case DISTRIBUTEDVIRTUALSWITCH:
+                return new DistributedVirtualSwitchImporter(das);
+            case PORTGROUP:
+                return new PortgroupImporter(das);
+            case PORTGROUPIPPOOL:
+                return new PortgroupIPPoolImporter(das);
             default:
                 throw new UnsupportedOperationException(ct.getTableName()
                         + " import not supported.");
