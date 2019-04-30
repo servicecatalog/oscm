@@ -15,11 +15,11 @@ public class PortgroupIPPool {
         this.tkey = tkey;
     }
 
-    public int getVlan_tkey() {
+    public int getPortgroup_tkey() {
         return portgroup_fk;
     }
 
-    public void setVlan_tkey(int vlan_tkey) {
+    public void setPortgroup_tkey(int vlan_tkey) {
         this.portgroup_fk = vlan_tkey;
     }
 

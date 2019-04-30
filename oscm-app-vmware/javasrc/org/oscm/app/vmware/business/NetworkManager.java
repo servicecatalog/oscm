@@ -109,8 +109,9 @@ public class NetworkManager {
 
     for (int i = 1; i <= numberOfNICs; i++) {
       String newNetworkName = paramHandler.getNetworkAdapter(i);
-      String newGroup = paramHandler.getPortGroup(i);
-      String switchUIID = paramHandler.getSwitchUUID(i);
+      PortgroupIpSettings pis = new PortgroupIpSettings(paramHandler, i);
+      String newGroup = pis.getPortgroup().getUuid();
+      String switchUIID = pis.getDvs().getUuid();
 
       logger.info(String.format("NIC%s_SWITCH_UUID: %s", String.valueOf(i), switchUIID));
       logger.info(String.format("NIC%s_PORTGROUP: %s", String.valueOf(i), newGroup));

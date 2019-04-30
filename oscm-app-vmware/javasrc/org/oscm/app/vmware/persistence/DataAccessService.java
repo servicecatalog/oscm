@@ -9,11 +9,14 @@
 package org.oscm.app.vmware.persistence;
 
 import org.oscm.app.vmware.business.model.Cluster;
+import org.oscm.app.vmware.business.model.DistributedVirtualSwitch;
 import org.oscm.app.vmware.business.model.IPPool;
+import org.oscm.app.vmware.business.model.PortgroupIPPool;
 import org.oscm.app.vmware.business.model.VCenter;
 import org.oscm.app.vmware.business.model.VLAN;
 import org.oscm.app.vmware.encryption.AESEncrypter;
 import org.oscm.app.vmware.i18n.Messages;
+import org.oscm.app.vmware.business.model.Portgroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -182,12 +185,11 @@ public class DataAccessService {
         }
         return clusters;
     }
-  
+
     public List<IPPool> getIPPool(VLAN vlan) throws Exception {
         List<IPPool> ipPools = new ArrayList<>();
-        logger.debug(
-                "vlan: " + vlan.getName() + " vlan_tkey: " + vlan.getTkey()
-                        + " vlan IpAdress: " + vlan.getIPAddresses());
+        logger.debug("vlan: " + vlan.getName() + " vlan_tkey: " + vlan.getTkey()
+                + " vlan IpAdress: " + vlan.getIPAddresses());
 
         String query = "SELECT tkey,ip_address,in_use, vlan_Tkey FROM ippool WHERE vlan_tkey = ?";
         try (Connection con = getDatasource().getConnection();
@@ -203,12 +205,126 @@ public class DataAccessService {
                 ipPools.add(cl);
             }
         } catch (SQLException e) {
-            logger.error("Failed to retrieve ippools for cluster " + vlan.getName(),
+            logger.error(
+                    "Failed to retrieve ippools for cluster " + vlan.getName(),
                     e);
             throw e;
         }
 
         return ipPools;
+    }
+
+    public List<PortgroupIPPool> getPortgroupIPPool(Portgroup portgroup)
+            throws Exception {
+        List<PortgroupIPPool> ipPools = new ArrayList<>();
+        logger.debug("portgroup: " + portgroup.getName() + " portgroup_tkey: "
+                + portgroup.getTkey());
+
+        String query = "SELECT tkey,ip_address,in_use, portgroup_fk FROM portgroup_ippool WHERE portgroup_fk = ?";
+        try (Connection con = getDatasource().getConnection();
+                PreparedStatement stmt = con.prepareStatement(query);) {
+            stmt.setInt(1, portgroup.getTkey());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                PortgroupIPPool portgroupIPool = new PortgroupIPPool();
+                portgroupIPool.setTkey(rs.getInt("tkey"));
+                portgroupIPool.setIp_adress(rs.getString("ip_address"));
+                portgroupIPool.setIn_use(rs.getBoolean("in_use"));
+                portgroupIPool.setPortgroup_tkey(rs.getInt("portgroup_fk"));
+                ipPools.add(portgroupIPool);
+            }
+        } catch (SQLException e) {
+            logger.error("Failed to retrieve ippools for portgroup "
+                    + portgroup.getName(), e);
+            throw e;
+        }
+
+        return ipPools;
+    }
+
+    public List<Portgroup> getPortgroup(DistributedVirtualSwitch dvs)
+            throws Exception {
+        List<Portgroup> portgroups = new ArrayList<>();
+        logger.debug("DistributedVirtualSwitch: " + dvs.getName()
+                + " dvs_tkey: " + dvs.getTkey());
+
+        String query = "SELECT tkey,uuid,name, distributedvirtualswitch_cluster_fk FROM portgroup WHERE distributedvirtualswitch_cluster_fk = ?";
+        try (Connection con = getDatasource().getConnection();
+                PreparedStatement stmt = con.prepareStatement(query);) {
+            stmt.setInt(1, dvs.getTkey());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Portgroup portgroup = new Portgroup();
+                portgroup.setTkey(rs.getInt("tkey"));
+                portgroup.setUuid(rs.getString("uuid"));
+                portgroup.setName(rs.getString("name"));
+                portgroup.setDistributedVirtualSwitch_cluster_fk(
+                        rs.getInt("distributedvirtualswitch_cluster_fk"));
+                portgroups.add(portgroup);
+            }
+        } catch (SQLException e) {
+            logger.error(
+                    "Failed to retrieve ippools for portgroup " + dvs.getName(),
+                    e);
+            throw e;
+        }
+        return portgroups;
+    }
+
+    public List<DistributedVirtualSwitch> getDistributedVirtualSwitch(
+            Cluster cluster) throws Exception {
+        List<DistributedVirtualSwitch> ipPools = new ArrayList<>();
+        logger.debug("cluster: " + cluster.getName());
+
+        String query = "SELECT tkey,uuid,name, cluster_tkey FROM distributedvirtualswitch WHERE cluster_tkey = ?";
+        try (Connection con = getDatasource().getConnection();
+                PreparedStatement stmt = con.prepareStatement(query);) {
+            stmt.setInt(1, cluster.getTkey());
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                DistributedVirtualSwitch distributedVirutalSwitches = new DistributedVirtualSwitch();
+                distributedVirutalSwitches.setTkey(rs.getInt("tkey"));
+                distributedVirutalSwitches.setUuid(rs.getString("uuid"));
+                distributedVirutalSwitches.setName(rs.getString("name"));
+                distributedVirutalSwitches
+                        .setCluster_tkey(rs.getInt("cluster_tkey"));
+                ipPools.add(distributedVirutalSwitches);
+            }
+        } catch (SQLException e) {
+            logger.error(
+                    "Failed to retrieve ippools for DistributedVirtualSwitch "
+                            + cluster.getName(),
+                    e);
+            throw e;
+        }
+        return ipPools;
+    }
+
+    /**
+     * Retrieves an IP address that is associated to the given cluster. The IP
+     * address is marked as reserved and will therefore not be available for new
+     * VMs.
+     */
+    public void reservePortgroupIPAddress(int ippoolTkey) throws Exception {
+        String query = "UPDATE portgroup_ippool SET IN_USE = TRUE WHERE tkey = ?";
+        try (Connection con = getDatasource().getConnection();) {
+            try (PreparedStatement stmt = con.prepareStatement(query);) {
+                stmt.setInt(1, ippoolTkey);
+                stmt.executeUpdate();
+            }
+        }
+        logger.debug("reserved IP address: ");
+    }
+    
+    public void unReservePortgroupIPAddress(int ippoolTkey) throws Exception {
+        String query = "UPDATE portgroup_ippool SET IN_USE = FALSE WHERE tkey = ?";
+        try (Connection con = getDatasource().getConnection();) {
+            try (PreparedStatement stmt = con.prepareStatement(query);) {
+                stmt.setInt(1, ippoolTkey);
+                stmt.executeUpdate();
+            }
+        }
+        logger.debug("unreserve IP address: ");
     }
 
     public VMwareCredentials getCredentials(String vcenter) throws Exception {
