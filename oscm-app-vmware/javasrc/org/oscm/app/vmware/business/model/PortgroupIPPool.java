@@ -7,7 +7,6 @@
  *
  * <p>*****************************************************************************
  */
-
 package org.oscm.app.vmware.business.model;
 
 public class PortgroupIPPool {
@@ -30,7 +29,7 @@ public class PortgroupIPPool {
   }
 
   public void setPortgroup_tkey(int vlan_tkey) {
-   this.portgroup_fk = vlan_tkey;
+    this.portgroup_fk = vlan_tkey;
   }
 
   public String getIp_adress() {
