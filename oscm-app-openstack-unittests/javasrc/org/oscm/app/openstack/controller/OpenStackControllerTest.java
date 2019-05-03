@@ -9,42 +9,63 @@
  *******************************************************************************/
 
 package org.oscm.app.openstack.controller;
+import static java.time.Instant.ofEpochMilli;
+import static java.time.ZoneId.of;
+import static java.time.ZonedDateTime.ofInstant;
+import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
-import junit.framework.Assert;
-import org.junit.Test;
-import org.oscm.app.openstack.*;
-import org.oscm.app.openstack.data.FlowState;
-import org.oscm.app.openstack.exceptions.OpenStackConnectionException;
-import org.oscm.app.v2_0.data.*;
-import org.oscm.app.v2_0.exceptions.APPlatformException;
-import org.oscm.app.v2_0.exceptions.ConfigurationException;
-import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
-import org.oscm.app.v2_0.intf.APPlatformService;
-import org.oscm.test.EJBTestBase;
-import org.oscm.test.ejb.TestContainer;
-
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.naming.InitialContext;
-import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.Callable;
 
-import static java.time.Instant.ofEpochMilli;
-import static java.time.ZoneId.of;
-import static java.time.ZonedDateTime.ofInstant;
-import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
+import javax.servlet.http.HttpSession;
+
+import org.junit.Ignore;
+import org.junit.Test;
+import org.oscm.app.openstack.HeatProcessor;
+import org.oscm.app.openstack.KeystoneClient;
+import org.oscm.app.openstack.MockHttpURLConnection;
+import org.oscm.app.openstack.MockURLStreamHandler;
+import org.oscm.app.openstack.OpenStackConnection;
+import org.oscm.app.openstack.data.FlowState;
+import org.oscm.app.openstack.exceptions.OpenStackConnectionException;
+import org.oscm.app.v2_0.data.InstanceDescription;
+import org.oscm.app.v2_0.data.InstanceStatus;
+import org.oscm.app.v2_0.data.InstanceStatusUsers;
+import org.oscm.app.v2_0.data.PasswordAuthentication;
+import org.oscm.app.v2_0.data.ProvisioningSettings;
+import org.oscm.app.v2_0.data.ServiceUser;
+import org.oscm.app.v2_0.data.Setting;
+import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
+import org.oscm.app.v2_0.intf.APPlatformService;
+import org.oscm.test.EJBTestBase;
+import org.oscm.test.ejb.TestContainer;
+
+import junit.framework.Assert;
 
 /**
  * 
  */
+@Ignore
 public class OpenStackControllerTest extends EJBTestBase {
 
 

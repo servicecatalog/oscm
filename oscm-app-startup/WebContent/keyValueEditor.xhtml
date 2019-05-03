@@ -128,17 +128,14 @@
                                type="submit"
                                onclick="setOnSubmit(true);setDirty(false);#{rich:element('selectedControllerId')}.value='#{key}';#{rich:element('deleteController')}.click();return false;"/>
             </rich:column>
-            <rich:column class="connectivity_tests_column">
-                <h:commandButton id="pingButton" class="oscm_app_button"
-                                 onclick=" this.blur(); doShowProgress(true);"
-                                 disabled="#{!appConfigurationModel.pingButtonVisibilityMap[key]}"
-                                 value="#{msg['ui.config.action.ping']}"
-                                 action="#{appConfigurationCtrl.invokePing(key)}"/>
-                <h:outputLabel for="pingButton"
-                               class="controller_not_configured_label"
-                               rendered="#{!appConfigurationModel.pingButtonVisibilityMap[key]}"
-                               value="#{msg['ui.app.controller.not.configured']}"/>
-            </rich:column>
+           <rich:column class="connectivity_tests_column">
+
+				<h:commandButton id="pingButton" class="oscm_app_button"
+					onclick=" this.blur(); doShowProgress(true);"
+					disabled="#{!appConfigurationModel.pingButtonVisibilityMap[key]}"
+					value="#{appConfigurationModel.pingButtonVisibilityMap[key] ? msg['ui.config.action.ping'] : msg['ui.app.controller.not.configured'] }"
+					action="#{appConfigurationCtrl.invokePing(key)}" />
+			</rich:column>
         </rich:dataTable>
 
         <div class="description buttonPanel">
