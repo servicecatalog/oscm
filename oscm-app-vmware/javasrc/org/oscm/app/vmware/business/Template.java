@@ -208,16 +208,8 @@ public class Template {
                     "Operatingsystem not defined in Guest-Id.");
         }
 
-        boolean isLinux = guestid.startsWith("cent")
-                || guestid.startsWith("debian") || guestid.startsWith("freebsd")
-                || guestid.startsWith("oracle")
-                || guestid.startsWith("other24xLinux")
-                || guestid.startsWith("other26xLinux")
-                || guestid.startsWith("otherLinux")
-                || guestid.startsWith("coreos") || guestid.startsWith("redhat")
-                || guestid.startsWith("rhel") || guestid.startsWith("sles")
-                || guestid.startsWith("suse") || guestid.startsWith("ubuntu");
-        boolean isWindows = guestid.startsWith("win");
+        boolean isLinux = isLinux(guestid);
+        boolean isWindows = isWindows(guestid);
 
         logger.debug("isLinux: " + isLinux + " isWindows: " + isWindows
                 + " guestid: " + configSpec.getGuestId() + " OS: "
@@ -377,30 +369,68 @@ public class Template {
             if (paramHandler.isAdapterConfiguredByDhcp(i)) {
                 CustomizationDhcpIpGenerator publicDhcpIp = new CustomizationDhcpIpGenerator();
                 ipSettings.setIp(publicDhcpIp);
+            } else if (paramHandler.isAdapterConfiguredByPortgroupIPPool(i)) {
+                configureByPortgroupIPPool(paramHandler, isWindows, i, ipSettings);
             } else {
-                setFixIp(i, ipSettings, paramHandler);
-                String[] gateways = paramHandler.getGateway(i).split(",");
-                for (String gw : gateways) {
-                    logger.debug("NIC" + i + " Gateway:" + gw);
-                    ipSettings.getGateway().add(gw.trim());
-                }
-
-                if (isWindows) {
-                    String[] dnsserver = paramHandler.getDNSServer(i)
-                            .split(",");
-                    for (String server : dnsserver) {
-                        logger.debug("NIC" + i + " DNS server:" + server);
-                        ipSettings.getDnsServerList().add(server.trim());
-                    }
-                }
-                logger.debug("NIC" + i + " Subnetmask:"
-                        + paramHandler.getSubnetMask(i));
-                ipSettings.setSubnetMask(paramHandler.getSubnetMask(i).trim());
+                configureManually(paramHandler, isWindows, i, ipSettings);
             }
             networkAdapter.setAdapter(ipSettings);
             cspec.getNicSettingMap().add(networkAdapter);
         }
         return cspec;
+    }
+
+    private boolean isWindows(String guestid) {
+        boolean isWindows = guestid.startsWith("win");
+        return isWindows;
+    }
+
+    private boolean isLinux(String guestid) {
+        boolean isLinux = guestid.startsWith("cent")
+                || guestid.startsWith("debian") || guestid.startsWith("freebsd")
+                || guestid.startsWith("oracle")
+                || guestid.startsWith("other24xLinux")
+                || guestid.startsWith("other26xLinux")
+                || guestid.startsWith("otherLinux")
+                || guestid.startsWith("coreos") || guestid.startsWith("redhat")
+                || guestid.startsWith("rhel") || guestid.startsWith("sles")
+                || guestid.startsWith("suse") || guestid.startsWith("ubuntu");
+        return isLinux;
+    }
+
+    private void configureManually(VMPropertyHandler paramHandler,
+            boolean isWindows, int i, CustomizationIPSettings ipSettings) {
+        setFixIp(i, ipSettings, paramHandler);
+        String[] gateways = paramHandler.getGateway(i).split(",");
+        for (String gw : gateways) {
+            logger.debug("NIC" + i + " Gateway:" + gw);
+            ipSettings.getGateway().add(gw.trim());
+        }
+
+        if (isWindows) {
+            String[] dnsserver = paramHandler.getDNSServer(i)
+                    .split(",");
+            for (String server : dnsserver) {
+                logger.debug("NIC" + i + " DNS server:" + server);
+                ipSettings.getDnsServerList().add(server.trim());
+            }
+        }
+        logger.debug("NIC" + i + " Subnetmask:"
+                + paramHandler.getSubnetMask(i));
+        ipSettings.setSubnetMask(paramHandler.getSubnetMask(i).trim());
+    }
+
+    private void configureByPortgroupIPPool(VMPropertyHandler paramHandler,
+            boolean isWindows, int i, CustomizationIPSettings ipSettings) {
+        String gateway = "0.0.0.0";
+        String dnsserver = "0.0.0.0";
+        String subnetMask = "0.0.0.0";
+        ipSettings.getGateway().add(gateway);
+        if (isWindows) {
+        ipSettings.getDnsServerList().add(dnsserver);
+        }
+        ipSettings.setSubnetMask(subnetMask);
+        setFixIp(i, ipSettings, paramHandler);
     }
 
     private void setFixIp(int i, CustomizationIPSettings ipSettings,
