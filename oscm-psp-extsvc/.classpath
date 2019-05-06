@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="javasrc"/>
-	<classpathentry kind="src" path="javares"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/oscm-extsvc"/>
+	<classpathentry exported="true" kind="lib" path="javares"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
