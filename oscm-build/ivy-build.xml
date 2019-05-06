@@ -12,6 +12,8 @@
   </target>
 
   <target name="copyLibraries" depends="resolve">
+  	
+
 
     <antcall target="getAndUnzip">
       <param name="from"
@@ -46,6 +48,27 @@
         value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-notification/master-SNAPSHOT/oscm-extsvc-notification-master-SNAPSHOT.jar" />
       <param name="to" value="${root.dir}/libraries/servicecatalog/oscm-extsvc-notification/javalib/oscm-extsvc-notification.jar" />
       <param name="deployin" value="${root.dir}/oscm-extsvc-notification/javares" />
+    </antcall>
+
+    <antcall target="getAndUnzip">
+      <param name="from"
+    	value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-internal/externalize-SNAPSHOT/oscm-extsvc-internal-externalize-SNAPSHOT.jar" />
+      <param name="to" value="${root.dir}/libraries/servicecatalog/oscm-extsvc-internal/javalib/oscm-extsvc-internal.jar" />
+      <param name="deployin" value="${root.dir}/oscm-extsvc-internal/javares" />
+    </antcall>
+  	
+    <antcall target="getAndUnzip">
+      <param name="from"
+        value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-psp-extsvc/externalize-SNAPSHOT/oscm-psp-extsvc-externalize-SNAPSHOT.jar" />
+      <param name="to" value="${root.dir}/libraries/servicecatalog/oscm-psp-extsvc/javalib/oscm-psp-extsvc.jar" />
+      <param name="deployin" value="${root.dir}/oscm-psp-extsvc/javares" />
+    </antcall>
+  	
+    <antcall target="getAndUnzip">
+      <param name="from"
+        value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-billing-external-interfaces/externalize-SNAPSHOT/oscm-billing-external-interfaces-externalize-SNAPSHOT.jar" />
+      <param name="to" value="${root.dir}/libraries/servicecatalog/oscm-billing-external-interfaces/javalib/oscm-billing-external-interfaces.jar" />
+      <param name="deployin" value="${root.dir}/oscm-billing-external-interfaces/javares" />
     </antcall>
     
         
