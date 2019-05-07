@@ -9,13 +9,20 @@
  */
 package org.oscm.ui.beans;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.security.KeyStore;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+
+import javax.crypto.Cipher;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -29,8 +36,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.app.v2_0.intf.APPlatformService;
+import org.oscm.configurationservice.local.ConfigurationServiceLocal;
 import org.oscm.internal.intf.*;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
@@ -94,6 +104,9 @@ public class UserBean extends BaseBean implements Serializable {
   private OrganizationBean organizationBean;
 
   @EJB private TenantService tenantService;
+  
+  @EJB
+  private ConfigurationServiceLocal configService;
 
   private Part userImport;
   transient ApplicationBean appBean;
@@ -891,8 +904,14 @@ public class UserBean extends BaseBean implements Serializable {
     }
 
     try {
-      APPlatformService platformService = sl.findRemoteService(APPlatformService.class);
-      platformService.updateUserCredentials(user.getKey(), user.getUserId(), password);
+      Optional<String> encryptedPassword = encryptPassword(password);
+
+      if (encryptedPassword.isPresent()) {
+        APPlatformService platformService = sl.findRemoteService(APPlatformService.class);
+        platformService.updateUserCredentials(
+            user.getKey(), user.getUserId(), encryptedPassword.get());
+      }
+
     } catch (Exception e) {
       logger.logError(
           Log4jLogger.SYSTEM_LOG,
@@ -902,6 +921,51 @@ public class UserBean extends BaseBean implements Serializable {
     }
 
     return OUTCOME_SUCCESS;
+  }
+
+  private Optional<String> encryptPassword(String password) {
+
+    try {
+      String keystoreLocation =
+          configService
+              .getConfigurationSetting(
+                  ConfigurationKey.SSO_SIGNING_KEYSTORE, Configuration.GLOBAL_CONTEXT)
+              .getValue();
+
+      String keystoreAlias =
+          configService
+              .getConfigurationSetting(
+                  ConfigurationKey.SSO_SIGNING_KEY_ALIAS, Configuration.GLOBAL_CONTEXT)
+              .getValue();
+
+      String keystorePassword =
+          configService
+              .getConfigurationSetting(
+                  ConfigurationKey.SSO_SIGNING_KEYSTORE_PASS, Configuration.GLOBAL_CONTEXT)
+              .getValue();
+
+      FileInputStream inputStream = new FileInputStream(keystoreLocation);
+      KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+      keystore.load(inputStream, keystorePassword.toCharArray());
+      Certificate cert = keystore.getCertificate(keystoreAlias);
+      PublicKey publicKey = cert.getPublicKey();
+
+      Cipher c = Cipher.getInstance(publicKey.getAlgorithm());
+      c.init(Cipher.ENCRYPT_MODE, publicKey);
+      byte[] passwordAsBytes = password.getBytes("UTF-8");
+      byte[] encryptedAsBytes = c.doFinal(passwordAsBytes);
+      String encryptedPassword = new String(Base64.encodeBase64(encryptedAsBytes));
+
+      return Optional.of(encryptedPassword);
+
+    } catch (Exception excp) {
+      logger.logError(
+          Log4jLogger.SYSTEM_LOG,
+          excp,
+          LogMessageIdentifier.ERROR_ENCRYPTION_FAILED,
+          excp.getMessage());
+      return Optional.empty();
+    }
   }
 
   /**

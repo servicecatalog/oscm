@@ -50,5 +50,7 @@
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/geronimo-javamail_1.4_mail-1.9.0-alpha-2.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/openejb-loader-7.0.3.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-app-extsvc-2-0"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/oscm-configservice-intsvc"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/oscm-domainobjects"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
