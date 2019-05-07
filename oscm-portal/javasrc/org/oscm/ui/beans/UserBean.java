@@ -964,8 +964,9 @@ public class UserBean extends BaseBean implements Serializable {
           excp,
           LogMessageIdentifier.ERROR_ENCRYPTION_FAILED,
           excp.getMessage());
-      return Optional.empty();
     }
+    
+    return Optional.empty();
   }
 
   /**
