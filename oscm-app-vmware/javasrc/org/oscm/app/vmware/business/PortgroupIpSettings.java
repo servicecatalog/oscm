@@ -15,6 +15,7 @@ import org.oscm.app.vmware.business.model.Cluster;
 import org.oscm.app.vmware.business.model.DistributedVirtualSwitch;
 import org.oscm.app.vmware.business.model.Portgroup;
 import org.oscm.app.vmware.business.model.PortgroupIPPool;
+import org.oscm.app.vmware.i18n.Messages;
 import org.oscm.app.vmware.persistence.DataAccessService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +52,7 @@ public class PortgroupIpSettings {
 
   private DistributedVirtualSwitch getDistributedVirtualSwitch(
       String dvsName, List<DistributedVirtualSwitch> distributedVirtualSwitches) {
-    DistributedVirtualSwitch DistributedVirtualSwitch = null;
+    DistributedVirtualSwitch distributedVirtualSwitch = null;
     for (int i = 0; distributedVirtualSwitches.size() > i; i++) {
       logger.debug(
           "Available DistributedVIrtualSwitch: "
@@ -59,11 +60,11 @@ public class PortgroupIpSettings {
               + " UUID "
               + distributedVirtualSwitches.get(i).getUuid());
       if (distributedVirtualSwitches.get(i).getName().equals(dvsName)) {
-        DistributedVirtualSwitch = distributedVirtualSwitches.get(i);
+        distributedVirtualSwitch = distributedVirtualSwitches.get(i);
       }
       ;
     }
-    return DistributedVirtualSwitch;
+    return distributedVirtualSwitch;
   }
 
   private Portgroup getPortgroup(String portgroupName, List<Portgroup> portgroups) {
@@ -93,9 +94,14 @@ public class PortgroupIpSettings {
           ip = portgroupIPPool.get(i).getIp_adress().trim();
           return ip;
         } catch (Exception e) {
-          throw new APPlatformException(
-              "No IP address found Check whether you have specified an IP pool for the port group in the Technical Service. If so, there may not be IPs left in this pool",
+            Messages
+            .getAll("error_no_ip_left").get(0)
+            .getText();
+          throw new APPlatformException(Messages
+                  .getAll("error_no_ip_left").get(0)
+                  .getText(),
               e);
+          
         }
       }
     }
@@ -110,7 +116,7 @@ public class PortgroupIpSettings {
             das.unReservePortgroupIPAddress(portgroupIPPool.get(i).getTkey());
           } catch (Exception e) {
             throw new IllegalArgumentException(
-                "The ip adress " + ip + " can not be returned. The Ip does not exist");
+                    Messages.getAll("error_invalid_ip", ip).get(0).getText());
           }
         }
       }

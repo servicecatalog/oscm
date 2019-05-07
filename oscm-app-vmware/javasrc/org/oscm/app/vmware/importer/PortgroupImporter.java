@@ -20,6 +20,10 @@ public class PortgroupImporter implements Importer {
 
   private final DataAccessService das;
 
+  PortgroupImporter(DataAccessService das) {
+      this.das = das;
+  }
+  
   private void save(Portgroup portgroup) throws Exception {
     String query =
         "INSERT INTO portgroup (tkey, uuid, name, distributedvirtualswitch_cluster_fk) VALUES (DEFAULT,?,?,?)";
@@ -63,9 +67,6 @@ public class PortgroupImporter implements Importer {
     }
   }
 
-  PortgroupImporter(DataAccessService das) {
-    this.das = das;
-  }
 
   @Override
   public void load(InputStream csvFile) throws Exception {

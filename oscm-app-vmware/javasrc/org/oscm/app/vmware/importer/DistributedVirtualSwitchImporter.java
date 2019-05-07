@@ -19,6 +19,11 @@ import org.oscm.app.vmware.persistence.DataAccessService;
 public class DistributedVirtualSwitchImporter implements Importer {
 
   private final DataAccessService das;
+  
+
+  DistributedVirtualSwitchImporter(DataAccessService das) {
+    this.das = das;
+  }
 
   private void save(DistributedVirtualSwitch dvs) throws Exception {
     String query =
@@ -54,9 +59,6 @@ public class DistributedVirtualSwitchImporter implements Importer {
     }
   }
 
-  DistributedVirtualSwitchImporter(DataAccessService das) {
-    this.das = das;
-  }
 
   @Override
   public void load(InputStream csvFile) throws Exception {

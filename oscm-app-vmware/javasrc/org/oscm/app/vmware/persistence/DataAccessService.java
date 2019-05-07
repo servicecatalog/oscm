@@ -275,7 +275,7 @@ public class DataAccessService {
         distributedVirutalSwitches.setTkey(rs.getInt("tkey"));
         distributedVirutalSwitches.setUuid(rs.getString("uuid"));
         distributedVirutalSwitches.setName(rs.getString("name"));
-        distributedVirutalSwitches.setCluster_tkey(rs.getInt("cluster_tkey"));
+        distributedVirutalSwitches.setClusterTkey(rs.getInt("cluster_tkey"));
         ipPools.add(distributedVirutalSwitches);
       }
     } catch (SQLException e) {

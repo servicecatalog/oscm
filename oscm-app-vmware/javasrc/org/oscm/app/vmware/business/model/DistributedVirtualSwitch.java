@@ -17,7 +17,7 @@ public class DistributedVirtualSwitch {
   public String name;
   public String uuid;
   public int tkey;
-  public int cluster_tkey;
+  public int clusterTkey;
 
   public List<Portgroup> getPortgroup() {
     return portgroup;
@@ -51,11 +51,12 @@ public class DistributedVirtualSwitch {
     this.tkey = tkey;
   }
 
-  public int getCluster_tkey() {
-    return cluster_tkey;
+  public int getClusterTkey() {
+    return clusterTkey;
   }
 
-  public void setCluster_tkey(int cluster_tkey) {
-    this.cluster_tkey = cluster_tkey;
+  public void setClusterTkey(int cluster_tkey) {
+    this.clusterTkey = cluster_tkey;
   }
+  
 }

@@ -19,6 +19,10 @@ import org.oscm.app.vmware.persistence.DataAccessService;
 public class PortgroupIPPoolImporter implements Importer {
 
   private final DataAccessService das;
+  
+  PortgroupIPPoolImporter(DataAccessService das) {
+      this.das = das;
+    }
 
   private void save(PortgroupIPPool ipPool) throws Exception {
     String query =
@@ -64,10 +68,6 @@ public class PortgroupIPPoolImporter implements Importer {
 
       return rs.getInt(1);
     }
-  }
-
-  PortgroupIPPoolImporter(DataAccessService das) {
-    this.das = das;
   }
 
   @Override
