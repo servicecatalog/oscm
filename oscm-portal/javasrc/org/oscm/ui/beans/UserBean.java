@@ -106,7 +106,7 @@ public class UserBean extends BaseBean implements Serializable {
   @EJB private TenantService tenantService;
   
   @EJB
-  private ConfigurationServiceLocal configService;
+  private ConfigurationService configService;
 
   private Part userImport;
   transient ApplicationBean appBean;
@@ -928,19 +928,19 @@ public class UserBean extends BaseBean implements Serializable {
     try {
       String keystoreLocation =
           configService
-              .getConfigurationSetting(
+              .getVOConfigurationSetting(
                   ConfigurationKey.SSO_SIGNING_KEYSTORE, Configuration.GLOBAL_CONTEXT)
               .getValue();
 
       String keystoreAlias =
           configService
-              .getConfigurationSetting(
+              .getVOConfigurationSetting(
                   ConfigurationKey.SSO_SIGNING_KEY_ALIAS, Configuration.GLOBAL_CONTEXT)
               .getValue();
 
       String keystorePassword =
           configService
-              .getConfigurationSetting(
+              .getVOConfigurationSetting(
                   ConfigurationKey.SSO_SIGNING_KEYSTORE_PASS, Configuration.GLOBAL_CONTEXT)
               .getValue();
 
