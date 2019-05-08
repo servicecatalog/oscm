@@ -87,38 +87,35 @@ public class HeadersTest {
         File dir = new File(strPath);
         File[] files = dir.listFiles();
 
-        for (int i = 0; i < files.length; i++) {
-            if (files[i].isDirectory()) {
-                if (!containExcludePath(files[i].getAbsolutePath())) {
-                    checkFiles(files[i].getAbsolutePath());
-                }
-            } else {
-                String fileName = files[i].getAbsolutePath();
-                if (fileName.toLowerCase().endsWith(".java")
-                        || fileName.toLowerCase().endsWith(".js")
-                        || fileName.toLowerCase().endsWith(".css")) {
-                    if (fileName.contains("book.css")
-                            || fileName.contains("import_en.css")) {
-                        continue;
-                    }
-                    checkFile(fileName, "Copyright FUJITSU LIMITED 201");
-                } else if (fileName.toLowerCase().endsWith(".xml")
-                        || fileName.toLowerCase().endsWith(".xhtml")) {
-                    if (fileName
-                            .contains("TechnicalServiceImportEmptyFile.xml")) {
-                        continue;
-                    }
-                    checkFile(fileName, "<!-- Copyright FUJITSU LIMITED 201");
-                } else if (fileName.toLowerCase().endsWith(".properties")) {
-                    if (fileName.toLowerCase()
-                            .contains("oscm-common-unittests"
-                                    + java.io.File.separator + "junit")
-                            || fileName.contains("wt.testInWork.properties")) {
-                        continue;
-                    }
-                    checkFile(fileName, "# Copyright FUJITSU LIMITED 201");
-                }
-            }
+
+    for (int i = 0; i < files.length; i++) {
+      if (files[i].isDirectory()) {
+        if (!containExcludePath(files[i].getAbsolutePath())) {
+          checkFiles(files[i].getAbsolutePath());
+        }
+      } else {
+        String fileName = files[i].getAbsolutePath();
+        if (fileName.toLowerCase().endsWith(".java")
+            || fileName.toLowerCase().endsWith(".js")
+            || fileName.toLowerCase().endsWith(".css")) {
+          if (fileName.contains("book.css") || fileName.contains("import_en.css")) {
+            continue;
+          }
+          checkFile(fileName, "Copyright FUJITSU LIMITED");
+        } else if (fileName.toLowerCase().endsWith(".xml")
+            || fileName.toLowerCase().endsWith(".xhtml")) {
+          if (fileName.contains("TechnicalServiceImportEmptyFile.xml")) {
+            continue;
+          }
+          checkFile(fileName, "Copyright FUJITSU LIMITED");
+        } else if (fileName.toLowerCase().endsWith(".properties")) {
+          if (fileName
+                  .toLowerCase()
+                  .contains("oscm-common-unittests" + java.io.File.separator + "junit")
+              || fileName.contains("wt.testInWork.properties")) {
+            continue;
+          }
+          checkFile(fileName, "Copyright FUJITSU LIMITED");
         }
     }
  
