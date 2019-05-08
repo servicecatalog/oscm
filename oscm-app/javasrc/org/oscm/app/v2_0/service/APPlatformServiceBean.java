@@ -389,7 +389,7 @@ public class APPlatformServiceBean implements APPlatformService {
     }
   }
 
-  private Optional<String> decryptPassword(String encryptedPassword) {
+  Optional<String> decryptPassword(String encryptedPassword) {
 	  
     try {
       String keystoreLocation =

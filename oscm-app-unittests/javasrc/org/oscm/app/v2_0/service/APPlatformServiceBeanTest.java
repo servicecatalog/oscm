@@ -14,11 +14,13 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doReturn;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,9 +45,10 @@ public class APPlatformServiceBeanTest {
     List<String> controllers =
         Arrays.asList("PROXY", "ess.aws", "ess.openstack", "ess.azure", "ess.vmware");
     when(appConfigurationService.getUserConfiguredControllers(anyString())).thenReturn(controllers);
-
+    doReturn(Optional.of("test")).when(applatformService).decryptPassword(anyString());
+    
     // when
-    applatformService.updateUserCredentials(1000, "test", "test");
+    applatformService.updateUserCredentials(1000, "test", "dsads1232ewqewe:321ed==esdsdczsfnb3");
 
     // then
     verify(appConfigurationService, times(1)).storeAppConfigurationSettings(any(HashMap.class));
