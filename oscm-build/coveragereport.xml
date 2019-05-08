@@ -201,15 +201,6 @@
             <fileset dir="${workspace.dir}/oscm-eventmgmt/javasrc" />
           </sourcefiles>
         </group>
-    
-        <group name="oscm-extsvc-internal">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-extsvc-internal/classes" excludes="**/jaxws/*,internal/*" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-extsvc-internal/javasrc" />
-          </sourcefiles>
-        </group>
         
         <group name="oscm-i18n">
           <classfiles>
