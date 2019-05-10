@@ -103,6 +103,7 @@ public class HeadersTest {
             continue;
           }
           checkFile(fileName, "Copyright FUJITSU LIMITED");
+
         } else if (fileName.toLowerCase().endsWith(".xml")
             || fileName.toLowerCase().endsWith(".xhtml")) {
           if (fileName.contains("TechnicalServiceImportEmptyFile.xml")) {
@@ -117,6 +118,7 @@ public class HeadersTest {
             continue;
           }
           checkFile(fileName, "Copyright FUJITSU LIMITED");
+
         }
       }
     }
