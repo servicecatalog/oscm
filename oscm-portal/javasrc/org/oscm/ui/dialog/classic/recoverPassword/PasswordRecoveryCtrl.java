@@ -27,51 +27,62 @@ import org.oscm.ui.common.Constants;
 @ManagedBean(name = "passwordRecoveryCtrl")
 public class PasswordRecoveryCtrl extends BaseBean {
 
-    @ManagedProperty(value = "#{passwordRecoveryModel}")
-    private PasswordRecoveryModel model;
+	@ManagedProperty(value = "#{passwordRecoveryModel}")
+	private PasswordRecoveryModel model;
 
-    /**
-     * Start password recovery procedure
-     */
-    public String startPasswordRecovery() {
-        // call service to send the confirm mail
-        getPasswordRecoveryService().startPasswordRecovery(model.getUserId(), model.getMarketpalceId());
+	/**
+	 * Start password recovery procedure from marketplace
+	 */
+	public String startPasswordRecovery() {
+		return handlePasswordRecovery(model.getUserId(), model.getMarketpalceId());
+	}
 
-        if (isMarketplaceSet(getRequest())) {
-            return OUTCOME_MARKETPLACE_CONFIRMSTARTPWDRECOVERY;
-        }
-        // add message for blue portal
-        addMessage(null, FacesMessage.SEVERITY_INFO, INFO_RECOVERPASSWORD_START);
-        return OUTCOME_SUCCESS;
-    }
+	/**
+	 * Start password recovery procedure for manager from administration portal
+	 */
+	public String startPasswordRecoveryForManager() {
+		return handlePasswordRecovery(model.getUserId(), null);
+	}
 
-    /**
-     * Returns an outcome that informs to get back to the previous page
-     *
-     * @return {@link BaseBean#OUTCOME_PREVIOUS}
-     */
-    public String redirectToLogin() {
-        return OUTCOME_PREVIOUS;
-    }
+	private String handlePasswordRecovery(String user, String mId) {
+		// call service to send the confirm mail
+		getPasswordRecoveryService().startPasswordRecovery(user, mId);
 
-    public PasswordRecoveryModel getModel() {
-        return model;
-    }
+		if (isMarketplaceSet(getRequest())) {
+			return OUTCOME_MARKETPLACE_CONFIRMSTARTPWDRECOVERY;
+		}
+		// add message for blue portal
+		addMessage(null, FacesMessage.SEVERITY_INFO, INFO_RECOVERPASSWORD_START);
+		return OUTCOME_SUCCESS;
+	}
 
-    public void setModel(PasswordRecoveryModel model) {
-        this.model = model;
-    }
+	/**
+	 * Returns an outcome that informs to get back to the previous page
+	 *
+	 * @return {@link BaseBean#OUTCOME_PREVIOUS}
+	 */
+	public String redirectToLogin() {
+		return OUTCOME_PREVIOUS;
+	}
 
-    @PostConstruct
-    protected void initialize() {
-        if (this.model == null) {
-            this.model = new PasswordRecoveryModel();
-        }
-        final String marketplaceId = getMarketplaceId();
-        if (marketplaceId != null && (!marketplaceId.trim().equals(""))) {
-            this.model.setMarketpalceId(marketplaceId);
-        }
-        this.setSessionAttribute(Constants.CAPTCHA_INPUT_STATUS, Boolean.FALSE);
-    }
+	public PasswordRecoveryModel getModel() {
+		return model;
+	}
+
+	public void setModel(PasswordRecoveryModel model) {
+		this.model = model;
+	}
+
+	@PostConstruct
+	protected void initialize() {
+		if (this.model == null) {
+			this.model = new PasswordRecoveryModel();
+		}
+		final String marketplaceId = getMarketplaceId();
+		if (marketplaceId != null && (!marketplaceId.trim().equals(""))) {
+			this.model.setMarketpalceId(marketplaceId);
+		}
+		this.setSessionAttribute(Constants.CAPTCHA_INPUT_STATUS, Boolean.FALSE);
+	}
 
 }

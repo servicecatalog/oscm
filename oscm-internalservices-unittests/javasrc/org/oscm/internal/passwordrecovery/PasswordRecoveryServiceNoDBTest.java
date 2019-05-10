@@ -484,5 +484,17 @@ public class PasswordRecoveryServiceNoDBTest {
         assertEquals(true, result);
         assertEquals(UserAccountStatus.ACTIVE, pUser.getStatus());
     }
+    
+    @Test
+    public void startPasswordRecoveryForManager()  throws Exception {
+    	
+    	// given
+        pUser.setStatus(UserAccountStatus.PASSWORD_MUST_BE_CHANGED);
+        // when
+        passwordRecoverybean.startPasswordRecovery(userId, null);
+        // then
+        assertEquals(UserAccountStatus.PASSWORD_MUST_BE_CHANGED,
+                pUser.getStatus());
+    }
 
 }

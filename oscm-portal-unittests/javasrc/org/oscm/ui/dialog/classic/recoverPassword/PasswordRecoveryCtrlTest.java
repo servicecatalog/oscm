@@ -126,12 +126,12 @@ public class PasswordRecoveryCtrlTest {
     }
 
     @Test
-    public void startPasswordRecovery_Classic() {
+    public void startPasswordRecovery_isseu306() {
         // given
         isMp = false;
         ctrl.initialize();
         // when
-        String result = ctrl.startPasswordRecovery();
+        String result = ctrl.startPasswordRecoveryForManager();
         // then
         verify(passwordRecoveryServiceMock, times(1)).startPasswordRecovery(
                 model.getUserId(), null);
@@ -139,6 +139,7 @@ public class PasswordRecoveryCtrlTest {
         assertEquals(BaseBean.INFO_RECOVERPASSWORD_START, messages.get(0));
         assertEquals(BaseBean.OUTCOME_SUCCESS, result);
     }
+    
 
     @Test
     public void startPasswordRecovery_Marketplace() {
