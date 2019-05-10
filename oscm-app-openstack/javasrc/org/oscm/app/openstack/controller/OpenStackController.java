@@ -10,24 +10,19 @@
  *******************************************************************************/
 package org.oscm.app.openstack.controller;
 
-import org.oscm.app.openstack.KeystoneClient;
-import org.oscm.app.openstack.NovaProcessor;
-import org.oscm.app.openstack.OpenStackConnection;
-import org.oscm.app.openstack.data.FlowState;
-import org.oscm.app.openstack.exceptions.OpenStackConnectionException;
-import org.oscm.app.openstack.i18n.Messages;
-import org.oscm.app.openstack.usage.UsageConverter;
-import org.oscm.app.v2_0.APPlatformServiceFactory;
-import org.oscm.app.v2_0.data.*;
-import org.oscm.app.v2_0.exceptions.APPlatformException;
-import org.oscm.app.v2_0.exceptions.ConfigurationException;
-import org.oscm.app.v2_0.exceptions.LogAndExceptionConverter;
-import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
-import org.oscm.app.v2_0.intf.APPlatformController;
-import org.oscm.app.v2_0.intf.APPlatformService;
-import org.oscm.app.v2_0.intf.ControllerAccess;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.oscm.app.openstack.controller.PropertyHandler.RESOURCETYPE_PROJ;
+import static org.oscm.app.openstack.controller.PropertyHandler.STACK_NAME;
+import static org.oscm.app.openstack.data.FlowState.CREATE_PROJECT;
+import static org.oscm.app.openstack.data.FlowState.CREATION_REQUESTED;
+import static org.oscm.app.openstack.data.FlowState.DELETE_PROJECT;
+import static org.oscm.app.openstack.data.FlowState.DELETION_REQUESTED;
+import static org.oscm.app.openstack.data.FlowState.MODIFICATION_REQUESTED;
+import static org.oscm.app.openstack.data.FlowState.UPDATE_PROJECT;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Properties;
+import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Remote;
@@ -37,14 +32,33 @@ import javax.ejb.TransactionAttributeType;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Properties;
-import java.util.UUID;
 
-import static org.oscm.app.openstack.controller.PropertyHandler.RESOURCETYPE_PROJ;
-import static org.oscm.app.openstack.controller.PropertyHandler.STACK_NAME;
-import static org.oscm.app.openstack.data.FlowState.*;
+import org.oscm.app.openstack.KeystoneClient;
+import org.oscm.app.openstack.NovaProcessor;
+import org.oscm.app.openstack.OpenStackConnection;
+import org.oscm.app.openstack.data.FlowState;
+import org.oscm.app.openstack.i18n.Messages;
+import org.oscm.app.openstack.usage.UsageConverter;
+import org.oscm.app.v2_0.APPlatformServiceFactory;
+import org.oscm.app.v2_0.data.Context;
+import org.oscm.app.v2_0.data.ControllerSettings;
+import org.oscm.app.v2_0.data.InstanceDescription;
+import org.oscm.app.v2_0.data.InstanceStatus;
+import org.oscm.app.v2_0.data.InstanceStatusUsers;
+import org.oscm.app.v2_0.data.LocalizedText;
+import org.oscm.app.v2_0.data.OperationParameter;
+import org.oscm.app.v2_0.data.ProvisioningSettings;
+import org.oscm.app.v2_0.data.ServiceUser;
+import org.oscm.app.v2_0.data.Setting;
+import org.oscm.app.v2_0.exceptions.APPlatformException;
+import org.oscm.app.v2_0.exceptions.ConfigurationException;
+import org.oscm.app.v2_0.exceptions.LogAndExceptionConverter;
+import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
+import org.oscm.app.v2_0.intf.APPlatformController;
+import org.oscm.app.v2_0.intf.APPlatformService;
+import org.oscm.app.v2_0.intf.ControllerAccess;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of an OpenStack service controller based on the Asynchronous
@@ -607,9 +621,12 @@ public class OpenStackController extends ProvisioningValidator implements APPlat
 				return true;
 			}
 			return false;
-		} catch (OpenStackConnectionException | APPlatformException e) {
-			throw new ServiceNotReachableException(
-					getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.openstack"), e);
+		} catch (Exception e) {
+			ServiceNotReachableException sre = 
+			new ServiceNotReachableException(
+					getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.openstack"));
+			sre.setStackTrace(e.getStackTrace());
+			throw sre;
 		}
 	}
 
@@ -617,11 +634,11 @@ public class OpenStackController extends ProvisioningValidator implements APPlat
 	public boolean canPing() throws ConfigurationException {
 		try {
 			settings = getOpenStackSettings();
+			return (settings != null && !settings.isEmpty());
 		} catch (ServiceNotReachableException ne) {
 			throw new ConfigurationException(
 					getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.openstack"));
 		}
-		return true;
 
 	}
 
@@ -676,14 +693,7 @@ public class OpenStackController extends ProvisioningValidator implements APPlat
 		return FacesContext.getCurrentInstance();
 	}
 
-	private PasswordAuthentication getPasswordAuthentication() {
-		FacesContext facesContext = getFacesContext();
-		HttpSession session = getSession(facesContext);
-		Object userId = session.getAttribute("loggedInUserId");
-		Object password = session.getAttribute("loggedInUserPassword");
-
-		return new PasswordAuthentication(userId.toString(), password.toString());
-	}
+	
 
 	protected HttpSession getSession(FacesContext facesContext) {
 		return (HttpSession) facesContext.getExternalContext().getSession(false);
