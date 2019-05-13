@@ -1,0 +1,6 @@
+VCenter,Datacenter,Cluster,DistributedVirtualSwitch,Portgroup,IPAddress
+estvcsadev.intern.est.fujitsu.com,EST,esscluster,DSwitch 1,DBPortGroup,10.140.18.58
+estvcsadev.intern.est.fujitsu.com,EST,esscluster,DSwitch 1,DBPortGroup,10.140.18.59
+estvcsadev.intern.est.fujitsu.com,EST,esscluster,DSwitch 1,DBPortGroup,10.140.18.60
+estvcsadev.intern.est.fujitsu.com,EST,esscluster,DSwitch 1,DBPortGroup,10.140.18.61
+estvcsadev.intern.est.fujitsu.com,EST,esscluster,DSwitch 1,DBPortGroup,10.140.18.62

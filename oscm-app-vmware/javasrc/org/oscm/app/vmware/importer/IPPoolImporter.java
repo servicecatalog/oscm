@@ -18,6 +18,10 @@ import java.sql.ResultSet;
 
 public class IPPoolImporter implements Importer {
     private final DataAccessService das;
+    
+    IPPoolImporter(DataAccessService das) {
+        this.das = das;
+    }
 
     private void save(IPPool ipPool) throws Exception {
         String query = "INSERT INTO ippool (tkey, ip_address, in_use, vlan_tkey) VALUES (DEFAULT,?,?,?)";
@@ -47,9 +51,6 @@ public class IPPoolImporter implements Importer {
         }
     }
 
-    IPPoolImporter(DataAccessService das) {
-        this.das = das;
-    }
 
     @Override
     public void load(InputStream csvFile) throws Exception {
