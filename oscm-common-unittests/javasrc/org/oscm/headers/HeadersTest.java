@@ -45,7 +45,11 @@ public class HeadersTest {
           "oscm-extsvc" + java.io.File.separator + "javares",
           "oscm-extsvc-operation" + java.io.File.separator + "javares",
           "oscm-extsvc-notification" + java.io.File.separator + "javares",
-          "oscm-extsvc-provisioning" + java.io.File.separator + "javares");
+          "oscm-extsvc-provisioning" + java.io.File.separator + "javares",
+          "oscm-psp-extsvc" + java.io.File.separator + "javares",
+          "oscm-billing-external-interfaces" + java.io.File.separator
+                  + "javares",
+          "oscm-extsvc-internal" + java.io.File.separator + "javares");
 
   @Test
   public void testIsContainCopyrightHeader() {
