@@ -101,14 +101,14 @@ public class HeadersTest {
                             || fileName.contains("import_en.css")) {
                         continue;
                     }
-                    checkFile(fileName, "Copyright FUJITSU LIMITED 201");
+                    checkFile(fileName, "Copyright FUJITSU LIMITED");
                 } else if (fileName.toLowerCase().endsWith(".xml")
                         || fileName.toLowerCase().endsWith(".xhtml")) {
                     if (fileName
                             .contains("TechnicalServiceImportEmptyFile.xml")) {
                         continue;
                     }
-                    checkFile(fileName, "<!-- Copyright FUJITSU LIMITED 201");
+                    checkFile(fileName, "Copyright FUJITSU LIMITED");
                 } else if (fileName.toLowerCase().endsWith(".properties")) {
                     if (fileName.toLowerCase()
                             .contains("oscm-common-unittests"
@@ -116,12 +116,12 @@ public class HeadersTest {
                             || fileName.contains("wt.testInWork.properties")) {
                         continue;
                     }
-                    checkFile(fileName, "# Copyright FUJITSU LIMITED 201");
+                    checkFile(fileName, "Copyright FUJITSU LIMITED");
                 }
             }
         }
     }
- 
+
     private static void checkFile(String filePath, String header) {
         try {
             byte[] fileContent;
