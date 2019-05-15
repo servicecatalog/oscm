@@ -428,10 +428,11 @@ public class VMController implements APPlatformController {
 
 	@Override
 	public boolean ping(String controllerId) throws ServiceNotReachableException {
-
-		client = getClient();
-
 		try {
+			readCredentials();
+
+			client = getClient();
+
 			client.connect();
 			if (client.isConnected()) {
 				client.close();
@@ -445,17 +446,22 @@ public class VMController implements APPlatformController {
 
 	}
 
-	@Override
-	public boolean canPing() throws ConfigurationException {
+	/**
+	 * @throws ConfigurationException
+	 */
+	protected void readCredentials() throws ConfigurationException {
 		HashMap<String, Setting> controllerSettings = getControllerSettings();
 		VCenter vCenter = getVCenter(controllerSettings);
 		if (vCenter != null) {
 			if (validateControllerParams(vCenter)) {
 				cacheCredentials(vCenter);
-				return true;
 			}
 		}
-		return false;
+	}
+
+	@Override
+	public boolean canPing() throws ConfigurationException {
+		return true;
 	}
 
 	/**
@@ -561,8 +567,6 @@ public class VMController implements APPlatformController {
 
 	/**
 	 * Fetches user from current session, along with his locale
-	 *
-	 * @return user from current session
 	 */
 	protected ServiceUser readUserFromSession() {
 		ServiceUser user = null;
@@ -596,13 +600,14 @@ public class VMController implements APPlatformController {
 	protected FacesContext getContext() {
 		return FacesContext.getCurrentInstance();
 	}
+
 	/**
 	 * Gets VMware client instance for provided credentials
 	 */
 	protected VMwareClient getClient() {
 		return new VMwareClient(cachedCredentials);
 	}
-	
+
 	@Override
 	@TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 	public List<LocalizedText> getControllerStatus(ControllerSettings arg0) throws APPlatformException {

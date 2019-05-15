@@ -632,14 +632,7 @@ public class OpenStackController extends ProvisioningValidator implements APPlat
 
 	@Override
 	public boolean canPing() throws ConfigurationException {
-		try {
-			settings = getOpenStackSettings();
-			return (settings != null && !settings.isEmpty());
-		} catch (ServiceNotReachableException ne) {
-			throw new ConfigurationException(
-					getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.openstack"));
-		}
-
+		return true;
 	}
 
 	protected HashMap<String, Setting> getOpenStackSettings()
