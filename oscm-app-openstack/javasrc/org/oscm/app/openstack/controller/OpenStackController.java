@@ -37,6 +37,7 @@ import org.oscm.app.openstack.KeystoneClient;
 import org.oscm.app.openstack.NovaProcessor;
 import org.oscm.app.openstack.OpenStackConnection;
 import org.oscm.app.openstack.data.FlowState;
+import org.oscm.app.openstack.exceptions.OpenStackConnectionException;
 import org.oscm.app.openstack.i18n.Messages;
 import org.oscm.app.openstack.usage.UsageConverter;
 import org.oscm.app.v2_0.APPlatformServiceFactory;
@@ -608,22 +609,30 @@ public class OpenStackController extends ProvisioningValidator implements APPlat
 
 	@Override
 	public boolean ping(String controllerId) throws ServiceNotReachableException {
+
 		try {
 			settings = getOpenStackSettings();
+		} catch (ConfigurationException e) {
+			throw new ServiceNotReachableException(e.getMessage());
+		}
+
+		try {
 			if (settings != null && !settings.isEmpty()) {
 				OpenStackConnection connection = getOpenstackConnection();
 				KeystoneClient client = getKeystoneClient(connection);
 
 				client.authenticate(settings.get("API_USER_NAME").getValue(), settings.get("API_USER_PWD").getValue(),
 						settings.get("DOMAIN_NAME").getValue(), settings.get("TENANT_ID").getValue());
-				LOGGER.info("Verification of connection to Openstack successful. " + "Keystone API URL: "
-						+ settings.get("KEYSTONE_API_URL").getValue());
+				
+				LOGGER.info(String.format("Connection test to Keystone was successful [URL: %s]",
+						settings.get("KEYSTONE_API_URL").getValue()));
+
 				return true;
 			}
 			return false;
-		} catch (Exception e) {
-			ServiceNotReachableException sre = 
-			new ServiceNotReachableException(
+
+		} catch (APPlatformException | OpenStackConnectionException e) {
+			ServiceNotReachableException sre = new ServiceNotReachableException(
 					getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.openstack"));
 			sre.setStackTrace(e.getStackTrace());
 			throw sre;
@@ -685,8 +694,6 @@ public class OpenStackController extends ProvisioningValidator implements APPlat
 	protected FacesContext getContext() {
 		return FacesContext.getCurrentInstance();
 	}
-
-	
 
 	protected HttpSession getSession(FacesContext facesContext) {
 		return (HttpSession) facesContext.getExternalContext().getSession(false);

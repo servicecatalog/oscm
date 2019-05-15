@@ -406,6 +406,7 @@ public class AppConfigurationCtrlTest {
                 verify(ctrl, times(1)).readUserFromSession();
         }
 
+        
         @Test
         public void shouldShowErrorWithDetails_whenPingIsRequested_givenExceptionThrown() {
                 String controllerId = "not.reachable.service.instance";

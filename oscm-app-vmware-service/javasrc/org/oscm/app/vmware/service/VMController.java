@@ -431,19 +431,22 @@ public class VMController implements APPlatformController {
 
 		try {
 			readCredentials();
-		} catch (ConfigurationException e1) {
-			throw new ServiceNotReachableException(e1.getMessage());
+		} catch (ConfigurationException e) {
+			throw new ServiceNotReachableException(e.getMessage());
 		}
+
 		try {
 			client = getClient();
 
 			client.connect();
+			
 			if (client.isConnected()) {
+				logger.info(String.format("Connection test to VCenter was successful [URL: %s]",
+						cachedCredentials.getURL()));
 				client.close();
 				return true;
 			}
 		} catch (Exception e) {
-
 			throw new ServiceNotReachableException(
 					getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.vmware"), e);
 		}
