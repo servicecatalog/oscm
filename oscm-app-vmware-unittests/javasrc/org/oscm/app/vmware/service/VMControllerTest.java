@@ -8,8 +8,6 @@
 
 package org.oscm.app.vmware.service;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
@@ -42,6 +40,7 @@ import org.oscm.app.v2_0.data.ProvisioningSettings;
 import org.oscm.app.v2_0.data.Setting;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
 import org.oscm.app.v2_0.exceptions.ConfigurationException;
+import org.oscm.app.v2_0.exceptions.ServiceNotReachableException;
 import org.oscm.app.v2_0.intf.APPlatformController;
 import org.oscm.app.v2_0.intf.APPlatformService;
 import org.oscm.app.vmware.business.VMPropertyHandler;
@@ -240,44 +239,52 @@ public class VMControllerTest {
 
 	}
 
-	@SuppressWarnings("serial")
 	@Test
-	public void shouldNotValidateConfiguration_whenControllerVCenterParamsAreNull_givenCanPingRequest() {
-		boolean result = false;
-		Exception exception = null;
-		setControllerContext();
+	public void pingMissingSettings() throws Exception {
 
-		VCenter mockVCenter = new VCenter();
-		mockVCenter.setUrl(null);
-		mockVCenter.setUserid(null);
-		mockVCenter.setPassword(null);
+		// given
+		givenVCenterSettingsMissing();
 
 		try {
-			when(platformService.getControllerSettings(anyString(), any())).thenReturn(new HashMap<String, Setting>() {
-				{
-					put("BSS_USER_KEY", new Setting("BSS_USER_KEY", "KEY"));
-				}
-			});
-			doReturn(mockVCenter).when(controller).getVCenterList(any());
+			// when
+			controller.ping(CONTROLLER_ID);
 
-			result = controller.canPing();
-		} catch (Exception e) {
-			exception = e;
+			fail();
+		} catch (ServiceNotReachableException e) {
+
+			// then
+			assertHelpfullMessageDetails(e);
 		}
 
-		assertFalse("CanPing should not succeed", result);
-		assertNotNull("Exception should be thrown", exception);
 	}
 
 	@Test
+	public void pingValidSettings() throws Exception {
+
+		// given
+		givenVCenterValidSettings();
+
+		// when
+		boolean result = controller.ping(CONTROLLER_ID);
+
+		// then
+		assertTrue("Ping should succeed", result);
+	}
+
+	
+	@Test
 	public void canPing() throws ConfigurationException {
+		// given
 		setControllerContext();
 
+		// when
 		boolean result = controller.canPing();
 
+		// then
 		assertTrue("canPing should succeed", result);
 
 	}
+
 
 	@SuppressWarnings("serial")
 	@Test
@@ -306,7 +313,7 @@ public class VMControllerTest {
 			fail("Exception occurred: " + e.getMessage());
 		}
 
-		assertTrue("CanPing should succeed", result);
+		assertTrue("ping should succeed", result);
 	}
 
 	private void setControllerContext() {
@@ -325,4 +332,60 @@ public class VMControllerTest {
 			e.printStackTrace();
 		}
 	}
+
+	@SuppressWarnings("serial")
+	protected void givenVCenterSettingsMissing() throws APPlatformException {
+
+		setControllerContext();
+
+		when(platformService.getControllerSettings(anyString(), any())).thenReturn(new HashMap<String, Setting>() {
+			{
+				put("BSS_USER_KEY", new Setting("BSS_USER_KEY", "KEY"));
+			}
+		});
+
+		VCenter mockVCenter = new VCenter();
+		mockVCenter.setUrl(null);
+		mockVCenter.setUserid(null);
+		mockVCenter.setPassword(null);
+		doReturn(Arrays.asList(new VCenter[] { mockVCenter })).when(controller).getVCenterList(any());
+	}
+	
+	protected void assertHelpfullMessageDetails(ServiceNotReachableException e) {
+		final String msg = String.valueOf(e.getLocalizedMessage());
+		final String wanted = notProvidedMsg("url", "userid", "password");
+		boolean goodMsg = msg.matches(wanted);
+		assertTrue(String.format("Bad error message '%s'", msg), goodMsg);
+	}
+
+	@SuppressWarnings("serial")
+	protected void givenVCenterValidSettings() throws APPlatformException {
+
+		setControllerContext();
+
+		VCenter mockVCenter = new VCenter();
+		mockVCenter.setUrl("http://xyz");
+		mockVCenter.setUserid("hugo");
+		mockVCenter.setPassword("hugo123");
+
+		when(platformService.getControllerSettings(anyString(), any())).thenReturn(new HashMap<String, Setting>() {
+			{
+				put("BSS_USER_KEY", new Setting("BSS_USER_KEY", "KEY"));
+			}
+		});
+
+		doReturn(Arrays.asList(new VCenter[] { mockVCenter })).when(controller).getVCenterList(any());
+		when(Boolean.valueOf(vmWareClient.isConnected())).thenReturn(Boolean.TRUE);
+	}
+
+	String notProvidedMsg(String... setting) {
+		StringBuffer sb = new StringBuffer();
+		for (String s : setting) {
+			sb.append(s);
+			sb.append(".*");
+		}
+		return ".*not been provided.*" + sb.toString();
+	}
+
+
 }

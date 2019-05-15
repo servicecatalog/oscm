@@ -428,9 +428,13 @@ public class VMController implements APPlatformController {
 
 	@Override
 	public boolean ping(String controllerId) throws ServiceNotReachableException {
+
 		try {
 			readCredentials();
-
+		} catch (ConfigurationException e1) {
+			throw new ServiceNotReachableException(e1.getMessage());
+		}
+		try {
 			client = getClient();
 
 			client.connect();
@@ -439,6 +443,7 @@ public class VMController implements APPlatformController {
 				return true;
 			}
 		} catch (Exception e) {
+
 			throw new ServiceNotReachableException(
 					getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.vmware"), e);
 		}
