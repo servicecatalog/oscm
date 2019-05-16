@@ -605,11 +605,7 @@ public class OpenStackController extends ProvisioningValidator implements APPlat
 	@Override
 	public boolean ping(String controllerId) throws ServiceNotReachableException {
 
-		try {
-			settings = getOpenStackSettings();
-		} catch (ConfigurationException e) {
-			throw new ServiceNotReachableException(e.getMessage());
-		}
+		loadSettings();
 
 		try {
 			if (settings != null && !settings.isEmpty()) {
@@ -631,6 +627,17 @@ public class OpenStackController extends ProvisioningValidator implements APPlat
 					getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.openstack"));
 			sre.setStackTrace(e.getStackTrace());
 			throw sre;
+		}
+	}
+
+	/**
+	 * @throws ServiceNotReachableException
+	 */
+	protected void loadSettings() throws ServiceNotReachableException {
+		try {
+			settings = getOpenStackSettings();
+		} catch (ConfigurationException e) {
+			throw new ServiceNotReachableException(e.getMessage());
 		}
 	}
 

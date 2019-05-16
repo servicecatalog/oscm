@@ -429,17 +429,13 @@ public class VMController implements APPlatformController {
 	@Override
 	public boolean ping(String controllerId) throws ServiceNotReachableException {
 
-		try {
-			readCredentials();
-		} catch (ConfigurationException e) {
-			throw new ServiceNotReachableException(e.getMessage());
-		}
+		loadSettings();
 
 		try {
 			client = getClient();
 
 			client.connect();
-			
+
 			if (client.isConnected()) {
 				logger.info(String.format("Connection test to VCenter was successful [URL: %s]",
 						cachedCredentials.getURL()));
@@ -447,16 +443,40 @@ public class VMController implements APPlatformController {
 				return true;
 			}
 		} catch (Exception e) {
-			throw new ServiceNotReachableException(
-					getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.vmware"), e);
+			throwServiceNotReachable(e);
 		}
 		return false;
 
 	}
+	
+	protected void loadSettings() throws ServiceNotReachableException {
+		try {
+			readCredentials();
+		} catch (ConfigurationException e) {
+			throw new ServiceNotReachableException(e.getMessage());
+		}
+	}
 
-	/**
-	 * @throws ConfigurationException
-	 */
+	protected void throwServiceNotReachable(Exception e) throws ServiceNotReachableException {
+		ServiceNotReachableException ex = new ServiceNotReachableException(
+				getLocalizedErrorMessage("ui.config.error.unable.to.connect.to.vmware"), deepCause(e));
+		ex.setStackTrace(e.getStackTrace());
+		throw ex;
+	}
+
+	private Throwable deepCause(Exception e) {
+		Throwable t = e.getCause();
+		if (t == null)
+			return e;
+		while (t.getCause() != null) {
+			t = t.getCause();
+			if (t.getClass().getPackage().getName().startsWith("javax.net")) {
+				return t;
+			}
+		}
+		return t;
+	}
+
 	protected void readCredentials() throws ConfigurationException {
 		HashMap<String, Setting> controllerSettings = getControllerSettings();
 		VCenter vCenter = getVCenter(controllerSettings);
