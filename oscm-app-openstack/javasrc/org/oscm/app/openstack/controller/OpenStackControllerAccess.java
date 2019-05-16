@@ -11,6 +11,8 @@ package org.oscm.app.openstack.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import org.oscm.app.openstack.i18n.Messages;
 import org.oscm.app.v2_0.APPlatformServiceFactory;
 import org.oscm.app.v2_0.data.ControllerSettings;
@@ -19,6 +21,7 @@ import org.oscm.app.v2_0.intf.ControllerAccess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Singleton
 public class OpenStackControllerAccess implements ControllerAccess {
     private Logger LOGGER = LoggerFactory
             .getLogger(OpenStackControllerAccess.class);

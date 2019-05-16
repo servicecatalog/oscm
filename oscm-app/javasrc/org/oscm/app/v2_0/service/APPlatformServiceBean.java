@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -59,334 +61,310 @@ import org.slf4j.LoggerFactory;
 @Remote(APPlatformService.class)
 public class APPlatformServiceBean implements APPlatformService {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(APPlatformServiceBean.class);
-  
-  private static final String PROXY_CONTROLLER_ID = "PROXY";
-  private static final String PWD_KEY = "BSS_USER_PWD";
-  
-  public void setConfigService(APPConfigurationServiceBean configService) {
-    this.configService = configService;
-  }
+	private static final Logger LOGGER = LoggerFactory.getLogger(APPlatformServiceBean.class);
 
-  @EJB protected APPConfigurationServiceBean configService;
+	private static final String PROXY_CONTROLLER_ID = "PROXY";
+	private static final String PWD_KEY = "BSS_USER_PWD";
 
-  public void setConcurrencyService(APPConcurrencyServiceBean concurrencyService) {
-    this.concurrencyService = concurrencyService;
-  }
+	public void setConfigService(APPConfigurationServiceBean configService) {
+		this.configService = configService;
+	}
 
-  @EJB protected APPConcurrencyServiceBean concurrencyService;
+	private Map<String, APPlatformController> controllers = new HashMap<String, APPlatformController>();
 
-  public void setMailService(APPCommunicationServiceBean mailService) {
-    this.mailService = mailService;
-  }
+	@EJB
+	protected APPConfigurationServiceBean configService;
 
-  @EJB protected APPCommunicationServiceBean mailService;
+	public void setConcurrencyService(APPConcurrencyServiceBean concurrencyService) {
+		this.concurrencyService = concurrencyService;
+	}
 
-  public void setAuthService(APPAuthenticationServiceBean authService) {
-    this.authService = authService;
-  }
+	@EJB
+	protected APPConcurrencyServiceBean concurrencyService;
 
-  @EJB protected APPAuthenticationServiceBean authService;
+	public void setMailService(APPCommunicationServiceBean mailService) {
+		this.mailService = mailService;
+	}
 
-  public void setInstanceDAO(ServiceInstanceDAO instanceDAO) {
-    this.instanceDAO = instanceDAO;
-  }
+	@EJB
+	protected APPCommunicationServiceBean mailService;
 
-  @EJB protected ServiceInstanceDAO instanceDAO;
+	public void setAuthService(APPAuthenticationServiceBean authService) {
+		this.authService = authService;
+	}
 
-  @Override
-  public boolean lockServiceInstance(
-      String controllerId, String instanceId, PasswordAuthentication authentication)
-      throws APPlatformException {
-    authService.authenticateTMForInstance(controllerId, instanceId, authentication);
-    return concurrencyService.lockServiceInstance(controllerId, instanceId);
-  }
+	@EJB
+	protected APPAuthenticationServiceBean authService;
 
-  @Override
-  public void unlockServiceInstance(
-      String controllerId, String instanceId, PasswordAuthentication authentication)
-      throws APPlatformException {
-    authService.authenticateTMForInstance(controllerId, instanceId, authentication);
-    concurrencyService.unlockServiceInstance(controllerId, instanceId);
-  }
+	public void setInstanceDAO(ServiceInstanceDAO instanceDAO) {
+		this.instanceDAO = instanceDAO;
+	}
 
-  @Override
-  public boolean exists(String controllerId, String instanceId) {
-    return instanceDAO.exists(controllerId, instanceId);
-  }
+	@EJB
+	protected ServiceInstanceDAO instanceDAO;
 
-  @Override
-  public void sendMail(List<String> mailAddresses, String subject, String text)
-      throws APPlatformException {
-    try {
-      mailService.sendMail(mailAddresses, subject, text);
-    } catch (Exception e) {
-      LOGGER.warn("Controller cannot send mail for instance processing.", e);
-      SuspendException se =
-          new SuspendException("Controller cannot send mail for instance processing.", e);
-      throw se;
-    }
-  }
+	@Override
+	public boolean lockServiceInstance(String controllerId, String instanceId, PasswordAuthentication authentication)
+			throws APPlatformException {
+		authService.authenticateTMForInstance(controllerId, instanceId, authentication);
+		return concurrencyService.lockServiceInstance(controllerId, instanceId);
+	}
 
-  @Override
-  public String getEventServiceUrl() throws ConfigurationException {
-    String result =
-        configService.getProxyConfigurationSetting(PlatformConfigurationKey.APP_BASE_URL);
-    if (!result.endsWith("/")) {
-      result += "/";
-    }
-    result += "notify";
-    return result;
-  }
+	@Override
+	public void unlockServiceInstance(String controllerId, String instanceId, PasswordAuthentication authentication)
+			throws APPlatformException {
+		authService.authenticateTMForInstance(controllerId, instanceId, authentication);
+		concurrencyService.unlockServiceInstance(controllerId, instanceId);
+	}
 
-  @Override
-  public String getBSSWebServiceUrl() throws ConfigurationException {
-    if ("SAML_SP"
-        .equals(
-            configService.getProxyConfigurationSetting(PlatformConfigurationKey.BSS_AUTH_MODE))) {
-      return configService.getProxyConfigurationSetting(
-          PlatformConfigurationKey.BSS_STS_WEBSERVICE_URL);
-    }
-    return configService.getProxyConfigurationSetting(PlatformConfigurationKey.BSS_WEBSERVICE_URL);
-  }
+	@Override
+	public boolean exists(String controllerId, String instanceId) {
+		return instanceDAO.exists(controllerId, instanceId);
+	}
 
-  @Override
-  public HashMap<String, Setting> getControllerSettings(
-      String controllerId, PasswordAuthentication authentication) throws APPlatformException {
-    authService.authenticateTMForController(controllerId, authentication);
-    return configService.getControllerConfigurationSettings(controllerId);
-  }
+	@Override
+	public void sendMail(List<String> mailAddresses, String subject, String text) throws APPlatformException {
+		try {
+			mailService.sendMail(mailAddresses, subject, text);
+		} catch (Exception e) {
+			LOGGER.warn("Controller cannot send mail for instance processing.", e);
+			SuspendException se = new SuspendException("Controller cannot send mail for instance processing.", e);
+			throw se;
+		}
+	}
 
-  @Override
-  public void storeControllerSettings(
-      String controllerId,
-      HashMap<String, Setting> controllerSettings,
-      PasswordAuthentication authentication)
-      throws APPlatformException {
-    authService.authenticateTMForController(controllerId, authentication);
-    configService.storeControllerConfigurationSettings(controllerId, controllerSettings);
+	@Override
+	public String getEventServiceUrl() throws ConfigurationException {
+		String result = configService.getProxyConfigurationSetting(PlatformConfigurationKey.APP_BASE_URL);
+		if (!result.endsWith("/")) {
+			result += "/";
+		}
+		result += "notify";
+		return result;
+	}
 
-    // controllers expect to be notified once the settings are modified
-    requestControllerSettings(controllerId);
-  }
+	@Override
+	public String getBSSWebServiceUrl() throws ConfigurationException {
+		if ("SAML_SP".equals(configService.getProxyConfigurationSetting(PlatformConfigurationKey.BSS_AUTH_MODE))) {
+			return configService.getProxyConfigurationSetting(PlatformConfigurationKey.BSS_STS_WEBSERVICE_URL);
+		}
+		return configService.getProxyConfigurationSetting(PlatformConfigurationKey.BSS_WEBSERVICE_URL);
+	}
 
-  @Override
-  public User authenticate(String controllerId, PasswordAuthentication authentication)
-      throws APPlatformException {
-    VOUserDetails vo = authService.getAuthenticatedTMForController(controllerId, authentication);
-    User user = new User();
-    user.setUserKey(vo.getKey());
-    user.setUserId(vo.getUserId());
-    user.setEmail(vo.getEMail());
-    user.setLocale(vo.getLocale());
-    user.setLastName(vo.getLastName());
-    user.setFirstName(vo.getFirstName());
-    return user;
-  }
+	@Override
+	public HashMap<String, Setting> getControllerSettings(String controllerId, PasswordAuthentication authentication)
+			throws APPlatformException {
+		authService.authenticateTMForController(controllerId, authentication);
+		return configService.getControllerConfigurationSettings(controllerId);
+	}
 
-  @Override
-  public void requestControllerSettings(String controllerId)
-      throws ConfigurationException, ControllerLookupException {
-    HashMap<String, Setting> settings =
-        configService.getControllerConfigurationSettings(controllerId);
-    APPlatformController controller = APPlatformControllerFactory.getInstance(controllerId);
-    ControllerSettings controllerSettings = new ControllerSettings(settings);
-    controller.setControllerSettings(controllerSettings);
-  }
+	@Override
+	public void storeControllerSettings(String controllerId, HashMap<String, Setting> controllerSettings,
+			PasswordAuthentication authentication) throws APPlatformException {
+		authService.authenticateTMForController(controllerId, authentication);
+		configService.storeControllerConfigurationSettings(controllerId, controllerSettings);
 
-  @Override
-  public Collection<String> listServiceInstances(
-      String controllerId, PasswordAuthentication authentication) throws APPlatformException {
-    Collection<String> result = new ArrayList<>();
-    List<ServiceInstance> instances = instanceDAO.getInstancesForController(controllerId);
-    for (ServiceInstance instance : instances) {
-      result.add(instance.getInstanceId());
-    }
-    return result;
-  }
+		// controllers expect to be notified once the settings are modified
+		requestControllerSettings(controllerId);
+	}
 
-  @Override
-  public ProvisioningSettings getServiceInstanceDetails(
-      String controllerId, String instanceId, PasswordAuthentication authentication)
-      throws APPlatformException {
-    try {
-      ServiceInstance instance = instanceDAO.getInstanceById(instanceId);
-      return configService.getProvisioningSettings(instance, null);
-    } catch (ServiceInstanceNotFoundException e) {
-      throw new ObjectNotFoundException(e.getMessage());
-    } catch (BadResultException e) {
-      throw new APPlatformException(e.getMessage());
-    }
-  }
+	@Override
+	public User authenticate(String controllerId, PasswordAuthentication authentication) throws APPlatformException {
+		VOUserDetails vo = authService.getAuthenticatedTMForController(controllerId, authentication);
+		User user = new User();
+		user.setUserKey(vo.getKey());
+		user.setUserId(vo.getUserId());
+		user.setEmail(vo.getEMail());
+		user.setLocale(vo.getLocale());
+		user.setLastName(vo.getLastName());
+		user.setFirstName(vo.getFirstName());
+		return user;
+	}
 
-  @Override
-  public ProvisioningSettings getServiceInstanceDetails(
-      String controllerId, String instanceId, String subscriptionId, String organizationId)
-      throws APPlatformException {
-    try {
-      ServiceInstance instance = instanceDAO.getInstanceById(instanceId);
-      if (instance.getControllerId().equals(controllerId)
-          && instance.getSubscriptionId().equals(subscriptionId)
-          && instance.getOrganizationId().equals(organizationId)) {
-        return configService.getProvisioningSettings(instance, null, true);
-      } else {
-        throw new ServiceInstanceNotFoundException(
-            "Service instance with ID '%s' not found.", instanceId);
-      }
-    } catch (ServiceInstanceNotFoundException e) {
-      throw new ObjectNotFoundException(e.getMessage());
-    } catch (BadResultException e) {
-      throw new APPlatformException(e.getMessage());
-    }
-  }
+	private APPlatformController lookupController(String id) throws ControllerLookupException {
+		APPlatformController c = controllers.get(id);
+		if (c == null) {
+			c = APPlatformControllerFactory.getInstance(id);
+			controllers.put(id, c);
+		}
+		return c;
+	}
 
-  @Override
-  public String getBSSWebServiceWSDLUrl() throws ConfigurationException {
-    if ("SAML_SP"
-        .equals(
-            configService.getProxyConfigurationSetting(PlatformConfigurationKey.BSS_AUTH_MODE))) {
-      return configService.getProxyConfigurationSetting(
-          PlatformConfigurationKey.BSS_STS_WEBSERVICE_WSDL_URL);
-    }
-    return configService.getProxyConfigurationSetting(
-        PlatformConfigurationKey.BSS_WEBSERVICE_WSDL_URL);
-  }
+	@Override
+	public void requestControllerSettings(String controllerId)
+			throws ConfigurationException, ControllerLookupException {
+		HashMap<String, Setting> settings = configService.getControllerConfigurationSettings(controllerId);
+		APPlatformController controller = lookupController(controllerId);
+		ControllerSettings controllerSettings = new ControllerSettings(settings);
+		controller.setControllerSettings(controllerSettings);
+	}
 
-  @Override
-  public void storeServiceInstanceDetails(
-      String controllerId,
-      String instanceId,
-      ProvisioningSettings settings,
-      PasswordAuthentication authentication)
-      throws APPlatformException {
-    try {
-      ServiceInstance instance = instanceDAO.getInstanceById(instanceId);
-      instance.setInstanceParameters(settings.getParameters());
-    } catch (ServiceInstanceNotFoundException e) {
-      throw new ObjectNotFoundException(e.getMessage());
-    } catch (BadResultException e) {
-      throw new APPlatformException(e.getMessage());
-    }
-  }
+	@Override
+	public Collection<String> listServiceInstances(String controllerId, PasswordAuthentication authentication)
+			throws APPlatformException {
+		Collection<String> result = new ArrayList<>();
+		List<ServiceInstance> instances = instanceDAO.getInstancesForController(controllerId);
+		for (ServiceInstance instance : instances) {
+			result.add(instance.getInstanceId());
+		}
+		return result;
+	}
 
-  @Override
-  public boolean checkToken(String token, String signature) {
+	@Override
+	public ProvisioningSettings getServiceInstanceDetails(String controllerId, String instanceId,
+			PasswordAuthentication authentication) throws APPlatformException {
+		try {
+			ServiceInstance instance = instanceDAO.getInstanceById(instanceId);
+			return configService.getProvisioningSettings(instance, null);
+		} catch (ServiceInstanceNotFoundException e) {
+			throw new ObjectNotFoundException(e.getMessage());
+		} catch (BadResultException e) {
+			throw new APPlatformException(e.getMessage());
+		}
+	}
 
-    InputStream is = null;
-    try {
+	@Override
+	public ProvisioningSettings getServiceInstanceDetails(String controllerId, String instanceId, String subscriptionId,
+			String organizationId) throws APPlatformException {
+		try {
+			ServiceInstance instance = instanceDAO.getInstanceById(instanceId);
+			if (instance.getControllerId().equals(controllerId) && instance.getSubscriptionId().equals(subscriptionId)
+					&& instance.getOrganizationId().equals(organizationId)) {
+				return configService.getProvisioningSettings(instance, null, true);
+			} else {
+				throw new ServiceInstanceNotFoundException("Service instance with ID '%s' not found.", instanceId);
+			}
+		} catch (ServiceInstanceNotFoundException e) {
+			throw new ObjectNotFoundException(e.getMessage());
+		} catch (BadResultException e) {
+			throw new APPlatformException(e.getMessage());
+		}
+	}
 
-      // load configuration settings for truststore
-      String loc =
-          configService.getProxyConfigurationSetting(PlatformConfigurationKey.APP_TRUSTSTORE);
-      String pwd =
-          configService.getProxyConfigurationSetting(
-              PlatformConfigurationKey.APP_TRUSTSTORE_PASSWORD);
-      String alias =
-          configService.getProxyConfigurationSetting(
-              PlatformConfigurationKey.APP_TRUSTSTORE_BSS_ALIAS);
+	@Override
+	public String getBSSWebServiceWSDLUrl() throws ConfigurationException {
+		if ("SAML_SP".equals(configService.getProxyConfigurationSetting(PlatformConfigurationKey.BSS_AUTH_MODE))) {
+			return configService.getProxyConfigurationSetting(PlatformConfigurationKey.BSS_STS_WEBSERVICE_WSDL_URL);
+		}
+		return configService.getProxyConfigurationSetting(PlatformConfigurationKey.BSS_WEBSERVICE_WSDL_URL);
+	}
 
-      if (loc == null || pwd == null || alias == null) {
-        LOGGER.error("Missing configuration settings for token check");
-        return false;
-      }
+	@Override
+	public void storeServiceInstanceDetails(String controllerId, String instanceId, ProvisioningSettings settings,
+			PasswordAuthentication authentication) throws APPlatformException {
+		try {
+			ServiceInstance instance = instanceDAO.getInstanceById(instanceId);
+			instance.setInstanceParameters(settings.getParameters());
+		} catch (ServiceInstanceNotFoundException e) {
+			throw new ObjectNotFoundException(e.getMessage());
+		} catch (BadResultException e) {
+			throw new APPlatformException(e.getMessage());
+		}
+	}
 
-      // create hash from given token
-      MessageDigest md = MessageDigest.getInstance("SHA-256");
-      md.update(token.getBytes(StandardCharsets.UTF_8));
-      String tokenHash = new String(md.digest());
+	@Override
+	public boolean checkToken(String token, String signature) {
 
-      // load truststore
-      is = new FileInputStream(loc);
-      KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
-      keystore.load(is, pwd.toCharArray());
+		InputStream is = null;
+		try {
 
-      // get certificate for alias
-      Certificate cert = keystore.getCertificate(alias);
+			// load configuration settings for truststore
+			String loc = configService.getProxyConfigurationSetting(PlatformConfigurationKey.APP_TRUSTSTORE);
+			String pwd = configService.getProxyConfigurationSetting(PlatformConfigurationKey.APP_TRUSTSTORE_PASSWORD);
+			String alias = configService
+					.getProxyConfigurationSetting(PlatformConfigurationKey.APP_TRUSTSTORE_BSS_ALIAS);
 
-      if (cert == null) {
-        LOGGER.error("Unable to find certificate with alias " + alias);
-        return false;
-      }
+			if (loc == null || pwd == null || alias == null) {
+				LOGGER.error("Missing configuration settings for token check");
+				return false;
+			}
 
-      // get public key and decrypt signature
-      Key key = cert.getPublicKey();
+			// create hash from given token
+			MessageDigest md = MessageDigest.getInstance("SHA-256");
+			md.update(token.getBytes(StandardCharsets.UTF_8));
+			String tokenHash = new String(md.digest());
 
-      if (key == null) {
-        LOGGER.error("Certificate returned null key");
-        return false;
-      }
+			// load truststore
+			is = new FileInputStream(loc);
+			KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+			keystore.load(is, pwd.toCharArray());
 
-      Cipher c = Cipher.getInstance(key.getAlgorithm());
-      c.init(Cipher.DECRYPT_MODE, key);
+			// get certificate for alias
+			Certificate cert = keystore.getCertificate(alias);
 
-      byte[] decodedSignature = Base64.decodeBase64(signature);
-      String decryptedHash = new String(c.doFinal(decodedSignature));
+			if (cert == null) {
+				LOGGER.error("Unable to find certificate with alias " + alias);
+				return false;
+			}
 
-      // compare token hash with decrypted hash
-      if (tokenHash.equals(decryptedHash)) {
-        return true;
-      }
-    } catch (NoSuchAlgorithmException
-        | KeyStoreException
-        | CertificateException
-        | IOException
-        | NoSuchPaddingException
-        | InvalidKeyException
-        | IllegalBlockSizeException
-        | BadPaddingException
-        | ConfigurationException e) {
-      LOGGER.error(e.getMessage());
-    } finally {
-      try {
-        if (is != null) {
-          is.close();
-        }
-      } catch (IOException e) {
-        // ignore
-      }
-    }
+			// get public key and decrypt signature
+			Key key = cert.getPublicKey();
 
-    return false;
-  }
+			if (key == null) {
+				LOGGER.error("Certificate returned null key");
+				return false;
+			}
 
-  @Override
-  public void updateUserCredentials(long useKey, String username, String password) {
+			Cipher c = Cipher.getInstance(key.getAlgorithm());
+			c.init(Cipher.DECRYPT_MODE, key);
 
-    List<String> controllers = configService.getUserConfiguredControllers(username);
+			byte[] decodedSignature = Base64.decodeBase64(signature);
+			String decryptedHash = new String(c.doFinal(decodedSignature));
 
-    if (controllers.contains(PROXY_CONTROLLER_ID)) {
-      HashMap<String, String> settings = new HashMap<>();
-      settings.put(PWD_KEY, password);
-      try {
-        configService.storeAppConfigurationSettings(settings);
-        logSuccessInfo(username, PROXY_CONTROLLER_ID);
-      } catch (ConfigurationException | GeneralSecurityException e) {
-        logErrorMsg(PROXY_CONTROLLER_ID, PWD_KEY, e);
-      }
-    }
+			// compare token hash with decrypted hash
+			if (tokenHash.equals(decryptedHash)) {
+				return true;
+			}
+		} catch (NoSuchAlgorithmException | KeyStoreException | CertificateException | IOException
+				| NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException
+				| ConfigurationException e) {
+			LOGGER.error(e.getMessage());
+		} finally {
+			try {
+				if (is != null) {
+					is.close();
+				}
+			} catch (IOException e) {
+				// ignore
+			}
+		}
 
-    controllers
-        .stream()
-        .filter(id -> !PROXY_CONTROLLER_ID.equals(id))
-        .forEach(
-            id -> {
-              HashMap<String, Setting> settings = new HashMap<>();
-              settings.put(PWD_KEY, new Setting(PWD_KEY, password));
-              try {
-                configService.storeControllerConfigurationSettings(id, settings);
-                logSuccessInfo(username, id);
-              } catch (ConfigurationException e) {
-                logErrorMsg(id, PWD_KEY, e);
-              }
-            });
-  }
+		return false;
+	}
 
-  private void logSuccessInfo(String username, String id) {
-    LOGGER.info("User [" + username + "] password for controller [" + id + "] updated");
-  }
+	@Override
+	public void updateUserCredentials(long useKey, String username, String password) {
 
-  private void logErrorMsg(String controllerId, String settingKey, Exception excp) {
-    LOGGER.error(
-        "Unable to store controller [" + controllerId + "] setting [" + settingKey + "]", excp);
-  }
+		List<String> controllers = configService.getUserConfiguredControllers(username);
+
+		if (controllers.contains(PROXY_CONTROLLER_ID)) {
+			HashMap<String, String> settings = new HashMap<>();
+			settings.put(PWD_KEY, password);
+			try {
+				configService.storeAppConfigurationSettings(settings);
+				logSuccessInfo(username, PROXY_CONTROLLER_ID);
+			} catch (ConfigurationException | GeneralSecurityException e) {
+				logErrorMsg(PROXY_CONTROLLER_ID, PWD_KEY, e);
+			}
+		}
+
+		controllers.stream().filter(id -> !PROXY_CONTROLLER_ID.equals(id)).forEach(id -> {
+			HashMap<String, Setting> settings = new HashMap<>();
+			settings.put(PWD_KEY, new Setting(PWD_KEY, password));
+			try {
+				configService.storeControllerConfigurationSettings(id, settings);
+				logSuccessInfo(username, id);
+			} catch (ConfigurationException e) {
+				logErrorMsg(id, PWD_KEY, e);
+			}
+		});
+	}
+
+	private void logSuccessInfo(String username, String id) {
+		LOGGER.info("User [" + username + "] password for controller [" + id + "] updated");
+	}
+
+	private void logErrorMsg(String controllerId, String settingKey, Exception excp) {
+		LOGGER.error("Unable to store controller [" + controllerId + "] setting [" + settingKey + "]", excp);
+	}
 }
