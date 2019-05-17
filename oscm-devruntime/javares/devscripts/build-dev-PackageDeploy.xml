@@ -31,12 +31,6 @@
   <clusterProperties />
   <property name="db.url.testdb" value="jdbc:postgresql://${db.host}:${db.port}/bssunittests" />
 
-  <target name="VMware.BUILD" description="Builds the VMware controller">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-app-vmware-ear" />
-    </ant>
-  </target>
-
   <target name="Azure.BUILD" description="Builds the Azure controller" depends="bootstrap">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
       <property name="projects" value="oscm-app-azure" />
