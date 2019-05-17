@@ -45,7 +45,11 @@ public class HeadersTest {
           "oscm-extsvc" + java.io.File.separator + "javares",
           "oscm-extsvc-operation" + java.io.File.separator + "javares",
           "oscm-extsvc-notification" + java.io.File.separator + "javares",
-          "oscm-extsvc-provisioning" + java.io.File.separator + "javares");
+          "oscm-extsvc-provisioning" + java.io.File.separator + "javares",
+          "oscm-psp-extsvc" + java.io.File.separator + "javares",
+          "oscm-billing-external-interfaces" + java.io.File.separator
+                  + "javares",
+          "oscm-extsvc-internal" + java.io.File.separator + "javares");
 
   @Test
   public void testIsContainCopyrightHeader() {
@@ -102,13 +106,13 @@ public class HeadersTest {
           if (fileName.contains("book.css") || fileName.contains("import_en.css")) {
             continue;
           }
-          checkFile(fileName, "Copyright FUJITSU LIMITED 201");
+          checkFile(fileName, "Copyright FUJITSU LIMITED");
         } else if (fileName.toLowerCase().endsWith(".xml")
             || fileName.toLowerCase().endsWith(".xhtml")) {
           if (fileName.contains("TechnicalServiceImportEmptyFile.xml")) {
             continue;
           }
-          checkFile(fileName, "<!-- Copyright FUJITSU LIMITED 201");
+          checkFile(fileName, "Copyright FUJITSU LIMITED");
         } else if (fileName.toLowerCase().endsWith(".properties")) {
           if (fileName
                   .toLowerCase()
@@ -116,7 +120,7 @@ public class HeadersTest {
               || fileName.contains("wt.testInWork.properties")) {
             continue;
           }
-          checkFile(fileName, "# Copyright FUJITSU LIMITED 201");
+          checkFile(fileName, "Copyright FUJITSU LIMITED");
         }
       }
     }
