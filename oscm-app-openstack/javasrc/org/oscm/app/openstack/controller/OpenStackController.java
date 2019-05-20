@@ -519,8 +519,6 @@ public class OpenStackController extends ProvisioningValidator implements APPlat
 		}
 	}
 
-
-
 	private InstanceStatus setNotificationStatus(ProvisioningSettings settings, PropertyHandler propertyHandler) {
 		InstanceStatus status;
 		status = new InstanceStatus();
@@ -705,31 +703,7 @@ public class OpenStackController extends ProvisioningValidator implements APPlat
 		String locale = readUserFromSession().getLocale();
 		return Messages.get(locale, messageKey, params);
 	}
-	
-	
-	/**
-	 * Fetches controller setting from platformService. Throws an error when config
-	 * is unable to obtain or is incomplete
-	 */
-	private HashMap<String, Setting> getControllerSettings() throws ConfigurationException {
 
-		ConfigurationException exception;
-		HashMap<String, Setting> controllerSettings = new HashMap<String, Setting>();
-		try {
-			platformService.requestControllerSettings(ID);
-			
-			if (controllerAccess != null && controllerAccess.getSettings() != null) {
-				controllerSettings = controllerAccess.getSettings().getConfigSettings();
-			}
-			return controllerSettings;
-		} catch (APPlatformException e) {
-			exception = new ConfigurationException(getLocalizedErrorMessage("ui.config.error.unable.to.get.settings"));
-			exception.setStackTrace(e.getStackTrace());
-			throw exception;
-		}
-
-	}
-	
 	@Override
 	public void setControllerSettings(ControllerSettings settings) {
 		if (controllerAccess != null) {
