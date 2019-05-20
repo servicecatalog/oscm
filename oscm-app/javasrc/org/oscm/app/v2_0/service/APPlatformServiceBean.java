@@ -18,6 +18,7 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.Optional;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -60,6 +61,7 @@ import org.slf4j.LoggerFactory;
 @Stateless(name = "org.oscm.app.v2_0.intf.APPlatformService")
 @Remote(APPlatformService.class)
 public class APPlatformServiceBean implements APPlatformService {
+
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(APPlatformServiceBean.class);
 
@@ -332,39 +334,88 @@ public class APPlatformServiceBean implements APPlatformService {
 		return false;
 	}
 
-	@Override
-	public void updateUserCredentials(long useKey, String username, String password) {
 
-		List<String> controllers = configService.getUserConfiguredControllers(username);
+  @Override
+  public void updateUserCredentials(long useKey, String username, String password) {
 
-		if (controllers.contains(PROXY_CONTROLLER_ID)) {
-			HashMap<String, String> settings = new HashMap<>();
-			settings.put(PWD_KEY, password);
-			try {
-				configService.storeAppConfigurationSettings(settings);
-				logSuccessInfo(username, PROXY_CONTROLLER_ID);
-			} catch (ConfigurationException | GeneralSecurityException e) {
-				logErrorMsg(PROXY_CONTROLLER_ID, PWD_KEY, e);
-			}
-		}
+    Optional<String> decryptedPassword = decryptPassword(password);
 
-		controllers.stream().filter(id -> !PROXY_CONTROLLER_ID.equals(id)).forEach(id -> {
-			HashMap<String, Setting> settings = new HashMap<>();
-			settings.put(PWD_KEY, new Setting(PWD_KEY, password));
-			try {
-				configService.storeControllerConfigurationSettings(id, settings);
-				logSuccessInfo(username, id);
-			} catch (ConfigurationException e) {
-				logErrorMsg(id, PWD_KEY, e);
-			}
-		});
-	}
+    if (decryptedPassword.isPresent()) {
+    	
+      List<String> controllers = configService.getUserConfiguredControllers(username);
 
-	private void logSuccessInfo(String username, String id) {
+      if (controllers.contains(PROXY_CONTROLLER_ID)) {
+        HashMap<String, String> settings = new HashMap<>();
+        settings.put(PWD_KEY, decryptedPassword.get());
+        try {
+          configService.storeAppConfigurationSettings(settings);
+          logSuccessInfo(username, PROXY_CONTROLLER_ID);
+        } catch (ConfigurationException | GeneralSecurityException e) {
+          logErrorMsg(PROXY_CONTROLLER_ID, PWD_KEY, e);
+        }
+      }
+
+      controllers
+          .stream()
+          .filter(id -> !PROXY_CONTROLLER_ID.equals(id))
+          .forEach(
+              id -> {
+                HashMap<String, Setting> settings = new HashMap<>();
+                settings.put(PWD_KEY, new Setting(PWD_KEY, decryptedPassword.get()));
+                try {
+                  configService.storeControllerConfigurationSettings(id, settings);
+                  logSuccessInfo(username, id);
+                } catch (ConfigurationException e) {
+                  logErrorMsg(id, PWD_KEY, e);
+                }
+              });
+    }
+  }
+
+  Optional<String> decryptPassword(String encryptedPassword) {
+	  
+    try {
+      String keystoreLocation =
+          configService.getProxyConfigurationSetting(PlatformConfigurationKey.APP_TRUSTSTORE);
+      String keystorePassword =
+          configService.getProxyConfigurationSetting(
+              PlatformConfigurationKey.APP_TRUSTSTORE_PASSWORD);
+      String keystoreAlias =
+          configService.getProxyConfigurationSetting(
+              PlatformConfigurationKey.APP_TRUSTSTORE_BSS_ALIAS);
+
+      FileInputStream inputStream = new FileInputStream(keystoreLocation);
+      KeyStore keystore = KeyStore.getInstance(KeyStore.getDefaultType());
+      keystore.load(inputStream, keystorePassword.toCharArray());
+      Key key = keystore.getKey(keystoreAlias, keystorePassword.toCharArray());
+
+      PrivateKey privateKey = null;
+
+      if (key instanceof PrivateKey) {
+        privateKey = (PrivateKey) key;
+      }
+
+      byte[] decodedPassword = Base64.decodeBase64(encryptedPassword.getBytes("UTF-8"));
+      Cipher c2 = Cipher.getInstance(privateKey.getAlgorithm());
+      c2.init(Cipher.DECRYPT_MODE, privateKey);
+      byte[] decryptedAsBytes = c2.doFinal(decodedPassword);
+      String decryptedPassword = new String(decryptedAsBytes);
+      return Optional.of(decryptedPassword);
+      
+    } catch (Exception excp) {
+      LOGGER.error("Password decryption failed:" + excp.getMessage());
+    }
+    
+    return Optional.empty();
+  }
+  
+  private void logSuccessInfo(String username, String id) {
 		LOGGER.info("User [" + username + "] password for controller [" + id + "] updated");
 	}
 
 	private void logErrorMsg(String controllerId, String settingKey, Exception excp) {
 		LOGGER.error("Unable to store controller [" + controllerId + "] setting [" + settingKey + "]", excp);
 	}
+
+ 
 }
