@@ -11,6 +11,8 @@ package org.oscm.app.vmware.service;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import org.oscm.app.v2_0.APPlatformServiceFactory;
 import org.oscm.app.v2_0.data.ControllerSettings;
 import org.oscm.app.v2_0.exceptions.APPlatformException;
@@ -24,6 +26,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Implements the controller access for VMware controller.
  */
+@Singleton
 public class VMwareControllerAccess implements ControllerAccess {
 
     private static final long serialVersionUID = -7227238594317311419L;
