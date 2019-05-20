@@ -5,8 +5,6 @@
 	<projects>
 		
 		<project>oscm-app-iaas</project>
-		<project>oscm-app-openstack</project>
-
 		<project>oscm-common</project>
 		<project>oscm-devruntime</project>
 		<project>oscm-extsvc</project>

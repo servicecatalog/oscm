@@ -39,13 +39,6 @@
     </ant>
   </target>
 
-  <target name="OpenStack.BUILD"
-    description="Builds the OpenStack project, the result can be found in oscm-build/result/package/oscm-app-openstack">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-app-iaas,oscm-app-openstack" />
-    </ant>
-  </target>
-
   <target name="ExamplesAndMocks.BUILD"
     description="Builds all the sample applications, the build result can be found in oscm-build/result/package/">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
