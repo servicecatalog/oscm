@@ -43,7 +43,7 @@
   <target name="BUILD.APP" description="Builds the APP server ear file, also AWS and Openstack controllers and other minor packages">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package_without_doc">
       <property name="projects"
-                value="oscm-app-ear,oscm-app-aws,oscm-app-openstack,oscm-app-azure,oscm-app-sample,oscm-devruntime" />
+                value="oscm-app-ear,oscm-app-openstack,oscm-app-azure,oscm-app-sample,oscm-devruntime" />
     </ant>
   </target>
   

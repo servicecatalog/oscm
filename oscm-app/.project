@@ -3,7 +3,7 @@
 	<name>oscm-app</name>
 	<comment></comment>
 	<projects>
-		<project>oscm-app-aws</project>
+		
 		<project>oscm-app-iaas</project>
 		<project>oscm-app-openstack</project>
 
