@@ -31,12 +31,6 @@
   <clusterProperties />
   <property name="db.url.testdb" value="jdbc:postgresql://${db.host}:${db.port}/bssunittests" />
 
-  <target name="Azure.BUILD" description="Builds the Azure controller" depends="bootstrap">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-app-azure" />
-    </ant>
-  </target>
-
   <target name="SecurityJar.BUILD"
     description="Builds oscm-security.jar">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
