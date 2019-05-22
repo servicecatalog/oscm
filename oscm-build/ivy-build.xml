@@ -280,8 +280,7 @@
     <copy file="${ivy.lib.dir}/joda-time-2.2.jar" todir="${root.dir}/libraries/joda-time/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/postgresql-9.4-1206-jdbc42.jar" todir="${root.dir}/libraries/postgresql-jdbc/javalib"
       overwrite="true" />
-    <copy file="${ivy.lib.dir}/postgresql-9.4-1206-jdbc42.jar" todir="${root.dir}/oscm-app/resources/lib"
-      overwrite="true" />
+
     <copy file="${ivy.lib.dir}/antlr-2.7.7.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/dom4j-1.6.1.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/hibernate-commons-annotations-5.0.1.Final.jar" todir="${root.dir}/libraries/redhat-hibernate/javalib/"

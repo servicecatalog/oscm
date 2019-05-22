@@ -219,25 +219,6 @@
           </sourcefiles>
         </group>
 
-        <group name="oscm-app">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-app/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-app/javasrc" />
-          </sourcefiles>
-        </group>
-        
-        <group name="oscm-app-startup">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-app-startup/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-app-startup/javasrc" />
-          </sourcefiles>
-        </group>
-
-
         <group name="oscm-identitymgmt">
           <classfiles>
             <fileset dir="${result.dir}/work/oscm-identitymgmt/classes" />
