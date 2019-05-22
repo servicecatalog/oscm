@@ -227,14 +227,6 @@
             <fileset dir="${workspace.dir}/oscm-app/javasrc" />
           </sourcefiles>
         </group>
-        <group name="oscm-app-iaas">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-app-iaas/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-app-iaas/javasrc" />
-          </sourcefiles>
-        </group>
         
         <group name="oscm-app-startup">
           <classfiles>
