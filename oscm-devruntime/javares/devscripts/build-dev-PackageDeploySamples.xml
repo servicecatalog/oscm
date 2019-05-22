@@ -35,7 +35,7 @@
   <target name="APP.BUILD"
     description="Builds the asynchronous provisioning proxy project, the result can be found in oscm-build/result/package/oscm-app">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-app-ear,oscm-app-sample" />
+      <property name="projects" value="oscm-app-ear" />
     </ant>
   </target>
 
