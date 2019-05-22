@@ -6,7 +6,6 @@
 	<classpathentry kind="lib" path="/libraries/slf4j/javalib/slf4j-api-1.7.21.jar"/>
 	<classpathentry kind="lib" path="/libraries/wsdl4j/javalib/wsdl4j.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-app-common"/>
 	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/dom4j-1.6.1.jar"/>
