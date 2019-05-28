@@ -167,6 +167,25 @@ public class SubscriptionWizardConversation implements Serializable {
         paymentInfoBean = new PaymentInfoBean();
         subscriptionsHelper = new SubscriptionsHelper();
     }
+    
+    public void preselectOnlyBillingAddress() {
+        if (paymentAndBillingVisibleBean != null) {
+            Collection<VOBillingContact> billingContacts = paymentAndBillingVisibleBean
+                    .getBillingContacts();
+
+            if (isBillingContactVisible() && billingContacts.size() == 1) {
+                for (VOBillingContact bc : billingContacts) {
+                    setSelectedBillingContact((VOBillingContact) bc);
+                }
+            }
+        }
+    }
+
+    public void preselectOnlyPaymentType(List<VOPaymentInfo> payments) {
+        if (payments != null && payments.size() == 1) {
+            setSelectedPaymentInfo((VOPaymentInfo) payments.get(0));
+        }
+    }
 
     @PostConstruct
     public void startSubscription() {
@@ -180,9 +199,15 @@ public class SubscriptionWizardConversation implements Serializable {
                 conversation.setTimeout(TIMEOUT);
                 conversation.begin();
             }
-            model.setAnyPaymentAvailable(paymentAndBillingVisibleBean
-                    .isPaymentVisible(getEnabledPaymentTypes(),
-                            getPaymentInfosForSubscription()));
+            
+            preselectOnlyBillingAddress();
+            
+            List<VOPaymentInfo> paymentInfosForSub = getPaymentInfosForSubscription();
+            model.setAnyPaymentAvailable(
+                    paymentAndBillingVisibleBean.isPaymentVisible(
+                            getEnabledPaymentTypes(), paymentInfosForSub));
+
+            preselectOnlyPaymentType(paymentInfosForSub);
         } catch (ObjectNotFoundException e) {
             redirectToServiceList();
         } catch (ServiceStateException | OperationNotPermittedException

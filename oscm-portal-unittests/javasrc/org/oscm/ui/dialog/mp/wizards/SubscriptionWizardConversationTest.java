@@ -88,6 +88,7 @@ public class SubscriptionWizardConversationTest {
     private SubscriptionServiceInternal subscriptionServiceInternal;
     private JsonConverter jsonConverter;
     private PaymentAndBillingVisibleBean pabv;
+    private PaymentInfoBean paymentInfoBeanMock;
     private AccountService accountService;
 
     @Before
@@ -106,6 +107,7 @@ public class SubscriptionWizardConversationTest {
         jsonConverter.setUiDelegate(ui);
         userBean = spy(new UserBean());
         pabv = mock(PaymentAndBillingVisibleBean.class);
+        paymentInfoBeanMock = mock(PaymentInfoBean.class);
         accountService = mock(AccountService.class);
         unitCtrl = new SubscriptionUnitCtrl();
         unitModel = new SubscriptionUnitModel();
@@ -246,6 +248,84 @@ public class SubscriptionWizardConversationTest {
         String result = bean.selectService();
         // then
         assertEquals("success", result);
+    }
+    
+    @Test
+    public void preselectOnlyBillingAddress_One_Billing_Address()
+            throws Exception {
+        // given exactly one billing contact.
+        Collection<VOBillingContact> billingContacts = givenSomeBillingContacts(
+                new String[] { "Bill" });
+
+        doReturn(billingContacts).when(pabv)
+                .getBillingContacts();
+        doReturn(true).when(pabv)
+                .isBillingContactVisible();
+
+        // when
+        bean.preselectOnlyBillingAddress();
+
+        // then the only billing contact is pre-selected in the bean.
+        for (VOBillingContact bc : billingContacts) {
+            assertEquals((VOBillingContact) bc,
+                    bean.getModel().getSelectedBillingContact());
+        }
+
+    }
+
+    @Test
+    public void preselectOnlyBillingAddress_More_Billing_Addresses()
+            throws Exception {
+        // given more than one billing contacts.
+        Collection<VOBillingContact> billingContacts = givenSomeBillingContacts(
+                new String[] { "Bill", "Ann" });
+
+        doReturn(billingContacts).when(pabv)
+                .getBillingContacts();
+        doReturn(true).when(pabv)
+                .isBillingContactVisible();
+
+        // when
+        bean.preselectOnlyBillingAddress();
+
+        // then no billing contact is pre-selected in the bean.
+        assertNull(bean.getModel().getSelectedBillingContact());
+
+    }
+
+    @Test
+    public void preselectOnlyPaymentType_One_Payment() throws Exception {
+        // given exactly one payment info
+        List<VOPaymentInfo> payments = givenSomePaymentInfos(
+                new String[] { "SimplePay" });
+
+        doReturn(payments).when(paymentInfoBeanMock)
+                .getPaymentInfosForSubscription();
+        doReturn(true).when(pabv)
+                .isBillingContactVisible();
+
+        // when
+        bean.preselectOnlyPaymentType(payments);
+
+        // then the only payment is pre-selected in the bean.
+        assertEquals((VOPaymentInfo) payments.get(0),
+                bean.getModel().getSelectedPaymentInfo());
+    }
+
+    @Test
+    public void preselectOnlyPaymentType_Many_Payments() throws Exception {
+        // given more than one payment infos
+        List<VOPaymentInfo> payments = givenSomePaymentInfos(
+                new String[] { "SimplePay", "Test_Pay", "Test_Pay0",
+                        "Test_Pay_1", "Test_Pay_2", "Test_Pay_3" });
+        doReturn(payments).when(paymentInfoBeanMock)
+                .getPaymentInfosForSubscription();
+
+        // when
+        bean.preselectOnlyPaymentType(payments);
+
+        // then no payment is pre-selected in the bean.
+        assertNull(bean.getModel().getSelectedPaymentInfo());
     }
 
     @Test
@@ -1471,5 +1551,31 @@ public class SubscriptionWizardConversationTest {
         }
         bean.getModel().getService().setPriceModel(new PriceModel(new VOPriceModel()));
         doNothing().when(bean).updateSelectedUnit();
+    }
+    
+    private List<VOPaymentInfo> givenSomePaymentInfos(String[] ids) {
+        List<VOPaymentInfo> paymentInfos = new ArrayList<VOPaymentInfo>();
+        long key = 0L;
+        for (String id : ids) {
+            VOPaymentInfo pi = new VOPaymentInfo();
+            pi.setId(id);
+            pi.setKey(key++);
+            paymentInfos.add(pi);
+        }
+        return paymentInfos;
+    }
+
+    private Collection<VOBillingContact> givenSomeBillingContacts(
+            String[] ids) {
+        Collection<VOBillingContact> billingContacts = new ArrayList<VOBillingContact>();
+        long key = 0L;
+        for (String id : ids) {
+            VOBillingContact bc = new VOBillingContact();
+            bc.setId(id);
+            bc.setKey(key++);
+            billingContacts.add(bc);
+        }
+
+        return billingContacts;
     }
 }
