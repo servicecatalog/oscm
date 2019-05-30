@@ -23,7 +23,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-brandmgmt-unittests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-build-antextensions"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-build-antextensions-unittests"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common-unittests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-communicationservices"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-communicationservices-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-communicationservices-unittests"/>
