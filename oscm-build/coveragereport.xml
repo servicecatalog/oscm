@@ -124,15 +124,6 @@
           </sourcefiles>
         </group>
 
-        <group name="oscm-common">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-common/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-common/javasrc" />
-          </sourcefiles>
-        </group>
-
         <group name="oscm-communicationservices">
           <classfiles>
             <fileset dir="${result.dir}/work/oscm-communicationservices/classes" />
