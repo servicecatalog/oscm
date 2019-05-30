@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="javares"/>
+	<classpathentry exported="true" kind="lib" path="javares"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
