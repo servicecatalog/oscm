@@ -45,14 +45,6 @@
             <fileset dir="${workspace.dir}/oscm-accountmgmt/javasrc" />
           </sourcefiles>
         </group>
-        <!--<group name="oscm-app-vmware">-->
-        <!--  <classfiles>-->
-        <!--    <fileset dir="${result.dir}/work/oscm-app-vmware/classes" />-->
-        <!--  </classfiles>-->
-        <!--  <sourcefiles encoding="utf-8">-->
-        <!--    <fileset dir="${workspace.dir}/oscm-app-vmware/javasrc" />-->
-        <!--  </sourcefiles>-->
-        <!--</group>-->
         <group name="oscm-accountmgmt-intsvc">
           <classfiles>
             <fileset dir="${result.dir}/work/oscm-accountmgmt-intsvc/classes" />

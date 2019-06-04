@@ -20,18 +20,6 @@
     </fail>
     
     <property name="build-dev-db.file" location="${project.oscm-devruntime.dir}/javares/devscripts/build-dev-Database.xml" />
-    <property name="build-db-app.file" location="${project.oscm-devruntime.dir}/javares/build-db-app.xml" />
-
-    <ant antfile="${build-db-app.file}">
-      <target name="createDatabase" />
-      <target name="updateSchema" />
-      <property name="working.dir" value="${project.oscm-devruntime.dir}" />
-      <property name="database.interpreter" value="${dbinterpreter}" />
-      <property name="dbproperties.file" location="${local.properties.dir}/db-app.properties" />
-      <property name="sqlscripts.dir" location="${basedir}/../oscm-app/resources/sql" />
-      <property name="targetScript" location="${project.oscm-devruntime.dir}/javares/build-db.xml" />
-      <reference refid="dependencies.runtime.path" torefid="client.path" />
-    </ant>
 
     <ant antfile="${build-dev-db.file}">
       <target name="unit.DropForced" />
