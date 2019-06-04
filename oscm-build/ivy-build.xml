@@ -276,7 +276,6 @@
     <copy file="${ivy.lib.dir}/mockito-all-1.8.5.jar" todir="${root.dir}/libraries/mockito/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/omnifaces-1.10.jar" todir="${root.dir}/libraries/omnifaces/javalib/" overwrite="true" />
 
-    <copy file="${ivy.lib.dir}/joda-time-2.2.jar" todir="${root.dir}/libraries/joda-time/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/postgresql-9.4-1206-jdbc42.jar" todir="${root.dir}/libraries/postgresql-jdbc/javalib"
       overwrite="true" />
 
@@ -402,22 +401,6 @@
     <copy file="${ivy.lib.dir}/cxf-core-3.1.10.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/cxf-core.jar"
       overwrite="true" />
     <copy file="${ivy.lib.dir}/cxf-rt-rs-client-3.1.10.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/cxf-rt-rs-client-3.1.10.jar"
-      overwrite="true" />
-
-    <copy file="${ivy.lib.dir}/jackson-core-asl-1.9.13.jar" todir="${root.dir}/libraries/jackson-core-asl/javalib/"
-      overwrite="true" />
-    <copy file="${ivy.lib.dir}/jackson-mapper-asl-1.9.13.jar" todir="${root.dir}/libraries/jackson-mapper-asl/javalib/"
-      overwrite="true" />
-
-    <copy file="${ivy.lib.dir}/oauth2-oidc-sdk-4.5.jar" todir="${root.dir}/libraries/oauth2-oidc-sdk/javalib/"
-      overwrite="true" />
-    <copy file="${ivy.lib.dir}/nimbus-jose-jwt-4.33.jar" todir="${root.dir}/libraries/nimbus-jose-jwt/javalib/"
-      overwrite="true" />
-
-    <copy file="${ivy.lib.dir}/json-smart-2.2.1.jar" todir="${root.dir}/libraries/json-smart/javalib/" overwrite="true" />
-    <copy file="${ivy.lib.dir}/asm-1.0.2.jar" todir="${root.dir}/libraries/asm-minidev/javalib/" overwrite="true" />
-
-    <copy file="${ivy.lib.dir}/jersey-bundle-1.18.1.jar" todir="${root.dir}/libraries/jersey-bundle/javalib"
       overwrite="true" />
 
     <copy file="${ivy.lib.dir}/commons-lang-2.6.jar" todir="${root.dir}/libraries/apache-lang/javalib" overwrite="true" />
