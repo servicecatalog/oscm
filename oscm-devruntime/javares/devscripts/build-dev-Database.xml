@@ -177,7 +177,6 @@
     <pathelement location="${build.result.package.dir}/oscm-extsvc-internal/oscm-extsvc-internal.jar" />
     <pathelement location="${build.result.package.dir}/oscm-common/oscm-common.jar" />
     <pathelement location="${build.result.package.dir}/oscm-server-common/oscm-server-common.jar" />
-    <pathelement location="${build.result.package.dir}/oscm-app/oscm-app.jar" />
     <path refid="postgresql-jdbc.path" />
     <path refid="dbunit.path" />
     <path refid="slf4j.path" />

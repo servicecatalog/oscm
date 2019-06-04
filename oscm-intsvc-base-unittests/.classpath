@@ -23,7 +23,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-brandmgmt-unittests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-build-antextensions"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-build-antextensions-unittests"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common-unittests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-communicationservices"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-communicationservices-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-communicationservices-unittests"/>
@@ -47,8 +46,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n-unittests"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-app"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-app-unittests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-identitymgmt-unittests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-integrationhelper"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-integrationhelper-unittests"/>

@@ -20,4 +20,10 @@ temp/
 logs/
 .settings/
 .idea/
-/oscm-app-statemachine/
+
+oscm-billing-external-interfaces/javares/
+oscm-common/javares/
+oscm-extsvc-internal/javares/
+oscm-extsvc-notification/javares/
+oscm-extsvc-provisioning/javares/
+oscm-psp-extsvc/javares/

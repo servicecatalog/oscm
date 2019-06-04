@@ -1,1 +1,0 @@
-The tests for the utility objects in the common project.

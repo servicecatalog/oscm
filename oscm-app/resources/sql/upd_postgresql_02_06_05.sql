@@ -1,1 +1,0 @@
-ALTER TABLE "serviceinstance" add "rollbackinstanceattributes" TEXT;

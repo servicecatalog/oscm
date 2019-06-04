@@ -124,15 +124,6 @@
           </sourcefiles>
         </group>
 
-        <group name="oscm-common">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-common/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-common/javasrc" />
-          </sourcefiles>
-        </group>
-
         <group name="oscm-communicationservices">
           <classfiles>
             <fileset dir="${result.dir}/work/oscm-communicationservices/classes" />
@@ -218,33 +209,6 @@
             <fileset dir="${workspace.dir}/oscm-i18n-intsvc/javasrc" />
           </sourcefiles>
         </group>
-
-        <group name="oscm-app">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-app/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-app/javasrc" />
-          </sourcefiles>
-        </group>
-        <group name="oscm-app-iaas">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-app-iaas/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-app-iaas/javasrc" />
-          </sourcefiles>
-        </group>
-        
-        <group name="oscm-app-startup">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-app-startup/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-app-startup/javasrc" />
-          </sourcefiles>
-        </group>
-
 
         <group name="oscm-identitymgmt">
           <classfiles>
