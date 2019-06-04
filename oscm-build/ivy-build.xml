@@ -228,8 +228,6 @@
       overwrite="true" />
     <copy file="${ivy.lib.dir}/xml-apis-1.4.01.jar" tofile="${root.dir}/libraries/apache-xerces/javalib/xml-apis.jar"
       overwrite="true" />
-    <copy file="${ivy.lib.dir}/aws-java-sdk-core-1.11.37.jar" todir="${root.dir}/libraries/aws/javalib" />
-    <copy file="${ivy.lib.dir}/aws-java-sdk-ec2-1.11.37.jar" todir="${root.dir}/libraries/aws/javalib" />
     <copy file="${ivy.lib.dir}/openstack4j-3.1.0.jar" todir="${root.dir}/libraries/openstack4j/javalib" />
     <copy file="${ivy.lib.dir}/openstack4j-core-3.1.0.jar" todir="${root.dir}/libraries/openstack4j/javalib" />
     <copy file="${ivy.lib.dir}/openstack4j-httpclient-3.1.0.jar" todir="${root.dir}/libraries/openstack4j/javalib" />

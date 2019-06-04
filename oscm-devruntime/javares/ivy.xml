@@ -357,10 +357,6 @@
     <dependency org="org.ow2.asm" name="asm-debug-all" rev="5.1" transitive="false"/>
     <dependency org="asm" name="asm-all" rev="3.3.1"/>
 
-    <!-- AWS SDK 1.11.37-->
-    <dependency org="com.amazonaws" name="aws-java-sdk-ec2" rev="1.11.37" transitive="false"/>
-    <dependency org="com.amazonaws" name="aws-java-sdk-core" rev="1.11.37" transitive="false"/>
-
     <!-- OpenStack4J -->
     <dependency org="org.pacesys" name="openstack4j" rev="3.1.0" transitive="false"/>
     <dependency org="org.pacesys" name="openstack4j-core" rev="3.1.0" transitive="false"/>
