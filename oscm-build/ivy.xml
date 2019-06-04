@@ -395,18 +395,9 @@
     <dependency org="org.apache.cxf" name="cxf-rt-frontend-jaxrs" rev="3.1.0" transitive="false"/>
     <dependency org="org.apache.cxf" name="cxf-core" rev="3.1.10" transitive="false"/>
     <dependency org="org.apache.cxf" name="cxf-rt-rs-client" rev="3.1.10" transitive="false"/>
-
-    <!-- Azure libraries -->
+  
     <dependency org="org.codehaus.jackson" name="jackson-core-asl" rev="1.9.13"/>
     <dependency org="org.codehaus.jackson" name="jackson-mapper-asl" rev="1.9.13"/>
-
-    <dependency org="com.microsoft.azure" name="azure-core" rev="0.9.7"/>
-    <dependency org="com.microsoft.azure" name="azure-mgmt-resources" rev="0.9.7"/>
-    <dependency org="com.microsoft.azure" name="azure-mgmt-network" rev="0.9.7"/>
-    <dependency org="com.microsoft.azure" name="azure-mgmt-storage" rev="0.9.7"/>
-    <dependency org="com.microsoft.azure" name="azure-mgmt-compute" rev="0.9.7"/>
-    <dependency org="com.microsoft.azure" name="azure-storage" rev="4.4.0"/>
-    <dependency org="com.microsoft.azure" name="adal4j" rev="1.1.3" transitive="false"/>
 
     <dependency org="com.nimbusds" name="oauth2-oidc-sdk" rev="4.5" transitive="false"/>
     <dependency org="com.nimbusds" name="nimbus-jose-jwt" rev="4.33" transitive="false"/>

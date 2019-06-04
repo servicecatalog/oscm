@@ -12,8 +12,6 @@
   </target>
 
   <target name="copyLibraries" depends="resolve">
-  	
-
 
     <antcall target="getAndUnzip">
       <param name="from"
@@ -406,24 +404,10 @@
     <copy file="${ivy.lib.dir}/cxf-rt-rs-client-3.1.10.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/cxf-rt-rs-client-3.1.10.jar"
       overwrite="true" />
 
-    <!-- Azure libraries -->
     <copy file="${ivy.lib.dir}/jackson-core-asl-1.9.13.jar" todir="${root.dir}/libraries/jackson-core-asl/javalib/"
       overwrite="true" />
     <copy file="${ivy.lib.dir}/jackson-mapper-asl-1.9.13.jar" todir="${root.dir}/libraries/jackson-mapper-asl/javalib/"
       overwrite="true" />
-
-    <copy file="${ivy.lib.dir}/azure-core-0.9.7.jar" todir="${root.dir}/libraries/azure-core/javalib/" overwrite="true" />
-    <copy file="${ivy.lib.dir}/azure-mgmt-resources-0.9.7.jar" todir="${root.dir}/libraries/azure-mgmt-resources/javalib/"
-      overwrite="true" />
-    <copy file="${ivy.lib.dir}/azure-mgmt-network-0.9.7.jar" todir="${root.dir}/libraries/azure-mgmt-network/javalib/"
-      overwrite="true" />
-    <copy file="${ivy.lib.dir}/azure-mgmt-compute-0.9.7.jar" todir="${root.dir}/libraries/azure-mgmt-compute/javalib/"
-      overwrite="true" />
-    <copy file="${ivy.lib.dir}/azure-mgmt-storage-0.9.7.jar" todir="${root.dir}/libraries/azure-mgmt-storage/javalib/"
-      overwrite="true" />
-    <copy file="${ivy.lib.dir}/azure-storage-4.4.0.jar" todir="${root.dir}/libraries/azure-storage/javalib/"
-      overwrite="true" />
-    <copy file="${ivy.lib.dir}/adal4j-1.1.3.jar" todir="${root.dir}/libraries/adal4j/javalib/" overwrite="true" />
 
     <copy file="${ivy.lib.dir}/oauth2-oidc-sdk-4.5.jar" todir="${root.dir}/libraries/oauth2-oidc-sdk/javalib/"
       overwrite="true" />
