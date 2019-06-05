@@ -13,6 +13,7 @@ package org.oscm.ui.beans;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -90,6 +91,20 @@ public class TechServiceBean extends BaseBean implements Serializable {
     BillingAdapterService billingAdapterService;
     
     byte[] buf;
+    
+    /**
+     * Sort technical services Ids in locale-sensitive alphabetical order.
+     */
+    public class TechServicesIdsComparator
+            implements Comparator<VOTechnicalService> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(VOTechnicalService svc1, VOTechnicalService svc2) {
+            return collator.compare(svc1.getTechnicalServiceId(),
+                    svc2.getTechnicalServiceId());
+        }
+    }
 
     public List<VOTechnicalService> getTechnicalServices() {
         if (technicalServices == null) {
@@ -97,6 +112,7 @@ public class TechServiceBean extends BaseBean implements Serializable {
                 technicalServices = getProvisioningService()
                         .getTechnicalServices(
                                 OrganizationRoleType.TECHNOLOGY_PROVIDER);
+                Collections.sort(technicalServices, new TechServicesIdsComparator());
             } catch (OrganizationAuthoritiesException e) {
                 ExceptionHandler.execute(e);
             }
