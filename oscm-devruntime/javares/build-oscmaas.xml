@@ -40,13 +40,6 @@
     <ant dir="${custom.build.dir}" antfile="${custom.build.hook}" target="customBuildHook"/>
   </target> 
   
-  <target name="BUILD.APP" description="Builds the APP server ear file, also AWS and Openstack controllers and other minor packages">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package_without_doc">
-      <property name="projects"
-                value="oscm-devruntime" />
-    </ant>
-  </target>
-  
   <target name="backupEar">
     <delete dir="${build.result.package.dir}/oscm-ear/tmp" failonerror="false" />
     <mkdir dir="${build.result.package.dir}/oscm-ear/tmp" />

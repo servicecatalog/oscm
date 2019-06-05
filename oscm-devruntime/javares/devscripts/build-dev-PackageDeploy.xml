@@ -44,13 +44,6 @@
     </ant>
   </target>
 
-  <target name="IntegrationHelper.BUILD"
-    description="Builds the IntegrationHelper, the build result can be found in oscm-build/result/package/oscm-integrationhelper">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-integrationhelper,oscm-webservices-proxy" />
-    </ant>
-  </target>
-
   <target name="BesEar.BUILD" description="Builds the BES server ear file, the result can be found in oscm-build/result/package/oscm-ear">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
       <property name="projects" value="oscm-ear,oscm-security" />

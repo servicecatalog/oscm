@@ -58,14 +58,14 @@ or higher.
 
 2. Add the following scripts to Ant view in your IDE: `/oscm-devruntime/build-oscmaas.xml`
 
-3. Run targets `Build.LIB`, `Build.BES` and `BUILD.APP`
+3. Run targets `Build.LIB`, `Build.BES`
 
 After the build has finished successfully you'll find the deployable artifacts in`/oscm-build/result/package`. 
 You may want to deploy and test your modifications in a running OSCM environment. Simply copy or replace your build artifact into the respective container.
 
 For example:
 ```
-docker cp /workspace/oscm-build/result/package/oscm-app-openstack/oscm-app-openstack.ear oscm-app:/opt/apache-tomee/controllers/
+docker cp /workspace/oscm-build/result/package/oscm-portal/oscm-portal.war oscm-core:/opt/apache-tomee/webapps/
 ```
 
 #### Deploying the application

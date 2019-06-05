@@ -48,13 +48,6 @@
     </ant>
   </target>
 
-  <target name="IntegrationHelper.BUILD"
-    description="Builds the IntegrationHelper project, the result can found in oscm-build/result/package/oscm-integrationhelper">
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
-      <property name="projects" value="oscm-integrationhelper" />
-    </ant>
-  </target>
-
   <target name="FileBilling.BUILD"
      description="Builds the File Billing project, to be used for integration tests. The build result can be found in oscm-build/result/package/oscm-file-billing-application">
      <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">

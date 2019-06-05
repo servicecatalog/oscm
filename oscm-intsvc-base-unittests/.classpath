@@ -47,8 +47,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n-unittests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-identitymgmt-unittests"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-integrationhelper"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-integrationhelper-unittests"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-marketplaceservice"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-marketplaceservice-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-marketplaceservice-unittests"/>
