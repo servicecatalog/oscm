@@ -9,6 +9,7 @@ package org.oscm.ui.beans;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.Collator;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -90,6 +91,30 @@ public class OrganizationBean extends BaseBean implements Serializable {
     private boolean showConfirm;
 
     private ArrayList<String> instanceIdsForSuppliers;
+    
+    /**
+     * Sort NameWithOrganizationId in locale-sensitive alphabetical order.
+     */
+    public class NameWithOrgIdComparator implements Comparator<Organization> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(Organization o1, Organization o2) {
+            return collator.compare(o1.getNameWithOrganizationId(), o2.getNameWithOrganizationId());
+        }
+    }
+    
+    /**
+     * Sort OrganizationId in locale-sensitive alphabetical order.
+     */
+    public class OrgIdComparator implements Comparator<Organization> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(Organization o1, Organization o2) {
+            return collator.compare(o1.getOrganizationId(), o2.getOrganizationId());
+        }
+    }
 
     public OrganizationBean() {
         super();
@@ -155,6 +180,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
             try {
                 customers = mapper.map(getAccountingService()
                         .getMyCustomersOptimization());
+                Collections.sort(customers, new NameWithOrgIdComparator());
             } catch (OrganizationAuthoritiesException e) {
                 ExceptionHandler.execute(e);
             }
@@ -328,6 +354,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
         if (logger.isDebugLoggingEnabled()) {
 
         }
+        Collections.sort(suppliersForTechnicalService, new OrgIdComparator());
         return suppliersForTechnicalService;
     }
 
