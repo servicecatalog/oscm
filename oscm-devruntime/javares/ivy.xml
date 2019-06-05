@@ -346,7 +346,6 @@
     <dependency org="javax.xml.stream" name="stax-api" rev="1.0-2"/>
     <dependency org="javax.activation" name="activation" rev="1.1"/>
     <dependency org="com.sun.xml.bind" name="jaxb-core" rev="2.2.10-b140802.1033"/>
-    <!-- https://mvnrepository.com/artifact/com.sun.xml.stream.buffer/streambuffer -->
     <dependency org="com.sun.xml.stream.buffer" name="streambuffer" rev="1.5.4"/>
 
 
@@ -380,15 +379,6 @@
     <dependency org="org.apache.wss4j" name="wss4j-ws-security-stax" rev="2.1.7" transitive="false"/>
     <dependency org="org.apache.tomee" name="openejb-loader" rev="7.0.3" transitive="false"/>
 
-    <!-- Tomee libs for APP -->
-    <dependency org="javax.xml.ws" name="jaxws-api" rev="2.2.1" transitive="false"/>
-    <dependency org="javax.xml.bind" name="jsr173_api" rev="1.0" transitive="false"/>
-    <dependency org="javax.jws" name="jsr181-api" rev="1.0-MR1" transitive="false"/>
-    <dependency org="javax.annotation" name="jsr250-api" rev="1.0" transitive="false"/>
-    <dependency org="com.sun.xml.stream" name="sjsxp" rev="1.0.2" transitive="false"/>
-    <dependency org="net.java.dev.stax-utils" name="stax-utils" rev="20070216" transitive="false"/>
-    <dependency org="com.sun.xml.stream.buffer" name="streambuffer" rev="1.5.4" transitive="false"/>
-    <dependency org="org.codehaus.woodstox" name="woodstox-core-asl" rev="4.2.0" transitive="false"/>
     <dependency org="org.glassfish" name="javax.faces" rev="2.2.12" transitive="false"/>
     <dependency org="org.apache.kafka" name="kafka-clients" rev="0.10.2.1" transitive="false"/>
     <dependency org="org.apache.cxf" name="cxf-rt-frontend-jaxrs" rev="3.1.0" transitive="false"/>
