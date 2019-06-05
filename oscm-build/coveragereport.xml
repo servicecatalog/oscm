@@ -219,15 +219,6 @@
           </sourcefiles>
         </group>
 
-        <group name="oscm-integrationhelper">
-          <classfiles>
-            <fileset dir="${result.dir}/work/oscm-integrationhelper/classes" />
-          </classfiles>
-          <sourcefiles encoding="utf-8">
-            <fileset dir="${workspace.dir}/oscm-integrationhelper/javasrc" />
-          </sourcefiles>
-        </group>
-
         <group name="oscm-intsvc-base">
           <classfiles>
             <fileset dir="${result.dir}/work/oscm-intsvc-base/classes" />
