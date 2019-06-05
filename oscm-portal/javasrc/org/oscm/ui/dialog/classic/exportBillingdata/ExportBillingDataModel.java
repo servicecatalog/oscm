@@ -4,7 +4,10 @@
 
 package org.oscm.ui.dialog.classic.exportBillingdata;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -28,6 +31,18 @@ public class ExportBillingDataModel {
     List<SelectItem> billingDataTypeOptions;
     List<SelectItem> sharesResultTypeOptions;
     String anyCustomerSelected = "0";
+    
+    /**
+     * Sort customers alphabetically in customers table based on their Organization Id.
+     */
+    public class CustomerOrgIdComparator implements Comparator<Customer> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(Customer c1, Customer c2) {
+            return collator.compare(c1.getOrganizationId(), c2.getOrganizationId());
+        }
+    }
 
     public String getAnyCustomerSelected() {
         return anyCustomerSelected;
@@ -117,6 +132,7 @@ public class ExportBillingDataModel {
     }
 
     public List<Customer> getCustomers() {
+        Collections.sort(customers, new CustomerOrgIdComparator());
         return customers;
     }
 
