@@ -95,7 +95,7 @@ public class TechServiceBean extends BaseBean implements Serializable {
     /**
      * Sort technical services Ids in locale-sensitive alphabetical order.
      */
-    public class TechServicesIdsComparator
+    private static class TechServicesIdsComparator
             implements Comparator<VOTechnicalService> {
         Collator collator = Collator.getInstance();
 
