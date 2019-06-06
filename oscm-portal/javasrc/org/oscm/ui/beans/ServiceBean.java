@@ -121,6 +121,18 @@ public class ServiceBean extends BaseBean implements Serializable {
     
     private boolean localizeVisible = false;
     
+    /**
+     * Sort service Ids in locale-sensitive alphabetical order.
+     */
+    private static class ServiceIdsComparator implements Comparator<VOService> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(VOService svc1, VOService svc2) {
+            return collator.compare(svc1.getServiceId(), svc2.getServiceId());
+        }
+    }
+    
     ApplicationBean getApplicationBean() {
         if (appBean == null) {
             appBean = ui.findBean(APPLICATION_BEAN);
@@ -388,7 +400,9 @@ public class ServiceBean extends BaseBean implements Serializable {
     }
 
     public List<VOService> getServiceNames() {
-        return getServices(PerformanceHint.ONLY_IDENTIFYING_FIELDS);
+        List<VOService> services = getServices(PerformanceHint.ONLY_IDENTIFYING_FIELDS);
+        Collections.sort(services,new ServiceIdsComparator());
+        return services;
     }
 
     private List<VOService> getServices(PerformanceHint performanceHint) {
