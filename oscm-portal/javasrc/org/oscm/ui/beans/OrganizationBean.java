@@ -354,7 +354,11 @@ public class OrganizationBean extends BaseBean implements Serializable {
         if (logger.isDebugLoggingEnabled()) {
 
         }
-        Collections.sort(suppliersForTechnicalService, new OrgIdComparator());
+        if (suppliersForTechnicalService != null
+                && suppliersForTechnicalService.size() > 1) {
+            Collections.sort(suppliersForTechnicalService,
+                    new OrgIdComparator());
+        }
         return suppliersForTechnicalService;
     }
 
