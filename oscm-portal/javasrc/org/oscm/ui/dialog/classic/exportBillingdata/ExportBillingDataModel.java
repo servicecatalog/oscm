@@ -35,7 +35,7 @@ public class ExportBillingDataModel {
     /**
      * Sort customers alphabetically in customers table based on their Organization Id.
      */
-    public class CustomerOrgIdComparator implements Comparator<Customer> {
+    private static class CustomerOrgIdComparator implements Comparator<Customer> {
         Collator collator = Collator.getInstance();
 
         @Override
