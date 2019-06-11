@@ -8,7 +8,10 @@
 
 package org.oscm.ui.dialog.classic.deletecustomerpricemodel;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -38,6 +41,18 @@ public class DeleteCustomerPriceModelCtrl {
     transient DeleteCustomerPriceModelModel model;
     transient PriceModelService priceModelService;
     transient SessionBean sessionBean;
+    
+    /**
+     * Sort customer labels alphabetically in locale-sensitive order.
+     */
+    private class CustomerLabelsComparator implements Comparator<POCustomer> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(POCustomer c1, POCustomer c2) {
+            return collator.compare(getLabel(c1), getLabel(c2));
+        }
+    }
 
     public String getInitialize() {
 
@@ -46,6 +61,7 @@ public class DeleteCustomerPriceModelCtrl {
             List<POCustomer> customers = new ArrayList<POCustomer>();
             try {
                 customers = getPriceModelService().getCustomers();
+                Collections.sort(customers,new CustomerLabelsComparator());
                 List<SelectItem> items = createCustomerSelectItems(customers);
                 m.setCustomers(items);
                 m.setInitialized(true);
@@ -211,6 +227,7 @@ public class DeleteCustomerPriceModelCtrl {
 
         List<SelectItem> items = new ArrayList<SelectItem>();
         SelectItemBuilder sib = new SelectItemBuilder(ui);
+        Collections.sort(customers, new CustomerLabelsComparator());
         items.add(sib.pleaseSelect(""));
         for (POCustomer c : customers) {
             items.add(new SelectItem(c.getId(), getLabel(c)));
