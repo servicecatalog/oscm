@@ -12,8 +12,10 @@ package org.oscm.ui.beans;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -82,6 +84,19 @@ public class VatBean extends BaseBean implements Serializable {
     @ManagedProperty(value = "#{countryBean}")
     private CountryBean countryBean;
 
+    /**
+     * Sort name with organization id in locale-sensitive alphabetical order.
+     */
+    private class CustomersComparator
+            implements Comparator<VOOrganization> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(VOOrganization customer1, VOOrganization customer2) {
+            return collator.compare(Organization.getNameWithOrganizationId(customer1),Organization.getNameWithOrganizationId(customer2));
+        }
+    }
+    
     /**
      * @return the VAT service
      */
@@ -197,6 +212,7 @@ public class VatBean extends BaseBean implements Serializable {
         if (customers == null) {
             initCustomerMembers();
         }
+        Collections.sort(customers, new CustomersComparator());
         return customers;
     }
 
