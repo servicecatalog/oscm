@@ -78,8 +78,7 @@
 	</target>
 
 	<target name="_initTestDB">
-		<echo message="***** init unittest DB and appunittest DB *****" />
-		<ant antfile="build-dev-Database.xml" dir="../oscm-devruntime/javares/devscripts/" target="appunit.Init" />
+		<echo message="***** NOPE *****" />
 	</target>
 
 	<target name="_webTests">
