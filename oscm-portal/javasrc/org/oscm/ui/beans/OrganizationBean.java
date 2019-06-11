@@ -95,7 +95,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
     /**
      * Sort NameWithOrganizationId in locale-sensitive alphabetical order.
      */
-    private static class NameWithOrgIdComparator implements Comparator<Organization> {
+    private class NameWithOrgIdComparator implements Comparator<Organization> {
         Collator collator = Collator.getInstance();
 
         @Override
@@ -107,7 +107,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
     /**
      * Sort OrganizationId in locale-sensitive alphabetical order.
      */
-    private static class OrgIdComparator implements Comparator<Organization> {
+    private class OrgIdComparator implements Comparator<Organization> {
         Collator collator = Collator.getInstance();
 
         @Override

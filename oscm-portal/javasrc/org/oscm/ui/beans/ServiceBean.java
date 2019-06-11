@@ -124,7 +124,7 @@ public class ServiceBean extends BaseBean implements Serializable {
     /**
      * Sort service Ids in locale-sensitive alphabetical order.
      */
-    private static class ServiceIdsComparator implements Comparator<VOService> {
+    private class ServiceIdsComparator implements Comparator<VOService> {
         Collator collator = Collator.getInstance();
 
         @Override

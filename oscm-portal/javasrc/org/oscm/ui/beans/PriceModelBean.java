@@ -11,8 +11,10 @@ package org.oscm.ui.beans;
 import java.io.IOException;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
@@ -186,6 +188,36 @@ public class PriceModelBean extends BaseBean implements Serializable {
     private String storedServiceId = null;
 
     private boolean isExternalPriceModelUploaded;
+   
+    /**
+     * Sort NameWithOrganizationId in locale-sensitive alphabetical order.
+     */
+    private class NameWithOrgIdComparator
+            implements Comparator<Organization> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(Organization o1, Organization o2) {
+            return collator.compare(o1.getNameWithOrganizationId(),
+                    o2.getNameWithOrganizationId());
+            }
+    }
+    /**
+     * Sort service Ids in locale-sensitive alphabetical order.
+     */
+    private class ServiceIdsComparator implements Comparator<Service> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(Service svc1, Service svc2) {
+            if (svc1 != null && svc2 != null && svc1.getServiceId() != null
+                    && svc2.getServiceId() != null) {
+                return collator.compare(svc1.getServiceId(),
+                        svc2.getServiceId());
+            }
+            return 0;
+        }
+    }
 
     @PostConstruct
     protected void init() {
@@ -301,6 +333,11 @@ public class PriceModelBean extends BaseBean implements Serializable {
             setServices(mapper
                     .map(getProvisioningServiceInternal().getSuppliedServices(
                             PerformanceHint.ONLY_FIELDS_FOR_LISTINGS)));
+            
+            if (this.services != null && this.services.size() > 1) {
+                Collections.sort(this.services, new ServiceIdsComparator());
+            }
+     
             break;
         }
     }
@@ -393,6 +430,7 @@ public class PriceModelBean extends BaseBean implements Serializable {
                 setCustomerID(customers.get(0).getOrganizationId());
             }
         }
+        Collections.sort(customers, new NameWithOrgIdComparator());
         return customers;
     }
 
