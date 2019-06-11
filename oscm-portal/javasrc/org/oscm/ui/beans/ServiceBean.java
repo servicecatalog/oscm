@@ -1094,6 +1094,9 @@ public class ServiceBean extends BaseBean implements Serializable {
             if (rc == 0)
                 rc = collator.compare(svc1.getTechnicalId(),
                         svc2.getTechnicalId());
+            if (rc == 0)
+                rc = collator.compare(svc1.getServiceIdToDisplay(),
+                        svc2.getServiceIdToDisplay());    
             return rc;
         }
     }
