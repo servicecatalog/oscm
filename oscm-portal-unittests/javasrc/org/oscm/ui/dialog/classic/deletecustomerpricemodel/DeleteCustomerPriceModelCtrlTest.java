@@ -20,7 +20,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doReturn;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -54,6 +56,7 @@ public class DeleteCustomerPriceModelCtrlTest {
     private PriceModelService pms;
     private DeleteCustomerPriceModelModel model;
     private SessionBean sessionBean;
+    private Collator collator;
 
     @Captor
     ArgumentCaptor<List<POCustomerService>> ac;
@@ -66,6 +69,7 @@ public class DeleteCustomerPriceModelCtrlTest {
         pms = mock(PriceModelService.class);
         model = new DeleteCustomerPriceModelModel();
         sessionBean = mock(SessionBean.class);
+        collator = mock(Collator.class);
 
         when(ctrl.ui.findService(eq(PriceModelService.class))).thenReturn(pms);
         when(
@@ -284,6 +288,8 @@ public class DeleteCustomerPriceModelCtrlTest {
                 .thenReturn(
                         Arrays.asList(new POCustomerService(),
                                 new POCustomerService()));
+
+        doReturn(0).when(collator).compare(anyString(), anyString());
 
         ctrl.selectedOrgIdChanged();
 

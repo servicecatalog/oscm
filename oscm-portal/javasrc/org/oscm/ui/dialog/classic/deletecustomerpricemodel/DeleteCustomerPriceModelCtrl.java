@@ -53,6 +53,24 @@ public class DeleteCustomerPriceModelCtrl {
             return collator.compare(getLabel(c1), getLabel(c2));
         }
     }
+    
+    /**
+     * Customer Services should be sorted by default alphabetically.
+     */
+    private class DefaultSortingOfCustomerServices implements Comparator<CustomerService> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(CustomerService cs1, CustomerService cs2) {
+            if (cs1 != null && cs2 != null  && cs1.getId() != null
+                    && cs2.getId() != null)
+                return collator.compare(cs1.getId(), cs2.getId());
+            return 0;
+
+        }
+    }
+    
+    
 
     public String getInitialize() {
 
@@ -129,6 +147,7 @@ public class DeleteCustomerPriceModelCtrl {
                 for (POCustomerService pocs : services) {
                     list.add(toCustomerService(pocs));
                 }
+                Collections.sort(list, new DefaultSortingOfCustomerServices());
                 m.setServices(list);
                 sb.setSelectedCustomerId(selectedOrgId);
             }
