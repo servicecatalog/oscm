@@ -62,7 +62,11 @@ public class DeleteCustomerPriceModelCtrl {
 
         @Override
         public int compare(CustomerService cs1, CustomerService cs2) {
-            return collator.compare(cs1.getId(), cs2.getId());
+            if (cs1 != null && cs2 != null  && cs1.getId() != null
+                    && cs2.getId() != null)
+                return collator.compare(cs1.getId(), cs2.getId());
+            return 0;
+
         }
     }
     
