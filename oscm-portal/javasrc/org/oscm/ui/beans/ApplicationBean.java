@@ -21,6 +21,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.TimeZone;
+import java.util.regex.Pattern;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -514,10 +515,7 @@ public class ApplicationBean implements Serializable {
     }
 
     private String prepareHelpUrl(String s) {
-        int lastIndex = s.lastIndexOf(".");
-        if (lastIndex != -1){
-            s = s.substring(0, lastIndex) + "_" + s.substring(lastIndex + 1);
-        }
+        s = s.replaceAll(Pattern.quote("."), "_");
         s += ".htm";
         return s;
     }
