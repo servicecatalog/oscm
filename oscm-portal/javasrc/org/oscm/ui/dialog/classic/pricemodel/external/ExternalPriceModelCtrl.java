@@ -149,6 +149,9 @@ public abstract class ExternalPriceModelCtrl extends BaseBean {
     }
 
     public void reloadPriceModel(ServiceType serviceType, VOService service) {
+        if (service == null) {
+            return;
+        }
         if (service.getServiceType() == serviceType) {
             showPersistedPriceModel(service);
             return;
