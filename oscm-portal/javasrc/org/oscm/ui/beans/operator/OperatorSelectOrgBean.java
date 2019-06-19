@@ -10,7 +10,10 @@
 package org.oscm.ui.beans.operator;
 
 import java.io.Serializable;
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
@@ -31,6 +34,7 @@ import org.oscm.ui.beans.SelectOrganizationIncludeBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.model.Organization;
+import org.oscm.internal.pricemodel.POCustomer;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.VOOperatorOrganization;
@@ -62,6 +66,18 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
     static final String APPLICATION_BEAN = "appBean";
 
     transient ApplicationBean appBean;
+    
+    /**
+     * Sort organization labels alphabetically in locale-sensitive order.
+     */
+    private class OrgComparator implements Comparator<Organization> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(Organization o1, Organization o2) {
+            return collator.compare(o1.getNameWithOrganizationId(), o2.getNameWithOrganizationId());
+        }
+    }
 
     public VOOperatorOrganization getOrganization() {
         return organization;
@@ -137,8 +153,10 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
                 }
             }
             String pattern = organizationId + "%";
-			return mapper.map(getOperatorService().getOrganizations(pattern,
-					roleTypes));
+            List<Organization> organizations = mapper.map(
+                    getOperatorService().getOrganizations(pattern, roleTypes));
+            Collections.sort(organizations, new OrgComparator());
+            return organizations;
         } catch (SaaSApplicationException e) {
             ExceptionHandler.execute(e);
         }
