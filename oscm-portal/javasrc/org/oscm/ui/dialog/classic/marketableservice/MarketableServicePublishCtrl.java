@@ -5,8 +5,10 @@
 package org.oscm.ui.dialog.classic.marketableservice;
 
 import java.io.Serializable;
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -79,6 +81,29 @@ public class MarketableServicePublishCtrl extends BaseBean
     MarketplaceService mplService;
     @EJB
     ServiceProvisioningService serviceProvisioning;
+
+    /**
+     * Sort template ids in locale-sensitive alphabetical order.
+     */
+    private class TemplateIdsComparator
+            implements Comparator<POServiceDetails> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(POServiceDetails po1, POServiceDetails po2) {
+            if (model.isInitialized()) {
+                String id1 = model.isSupplier() ? po1.getServiceId()
+                        : po1.getServiceId() + "  (" + po1.getOrganizationId()
+                                + ")";
+
+                String id2 = model.isSupplier() ? po2.getServiceId()
+                        : po2.getServiceId() + "  (" + po2.getOrganizationId()
+                                + ")";
+                return collator.compare(id1, id2);
+            }
+            return 0;
+        }
+    }
 
     /**
      * initializer method called by <adm:initialize />
@@ -168,6 +193,7 @@ public class MarketableServicePublishCtrl extends BaseBean
         Response response = getPublishService().getTemplateServices();
         List<POServiceDetails> templates = response
                 .getResultList(POServiceDetails.class);
+        Collections.sort(templates, new TemplateIdsComparator());
         List<SelectItem> templateItems = new ArrayList<SelectItem>();
         templateItems
                 .add(new SelectItemBuilder(ui).pleaseSelect(Long.valueOf(0L)));

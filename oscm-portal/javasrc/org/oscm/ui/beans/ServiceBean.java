@@ -122,6 +122,21 @@ public class ServiceBean extends BaseBean implements Serializable {
     private boolean localizeVisible = false;
     
     /**
+     * Sort available technical services Ids in locale-sensitive alphabetical
+     * order.
+     */
+    private class AvailableTechServicesIdsComparator
+            implements Comparator<VOTechnicalService> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(VOTechnicalService svc1, VOTechnicalService svc2) {
+            return collator.compare(svc1.getTechnicalServiceId(),
+                    svc2.getTechnicalServiceId());
+        }
+    }
+    
+    /**
      * Sort service Ids in locale-sensitive alphabetical order.
      */
     private class ServiceIdsComparator implements Comparator<VOService> {
@@ -321,6 +336,8 @@ public class ServiceBean extends BaseBean implements Serializable {
             try {
                 availableTechServices = getProvisioningService()
                         .getTechnicalServices(OrganizationRoleType.SUPPLIER);
+                Collections.sort(availableTechServices,
+                        new AvailableTechServicesIdsComparator());
             } catch (OrganizationAuthoritiesException e) {
                 ExceptionHandler.execute(e);
             }
