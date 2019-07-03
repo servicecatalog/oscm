@@ -91,17 +91,14 @@ public class MarketableServicePublishCtrl extends BaseBean
 
         @Override
         public int compare(POServiceDetails po1, POServiceDetails po2) {
-            if (model.isInitialized()) {
-                String id1 = model.isSupplier() ? po1.getServiceId()
-                        : po1.getServiceId() + "  (" + po1.getOrganizationId()
-                                + ")";
+            String id1 = model.isSupplier() ? po1.getServiceId()
+                    : po1.getServiceId() + "  (" + po1.getOrganizationId()
+                            + ")";
 
-                String id2 = model.isSupplier() ? po2.getServiceId()
-                        : po2.getServiceId() + "  (" + po2.getOrganizationId()
-                                + ")";
-                return collator.compare(id1, id2);
-            }
-            return 0;
+            String id2 = model.isSupplier() ? po2.getServiceId()
+                    : po2.getServiceId() + "  (" + po2.getOrganizationId()
+                            + ")";
+            return collator.compare(id1, id2);
         }
     }
 
