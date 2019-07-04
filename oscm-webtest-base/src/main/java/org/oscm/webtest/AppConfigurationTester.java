@@ -8,9 +8,10 @@
 package org.oscm.webtest;
 
 import java.util.List;
+
 import javax.security.auth.login.LoginException;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 
 /**
