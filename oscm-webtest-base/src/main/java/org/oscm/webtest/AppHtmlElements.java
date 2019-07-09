@@ -16,7 +16,7 @@ public class AppHtmlElements {
     public static final String APP_CONFIG_FORM1_INPUT_END_NEWCONTROLLERID = ":newControllerId";
     public static final String APP_CONFIG_FORM1_INPUT_END_NEWORGID = ":newOrgnizationId";
     public static final String APP_CONFIG_FORM1_INPUT_END_EXISTORGID = ":configurationValue";
-    public static final String APP_CONFIG_FORM_BUTTON_CLASS = "button_normal_class";
+    public static final String APP_CONFIG_FORM_BUTTON_CLASS = "oscm_app_button";
 
     public static final String APP_CONFIG_FORM2 = "appSettings";
 
