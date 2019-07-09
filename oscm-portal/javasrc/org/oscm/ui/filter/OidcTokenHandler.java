@@ -1,3 +1,11 @@
+/*******************************************************************************
+ *                                                                              
+ *  Copyright FUJITSU LIMITED 2019
+ *                                                                              
+ *  Creation Date: Jul 9, 2019                                                      
+ *                                                                              
+ *******************************************************************************/
+
 package org.oscm.ui.filter;
 
 import javax.servlet.http.HttpServletRequest;
