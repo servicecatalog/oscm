@@ -45,6 +45,8 @@ public class Constants {
     public static final String SESS_ATTR_RELAY_STATE = "SAML2_RELAY_STATE";
 
     public static final String SESS_ATTR_PAGE_AUTHORIZATION = "PAGE_AUTHORIZATION";
+    
+    public static final String SESS_ATTR_ID_TOKEN = "ID_TOKEN";
 
     public static final String REQ_METHOD_POST = "POST";
 

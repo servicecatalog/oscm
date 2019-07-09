@@ -386,7 +386,10 @@
     <dependency org="org.apache.cxf" name="cxf-rt-rs-client" rev="3.1.10" transitive="false"/>
 
     <dependency org="commons-lang" name="commons-lang" rev="2.6" transitive="false"/>
-
+    
+    <!-- OIDC related libs -->
+	<dependency org="com.auth0" name="java-jwt" rev="3.8.1" transitive="false"/>
+	
     <exclude org="org.netbeans.api"/>
     <exclude org="*" ext="*" type="source"/>
     <exclude org="*" ext="*" type="javadoc"/>

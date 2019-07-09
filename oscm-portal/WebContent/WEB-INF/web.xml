@@ -157,6 +157,15 @@
     </init-param>
   </filter>
   <filter>
+    <display-name>Oidc Filter</display-name>
+    <filter-name>OidcFilter</filter-name>
+    <filter-class>org.oscm.ui.filter.OidcFilter</filter-class>
+    <init-param>
+      <param-name>exclude-url-pattern</param-name>
+      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
+    </init-param>
+  </filter>
+  <filter>
     <display-name>IdP Response Filter</display-name>
     <filter-name>IdPResponseFilter</filter-name>
     <filter-class>org.oscm.ui.filter.IdPResponseFilter</filter-class>
@@ -257,6 +266,10 @@
     <filter-name>css</filter-name>
     <url-pattern>/public/*</url-pattern>
   </filter-mapping>  
+  <filter-mapping>
+    <filter-name>OidcFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
   <filter-mapping>
     <filter-name>IdPResponseFilter</filter-name>
     <url-pattern>/*</url-pattern>

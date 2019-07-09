@@ -121,7 +121,7 @@ public class AuthenticationSettings {
                 throw new NotExistentTenantException(TENANT_NOT_FOUND);
             }
         }
-        validateTenant(tenant);
+        //validateTenant(tenant);
         return tenant;
     }
 

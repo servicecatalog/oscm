@@ -135,12 +135,12 @@ public class ADMRealmImpl {
             AuthenticationModeQuery authModeQuery = getAuthenticationModeQuery();
             authModeQuery.execute();
 
-            if (AuthenticationMode.SAML_SP.name()
+            if (AuthenticationMode.INTERNAL.name()
                     .equals(authModeQuery.getAuthenticationMode())) {
-                handleSSOLogin(userKey, password, authModeQuery, userQuery);
-            } else {
-                handleInternalLogin(userKey, password, userQuery);
-            }
+            	handleInternalLogin(userKey, password, userQuery);
+            } 
+            
+           
             List<String> roles = loadRoleNames(userKey);
 
             return roles;
@@ -150,26 +150,6 @@ public class ADMRealmImpl {
             e.printStackTrace();
             throw new LoginException(ERR_DB_LOOKUP);
         }
-    }
-
-    void handleSSOLogin(final String userKey, String password,
-            AuthenticationModeQuery authModeQuery, UserQuery userQuery)
-            throws LoginException, SQLException, NamingException {
-
-        String callerType = getCallerType(password);
-        if ("UI".equals(callerType)) {
-            handleUICaller(userKey, password, authModeQuery);
-        } else if ("WS".equals(callerType)) {
-            handleWebServiceCaller(userKey, password);
-        } else if ("RS".equals(callerType)) {
-            handleInternalLogin(userKey,
-                    password.substring(SSO_CALLER_SPEC_LEN), userQuery);
-        } else {
-            handleOperatorClientCaller(userKey, password, userQuery);
-        }
-
-        logger.info(String.format(
-                "Single Sign On: User '%s' successfully logged in.", userKey));
     }
 
     void handleInternalLogin(String userKey, String password,
@@ -212,7 +192,7 @@ public class ADMRealmImpl {
     void handleUICaller(final String userKey, String password,
             AuthenticationModeQuery authModeQuery) throws LoginException {
 
-        String requestId = password.substring(SSO_CALLER_SPEC_LEN,
+        /*String requestId = password.substring(SSO_CALLER_SPEC_LEN,
                 SAML_REQUEST_ID_LEN + SSO_CALLER_SPEC_LEN);
         int passwordLen = SSO_CALLER_SPEC_LEN + SAML_REQUEST_ID_LEN;
         String tenantID = password.substring(passwordLen,
@@ -235,7 +215,7 @@ public class ADMRealmImpl {
                             + "SAML response: %s\n", //
                     userKey, tenantID, e.getMessage(), samlResponse));
             throw new LoginException(e.getMessage());
-        }
+        }*/
     }
 
     AssertionConsumerService getAssertionConsumerService(

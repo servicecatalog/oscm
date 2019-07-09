@@ -341,53 +341,6 @@ public class ADMRealmImplIT extends EJBTestBase {
         // then: exception
     }
 
-    @Test
-    public void handleSSO_UICaller() throws Exception {
-
-        // given
-        AuthenticationModeQuery authModeQuery = mock(
-                AuthenticationModeQuery.class);
-        mockCallerHandlers();
-
-        // when
-        realm.handleSSOLogin(ANY_KEY, UI_PASSWORD, authModeQuery, userQuery);
-
-        // then
-        verify(realm, times(1)).handleUICaller(ANY_KEY, UI_PASSWORD,
-                authModeQuery);
-    }
-
-    @Test
-    public void handleSSO_WebServiceCaller() throws Exception {
-
-        // given
-        AuthenticationModeQuery authModeQuery = mock(
-                AuthenticationModeQuery.class);
-        mockCallerHandlers();
-
-        // when
-        realm.handleSSOLogin(ANY_KEY, WS_PASSWORD, authModeQuery, userQuery);
-
-        // then
-        verify(realm, times(1)).handleWebServiceCaller(ANY_KEY, WS_PASSWORD);
-    }
-
-    @Test
-    public void handleSSO_OperatorClientCaller() throws Exception {
-
-        // given
-        AuthenticationModeQuery authModeQuery = mock(
-                AuthenticationModeQuery.class);
-        mockCallerHandlers();
-
-        // when
-        realm.handleSSOLogin(ANY_KEY, WRONG_PASSWORD, authModeQuery, userQuery);
-
-        // then
-        verify(realm, times(1)).handleOperatorClientCaller(ANY_KEY,
-                WRONG_PASSWORD, userQuery);
-    }
-
     private void mockCallerHandlers() throws Exception {
         doNothing().when(realm).handleUICaller(anyString(), anyString(),
                 any(AuthenticationModeQuery.class));
