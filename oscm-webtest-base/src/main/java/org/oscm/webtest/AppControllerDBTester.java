@@ -7,33 +7,29 @@
  *******************************************************************************/
 package org.oscm.webtest;
 
-import java.io.FileInputStream;
-import java.net.InetAddress;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.dbunit.IDatabaseTester;
 import org.dbunit.JdbcDatabaseTester;
 
 public class AppControllerDBTester {
 
-    private static final String DB_DRIVER = "db.driver.class";
-    private static final String DB_TYPE = "db.type";
-    private static final String DB_PORT = "db.port";
-    private static final String DB_HOST = "db.host";
-    private static final String DB_NAME = "db.name";
+    private static final String DB_DRIVER = "org.postgresql.Driver";
+    private static final String DB_TYPE = "postgresql";
+    private static final String DB_PORT = "5432";
+    private static final String DB_HOST = "localhost";
+    private static final String DB_NAME = "bssapp";
+    private static final String DB_USERNAME = "bssappuser";
+    private static final String DB_PASSWORD = "secret";
+    
     private String DB_CONNECTION_URL = "jdbc:%s://%s:%s/%s";
-    private static final String DB_USERNAME = "db.user";
-    private static final String DB_PASSWORD = "db.pwd";
-    private static String filePath = "../oscm-devruntime/javares/local/%s/db-app.properties";
+
     public static final int IV_BYTES = 16;
     public static final int KEY_BYTES = 16;
-    // private static SecretKey key;
 
     private IDatabaseTester databaseTester;
     protected static final Logger logger = Logger.getLogger(WebTester.class);
@@ -41,29 +37,11 @@ public class AppControllerDBTester {
 
     public AppControllerDBTester() throws Exception {
 
-        loadPropertiesFile();
         DB_CONNECTION_URL = String.format(DB_CONNECTION_URL,
-                getPropertie(DB_TYPE), getPropertie(DB_HOST),
-                getPropertie(DB_PORT), getPropertie(DB_NAME));
-        databaseTester = new JdbcDatabaseTester(getPropertie(DB_DRIVER),
-                DB_CONNECTION_URL, getPropertie(DB_USERNAME),
-                getPropertie(DB_PASSWORD));
-    }
-
-    private void loadPropertiesFile() throws Exception {
-
-        Map<String, String> env = System.getenv();
-        String localhost = env.get("HOSTNAME");
-        if (StringUtils.isEmpty(localhost)) {
-            localhost = InetAddress.getLocalHost().getHostName();
-        }
-        filePath = String.format(filePath, localhost);
-
-        prop = new Properties();
-        FileInputStream fis = new FileInputStream(filePath);
-        prop.load(fis);
-        fis.close();
-
+                DB_TYPE, DB_HOST,
+               DB_PORT, DB_NAME);
+        databaseTester = new JdbcDatabaseTester(DB_DRIVER,
+                DB_CONNECTION_URL, DB_USERNAME, DB_PASSWORD);
     }
 
     public void close() throws Exception {
@@ -123,10 +101,6 @@ public class AppControllerDBTester {
         Statement stmt = databaseTester.getConnection().getConnection()
                 .createStatement();
         stmt.executeUpdate(query);
-    }
-
-    public String getPropertie(String propertie) {
-        return prop.getProperty(propertie);
     }
 
     public void log(String msg) {

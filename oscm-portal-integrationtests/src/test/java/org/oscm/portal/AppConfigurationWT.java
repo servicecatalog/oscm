@@ -82,6 +82,8 @@ public class AppConfigurationWT {
         dbTester.insertSetting("BSS_USER_PWD",
                 PlaygroundSuiteTest.supplierOrgAdminPwd,
                 PlaygroundSuiteTest.controllerId);
+        dbTester.insertSetting("BSS_ORGANIZATION_ID", "PLATFORM_OPERATOR",
+                PlaygroundSuiteTest.controllerId);
         dbTester.insertSetting("VERSION", "1.0",
                 PlaygroundSuiteTest.controllerId);
         dbTester.insertSetting("APP_PROVISIONING_ON_INSTANCE", "false",
