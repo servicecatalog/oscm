@@ -11,6 +11,7 @@ package org.oscm.ui.filter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Optional;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -24,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
+import org.oscm.types.constants.marketplace.Marketplace;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.beans.BaseBean;
 import org.oscm.ui.common.Constants;
@@ -48,16 +50,18 @@ public class OidcFilter implements Filter {
 
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
+    
+    // if request contains id_token, validate it and refresh session with it
+    Optional<String> idTokenParam = Optional.ofNullable(httpRequest.getParameter("id_token"));
 
-    if (!httpRequest.getServletPath().matches(excludeUrlPattern)) {
-
-      String idToken = httpRequest.getParameter("id_token");
-
-      // if request contains id_token, refresh session with it
-      if (!StringUtils.isBlank(idToken)) {
-        // TODO: validate id token
-        httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idToken);
-      }
+    idTokenParam.ifPresent(
+        idToken -> {
+          // TODO: validate id token
+          httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idToken);
+        });
+    
+    if (!(httpRequest.getServletPath().matches(excludeUrlPattern))
+        || isLoginOnMarketplaceRequested(httpRequest)) {
 
       // if session does not contain id token,
       // redirect to oscm-identity with current state (current url)
@@ -94,6 +98,14 @@ public class OidcFilter implements Filter {
     }
 
     chain.doFilter(request, response);
+  }
+
+  private boolean isLoginOnMarketplaceRequested(HttpServletRequest request) {
+
+    boolean isMarketplacePage = request.getServletPath().contains(Marketplace.MARKETPLACE_ROOT);
+    Optional<String> loginRequested = Optional.ofNullable(request.getParameter("login"));
+
+    return isMarketplacePage && loginRequested.isPresent();
   }
 
   @Override

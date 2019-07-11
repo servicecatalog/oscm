@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.ejb.EJBException;
@@ -101,7 +102,11 @@ public class AuthorizationFilter extends BaseBesFilter {
         AuthorizationRequestData rdo = initializeRequestDataObject(httpRequest);
 
         try {
-            if (isPublicAccess(rdo, httpRequest)) {
+            
+        	Optional<Object> sessionIdToken =
+        	   	Optional.ofNullable(httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ID_TOKEN));
+        	
+            if (isPublicAccess(rdo, httpRequest) && !sessionIdToken.isPresent()) {
                 proceedWithFilterChain(chain, httpRequest, httpResponse);
             } else {
                 handleProtectedUrlAndChangePwdCase(chain, httpRequest,
