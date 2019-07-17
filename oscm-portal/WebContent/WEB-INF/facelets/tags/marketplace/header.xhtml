@@ -90,13 +90,14 @@
                 <h:outputText value="&amp;nbsp;|&amp;nbsp;" escape="false" />
                 <c:if test="#{userBean.internalAuthMode}">
                   <h:commandLink id="logout" value="#{msg['logout']}" action="#{userBean.logoff}" />
-                </c:if>
-                <c:if test="#{not userBean.internalAuthMode}">
-                  <h:commandLink id="logout" action="#{sessionBean.redirectToIdpLogout}" >
-                    <h:outputText value="#{msg['logout']}" />
-                  </h:commandLink>
-                </c:if>
-              </a4j:outputPanel>
+               	</c:if>
+				<c:if test="#{not userBean.internalAuthMode}">
+				  <h:outputLink id="logout">
+					<h:outputText value="#{msg['logout']}" />
+					<f:param name="logout" value="oidc" />
+				  </h:outputLink>
+				</c:if>
+			  </a4j:outputPanel>
               <a4j:outputPanel layout="block" styleClass="shortenedText">
                 <h:outputText id="welcome" value="#{msg['welcome']} #{user.userId}" />
               </a4j:outputPanel>

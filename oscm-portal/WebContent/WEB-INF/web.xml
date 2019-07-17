@@ -101,14 +101,10 @@
     <filter-class>org.oscm.ui.filter.CharacterEncodingFilter</filter-class>
   </filter>
   
- <filter>
-    <display-name>IdP Logout Filter</display-name>
-    <filter-name>IdPLogoutFilter</filter-name>
-    <filter-class>org.oscm.ui.filter.IdPLogoutFilter</filter-class>
-    <init-param>
-      <param-name>exclude-url-pattern</param-name>
-      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*)</param-value>
-    </init-param>
+  <filter>
+    <display-name>Oidc Logout Filter</display-name>
+    <filter-name>OidcLogoutFilter</filter-name>
+    <filter-class>org.oscm.ui.filter.OidcLogoutFilter</filter-class>
   </filter>
   <filter>
     <filter-name>DisableUrlSessionFilter</filter-name>
@@ -165,7 +161,7 @@
       <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
     </init-param>
   </filter>
-  <filter>
+<!--   <filter>
     <display-name>IdP Response Filter</display-name>
     <filter-name>IdPResponseFilter</filter-name>
     <filter-class>org.oscm.ui.filter.IdPResponseFilter</filter-class>
@@ -173,7 +169,7 @@
       <param-name>exclude-url-pattern</param-name>
       <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*)</param-value>
     </init-param>
-  </filter>
+  </filter> -->
   <filter>
     <display-name>Closed Marketplace Filter</display-name>
     <filter-name>ClosedMarketplaceFilter</filter-name>
@@ -265,15 +261,19 @@
   <filter-mapping>
     <filter-name>css</filter-name>
     <url-pattern>/public/*</url-pattern>
-  </filter-mapping>  
+  </filter-mapping> 
+  <filter-mapping>
+    <filter-name>OidcLogoutFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping> 
   <filter-mapping>
     <filter-name>OidcFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  <filter-mapping>
+<!--   <filter-mapping>
     <filter-name>IdPResponseFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping>
+  </filter-mapping> -->
   <filter-mapping>
     <filter-name>IllegalRequestParameterFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -300,11 +300,11 @@
         <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
-  <filter-mapping>
+<!--   <filter-mapping>
     <filter-name>IdPLogoutFilter</filter-name>
     <url-pattern>/*</url-pattern>
     <dispatcher>REQUEST</dispatcher>
-  </filter-mapping>
+  </filter-mapping> -->
   <filter-mapping>
     <filter-name>auth</filter-name>
     <url-pattern>/opt/*</url-pattern>
