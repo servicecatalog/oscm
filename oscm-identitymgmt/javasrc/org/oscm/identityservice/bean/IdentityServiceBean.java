@@ -93,6 +93,7 @@ import org.oscm.interceptor.ServiceProviderInterceptor;
 import org.oscm.internal.intf.IdentityService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
+import org.oscm.internal.types.enumtypes.Salutation;
 import org.oscm.internal.types.enumtypes.SettingType;
 import org.oscm.internal.types.enumtypes.SubscriptionStatus;
 import org.oscm.internal.types.enumtypes.TriggerType;
@@ -162,7 +163,7 @@ import org.oscm.vo.BaseAssembler;
 @Interceptors({ InvocationDateContainer.class, ExceptionMapper.class })
 public class IdentityServiceBean
         implements IdentityService, IdentityServiceLocal {
-
+ 
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(IdentityServiceBean.class);
 
@@ -2925,5 +2926,25 @@ public class IdentityServiceBean
         logger.logWarn(Log4jLogger.SYSTEM_LOG, onf,
                 LogMessageIdentifier.WARN_USER_NOT_FOUND);
         throw onf;
+    }
+    
+    /**
+     * 
+     * @param userId
+     * @param tenantId
+     * @return
+     */
+    @Override
+    public  VOUserDetails loadUserDetailsFromOIDCProvider(String userId, String tenantId) {
+        VOUserDetails userDetails = new VOUserDetails();
+        // TODO fill in real data from the OIDC provider
+        userDetails.setFirstName("first");
+        userDetails.setLastName("last");
+        userDetails.setEMail("user@est.fujitsu.com");
+        userDetails.setLocale("en");
+        userDetails.setSalutation(Salutation.MR);
+        userDetails.setUserId(userId);
+        userDetails.setTenantId(tenantId);
+        return userDetails;
     }
 }
