@@ -181,7 +181,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
                 return selectedTenantItem.getLabel();
             }
         }
-        return "";
+        return ""; 
     }
 
     // *****************************************************
