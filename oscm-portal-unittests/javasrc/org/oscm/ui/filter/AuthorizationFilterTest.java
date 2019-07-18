@@ -58,7 +58,10 @@ public class AuthorizationFilterTest {
     private AuthenticationSettings authSettingsMock;
     private IdentityService identityServiceMock;
     private ServiceAccess serviceAccessMock;
+    private HttpSession httpSessionMock;
     private VOUserDetails userDetails;
+
+	
 
     @Before
     public void setup() throws Exception {
@@ -68,13 +71,14 @@ public class AuthorizationFilterTest {
         chainMock = mock(FilterChain.class);
         authReqDataMock = mock(AuthorizationRequestData.class);
         authSettingsMock = mock(AuthenticationSettings.class);
-
+        httpSessionMock = mock(HttpSession.class);
         authFilter = spy(new AuthorizationFilter());
         authFilter.authSettings = authSettingsMock;
 
         doReturn(authReqDataMock).when(authFilter).initializeRequestDataObject(
                 any(HttpServletRequest.class));
 
+        doReturn(httpSessionMock).when(requestMock).getSession();
         userDetails = createCustomer();
         identityServiceMock = mock(IdentityService.class);
         serviceAccessMock = mock(ServiceAccess.class);
