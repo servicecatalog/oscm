@@ -26,7 +26,6 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.oscm.converter.PropertiesLoader;
-import org.oscm.internal.intf.IdentityService;
 import org.oscm.internal.intf.MarketplaceService;
 import org.oscm.internal.intf.OperatorService;
 import org.oscm.internal.tenant.ManageTenantService;
@@ -109,7 +108,6 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     private boolean internalAuthMode;
 
     transient ApplicationBean appBean;
-    transient IdentityService identityService = null;
     private Long selectedPaymentTypeKey;
 
     @EJB
@@ -152,8 +150,8 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
         if (StringUtils.isNotBlank(getSelectedTenant())) {
             Long tenantKey = Long.valueOf(getSelectedTenant());
             newOrganization.setTenantKey(tenantKey);
-            loadIdentityService();
-            newAdministrator = identityService.loadUserDetailsFromOIDCProvider(newAdministrator.getUserId(), getSelectedTenantId());
+            newAdministrator = getIdService().loadUserDetailsFromOIDCProvider(
+                    newAdministrator.getUserId(), getSelectedTenantId());
         }
         
         newVoOrganization = getOperatorService().registerOrganization(
@@ -1280,11 +1278,4 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
         return menuBean.getApplicationBean().isSamlSpAuthMode();
     }
     
-    private void loadIdentityService() {
-        if (identityService == null) {
-            identityService = ServiceAccess.getServiceAcccessFor(
-                    JSFUtils.getRequest().getSession()).getService(
-                    IdentityService.class);
-        }
-    }
 }
