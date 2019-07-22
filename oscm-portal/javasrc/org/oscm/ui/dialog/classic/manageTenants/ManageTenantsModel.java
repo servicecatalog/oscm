@@ -37,7 +37,7 @@ public class ManageTenantsModel extends BaseModel implements Serializable {
     private Part file;
 
     private boolean clearExportAvailable;
-    private Properties idpProperties;
+    
     private boolean dirty;
 
     public List<POTenant> getTenants() {
@@ -66,14 +66,7 @@ public class ManageTenantsModel extends BaseModel implements Serializable {
         this.tenantId = tenantId;
     }
 
-    public FieldData<String> getTenantIdp() {
-        return tenantIdp;
-    }
-
-    public void setTenantIdp(FieldData<String> tenantIdp) {
-        this.tenantIdp = tenantIdp;
-    }
-
+     
     public FieldData<String> getTenantDescription() {
         return tenantDescription;
     }
@@ -114,9 +107,6 @@ public class ManageTenantsModel extends BaseModel implements Serializable {
         this.selectedTenant = selectedTenant;
     }
 
-    public Part getFile() {
-        return file;
-    }
 
     public void setFile(Part file) {
         this.file = file;
@@ -136,14 +126,6 @@ public class ManageTenantsModel extends BaseModel implements Serializable {
 
     public void setTenantName(FieldData<String> tenantName) {
         this.tenantName = tenantName;
-    }
-
-    public Properties getIdpProperties() {
-        return idpProperties;
-    }
-
-    public void setIdpProperties(Properties idpProperties) {
-        this.idpProperties = idpProperties;
     }
 
     public boolean isImportDisabled() {

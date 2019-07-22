@@ -303,42 +303,10 @@ public class TenantRelatedSampleWSTest {
             throws Exception {
         WebserviceSAMLSPTestSetup.createTenant(tenantId);
         VOTenant tenant = tenantService.getTenantByTenantId(tenantId);
-
-        VOConfigurationSetting stsUrlSetting = configurationService
-                .getVOConfigurationSetting(
-                        ConfigurationKey.valueOf(SSO_STS_URL),
-                        Configuration.GLOBAL_CONTEXT);
-        VOConfigurationSetting stsMetadataUrlSetting = configurationService
-                .getVOConfigurationSetting(
-                        ConfigurationKey.valueOf(SSO_STS_METADATA_URL),
-                        Configuration.GLOBAL_CONTEXT);
-        VOConfigurationSetting stsKeyLenSetting = configurationService
-                .getVOConfigurationSetting(
-                        ConfigurationKey.valueOf(SSO_STS_ENCKEY_LEN),
-                        Configuration.GLOBAL_CONTEXT);
-
-        List<VOTenantSetting> settings = new ArrayList<>();
-        settings.add(getTenantSetting(SSO_STS_URL, stsUrlSetting.getValue(),
-                tenant));
-        settings.add(getTenantSetting(SSO_STS_METADATA_URL,
-                stsMetadataUrlSetting.getValue(), tenant));
-        settings.add(getTenantSetting(SSO_STS_ENCKEY_LEN,
-                stsKeyLenSetting.getValue(), tenant));
-
-        tenantService.addTenantSettings(settings, tenant);
         return tenant;
     }
 
-    private static VOTenantSetting getTenantSetting(String key, String value,
-            VOTenant tenant) {
-
-        VOTenantSetting voTenantSetting = new VOTenantSetting();
-        voTenantSetting.setName(IdpSettingType.valueOf(key));
-        voTenantSetting.setValue(value);
-        voTenantSetting.setVoTenant(tenant);
-        return voTenantSetting;
-    }
-
+  
     private static VOUserDetails prepareUser(String userId) throws Exception {
         return prepareUser(userId, null);
     }

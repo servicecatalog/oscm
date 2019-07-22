@@ -60,18 +60,6 @@ public class TenantDaoTest {
         verify(dataManager, times(1)).getReferenceByBusinessKey(any(Tenant.class)); 
     }
     
-    @Test
-    public void testGetAllTenantSettingsForTenant() throws ObjectNotFoundException{
-        
-        //given
-        String namedQuery = "TenantSetting.getAllForTenant";
-        
-        //when
-        tenantDao.getAllTenantSettingsForTenant(new Tenant());
-        
-        //then
-        verify(dataManager, times(1)).createNamedQuery(namedQuery); 
-    }
     
     @Test
     public void testGetTenantsByIdPattern() throws ObjectNotFoundException{
