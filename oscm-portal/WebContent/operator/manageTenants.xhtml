@@ -32,13 +32,13 @@
         </adm:dataTableCustomizedOnColumns>
 
       </a4j:outputPanel>
-      <a4j:jsFunction name="selectItem" render="editForm mainTmplMessagesPanel importForm"
+      <a4j:jsFunction name="selectItem" render="editForm mainTmplMessagesPanel"
                       action="#{manageTenantsCtrl.setSelectedTenant}"
                       oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();AdmUtils.setUIElements();">
         <a4j:param name="param1" assignTo="#{manageTenantsCtrl.selectedTenantId}"/>
       </a4j:jsFunction>
 
-      <a4j:jsFunction name="addItem" render="editForm mainTmplMessagesPanel importForm"
+      <a4j:jsFunction name="addItem" render="editForm mainTmplMessagesPanel"
                       action="#{manageTenantsCtrl.addTenant}"
                       oncomplete="AdmUtils.setFocus(document.getElementById('editForm:tenantName'), true); AdmUtils.selectRow(null);">
       </a4j:jsFunction>
@@ -73,29 +73,7 @@
       </h:panelGrid>
 
       <adm:outputStep value="#{msg['operator.manageTenants.step3']}"/>
-
-      <a4j:outputPanel id="idpFile" layout="block">
-        <adm:panelGrid>
-          <adm:fileUpload value="#{manageTenantsCtrl.model.file}" required="false"
-                          disabled="#{manageTenantsCtrl.model.importDisabled}"/>
-        </adm:panelGrid>
-
-        <adm:buttonPanel>
-          <adm:button id="importConfirmButton" value="#{msg['button.import']}" bean="#{manageTenantsCtrl}"
-                      action="importSettings" buttonType="confirm" style="display:none;"/>
-
-          <adm:buttonCustomizedOnClick id="importButton" value="#{msg['button.import']}"
-                                       onclick="setDirty(false);document.getElementById('editForm:importConfirmButton').click();"
-                                       buttonType="confirm"
-                                       disabled="#{manageTenantsCtrl.model.importDisabled}"/>
-
-          <adm:button id="exportButton" value="#{msg['button.export']}" bean="#{manageTenantsCtrl}"
-                      action="exportSettings" progress="false" buttonType="export"
-                      rendered="#{manageTenantsCtrl.model.clearExportAvailable}"/>
-
-        </adm:buttonPanel>
-      </a4j:outputPanel>
-
+    
 
       <h:panelGrid id="detailsIdp" border="0" cellspacing="0" cellpadding="0" columns="2"
                    columnClasses="valignTop,valignTop">
@@ -107,14 +85,7 @@
                                    maxlength="#{appBean.tenantFieldLen}" styleClass="field"
                                    disabled="#{manageTenantsCtrl.model.tenantId.readOnly}"
                                    converterId="trimConverter"/>
-
-            <adm:labelAndInputText id="tenantIdp" label="#{msg['manageTenants.urlOfIdp']}"
-                                   required="#{manageTenantsCtrl.model.tenantIdp.required}"
-                                   value="#{manageTenantsCtrl.model.tenantIdp.value}"
-                                   maxlength="#{appBean.tenantFieldLen}" styleClass="field"
-                                   disabled="#{manageTenantsCtrl.model.tenantIdp.readOnly}"
-                                   converterId="trimConverter"/>
-
+      
           </adm:panelGrid>
         </h:panelGroup>
       </h:panelGrid>
@@ -130,14 +101,6 @@
         <adm:buttonCustomizedOnClick id="deleteButton" value="#{msg['button.delete']}" buttonType="delete"
                                      onclick="#{rich:component('deleteConfirmPl')}.show();return false;"
                                      disabled="#{manageTenantsCtrl.model.deleteDisabled}"/>
-
-        <adm:button id="clearConfirmButton"
-                    value="#{msg['button.clear']}" bean="#{manageTenantsCtrl}" action="clear" buttonType="reset"
-                    style="display:none;"/>
-        <adm:buttonCustomizedOnClick id="clearButton"
-                                     rendered="#{manageTenantsCtrl.model.clearExportAvailable}"
-                                     value="#{msg['button.clear']}"
-                                     onclick="#{rich:component('clearConfirmPanel')}.show()" buttonType="reset"/>
       </adm:buttonPanel>
 
     </h:form>
