@@ -47,6 +47,8 @@ import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.MenuBean;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.ImageUploader;
+import org.oscm.ui.common.JSFUtils;
+import org.oscm.ui.common.ServiceAccess;
 import org.oscm.ui.model.PSPSettingRow;
 
 /**
@@ -103,6 +105,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     private UploadedFile organizationProperties;
     private boolean ldapManaged;
     private boolean ldapSettingVisible;
+    private boolean internalAuthMode;
 
     transient ApplicationBean appBean;
     private Long selectedPaymentTypeKey;
@@ -147,8 +150,10 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
         if (StringUtils.isNotBlank(getSelectedTenant())) {
             Long tenantKey = Long.valueOf(getSelectedTenant());
             newOrganization.setTenantKey(tenantKey);
-            newAdministrator.setTenantId(getSelectedTenantId());
+            newAdministrator = getIdService().loadUserDetailsFromOIDCProvider(
+                    newAdministrator.getUserId(), getSelectedTenantId());
         }
+        
         newVoOrganization = getOperatorService().registerOrganization(
                 newOrganization, getImageUploader().getVOImageResource(),
                 newAdministrator, ldapProperties, selectedMarketplace,
@@ -174,7 +179,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
                 return selectedTenantItem.getLabel();
             }
         }
-        return "";
+        return ""; 
     }
 
     // *****************************************************
@@ -1213,6 +1218,11 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
         this.organizationProperties = organizationProperties;
     }
 
+    public boolean isInternalAuthMode() {
+        internalAuthMode = getApplicationBean().isInternalAuthMode();
+        return internalAuthMode;
+    }
+    
     public boolean isLdapManaged() {
         return ldapManaged;
     }
@@ -1267,4 +1277,5 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     public boolean isTenantSelectionAvailable() {
         return menuBean.getApplicationBean().isSamlSpAuthMode();
     }
+    
 }
