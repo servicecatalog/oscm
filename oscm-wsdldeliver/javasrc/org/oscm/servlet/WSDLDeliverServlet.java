@@ -31,124 +31,133 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
  */
 public class WSDLDeliverServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -3504533241988904286L;
+    private static final long serialVersionUID = -3504533241988904286L;
 
-	private static Log4jLogger logger = LoggerFactory.getLogger(WSDLDeliverServlet.class);
+    private static Log4jLogger logger = LoggerFactory
+            .getLogger(WSDLDeliverServlet.class);
 
-	public static final String VERSION = "VERSION";
-	public static final String PORT_TYPE = "PORT_TYPE";
-	public static final String SERVICE_NAME = "SERVICE_NAME";
-	public static final String FILE_TYPE = "FILE_TYPE";
-	public static final String WSDL_ROOT_PATH = "/wsdl/";
-	public static final String TENANT_ID = "TENANT_ID";
+    public static final String VERSION = "VERSION";
+    public static final String PORT_TYPE = "PORT_TYPE";
+    public static final String SERVICE_NAME = "SERVICE_NAME";
+    public static final String FILE_TYPE = "FILE_TYPE";
+    public static final String WSDL_ROOT_PATH = "/wsdl/";
+    public static final String TENANT_ID = "TENANT_ID";
 
-	private static final String SSO_STS_URL = "SSO_STS_URL";
-	private static final String SSO_STS_ENCKEY_LEN = "SSO_STS_ENCKEY_LEN";
-	private static final String SSO_STS_METADATA_URL = "SSO_STS_METADATA_URL";
+    private static final String SSO_STS_URL = "SSO_STS_URL";
+    private static final String SSO_STS_ENCKEY_LEN = "SSO_STS_ENCKEY_LEN";
+    private static final String SSO_STS_METADATA_URL = "SSO_STS_METADATA_URL";
 
-	@EJB
-	private TenantServiceLocal tenantService;
+    @EJB
+    private TenantServiceLocal tenantService;
 
-	@EJB
-	private ConfigurationServiceLocal configurationService;
+    @EJB
+    private ConfigurationServiceLocal configurationService;
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-	}
+    @Override
+    public void init() throws ServletException {
+        super.init();
+    }
 
-	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		process(request, response);
-	}
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        process(request, response);
+    }
 
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		process(request, response);
-	}
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        process(request, response);
+    }
 
-	private void process(HttpServletRequest request, HttpServletResponse response) {
-		String filePath = getTargetFilePathFromRequest(request);
-		if (filePath.length() == 0) {
-			logger.logWarn(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.WARN_GET_FILE_CONTENT_FAILED);
-		}
-		InputStream fileStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(filePath);
-		try {
-			String fileContent = convertStreamToString(fileStream);
-			String portType = getValueFromRequest(request, PORT_TYPE);
+    private void process(HttpServletRequest request,
+            HttpServletResponse response) {
+        String filePath = getTargetFilePathFromRequest(request);
+        if (filePath.length() == 0) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG,
+                    LogMessageIdentifier.WARN_GET_FILE_CONTENT_FAILED);
+        }
+        InputStream fileStream = Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream(filePath);
+        try {
+            String fileContent = convertStreamToString(fileStream);
+            String portType = getValueFromRequest(request, PORT_TYPE);
 
-			// TODO read tenant id
-			//if ("STS".equals(portType)) {
-			//	String tenantId = getValueFromRequest(request, TENANT_ID);
-			//}
-			
-			response.getWriter().print(fileContent);
+            // TODO read tenant id
+            // if ("STS".equals(portType)) {
+            // String tenantId = getValueFromRequest(request, TENANT_ID);
+            // }
 
-		} catch (IOException e) {
-			logger.logWarn(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.WARN_GET_FILE_CONTENT_FAILED);
-		} finally {
-			if (fileStream != null) {
-				try {
-					fileStream.close();
-				} catch (IOException e) {
-					// ignore, wanted to close anyway
-				}
-			}
-		}
-	}
+            response.getWriter().print(fileContent);
 
-	private String getTargetFilePathFromRequest(HttpServletRequest request) {
-		APIVersion version = getVersionFromRequest(request);
-		if (version == null) {
-			return "";
-		}
-		String portType = getValueFromRequest(request, PORT_TYPE);
-		String fileType = getValueFromRequest(request, FILE_TYPE);
-		String serviceName = getValueFromRequest(request, SERVICE_NAME);
-		String fileName = serviceName;
-		if (fileType.toLowerCase().equals("xsd")) {
-			fileName = serviceName + "_schema1";
-		}
-		String filePath = WSDL_ROOT_PATH + version.getSourceLocation() + "/" + portType + "/" + fileName + "."
-				+ fileType;
-		return filePath;
-	}
+        } catch (IOException e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.WARN_GET_FILE_CONTENT_FAILED);
+        } finally {
+            if (fileStream != null) {
+                try {
+                    fileStream.close();
+                } catch (IOException e) {
+                    // ignore, wanted to close anyway
+                }
+            }
+        }
+    }
 
-	private String getValueFromRequest(HttpServletRequest request, String attributeName) {
-		Object object = request.getAttribute(attributeName);
-		if (object == null) {
-			return "";
-		}
-		return object.toString();
-	}
+    private String getTargetFilePathFromRequest(HttpServletRequest request) {
+        APIVersion version = getVersionFromRequest(request);
+        if (version == null) {
+            return "";
+        }
+        String portType = getValueFromRequest(request, PORT_TYPE);
+        String fileType = getValueFromRequest(request, FILE_TYPE);
+        String serviceName = getValueFromRequest(request, SERVICE_NAME);
+        String fileName = serviceName;
+        if (fileType.toLowerCase().equals("xsd")) {
+            fileName = serviceName + "_schema1";
+        }
+        String filePath = WSDL_ROOT_PATH + version.getSourceLocation() + "/"
+                + portType + "/" + fileName + "." + fileType;
+        return filePath;
+    }
 
-	private APIVersion getVersionFromRequest(HttpServletRequest request) {
-		String version = getValueFromRequest(request, VERSION);
-		if (version.length() == 0) {
-			return APIVersion.getCurrentVersion();
-		} else {
-			return APIVersion.getForURLString(version);
-		}
-	}
+    private String getValueFromRequest(HttpServletRequest request,
+            String attributeName) {
+        Object object = request.getAttribute(attributeName);
+        if (object == null) {
+            return "";
+        }
+        return object.toString();
+    }
 
-	private String convertStreamToString(InputStream is) throws IOException {
-		if (is == null) {
-			return "";
-		}
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		int i = -1;
-		while ((i = is.read()) != -1) {
-			baos.write(i);
-		}
-		return baos.toString();
-	}
+    private APIVersion getVersionFromRequest(HttpServletRequest request) {
+        String version = getValueFromRequest(request, VERSION);
+        if (version.length() == 0) {
+            return APIVersion.getCurrentVersion();
+        } else {
+            return APIVersion.getForURLString(version);
+        }
+    }
 
-	private boolean isDefaultTenant(String tenantId) {
+    private String convertStreamToString(InputStream is) throws IOException {
+        if (is == null) {
+            return "";
+        }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int i = -1;
+        while ((i = is.read()) != -1) {
+            baos.write(i);
+        }
+        return baos.toString();
+    }
 
-		ConfigurationSetting setting = configurationService
-				.getConfigurationSetting(ConfigurationKey.SSO_DEFAULT_TENANT_ID, Configuration.GLOBAL_CONTEXT);
-		String defaultTenantId = setting.getValue();
+    private boolean isDefaultTenant(String tenantId) {
 
-		return tenantId.equals(defaultTenantId);
-	}
+        ConfigurationSetting setting = configurationService
+                .getConfigurationSetting(ConfigurationKey.SSO_DEFAULT_TENANT_ID,
+                        Configuration.GLOBAL_CONTEXT);
+        String defaultTenantId = setting.getValue();
+
+        return tenantId.equals(defaultTenantId);
+    }
 }
