@@ -18,7 +18,7 @@ import javax.persistence.Query;
 import org.oscm.converter.ParameterizedTypes;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Tenant;
-import org.oscm.domobjects.TenantSetting;
+
 import org.oscm.internal.types.enumtypes.IdpSettingType;
 import org.oscm.internal.types.exception.DomainObjectException.ClassEnum;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
@@ -40,12 +40,7 @@ public class TenantDao {
         tenant.setTenantId(tenantId);
         return (Tenant) dataManager.getReferenceByBusinessKey(tenant);
     }
-
-    public List<TenantSetting> getAllTenantSettingsForTenant(Tenant tenant) {
-        Query query = dataManager.createNamedQuery("TenantSetting.getAllForTenant");
-        query.setParameter("tenant", tenant);
-        return ParameterizedTypes.list(query.getResultList(), TenantSetting.class);
-    }
+  
 
     public List<Tenant> getTenantsByIdPattern(String tenantIdPattern) {
         Query query = dataManager.createNamedQuery("Tenant.getTenantsByIdPattern");
@@ -86,27 +81,6 @@ public class TenantDao {
         query.setParameter("tenantKey", tenantKey);
         
         return ParameterizedTypes.list(query.getResultList(), String.class);
-    }
-    
-    public TenantSetting getTenantSetting(String settingKey, String tenantId)
-            throws ObjectNotFoundException {
-
-        Tenant tenant = this.getTenantByTenantId(tenantId);
-
-        Query query = dataManager
-                .createNamedQuery("TenantSetting.findByBusinessKey");
-        query.setParameter("tenant", tenant);
-        query.setParameter("name", IdpSettingType.valueOf(settingKey));
-
-        TenantSetting tenantSetting;
-
-        try {
-            tenantSetting = (TenantSetting) query.getSingleResult();
-        } catch (NoResultException e) {
-            throw new ObjectNotFoundException(ClassEnum.TENANT_SETTING,
-                    settingKey + " for tenant: " + tenantId);
-        }
-
-        return tenantSetting;
-    }
+    }    
+   
 }

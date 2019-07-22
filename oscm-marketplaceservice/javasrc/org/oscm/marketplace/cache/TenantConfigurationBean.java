@@ -5,8 +5,8 @@
  *******************************************************************************/
 package org.oscm.marketplace.cache;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.ConcurrencyManagement;
 import javax.ejb.ConcurrencyManagementType;
@@ -18,20 +18,17 @@ import javax.ejb.Schedule;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.interceptor.Interceptors;
-import javax.persistence.Query;
 
-import org.oscm.converter.ParameterizedTypes;
 import org.oscm.dataservice.local.DataService;
-import org.oscm.domobjects.TenantSetting;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.internal.intf.TenantConfigurationService;
 import org.oscm.internal.types.enumtypes.IdpSettingType;
-import org.oscm.internal.vo.VOTenantSetting;
-import org.oscm.tenant.assembler.TenantAssembler;
+import org.oscm.internal.vo.VOTenant;
 
 /**
  * Created by PLGrubskiM on 2017-06-30.
  */
+@Deprecated
 @Singleton
 @Startup
 @Remote(TenantConfigurationService.class)
@@ -43,7 +40,7 @@ public class TenantConfigurationBean implements TenantConfigurationService {
     @EJB(beanInterface = DataService.class)
     DataService dm;
 
-    List<VOTenantSetting> tenantSettings;
+    List<VOTenant> tenants;
 
     @PostConstruct
     public void init() {
@@ -53,7 +50,7 @@ public class TenantConfigurationBean implements TenantConfigurationService {
     @Schedule(minute = "*/10")
     @Lock(LockType.WRITE)
     public void refreshCache() {
-        tenantSettings = getAllSettings();
+    	// tenants = getAllTenants();
     }
 
     @Override
@@ -66,34 +63,16 @@ public class TenantConfigurationBean implements TenantConfigurationService {
         return getSettingValue(IdpSettingType.SSO_ISSUER_ID, tenantId);
     }
 
-    @Override
-    public String getIdpUrlForTenant(String tenantId) {
-        return getSettingValue(IdpSettingType.SSO_IDP_URL, tenantId);
-    }
-
-    private List<VOTenantSetting> getAllSettings() {
-        Query query = dm.createNamedQuery("TenantSetting.getAll",
-                TenantSetting.class);
-        final List<TenantSetting> resultList = ParameterizedTypes.list(query.getResultList(), TenantSetting.class);
-
-        List<VOTenantSetting> voTenantSettings = new ArrayList<>();
-
-        for (TenantSetting tenantSetting : resultList) {
-            voTenantSettings.add(TenantAssembler.toVOTenantSetting(tenantSetting));
-        }
-
-        return voTenantSettings;
-    }
-
     private String getSettingValue(IdpSettingType type, String tenantId) {
-        String result = null;
 
-        for (VOTenantSetting setting : tenantSettings) {
-            if (setting.getVoTenant().getTenantId().equals(tenantId)
-                    && setting.getName().equals(type)) {
-                return setting.getValue();
-            }
-        }
-        return result;
+       return null;
     }
+
+	/* (non-Javadoc)
+	 * @see org.oscm.internal.intf.TenantConfigurationService#getIdpUrlForTenant(java.lang.String)
+	 */
+	@Override
+	public String getIdpUrlForTenant(String tenantId) {
+		return null;
+	}
 }

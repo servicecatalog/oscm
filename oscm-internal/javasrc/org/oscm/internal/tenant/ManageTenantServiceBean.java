@@ -25,7 +25,7 @@ import org.oscm.internal.types.enumtypes.IdpSettingType;
 import org.oscm.internal.types.exception.*;
 import org.oscm.internal.types.exception.ValidationException.ReasonEnum;
 import org.oscm.internal.vo.VOTenant;
-import org.oscm.internal.vo.VOTenantSetting;
+
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
@@ -73,47 +73,6 @@ public class ManageTenantServiceBean implements ManageTenantService {
     public void removeTenant(POTenant poTenant) throws ObjectNotFoundException, TenantDeletionConstraintException {
         tenantService.removeTenant(poTenant.toVOTenanat());
     }
-
-    @Override
-    public void setTenantSettings(Properties properties, String tenantId)
-        throws ObjectNotFoundException, NonUniqueBusinessKeyException {
-        VOTenant voTenant = tenantService.getTenantByTenantId(tenantId);
-        List<VOTenantSetting> tenantSettings = new ArrayList<>();
-        if (properties == null) {
-            return;
-        }
-        for (Object propertyKey : properties.keySet()) {
-            String key = (String) propertyKey;
-            if (!IdpSettingType.contains(key)) {
-                logger.logWarn(
-                    Log4jLogger.SYSTEM_LOG,
-                    LogMessageIdentifier.WARN_IGNORE_ILLEGAL_PLATFORM_SETTING,
-                    key);
-                continue;
-            }
-            String value = properties.getProperty(key);
-            VOTenantSetting voTenantSetting = new VOTenantSetting();
-            voTenantSetting.setName(IdpSettingType.valueOf(key));
-            voTenantSetting.setValue(value);
-            voTenantSetting.setVoTenant(voTenant);
-            tenantSettings.add(voTenantSetting);
-        }
-        tenantService.addTenantSettings(tenantSettings, voTenant);
-    }
-
-    @Override
-    public Properties getTenantSettings(long tenantKey) {
-        Properties properties = new Properties();
-        for (VOTenantSetting voTenantSetting : tenantService.getSettingsForTenant(tenantKey)) {
-            properties.put(voTenantSetting.getName().name(), voTenantSetting.getValue());
-        }
-        return properties;
-    }
-
-    @Override
-    public void removeTenantSettings(long tenantKey) throws ObjectNotFoundException {
-        tenantService.removeTenantSettings(tenantKey);
-    }
     
     @Override
     public List<POTenant> getTenantsByIdPattern(String tenantIdPattern) {
@@ -133,4 +92,32 @@ public class ManageTenantServiceBean implements ManageTenantService {
             throw new ValidationException(ReasonEnum.USER_ID_DUPLICATED, null, null);
         }
     }
+
+	/* (non-Javadoc)
+	 * @see org.oscm.internal.tenant.ManageTenantService#setTenantSettings(java.util.Properties, java.lang.String)
+	 */
+	@Override
+	public void setTenantSettings(Properties properties, String tenantId)
+			throws ObjectNotFoundException, NonUniqueBusinessKeyException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see org.oscm.internal.tenant.ManageTenantService#getTenantSettings(long)
+	 */
+	@Override
+	public Properties getTenantSettings(long tenantKey) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.oscm.internal.tenant.ManageTenantService#removeTenantSettings(long)
+	 */
+	@Override
+	public void removeTenantSettings(long tenantKey) throws ObjectNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
 }
