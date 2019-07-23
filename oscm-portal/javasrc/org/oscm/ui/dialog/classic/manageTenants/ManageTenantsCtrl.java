@@ -12,7 +12,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -76,7 +75,6 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
         model.setTenantDescription(new FieldData<String>(null, true, false));
         model.setSaveDisabled(true);
         model.setDeleteDisabled(true);
-        model.setImportDisabled(true);
     }
 
     public void setSelectedTenantId(String tenantId) {
@@ -85,14 +83,12 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
 
     public void setSelectedTenant() {
         POTenant poTenant = getSelectedTenant();
-        model.setClearExportAvailable(!manageTenantService.getTenantSettings(poTenant.getKey()).isEmpty());
         model.setSelectedTenant(poTenant);
         model.setTenantId(new FieldData<>(poTenant.getTenantId(), true, false));
         model.setTenantName(new FieldData<>(poTenant.getName(), false, true));
         model.setTenantDescription(new FieldData<>(poTenant.getDescription(), false, false));
         model.setSaveDisabled(false);
         model.setDeleteDisabled(false);
-        model.setImportDisabled(false);
     }
 
     private POTenant getSelectedTenant() {
@@ -152,7 +148,6 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
         for (POTenant poTenant : manageTenantService.getAllTenants()) {
             if (poTenant.getTenantId().equals(model.getSelectedTenantId())) {
                 model.setSelectedTenant(poTenant);
-                model.setClearExportAvailable(!manageTenantService.getTenantSettings(poTenant.getKey()).isEmpty());
                 model.setTenantId(new FieldData<>(poTenant.getTenantId(), true, false));
                 model.setDeleteDisabled(false);
                 return;
@@ -163,34 +158,19 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
     private void refreshModelAfterDelete() {
         model.setSelectedTenant(null);
         model.setSelectedTenantId(null);
-        model.setClearExportAvailable(false);
         initWithoutSelection();
     }
 
     public void addTenant() {
         model.setSelectedTenant(null);
         model.setSelectedTenantId(null);
-        model.setClearExportAvailable(false);
         model.setTenantId(new FieldData<String>(null, true, false));
         model.setTenantName(new FieldData<String>(null, false, true));
         model.setTenantDescription(new FieldData<String>(null, false, false));
         model.setSaveDisabled(false);
         model.setDeleteDisabled(true);
-        model.setImportDisabled(false);
     }
-
     
-    public String clear() {
-        try {
-            manageTenantService.removeTenantSettings(model.getSelectedTenant().getKey());
-            refreshModel();
-        } catch (SaaSApplicationException e) {
-            ui.handleException(e);
-        }
-        addMessage(null, FacesMessage.SEVERITY_INFO, INFO_IDP_SETTINGS_CLEAR);
-        return OUTCOME_SUCCESS;
-    }
-
     public void setManageTenantService(ManageTenantService manageTenantService) {
         this.manageTenantService = manageTenantService;
     }

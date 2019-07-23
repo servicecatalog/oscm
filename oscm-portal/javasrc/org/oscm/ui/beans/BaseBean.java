@@ -347,9 +347,7 @@ public class BaseBean {
     public static final String INFO_TENANT_SAVED = "info.tenant.saved";
     public static final String INFO_TENANT_ADDED = "info.tenant.added";
     public static final String INFO_TENANT_DELETED = "info.tenant.deleted";
-    public static final String INFO_IDP_SETTINGS_IMPORTED = "info.tenant.idpsettings.imported";
-    public static final String INFO_IDP_SETTINGS_CLEAR = "info.tenant.idpsettings.clear";
-
+    
     public static final String LABEL_USERINTERFACE_TRANSLARIONS = "label.userinterface.title";
     public static final String LABEL_MAIL_TRANSLARIONS = "label.mail.title";
     public static final String LABEL_PLATFORM_TRANSLARIONS = "label.platform.title";

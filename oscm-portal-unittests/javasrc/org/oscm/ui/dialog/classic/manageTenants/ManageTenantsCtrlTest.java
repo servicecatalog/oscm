@@ -60,14 +60,11 @@ public class ManageTenantsCtrlTest {
         //given
         POTenant selectedTenant = prepareTenant();
         when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
-        when(manageTenantService.getTenantSettings(selectedTenant.getKey())).thenReturn(new Properties());
+        
         //when
         ctrl.setSelectedTenant();
 
         //then
-        assertFalse(model.isClearExportAvailable());
-        assertFalse(model.isSaveDisabled());
-        assertFalse(model.isImportDisabled());
         assertFalse(model.isDeleteDisabled());
         assertEquals(selectedTenant.getTenantId(), model.getTenantId().getValue());
         assertEquals(selectedTenant.getDescription(), model.getTenantDescription().getValue());
@@ -79,17 +76,17 @@ public class ManageTenantsCtrlTest {
         //given
         POTenant selectedTenant = prepareTenant();
         when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
-        when(manageTenantService.getTenantSettings(selectedTenant.getKey())).thenReturn(prepareProperties());
+
         //when
         ctrl.setSelectedTenant();
 
         //then
-        assertTrue(model.isClearExportAvailable());
+        
         assertFalse(model.isSaveDisabled());
-        assertFalse(model.isImportDisabled());
         assertFalse(model.isDeleteDisabled());
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testSave_add() throws NonUniqueBusinessKeyException {
         //given
@@ -108,7 +105,8 @@ public class ManageTenantsCtrlTest {
         verify(manageTenantService, times(1)).addTenant(any(POTenant.class));
         verify(model, times(1)).setTenants(anyList());
     }
-
+    
+    @SuppressWarnings("unchecked")
     @Test
     public void testSave_edit()
         throws NonUniqueBusinessKeyException, ObjectNotFoundException, ConcurrentModificationException {
@@ -139,12 +137,10 @@ public class ManageTenantsCtrlTest {
         //then
         assertEquals(model.getSelectedTenant(), null);
         assertEquals(model.getSelectedTenantId(), null);
-        assertFalse(model.isClearExportAvailable());
         assertEquals(model.getTenantId().getValue(), null);
         assertEquals(model.getTenantName().getValue(), null);
         assertEquals(model.getTenantDescription().getValue(), null);
         assertFalse(model.isSaveDisabled());
-        assertFalse(model.isImportDisabled());
         assertTrue(model.isDeleteDisabled());
     }
 
