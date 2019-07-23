@@ -23,7 +23,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-serviceprovisioning-intsvc"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-httpclient/javalib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-httpcore/javalib/httpcore-4.4.1.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-httpcore/javalib/httpclient-4.5.2.jar"/>
 	<classpathentry kind="lib" path="/libraries/omnifaces/javalib/omnifaces-1.10.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-codec/javalib/commons-codec-1.10.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-collections/javalib/commons-collections-3.2.2.jar"/>
