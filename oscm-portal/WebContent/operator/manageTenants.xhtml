@@ -67,29 +67,17 @@
                                    maxlength="#{appBean.tenantFieldLen}"
                                    disabled="#{manageTenantsCtrl.model.tenantDescription.readOnly}"
                                    converterId="trimConverter"/>
-
-          </adm:panelGrid>
-        </h:panelGroup>
-      </h:panelGrid>
-
-      <adm:outputStep value="#{msg['operator.manageTenants.step3']}"/>
-    
-
-      <h:panelGrid id="detailsIdp" border="0" cellspacing="0" cellpadding="0" columns="2"
-                   columnClasses="valignTop,valignTop">
-        <h:panelGroup>
-          <adm:panelGrid minColWidth="false">
+                                   
             <adm:labelAndInputText id="tenantId" label="#{msg['dataTable.header.tenantId']}"
                                    required="#{manageTenantsCtrl.model.tenantId.required}"
                                    value="#{manageTenantsCtrl.model.tenantId.value}"
                                    maxlength="#{appBean.tenantFieldLen}" styleClass="field"
                                    disabled="#{manageTenantsCtrl.model.tenantId.readOnly}"
                                    converterId="trimConverter"/>
-      
           </adm:panelGrid>
         </h:panelGroup>
       </h:panelGrid>
-      
+
       <h:commandButton style="display:none;" id="confirmedButton" onclick="setDirty(false);"
                        value="#{msg['button.delete']}" action="#{manageTenantsCtrl.delete}"/>
       <adm:buttonPanel>
@@ -109,10 +97,7 @@
     <adm:confirmPanel panelId="deleteConfirmPl" formId="deleteConfirmForm" text="#{msg['confirm.tenant.delete']}"
                       submitId="confirmedButton"/>
 
-    <adm:confirmPanel text="#{msg['operator.manageIdpSettings.confirmClear']}" panelId="clearConfirmPanel"
-                      submitId="clearConfirmButton" formId="clearConfirmationForm"/>
-
-    <script type="text/javascript">
+        <script type="text/javascript">
 		AdmUtils.findRow("manageTenants:tenants:", "tenantId",
 				"#{manageTenantsCtrl.model.selectedTenantId}", "#{manageTenantsCtrl.tenantsNumber}", function(element) {
 					AdmUtils.selectRow(element);
