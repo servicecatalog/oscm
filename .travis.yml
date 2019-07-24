@@ -2,7 +2,7 @@ language: java
 sudo: required
 
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 cache:
   directories:
@@ -13,6 +13,8 @@ env:
     - ANT_OPTS=-Xmx6g
     - COMUPTERNAME=travis
     - HOSTNAME=travis
+
+install: scripts/getLibraries.sh
 
 jobs:
   include:
