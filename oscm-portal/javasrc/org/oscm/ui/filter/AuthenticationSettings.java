@@ -95,15 +95,10 @@ public class AuthenticationSettings {
     public void init(String tenantID) throws NotExistentTenantException, WrongTenantConfigurationException {
         this.tenantID = tenantID;
         VOTenant tenant = getTenantWithSettings(tenantID);
-        issuer = tenant.getIssuer();
-        identityProviderURL = tenant.getIDPURL();
-        identityProviderHttpMethod = tenant.getIdpHttpMethod();
         identityProviderURLContextRoot = getContextRoot(identityProviderURL);
         signingKeystorePass = getConfigurationSetting(cfgService, ConfigurationKey.SSO_SIGNING_KEYSTORE_PASS);
         signingKeyAlias = getConfigurationSetting(cfgService, ConfigurationKey.SSO_SIGNING_KEY_ALIAS);
         signingKeystore = getConfigurationSetting(cfgService, ConfigurationKey.SSO_SIGNING_KEYSTORE);
-        logoutURL = tenant.getLogoutURL();
-        idpIssuer = tenant.getIDPIssuer();
         signingAlgorithm = getConfigurationSetting(cfgService, ConfigurationKey.SSO_SIGNING_ALGORITHM);
     }
 
@@ -130,11 +125,11 @@ public class AuthenticationSettings {
             return;
         }
         for (IdpSettingType idpSettingType : getMandatorySSOSettingKeys()) {
-            String value = tenant.getTenantSettings().get(idpSettingType);
-            if(StringUtils.isBlank(value)) {
-                throw new WrongTenantConfigurationException("Mandatory setting "
-                        + idpSettingType.name() + " for tenant " + tenantID + " are missing");
-            }
+//            String value = tenant.getTenantSettings().get(idpSettingType);
+//            if(StringUtils.isBlank(value)) {
+//                throw new WrongTenantConfigurationException("Mandatory setting "
+//                        + idpSettingType.name() + " for tenant " + tenantID + " are missing");
+//            }
         }
     }
 
@@ -156,7 +151,6 @@ public class AuthenticationSettings {
                 getConfigurationSetting(cfgService, ConfigurationKey.SSO_IDP_SAML_ASSERTION_ISSUER_ID));
 
         tenant.setTenantId(getConfigurationSetting(cfgService, ConfigurationKey.SSO_DEFAULT_TENANT_ID));
-        tenant.setTenantSettings(settings);
         return tenant;
     }
 

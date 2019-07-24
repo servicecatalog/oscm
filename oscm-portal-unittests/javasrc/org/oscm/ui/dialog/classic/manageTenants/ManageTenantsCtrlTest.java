@@ -7,11 +7,19 @@
  *******************************************************************************/
 package org.oscm.ui.dialog.classic.manageTenants;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-import java.io.IOException;
 import java.util.Properties;
 
 import org.junit.Before;
@@ -22,7 +30,6 @@ import org.oscm.internal.types.enumtypes.IdpSettingType;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
-import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.ui.common.UiDelegate;
 import org.oscm.ui.profile.FieldData;
 
@@ -53,19 +60,15 @@ public class ManageTenantsCtrlTest {
         //given
         POTenant selectedTenant = prepareTenant();
         when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
-        when(manageTenantService.getTenantSettings(selectedTenant.getKey())).thenReturn(new Properties());
+        
         //when
         ctrl.setSelectedTenant();
 
         //then
-        assertFalse(model.isClearExportAvailable());
-        assertFalse(model.isSaveDisabled());
-        assertFalse(model.isImportDisabled());
         assertFalse(model.isDeleteDisabled());
         assertEquals(selectedTenant.getTenantId(), model.getTenantId().getValue());
         assertEquals(selectedTenant.getDescription(), model.getTenantDescription().getValue());
         assertEquals(selectedTenant.getName(), model.getTenantName().getValue());
-        assertEquals(selectedTenant.getIdp(), model.getTenantIdp().getValue());
     }
 
     @Test
@@ -73,17 +76,17 @@ public class ManageTenantsCtrlTest {
         //given
         POTenant selectedTenant = prepareTenant();
         when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
-        when(manageTenantService.getTenantSettings(selectedTenant.getKey())).thenReturn(prepareProperties());
+
         //when
         ctrl.setSelectedTenant();
 
         //then
-        assertTrue(model.isClearExportAvailable());
+        
         assertFalse(model.isSaveDisabled());
-        assertFalse(model.isImportDisabled());
         assertFalse(model.isDeleteDisabled());
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testSave_add() throws NonUniqueBusinessKeyException {
         //given
@@ -102,7 +105,8 @@ public class ManageTenantsCtrlTest {
         verify(manageTenantService, times(1)).addTenant(any(POTenant.class));
         verify(model, times(1)).setTenants(anyList());
     }
-
+    
+    @SuppressWarnings("unchecked")
     @Test
     public void testSave_edit()
         throws NonUniqueBusinessKeyException, ObjectNotFoundException, ConcurrentModificationException {
@@ -133,40 +137,11 @@ public class ManageTenantsCtrlTest {
         //then
         assertEquals(model.getSelectedTenant(), null);
         assertEquals(model.getSelectedTenantId(), null);
-        assertFalse(model.isClearExportAvailable());
         assertEquals(model.getTenantId().getValue(), null);
         assertEquals(model.getTenantName().getValue(), null);
         assertEquals(model.getTenantDescription().getValue(), null);
-        assertEquals(model.getTenantIdp().getValue(), null);
         assertFalse(model.isSaveDisabled());
-        assertFalse(model.isImportDisabled());
         assertTrue(model.isDeleteDisabled());
-    }
-
-    @Test
-    public void testImportSettings_emptyFile() throws SaaSApplicationException {
-        //given
-        model.setFile(null);
-
-        //when
-        String returnValue = ctrl.importSettings();
-
-        //then
-        assertEquals(returnValue, "error");
-    }
-
-    @Test
-    public void testExportSettings() throws IOException {
-        //given
-        model.setSelectedTenant(prepareTenant());
-        doReturn(prepareProperties()).when(manageTenantService).getTenantSettings(anyLong());
-        doNothing().when(ctrl).writeSettings(any(byte[].class));
-
-        //when
-        String returnValue = ctrl.exportSettings();
-
-        //then
-        assertEquals(returnValue, "success");
     }
 
     private POTenant prepareTenant() {
@@ -176,7 +151,6 @@ public class ManageTenantsCtrlTest {
         poTenant.setKey(1L);
         poTenant.setName("tenantName");
         poTenant.setVersion(0);
-        poTenant.setIdp("");
         return poTenant;
     }
 

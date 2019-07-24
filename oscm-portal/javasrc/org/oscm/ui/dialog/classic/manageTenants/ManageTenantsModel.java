@@ -10,11 +10,9 @@ package org.oscm.ui.dialog.classic.manageTenants;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.servlet.http.Part;
 
 import org.oscm.internal.tenant.POTenant;
 import org.oscm.ui.beans.BaseModel;
@@ -24,20 +22,19 @@ import org.oscm.ui.profile.FieldData;
 @ManagedBean
 public class ManageTenantsModel extends BaseModel implements Serializable {
 
+    private static final long serialVersionUID = 2478162552050148039L;
+    
     private List<POTenant> tenants;
     private FieldData<String> tenantId;
     private FieldData<String> tenantName;
     private FieldData<String> tenantDescription;
-    private FieldData<String> tenantIdp;
     private String selectedTenantId;
     private boolean saveDisabled;
-    private boolean importDisabled;
     private boolean deleteDisabled;
     private POTenant selectedTenant;
-    private Part file;
-
+    
     private boolean clearExportAvailable;
-    private Properties idpProperties;
+    
     private boolean dirty;
 
     public List<POTenant> getTenants() {
@@ -66,14 +63,7 @@ public class ManageTenantsModel extends BaseModel implements Serializable {
         this.tenantId = tenantId;
     }
 
-    public FieldData<String> getTenantIdp() {
-        return tenantIdp;
-    }
-
-    public void setTenantIdp(FieldData<String> tenantIdp) {
-        this.tenantIdp = tenantIdp;
-    }
-
+     
     public FieldData<String> getTenantDescription() {
         return tenantDescription;
     }
@@ -114,44 +104,12 @@ public class ManageTenantsModel extends BaseModel implements Serializable {
         this.selectedTenant = selectedTenant;
     }
 
-    public Part getFile() {
-        return file;
-    }
-
-    public void setFile(Part file) {
-        this.file = file;
-    }
-
-    public boolean isClearExportAvailable() {
-        return clearExportAvailable;
-    }
-
-    public void setClearExportAvailable(boolean clearExportAvailable) {
-        this.clearExportAvailable = clearExportAvailable;
-    }
-
-    public FieldData<String> getTenantName() {
-        return tenantName;
-    }
-
     public void setTenantName(FieldData<String> tenantName) {
         this.tenantName = tenantName;
     }
-
-    public Properties getIdpProperties() {
-        return idpProperties;
-    }
-
-    public void setIdpProperties(Properties idpProperties) {
-        this.idpProperties = idpProperties;
-    }
-
-    public boolean isImportDisabled() {
-        return importDisabled;
-    }
-
-    public void setImportDisabled(boolean importDisabled) {
-        this.importDisabled = importDisabled;
+    
+    public FieldData<String> getTenantName() {
+        return tenantName;
     }
 
     public boolean isDirty() {
