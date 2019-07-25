@@ -63,19 +63,25 @@ public class OidcFilter implements Filter {
     //FIXME: Determine from where should the tenant be retrieved
     Optional<String> tenantIdParam = Optional.ofNullable(httpRequest.getParameter("tenantId"));
 
-    idTokenParam.ifPresent(
-        idToken -> {
-          try {
-            makeTokenValidationRequest(httpRequest, idToken, tenantIdParam);
-          } catch (ServletException | IOException e) {
-            LOGGER.logError(
-                    Log4jLogger.SYSTEM_LOG,
-                    e,
-                    LogMessageIdentifier.ERROR_AUTH_REQUEST_GENERATION_FAILED);
-          }
-          httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idToken);
-        });
-    
+    if(idTokenParam.isPresent()) {
+            try {
+                    makeTokenValidationRequest(httpRequest, idTokenParam.get(), tenantIdParam);
+                    httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idTokenParam.get());
+            } catch (ValidationException | URISyntaxException e) {
+                    LOGGER.logError(
+                            Log4jLogger.SYSTEM_LOG,
+                            e,
+                            LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+                    request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_TOKEN_VALIDATION_FAILED);
+
+                    filterConfig
+                            .getServletContext()
+                            .getRequestDispatcher(errorPage)
+                            .forward(request, response);
+                    return;
+            }
+    }
+
     if (!(httpRequest.getServletPath().matches(excludeUrlPattern))
         || isLoginOnMarketplaceRequested(httpRequest)) {
 
@@ -94,12 +100,11 @@ public class OidcFilter implements Filter {
               "http://" + hostname + ":9090/oscm-identity/login?state=" + requestedUrl;
           JSFUtils.sendRedirect(httpResponse, loginUrl);
         } catch (URISyntaxException excp) {
-
           LOGGER.logError(
               Log4jLogger.SYSTEM_LOG,
               excp,
-              LogMessageIdentifier.ERROR_AUTH_REQUEST_GENERATION_FAILED);
-          request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_GENERATE_AUTHNREQUEST);
+              LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+          request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_TOKEN_VALIDATION_FAILED);
 
           filterConfig
               .getServletContext()
@@ -109,7 +114,21 @@ public class OidcFilter implements Filter {
         return;
 
       } else {
-        makeTokenValidationRequest(httpRequest, existingIdToken, tenantIdParam);
+        try {
+          makeTokenValidationRequest(httpRequest, existingIdToken, tenantIdParam);
+        } catch (ValidationException | URISyntaxException e) {
+          LOGGER.logError(
+                  Log4jLogger.SYSTEM_LOG,
+                  e,
+                  LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+          request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_TOKEN_VALIDATION_FAILED);
+
+          filterConfig
+                  .getServletContext()
+                  .getRequestDispatcher(errorPage)
+                  .forward(request, response);
+          return;
+        }
       }
     }
 
@@ -117,11 +136,10 @@ public class OidcFilter implements Filter {
   }
 
   private void makeTokenValidationRequest(HttpServletRequest httpRequest, String idToken, Optional<String> tenantIdParam)
-          throws ServletException, IOException {
+          throws ValidationException, IOException, URISyntaxException {
     String requestedUrl = httpRequest.getRequestURL().toString();
 
     HttpResponse validationResponse = null;
-    try {
       String hostname = new URI(requestedUrl).getHost();
       String resourceUrl = "http://" + hostname + ":9090/oscm-identity/verify_token";
 
@@ -132,21 +150,9 @@ public class OidcFilter implements Filter {
       params.add(new BasicNameValuePair("token", idToken));
       post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
-      validationResponse = client.execute(post);
+    validationResponse = client.execute(post);
       if (validationResponse.getStatusLine().getStatusCode() != Response.Status.OK.getStatusCode()) {
-        throw new ValidationException("Token validation failed!");
-      }
-
-    } catch (URISyntaxException | IOException | ValidationException e) {
-        LOGGER.logError(
-          Log4jLogger.SYSTEM_LOG,
-          e,
-          LogMessageIdentifier.ERROR_AUTH_REQUEST_GENERATION_FAILED);
-
-      filterConfig
-              .getServletContext()
-              .getRequestDispatcher(errorPage)
-              .forward(httpRequest, (ServletResponse) validationResponse);
+      throw new ValidationException("Token validation failed!");
     }
   }
 

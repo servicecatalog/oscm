@@ -219,6 +219,7 @@ public class BaseBean {
     public static final String ERROR_REVENUESHARE_VALUE = "error.revenueshare.value";
     public static final String ERROR_RECOVERPASSWORD_INVALID_LINK = "error.recoverpassword.invalid.link";
     public static final String ERROR_GENERATE_AUTHNREQUEST = "error.generating.authnrequest";
+    public static final String ERROR_TOKEN_VALIDATION_FAILED = "error.auth.tokenvalidation";
     public static final String ERROR_INVALID_SAML_RESPONSE = "error.invalid.samlResponse";
     public static final String ERROR_INVALID_SAML_RESPONSE_STATUS_CODE = "error.invalid.samlResponseStatusCode";
     public static final String ERROR_SAML_TIMEOUT = "error.timeout.during.saml";
