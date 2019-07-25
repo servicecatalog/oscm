@@ -4,10 +4,9 @@ sudo: required
 jdk:
   - openjdk8
 
-# Temporarily disabled 
-#cache:
-#  directories:
-#    - $TRAVIS_BUILD_DIR/libraries
+cache:
+  directories:
+    - $TRAVIS_BUILD_DIR/libraries
 
 env:
   global:
