@@ -7,8 +7,13 @@
  *******************************************************************************/
 package org.oscm.ui.dialog.classic.manageTenants;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
+import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -28,13 +33,13 @@ import org.oscm.ui.profile.FieldData;
 @ManagedBean
 @ViewScoped
 public class ManageTenantsCtrl extends BaseBean implements Serializable {
-    
-	private static final long serialVersionUID = 3995366775624605906L;
 
-	@EJB
+    private static final long serialVersionUID = 3995366775624605906L;
+
+    @EJB
     private ManageTenantService manageTenantService;
 
-    @ManagedProperty(value="#{manageTenantsModel}")
+    @ManagedProperty(value = "#{manageTenantsModel}")
     private ManageTenantsModel model;
 
     @PostConstruct
@@ -57,10 +62,11 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
     }
 
     public List<String> getDataTableHeaders() {
-        if (model.getDataTableHeaders() == null || model.getDataTableHeaders().isEmpty()) {
+        if (model.getDataTableHeaders() == null
+                || model.getDataTableHeaders().isEmpty()) {
             try {
                 model.setDataTableHeaders(DataTableHandler
-                    .getTableHeaders(POTenant.class.getName()));
+                        .getTableHeaders(POTenant.class.getName()));
             } catch (Exception e) {
                 throw new SaaSSystemException(e);
             }
@@ -69,7 +75,7 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
     }
 
     private void initWithoutSelection() {
-        model.setTenants(manageTenantService.getAllTenants());
+        model.setTenants(manageTenantService.getAllTenantsWithDefaultTenant());
         model.setTenantId(new FieldData<String>(null, true, false));
         model.setTenantName(new FieldData<String>(null, true, true));
         model.setTenantDescription(new FieldData<String>(null, true, false));
@@ -85,16 +91,19 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
         POTenant poTenant = getSelectedTenant();
         model.setSelectedTenant(poTenant);
         model.setTenantId(new FieldData<>(poTenant.getTenantId(), true, false));
-        model.setTenantName(new FieldData<>(poTenant.getName(), false, true));
-        model.setTenantDescription(new FieldData<>(poTenant.getDescription(), false, false));
-        model.setSaveDisabled(false);
+        model.setTenantName(new FieldData<>(poTenant.getName(),
+                poTenant.isDefault(), true));
+        model.setTenantDescription(new FieldData<>(poTenant.getDescription(),
+                poTenant.isDefault(), false));
+        model.setSaveDisabled(poTenant.isDefault());
         model.setDeleteDisabled(false);
     }
 
     private POTenant getSelectedTenant() {
         POTenant poTenant = null;
         try {
-            poTenant = getManageTenantService().getTenantByTenantId(model.getSelectedTenantId());
+            poTenant = getManageTenantService()
+                    .getTenantByTenantId(model.getSelectedTenantId());
         } catch (SaaSApplicationException e) {
             ui.handleException(e);
         }
@@ -104,23 +113,37 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
     public String save() {
         try {
             if (model.getSelectedTenant() != null) {
-                model.getSelectedTenant().setTenantId(model.getTenantId().getValue());
-                model.getSelectedTenant().setName(model.getTenantName().getValue());
-                model.getSelectedTenant().setDescription(model.getTenantDescription().getValue());
-                manageTenantService.updateTenant(model.getSelectedTenant());
-                model.setSelectedTenantId(model.getSelectedTenant().getTenantId());
-                handleSuccessMessage(BaseBean.INFO_TENANT_SAVED, model.getTenantId().getValue());
+
+                model.getSelectedTenant()
+                        .setTenantId(model.getTenantId().getValue());
+
+                if (!model.getSelectedTenant().isDefault()) {
+                    model.getSelectedTenant()
+                            .setName(model.getTenantName().getValue());
+                    model.getSelectedTenant().setDescription(
+                            model.getTenantDescription().getValue());
+
+                    manageTenantService.updateTenant(model.getSelectedTenant());
+                    model.setSelectedTenantId(
+                            model.getSelectedTenant().getTenantId());
+                }
+
+                handleSuccessMessage(BaseBean.INFO_TENANT_SAVED,
+                        model.getTenantId().getValue());
             } else {
                 POTenant poTenant = new POTenant();
                 poTenant.setName(model.getTenantName().getValue());
-                poTenant.setDescription(model.getTenantDescription().getValue());
-                String generatedTenantId = manageTenantService.addTenant(poTenant);
+                poTenant.setDescription(
+                        model.getTenantDescription().getValue());
+                String generatedTenantId = manageTenantService
+                        .addTenant(poTenant);
                 model.setSelectedTenantId(generatedTenantId);
-                handleSuccessMessage(BaseBean.INFO_TENANT_ADDED, generatedTenantId);
+                handleSuccessMessage(BaseBean.INFO_TENANT_ADDED,
+                        generatedTenantId);
             }
             model.setDirty(false);
-            
-        }  catch (SaaSApplicationException e) {
+
+        } catch (SaaSApplicationException e) {
             ui.handleException(e);
         }
         refreshModel();
@@ -134,7 +157,8 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
     public String delete() {
         try {
             manageTenantService.removeTenant(model.getSelectedTenant());
-            handleSuccessMessage(BaseBean.INFO_TENANT_DELETED, model.getSelectedTenantId());
+            handleSuccessMessage(BaseBean.INFO_TENANT_DELETED,
+                    model.getSelectedTenantId());
             refreshModelAfterDelete();
             model.setDirty(false);
         } catch (SaaSApplicationException e) {
@@ -148,7 +172,8 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
         for (POTenant poTenant : manageTenantService.getAllTenants()) {
             if (poTenant.getTenantId().equals(model.getSelectedTenantId())) {
                 model.setSelectedTenant(poTenant);
-                model.setTenantId(new FieldData<>(poTenant.getTenantId(), true, false));
+                model.setTenantId(
+                        new FieldData<>(poTenant.getTenantId(), true, false));
                 model.setDeleteDisabled(false);
                 return;
             }
@@ -170,13 +195,81 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
         model.setSaveDisabled(false);
         model.setDeleteDisabled(true);
     }
-    
-    public void setManageTenantService(ManageTenantService manageTenantService) {
+
+    public void setManageTenantService(
+            ManageTenantService manageTenantService) {
         this.manageTenantService = manageTenantService;
     }
 
     public ManageTenantService getManageTenantService() {
         return this.manageTenantService;
+    }
+
+    public String exportSettingsTemplate() throws IOException {
+        final String selectedTenantId = model.getSelectedTenantId();
+
+        String tenantId = Value.of(selectedTenantId)
+                .ifNotGivenReturn("default");
+
+        Properties properties = generateTenantSettingsTemplate(tenantId);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            final String fName = String.format("tenant-%s.properties",
+                    tenantId);
+            properties.store(baos, null);
+            writeSettings(baos.toByteArray(), fName);
+        } finally {
+            baos.close();
+        }
+
+        return OUTCOME_SUCCESS;
+    }
+
+    public void writeSettings(byte[] content, String fileName)
+            throws IOException {
+        super.writeContentToResponse(content, fileName, "text/plain");
+    }
+
+    public Properties generateTenantSettingsTemplate(String tenantId) {
+
+        Properties prop = new Properties();
+        HttpURLConnection con = null;
+        try {
+            con =  getConnection();
+            prop.load(con.getInputStream());
+            prop.put("oidc.provider", tenantId);
+            return prop;
+        } catch (IOException e) {
+            SaaSApplicationException sae = new SaaSApplicationException(
+                    "Failed to load settings for tenant %s", e);
+            ui.handleException(sae);
+        } finally {
+            if (con != null) {
+                con.disconnect();
+            }
+        }
+        return prop;
+    }
+
+    HttpURLConnection getConnection() throws IOException {
+        final String url = "https://raw.githubusercontent.com/servicecatalog/oscm-identity/master/config/tenants/tenant-defaut.properties";
+        return(HttpURLConnection) new URL(url).openConnection();
+    }
+
+    static class Value<T> {
+        private T value;
+
+        static <T> Value<T> of(T value) {
+            return new Value<T>(value);
+        }
+
+        Value(T value) {
+            this.value = value;
+        }
+
+        T ifNotGivenReturn(T otherValue) {
+            return (value != null) ? value : otherValue;
+        }
     }
 
 }

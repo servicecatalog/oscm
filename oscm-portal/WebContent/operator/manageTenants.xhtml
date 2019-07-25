@@ -90,6 +90,10 @@
         <adm:buttonCustomizedOnClick id="deleteButton" value="#{msg['button.delete']}" buttonType="delete"
                                      onclick="#{rich:component('deleteConfirmPl')}.show();return false;"
                                      disabled="#{manageTenantsCtrl.model.deleteDisabled}"/>
+                                     
+         <adm:button id="exportButton" value="#{msg['button.export.template']}" bean="#{manageTenantsCtrl}"
+                      action="exportSettingsTemplate" progress="false" buttonType="export"
+                      />                             
       </adm:buttonPanel>
     </h:form>
 

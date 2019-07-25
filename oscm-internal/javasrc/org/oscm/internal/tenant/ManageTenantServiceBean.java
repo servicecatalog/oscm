@@ -9,7 +9,6 @@ package org.oscm.internal.tenant;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -21,14 +20,15 @@ import org.oscm.id.IdGenerator;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;
 import org.oscm.internal.intf.TenantService;
-import org.oscm.internal.types.enumtypes.IdpSettingType;
-import org.oscm.internal.types.exception.*;
+import org.oscm.internal.types.exception.ConcurrentModificationException;
+import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
+import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.types.exception.TenantDeletionConstraintException;
+import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.types.exception.ValidationException.ReasonEnum;
 import org.oscm.internal.vo.VOTenant;
-
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
-import org.oscm.types.enumtypes.LogMessageIdentifier;
 
 @Stateless
 @RolesAllowed("PLATFORM_OPERATOR")
@@ -48,6 +48,22 @@ public class ManageTenantServiceBean implements ManageTenantService {
             poTenants.add(new POTenant(voTenant));
         }
         return poTenants;
+    }
+
+    @Override
+    public List<POTenant> getAllTenantsWithDefaultTenant() {
+        List<POTenant> poTenants = new ArrayList<>();
+        poTenants.add(createDefaultTenant());
+        poTenants.addAll(getAllTenants());
+        return poTenants;
+    }
+
+    protected POTenant createDefaultTenant() {
+        POTenant tenant = new POTenant();
+        tenant.setTenantId(POTenant.DEFAULT_TENANT_ID);
+        tenant.setDescription("Platform default tenant");
+        tenant.setName("Default");
+        return tenant;
     }
 
     @Override
