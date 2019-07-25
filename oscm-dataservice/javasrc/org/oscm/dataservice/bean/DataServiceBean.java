@@ -228,8 +228,6 @@ public class DataServiceBean implements DataService {
             classEnum = DomainObjectException.ClassEnum.MARKETPLACE_ACCESS;
         } else if (objclass == Tenant.class) {
             classEnum = DomainObjectException.ClassEnum.TENANT;
-        } else if (objclass == TenantSetting.class) {
-            classEnum = DomainObjectException.ClassEnum.TENANT_SETTING;
         } else if (objclass == ModifiedEntity.class) {
             classEnum = DomainObjectException.ClassEnum.MODIFIED_ENTITY;
         }

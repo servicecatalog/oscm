@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright FUJITSU LIMITED 2018-->
+ 
+<dataset>
+  <Tenant tkey="12000" version="0" name="SimpleTenant" tenantid="tenant1" description="A simple tenant" />
+</dataset>
