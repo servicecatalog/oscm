@@ -92,22 +92,24 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
         model.setSelectedTenant(poTenant);
         model.setTenantId(new FieldData<>(poTenant.getTenantId(), true, false));
         model.setTenantName(new FieldData<>(poTenant.getName(),
-                poTenant.isDefault(), true));
+                !isDefault(poTenant), true));
         model.setTenantDescription(new FieldData<>(poTenant.getDescription(),
-                poTenant.isDefault(), false));
-        model.setSaveDisabled(poTenant.isDefault());
-        model.setDeleteDisabled(false);
+                !isDefault(poTenant), false));
+        model.setSaveDisabled(isDefault(poTenant));
+        model.setDeleteDisabled(isDefault(poTenant));
     }
 
     private POTenant getSelectedTenant() {
-        POTenant poTenant = null;
-        try {
-            poTenant = getManageTenantService()
-                    .getTenantByTenantId(model.getSelectedTenantId());
-        } catch (SaaSApplicationException e) {
-            ui.handleException(e);
+        POTenant defaultTenant = getDefaultTenant();
+        if (!defaultTenant.getTenantId().equals(model.getSelectedTenantId())) {
+            try {
+                return getManageTenantService()
+                        .getTenantByTenantId(model.getSelectedTenantId());
+            } catch (SaaSApplicationException e) {
+                ui.handleException(e);
+            }
         }
-        return poTenant;
+        return defaultTenant;
     }
 
     public String save() {
@@ -117,7 +119,7 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
                 model.getSelectedTenant()
                         .setTenantId(model.getTenantId().getValue());
 
-                if (!model.getSelectedTenant().isDefault()) {
+                if (!isDefault(model.getSelectedTenant())) {
                     model.getSelectedTenant()
                             .setName(model.getTenantName().getValue());
                     model.getSelectedTenant().setDescription(
@@ -168,8 +170,8 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
     }
 
     private void refreshModel() {
-        model.setTenants(manageTenantService.getAllTenants());
-        for (POTenant poTenant : manageTenantService.getAllTenants()) {
+        model.setTenants(manageTenantService.getAllTenantsWithDefaultTenant());
+        for (POTenant poTenant : model.getTenants()) {
             if (poTenant.getTenantId().equals(model.getSelectedTenantId())) {
                 model.setSelectedTenant(poTenant);
                 model.setTenantId(
@@ -227,33 +229,39 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
 
     public void writeSettings(byte[] content, String fileName)
             throws IOException {
-        super.writeContentToResponse(content, fileName, "text/plain");
+        super.writeContentToResponse(content, fileName,
+                "text/x-java-properties");
     }
 
-    public Properties generateTenantSettingsTemplate(String tenantId) {
+    public Properties generateTenantSettingsTemplate(String tenantId)
+            throws IOException {
+        Properties props = new Properties();
+        props.put("oidc.provider", "default");
+        props.put("oidc.clientId", "Client ID of registered application");
+        props.put("oidc.authUrl", "https://[domain]/oauth2/authorize");
+        props.put("oidc.logoutUrl", "https://[domain]/oauth2/logout");
+        props.put("oidc.idTokenRedirectUrl",
+                "http://[oscm-host]:9090/oscm-identity/id_token");
+        props.put("oidc.openidConfigurationUrl",
+                "https://[domain]/.well-known/openid-configuration");
+        return props;
+    }
 
-        Properties prop = new Properties();
-        HttpURLConnection con = null;
-        try {
-            con =  getConnection();
-            prop.load(con.getInputStream());
-            prop.put("oidc.provider", tenantId);
-            return prop;
-        } catch (IOException e) {
-            SaaSApplicationException sae = new SaaSApplicationException(
-                    "Failed to load settings for tenant %s", e);
-            ui.handleException(sae);
-        } finally {
-            if (con != null) {
-                con.disconnect();
-            }
-        }
-        return prop;
+    boolean isDefault(POTenant poTenant) {
+        return "default".equals(poTenant.getTenantId());
+    }
+
+    POTenant getDefaultTenant() {
+        for (POTenant t : model.getTenants())
+            if (isDefault(t))
+                return t;
+
+        throw new RuntimeException("Default Tenant missing");
     }
 
     HttpURLConnection getConnection() throws IOException {
-        final String url = "https://raw.githubusercontent.com/servicecatalog/oscm-identity/master/config/tenants/tenant-defaut.properties";
-        return(HttpURLConnection) new URL(url).openConnection();
+        final String url = "https://raw.githubusercontent.com/servicecatalog/oscm-identity/master/config/tenants/tenant-default.properties";
+        return (HttpURLConnection) new URL(url).openConnection();
     }
 
     static class Value<T> {

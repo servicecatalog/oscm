@@ -25,6 +25,8 @@ import static org.mockito.Mockito.when;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.io.IOUtils;
@@ -51,6 +53,7 @@ public class ManageTenantsCtrlTest {
     private ManageTenantsModel model;
     private ManageTenantService manageTenantService;
     private UiDelegate uiDelegate;
+    private List<POTenant> tenants;
 
     private ArgumentCaptor<String> fileName = ArgumentCaptor
             .forClass(String.class);
@@ -68,6 +71,14 @@ public class ManageTenantsCtrlTest {
         uiDelegate = mock(UiDelegate.class);
         ctrl.ui = uiDelegate;
         doNothing().when(uiDelegate).handleError(anyString(), anyString());
+         
+        POTenant tenant = new POTenant();
+        tenant.setTenantId("default");
+        tenant.setDescription("Platform default tenant");
+        tenant.setName("Default");
+        tenants = new ArrayList<POTenant>();
+        tenants.add(tenant);
+        doReturn(tenants).when(manageTenantService).getAllTenantsWithDefaultTenant();
     }
 
     @Test
@@ -128,7 +139,7 @@ public class ManageTenantsCtrlTest {
         // then
         assertEquals(model.getSelectedTenantId(), GENERATED_TENANT_ID);
         verify(manageTenantService, times(1)).addTenant(any(POTenant.class));
-        verify(model, times(1)).setTenants(anyList());
+        verify(model, times(2)).setTenants(anyList());
     }
 
     @SuppressWarnings("unchecked")
@@ -152,7 +163,7 @@ public class ManageTenantsCtrlTest {
         // then
         assertEquals(model.getSelectedTenantId(), poTenant.getTenantId());
         verify(manageTenantService, times(1)).updateTenant(any(POTenant.class));
-        verify(model, times(1)).setTenants(anyList());
+        verify(model, times(2)).setTenants(anyList());
     }
 
     @Test
@@ -194,44 +205,13 @@ public class ManageTenantsCtrlTest {
 
         assertExportContent(fileContent);
     }
-
-    @Test
-    public void testGenerateTenantSettingsTemplate_failedConnection()
-            throws Exception {
-
-        // given
-        givenFailedConnection();
-
-        // when
-        ctrl.generateTenantSettingsTemplate(SELECTED_TENANT_ID);
-
-        // then
-        verify(ctrl.ui, times(1))
-                .handleException(any(SaaSApplicationException.class));
-
-    }
-
-    @Test
-    public void testexportSettingsTemplate_failedConnection() throws Exception {
-
-        // given
-        givenFailedConnection();
-
-        // when
-        ctrl.generateTenantSettingsTemplate(SELECTED_TENANT_ID);
-
-        // then
-        verify(ctrl.ui, times(1))
-                .handleException(any(SaaSApplicationException.class));
-
-    }
-
+ 
     protected void assertExportContent(ArgumentCaptor<byte[]> bytes)
             throws IOException {
         final String content = new String(bytes.getValue());
         Properties props = new Properties();
         props.load(IOUtils.toInputStream(content));
-        assertEquals(SELECTED_TENANT_ID, props.get("oidc.provider"));
+        assertEquals("default", props.get("oidc.provider"));
     }
 
     protected void assertExportFileName(ArgumentCaptor<String> fileName) {
@@ -280,6 +260,8 @@ public class ManageTenantsCtrlTest {
         poTenant.setKey(1L);
         poTenant.setName("tenantName");
         poTenant.setVersion(0);
+        tenants.add(poTenant);
+        model.setTenants(tenants);
         return poTenant;
     }
 

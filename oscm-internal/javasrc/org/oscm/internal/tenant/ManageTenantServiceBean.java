@@ -60,9 +60,10 @@ public class ManageTenantServiceBean implements ManageTenantService {
 
     protected POTenant createDefaultTenant() {
         POTenant tenant = new POTenant();
-        tenant.setTenantId(POTenant.DEFAULT_TENANT_ID);
+        tenant.setTenantId("default");
         tenant.setDescription("Platform default tenant");
         tenant.setName("Default");
+        
         return tenant;
     }
 
