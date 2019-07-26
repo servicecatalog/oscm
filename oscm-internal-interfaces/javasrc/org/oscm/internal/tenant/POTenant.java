@@ -12,7 +12,7 @@ import org.oscm.internal.vo.VOTenant;
 
 public class POTenant extends BasePO {
 
-        public static final String DEFAULT_TENANT_ID = "default";
+        private static final String DEFAULT_TENANT_ID = "default";
     
 	private static final long serialVersionUID = -3225367553154478323L;
 	private String name;
@@ -70,6 +70,5 @@ public class POTenant extends BasePO {
 	public boolean isDefault() {
             return getTenantId() == null ||  DEFAULT_TENANT_ID.equals(getTenantId());
 	}
-    
 
 }
