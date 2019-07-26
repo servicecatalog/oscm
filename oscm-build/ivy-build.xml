@@ -182,8 +182,6 @@
       overwrite="true" />
     <copy file="${ivy.lib.dir}/commons-httpclient-3.1.jar" todir="${root.dir}/libraries/apache-httpclient/javalib"
       overwrite="true" />
-    <copy file="${ivy.lib.dir}/commons-logging-1.1.3.jar" todir="${root.dir}/libraries/apache-httpcore/javalib"
-      overwrite="true" />
     <copy file="${ivy.lib.dir}/fluent-hc-4.3.1.jar" todir="${root.dir}/libraries/apache-httpcore/javalib"
       overwrite="true" />
     <copy file="${ivy.lib.dir}/httpclient-cache-4.3.1.jar" todir="${root.dir}/libraries/apache-httpcore/javalib"
