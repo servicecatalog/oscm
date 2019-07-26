@@ -35,7 +35,7 @@ public class Userinfo {
     public VOUserDetails getUserinfoFromIdentityService(String userId,
             String tenantId, String host) throws Exception {
 
-        String response = "";
+        String response = ""; 
 
         try {
             String token = "";
