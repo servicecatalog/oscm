@@ -256,6 +256,7 @@ public class ManageTenantsCtrlTest {
     private POTenant prepareTenant() {
         POTenant poTenant = new POTenant();
         poTenant.setTenantId(GENERATED_TENANT_ID);
+        model.setSelectedTenantId(GENERATED_TENANT_ID);
         poTenant.setDescription("description");
         poTenant.setKey(1L);
         poTenant.setName("tenantName");
