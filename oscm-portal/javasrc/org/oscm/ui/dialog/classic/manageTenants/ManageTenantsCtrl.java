@@ -99,7 +99,6 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
         model.setDeleteDisabled(isDefault(poTenant));
     }
 
-    
     private POTenant getSelectedTenant() {
         POTenant defaultTenant = getDefaultTenant();
         if (!defaultTenant.getTenantId().equals(model.getSelectedTenantId())) {
@@ -230,31 +229,28 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
 
     public void writeSettings(byte[] content, String fileName)
             throws IOException {
-        super.writeContentToResponse(content, fileName, "text/x-java-properties");
+        super.writeContentToResponse(content, fileName,
+                "text/x-java-properties");
     }
 
-    public Properties generateTenantSettingsTemplate(String tenantId) throws IOException {
-
-        Properties prop = new Properties();
-        HttpURLConnection con = null;
-        try {
-            con = getConnection();
-            prop.load(con.getInputStream());
-            prop.put("oidc.provider", tenantId);
-            return prop;
-        
-        } finally {
-            if (con != null) {
-                con.disconnect();
-            }
-        }
-      
+    public Properties generateTenantSettingsTemplate(String tenantId)
+            throws IOException {
+        Properties props = new Properties();
+        props.put("oidc.provider", "default");
+        props.put("oidc.clientId", "Client ID of registered application");
+        props.put("oidc.authUrl", "https://[domain]/oauth2/authorize");
+        props.put("oidc.logoutUrl", "https://[domain]/oauth2/logout");
+        props.put("oidc.idTokenRedirectUrl",
+                "http://[oscm-host]:9090/oscm-identity/id_token");
+        props.put("oidc.openidConfigurationUrl",
+                "https://[domain]/.well-known/openid-configuration");
+        return props;
     }
-    
+
     boolean isDefault(POTenant poTenant) {
         return "default".equals(poTenant.getTenantId());
     }
-    
+
     POTenant getDefaultTenant() {
         for (POTenant t : model.getTenants())
             if (isDefault(t))
@@ -263,7 +259,6 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
         throw new RuntimeException("Default Tenant missing");
     }
 
-    
     HttpURLConnection getConnection() throws IOException {
         final String url = "https://raw.githubusercontent.com/servicecatalog/oscm-identity/master/config/tenants/tenant-default.properties";
         return (HttpURLConnection) new URL(url).openConnection();

@@ -205,25 +205,13 @@ public class ManageTenantsCtrlTest {
 
         assertExportContent(fileContent);
     }
-
-    @Test(expected = IOException.class)
-    public void testGenerateTenantSettingsTemplate_failedConnection()
-            throws Exception {
-
-        // given
-        givenFailedConnection();
-
-        // when
-        ctrl.generateTenantSettingsTemplate(SELECTED_TENANT_ID);
-
-    }
-    
+ 
     protected void assertExportContent(ArgumentCaptor<byte[]> bytes)
             throws IOException {
         final String content = new String(bytes.getValue());
         Properties props = new Properties();
         props.load(IOUtils.toInputStream(content));
-        assertEquals(SELECTED_TENANT_ID, props.get("oidc.provider"));
+        assertEquals("default", props.get("oidc.provider"));
     }
 
     protected void assertExportFileName(ArgumentCaptor<String> fileName) {
