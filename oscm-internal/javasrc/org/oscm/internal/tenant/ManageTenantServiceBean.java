@@ -63,6 +63,7 @@ public class ManageTenantServiceBean implements ManageTenantService {
         tenant.setTenantId("default");
         tenant.setDescription("Platform default tenant");
         tenant.setName("Default");
+        
         return tenant;
     }
 
