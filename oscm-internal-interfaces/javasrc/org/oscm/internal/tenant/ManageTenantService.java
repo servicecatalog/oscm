@@ -28,6 +28,13 @@ public interface ManageTenantService {
      * @return ArrayList of value objects.
      */
     List<POTenant> getAllTenants();
+    
+    /**
+     * Method which lists all the tenants from system including the default tenant.
+     * @return ArrayList of value objects.
+     * @see #getAllTenants();
+     */
+    List<POTenant> getAllTenantsWithDefaultTenant();
 
     /**
      * Queries db for tenant by its tenantID.
@@ -78,4 +85,6 @@ public interface ManageTenantService {
      * @return
      */
     void validateOrgUsersUniqnessInTenant(String orgId, long tenantKey) throws ValidationException;
+
+    
 }

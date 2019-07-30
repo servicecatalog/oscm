@@ -12,6 +12,8 @@ import org.oscm.internal.vo.VOTenant;
 
 public class POTenant extends BasePO {
 
+        
+    
 	private static final long serialVersionUID = -3225367553154478323L;
 	private String name;
 	private String description;
@@ -27,6 +29,7 @@ public class POTenant extends BasePO {
 		this.description = voTenant.getDescription();
 		this.setKey(voTenant.getKey());
 		this.setVersion(voTenant.getVersion());
+		
 	}
 
 	public VOTenant toVOTenanat() {
