@@ -111,7 +111,7 @@ public class OidcFilterTest {
   @Test
   public void doFilter_noMPLLogin() throws IOException, ServletException {
     // given
-    givenMPLoginWithoutParameter();
+    givenNoMPLogin();
 
     // when
     filter.doFilter(requestMock, responseMock, chainMock);
