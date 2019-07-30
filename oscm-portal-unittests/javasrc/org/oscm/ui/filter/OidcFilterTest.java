@@ -47,156 +47,137 @@ import org.oscm.internal.cache.MarketplaceConfiguration;
  */
 public class OidcFilterTest {
 
-    OidcFilter filter = spy(new OidcFilter());
+  OidcFilter filter = spy(new OidcFilter());
 
-    private HttpServletRequest requestMock;
-    private HttpServletResponse responseMock;
-    private HttpSession httpSessionMock;
-    private FilterChain chainMock;
+  private HttpServletRequest requestMock;
+  private HttpServletResponse responseMock;
+  private HttpSession httpSessionMock;
+  private FilterChain chainMock;
 
-    ArgumentCaptor<String> ac;
+  ArgumentCaptor<String> ac;
 
-    @Before
-    public void setup() throws IOException, ServletException {
-        final String exclPattern = "(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";
-        FilterConfig cfgMock = mock(FilterConfig.class);
-        doReturn(exclPattern).when(cfgMock)
-                .getInitParameter(eq("exclude-url-pattern"));
+  @Before
+  public void setup() throws IOException, ServletException {
+    final String exclPattern = "(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";
+    FilterConfig cfgMock = mock(FilterConfig.class);
+    doReturn(exclPattern).when(cfgMock).getInitParameter(eq("exclude-url-pattern"));
 
-        filter.init(cfgMock);
+    filter.init(cfgMock);
 
-        requestMock = mock(HttpServletRequest.class);
-        responseMock = mock(HttpServletResponse.class);
-        chainMock = mock(FilterChain.class);
+    requestMock = mock(HttpServletRequest.class);
+    responseMock = mock(HttpServletResponse.class);
+    chainMock = mock(FilterChain.class);
 
-        httpSessionMock = mock(HttpSession.class);
+    httpSessionMock = mock(HttpSession.class);
 
-        doReturn("oscm-portal/marketplace/").when(requestMock).getServletPath();
+    doReturn("oscm-portal/marketplace/").when(requestMock).getServletPath();
 
-        doReturn(httpSessionMock).when(requestMock).getSession();
-        doReturn("tenanatMPL").when(httpSessionMock).getAttribute(eq("mId"));
-        MarketplaceConfiguration mfc = mock(MarketplaceConfiguration.class);
-        doReturn(mfc).when(filter).getConfig(anyString());
-        doReturn("tenantXY").when(mfc).getTenantId();
-        doNothing().when(chainMock).doFilter(any(), any());
+    doReturn(httpSessionMock).when(requestMock).getSession();
+    doReturn("tenanatMPL").when(httpSessionMock).getAttribute(eq("mId"));
+    MarketplaceConfiguration mfc = mock(MarketplaceConfiguration.class);
+    doReturn(mfc).when(filter).getConfig(anyString());
+    doReturn("tenantXY").when(mfc).getTenantId();
+    doNothing().when(chainMock).doFilter(any(), any());
 
-        ac = ArgumentCaptor.forClass(String.class);
+    ac = ArgumentCaptor.forClass(String.class);
 
-        doAnswer((new Answer<String>() {
-            @Override
-            public String answer(InvocationOnMock invocation) {
-                Object[] args = invocation.getArguments();
-                StringBuffer url = requestMock.getRequestURL();
-                try {
-                    return new URL(url.toString()).getQuery();
-                } catch (MalformedURLException e) {
-                    return null;
-                }
-            }
-        })).when(requestMock).getQueryString();
-    }
-   
-
-    @Test
-    public void doFilter() throws IOException, ServletException {
-        // given
-        givenMPLoginWithoutParameter();
-
-        // when
-        filter.doFilter(requestMock, responseMock, chainMock);
-
-        // then
-        verify(responseMock, times(1)).sendRedirect(ac.capture());
-
-        assertRedirectUrl(ac.getValue());
-    }
-
-    @Test
-    public void doFilter_noMPLLogin() throws IOException, ServletException {
-        // given
-        givenMPLoginWithoutParameter();
-
-        // when
-        filter.doFilter(requestMock, responseMock, chainMock);
-
-        // then
-        verify(responseMock, times(1)).sendRedirect(ac.capture());
-
-        assertRedirectUrl(ac.getValue());
-    }
-
-    @Test
-    public void doFilter_withLoginParameter()
-            throws IOException, ServletException {
-        // given
-        givenMPLoginWithParameter();
-
-        // when
-        filter.doFilter(requestMock, responseMock, chainMock);
-
-        // then
-        verify(responseMock, times(1)).sendRedirect(ac.capture());
-
-        assertRedirectUrl(ac.getValue());
-
-        assertTenantId(ac.getValue());
-    }
-
-    protected void assertRedirectUrl(String urls) throws MalformedURLException {
-        URL url = new URL(urls);
-
-        assertEquals("oscmhost", url.getHost());
-
-        assertEquals("http", url.getProtocol());
-
-        assertEquals("/oscm-identity/login", url.getPath());
-    }
-
-    private void assertTenantId(String value) throws MalformedURLException {
-        URL url = new URL(value);
-        assertTenant(value);
-    }
-
-    protected void assertTenant(String anUrl) throws MalformedURLException {
-        URL url = new URL(anUrl);
-
-        String query = url.getQuery();
-        
-        assertNotNull(query);
-
-        assertEquals(query, Boolean.TRUE,
-                Boolean.valueOf(query.contains("tenantID=tenantXY")));
-    }
-
-    private StringBuffer sb(String val) {
-        StringBuffer sb = new StringBuffer();
-        sb.append(val);
-        return sb;
-    }
-
-    String enc(String val) {
+    doAnswer((new Answer<String>() {
+      @Override
+      public String answer(InvocationOnMock invocation) {
+        Object[] args = invocation.getArguments();
+        StringBuffer url = requestMock.getRequestURL();
         try {
-            return URLEncoder.encode(val, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+          return new URL(url.toString()).getQuery();
+        } catch (MalformedURLException e) {
+          return null;
         }
-    }
+      }
+    })).when(requestMock).getQueryString();
+  }
 
-    private void givenMPLoginWithoutParameter() {
-        doReturn(sb("https://oscmhost:8081/oscm-portal/marketplace/index.jsf"))
-                .when(requestMock).getRequestURL();
-    }
+  @Test
+  public void doFilter() throws IOException, ServletException {
+    // given
+    givenMPLoginWithoutParameter();
 
-    private void givenMPLoginWithParameter() {
-        doReturn(sb(
-                "https://oscmhost:8081/oscm-portal/marketplace/index.jsf?mId="
-                        + enc("\"SampleMP\""))).when(requestMock)
-                                .getRequestURL();
-    }
+    // when
+    filter.doFilter(requestMock, responseMock, chainMock);
 
-    private void givenNoMPLogin() {
-        doReturn(sb("https://oscmhost:8081/oscm-portal/index.jsf?mId="
-                + enc("\"SampleMP\""))).when(requestMock).getRequestURL();
+    // then
+    verify(responseMock, times(1)).sendRedirect(ac.capture());
+    assertRedirectUrl(ac.getValue());
+  }
+
+  @Test
+  public void doFilter_noMPLLogin() throws IOException, ServletException {
+    // given
+    givenMPLoginWithoutParameter();
+
+    // when
+    filter.doFilter(requestMock, responseMock, chainMock);
+
+    // then
+    verify(responseMock, times(1)).sendRedirect(ac.capture());
+    assertRedirectUrl(ac.getValue());
+  }
+
+  @Test
+  public void doFilter_withLoginParameter() throws IOException, ServletException {
+    // given
+    givenMPLoginWithParameter();
+
+    // when
+    filter.doFilter(requestMock, responseMock, chainMock);
+
+    // then
+    verify(responseMock, times(1)).sendRedirect(ac.capture());
+
+    assertRedirectUrl(ac.getValue());
+    assertTenantId(ac.getValue());
+  }
+
+  protected void assertRedirectUrl(String anUrl) throws MalformedURLException {
+    URL url = new URL(anUrl);
+    assertEquals("oscmhost", url.getHost());
+    assertEquals("http", url.getProtocol());
+    assertEquals("/oscm-identity/login", url.getPath());
+  }
+
+  protected void assertTenantId(String anUrl) throws MalformedURLException {
+    String query = new URL(anUrl).getQuery();
+
+    assertNotNull(query);
+    assertEquals(query, Boolean.TRUE, Boolean.valueOf(query.contains("tenantID=tenantXY")));
+  }
+
+  private StringBuffer sb(String val) {
+    StringBuffer sb = new StringBuffer();
+    sb.append(val);
+    return sb;
+  }
+
+  String enc(String val) {
+    try {
+      return URLEncoder.encode(val, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      throw new RuntimeException(e);
     }
+  }
+
+  private void givenMPLoginWithoutParameter() {
+    doReturn(sb("https://oscmhost:8081/oscm-portal/marketplace/index.jsf")).when(requestMock)
+        .getRequestURL();
+  }
+
+  private void givenMPLoginWithParameter() {
+    doReturn(
+        sb("https://oscmhost:8081/oscm-portal/marketplace/index.jsf?mId=" + enc("\"SampleMP\"")))
+            .when(requestMock).getRequestURL();
+  }
+
+  private void givenNoMPLogin() {
+    doReturn(sb("https://oscmhost:8081/oscm-portal/index.jsf?mId=" + enc("\"SampleMP\"")))
+        .when(requestMock).getRequestURL();
+  }
 
 }
