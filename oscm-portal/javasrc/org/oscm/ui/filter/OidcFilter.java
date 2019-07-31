@@ -13,7 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -24,8 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.oscm.internal.cache.MarketplaceConfiguration;
-import org.oscm.internal.intf.MarketplaceService;
+import org.oscm.internal.types.exception.MarketplaceRemovedException;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.constants.marketplace.Marketplace;
@@ -34,23 +33,26 @@ import org.oscm.ui.beans.BaseBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.JSFUtils;
 
-public class OidcFilter implements Filter {
+public class OidcFilter extends BaseBesFilter implements Filter {
 
   private static final Log4jLogger LOGGER = LoggerFactory.getLogger(OidcFilter.class);
-  private FilterConfig filterConfig;
-  private String excludeUrlPattern;
-  private String errorPage = "/public/error.jsf";
+  protected String excludeUrlPattern;
+ 
 
-  @EJB
-  private MarketplaceService marketplaceService;
+  @Inject
+  private TenantResolver tenantResolver;
 
-  public MarketplaceConfiguration getConfig(String marketplaceId) {
-    return marketplaceService.getCachedMarketplaceConfiguration(marketplaceId);
+  public TenantResolver getTenantResolver() {
+    return tenantResolver;
+  }
+
+  public void setTenantResolver(TenantResolver tr) {
+    this.tenantResolver = tr;
   }
 
   @Override
   public void init(FilterConfig config) throws ServletException {
-    this.filterConfig = config;
+    super.init(config);
     this.excludeUrlPattern = config.getInitParameter("exclude-url-pattern");
   }
 
@@ -60,6 +62,7 @@ public class OidcFilter implements Filter {
 
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
+    AuthorizationRequestData rdo = initializeRequestDataObject(httpRequest);
 
     // if request contains id_token, validate it and refresh session with it
     Optional<String> idTokenParam = Optional.ofNullable(httpRequest.getParameter("id_token"));
@@ -78,21 +81,17 @@ public class OidcFilter implements Filter {
           .getAttribute(Constants.SESS_ATTR_ID_TOKEN);
 
       if (StringUtils.isBlank(existingIdToken)) {
-
-        String mId = (String) httpRequest.getSession().getAttribute("mId");
-
         try {
-          String loginUrl = new TenantLogin(httpRequest, mId).buildUrl();
+          String loginUrl = new Login(rdo, httpRequest, tenantResolver).buildUrl();
 
           JSFUtils.sendRedirect(httpResponse, loginUrl);
-        } catch (URISyntaxException excp) {
+        } catch (URISyntaxException | MarketplaceRemovedException excp) {
 
           LOGGER.logError(Log4jLogger.SYSTEM_LOG, excp,
               LogMessageIdentifier.ERROR_AUTH_REQUEST_GENERATION_FAILED);
           request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_GENERATE_AUTHNREQUEST);
 
-          filterConfig.getServletContext().getRequestDispatcher(errorPage).forward(request,
-              response);
+          forward(errorPage,request, response);
         }
         return;
 
@@ -112,22 +111,27 @@ public class OidcFilter implements Filter {
     return isMarketplacePage && loginRequested.isPresent();
   }
 
-  class TenantLogin {
+  class Login {
     private HttpServletRequest request;
-    private String mId;
+    TenantResolver res;
 
-    TenantLogin(HttpServletRequest request, String mId) {
+    AuthorizationRequestData rdo;
+
+    Login(AuthorizationRequestData rdo, HttpServletRequest request, TenantResolver res) {
       this.request = request;
-      this.mId = mId;
+      this.res = res;
+      this.rdo = rdo;
     }
 
-    String buildUrl() throws URISyntaxException {
+    String buildUrl() throws URISyntaxException, MarketplaceRemovedException {
       String hostname = new URI(getRequestedURL()).getHost();
       StringBuffer bf = new StringBuffer();
-      // TODO adapt for https protocol and port
+     
+      // TODO adapt for HTTPS protocol and port
       bf.append(String.format("http://%s:9090/oscm-identity/login?", hostname));
 
-      String tenantId = getTenantIDFromMarketplace();
+      String tenantId = res.getTenantID(rdo, request);
+
       if (tenantId != null) {
         bf.append("tenantID=");
         bf.append(tenantId);
@@ -140,11 +144,6 @@ public class OidcFilter implements Filter {
 
     String getRequestedURL() {
       return request.getRequestURL().toString();
-    }
-
-    String getTenantIDFromMarketplace() {
-      MarketplaceConfiguration config = getConfig(mId);
-      return config.getTenantId();
     }
 
   }
