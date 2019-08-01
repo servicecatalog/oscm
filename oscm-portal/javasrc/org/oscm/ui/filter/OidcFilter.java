@@ -49,10 +49,8 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
   private static final Log4jLogger LOGGER = LoggerFactory.getLogger(OidcFilter.class);
   protected String excludeUrlPattern;
- 
 
-  @Inject
-  private TenantResolver tenantResolver;
+  @Inject private TenantResolver tenantResolver;
 
   public TenantResolver getTenantResolver() {
     return tenantResolver;
@@ -76,61 +74,51 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     HttpServletResponse httpResponse = (HttpServletResponse) response;
     AuthorizationRequestData rdo = initializeRequestDataObject(httpRequest);
 
-    // if request contains id_token, validate it and refresh session with it
-    Optional<String> idTokenParam = Optional.ofNullable(httpRequest.getParameter("id_token"));
-    //FIXME: Determine from where should the tenant be retrieved
-    Optional<String> tenantIdParam = Optional.ofNullable(httpRequest.getParameter("tenantId"));
-
-    if(idTokenParam.isPresent()) {
-            try {
-                    makeTokenValidationRequest(httpRequest, idTokenParam.get(), tenantIdParam);
-                    httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idTokenParam.get());
-            } catch (ValidationException | URISyntaxException e) {
-                    LOGGER.logError(
-                            Log4jLogger.SYSTEM_LOG,
-                            e,
-                            LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
-                    request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_TOKEN_VALIDATION_FAILED);
-
-                    forward(errorPage,request, response);
-            }
-    }
-
     if (!(httpRequest.getServletPath().matches(excludeUrlPattern))
         || isLoginOnMarketplaceRequested(httpRequest)) {
 
-      // if session does not contain id token,
-      // redirect to oscm-identity with current state (current url)
-      String existingIdToken = (String) httpRequest.getSession()
-          .getAttribute(Constants.SESS_ATTR_ID_TOKEN);
+      Optional<String> idTokenParam = Optional.ofNullable(httpRequest.getParameter("id_token"));
+
+      if (idTokenParam.isPresent()) {
+        try {
+          String tenantid = tenantResolver.getTenantID(rdo, httpRequest);
+          makeTokenValidationRequest(httpRequest, idTokenParam.get(), tenantid);
+          httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idTokenParam.get());
+        } catch (ValidationException | URISyntaxException | MarketplaceRemovedException e) {
+          LOGGER.logError(
+              Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+          request.setAttribute(
+              Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_TOKEN_VALIDATION_FAILED);
+          forward(errorPage, request, response);
+          return;
+        }
+      }
+
+      String existingIdToken =
+          (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ID_TOKEN);
 
       if (StringUtils.isBlank(existingIdToken)) {
         try {
           String loginUrl = new Login(rdo, httpRequest, tenantResolver).buildUrl();
-
           JSFUtils.sendRedirect(httpResponse, loginUrl);
-        } catch (URISyntaxException | MarketplaceRemovedException excp) {
-
-          LOGGER.logError(Log4jLogger.SYSTEM_LOG, excp,
-              LogMessageIdentifier.ERROR_AUTH_REQUEST_GENERATION_FAILED);
+        } catch (URISyntaxException | MarketplaceRemovedException e) {
+          LOGGER.logError(
+              Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_AUTH_REQUEST_GENERATION_FAILED);
           request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_GENERATE_AUTHNREQUEST);
-
-          forward(errorPage,request, response);
-
+          forward(errorPage, request, response);
         }
         return;
 
       } else {
         try {
-          makeTokenValidationRequest(httpRequest, existingIdToken, tenantIdParam);
-        } catch (ValidationException | URISyntaxException e) {
+          String tenantId = tenantResolver.getTenantID(rdo, httpRequest);
+          makeTokenValidationRequest(httpRequest, existingIdToken, tenantId);
+        } catch (ValidationException | URISyntaxException | MarketplaceRemovedException e) {
           LOGGER.logError(
-                  Log4jLogger.SYSTEM_LOG,
-                  e,
-                  LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
-          request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_TOKEN_VALIDATION_FAILED);
-
-          forward(errorPage,request, response);
+              Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+          request.setAttribute(
+              Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_TOKEN_VALIDATION_FAILED);
+          forward(errorPage, request, response);
           return;
         }
       }
@@ -139,34 +127,36 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     chain.doFilter(request, response);
   }
 
-  private void makeTokenValidationRequest(HttpServletRequest httpRequest, String idToken, Optional<String> tenantIdParam)
-          throws ValidationException, IOException, URISyntaxException {
+  private void makeTokenValidationRequest(
+      HttpServletRequest httpRequest, String idToken, String tenantId)
+      throws ValidationException, IOException, URISyntaxException {
     String requestedUrl = httpRequest.getRequestURL().toString();
 
     HttpResponse validationResponse = null;
-      String hostname = new URI(requestedUrl).getHost();
-      String resourceUrl = "http://" + hostname + ":9090/oscm-identity/verify_token";
+    String hostname = new URI(requestedUrl).getHost();
+    String resourceUrl = "http://" + hostname + ":9090/oscm-identity/verify_token";
 
-      CloseableHttpClient client = HttpClients.createDefault();
-      HttpPost post = new HttpPost(resourceUrl);
+    CloseableHttpClient client = HttpClients.createDefault();
+    HttpPost post = new HttpPost(resourceUrl);
 
-      List<NameValuePair> params = new ArrayList<NameValuePair>(3);
-      params.add(new BasicNameValuePair("token", idToken));
-      post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+    List<NameValuePair> params = new ArrayList<NameValuePair>(3);
+    params.add(new BasicNameValuePair("token", idToken));
+    params.add(new BasicNameValuePair("tenantId", tenantId));
+    post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
     validationResponse = client.execute(post);
-      if (validationResponse.getStatusLine().getStatusCode() != Response.Status.OK.getStatusCode()) {
+    if (validationResponse.getStatusLine().getStatusCode() != Response.Status.OK.getStatusCode()) {
       throw new ValidationException("Token validation failed!");
     }
   }
 
-    private boolean isLoginOnMarketplaceRequested(HttpServletRequest request) {
+  private boolean isLoginOnMarketplaceRequested(HttpServletRequest request) {
 
     boolean isMarketplacePage = request.getServletPath().contains(Marketplace.MARKETPLACE_ROOT);
     Optional<String> loginRequested = Optional.ofNullable(request.getParameter("login"));
 
     return isMarketplacePage && loginRequested.isPresent();
-    }
+  }
 
   class Login {
     private HttpServletRequest request;
@@ -183,29 +173,28 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     String buildUrl() throws URISyntaxException, MarketplaceRemovedException {
       String hostname = new URI(getRequestedURL()).getHost();
       StringBuffer bf = new StringBuffer();
-     
+
       // TODO adapt for HTTPS protocol and port
       bf.append(String.format("http://%s:9090/oscm-identity/login?", hostname));
+      bf.append("state=");
+      bf.append(getRequestedURL());
 
       String tenantId = res.getTenantID(rdo, request);
 
       if (tenantId != null) {
+        bf.append("&");
         bf.append("tenantId=");
         bf.append(tenantId);
-        bf.append("&");
       }
-      bf.append("state=");
-      bf.append(getRequestedURL());
+
       return bf.toString();
     }
 
     String getRequestedURL() {
       return request.getRequestURL().toString();
     }
-
   }
 
   @Override
-  public void destroy() {
-  }
+  public void destroy() {}
 }
