@@ -190,7 +190,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
       String tenantId = res.getTenantID(rdo, request);
 
       if (tenantId != null) {
-        bf.append("tenantID=");
+        bf.append("tenantId=");
         bf.append(tenantId);
         bf.append("&");
       }

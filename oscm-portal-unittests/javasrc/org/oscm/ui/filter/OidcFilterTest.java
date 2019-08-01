@@ -221,7 +221,7 @@ public class OidcFilterTest {
     String query = new URL(anUrl).getQuery();
 
     assertNotNull(query);
-    assertEquals(query, Boolean.TRUE, Boolean.valueOf(query.contains("tenantID=CustomerXY")));
+    assertEquals(query, Boolean.TRUE, Boolean.valueOf(query.contains("tenantId=CustomerXY")));
   }
 
   private StringBuffer sb(String val) {
