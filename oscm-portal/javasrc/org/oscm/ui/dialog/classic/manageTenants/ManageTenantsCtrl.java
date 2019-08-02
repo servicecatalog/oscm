@@ -101,7 +101,8 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
 
     private POTenant getSelectedTenant() {
         POTenant defaultTenant = getDefaultTenant();
-        if (!defaultTenant.getTenantId().equals(model.getSelectedTenantId())) {
+
+        if (tenantSelectedAndNotEquals(defaultTenant)) {
             try {
                 return getManageTenantService()
                         .getTenantByTenantId(model.getSelectedTenantId());
@@ -110,6 +111,16 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
             }
         }
         return defaultTenant;
+    }
+
+    private boolean tenantSelectedAndNotEquals(POTenant tenant) {
+
+        if (null == model.getSelectedTenantId())
+            return false;
+
+        boolean selected = !tenant.getTenantId()
+                .equals(model.getSelectedTenantId());
+        return selected;
     }
 
     public String save() {
