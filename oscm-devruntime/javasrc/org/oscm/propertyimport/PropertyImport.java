@@ -105,7 +105,7 @@ public class PropertyImport {
 
             initStartCount(conn);
             ConfigurationKey[] allKeys = ConfigurationKey.values();
-            boolean isSamlSP = isSamlSPMode(p);
+            boolean isSamlSP = isSSOMode(p);
 
             for (ConfigurationKey key : allKeys) {
                 String keyName = key.getKeyName();
@@ -187,12 +187,12 @@ public class PropertyImport {
         return (value == null || value.isEmpty());
     }
 
-    private boolean isSamlSPMode(Properties p) {
+    private boolean isSSOMode(Properties p) {
         String authMode = (String) p
                 .get(ConfigurationKey.AUTH_MODE.getKeyName());
 
         if (!isNullValue(authMode)
-                && authMode.equals(AuthenticationMode.SAML_SP.name())) {
+                && authMode.equals(AuthenticationMode.OIDC.name())) {
             return true;
         } else {
             return false;

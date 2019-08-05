@@ -13,7 +13,15 @@ package org.oscm.ui.beans.operator;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -34,11 +42,18 @@ import org.oscm.internal.types.enumtypes.ImageType;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.enumtypes.PaymentCollectionType;
 import org.oscm.internal.types.enumtypes.PaymentInfoType;
-import org.oscm.internal.types.exception.ImageException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.types.exception.SaaSSystemException;
-import org.oscm.internal.vo.*;
+import org.oscm.internal.vo.LdapProperties;
+import org.oscm.internal.vo.VOMarketplace;
+import org.oscm.internal.vo.VOOperatorOrganization;
+import org.oscm.internal.vo.VOOrganization;
+import org.oscm.internal.vo.VOPSP;
+import org.oscm.internal.vo.VOPSPAccount;
+import org.oscm.internal.vo.VOPSPSetting;
+import org.oscm.internal.vo.VOPaymentType;
+import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.string.Strings;
@@ -47,8 +62,6 @@ import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.MenuBean;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.ImageUploader;
-import org.oscm.ui.common.JSFUtils;
-import org.oscm.ui.common.ServiceAccess;
 import org.oscm.ui.model.PSPSettingRow;
 
 /**
@@ -149,7 +162,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
         }
         if (StringUtils.isNotBlank(getSelectedTenant())) {
             Long tenantKey = Long.valueOf(getSelectedTenant());
-            newOrganization.setTenantKey(tenantKey);
+            newOrganization.setTenantKey(tenantKey.longValue());
             newAdministrator = getIdService().loadUserDetailsFromOIDCProvider(
                     newAdministrator.getUserId(), getSelectedTenantId());
         }
@@ -233,7 +246,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
         List<POTenant> tenants = manageTenantService.getAllTenants();
         List<SelectItem> result = new ArrayList<SelectItem>();
         for (POTenant poTenant : tenants) {
-            result.add(new SelectItem(poTenant.getKey(), poTenant.getName()));
+            result.add(new SelectItem(Long.valueOf(poTenant.getKey()), poTenant.getName()));
         }
         return result;
     }
@@ -1275,7 +1288,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     }
 
     public boolean isTenantSelectionAvailable() {
-        return menuBean.getApplicationBean().isSamlSpAuthMode();
+        return menuBean.getApplicationBean().isSSOAuthMode();
     }
     
 }

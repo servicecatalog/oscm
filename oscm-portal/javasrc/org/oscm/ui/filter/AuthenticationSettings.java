@@ -81,7 +81,7 @@ public class AuthenticationSettings {
     }
 
     public boolean isServiceProvider() {
-        return AuthenticationMode.SAML_SP.name().equals(authenticationMode);
+        return AuthenticationMode.OIDC.name().equals(authenticationMode);
     }
 
     public boolean isInternal() {
@@ -105,7 +105,7 @@ public class AuthenticationSettings {
     private VOTenant getTenantWithSettings(String tenantID) throws NotExistentTenantException, WrongTenantConfigurationException {
         VOTenant tenant;
         if (StringUtils.isBlank(tenantID)) {
-            tenantID = getConfigurationSetting(cfgService, ConfigurationKey.SSO_DEFAULT_TENANT_ID);
+            tenantID = "default";
         }
         try {
             tenant = tenantService.getTenantByTenantId(tenantID);
