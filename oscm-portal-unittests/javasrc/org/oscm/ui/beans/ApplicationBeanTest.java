@@ -400,11 +400,11 @@ public class ApplicationBeanTest {
         when(
             mock.getVOConfigurationSetting(eq(ConfigurationKey.AUTH_MODE),
                 anyString())).thenReturn(
-            createSetting(ConfigurationKey.AUTH_MODE, "SAML_SP"));
+            createSetting(ConfigurationKey.AUTH_MODE, "OIDC"));
         // when
-        boolean isSamlSpAuthMode = bean.isSSOAuthMode();
+        boolean isSSOMode = bean.isSSOAuthMode();
         // then
-        assertTrue(isSamlSpAuthMode);
+        assertTrue(isSSOMode);
     }
 
     @Test
