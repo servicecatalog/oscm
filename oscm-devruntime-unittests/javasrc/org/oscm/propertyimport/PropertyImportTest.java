@@ -199,7 +199,7 @@ public class PropertyImportTest {
             importer.execute();
         } catch (RuntimeException e) {
             assertEquals(
-                    "Authentication mode has an invalid value - Allowed values are [INTERNAL, SAML_SP, SAML_IDP, OPENID_RP]",
+                    "Authentication mode has an invalid value - Allowed values are [INTERNAL, OIDC]",
                     e.getMessage());
             throw e;
         }
@@ -227,34 +227,6 @@ public class PropertyImportTest {
         } catch (RuntimeException e) {
             assertEquals(
                     "Mandatory attribute " + ConfigurationKey.AUTH_MODE.name()
-                            + " can not be set a null value",
-                    e.getMessage());
-            throw e;
-        }
-
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void execute_nullMandatoryValueInSamlSPMode() throws Exception {
-        p_overwriteFlag = true;
-        p_contextId = "PROXY";
-        Properties p = getProperties();
-        p.put(ConfigurationKey.AUTH_MODE.name(), "OIDC");
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(tempFile);
-            p.store(fos, "No comment");
-        } finally {
-            if (fos != null) {
-                fos.close();
-            }
-        }
-        PropertyImport importer = createImport();
-        try {
-            importer.execute();
-        } catch (RuntimeException e) {
-            assertEquals(
-                    "Mandatory attribute " + ConfigurationKey.SSO_IDP_URL.name()
                             + " can not be set a null value",
                     e.getMessage());
             throw e;
@@ -406,6 +378,7 @@ public class PropertyImportTest {
         p.put(ConfigurationKey.TAGGING_MIN_SCORE.name(), "1");
 
         p.put(ConfigurationKey.WS_TIMEOUT.name(), "180000");
+        p.put(ConfigurationKey.SSO_DEFAULT_TENANT_ID.name(), "8f96dede");
         p.put(ConfigurationKey.SSO_IDP_SAML_ASSERTION_ISSUER_ID.name(),
                 "default");
         p.put(ConfigurationKey.HIDDEN_UI_ELEMENTS.name(),
