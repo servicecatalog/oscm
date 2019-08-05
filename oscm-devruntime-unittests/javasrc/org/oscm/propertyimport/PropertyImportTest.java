@@ -239,7 +239,7 @@ public class PropertyImportTest {
         p_overwriteFlag = true;
         p_contextId = "PROXY";
         Properties p = getProperties();
-        p.put(ConfigurationKey.AUTH_MODE.name(), "SAML_SP");
+        p.put(ConfigurationKey.AUTH_MODE.name(), "OIDC");
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(tempFile);
@@ -406,7 +406,6 @@ public class PropertyImportTest {
         p.put(ConfigurationKey.TAGGING_MIN_SCORE.name(), "1");
 
         p.put(ConfigurationKey.WS_TIMEOUT.name(), "180000");
-        p.put(ConfigurationKey.SSO_DEFAULT_TENANT_ID.name(), "8f96dede");
         p.put(ConfigurationKey.SSO_IDP_SAML_ASSERTION_ISSUER_ID.name(),
                 "default");
         p.put(ConfigurationKey.HIDDEN_UI_ELEMENTS.name(),
