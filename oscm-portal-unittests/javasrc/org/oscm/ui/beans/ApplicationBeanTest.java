@@ -402,7 +402,7 @@ public class ApplicationBeanTest {
                 anyString())).thenReturn(
             createSetting(ConfigurationKey.AUTH_MODE, "SAML_SP"));
         // when
-        boolean isSamlSpAuthMode = bean.isSamlSpAuthMode();
+        boolean isSamlSpAuthMode = bean.isSSOAuthMode();
         // then
         assertTrue(isSamlSpAuthMode);
     }
@@ -415,7 +415,7 @@ public class ApplicationBeanTest {
                 anyString())).thenReturn(
             createSetting(ConfigurationKey.AUTH_MODE, "INTERNAL"));
         // when
-        boolean isSamlSpAuthMode = bean.isSamlSpAuthMode();
+        boolean isSamlSpAuthMode = bean.isSSOAuthMode();
         // then
         assertFalse(isSamlSpAuthMode);
     }

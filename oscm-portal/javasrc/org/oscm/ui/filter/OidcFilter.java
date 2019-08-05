@@ -127,7 +127,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     chain.doFilter(request, response);
   }
 
-  private void makeTokenValidationRequest(
+  protected void makeTokenValidationRequest(
       HttpServletRequest httpRequest, String idToken, String tenantId)
       throws ValidationException, IOException, URISyntaxException {
     String requestedUrl = httpRequest.getRequestURL().toString();

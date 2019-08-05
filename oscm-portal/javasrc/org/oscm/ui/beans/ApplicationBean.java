@@ -586,14 +586,14 @@ public class ApplicationBean implements Serializable {
      * @return <code>true</code> if AUTH_MODE is set to INTERNAL otherwise
      *         <code>false</code>.
      */
-    public boolean isSamlSpAuthMode() {
+    public boolean isSSOAuthMode() {
         if (samlSpAuthMode == null) {
             lookupConfigurationService();
             VOConfigurationSetting authMode = configurationService
                 .getVOConfigurationSetting(ConfigurationKey.AUTH_MODE,
                     Configuration.GLOBAL_CONTEXT);
             samlSpAuthMode = Boolean.valueOf(authMode.getValue().equals(
-                AuthenticationMode.SAML_SP.name()));
+                AuthenticationMode.OIDC.name()));
         }
         return samlSpAuthMode.booleanValue();
     }

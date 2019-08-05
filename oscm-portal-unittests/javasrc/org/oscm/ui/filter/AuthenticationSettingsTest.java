@@ -98,7 +98,7 @@ public class AuthenticationSettingsTest {
 	public void constructor() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 
 		// then
 		verify(cfgMock, times(1)).getVOConfigurationSetting(ConfigurationKey.AUTH_MODE, Configuration.GLOBAL_CONTEXT);
@@ -108,7 +108,7 @@ public class AuthenticationSettingsTest {
 	public void isServiceProvider() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 
 		// then
 		assertTrue(authSettings.isServiceProvider());
@@ -128,7 +128,7 @@ public class AuthenticationSettingsTest {
 	public void getConfigurationSetting_null() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 		doReturn(null).when(cfgMock).getVOConfigurationSetting(ConfigurationKey.LOG_LEVEL,
 				Configuration.GLOBAL_CONTEXT);
 
@@ -140,17 +140,17 @@ public class AuthenticationSettingsTest {
 	public void getConfigurationSetting() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 
 		// then
-		assertEquals("SAML_SP", authSettings.getConfigurationSetting(cfgMock, ConfigurationKey.AUTH_MODE));
+		assertEquals("OIDC", authSettings.getConfigurationSetting(cfgMock, ConfigurationKey.AUTH_MODE));
 	}
 
 	@Test
 	public void getContextRoot_null() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 
 		// then
 		assertNull(authSettings.getContextRoot(null));
@@ -160,7 +160,7 @@ public class AuthenticationSettingsTest {
 	public void getContextRoot_empty() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 
 		// then
 		assertNull(authSettings.getContextRoot(""));
@@ -170,7 +170,7 @@ public class AuthenticationSettingsTest {
 	public void getContextRoot_lessTokens() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 
 		// then
 		assertNull(authSettings.getContextRoot("http://www.idp.de/"));
@@ -180,7 +180,7 @@ public class AuthenticationSettingsTest {
 	public void getContextRoot() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 
 		// then
 		assertEquals(IDP_CONTEXT_ROOT, authSettings.getContextRoot(IDP));
@@ -190,7 +190,7 @@ public class AuthenticationSettingsTest {
 	public void getSigningKeystorePass() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 
 		// then
 		assertEquals(IDP_KEYSTORE_PASS, authSettings.getSigningKeystorePass());
@@ -200,7 +200,7 @@ public class AuthenticationSettingsTest {
 	public void getSigningKeystore() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 
 		// then
 		assertEquals(IDP_KEYSTORE_PASS, authSettings.getSigningKeystore());
@@ -210,7 +210,7 @@ public class AuthenticationSettingsTest {
 	public void getSigningKeyAlias() throws Exception {
 
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 
 		// then
 		assertEquals(IDP_KEYSTORE_PASS, authSettings.getSigningKeyAlias());
@@ -225,7 +225,7 @@ public class AuthenticationSettingsTest {
 	@Test
 	public void getTenantBlank() throws Exception {
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 		authSettings = spy(authSettings);
 		doReturn(IDP_KEYSTORE_PASS).when(authSettings).getConfigurationSetting(cfgMock,
 				ConfigurationKey.SSO_SIGNING_KEYSTORE_PASS);
@@ -238,7 +238,7 @@ public class AuthenticationSettingsTest {
 	public void findByTKey()
 			throws ObjectNotFoundException, NotExistentTenantException, WrongTenantConfigurationException {
 		// given
-		givenMock(AuthenticationMode.SAML_SP, IDP);
+		givenMock(AuthenticationMode.OIDC, IDP);
 		doThrow(new ObjectNotFoundException()).when(tenantService).getTenantByTenantId(anyString());
 		authSettings = spy(authSettings);
 		doReturn("notTheSame").when(authSettings).getConfigurationSetting(cfgMock,
