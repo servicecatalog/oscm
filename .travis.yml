@@ -3,7 +3,7 @@ sudo: required
 
 jdk:
   - openjdk8
-♦
+
 env:
   global:
     - ANT_OPTS=-Xmx6g
