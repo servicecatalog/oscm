@@ -134,8 +134,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
     HttpResponse validationResponse = null;
     String hostname = new URI(requestedUrl).getHost();
-    // TODO adapt for HTTPS protocol and port
-    String resourceUrl = "https://" + hostname + ":9090/oscm-identity/verify_token";
+    String resourceUrl = "http://" + hostname + ":9090/oscm-identity/verify_token";
 
     CloseableHttpClient client = HttpClients.createDefault();
     HttpPost post = new HttpPost(resourceUrl);
@@ -176,7 +175,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
       StringBuffer bf = new StringBuffer();
 
       // TODO adapt for HTTPS protocol and port
-      bf.append(String.format("https://%s:9090/oscm-identity/login?", hostname));
+      bf.append(String.format("https://%s:9091/oscm-identity/login?", hostname));
       bf.append("state=");
       bf.append(getRequestedURL());
 
