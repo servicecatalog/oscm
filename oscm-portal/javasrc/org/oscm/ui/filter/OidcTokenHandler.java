@@ -27,7 +27,7 @@ public class OidcTokenHandler {
 
     String idToken = (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ID_TOKEN);
     DecodedJWT decodedToken = JWT.decode(idToken);
-    String userId = decodedToken.getClaim("unique_name").asString();
+    String userId = decodedToken.getClaim("preferred_username").asString();
 
     return userId;
   }
