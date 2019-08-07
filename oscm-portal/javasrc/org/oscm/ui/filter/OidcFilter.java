@@ -73,10 +73,13 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
     AuthorizationRequestData rdo = initializeRequestDataObject(httpRequest);
+    
+    boolean isIdProvider = authSettings.isServiceProvider();
+    boolean isUrlExcluded = httpRequest.getServletPath().matches(excludeUrlPattern);
 
-    if (!(httpRequest.getServletPath().matches(excludeUrlPattern))
-        || isLoginOnMarketplaceRequested(httpRequest)) {
+    if (isIdProvider && (!isUrlExcluded || isLoginOnMarketplaceRequested(httpRequest))) {
 
+      storeTokens(httpRequest);
       Optional<String> idTokenParam = Optional.ofNullable(httpRequest.getParameter("id_token"));
 
       if (idTokenParam.isPresent()) {
@@ -126,7 +129,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
     chain.doFilter(request, response);
   }
-
+  
   protected void makeTokenValidationRequest(
       HttpServletRequest httpRequest, String idToken, String tenantId)
       throws ValidationException, IOException, URISyntaxException {
@@ -156,6 +159,28 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     Optional<String> loginRequested = Optional.ofNullable(request.getParameter("login"));
 
     return isMarketplacePage && loginRequested.isPresent();
+  }
+
+  private void storeTokens(HttpServletRequest httpRequest) {
+	  
+    Optional<String> accessTokenParam =
+        Optional.ofNullable(httpRequest.getParameter("access_token"));
+    Optional<String> refreshTokenParam =
+        Optional.ofNullable(httpRequest.getParameter("refresh_token"));
+
+    if (accessTokenParam.isPresent()) {
+
+      // TODO: access token validation
+      httpRequest
+          .getSession()
+          .setAttribute(Constants.SESS_ATTR_ACCESS_TOKEN, accessTokenParam.get());
+    }
+
+    if (refreshTokenParam.isPresent()) {
+      httpRequest
+          .getSession()
+          .setAttribute(Constants.SESS_ATTR_REFRESH_TOKEN, refreshTokenParam.get());
+    }
   }
 
   class Login {

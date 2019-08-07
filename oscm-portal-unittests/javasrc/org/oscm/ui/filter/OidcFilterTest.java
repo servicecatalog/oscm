@@ -8,6 +8,7 @@
 
 package org.oscm.ui.filter;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
@@ -21,6 +22,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -76,6 +78,7 @@ public class OidcFilterTest {
 
     filter.authSettings = as = mock(AuthenticationSettings.class);
     doNothing().when(as).init(anyString());
+    when(as.isServiceProvider()).thenReturn(true);
 
     TenantResolver tr = mockTenantResolver();
     filter.setTenantResolver(tr);
