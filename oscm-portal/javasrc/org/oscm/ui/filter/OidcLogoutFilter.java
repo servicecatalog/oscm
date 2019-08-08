@@ -88,18 +88,10 @@ public class OidcLogoutFilter extends BaseBesFilter {
 
  
   protected String buildLogoutUrl(String requestedUrl) throws URISyntaxException {
-    String logoutUrl;
     URI uri = new URI(requestedUrl);
-    logoutUrl = buildLogoutUrlFromRequestUri(uri);
-    return logoutUrl;
-  }
-
-  protected String buildLogoutUrlFromRequestUri(URI uri) {
-    String logoutUrl;
     String redirectionUrl = buildRedirectionUrl(uri);
-
     String hostname = uri.getHost();
-    logoutUrl =
+    String logoutUrl =
         "https://" + hostname + ":9091/oscm-identity/logout?state=" + redirectionUrl;
     return logoutUrl;
   }

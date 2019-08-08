@@ -19,7 +19,6 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.servlet.FilterChain;
@@ -91,23 +90,17 @@ public class OidcLogoutFilterTest {
   }
   
   @Test
-  public void buildLogoutUrlFromRequestUri()  throws Exception { 
+  public void buildLogoutUrl()  throws Exception { 
     // given
-    URI uri = new URI("https://oscmhost:8081/oscm-portal/marketplace/logout.jsf");
+    final String uri = "https://oscmhost:8081/oscm-portal/marketplace/logout.jsf";
     
-
     // when
-    String url = filter.buildLogoutUrlFromRequestUri(uri );
+    String url = filter.buildLogoutUrl(uri);
   
     // then
     assertEquals("https://oscmhost:9091/oscm-identity/logout?state=https://oscmhost:8081/oscm-portal/marketplace/index.jsf", url);
   }
-  
-  @Test
-  public void buildLogoutUrl() throws URISyntaxException {
-    filter.buildLogoutUrl("https://oscmhost:8081/oscm-portal/marketplace/logout.jsf");
-  }
-  
+ 
   private void mockLogoutRequest() {
     doReturn(sb("https://oscmhost:8081/oscm-portal/marketplace/logout.jsf")).when(requestMock)
         .getRequestURL();
