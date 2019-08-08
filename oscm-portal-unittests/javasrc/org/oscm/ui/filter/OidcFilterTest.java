@@ -66,6 +66,7 @@ public class OidcFilterTest {
 
   private String token;
 
+  @SuppressWarnings("boxing")
   @Before
   public void setup() throws Exception {
 

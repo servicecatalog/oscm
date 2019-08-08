@@ -1,3 +1,10 @@
+/*******************************************************************************
+ *                                                                              
+ *  Copyright FUJITSU LIMITED 2019
+ *                                                                              
+ *  Creation Date: Jul 9, 2019                                                      
+ *                                                                              
+ *******************************************************************************/
 package org.oscm.ui.filter;
 
 import java.io.IOException;
@@ -5,7 +12,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -25,7 +31,7 @@ import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.delegates.ServiceLocator;
 
-public class OidcLogoutFilter implements Filter {
+public class OidcLogoutFilter extends BaseBesFilter {
 
   private static final Log4jLogger LOGGER = LoggerFactory.getLogger(OidcLogoutFilter.class);
   private FilterConfig filterConfig;
@@ -41,8 +47,9 @@ public class OidcLogoutFilter implements Filter {
 
   @Override
   public void init(FilterConfig config) throws ServletException {
-    this.filterConfig = config;
+    super.init(config);
   }
+
 
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -59,12 +66,8 @@ public class OidcLogoutFilter implements Filter {
       String requestedUrl = httpRequest.getRequestURL().toString();
 
       try {
-        URI uri = new URI(requestedUrl);
-        String redirectionUrl = buildRedirectionUrl(uri);
-
-        String hostname = uri.getHost();
-        String logoutUrl =
-            "http://" + hostname + ":9090/oscm-identity/logout?state=" + redirectionUrl;
+        String logoutUrl = buildLogoutUrl(requestedUrl);
+        
         JSFUtils.sendRedirect(httpResponse, logoutUrl);
       } catch (URISyntaxException excp) {
 
@@ -75,12 +78,30 @@ public class OidcLogoutFilter implements Filter {
 
         request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_GENERATE_AUTHNREQUEST);
 
-        filterConfig.getServletContext().getRequestDispatcher(errorPage).forward(request, response);
+        forward(errorPage, request, response);
       }
       return;
     }
 
     chain.doFilter(request, response);
+  }
+
+ 
+  protected String buildLogoutUrl(String requestedUrl) throws URISyntaxException {
+    String logoutUrl;
+    URI uri = new URI(requestedUrl);
+    logoutUrl = buildLogoutUrlFromRequestUri(uri);
+    return logoutUrl;
+  }
+
+  protected String buildLogoutUrlFromRequestUri(URI uri) {
+    String logoutUrl;
+    String redirectionUrl = buildRedirectionUrl(uri);
+
+    String hostname = uri.getHost();
+    logoutUrl =
+        "https://" + hostname + ":9091/oscm-identity/logout?state=" + redirectionUrl;
+    return logoutUrl;
   }
 
   private boolean isLogoutRequested(HttpServletRequest request) {
