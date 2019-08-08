@@ -34,7 +34,6 @@ import org.oscm.internal.intf.SessionService;
 
 /**
  * @author goebel
- *
  */
 public class OidcLogoutFilterTest {
   OidcLogoutFilter filter = spy(new OidcLogoutFilter());
@@ -74,9 +73,7 @@ public class OidcLogoutFilterTest {
     // then
     verify(responseMock, times(1)).sendRedirect(ac.capture());
     assertEquals(logoutUrl, ac.getValue());
-  }
-  
-  
+  }   
 
   @Test
   public void doFilter_mpUrl() throws Exception {
@@ -104,7 +101,6 @@ public class OidcLogoutFilterTest {
   
     // then
     assertEquals("https://oscmhost:9091/oscm-identity/logout?state=https://oscmhost:8081/oscm-portal/marketplace/index.jsf", url);
-
   }
   
   @Test
