@@ -216,7 +216,7 @@ public class OidcFilterTest {
   protected void assertRedirectUrl(String anUrl) throws MalformedURLException {
     URL url = new URL(anUrl);
     assertEquals("oscmhost", url.getHost());
-    assertEquals("http", url.getProtocol());
+    assertEquals("https", url.getProtocol());
     assertEquals("/oscm-identity/login", url.getPath());
   }
 
@@ -262,7 +262,7 @@ public class OidcFilterTest {
     
     TenantResolver tr = mockTenantResolver();
     filter.setTenantResolver(tr);
-    
+
     doThrow(new MarketplaceRemovedException()).when(tr).getTenantID(any(),
         any());
   }

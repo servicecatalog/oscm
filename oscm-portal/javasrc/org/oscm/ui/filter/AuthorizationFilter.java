@@ -288,6 +288,7 @@ public class AuthorizationFilter extends BaseBesFilter {
 	                            Constants.REQ_ATTR_ERROR_KEY,
 	                            BaseBean.ERROR_INVALID_SAML_RESPONSE);
 	                    forward(errorPage, httpRequest, httpResponse);
+	                    return;
 	                }
                     
                 } else {
