@@ -99,6 +99,7 @@ public class ManageTenantsCtrlTest {
                 model.getTenantDescription().getValue());
         assertEquals(selectedTenant.getName(),
                 model.getTenantName().getValue());
+        assertFalse(model.getTenantDescription().isReadOnly());       
     }
 
     @Test
