@@ -92,7 +92,7 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
         model.setSelectedTenant(poTenant);
         model.setTenantId(new FieldData<>(poTenant.getTenantId(), true, false));
         model.setTenantName(new FieldData<>(poTenant.getName(),
-                !isDefault(poTenant), true));
+                isDefault(poTenant), true));
         model.setTenantDescription(new FieldData<>(poTenant.getDescription(),
                 isDefault(poTenant), false));
         model.setSaveDisabled(isDefault(poTenant));
