@@ -2953,7 +2953,6 @@ public class IdentityServiceBean
                     LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
             throw new SaaSSystemException("can not connect to the oidc service");
         }
-        
         return userDetails;
     }
     
