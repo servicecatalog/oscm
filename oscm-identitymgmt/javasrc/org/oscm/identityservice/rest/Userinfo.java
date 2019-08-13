@@ -33,13 +33,13 @@ public class Userinfo {
 
     
     public VOUserDetails getUserinfoFromIdentityService(String userId,
-            String tenantId, String host) throws Exception {
+            String tenantId) throws Exception {
 
         String response = ""; 
 
         try {
             String token = "";
-            URL url = new URL(createUrl(userId, tenantId, token, host));
+            URL url = new URL(createUrl(userId, tenantId, token));
             HttpURLConnection conn = createConnection(url);
 
             if (conn.getResponseCode() != 200) {
@@ -123,15 +123,15 @@ public class Userinfo {
         return content.toString();
     }
 
-    protected String createUrl(String userId, String tenantId, String token, String host) {
+    protected String createUrl(String userId, String tenantId, String token) {
         StringBuilder url = new StringBuilder();
-        url.append(host); 
+        url.append("http://oscm-identity"); 
         url.append(":");
         url.append("9090");
         url.append("/");
         url.append("oscm-identity");
         url.append("/");
-        url.append("user/");
+        url.append("users/");
         url.append(userId);
         url.append("?tenantId=");
         url.append(tenantId);
