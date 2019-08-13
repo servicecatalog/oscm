@@ -25,11 +25,10 @@ public class UserinfoTest {
     @Test
     public void testCreateUrl() {
         // given
-        String expected = "oscm:9090/oscm-identity/user/userId?tenantId=tenantId&token=token";
+        String expected = "http://oscm-identity:9090/oscm-identity/users/userId?tenantId=tenantId&token=token";
 
         // when
-        String result = userinfo.createUrl("userId", "tenantId", "token",
-                "oscm");
+        String result = userinfo.createUrl("userId", "tenantId", "token");
 
         // then
         assertEquals(expected, result);
@@ -43,7 +42,7 @@ public class UserinfoTest {
 
         // when
         VOUserDetails result = userinfo.getUserinfoFromIdentityService(userId,
-                tenantId, "http:osscm-");
+                tenantId);
 
         // then
     }

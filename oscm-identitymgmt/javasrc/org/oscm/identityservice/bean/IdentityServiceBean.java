@@ -2946,8 +2946,7 @@ public class IdentityServiceBean
         
         VOUserDetails userDetails = null;
         try {
-            String[] host = cs.getBaseURL().split(":");
-            userDetails = userinfo.getUserinfoFromIdentityService(userId, tenantId, host[0] + ":" +host[1]);
+            userDetails = userinfo.getUserinfoFromIdentityService(userId, tenantId);
         } catch (Exception e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
