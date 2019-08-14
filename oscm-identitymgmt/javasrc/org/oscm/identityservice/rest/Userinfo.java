@@ -106,7 +106,7 @@ public class Userinfo {
         conn.setConnectTimeout(5000);
         conn.setReadTimeout(5000);
         conn.setRequestProperty("Accept", "application/json");
-        conn.connect();
+        conn.connect(); 
         logger.logDebug("Connection to identity service successfull");
         return conn;
     }
