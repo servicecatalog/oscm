@@ -24,30 +24,27 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 import com.google.gson.Gson;
 
 public class Userinfo {
-    
 
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(Userinfo.class);
 
-
-
-    
     public VOUserDetails getUserinfoFromIdentityService(String userId,
-            String tenantId) throws Exception {
+            String token) throws Exception {
 
-        String response = ""; 
-
+        String response = "";
+        String tenantId = "";
         try {
-            String token = "";
             URL url = new URL(createUrl(userId, tenantId, token));
             HttpURLConnection conn = createConnection(url);
 
             if (conn.getResponseCode() != 200) {
                 logger.logInfo(Log4jLogger.SYSTEM_LOG,
                         LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
-                        "response code from identity service was " + conn.getResponseCode());
+                        "response code from identity service was "
+                                + conn.getResponseCode());
                 throw new RuntimeException(
-                        "response code from identity service was " + conn.getResponseCode());
+                        "response code from identity service was "
+                                + conn.getResponseCode());
 
             }
             response = getResponse(conn.getInputStream());
@@ -76,26 +73,28 @@ public class Userinfo {
         userDetails.setLastName(userInfoModel.getLastName());
         userDetails.setEMail(userInfoModel.getEmail());
         userDetails.setPhone(userInfoModel.getPhone());
-        userDetails.setLocale("en"); //use en as default language here
-        userDetails.setSalutation(mapGenderToSalutation(userInfoModel.getGender()));
+        userDetails.setLocale("en"); // use en as default language here
+        userDetails.setSalutation(
+                mapGenderToSalutation(userInfoModel.getGender()));
         userDetails.setAddress(userInfoModel.getAddress());
         return userDetails;
     }
-    
+
     protected Salutation mapGenderToSalutation(String gender) {
         if (gender == null) {
             return Salutation.MS;
         }
-        switch(gender) {
-            case "male":
-                return Salutation.MR;
-            case "female":
-                return Salutation.MS;
-            case "?":
-                return Salutation.MS;
-            default:
-                logger.logDebug("No gender defined or the gender " + gender + " is unkonwn");
-                return Salutation.MS;
+        switch (gender) {
+        case "male":
+            return Salutation.MR;
+        case "female":
+            return Salutation.MS;
+        case "?":
+            return Salutation.MS;
+        default:
+            logger.logDebug("No gender defined or the gender " + gender
+                    + " is unkonwn");
+            return Salutation.MS;
         }
     }
 
@@ -125,7 +124,7 @@ public class Userinfo {
 
     protected String createUrl(String userId, String tenantId, String token) {
         StringBuilder url = new StringBuilder();
-        url.append("http://oscm-identity"); 
+        url.append("http://oscm-identity");
         url.append(":");
         url.append("9090");
         url.append("/");
@@ -134,7 +133,11 @@ public class Userinfo {
         url.append("users/");
         url.append(userId);
         url.append("?tenantId=");
-        url.append(tenantId);
+        if (tenantId == null || tenantId.isEmpty()) {
+            url.append("default");
+        } else {
+            url.append(tenantId);
+        }
         url.append("&token=");
         url.append(token);
         logger.logDebug(

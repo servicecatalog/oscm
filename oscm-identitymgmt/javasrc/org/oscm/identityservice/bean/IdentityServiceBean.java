@@ -2943,10 +2943,10 @@ public class IdentityServiceBean
     @Override
     public  VOUserDetails loadUserDetailsFromOIDCProvider(String userId, String tenantId) {
         Userinfo userinfo = new Userinfo();
-        
         VOUserDetails userDetails = null;
+        String token = tenantId;
         try {
-            userDetails = userinfo.getUserinfoFromIdentityService(userId, tenantId);
+            userDetails = userinfo.getUserinfoFromIdentityService(userId, token);
         } catch (Exception e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);

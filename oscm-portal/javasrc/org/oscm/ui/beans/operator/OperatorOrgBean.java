@@ -28,8 +28,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
@@ -60,6 +62,7 @@ import org.oscm.string.Strings;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.MenuBean;
+import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.ImageUploader;
 import org.oscm.ui.model.PSPSettingRow;
@@ -164,7 +167,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
             Long tenantKey = Long.valueOf(getSelectedTenant());
             newOrganization.setTenantKey(tenantKey.longValue());
             newAdministrator = getIdService().loadUserDetailsFromOIDCProvider(
-                    newAdministrator.getUserId(), getSelectedTenantId());
+                    newAdministrator.getUserId(), getIdToken());
         }
         
         newVoOrganization = getOperatorService().registerOrganization(
@@ -193,6 +196,15 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
             }
         }
         return ""; 
+    }
+    
+    private String getIdToken() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext()
+                .getSession(true);
+        String idToken = (String) session
+                .getAttribute(Constants.SESS_ATTR_ACCESS_TOKEN);
+        return idToken;
     }
 
     // *****************************************************
