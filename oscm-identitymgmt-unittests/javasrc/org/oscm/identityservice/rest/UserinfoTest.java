@@ -25,10 +25,10 @@ public class UserinfoTest {
     @Test
     public void testCreateUrl() {
         // given
-        String expected = "http://oscm-identity:9090/oscm-identity/users/userId?tenantId=tenantId&token=token";
+        String expected = "http://oscm-identity:9090/oscm-identity/tenants/token/users/userId";
 
         // when
-        String result = userinfo.createUrl("userId", "tenantId", "token");
+        String result = userinfo.createUrl("userId", "token");
 
         // then
         assertEquals(expected, result);

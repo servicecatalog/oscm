@@ -7,13 +7,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.ejb.EJB;
-
-import org.oscm.configurationservice.local.ConfigurationServiceLocal;
 import org.oscm.identityservice.model.UserinfoModel;
 import org.oscm.internal.types.enumtypes.Salutation;
 import org.oscm.internal.vo.VOUserDetails;
@@ -34,8 +27,8 @@ public class Userinfo {
         String response = "";
         String tenantId = "";
         try {
-            URL url = new URL(createUrl(userId, tenantId, token));
-            HttpURLConnection conn = createConnection(url);
+            URL url = new URL(createUrl(userId, tenantId));
+            HttpURLConnection conn = createConnection(url, token);
 
             if (conn.getResponseCode() != 200) {
                 logger.logInfo(Log4jLogger.SYSTEM_LOG,
@@ -98,14 +91,12 @@ public class Userinfo {
         }
     }
 
-    protected HttpURLConnection createConnection(URL url)
+    protected HttpURLConnection createConnection(URL url, String tokenId)
             throws IOException, ProtocolException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
-        conn.setDoOutput(true);
-        conn.setConnectTimeout(5000);
-        conn.setReadTimeout(5000);
-        conn.setRequestProperty("Accept", "application/json");
+        conn.setRequestProperty("Authorization", "Bearer " + tokenId);
+        conn.setRequestProperty("Content-Type", "application/json");
         conn.connect(); 
         logger.logDebug("Connection to identity service successfull");
         return conn;
@@ -122,7 +113,8 @@ public class Userinfo {
         return content.toString();
     }
 
-    protected String createUrl(String userId, String tenantId, String token) {
+
+    protected String createUrl(String userId, String tenantId) {
         StringBuilder url = new StringBuilder();
         url.append("http://oscm-identity");
         url.append(":");
@@ -130,19 +122,16 @@ public class Userinfo {
         url.append("/");
         url.append("oscm-identity");
         url.append("/");
-        url.append("users/");
-        url.append(userId);
-        url.append("?tenantId=");
+        url.append("tenants/");
         if (tenantId == null || tenantId.isEmpty()) {
             url.append("default");
         } else {
             url.append(tenantId);
         }
-        url.append("&token=");
-        url.append(token);
+        url.append("/users/");
+        url.append(userId);
         logger.logDebug(
                 "Connection Url for identity service call = " + url.toString());
         return url.toString();
-
     }
 }
