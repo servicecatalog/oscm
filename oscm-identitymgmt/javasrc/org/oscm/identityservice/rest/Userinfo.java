@@ -47,24 +47,31 @@ public class Userinfo {
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
             throw e;
         }
-        VOUserDetails details = createUserDetails(response);
+        VOUserDetails details = createUserDetails(response, userId);
         return details;
     }
 
-    protected VOUserDetails createUserDetails(String response) {
+    protected VOUserDetails createUserDetails(String response, String userId) {
         Gson gson = new Gson();
         UserinfoModel userInfoModel = gson.fromJson(response,
                 UserinfoModel.class);
-        VOUserDetails details = mapUserInfoToUserDetails(userInfoModel);
+        VOUserDetails details = mapUserInfoToUserDetails(userInfoModel, userId);
         return details;
     }
 
     protected VOUserDetails mapUserInfoToUserDetails(
-            UserinfoModel userInfoModel) {
+            UserinfoModel userInfoModel, String userId) {
         VOUserDetails userDetails = new VOUserDetails();
+        userDetails.setUserId(userId);
         userDetails.setFirstName(userInfoModel.getFirstName());
         userDetails.setLastName(userInfoModel.getLastName());
-        userDetails.setEMail(userInfoModel.getEmail());
+        if (userInfoModel.getEmail() != null
+                && !userInfoModel.getEmail().isEmpty() && !userInfoModel
+                        .getEmail().equalsIgnoreCase("null")) {
+            userDetails.setEMail(userInfoModel.getEmail());
+        } else {
+            userDetails.setEMail(userId);
+        }
         userDetails.setPhone(userInfoModel.getPhone());
         userDetails.setLocale("en"); // use en as default language here
         userDetails.setSalutation(
@@ -97,7 +104,7 @@ public class Userinfo {
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Authorization", "Bearer " + tokenId);
         conn.setRequestProperty("Content-Type", "application/json");
-        conn.connect(); 
+        conn.connect();
         logger.logDebug("Connection to identity service successfull");
         return conn;
     }
@@ -112,7 +119,6 @@ public class Userinfo {
         br.close();
         return content.toString();
     }
-
 
     protected String createUrl(String userId, String tenantId) {
         StringBuilder url = new StringBuilder();
