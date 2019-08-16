@@ -106,7 +106,7 @@ public class UserinfoTest {
         userInfoModel.setFirstName("first");
 
         // when
-        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel);
+        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel, "");
 
         // then
         assertEquals("", "first", result.getFirstName());
@@ -119,7 +119,7 @@ public class UserinfoTest {
         userInfoModel.setLastName("last");
 
         // when
-        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel);
+        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel, "");
 
         // then
         assertEquals("", "last", result.getLastName());
@@ -132,7 +132,7 @@ public class UserinfoTest {
         userInfoModel.setAddress("teststreet 123");
 
         // when
-        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel);
+        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel, "");
 
         // then
         assertEquals("", "teststreet 123", result.getAddress());
@@ -145,7 +145,7 @@ public class UserinfoTest {
         userInfoModel.setEmail("first.last@test.com");
 
         // when
-        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel);
+        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel, "");
 
         // then
         assertEquals("", "first.last@test.com", result.getEMail());
@@ -158,7 +158,7 @@ public class UserinfoTest {
         userInfoModel.setGender("male");
 
         // when
-        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel);
+        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel, "");
 
         // then
         assertEquals("", Salutation.MR, result.getSalutation());
@@ -177,7 +177,7 @@ public class UserinfoTest {
                  + "\"postalCode\": \"11111\"}";
 
          //when
-         VOUserDetails result = userinfo.createUserDetails(input);
+         VOUserDetails result = userinfo.createUserDetails(input, "");
          
          //then
          assertEquals("", Salutation.MS, result.getSalutation());
