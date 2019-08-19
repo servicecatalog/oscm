@@ -2953,8 +2953,4 @@ public class IdentityServiceBean
         }
         return userDetails;
     }
-    
-
-    
-
 }
