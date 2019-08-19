@@ -39,10 +39,11 @@ public class UserinfoTest {
         // given
         String userId = "userId";
         String tenantId = "tenantId";
+        String token = "token";
 
         // when
-        VOUserDetails result = userinfo.getUserinfoFromIdentityService(userId,
-                tenantId);
+        VOUserDetails result = userinfo.getUserinfoFromIdentityService(userId, tenantId,
+                token);
 
         // then
     }
