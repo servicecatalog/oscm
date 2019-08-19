@@ -21,11 +21,10 @@ public class Userinfo {
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(Userinfo.class);
 
-    public VOUserDetails getUserinfoFromIdentityService(String userId,
+    public VOUserDetails getUserinfoFromIdentityService(String userId, String tenantId,
             String token) throws Exception {
 
         String response = "";
-        String tenantId = "";
         try {
             URL url = new URL(createUrl(userId, tenantId));
             HttpURLConnection conn = createConnection(url, token);
