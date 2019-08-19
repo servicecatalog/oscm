@@ -38,7 +38,6 @@ public class Userinfo {
                 throw new RuntimeException(
                         "response code from identity service was "
                                 + conn.getResponseCode());
-
             }
             response = getResponse(conn.getInputStream());
             conn.disconnect();
@@ -93,7 +92,7 @@ public class Userinfo {
             return Salutation.MS;
         default:
             logger.logDebug("No gender defined or the gender " + gender
-                    + " is unkonwn");
+                    + " is unknown");
             return Salutation.MS;
         }
     }
