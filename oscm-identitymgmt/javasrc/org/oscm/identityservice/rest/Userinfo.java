@@ -1,3 +1,10 @@
+/*******************************************************************************
+ *
+ *  Copyright FUJITSU LIMITED 2019
+ *
+ *  Creation Date: Aug 9, 2019
+ *
+ *******************************************************************************/
 package org.oscm.identityservice.rest;
 
 import java.io.BufferedReader;
