@@ -90,7 +90,9 @@ import org.oscm.identityservice.local.LdapAccessServiceLocal;
 import org.oscm.identityservice.local.LdapConnector;
 import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
 import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
+import org.oscm.identityservice.model.UserinfoModel;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
+import org.oscm.identityservice.rest.AccessGroup;
 import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
@@ -2954,4 +2956,29 @@ public class IdentityServiceBean
         return userDetails;
     }
     
+    @Override
+    public String createAccessGroupInOIDCProvider(String tenantId, String token) {
+        AccessGroup accessGroup = new AccessGroup();
+        String groupId = "";
+        try {
+            groupId = accessGroup.createGroup(tenantId, token);
+        } catch (Exception e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
+            throw new SaaSSystemException("can not connect to the oidc service");
+        }
+        return groupId;
+    }
+    
+    @Override
+    public void addMemberToAccessGroupInOIDCProvider(String groupId, String tenantId, String token, VOUserDetails userInfo) {
+        AccessGroup accessGroup = new AccessGroup();
+        try {
+            accessGroup.addMemberToGroup(groupId, tenantId, token, userInfo);
+        } catch (Exception e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
+            throw new SaaSSystemException("can not connect to the oidc service");
+        }
+    }
 }

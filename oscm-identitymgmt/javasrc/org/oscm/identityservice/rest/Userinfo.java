@@ -84,6 +84,20 @@ public class Userinfo {
         userDetails.setAddress(userInfoModel.getAddress());
         return userDetails;
     }
+    
+    protected UserinfoModel mapUserDetailsToUserInfo(
+            VOUserDetails userDetails) {
+        UserinfoModel userInfo = new UserinfoModel();
+        userInfo.setUserId(userDetails.getUserId());
+        userInfo.setFirstName(userDetails.getFirstName());
+        userInfo.setLastName(userDetails.getLastName());
+        
+        userInfo.setEmail(userDetails.getEMail());
+        userInfo.setPhone(userDetails.getPhone());
+        userInfo.setLocale("en"); // use en as default language here
+        userInfo.setAddress(userDetails.getAddress());
+        return userInfo;
+    }
 
     protected Salutation mapGenderToSalutation(String gender) {
         if (gender == null) {
