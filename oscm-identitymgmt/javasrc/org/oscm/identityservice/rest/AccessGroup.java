@@ -12,12 +12,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 
-import org.oscm.identityservice.model.AccesGroupModel;
+import org.oscm.identityservice.model.AccessGroupModel;
+import org.oscm.identityservice.model.UserinfoModel;
+import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
@@ -29,17 +30,17 @@ public class AccessGroup {
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(AccessGroup.class);
 
-    public void createGroup(String tenantId, String token) throws Exception {
+    public String createGroup(String tenantId, String token) throws Exception {
         String response = "";
         try {
             URL url = new URL(createUrl(tenantId));
             HttpURLConnection conn = createConnection(url, token);
-            AccesGroupModel group = getAccessGroupModel(tenantId, tenantId);
-            String json = PojoToJsonString(group);
+            AccessGroupModel group = getAccessGroupModel(tenantId, tenantId);
+            String json = pojoToJsonString(group);
             setOutputStream(conn, json);
             conn.connect();
 
-            if (conn.getResponseCode() != 200) {
+            if (conn.getResponseCode() != 201) {
                 logger.logInfo(Log4jLogger.SYSTEM_LOG,
                         LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
                         "response code from identity service was "
@@ -50,6 +51,9 @@ public class AccessGroup {
             }
             response = getResponse(conn.getInputStream());
             conn.disconnect();
+            
+            group = createAccessGroupModelFromJson(response);
+            return group.getId();
         } catch (Exception e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
@@ -57,8 +61,32 @@ public class AccessGroup {
         }
     }
 
-    public void addMemberToGroup(String userId, String tenantId, String token) {
+    public void addMemberToGroup(String groupId, String tenantId, String token, VOUserDetails userDetails) throws Exception {
+        try {
+            URL url = new URL(createUrlToAddUser(tenantId, groupId));
+            HttpURLConnection conn = createConnection(url, token);
+            
+            Userinfo userinfo = new Userinfo();
+            UserinfoModel userInfo = userinfo.mapUserDetailsToUserInfo(userDetails);
+            String json = pojoToJsonString(userInfo);
+            setOutputStream(conn, json);
+            conn.connect();
 
+            if (conn.getResponseCode() != 204) {
+                logger.logInfo(Log4jLogger.SYSTEM_LOG,
+                        LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
+                        "response code from identity service was "
+                                + conn.getResponseCode());
+                throw new RuntimeException(
+                        "response code from identity service was "
+                                + conn.getResponseCode());
+            }
+            conn.disconnect();
+        } catch (Exception e) {
+            logger.logError(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
+            throw e;
+        }
     }
 
     protected HttpURLConnection createConnection(URL url, String tokenId)
@@ -116,19 +144,19 @@ public class AccessGroup {
         return content.toString();
     }
 
-    private AccesGroupModel getAccessGroupModel(String tenantId,
+    protected AccessGroupModel getAccessGroupModel(String tenantId,
             String description) {
-        AccesGroupModel group = new AccesGroupModel();
+        AccessGroupModel group = new AccessGroupModel();
         if (tenantId == null || tenantId.isEmpty()) {
             group.setName("default");
         } else {
             group.setName(tenantId);
         }
-        group.setDescription(description);
+        group.setDescription("Used tenant is:" + description);
         return group;
     }
 
-    private String PojoToJsonString(Object object) {
+    protected String pojoToJsonString(Object object) {
         Gson gson = new Gson();
         String json = gson.toJson(object);
         return json;
@@ -140,6 +168,13 @@ public class AccessGroup {
             byte[] input = jsonInputString.getBytes("utf-8");
             os.write(input, 0, input.length);
         }
+    }
+    
+    protected AccessGroupModel createAccessGroupModelFromJson(String json) {
+        Gson gson = new Gson();
+        AccessGroupModel userInfoModel = gson.fromJson(json,
+                AccessGroupModel.class);
+        return userInfoModel;
     }
 
 }
