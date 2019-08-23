@@ -19,6 +19,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.oscm.converter.PropertiesLoader;
@@ -30,6 +31,7 @@ import org.oscm.internal.vo.*;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
+import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.ImageUploader;
 import org.oscm.ui.model.Organization;
@@ -559,8 +561,22 @@ public class OrganizationBean extends BaseBean implements Serializable {
                 properties = PropertiesLoader
                         .loadProperties(organizationProperties.getInputStream());
             }
-
-            VOUserDetails user = customerUserToAdd.getVOUserDetails();
+            VOUserDetails user;
+            if(!isInternalAuthMode()) {
+                try {
+                    user = getIdService().loadUserDetailsFromOIDCProvider(customerUserToAdd.getUserId(), sessionBean.getTenantID(), getIdToken());
+                    String groupId = getIdService().createAccessGroupInOIDCProvider(sessionBean.getTenantID(), getIdToken());
+                    getIdService().addMemberToAccessGroupInOIDCProvider(groupId, sessionBean.getTenantID(), getIdToken(), user);
+                } catch (MarketplaceRemovedException e) {
+                    logger.logError(Log4jLogger.SYSTEM_LOG, e,
+                            LogMessageIdentifier.ERROR_ADD_CUSTOMER, "Can´t load user from OIDC Provider");
+                    addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_UPLOAD);
+                    return OUTCOME_ERROR;
+                }
+            }
+            else {
+            user = customerUserToAdd.getVOUserDetails();
+            }
             user.setLocale(customerToAdd.getLocale());
             VOOrganization org = getAccountingService().registerKnownCustomer(
                     customerToAdd, user, LdapProperties.get(properties),
@@ -587,6 +603,15 @@ public class OrganizationBean extends BaseBean implements Serializable {
         return OUTCOME_SUCCESS;
     }
 
+    private String getIdToken() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext()
+                .getSession(true);
+        String idToken = (String) session
+                .getAttribute(Constants.SESS_ATTR_ACCESS_TOKEN);
+        return idToken;
+    }
+    
     public Part getOrganizationProperties() {
         return organizationProperties;
     }
