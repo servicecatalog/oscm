@@ -12,7 +12,12 @@
 
 package org.oscm.identityservice.bean;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -86,6 +91,7 @@ import org.oscm.identityservice.local.LdapConnector;
 import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
 import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
+import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;
@@ -2916,7 +2922,7 @@ public class IdentityServiceBean
             throwONFExcp(userId);
         }
 
-        return platformUser;
+        return platformUser;  
     }
 
     private void throwONFExcp(String userId) throws ObjectNotFoundException {
@@ -2935,16 +2941,16 @@ public class IdentityServiceBean
      * @return
      */
     @Override
-    public  VOUserDetails loadUserDetailsFromOIDCProvider(String userId, String tenantId) {
-        VOUserDetails userDetails = new VOUserDetails();
-        // TODO fill in real data from the OIDC provider
-        userDetails.setFirstName("first");
-        userDetails.setLastName("last");
-        userDetails.setEMail("user@est.fujitsu.com");
-        userDetails.setLocale("en");
-        userDetails.setSalutation(Salutation.MR);
-        userDetails.setUserId(userId);
-        userDetails.setTenantId(tenantId);
+    public  VOUserDetails loadUserDetailsFromOIDCProvider(String userId, String tenantId, String token) {
+        Userinfo userinfo = new Userinfo();
+        VOUserDetails userDetails = null;
+        try {
+            userDetails = userinfo.getUserinfoFromIdentityService(userId, tenantId, token);
+        } catch (Exception e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
+            throw new SaaSSystemException("Can not connect to the OIDC service");
+        }
         return userDetails;
     }
 }
