@@ -2966,7 +2966,7 @@ public class IdentityServiceBean
         } catch (Exception e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
-            throw new SaaSSystemException("can not connect to the oidc service");
+            throw new SaaSSystemException("Can not connect to the OIDC service");
         }
         return groupId;
     }
@@ -2979,7 +2979,7 @@ public class IdentityServiceBean
         } catch (Exception e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
-            throw new SaaSSystemException("can not connect to the oidc service");
+            throw new SaaSSystemException("Can not connect to the OIDC service");
         }
     }
 }
