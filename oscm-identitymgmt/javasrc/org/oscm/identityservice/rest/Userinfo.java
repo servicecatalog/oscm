@@ -32,10 +32,10 @@ public class Userinfo {
             if (conn.getResponseCode() != 200) {
                 logger.logInfo(Log4jLogger.SYSTEM_LOG,
                         LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
-                        "response code from identity service was "
+                        "Response code from identity service was "
                                 + conn.getResponseCode());
                 throw new RuntimeException(
-                        "response code from identity service was "
+                        "Response code from identity service was "
                                 + conn.getResponseCode());
             }
             response = getResponse(conn.getInputStream());
@@ -45,16 +45,14 @@ public class Userinfo {
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
             throw e;
         }
-        VOUserDetails details = createUserDetails(response, userId);
-        return details;
+        return createUserDetails(response, userId);
     }
 
     protected VOUserDetails createUserDetails(String response, String userId) {
         Gson gson = new Gson();
         UserinfoModel userInfoModel = gson.fromJson(response,
                 UserinfoModel.class);
-        VOUserDetails details = mapUserInfoToUserDetails(userInfoModel, userId);
-        return details;
+        return mapUserInfoToUserDetails(userInfoModel, userId);
     }
 
     protected VOUserDetails mapUserInfoToUserDetails(
@@ -97,13 +95,13 @@ public class Userinfo {
     }
 
     protected HttpURLConnection createConnection(URL url, String tokenId)
-            throws IOException, ProtocolException {
+            throws IOException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Authorization", "Bearer " + tokenId);
         conn.setRequestProperty("Content-Type", "application/json");
         conn.connect();
-        logger.logDebug("Connection to identity service successfull");
+        logger.logDebug("Connection to identity service successful");
         return conn;
     }
 

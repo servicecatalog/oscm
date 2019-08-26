@@ -169,7 +169,6 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
             newAdministrator = getIdService().loadUserDetailsFromOIDCProvider(
                     newAdministrator.getUserId(), getSelectedTenantId(), getIdToken());
         }
-        
         newVoOrganization = getOperatorService().registerOrganization(
                 newOrganization, getImageUploader().getVOImageResource(),
                 newAdministrator, ldapProperties, selectedMarketplace,
@@ -195,16 +194,15 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
                 return selectedTenantItem.getLabel();
             }
         }
-        return ""; 
+        return "";
     }
     
     private String getIdToken() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext()
                 .getSession(true);
-        String idToken = (String) session
+        return (String) session
                 .getAttribute(Constants.SESS_ATTR_ACCESS_TOKEN);
-        return idToken;
     }
 
     // *****************************************************

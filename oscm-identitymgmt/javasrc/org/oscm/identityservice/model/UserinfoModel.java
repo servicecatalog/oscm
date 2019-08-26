@@ -13,7 +13,6 @@ public class UserinfoModel {
     private String locale;
     private String gender;
     private String postalCode;
-    
 
     public String getEmail() {
         return email;
@@ -76,7 +75,3 @@ public class UserinfoModel {
         this.postalCode = postalCode;
     }
 }
-
-
-
-
