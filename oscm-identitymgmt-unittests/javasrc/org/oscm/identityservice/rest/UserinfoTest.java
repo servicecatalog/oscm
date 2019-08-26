@@ -179,7 +179,7 @@ public class UserinfoTest {
 
          //when
          VOUserDetails result = userinfo.createUserDetails(input, "");
-         
+
          //then
          assertEquals("", Salutation.MS, result.getSalutation());
          assertEquals("", "first.last@test.com", result.getEMail());
