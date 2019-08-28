@@ -1,8 +1,16 @@
+/*******************************************************************************
+ *
+ *  Copyright FUJITSU LIMITED 2019
+ *
+ *  Creation Date: Aug 9, 2019
+ *
+ *******************************************************************************/
 package org.oscm.identityservice.model;
 
 
 public class UserinfoModel {
     
+    private String userId;
     private String email;
     private String firstName;
     private String lastName;
@@ -73,5 +81,11 @@ public class UserinfoModel {
     }
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
