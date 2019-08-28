@@ -22,7 +22,7 @@ public class AccessGroupTest {
         String expected = "http://oscm-identity:9090/oscm-identity/tenants/tenantid/groups";
 
         // when
-        String result = accessGroup.createUrl("tenantid");
+        String result = accessGroup.createUrlForGroups("tenantid");
 
         // then
         assertEquals(expected, result);

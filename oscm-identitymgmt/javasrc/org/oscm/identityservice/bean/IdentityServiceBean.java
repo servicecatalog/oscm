@@ -2960,7 +2960,7 @@ public class IdentityServiceBean
     @Override
     public String createAccessGroupInOIDCProvider(String tenantId, String token) {
         AccessGroup accessGroup = new AccessGroup();
-        String groupId = "";
+        String groupId;
         try {
             groupId = accessGroup.createGroup(tenantId, token);
         } catch (Exception e) {

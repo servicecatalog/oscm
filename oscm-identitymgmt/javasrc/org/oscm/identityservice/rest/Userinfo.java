@@ -45,7 +45,7 @@ public class Userinfo {
                         "Response code from identity service was "
                                 + conn.getResponseCode());
             }
-            response = getResponse(conn.getInputStream());
+            response = RestUtils.getResponse(conn.getInputStream());
             conn.disconnect();
         } catch (Exception e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
@@ -126,31 +126,9 @@ public class Userinfo {
         return conn;
     }
 
-    private String getResponse(InputStream input) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(input));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = br.readLine()) != null) {
-            content.append(inputLine);
-        }
-        br.close();
-        return content.toString();
-    }
-
     protected String createUrl(String userId, String tenantId) {
         StringBuilder url = new StringBuilder();
-        url.append("http://oscm-identity");
-        url.append(":");
-        url.append("9090");
-        url.append("/");
-        url.append("oscm-identity");
-        url.append("/");
-        url.append("tenants/");
-        if (tenantId == null || tenantId.isEmpty()) {
-            url.append("default");
-        } else {
-            url.append(tenantId);
-        }
+        url.append(RestUtils.getIdentityServiceBaseUrl(tenantId));
         url.append("/users/");
         url.append(userId);
         logger.logDebug(

@@ -31,9 +31,8 @@ public class AccessGroup {
             .getLogger(AccessGroup.class);
 
     public String createGroup(String tenantId, String token) throws Exception {
-        String response = "";
         try {
-            URL url = new URL(createUrl(tenantId));
+            URL url = new URL(createUrlForGroups(tenantId));
             HttpURLConnection conn = createConnection(url, token);
             AccessGroupModel group = getAccessGroupModel(tenantId, tenantId);
             String json = pojoToJsonString(group);
@@ -49,9 +48,9 @@ public class AccessGroup {
                         "response code from identity service was "
                                 + conn.getResponseCode());
             }
-            response = getResponse(conn.getInputStream());
+            String response = RestUtils.getResponse(conn.getInputStream());
             conn.disconnect();
-            
+
             group = createAccessGroupModelFromJson(response);
             return group.getId();
         } catch (Exception e) {
@@ -61,13 +60,15 @@ public class AccessGroup {
         }
     }
 
-    public void addMemberToGroup(String groupId, String tenantId, String token, VOUserDetails userDetails) throws Exception {
+    public void addMemberToGroup(String groupId, String tenantId, String token,
+            VOUserDetails userDetails) throws Exception {
         try {
             URL url = new URL(createUrlToAddUser(tenantId, groupId));
             HttpURLConnection conn = createConnection(url, token);
-            
+
             Userinfo userinfo = new Userinfo();
-            UserinfoModel userInfo = userinfo.mapUserDetailsToUserInfo(userDetails);
+            UserinfoModel userInfo = userinfo
+                    .mapUserDetailsToUserInfo(userDetails);
             String json = pojoToJsonString(userInfo);
             setOutputStream(conn, json);
             conn.connect();
@@ -90,31 +91,20 @@ public class AccessGroup {
     }
 
     protected HttpURLConnection createConnection(URL url, String tokenId)
-            throws IOException, ProtocolException {
+            throws IOException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");
         conn.setRequestProperty("Authorization", "Bearer " + tokenId);
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setRequestProperty("Accept", "application/json");
-        logger.logDebug("Connection to identity service successfull");
+        logger.logDebug("Connection to identity service successful");
         return conn;
     }
 
-    protected String createUrl(String tenantId) {
+    protected String createUrlForGroups(String tenantId) {
         StringBuilder url = new StringBuilder();
-        url.append("http://oscm-identity");
-        url.append(":");
-        url.append("9090");
-        url.append("/");
-        url.append("oscm-identity");
-        url.append("/");
-        url.append("tenants/");
-        if (tenantId == null || tenantId.isEmpty()) {
-            url.append("default");
-        } else {
-            url.append(tenantId);
-        }
+        url.append(RestUtils.getIdentityServiceBaseUrl(tenantId));
         url.append("/groups");
         logger.logDebug(
                 "Connection Url for identity service call = " + url.toString());
@@ -123,7 +113,8 @@ public class AccessGroup {
 
     protected String createUrlToAddUser(String tenantId, String groupId) {
         StringBuilder url = new StringBuilder();
-        url.append(createUrl(tenantId));
+        url.append(RestUtils.getIdentityServiceBaseUrl(tenantId));
+        url.append("/groups");
         url.append("/");
         url.append(groupId);
         url.append("/");
@@ -131,17 +122,6 @@ public class AccessGroup {
         logger.logDebug(
                 "Connection Url for identity service call = " + url.toString());
         return url.toString();
-    }
-
-    private String getResponse(InputStream input) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(input));
-        String inputLine;
-        StringBuffer content = new StringBuffer();
-        while ((inputLine = br.readLine()) != null) {
-            content.append(inputLine);
-        }
-        br.close();
-        return content.toString();
     }
 
     protected AccessGroupModel getAccessGroupModel(String tenantId,
@@ -157,9 +137,7 @@ public class AccessGroup {
     }
 
     protected String pojoToJsonString(Object object) {
-        Gson gson = new Gson();
-        String json = gson.toJson(object);
-        return json;
+        return new Gson().toJson(object);
     }
 
     private void setOutputStream(HttpURLConnection con, String jsonInputString)
@@ -167,14 +145,17 @@ public class AccessGroup {
         try (OutputStream os = con.getOutputStream()) {
             byte[] input = jsonInputString.getBytes("utf-8");
             os.write(input, 0, input.length);
+        } catch (Exception e) {
+            logger.logError(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_IO_VALIDITY_EXTERNAL_JSON);
+            throw e;
         }
     }
-    
+
     protected AccessGroupModel createAccessGroupModelFromJson(String json) {
         Gson gson = new Gson();
-        AccessGroupModel userInfoModel = gson.fromJson(json,
+        return gson.fromJson(json,
                 AccessGroupModel.class);
-        return userInfoModel;
     }
 
 }
