@@ -57,7 +57,6 @@ import org.oscm.internal.types.enumtypes.ImageType;
 import org.oscm.internal.types.enumtypes.OfferingType;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.enumtypes.ServiceStatus;
-import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.OrganizationAuthorityException;

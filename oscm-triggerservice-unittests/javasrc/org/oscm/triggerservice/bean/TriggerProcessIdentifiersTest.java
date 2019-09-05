@@ -25,7 +25,6 @@ import org.oscm.domobjects.TriggerProcess;
 import org.oscm.domobjects.TriggerProcessIdentifier;
 import org.oscm.types.enumtypes.TriggerProcessIdentifierName;
 import org.oscm.internal.types.enumtypes.TriggerType;
-import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.vo.VOService;
 import org.oscm.internal.vo.VOSubscription;
 import org.oscm.internal.vo.VOUsageLicense;

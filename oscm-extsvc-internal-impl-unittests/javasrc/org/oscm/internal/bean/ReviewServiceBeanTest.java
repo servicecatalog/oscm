@@ -23,7 +23,6 @@ import org.oscm.domobjects.Product;
 import org.oscm.domobjects.ProductFeedback;
 import org.oscm.domobjects.ProductReview;
 import org.oscm.reviewservice.bean.ReviewServiceLocalBean;
-import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.vo.VOServiceReview;
 
 /**

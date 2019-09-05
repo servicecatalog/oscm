@@ -34,7 +34,6 @@ import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.test.data.TechnicalProducts;
 import org.oscm.types.enumtypes.OperationParameterType;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
-import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.vo.VOServiceOperationParameterValues;
 import org.oscm.internal.vo.VOSubscription;
 import org.oscm.internal.vo.VOTechnicalServiceOperation;
