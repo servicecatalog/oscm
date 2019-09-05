@@ -421,4 +421,10 @@ public interface IdentityServiceLocal {
      */
     PlatformUser getPlatformUserByOrganization(String userId, String orgId)
             throws ObjectNotFoundException;
+    
+    
+    default boolean synchronizeUsersWithOIDCProvider(String tenantId, String token) {
+        return false;
+    }
+        
 }

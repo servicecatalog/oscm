@@ -2982,4 +2982,21 @@ public class IdentityServiceBean
             throw new SaaSSystemException("Can not connect to the OIDC service");
         }
     }
+    
+    @Override
+    public boolean synchronizeUsersWithOIDCProvider(String tenantId, String token) {
+        List<String> groupIds;
+        
+        // groupIds = getGroupIdsFromDB()
+        // for(int i = 0; i < groups.length(); i++) {
+        //      List<VOUserDetails> users = getAllUsersFromGroup(groups.get(i));
+        //              for(int i = 0; i < useres.length(); i++){
+        //              VOUserDetails user =  loadUserDetailsFromOIDCProvider(String users.get(i), String tenantId, String token)
+        //                (if checkIfUserExists(tenantId, userId) != null){
+        //                      importUser(user, marketplaceId);
+        //                }
+        //              }
+        //}
+        return false;
+    }
 }
