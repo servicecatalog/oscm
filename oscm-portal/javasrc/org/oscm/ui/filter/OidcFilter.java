@@ -32,11 +32,14 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.simple.JSONObject;
 import org.oscm.internal.types.exception.MarketplaceRemovedException;
 import org.oscm.internal.types.exception.ValidationException;
+import org.oscm.json.JsonObject;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.constants.marketplace.Marketplace;
@@ -141,11 +144,12 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
     CloseableHttpClient client = HttpClients.createDefault();
     HttpPost post = new HttpPost(resourceUrl);
+    post.setHeader("Content-type", "application/json");
 
-    List<NameValuePair> params = new ArrayList<NameValuePair>(3);
-    params.add(new BasicNameValuePair("token", idToken));
-    params.add(new BasicNameValuePair("tenantId", tenantId));
-    post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+    JSONObject validationRequestJSON = new JSONObject();
+    validationRequestJSON.put("tenantId", tenantId);
+    validationRequestJSON.put("idToken", idToken);
+    post.setEntity(new StringEntity(validationRequestJSON.toString()));
 
     validationResponse = client.execute(post);
     if (validationResponse.getStatusLine().getStatusCode() != Response.Status.OK.getStatusCode()) {
