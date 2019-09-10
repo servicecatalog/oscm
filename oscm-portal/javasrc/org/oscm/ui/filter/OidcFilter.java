@@ -1,29 +1,13 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2019
+ * <p>Copyright FUJITSU LIMITED 2019
  *
- *  Creation Date: Jul 9, 2019
+ * <p>Creation Date: Jul 9, 2019
  *
- *******************************************************************************/
-
+ * <p>*****************************************************************************
+ */
 package org.oscm.ui.filter;
-
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Optional;
-
-import javax.inject.Inject;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
@@ -40,6 +24,16 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.beans.BaseBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.JSFUtils;
+
+import javax.inject.Inject;
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.Response;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Optional;
 
 public class OidcFilter extends BaseBesFilter implements Filter {
 
@@ -77,12 +71,14 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
       storeTokens(httpRequest);
       Optional<String> idTokenParam = Optional.ofNullable(httpRequest.getParameter("id_token"));
-      Optional<String> accessTokenParam = Optional.ofNullable(httpRequest.getParameter("access_token"));
+      Optional<String> accessTokenParam =
+          Optional.ofNullable(httpRequest.getParameter("access_token"));
 
       if (idTokenParam.isPresent() || accessTokenParam.isPresent()) {
         try {
           String tenantid = tenantResolver.getTenantID(rdo, httpRequest);
-          makeTokenValidationRequest(httpRequest, idTokenParam.get(), accessTokenParam.get(), tenantid);
+          makeTokenValidationRequest(
+              httpRequest, idTokenParam.get(), accessTokenParam.get(), tenantid);
           httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idTokenParam.get());
         } catch (ValidationException | URISyntaxException | MarketplaceRemovedException e) {
           LOGGER.logError(
@@ -97,7 +93,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
       String existingIdToken =
           (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ID_TOKEN);
       String existingAccessToken =
-              (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ACCESS_TOKEN);
+          (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ACCESS_TOKEN);
 
       if (StringUtils.isBlank(existingIdToken) || StringUtils.isBlank(existingAccessToken)) {
         try {
@@ -142,13 +138,20 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     HttpPost post = new HttpPost(resourceUrl);
     post.setHeader("Content-type", "application/json");
 
-    String jsonString = "{\n"
-            + "\t\"tenantId\": \""+tenantId+"\",\n"
-            + "\t\"idToken\": \""+idToken+"\",\n"
-            + "\t\"accessToken\": \""+accessToken+"\"\n"
-            + "}";
+    StringBuilder jsonStringBuilder = new StringBuilder();
+    jsonStringBuilder.append("{\n");
+    jsonStringBuilder.append("\t\"tenantId\": \"");
+    jsonStringBuilder.append(tenantId);
+    jsonStringBuilder.append("\",\n");
+    jsonStringBuilder.append("\t\"idToken\": \"");
+    jsonStringBuilder.append(idToken);
+    jsonStringBuilder.append("\",\n");
+    jsonStringBuilder.append("\t\"accessToken\": \"");
+    jsonStringBuilder.append(accessToken);
+    jsonStringBuilder.append("\"\n");
+    jsonStringBuilder.append("}");
 
-    post.setEntity(new StringEntity(jsonString));
+    post.setEntity(new StringEntity(jsonStringBuilder.toString()));
 
     validationResponse = client.execute(post);
     if (validationResponse.getStatusLine().getStatusCode() != Response.Status.OK.getStatusCode()) {
