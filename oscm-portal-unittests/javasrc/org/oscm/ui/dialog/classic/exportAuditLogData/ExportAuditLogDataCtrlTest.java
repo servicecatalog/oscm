@@ -49,7 +49,6 @@ import org.oscm.ui.beans.operator.BaseOperatorBean;
 import org.oscm.ui.model.AuditLogOperation;
 import org.oscm.ui.validator.DateFromToValidator;
 import org.oscm.internal.intf.OperatorService;
-import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * @author Qiu

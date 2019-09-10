@@ -35,7 +35,6 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.validation.ArgumentValidator;
 import org.oscm.validator.BLValidator;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
-import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.MailOperationException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;

@@ -24,7 +24,6 @@ import org.oscm.domobjects.ProductFeedback;
 import org.oscm.domobjects.ProductReview;
 import org.oscm.reviewservice.bean.ReviewServiceLocalBean;
 import org.oscm.internal.assembler.POServiceReviewAssembler;
-import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * Unit test for ReviewInternalServiceBean
