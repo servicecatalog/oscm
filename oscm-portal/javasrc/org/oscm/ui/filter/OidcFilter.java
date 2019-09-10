@@ -1,9 +1,9 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2019
- *                                                                              
- *  Creation Date: Jul 9, 2019                                                      
- *                                                                              
+ *
+ *  Creation Date: Jul 9, 2019
+ *
  *******************************************************************************/
 
 package org.oscm.ui.filter;
@@ -12,8 +12,6 @@ package org.oscm.ui.filter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -29,17 +27,12 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.json.simple.JSONObject;
 import org.oscm.internal.types.exception.MarketplaceRemovedException;
 import org.oscm.internal.types.exception.ValidationException;
-import org.oscm.json.JsonObject;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.constants.marketplace.Marketplace;
@@ -76,7 +69,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
     AuthorizationRequestData rdo = initializeRequestDataObject(httpRequest);
-    
+
     boolean isIdProvider = authSettings.isServiceProvider();
     boolean isUrlExcluded = httpRequest.getServletPath().matches(excludeUrlPattern);
 
@@ -84,11 +77,12 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
       storeTokens(httpRequest);
       Optional<String> idTokenParam = Optional.ofNullable(httpRequest.getParameter("id_token"));
+      Optional<String> accessTokenParam = Optional.ofNullable(httpRequest.getParameter("access_token"));
 
-      if (idTokenParam.isPresent()) {
+      if (idTokenParam.isPresent() || accessTokenParam.isPresent()) {
         try {
           String tenantid = tenantResolver.getTenantID(rdo, httpRequest);
-          makeTokenValidationRequest(httpRequest, idTokenParam.get(), tenantid);
+          makeTokenValidationRequest(httpRequest, idTokenParam.get(), accessTokenParam.get(), tenantid);
           httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idTokenParam.get());
         } catch (ValidationException | URISyntaxException | MarketplaceRemovedException e) {
           LOGGER.logError(
@@ -102,8 +96,10 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
       String existingIdToken =
           (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ID_TOKEN);
+      String existingAccessToken =
+              (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ACCESS_TOKEN);
 
-      if (StringUtils.isBlank(existingIdToken)) {
+      if (StringUtils.isBlank(existingIdToken) || StringUtils.isBlank(existingAccessToken)) {
         try {
           String loginUrl = new Login(rdo, httpRequest, tenantResolver).buildUrl();
           JSFUtils.sendRedirect(httpResponse, loginUrl);
@@ -118,7 +114,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
       } else {
         try {
           String tenantId = tenantResolver.getTenantID(rdo, httpRequest);
-          makeTokenValidationRequest(httpRequest, existingIdToken, tenantId);
+          makeTokenValidationRequest(httpRequest, existingIdToken, existingAccessToken, tenantId);
         } catch (ValidationException | URISyntaxException | MarketplaceRemovedException e) {
           LOGGER.logError(
               Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
@@ -132,9 +128,9 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
     chain.doFilter(request, response);
   }
-  
+
   protected void makeTokenValidationRequest(
-      HttpServletRequest httpRequest, String idToken, String tenantId)
+      HttpServletRequest httpRequest, String idToken, String accessToken, String tenantId)
       throws ValidationException, IOException, URISyntaxException {
     String requestedUrl = httpRequest.getRequestURL().toString();
 
@@ -146,10 +142,13 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     HttpPost post = new HttpPost(resourceUrl);
     post.setHeader("Content-type", "application/json");
 
-    JSONObject validationRequestJSON = new JSONObject();
-    validationRequestJSON.put("tenantId", tenantId);
-    validationRequestJSON.put("idToken", idToken);
-    post.setEntity(new StringEntity(validationRequestJSON.toString()));
+    String jsonString = "{\n"
+            + "\t\"tenantId\": \""+tenantId+"\",\n"
+            + "\t\"idToken\": \""+idToken+"\",\n"
+            + "\t\"accessToken\": \""+accessToken+"\"\n"
+            + "}";
+
+    post.setEntity(new StringEntity(jsonString));
 
     validationResponse = client.execute(post);
     if (validationResponse.getStatusLine().getStatusCode() != Response.Status.OK.getStatusCode()) {
@@ -166,7 +165,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
   }
 
   private void storeTokens(HttpServletRequest httpRequest) {
-	  
+
     Optional<String> accessTokenParam =
         Optional.ofNullable(httpRequest.getParameter("access_token"));
     Optional<String> refreshTokenParam =

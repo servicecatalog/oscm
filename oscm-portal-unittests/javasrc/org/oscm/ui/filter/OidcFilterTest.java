@@ -89,7 +89,7 @@ public class OidcFilterTest {
     doReturn("oscm-portal/marketplace/").when(requestMock).getServletPath();
 
     mockRequestURL();
-    doNothing().when(filter).makeTokenValidationRequest(any(), any() ,any());
+    doNothing().when(filter).makeTokenValidationRequest(any(), any(), any() ,any());
     ac = ArgumentCaptor.forClass(String.class);
 
     token = null;
