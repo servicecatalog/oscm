@@ -192,6 +192,8 @@ public class MarketplaceServiceWS implements MarketplaceService {
             delegate.deleteMarketplace(marketplaceId);
         } catch (org.oscm.internal.types.exception.ObjectNotFoundException e) {
             throw ExceptionConverter.convertToApi(e);
+        } catch (org.oscm.internal.types.exception.NonUniqueBusinessKeyException e) {
+            throw ExceptionConverter.convertToApi(e);
         }
     }
 
