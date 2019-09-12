@@ -63,6 +63,7 @@ import javax.interceptor.Interceptors;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.security.auth.login.LoginException;
+import java.lang.IllegalArgumentException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.*;
@@ -158,7 +159,7 @@ public class MarketplaceServiceBean implements MarketplaceService {
   @RolesAllowed({"SERVICE_MANAGER", "RESELLER_MANAGER", "BROKER_MANAGER"})
   public VOServiceDetails publishService(VOService service, List<VOCatalogEntry> entries)
       throws ObjectNotFoundException, ValidationException, NonUniqueBusinessKeyException,
-          OperationNotPermittedException {
+          OperationNotPermittedException, IllegalArgumentException{
 
     // validate input
     ArgumentValidator.notNull("service", service);
@@ -401,7 +402,8 @@ public class MarketplaceServiceBean implements MarketplaceService {
   @RolesAllowed({"MARKETPLACE_OWNER", "PLATFORM_OPERATOR"})
   public VOMarketplace updateMarketplace(VOMarketplace marketplace)
       throws ObjectNotFoundException, OperationNotPermittedException,
-          ConcurrentModificationException, ValidationException, UserRoleAssignmentException {
+          ConcurrentModificationException, ValidationException, UserRoleAssignmentException,
+          IllegalArgumentException {
 
     ArgumentValidator.notNull("marketplace", marketplace);
 
@@ -430,7 +432,7 @@ public class MarketplaceServiceBean implements MarketplaceService {
   @RolesAllowed("PLATFORM_OPERATOR")
   public VOMarketplace createMarketplace(VOMarketplace marketplace)
       throws OperationNotPermittedException, ObjectNotFoundException, ValidationException,
-          UserRoleAssignmentException, MarketplaceValidationException {
+          UserRoleAssignmentException, MarketplaceValidationException, IllegalArgumentException {
 
     // check if mandatory fields are given
     ArgumentValidator.notNull("marketplace", marketplace);
@@ -468,7 +470,8 @@ public class MarketplaceServiceBean implements MarketplaceService {
 
   @Override
   @RolesAllowed("PLATFORM_OPERATOR")
-  public void deleteMarketplace(String marketplaceId) throws ObjectNotFoundException {
+  public void deleteMarketplace(String marketplaceId)
+      throws IllegalArgumentException, ObjectNotFoundException, NonUniqueBusinessKeyException {
 
     ArgumentValidator.notNull("marketplaceId", marketplaceId);
 
@@ -499,11 +502,7 @@ public class MarketplaceServiceBean implements MarketplaceService {
     // if owningOrganization has no marketplaces left revoke marketplace
     // owner role
     revokeRoleIfNecessary(owningOrganization);
-    try {
-      dm.persist(owningOrganization);
-    } catch (NonUniqueBusinessKeyException e) {
-      // cannot be thrown in this case
-    }
+    dm.persist(owningOrganization);
   }
 
   private void deleteCategory(String marketplaceId) {
