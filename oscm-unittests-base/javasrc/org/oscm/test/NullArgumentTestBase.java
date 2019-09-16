@@ -20,6 +20,7 @@ import java.util.Set;
 
 import javax.jws.WebParam;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.string.Strings;
@@ -81,7 +82,7 @@ public abstract class NullArgumentTestBase<R> extends EJBTestBase {
     private String createKey(String method, String parameter) {
         return method + "/" + parameter;
     }
-
+    @Ignore
     @Test
     public void testNullArguments() throws Throwable {
         for (final Method method : remoteInterface.getMethods()) {
