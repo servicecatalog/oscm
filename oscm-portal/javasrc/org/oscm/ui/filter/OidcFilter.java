@@ -74,6 +74,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
       Optional<String> accessTokenParam =
           Optional.ofNullable(httpRequest.getParameter("access_token"));
 
+      //TODO: Split token validation in scope of oscm-identity#38
       if (idTokenParam.isPresent() || accessTokenParam.isPresent()) {
         try {
           String tenantid = tenantResolver.getTenantID(rdo, httpRequest);
@@ -95,7 +96,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
       String existingAccessToken =
           (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ACCESS_TOKEN);
 
-      if (StringUtils.isBlank(existingIdToken) || StringUtils.isBlank(existingAccessToken)) {
+      if (StringUtils.isBlank(existingIdToken)) {
         try {
           String loginUrl = new Login(rdo, httpRequest, tenantResolver).buildUrl();
           JSFUtils.sendRedirect(httpResponse, loginUrl);
