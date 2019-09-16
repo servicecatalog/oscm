@@ -566,6 +566,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
                     user = getIdService().loadUserDetailsFromOIDCProvider(customerUserToAdd.getUserId(), sessionBean.getTenantID(), getIdToken());
                     String groupId = getIdService().createAccessGroupInOIDCProvider(sessionBean.getTenantID(), getIdToken(), customerUserToAdd.getUserId());
                     customerToAdd.setOidcGroupId(groupId);
+                    customerToAdd.setOidcGroupId(groupId);
                     getIdService().addMemberToAccessGroupInOIDCProvider(groupId, sessionBean.getTenantID(), getIdToken(), user);
                
             }
