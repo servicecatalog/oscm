@@ -38,6 +38,12 @@ public class OrganizationData extends DomainDataContainer implements
      */
     @Column(nullable = false)
     private String organizationId;
+    
+    /**
+     * An optional OIDC group id (not relevant for internal mode)
+     */
+    @Column(nullable = true)
+    private String groupid;
 
     /**
      * Organization's address as free text (incl. city, street, country,
@@ -207,7 +213,16 @@ public class OrganizationData extends DomainDataContainer implements
     }
 
     public int getCutOffDay() {
-        return cutOffDay;
+    return cutOffDay;
     }
+
+    public String getGroupId() {
+        return groupid;
+    }
+    
+    public void setGroupId(String groupid) {
+        this.groupid = groupid;
+    }
+
 
 }
