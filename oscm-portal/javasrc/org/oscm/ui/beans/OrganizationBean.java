@@ -565,6 +565,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
             if(!isInternalAuthMode()) {
                     user = getIdService().loadUserDetailsFromOIDCProvider(customerUserToAdd.getUserId(), sessionBean.getTenantID(), getIdToken());
                     String groupId = getIdService().createAccessGroupInOIDCProvider(sessionBean.getTenantID(), getIdToken(), customerUserToAdd.getUserId());
+                    customerToAdd.setOidcGroupId(groupId);
                     getIdService().addMemberToAccessGroupInOIDCProvider(groupId, sessionBean.getTenantID(), getIdToken(), user);
                
             }
@@ -594,7 +595,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
             addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_UPLOAD);
         }  catch (RegistrationException  e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR_ADD_CUSTOMER, "Can´t load user from OIDC Provider");
+                    LogMessageIdentifier.ERROR_ADD_CUSTOMER, "Canï¿½t load user from OIDC Provider");
             addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_CONNECT_TO_OIDC);
         } catch (MarketplaceRemovedException e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
