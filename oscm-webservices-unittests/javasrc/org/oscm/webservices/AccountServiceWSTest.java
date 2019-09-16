@@ -26,7 +26,6 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -74,7 +73,6 @@ public class AccountServiceWSTest {
         return wsContextMock;
     }
 
-    @Ignore
     @Test
     public void testLogInjectionForAccountServiceWS() throws Exception {
         serviceWS.deregisterOrganization();
