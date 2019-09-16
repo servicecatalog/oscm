@@ -80,6 +80,10 @@ public class OrganizationHistory extends DomainHistoryObject<OrganizationData> {
     public String getOrganizationId() {
         return dataContainer.getOrganizationId();
     }
+        
+    public String getGroupId() {
+      return dataContainer.getGroupId();
+    }
 
     public String getEmail() {
         return dataContainer.getEmail();
