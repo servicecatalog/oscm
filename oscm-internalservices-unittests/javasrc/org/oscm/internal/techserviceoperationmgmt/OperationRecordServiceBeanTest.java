@@ -28,6 +28,7 @@ import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.Subscription;
 import org.oscm.techproductoperation.bean.OperationRecordServiceLocalBean;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 
 /**

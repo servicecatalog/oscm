@@ -667,7 +667,7 @@ public class TriggerServiceBean implements TriggerService, TriggerServiceLocal {
         TriggerProcessStatusException, ValidationException {
 
         if (parameters == null) {
-            throw new IllegalArgumentException(
+            throw new org.oscm.internal.types.exception.IllegalArgumentException(
                 "Parameter parameters must not be null.");
         }
 
@@ -751,7 +751,7 @@ public class TriggerServiceBean implements TriggerService, TriggerServiceLocal {
         throws OperationNotPermittedException, ObjectNotFoundException {
 
         if (paramType == null) {
-            throw new IllegalArgumentException(
+            throw new org.oscm.internal.types.exception.IllegalArgumentException(
                 "Parameter paramType must not be null.");
         }
 

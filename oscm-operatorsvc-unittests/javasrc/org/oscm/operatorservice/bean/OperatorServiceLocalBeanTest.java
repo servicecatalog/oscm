@@ -46,6 +46,7 @@ import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
 import org.oscm.types.enumtypes.LocalizedDataType;
 import org.oscm.types.enumtypes.StandardLanguage;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.PropertiesImportException;
 import org.oscm.internal.types.exception.ValidationException;

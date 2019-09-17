@@ -291,9 +291,7 @@ public class OidcFilterTest {
 
   private void givenTokenFromRequest() {
     doReturn("aVerryLongTokenStringCanBeFoundHere").when(requestMock).getParameter(eq("id_token"));
-    doReturn("aVerryLongTokenStringCanBeFoundHere")
-        .when(requestMock)
-        .getParameter(eq("access_token"));
+    doReturn("aVerryLongTokenStringCanBeFoundHere").when(requestMock).getParameter(eq("access_token"));
   }
 
   protected void mockRequestURL() {
@@ -362,8 +360,9 @@ public class OidcFilterTest {
                 return token;
               }
             }))
-        .when(httpSessionMock)
-        .getAttribute(eq(Constants.SESS_ATTR_ACCESS_TOKEN));
+            .when(httpSessionMock)
+            .getAttribute(eq(Constants.SESS_ATTR_ACCESS_TOKEN));
+
 
     doReturn(httpSessionMock).when(requestMock).getSession();
   }

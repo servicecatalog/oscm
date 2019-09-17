@@ -24,6 +24,7 @@ import org.junit.Test;
 
 import org.oscm.string.Strings;
 import org.oscm.test.ejb.TestContainer;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.types.enumtypes.PaymentInfoType;
 import org.oscm.types.enumtypes.UserAccountStatus;
 import org.oscm.types.enumtypes.UserRoleType;

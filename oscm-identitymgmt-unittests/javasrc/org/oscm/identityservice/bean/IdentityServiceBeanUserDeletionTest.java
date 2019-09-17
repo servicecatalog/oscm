@@ -47,6 +47,7 @@ import org.oscm.subscriptionservice.local.SubscriptionServiceLocal;
 import org.oscm.types.enumtypes.EmailType;
 import org.oscm.internal.types.enumtypes.SubscriptionStatus;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.UserDeletionConstraintException;
