@@ -40,7 +40,6 @@ import org.oscm.internal.pricing.POMarketplacePriceModel;
 import org.oscm.internal.pricing.POPartnerPriceModel;
 import org.oscm.internal.pricing.PORevenueShare;
 import org.oscm.internal.types.exception.DomainObjectException.ClassEnum;
-import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.VOMarketplace;

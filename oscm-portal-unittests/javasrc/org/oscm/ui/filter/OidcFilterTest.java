@@ -1,40 +1,13 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2019                                           
- *                                                                                                                                 
- *  Creation Date: 30.07.2019                                                      
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2019
+ *
+ * <p>Creation Date: 30.07.2019
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ui.filter;
-
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -44,10 +17,23 @@ import org.mockito.stubbing.Answer;
 import org.oscm.internal.types.exception.MarketplaceRemovedException;
 import org.oscm.ui.common.Constants;
 
-/**
- * @author goebel
- *
- */
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
+
+/** @author goebel */
 public class OidcFilterTest {
 
   OidcFilter filter = spy(new OidcFilter());
@@ -89,7 +75,7 @@ public class OidcFilterTest {
     doReturn("oscm-portal/marketplace/").when(requestMock).getServletPath();
 
     mockRequestURL();
-    doNothing().when(filter).makeTokenValidationRequest(any(), any() ,any());
+    doNothing().when(filter).makeTokenValidationRequest(any(), any(), any(), any());
     ac = ArgumentCaptor.forClass(String.class);
 
     token = null;
@@ -200,7 +186,7 @@ public class OidcFilterTest {
     // given
     givenCustomerTenant();
     givenMPLoginWithRemovedMarketplace();
-    
+
     // when
     filter.doFilter(requestMock, responseMock, chainMock);
     verify(filter, times(1)).forward(ac.capture(), any(), any());
@@ -243,46 +229,51 @@ public class OidcFilterTest {
   }
 
   private void givenMPLoginWithoutParameter() {
-    doReturn(sb("https://oscmhost:8081/oscm-portal/marketplace/index.jsf")).when(requestMock)
+    doReturn(sb("https://oscmhost:8081/oscm-portal/marketplace/index.jsf"))
+        .when(requestMock)
         .getRequestURL();
   }
 
   private void givenMPLoginWithParameter() {
     final String mId = String.format("\"%s\"", marketplaceId);
     doReturn(sb("https://oscmhost:8081/oscm-portal/marketplace/index.jsf?mId=" + enc(mId)))
-        .when(requestMock).getRequestURL();
+        .when(requestMock)
+        .getRequestURL();
   }
 
   private void givenMPLoginWithRemovedMarketplace() throws Exception {
 
     final String mId = String.format("\"%s\"", marketplaceId);
     doReturn(sb("https://oscmhost:8081/oscm-portal/marketplace/index.jsf?mId=" + enc(mId)))
-    .when(requestMock).getRequestURL();
-    
+        .when(requestMock)
+        .getRequestURL();
+
     doNothing().when(filter).forward(any(), any(), any());
-    
+
     TenantResolver tr = mockTenantResolver();
     filter.setTenantResolver(tr);
 
-    doThrow(new MarketplaceRemovedException()).when(tr).getTenantID(any(),
-        any());
+    doThrow(new MarketplaceRemovedException()).when(tr).getTenantID(any(), any());
   }
 
   private void givenNoMPLogin() {
     final String mId = String.format("\"%s\"", marketplaceId);
-    doReturn(sb("https://oscmhost:8081/oscm-portal/index.jsf?mId=" + enc(mId))).when(requestMock)
+    doReturn(sb("https://oscmhost:8081/oscm-portal/index.jsf?mId=" + enc(mId)))
+        .when(requestMock)
         .getRequestURL();
   }
 
   private void givenPortalLoginWithTenantId() {
     final String tId = String.format("\"%s\"", tenantID);
     doReturn(sb("https://oscmhost:8081/oscm-portal/index.jsf?tenantId=" + enc(tId)))
-        .when(requestMock).getRequestURL();
+        .when(requestMock)
+        .getRequestURL();
   }
 
   private void givenPortalLoginWithMarketplaceId() {
     final String mId = String.format("\"%s\"", marketplaceId);
-    doReturn(sb("https://oscmhost:8081/oscm-portal/index.jsf?mId=" + enc(mId))).when(requestMock)
+    doReturn(sb("https://oscmhost:8081/oscm-portal/index.jsf?mId=" + enc(mId)))
+        .when(requestMock)
         .getRequestURL();
   }
 
@@ -300,58 +291,80 @@ public class OidcFilterTest {
 
   private void givenTokenFromRequest() {
     doReturn("aVerryLongTokenStringCanBeFoundHere").when(requestMock).getParameter(eq("id_token"));
+    doReturn("aVerryLongTokenStringCanBeFoundHere")
+        .when(requestMock)
+        .getParameter(eq("access_token"));
   }
 
   protected void mockRequestURL() {
-    doAnswer((new Answer<String>() {
-      @Override
-      public String answer(InvocationOnMock invocation) {
-        Object[] args = invocation.getArguments();
-        StringBuffer url = requestMock.getRequestURL();
-        try {
-          return new URL(url.toString()).getQuery();
-        } catch (MalformedURLException e) {
-          return null;
-        }
-      }
-    })).when(requestMock).getQueryString();
+    doAnswer(
+            (new Answer<String>() {
+              @Override
+              public String answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                StringBuffer url = requestMock.getRequestURL();
+                try {
+                  return new URL(url.toString()).getQuery();
+                } catch (MalformedURLException e) {
+                  return null;
+                }
+              }
+            }))
+        .when(requestMock)
+        .getQueryString();
   }
 
   protected TenantResolver mockTenantResolver() throws MarketplaceRemovedException {
     TenantResolver tr = mock(TenantResolver.class);
-    doAnswer((new Answer<String>() {
-      @Override
-      public String answer(InvocationOnMock invocation) {
-        Object[] args = invocation.getArguments();
-        return tenantID;
-
-      }
-    })).when(tr).getTenantID(any(), any());
+    doAnswer(
+            (new Answer<String>() {
+              @Override
+              public String answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                return tenantID;
+              }
+            }))
+        .when(tr)
+        .getTenantID(any(), any());
 
     return tr;
   }
 
   protected void mockSession() {
     httpSessionMock = mock(HttpSession.class);
-    doAnswer((new Answer<String>() {
-      @Override
-      public String answer(InvocationOnMock invocation) {
-        Object[] args = invocation.getArguments();
-        return marketplaceId;
+    doAnswer(
+            (new Answer<String>() {
+              @Override
+              public String answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                return marketplaceId;
+              }
+            }))
+        .when(httpSessionMock)
+        .getAttribute(eq(Constants.REQ_PARAM_MARKETPLACE_ID));
 
-      }
-    })).when(httpSessionMock).getAttribute(eq(Constants.REQ_PARAM_MARKETPLACE_ID));
+    doAnswer(
+            (new Answer<String>() {
+              @Override
+              public String answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                return token;
+              }
+            }))
+        .when(httpSessionMock)
+        .getAttribute(eq(Constants.SESS_ATTR_ID_TOKEN));
 
-    doAnswer((new Answer<String>() {
-      @Override
-      public String answer(InvocationOnMock invocation) {
-        Object[] args = invocation.getArguments();
-        return token;
-
-      }
-    })).when(httpSessionMock).getAttribute(eq(Constants.SESS_ATTR_ID_TOKEN));
+    doAnswer(
+            (new Answer<String>() {
+              @Override
+              public String answer(InvocationOnMock invocation) {
+                Object[] args = invocation.getArguments();
+                return token;
+              }
+            }))
+        .when(httpSessionMock)
+        .getAttribute(eq(Constants.SESS_ATTR_ACCESS_TOKEN));
 
     doReturn(httpSessionMock).when(requestMock).getSession();
   }
-
 }
