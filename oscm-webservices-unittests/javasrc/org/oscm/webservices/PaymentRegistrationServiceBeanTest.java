@@ -25,6 +25,7 @@ import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.PSP;
 import org.oscm.domobjects.PaymentInfo;
 import org.oscm.domobjects.PaymentType;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.psp.data.RegistrationData;
 import org.oscm.psp.intf.PaymentRegistrationService;

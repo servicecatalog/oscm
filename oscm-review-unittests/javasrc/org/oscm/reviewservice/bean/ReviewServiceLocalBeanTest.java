@@ -48,6 +48,7 @@ import org.oscm.types.enumtypes.EmailType;
 import org.oscm.types.exceptions.InvalidUserSession;
 import org.oscm.internal.types.enumtypes.ServiceAccessType;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.MailOperationException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 

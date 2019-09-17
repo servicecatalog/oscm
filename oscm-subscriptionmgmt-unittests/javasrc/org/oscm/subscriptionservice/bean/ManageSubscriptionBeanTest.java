@@ -37,6 +37,7 @@ import org.oscm.domobjects.TechnicalProduct;
 import org.oscm.domobjects.TechnicalProductOperation;
 import org.oscm.domobjects.UsageLicense;
 import org.oscm.types.enumtypes.OperationParameterType;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.ValidationException;
 
