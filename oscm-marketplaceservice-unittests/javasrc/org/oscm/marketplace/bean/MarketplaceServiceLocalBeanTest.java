@@ -74,6 +74,7 @@ import org.oscm.internal.vo.VOCategory;
 import org.oscm.marketplace.auditlog.MarketplaceAuditLogCollector;
 import org.oscm.marketplace.dao.MarketplaceAccessDao;
 import org.oscm.serviceprovisioningservice.local.ServiceProvisioningPartnerServiceLocal;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 public class MarketplaceServiceLocalBeanTest {
 

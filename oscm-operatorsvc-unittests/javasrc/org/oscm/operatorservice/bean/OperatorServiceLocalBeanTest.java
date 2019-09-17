@@ -49,6 +49,7 @@ import org.oscm.types.enumtypes.StandardLanguage;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.PropertiesImportException;
 import org.oscm.internal.types.exception.ValidationException;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * Unit test for OperatorServiceLocalBean

@@ -63,7 +63,7 @@ import org.oscm.internal.types.exception.TechnicalServiceOperationException;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOPaymentInfo;
 import org.oscm.internal.vo.VOPaymentType;
-
+import org.oscm.internal.types.exception.IllegalArgumentException;
 /**
  * Tests for payment info services.
  * 

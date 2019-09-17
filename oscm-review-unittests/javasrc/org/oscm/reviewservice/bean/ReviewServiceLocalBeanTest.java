@@ -50,6 +50,7 @@ import org.oscm.internal.types.enumtypes.ServiceAccessType;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
 import org.oscm.internal.types.exception.MailOperationException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * Unit test of ReviewServiceLocalBean

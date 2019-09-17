@@ -11,7 +11,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doNothing;
@@ -33,16 +32,13 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.ejb.SessionContext;
-import javax.persistence.Query;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.oscm.communicationservice.data.SendMailStatus;
 import org.oscm.communicationservice.local.CommunicationServiceLocal;
-import org.oscm.dataservice.bean.DataServiceBean;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.DomainObject;
 import org.oscm.domobjects.Marketplace;
@@ -71,10 +67,10 @@ import org.oscm.internal.vo.VOUser;
 import org.oscm.paginator.Pagination;
 import org.oscm.subscriptionservice.local.SubscriptionListServiceLocal;
 import org.oscm.taskhandling.local.TaskQueueServiceLocal;
-import org.oscm.test.stubs.QueryStub;
 import org.oscm.types.enumtypes.EmailType;
 import org.oscm.usergroupservice.auditlog.UserGroupAuditLogCollector;
 import org.oscm.usergroupservice.dao.UserGroupDao;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * Unit tests for the user group management.

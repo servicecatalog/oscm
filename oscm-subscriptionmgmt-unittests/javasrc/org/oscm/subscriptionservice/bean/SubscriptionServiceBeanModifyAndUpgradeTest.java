@@ -66,6 +66,8 @@ import org.oscm.subscriptionservice.dao.OrganizationDao;
 import org.oscm.triggerservice.local.TriggerQueueServiceLocal;
 import org.oscm.types.enumtypes.ProvisioningType;
 import org.oscm.types.enumtypes.TriggerProcessParameterName;
+import org.oscm.internal.types.exception.IllegalArgumentException;
+
 
 /**
  * @author Zhou

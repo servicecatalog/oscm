@@ -47,7 +47,7 @@ import org.oscm.internal.types.exception.TechnicalServiceNotAliveException;
 import org.oscm.internal.types.exception.TechnicalServiceOperationException;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOBillingContact;
-
+import org.oscm.internal.types.exception.IllegalArgumentException;
 /**
  * Tests for billing contact services.
  * 

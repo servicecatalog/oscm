@@ -20,6 +20,7 @@ import org.oscm.ui.dialog.classic.manageudas.UdaDefinitionRowModel;
 import org.oscm.ui.dialog.classic.manageudas.UdaModelConverter;
 import org.oscm.internal.types.enumtypes.UdaConfigurationType;
 import org.oscm.internal.vo.VOUdaDefinition;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * @author yuyin

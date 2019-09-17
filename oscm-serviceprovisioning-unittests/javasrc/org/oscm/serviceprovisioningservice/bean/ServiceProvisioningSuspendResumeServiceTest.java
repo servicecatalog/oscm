@@ -47,6 +47,7 @@ import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.ServiceStateException;
 import org.oscm.internal.vo.VOService;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * @author weiser

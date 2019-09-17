@@ -29,6 +29,7 @@ import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.psp.data.RegistrationData;
 import org.oscm.psp.intf.PaymentRegistrationService;
 import org.oscm.types.exceptions.OperationNotPermittedException;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 public class PaymentRegistrationServiceBeanTest {
 

@@ -62,6 +62,7 @@ import org.oscm.internal.types.exception.ServiceOperationException;
 import org.oscm.internal.types.exception.ServiceStateException;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.types.exception.ValidationException.ReasonEnum;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 public class ServiceProvisioningPartnerServiceLocalBeanTest {
 

@@ -35,6 +35,7 @@ import org.oscm.types.enumtypes.LocalizedDataType;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.PropertiesImportException;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * 

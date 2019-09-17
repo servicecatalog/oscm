@@ -30,6 +30,7 @@ import org.oscm.internal.vo.VOSubscription;
 import org.oscm.internal.vo.VOUsageLicense;
 import org.oscm.internal.vo.VOUser;
 import org.oscm.internal.vo.VOUserDetails;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 public class TriggerProcessIdentifiersTest {
 

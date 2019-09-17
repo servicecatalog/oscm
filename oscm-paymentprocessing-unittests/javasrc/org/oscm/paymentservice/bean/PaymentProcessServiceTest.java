@@ -78,6 +78,7 @@ import org.oscm.internal.vo.VOPaymentType;
 import org.oscm.psp.data.ChargingData;
 import org.oscm.psp.data.Property;
 import org.oscm.psp.data.RequestData;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * Unit tests for the payment service class.

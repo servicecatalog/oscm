@@ -51,6 +51,7 @@ import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.UserDeletionConstraintException;
 import org.oscm.internal.vo.VOUserDetails;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * The unit test for identityServiceBean.deleteUser

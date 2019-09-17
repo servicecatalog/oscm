@@ -39,6 +39,7 @@ import org.oscm.domobjects.UsageLicense;
 import org.oscm.types.enumtypes.OperationParameterType;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.ValidationException;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * @author weiser

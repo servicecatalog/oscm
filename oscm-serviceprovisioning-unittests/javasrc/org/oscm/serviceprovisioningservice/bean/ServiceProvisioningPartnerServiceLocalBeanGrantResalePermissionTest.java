@@ -65,6 +65,7 @@ import org.oscm.internal.types.exception.ServiceOperationException.Reason;
 import org.oscm.internal.types.exception.ServiceStateException;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOLocalizedText;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 public class ServiceProvisioningPartnerServiceLocalBeanGrantResalePermissionTest {
 

@@ -29,6 +29,7 @@ import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.Subscription;
 import org.oscm.techproductoperation.bean.OperationRecordServiceLocalBean;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * @author maoq

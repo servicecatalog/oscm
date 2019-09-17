@@ -28,6 +28,7 @@ import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOOrganization;
 
+
 /**
  * Tests the validation of methods in AccountServiceBean
  * 

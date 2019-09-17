@@ -31,6 +31,7 @@ import org.oscm.serviceprovisioningservice.bean.ServiceProvisioningPartnerServic
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.ServiceOperationException;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * @author tokoda
