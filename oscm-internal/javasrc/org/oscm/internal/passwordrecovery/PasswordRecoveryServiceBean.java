@@ -39,7 +39,7 @@ import org.oscm.internal.types.exception.MailOperationException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.ValidationException;
-
+import org.oscm.internal.types.exception.IllegalArgumentException;
 /**
  * Bean implementation for the password recovery service.
  * 

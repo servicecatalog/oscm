@@ -32,6 +32,7 @@ import org.oscm.i18nservice.bean.LocalizerServiceBean;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
 import org.oscm.operatorservice.bean.OperatorServiceLocalBean;
 import org.oscm.types.enumtypes.LocalizedDataType;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.PropertiesImportException;
