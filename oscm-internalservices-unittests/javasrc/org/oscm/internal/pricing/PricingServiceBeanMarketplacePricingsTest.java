@@ -29,6 +29,7 @@ import org.oscm.i18nservice.local.LocalizerServiceLocal;
 import org.oscm.marketplaceservice.local.MarketplaceServiceLocal;
 import org.oscm.serviceprovisioningservice.bean.ServiceProvisioningPartnerServiceLocalBean;
 import org.oscm.internal.components.response.Response;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.ServiceOperationException;
 
