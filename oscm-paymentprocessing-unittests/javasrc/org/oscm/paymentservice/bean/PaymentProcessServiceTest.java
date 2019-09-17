@@ -690,12 +690,12 @@ public class PaymentProcessServiceTest {
         pps.determineReregistrationLink(voPaymentInfo);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = org.oscm.internal.types.exception.IllegalArgumentException.class)
     public void testDetermineRegistration_NullParam() throws Exception {
         pps.determineRegistrationLink(null);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = org.oscm.internal.types.exception.IllegalArgumentException.class)
     public void testDetermineReregistration_NullParam() throws Exception {
         pps.determineReregistrationLink(null);
     }
