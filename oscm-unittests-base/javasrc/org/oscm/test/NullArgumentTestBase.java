@@ -47,6 +47,7 @@ import org.oscm.vo.VOTechnicalServiceOperation;
 import org.oscm.vo.VOTriggerDefinition;
 import org.oscm.vo.VOUser;
 import org.oscm.vo.VOUserDetails;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 
 /**
  * Automated test for null parameters passed to remote interfaces.
