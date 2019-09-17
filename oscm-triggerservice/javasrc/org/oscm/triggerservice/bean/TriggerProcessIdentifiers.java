@@ -17,6 +17,7 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.types.enumtypes.TriggerProcessIdentifierName;
 import org.oscm.validation.ArgumentValidator;
 import org.oscm.internal.types.enumtypes.TriggerType;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.vo.BaseVO;
 import org.oscm.internal.vo.VOService;
 import org.oscm.internal.vo.VOSubscription;

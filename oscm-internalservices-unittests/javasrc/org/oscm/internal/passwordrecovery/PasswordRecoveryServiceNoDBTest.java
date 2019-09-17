@@ -48,6 +48,7 @@ import org.oscm.types.enumtypes.EmailType;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
 import org.oscm.internal.types.enumtypes.UserRoleType;
+import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.MailOperationException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 
