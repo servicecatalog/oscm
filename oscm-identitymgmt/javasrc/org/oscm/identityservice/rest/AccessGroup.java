@@ -7,17 +7,14 @@
  *******************************************************************************/
 package org.oscm.identityservice.rest;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 
 import org.oscm.identityservice.model.AccessGroupModel;
 import org.oscm.identityservice.model.UserinfoModel;
+import org.oscm.internal.types.exception.RegistrationException;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
@@ -44,7 +41,7 @@ public class AccessGroup {
                         LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
                         "response code from identity service was "
                                 + conn.getResponseCode());
-                throw new RuntimeException(
+                throw new RegistrationException(
                         "response code from identity service was "
                                 + conn.getResponseCode());
             }
@@ -78,7 +75,7 @@ public class AccessGroup {
                         LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
                         "response code from identity service was "
                                 + conn.getResponseCode());
-                throw new RuntimeException(
+                throw new RegistrationException(
                         "response code from identity service was "
                                 + conn.getResponseCode());
             }
