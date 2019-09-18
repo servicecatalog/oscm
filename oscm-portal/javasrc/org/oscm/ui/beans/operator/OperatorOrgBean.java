@@ -62,6 +62,7 @@ import org.oscm.string.Strings;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.MenuBean;
+import org.oscm.ui.beans.SessionBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.ImageUploader;
@@ -131,6 +132,10 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
 
     @ManagedProperty(value = "#{menuBean}")
     MenuBean menuBean;
+    
+    @ManagedProperty(value = "#{sessionBean}")
+    SessionBean sessionBean;
+
 
     /**
      * Registers the newly created organization.
@@ -167,9 +172,9 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
             Long tenantKey = Long.valueOf(getSelectedTenant());
             newOrganization.setTenantKey(tenantKey.longValue());
             newAdministrator = getIdService().loadUserDetailsFromOIDCProvider(
-                    newAdministrator.getUserId(), getSelectedTenant(), getIdToken());
-            String groupId = getIdService().createAccessGroupInOIDCProvider(getSelectedTenant(), getIdToken(), newAdministrator.getUserId());
-            getIdService().addMemberToAccessGroupInOIDCProvider(groupId, getSelectedTenant(), getIdToken(), newAdministrator);
+                    newAdministrator.getUserId(), sessionBean.getTenantID(), getIdToken());
+            String groupId = getIdService().createAccessGroupInOIDCProvider(sessionBean.getTenantID(), getIdToken(), newAdministrator.getUserId());
+            getIdService().addMemberToAccessGroupInOIDCProvider(groupId, sessionBean.getTenantID(), getIdToken(), newAdministrator);
         }
         newVoOrganization = getOperatorService().registerOrganization(
                 newOrganization, getImageUploader().getVOImageResource(),
@@ -1301,6 +1306,14 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
 
     public boolean isTenantSelectionAvailable() {
         return menuBean.getApplicationBean().isSSOAuthMode();
+    }
+    
+    public SessionBean getSessionBean() {
+        return sessionBean;
+    }
+
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
     }
     
 }
