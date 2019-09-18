@@ -358,6 +358,7 @@ public class OrganizationAssembler extends BaseAssembler {
                 .setDistinguishedName(voOrganization.getDistinguishedName());
         organization.setUrl(voOrganization.getUrl());
         organization.setSupportEmail(voOrganization.getSupportEmail());
+        organization.setGroupId(voOrganization.getOidcGroupId());
         long tenantKey = voOrganization.getTenantKey();
         if (tenantKey != 0) {
             Tenant t = new Tenant();

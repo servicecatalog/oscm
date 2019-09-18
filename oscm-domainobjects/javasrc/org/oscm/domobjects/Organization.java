@@ -67,6 +67,7 @@ import org.oscm.types.enumtypes.UdaTargetType;
         @NamedQuery(name = "Organization.getForSupplierKeyAndProduct", query = "SELECT c FROM Organization c, OrganizationReference r, Product p WHERE r.target=c AND r.sourceKey=:supplierKey AND r.dataContainer.referenceType = org.oscm.domobjects.enums.OrganizationReferenceType.SUPPLIER_TO_CUSTOMER AND c = p.targetCustomer AND p.template = :product AND NOT EXISTS (SELECT s.key FROM Subscription s WHERE s.product = p)"),
         @NamedQuery(name = "Organization.getForOffererKeyAndSubscriptionId", query = "SELECT c FROM Organization c, OrganizationReference r, Subscription sub WHERE r.target=c AND r.sourceKey=:offererKey AND r.dataContainer.referenceType IN (org.oscm.domobjects.enums.OrganizationReferenceType.SUPPLIER_TO_CUSTOMER,org.oscm.domobjects.enums.OrganizationReferenceType.BROKER_TO_CUSTOMER,org.oscm.domobjects.enums.OrganizationReferenceType.RESELLER_TO_CUSTOMER) AND sub.organization = c AND sub.dataContainer.subscriptionId = :subscriptionId AND sub.dataContainer.status IN (:states)"),
         @NamedQuery(name = "Organization.findOrganizationsByIdAndRole", query = "SELECT DISTINCT o FROM Organization o, OrganizationToRole o2r, OrganizationRole r where o.dataContainer.organizationId like :organizationId and o = o2r.organization and o2r.organizationRole = r and r.dataContainer.roleName IN (:organizationRoleTypes)"),
+        @NamedQuery(name = "Organization.findOrganizationsByGroupId", query = "SELECT DISTINCT o FROM Organization o where o.dataContainer.groupid like :groupId "),
         @NamedQuery(name = "Organization.countOrgsWithSameDN", query = "SELECT COUNT (DISTINCT organization) FROM Organization organization WHERE organization.dataContainer.distinguishedName = :distinguishedName AND organization != :organization"),
         @NamedQuery(name = "Organization.getLdapManagedOrganizations", query = "SELECT organization FROM Organization organization WHERE organization.dataContainer.remoteLdapActive=true"),
         @NamedQuery(name = "Organization.getOrgsForDN", query = "SELECT DISTINCT organization FROM Organization organization WHERE organization.dataContainer.distinguishedName IN (:dn)") })
@@ -1221,5 +1222,13 @@ public class Organization extends DomainObjectWithHistory<OrganizationData> {
 
     public void setTenant(Tenant tenant) {
         this.tenant = tenant;
+    }
+    
+    public String getGroupId() {
+        return dataContainer.getGroupId();
+    }
+
+    public void setGroupId(String groupId) {
+        dataContainer.setGroupId(groupId);
     }
 }
