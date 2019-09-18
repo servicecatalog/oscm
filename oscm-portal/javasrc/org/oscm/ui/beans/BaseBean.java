@@ -181,6 +181,7 @@ public class BaseBean {
     public static final String ERROR_TRANSLATIONS_FILEFORMAT = "error.translations.fileformat";
     public static final String ERROR_TRANSLATIONS_ONELANGUAGE = "error.translations.onelanguageallowed";
     public static final String ERROR_UPLOAD = "error.upload";
+    public static final String ERROR_CONNECT_TO_OIDC = "error.connect.to.oidc";
     public static final String ERROR_DELETE_USER_FROM_EXPIRED_SUBSCRIPTION = "error.deleteUser.subscriptionExpired";
     public static final String ERROR_UPLOAD_SIZE_LIMIT_EXCEEDED = "error.upload.sizeLimitExceeded";
     public static final String ERROR_UPLOAD_SIZE_LIMIT_EXCEEDED_KNOWNMAX = "error.upload.sizeLimitExceeded.konwnMax";

@@ -561,18 +561,12 @@ public class OrganizationBean extends BaseBean implements Serializable {
                 properties = PropertiesLoader
                         .loadProperties(organizationProperties.getInputStream());
             }
-            VOUserDetails user;
+            VOUserDetails user = null;
             if(!isInternalAuthMode()) {
-                try {
                     user = getIdService().loadUserDetailsFromOIDCProvider(customerUserToAdd.getUserId(), sessionBean.getTenantID(), getIdToken());
-                    String groupId = getIdService().createAccessGroupInOIDCProvider(sessionBean.getTenantID(), getIdToken());
+                    String groupId = getIdService().createAccessGroupInOIDCProvider(sessionBean.getTenantID(), getIdToken(), customerUserToAdd.getUserId());
                     getIdService().addMemberToAccessGroupInOIDCProvider(groupId, sessionBean.getTenantID(), getIdToken(), user);
-                } catch (MarketplaceRemovedException e) {
-                    logger.logError(Log4jLogger.SYSTEM_LOG, e,
-                            LogMessageIdentifier.ERROR_ADD_CUSTOMER, "Can´t load user from OIDC Provider");
-                    addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_UPLOAD);
-                    return OUTCOME_ERROR;
-                }
+               
             }
             else {
             user = customerUserToAdd.getVOUserDetails();
@@ -581,6 +575,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
             VOOrganization org = getAccountingService().registerKnownCustomer(
                     customerToAdd, user, LdapProperties.get(properties),
                     marketplaceId);
+            
 
             // data must be empty for the next customer to create
             customerToAdd = null;
@@ -597,8 +592,15 @@ public class OrganizationBean extends BaseBean implements Serializable {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_ADD_CUSTOMER);
             addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_UPLOAD);
-            return OUTCOME_ERROR;
-        }
+        }  catch (RegistrationException  e) {
+            logger.logError(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_ADD_CUSTOMER, "Can´t load user from OIDC Provider");
+            addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_CONNECT_TO_OIDC);
+        } catch (MarketplaceRemovedException e) {
+            logger.logError(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_ADD_CUSTOMER, "Error while trying to get the tenand id");
+            addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_UPLOAD);
+        } 
 
         return OUTCOME_SUCCESS;
     }

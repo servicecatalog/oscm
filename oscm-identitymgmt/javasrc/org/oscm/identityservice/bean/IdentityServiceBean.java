@@ -119,6 +119,7 @@ import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.OperationPendingException;
 import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
 import org.oscm.internal.types.exception.OrganizationRemovedException;
+import org.oscm.internal.types.exception.RegistrationException;
 import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.internal.types.exception.SecurityCheckException;
 import org.oscm.internal.types.exception.TechnicalServiceNotAliveException;
@@ -2943,22 +2944,27 @@ public class IdentityServiceBean
      * @return
      */
     @Override
-    public  VOUserDetails loadUserDetailsFromOIDCProvider(String userId, String tenantId, String token) {
+    public VOUserDetails loadUserDetailsFromOIDCProvider(String userId,
+            String tenantId, String token) throws RegistrationException {
         Userinfo userinfo = new Userinfo();
         VOUserDetails userDetails = null;
         try {
-            userDetails = userinfo.getUserinfoFromIdentityService(userId, tenantId, token);
+            userDetails = userinfo.getUserinfoFromIdentityService(userId,
+                    tenantId, token);
         } catch (Exception e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
-            throw new SaaSSystemException("Can not connect to the OIDC service");
+            RegistrationException rf = new RegistrationException(
+                    "Can not connect to the OIDC service.");
+            rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
+            throw rf;
         }
         return userDetails;
     }
-    
-    
+
     @Override
-    public String createAccessGroupInOIDCProvider(String tenantId, String token) {
+    public String createAccessGroupInOIDCProvider(String tenantId,
+            String token, String groupName) throws RegistrationException {
         AccessGroup accessGroup = new AccessGroup();
         String groupId;
         try {
@@ -2966,20 +2972,28 @@ public class IdentityServiceBean
         } catch (Exception e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
-            throw new SaaSSystemException("Can not connect to the OIDC service");
+            RegistrationException rf = new RegistrationException(
+                    "Can not connect to the OIDC service.");
+            rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
+            throw rf;
         }
         return groupId;
     }
-    
+
     @Override
-    public void addMemberToAccessGroupInOIDCProvider(String groupId, String tenantId, String token, VOUserDetails userInfo) {
+    public void addMemberToAccessGroupInOIDCProvider(String groupId,
+            String tenantId, String token, VOUserDetails userInfo)
+            throws RegistrationException {
         AccessGroup accessGroup = new AccessGroup();
         try {
             accessGroup.addMemberToGroup(groupId, tenantId, token, userInfo);
         } catch (Exception e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
-            throw new SaaSSystemException("Can not connect to the OIDC service");
+            RegistrationException rf = new RegistrationException(
+                    "Can not connect to the OIDC service.");
+            rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
+            throw rf;
         }
     }
 }
