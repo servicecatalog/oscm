@@ -4,27 +4,45 @@
 
 package org.oscm.eventservice.bean;
 
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJB;
+import javax.ejb.EJBException;
+import javax.ejb.EJBTransactionRolledbackException;
+import javax.ejb.LocalBean;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.interceptor.Interceptors;
+import javax.persistence.EntityExistsException;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
+import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+
+import org.oscm.logging.Log4jLogger;
+import org.oscm.logging.LoggerFactory;
 import org.oscm.dataservice.local.DataService;
-import org.oscm.domobjects.*;
+import org.oscm.domobjects.Event;
+import org.oscm.domobjects.GatheredEvent;
+import org.oscm.domobjects.Organization;
+import org.oscm.domobjects.Subscription;
+import org.oscm.domobjects.TechnicalProduct;
 import org.oscm.eventservice.assembler.GatheredEventAssembler;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;
+import org.oscm.types.enumtypes.LogMessageIdentifier;
+import org.oscm.validation.ArgumentValidator;
 import org.oscm.internal.intf.EventService;
 import org.oscm.internal.types.enumtypes.EventType;
 import org.oscm.internal.types.exception.DomainObjectException.ClassEnum;
+import org.oscm.internal.types.exception.DuplicateEventException;
+import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
-import org.oscm.internal.types.exception.*;
+import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
+import org.oscm.internal.types.exception.SaaSSystemException;
+import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOGatheredEvent;
-import org.oscm.logging.Log4jLogger;
-import org.oscm.logging.LoggerFactory;
-import org.oscm.types.enumtypes.LogMessageIdentifier;
-import org.oscm.validation.ArgumentValidator;
-
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.*;
-import javax.interceptor.Interceptors;
-import javax.persistence.*;
-import java.lang.IllegalArgumentException;
 
 /**
  * Session Bean implementation class EventServiceBean
@@ -45,9 +63,8 @@ public class EventServiceBean implements EventService {
     @RolesAllowed("TECHNOLOGY_MANAGER")
     public void recordEventForInstance(String technicalServiceId,
             String instanceId, VOGatheredEvent event)
-            throws DuplicateEventException,
-            ObjectNotFoundException, ValidationException,
-            IllegalArgumentException, SaaSSystemException {
+            throws OrganizationAuthoritiesException, DuplicateEventException,
+            ObjectNotFoundException, ValidationException {
 
         ArgumentValidator.notNull("technicalServiceId", technicalServiceId);
         ArgumentValidator.notNull("instanceId", instanceId);
@@ -100,6 +117,7 @@ public class EventServiceBean implements EventService {
         eventToStore.setSubscriptionTKey(subscription.getKey());
         eventToStore.setType(EventType.SERVICE_EVENT);
         recordEvent(eventToStore);
+
     }
 
     @Override
@@ -107,7 +125,7 @@ public class EventServiceBean implements EventService {
     public void recordEventForSubscription(long subscriptionKey,
             VOGatheredEvent event) throws DuplicateEventException,
             OrganizationAuthoritiesException, ObjectNotFoundException,
-            ValidationException, IllegalArgumentException, SaaSSystemException {
+            ValidationException {
 
         ArgumentValidator.notNull("event", event);
 
@@ -135,12 +153,13 @@ public class EventServiceBean implements EventService {
         eventToStore.setSubscriptionTKey(subscriptionKey);
         eventToStore.setType(EventType.SERVICE_EVENT);
         recordEvent(eventToStore);
+
     }
 
     /**
      * Checks if the given technical product has an event with the specified
      * eventId.
-     *
+     * 
      * @param techProd
      *            The technical product to be validated.
      * @param eventId
@@ -165,7 +184,8 @@ public class EventServiceBean implements EventService {
     }
 
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
-    public void recordEvent(GatheredEvent event) throws DuplicateEventException, SaaSSystemException {
+    public void recordEvent(GatheredEvent event) throws DuplicateEventException {
+
         try {
             em.persist(event);
             em.flush();
