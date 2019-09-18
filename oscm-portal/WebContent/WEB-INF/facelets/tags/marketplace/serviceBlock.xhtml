@@ -40,7 +40,7 @@
           <p id="#{fieldId}ShortDesc" class="card-text">#{service.shortDescription}</p>
         </ui:fragment>
         
-        <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="btn btn-primary stretched-link"
+        <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="btn btn-outline-secondary stretched-link"
           value="#{msg['button.showDetails']}">
           <f:param name="selectedServiceKey" value="#{service.key}" />
         </h:link>
@@ -48,9 +48,6 @@
       </div>
     </div>
 
-  <!--   <div class="mask flex-center rgba-red-strong">
-        <p class="white-text">Strong overlay</p>
-    </div> -->
   </div>
 
 
