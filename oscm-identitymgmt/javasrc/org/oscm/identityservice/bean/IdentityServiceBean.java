@@ -2952,11 +2952,7 @@ public class IdentityServiceBean
             userDetails = userinfo.getUserinfoFromIdentityService(userId,
                     tenantId, token);
         } catch (Exception e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
-            RegistrationException rf = new RegistrationException(
-                    "Can not connect to the OIDC service.");
-            rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
+            RegistrationException rf = createRegistrationException(e);
             throw rf;
         }
         return userDetails;
@@ -2970,11 +2966,7 @@ public class IdentityServiceBean
         try {
             groupId = accessGroup.createGroup(tenantId, token);
         } catch (Exception e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
-            RegistrationException rf = new RegistrationException(
-                    "Can not connect to the OIDC service.");
-            rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
+            RegistrationException rf = createRegistrationException(e);
             throw rf;
         }
         return groupId;
@@ -2988,12 +2980,17 @@ public class IdentityServiceBean
         try {
             accessGroup.addMemberToGroup(groupId, tenantId, token, userInfo);
         } catch (Exception e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
-            RegistrationException rf = new RegistrationException(
-                    "Can not connect to the OIDC service.");
-            rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
+            RegistrationException rf = createRegistrationException(e);
             throw rf;
         }
+    }
+    
+    private RegistrationException createRegistrationException(Exception e) {
+        logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
+        RegistrationException rf = new RegistrationException(
+                "Can not connect to the OIDC service.");
+        rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
+        return rf;
     }
 }

@@ -28,22 +28,17 @@ public class AccessGroup {
             .getLogger(AccessGroup.class);
 
     public String createGroup(String tenantId, String token) throws Exception {
+        HttpURLConnection conn = null;
         try {
             URL url = new URL(createUrlForGroups(tenantId));
-            HttpURLConnection conn = createConnection(url, token);
+            conn = createConnection(url, token);
             AccessGroupModel group = getAccessGroupModel(tenantId, tenantId);
             String json = pojoToJsonString(group);
             setOutputStream(conn, json);
             conn.connect();
 
-            if (conn.getResponseCode() != 201) {
-                logger.logInfo(Log4jLogger.SYSTEM_LOG,
-                        LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
-                        "response code from identity service was "
-                                + conn.getResponseCode());
-                throw new RegistrationException(
-                        "response code from identity service was "
-                                + conn.getResponseCode());
+            if (!RestUtils.isResponseSuccessful(conn.getResponseCode())) {
+                throwRegistrationException(conn);
             }
             String response = RestUtils.getResponse(conn.getInputStream());
             conn.disconnect();
@@ -54,14 +49,17 @@ public class AccessGroup {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
             throw e;
+        } finally {
+            conn.disconnect();
         }
     }
 
     public void addMemberToGroup(String groupId, String tenantId, String token,
             VOUserDetails userDetails) throws Exception {
+        HttpURLConnection conn = null;
         try {
             URL url = new URL(createUrlToAddUser(tenantId, groupId));
-            HttpURLConnection conn = createConnection(url, token);
+            conn = createConnection(url, token);
 
             Userinfo userinfo = new Userinfo();
             UserinfoModel userInfo = userinfo
@@ -70,21 +68,28 @@ public class AccessGroup {
             setOutputStream(conn, json);
             conn.connect();
 
-            if (conn.getResponseCode() != 204) {
-                logger.logInfo(Log4jLogger.SYSTEM_LOG,
-                        LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
-                        "response code from identity service was "
-                                + conn.getResponseCode());
-                throw new RegistrationException(
-                        "response code from identity service was "
-                                + conn.getResponseCode());
+            if (!RestUtils.isResponseSuccessful(conn.getResponseCode())) {
+                throwRegistrationException(conn);
             }
             conn.disconnect();
         } catch (Exception e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
             throw e;
+        } finally {
+            conn.disconnect();
         }
+    }
+    
+    private void throwRegistrationException(HttpURLConnection conn)
+            throws IOException, RegistrationException {
+        logger.logInfo(Log4jLogger.SYSTEM_LOG,
+                LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
+                "response code from identity service was "
+                        + conn.getResponseCode());
+        throw new RegistrationException(
+                "response code from identity service was "
+                        + conn.getResponseCode());
     }
 
     protected HttpURLConnection createConnection(URL url, String tokenId)
@@ -151,8 +156,7 @@ public class AccessGroup {
 
     protected AccessGroupModel createAccessGroupModelFromJson(String json) {
         Gson gson = new Gson();
-        return gson.fromJson(json,
-                AccessGroupModel.class);
+        return gson.fromJson(json, AccessGroupModel.class);
     }
 
 }
