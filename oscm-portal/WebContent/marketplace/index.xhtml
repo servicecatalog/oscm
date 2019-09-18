@@ -1,23 +1,27 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
   xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="templates/main.xhtml">
+  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="templates/mainBootstrap.xhtml">
   <ui:define name="pageId">
     <c:set var="pageId" value="marketplace.home" />
     <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
     <c:set var="stage" value="#{serviceListingBean.publicLandingpage ? '' : 'landing'}" />
   </ui:define>
 
-  <ui:define name="feature">
-    <a4j:outputPanel id="featurestoryPanel">
-      <div id="featurestory" class="marginBottomDefault">
-        <h:outputText id="stageContent" value="#{skinBean.marketplaceStage}" escape="false" />
+   <ui:define name="feature">
+
+    <div class="container-fluid clearfix" style="padding-top:10px;padding-left:0px;padding-right:0px;">
+      <div class="row">
+        <h:outputText style="width:100%;" escape="false" id="stageContent" value="#{skinBean.marketplaceStage}" />
       </div>
-    </a4j:outputPanel>
+    </div>
+    <!-- <div id="featurestory" class="container-fluid marginBottomDefault clearfix"> 
+        <h:outputText escape="false" id="stageContent" value="#{skinBean.marketplaceStage}" />
+       </div> -->
+
   </ui:define>
 
   <ui:define name="aside">

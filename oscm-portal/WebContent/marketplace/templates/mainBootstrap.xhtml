@@ -1,0 +1,264 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+	xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+<h:head>
+<c:set var="mpBaseUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace" />
+<c:set var="isMplRestricted" value="#{marketplaceBean.restricted}" />
+<ui:insert name="pageId" />
+<ui:insert name="stage"/>
+<ui:include src="head.xhtml">
+  <ui:param name="dirty" value="#{dirty}" />
+</ui:include>
+</h:head>
+
+<c:if test="#{empty bodyClass}">
+  <c:set var="bodyClass" value="body4span" />
+</c:if>
+
+<h:body>
+  <rich:jQuery selector="document" query="ready(function(){AdmUtils.initFocus();AdmUtils.setUIElements()});" />
+  <c:if test="#{not empty firstErrorElement or not empty focusElement}">
+    <c:set var="elementId"
+      value="#{(not empty firstErrorElement)?firstErrorElement:(empty rich:clientId(focusElement)?focusElement:(rich:clientId(focusElement)))}" />
+    <rich:jQuery selector="document"
+      query="ready(function(){
+          var element = document.getElementById('#{elementId}');
+          try {element.focus();document.getElementById('contentPanelDiv').scrollIntoView(true);} catch (e) {/* if the element cannot get the focus, ignore it */}
+        })" />
+  </c:if>
+  <mp:keepAlive interval="#{appBean.interval}"/>
+  <div id="progressDiv" class="progressOverlay" style="display: none;">
+    <table width="98%">
+      <tr>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+  
+ <!--  <div class="container">
+
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href="#">Active</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Link</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="#">Disabled</a>
+    </li>
+  </ul>
+</nav>  
+  
+ -->
+
+ 
+  <a4j:outputPanel id="contentPanelDiv" layout="block"> <!-- styleClass="stage #{stage}" -->
+    <a id="top" name="top" />
+
+    <!-- header -->
+    <mp:header user="#{userBean.loggedInUser}" loginHandler="showLoginPanel('#{defaultLoginRedirect}');return false;" />
+    <ui:include src="../login.xhtml">
+      <ui:param name="canCloseLogin" value="#{not isMplRestricted}" />
+    </ui:include>
+
+    <!-- body -->
+    <div class="container-fluid" >
+      <adm:initialize initializingMethod="#{appBean.userLocaleUpdated}" />
+       <ui:insert name="feature" />
+      <ui:insert name="breadcrumbs" />
+    
+
+      <!-- <div class="aside">
+        <ui:insert name="aside" />
+      </div> -->
+
+      <!-- Include for content which is the only element in the body area (no navigation etc.) -->
+      <a4j:outputPanel layout="block" styleClass="box" rendered="#{isSingleContentPage}">
+        
+        <ui:insert name="singlecontent" />
+      </a4j:outputPanel>
+
+      <div class="container-fluid clearfix">
+        <a4j:outputPanel id="localeErrorPanel" layout="block" styleClass="errorPanel" style="display:block"
+                    rendered="#{appBean.errorPanelForLocaleShow}">
+          <dl class="rich-messages box warning">
+            <dt>
+              <span class="rich-messages-label">
+                <h:outputFormat value="#{msg['warning.supportedlanguage.locale.deactivated']}">
+                  <f:param value="#{appBean.oldUserLocale}" />
+                </h:outputFormat>
+              </span>
+            </dt>
+          </dl>
+        </a4j:outputPanel>
+              
+        <!-- error message container -->
+        <a4j:outputPanel id="globalMessagesHolder">
+          <a4j:outputPanel id="errorPanel" layout="block" styleClass="errorPanel">
+          </a4j:outputPanel>
+
+          <!-- progress message -->
+          <a4j:outputPanel id="progressPanel" layout="block" rendered="#{facesContext.maximumSeverity.ordinal == 0}">
+            <rich:messages infoClass="infoMsg" layout="list" id="progressMessages" styleClass="box suspended"
+              for="progressPanel" ajaxRendered="false" />
+          </a4j:outputPanel>
+
+          <!-- info messages -->
+          <a4j:outputPanel id="infoPanelHolder">
+            <a4j:outputPanel id="infoPanel" layout="block" rendered="#{facesContext.maximumSeverity.ordinal == 0}">
+              <rich:messages infoClass="infoMsg" passedLabel="" layout="list" id="infoMessages" styleClass="box success"
+                globalOnly="true" ajaxRendered="false"/>
+            </a4j:outputPanel>
+          </a4j:outputPanel>
+          <a4j:outputPanel id="hiddenInfoPanel" layout="block">
+          </a4j:outputPanel>
+
+          <!-- if we find an error during the processing of the body,
+           we must add the corresponding message to the error container above -->
+          <!-- error messages -->
+          <a4j:outputPanel id="hiddenErrorPanel" layout="block" styleClass="errorPanel">
+            <!-- filter error messages -->
+            <c:if test="#{not empty errorKey and not sessionBean.errorMessageDuplicate}">
+              <dl class="rich-messages box error" id="errorMessages1">
+                <dt>
+                  <h:outputFormat value="#{msg[errorKey]}">
+                    <f:param value="#{errorParam0}" />
+                    <f:param value="#{errorParam1}" />
+                    <f:param value="#{errorParam2}" />
+                    <f:param value="#{errorParam3}" />
+                    <f:param value="#{errorParam4}" />
+                  </h:outputFormat>
+                </dt>
+              </dl>
+            </c:if>
+            <!-- JSF error messages -->
+            <rich:messages id="errorMessages"
+                           globalOnly="true"
+                           ajaxRendered="false"
+                           styleClass="box error"
+                           rendered="#{facesContext.maximumSeverity.ordinal > 0}" />
+            <!-- warning messages -->
+            <c:if test="#{not empty warningKey}">
+              <dl class="rich-messages box warning" id="warningMessages1">
+                <dt>
+                  <h:outputFormat value="#{msg[warningKey]}">
+                    <f:param value="#{warningParam0}" />
+                    <f:param value="#{warningParam1}" />
+                    <f:param value="#{warningParam2}" />
+                    <f:param value="#{warningParam3}" />
+                    <f:param value="#{warningParam4}" />
+                  </h:outputFormat>
+                </dt>
+              </dl>
+            </c:if>
+
+          </a4j:outputPanel>
+        </a4j:outputPanel>
+
+        <a name="content" id="content"></a>
+        <div class="container-fluid">
+         <div class="row">
+          <ui:insert name="contentstitle" />
+         </div>
+          <div class="row"> 
+          <ui:insert name="contents" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </a4j:outputPanel>
+
+  <!-- footer -->
+  <c:set var="defaultImprintUrl" value="#{mpBaseUrl}/terms/imprint.jsf" />
+  <c:set var="imprintUrl"
+    value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}" />
+
+   <div class="footer">
+    <a4j:outputPanel layout="block" styleClass="clearfix" id="footerinner">
+      <div id="permanentmenu">
+        <ul>
+          <li class="firstchild"><a id="imprintLink" href="#{imprintUrl}" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/imprint.jsf');return false;}" target="_blank"><h:outputText
+                value="#{msg['marketplace.imprint.title']}" /> </a>
+          </li>
+          <li><a href="#{mpBaseUrl}/terms/terms.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/terms.jsf');return false;}"><h:outputText value="#{msg['marketplace.terms.title']}" />
+          </a>
+          </li>
+          <li><a id="privacyPolicyLink" href="#{mpBaseUrl}/terms/privacypolicy.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/privacypolicy.jsf');return false;}"><h:outputText
+                value="#{msg['marketplace.privacypolicy.title']}" /> </a>
+          </li>
+        </ul>
+        <ul class="parentcom"></ul>
+      </div>
+      <a4j:outputPanel layout="block" id="creditline">
+        <p lang="en" xml:lang="en">
+          <a id="termsLink" href="#{mpBaseUrl}/terms/terms.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/terms.jsf');return false;}"><h:outputText value="#{msg['marketplace.copyright']}" /></a><br />
+        </p>
+      </a4j:outputPanel>
+    </a4j:outputPanel>
+  </div> 
+  
+ <!-- Footer -->
+<!-- <footer class="page-footer font-small blue">
+
+  
+  <div class="container-fluid text-center py-3">
+    <ul>
+          <li class="firstchild"><a id="imprintLink" href="#{imprintUrl}" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/imprint.jsf');return false;}" target="_blank"><h:outputText
+                value="#{msg['marketplace.imprint.title']}" /> </a>
+          </li>
+          <li><a href="#{mpBaseUrl}/terms/terms.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/terms.jsf');return false;}"><h:outputText value="#{msg['marketplace.terms.title']}" />
+          </a>
+          </li>
+          <li><a id="privacyPolicyLink" href="#{mpBaseUrl}/terms/privacypolicy.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/privacypolicy.jsf');return false;}"><h:outputText
+                value="#{msg['marketplace.privacypolicy.title']}" /> </a>
+          </li>
+        </ul>
+  </div>
+  
+</footer> -->
+
+  
+  
+  <script type="text/javascript">
+    <c:forEach items="#{additionalErrorElements}" var="ee">
+      AdmUtils.setHighlight("#{ee}");
+    </c:forEach> 
+    AdmUtils.contentsTitle();
+    AdmUtils.setInfoPanel("progressMessages");
+    AdmUtils.setInfoPanel("infoMessages");
+    
+    var currentViewId = "#{facesContext.viewRoot.viewId}";
+    var recoverPasswordView = currentViewId.indexOf("recoverPassword.xhtml");
+    var confirmRecoverPasswordView = currentViewId.indexOf("confirmStartPwdRecovery.xhtml");
+    if(#{isMplRestricted and empty userBean.loggedInUser and userBean.internalAuthMode}){
+      if (recoverPasswordView == -1 &amp;&amp; confirmRecoverPasswordView == -1) {
+    	  showLoginPanel('/marketplace/index.jsf');
+    	}
+    }
+    $(document).ready(function() {
+       if(#{isMplRestricted and empty userBean.loggedInUser and not userBean.internalAuthMode}){
+      document.getElementById('formLogin:loginLink').click();
+    }
+    });
+    
+    AdmUtils.sortSelect();
+  </script>
+  <h:outputText escape="false" value="#{trackingCodeCtrl.trackingCodeForCurrentMarketplace}" />
+
+  <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/missingViewState.patch.js"></script>
+
+</h:body>
+</html>

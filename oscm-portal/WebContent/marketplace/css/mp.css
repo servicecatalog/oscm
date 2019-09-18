@@ -415,7 +415,7 @@ table td, div{
 /* main header area containing logo and search bar */
 div.header { 
 	clear: left; 
-	width: 980px; 
+	width: 100%; 
 	margin: 0 auto 1px; 
 	text-align: left;
 	position: relative; 
@@ -426,7 +426,7 @@ div.header a:hover { text-decoration: underline; }
 div.header a img { border: none; }
 
 div.headertop{ 
-	width: 980px; 
+	width: 100%; 
 	background: #CFD4D9; 
 	float:left;
 	margin:0 0 1px;
@@ -439,7 +439,7 @@ div#headerrightarea{
 	display: block; 
 	float: right; width: 626px; 
 	margin: 16px 16px 0 0; 
-  	width:570px;
+  	width:60%;
 }
 
 div#headerrightarea, rightarea a { 
@@ -576,7 +576,7 @@ input#Search:focus, #subListForm\:search:focus {
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */			
 			
 /* top navigation wrapper */
-#headerbottom { clear: both; position: relative; display: block; background: #B3B7BC;  width: 980px;  }
+#headerbottom { clear: both; position: relative; display: block; background: #B3B7BC;  width: 100%;  }
 #globalnav { padding: 0; }			
 
 /* navigation list elements */
@@ -856,11 +856,10 @@ form .formHighlight textarea{
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 5.1 Main Layout
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.stage { width: 100%; min-width: 980px;  }
+.stage { width: 100%;  }
 #marketplaceStageDefault{
 	background: url(../img/transparentPixel.png) no-repeat;
-	width:980px;
-	height:290px;
+	width: 100%;
 }
 
 .bodyarea { position: relative; width: 980px; margin: auto; padding-bottom: 60px; text-align: left; z-index: 900; }
