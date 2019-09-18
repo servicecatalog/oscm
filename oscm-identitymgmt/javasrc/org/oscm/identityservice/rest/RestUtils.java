@@ -34,4 +34,13 @@ public class RestUtils {
         }
         return url.toString();
     }
+    
+    public static boolean isResponseSuccessful(int responseCode) {
+        if(responseCode >= 200 && responseCode <= 208 || responseCode == 226) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

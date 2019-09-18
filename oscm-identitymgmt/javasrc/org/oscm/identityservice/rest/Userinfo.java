@@ -7,15 +7,12 @@
  *******************************************************************************/
 package org.oscm.identityservice.rest;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 import org.oscm.identityservice.model.UserinfoModel;
 import org.oscm.internal.types.enumtypes.Salutation;
+import org.oscm.internal.types.exception.RegistrationException;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
@@ -28,29 +25,30 @@ public class Userinfo {
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(Userinfo.class);
 
-    public VOUserDetails getUserinfoFromIdentityService(String userId, String tenantId,
-            String token) throws Exception {
-
+    public VOUserDetails getUserinfoFromIdentityService(String userId,
+            String tenantId, String token) throws Exception {
         String response = "";
+        HttpURLConnection conn = null;
         try {
             URL url = new URL(createUrl(userId, tenantId));
-            HttpURLConnection conn = createConnection(url, token);
+            conn = createConnection(url, token);
 
-            if (conn.getResponseCode() != 200) {
+            if (!RestUtils.isResponseSuccessful(conn.getResponseCode())) {
                 logger.logInfo(Log4jLogger.SYSTEM_LOG,
                         LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
                         "Response code from identity service was "
                                 + conn.getResponseCode());
-                throw new RuntimeException(
+                throw new RegistrationException(
                         "Response code from identity service was "
                                 + conn.getResponseCode());
             }
             response = RestUtils.getResponse(conn.getInputStream());
-            conn.disconnect();
         } catch (Exception e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
             throw e;
+        } finally {
+            conn.disconnect();
         }
         return createUserDetails(response, userId);
     }
@@ -69,8 +67,8 @@ public class Userinfo {
         userDetails.setFirstName(userInfoModel.getFirstName());
         userDetails.setLastName(userInfoModel.getLastName());
         if (userInfoModel.getEmail() != null
-                && !userInfoModel.getEmail().isEmpty() && !userInfoModel
-                        .getEmail().equalsIgnoreCase("null")) {
+                && !userInfoModel.getEmail().isEmpty()
+                && !userInfoModel.getEmail().equalsIgnoreCase("null")) {
             userDetails.setEMail(userInfoModel.getEmail());
         } else {
             userDetails.setEMail(userId);
@@ -82,14 +80,14 @@ public class Userinfo {
         userDetails.setAddress(userInfoModel.getAddress());
         return userDetails;
     }
-    
+
     protected UserinfoModel mapUserDetailsToUserInfo(
             VOUserDetails userDetails) {
         UserinfoModel userInfo = new UserinfoModel();
         userInfo.setUserId(userDetails.getUserId());
         userInfo.setFirstName(userDetails.getFirstName());
         userInfo.setLastName(userDetails.getLastName());
-        
+
         userInfo.setEmail(userDetails.getEMail());
         userInfo.setPhone(userDetails.getPhone());
         userInfo.setLocale("en"); // use en as default language here
