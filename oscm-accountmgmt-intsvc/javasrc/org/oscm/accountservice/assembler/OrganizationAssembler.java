@@ -212,6 +212,7 @@ public class OrganizationAssembler extends BaseAssembler {
             Organization organization) {
         voOrganization.setOrganizationId(organization.getOrganizationId());
         voOrganization.setName(organization.getName());
+        voOrganization.setOidcGroupId(organization.getGroupId());
     }
 
     private static void fillListingFields(VOOrganization voOrganization,
