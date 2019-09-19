@@ -565,7 +565,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
             if(!isInternalAuthMode()) {
                     user = getIdService().loadUserDetailsFromOIDCProvider(customerUserToAdd.getUserId(), sessionBean.getTenantID(), getIdToken());
 
-                    String groupId = getIdService().createAccessGroupInOIDCProvider(sessionBean.getTenantID(), getIdToken(), customerUserToAdd.getUserId());
+                    String groupId = getIdService().createAccessGroupInOIDCProvider(sessionBean.getTenantID(), getIdToken(), customerUserToAdd.getOrganizationName());
                     customerToAdd.setOidcGroupId(groupId);
                     getIdService().addMemberToAccessGroupInOIDCProvider(groupId, sessionBean.getTenantID(), getIdToken(), user);
             }

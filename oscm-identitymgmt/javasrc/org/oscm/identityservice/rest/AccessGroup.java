@@ -27,12 +27,12 @@ public class AccessGroup {
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(AccessGroup.class);
 
-    public String createGroup(String tenantId, String token) throws Exception {
+    public String createGroup(String tenantId, String token, String groupName) throws Exception {
         HttpURLConnection conn = null;
         try {
             URL url = new URL(createUrlForGroups(tenantId));
             conn = createConnection(url, token);
-            AccessGroupModel group = getAccessGroupModel(tenantId, tenantId);
+            AccessGroupModel group = getAccessGroupModel(groupName, tenantId);
             String json = pojoToJsonString(group);
             setOutputStream(conn, json);
             conn.connect();
@@ -126,13 +126,13 @@ public class AccessGroup {
         return url.toString();
     }
 
-    protected AccessGroupModel getAccessGroupModel(String tenantId,
+    protected AccessGroupModel getAccessGroupModel(String groupName,
             String description) {
         AccessGroupModel group = new AccessGroupModel();
-        if (tenantId == null || tenantId.isEmpty()) {
+        if (groupName == null || groupName.isEmpty()) {
             group.setName("default");
         } else {
-            group.setName(tenantId);
+            group.setName(groupName);
         }
         group.setDescription("Used tenant is:" + description);
         return group;
