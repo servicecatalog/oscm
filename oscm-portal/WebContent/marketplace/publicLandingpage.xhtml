@@ -22,57 +22,6 @@
     <div class="container-fluid clearfix" style="padding-top:10px;padding-left:0px;padding-right:0px;">
       <div class="row">
       
-       <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item One</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Two</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-              <a href="#"></a>
-              <div class="card-body">
-                <h4 class="card-title">
-                  <a href="#">Item Three</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-              </div>
-            </div>
-          </div>
-      
-      
-      
-        
      <!--  <a4j:outputPanel rendered="#{!isMplRestricted or not empty userBean.loggedInUser}"> -->
       
         <c:forEach items="#{serviceListingBean.servicesForLandingPage}" var="service" varStatus="status">
@@ -86,12 +35,12 @@
             <!--   <div class="clearfix"> -->
                 <mp:serviceBlock fieldId="service#{status.index}" service="#{service}" limitedDescription="true" />
              <!--  </div> -->
-             <!--  <div class="clearfix block">
-                <mp:ratingStars styleClass="left listingStarBox" rating="#{service.rating}" />
+              <div class="clearfix block">
+           <!--      <mp:ratingStars styleClass="left listingStarBox" rating="#{service.rating}" /> -->
                 <mp:serviceTags fieldId="service#{status.index}ServiceTags" service="#{service}"
                   styleClass="center nowrap_hidden" />
-              </div>
-              <mp:pixelline />
+               </div>
+            <!--  <mp:pixelline />
               <div class="clearfix">
                 <mp:servicePrice service="#{service}" styleClass="servicePriceHome" showUnit="false" />
                 <div class="serviceShowDetailsButton">
