@@ -31,7 +31,15 @@
         <ui:fragment rendered="#{showName}">
           <h5 id="#{fieldId}Name" class="card-title">#{service.nameToDisplay}</h5>
         </ui:fragment>
-        
+
+        <ui:fragment rendered="#{showSupplier}">
+          <h3 id="#{fieldId}Supplier" class="supplier shortenedText">
+            <h:outputFormat value="#{msg['service.by']}" title="#{service.sellerName}">
+              <f:param value="#{service.sellerName}" />
+            </h:outputFormat>
+          </h3>
+        </ui:fragment>
+
         <ui:fragment rendered="#{limitedDescription}">
           <p id="#{fieldId}ShortDescLimited" class="card-text">#{service.shortDescriptionLimited}</p>
         </ui:fragment>

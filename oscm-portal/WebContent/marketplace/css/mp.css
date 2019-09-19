@@ -857,6 +857,7 @@ form .formHighlight textarea{
 5.1 Main Layout
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .stage { width: 100%;  }
+#stageContent { width: 100%;  }
 #marketplaceStageDefault{
 	background: url(../img/transparentPixel.png) no-repeat;
 	width: 100%;
