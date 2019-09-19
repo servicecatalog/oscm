@@ -130,9 +130,9 @@ public class AccessGroup {
             String description) {
         AccessGroupModel group = new AccessGroupModel();
         if (groupName == null || groupName.isEmpty()) {
-            group.setName("default");
+            group.setName("OSCM_default");
         } else {
-            group.setName(groupName);
+            group.setName("OSCM_" + groupName);
         }
         group.setDescription("Used tenant is:" + description);
         return group;
