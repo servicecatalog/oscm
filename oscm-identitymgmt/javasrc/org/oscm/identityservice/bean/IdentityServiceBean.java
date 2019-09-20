@@ -2964,7 +2964,7 @@ public class IdentityServiceBean
         AccessGroup accessGroup = new AccessGroup();
         String groupId;
         try {
-            groupId = accessGroup.createGroup(tenantId, token);
+            groupId = accessGroup.createGroup(tenantId, token, groupName);
         } catch (Exception e) {
             RegistrationException rf = createRegistrationException(e);
             throw rf;

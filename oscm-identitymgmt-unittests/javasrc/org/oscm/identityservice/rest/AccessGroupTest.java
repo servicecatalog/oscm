@@ -45,7 +45,7 @@ public class AccessGroupTest {
         //given
         AccessGroupModel expected = new AccessGroupModel();
         expected.setDescription("Used tenant is:");
-        expected.setName("default");
+        expected.setName("OSCM_default");
         
         //when
         AccessGroupModel result = accessGroup.getAccessGroupModel("", "");
