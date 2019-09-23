@@ -2316,7 +2316,7 @@ div.accdsection h4#menu0{
 
 /*  bottom of content  link button navigation wrapper */
 div.scrolltop { clear: both; border-style: none; margin: 0; padding: 4px 0 6px; }
-div.scrolltop p { display: block; overflow: visible; border-style: none; margin: 0; padding: 0; text-align: right; font-size: 93%; }
+div.scrolltop p { display: block; overflow: visible; border-style: none; padding: 0; text-align: right; font-size: 93%; line-height: 1em; margin-bottom: 1em;}
 div.scrolltop p img { margin-left: 5px; border: none; }
 
 /* "top of page" link button */
@@ -2324,6 +2324,7 @@ div.scrolltop p img { margin-left: 5px; border: none; }
   float: right;
   background: transparent url(../img/mp_icon_sprite.png) right -400px no-repeat; 
   padding-right: 20px;
+  height: 16px;
 }
 
 /* "browse all services" link button on home page */
@@ -2331,6 +2332,7 @@ div.scrolltop p img { margin-left: 5px; border: none; }
   float: left;
   background: transparent url(../img/mp_icon_sprite.png) left -384px no-repeat; 
   padding-left: 20px;
+  height: 16px;
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
