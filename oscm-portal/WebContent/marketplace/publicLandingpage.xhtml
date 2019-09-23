@@ -35,11 +35,11 @@
             <!--   <div class="clearfix"> -->
                 <mp:serviceBlock fieldId="service#{status.index}" service="#{service}" limitedDescription="true" />
              <!--  </div> -->
-              <div class="clearfix block">
+       <!--        <div class="clearfix block"> -->
            <!--      <mp:ratingStars styleClass="left listingStarBox" rating="#{service.rating}" /> -->
-                <mp:serviceTags fieldId="service#{status.index}ServiceTags" service="#{service}"
+        <!--         <mp:serviceTags fieldId="service#{status.index}ServiceTags" service="#{service}"
                   styleClass="center nowrap_hidden" />
-               </div>
+               </div> -->
             <!--  <mp:pixelline />
               <div class="clearfix">
                 <mp:servicePrice service="#{service}" styleClass="servicePriceHome" showUnit="false" />
@@ -53,12 +53,12 @@
             </a4j:outputPanel>  -->
           
           
-           <c:if test="#{not isLastCol and status.last}">
+          <!--  <c:if test="#{not isLastCol and status.last}"> -->
             <!-- fill odd number of services with empty block -->
-            <div class="row">
+          <!--   <div class="row">
              <div class="col-md-6"></div>
             </div> 
-          </c:if> 
+          </c:if> --> 
         </c:forEach>
  
    <!--    </a4j:outputPanel> -->

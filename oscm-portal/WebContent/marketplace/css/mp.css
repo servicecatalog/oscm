@@ -2817,7 +2817,13 @@ div.pagingOptions p{
 	background: #B3B7BC;
 	border-bottom:1px solid #4c4c4c;
 	width: 100%;
-	min-width: 980px;
+	color: #fff;
+}
+
+.bootstrap_footer {
+	background: #B3B7BC;
+	border-bottom:1px solid #4c4c4c;
+	width: 100%;
 	color: #fff;
 }
 

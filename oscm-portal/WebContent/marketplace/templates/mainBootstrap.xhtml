@@ -169,14 +169,11 @@
         </a4j:outputPanel>
 
         <a name="content" id="content"></a>
-        <div class="container-fluid">
-         <div class="row">
+     
           <ui:insert name="contentstitle" />
-         </div>
-          <div class="row"> 
+       
           <ui:insert name="contents" />
-          </div>
-        </div>
+        
       </div>
     </div>
   </a4j:outputPanel>
@@ -186,32 +183,9 @@
   <c:set var="imprintUrl"
     value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}" />
 
-   <div class="footer">
-    <a4j:outputPanel layout="block" styleClass="clearfix" id="footerinner">
-      <div id="permanentmenu">
-        <ul>
-          <li class="firstchild"><a id="imprintLink" href="#{imprintUrl}" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/imprint.jsf');return false;}" target="_blank"><h:outputText
-                value="#{msg['marketplace.imprint.title']}" /> </a>
-          </li>
-          <li><a href="#{mpBaseUrl}/terms/terms.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/terms.jsf');return false;}"><h:outputText value="#{msg['marketplace.terms.title']}" />
-          </a>
-          </li>
-          <li><a id="privacyPolicyLink" href="#{mpBaseUrl}/terms/privacypolicy.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/privacypolicy.jsf');return false;}"><h:outputText
-                value="#{msg['marketplace.privacypolicy.title']}" /> </a>
-          </li>
-        </ul>
-        <ul class="parentcom"></ul>
-      </div>
-      <a4j:outputPanel layout="block" id="creditline">
-        <p lang="en" xml:lang="en">
-          <a id="termsLink" href="#{mpBaseUrl}/terms/terms.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/terms.jsf');return false;}"><h:outputText value="#{msg['marketplace.copyright']}" /></a><br />
-        </p>
-      </a4j:outputPanel>
-    </a4j:outputPanel>
-  </div> 
-  
+   
  <!-- Footer -->
-<!-- <footer class="page-footer font-small blue">
+ <footer class="page-footer footer">
 
   
   <div class="container-fluid text-center py-3">
@@ -228,10 +202,8 @@
         </ul>
   </div>
   
-</footer> -->
-
-  
-  
+</footer>
+ 
   <script type="text/javascript">
     <c:forEach items="#{additionalErrorElements}" var="ee">
       AdmUtils.setHighlight("#{ee}");
