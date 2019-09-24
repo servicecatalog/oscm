@@ -87,7 +87,7 @@ import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
 import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
 import org.oscm.identityservice.rest.AccessGroup;
-import org.oscm.identityservice.rest.OidcToken;
+import org.oscm.identityservice.rest.AccessToken;
 import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
@@ -2966,7 +2966,7 @@ public class IdentityServiceBean
     
     @Override
     public boolean synchronizeUsersWithOIDCProvider(String tenantId) {
-        OidcToken oidcToken = new OidcToken();
+        AccessToken oidcToken = new AccessToken();
         String token = oidcToken.getOidcToken(tenantId);
         token.toString();
         
