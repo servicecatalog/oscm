@@ -129,15 +129,15 @@ public class AccessGroup {
     }
 
     protected AccessGroupModel getAccessGroupModel(String groupName,
-            String description, String caller) {
+            String tenantId, String caller) {
         AccessGroupModel group = new AccessGroupModel();
         if (groupName == null || groupName.isEmpty()) {
             group.setName("OSCM_default");
         } else {
             group.setName("OSCM_" + groupName);
         }
-        group.setDescription("Used tenant is: " + description
-                + ". Used organization is: " + caller);
+        group.setDescription("TenantId: " + tenantId
+                + ". Organization:" + caller);
 
         return group;
     }
