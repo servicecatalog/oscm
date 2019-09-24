@@ -74,7 +74,6 @@ public class OidcFilter extends BaseBesFilter implements Filter {
       Optional<String> accessTokenParam =
           Optional.ofNullable(httpRequest.getParameter("access_token"));
 
-      //TODO: Split token validation in scope of oscm-identity#38
       if (idTokenParam.isPresent() || accessTokenParam.isPresent()) {
         try {
           String tenantid = tenantResolver.getTenantID(rdo, httpRequest);
@@ -131,24 +130,28 @@ public class OidcFilter extends BaseBesFilter implements Filter {
       throws ValidationException, IOException, URISyntaxException {
     String requestedUrl = httpRequest.getRequestURL().toString();
 
-    HttpResponse validationResponse = null;
     String hostname = new URI(requestedUrl).getHost();
-    String resourceUrl = "http://oscm-identity:9090/oscm-identity/verify_token";
+    String resourceUrl =
+        "http://oscm-identity:9090/oscm-identity/tenants/" + tenantId + "/token/verify";
 
     CloseableHttpClient client = HttpClients.createDefault();
     HttpPost post = new HttpPost(resourceUrl);
     post.setHeader("Content-type", "application/json");
 
+    if (idToken != null) validateIdToken(idToken, post, client);
+    if (accessToken != null) validateAccessToken(accessToken, post, client);
+  }
+
+  private void validateIdToken(String idToken, HttpPost post, CloseableHttpClient client)
+      throws IOException, ValidationException {
+    HttpResponse validationResponse = null;
     StringBuilder jsonStringBuilder = new StringBuilder();
     jsonStringBuilder.append("{\n");
-    jsonStringBuilder.append("\t\"tenantId\": \"");
-    jsonStringBuilder.append(tenantId);
-    jsonStringBuilder.append("\",\n");
-    jsonStringBuilder.append("\t\"idToken\": \"");
+    jsonStringBuilder.append("\t\"token\": \"");
     jsonStringBuilder.append(idToken);
     jsonStringBuilder.append("\",\n");
-    jsonStringBuilder.append("\t\"accessToken\": \"");
-    jsonStringBuilder.append(accessToken);
+    jsonStringBuilder.append("\t\"tokenType\": \"");
+    jsonStringBuilder.append("ID");
     jsonStringBuilder.append("\"\n");
     jsonStringBuilder.append("}");
 
@@ -156,7 +159,28 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
     validationResponse = client.execute(post);
     if (validationResponse.getStatusLine().getStatusCode() != Response.Status.OK.getStatusCode()) {
-      throw new ValidationException("Token validation failed!");
+      throw new ValidationException("ID Token validation failed!");
+    }
+  }
+
+  private void validateAccessToken(String accessToken, HttpPost post, CloseableHttpClient client)
+          throws IOException, ValidationException {
+    HttpResponse validationResponse = null;
+    StringBuilder jsonStringBuilder = new StringBuilder();
+    jsonStringBuilder.append("{\n");
+    jsonStringBuilder.append("\t\"token\": \"");
+    jsonStringBuilder.append(accessToken);
+    jsonStringBuilder.append("\",\n");
+    jsonStringBuilder.append("\t\"tokenType\": \"");
+    jsonStringBuilder.append("ACCESS");
+    jsonStringBuilder.append("\"\n");
+    jsonStringBuilder.append("}");
+
+    post.setEntity(new StringEntity(jsonStringBuilder.toString()));
+
+    validationResponse = client.execute(post);
+    if (validationResponse.getStatusLine().getStatusCode() != Response.Status.OK.getStatusCode()) {
+      throw new ValidationException("Access Token validation failed!");
     }
   }
 
@@ -176,8 +200,6 @@ public class OidcFilter extends BaseBesFilter implements Filter {
         Optional.ofNullable(httpRequest.getParameter("refresh_token"));
 
     if (accessTokenParam.isPresent()) {
-
-      // TODO: access token validation
       httpRequest
           .getSession()
           .setAttribute(Constants.SESS_ATTR_ACCESS_TOKEN, accessTokenParam.get());
