@@ -44,11 +44,11 @@ public class AccessGroupTest {
     public void testGetAccesGroupModel() {
         //given
         AccessGroupModel expected = new AccessGroupModel();
-        expected.setDescription("Used tenant is:");
+        expected.setDescription("TenantId: . Organization:");
         expected.setName("OSCM_default");
         
         //when
-        AccessGroupModel result = accessGroup.getAccessGroupModel("", "");
+        AccessGroupModel result = accessGroup.getAccessGroupModel("", "", "");
         
         //then
         assertEquals(expected, result);

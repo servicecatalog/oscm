@@ -36,7 +36,7 @@
 
         <adm:labelAndInputText id="userId" label="#{msg['public.registration.userId']}" required="true"
           value="#{organizationBean.customerUserToAdd.userId}" maxlength="#{appBean.userIdLen}" validatorId="userId"
-          converterId="trimConverter" />
+          converterId="trimConverter"  />
 
         <adm:labelAndSelect rendered="#{operatorOrgBean.internalAuthMode}" id="locale" label="#{msg['organization.locale']}"
           value="#{organizationBean.customerToAdd.locale}" styleClass="select">
@@ -47,7 +47,8 @@
 
       <adm:outputStep value="#{msg['organization.addCustomer.step2']}" />
       <adm:panelGrid>
-        <adm:labelAndInputText id="organizationName" label="#{msg['organization.name']}"
+      
+        <adm:labelAndInputText id="organizationName" label="#{msg['organization.name']}" required="#{not operatorOrgBean.internalAuthMode}"
           value="#{organizationBean.customerToAdd.name}" converterId="trimConverter" styleClass="field"
           maxlength="#{appBean.nameLen}" />
 
