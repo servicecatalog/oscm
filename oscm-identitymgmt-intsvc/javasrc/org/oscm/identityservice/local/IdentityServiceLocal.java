@@ -421,4 +421,15 @@ public interface IdentityServiceLocal {
      */
     PlatformUser getPlatformUserByOrganization(String userId, String orgId)
             throws ObjectNotFoundException;
+    
+    
+    
+    /**
+     * @param tenantId the id of the used tenant
+     * @param token the current berear token to access the OIDC provider 
+     * @return if the synchronization was successful or not. 
+     */
+    default boolean synchronizeUsersWithOIDCProvider(String tenantId) {
+        return false;
+    }
 }
