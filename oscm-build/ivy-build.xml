@@ -71,7 +71,7 @@
   	
   	<antcall target="getAndUnzip">
       <param name="from"
-        value="https://jitpack.io/com/github/servicecatalog/oscm-commons/oscm-common/master-SNAPSHOT/oscm-common-master-SNAPSHOT.jar" />
+        value="https://jitpack.io/com/github/servicecatalog/oscm-commons/oscm-common/sso-SNAPSHOT/oscm-common-sso-SNAPSHOT.jar" />
       <param name="to" value="${root.dir}/libraries/servicecatalog/oscm-common.jar" />
       <param name="deployin" value="${root.dir}/oscm-common/javares" />
     </antcall>
