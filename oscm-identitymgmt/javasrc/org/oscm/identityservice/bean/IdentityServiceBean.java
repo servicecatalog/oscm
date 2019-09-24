@@ -87,6 +87,7 @@ import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
 import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
 import org.oscm.identityservice.rest.AccessGroup;
+import org.oscm.identityservice.rest.OidcToken;
 import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
@@ -2962,4 +2963,24 @@ public class IdentityServiceBean
         rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
         return rf;
     }
+    
+    @Override
+    public boolean synchronizeUsersWithOIDCProvider(String tenantId) {
+        OidcToken oidcToken = new OidcToken();
+        String token = oidcToken.getOidcToken(tenantId);
+        token.toString();
+        
+        // groupIds = getGroupIdsFromDB()
+        // for(int i = 0; i < groups.length(); i++) {
+        //      List<VOUserDetails> users = getAllUsersFromGroup(groups.get(i));
+        //              for(int i = 0; i < useres.length(); i++){
+        //              VOUserDetails user =  loadUserDetailsFromOIDCProvider(String users.get(i), String tenantId, String token)
+        //                (if checkIfUserExists(tenantId, userId) != null){
+        //                      importUser(user, marketplaceId);
+        //                }
+        //              }
+        //}
+        return false;
+    }
+
 }
