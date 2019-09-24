@@ -1121,6 +1121,10 @@ h2.servicePrice, h1.servicePrice {
 	margin:0px;
 }
 
+h2.servicePrice{
+	font-size: 1.4em;
+}
+
 /* price currency */
 h2.priceUnit, h1.priceUnit {
 	color: #222;
@@ -1131,7 +1135,7 @@ h2.priceUnit, h1.priceUnit {
 /* service price on home page and service overview */
 .servicePriceHome {
 	float:left;
-	margin: -3px 0  0 !important;
+	margin: -3px 0  3px !important;
 	position:relative;
 }
 
