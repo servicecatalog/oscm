@@ -2962,9 +2962,10 @@ public class IdentityServiceBean
     public String createAccessGroupInOIDCProvider(String tenantId,
             String token, String groupName) throws RegistrationException {
         AccessGroup accessGroup = new AccessGroup();
+        String caller = dm.getCurrentUser().getOrganization().getName();
         String groupId;
         try {
-            groupId = accessGroup.createGroup(tenantId, token, groupName);
+            groupId = accessGroup.createGroup(tenantId, token, groupName, caller);
         } catch (Exception e) {
             RegistrationException rf = createRegistrationException(e);
             throw rf;
