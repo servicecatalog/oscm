@@ -12,12 +12,7 @@
 
 package org.oscm.identityservice.bean;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -90,7 +85,6 @@ import org.oscm.identityservice.local.LdapAccessServiceLocal;
 import org.oscm.identityservice.local.LdapConnector;
 import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
 import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
-import org.oscm.identityservice.model.UserinfoModel;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
 import org.oscm.identityservice.rest.AccessGroup;
 import org.oscm.identityservice.rest.Userinfo;
@@ -101,7 +95,6 @@ import org.oscm.interceptor.ServiceProviderInterceptor;
 import org.oscm.internal.intf.IdentityService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
-import org.oscm.internal.types.enumtypes.Salutation;
 import org.oscm.internal.types.enumtypes.SettingType;
 import org.oscm.internal.types.enumtypes.SubscriptionStatus;
 import org.oscm.internal.types.enumtypes.TriggerType;
@@ -270,13 +263,6 @@ public class IdentityServiceBean
         importUsers(csvData, organization, marketplaceId);
     }
 
-    /**
-     * @param csvData
-     * @param marketplaceId
-     * @param organization
-     * @throws BulkUserImportException
-     * @throws ObjectNotFoundException
-     */
     protected void importUsers(byte[] csvData, Organization organization,
             String marketplaceId)
             throws BulkUserImportException, ObjectNotFoundException {
@@ -520,10 +506,6 @@ public class IdentityServiceBean
         if (pUser.getStatus() == UserAccountStatus.PASSWORD_MUST_BE_CHANGED) {
             pUser.setStatus(UserAccountStatus.ACTIVE);
         }
-        
-        
-        
-
     }
 
     @Override
@@ -2937,49 +2919,35 @@ public class IdentityServiceBean
         throw onf;
     }
     
-    /**
-     * 
-     * @param userId
-     * @param tenantId
-     * @return
-     */
     @Override
     public VOUserDetails loadUserDetailsFromOIDCProvider(String userId,
             String tenantId, String token) throws RegistrationException {
-        Userinfo userinfo = new Userinfo();
-        VOUserDetails userDetails = null;
         try {
-            userDetails = userinfo.getUserinfoFromIdentityService(userId,
+            return Userinfo.getUserinfoFromIdentityService(userId,
                     tenantId, token);
         } catch (Exception e) {
-            RegistrationException rf = createRegistrationException(e);
-            throw rf;
+            throw createRegistrationException(e);
         }
-        return userDetails;
-    }
+    }        
 
     @Override
     public String createAccessGroupInOIDCProvider(String tenantId,
             String token, String groupName) throws RegistrationException {
-        AccessGroup accessGroup = new AccessGroup();
         String caller = dm.getCurrentUser().getOrganization().getName();
-        String groupId;
         try {
-            groupId = accessGroup.createGroup(tenantId, token, groupName, caller);
+            return AccessGroup.createGroup(tenantId, token, groupName, caller);
         } catch (Exception e) {
-            RegistrationException rf = createRegistrationException(e);
-            throw rf;
+            throw createRegistrationException(e);
         }
-        return groupId;
+
     }
 
     @Override
     public void addMemberToAccessGroupInOIDCProvider(String groupId,
             String tenantId, String token, VOUserDetails userInfo)
             throws RegistrationException {
-        AccessGroup accessGroup = new AccessGroup();
         try {
-            accessGroup.addMemberToGroup(groupId, tenantId, token, userInfo);
+            AccessGroup.addMemberToGroup(groupId, tenantId, token, userInfo);
         } catch (Exception e) {
             RegistrationException rf = createRegistrationException(e);
             throw rf;

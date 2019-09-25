@@ -171,10 +171,13 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
         if (StringUtils.isNotBlank(getSelectedTenant())) {
             Long tenantKey = Long.valueOf(getSelectedTenant());
             newOrganization.setTenantKey(tenantKey.longValue());
+            String selectedTenantId = determineIdForTenant(tenantKey);
             newAdministrator = getIdService().loadUserDetailsFromOIDCProvider(
-                    newAdministrator.getUserId(), sessionBean.getTenantID(), getIdToken());
-            String groupId = getIdService().createAccessGroupInOIDCProvider(sessionBean.getTenantID(), getIdToken(), newOrganization.getName());
-            getIdService().addMemberToAccessGroupInOIDCProvider(groupId, sessionBean.getTenantID(), getIdToken(), newAdministrator);
+            newAdministrator.getUserId(), selectedTenantId, getIdToken());
+            String groupId = getIdService().createAccessGroupInOIDCProvider(selectedTenantId,
+                getIdToken(), newOrganization.getName());
+            getIdService().addMemberToAccessGroupInOIDCProvider(groupId, selectedTenantId,
+                getIdToken(), newAdministrator);
             newOrganization.setOidcGroupId(groupId);
         }
         newVoOrganization = getOperatorService().registerOrganization(
@@ -196,6 +199,15 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
         return OUTCOME_SUCCESS;
     }
 
+    private String determineIdForTenant(Long tenantKey) {
+        for (POTenant t : manageTenantService.getAllTenantsWithDefaultTenant()) {
+           if (t.getKey() == tenantKey.longValue()) {
+               return t.getTenantId();
+           }
+        }
+        return null;
+    }
+    
     private String getSelectedTenantId() {
         for (SelectItem selectedTenantItem : getSelectableTenants()) {
             if (selectedTenantItem.getValue().toString().equals(selectedTenant)) {

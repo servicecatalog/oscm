@@ -1,7 +1,6 @@
 package org.oscm.identityservice.rest;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.spy;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +12,7 @@ public class AccessGroupTest {
 
     @Before
     public void setUp() {
-        accessGroup = spy(new AccessGroup());
+       
     }
     
     @Test
@@ -22,7 +21,7 @@ public class AccessGroupTest {
         String expected = "http://oscm-identity:9090/oscm-identity/tenants/tenantid/groups";
 
         // when
-        String result = accessGroup.createUrlForGroups("tenantid");
+        String result = AccessGroup.createUrlForGroups("tenantid");
 
         // then
         assertEquals(expected, result);
@@ -34,7 +33,7 @@ public class AccessGroupTest {
         String expected = "http://oscm-identity:9090/oscm-identity/tenants/tenantid/groups/groupId/members";
 
         // when
-        String result = accessGroup.createUrlToAddUser("tenantid", "groupId");
+        String result = AccessGroup.createUrlToAddUser("tenantid", "groupId");
 
         // then
         assertEquals(expected, result);
@@ -48,7 +47,7 @@ public class AccessGroupTest {
         expected.setName("OSCM_default");
         
         //when
-        AccessGroupModel result = accessGroup.getAccessGroupModel("", "", "");
+        AccessGroupModel result = AccessGroup.getAccessGroupModel("", "", "");
         
         //then
         assertEquals(expected, result);
@@ -64,7 +63,7 @@ public class AccessGroupTest {
         accessGroupModel.setDescription("test");
        
         //when
-        String result = accessGroup.pojoToJsonString(accessGroupModel);
+        String result = AccessGroup.pojoToJsonString(accessGroupModel);
         
         //then
         assertEquals(expected, result);
@@ -80,7 +79,7 @@ public class AccessGroupTest {
         expected.setDescription("test");
        
         //when
-        AccessGroupModel result = accessGroup.createAccessGroupModelFromJson(testJsonString);
+        AccessGroupModel result = AccessGroup.createAccessGroupModelFromJson(testJsonString);
         
         //then
         assertEquals(expected, result);

@@ -27,7 +27,7 @@ public class AccessGroup {
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(AccessGroup.class);
 
-    public String createGroup(String tenantId, String token, String groupName,
+    public static String createGroup(String tenantId, String token, String groupName,
             String caller) throws Exception {
         HttpURLConnection conn = null;
         try {
@@ -52,19 +52,19 @@ public class AccessGroup {
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
             throw e;
         } finally {
-            conn.disconnect();
+            if (conn!=null)
+              conn.disconnect();
         }
     }
 
-    public void addMemberToGroup(String groupId, String tenantId, String token,
+    public static void addMemberToGroup(String groupId, String tenantId, String token,
             VOUserDetails userDetails) throws Exception {
         HttpURLConnection conn = null;
         try {
             URL url = new URL(createUrlToAddUser(tenantId, groupId));
             conn = createConnection(url, token);
-
-            Userinfo userinfo = new Userinfo();
-            UserinfoModel userInfo = userinfo
+            
+            UserinfoModel userInfo = Userinfo
                     .mapUserDetailsToUserInfo(userDetails);
             String json = pojoToJsonString(userInfo);
             setOutputStream(conn, json);
@@ -79,11 +79,12 @@ public class AccessGroup {
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
             throw e;
         } finally {
-            conn.disconnect();
+            if (conn != null)
+              conn.disconnect();
         }
     }
 
-    private void throwRegistrationException(HttpURLConnection conn)
+    private  static void throwRegistrationException(HttpURLConnection conn)
             throws IOException, RegistrationException {
         logger.logInfo(Log4jLogger.SYSTEM_LOG,
                 LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
@@ -94,7 +95,7 @@ public class AccessGroup {
                         + conn.getResponseCode());
     }
 
-    protected HttpURLConnection createConnection(URL url, String tokenId)
+    protected static HttpURLConnection createConnection(URL url, String tokenId)
             throws IOException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
@@ -106,7 +107,7 @@ public class AccessGroup {
         return conn;
     }
 
-    protected String createUrlForGroups(String tenantId) {
+    protected static String createUrlForGroups(String tenantId) {
         StringBuilder url = new StringBuilder();
         url.append(RestUtils.getIdentityServiceBaseUrl(tenantId));
         url.append("/groups");
@@ -115,7 +116,7 @@ public class AccessGroup {
         return url.toString();
     }
 
-    protected String createUrlToAddUser(String tenantId, String groupId) {
+    protected static String createUrlToAddUser(String tenantId, String groupId) {
         StringBuilder url = new StringBuilder();
         url.append(RestUtils.getIdentityServiceBaseUrl(tenantId));
         url.append("/groups");
@@ -128,7 +129,7 @@ public class AccessGroup {
         return url.toString();
     }
 
-    protected AccessGroupModel getAccessGroupModel(String groupName,
+    protected static AccessGroupModel getAccessGroupModel(String groupName,
             String tenantId, String caller) {
         AccessGroupModel group = new AccessGroupModel();
         if (groupName == null || groupName.isEmpty()) {
@@ -142,11 +143,11 @@ public class AccessGroup {
         return group;
     }
 
-    protected String pojoToJsonString(Object object) {
+    protected static String pojoToJsonString(Object object) {
         return new Gson().toJson(object);
     }
 
-    private void setOutputStream(HttpURLConnection con, String jsonInputString)
+    private static void setOutputStream(HttpURLConnection con, String jsonInputString)
             throws IOException {
         try (OutputStream os = con.getOutputStream()) {
             byte[] input = jsonInputString.getBytes("utf-8");
@@ -158,7 +159,7 @@ public class AccessGroup {
         }
     }
 
-    protected AccessGroupModel createAccessGroupModelFromJson(String json) {
+    protected static AccessGroupModel createAccessGroupModelFromJson(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, AccessGroupModel.class);
     }

@@ -2,25 +2,18 @@ package org.oscm.identityservice.rest;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;
 import org.oscm.identityservice.model.UserinfoModel;
 import org.oscm.internal.types.enumtypes.Salutation;
 import org.oscm.internal.vo.VOUserDetails;
 
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 public class UserinfoTest {
 
-    Userinfo userinfo;
+    
     ConfigurationServiceLocal cs;
-
-    @Before
-    public void setUp() {
-        userinfo = spy(new Userinfo());
-    }
+    
 
     @Test
     public void testCreateUrl() {
@@ -28,7 +21,7 @@ public class UserinfoTest {
         String expected = "http://oscm-identity:9090/oscm-identity/tenants/token/users/userId";
 
         // when
-        String result = userinfo.createUrl("userId", "token");
+        String result = Userinfo.createUrl("userId", "token");
 
         // then
         assertEquals(expected, result);
@@ -42,7 +35,7 @@ public class UserinfoTest {
         String token = "token";
 
         // when
-        VOUserDetails result = userinfo.getUserinfoFromIdentityService(userId, tenantId,
+        VOUserDetails result = Userinfo.getUserinfoFromIdentityService(userId, tenantId,
                 token);
 
         // then
@@ -55,7 +48,7 @@ public class UserinfoTest {
         Salutation expected = Salutation.MR;
 
         // when
-        Salutation result = userinfo.mapGenderToSalutation(gender);
+        Salutation result = Userinfo.mapGenderToSalutation(gender);
 
         // then
         assertEquals(expected, result);
@@ -68,7 +61,7 @@ public class UserinfoTest {
         Salutation expected = Salutation.MS;
 
         // when
-        Salutation result = userinfo.mapGenderToSalutation(gender);
+        Salutation result = Userinfo.mapGenderToSalutation(gender);
 
         // then
         assertEquals(expected, result);
@@ -81,7 +74,7 @@ public class UserinfoTest {
         Salutation expected = Salutation.MS;
 
         // when
-        Salutation result = userinfo.mapGenderToSalutation(gender);
+        Salutation result = Userinfo.mapGenderToSalutation(gender);
 
         // then
         assertEquals(expected, result);
@@ -94,7 +87,7 @@ public class UserinfoTest {
         Salutation expected = Salutation.MS;
 
         // when
-        Salutation result = userinfo.mapGenderToSalutation(gender);
+        Salutation result = Userinfo.mapGenderToSalutation(gender);
 
         // then
         assertEquals(expected, result);
@@ -107,7 +100,7 @@ public class UserinfoTest {
         userInfoModel.setFirstName("first");
 
         // when
-        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel, "");
+        VOUserDetails result = Userinfo.mapUserInfoToUserDetails(userInfoModel, "");
 
         // then
         assertEquals("", "first", result.getFirstName());
@@ -120,7 +113,7 @@ public class UserinfoTest {
         userInfoModel.setLastName("last");
 
         // when
-        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel, "");
+        VOUserDetails result = Userinfo.mapUserInfoToUserDetails(userInfoModel, "");
 
         // then
         assertEquals("", "last", result.getLastName());
@@ -133,7 +126,7 @@ public class UserinfoTest {
         userInfoModel.setAddress("teststreet 123");
 
         // when
-        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel, "");
+        VOUserDetails result = Userinfo.mapUserInfoToUserDetails(userInfoModel, "");
 
         // then
         assertEquals("", "teststreet 123", result.getAddress());
@@ -146,7 +139,7 @@ public class UserinfoTest {
         userInfoModel.setEmail("first.last@test.com");
 
         // when
-        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel, "");
+        VOUserDetails result = Userinfo.mapUserInfoToUserDetails(userInfoModel, "");
 
         // then
         assertEquals("", "first.last@test.com", result.getEMail());
@@ -159,7 +152,7 @@ public class UserinfoTest {
         userInfoModel.setGender("male");
 
         // when
-        VOUserDetails result = userinfo.mapUserInfoToUserDetails(userInfoModel, "");
+        VOUserDetails result = Userinfo.mapUserInfoToUserDetails(userInfoModel, "");
 
         // then
         assertEquals("", Salutation.MR, result.getSalutation());
@@ -178,7 +171,7 @@ public class UserinfoTest {
                  + "\"postalCode\": \"11111\"}";
 
          //when
-         VOUserDetails result = userinfo.createUserDetails(input, "");
+         VOUserDetails result = Userinfo.createUserDetails(input, "");
 
          //then
          assertEquals("", Salutation.MS, result.getSalutation());

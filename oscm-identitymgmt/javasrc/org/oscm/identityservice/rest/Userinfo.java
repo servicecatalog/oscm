@@ -25,7 +25,7 @@ public class Userinfo {
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(Userinfo.class);
 
-    public VOUserDetails getUserinfoFromIdentityService(String userId,
+    public static VOUserDetails getUserinfoFromIdentityService(String userId,
             String tenantId, String token) throws Exception {
         String response = "";
         HttpURLConnection conn = null;
@@ -48,19 +48,20 @@ public class Userinfo {
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
             throw e;
         } finally {
-            conn.disconnect();
+            if (conn != null) 
+              conn.disconnect();
         }
         return createUserDetails(response, userId);
     }
 
-    protected VOUserDetails createUserDetails(String response, String userId) {
+    protected static VOUserDetails createUserDetails(String response, String userId) {
         Gson gson = new Gson();
         UserinfoModel userInfoModel = gson.fromJson(response,
                 UserinfoModel.class);
         return mapUserInfoToUserDetails(userInfoModel, userId);
     }
 
-    protected VOUserDetails mapUserInfoToUserDetails(
+    protected static VOUserDetails mapUserInfoToUserDetails(
             UserinfoModel userInfoModel, String userId) {
         VOUserDetails userDetails = new VOUserDetails();
         userDetails.setUserId(userId);
@@ -81,7 +82,7 @@ public class Userinfo {
         return userDetails;
     }
 
-    protected UserinfoModel mapUserDetailsToUserInfo(
+    protected static UserinfoModel mapUserDetailsToUserInfo(
             VOUserDetails userDetails) {
         UserinfoModel userInfo = new UserinfoModel();
         userInfo.setUserId(userDetails.getUserId());
@@ -95,7 +96,7 @@ public class Userinfo {
         return userInfo;
     }
 
-    protected Salutation mapGenderToSalutation(String gender) {
+    protected static Salutation mapGenderToSalutation(String gender) {
         if (gender == null) {
             return Salutation.MS;
         }
@@ -113,7 +114,7 @@ public class Userinfo {
         }
     }
 
-    protected HttpURLConnection createConnection(URL url, String tokenId)
+    protected static HttpURLConnection createConnection(URL url, String tokenId)
             throws IOException {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
@@ -124,7 +125,7 @@ public class Userinfo {
         return conn;
     }
 
-    protected String createUrl(String userId, String tenantId) {
+    protected static String createUrl(String userId, String tenantId) {
         StringBuilder url = new StringBuilder();
         url.append(RestUtils.getIdentityServiceBaseUrl(tenantId));
         url.append("/users/");
