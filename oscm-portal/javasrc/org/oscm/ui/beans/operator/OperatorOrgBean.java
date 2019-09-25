@@ -170,6 +170,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
         }
         if (StringUtils.isNotBlank(getSelectedTenant())) {
             Long tenantKey = Long.valueOf(getSelectedTenant());
+            newOrganization.setTenantKey(tenantKey.longValue());
             String selectedTenantId = determineIdForTenant(tenantKey);
             newAdministrator = getIdService().loadUserDetailsFromOIDCProvider(
             newAdministrator.getUserId(), selectedTenantId, getIdToken());
