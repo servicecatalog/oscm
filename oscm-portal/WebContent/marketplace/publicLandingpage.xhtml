@@ -19,8 +19,8 @@
         <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />
       </h:commandButton>
     </h:form>
-    <div class="container-fluid clearfix" style="padding-top:10px;padding-left:0px;padding-right:0px;">
-      <div class="row">
+  
+     <div class="row mt-4 mx-1">
       
      <!--  <a4j:outputPanel rendered="#{!isMplRestricted or not empty userBean.loggedInUser}"> -->
       
@@ -62,8 +62,7 @@
         </c:forEach>
  
    <!--    </a4j:outputPanel> -->
-      </div>
-    </div>
+</div>
     <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
       id="recommendedRetailPrice" rendered="#{serviceListingBean.serviceListContainsChargeableResellerService}" />
     <mp:linkPageTop showBrowseAll="true" />

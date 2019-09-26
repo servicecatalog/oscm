@@ -75,7 +75,8 @@
     </ui:include>
 
     <!-- body -->
-    <div class="container-fluid" >
+     <div class="container clearfix" style="padding-top:1px;">
+    
       <adm:initialize initializingMethod="#{appBean.userLocaleUpdated}" />
        <ui:insert name="feature" />
       <ui:insert name="breadcrumbs" />
@@ -91,7 +92,6 @@
         <ui:insert name="singlecontent" />
       </a4j:outputPanel>
 
-      <div class="container-fluid clearfix">
         <a4j:outputPanel id="localeErrorPanel" layout="block" styleClass="errorPanel" style="display:block"
                     rendered="#{appBean.errorPanelForLocaleShow}">
           <dl class="rich-messages box warning">
@@ -174,7 +174,7 @@
        
           <ui:insert name="contents" />
         
-      </div>
+
     </div>
   </a4j:outputPanel>
 
