@@ -2966,21 +2966,85 @@ public class IdentityServiceBean
     
     @Override
     public boolean synchronizeUsersWithOIDCProvider(String tenantId) {
-        AccessToken oidcToken = new AccessToken();
-        String token = oidcToken.getOidcToken(tenantId);
-        token.toString();
-        
-        // groupIds = getGroupIdsFromDB()
-        // for(int i = 0; i < groups.length(); i++) {
-        //      List<VOUserDetails> users = getAllUsersFromGroup(groups.get(i));
-        //              for(int i = 0; i < useres.length(); i++){
-        //              VOUserDetails user =  loadUserDetailsFromOIDCProvider(String users.get(i), String tenantId, String token)
-        //                (if checkIfUserExists(tenantId, userId) != null){
-        //                      importUser(user, marketplaceId);
-        //                }
-        //              }
-        //}
+
+        Userinfo userinfo = new Userinfo();
+        String token = getOIDCTokenForTenant(tenantId);
+        List<Organization> organizations = getAllOrganizationsFromDb();
+        for (int i = 0; i < organizations.size(); i++) {
+            if (organizations.get(i).getKey() == 18000) { //organizations.get(i).getTenant().getTenantId() != null;
+//                organizations.get(i).getTenant().getTenantId() ;
+                List<VOUserDetails> usersInGroup = userListMock(); //userinfo.getAllUserDetailsForGroup(organizations.get(i).getGroupId(), tenantId, token);
+                 for(int j = 0; j < usersInGroup.size(); j++){
+                    VOUserDetails user = userMock(); //loadUserDetailsFromOIDCProvider(usersInGroup.get(j).getUserId(), tenantId, token);
+                    PlatformUser platformuser =  null; //loadUser(user.getUserId(), organizations.get(i).getTenant());
+                    if (platformuser == null) {
+                        user.setOrganizationId(organizations.get(i).getOrganizationId());
+                        String mp = getFirstMarktplaceIdFromOrganization(organizations.get(i));
+                        try {
+                            importUser(user, mp);
+                        } catch (NonUniqueBusinessKeyException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (ObjectNotFoundException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (MailOperationException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (ValidationException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        } catch (UserRoleAssignmentException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        System.out.println("test");
+                    }
+                 }
+            }
+        }
         return false;
     }
+    
+    private List<Organization> getAllOrganizationsFromDb(){
+        Query query = dm.createNamedQuery("Organization.getAllOrganizations");
+        return ParameterizedTypes.list(query.getResultList(),
+                Organization.class);
+    }
+    
+    private String getOIDCTokenForTenant(String tenantId) {
+        AccessToken oidcToken = new AccessToken();
+        return oidcToken.getOidcToken(tenantId);
+    }
+    
+    private List<VOUserDetails> userListMock(){
+        VOUserDetails user = new VOUserDetails();
+        List<VOUserDetails> users = new ArrayList();
+        user.setKey(17000);
+        user.setEMail("customer@ctmg.onmicrosoft.com");
+        user.setUserId("customer@ctmg.onmicrosoft.com");
+        user.setRealmUserId("customer@ctmg.onmicrosoft.com");
+        users.add(user);
+        return users;
+    }
+    
+    private VOUserDetails userMock(){
+        VOUserDetails user = new VOUserDetails();
+        user.setKey(17000);
+        user.setEMail("customer@ctmg.onmicrosoft.com");
+        user.setUserId("customer@ctmg.onmicrosoft.com");
+        user.setRealmUserId("customer@ctmg.onmicrosoft.com");
+        user.setLocale("en");
+        return user;
+    }
+    
+    private String getFirstMarktplaceIdFromOrganization(Organization organization) {
+        List<Marketplace> marketplaces = organization.getMarketplaces();
+        if(marketplaces.size() > 0) {
+            return marketplaces.get(0).getMarketplaceId();
+        }
+        return null;
+    }
+
 
 }
