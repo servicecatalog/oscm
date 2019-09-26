@@ -17,6 +17,7 @@ import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
+import java.util.List;
 
 import com.google.gson.Gson;
 
@@ -53,6 +54,46 @@ public class Userinfo {
         }
         return createUserDetails(response, userId);
     }
+    
+    
+    public List<VOUserDetails> getAllUserDetailsForGroup(String groupId, String tenantId, String token){
+        String response = "";
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(createUrlForAllUsersInGroup(groupId, tenantId));
+            conn = createConnection(url, token);
+
+            if (!RestUtils.isResponseSuccessful(conn.getResponseCode())) {
+                logger.logInfo(Log4jLogger.SYSTEM_LOG,
+                        LogMessageIdentifier.ERROR_ORGANIZATION_REGISTRATION_FAILED,
+                        "Response code from identity service was "
+                                + conn.getResponseCode());
+                throw new RegistrationException(
+                        "Response code from identity service was "
+                                + conn.getResponseCode());
+            }
+            response = RestUtils.getResponse(conn.getInputStream());
+        } catch (Exception e) {
+            logger.logError(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
+          //  throw e;
+        } finally {
+            conn.disconnect();
+        }
+        return null;
+    }
+
+    private String createUrlForAllUsersInGroup(String groupId, String tenantId) {
+        StringBuilder url = new StringBuilder();
+        url.append(RestUtils.getIdentityServiceBaseUrl(tenantId));
+        url.append("/groups/");
+        url.append(groupId);
+        url.append("/members");
+        logger.logDebug(
+                "Connection Url for identity service call = " + url.toString());
+        return url.toString();
+    }
+
 
     protected static VOUserDetails createUserDetails(String response, String userId) {
         Gson gson = new Gson();

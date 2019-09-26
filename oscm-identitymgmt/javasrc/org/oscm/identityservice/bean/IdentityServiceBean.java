@@ -470,7 +470,7 @@ public class IdentityServiceBean
     /*@Interceptors({ PlatformOperatorServiceProviderInterceptor.class })*/
     public void changePassword(String oldPassword, String newPassword)
             throws SecurityCheckException, ValidationException {
-    	
+        
         ArgumentValidator.notNull("oldPassword", oldPassword);
         ArgumentValidator.notNull("newPassword", newPassword);
         BLValidator.isPassword("newPassword", newPassword);
