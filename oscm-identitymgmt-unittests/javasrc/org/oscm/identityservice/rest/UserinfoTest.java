@@ -28,7 +28,7 @@ public class UserinfoTest {
         String expected = "http://oscm-identity:9090/oscm-identity/tenants/token/users/userId";
 
         // when
-        String result = userinfo.createUrl("userId", "token");
+        String result = userinfo.createUrlForUserinfo("userId", "token");
 
         // then
         assertEquals(expected, result);

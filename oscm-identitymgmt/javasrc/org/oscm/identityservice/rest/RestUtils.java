@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import com.google.gson.Gson;
+
 public class RestUtils {
 
     public static String getResponse(InputStream input) throws IOException {

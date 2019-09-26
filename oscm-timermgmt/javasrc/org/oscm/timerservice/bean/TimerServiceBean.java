@@ -379,7 +379,7 @@ public class TimerServiceBean {
                     outcome = accMgmt.checkUserNum();
                     break;
                 case SYNCHRONIZE_USERS_WITH_OIDC_PROVIDER:    
-                    String tenantId ="";
+                    String tenantId ="default";
                     outcome = idServiceLocal.synchronizeUsersWithOIDCProvider(tenantId);
                     break;
                 default:
