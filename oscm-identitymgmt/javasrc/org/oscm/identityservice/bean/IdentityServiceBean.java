@@ -62,6 +62,7 @@ import org.oscm.domobjects.ConfigurationSetting;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.OnBehalfUserReference;
 import org.oscm.domobjects.Organization;
+import org.oscm.domobjects.OrganizationToRole;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.RoleAssignment;
 import org.oscm.domobjects.Session;
@@ -207,6 +208,9 @@ public class IdentityServiceBean
 
     @EJB(beanInterface = SessionServiceLocal.class)
     SessionServiceLocal sessionService;
+    
+    @EJB
+    OidcSynchronizationBean oidcSynchronizationBean;
     
     @Resource
     SessionContext sessionCtx;
@@ -2967,84 +2971,74 @@ public class IdentityServiceBean
     @Override
     public boolean synchronizeUsersWithOIDCProvider(String tenantId) {
 
-        Userinfo userinfo = new Userinfo();
-        String token = getOIDCTokenForTenant(tenantId);
-        List<Organization> organizations = getAllOrganizationsFromDb();
-        for (int i = 0; i < organizations.size(); i++) {
-            if (organizations.get(i).getKey() == 18000) { //organizations.get(i).getTenant().getTenantId() != null;
-//                organizations.get(i).getTenant().getTenantId() ;
-                List<VOUserDetails> usersInGroup = userListMock(); //userinfo.getAllUserDetailsForGroup(organizations.get(i).getGroupId(), tenantId, token);
-                 for(int j = 0; j < usersInGroup.size(); j++){
-                    VOUserDetails user = userMock(); //loadUserDetailsFromOIDCProvider(usersInGroup.get(j).getUserId(), tenantId, token);
-                    PlatformUser platformuser =  null; //loadUser(user.getUserId(), organizations.get(i).getTenant());
-                    if (platformuser == null) {
-                        user.setOrganizationId(organizations.get(i).getOrganizationId());
-                        String mp = getFirstMarktplaceIdFromOrganization(organizations.get(i));
-                        try {
-                            importUser(user, mp);
-                        } catch (NonUniqueBusinessKeyException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (ObjectNotFoundException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (MailOperationException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (ValidationException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        } catch (UserRoleAssignmentException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
+        List<String> tenantIds = oidcSynchronizationBean
+                .getAllTenantIdsForSynchronization();
+
+        for (int tenantIndex = 0; tenantIds
+                .size() > tenantIndex; tenantIndex++) {
+            String token = getOIDCTokenForTenant(tenantIds.get(tenantIndex));
+            List<Organization> synchronizedOrganizations = oidcSynchronizationBean
+                    .synchronizeGroups(tenantId, token);
+            for (int i = 0; i < synchronizedOrganizations.size(); i++) {
+                List<VOUserDetails> usersInGroup = oidcSynchronizationBean
+                        .getAllUsersFromOIDCForGroup(
+                                synchronizedOrganizations.get(i));
+                Organization organization = synchronizedOrganizations.get(i);
+                if (usersInGroup != null) {
+                    for (int j = 0; j < usersInGroup.size(); j++) {
+                        VOUserDetails user = userMock(); // loadUserDetailsFromOIDCProvider(usersInGroup.get(j).getUserId(),
+                                                         // tenantId, token);
+                        PlatformUser platformuser = null; // loadUser(user.getUserId(),
+                                                          // organizations.get(i).getTenant());
+                        if (platformuser == null) {
+                            user.setOrganizationId(organization.getOrganizationId());
+                            String mp = oidcSynchronizationBean
+                                    .getFirstMarktplaceIdFromOrganization(
+                                            organization);
+                            try {
+                                setUserRole(organization, user);
+                                Marketplace marketplace = getMarketplace(mp);
+                                addPlatformUser(user, organization, "",
+                                        UserAccountStatus.PASSWORD_MUST_BE_CHANGED, true, true,
+                                        marketplace, false);
+                            } catch (Exception e) {
+                                // TODO Auto-generated catch block
+                                e.printStackTrace();
+                            }
+                            System.out.println("test");
                         }
-                        System.out.println("test");
                     }
-                 }
+                }
             }
         }
         return false;
     }
     
-    private List<Organization> getAllOrganizationsFromDb(){
-        Query query = dm.createNamedQuery("Organization.getAllOrganizations");
-        return ParameterizedTypes.list(query.getResultList(),
-                Organization.class);
+    private void setUserRole(Organization organization, VOUserDetails user) {
+        // Set corresponding user roles for organization type
+        Set<UserRoleType> roles = new HashSet<UserRoleType>();
+        for (OrganizationToRole orgToRole : organization.getGrantedRoles()) {
+           UserRoleType roleType = orgToRole.getOrganizationRole().getRoleName().correspondingUserRole();
+           if (roleType != null) {
+               roles.add(roleType);
+           }
+        }
+        user.setUserRoles(roles);
     }
-    
+ 
     private String getOIDCTokenForTenant(String tenantId) {
         AccessToken oidcToken = new AccessToken();
         return oidcToken.getOidcToken(tenantId);
     }
     
-    private List<VOUserDetails> userListMock(){
-        VOUserDetails user = new VOUserDetails();
-        List<VOUserDetails> users = new ArrayList();
-        user.setKey(17000);
-        user.setEMail("customer@ctmg.onmicrosoft.com");
-        user.setUserId("customer@ctmg.onmicrosoft.com");
-        user.setRealmUserId("customer@ctmg.onmicrosoft.com");
-        users.add(user);
-        return users;
-    }
-    
+
     private VOUserDetails userMock(){
         VOUserDetails user = new VOUserDetails();
         user.setKey(17000);
-        user.setEMail("customer@ctmg.onmicrosoft.com");
+        user.setEMail("christian.worf@est.fujitsu.com");
         user.setUserId("customer@ctmg.onmicrosoft.com");
         user.setRealmUserId("customer@ctmg.onmicrosoft.com");
         user.setLocale("en");
         return user;
     }
-    
-    private String getFirstMarktplaceIdFromOrganization(Organization organization) {
-        List<Marketplace> marketplaces = organization.getMarketplaces();
-        if(marketplaces.size() > 0) {
-            return marketplaces.get(0).getMarketplaceId();
-        }
-        return null;
-    }
-
-
 }
