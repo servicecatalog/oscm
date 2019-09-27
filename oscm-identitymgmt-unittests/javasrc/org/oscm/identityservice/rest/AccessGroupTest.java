@@ -2,6 +2,10 @@ package org.oscm.identityservice.rest;
 
 import static org.junit.Assert.assertEquals;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.identityservice.model.AccessGroupModel;
@@ -85,6 +89,21 @@ public class AccessGroupTest {
         assertEquals(expected, result);
     }
     
-    
+    @Test
+    public void testCreateAccessGroupModelListFromJson() {
+        List<AccessGroupModel> expectedList = new ArrayList<AccessGroupModel>();
+        String testJsonString = "[{\"id\":\"test\",\"name\":\"test\",\"description\":\"test\"}]";
+        AccessGroupModel accessGroupModel = new AccessGroupModel();
+        accessGroupModel.setId("test");
+        accessGroupModel.setName("test");
+        accessGroupModel.setDescription("test");
+        expectedList.add(accessGroupModel);
+        
+        //when
+        List<AccessGroupModel> result = AccessGroup.createAcessGroupModelListFromJson(testJsonString);
+        
+        //then
+        assertEquals(expectedList, result);
+    }
     
 }
