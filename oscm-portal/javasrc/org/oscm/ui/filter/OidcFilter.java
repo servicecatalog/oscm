@@ -10,13 +10,11 @@
 package org.oscm.ui.filter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.oscm.identity.IdentityConfiguration;
+import org.oscm.identity.WebIdentityClient;
+import org.oscm.identity.exception.IdentityClientException;
+import org.oscm.identity.model.TokenType;
 import org.oscm.internal.types.exception.MarketplaceRemovedException;
-import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.constants.marketplace.Marketplace;
@@ -29,7 +27,6 @@ import javax.inject.Inject;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -39,6 +36,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
   private static final Log4jLogger LOGGER = LoggerFactory.getLogger(OidcFilter.class);
   protected String excludeUrlPattern;
+  private WebIdentityClient identityClient;
 
   @Inject private TenantResolver tenantResolver;
 
@@ -64,124 +62,118 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     HttpServletResponse httpResponse = (HttpServletResponse) response;
     AuthorizationRequestData rdo = initializeRequestDataObject(httpRequest);
 
+    try {
+      identityClient = setUpIdentityClient(rdo, httpRequest);
+    } catch (MarketplaceRemovedException e) {
+      LOGGER.logError(
+          Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+      redirectToErrorPage(BaseBean.ERROR_TOKEN_VALIDATION_FAILED, errorPage, request, response);
+      return;
+    }
+
     boolean isIdProvider = authSettings.isServiceProvider();
     boolean isUrlExcluded = httpRequest.getServletPath().matches(excludeUrlPattern);
 
     if (isIdProvider && (!isUrlExcluded || isLoginOnMarketplaceRequested(httpRequest))) {
 
-      storeTokens(httpRequest);
-      Optional<String> idTokenParam = Optional.ofNullable(httpRequest.getParameter("id_token"));
-      Optional<String> accessTokenParam =
+      Optional<String> requestedIdToken = Optional.ofNullable(httpRequest.getParameter("id_token"));
+      Optional<String> requestedAccessToken =
           Optional.ofNullable(httpRequest.getParameter("access_token"));
 
-      if (idTokenParam.isPresent() || accessTokenParam.isPresent()) {
+      // Validating tokens that came from the request
+      if (requestedIdToken.isPresent() || requestedAccessToken.isPresent()) {
         try {
-          String tenantid = tenantResolver.getTenantID(rdo, httpRequest);
-          makeTokenValidationRequest(
-              httpRequest, idTokenParam.get(), accessTokenParam.get(), tenantid);
-          httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idTokenParam.get());
-        } catch (ValidationException | URISyntaxException | MarketplaceRemovedException e) {
+          identityClient.validateToken(requestedIdToken.get(), TokenType.ID_TOKEN);
+          identityClient.validateToken(requestedAccessToken.get(), TokenType.ACCESS_TOKEN);
+          saveTokensToSession(httpRequest);
+        } catch (IdentityClientException e) {
           LOGGER.logError(
               Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
-          request.setAttribute(
-              Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_TOKEN_VALIDATION_FAILED);
-          forward(errorPage, request, response);
+          redirectToErrorPage(BaseBean.ERROR_TOKEN_VALIDATION_FAILED, errorPage, request, response);
           return;
         }
       }
 
-      String existingIdToken =
+      // Validating ID token stored in the session
+      String sessionIdToken =
           (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ID_TOKEN);
-      String existingAccessToken =
-          (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ACCESS_TOKEN);
 
-      if (StringUtils.isBlank(existingIdToken)) {
+      if (StringUtils.isBlank(sessionIdToken)) {
         try {
-          String loginUrl = new Login(rdo, httpRequest, tenantResolver).buildUrl();
-          JSFUtils.sendRedirect(httpResponse, loginUrl);
+          redirectToLoginPage(rdo, httpRequest, httpResponse, tenantResolver);
         } catch (URISyntaxException | MarketplaceRemovedException e) {
           LOGGER.logError(
               Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_AUTH_REQUEST_GENERATION_FAILED);
-          request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_GENERATE_AUTHNREQUEST);
-          forward(errorPage, request, response);
+          redirectToErrorPage(BaseBean.ERROR_GENERATE_AUTHNREQUEST, errorPage, request, response);
         }
         return;
-
       } else {
         try {
-          String tenantId = tenantResolver.getTenantID(rdo, httpRequest);
-          makeTokenValidationRequest(httpRequest, existingIdToken, existingAccessToken, tenantId);
-        } catch (ValidationException | URISyntaxException | MarketplaceRemovedException e) {
+          identityClient.validateToken(sessionIdToken, TokenType.ID_TOKEN);
+        } catch (IdentityClientException e) {
           LOGGER.logError(
               Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
-          request.setAttribute(
-              Constants.REQ_ATTR_ERROR_KEY, BaseBean.ERROR_TOKEN_VALIDATION_FAILED);
-          forward(errorPage, request, response);
+          redirectToErrorPage(
+              BaseBean.ERROR_GENERATE_AUTHNREQUEST,
+              errorPage,
+              request,
+              response,
+              rdo,
+              tenantResolver);
           return;
         }
       }
     }
-
     chain.doFilter(request, response);
   }
 
-  protected void makeTokenValidationRequest(
-      HttpServletRequest httpRequest, String idToken, String accessToken, String tenantId)
-      throws ValidationException, IOException, URISyntaxException {
-    String requestedUrl = httpRequest.getRequestURL().toString();
-
-    String hostname = new URI(requestedUrl).getHost();
-    String resourceUrl =
-        "http://oscm-identity:9090/oscm-identity/tenants/" + tenantId + "/token/verify";
-
-    CloseableHttpClient client = HttpClients.createDefault();
-    HttpPost post = new HttpPost(resourceUrl);
-    post.setHeader("Content-type", "application/json");
-
-    if (idToken != null) validateIdToken(idToken, post, client);
-    if (accessToken != null) validateAccessToken(accessToken, post, client);
+  protected WebIdentityClient setUpIdentityClient(
+      AuthorizationRequestData rdo, HttpServletRequest httpRequest)
+      throws MarketplaceRemovedException {
+    String tenantID = tenantResolver.getTenantID(rdo, httpRequest);
+    IdentityConfiguration configuration =
+        IdentityConfiguration.of()
+            .tenantId(tenantID)
+            .sessionContext(httpRequest.getSession())
+            .build();
+    return new WebIdentityClient(configuration);
   }
 
-  private void validateIdToken(String idToken, HttpPost post, CloseableHttpClient client)
-      throws IOException, ValidationException {
-    HttpResponse validationResponse = null;
-    StringBuilder jsonStringBuilder = new StringBuilder();
-    jsonStringBuilder.append("{\n");
-    jsonStringBuilder.append("\t\"token\": \"");
-    jsonStringBuilder.append(idToken);
-    jsonStringBuilder.append("\",\n");
-    jsonStringBuilder.append("\t\"tokenType\": \"");
-    jsonStringBuilder.append("ID");
-    jsonStringBuilder.append("\"\n");
-    jsonStringBuilder.append("}");
+  private void redirectToErrorPage(
+      String errorMessage, String errorPageURI, ServletRequest request, ServletResponse response)
+      throws ServletException, IOException {
+    request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, errorMessage);
+    request.setAttribute("hideRedirectLinkStyle", "display: none;");
+    forward(errorPageURI, request, response);
+  }
 
-    post.setEntity(new StringEntity(jsonStringBuilder.toString()));
-
-    validationResponse = client.execute(post);
-    if (validationResponse.getStatusLine().getStatusCode() != Response.Status.OK.getStatusCode()) {
-      throw new ValidationException("ID Token validation failed!");
+  private void redirectToErrorPage(
+      String errorMessage,
+      String errorPageURI,
+      ServletRequest request,
+      ServletResponse response,
+      AuthorizationRequestData rdo,
+      TenantResolver tenantResolver) {
+    HttpServletRequest httpRequest = (HttpServletRequest) request;
+    try {
+      String loginUrl = new Login(rdo, httpRequest, tenantResolver).buildUrl();
+      request.setAttribute(Constants.REQ_ATTR_ERROR_KEY, errorMessage);
+      request.setAttribute("loginPageUrl", loginUrl);
+      request.setAttribute("relogMessage", "Click here to log in again");
+      forward(errorPageURI, request, response);
+    } catch (URISyntaxException | MarketplaceRemovedException | ServletException | IOException e) {
+      e.printStackTrace();
     }
   }
 
-  private void validateAccessToken(String accessToken, HttpPost post, CloseableHttpClient client)
-          throws IOException, ValidationException {
-    HttpResponse validationResponse = null;
-    StringBuilder jsonStringBuilder = new StringBuilder();
-    jsonStringBuilder.append("{\n");
-    jsonStringBuilder.append("\t\"token\": \"");
-    jsonStringBuilder.append(accessToken);
-    jsonStringBuilder.append("\",\n");
-    jsonStringBuilder.append("\t\"tokenType\": \"");
-    jsonStringBuilder.append("ACCESS");
-    jsonStringBuilder.append("\"\n");
-    jsonStringBuilder.append("}");
-
-    post.setEntity(new StringEntity(jsonStringBuilder.toString()));
-
-    validationResponse = client.execute(post);
-    if (validationResponse.getStatusLine().getStatusCode() != Response.Status.OK.getStatusCode()) {
-      throw new ValidationException("Access Token validation failed!");
-    }
+  private void redirectToLoginPage(
+      AuthorizationRequestData rdo,
+      HttpServletRequest httpRequest,
+      HttpServletResponse httpResponse,
+      TenantResolver tenantResolver)
+      throws IOException, MarketplaceRemovedException, URISyntaxException {
+    String loginUrl = new Login(rdo, httpRequest, tenantResolver).buildUrl();
+    JSFUtils.sendRedirect(httpResponse, loginUrl);
   }
 
   private boolean isLoginOnMarketplaceRequested(HttpServletRequest request) {
@@ -192,13 +184,16 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     return isMarketplacePage && loginRequested.isPresent();
   }
 
-  private void storeTokens(HttpServletRequest httpRequest) {
-
+  private void saveTokensToSession(HttpServletRequest httpRequest) {
+    Optional<String> idTokenParam = Optional.ofNullable(httpRequest.getParameter("id_token"));
     Optional<String> accessTokenParam =
         Optional.ofNullable(httpRequest.getParameter("access_token"));
     Optional<String> refreshTokenParam =
         Optional.ofNullable(httpRequest.getParameter("refresh_token"));
 
+    if (idTokenParam.isPresent()) {
+      httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idTokenParam.get());
+    }
     if (accessTokenParam.isPresent()) {
       httpRequest
           .getSession()
