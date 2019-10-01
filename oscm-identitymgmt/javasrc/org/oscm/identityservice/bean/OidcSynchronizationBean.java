@@ -12,8 +12,14 @@ import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.Tenant;
+import org.oscm.identity.ApiIdentityClient;
+import org.oscm.identity.IdentityConfiguration;
+import org.oscm.identity.exception.IdentityClientException;
+import org.oscm.identity.model.AccessType;
 import org.oscm.identityservice.model.AccessGroupModel;
+import org.oscm.identityservice.rest.AccessGroup;
 import org.oscm.identityservice.rest.AccessToken;
+import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
@@ -30,22 +36,21 @@ public class OidcSynchronizationBean {
 
 
     public List<VOUserDetails> getAllUsersFromOIDCForGroup(
-            Organization organization) {
+            Organization organization, String tenantId, String token) {
         List<VOUserDetails> usersInGroup = null;
-        if (organization.getKey() == 18000) { // organizations.get(i).getTenant().getTenantId()
-                                              // != null;
-            // organizations.get(i).getTenant().getTenantId() ;
-            usersInGroup = userListMock(); // userinfo.getAllUserDetailsForGroup(organizations.get(i).getGroupId(),
-                                           // tenantId,
-                                           // token);
-        }
+            usersInGroup =  Userinfo.getAllUserDetailsForGroup(organization.getGroupId(), tenantId, token);
         return usersInGroup;
     }
 
     public List<Organization> synchronizeGroups(String tenantId, String token) {
         List<Organization> organizations = new ArrayList<Organization>();
-        List<AccessGroupModel> AccessGroupModels = AccessGroupModelsMock();// AccessGroup.getAllOrganizationsFromOIDCProvider(tenantId,
-                                                                           // token);
+        List<AccessGroupModel> AccessGroupModels = null;
+        try {
+            AccessGroupModels = AccessGroup.getAllOrganizationsFromOIDCProvider(tenantId, token);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         for (int i = 0; AccessGroupModels.size() > i; i++) {
             synchronizeOIDCGroupsWithOrganizations(organizations,
                     AccessGroupModels, i);
@@ -122,8 +127,8 @@ public class OidcSynchronizationBean {
         List<VOUserDetails> users = new ArrayList();
         user.setKey(17000);
         user.setEMail("christian.worf@est.fujitsu.com");
-        user.setUserId("customer@ctmg.onmicrosoft.com");
-        user.setRealmUserId("customer@ctmg.onmicrosoft.com");
+        user.setUserId("test1@ctmgcustomer.onmicrosoft.com");
+        user.setRealmUserId("test1@ctmgcustomer.onmicrosoft.com");
         users.add(user);
         return users;
     }
@@ -132,7 +137,7 @@ public class OidcSynchronizationBean {
         VOUserDetails user = new VOUserDetails();
         user.setKey(17000);
         user.setEMail("customer@ctmg.onmicrosoft.com");
-        user.setUserId("customer@ctmg.onmicrosoft.com");
+        user.setUserId("test1@ctmgcustomer.onmicrosoft.com");
         user.setRealmUserId("customer@ctmg.onmicrosoft.com");
         user.setLocale("en");
         return user;

@@ -76,6 +76,11 @@ import org.oscm.domobjects.UserGroup;
 import org.oscm.domobjects.UserRole;
 import org.oscm.domobjects.enums.ModificationType;
 import org.oscm.id.IdGenerator;
+import org.oscm.identity.ApiIdentityClient;
+import org.oscm.identity.IdentityConfiguration;
+import org.oscm.identity.exception.IdentityClientException;
+import org.oscm.identity.model.AccessType;
+import org.oscm.identity.model.UserInfo;
 import org.oscm.identityservice.assembler.UserDataAssembler;
 import org.oscm.identityservice.bean.BulkUserImportReader.Row;
 import org.oscm.identityservice.control.SendMailControl;
@@ -86,6 +91,7 @@ import org.oscm.identityservice.local.LdapAccessServiceLocal;
 import org.oscm.identityservice.local.LdapConnector;
 import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
 import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
+import org.oscm.identityservice.model.AccessTokenModel;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
 import org.oscm.identityservice.rest.AccessGroup;
 import org.oscm.identityservice.rest.AccessToken;
@@ -156,6 +162,8 @@ import org.oscm.usergroupservice.bean.UserGroupServiceLocalBean;
 import org.oscm.validation.ArgumentValidator;
 import org.oscm.validator.BLValidator;
 import org.oscm.vo.BaseAssembler;
+
+import com.google.gson.Gson;
 
 /**
  * Session Bean implementation class IdentityServiceBean
@@ -2973,23 +2981,42 @@ public class IdentityServiceBean
 
         List<String> tenantIds = oidcSynchronizationBean
                 .getAllTenantIdsForSynchronization();
-
+        IdentityConfiguration config = IdentityConfiguration.of().tenantId(tenantId).sessionContext(null).build(); 
+        ApiIdentityClient client = new ApiIdentityClient(config);
+        String token ="";
+        try {
+            token = client.getAccessToken(AccessType.IDP);
+        } catch (IdentityClientException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        
         for (int tenantIndex = 0; tenantIds
                 .size() > tenantIndex; tenantIndex++) {
-            String token = getOIDCTokenForTenant(tenantIds.get(tenantIndex));
             List<Organization> synchronizedOrganizations = oidcSynchronizationBean
                     .synchronizeGroups(tenantId, token);
+            
             for (int i = 0; i < synchronizedOrganizations.size(); i++) {
                 List<VOUserDetails> usersInGroup = oidcSynchronizationBean
                         .getAllUsersFromOIDCForGroup(
-                                synchronizedOrganizations.get(i));
+                                synchronizedOrganizations.get(i), tenantId, token);
                 Organization organization = synchronizedOrganizations.get(i);
+                
                 if (usersInGroup != null) {
                     for (int j = 0; j < usersInGroup.size(); j++) {
-                        VOUserDetails user = userMock(); // loadUserDetailsFromOIDCProvider(usersInGroup.get(j).getUserId(),
-                                                         // tenantId, token);
-                        PlatformUser platformuser = null; // loadUser(user.getUserId(),
-                                                          // organizations.get(i).getTenant());
+                        VOUserDetails user = null;
+                        try {
+                            UserInfo user1 = client.getUser(usersInGroup.get(j).getUserId());
+                            user = loadUserDetailsFromOIDCProvider(usersInGroup.get(j).getUserId(), tenantId, token);
+                        } catch (RegistrationException e1) {
+                            // TODO Auto-generated catch block
+                            e1.printStackTrace();
+                        } catch (IdentityClientException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        
+                        PlatformUser platformuser = loadUser(user.getUserId(), organization.getTenant());
                         if (platformuser == null) {
                             user.setOrganizationId(organization.getOrganizationId());
                             String mp = oidcSynchronizationBean
@@ -3026,12 +3053,6 @@ public class IdentityServiceBean
         user.setUserRoles(roles);
     }
  
-    private String getOIDCTokenForTenant(String tenantId) {
-        AccessToken oidcToken = new AccessToken();
-        return oidcToken.getOidcToken(tenantId);
-    }
-    
-
     private VOUserDetails userMock(){
         VOUserDetails user = new VOUserDetails();
         user.setKey(17000);

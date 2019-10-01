@@ -8,8 +8,11 @@
 package org.oscm.identityservice.rest;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import org.oscm.identityservice.model.AccessGroupModel;
 import org.oscm.identityservice.model.UserinfoModel;
 import org.oscm.internal.types.enumtypes.Salutation;
 import org.oscm.internal.types.exception.RegistrationException;
@@ -17,9 +20,12 @@ import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class Userinfo {
 
@@ -56,7 +62,7 @@ public class Userinfo {
     }
     
     
-    public List<VOUserDetails> getAllUserDetailsForGroup(String groupId, String tenantId, String token){
+    public static List<VOUserDetails> getAllUserDetailsForGroup(String groupId, String tenantId, String token){
         String response = "";
         HttpURLConnection conn = null;
         try {
@@ -73,6 +79,13 @@ public class Userinfo {
                                 + conn.getResponseCode());
             }
             response = RestUtils.getResponse(conn.getInputStream());
+            response.toString();
+            List<UserinfoModel> users = createUserInfoModelListFromJson(response);
+            List<VOUserDetails> userDetails = new ArrayList<VOUserDetails>();
+            for (int i = 0; users.size() > i; i++) {
+                userDetails.add(mapUserInfoToUserDetails(users.get(i), users.get(i).getUserId()));
+            }
+            return userDetails;
         } catch (Exception e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
@@ -83,7 +96,7 @@ public class Userinfo {
         return null;
     }
 
-    private String createUrlForAllUsersInGroup(String groupId, String tenantId) {
+    private static String createUrlForAllUsersInGroup(String groupId, String tenantId) {
         StringBuilder url = new StringBuilder();
         url.append(RestUtils.getIdentityServiceBaseUrl(tenantId));
         url.append("/groups/");
@@ -100,6 +113,13 @@ public class Userinfo {
         UserinfoModel userInfoModel = gson.fromJson(response,
                 UserinfoModel.class);
         return mapUserInfoToUserDetails(userInfoModel, userId);
+    }
+    
+    protected static List<UserinfoModel> createUserInfoModelListFromJson(String json){
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<UserinfoModel>>(){}.getType();
+        List<UserinfoModel> userInfos = (List<UserinfoModel>) gson.fromJson(json.toString(), type);
+        return userInfos;
     }
 
     protected static VOUserDetails mapUserInfoToUserDetails(
