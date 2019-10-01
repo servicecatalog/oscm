@@ -1,0 +1,45 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link href="${facesContext.externalContext.requestContextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+    type="text/css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="#{facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+
+  <a4j:outputPanel id="listServicesForPublicLandingpage">
+    <h:form id="tagFilterForm" rendered="#{!isMplRestricted or empty userBean.loggedInUser}">
+      <h:inputHidden id="tagFilterValue" value="#{servicePagingBean.filterTag}" />
+      <h:commandButton id="applyTagFilter" action="#{serviceListingBean.showServiceList}" style="display: none;">
+        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />
+      </h:commandButton>
+    </h:form>
+
+    <div class="row mt-4 mx-2">
+
+
+      <c:forEach items="#{serviceListingBean.servicesForLandingPage}" var="service" varStatus="status">
+
+        <mp:serviceCard fieldId="service#{status.index}" service="#{service}" limitedDescription="true" />
+
+      </c:forEach>
+
+    </div>
+    <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
+      id="recommendedRetailPrice" rendered="#{serviceListingBean.serviceListContainsChargeableResellerService}" />
+    <mp:linkPageTop showBrowseAll="true" />
+    <rich:jQuery selector="document"
+      query="ready(function() {var tagDivs = jQuery('div.serviceTags').get();AdmUtils.cutServiceTags(tagDivs);})" />
+    <script>
+    	jQuery().ready(function(){
+        	AdmUtils.highlightNavigation("navigation1");
+    	});
+    	</script>
+  </a4j:outputPanel>
+</ui:composition>
