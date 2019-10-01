@@ -3498,3 +3498,11 @@ div.responsive-table-panel {
   font: 20px 'Helvetica';
   text-transform: uppercase;
 }
+
+.container {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+

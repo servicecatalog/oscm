@@ -1,5 +1,6 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
@@ -20,69 +21,17 @@
   <c:if test="#{empty limitedDescription}">
     <c:set var="limitedDescription" value="false" />
   </c:if>
-
-  <div class="col-md-4 col-sm-6 col-xs-12 mb-4">
-    <div class="card h-100 selectable">
-      <div class="card-header">#{service.nameToDisplay}</div>
-
-      <a4j:outputPanel layout="block" styleClass="left box_logo">
-        <a4j:outputPanel layout="block" styleClass="box_image" onclick="#{onClickHandler}">
-          <h:graphicImage id="#{fieldId}Image" styleClass="card-img-top" class="img-fluid mx-auto d-block"
-            value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}" />
-        </a4j:outputPanel>
-      </a4j:outputPanel>
-
-      <!--     <h:graphicImage id="#{fieldId}Image" styleClass="card-img-top text-center" style="width:80px;height:80px;"
-        value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}" alt="Card image cap" /> -->
-
-      <div class="card-body d-flex flex-column">
-
-        <div class="clearfix block">
-          <mp:ratingStars styleClass="left listingStarBox" rating="#{service.rating}" />
-          <mp:serviceTags fieldId="service#{status.index}ServiceTags" service="#{service}"
-            styleClass="center nowrap_hidden" />
-        </div>
-
-        <mp:servicePrice service="#{service}" styleClass="servicePriceHome" showUnit="false" />
-
-        <ui:fragment rendered="#{showSupplier}">
-          <h3 id="#{fieldId}Supplier" class="supplier shortenedText">
-            <h:outputFormat value="#{msg['service.by']}" title="#{service.sellerName}">
-              <f:param value="#{service.sellerName}" />
-            </h:outputFormat>
-          </h3>
-        </ui:fragment>
-
-        <ui:fragment rendered="#{limitedDescription}">
-          <p id="#{fieldId}ShortDescLimited" class="card-text text-justify pt-4">#{service.shortDescriptionLimited}</p>
-        </ui:fragment>
-        
-         <ui:fragment rendered="#{not limitedDescription}">
-          <p id="#{fieldId}ShortDesc" class="card-text">#{service.shortDescription}</p>
-        </ui:fragment>
-        
-        <div class="mt-auto">
-        <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="btn btn-outline-secondary stretched-link" value="#{msg['button.showDetails']}">
-          <f:param name="selectedServiceKey" value="#{service.key}" />
-        </h:link>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-
-  <!--     
-
- 
- 
+  <a4j:outputPanel layout="block" styleClass="left box_logo">
+    <a4j:outputPanel layout="block" styleClass="box_image"
+      onclick="#{onClickHandler}">
+      <h:graphicImage id="#{fieldId}Image" value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}" />
+    </a4j:outputPanel>
+  </a4j:outputPanel>
   <a4j:outputPanel layout="block" styleClass="center">
-    
     <ui:fragment rendered="#{service ne null}">
-    
-    
-
-    
+      <ui:fragment rendered="#{showName}">
+        <h2 id="#{fieldId}Name" class="box_title shortenedText" title="#{service.nameToDisplay}" onclick="#{onClickHandler}">#{service.nameToDisplay}</h2>
+      </ui:fragment>
       <ui:fragment rendered="#{showSupplier}">
         <h3 id="#{fieldId}Supplier" class="supplier shortenedText">
        <h:outputFormat value="#{msg['service.by']}" title="#{service.sellerName}">
@@ -90,18 +39,15 @@
           </h:outputFormat>
         </h3>
       </ui:fragment>
-      
-      ***Short Descriptions*** (DELETED)
-    
+      <a4j:outputPanel id="#{fieldId}ShortDescLimited" layout="block" rendered="#{limitedDescription}" style="word-wrap: break-word;" title="#{service.shortDescription}">
+        #{service.shortDescriptionLimited}
+      </a4j:outputPanel>
+      <a4j:outputPanel id="#{fieldId}ShortDesc" layout="block" rendered="#{not limitedDescription}" style="word-wrap: break-word;">
+        #{service.shortDescription}
+      </a4j:outputPanel>
       <ui:fragment rendered="#{showTags}">
         <mp:serviceTags fieldId="#{fieldId}Tags" service="#{service}" style="margin-top: 10px;" />
       </ui:fragment>
-    
-    
     </ui:fragment>
-  </a4j:outputPanel> -->
-  
-  
-  
-  
+  </a4j:outputPanel>
 </ui:composition>
