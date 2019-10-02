@@ -151,7 +151,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     jsonStringBuilder.append(idToken);
     jsonStringBuilder.append("\",\n");
     jsonStringBuilder.append("\t\"tokenType\": \"");
-    jsonStringBuilder.append("ID");
+    jsonStringBuilder.append("ID_TOKEN");
     jsonStringBuilder.append("\"\n");
     jsonStringBuilder.append("}");
 
@@ -172,7 +172,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     jsonStringBuilder.append(accessToken);
     jsonStringBuilder.append("\",\n");
     jsonStringBuilder.append("\t\"tokenType\": \"");
-    jsonStringBuilder.append("ACCESS");
+    jsonStringBuilder.append("ACCESS_TOKEN");
     jsonStringBuilder.append("\"\n");
     jsonStringBuilder.append("}");
 
