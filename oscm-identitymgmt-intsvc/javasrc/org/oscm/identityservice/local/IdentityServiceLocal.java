@@ -425,11 +425,11 @@ public interface IdentityServiceLocal {
     
     
     /**
-     * @param tenantId the id of the used tenant
-     * @param token the current berear token to access the OIDC provider 
+     * Synchronizes the OIDC groups with the OSCM organizations. For all synchronized organizations the users will be also synchronized. 
      * @return if the synchronization was successful or not. 
      */
-    default boolean synchronizeUsersWithOIDCProvider(String tenantId) {
+    default boolean synchronizeUsersAndGroupsWithOIDCProvider() {
         return false;
     }
+
 }

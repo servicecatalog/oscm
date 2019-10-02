@@ -20,6 +20,7 @@ import org.oscm.identityservice.model.AccessGroupModel;
 import org.oscm.identityservice.rest.AccessGroup;
 import org.oscm.identityservice.rest.AccessToken;
 import org.oscm.identityservice.rest.Userinfo;
+import org.oscm.internal.types.exception.RegistrationException;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
@@ -48,8 +49,9 @@ public class OidcSynchronizationBean {
         try {
             AccessGroupModels = AccessGroup.getAllOrganizationsFromOIDCProvider(tenantId, token);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR,
+                    "An error occured while get the organizations from the OIDC Provider");
         }
         for (int i = 0; AccessGroupModels.size() > i; i++) {
             synchronizeOIDCGroupsWithOrganizations(organizations,
@@ -97,10 +99,7 @@ public class OidcSynchronizationBean {
         return getOrganizationFromDB(query);
     }
 
-    private List<Tenant> getAllTenantsFromDb() throws Exception {
-        Query query = dm.createNamedQuery("Tenant.getAll");
-        return ParameterizedTypes.list(query.getResultList(), Tenant.class);
-    }
+ 
 
     private Organization getOrganizationByName(String name) throws Exception {
         Query query = dm
@@ -122,41 +121,11 @@ public class OidcSynchronizationBean {
         }
     }
 
-    private List<VOUserDetails> userListMock() {
-        VOUserDetails user = new VOUserDetails();
-        List<VOUserDetails> users = new ArrayList();
-        user.setKey(17000);
-        user.setEMail("christian.worf@est.fujitsu.com");
-        user.setUserId("test1@ctmgcustomer.onmicrosoft.com");
-        user.setRealmUserId("test1@ctmgcustomer.onmicrosoft.com");
-        users.add(user);
-        return users;
-    }
-
-    private VOUserDetails userMock() {
-        VOUserDetails user = new VOUserDetails();
-        user.setKey(17000);
-        user.setEMail("customer@ctmg.onmicrosoft.com");
-        user.setUserId("test1@ctmgcustomer.onmicrosoft.com");
-        user.setRealmUserId("customer@ctmg.onmicrosoft.com");
-        user.setLocale("en");
-        return user;
-    }
-
-    private List<AccessGroupModel> AccessGroupModelsMock() {
-        List<AccessGroupModel> accessGroupModels = new ArrayList<AccessGroupModel>();
-        AccessGroupModel accessGroupModel = new AccessGroupModel();
-        accessGroupModel.setId("3b190ce1-b7fa-410a-bb0a-c00f2353d0d8");
-        accessGroupModel.setName("customerorg");
-        accessGroupModels.add(accessGroupModel);
-        return accessGroupModels;
-    }
-
-    public String getFirstMarktplaceIdFromOrganization(
+    public Marketplace getFirstMarktplaceIdFromOrganization(
             Organization organization) {
         List<Marketplace> marketplaces = organization.getMarketplaces();
         if (marketplaces.size() > 0) {
-            return marketplaces.get(0).getMarketplaceId();
+            return marketplaces.get(0);
         }
         return null;
     }
@@ -179,5 +148,11 @@ public class OidcSynchronizationBean {
         }
         return tenantIds;
     }
+    
+    private List<Tenant> getAllTenantsFromDb() throws Exception {
+        Query query = dm.createNamedQuery("Tenant.getAll");
+        return ParameterizedTypes.list(query.getResultList(), Tenant.class);
+    }
+
 
 }

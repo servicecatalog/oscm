@@ -2977,72 +2977,95 @@ public class IdentityServiceBean
     }
     
     @Override
-    public boolean synchronizeUsersWithOIDCProvider(String tenantId) {
+    public boolean synchronizeUsersAndGroupsWithOIDCProvider() {
 
         List<String> tenantIds = oidcSynchronizationBean
                 .getAllTenantIdsForSynchronization();
+
+        for (int tenantIndex = 0; tenantIds
+                .size() > tenantIndex; tenantIndex++) {
+            
+            String tenantId = tenantIds.get(tenantIndex);
+            String token = getOidcToken(tenantId);
+            List<Organization> synchronizedOrganizations = oidcSynchronizationBean
+                    .synchronizeGroups(tenantId, token);
+            for (int i = 0; i < synchronizedOrganizations.size(); i++) {
+                Organization organization = synchronizedOrganizations.get(i);
+                List<VOUserDetails> usersInGroup = oidcSynchronizationBean
+                        .getAllUsersFromOIDCForGroup(organization, tenantId,
+                                token);
+
+                if (usersInGroup != null) {
+                    for (int j = 0; j < usersInGroup.size(); j++) {
+                        synchronizeUsersWithOidcProvider(tenantId, token,
+                                organization, usersInGroup.get(j));
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private void synchronizeUsersWithOidcProvider(String tenantId, String token,
+            Organization organization, VOUserDetails usersInGroup) {
+
+                VOUserDetails user = null;
+                try {
+                    user =  Userinfo.getUserinfoFromIdentityService(usersInGroup.getUserId(),
+                            tenantId, token);
+                    if (!isOIDCUserExistingInPlatform(user,
+                            organization)) {
+                        user.setOrganizationId(
+                                organization.getOrganizationId());
+                        setUserRole(organization, user);
+                        Marketplace mp = oidcSynchronizationBean
+                                .getFirstMarktplaceIdFromOrganization(
+                                        organization);
+                        addOidcUserToPlatform(organization, user, mp);
+                    }
+                } catch (Exception e) {
+                    logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                            LogMessageIdentifier.ERROR_ADD_CUSTOMER, "An error occured while trying to import the User ");
+                } 
+            }
+    
+    private boolean isOIDCUserExistingInPlatform(VOUserDetails user, Organization organization) {
+        PlatformUser platformuser = loadUser(
+                user.getUserId(), organization.getTenant());
+        if(platformuser == null) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    private void addOidcUserToPlatform(Organization organization,
+            VOUserDetails user, Marketplace marketplace) {
+        try {
+            addPlatformUser(user, organization, "",
+                    UserAccountStatus.PASSWORD_MUST_BE_CHANGED,
+                    true, true, marketplace, false);
+        } catch (Exception e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_ADD_CUSTOMER, "An error occured while trying to import the User " + user.getOrganizationId());
+        }
+    }
+
+    private String getOidcToken(String tenantId) {
         IdentityConfiguration config = IdentityConfiguration.of().tenantId(tenantId).sessionContext(null).build(); 
         ApiIdentityClient client = new ApiIdentityClient(config);
         String token ="";
         try {
             token = client.getAccessToken(AccessType.IDP);
-        } catch (IdentityClientException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        } catch (IdentityClientException e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED, "Can´t get the OIDC token.");
         }
-        
-        for (int tenantIndex = 0; tenantIds
-                .size() > tenantIndex; tenantIndex++) {
-            List<Organization> synchronizedOrganizations = oidcSynchronizationBean
-                    .synchronizeGroups(tenantId, token);
-            
-            for (int i = 0; i < synchronizedOrganizations.size(); i++) {
-                List<VOUserDetails> usersInGroup = oidcSynchronizationBean
-                        .getAllUsersFromOIDCForGroup(
-                                synchronizedOrganizations.get(i), tenantId, token);
-                Organization organization = synchronizedOrganizations.get(i);
-                
-                if (usersInGroup != null) {
-                    for (int j = 0; j < usersInGroup.size(); j++) {
-                        VOUserDetails user = null;
-                        try {
-                            UserInfo user1 = client.getUser(usersInGroup.get(j).getUserId());
-                            user = loadUserDetailsFromOIDCProvider(usersInGroup.get(j).getUserId(), tenantId, token);
-                        } catch (RegistrationException e1) {
-                            // TODO Auto-generated catch block
-                            e1.printStackTrace();
-                        } catch (IdentityClientException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                        
-                        PlatformUser platformuser = loadUser(user.getUserId(), organization.getTenant());
-                        if (platformuser == null) {
-                            user.setOrganizationId(organization.getOrganizationId());
-                            String mp = oidcSynchronizationBean
-                                    .getFirstMarktplaceIdFromOrganization(
-                                            organization);
-                            try {
-                                setUserRole(organization, user);
-                                Marketplace marketplace = getMarketplace(mp);
-                                addPlatformUser(user, organization, "",
-                                        UserAccountStatus.PASSWORD_MUST_BE_CHANGED, true, true,
-                                        marketplace, false);
-                            } catch (Exception e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                            System.out.println("test");
-                        }
-                    }
-                }
-            }
-        }
-        return false;
+        return token;
     }
     
     private void setUserRole(Organization organization, VOUserDetails user) {
-        // Set corresponding user roles for organization type
         Set<UserRoleType> roles = new HashSet<UserRoleType>();
         for (OrganizationToRole orgToRole : organization.getGrantedRoles()) {
            UserRoleType roleType = orgToRole.getOrganizationRole().getRoleName().correspondingUserRole();
@@ -3051,15 +3074,5 @@ public class IdentityServiceBean
            }
         }
         user.setUserRoles(roles);
-    }
- 
-    private VOUserDetails userMock(){
-        VOUserDetails user = new VOUserDetails();
-        user.setKey(17000);
-        user.setEMail("christian.worf@est.fujitsu.com");
-        user.setUserId("customer@ctmg.onmicrosoft.com");
-        user.setRealmUserId("customer@ctmg.onmicrosoft.com");
-        user.setLocale("en");
-        return user;
     }
 }
