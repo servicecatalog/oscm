@@ -1,7 +1,9 @@
 package org.oscm.identityservice.bean;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -11,15 +13,18 @@ import org.oscm.converter.ParameterizedTypes;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.Organization;
+import org.oscm.domobjects.OrganizationToRole;
 import org.oscm.domobjects.Tenant;
 import org.oscm.identity.ApiIdentityClient;
 import org.oscm.identity.IdentityConfiguration;
 import org.oscm.identity.exception.IdentityClientException;
 import org.oscm.identity.model.AccessType;
 import org.oscm.identityservice.model.AccessGroupModel;
+import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.identityservice.rest.AccessGroup;
 import org.oscm.identityservice.rest.AccessToken;
 import org.oscm.identityservice.rest.Userinfo;
+import org.oscm.internal.types.enumtypes.UserRoleType;
 import org.oscm.internal.types.exception.RegistrationException;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
@@ -35,19 +40,22 @@ public class OidcSynchronizationBean {
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(OidcSynchronizationBean.class);
 
-
     public List<VOUserDetails> getAllUsersFromOIDCForGroup(
             Organization organization, String tenantId, String token) {
-        List<VOUserDetails> usersInGroup = null;
-            usersInGroup =  Userinfo.getAllUserDetailsForGroup(organization.getGroupId(), tenantId, token);
-        return usersInGroup;
+        return getUsersInGroup(organization.getGroupId(), tenantId, token);
+    }
+
+    protected List<VOUserDetails> getUsersInGroup(String organizationId,
+            String tenantId, String token) {
+        return Userinfo.getAllUserDetailsForGroup(organizationId,
+                tenantId, token);
     }
 
     public List<Organization> synchronizeGroups(String tenantId, String token) {
         List<Organization> organizations = new ArrayList<Organization>();
         List<AccessGroupModel> AccessGroupModels = null;
         try {
-            AccessGroupModels = AccessGroup.getAllOrganizationsFromOIDCProvider(tenantId, token);
+            AccessGroupModels = getAllOrganizations(tenantId, token);
         } catch (Exception e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR,
@@ -60,7 +68,13 @@ public class OidcSynchronizationBean {
         return organizations;
     }
 
-    private void synchronizeOIDCGroupsWithOrganizations(
+    protected List<AccessGroupModel> getAllOrganizations(String tenantId,
+            String token) throws Exception {
+        return AccessGroup
+                .getAllOrganizationsFromOIDCProvider(tenantId, token);
+    }
+
+    protected void synchronizeOIDCGroupsWithOrganizations(
             List<Organization> organizations,
             List<AccessGroupModel> AccessGroupModels, int i) {
         try {
@@ -98,8 +112,6 @@ public class OidcSynchronizationBean {
         query.setParameter("groupId", groupId);
         return getOrganizationFromDB(query);
     }
-
- 
 
     private Organization getOrganizationByName(String name) throws Exception {
         Query query = dm
@@ -148,11 +160,45 @@ public class OidcSynchronizationBean {
         }
         return tenantIds;
     }
-    
+
     private List<Tenant> getAllTenantsFromDb() throws Exception {
         Query query = dm.createNamedQuery("Tenant.getAll");
         return ParameterizedTypes.list(query.getResultList(), Tenant.class);
     }
-
+    
+    public UserImportModel getUsersToSynchronizeFromOidcProvider(String tenantId, String token,
+            Organization organization, VOUserDetails usersInGroup, boolean isUserExist) {
+        UserImportModel userImport = null;
+        VOUserDetails user = null;
+        try {
+            user = Userinfo.getUserinfoFromIdentityService(
+                    usersInGroup.getUserId(), tenantId, token);
+            if (!isUserExist) {
+                userImport = new UserImportModel();
+                user.setOrganizationId(organization.getOrganizationId());
+                setUserRole(organization, user);
+                Marketplace mp = getFirstMarktplaceIdFromOrganization(organization);
+                userImport.setMarketplace(mp);
+                userImport.setOrganization(organization);
+            }
+        } catch (Exception e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_ADD_CUSTOMER,
+                    "An error occured while trying to import the User ");
+        }
+        return userImport;
+    }
+    
+    private void setUserRole(Organization organization, VOUserDetails user) {
+        Set<UserRoleType> roles = new HashSet<UserRoleType>();
+        for (OrganizationToRole orgToRole : organization.getGrantedRoles()) {
+            UserRoleType roleType = orgToRole.getOrganizationRole()
+                    .getRoleName().correspondingUserRole();
+            if (roleType != null) {
+                roles.add(roleType);
+            }
+        }
+        user.setUserRoles(roles);
+    }
 
 }

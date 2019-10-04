@@ -91,6 +91,7 @@ public class Userinfo {
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
           //  throw e;
         } finally {
+            if (conn != null)
             conn.disconnect();
         }
         return null;
