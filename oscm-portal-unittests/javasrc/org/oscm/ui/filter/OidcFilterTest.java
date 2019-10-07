@@ -161,7 +161,8 @@ public class OidcFilterTest {
     filter.doFilter(requestMock, responseMock, chainMock);
 
     // THEN
-    verify(filter, times(1)).forward(any(), any(), any());
+    verify(filter, times(0)).forward(any(), any(), any());
+    verify(chainMock, times(0)).doFilter(any(), any());
   }
 
   @Test

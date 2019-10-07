@@ -40,14 +40,6 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
   @Inject private TenantResolver tenantResolver;
 
-  public TenantResolver getTenantResolver() {
-    return tenantResolver;
-  }
-
-  public void setTenantResolver(TenantResolver tr) {
-    this.tenantResolver = tr;
-  }
-
   @Override
   public void init(FilterConfig config) throws ServletException {
     super.init(config);
@@ -113,13 +105,12 @@ public class OidcFilter extends BaseBesFilter implements Filter {
         } catch (IdentityClientException e) {
           LOGGER.logError(
               Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
-          redirectToErrorPage(
-              BaseBean.ERROR_GENERATE_AUTHNREQUEST,
-              errorPage,
-              request,
-              response,
-              rdo,
-              tenantResolver);
+          try {
+            redirectToLoginPage(rdo, httpRequest, httpResponse, tenantResolver);
+          } catch (MarketplaceRemovedException | URISyntaxException ex) {
+            LOGGER.logError(
+                Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+          }
           return;
         }
       }
@@ -147,22 +138,6 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     forward(errorPageURI, request, response);
   }
 
-  private void redirectToErrorPage(
-      String errorMessage,
-      String errorPageURI,
-      ServletRequest request,
-      ServletResponse response,
-      AuthorizationRequestData rdo,
-      TenantResolver tenantResolver) {
-    HttpServletRequest httpRequest = (HttpServletRequest) request;
-    try {
-      String loginUrl = new Login(rdo, httpRequest, tenantResolver).buildUrl();
-      forward(loginUrl, request, response);
-    } catch (URISyntaxException | MarketplaceRemovedException | ServletException | IOException e) {
-      e.printStackTrace();
-    }
-  }
-
   private void redirectToLoginPage(
       AuthorizationRequestData rdo,
       HttpServletRequest httpRequest,
@@ -188,20 +163,13 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     Optional<String> refreshTokenParam =
         Optional.ofNullable(httpRequest.getParameter("refresh_token"));
 
-    if (idTokenParam.isPresent()) {
-      httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, idTokenParam.get());
-    }
-    if (accessTokenParam.isPresent()) {
-      httpRequest
-          .getSession()
-          .setAttribute(Constants.SESS_ATTR_ACCESS_TOKEN, accessTokenParam.get());
-    }
+    idTokenParam.ifPresent(
+        s -> httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ID_TOKEN, s));
+    accessTokenParam.ifPresent(
+        s -> httpRequest.getSession().setAttribute(Constants.SESS_ATTR_ACCESS_TOKEN, s));
 
-    if (refreshTokenParam.isPresent()) {
-      httpRequest
-          .getSession()
-          .setAttribute(Constants.SESS_ATTR_REFRESH_TOKEN, refreshTokenParam.get());
-    }
+    refreshTokenParam.ifPresent(
+        s -> httpRequest.getSession().setAttribute(Constants.SESS_ATTR_REFRESH_TOKEN, s));
   }
 
   class Login {
@@ -243,4 +211,12 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
   @Override
   public void destroy() {}
+
+  public TenantResolver getTenantResolver() {
+    return tenantResolver;
+  }
+
+  public void setTenantResolver(TenantResolver tr) {
+    this.tenantResolver = tr;
+  }
 }
