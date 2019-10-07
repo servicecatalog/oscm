@@ -3009,7 +3009,7 @@ public class IdentityServiceBean
                         if (model != null) {
                             addUserToPlatform(model.getOrganization(),
                                     model.getUser(), model.getMarketplace());
-                        }
+                        } 
                     }
                 }
             }
