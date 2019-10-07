@@ -95,6 +95,10 @@
     <source>header.xhtml</source>
   </tag>
   <tag>
+    <tag-name>headerBootstrap</tag-name>
+    <source>headerBootstrap.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>serviceTags</tag-name>
     <source>serviceTags.xhtml</source>
   </tag>

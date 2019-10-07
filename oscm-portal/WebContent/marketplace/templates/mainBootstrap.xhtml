@@ -43,11 +43,11 @@
     </table>
   </div>
  
-  <a4j:outputPanel id="contentPanelDiv" layout="block"> <!-- styleClass="stage #{stage}" -->
+  <a4j:outputPanel id="contentPanelDiv" layout="block">
     <a id="top" name="top" />
 
     <!-- header -->
-    <mp:header user="#{userBean.loggedInUser}" loginHandler="showLoginPanel('#{defaultLoginRedirect}');return false;" />
+    <mp:headerBootstrap user="#{userBean.loggedInUser}" loginHandler="showLoginPanel('#{defaultLoginRedirect}');return false;" />
     <ui:include src="../login.xhtml">
       <ui:param name="canCloseLogin" value="#{not isMplRestricted}" />
     </ui:include>
@@ -161,7 +161,7 @@
   <c:set var="imprintUrl"
     value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}" />
 
- <footer class="page-footer footer">
+ <footer class="bootstrap_footer">
 
   <div class="container-fluid text-center py-3">
     <ul>

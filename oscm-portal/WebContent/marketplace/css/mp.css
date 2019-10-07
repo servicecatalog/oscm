@@ -415,7 +415,7 @@ table td, div{
 /* main header area containing logo and search bar */
 div.header { 
 	clear: left; 
-	width: 100%; 
+	width: 980px; 
 	margin: 0 auto 1px; 
 	text-align: left;
 	position: relative; 
@@ -426,7 +426,7 @@ div.header a:hover { text-decoration: underline; }
 div.header a img { border: none; }
 
 div.headertop{ 
-	width: 100%; 
+	width: 980px; 
 	background: #CFD4D9; 
 	float:left;
 	margin:0 0 1px;
@@ -439,10 +439,45 @@ div#headerrightarea{
 	display: block; 
 	float: right; width: 626px; 
 	margin: 16px 16px 0 0; 
-  	width:60%;
+  	width:570px;
 }
 
 div#headerrightarea, rightarea a { 
+	color:#333!important;	
+	font-size:110%;
+ }
+ 
+ /* Bootstrap header */
+ div.headerBootstrap { 
+	clear: left; 
+	width: 100%; 
+	margin: 0 auto 1px; 
+	text-align: left;
+	position: relative; 
+}
+ 
+div.headerBootstrap a { text-decoration: none; }
+div.headerBootstrap a:hover { text-decoration: underline; }
+div.headerBootstrap a img { border: none; }
+
+div.headertopBootstrap{ 
+	width: 100%; 
+	background: #CFD4D9; 
+	float:left;
+	margin:0 0 1px;
+}
+
+
+
+/* wrapper block for search and login functions */
+div#headerrightareaBootstrap{ 
+	display: block; 
+	float: right; width: 626px; 
+	margin: 16px 16px 0 0; 
+  	width: 60%;
+}
+
+div#headerrightareaBootstrap, rightarea a { 
 	color:#333!important;	
 	font-size:110%;
  }
@@ -576,7 +611,8 @@ input#Search:focus, #subListForm\:search:focus {
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */			
 			
 /* top navigation wrapper */
-#headerbottom { clear: both; position: relative; display: block; background: #B3B7BC;  width: 100%;  }
+#headerbottom { clear: both; position: relative; display: block; background: #B3B7BC;  width: 980px;   }
+#headerbottomBootstrap { clear: both; position: relative; display: block; background: #B3B7BC;  width: 100%;   }
 #globalnav { padding: 0; }			
 
 /* navigation list elements */
@@ -856,11 +892,12 @@ form .formHighlight textarea{
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 5.1 Main Layout
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.stage { width: 100%;  }
-#stageContent { width: 100%;  }
+.stage { width: 100%;   min-width: 980px;}
+#stageResponsive { width: 100%;  }
+
 #marketplaceStageDefault{
 	background: url(../img/transparentPixel.png) no-repeat;
-	width: 100%;
+    width: 100%;
 }
 
 .bodyarea { position: relative; width: 980px; margin: auto; padding-bottom: 60px; text-align: left; z-index: 900; }
@@ -2821,6 +2858,7 @@ div.pagingOptions p{
 	background: #B3B7BC;
 	border-bottom:1px solid #4c4c4c;
 	width: 100%;
+	min-width: 980px;
 	color: #fff;
 }
 
@@ -2830,6 +2868,8 @@ div.pagingOptions p{
 	width: 100%;
 	color: #fff;
 }
+
+.bootstrap_footer a{ color: #fff; }
 
 .footer a{ color: #fff; }
 	
@@ -2858,6 +2898,20 @@ div.pagingOptions p{
 }
 
 .footer li {
+	display: inline;
+	margin: 0; 
+	margin-left: 
+	16px; 
+}
+
+.bootstrap_footer ul { 
+	font-size: 93%; 
+	list-style: none; 
+	padding: 0; 
+	margin: 0;
+}
+
+.bootstrap_footer li {
 	display: inline;
 	margin: 0; 
 	margin-left: 
