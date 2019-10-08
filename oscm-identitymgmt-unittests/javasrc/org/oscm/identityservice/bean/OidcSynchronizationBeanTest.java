@@ -32,24 +32,6 @@ public class OidcSynchronizationBeanTest {
         oidcSyncBean.dm = dm = mock(DataService.class);
     }
 
-    @Test
-    public void testGetAllUsersFromOIDCForGroup() {
-        // given
-        Organization organization = createOrganization();
-        String groupId = "test";
-        String tenandId = "test";
-        String token = "test";
-        doReturn(new ArrayList<VOUserDetails>()).when(oidcSyncBean)
-                .getUsersInGroup(groupId, tenandId, token);
-        List<VOUserDetails> expected = new ArrayList<VOUserDetails>();
-
-        // when
-        List<VOUserDetails> result = oidcSyncBean
-                .getAllUsersFromOIDCForGroup(organization, tenandId, token);
-
-        // then
-        assertEquals(expected, result);
-    }
 
     @Test
     public void testSynchronizeGroups() throws Exception {

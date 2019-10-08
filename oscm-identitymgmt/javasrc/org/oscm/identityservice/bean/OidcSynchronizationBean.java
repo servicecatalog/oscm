@@ -15,6 +15,9 @@ import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.OrganizationToRole;
 import org.oscm.domobjects.Tenant;
+import org.oscm.identity.ApiIdentityClient;
+import org.oscm.identity.IdentityConfiguration;
+import org.oscm.identity.model.UserInfo;
 import org.oscm.identityservice.model.AccessGroupModel;
 import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.identityservice.rest.AccessGroup;
@@ -28,6 +31,13 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 @Stateless
 public class OidcSynchronizationBean {
 
+    private ApiIdentityClient createClient(String tenantId) {
+        IdentityConfiguration config = IdentityConfiguration.of()
+                .tenantId(tenantId).sessionContext(null).build();
+        ApiIdentityClient client = new ApiIdentityClient(config);
+        return client;
+    }
+
     @EJB(beanInterface = DataService.class)
     protected DataService dm;
 
@@ -36,13 +46,8 @@ public class OidcSynchronizationBean {
 
     public List<VOUserDetails> getAllUsersFromOIDCForGroup(
             Organization organization, String tenantId, String token) {
-        return getUsersInGroup(organization.getGroupId(), tenantId, token);
-    }
-
-    protected List<VOUserDetails> getUsersInGroup(String organizationId,
-            String tenantId, String token) {
-        return Userinfo.getAllUserDetailsForGroup(organizationId, tenantId,
-                token);
+        return Userinfo.getAllUserDetailsForGroup(organization.getGroupId(),
+                tenantId, token);
     }
 
     public List<Organization> synchronizeGroups(String tenantId, String token) {
@@ -168,23 +173,14 @@ public class OidcSynchronizationBean {
             String tenantId, String token, Organization organization,
             VOUserDetails userInGroup, boolean isUserExist) {
         UserImportModel userImport = null;
-        VOUserDetails user = null;
-        try {
-            user = getUserinfoFromIdentityService(tenantId, token, userInGroup);
-            if (!isUserExist) {
-                userImport = new UserImportModel();
-                user.setOrganizationId(organization.getOrganizationId());
-                setUserRole(organization, user);
-                Marketplace mp = getFirstMarktplaceIdFromOrganization(
-                        organization);
-                userImport.setMarketplace(mp);
-                userImport.setOrganization(organization);
-                userImport.setUser(user);
-            }
-        } catch (Exception e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR_ADD_CUSTOMER,
-                    "An error occured while trying to import the User ");
+        if (!isUserExist) {
+            userImport = new UserImportModel();
+            userInGroup.setOrganizationId(organization.getOrganizationId());
+            setUserRole(organization, userInGroup);
+            Marketplace mp = getFirstMarktplaceIdFromOrganization(organization);
+            userImport.setMarketplace(mp);
+            userImport.setOrganization(organization);
+            userImport.setUser(userInGroup);
         }
         return userImport;
     }
