@@ -29,6 +29,7 @@ class UserQuery extends AbstractQuery {
     private String realmUserId = null;
     private String status = null;
     private boolean remoteLdapActive;
+    private String tenantId = null;
 
     private String userKey = null;
 
@@ -39,9 +40,10 @@ class UserQuery extends AbstractQuery {
 
     @Override
     protected String getStatement() {
-        return "SELECT u.userId, u.passwordsalt, u.passwordhash, o.tkey, o.remoteldapactive, u.realmuserid, u.status FROM PlatformUser u, Organization o WHERE u.organizationkey=o.tkey AND u.tkey=?";
+        return "SELECT u.userId, u.passwordsalt, u.passwordhash, o.tkey, o.remoteldapactive, u.realmuserid, u.status, t.tenantid FROM PlatformUser u, Organization o FULL JOIN Tenant t ON o.tenant_tkey=t.tkey WHERE u.organizationkey=o.tkey AND u.tkey=?";
     }
 
+    
     @Override
     protected void mapResult(ResultSet rs) throws SQLException {
         userId = rs.getString(1);
@@ -51,6 +53,7 @@ class UserQuery extends AbstractQuery {
         remoteLdapActive = rs.getBoolean(5);
         realmUserId = rs.getString(6);
         status = rs.getString(7);
+        tenantId = rs.getString(8);
     }
 
     @Override
@@ -91,5 +94,9 @@ class UserQuery extends AbstractQuery {
     public String getStatus() {
         return status;
     }
+    
+    public String getTenantId() {
+      return tenantId;
+  }
 
 }

@@ -23,8 +23,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -109,8 +107,7 @@ public class ADMRealmImplIT extends EJBTestBase {
         doReturn("").when(realm).findAndBind(any(Properties.class), anyString(),
                 anyString(), anyString());
         acs = mock(AssertionConsumerService.class);
-        doReturn(acs).when(realm).getAssertionConsumerService(
-                any(AuthenticationModeQuery.class));
+       
         doNothing().when(acs).validateResponse(anyString(), anyString(),
                 eq(tenantID));
     }
@@ -278,19 +275,7 @@ public class ADMRealmImplIT extends EJBTestBase {
             throw e;
         }
     }
-
-    @Test
-    public void handleUICaller() throws Exception {
-
-        // when
-        realm.handleUICaller(ANY_KEY, UI_PASSWORD,
-                mock(AuthenticationModeQuery.class));
-
-        // then
-        verify(acs, times(1)).validateResponse(SAML_RESPONSE, REQUEST_ID,
-                TENANT_ID);
-    }
-
+    
     @Test
     public void handleWebServiceCaller_positive() throws LoginException {
 
@@ -342,8 +327,6 @@ public class ADMRealmImplIT extends EJBTestBase {
     }
 
     private void mockCallerHandlers() throws Exception {
-        doNothing().when(realm).handleUICaller(anyString(), anyString(),
-                any(AuthenticationModeQuery.class));
         doNothing().when(realm).handleWebServiceCaller(anyString(),
                 anyString());
         doNothing().when(realm).handleOperatorClientCaller(anyString(),
