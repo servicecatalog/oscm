@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.oscm.portal</groupId>
   <artifactId>oscm-portal-integrationtests</artifactId>
-  <version>16.2.5-SNAPSHOT</version>
+  <version>master-SNAPSHOT</version>
 
   <name>${project.artifactId}-${project.version}</name>
   <url>https://github.com/servicecatalog</url>
@@ -46,7 +46,7 @@
     <dependency>
       <groupId>org.oscm.webtest</groupId>
       <artifactId>oscm-webtest-base</artifactId>
-      <version>16.1.5-SNAPSHOT</version>
+      <version>master-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     
