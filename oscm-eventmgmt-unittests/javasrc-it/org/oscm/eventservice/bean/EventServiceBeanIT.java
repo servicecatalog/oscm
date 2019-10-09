@@ -22,6 +22,7 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.converter.ParameterizedTypes;
 import org.oscm.dataservice.bean.DataServiceBean;
@@ -56,6 +57,8 @@ import org.oscm.types.enumtypes.PlatformEventIdentifier;
  * @author Mike J&auml;ger
  * 
  */
+// FIXME https://github.com/servicecatalog/oscm/issues/490
+@Ignore
 public class EventServiceBeanIT extends EJBTestBase {
 
     private static final String USER_KEY_EXISTING = "1";
