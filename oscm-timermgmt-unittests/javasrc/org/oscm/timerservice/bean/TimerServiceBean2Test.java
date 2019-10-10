@@ -187,10 +187,8 @@ public class TimerServiceBean2Test {
                 if (timerType == TimerType.DISCOUNT_END_CHECK) {
                     assertEquals("Wrong interval specified for timer", 0,
                             timer.getIntervalDuration());
-                } else if (timerType == TimerType.USER_NUM_CHECK) {
-                    assertEquals("Wrong interval specified for timer", 43200000,
-                            timer.getIntervalDuration());
-                } else if (timerType == TimerType.SYNCHRONIZE_USERS_WITH_OIDC_PROVIDER) {
+                } else if (timerType == TimerType.USER_NUM_CHECK
+                        || timerType == TimerType.SYNCHRONIZE_USERS_WITH_OIDC_PROVIDER) {
                     assertEquals("Wrong interval specified for timer", 43200000,
                             timer.getIntervalDuration());
                 } else {
