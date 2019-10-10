@@ -43,7 +43,6 @@ public class OidcSynchronizationBeanTest {
     public void testSynchronizeGroups() throws Exception {
         // given
         String tenantId = "";
-        String token = "";
         List<GroupInfo> accessGroupModels = new ArrayList<GroupInfo>();
         accessGroupModels.add(createAccessGroupModel());
         doReturn(accessGroupModels).when(oidcSyncBean)
@@ -168,15 +167,11 @@ public class OidcSynchronizationBeanTest {
             throws Exception {
         // given
         String tenantId = "default";
-        String token = "";
         Organization organization = createOrganization();
         VOUserDetails userInGroup = new VOUserDetails();
         userInGroup.setUserId("test");
-        doReturn(userInGroup).when(oidcSyncBean)
-                .getUserinfoFromIdentityService(tenantId, token, userInGroup);
 
         // when
-
         UserImportModel result = oidcSyncBean
                 .getUsersToSynchronizeFromOidcProvider(tenantId, organization,
                         userInGroup, true);
@@ -190,15 +185,11 @@ public class OidcSynchronizationBeanTest {
             throws Exception {
         // given
         String tenantId = "default";
-        String token = "";
         Organization organization = createOrganization();
         VOUserDetails userInGroup = new VOUserDetails();
         userInGroup.setUserId("test");
-        doReturn(userInGroup).when(oidcSyncBean)
-                .getUserinfoFromIdentityService(tenantId, token, userInGroup);
-
+        
         // when
-
         UserImportModel result = oidcSyncBean
                 .getUsersToSynchronizeFromOidcProvider(tenantId, organization,
                         userInGroup, false);

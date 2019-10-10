@@ -210,12 +210,6 @@ public class OidcSynchronizationBean {
         return userImport;
     }
 
-    protected VOUserDetails getUserinfoFromIdentityService(String tenantId,
-            String token, VOUserDetails userInGroup) throws Exception {
-        return Userinfo.getUserinfoFromIdentityService(userInGroup.getUserId(),
-                tenantId, token);
-    }
-
     private void setUserRole(Organization organization, VOUserDetails user) {
         Set<UserRoleType> roles = new HashSet<UserRoleType>();
         for (OrganizationToRole orgToRole : organization.getGrantedRoles()) {
