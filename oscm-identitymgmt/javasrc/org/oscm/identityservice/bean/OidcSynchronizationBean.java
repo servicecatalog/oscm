@@ -234,6 +234,4 @@ public class OidcSynchronizationBean {
         ApiIdentityClient client = new ApiIdentityClient(config);
         return client;
     }
-
-
 }
