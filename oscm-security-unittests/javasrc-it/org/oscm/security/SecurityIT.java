@@ -34,7 +34,6 @@ import javax.sql.DataSource;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import org.oscm.test.BaseAdmUmTest;
 import org.oscm.test.db.ITestDB;

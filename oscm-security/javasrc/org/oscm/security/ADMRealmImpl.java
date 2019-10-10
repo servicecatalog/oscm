@@ -10,7 +10,6 @@
 
 package org.oscm.security;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -34,15 +33,10 @@ import javax.naming.directory.SearchControls;
 import javax.naming.directory.SearchResult;
 import javax.security.auth.login.LoginException;
 import javax.sql.DataSource;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.oscm.authorization.PasswordHash;
 import org.oscm.internal.types.enumtypes.AuthenticationMode;
 import org.oscm.internal.types.enumtypes.UserRoleType;
-import org.oscm.internal.types.exception.AssertionValidationException;
-import org.oscm.internal.types.exception.DigitalSignatureValidationException;
-import org.oscm.saml2.api.AssertionConsumerService;
-import org.xml.sax.SAXException;
 
 /**
  * Login implementation for supporting authentication on the base of the local
@@ -68,8 +62,6 @@ public class ADMRealmImpl {
             .name();
     protected static final List<String> GROUPLIST_USER = new ArrayList<String>(Arrays.asList(GROUP_USER));
 
-    private static final int SAML_REQUEST_ID_LEN = 43;
-    private static final int SAML_TENANT_ID_LEN = 8;
     private static final int SSO_CALLER_SPEC_LEN = 2;
     private static final int WS_PASSWORD_AGE_MILLIS = 300000;
 
@@ -135,12 +127,13 @@ public class ADMRealmImpl {
             AuthenticationModeQuery authModeQuery = getAuthenticationModeQuery();
             authModeQuery.execute();
 
-            if (AuthenticationMode.INTERNAL.name()
-                    .equals(authModeQuery.getAuthenticationMode())) {
-            	handleInternalLogin(userKey, password, userQuery);
-            } 
+            if (AuthenticationMode.OIDC.name().equals(
+                    authModeQuery.getAuthenticationMode())) {
+                handleOIDCLogin(userKey, password, userQuery);
+            } else {
+                handleInternalLogin(userKey, password, userQuery);
+            }
             
-           
             List<String> roles = loadRoleNames(userKey);
 
             return roles;
@@ -150,6 +143,10 @@ public class ADMRealmImpl {
             e.printStackTrace();
             throw new LoginException(ERR_DB_LOOKUP);
         }
+    }
+
+    private void handleOIDCLogin(String userKey, String password, UserQuery userQuery) {
+        // todo
     }
 
     void handleInternalLogin(String userKey, String password,
@@ -188,45 +185,7 @@ public class ADMRealmImpl {
 
         }
     }
-
-    void handleUICaller(final String userKey, String password,
-            AuthenticationModeQuery authModeQuery) throws LoginException {
-
-        /*String requestId = password.substring(SSO_CALLER_SPEC_LEN,
-                SAML_REQUEST_ID_LEN + SSO_CALLER_SPEC_LEN);
-        int passwordLen = SSO_CALLER_SPEC_LEN + SAML_REQUEST_ID_LEN;
-        String tenantID = password.substring(passwordLen,
-                passwordLen + SAML_TENANT_ID_LEN);
-        String samlResponse = password.substring(
-                SSO_CALLER_SPEC_LEN + SAML_REQUEST_ID_LEN + SAML_TENANT_ID_LEN);
-
-        AssertionConsumerService assertionConsumerService = getAssertionConsumerService(
-                authModeQuery);
-
-        try {
-            assertionConsumerService.validateResponse(samlResponse, requestId,
-                    tenantID);
-        } catch (DigitalSignatureValidationException
-                | AssertionValidationException | ParserConfigurationException
-                | SAXException | IOException e) {
-            logger.info(String.format(
-                    "Single Sign On: User with key '%s' (tenantID: '%s') not logged in. Error validating the SAML response.\n" //
-                            + "Reason: %s.\n" //
-                            + "SAML response: %s\n", //
-                    userKey, tenantID, e.getMessage(), samlResponse));
-            throw new LoginException(e.getMessage());
-        }*/
-    }
-
-    AssertionConsumerService getAssertionConsumerService(
-            AuthenticationModeQuery authModeQuery) {
-        AssertionConsumerService assertionConsumerService = new AssertionConsumerService(
-                authModeQuery.getRecipient(), authModeQuery.getRecipientHttps(),
-                authModeQuery.getIDPTruststore(),
-                authModeQuery.getIDPTruststorePassword());
-        return assertionConsumerService;
-    }
-
+   
     void handleWebServiceCaller(String userKey, String password)
             throws LoginException {
         String wsPassword = password.substring(SSO_CALLER_SPEC_LEN);
@@ -331,7 +290,7 @@ public class ADMRealmImpl {
             }
         }
     }
-
+    
     private void logAndThrowException(String message) throws LoginException {
         logger.info(message);
         throw new LoginException(message);
