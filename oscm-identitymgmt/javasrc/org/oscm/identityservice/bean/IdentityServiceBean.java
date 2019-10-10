@@ -62,7 +62,6 @@ import org.oscm.domobjects.ConfigurationSetting;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.OnBehalfUserReference;
 import org.oscm.domobjects.Organization;
-import org.oscm.domobjects.OrganizationToRole;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.RoleAssignment;
 import org.oscm.domobjects.Session;
@@ -76,11 +75,6 @@ import org.oscm.domobjects.UserGroup;
 import org.oscm.domobjects.UserRole;
 import org.oscm.domobjects.enums.ModificationType;
 import org.oscm.id.IdGenerator;
-import org.oscm.identity.ApiIdentityClient;
-import org.oscm.identity.IdentityConfiguration;
-import org.oscm.identity.exception.IdentityClientException;
-import org.oscm.identity.model.AccessType;
-import org.oscm.identity.model.UserInfo;
 import org.oscm.identityservice.assembler.UserDataAssembler;
 import org.oscm.identityservice.bean.BulkUserImportReader.Row;
 import org.oscm.identityservice.control.SendMailControl;
@@ -91,11 +85,9 @@ import org.oscm.identityservice.local.LdapAccessServiceLocal;
 import org.oscm.identityservice.local.LdapConnector;
 import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
 import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
-import org.oscm.identityservice.model.AccessTokenModel;
 import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
 import org.oscm.identityservice.rest.AccessGroup;
-import org.oscm.identityservice.rest.AccessToken;
 import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
@@ -164,7 +156,6 @@ import org.oscm.validation.ArgumentValidator;
 import org.oscm.validator.BLValidator;
 import org.oscm.vo.BaseAssembler;
 
-import com.google.gson.Gson;
 
 /**
  * Session Bean implementation class IdentityServiceBean
@@ -2978,6 +2969,7 @@ public class IdentityServiceBean
     }
     
     @Override
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public boolean synchronizeUsersAndGroupsWithOIDCProvider() {
 
         List<String> tenantIds = oidcSynchronizationBean
@@ -2985,17 +2977,13 @@ public class IdentityServiceBean
 
         for (int tenantIndex = 0; tenantIds
                 .size() > tenantIndex; tenantIndex++) {
-
             String tenantId = tenantIds.get(tenantIndex);
-            String token = getOidcToken(tenantId);
             List<Organization> synchronizedOrganizations = oidcSynchronizationBean
-                    .synchronizeGroups(tenantId, token);
+                    .synchronizeGroups(tenantId);
             for (int i = 0; i < synchronizedOrganizations.size(); i++) {
                 Organization organization = synchronizedOrganizations.get(i);
                 List<VOUserDetails> usersInGroup = oidcSynchronizationBean
-                        .getAllUsersFromOIDCForGroup(organization, tenantId,
-                                token);
-
+                        .getAllUsersFromOIDCForGroup(organization, tenantId);
                 if (usersInGroup != null) {
                     for (int j = 0; j < usersInGroup.size(); j++) {
                         VOUserDetails user = usersInGroup.get(j);
@@ -3004,12 +2992,12 @@ public class IdentityServiceBean
 
                         UserImportModel model = oidcSynchronizationBean
                                 .getUsersToSynchronizeFromOidcProvider(tenantId,
-                                        token, organization, user,
+                                        organization, user,
                                         isUserExistInPlatform);
                         if (model != null) {
                             addUserToPlatform(model.getOrganization(),
                                     model.getUser(), model.getMarketplace());
-                        } 
+                        }
                     }
                 }
             }
@@ -3039,20 +3027,5 @@ public class IdentityServiceBean
                     "An error occured while trying to import the User "
                             + user.getOrganizationId());
         }
-    }
-
-    private String getOidcToken(String tenantId) {
-        IdentityConfiguration config = IdentityConfiguration.of()
-                .tenantId(tenantId).sessionContext(null).build();
-        ApiIdentityClient client = new ApiIdentityClient(config);
-        String token = "";
-        try {
-            token = client.getAccessToken(AccessType.IDP);
-        } catch (IdentityClientException e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED,
-                    "Can´t get the OIDC token.");
-        }
-        return token;
     }
 }

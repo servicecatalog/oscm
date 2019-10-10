@@ -1,3 +1,11 @@
+/*******************************************************************************
+ *                                                                              
+ *  Copyright FUJITSU LIMITED 2019
+ *                                                                              
+ *  Creation Date: 10.10.2019                                                      
+ *                                                                              
+ *******************************************************************************/
+
 package org.oscm.identityservice.bean;
 
 import static org.mockito.Mockito.spy;
@@ -5,14 +13,13 @@ import static org.mockito.Mockito.spy;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.Tenant;
-import org.oscm.identityservice.model.AccessGroupModel;
+import org.oscm.identity.model.GroupInfo;
 import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.internal.vo.VOUserDetails;
 
@@ -32,33 +39,32 @@ public class OidcSynchronizationBeanTest {
         oidcSyncBean.dm = dm = mock(DataService.class);
     }
 
-
     @Test
     public void testSynchronizeGroups() throws Exception {
         // given
         String tenantId = "";
         String token = "";
-        List<AccessGroupModel> accessGroupModels = new ArrayList<AccessGroupModel>();
+        List<GroupInfo> accessGroupModels = new ArrayList<GroupInfo>();
         accessGroupModels.add(createAccessGroupModel());
         doReturn(accessGroupModels).when(oidcSyncBean)
-        .getAllOrganizations(tenantId, token);
+                .getAllOrganizations(tenantId);
         doReturn(createOrganization()).when(oidcSyncBean)
-        .synchronizeOIDCGroupsWithOrganizations(createAccessGroupModel());
+                .synchronizeOIDCGroupsWithOrganizations(
+                        createAccessGroupModel());
 
         List<Organization> expected = new ArrayList<Organization>();
         expected.add(createOrganization());
 
         // when
-        List<Organization> result = oidcSyncBean.synchronizeGroups(tenantId,
-                token);
+        List<Organization> result = oidcSyncBean.synchronizeGroups(tenantId);
 
         // then
         assertEquals(expected.get(0).getGroupId(), result.get(0).getGroupId());
         assertEquals(expected.get(0).getName(), result.get(0).getName());
     }
 
-    public AccessGroupModel createAccessGroupModel() {
-        AccessGroupModel model = new AccessGroupModel();
+    public GroupInfo createAccessGroupModel() {
+        GroupInfo model = new GroupInfo();
         model.setId("1");
         model.setDescription("test");
         model.setName("test");
@@ -73,7 +79,7 @@ public class OidcSynchronizationBeanTest {
         // organization.setName("test");
         doReturn(organization).when(oidcSyncBean).getOrganizationByGroupId("1");
         doReturn(organization).when(oidcSyncBean).getOrganizationByName("test");
-        AccessGroupModel model = createAccessGroupModel();
+        GroupInfo model = createAccessGroupModel();
 
         // when
         Organization result = oidcSyncBean
@@ -89,7 +95,7 @@ public class OidcSynchronizationBeanTest {
         Organization organization = createOrganization();
         doReturn(null).when(oidcSyncBean).getOrganizationByGroupId("1");
         doReturn(organization).when(oidcSyncBean).getOrganizationByName("test");
-        AccessGroupModel model = createAccessGroupModel();
+        GroupInfo model = createAccessGroupModel();
 
         // when
         Organization result = oidcSyncBean
@@ -158,7 +164,8 @@ public class OidcSynchronizationBeanTest {
     }
 
     @Test
-    public void testGetUsersToSynchronizeFromOidcProviderWithExistingUser() throws Exception {
+    public void testGetUsersToSynchronizeFromOidcProviderWithExistingUser()
+            throws Exception {
         // given
         String tenantId = "default";
         String token = "";
@@ -171,15 +178,16 @@ public class OidcSynchronizationBeanTest {
         // when
 
         UserImportModel result = oidcSyncBean
-                .getUsersToSynchronizeFromOidcProvider(tenantId, token,
-                        organization, userInGroup, true);
+                .getUsersToSynchronizeFromOidcProvider(tenantId, organization,
+                        userInGroup, true);
 
         // then
         assertEquals(null, result);
     }
-    
+
     @Test
-    public void testGetUsersToSynchronizeFromOidcProviderWithoutExistingUser() throws Exception {
+    public void testGetUsersToSynchronizeFromOidcProviderWithoutExistingUser()
+            throws Exception {
         // given
         String tenantId = "default";
         String token = "";
@@ -192,8 +200,8 @@ public class OidcSynchronizationBeanTest {
         // when
 
         UserImportModel result = oidcSyncBean
-                .getUsersToSynchronizeFromOidcProvider(tenantId, token,
-                        organization, userInGroup, false);
+                .getUsersToSynchronizeFromOidcProvider(tenantId, organization,
+                        userInGroup, false);
 
         // then
         assertEquals(null, result.getMarketplace());

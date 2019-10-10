@@ -1,3 +1,11 @@
+/*******************************************************************************
+ *                                                                              
+ *  Copyright FUJITSU LIMITED 2018
+ *                                                                              
+ *  Creation Date: 10.10.2019                                                      
+ *                                                                              
+ *******************************************************************************/
+
 package org.oscm.identityservice.bean;
 
 import java.util.ArrayList;
@@ -17,10 +25,11 @@ import org.oscm.domobjects.OrganizationToRole;
 import org.oscm.domobjects.Tenant;
 import org.oscm.identity.ApiIdentityClient;
 import org.oscm.identity.IdentityConfiguration;
+import org.oscm.identity.exception.IdentityClientException;
+import org.oscm.identity.mapper.UserMapper;
+import org.oscm.identity.model.GroupInfo;
 import org.oscm.identity.model.UserInfo;
-import org.oscm.identityservice.model.AccessGroupModel;
 import org.oscm.identityservice.model.UserImportModel;
-import org.oscm.identityservice.rest.AccessGroup;
 import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.internal.types.enumtypes.UserRoleType;
 import org.oscm.internal.vo.VOUserDetails;
@@ -30,13 +39,8 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 
 @Stateless
 public class OidcSynchronizationBean {
-
-    private ApiIdentityClient createClient(String tenantId) {
-        IdentityConfiguration config = IdentityConfiguration.of()
-                .tenantId(tenantId).sessionContext(null).build();
-        ApiIdentityClient client = new ApiIdentityClient(config);
-        return client;
-    }
+    
+    private static String DEFAULT_TENANT = "default"; 
 
     @EJB(beanInterface = DataService.class)
     protected DataService dm;
@@ -45,20 +49,30 @@ public class OidcSynchronizationBean {
             .getLogger(OidcSynchronizationBean.class);
 
     public List<VOUserDetails> getAllUsersFromOIDCForGroup(
-            Organization organization, String tenantId, String token) {
-        return Userinfo.getAllUserDetailsForGroup(organization.getGroupId(),
-                tenantId, token);
+            Organization organization, String tenantId) {
+        ApiIdentityClient client = createClient(tenantId);
+        List<VOUserDetails> userInfo = null;
+        try {
+            Set<UserInfo> info = client
+                    .getGroupMembers(organization.getGroupId());
+            userInfo = (List<VOUserDetails>) UserMapper.fromSet(info);
+        } catch (IdentityClientException e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR,
+                    "An error occured while get the group members from the OIDC Provider");
+        }
+        return userInfo;
     }
 
-    public List<Organization> synchronizeGroups(String tenantId, String token) {
+    public List<Organization> synchronizeGroups(String tenantId) {
         List<Organization> organizations = new ArrayList<Organization>();
-        List<AccessGroupModel> accessGroupModels = null;
+        List<GroupInfo> accessGroupModels = null;
         try {
-            accessGroupModels = getAllOrganizations(tenantId, token);
+            accessGroupModels = getAllOrganizations(tenantId);
         } catch (Exception e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR,
-                    "An error occured while get the organizations from the OIDC Provider");
+                    "An error occured while getting the groups from the OIDC Provider");
         }
         if (accessGroupModels != null) {
             for (int i = 0; accessGroupModels.size() > i; i++) {
@@ -72,13 +86,25 @@ public class OidcSynchronizationBean {
         return organizations;
     }
 
-    protected List<AccessGroupModel> getAllOrganizations(String tenantId,
-            String token) throws Exception {
-        return AccessGroup.getAllOrganizationsFromOIDCProvider(tenantId, token);
+    protected List<GroupInfo> getAllOrganizations(String tenantId)
+            throws Exception {
+        ApiIdentityClient client = createClient(tenantId);
+        ArrayList<GroupInfo> groupInfo = new ArrayList<GroupInfo>();
+        Set<GroupInfo> info = null;
+        try {
+            info = client.getGroups();
+            info.size();
+        } catch (IdentityClientException e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR,
+                    "An error occured while getting the groups from the OIDC Provider");
+        }
+        groupInfo.addAll(info);
+        return groupInfo;
     }
 
     protected Organization synchronizeOIDCGroupsWithOrganizations(
-            AccessGroupModel accessGroupModel) {
+            GroupInfo accessGroupModel) {
         try {
             Organization organization = getOrganizationByGroupId(
                     accessGroupModel.getId());
@@ -128,7 +154,7 @@ public class OidcSynchronizationBean {
                 .list(query.getResultList(), Organization.class);
         if (organization.size() > 1) {
             throw new Exception(
-                    "More than one Organization for the given groupId");
+                    "More than one Organization exists for the given groupId");
         } else if (organization.size() > 0) {
             return organization.get(0);
         } else {
@@ -147,8 +173,7 @@ public class OidcSynchronizationBean {
 
     public List<String> getAllTenantIdsForSynchronization() {
         List<String> tenantIds = new ArrayList<String>();
-        tenantIds.add("default"); // it´s necessary to add the default user,
-                                  // because he is not in the DB but needed.
+        tenantIds.add(DEFAULT_TENANT); // it´s necessary to add the default tenant, because he is not in the DB but needed.
         try {
             List<Tenant> tenants = getAllTenantsFromDb();
             if (tenants != null) {
@@ -170,7 +195,7 @@ public class OidcSynchronizationBean {
     }
 
     public UserImportModel getUsersToSynchronizeFromOidcProvider(
-            String tenantId, String token, Organization organization,
+            String tenantId, Organization organization,
             VOUserDetails userInGroup, boolean isUserExist) {
         UserImportModel userImport = null;
         if (!isUserExist) {
@@ -202,5 +227,13 @@ public class OidcSynchronizationBean {
         }
         user.setUserRoles(roles);
     }
+    
+    private ApiIdentityClient createClient(String tenantId) {
+        IdentityConfiguration config = IdentityConfiguration.of()
+                .tenantId(tenantId).sessionContext(null).build();
+        ApiIdentityClient client = new ApiIdentityClient(config);
+        return client;
+    }
+
 
 }
