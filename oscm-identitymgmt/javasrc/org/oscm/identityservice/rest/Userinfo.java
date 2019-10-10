@@ -34,7 +34,7 @@ public class Userinfo {
 
     public static VOUserDetails getUserinfoFromIdentityService(String userId,
             String tenantId, String token) throws Exception {
-        String response = "";
+        String response = ""; 
         HttpURLConnection conn = null;
         try {
             URL url = new URL(createUrl(userId, tenantId));
