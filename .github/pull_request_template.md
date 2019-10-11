@@ -6,7 +6,7 @@
 - [ ] changes were tested manually
 - [ ] unit tests were properly implemented
 - [ ] communication about interdependent changes has been sent to the team (if applicable)
-- [ ] respective Jenkis jobs were referenced in *additional context* section of this PR
+- [ ] respective Jenkins jobs were referenced in *additional context* section of this PR
 
 **OSCM Build References:**
 - [OSCM Build And Push job](http://link-to-latest-passing-jenkins-job.com)
