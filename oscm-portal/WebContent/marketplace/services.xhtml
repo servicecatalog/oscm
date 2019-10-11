@@ -110,7 +110,7 @@
 								rating="#{service.rating}" />
 							<mp:servicePrice styleClass="servicePriceDetails"
 								service="#{service}" />
-							<h:link id="showDetails#{status.index}" outcome="serviceDetails"
+					 		<h:link id="showDetails#{status.index}" outcome="serviceDetails"
 								class="button linkBtn" value="#{msg['button.showDetails']}"
 								onclick="AdmUtils.showProgress(true);">
 								<f:param name="selectedServiceKey" value="#{service.key}" />
