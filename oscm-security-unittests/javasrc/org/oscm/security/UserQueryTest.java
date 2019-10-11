@@ -59,7 +59,7 @@ public class UserQueryTest {
         query.execute();
         assertEquals(1, createdStatement.getAllValues().size());
         assertEquals(
-                "SELECT u.userId, u.passwordsalt, u.passwordhash, o.tkey, o.remoteldapactive, u.realmuserid, u.status FROM PlatformUser u, Organization o WHERE u.organizationkey=o.tkey AND u.tkey=?",
+                "SELECT u.userId, u.passwordsalt, u.passwordhash, o.tkey, o.remoteldapactive, u.realmuserid, u.status, t.tenantid FROM PlatformUser u, Organization o FULL JOIN Tenant t ON o.tenant_tkey=t.tkey WHERE u.organizationkey=o.tkey AND u.tkey=?",
                 createdStatement.getValue());
     }
 
@@ -73,7 +73,7 @@ public class UserQueryTest {
     @Test
     public void verifyEvaluation_UserId() throws Exception {
         addEntry("userId", "123", "hash", "12345", "false", "realmUserId",
-                UserAccountStatus.ACTIVE.name());
+                UserAccountStatus.ACTIVE.name(), null);
         query.execute();
         assertEquals("userId", query.getUserId());
     }
@@ -81,7 +81,7 @@ public class UserQueryTest {
     @Test
     public void verifyEvaluation_PwdSalt() throws Exception {
         addEntry("userId", "123", "hash", "12345", "false", "realmUserId",
-                UserAccountStatus.ACTIVE.name());
+                UserAccountStatus.ACTIVE.name(), null);
         query.execute();
         assertEquals(123, query.getPasswordSalt());
     }
@@ -89,7 +89,7 @@ public class UserQueryTest {
     @Test
     public void verifyEvaluation_PwdHash() throws Exception {
         addEntry("userId", "123", "hash", "12345", "false", "realmUserId",
-                UserAccountStatus.ACTIVE.name());
+                UserAccountStatus.ACTIVE.name(), null);
         query.execute();
         assertEquals("hash", new String(query.getPasswordHash()));
     }
@@ -97,7 +97,7 @@ public class UserQueryTest {
     @Test
     public void verifyEvaluation_orgKey() throws Exception {
         addEntry("userId", "123", "hash", "12349", "false", "realmUserId",
-                UserAccountStatus.ACTIVE.name());
+                UserAccountStatus.ACTIVE.name(), null);
         query.execute();
         assertEquals(12349, query.getOrgKey().longValue());
     }
@@ -105,7 +105,7 @@ public class UserQueryTest {
     @Test
     public void verifyEvaluation_remoteLdapActiveTrue() throws Exception {
         addEntry("userId", "123", "hash", "12349", "true", "realmUserId",
-                UserAccountStatus.ACTIVE.name());
+                UserAccountStatus.ACTIVE.name(), null);
         query.execute();
         assertTrue(query.isRemoteLdapActive());
     }
@@ -113,7 +113,7 @@ public class UserQueryTest {
     @Test
     public void verifyEvaluation_realmUserId() throws Exception {
         addEntry("userId", "123", "hash", "12349", "false", "realmUserId",
-                UserAccountStatus.ACTIVE.name());
+                UserAccountStatus.ACTIVE.name(), null);
         query.execute();
         assertEquals("realmUserId", query.getRealmUserId());
     }
@@ -121,9 +121,17 @@ public class UserQueryTest {
     @Test
     public void verifyEvaluation_userStatus() throws Exception {
         addEntry("userId", "123", "hash", "12349", "false", "realmUserId",
-                UserAccountStatus.ACTIVE.name());
+                UserAccountStatus.ACTIVE.name(), null);
         query.execute();
         assertEquals("ACTIVE", query.getStatus());
+    }
+    
+    @Test
+    public void verifyEvaluation_tenantId() throws Exception {
+        addEntry("userId", "123", "hash", "12349", "false", "realmUserId",
+                UserAccountStatus.ACTIVE.name(), "f343d1c6");
+        query.execute();
+        assertEquals("f343d1c6", query.getTenantId());
     }
 
     @SuppressWarnings("boxing")
@@ -190,6 +198,8 @@ public class UserQueryTest {
             return currentEntry.realmUserId;
         case 7:
             return currentEntry.userStatus;
+        case 8:
+            return currentEntry.tenantId;    
         default:
             throw new RuntimeException("invalid column number");
         }
@@ -197,9 +207,9 @@ public class UserQueryTest {
 
     private void addEntry(String userId, String passwordSalt,
             String passwordHash, String orgKey, String remoteLdapActive,
-            String realmUserId, String userStatus) {
+            String realmUserId, String userStatus, String tenantId) {
         entries.add(new ResultEntry(userId, passwordSalt, passwordHash, orgKey,
-                remoteLdapActive, realmUserId, userStatus));
+                remoteLdapActive, realmUserId, userStatus, tenantId));
         entryIterator = entries.iterator();
     }
 
@@ -211,10 +221,11 @@ public class UserQueryTest {
         String remoteLdapActive;
         String realmUserId;
         String userStatus;
+        String tenantId;
 
         ResultEntry(String userId, String passwordSalt, String passwordHash,
                 String orgKey, String remoteLdapActive, String realmUserId,
-                String userStatus) {
+                String userStatus, String tenantId) {
             this.userId = userId;
             this.passwordSalt = passwordSalt;
             this.passwordHash = passwordHash;
@@ -222,6 +233,7 @@ public class UserQueryTest {
             this.remoteLdapActive = remoteLdapActive;
             this.realmUserId = realmUserId;
             this.userStatus = userStatus;
+            this.tenantId = tenantId;
         }
     }
 

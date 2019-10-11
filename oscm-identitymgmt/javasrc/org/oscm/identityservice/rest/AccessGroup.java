@@ -9,9 +9,12 @@ package org.oscm.identityservice.rest;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
+import org.oscm.domobjects.Organization;
 import org.oscm.identityservice.model.AccessGroupModel;
 import org.oscm.identityservice.model.UserinfoModel;
 import org.oscm.internal.types.exception.RegistrationException;
@@ -21,6 +24,7 @@ import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class AccessGroup {
 
@@ -43,8 +47,6 @@ public class AccessGroup {
                 throwRegistrationException(conn);
             }
             String response = RestUtils.getResponse(conn.getInputStream());
-            conn.disconnect();
-
             group = createAccessGroupModelFromJson(response);
             return group.getId();
         } catch (Exception e) {
@@ -73,7 +75,6 @@ public class AccessGroup {
             if (!RestUtils.isResponseSuccessful(conn.getResponseCode())) {
                 throwRegistrationException(conn);
             }
-            conn.disconnect();
         } catch (Exception e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
@@ -83,6 +84,30 @@ public class AccessGroup {
               conn.disconnect();
         }
     }
+    
+    public static List<AccessGroupModel> getAllOrganizationsFromOIDCProvider(String tenantId, String token) throws Exception {
+        HttpURLConnection conn = null;
+        try {
+            URL url = new URL(createUrlForGroups(tenantId));
+            conn = createConnectionForGetUser(url, token);
+            conn.connect();
+
+            if (!RestUtils.isResponseSuccessful(conn.getResponseCode())) {
+                throwRegistrationException(conn);
+            }
+            
+            String response = RestUtils.getResponse(conn.getInputStream());
+            return createAcessGroupModelListFromJson(response);
+        } catch (Exception e) {
+            logger.logError(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.WARN_ORGANIZATION_REGISTRATION_FAILED);
+            throw e;
+        } finally {
+            if (conn != null)
+              conn.disconnect();
+        }
+    }
+
 
     private  static void throwRegistrationException(HttpURLConnection conn)
             throws IOException, RegistrationException {
@@ -100,6 +125,17 @@ public class AccessGroup {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");
+        conn.setRequestProperty("Authorization", "Bearer " + tokenId);
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setRequestProperty("Accept", "application/json");
+        logger.logDebug("Connection to identity service successful");
+        return conn;
+    }
+    
+    protected static HttpURLConnection createConnectionForGetUser(URL url, String tokenId)
+            throws IOException {
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
         conn.setRequestProperty("Authorization", "Bearer " + tokenId);
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setRequestProperty("Accept", "application/json");
@@ -163,5 +199,13 @@ public class AccessGroup {
         Gson gson = new Gson();
         return gson.fromJson(json, AccessGroupModel.class);
     }
+    
+    protected static List<AccessGroupModel> createAcessGroupModelListFromJson(String json){
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<AccessGroupModel>>(){}.getType();
+        List<AccessGroupModel> accessGroups = (List<AccessGroupModel>) gson.fromJson(json.toString(), type);
+        return accessGroups;
+    }
+
 
 }

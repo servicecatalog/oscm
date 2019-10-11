@@ -181,15 +181,16 @@ public class TimerServiceBean2Test {
                 }
 
                 // ensure that the execution time is ahead from now
-                assertTrue("Wrong execution time for timer", timer
-                        .getExecDate().getTime() >= now);
+                assertTrue("Wrong execution time for timer",
+                        timer.getExecDate().getTime() >= now);
             } else {
-                if (timerType == TimerType.DISCOUNT_END_CHECK) {
+                if (timerType == TimerType.DISCOUNT_END_CHECK
+                        | timerType == TimerType.SYNCHRONIZE_USERS_WITH_OIDC_PROVIDER) {
                     assertEquals("Wrong interval specified for timer", 0,
                             timer.getIntervalDuration());
                 } else if (timerType == TimerType.USER_NUM_CHECK) {
-                    assertEquals("Wrong interval specified for timer",
-                            43200000, timer.getIntervalDuration());
+                    assertEquals("Wrong interval specified for timer", 43200000,
+                            timer.getIntervalDuration());
                 } else {
                     assertEquals("Wrong interval specified for timer", 10000,
                             timer.getIntervalDuration());
@@ -215,7 +216,8 @@ public class TimerServiceBean2Test {
     public void initTimers_billingNegativeOffset() throws Exception {
         // given
         cfs.setConfigurationSetting(
-                ConfigurationKey.TIMER_INTERVAL_BILLING_OFFSET, "-123156100215");
+                ConfigurationKey.TIMER_INTERVAL_BILLING_OFFSET,
+                "-123156100215");
 
         // when
         tm.initTimers();
@@ -264,15 +266,15 @@ public class TimerServiceBean2Test {
                         + (new Date()) + "\nnext execution= "
                         + (new Date(timer.getExecDate().getTime()))
                         + "\ncurrent + offset= "
-                        + (new Date((new Date().getTime()) + offset)), timer
-                        .getExecDate().getTime() <= (new Date()).getTime()
+                        + (new Date((new Date().getTime()) + offset)),
+                timer.getExecDate().getTime() <= (new Date()).getTime()
                         + offset);
     }
 
     // related to bug 7482
     @Test
-    public void initTimers_offsetTooSmall() throws InterruptedException,
-            ValidationException {
+    public void initTimers_offsetTooSmall()
+            throws InterruptedException, ValidationException {
         TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
 
         long interval = 1000L * 60L * 60L; // every hour
@@ -350,8 +352,8 @@ public class TimerServiceBean2Test {
         TimerStub timer = new TimerStub();
         timer.setInfo(TimerType.BILLING_INVOCATION);
 
-        when(query.getResultList()).thenReturn(
-                Arrays.asList(new TimerProcessing()));
+        when(query.getResultList())
+                .thenReturn(Arrays.asList(new TimerProcessing()));
 
         // when
         tm.handleTimer(timer);
@@ -404,7 +406,7 @@ public class TimerServiceBean2Test {
         tm.initTimers();
         expirationDates = tm.getCurrentTimerExpirationDates();
         tm.initTimers();
-        assertEquals(7, expirationDates.size());
+        assertEquals(8, expirationDates.size());
     }
 
     @Test(expected = ValidationException.class)
@@ -559,8 +561,10 @@ public class TimerServiceBean2Test {
                 startDate);
         // then
         assertEquals(startDate.getTime(), result.getStart().getTime());
-        assertEquals(String.valueOf(startDate.getSeconds()), result.getSecond());
-        assertEquals(String.valueOf(startDate.getMinutes()), result.getMinute());
+        assertEquals(String.valueOf(startDate.getSeconds()),
+                result.getSecond());
+        assertEquals(String.valueOf(startDate.getMinutes()),
+                result.getMinute());
         assertEquals(String.valueOf(startDate.getHours()), result.getHour());
     }
 
@@ -594,8 +598,10 @@ public class TimerServiceBean2Test {
                 startDate);
         // then
         assertEquals(startDate.getTime(), result.getStart().getTime());
-        assertEquals(String.valueOf(startDate.getSeconds()), result.getSecond());
-        assertEquals(String.valueOf(startDate.getMinutes()), result.getMinute());
+        assertEquals(String.valueOf(startDate.getSeconds()),
+                result.getSecond());
+        assertEquals(String.valueOf(startDate.getMinutes()),
+                result.getMinute());
         assertEquals(String.valueOf(startDate.getHours()), result.getHour());
         assertEquals(String.valueOf(startDate.getDate()),
                 result.getDayOfMonth());
