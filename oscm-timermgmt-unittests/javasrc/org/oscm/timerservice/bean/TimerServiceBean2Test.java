@@ -194,7 +194,7 @@ public class TimerServiceBean2Test {
                 } else {
                     assertEquals("Wrong interval specified for timer", 10000,
                             timer.getIntervalDuration());
-                }
+                } 
             }
         }
     }
