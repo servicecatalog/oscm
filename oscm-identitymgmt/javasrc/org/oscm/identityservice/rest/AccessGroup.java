@@ -89,7 +89,7 @@ public class AccessGroup {
         HttpURLConnection conn = null;
         try {
             URL url = new URL(createUrlForGroups(tenantId));
-            conn = createConnection(url, token);
+            conn = createConnectionForGetUser(url, token);
             conn.connect();
 
             if (!RestUtils.isResponseSuccessful(conn.getResponseCode())) {
@@ -125,6 +125,17 @@ public class AccessGroup {
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setDoOutput(true);
         conn.setRequestMethod("POST");
+        conn.setRequestProperty("Authorization", "Bearer " + tokenId);
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.setRequestProperty("Accept", "application/json");
+        logger.logDebug("Connection to identity service successful");
+        return conn;
+    }
+    
+    protected static HttpURLConnection createConnectionForGetUser(URL url, String tokenId)
+            throws IOException {
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
         conn.setRequestProperty("Authorization", "Bearer " + tokenId);
         conn.setRequestProperty("Content-Type", "application/json");
         conn.setRequestProperty("Accept", "application/json");

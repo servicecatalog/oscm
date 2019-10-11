@@ -62,7 +62,6 @@ import org.oscm.domobjects.ConfigurationSetting;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.OnBehalfUserReference;
 import org.oscm.domobjects.Organization;
-import org.oscm.domobjects.OrganizationToRole;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.domobjects.RoleAssignment;
 import org.oscm.domobjects.Session;
@@ -86,9 +85,9 @@ import org.oscm.identityservice.local.LdapAccessServiceLocal;
 import org.oscm.identityservice.local.LdapConnector;
 import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
 import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
+import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
 import org.oscm.identityservice.rest.AccessGroup;
-import org.oscm.identityservice.rest.AccessToken;
 import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
@@ -156,6 +155,7 @@ import org.oscm.usergroupservice.bean.UserGroupServiceLocalBean;
 import org.oscm.validation.ArgumentValidator;
 import org.oscm.validator.BLValidator;
 import org.oscm.vo.BaseAssembler;
+
 
 /**
  * Session Bean implementation class IdentityServiceBean
@@ -474,7 +474,7 @@ public class IdentityServiceBean
     /*@Interceptors({ PlatformOperatorServiceProviderInterceptor.class })*/
     public void changePassword(String oldPassword, String newPassword)
             throws SecurityCheckException, ValidationException {
-    	
+        
         ArgumentValidator.notNull("oldPassword", oldPassword);
         ArgumentValidator.notNull("newPassword", newPassword);
         BLValidator.isPassword("newPassword", newPassword);
@@ -2969,76 +2969,63 @@ public class IdentityServiceBean
     }
     
     @Override
-    public boolean synchronizeUsersWithOIDCProvider(String tenantId) {
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
+    public boolean synchronizeUsersAndGroupsWithOIDCProvider() {
 
         List<String> tenantIds = oidcSynchronizationBean
                 .getAllTenantIdsForSynchronization();
 
         for (int tenantIndex = 0; tenantIds
                 .size() > tenantIndex; tenantIndex++) {
-            String token = getOIDCTokenForTenant(tenantIds.get(tenantIndex));
+            String tenantId = tenantIds.get(tenantIndex);
             List<Organization> synchronizedOrganizations = oidcSynchronizationBean
-                    .synchronizeGroups(tenantId, token);
+                    .synchronizeGroups(tenantId);
             for (int i = 0; i < synchronizedOrganizations.size(); i++) {
-                List<VOUserDetails> usersInGroup = oidcSynchronizationBean
-                        .getAllUsersFromOIDCForGroup(
-                                synchronizedOrganizations.get(i));
                 Organization organization = synchronizedOrganizations.get(i);
+                List<VOUserDetails> usersInGroup = oidcSynchronizationBean
+                        .getAllUsersFromOIDCForGroup(organization, tenantId);
                 if (usersInGroup != null) {
                     for (int j = 0; j < usersInGroup.size(); j++) {
-                        VOUserDetails user = userMock(); // loadUserDetailsFromOIDCProvider(usersInGroup.get(j).getUserId(),
-                                                         // tenantId, token);
-                        PlatformUser platformuser = null; // loadUser(user.getUserId(),
-                                                          // organizations.get(i).getTenant());
-                        if (platformuser == null) {
-                            user.setOrganizationId(organization.getOrganizationId());
-                            String mp = oidcSynchronizationBean
-                                    .getFirstMarktplaceIdFromOrganization(
-                                            organization);
-                            try {
-                                setUserRole(organization, user);
-                                Marketplace marketplace = getMarketplace(mp);
-                                addPlatformUser(user, organization, "",
-                                        UserAccountStatus.PASSWORD_MUST_BE_CHANGED, true, true,
-                                        marketplace, false);
-                            } catch (Exception e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
-                            System.out.println("test");
+                        VOUserDetails user = usersInGroup.get(j);
+                        boolean isUserExistInPlatform = isOIDCUserExistingInPlatform(
+                                user, organization);
+
+                        UserImportModel model = oidcSynchronizationBean
+                                .getUsersToSynchronizeFromOidcProvider(tenantId,
+                                        organization, user,
+                                        isUserExistInPlatform);
+                        if (model != null) {
+                            addUserToPlatform(model.getOrganization(),
+                                    model.getUser(), model.getMarketplace());
                         }
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
-    
-    private void setUserRole(Organization organization, VOUserDetails user) {
-        // Set corresponding user roles for organization type
-        Set<UserRoleType> roles = new HashSet<UserRoleType>();
-        for (OrganizationToRole orgToRole : organization.getGrantedRoles()) {
-           UserRoleType roleType = orgToRole.getOrganizationRole().getRoleName().correspondingUserRole();
-           if (roleType != null) {
-               roles.add(roleType);
-           }
-        }
-        user.setUserRoles(roles);
-    }
- 
-    private String getOIDCTokenForTenant(String tenantId) {
-        AccessToken oidcToken = new AccessToken();
-        return oidcToken.getOidcToken(tenantId);
-    }
-    
 
-    private VOUserDetails userMock(){
-        VOUserDetails user = new VOUserDetails();
-        user.setKey(17000);
-        user.setEMail("christian.worf@est.fujitsu.com");
-        user.setUserId("customer@ctmg.onmicrosoft.com");
-        user.setRealmUserId("customer@ctmg.onmicrosoft.com");
-        user.setLocale("en");
-        return user;
+    private boolean isOIDCUserExistingInPlatform(VOUserDetails user,
+            Organization organization) {
+        PlatformUser platformuser = loadUser(user.getUserId(),
+                organization.getTenant());
+        if (platformuser == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void addUserToPlatform(Organization organization,
+            VOUserDetails user, Marketplace marketplace) {
+        try {
+            addPlatformUser(user, organization, "", UserAccountStatus.ACTIVE,
+                    true, true, marketplace, false);
+        } catch (Exception e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_ADD_CUSTOMER,
+                    "An error occured while trying to import the User "
+                            + user.getOrganizationId());
+        }
     }
 }

@@ -1,6 +1,6 @@
 /*******************************************************************************
  *                                                                              
- *  Copyright FUJITSU LIMITED 2018
+ö *  Copyright FUJITSU LIMITED 2018
  *                                                                              
  *  Author: schmid                                 
  *                                                                              
@@ -374,7 +374,7 @@ public class Organization extends DomainObjectWithHistory<OrganizationData> {
     public void addPlatformUser(PlatformUser platformUser) {
         platformUsers.add(platformUser);
     }
-
+    
     /**
      * Returns a list of all platform users of this organization. The list does
      * not include users that have been created on the behalf of other users.
