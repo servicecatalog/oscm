@@ -4,6 +4,7 @@
 **Mandatory checks:**
 - [ ] latest changes were fetched from the upstream branch before creating this PR (branch is up to date)
 - [ ] changes were tested manually
+- [ ] unit tests were properly implemented
 - [ ] communication about interdependent changes has beed sent to the team (if applicable)
 - [ ] respective Jenkis jobs were referenced in *additional context* section of this PR
 
