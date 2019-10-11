@@ -85,6 +85,7 @@ import org.oscm.identityservice.local.LdapAccessServiceLocal;
 import org.oscm.identityservice.local.LdapConnector;
 import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
 import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
+import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
 import org.oscm.identityservice.rest.AccessGroup;
 import org.oscm.identityservice.rest.Userinfo;
@@ -155,6 +156,7 @@ import org.oscm.validation.ArgumentValidator;
 import org.oscm.validator.BLValidator;
 import org.oscm.vo.BaseAssembler;
 
+
 /**
  * Session Bean implementation class IdentityServiceBean
  */
@@ -206,6 +208,9 @@ public class IdentityServiceBean
 
     @EJB(beanInterface = SessionServiceLocal.class)
     SessionServiceLocal sessionService;
+    
+    @EJB
+    OidcSynchronizationBean oidcSynchronizationBean;
     
     @Resource
     SessionContext sessionCtx;
@@ -469,7 +474,7 @@ public class IdentityServiceBean
     /*@Interceptors({ PlatformOperatorServiceProviderInterceptor.class })*/
     public void changePassword(String oldPassword, String newPassword)
             throws SecurityCheckException, ValidationException {
-    	
+        
         ArgumentValidator.notNull("oldPassword", oldPassword);
         ArgumentValidator.notNull("newPassword", newPassword);
         BLValidator.isPassword("newPassword", newPassword);
@@ -2961,5 +2966,66 @@ public class IdentityServiceBean
                 "Can not connect to the OIDC service.");
         rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
         return rf;
+    }
+    
+    @Override
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
+    public boolean synchronizeUsersAndGroupsWithOIDCProvider() {
+
+        List<String> tenantIds = oidcSynchronizationBean
+                .getAllTenantIdsForSynchronization();
+
+        for (int tenantIndex = 0; tenantIds
+                .size() > tenantIndex; tenantIndex++) {
+            String tenantId = tenantIds.get(tenantIndex);
+            List<Organization> synchronizedOrganizations = oidcSynchronizationBean
+                    .synchronizeGroups(tenantId);
+            for (int i = 0; i < synchronizedOrganizations.size(); i++) {
+                Organization organization = synchronizedOrganizations.get(i);
+                List<VOUserDetails> usersInGroup = oidcSynchronizationBean
+                        .getAllUsersFromOIDCForGroup(organization, tenantId);
+                if (usersInGroup != null) {
+                    for (int j = 0; j < usersInGroup.size(); j++) {
+                        VOUserDetails user = usersInGroup.get(j);
+                        boolean isUserExistInPlatform = isOIDCUserExistingInPlatform(
+                                user, organization);
+
+                        UserImportModel model = oidcSynchronizationBean
+                                .getUsersToSynchronizeFromOidcProvider(tenantId,
+                                        organization, user,
+                                        isUserExistInPlatform);
+                        if (model != null) {
+                            addUserToPlatform(model.getOrganization(),
+                                    model.getUser(), model.getMarketplace());
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean isOIDCUserExistingInPlatform(VOUserDetails user,
+            Organization organization) {
+        PlatformUser platformuser = loadUser(user.getUserId(),
+                organization.getTenant());
+        if (platformuser == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void addUserToPlatform(Organization organization,
+            VOUserDetails user, Marketplace marketplace) {
+        try {
+            addPlatformUser(user, organization, "", UserAccountStatus.ACTIVE,
+                    true, true, marketplace, false);
+        } catch (Exception e) {
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
+                    LogMessageIdentifier.ERROR_ADD_CUSTOMER,
+                    "An error occured while trying to import the User "
+                            + user.getOrganizationId());
+        }
     }
 }
