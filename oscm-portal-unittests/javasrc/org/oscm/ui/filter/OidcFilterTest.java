@@ -14,6 +14,8 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.oscm.identity.WebIdentityClient;
+import org.oscm.identity.exception.IdentityClientException;
 import org.oscm.internal.types.exception.MarketplaceRemovedException;
 import org.oscm.ui.common.Constants;
 
@@ -42,6 +44,8 @@ public class OidcFilterTest {
   private HttpServletResponse responseMock;
   private HttpSession httpSessionMock;
   private FilterChain chainMock;
+  private TenantResolver tenantResolverMock;
+  private WebIdentityClient identityClientMock;
   AuthenticationSettings as;
   ArgumentCaptor<String> ac;
 
@@ -59,7 +63,12 @@ public class OidcFilterTest {
     requestMock = mock(HttpServletRequest.class);
     responseMock = mock(HttpServletResponse.class);
     chainMock = mock(FilterChain.class);
+    tenantResolverMock = mock(TenantResolver.class);
+    identityClientMock = mock(WebIdentityClient.class);
+    when(tenantResolverMock.getTenantID(any(), any())).thenReturn("default");
+    doReturn(identityClientMock).when(filter).setUpIdentityClient(any(), any());
     doNothing().when(chainMock).doFilter(any(), any());
+    doNothing().when(identityClientMock).validateToken(any(), any());
 
     filter.excludeUrlPattern = "(.*/a4j/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";
 
@@ -75,7 +84,6 @@ public class OidcFilterTest {
     doReturn("oscm-portal/marketplace/").when(requestMock).getServletPath();
 
     mockRequestURL();
-    doNothing().when(filter).makeTokenValidationRequest(any(), any(), any(), any());
     ac = ArgumentCaptor.forClass(String.class);
 
     token = null;
@@ -95,29 +103,66 @@ public class OidcFilterTest {
   }
 
   @Test
-  public void doFilter_sessionTokenExists() throws IOException, ServletException {
-    // given
+  public void shouldFilter_whenValidationPasses_givenTokensFromRequestAndSession()
+      throws IOException, ServletException, IdentityClientException {
+    // GIVEN
+    givenCustomerTenant();
+    givenPortalLoginWithTenantId();
+    givenTokenFromRequest();
     givenTokenFromSession();
-    givenMPLoginWithoutParameter();
 
-    // when
+    doNothing().when(identityClientMock).validateToken(any(), any());
+
+    // WHEN
     filter.doFilter(requestMock, responseMock, chainMock);
 
-    // then
-    verify(responseMock, times(0)).sendRedirect(any());
+    // THEN
+    verify(chainMock, times(1)).doFilter(any(), any());
   }
 
   @Test
-  public void doFilter_requestTokenExists() throws IOException, ServletException {
-    // given
+  public void shouldRedirect_whenValidationFails_givenInvalidTokensFromRequest()
+      throws IdentityClientException, IOException, ServletException {
+    // GIVEN
+    givenCustomerTenant();
+    givenPortalLoginWithTenantId();
     givenTokenFromRequest();
-    givenMPLoginWithoutParameter();
+    givenTokenFromSession();
 
-    // when
+    doThrow(new IdentityClientException("message"))
+        .when(identityClientMock)
+        .validateToken(any(), any());
+    doNothing().when(filter).forward(any(), any(), any());
+
+    // WHEN
     filter.doFilter(requestMock, responseMock, chainMock);
 
-    // then
-    verify(responseMock, times(1)).sendRedirect(any());
+    // THEN
+    verify(filter, times(1)).forward(any(), any(), any());
+  }
+
+  @Test
+  public void shouldRedirect_whenValidationFails_givenExpiredSessionIdToken()
+      throws IdentityClientException, ServletException, IOException {
+    // GIVEN
+    givenCustomerTenant();
+    givenPortalLoginWithTenantId();
+    givenTokenFromRequest();
+    givenTokenFromSession();
+
+    doNothing()
+        .doNothing()
+        .doThrow(new IdentityClientException("message"))
+        .when(identityClientMock)
+        .validateToken(any(), any());
+    doNothing().when(filter).forward(any(), any(), any());
+
+    // WHEN
+    filter.doFilter(requestMock, responseMock, chainMock);
+
+    // THEN
+    verify(filter, times(0)).forward(any(), any(), any());
+    verify(chainMock, times(0)).doFilter(any(), any());
   }
 
   @Test
@@ -189,7 +234,7 @@ public class OidcFilterTest {
 
     // when
     filter.doFilter(requestMock, responseMock, chainMock);
-    verify(filter, times(1)).forward(ac.capture(), any(), any());
+    verify(filter, atLeastOnce()).forward(ac.capture(), any(), any());
 
     // then
     assertEquals("/public/error.jsf", ac.getValue());
@@ -291,7 +336,9 @@ public class OidcFilterTest {
 
   private void givenTokenFromRequest() {
     doReturn("aVerryLongTokenStringCanBeFoundHere").when(requestMock).getParameter(eq("id_token"));
-    doReturn("aVerryLongTokenStringCanBeFoundHere").when(requestMock).getParameter(eq("access_token"));
+    doReturn("aVerryLongTokenStringCanBeFoundHere")
+        .when(requestMock)
+        .getParameter(eq("access_token"));
   }
 
   protected void mockRequestURL() {
@@ -357,12 +404,11 @@ public class OidcFilterTest {
               @Override
               public String answer(InvocationOnMock invocation) {
                 Object[] args = invocation.getArguments();
-                return token;
+                  return token;
               }
             }))
-            .when(httpSessionMock)
-            .getAttribute(eq(Constants.SESS_ATTR_ACCESS_TOKEN));
-
+        .when(httpSessionMock)
+        .getAttribute(eq(Constants.SESS_ATTR_ACCESS_TOKEN));
 
     doReturn(httpSessionMock).when(requestMock).getSession();
   }
