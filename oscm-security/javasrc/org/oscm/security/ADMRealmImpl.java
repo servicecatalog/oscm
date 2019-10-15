@@ -133,7 +133,7 @@ public class ADMRealmImpl {
 
             if (AuthenticationMode.OIDC.name().equals(
                     authModeQuery.getAuthenticationMode())) {
-                handleOIDCLogin(userQuery.getUserId(), password, userQuery.getTenantId());
+                handleOIDCLogin(userKey, password, userQuery);
             } else {
                 handleInternalLogin(userKey, password, userQuery);
             }
@@ -149,12 +149,24 @@ public class ADMRealmImpl {
         }
     }
 
-    private void handleOIDCLogin(String userId, String password, String tenantId) throws LoginException {
+    void handleOIDCLogin(String userKey, String password, UserQuery user) throws LoginException, SQLException, NamingException {
+        String callerType = getCallerType(password);
         
-        ApiIdentityClient idc =
-                new ApiIdentityClient(IdentityConfiguration.of().tenantId(tenantId).build());
+        if ("OC".equals(callerType)) {
+            handleOperatorClientCaller(userKey, password, user);
+        } else if ("WS".equals(callerType)) {
+            handleWebServiceCaller(user.getUserId(), password, user.getTenantId());
+        } else {
+            // NOPE   
+        }
+  }
+
+   
+    private void handleWebServiceCaller(String userId, String password, String tenantId) throws LoginException {
         try {
-            String token = idc.getIdToken(userId, password);
+            String wsPassword = password.substring(SSO_CALLER_SPEC_LEN);
+            ApiIdentityClient idc = getIdentityClient(tenantId);
+            String token = idc.getIdToken(userId, wsPassword);
             idc.validateToken(token, TokenType.ID_TOKEN);
         } catch (IdentityClientException e) {
             logger.info(String.format(
@@ -162,7 +174,12 @@ public class ADMRealmImpl {
                     userId));
             throw new LoginException(e.getMessage());
         }
-
+    }
+    
+    ApiIdentityClient getIdentityClient(String tenantId) {
+        return
+                new ApiIdentityClient(IdentityConfiguration.of().tenantId(tenantId).build());
+        
     }
 
     void handleInternalLogin(String userKey, String password,
@@ -191,8 +208,10 @@ public class ADMRealmImpl {
     void handleOperatorClientCaller(final String userKey, String password,
             UserQuery userQuery)
             throws LoginException, SQLException, NamingException {
+        String ocPassword = password.substring(SSO_CALLER_SPEC_LEN);
+        
         if (userKey.equals("1000")) {
-            handleLoginAttempt(userKey, password, userQuery);
+            handleLoginAttempt(userKey, ocPassword, userQuery);
         } else {
             logger.info(String.format(
                     "Single Sign On: User '%s' not logged in. Only the operator client with user key 1000 has permission.",
