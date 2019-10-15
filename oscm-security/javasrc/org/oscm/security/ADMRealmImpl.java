@@ -35,6 +35,10 @@ import javax.security.auth.login.LoginException;
 import javax.sql.DataSource;
 
 import org.oscm.authorization.PasswordHash;
+import org.oscm.identity.ApiIdentityClient;
+import org.oscm.identity.IdentityConfiguration;
+import org.oscm.identity.exception.IdentityClientException;
+import org.oscm.identity.model.TokenType;
 import org.oscm.internal.types.enumtypes.AuthenticationMode;
 import org.oscm.internal.types.enumtypes.UserRoleType;
 
@@ -129,7 +133,7 @@ public class ADMRealmImpl {
 
             if (AuthenticationMode.OIDC.name().equals(
                     authModeQuery.getAuthenticationMode())) {
-                handleOIDCLogin(userKey, password, userQuery);
+                handleOIDCLogin(userQuery.getUserId(), password, userQuery.getTenantId());
             } else {
                 handleInternalLogin(userKey, password, userQuery);
             }
@@ -145,8 +149,20 @@ public class ADMRealmImpl {
         }
     }
 
-    private void handleOIDCLogin(String userKey, String password, UserQuery userQuery) {
-        // todo
+    private void handleOIDCLogin(String userId, String password, String tenantId) throws LoginException {
+        
+        ApiIdentityClient idc =
+                new ApiIdentityClient(IdentityConfiguration.of().tenantId(tenantId).build());
+        try {
+            String token = idc.getIdToken(userId, password);
+            idc.validateToken(token, TokenType.ID_TOKEN);
+        } catch (IdentityClientException e) {
+            logger.info(String.format(
+                    "OIDC: User '%s' not logged in. Error in realm verifying ID token.",
+                    userId));
+            throw new LoginException(e.getMessage());
+        }
+
     }
 
     void handleInternalLogin(String userKey, String password,
@@ -195,15 +211,15 @@ public class ADMRealmImpl {
             passwordTime = Long.valueOf(wsPassword).longValue();
         } catch (NumberFormatException e) {
             logger.info(String.format(
-                    "Single Sign On: User '%s' not logged in. Validation error in realm for password %s",
-                    userKey, password));
+                    "Single Sign On: User '%s' not logged in. Validation error in realm for password.",
+                    userKey));
             throw new LoginException(e.getMessage());
         }
 
         if (validationTime - passwordTime > WS_PASSWORD_AGE_MILLIS) {
             logger.info(String.format(
-                    "Single Sign On: User '%s' not logged in. Validation error in realm for password %s",
-                    userKey, password));
+                    "Single Sign On: User '%s' not logged in. Validation error in realm for password.",
+                    userKey));
             throw new LoginException(String.format(
                     "Password too old: password time = %s, validation time= %s.",
                     Long.valueOf(passwordTime), Long.valueOf(validationTime)));
