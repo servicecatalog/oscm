@@ -117,7 +117,7 @@ public class ADMRealmImplTest {
         ADMRealmImpl realm = spy(realmImpl);
         ApiIdentityClient idc = mock(ApiIdentityClient.class);
         UserQuery uq = mockOidcUser(realm, idc);
-        
+        doReturn("admin").when(idc).validateToken(anyString(), eq(TokenType.ID_TOKEN));
         // When
         realm.handleOIDCLogin("1000", "WSadmin123", uq);
         
@@ -125,6 +125,18 @@ public class ADMRealmImplTest {
         verify(idc,times(1)).getIdToken(eq("admin"), eq("admin123"));
         verify(idc,times(1)).validateToken(anyString(), eq(TokenType.ID_TOKEN));
         
+    }
+    
+    @Test(expected=LoginException.class)
+    public void handleOIDCLogin_WS_tokenMismatch() throws Exception {
+        // Given
+        ADMRealmImpl realm = spy(realmImpl);
+        ApiIdentityClient idc = mock(ApiIdentityClient.class);
+        UserQuery uq = mockOidcUser(realm, idc);
+        doReturn("supplier").when(idc).validateToken(anyString(), eq(TokenType.ID_TOKEN));
+        
+        // When
+        realm.handleOIDCLogin("1000", "WSadmin123", uq);
     }
     
     @Test

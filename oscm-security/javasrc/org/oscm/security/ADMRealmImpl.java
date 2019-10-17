@@ -171,12 +171,28 @@ public class ADMRealmImpl {
             String wsPassword = password.substring(SSO_CALLER_SPEC_LEN);
             ApiIdentityClient idc = getIdentityClient(tenantId);
             String token = idc.getIdToken(userId, wsPassword);
-            idc.validateToken(token, TokenType.ID_TOKEN);
+            String tokenUser = idc.validateToken(token, TokenType.ID_TOKEN);
+            checkUserIdMatch(userId, token, tokenUser);
         } catch (IdentityClientException e) {
             logger.info(String.format(
                     "OIDC: User '%s' not logged in. Error in realm verifying ID token.",
                     userId));
             throw new LoginException(e.getMessage());
+        }
+    }
+   
+    protected void checkUserIdMatch(String userId, String token, String tokenUser)
+            throws LoginException {
+        if (!userId.equals(tokenUser)) {
+            final String errMsg = String.format(
+                    "User %s from retrieved ID token does not match with the login user '%s'.",
+                    tokenUser, userId);
+            logger.info(errMsg);
+            if (logger.isLoggable(Level.FINEST)) {
+                logger.finest(String.format("Retrieved token: %s", token));
+            }
+            
+            throw new LoginException(errMsg);
         }
     }
     
