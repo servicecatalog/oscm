@@ -1,17 +1,12 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2019
- *                                                                              
- *  Creation Date: 10.10.2019                                                      
- *                                                                              
+ *
+ *  Creation Date: 10.10.2019
+ *
  *******************************************************************************/
 
 package org.oscm.identityservice.bean;
-
-import static org.mockito.Mockito.spy;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,10 +18,11 @@ import org.oscm.identity.model.GroupInfo;
 import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.internal.vo.VOUserDetails;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.*;
 
 public class OidcSynchronizationBeanTest {
 
@@ -63,11 +59,7 @@ public class OidcSynchronizationBeanTest {
     }
 
     public GroupInfo createAccessGroupModel() {
-        GroupInfo model = new GroupInfo();
-        model.setId("1");
-        model.setDescription("test");
-        model.setName("test");
-        return model;
+        return GroupInfo.of().id("1").description("test").name("test").build();
     }
 
     @Test
@@ -188,7 +180,7 @@ public class OidcSynchronizationBeanTest {
         Organization organization = createOrganization();
         VOUserDetails userInGroup = new VOUserDetails();
         userInGroup.setUserId("test");
-        
+
         // when
         UserImportModel result = oidcSyncBean
                 .getUsersToSynchronizeFromOidcProvider(tenantId, organization,

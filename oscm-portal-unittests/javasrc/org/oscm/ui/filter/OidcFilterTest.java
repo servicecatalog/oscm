@@ -68,7 +68,7 @@ public class OidcFilterTest {
     when(tenantResolverMock.getTenantID(any(), any())).thenReturn("default");
     doReturn(identityClientMock).when(filter).setUpIdentityClient(any(), any());
     doNothing().when(chainMock).doFilter(any(), any());
-    doNothing().when(identityClientMock).validateToken(any(), any());
+    when(identityClientMock.validateToken(any(), any())).thenReturn("someString");
 
     filter.excludeUrlPattern = "(.*/a4j/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";
 
@@ -111,7 +111,7 @@ public class OidcFilterTest {
     givenTokenFromRequest();
     givenTokenFromSession();
 
-    doNothing().when(identityClientMock).validateToken(any(), any());
+    doReturn("someString").when(identityClientMock).validateToken(any(), any());
 
     // WHEN
     filter.doFilter(requestMock, responseMock, chainMock);
@@ -150,8 +150,8 @@ public class OidcFilterTest {
     givenTokenFromRequest();
     givenTokenFromSession();
 
-    doNothing()
-        .doNothing()
+    doReturn("somestring")
+        .doReturn("somestring")
         .doThrow(new IdentityClientException("message"))
         .when(identityClientMock)
         .validateToken(any(), any());
