@@ -149,18 +149,22 @@ public class ADMRealmImpl {
         }
     }
 
-    void handleOIDCLogin(String userKey, String password, UserQuery user) throws LoginException, SQLException, NamingException {
-        String callerType = getCallerType(password);
-        
-        if ("OC".equals(callerType)) {
-            handleOperatorClientCaller(userKey, password, user);
-        } else if ("WS".equals(callerType)) {
-            handleWebServiceCaller(user.getUserId(), password, user.getTenantId());
-        } else {
-            // NOPE   
-        }
-  }
+    void handleOIDCLogin(String userKey, String password, UserQuery user)
+            throws LoginException, SQLException, NamingException {
 
+        if (!password.trim().isEmpty()) {
+            final String callerType = getCallerType(password);
+            if ("WS".equals(callerType)) {
+                handleWebServiceCaller(user.getUserId(), password, user.getTenantId());
+            } else {
+                handleOperatorClientCaller(userKey, password, user);
+            }
+        } else {
+            // UI
+        }
+        logger.info(String.format(
+                "Single Sign On: User '%s' successfully logged in.", userKey));
+    }
    
     private void handleWebServiceCaller(String userId, String password, String tenantId) throws LoginException {
         try {
@@ -208,10 +212,8 @@ public class ADMRealmImpl {
     void handleOperatorClientCaller(final String userKey, String password,
             UserQuery userQuery)
             throws LoginException, SQLException, NamingException {
-        String ocPassword = password.substring(SSO_CALLER_SPEC_LEN);
-        
         if (userKey.equals("1000")) {
-            handleLoginAttempt(userKey, ocPassword, userQuery);
+            handleLoginAttempt(userKey, password, userQuery);
         } else {
             logger.info(String.format(
                     "Single Sign On: User '%s' not logged in. Only the operator client with user key 1000 has permission.",

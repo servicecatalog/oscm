@@ -9,17 +9,21 @@
 package org.oscm.security;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-import static org.mockito.Matchers.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.oscm.identity.ApiIdentityClient;
-import org.oscm.identity.exception.IdentityClientException;
-import org.oscm.identity.model.TokenType;
 
 import javax.naming.Context;
 import javax.naming.NamingException;
@@ -28,7 +32,9 @@ import javax.security.auth.login.LoginException;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.verification.VerificationMode;
+import org.oscm.identity.ApiIdentityClient;
+import org.oscm.identity.exception.IdentityClientException;
+import org.oscm.identity.model.TokenType;
 
 /**
  * @author qiu
@@ -92,7 +98,7 @@ public class ADMRealmImplTest {
     }
     
     @Test
-    public void handleOIDCLogin_UI() throws Exception {
+    public void handleOIDCLogin_UI_emptyPassword() throws Exception {
         // Given
     
         ADMRealmImpl realm = spy(realmImpl);
@@ -100,7 +106,7 @@ public class ADMRealmImplTest {
         UserQuery uq = mockOidcUser(realm, idc);
         
         // When
-        realmImpl.handleOIDCLogin("1000", "admin123", uq);
+        realmImpl.handleOIDCLogin("1000", "", uq);
         
         verify(idc, never()).validateToken(anyString(), any());
     }
@@ -129,7 +135,7 @@ public class ADMRealmImplTest {
         UserQuery uq = mockOidcUser(realm, idc);
         
         // When
-        realm.handleOIDCLogin("1000", "OCadmin123", uq);
+        realm.handleOIDCLogin("1000", "admin123", uq);
         
         // Then
         verify(realm, times(1)).handleLoginAttempt(eq("1000"),eq("admin123"), any());
