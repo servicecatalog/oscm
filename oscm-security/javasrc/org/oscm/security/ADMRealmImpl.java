@@ -223,30 +223,6 @@ public class ADMRealmImpl {
         }
     }
    
-    void handleWebServiceCaller(String userKey, String password)
-            throws LoginException {
-        String wsPassword = password.substring(SSO_CALLER_SPEC_LEN);
-        long validationTime = System.currentTimeMillis();
-        long passwordTime = 0;
-        try {
-            passwordTime = Long.valueOf(wsPassword).longValue();
-        } catch (NumberFormatException e) {
-            logger.info(String.format(
-                    "Single Sign On: User '%s' not logged in. Validation error in realm for password.",
-                    userKey));
-            throw new LoginException(e.getMessage());
-        }
-
-        if (validationTime - passwordTime > WS_PASSWORD_AGE_MILLIS) {
-            logger.info(String.format(
-                    "Single Sign On: User '%s' not logged in. Validation error in realm for password.",
-                    userKey));
-            throw new LoginException(String.format(
-                    "Password too old: password time = %s, validation time= %s.",
-                    Long.valueOf(passwordTime), Long.valueOf(validationTime)));
-        }
-    }
-
     String getCallerType(String password) {
         return password.substring(0, SSO_CALLER_SPEC_LEN);
     }
