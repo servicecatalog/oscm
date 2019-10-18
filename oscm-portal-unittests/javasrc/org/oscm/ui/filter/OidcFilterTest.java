@@ -68,7 +68,7 @@ public class OidcFilterTest {
     when(tenantResolverMock.getTenantID(any(), any())).thenReturn("default");
     doReturn(identityClientMock).when(filter).setUpIdentityClient(any(), any());
     doNothing().when(chainMock).doFilter(any(), any());
-    doNothing().when(identityClientMock).validateToken(any(), any());
+    doReturn(null).when(identityClientMock).validateToken(any(), any());
 
     filter.excludeUrlPattern = "(.*/a4j/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";
 
@@ -111,7 +111,7 @@ public class OidcFilterTest {
     givenTokenFromRequest();
     givenTokenFromSession();
 
-    doNothing().when(identityClientMock).validateToken(any(), any());
+    doReturn(null).when(identityClientMock).validateToken(any(), any());
 
     // WHEN
     filter.doFilter(requestMock, responseMock, chainMock);
@@ -142,7 +142,7 @@ public class OidcFilterTest {
   }
 
   @Test
-  public void shouldRedirect_whenValidationFails_givenExpiredSessionIdToken()
+  public void shouldRedirect_invalidIdToken()
       throws IdentityClientException, ServletException, IOException {
     // GIVEN
     givenCustomerTenant();
@@ -150,18 +150,18 @@ public class OidcFilterTest {
     givenTokenFromRequest();
     givenTokenFromSession();
 
-    doNothing()
-        .doNothing()
-        .doThrow(new IdentityClientException("message"))
+    
+    doThrow(new IdentityClientException("message"))
         .when(identityClientMock)
         .validateToken(any(), any());
+      
     doNothing().when(filter).forward(any(), any(), any());
 
     // WHEN
     filter.doFilter(requestMock, responseMock, chainMock);
 
     // THEN
-    verify(filter, times(0)).forward(any(), any(), any());
+    verify(filter, times(1)).forward(eq("/public/error.jsf"), any(), any());
     verify(chainMock, times(0)).doFilter(any(), any());
   }
 

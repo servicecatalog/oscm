@@ -30,7 +30,7 @@ class UserQuery extends AbstractQuery {
     private String status = null;
     private boolean remoteLdapActive;
     private String tenantId = null;
-
+    private String DEFAULT = "default";
     private String userKey = null;
 
     public UserQuery(DataSource ds, String userKey) {
@@ -96,6 +96,9 @@ class UserQuery extends AbstractQuery {
     }
     
     public String getTenantId() {
+      if (tenantId == null) {
+          return DEFAULT;
+      }
       return tenantId;
   }
 

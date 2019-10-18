@@ -134,6 +134,15 @@ public class UserQueryTest {
         assertEquals("f343d1c6", query.getTenantId());
     }
 
+    
+    @Test
+    public void verifyEvaluation_defaultTenantId() throws Exception {
+        addEntry("userId", "123", "hash", "12349", "false", "realmUserId",
+                UserAccountStatus.ACTIVE.name(), null);
+        query.execute();
+        assertEquals("default", query.getTenantId());
+    }
+
     @SuppressWarnings("boxing")
     private void initMocks() throws Exception {
         MockitoAnnotations.initMocks(this);

@@ -35,6 +35,10 @@ import javax.security.auth.login.LoginException;
 import javax.sql.DataSource;
 
 import org.oscm.authorization.PasswordHash;
+import org.oscm.identity.ApiIdentityClient;
+import org.oscm.identity.IdentityConfiguration;
+import org.oscm.identity.exception.IdentityClientException;
+import org.oscm.identity.model.TokenType;
 import org.oscm.internal.types.enumtypes.AuthenticationMode;
 import org.oscm.internal.types.enumtypes.UserRoleType;
 
@@ -145,8 +149,57 @@ public class ADMRealmImpl {
         }
     }
 
-    private void handleOIDCLogin(String userKey, String password, UserQuery userQuery) {
-        // todo
+    void handleOIDCLogin(String userKey, String password, UserQuery user)
+            throws LoginException, SQLException, NamingException {
+
+        if (!password.trim().isEmpty()) {
+            final String callerType = getCallerType(password);
+            if ("WS".equals(callerType)) {
+                handleWebServiceCaller(user.getUserId(), password, user.getTenantId());
+            } else {
+                handleOperatorClientCaller(userKey, password, user);
+            }
+        } else {
+            // UI
+        }
+        logger.info(String.format(
+                "Single Sign On: User '%s' successfully logged in.", userKey));
+    }
+   
+    private void handleWebServiceCaller(String userId, String password, String tenantId) throws LoginException {
+        try {
+            String wsPassword = password.substring(SSO_CALLER_SPEC_LEN);
+            ApiIdentityClient idc = getIdentityClient(tenantId);
+            String token = idc.getIdToken(userId, wsPassword);
+            String tokenUser = idc.validateToken(token, TokenType.ID_TOKEN);
+            checkUserIdMatch(userId, token, tokenUser);
+        } catch (IdentityClientException e) {
+            logger.info(String.format(
+                    "OIDC: User '%s' not logged in. Error in realm verifying ID token.",
+                    userId));
+            throw new LoginException(e.getMessage());
+        }
+    }
+   
+    protected void checkUserIdMatch(String userId, String token, String tokenUser)
+            throws LoginException {
+        if (!userId.equals(tokenUser)) {
+            final String errMsg = String.format(
+                    "User %s from retrieved ID token does not match with the login user '%s'.",
+                    tokenUser, userId);
+            logger.info(errMsg);
+            if (logger.isLoggable(Level.FINEST)) {
+                logger.finest(String.format("Retrieved token: %s", token));
+            }
+            
+            throw new LoginException(errMsg);
+        }
+    }
+    
+    ApiIdentityClient getIdentityClient(String tenantId) {
+        return
+                new ApiIdentityClient(IdentityConfiguration.of().tenantId(tenantId).build());
+        
     }
 
     void handleInternalLogin(String userKey, String password,
@@ -186,30 +239,6 @@ public class ADMRealmImpl {
         }
     }
    
-    void handleWebServiceCaller(String userKey, String password)
-            throws LoginException {
-        String wsPassword = password.substring(SSO_CALLER_SPEC_LEN);
-        long validationTime = System.currentTimeMillis();
-        long passwordTime = 0;
-        try {
-            passwordTime = Long.valueOf(wsPassword).longValue();
-        } catch (NumberFormatException e) {
-            logger.info(String.format(
-                    "Single Sign On: User '%s' not logged in. Validation error in realm for password %s",
-                    userKey, password));
-            throw new LoginException(e.getMessage());
-        }
-
-        if (validationTime - passwordTime > WS_PASSWORD_AGE_MILLIS) {
-            logger.info(String.format(
-                    "Single Sign On: User '%s' not logged in. Validation error in realm for password %s",
-                    userKey, password));
-            throw new LoginException(String.format(
-                    "Password too old: password time = %s, validation time= %s.",
-                    Long.valueOf(passwordTime), Long.valueOf(validationTime)));
-        }
-    }
-
     String getCallerType(String password) {
         return password.substring(0, SSO_CALLER_SPEC_LEN);
     }

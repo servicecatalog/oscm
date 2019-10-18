@@ -275,35 +275,7 @@ public class ADMRealmImplIT extends EJBTestBase {
             throw e;
         }
     }
-    
-    @Test
-    public void handleWebServiceCaller_positive() throws LoginException {
-
-        // given
-        long wsPasswordAge = System.currentTimeMillis() - 1;
-        String wsPassword = "WS" + wsPasswordAge;
-
-        // then
-        realm.handleWebServiceCaller(ANY_KEY, wsPassword);
-    }
-
-    @Test(expected = LoginException.class)
-    public void handleWebServiceCaller_negative1() throws LoginException {
-
-        realm.handleWebServiceCaller(ANY_KEY, WRONG_PASSWORD);
-    }
-
-    @Test(expected = LoginException.class)
-    public void handleWebServiceCaller_negative2() throws LoginException {
-
-        // given
-        long wsPasswordAge = 600000;
-        String wsPassword = "WS" + wsPasswordAge;
-
-        // then
-        realm.handleWebServiceCaller(ANY_KEY, wsPassword);
-    }
-
+      
     @Test
     public void handleOperatorClientCaller_positive() throws Exception {
         // given
@@ -325,14 +297,7 @@ public class ADMRealmImplIT extends EJBTestBase {
 
         // then: exception
     }
-
-    private void mockCallerHandlers() throws Exception {
-        doNothing().when(realm).handleWebServiceCaller(anyString(),
-                anyString());
-        doNothing().when(realm).handleOperatorClientCaller(anyString(),
-                anyString(), any(UserQuery.class));
-    }
-
+   
     private void initConfigSetting(final int max_tries) throws Exception {
         runTX(new Callable<Void>() {
             @Override
