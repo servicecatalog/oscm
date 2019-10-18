@@ -64,6 +64,7 @@ import org.oscm.i18nservice.bean.LocalizerServiceBean;
 import org.oscm.i18nservice.local.ImageResourceServiceLocal;
 import org.oscm.i18nservice.local.LocalizerServiceLocal;
 import org.oscm.identityservice.bean.IdentityServiceBean;
+import org.oscm.identityservice.bean.OidcSynchronizationBean;
 import org.oscm.identityservice.ldap.LdapAccessStub;
 import org.oscm.identityservice.ldap.LdapSettingsManagementServiceBean;
 import org.oscm.identityservice.local.IdentityServiceLocal;
@@ -399,7 +400,12 @@ public class BillingIntegrationTestBase extends StaticEJBTestBase {
 
     private static void addIdentityServiceBean(final TestContainer container)
             throws Exception {
+        
+        container.addBean(new OidcSynchronizationBean());
         container.addBean(new IdentityServiceBean() {
+            
+            
+            
             @Override
             public void sendMailToCreatedUser(String password,
                     boolean userLocalLdap, Marketplace marketplace,
