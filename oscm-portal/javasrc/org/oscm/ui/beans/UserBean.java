@@ -874,11 +874,12 @@ public class UserBean extends BaseBean implements Serializable {
   public String change() throws SaaSApplicationException {
 
     boolean wasPwdChangeRequired = isPasswordChangeRequired();
-    VOUserDetails user = getIdService().getCurrentUserDetails();
+    
 
     try {
       getIdService().changePassword(currentPassword, password);
     } catch (SecurityCheckException e) {
+      VOUserDetails user = getIdService().getCurrentUserDetails();
       if (user.getStatus() == UserAccountStatus.LOCKED_FAILED_LOGIN_ATTEMPTS) {
         if (!isChangePwdOnLogin()) {
           return logoff();
@@ -893,7 +894,7 @@ public class UserBean extends BaseBean implements Serializable {
 
     if (wasPwdChangeRequired) {
       // store updated user account status in session
-      setUserInSession(user);
+      setUserInSession(getIdService().getCurrentUserDetails());
     }
 
     try {
@@ -929,6 +930,7 @@ public class UserBean extends BaseBean implements Serializable {
       Optional<String> encryptedPassword = encryptPassword(password);
 
       if (encryptedPassword.isPresent()) {
+        VOUserDetails user = getIdService().getCurrentUserDetails();  
         APPlatformService platformService = sl.findRemoteService(APPlatformService.class);
         platformService.updateUserCredentials(
             user.getKey(), user.getUserId(), encryptedPassword.get());

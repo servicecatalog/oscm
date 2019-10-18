@@ -590,7 +590,7 @@ public class MarketplaceServiceLocalBeanTest {
                 SUPPLIER_ID, RESELLER_ID, OfferingType.RESELLER);
     }
 
-    @Test(expected = org.oscm.internal.types.exception.IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void grantResalePermissions_NullArgument() throws Exception {
         // when
         service.grantResalePermissions(null);
