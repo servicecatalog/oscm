@@ -15,8 +15,8 @@ public class SchemaUpgrade_02_10_01_to_02_10_02_IT
         extends SchemaUpgradeTestBase {
 
     public SchemaUpgrade_02_10_01_to_02_10_02_IT() {
-        super(new DatabaseVersionInfo(2, 9, 13),
-                new DatabaseVersionInfo(2, 10, 01));
+        super(new DatabaseVersionInfo(2, 10, 01),
+                new DatabaseVersionInfo(2, 10, 02));
     }
 
     @Override
