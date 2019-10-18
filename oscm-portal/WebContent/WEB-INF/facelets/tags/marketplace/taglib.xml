@@ -51,6 +51,10 @@
     <source>serviceBlockRepeat.xhtml</source>
   </tag>
   <tag>
+    <tag-name>serviceCard</tag-name>
+    <source>serviceCard.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>landingpageEntryBlock</tag-name>
     <source>landingpageEntryBlock.xhtml</source>
   </tag>
@@ -89,6 +93,10 @@
   <tag>
     <tag-name>header</tag-name>
     <source>header.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>headerBootstrap</tag-name>
+    <source>headerBootstrap.xhtml</source>
   </tag>
   <tag>
     <tag-name>serviceTags</tag-name>
