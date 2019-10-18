@@ -18,8 +18,8 @@ import javax.naming.Context;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.Ignore;
 
 @Ignore
 public class LdapTest {
