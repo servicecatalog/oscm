@@ -38,7 +38,7 @@ public class SkinBean extends BaseBean implements Serializable {
 
     public static final String DEFAULT_SKIN_NAME = "interstage";
 
-    public static final String MARKETPLACE_STAGE_DEFAULT = "<img id=\"marketplaceStageDefault\" src=\"{0}"
+    public static final String MARKETPLACE_STAGE_DEFAULT = "<img class=\"img-fluid\" id=\"marketplaceStageDefault\" src=\"{0}"
             + Marketplace.MARKETPLACE_ROOT
             + "/img/flash.png\" style=\"border-style: none;\" />";
 

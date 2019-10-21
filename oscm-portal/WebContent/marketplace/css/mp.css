@@ -446,6 +446,41 @@ div#headerrightarea, rightarea a {
 	color:#333!important;	
 	font-size:110%;
  }
+ 
+ /* Bootstrap header */
+ div.headerBootstrap { 
+	clear: left; 
+	width: 100%; 
+	margin: 0 auto 1px; 
+	text-align: left;
+	position: relative; 
+}
+ 
+div.headerBootstrap a { text-decoration: none; }
+div.headerBootstrap a:hover { text-decoration: underline; }
+div.headerBootstrap a img { border: none; }
+
+div.headertopBootstrap{ 
+	width: 100%; 
+	background: #CFD4D9; 
+	float:left;
+	margin:0 0 1px;
+}
+
+
+
+/* wrapper block for search and login functions */
+div#headerrightareaBootstrap{ 
+	display: block; 
+	float: right; width: 626px; 
+	margin: 16px 16px 0 0; 
+  	width: 60%;
+}
+
+div#headerrightareaBootstrap, rightarea a { 
+	color:#333!important;	
+	font-size:110%;
+ }
 
  /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 3.2 Corporate Logo
@@ -576,7 +611,8 @@ input#Search:focus, #subListForm\:search:focus {
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */			
 			
 /* top navigation wrapper */
-#headerbottom { clear: both; position: relative; display: block; background: #B3B7BC;  width: 980px;  }
+#headerbottom { clear: both; position: relative; display: block; background: #B3B7BC;  width: 980px;   }
+#headerbottomBootstrap { clear: both; position: relative; display: block; background: #B3B7BC;  width: 100%;   }
 #globalnav { padding: 0; }			
 
 /* navigation list elements */
@@ -856,11 +892,12 @@ form .formHighlight textarea{
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 5.1 Main Layout
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.stage { width: 100%; min-width: 980px;  }
+.stage { width: 100%;   min-width: 980px;}
+#stageResponsive { width: 100%;  }
+
 #marketplaceStageDefault{
 	background: url(../img/transparentPixel.png) no-repeat;
-	width:980px;
-	height:290px;
+    width: 100%;
 }
 
 .bodyarea { position: relative; width: 980px; margin: auto; padding-bottom: 60px; text-align: left; z-index: 900; }
@@ -1121,6 +1158,10 @@ h2.servicePrice, h1.servicePrice {
 	margin:0px;
 }
 
+h2.servicePrice{
+	font-size: 1.4em;
+}
+
 /* price currency */
 h2.priceUnit, h1.priceUnit {
 	color: #222;
@@ -1131,7 +1172,7 @@ h2.priceUnit, h1.priceUnit {
 /* service price on home page and service overview */
 .servicePriceHome {
 	float:left;
-	margin: -3px 0  0 !important;
+	margin: -3px 0  3px !important;
 	position:relative;
 }
 
@@ -2316,7 +2357,7 @@ div.accdsection h4#menu0{
 
 /*  bottom of content  link button navigation wrapper */
 div.scrolltop { clear: both; border-style: none; margin: 0; padding: 4px 0 6px; }
-div.scrolltop p { display: block; overflow: visible; border-style: none; margin: 0; padding: 0; text-align: right; font-size: 93%; }
+div.scrolltop p { display: block; overflow: visible; border-style: none; padding: 0; text-align: right; font-size: 93%; line-height: 1em; margin-bottom: 1em;}
 div.scrolltop p img { margin-left: 5px; border: none; }
 
 /* "top of page" link button */
@@ -2324,6 +2365,7 @@ div.scrolltop p img { margin-left: 5px; border: none; }
   float: right;
   background: transparent url(../img/mp_icon_sprite.png) right -400px no-repeat; 
   padding-right: 20px;
+  height: 16px;
 }
 
 /* "browse all services" link button on home page */
@@ -2331,6 +2373,7 @@ div.scrolltop p img { margin-left: 5px; border: none; }
   float: left;
   background: transparent url(../img/mp_icon_sprite.png) left -384px no-repeat; 
   padding-left: 20px;
+  height: 16px;
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
@@ -2819,6 +2862,15 @@ div.pagingOptions p{
 	color: #fff;
 }
 
+.bootstrap_footer {
+	background: #B3B7BC;
+	border-bottom:1px solid #4c4c4c;
+	width: 100%;
+	color: #fff;
+}
+
+.bootstrap_footer a{ color: #fff; }
+
 .footer a{ color: #fff; }
 	
  /* footer enclosed block */	
@@ -2846,6 +2898,20 @@ div.pagingOptions p{
 }
 
 .footer li {
+	display: inline;
+	margin: 0; 
+	margin-left: 
+	16px; 
+}
+
+.bootstrap_footer ul { 
+	font-size: 93%; 
+	list-style: none; 
+	padding: 0; 
+	margin: 0;
+}
+
+.bootstrap_footer li {
 	display: inline;
 	margin: 0; 
 	margin-left: 
@@ -3486,3 +3552,11 @@ div.responsive-table-panel {
   font: 20px 'Helvetica';
   text-transform: uppercase;
 }
+
+.container {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
