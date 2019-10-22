@@ -235,7 +235,7 @@ public class TranslationBeanTest {
         String stagePreview = tb.getStagePreview();
         // the image will be used
         assertTrue(stagePreview
-                .startsWith("<img id=\"marketplaceStageDefault\""));
+                .startsWith("<img class=\"img-fluid\" id=\"marketplaceStageDefault\""));
     }
 
     @Test
@@ -246,7 +246,7 @@ public class TranslationBeanTest {
         String stagePreview = tb.getStagePreview();
         // the image will be used
         assertTrue(stagePreview
-                .startsWith("<img id=\"marketplaceStageDefault\""));
+                .startsWith("<img class=\"img-fluid\" id=\"marketplaceStageDefault\""));
     }
 
     @Test
@@ -272,7 +272,7 @@ public class TranslationBeanTest {
         tb.setDirtyStage(true);
         String stagePreview = tb.getStagePreview();
         assertTrue(stagePreview
-                .startsWith("<img id=\"marketplaceStageDefault\""));
+                .startsWith("<img class=\"img-fluid\" id=\"marketplaceStageDefault\""));
         tb.saveStage();
         verifySavedStage(EN, stage, BaseAdmUmTest.GLOBAL_MARKETPLACE_NAME);
         assertFalse(tb.isDirtyStage());

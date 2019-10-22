@@ -202,9 +202,7 @@
     <class>org.oscm.domobjects.UnitRoleAssignment</class>
     <class>org.oscm.domobjects.Tenant</class>
     <class>org.oscm.domobjects.TenantData</class>
-    <class>org.oscm.domobjects.TenantSetting</class>
-    <class>org.oscm.domobjects.TenantSettingData</class>
-
+    
     <properties>
       <property name="hibernate.hbm2ddl.auto" value="validate" />
       <property name="hibernate.jdbc.batch_size" value="100" />
