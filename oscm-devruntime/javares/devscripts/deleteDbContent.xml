@@ -152,6 +152,6 @@
   <LocalizedBillingResource />
   <UnitUserRole />
   <UnitRoleAssignment />
-  <Tenant />
+  <Tenant /> 
   <TenantSetting />
 </dataset>
