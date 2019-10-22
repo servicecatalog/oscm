@@ -59,7 +59,7 @@ public class WebTester {
     private int waitingTime;
 
     // path schemas
-    private static final String PROPERTY_PATH = "../oscm-devruntime/javares/local/%s/webtest.properties";
+    private static final String PROPERTY_PATH = "../oscm-webtest-base/src/main/resources/webtest.properties";
 
     public WebTester() throws Exception {
 
