@@ -62,13 +62,10 @@ public class OidcSynchronizationBeanTest {
         assertEquals(expected.get(0).getName(), result.get(0).getName());
     }
 
-    public GroupInfo createAccessGroupModel() {
-        GroupInfo model = new GroupInfo();
-        model.setId("1");
-        model.setDescription("test");
-        model.setName("test");
-        return model;
-    }
+  public GroupInfo createAccessGroupModel() {
+    GroupInfo model = GroupInfo.of().id("1").description("test").name("test").build();
+    return model;
+  }
 
     @Test
     public void testSycnchronizeOIDCGroupsWithOrganizationsNull()
