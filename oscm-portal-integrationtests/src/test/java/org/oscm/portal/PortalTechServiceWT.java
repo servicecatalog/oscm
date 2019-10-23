@@ -58,7 +58,10 @@ public class PortalTechServiceWT {
 
         tester.visitPortal(PortalPathSegments.IMPORT_TECHNICALSERVICE);
 
-        String pathFile = tester.getPropertie(FILE_PATH_IMPORT_TECHSERVICE);
+        String pathFile = System.getProperty(FILE_PATH_IMPORT_TECHSERVICE);
+        if (pathFile == null) {
+            pathFile = tester.getPropertie(FILE_PATH_IMPORT_TECHSERVICE);
+        }
         tester.log("Import file " + pathFile + " as technical service.");
         tester.getDriver()
                 .findElement(By
