@@ -91,9 +91,7 @@ import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
 import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
 import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
-import org.oscm.identityservice.rest.AccessGroup;
 import org.oscm.identityservice.rest.RestUtils;
-import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;
@@ -2950,7 +2948,6 @@ public class IdentityServiceBean
             GroupInfo groupInfo = client.createGroup(groupName, "TenantId: " + tenantId
                     + ". Organization:" + caller);
             return groupInfo.getId();
-            //return AccessGroup.createGroup(tenantId, token, groupName, caller);
         } catch (Exception e) {
             throw createRegistrationException(e);
         }
@@ -2964,7 +2961,6 @@ public class IdentityServiceBean
         try {
             ApiIdentityClient client = RestUtils.createClient(tenantId);
             client.addGroupMember(userInfo.getUserId(), groupId);
-            //AccessGroup.addMemberToGroup(groupId, tenantId, token, userInfo);
         } catch (Exception e) {
             throw createRegistrationException(e);
         }
