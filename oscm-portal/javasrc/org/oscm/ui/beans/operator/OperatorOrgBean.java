@@ -173,11 +173,11 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
             newOrganization.setTenantKey(tenantKey.longValue());
             String selectedTenantId = determineIdForTenant(tenantKey);
             newAdministrator = getIdService().loadUserDetailsFromOIDCProvider(
-            newAdministrator.getUserId(), selectedTenantId, getIdToken());
+            newAdministrator.getUserId(), selectedTenantId);
             String groupId = getIdService().createAccessGroupInOIDCProvider(selectedTenantId,
-                getIdToken(), newOrganization.getName());
+                newOrganization.getName());
             getIdService().addMemberToAccessGroupInOIDCProvider(groupId, selectedTenantId,
-                getIdToken(), newAdministrator);
+                 newAdministrator);
             newOrganization.setOidcGroupId(groupId);
         }
         newVoOrganization = getOperatorService().registerOrganization(

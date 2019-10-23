@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.List;
 
 import org.oscm.domobjects.Organization;
+import org.oscm.identity.ApiIdentityClient;
 import org.oscm.identityservice.model.AccessGroupModel;
 import org.oscm.identityservice.model.UserinfoModel;
 import org.oscm.internal.types.exception.RegistrationException;
@@ -33,6 +34,10 @@ public class AccessGroup {
 
     public static String createGroup(String tenantId, String token, String groupName,
             String caller) throws Exception {
+        
+        ApiIdentityClient client = RestUtils.createClient(tenantId);
+        client.createGroup(groupName, "");
+        
         HttpURLConnection conn = null;
         try {
             URL url = new URL(createUrlForGroups(tenantId));
