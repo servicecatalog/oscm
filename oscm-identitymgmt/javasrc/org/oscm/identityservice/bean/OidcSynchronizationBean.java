@@ -30,6 +30,7 @@ import org.oscm.identity.mapper.UserMapper;
 import org.oscm.identity.model.GroupInfo;
 import org.oscm.identity.model.UserInfo;
 import org.oscm.identityservice.model.UserImportModel;
+import org.oscm.identityservice.rest.RestUtils;
 import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.internal.types.enumtypes.UserRoleType;
 import org.oscm.internal.vo.VOUserDetails;
@@ -50,7 +51,7 @@ public class OidcSynchronizationBean {
 
     public List<VOUserDetails> getAllUsersFromOIDCForGroup(
             Organization organization, String tenantId) {
-        ApiIdentityClient client = createClient(tenantId);
+        ApiIdentityClient client = RestUtils.createClient(tenantId);
         List<VOUserDetails> userInfo = null;
         try {
             Set<UserInfo> info = client
@@ -88,7 +89,7 @@ public class OidcSynchronizationBean {
 
     protected List<GroupInfo> getAllOrganizations(String tenantId)
             throws Exception {
-        ApiIdentityClient client = createClient(tenantId);
+        ApiIdentityClient client = RestUtils.createClient(tenantId);
         ArrayList<GroupInfo> groupInfo = new ArrayList<GroupInfo>();
         Set<GroupInfo> info = null;
         try {
@@ -220,12 +221,5 @@ public class OidcSynchronizationBean {
             }
         }
         user.setUserRoles(roles);
-    }
-    
-    private ApiIdentityClient createClient(String tenantId) {
-        IdentityConfiguration config = IdentityConfiguration.of()
-                .tenantId(tenantId).sessionContext(null).build();
-        ApiIdentityClient client = new ApiIdentityClient(config);
-        return client;
     }
 }

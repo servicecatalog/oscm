@@ -75,6 +75,10 @@ import org.oscm.domobjects.UserGroup;
 import org.oscm.domobjects.UserRole;
 import org.oscm.domobjects.enums.ModificationType;
 import org.oscm.id.IdGenerator;
+import org.oscm.identity.ApiIdentityClient;
+import org.oscm.identity.mapper.UserMapper;
+import org.oscm.identity.model.GroupInfo;
+import org.oscm.identity.model.UserInfo;
 import org.oscm.identityservice.assembler.UserDataAssembler;
 import org.oscm.identityservice.bean.BulkUserImportReader.Row;
 import org.oscm.identityservice.control.SendMailControl;
@@ -88,6 +92,7 @@ import org.oscm.identityservice.local.LdapVOUserDetailsMapper;
 import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.identityservice.pwdgen.PasswordGenerator;
 import org.oscm.identityservice.rest.AccessGroup;
+import org.oscm.identityservice.rest.RestUtils;
 import org.oscm.identityservice.rest.Userinfo;
 import org.oscm.interceptor.DateFactory;
 import org.oscm.interceptor.ExceptionMapper;
@@ -2926,10 +2931,11 @@ public class IdentityServiceBean
     
     @Override
     public VOUserDetails loadUserDetailsFromOIDCProvider(String userId,
-            String tenantId, String token) throws RegistrationException {
+            String tenantId) throws RegistrationException {
         try {
-            return Userinfo.getUserinfoFromIdentityService(userId,
-                    tenantId, token);
+            ApiIdentityClient client = RestUtils.createClient(tenantId);
+            UserInfo user = client.getUser(userId);
+            return UserMapper.from(user);
         } catch (Exception e) {
             throw createRegistrationException(e);
         }
@@ -2937,10 +2943,14 @@ public class IdentityServiceBean
 
     @Override
     public String createAccessGroupInOIDCProvider(String tenantId,
-            String token, String groupName) throws RegistrationException {
+            String groupName) throws RegistrationException {
         String caller = dm.getCurrentUser().getOrganization().getName();
         try {
-            return AccessGroup.createGroup(tenantId, token, groupName, caller);
+            ApiIdentityClient client = RestUtils.createClient(tenantId);
+            GroupInfo groupInfo = client.createGroup(groupName, "TenantId: " + tenantId
+                    + ". Organization:" + caller);
+            return groupInfo.getId();
+            //return AccessGroup.createGroup(tenantId, token, groupName, caller);
         } catch (Exception e) {
             throw createRegistrationException(e);
         }
@@ -2949,13 +2959,14 @@ public class IdentityServiceBean
 
     @Override
     public void addMemberToAccessGroupInOIDCProvider(String groupId,
-            String tenantId, String token, VOUserDetails userInfo)
+            String tenantId, VOUserDetails userInfo)
             throws RegistrationException {
         try {
-            AccessGroup.addMemberToGroup(groupId, tenantId, token, userInfo);
+            ApiIdentityClient client = RestUtils.createClient(tenantId);
+            client.addGroupMember(userInfo.getUserId(), groupId);
+            //AccessGroup.addMemberToGroup(groupId, tenantId, token, userInfo);
         } catch (Exception e) {
-            RegistrationException rf = createRegistrationException(e);
-            throw rf;
+            throw createRegistrationException(e);
         }
     }
     

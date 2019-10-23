@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.oscm.identity.ApiIdentityClient;
+import org.oscm.identity.IdentityConfiguration;
+
 public class RestUtils {
 
     public static String getResponse(InputStream input) throws IOException {
@@ -42,5 +45,12 @@ public class RestUtils {
         else {
             return false;
         }
+    }
+    
+    public static ApiIdentityClient createClient(String tenantId) {
+        IdentityConfiguration config = IdentityConfiguration.of()
+                .tenantId(tenantId).sessionContext(null).build();
+        ApiIdentityClient client = new ApiIdentityClient(config);
+        return client;
     }
 }
