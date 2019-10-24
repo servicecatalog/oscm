@@ -9,9 +9,8 @@ package org.oscm.ui.dialog.classic.manageTenants;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 import java.util.Properties;
 
@@ -20,6 +19,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.tenant.ManageTenantService;
@@ -225,15 +225,13 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
                 .ifNotGivenReturn("default");
 
         Properties properties = generateTenantSettingsTemplate(tenantId);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        try {
+        
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) { 
             final String fName = String.format("tenant-%s.properties",
                     tenantId);
             properties.store(baos, null);
             writeSettings(baos.toByteArray(), fName);
-        } finally {
-            baos.close();
-        }
+        } 
 
         return OUTCOME_SUCCESS;
     }
@@ -246,16 +244,14 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
 
     public Properties generateTenantSettingsTemplate(String tenantId)
             throws IOException {
-        Properties props = new Properties();
-        props.put("oidc.provider", "default");
-        props.put("oidc.clientId", "Client ID of registered application");
-        props.put("oidc.authUrl", "https://[domain]/oauth2/authorize");
-        props.put("oidc.logoutUrl", "https://[domain]/oauth2/logout");
-        props.put("oidc.idTokenRedirectUrl",
-                "http://[oscm-host]:9090/oscm-identity/id_token");
-        props.put("oidc.openidConfigurationUrl",
-                "https://[domain]/.well-known/openid-configuration");
-        return props;
+        FacesContext fc = ui.getFacesContext();
+         
+        try (InputStream in = fc.getExternalContext().getResourceAsStream(
+                "/oidc/tenant-default.properties")) {
+            Properties props = new Properties();
+            props.load(in);
+            return props;
+        }       
     }
 
     boolean isDefault(POTenant poTenant) {
@@ -269,12 +265,7 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
 
         throw new RuntimeException("Default Tenant missing");
     }
-
-    HttpURLConnection getConnection() throws IOException {
-        final String url = "https://raw.githubusercontent.com/servicecatalog/oscm-identity/master/config/tenants/tenant-default.properties";
-        return (HttpURLConnection) new URL(url).openConnection();
-    }
-
+  
     static class Value<T> {
         private T value;
 
