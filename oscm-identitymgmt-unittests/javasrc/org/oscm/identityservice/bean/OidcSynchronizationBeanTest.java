@@ -8,6 +8,9 @@
 
 package org.oscm.identityservice.bean;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import java.util.ArrayList;
@@ -22,11 +25,6 @@ import org.oscm.domobjects.Tenant;
 import org.oscm.identity.model.GroupInfo;
 import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.internal.vo.VOUserDetails;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 
 public class OidcSynchronizationBeanTest {
 
@@ -62,10 +60,13 @@ public class OidcSynchronizationBeanTest {
         assertEquals(expected.get(0).getName(), result.get(0).getName());
     }
 
-  public GroupInfo createAccessGroupModel() {
-    GroupInfo model = GroupInfo.of().id("1").description("test").name("test").build();
-    return model;
-  }
+    public GroupInfo createAccessGroupModel() {
+        GroupInfo model = new GroupInfo();
+        model.setId("1");
+        model.setDescription("test");
+        model.setName("test");
+        return model;
+    }
 
     @Test
     public void testSycnchronizeOIDCGroupsWithOrganizationsNull()
