@@ -24,13 +24,12 @@ import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.OrganizationToRole;
 import org.oscm.domobjects.Tenant;
 import org.oscm.identity.ApiIdentityClient;
-import org.oscm.identity.IdentityConfiguration;
 import org.oscm.identity.exception.IdentityClientException;
 import org.oscm.identity.mapper.UserMapper;
 import org.oscm.identity.model.GroupInfo;
 import org.oscm.identity.model.UserInfo;
 import org.oscm.identityservice.model.UserImportModel;
-import org.oscm.identityservice.rest.Userinfo;
+import org.oscm.identityservice.rest.RestUtils;
 import org.oscm.internal.types.enumtypes.UserRoleType;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
@@ -40,7 +39,7 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 @Stateless
 public class OidcSynchronizationBean {
     
-    private static String DEFAULT_TENANT = "default"; 
+    private static String DEFAULT_TENANT = "default";
 
     @EJB(beanInterface = DataService.class)
     protected DataService dm;
@@ -50,7 +49,7 @@ public class OidcSynchronizationBean {
 
     public List<VOUserDetails> getAllUsersFromOIDCForGroup(
             Organization organization, String tenantId) {
-        ApiIdentityClient client = createClient(tenantId);
+        ApiIdentityClient client = RestUtils.createClient(tenantId);
         List<VOUserDetails> userInfo = null;
         try {
             Set<UserInfo> info = client
@@ -88,7 +87,7 @@ public class OidcSynchronizationBean {
 
     protected List<GroupInfo> getAllOrganizations(String tenantId)
             throws Exception {
-        ApiIdentityClient client = createClient(tenantId);
+        ApiIdentityClient client = RestUtils.createClient(tenantId);
         ArrayList<GroupInfo> groupInfo = new ArrayList<GroupInfo>();
         Set<GroupInfo> info = null;
         try {
@@ -220,12 +219,5 @@ public class OidcSynchronizationBean {
             }
         }
         user.setUserRoles(roles);
-    }
-    
-    private ApiIdentityClient createClient(String tenantId) {
-        IdentityConfiguration config = IdentityConfiguration.of()
-                .tenantId(tenantId).sessionContext(null).build();
-        ApiIdentityClient client = new ApiIdentityClient(config);
-        return client;
     }
 }
