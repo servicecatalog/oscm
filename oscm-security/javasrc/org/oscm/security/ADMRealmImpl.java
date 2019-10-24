@@ -156,12 +156,18 @@ public class ADMRealmImpl {
             final String callerType = getCallerType(password);
             if ("WS".equals(callerType)) {
                 handleWebServiceCaller(user.getUserId(), password, user.getTenantId());
-            } else {
+            } else if ("UI".equals(callerType)) {
+                // UI
+            }
+            else {
                 handleOperatorClientCaller(userKey, password, user);
             }
         } else {
-            // UI
+            final String errMsg = "Missing required authentication credentials: password must not be empty";
+            logger.info(errMsg);
+            throw new LoginException(errMsg);
         }
+
         logger.info(String.format(
                 "Single Sign On: User '%s' successfully logged in.", userKey));
     }
