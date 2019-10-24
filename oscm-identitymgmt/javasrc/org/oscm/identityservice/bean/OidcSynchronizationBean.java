@@ -39,7 +39,7 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 @Stateless
 public class OidcSynchronizationBean {
     
-    private static String DEFAULT_TENANT = "default"; 
+    private static String DEFAULT_TENANT = "default";
 
     @EJB(beanInterface = DataService.class)
     protected DataService dm;
