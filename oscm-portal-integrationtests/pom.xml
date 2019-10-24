@@ -32,10 +32,6 @@
           <execution>
             <phase>test</phase>
             <configuration>
-              <systemPropertyVariables>
-                <propertyName>technicalservice.xml.path</propertyName>
-              </systemPropertyVariables>
-              
               <redirectTestOutputToFile>true</redirectTestOutputToFile>
               <reportsDirectory>../seleniumtest/testresults</reportsDirectory>
             </configuration>
