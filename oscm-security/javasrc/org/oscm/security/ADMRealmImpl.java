@@ -198,7 +198,7 @@ public class ADMRealmImpl {
     }
   }
 
-  private void handleOperatorClientCaller(
+  void handleOperatorClientCaller(
       final String userKey, String password, UserQuery userQuery)
       throws LoginException, SQLException, NamingException {
     if (userKey.equals("1000")) {
