@@ -159,7 +159,6 @@ public class ADMRealmImpl {
 
     String userId = user.getUserId();
     String tenantId = user.getTenantId();
-    password = password.substring(SSO_CALLER_SPEC_LEN);
 
     switch (callerType) {
       case "WS":
@@ -179,6 +178,7 @@ public class ADMRealmImpl {
   private void handleUICaller(String userId, String idToken, String tenantId)
       throws LoginException {
 
+    idToken = idToken.substring(SSO_CALLER_SPEC_LEN);
     ApiIdentityClient idc = getIdentityClient(tenantId);
     validateIdToken(idc, userId, idToken);
   }
@@ -186,8 +186,10 @@ public class ADMRealmImpl {
   private void handleWebServiceCaller(String userId, String password, String tenantId)
       throws LoginException {
 
+    ApiIdentityClient idc = getIdentityClient(tenantId);
+    password = password.substring(SSO_CALLER_SPEC_LEN);
+
     try {
-      ApiIdentityClient idc = getIdentityClient(tenantId);
       String token = idc.getIdToken(userId, password);
       validateIdToken(idc, userId, token);
     } catch (IdentityClientException e) {
