@@ -15,7 +15,6 @@ import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -28,6 +27,9 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
@@ -46,259 +48,290 @@ import org.oscm.ui.profile.FieldData;
 
 public class ManageTenantsCtrlTest {
 
-  private static final String GENERATED_TENANT_ID = "9hjgadhf";
-  private static final String SELECTED_TENANT_ID = "eebfda1";
+    private static final String GENERATED_TENANT_ID = "9hjgadhf";
+    private static final String SELECTED_TENANT_ID = "eebfda1";
 
-  private ManageTenantsCtrl ctrl;
-  private ManageTenantsModel model;
-  private ManageTenantService manageTenantService;
-  private UiDelegate uiDelegate;
-  private List<POTenant> tenants;
+    private ManageTenantsCtrl ctrl;
+    private ManageTenantsModel model;
+    private ManageTenantService manageTenantService;
+    private UiDelegate uiDelegate;
+    private List<POTenant> tenants;
 
-  private ArgumentCaptor<String> fileName = ArgumentCaptor.forClass(String.class);
-  private ArgumentCaptor<byte[]> fileContent = ArgumentCaptor.forClass(byte[].class);
+    private ArgumentCaptor<String> fileName = ArgumentCaptor.forClass(String.class);
+    private ArgumentCaptor<byte[]> fileContent = ArgumentCaptor.forClass(byte[].class);
 
-  @Before
-  public void setup() throws Exception {
-    ctrl = spy(new ManageTenantsCtrl());
-    model = spy(new ManageTenantsModel());
-    ctrl.setModel(model);
-    manageTenantService = mock(ManageTenantService.class);
-    ctrl.setManageTenantService(manageTenantService);
-    doNothing().when(ctrl).handleSuccessMessage(anyString(), anyString());
-    uiDelegate = mock(UiDelegate.class);
-    ctrl.ui = uiDelegate;
-    doNothing().when(uiDelegate).handleError(anyString(), anyString());
+    @Before
+    public void setup() throws Exception {
+        ctrl = spy(new ManageTenantsCtrl());
+        model = spy(new ManageTenantsModel());
+        ctrl.setModel(model);
+        manageTenantService = mock(ManageTenantService.class);
+        ctrl.setManageTenantService(manageTenantService);
+        doNothing().when(ctrl).handleSuccessMessage(anyString(), anyString());
+        uiDelegate = mock(UiDelegate.class);
+        ctrl.ui = uiDelegate;
+        doNothing().when(uiDelegate).handleError(anyString(), anyString());
 
-    POTenant tenant = new POTenant();
-    tenant.setTenantId("default");
-    tenant.setDescription("Platform default tenant");
-    tenant.setName("Default");
-    tenants = new ArrayList<POTenant>();
-    tenants.add(tenant);
-    doReturn(tenants).when(manageTenantService).getAllTenantsWithDefaultTenant();
-  }
+        POTenant tenant = new POTenant();
+        tenant.setTenantId("default");
+        tenant.setDescription("Platform default tenant");
+        tenant.setName("Default");
+        tenants = new ArrayList<POTenant>();
+        tenants.add(tenant);
+        doReturn(tenants).when(manageTenantService).getAllTenantsWithDefaultTenant();
+        mockProperties();
+    }
 
-  @Test
-  public void testSetSelectedTenant_default() throws ObjectNotFoundException {
-    // given
-    POTenant selectedTenant = prepareDefaultTenant();
-    ctrl.setModel(model);
-    when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
+    @Test
+    public void testManageTenant_init() {
+        // when
+        ctrl.init();
+        
+        // then
+        assertTrue(model.isDeleteDisabled());
+    }
+    
 
-    // when
-    ctrl.setSelectedTenant();
 
-    // then
-    assertTrue(model.isDeleteDisabled());
+    @Test
+    public void testDelete() {
+        // when
+        ctrl.delete();
+        
+        // then
+        assertTrue(model.isDeleteDisabled());
+    }
 
-    assertTenantIdReadOnly(selectedTenant);
 
-    assertNameAndDescriptionReadOnly(selectedTenant);
-  }
 
-  @Test
-  public void testSetSelectedTenant_nonDefault() throws ObjectNotFoundException {
-    // given
-    POTenant selectedTenant = prepareTenant();
-    ctrl.setModel(model);
-    when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
+    @Test
+    public void testSetSelectedTenant_default() throws ObjectNotFoundException {
+        // given
+        POTenant selectedTenant = prepareDefaultTenant();
+        ctrl.setModel(model);
+        when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
 
-    // when
-    ctrl.setSelectedTenant();
+        // when
+        ctrl.setSelectedTenant();
 
-    // then
-    assertFalse(model.isDeleteDisabled());
+        // then
+        assertTrue(model.isDeleteDisabled());
 
-    assertTenantIdReadOnly(selectedTenant);
+        assertTenantIdReadOnly(selectedTenant);
 
-    assertNameAndDescriptionsWriteable(selectedTenant);
-  }
+        assertNameAndDescriptionReadOnly(selectedTenant);
+    }
 
-  @Test
-  public void testSetSelectedTenantWithProperties() throws ObjectNotFoundException {
-    // given
-    POTenant selectedTenant = prepareTenant();
-    ctrl.setModel(model);
-    when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
+    @Test
+    public void testSetSelectedTenant_nonDefault() throws ObjectNotFoundException {
+        // given
+        POTenant selectedTenant = prepareTenant();
+        ctrl.setModel(model);
+        when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
 
-    // when
-    ctrl.setSelectedTenant();
+        // when
+        ctrl.setSelectedTenant();
 
-    // then
-    assertFalse(model.isSaveDisabled());
-    assertFalse(model.isDeleteDisabled());
-  }
+        // then
+        assertFalse(model.isDeleteDisabled());
 
-  @SuppressWarnings("unchecked")
-  @Test
-  public void testSave_add() throws NonUniqueBusinessKeyException {
-    // given
-    model.setSelectedTenant(null);
-    POTenant poTenant = prepareTenant();
-    model.setTenantId(new FieldData<String>(poTenant.getTenantId(), false, true));
-    model.setTenantDescription(new FieldData<String>(poTenant.getDescription(), false, true));
-    model.setTenantName(new FieldData<String>(poTenant.getName(), false, true));
-    when(manageTenantService.addTenant(any(POTenant.class))).thenReturn(GENERATED_TENANT_ID);
+        assertTenantIdReadOnly(selectedTenant);
 
-    // when
-    ctrl.save();
+        assertNameAndDescriptionsWriteable(selectedTenant);
+    }
 
-    // then
-    assertEquals(model.getSelectedTenantId(), GENERATED_TENANT_ID);
-    verify(manageTenantService, times(1)).addTenant(any(POTenant.class));
-    verify(model, times(2)).setTenants(anyList());
-  }
+    @Test
+    public void testSetSelectedTenantWithProperties() throws ObjectNotFoundException {
+        // given
+        POTenant selectedTenant = prepareTenant();
+        ctrl.setModel(model);
+        when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
 
-  @SuppressWarnings("unchecked")
-  @Test
-  public void testSave_edit() throws NonUniqueBusinessKeyException, ObjectNotFoundException,
-      ConcurrentModificationException {
-    // given
-    POTenant poTenant = prepareTenant();
-    model.setSelectedTenant(poTenant);
-    model.setTenantId(new FieldData<String>("edited tenant id", false, true));
-    model.setTenantDescription(new FieldData<String>(poTenant.getDescription(), false, true));
-    model.setTenantName(new FieldData<String>(poTenant.getName(), false, true));
-    doNothing().when(manageTenantService).updateTenant(any(POTenant.class));
+        // when
+        ctrl.setSelectedTenant();
 
-    // when
-    ctrl.save();
+        // then
+        assertFalse(model.isSaveDisabled());
+        assertFalse(model.isDeleteDisabled());
+    }
 
-    // then
-    assertEquals(model.getSelectedTenantId(), poTenant.getTenantId());
-    verify(manageTenantService, times(1)).updateTenant(any(POTenant.class));
-    verify(model, times(2)).setTenants(anyList());
-  }
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testSave_add() throws NonUniqueBusinessKeyException {
+        // given
+        model.setSelectedTenant(null);
+        POTenant poTenant = prepareTenant();
+        model.setTenantId(new FieldData<String>(poTenant.getTenantId(), false, true));
+        model.setTenantDescription(new FieldData<String>(poTenant.getDescription(), false, true));
+        model.setTenantName(new FieldData<String>(poTenant.getName(), false, true));
+        when(manageTenantService.addTenant(any(POTenant.class))).thenReturn(GENERATED_TENANT_ID);
 
-  @Test
-  public void testAddTenant() {
-    // given
+        // when
+        ctrl.save();
 
-    // when
-    ctrl.addTenant();
+        // then
+        assertEquals(model.getSelectedTenantId(), GENERATED_TENANT_ID);
+        verify(manageTenantService, times(1)).addTenant(any(POTenant.class));
+        verify(model, times(2)).setTenants(anyList());
+    }
 
-    // then
-    assertEquals(model.getSelectedTenant(), null);
-    assertEquals(model.getSelectedTenantId(), null);
-    assertEquals(model.getTenantId().getValue(), null);
-    assertEquals(model.getTenantName().getValue(), null);
-    assertEquals(model.getTenantDescription().getValue(), null);
-    assertFalse(model.isSaveDisabled());
-    assertTrue(model.isDeleteDisabled());
-  }
+    @SuppressWarnings("unchecked")
+    @Test
+    public void testSave_edit() throws NonUniqueBusinessKeyException, ObjectNotFoundException,
+            ConcurrentModificationException {
+        // given
+        POTenant poTenant = prepareTenant();
+        model.setSelectedTenant(poTenant);
+        model.setTenantId(new FieldData<String>("edited tenant id", false, true));
+        model.setTenantDescription(new FieldData<String>(poTenant.getDescription(), false, true));
+        model.setTenantName(new FieldData<String>(poTenant.getName(), false, true));
+        doNothing().when(manageTenantService).updateTenant(any(POTenant.class));
 
-  @Test
-  public void exportSettingsTemplate() throws Exception {
-    // given
-    givenConnection();
-    givenTenantToSelect();
+        // when
+        ctrl.save();
 
-    // when
-    ctrl.setSelectedTenant();
+        // then
+        assertEquals(model.getSelectedTenantId(), poTenant.getTenantId());
+        verify(manageTenantService, times(1)).updateTenant(any(POTenant.class));
+        verify(model, times(2)).setTenants(anyList());
+    }
 
-    String result = ctrl.exportSettingsTemplate();
+    @Test
+    public void testAddTenant() {
+        // given
 
-    // then
-    verify(ctrl, times(1)).writeSettings(fileContent.capture(), fileName.capture());
+        // when
+        ctrl.addTenant();
 
-    verify(ctrl.ui, times(0)).handleException(any(SaaSApplicationException.class));
+        // then
+        assertEquals(model.getSelectedTenant(), null);
+        assertEquals(model.getSelectedTenantId(), null);
+        assertEquals(model.getTenantId().getValue(), null);
+        assertEquals(model.getTenantName().getValue(), null);
+        assertEquals(model.getTenantDescription().getValue(), null);
+        assertFalse(model.isSaveDisabled());
+        assertTrue(model.isDeleteDisabled());
+    }
 
-    assertExportFileName(fileName);
+    @Test
+    public void exportSettingsTemplate() throws Exception {
+        // given
+        givenConnection();
+        givenTenantToSelect();
 
-    assertExportContent(fileContent);
-  }
+        // when
+        ctrl.setSelectedTenant();
 
-  protected void assertExportContent(ArgumentCaptor<byte[]> bytes) throws IOException {
-    final String content = new String(bytes.getValue());
-    Properties props = new Properties();
-    props.load(IOUtils.toInputStream(content));
-    assertEquals("default", props.get("oidc.provider"));
-  }
+        String result = ctrl.exportSettingsTemplate();
 
-  protected void assertExportFileName(ArgumentCaptor<String> fileName) {
-    String expectedFileName = String.format("tenant-%s.properties", SELECTED_TENANT_ID);
-    assertEquals(expectedFileName, fileName.getValue());
-  }
+        // then
+        verify(ctrl, times(1)).writeSettings(fileContent.capture(), fileName.capture());
 
-  private void givenConnection() throws IOException {
+        verify(ctrl.ui, times(0)).handleException(any(SaaSApplicationException.class));
 
-    HttpURLConnection httpMock = mock(HttpURLConnection.class);
-    doReturn(httpMock).when(ctrl).getConnection();
+        assertExportFileName(fileName);
 
-    final String properties = "oidc.provider=default\n" + "oidc.clientId=defaultClientId\n"
-        + "oidc.authUrl=defaultAuthUrl\n" + "oidc.idTokenRedirectUrl=defaultTokenRedirectUrl\n"
-        + "oidc.openidConfigurationUrl=https://[domain]/.well-known/openid-configuration\n";
+        assertExportContent(fileContent);
+    }
 
-    InputStream is = IOUtils.toInputStream(properties);
+    protected void assertExportContent(ArgumentCaptor<byte[]> bytes) throws IOException {
+        final String content = new String(bytes.getValue());
+        Properties props = new Properties();
+        props.load(IOUtils.toInputStream(content));
+        assertEquals("default", props.get("oidc.provider"));
+    }
 
-    doReturn(is).when(httpMock).getInputStream();
+    protected void assertExportFileName(ArgumentCaptor<String> fileName) {
+        String expectedFileName = String.format("tenant-%s.properties", SELECTED_TENANT_ID);
+        assertEquals(expectedFileName, fileName.getValue());
+    }
 
-    doNothing().when(ctrl).writeSettings(any(byte[].class), Matchers.anyString());
+    private void givenConnection() throws IOException {
 
-  }
+        HttpURLConnection httpMock = mock(HttpURLConnection.class);
+        
 
-  private void givenFailedConnection() throws IOException {
+        InputStream is = givenProperties();
 
-    HttpURLConnection httpMock = mock(HttpURLConnection.class);
-    doThrow(new IOException("IO Failure")).when(ctrl).getConnection();
-  }
+        doReturn(is).when(httpMock).getInputStream();
 
-  protected void givenTenantToSelect() throws ObjectNotFoundException {
-    POTenant selectedTenant = prepareTenant();
-    when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
-    model.setSelectedTenantId(SELECTED_TENANT_ID);
-  }
+        doNothing().when(ctrl).writeSettings(any(byte[].class), Matchers.anyString());
 
-  private POTenant prepareTenant() {
-    POTenant poTenant = new POTenant();
-    poTenant.setTenantId(GENERATED_TENANT_ID);
-    model.setSelectedTenantId(GENERATED_TENANT_ID);
-    poTenant.setDescription("description");
-    poTenant.setKey(1L);
-    poTenant.setName("tenantName");
-    poTenant.setVersion(0);
-    tenants.add(poTenant);
-    model.setTenants(tenants);
-    return poTenant;
-  }
+    }
 
-  private POTenant prepareDefaultTenant() {
-    POTenant poTenant = tenants.get(0);
-    poTenant.setTenantId("default");
-    model.setSelectedTenantId("default");
-    poTenant.setDescription("default description");
-    poTenant.setKey(1L);
-    poTenant.setName("default namae");
-    poTenant.setVersion(0);
-    model.setTenants(tenants);
-    return poTenant;
-  }
+    private void mockProperties() throws Exception {
+        FacesContext fcContextMock = mock(FacesContext.class);
+        ExternalContext extContextMock = mock(ExternalContext.class);
+        doReturn(fcContextMock).when(ctrl.ui).getFacesContext();
+        doReturn(extContextMock).when(fcContextMock).getExternalContext();
+        doReturn(givenProperties()).when(extContextMock).getResourceAsStream(anyString());
+    }
 
-  private Properties prepareProperties() {
-    Properties properties = new Properties();
-    properties.put(IdpSettingType.SSO_IDP_URL.name(), "idp.url");
-    return properties;
-  }
+    private InputStream givenProperties() throws IOException {
+        final String properties = "oidc.provider=default\n" + "oidc.clientId=defaultClientId\n"
+                + "oidc.authUrl=defaultAuthUrl\n"
+                + "oidc.idTokenRedirectUrl=defaultTokenRedirectUrl\n"
+                + "oidc.openidConfigurationUrl=https://[domain]/.well-known/openid-configuration\n";
 
-  protected void assertTenantIdReadOnly(POTenant selectedTenant) {
-    assertEquals(selectedTenant.getTenantId(), model.getTenantId().getValue());
-    assertTrue(model.getTenantId().isReadOnly());
-  }
+        return IOUtils.toInputStream(properties);
+    }
 
-  protected void assertNameAndDescriptionsWriteable(POTenant selectedTenant) {
-    assertEquals(selectedTenant.getDescription(), model.getTenantDescription().getValue());
-    assertFalse(model.getTenantDescription().isReadOnly());
+    
+    protected void givenTenantToSelect() throws ObjectNotFoundException {
+        POTenant selectedTenant = prepareTenant();
+        when(manageTenantService.getTenantByTenantId(anyString())).thenReturn(selectedTenant);
+        model.setSelectedTenantId(SELECTED_TENANT_ID);
+    }
 
-    assertEquals(selectedTenant.getName(), model.getTenantName().getValue());
-    assertFalse(model.getTenantName().isReadOnly());
-  }
+    private POTenant prepareTenant() {
+        POTenant poTenant = new POTenant();
+        poTenant.setTenantId(GENERATED_TENANT_ID);
+        model.setSelectedTenantId(GENERATED_TENANT_ID);
+        poTenant.setDescription("description");
+        poTenant.setKey(1L);
+        poTenant.setName("tenantName");
+        poTenant.setVersion(0);
+        tenants.add(poTenant);
+        model.setTenants(tenants);
+        return poTenant;
+    }
 
-  protected void assertNameAndDescriptionReadOnly(POTenant selectedTenant) {
-    assertEquals(selectedTenant.getDescription(), model.getTenantDescription().getValue());
-    assertTrue(model.getTenantDescription().isReadOnly());
+    private POTenant prepareDefaultTenant() {
+        POTenant poTenant = tenants.get(0);
+        poTenant.setTenantId("default");
+        model.setSelectedTenantId("default");
+        poTenant.setDescription("default description");
+        poTenant.setKey(1L);
+        poTenant.setName("default namae");
+        poTenant.setVersion(0);
+        model.setTenants(tenants);
+        return poTenant;
+    }
 
-    assertEquals(selectedTenant.getName(), model.getTenantName().getValue());
-    assertTrue(model.getTenantName().isReadOnly());
-  }
+    private Properties prepareProperties() {
+        Properties properties = new Properties();
+        properties.put(IdpSettingType.SSO_IDP_URL.name(), "idp.url");
+        return properties;
+    }
+
+    protected void assertTenantIdReadOnly(POTenant selectedTenant) {
+        assertEquals(selectedTenant.getTenantId(), model.getTenantId().getValue());
+        assertTrue(model.getTenantId().isReadOnly());
+    }
+
+    protected void assertNameAndDescriptionsWriteable(POTenant selectedTenant) {
+        assertEquals(selectedTenant.getDescription(), model.getTenantDescription().getValue());
+        assertFalse(model.getTenantDescription().isReadOnly());
+
+        assertEquals(selectedTenant.getName(), model.getTenantName().getValue());
+        assertFalse(model.getTenantName().isReadOnly());
+    }
+
+    protected void assertNameAndDescriptionReadOnly(POTenant selectedTenant) {
+        assertEquals(selectedTenant.getDescription(), model.getTenantDescription().getValue());
+        assertTrue(model.getTenantDescription().isReadOnly());
+
+        assertEquals(selectedTenant.getName(), model.getTenantName().getValue());
+        assertTrue(model.getTenantName().isReadOnly());
+    }
 }
