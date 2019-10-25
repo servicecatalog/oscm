@@ -97,8 +97,8 @@ public class ADMRealmImplTest {
         assertEquals("a", ldapProps.getProperty(Context.PROVIDER_URL));
     }
     
-    @Test
-    public void handleOIDCLogin_UI_emptyPassword() throws Exception {
+    @Test(expected=LoginException.class)
+    public void handleOIDCLogin_emptyPassword() throws Exception {
         // Given
     
         ADMRealmImpl realm = spy(realmImpl);
@@ -107,8 +107,6 @@ public class ADMRealmImplTest {
         
         // When
         realmImpl.handleOIDCLogin("1000", "", uq);
-        
-        verify(idc, never()).validateToken(anyString(), any());
     }
     
     @Test

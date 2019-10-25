@@ -280,9 +280,12 @@ public class AuthorizationFilter extends BaseBesFilter {
                 if (authSettings.isServiceProvider()) {
                 	
                 	OidcTokenHandler tokenHandler = new OidcTokenHandler(httpRequest);
-	                String userId = tokenHandler.getUserId();
+
+                	String userId = tokenHandler.getUserId();
 	                rdo.setUserId(userId);
-	                
+                    String idToken = tokenHandler.getIdToken();
+                    rdo.setPassword("UI"+idToken);
+
 	                if (rdo.getUserId() == null) {
 	                    httpRequest.setAttribute(
 	                            Constants.REQ_ATTR_ERROR_KEY,
