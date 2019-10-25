@@ -2931,7 +2931,7 @@ public class IdentityServiceBean
     public VOUserDetails loadUserDetailsFromOIDCProvider(String userId,
             String tenantId) throws RegistrationException {
         try {
-            ApiIdentityClient client = RestUtils.createClient(tenantId);
+            ApiIdentityClient client = getApiIdeintyClient(tenantId);
             UserInfo user = client.getUser(userId);
             return UserMapper.from(user);
         } catch (Exception e) {
@@ -2944,7 +2944,7 @@ public class IdentityServiceBean
             String groupName) throws RegistrationException {
         String caller = dm.getCurrentUser().getOrganization().getName();
         try {
-            ApiIdentityClient client = RestUtils.createClient(tenantId);
+            ApiIdentityClient client = getApiIdeintyClient(tenantId);
             GroupInfo groupInfo = client.createGroup(groupName, "TenantId: " + tenantId
                     + ". Organization:" + caller);
             return groupInfo.getId();
@@ -3010,6 +3010,10 @@ public class IdentityServiceBean
             }
         }
         return true;
+    }
+    
+    protected ApiIdentityClient getApiIdeintyClient(String tenantId) {
+        return RestUtils.createClient(tenantId);
     }
 
     private boolean isOIDCUserExistingInPlatform(VOUserDetails user,
