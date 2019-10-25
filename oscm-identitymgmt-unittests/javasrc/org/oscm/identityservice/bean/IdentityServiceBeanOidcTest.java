@@ -158,17 +158,15 @@ public class IdentityServiceBeanOidcTest {
     public void testSynchronizeGroupsWithOIDCProvider() {
         //given
         OidcSynchronizationBean syncBean = mock(OidcSynchronizationBean.class);
-        bean.oidcSynchronizationBean = syncBean;
-        
         List<String> tenantIds = new ArrayList<String>();
-        tenantIds.add("default");
-        
         List<Organization> orgs = new ArrayList<Organization>();
         Organization org = new Organization();
+        List<VOUserDetails> usersInGroup = new ArrayList<VOUserDetails>();
+        
+        bean.oidcSynchronizationBean = syncBean;
+        tenantIds.add("default");
         org.setName("test");
         orgs.add(org);
-        
-        List<VOUserDetails> usersInGroup = new ArrayList<VOUserDetails>();
         
         //when
         when(syncBean.getAllTenantIdsForSynchronization()).thenReturn(tenantIds);
@@ -184,23 +182,20 @@ public class IdentityServiceBeanOidcTest {
     public void testSynchronizeUsersAndGroupsWithOIDCProvider() {
         //given
         OidcSynchronizationBean syncBean = mock(OidcSynchronizationBean.class);
-        bean.oidcSynchronizationBean = syncBean;
-        
         List<String> tenantIds = new ArrayList<String>();
-        tenantIds.add("default");
-        
         List<Organization> orgs = new ArrayList<Organization>();
         Organization org = new Organization();
-        org.setName("test");
-        orgs.add(org);
-        
         List<VOUserDetails> usersInGroup = new ArrayList<VOUserDetails>();
         VOUserDetails user = new VOUserDetails();
-        user.setUserId("1");
-        usersInGroup.add(user);
-        
         UserImportModel model = null;
         boolean expected = true;
+        
+        bean.oidcSynchronizationBean = syncBean;
+        tenantIds.add("default");
+        org.setName("test");
+        orgs.add(org);
+        user.setUserId("1");
+        usersInGroup.add(user);
         
         //when
         when(syncBean.getAllTenantIdsForSynchronization()).thenReturn(tenantIds);
