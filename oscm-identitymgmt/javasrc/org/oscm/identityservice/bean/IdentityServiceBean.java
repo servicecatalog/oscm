@@ -2959,7 +2959,7 @@ public class IdentityServiceBean
             String tenantId, VOUserDetails userInfo)
             throws RegistrationException {
         try {
-            ApiIdentityClient client = RestUtils.createClient(tenantId);
+            ApiIdentityClient client = getApiIdeintyClient(tenantId);
             client.addGroupMember(userInfo.getUserId(), groupId);
         } catch (Exception e) {
             throw createRegistrationException(e);
@@ -3016,7 +3016,7 @@ public class IdentityServiceBean
         return RestUtils.createClient(tenantId);
     }
 
-    private boolean isOIDCUserExistingInPlatform(VOUserDetails user,
+    protected boolean isOIDCUserExistingInPlatform(VOUserDetails user,
             Organization organization) {
         PlatformUser platformuser = loadUser(user.getUserId(),
                 organization.getTenant());

@@ -9,12 +9,14 @@
 package org.oscm.identityservice.bean;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 import org.junit.Before;
@@ -27,6 +29,7 @@ import org.oscm.identity.ApiIdentityClient;
 import org.oscm.identity.exception.IdentityClientException;
 import org.oscm.identity.model.GroupInfo;
 import org.oscm.identity.model.UserInfo;
+import org.oscm.identityservice.model.UserImportModel;
 import org.oscm.internal.types.exception.RegistrationException;
 import org.oscm.internal.vo.VOUserDetails;
 
@@ -122,6 +125,92 @@ public class IdentityServiceBeanOidcTest {
 
         //then exception
     }
+    
+    @Test
+    public void testAddMemberToAccessGroupInOIDCProvider() throws RegistrationException, IdentityClientException {
+        //given
+        String userId = "test";
+        String tenantId = "default";
+        VOUserDetails userInfo = new VOUserDetails();
+        userInfo.setUserId(userId);
+        
+        //when
+        Mockito.doNothing().when(client).addGroupMember(anyString(), anyString());
+        bean.addMemberToAccessGroupInOIDCProvider(userId, tenantId, userInfo);
 
+        //then
+        Mockito.verify(client, Mockito.times(1)).addGroupMember(anyString(), anyString());
+    }
+    
+    @Test (expected = RegistrationException.class)
+    public void testAddMemberToAccessGroupInOIDCProviderException() throws RegistrationException, IdentityClientException {
+        //given
+        IdentityClientException expected = new IdentityClientException("testError");
 
+        //when
+        Mockito.doThrow(expected).when(client).addGroupMember(anyString(), anyString());
+        bean.addMemberToAccessGroupInOIDCProvider("", "", new VOUserDetails());
+
+        //then exception
+    }
+
+    @Test
+    public void testSynchronizeGroupsWithOIDCProvider() {
+        //given
+        OidcSynchronizationBean syncBean = mock(OidcSynchronizationBean.class);
+        bean.oidcSynchronizationBean = syncBean;
+        
+        List<String> tenantIds = new ArrayList<String>();
+        tenantIds.add("default");
+        
+        List<Organization> orgs = new ArrayList<Organization>();
+        Organization org = new Organization();
+        org.setName("test");
+        orgs.add(org);
+        
+        List<VOUserDetails> usersInGroup = new ArrayList<VOUserDetails>();
+        
+        //when
+        when(syncBean.getAllTenantIdsForSynchronization()).thenReturn(tenantIds);
+        when(syncBean.synchronizeGroups(anyString())).thenReturn(orgs);
+        when(syncBean.getAllUsersFromOIDCForGroup(org, tenantIds.get(0))).thenReturn(usersInGroup);
+        boolean result = bean.synchronizeUsersAndGroupsWithOIDCProvider();
+        
+        //then
+        assertTrue(result);
+    }
+    
+    @Test
+    public void testSynchronizeUsersAndGroupsWithOIDCProvider() {
+        //given
+        OidcSynchronizationBean syncBean = mock(OidcSynchronizationBean.class);
+        bean.oidcSynchronizationBean = syncBean;
+        
+        List<String> tenantIds = new ArrayList<String>();
+        tenantIds.add("default");
+        
+        List<Organization> orgs = new ArrayList<Organization>();
+        Organization org = new Organization();
+        org.setName("test");
+        orgs.add(org);
+        
+        List<VOUserDetails> usersInGroup = new ArrayList<VOUserDetails>();
+        VOUserDetails user = new VOUserDetails();
+        user.setUserId("1");
+        usersInGroup.add(user);
+        
+        UserImportModel model = null;
+        boolean expected = true;
+        
+        //when
+        when(syncBean.getAllTenantIdsForSynchronization()).thenReturn(tenantIds);
+        when(syncBean.synchronizeGroups(anyString())).thenReturn(orgs);
+        when(syncBean.getAllUsersFromOIDCForGroup(org, tenantIds.get(0))).thenReturn(usersInGroup);
+        doReturn(expected).when(bean).isOIDCUserExistingInPlatform(user, org);
+        when(syncBean.getUsersToSynchronizeFromOidcProvider(tenantIds.get(0), org, user, expected)).thenReturn(model);
+        boolean result = bean.synchronizeUsersAndGroupsWithOIDCProvider();
+        
+        //then
+        assertTrue(result);
+    }
 }
