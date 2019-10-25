@@ -2962,7 +2962,7 @@ public class IdentityServiceBean
             ApiIdentityClient client = RestUtils.createClient(tenantId);
             client.addGroupMember(userInfo.getUserId(), groupId);
         } catch (Exception e) {
-            throw createRegistrationException(e);
+            throw createRegistrationException(e); 
         }
     }
     
@@ -2971,6 +2971,7 @@ public class IdentityServiceBean
                 LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
         RegistrationException rf = new RegistrationException(
                 "Can not connect to the OIDC service.");
+        rf.setMessageParams(new String[] {e.getMessage()});
         rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
         return rf;
     }
