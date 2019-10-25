@@ -31,4 +31,8 @@ public class OidcTokenHandler {
 
     return userId;
   }
+
+  public String getIdToken() {
+    return (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ID_TOKEN);
+  }
 }
