@@ -340,9 +340,9 @@
     <display-name>PaymentRegistrationService</display-name>
     <webservice-description-name>PaymentRegistrationService</webservice-description-name>
     <port-component>
-      <port-component-name>PaymentRegistrationServicePortCLIENTCERT</port-component-name>
+      <port-component-name>PaymentRegistrationServicePortBASIC</port-component-name>
       <wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:PaymentRegistrationService</wsdl-service>
-      <wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:PaymentRegistrationServicePortCLIENTCERT</wsdl-port>
+      <wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:PaymentRegistrationServicePortBASIC</wsdl-port>
       <service-endpoint-interface>org.oscm.psp.intf.PaymentRegistrationService</service-endpoint-interface>
       <service-impl-bean>
         <ejb-link>PaymentRegistrationServiceWS</ejb-link>

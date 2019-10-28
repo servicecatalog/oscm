@@ -165,20 +165,6 @@
           <!--<echo message="package dir name is ${result.package.dir}, wsdl file name is ${item}"/>-->
           <wsdlhandle dirname="${result.package.dir}/BASIC" filename="${item}" version="${wsdlversion}" />
         </foreach>
-
-        <fileset id="wsdl.fileset.clientcert" dir="${result.package.dir}/CLIENTCERT" includes="*.wsdl" />
-        <property name="wsdl.files.clientcert" refid="wsdl.fileset.clientcert" />
-        <foreach tokens="${wsdl.files.clientcert}">
-          <!--<echo message="package dir name is ${result.package.dir}, wsdl file name is ${item}"/>-->
-          <wsdlhandle dirname="${result.package.dir}/CLIENTCERT" filename="${item}" version="${wsdlversion}" />
-        </foreach>
-
-        <fileset id="wsdl.fileset.sts" dir="${result.package.dir}/STS" includes="*.wsdl" />
-        <property name="wsdl.files.sts" refid="wsdl.fileset.sts" />
-        <foreach tokens="${wsdl.files.sts}">
-          <!--<echo message="package dir name is ${result.package.dir}, wsdl file name is ${item}"/>-->
-          <wsdlhandle dirname="${result.package.dir}/STS" filename="${item}" version="${wsdlversion}" />
-        </foreach>
       </then>
     </if>
   </target>
