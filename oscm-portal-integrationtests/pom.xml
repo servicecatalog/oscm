@@ -6,7 +6,6 @@
   <groupId>org.oscm.portal</groupId>
   <artifactId>oscm-portal-integrationtests</artifactId>
   <version>16.2.5-SNAPSHOT</version>
-
   <name>${project.artifactId}-${project.version}</name>
   <url>https://github.com/servicecatalog</url>
   <properties>
