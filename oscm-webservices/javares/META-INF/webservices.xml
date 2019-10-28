@@ -24,24 +24,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-
-    <!--<port-component>-->
-      <!--<port-component-name>AccountServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:AccountService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:AccountServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.AccountService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>AccountServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -64,23 +46,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>BillingServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:BillingService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:BillingServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.BillingService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>BillingServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -103,23 +68,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>EventServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:EventService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:EventServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.EventService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>EventServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -142,23 +90,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>IdentityServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:IdentityService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:IdentityServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.IdentityService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>IdentityServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -181,25 +112,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-
-    <!--<port-component>-->
-      <!--<port-component-name>SessionServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:SessionService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:SessionServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.SessionService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>SessionServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
-
   </webservice-description>
 
 
@@ -223,23 +135,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>ReportingServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:ReportingService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:ReportingServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.ReportingService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>ReportingServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -262,23 +157,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>TagServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:TagService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:TagServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.TagService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>TagServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -301,23 +179,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>ServiceProvisioningServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:ServiceProvisioningService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:ServiceProvisioningServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.ServiceProvisioningService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>ServiceProvisioningServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -340,22 +201,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>SearchServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:SearchService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:SearchServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>SearchServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -378,23 +223,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>SubscriptionServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:SubscriptionService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:SubscriptionServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.SubscriptionService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>SubscriptionServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -417,24 +245,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-
-    <!--<port-component>-->
-      <!--<port-component-name>TriggerServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:TriggerService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:TriggerServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.TriggerService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>TriggerServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -457,24 +267,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-
-    <!--<port-component>-->
-      <!--<port-component-name>TriggerDefinitionServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:TriggerDefinitionService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:TriggerDefinitionServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.TriggerDefinitionService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>TriggerDefinitionServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -497,23 +289,6 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>VatServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:VatService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:VatServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.VatService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>VatServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
   <webservice-description>
@@ -537,27 +312,7 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-
-    <!--<port-component>-->
-      <!--<port-component-name>MarketplaceServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:MarketplaceService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:MarketplaceServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.MarketplaceService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>MarketplaceServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
-
-  <!-- === ReviewService ================================================ -->
 
   <webservice-description>
     <display-name>ReviewService</display-name>
@@ -579,26 +334,7 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>ReviewServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:ReviewService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:ReviewServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.ReviewService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>ReviewServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
-
-  <!-- === PaymentRegistration ================================================ -->
 
   <webservice-description>
     <display-name>PaymentRegistrationService</display-name>
@@ -622,7 +358,6 @@
     </port-component>
   </webservice-description>
 
-  <!-- === DiscountService ================================================ -->
   <webservice-description>
     <display-name>DiscountService</display-name>
     <webservice-description-name>DiscountService</webservice-description-name>
@@ -643,26 +378,8 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>DiscountServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:DiscountService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:DiscountServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.DiscountService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>DiscountServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
-  <!-- === CategorizationService ================================================ -->
   <webservice-description>
     <display-name>CategorizationService</display-name>
     <webservice-description-name>CategorizationService</webservice-description-name>
@@ -683,26 +400,8 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>CategorizationServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:CategorizationService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:CategorizationServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.CategorizationService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>CategorizationServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 
-  <!-- === OrganizationalUnitService ==================================================== -->
   <webservice-description>
     <display-name>OrganizationalUnitService</display-name>
     <webservice-description-name>OrganizationalUnitService</webservice-description-name>
@@ -723,22 +422,5 @@
         </handler-chain>
       </handler-chains>
     </port-component>
-    <!--<port-component>-->
-      <!--<port-component-name>OrganizationalUnitServicePortCLIENTCERT</port-component-name>-->
-      <!--<wsdl-service xmlns:ns1="http://oscm.org/xsd">ns1:OrganizationalUnitService</wsdl-service>-->
-      <!--<wsdl-port xmlns:ns1="http://oscm.org/xsd">ns1:OrganizationalUnitServicePortCLIENTCERT</wsdl-port>-->
-      <!--<service-endpoint-interface>org.oscm.intf.OrganizationalUnitService</service-endpoint-interface>-->
-      <!--<service-impl-bean>-->
-        <!--<ejb-link>OrganizationalUnitServiceWS2</ejb-link>-->
-      <!--</service-impl-bean>-->
-      <!--<handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee">-->
-        <!--<handler-chain>-->
-          <!--<handler>-->
-            <!--<handler-name>org.oscm.webservices.handler.SupportedVersionHandler</handler-name>-->
-            <!--<handler-class>org.oscm.webservices.handler.SupportedVersionHandler</handler-class>-->
-          <!--</handler>-->
-        <!--</handler-chain>-->
-      <!--</handler-chains>-->
-    <!--</port-component>-->
   </webservice-description>
 </webservices>
