@@ -65,17 +65,18 @@ public class OidcSynchronizationBean {
         return emptyList();
     }
 
-    public List<Organization> synchronizeGroups(String tenantId) {
+    List<Organization> synchronizeGroups(String tenantId) {
         List<Organization> orgs = new ArrayList<Organization>();
         List<GroupInfo> groups = getAllGroups(tenantId);
         for (GroupInfo g : groups) {
-            List<Organization> groupOrg = syncOrganizations(g);
+            List<Organization> groupOrg = syncOrganizations(g, tenantId);
             orgs.addAll(groupOrg);
         }
         return orgs;
     }
 
     protected List<GroupInfo> getAllGroups(String tenantId) {
+        
         try {
             
             ApiIdentityClient client = RestUtils.createClient(tenantId);
@@ -89,10 +90,10 @@ public class OidcSynchronizationBean {
         return emptyList();
     }
 
-    protected List<Organization> syncOrganizations(GroupInfo group) {
+    protected List<Organization> syncOrganizations(GroupInfo group, String tenantId) {
         try {
 
-            return asList(new Organization[] {syncOrganization(group)});
+            return asList(new Organization[] {syncOrganization(group, tenantId)});
 
         } catch (NonUniqueResultException e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
@@ -106,13 +107,15 @@ public class OidcSynchronizationBean {
         return emptyList();
     }
 
-    protected Organization syncOrganization(GroupInfo group) {
+    protected Organization syncOrganization(GroupInfo group, String tenantId) {
          
         try {
-          return findOrganizationByGroupId(group.getId());
+          
+            return findOrganizationByGroupId(group.getId());
+          
         } catch (EntityNotFoundException e) {
             // Look up in newly added groups 
-            Organization org = findOrganizationByName(group.getName());
+            Organization org = findOrganizationByName(group.getName(), tenantId);
             setGroupId(org, group.getId());
             return org;
         }
@@ -132,10 +135,15 @@ public class OidcSynchronizationBean {
         return resultFrom(query, groupId);
     }
 
-    protected Organization findOrganizationByName(String name) throws NonUniqueResultException, EntityNotFoundException {
+    protected Organization findOrganizationByName(String name, String tenantId) throws NonUniqueResultException, EntityNotFoundException {
         Query query = dm.createNamedQuery("Organization.findOrganizationsByName");
         query.setParameter("name", name);
+        setTenant(tenantId, query);
         return resultFrom(query, name);
+    }
+
+    private void setTenant(String tenantId, Query query) {
+        query.setParameter("tenantId", (DEFAULT_TENANT.equals(tenantId)) ? null : tenantId);
     }
 
     protected Organization resultFrom(Query query, String entity) throws NonUniqueResultException, EntityNotFoundException {
@@ -184,7 +192,7 @@ public class OidcSynchronizationBean {
         return ParameterizedTypes.list(query.getResultList(), Tenant.class);
     }
 
-    public UserImportModel getUserModel(String tenantId, Organization org, VOUserDetails user) {
+    protected UserImportModel getUserModel(String tenantId, Organization org, VOUserDetails user) {
         UserImportModel um = new UserImportModel();
         setUserWithRoles(um, org, user, tenantId);
         setFirstFoundMarketplace(um, org);

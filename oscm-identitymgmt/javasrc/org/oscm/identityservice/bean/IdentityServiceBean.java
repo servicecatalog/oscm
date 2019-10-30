@@ -2780,7 +2780,10 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
         final List<String> tenantIds = oidc.getAllTenantIds();
 
         for (String tenantId : tenantIds) {
-
+            
+            logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.DEBUG, String.format(
+                    "Synchronizing OIDC groups for tenant %s.", tenantId));
+           
             List<Organization> orgs = oidc.synchronizeGroups(tenantId);
             for (Organization org : orgs) {
                 List<VOUserDetails> members = oidc.getAllUsersFromGroup(org.getGroupId(), tenantId);
