@@ -8,6 +8,9 @@
 
 package org.oscm.identityservice.bean;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 
 import org.oscm.converter.ParameterizedTypes;
@@ -38,7 +43,7 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 
 @Stateless
 public class OidcSynchronizationBean {
-    
+
     private static String DEFAULT_TENANT = "default";
 
     @EJB(beanInterface = DataService.class)
@@ -47,143 +52,137 @@ public class OidcSynchronizationBean {
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(OidcSynchronizationBean.class);
 
-    public List<VOUserDetails> getAllUsersFromOIDCForGroup(
-            Organization organization, String tenantId) {
-        ApiIdentityClient client = RestUtils.createClient(tenantId);
-        List<VOUserDetails> userInfo = null;
+    @SuppressWarnings("unchecked")
+    public List<VOUserDetails> getAllUsersFromGroup(String groupId, String tenantId) {
         try {
-            Set<UserInfo> info = client
-                    .getGroupMembers(organization.getGroupId());
-            userInfo = (List<VOUserDetails>) UserMapper.fromSet(info);
+            ApiIdentityClient client = RestUtils.createClient(tenantId);
+            Set<UserInfo> info = client.getGroupMembers(groupId);
+            return (List<VOUserDetails>) UserMapper.fromSet(info);
         } catch (IdentityClientException e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR,
-                    "An error occured while get the group members from the OIDC Provider");
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR, String.format(
+                    "An error occured while getting the members of the OIDC access group %s for tenant %s", groupId, tenantId));
         }
-        return userInfo;
+        return emptyList();
     }
 
-    public List<Organization> synchronizeGroups(String tenantId) {
-        List<Organization> organizations = new ArrayList<Organization>();
-        List<GroupInfo> accessGroupModels = null;
-        try {
-            accessGroupModels = getAllOrganizations(tenantId);
-        } catch (Exception e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR,
-                    "An error occured while getting the groups from the OIDC Provider");
+    List<Organization> synchronizeGroups(String tenantId) {
+        List<Organization> orgs = new ArrayList<Organization>();
+        List<GroupInfo> groups = getAllGroups(tenantId);
+        for (GroupInfo g : groups) {
+            List<Organization> groupOrg = syncOrganizations(g, tenantId);
+            orgs.addAll(groupOrg);
         }
-        if (accessGroupModels != null) {
-            for (int i = 0; accessGroupModels.size() > i; i++) {
-                Organization organization = synchronizeOIDCGroupsWithOrganizations(
-                        accessGroupModels.get(i));
-                if (organization != null) {
-                    organizations.add(organization);
-                }
-            }
-        }
-        return organizations;
+        return orgs;
     }
 
-    protected List<GroupInfo> getAllOrganizations(String tenantId)
-            throws Exception {
-        ApiIdentityClient client = RestUtils.createClient(tenantId);
-        ArrayList<GroupInfo> groupInfo = new ArrayList<GroupInfo>();
-        Set<GroupInfo> info = null;
+    protected List<GroupInfo> getAllGroups(String tenantId) {
+        
         try {
-            info = client.getGroups();
-            info.size();
+            
+            ApiIdentityClient client = RestUtils.createClient(tenantId);
+           
+            return new ArrayList<GroupInfo>(client.getGroups());
+           
         } catch (IdentityClientException e) {
+            logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.DEBUG,
+                    String.format("Cannot get OIDC access groups for tenant %s. Check if the tenant is configured propperly. ", tenantId ));
+        }
+        return emptyList();
+    }
+
+    protected List<Organization> syncOrganizations(GroupInfo group, String tenantId) {
+        try {
+
+            return asList(new Organization[] {syncOrganization(group, tenantId)});
+
+        } catch (NonUniqueResultException e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR,
-                    "An error occured while getting the groups from the OIDC Provider");
-        }
-        groupInfo.addAll(info);
-        return groupInfo;
+                    String.format("Error synchronizing organization: %s (group id and organization name must be unique)", e.getMessage()));
+        } catch (EntityNotFoundException e) {
+            logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.ERROR,
+                    String.format("No organization for group %s.", group.getName()));
+            
+        } 
+        return emptyList();
     }
 
-    protected Organization synchronizeOIDCGroupsWithOrganizations(
-            GroupInfo accessGroupModel) {
+    protected Organization syncOrganization(GroupInfo group, String tenantId) {
+         
         try {
-            Organization organization = getOrganizationByGroupId(
-                    accessGroupModel.getId());
-            if (organization == null) {
-                organization = getOrganizationByName(
-                        accessGroupModel.getName());
-                if (organization != null) {
-                    setOrganizationGroupId(organization,
-                            accessGroupModel.getId());
-                    return organization;
-                }
-            } else {
-                return organization;
-            }
-        } catch (Exception e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.WARN_ORGANIZATION_ALREADY_EXIST,
-                    "GroupId or organization name are not unique");
+          
+            return findOrganizationByGroupId(group.getId());
+          
+        } catch (EntityNotFoundException e) {
+            // Look up in newly added groups 
+            Organization org = findOrganizationByName(group.getName(), tenantId);
+            setGroupId(org, group.getId());
+            return org;
         }
-        return null;
+        
     }
 
-    private void setOrganizationGroupId(Organization organization,
-            String groupId) {
+    private void setGroupId(Organization organization, String groupId) {
         organization.setGroupId(groupId);
         dm.merge(organization);
         dm.flush();
     }
 
-    protected Organization getOrganizationByGroupId(String groupId)
-            throws Exception {
-        Query query = dm
-                .createNamedQuery("Organization.findOrganizationsByGroupId");
+    protected Organization findOrganizationByGroupId(String groupId)
+            throws NonUniqueResultException {
+        Query query = dm.createNamedQuery("Organization.findOrganizationsByGroupId");
         query.setParameter("groupId", groupId);
-        return getOrganizationFromDB(query);
+        return resultFrom(query, groupId);
     }
 
-    protected Organization getOrganizationByName(String name) throws Exception {
-        Query query = dm
-                .createNamedQuery("Organization.findOrganizationsByName");
+    protected Organization findOrganizationByName(String name, String tenantId) throws NonUniqueResultException, EntityNotFoundException {
+        Query query = dm.createNamedQuery("Organization.findOrganizationsByName");
         query.setParameter("name", name);
-        return getOrganizationFromDB(query);
+        setTenant(tenantId, query);
+        return resultFrom(query, name);
     }
 
-    protected Organization getOrganizationFromDB(Query query) throws Exception {
-        List<Organization> organization = ParameterizedTypes
-                .list(query.getResultList(), Organization.class);
-        if (organization.size() > 1) {
-            throw new Exception(
-                    "More than one Organization exists for the given groupId");
-        } else if (organization.size() > 0) {
-            return organization.get(0);
-        } else {
-            return null;
+    private void setTenant(String tenantId, Query query) {
+        query.setParameter("tenantId", (DEFAULT_TENANT.equals(tenantId)) ? null : tenantId);
+    }
+
+    protected Organization resultFrom(Query query, String entity) throws NonUniqueResultException, EntityNotFoundException {
+        List<Organization> orgs = ParameterizedTypes.list(query.getResultList(),
+                Organization.class);
+
+        if (orgs.size() == 0) {
+            throw new EntityNotFoundException(String.format("%s not found", entity));
         }
-    }
-
-    public Marketplace getFirstMarktplaceIdFromOrganization(
-            Organization organization) {
-        List<Marketplace> marketplaces = organization.getMarketplaces();
-        if (marketplaces.size() > 0) {
-            return marketplaces.get(0);
+        if (orgs.size() > 1) {
+            throw new NonUniqueResultException(String.format("Found duplicate entries for %s", entity));
         }
-        return null;
+        return orgs.get(0);
+
     }
 
-    public List<String> getAllTenantIdsForSynchronization() {
+    private void setFirstFoundMarketplace(UserImportModel m, Organization o) {
+        List<Marketplace> mps = o.getMarketplaces();
+        if (mps.size() > 0) {
+            m.setMarketplace(mps.get(0));
+            return;
+        }
+        m.setMarketplace(null);
+    }
+
+    public List<String> getAllTenantIds() {
         List<String> tenantIds = new ArrayList<String>();
-        tenantIds.add(DEFAULT_TENANT); // it´s necessary to add the default tenant, because he is not in the DB but needed.
+        tenantIds.add(DEFAULT_TENANT); // itï¿½s necessary to add the default
+                                       // tenant, because he is not in the DB
+                                       // but needed.
         try {
             List<Tenant> tenants = getAllTenantsFromDb();
-            if (tenants != null) {
-                for (int i = 0; tenants.size() > i; i++) {
-                    tenantIds.add(tenants.get(i).getTenantId());
-                }
+            for (int i = 0; tenants.size() > i; i++) {
+                tenantIds.add(tenants.get(i).getTenantId());
             }
+
         } catch (Exception e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR_TENANT_NOT_FOUND,
-                    "Can´t get tenants from DB");
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TENANT_NOT_FOUND,
+                    "Can not get tenants from DB");
         }
         return tenantIds;
     }
@@ -193,31 +192,28 @@ public class OidcSynchronizationBean {
         return ParameterizedTypes.list(query.getResultList(), Tenant.class);
     }
 
-    public UserImportModel getUsersToSynchronizeFromOidcProvider(
-            String tenantId, Organization organization,
-            VOUserDetails userInGroup, boolean isUserExist) {
-        UserImportModel userImport = null;
-        if (!isUserExist) {
-            userImport = new UserImportModel();
-            userInGroup.setOrganizationId(organization.getOrganizationId());
-            setUserRole(organization, userInGroup);
-            Marketplace mp = getFirstMarktplaceIdFromOrganization(organization);
-            userImport.setMarketplace(mp);
-            userImport.setOrganization(organization);
-            userImport.setUser(userInGroup);
-        }
-        return userImport;
+    protected UserImportModel getUserModel(String tenantId, Organization org, VOUserDetails user) {
+        UserImportModel um = new UserImportModel();
+        setUserWithRoles(um, org, user, tenantId);
+        setFirstFoundMarketplace(um, org);
+        return um;
     }
 
-    private void setUserRole(Organization organization, VOUserDetails user) {
+    protected void setUserWithRoles(UserImportModel um, Organization o, VOUserDetails u,
+            String tenantId) {
+        u.setOrganizationId(o.getOrganizationId());
         Set<UserRoleType> roles = new HashSet<UserRoleType>();
-        for (OrganizationToRole orgToRole : organization.getGrantedRoles()) {
-            UserRoleType roleType = orgToRole.getOrganizationRole()
-                    .getRoleName().correspondingUserRole();
+        for (OrganizationToRole orgToRole : o.getGrantedRoles()) {
+            UserRoleType roleType = orgToRole.getOrganizationRole().getRoleName()
+                    .correspondingUserRole();
             if (roleType != null) {
                 roles.add(roleType);
             }
         }
-        user.setUserRoles(roles);
+        u.setUserRoles(roles);
+        u.setTenantId(tenantId);
+        um.setOrganization(o);
+        um.setUser(u);
+
     }
 }

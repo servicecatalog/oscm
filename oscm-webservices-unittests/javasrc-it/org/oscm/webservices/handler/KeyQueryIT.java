@@ -67,7 +67,7 @@ public class KeyQueryIT extends EJBTestBase {
         return runTX(new Callable<Organization>() {
             @Override
             public Organization call() throws Exception {
-                return Organizations.createOrganizationWithTenant(ds, organizationId, tenantId,
+                return Organizations.createOrganizationWithTenant(ds, organizationId, organizationId, tenantId,
                         roles);
             }
         });
