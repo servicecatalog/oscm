@@ -1,1 +1,0 @@
-The web service test project for the BES application when BES is installed as SAML_SP mode.

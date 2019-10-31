@@ -141,6 +141,6 @@ public class SupportedVersionsWSTest {
     private <T> T getService(Class<T> remoteInterface) throws Exception {
         return ServiceFactory.getDefault().connectToWebService(remoteInterface,
                 WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword(), "v1.2");
+                WebserviceTestBase.getPlatformOperatorPassword());
     }
 }

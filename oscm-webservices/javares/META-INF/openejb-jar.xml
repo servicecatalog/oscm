@@ -4,6 +4,7 @@
 <openejb-jar xmlns="http://tomee.apache.org/xml/ns/openejb-jar-2.2">
 
     <enterprise-beans>
+    
         <session>
             <ejb-name>AccountServiceWS1</ejb-name>
             <jndi-name>AccountServiceWS1</jndi-name>
@@ -16,18 +17,6 @@
             </properties>
         </session>
 
-        <!--<session>-->
-            <!--<ejb-name>AccountServiceWS2</ejb-name>-->
-            <!--<jndi-name>AccountServiceWS2</jndi-name>-->
-            <!--<web-service-address>AccountService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
         <session>
             <ejb-name>BillingServiceWS1</ejb-name>
             <jndi-name>BillingServiceWS1</jndi-name>
@@ -39,18 +28,6 @@
                 wss4j.in.validator.{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken = org.oscm.security.WSValidator
             </properties>
         </session>
-
-        <!--<session>-->
-            <!--<ejb-name>BillingServiceWS2</ejb-name>-->
-            <!--<jndi-name>BillingServiceWS2</jndi-name>-->
-            <!--<web-service-address>BillingService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
 
         <session>
             <ejb-name>EventServiceWS1</ejb-name>
@@ -65,18 +42,6 @@
 
         </session>
 
-        <!--<session>-->
-            <!--<ejb-name>EventServiceWS2</ejb-name>-->
-            <!--<jndi-name>EventServiceWS2</jndi-name>-->
-            <!--<web-service-address>EventService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
         <session>
             <ejb-name>IdentityServiceWS1</ejb-name>
             <jndi-name>IdentityServiceWS1</jndi-name>
@@ -88,18 +53,6 @@
                 wss4j.in.validator.{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken = org.oscm.security.WSValidator
             </properties>
         </session>
-
-        <!--<session>-->
-            <!--<ejb-name>IdentityServiceWS2</ejb-name>-->
-            <!--<jndi-name>IdentityServiceWS2</jndi-name>-->
-            <!--<web-service-address>IdentityService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
 
         <session>
             <ejb-name>SessionServiceWS1</ejb-name>
@@ -113,18 +66,6 @@
             </properties>
         </session>
 
-        <!--<session>-->
-            <!--<ejb-name>SessionServiceWS2</ejb-name>-->
-            <!--<jndi-name>SessionServiceWS2</jndi-name>-->
-            <!--<web-service-address>SessionService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
         <session>
             <ejb-name>ReportingServiceWS1</ejb-name>
             <jndi-name>ReportingServiceWS1</jndi-name>
@@ -136,18 +77,6 @@
                 wss4j.in.validator.{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken = org.oscm.security.WSValidator
             </properties>
         </session>
-
-        <!--<session>-->
-            <!--<ejb-name>ReportingServiceWS2</ejb-name>-->
-            <!--<jndi-name>ReportingServiceWS2</jndi-name>-->
-            <!--<web-service-address>ReportingService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
 
         <session>
             <ejb-name>SubscriptionServiceWS1</ejb-name>
@@ -161,18 +90,6 @@
             </properties>
         </session>
 
-        <!--<session>-->
-            <!--<ejb-name>SubscriptionServiceWS2</ejb-name>-->
-            <!--<jndi-name>SubscriptionServiceWS2</jndi-name>-->
-            <!--<web-service-address>SubscriptionService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
         <session>
             <ejb-name>TagServiceWS1</ejb-name>
             <jndi-name>TagServiceWS1</jndi-name>
@@ -184,19 +101,6 @@
                 wss4j.in.validator.{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken = org.oscm.security.WSValidator
             </properties>
         </session>
-
-        <!--<session>-->
-            <!--<ejb-name>TagServiceWS2</ejb-name>-->
-            <!--<jndi-name>TagServiceWS2</jndi-name>-->
-            <!--<web-service-address>TagService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
 
         <session>
             <ejb-name>ServiceProvisioningServiceWS1</ejb-name>
@@ -210,18 +114,6 @@
             </properties>
         </session>
 
-        <!--<session>-->
-            <!--<ejb-name>ServiceProvisioningServiceWS2</ejb-name>-->
-            <!--<jndi-name>ServiceProvisioningServiceWS2</jndi-name>-->
-            <!--<web-service-address>ServiceProvisioningService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
         <session>
             <ejb-name>SearchServiceWS1</ejb-name>
             <jndi-name>SearchServiceWS1</jndi-name>
@@ -233,18 +125,6 @@
                 wss4j.in.validator.{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken = org.oscm.security.WSValidator
             </properties>
         </session>
-
-        <!--<session>-->
-            <!--<ejb-name>SearchServiceWS2</ejb-name>-->
-            <!--<jndi-name>SearchServiceWS2</jndi-name>-->
-            <!--<web-service-address>SearchService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
 
         <session>
             <ejb-name>TriggerServiceWS1</ejb-name>
@@ -258,18 +138,6 @@
             </properties>
         </session>
 
-        <!--<session>-->
-            <!--<ejb-name>TriggerServiceWS2</ejb-name>-->
-            <!--<jndi-name>TriggerServiceWS2</jndi-name>-->
-            <!--<web-service-address>TriggerService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
         <session>
             <ejb-name>TriggerDefinitionServiceWS1</ejb-name>
             <jndi-name>TriggerDefinitionServiceWS1</jndi-name>
@@ -281,18 +149,6 @@
                 wss4j.in.validator.{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken = org.oscm.security.WSValidator
             </properties>
         </session>
-
-        <!--<session>-->
-            <!--<ejb-name>TriggerDefinitionServiceWS2</ejb-name>-->
-            <!--<jndi-name>TriggerDefinitionServiceWS2</jndi-name>-->
-            <!--<web-service-address>TriggerDefinitionService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
 
         <session>
             <ejb-name>VatServiceWS1</ejb-name>
@@ -306,18 +162,6 @@
             </properties>
         </session>
 
-        <!--<session>-->
-            <!--<ejb-name>VatServiceWS2</ejb-name>-->
-            <!--<jndi-name>VatServiceWS2</jndi-name>-->
-            <!--<web-service-address>VatService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
         <session>
             <ejb-name>ReviewServiceWS1</ejb-name>
             <jndi-name>ReviewServiceWS1</jndi-name>
@@ -330,18 +174,6 @@
             </properties>
         </session>
 
-        <!--<session>-->
-            <!--<ejb-name>ReviewServiceWS2</ejb-name>-->
-            <!--<jndi-name>ReviewServiceWS2</jndi-name>-->
-            <!--<web-service-address>ReviewService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
         <session>
             <ejb-name>MarketplaceServiceWS1</ejb-name>
             <jndi-name>MarketplaceServiceWS1</jndi-name>
@@ -353,18 +185,6 @@
                 wss4j.in.validator.{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken = org.oscm.security.WSValidator
             </properties>
         </session>
-
-        <!--<session>-->
-            <!--<ejb-name>MarketplaceServiceWS2</ejb-name>-->
-            <!--<jndi-name>MarketplaceServiceWS2</jndi-name>-->
-            <!--<web-service-address>MarketplaceService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
 
         <session>
             <ejb-name>PaymentRegistrationServiceWS</ejb-name>
@@ -384,18 +204,6 @@
             <web-service-address>DiscountService/BASIC</web-service-address>
         </session>
 
-        <!--<session>-->
-            <!--<ejb-name>DiscountServiceWS2</ejb-name>-->
-            <!--<jndi-name>DiscountServiceWS2</jndi-name>-->
-            <!--<web-service-address>DiscountService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
         <session>
             <ejb-name>CategorizationServiceWS1</ejb-name>
             <jndi-name>CategorizationServiceWS1</jndi-name>
@@ -408,18 +216,6 @@
             </properties>
         </session>
 
-        <!--<session>-->
-            <!--<ejb-name>CategorizationServiceWS2</ejb-name>-->
-            <!--<jndi-name>CategorizationServiceWS2</jndi-name>-->
-            <!--<web-service-address>CategorizationService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
-
         <session>
             <ejb-name>OrganizationalUnitServiceWS1</ejb-name>
             <jndi-name>OrganizationalUnitServiceWS1</jndi-name>
@@ -431,18 +227,7 @@
                 wss4j.in.validator.{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd}UsernameToken = org.oscm.security.WSValidator
             </properties>
         </session>
-
-        <!--<session>-->
-            <!--<ejb-name>OrganizationalUnitServiceWS2</ejb-name>-->
-            <!--<jndi-name>OrganizationalUnitServiceWS2</jndi-name>-->
-            <!--<web-service-address>OrganizationalUnitService/CLIENTCERT</web-service-address>-->
-            <!--<web-service-security>-->
-                <!--<security-realm-name>bss-realm</security-realm-name>-->
-                <!--<transport-guarantee>CONFIDENTIAL</transport-guarantee>-->
-                <!--<auth-method>CLIENT-CERT</auth-method>-->
-                <!--<realm-name>bss-realm</realm-name>-->
-            <!--</web-service-security>-->
-        <!--</session>-->
+        
     </enterprise-beans>
 
 </openejb-jar>
