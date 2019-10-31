@@ -132,9 +132,6 @@
       <equals arg1="${generatestaticwsdls}" arg2="true" />
       <then>
         <mkdir dir="${result.package.dir}/BASIC" />
-        <mkdir dir="${result.package.dir}/CLIENTCERT" />
-        <mkdir dir="${result.package.dir}/STS" />
-        <mkdir dir="${result.package.dir}/STS/wsit" />
       </then>
     </if>
     <mkdir dir="${result.work.dir}/src-gen" />
@@ -146,39 +143,11 @@
           <propertyregex property="item1" input="${item}" regexp='Impl' replace="Port" override="true"/>
           <propertyregex property="item2" input="${item1}" regexp='internal.' replace="" override="true" />
           <wsgen sei="${item}" classpath="${toString:dependencies.runtime.path}" genwsdl="true" resourcedestdir="${result.package.dir}/BASIC" sourcedestdir="${result.work.dir}/src-gen" destdir="${result.work.classes.dir}" portname="{http://oscm.org/xsd}${item2}BASIC" />
-          <wsgen sei="${item}" classpath="${toString:dependencies.runtime.path}" genwsdl="true" resourcedestdir="${result.package.dir}/CLIENTCERT" sourcedestdir="${result.work.dir}/src-gen" destdir="${result.work.classes.dir}" portname="{http://oscm.org/xsd}${item2}CLIENTCERT" />
-          <wsgen sei="${item}" classpath="${toString:dependencies.runtime.path}" genwsdl="true" resourcedestdir="${result.package.dir}/STS" sourcedestdir="${result.work.dir}/src-gen" destdir="${result.work.classes.dir}" portname="{http://oscm.org/xsd}${item2}STS" />
         </then>
       </if>
     </foreach>
     <antcall target="addwsdlversion" inheritall="true" />
-    <antcall target="generatewsit" inheritall="true" />
   </target>
-
-  <target name="generatewsit" if="generatestaticwsdls">
-    <fileset id="wsdl.fileset" dir="${result.package.dir}/STS" includes="*.wsdl" />
-    <property name="wsdl.files" refid="wsdl.fileset" />
-    <foreach tokens="${wsdl.files}">
-      <echo message="package dir name is ${result.package.dir}/STS, wsdl file name is ${item}" />
-      <wsitgen classname="${item}" />
-    </foreach>
-    <fileset id="wsit.fileset" dir="${result.package.dir}/STS/wsit" includes="*.xml" />
-    <property name="wsit.files" refid="wsit.fileset" />
-    <foreach tokens="${wsit.files}">
-      <echo message="package dir name is ${result.package.dir}, wsdl file name is ${item}"/>
-      <wsithandle dirname="${result.package.dir}/STS/wsit" filename="${item}" />
-    </foreach>
-  </target>
-
-  <macrodef name="wsitgen">
-    <attribute name="classname" />
-    <sequential>
-      <basename property="@{classname}" file="${item}" suffix=".wsdl" />
-      <echo message="${@{classname}}" />
-      <wsit-service wsdl="${result.package.dir}/STS/${item}" outputdir="${result.package.dir}/STS/wsit" policy="${workspace.dir}/oscm-webservices/javares/wsitconfig/ws-policies.xml" class="org.oscm.webservices.${@{classname}}WS" bindingpolicy="STSBindingPolicy" inputpolicy="STSBinding_Input_Policy" outputpolicy="STSBinding_Output_Policy" />
-    </sequential>
-  </macrodef>
-
 
   <target name="addwsdlversion" if="addwsdlversion">
     <fileset id="wsdl.fileset" dir="${result.package.dir}" includes="*.wsdl" />
@@ -195,20 +164,6 @@
         <foreach tokens="${wsdl.files.basic}">
           <!--<echo message="package dir name is ${result.package.dir}, wsdl file name is ${item}"/>-->
           <wsdlhandle dirname="${result.package.dir}/BASIC" filename="${item}" version="${wsdlversion}" />
-        </foreach>
-
-        <fileset id="wsdl.fileset.clientcert" dir="${result.package.dir}/CLIENTCERT" includes="*.wsdl" />
-        <property name="wsdl.files.clientcert" refid="wsdl.fileset.clientcert" />
-        <foreach tokens="${wsdl.files.clientcert}">
-          <!--<echo message="package dir name is ${result.package.dir}, wsdl file name is ${item}"/>-->
-          <wsdlhandle dirname="${result.package.dir}/CLIENTCERT" filename="${item}" version="${wsdlversion}" />
-        </foreach>
-
-        <fileset id="wsdl.fileset.sts" dir="${result.package.dir}/STS" includes="*.wsdl" />
-        <property name="wsdl.files.sts" refid="wsdl.fileset.sts" />
-        <foreach tokens="${wsdl.files.sts}">
-          <!--<echo message="package dir name is ${result.package.dir}, wsdl file name is ${item}"/>-->
-          <wsdlhandle dirname="${result.package.dir}/STS" filename="${item}" version="${wsdlversion}" />
         </foreach>
       </then>
     </if>

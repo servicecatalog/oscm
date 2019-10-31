@@ -1,1 +1,0 @@
-Web application to deliver WSDL as static files.
