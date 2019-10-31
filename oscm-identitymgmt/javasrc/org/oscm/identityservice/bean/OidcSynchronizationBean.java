@@ -41,6 +41,10 @@ import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 
+/**
+ * This EJB implementation is responsible for synchronizing organizations with
+ * user groups that are managed with an OIDC provider.
+ */
 @Stateless
 public class OidcSynchronizationBean {
 
@@ -108,7 +112,6 @@ public class OidcSynchronizationBean {
     }
 
     protected Organization syncOrganization(GroupInfo group, String tenantId) {
-         
         try {
           
             return findOrganizationByGroupId(group.getId());
@@ -119,7 +122,6 @@ public class OidcSynchronizationBean {
             setGroupId(org, group.getId());
             return org;
         }
-        
     }
 
     private void setGroupId(Organization organization, String groupId) {
@@ -162,32 +164,26 @@ public class OidcSynchronizationBean {
 
     private void setFirstFoundMarketplace(UserImportModel m, Organization o) {
         List<Marketplace> mps = o.getMarketplaces();
-        if (mps.size() > 0) {
-            m.setMarketplace(mps.get(0));
+        for (Marketplace mp : mps) {
+            m.setMarketplace(mp);
             return;
         }
         m.setMarketplace(null);
     }
 
-    public List<String> getAllTenantIds() {
+    protected List<String> getAllTenantIds() {
         List<String> tenantIds = new ArrayList<String>();
-        tenantIds.add(DEFAULT_TENANT); // it�s necessary to add the default
+        tenantIds.add(DEFAULT_TENANT); // it's necessary to add the default
                                        // tenant, because he is not in the DB
                                        // but needed.
-        try {
-            List<Tenant> tenants = getAllTenantsFromDb();
-            for (int i = 0; tenants.size() > i; i++) {
-                tenantIds.add(tenants.get(i).getTenantId());
-            }
-
-        } catch (Exception e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TENANT_NOT_FOUND,
-                    "Can not get tenants from DB");
+        List<Tenant> tenants = getAllTenantsFromDb();
+        for (Tenant t : tenants) {
+            tenantIds.add(t.getTenantId());
         }
         return tenantIds;
     }
 
-    protected List<Tenant> getAllTenantsFromDb() throws Exception {
+    protected List<Tenant> getAllTenantsFromDb() {
         Query query = dm.createNamedQuery("Tenant.getAll");
         return ParameterizedTypes.list(query.getResultList(), Tenant.class);
     }
@@ -214,6 +210,5 @@ public class OidcSynchronizationBean {
         u.setTenantId(tenantId);
         um.setOrganization(o);
         um.setUser(u);
-
     }
 }
