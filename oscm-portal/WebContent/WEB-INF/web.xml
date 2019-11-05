@@ -158,7 +158,11 @@
     <filter-class>org.oscm.ui.filter.OidcFilter</filter-class>
     <init-param>
       <param-name>exclude-url-pattern</param-name>
-      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
+      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/public/.*)</param-value>
+    </init-param>
+    <init-param>
+      <param-name>public-mpl-url-pattern</param-name>
+      <param-value>(^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
     </init-param>
   </filter>
 <!--   <filter>

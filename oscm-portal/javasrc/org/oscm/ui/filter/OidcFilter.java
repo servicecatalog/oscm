@@ -36,6 +36,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
   private static final Log4jLogger LOGGER = LoggerFactory.getLogger(OidcFilter.class);
   protected String excludeUrlPattern;
+  protected String publicMplUrlPattern;
   private WebIdentityClient identityClient;
 
   @Inject private TenantResolver tenantResolver;
@@ -44,6 +45,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
   public void init(FilterConfig config) throws ServletException {
     super.init(config);
     this.excludeUrlPattern = config.getInitParameter("exclude-url-pattern");
+    this.publicMplUrlPattern = config.getInitParameter("public-mpl-url-pattern");
   }
 
   @Override
@@ -65,7 +67,8 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
     boolean isIdProvider = authSettings.isServiceProvider();
     boolean isUrlExcluded = httpRequest.getServletPath().matches(excludeUrlPattern);
-
+    boolean isUrlPublicMpl = httpRequest.getServletPath().matches(publicMplUrlPattern);
+    
     if (isIdProvider && (!isUrlExcluded || isLoginOnMarketplaceRequested(httpRequest))) {
 
       Optional<String> requestedIdToken = Optional.ofNullable(httpRequest.getParameter("id_token"));
