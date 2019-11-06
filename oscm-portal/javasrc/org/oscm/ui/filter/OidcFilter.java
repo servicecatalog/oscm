@@ -95,7 +95,9 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
       if (StringUtils.isBlank(sessionIdToken)) {
         try {
-          redirectToLoginPage(rdo, httpRequest, httpResponse, tenantResolver);
+          if (!isUrlPublicMpl) {
+            redirectToLoginPage(rdo, httpRequest, httpResponse, tenantResolver);
+          }
         } catch (URISyntaxException | MarketplaceRemovedException e) {
           LOGGER.logError(
               Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_AUTH_REQUEST_GENERATION_FAILED);
