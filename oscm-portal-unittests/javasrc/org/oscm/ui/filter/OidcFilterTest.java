@@ -71,7 +71,8 @@ public class OidcFilterTest {
     doReturn(null).when(identityClientMock).validateToken(any(), any());
 
     filter.excludeUrlPattern = "(.*/a4j/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";
-
+    filter.publicMplUrlPattern = "(^/marketplace/terms/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";
+    
     filter.authSettings = as = mock(AuthenticationSettings.class);
     doNothing().when(as).init(anyString());
     when(as.isServiceProvider()).thenReturn(true);
