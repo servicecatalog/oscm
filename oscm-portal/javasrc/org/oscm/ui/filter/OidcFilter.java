@@ -36,6 +36,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
   private static final Log4jLogger LOGGER = LoggerFactory.getLogger(OidcFilter.class);
   protected String excludeUrlPattern;
+  protected String publicMplUrlPattern;
   private WebIdentityClient identityClient;
 
   @Inject private TenantResolver tenantResolver;
@@ -44,6 +45,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
   public void init(FilterConfig config) throws ServletException {
     super.init(config);
     this.excludeUrlPattern = config.getInitParameter("exclude-url-pattern");
+    this.publicMplUrlPattern = config.getInitParameter("public-mpl-url-pattern");
   }
 
   @Override
@@ -65,8 +67,9 @@ public class OidcFilter extends BaseBesFilter implements Filter {
 
     boolean isIdProvider = authSettings.isServiceProvider();
     boolean isUrlExcluded = httpRequest.getServletPath().matches(excludeUrlPattern);
-
-    if (isIdProvider && (!isUrlExcluded || isLoginOnMarketplaceRequested(httpRequest))) {
+    boolean isUrlPublicMpl = httpRequest.getServletPath().matches(publicMplUrlPattern);
+    
+    if (isIdProvider && !isUrlExcluded) {
 
       Optional<String> requestedIdToken = Optional.ofNullable(httpRequest.getParameter("id_token"));
       Optional<String> requestedAccessToken =
@@ -86,35 +89,40 @@ public class OidcFilter extends BaseBesFilter implements Filter {
         }
       }
 
-      // Validating ID token stored in the session
-      String sessionIdToken =
-          (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ID_TOKEN);
+      if (!isUrlPublicMpl || isLoginOnMarketplaceRequested(httpRequest)) {
+        // Validating ID token stored in the session
+        String sessionIdToken =
+            (String) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ID_TOKEN);
 
-      if (StringUtils.isBlank(sessionIdToken)) {
-        try {
-          redirectToLoginPage(rdo, httpRequest, httpResponse, tenantResolver);
-        } catch (URISyntaxException | MarketplaceRemovedException e) {
-          LOGGER.logError(
-              Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_AUTH_REQUEST_GENERATION_FAILED);
-          redirectToErrorPage(BaseBean.ERROR_GENERATE_AUTHNREQUEST, errorPage, request, response);
-        }
-        return;
-      } else {
-        try {
-          identityClient.validateToken(sessionIdToken, TokenType.ID_TOKEN);
-        } catch (IdentityClientException e) {
-          LOGGER.logError(
-              Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+        if (StringUtils.isBlank(sessionIdToken)) {
           try {
             redirectToLoginPage(rdo, httpRequest, httpResponse, tenantResolver);
-          } catch (MarketplaceRemovedException | URISyntaxException ex) {
+          } catch (URISyntaxException | MarketplaceRemovedException e) {
             LOGGER.logError(
-                Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+                Log4jLogger.SYSTEM_LOG,
+                e,
+                LogMessageIdentifier.ERROR_AUTH_REQUEST_GENERATION_FAILED);
+            redirectToErrorPage(BaseBean.ERROR_GENERATE_AUTHNREQUEST, errorPage, request, response);
           }
           return;
+        } else {
+          try {
+            identityClient.validateToken(sessionIdToken, TokenType.ID_TOKEN);
+          } catch (IdentityClientException e) {
+            LOGGER.logError(
+                Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+            try {
+              redirectToLoginPage(rdo, httpRequest, httpResponse, tenantResolver);
+            } catch (MarketplaceRemovedException | URISyntaxException ex) {
+              LOGGER.logError(
+                  Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_TOKEN_VALIDATION_FAILED);
+            }
+            return;
+          }
         }
       }
     }
+
     chain.doFilter(request, response);
   }
 
