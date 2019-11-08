@@ -48,6 +48,7 @@ import org.oscm.ws.unitrule.Order;
 import org.oscm.ws.unitrule.OrderedRunner;
 
 @RunWith(OrderedRunner.class)
+@Ignore
 public class OrganizationalUnitServiceWSTest {
 
     private static OrganizationalUnitService unitService;

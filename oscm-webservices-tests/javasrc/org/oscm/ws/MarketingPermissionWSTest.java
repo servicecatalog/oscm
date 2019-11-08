@@ -54,6 +54,7 @@ import org.oscm.vo.VOTechnicalService;
  * @author Mike J&auml;ger
  * 
  */
+@Ignore
 public class MarketingPermissionWSTest {
 
     private VOOrganization tp1;

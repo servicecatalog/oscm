@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -37,6 +38,7 @@ import org.oscm.vo.VOMarketplace;
  * @author cheld
  * 
  */
+@Ignore
 public class CategorizationServiceWSTest {
 
     private static CategorizationService categorizationService;

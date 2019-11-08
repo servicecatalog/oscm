@@ -19,6 +19,7 @@ import org.oscm.ws.base.WebserviceTestBase;
  * @author stavreva
  * 
  */
+@Ignore
 public class SupportedVersionsWSTest {
 
     @Ignore

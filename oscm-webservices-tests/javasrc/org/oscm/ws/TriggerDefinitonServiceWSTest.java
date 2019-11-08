@@ -21,6 +21,7 @@ import java.util.Set;
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -34,6 +35,7 @@ import org.oscm.types.exceptions.ValidationException;
 import org.oscm.vo.VOTriggerDefinition;
 //import com.sun.xml.ws.client.ClientTransportException;
 
+@Ignore
 public class TriggerDefinitonServiceWSTest {
 
     private static WebserviceTestSetup setup;

@@ -60,6 +60,7 @@ import org.oscm.vo.VOUserDetails;
  * @author Enes Sejfi
  */
 @SuppressWarnings("boxing")
+@Ignore
 public class MarketplaceServiceWSTest {
 
     private static WebserviceTestSetup setup;

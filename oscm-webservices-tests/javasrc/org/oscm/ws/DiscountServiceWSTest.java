@@ -21,6 +21,7 @@ import org.oscm.vo.VODiscount;
 import org.oscm.vo.VOOrganization;
 import org.oscm.vo.VOServiceDetails;
 
+@Ignore
 public class DiscountServiceWSTest {
 
     private static DiscountService discountService;

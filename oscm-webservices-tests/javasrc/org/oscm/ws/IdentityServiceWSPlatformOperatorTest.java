@@ -15,6 +15,7 @@ package org.oscm.ws;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.string.Strings;
@@ -34,6 +35,7 @@ import org.oscm.vo.VOUserDetails;
  * @author weiser
  * 
  */
+@Ignore
 public class IdentityServiceWSPlatformOperatorTest {
     private static WebserviceTestSetup setup;
     private static IdentityService is;

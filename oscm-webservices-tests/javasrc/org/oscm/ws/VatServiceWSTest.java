@@ -16,6 +16,7 @@ import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -28,6 +29,7 @@ import org.oscm.vo.VOOrganization;
 import org.oscm.vo.VOOrganizationVatRate;
 import org.oscm.vo.VOVatRate;
 
+@Ignore
 public class VatServiceWSTest {
 
     private static VatService vatService;

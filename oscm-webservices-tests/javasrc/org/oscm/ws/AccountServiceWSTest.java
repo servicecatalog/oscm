@@ -63,6 +63,7 @@ import org.oscm.ws.base.WebserviceTestSetup;
 /**
  * @author barzu
  */
+@Ignore
 public class AccountServiceWSTest {
 
     private WebserviceTestSetup setup;

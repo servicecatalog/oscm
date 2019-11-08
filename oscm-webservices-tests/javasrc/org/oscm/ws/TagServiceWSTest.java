@@ -33,6 +33,7 @@ import org.oscm.intf.TagService;
 /**
  * @author cheld
  */
+@Ignore
 public class TagServiceWSTest {
 
     private static WebserviceTestSetup setup;

@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -27,7 +28,7 @@ import org.oscm.types.enumtypes.ReportType;
 import org.oscm.vo.VOOrganization;
 import org.oscm.vo.VOReport;
 import org.oscm.vo.VOUserDetails;
-
+@Ignore
 public class ReportingServiceWSTest {
 
     private static String supplierUserKey;

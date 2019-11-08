@@ -14,6 +14,7 @@ import static org.junit.Assert.assertTrue;
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -22,6 +23,7 @@ import org.oscm.vo.VOImageResource;
 import org.oscm.vo.VOServiceDetails;
 import org.oscm.intf.ServiceProvisioningService;
 
+@Ignore
 public class BugfixWSTest {
 
     @Before

@@ -64,6 +64,7 @@ import org.oscm.vo.VOTriggerDefinition;
 /**
  * @author barzu
  */
+@Ignore
 public class ServiceProvisioningServiceWSTest {
 
     private WebserviceTestSetup setup;

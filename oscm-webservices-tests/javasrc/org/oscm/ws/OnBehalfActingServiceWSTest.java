@@ -49,6 +49,7 @@ import org.oscm.vo.VOUda;
 import org.oscm.vo.VOUsageLicense;
 import org.oscm.vo.VOUserDetails;
 
+@Ignore
 public class OnBehalfActingServiceWSTest {
 
     private String commonUserPWD;
