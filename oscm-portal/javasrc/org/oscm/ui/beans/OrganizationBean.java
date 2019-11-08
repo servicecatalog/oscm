@@ -606,15 +606,6 @@ public class OrganizationBean extends BaseBean implements Serializable {
 
         return OUTCOME_SUCCESS;
     }
-
-    private String getIdToken() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext()
-                .getSession(true);
-        String idToken = (String) session
-                .getAttribute(Constants.SESS_ATTR_ACCESS_TOKEN);
-        return idToken;
-    }
     
     public Part getOrganizationProperties() {
         return organizationProperties;
