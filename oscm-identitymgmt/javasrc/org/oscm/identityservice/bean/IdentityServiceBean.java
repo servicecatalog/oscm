@@ -2750,7 +2750,19 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
                     "TenantId: " + tenantId + ". Organization:" + caller);
             return groupInfo.getId();
         } catch (IdentityClientException e) {
-            throw createRegistrationException(e.getReason().toString(), "");
+            throw createRegistrationException(mapReason(e.getReason().toString()), "");
+        }
+    }
+    
+    private String mapReason(String reason) {
+        if("BAD_REQUEST".equals(reason)) {
+            return RegistrationException.Reason.ALREADY_ORG_MEMBER.toString();
+        }
+        else if ("NOT_FOUND".equals(reason)) {
+            return RegistrationException.Reason.USER_NOT_EXIST.toString();
+        }
+        else {
+            return RegistrationException.Reason.OIDC_ERROR.toString();
         }
     }
 
