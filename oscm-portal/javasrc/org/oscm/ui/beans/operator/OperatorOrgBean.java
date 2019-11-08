@@ -44,7 +44,9 @@ import org.oscm.internal.types.enumtypes.ImageType;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.enumtypes.PaymentCollectionType;
 import org.oscm.internal.types.enumtypes.PaymentInfoType;
+import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.types.exception.RegistrationException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.internal.vo.LdapProperties;
@@ -169,6 +171,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
             newOrganization.setOperatorRevenueShare(null);
         }
         if (StringUtils.isNotBlank(getSelectedTenant())) {
+            try {
             Long tenantKey = Long.valueOf(getSelectedTenant());
             newOrganization.setTenantKey(tenantKey.longValue());
             String selectedTenantId = determineIdForTenant(tenantKey);
@@ -179,6 +182,10 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
             getIdService().addMemberToAccessGroupInOIDCProvider(groupId, selectedTenantId,
                  newAdministrator);
             newOrganization.setOidcGroupId(groupId);
+            } catch (RegistrationException ex) {
+                addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_CREATE_ORGANISATION_FAILURE);
+                throw ex;
+            }
         }
         newVoOrganization = getOperatorService().registerOrganization(
                 newOrganization, getImageUploader().getVOImageResource(),
@@ -208,22 +215,6 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
         return null;
     }
     
-    private String getSelectedTenantId() {
-        for (SelectItem selectedTenantItem : getSelectableTenants()) {
-            if (selectedTenantItem.getValue().toString().equals(selectedTenant)) {
-                return selectedTenantItem.getLabel();
-            }
-        }
-        return "";
-    }
-    
-    private String getIdToken() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext()
-                .getSession(true);
-        return (String) session
-                .getAttribute(Constants.SESS_ATTR_ACCESS_TOKEN);
-    }
 
     // *****************************************************
     // *** Getter and setter for _marketplaces ***

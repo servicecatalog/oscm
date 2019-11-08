@@ -596,6 +596,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
         }  catch (RegistrationException  e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_ADD_CUSTOMER, "Can not load user from OIDC Provider");
+            addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_REGISTER_USER); 
             addMessage(null, FacesMessage.SEVERITY_ERROR, e.getMessageKey(), e.getMessageParams()); 
         } catch (MarketplaceRemovedException e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
