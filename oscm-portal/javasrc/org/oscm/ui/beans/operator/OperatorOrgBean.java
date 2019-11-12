@@ -68,6 +68,7 @@ import org.oscm.ui.beans.SessionBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.ImageUploader;
+import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.model.PSPSettingRow;
 
 /**
@@ -183,8 +184,11 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
                  newAdministrator);
             newOrganization.setOidcGroupId(groupId);
             } catch (RegistrationException ex) {
-                addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_CREATE_ORGANISATION_FAILURE);
-                throw ex;
+                String message = JSFUtils.getText(ex.getMessageKey(), ex.getMessageParams());
+                RegistrationException re = new RegistrationException();
+                re.setMessageKey(ERROR_CREATE_ORGANISATION_FAILURE);
+                re.setMessageParams(new String[] {message});
+                throw re;
             }
         }
         newVoOrganization = getOperatorService().registerOrganization(

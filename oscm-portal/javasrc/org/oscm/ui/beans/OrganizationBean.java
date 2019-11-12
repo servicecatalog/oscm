@@ -34,6 +34,7 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.ImageUploader;
+import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.model.Organization;
 import org.oscm.ui.model.TechnicalService;
 import org.oscm.ui.model.UdaRow;
@@ -594,10 +595,10 @@ public class OrganizationBean extends BaseBean implements Serializable {
                     LogMessageIdentifier.ERROR_ADD_CUSTOMER);
             addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_UPLOAD);
         }  catch (RegistrationException  e) {
+            String message = JSFUtils.getText(e.getMessageKey(), e.getMessageParams());
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_ADD_CUSTOMER, "Can not load user from OIDC Provider");
-            addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_REGISTER_USER); 
-            addMessage(null, FacesMessage.SEVERITY_ERROR, e.getMessageKey(), e.getMessageParams()); 
+            addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_REGISTER_USER, new String[] {message}); 
         } catch (MarketplaceRemovedException e) {
             logger.logError(Log4jLogger.SYSTEM_LOG, e,
                     LogMessageIdentifier.ERROR_ADD_CUSTOMER, "Error while trying to get the tenand id");
