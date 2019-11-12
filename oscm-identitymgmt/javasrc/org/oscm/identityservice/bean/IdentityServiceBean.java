@@ -2736,7 +2736,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
             UserInfo user = client.getUser(userId);
             return UserMapper.from(user);
         } catch (IdentityClientException e) {
-            throw createRegistrationException(e.getReason().toString(), userId);
+            throw createRegistrationException(mapReason(e.getReason().toString()), userId);
         }
     }
 
@@ -2774,7 +2774,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
             ApiIdentityClient client = RestUtils.createClient(tenantId);
             client.addGroupMember(userInfo.getUserId(), groupId);
         } catch (IdentityClientException e) {
-            throw createRegistrationException(e.getReason().toString(), userInfo.getUserId());
+            throw createRegistrationException(mapReason(e.getReason().toString()), userInfo.getUserId());
 
         }
     }
