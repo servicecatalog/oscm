@@ -328,19 +328,18 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
             throw e;
         }
     }
-
-    /**
-     * Bug 9324 Trigger should not be fired if user exists
-     */
-    private void checkIfUserExists(String userId, Tenant tenant)
-            throws NonUniqueBusinessKeyException {
+    
+    private void ensureUserDoesntExist(String userId, Tenant tenant)
+      throws NonUniqueBusinessKeyException {
         try {
-           loadUser(userId, tenant);
-        } catch (ObjectNotFoundException e) {
+            loadUser(userId, tenant);
+            
             throw new NonUniqueBusinessKeyException(ClassEnum.USER, userId);
+        } catch (ObjectNotFoundException e) {
+            // OK 
         }
     }
-
+    
     /**
      * Loads a user from database.
      * 
@@ -2556,9 +2555,10 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
             // ignore
         }
 
-        checkIfUserExists(user.getUserId(), tenant);
-        // TODO DEL
 
+        // Trigger should not be fired if user exists
+        ensureUserDoesntExist(user.getUserId(), tenant);
+        
         TriggerProcessValidator validator = new TriggerProcessValidator(dm);
         if (validator.isRegisterOwnUserPending(user.getUserId())) {
             OperationPendingException ope = new OperationPendingException(String.format(
