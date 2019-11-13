@@ -284,6 +284,11 @@ public class ServiceFactory {
   private <T> T connectToEJB(Class<T> remoteInterface, String userName, String password)
       throws SaaSSystemException {
     try {
+
+      if ("OIDC".equals(getAuthMode())) {
+        password = "WS" + password;
+      }
+      
       localProperties.put(Context.SECURITY_PRINCIPAL, userName);
       localProperties.put(Context.SECURITY_CREDENTIALS, password);
 
