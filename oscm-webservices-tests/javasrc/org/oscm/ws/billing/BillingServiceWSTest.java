@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Calendar;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.ServiceFactory;
@@ -21,6 +22,7 @@ import org.oscm.intf.BillingService;
  * 
  * @author barzu
  */
+@Ignore
 public class BillingServiceWSTest {
 
     private static WebserviceTestSetup setup;
