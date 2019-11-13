@@ -93,6 +93,14 @@ public class ServiceFactory {
     return localProperties.getProperty("user.administrator.password");
   }
 
+  public String getSupplierUserId() {
+    return localProperties.getProperty("user.supplier.id");
+  }
+
+  public String getSupplierUserPassword() {
+    return localProperties.getProperty("user.supplier.password");
+  }
+
   public IdentityService getIdentityService() throws Exception {
     return getIdentityService(getDefaultUserKey(), getDefaultUserPassword());
   }

@@ -255,6 +255,17 @@ public class WebserviceTestBase {
         id.changePassword(userPwd, DEFAULT_PASSWORD);
         return userKey;
     }
+    
+    public static String readLastMailAndSetPassword(String userName, String password) throws Exception {
+        String[] userKeyAndPass = getMailReader().readPassAndKeyFromEmail(userName);
+        String userKey = userKeyAndPass[0];
+        String userPwd = userKeyAndPass[1];
+
+        IdentityService id = ServiceFactory.getDefault().getIdentityService(
+                userKey, userPwd);
+        id.changePassword(userPwd, password);
+        return userKey;
+    }
 
     public static void savePaymentInfoToSupplier(VOOrganization supplier,
             PaymentInfoType... types) throws Exception {

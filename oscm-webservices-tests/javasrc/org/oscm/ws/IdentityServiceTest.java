@@ -2,19 +2,23 @@ package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.oscm.intf.IdentityService;
+import org.oscm.types.enumtypes.OrganizationRoleType;
 import org.oscm.vo.VOUserDetails;
 import org.oscm.ws.base.ServiceFactory;
+import org.oscm.ws.base.WebserviceTestBase;
 
 public class IdentityServiceTest {
 
-  private static IdentityService identityService;
-
   @BeforeClass
   public static void setUp() throws Exception {
-    identityService = ServiceFactory.getDefault().getIdentityService();
+
+    WebserviceTestBase.getMailReader().deleteMails();
+    WebserviceTestBase.getOperator().addCurrency("EUR");
   }
 
   @Test
@@ -24,12 +28,35 @@ public class IdentityServiceTest {
     String userId = ServiceFactory.getDefault().getDefaultUserId();
     String userKey = ServiceFactory.getDefault().getDefaultUserKey();
 
-    // when
+    IdentityService defaultIdService = ServiceFactory.getDefault().getIdentityService();
 
-    VOUserDetails userDetails = identityService.getCurrentUserDetails();
+    // when
+    VOUserDetails userDetails = defaultIdService.getCurrentUserDetails();
 
     // then
     assertEquals(userId, userDetails.getUserId());
-    assertEquals(userKey, userDetails.getKey());
+    assertEquals(Long.parseLong(userKey), userDetails.getKey());
+  }
+
+  @Test
+  public void testGetUsersForOrganization() throws Exception {
+
+    // given
+    String supplierUserId = ServiceFactory.getDefault().getSupplierUserId();
+    String supplierPwd = ServiceFactory.getDefault().getSupplierUserPassword();
+    WebserviceTestBase.createOrganization(
+        supplierUserId, OrganizationRoleType.TECHNOLOGY_PROVIDER, OrganizationRoleType.SUPPLIER);
+
+    String supplierKey = WebserviceTestBase.readLastMailAndSetPassword(supplierUserId, supplierPwd);
+
+    IdentityService identityService =
+        ServiceFactory.getDefault().getIdentityService(supplierKey, supplierPwd);
+
+    // when
+    List<VOUserDetails> users = identityService.getUsersForOrganization();
+
+    // then
+    assertEquals(1, users.size());
+    assertEquals(supplierUserId, users.get(0).getUserId());
   }
 }
