@@ -130,6 +130,7 @@ public class BaseBean {
 
     public static final String CUSTOMER = "CUSTOMER";
     public static final String CUSTOMER_SUBSCRIPTION = "CUSTOMER_SUBSCRIPTION";
+    public static final String ERROR_CREATE_ORGANISATION_FAILURE = "error.createOrg.failure";
     public static final String ERROR_COMPLETE_REGISTRATION = "error.complete.registration";
     public static final String ERROR_CONVERTER_BIG_DECIMAL = "error.converter.bigDecimal";
     public static final String ERROR_DATABASE_NOT_AVAILABLE = "error.database.notAvailable";
@@ -159,6 +160,7 @@ public class BaseBean {
     public static final String ERROR_REGISTRATION_ACKNOWLEDGE_MAIL = "error.registration.acknowledge.mail";
     public static final String ERROR_REGISTRATION_TERMS = "error.registration.terms";
     public static final String ERROR_REGISTRATION_CAPTCHA = "error.registration.captcha";
+    public static final String ERROR_REGISTER_USER= "error.register.user";
     public static final String ERROR_CAPTCHA = "error.captcha";
     public static final String ERROR_PARAMETER_VALUE_OUT_OF_RANGE = "error.parameter.value.outOfRange";
     public static final String ERROR_LONG_VALUE_OUT_OF_RANGE = "error.long.value.outOfRange";

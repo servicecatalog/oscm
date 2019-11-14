@@ -47,6 +47,7 @@ import javax.naming.NamingException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
+import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.GenericValidator;
@@ -76,6 +77,7 @@ import org.oscm.domobjects.UserRole;
 import org.oscm.domobjects.enums.ModificationType;
 import org.oscm.id.IdGenerator;
 import org.oscm.identity.ApiIdentityClient;
+import org.oscm.identity.exception.IdentityClientException;
 import org.oscm.identity.mapper.UserMapper;
 import org.oscm.identity.model.GroupInfo;
 import org.oscm.identity.model.UserInfo;
@@ -2727,52 +2729,63 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
     }
 
     @Override
-    public VOUserDetails loadUserDetailsFromOIDCProvider(String userId, String tenantId)
-            throws RegistrationException {
+    public VOUserDetails loadUserDetailsFromOIDCProvider(String userId,
+            String tenantId) throws RegistrationException {
         try {
             ApiIdentityClient client = RestUtils.createClient(tenantId);
             UserInfo user = client.getUser(userId);
             return UserMapper.from(user);
-        } catch (Exception e) {
-            throw createRegistrationException(e);
+        } catch (IdentityClientException e) {
+            throw createRegistrationException(mapReason(e.getReason().toString()), userId);
         }
     }
 
     @Override
-    public String createAccessGroupInOIDCProvider(String tenantId, String groupName)
-            throws RegistrationException {
+    public String createAccessGroupInOIDCProvider(String tenantId,
+            String groupName) throws RegistrationException {
         String caller = dm.getCurrentUser().getOrganization().getName();
         try {
             ApiIdentityClient client = RestUtils.createClient(tenantId);
             GroupInfo groupInfo = client.createGroup(groupName,
                     "TenantId: " + tenantId + ". Organization:" + caller);
             return groupInfo.getId();
-        } catch (Exception e) {
-            throw createRegistrationException(e);
+        } catch (IdentityClientException e) {
+            throw createRegistrationException(mapReason(e.getReason().toString()), "");
         }
-
+    }
+    
+    private String mapReason(String reason) {
+        if("BAD_REQUEST".equals(reason)) {
+            return RegistrationException.Reason.ALREADY_ORG_MEMBER.toString();
+        }
+        else if ("NOT_FOUND".equals(reason)) {
+            return RegistrationException.Reason.USER_NOT_EXIST.toString();
+        }
+        else {
+            return RegistrationException.Reason.OIDC_ERROR.toString();
+        }
     }
 
     @Override
-    public void addMemberToAccessGroupInOIDCProvider(String groupId, String tenantId,
-            VOUserDetails userInfo) throws RegistrationException {
+    public void addMemberToAccessGroupInOIDCProvider(String groupId,
+            String tenantId, VOUserDetails userInfo)
+            throws RegistrationException {
         try {
             ApiIdentityClient client = RestUtils.createClient(tenantId);
             client.addGroupMember(userInfo.getUserId(), groupId);
-        } catch (Exception e) {
-            throw createRegistrationException(e); 
-        }
+        } catch (IdentityClientException e) {
+            throw createRegistrationException(mapReason(e.getReason().toString()), userInfo.getUserId());
+        } 
     }
-
-    private RegistrationException createRegistrationException(Exception e) {
-        logger.logWarn(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
+            
+    private RegistrationException createRegistrationException(String reason, String message) {
+        logger.logWarn(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
         RegistrationException rf = new RegistrationException(
-                "Can not connect to the OIDC service.");
-        rf.setMessageParams(new String[] {e.getMessage()});
-        rf.setMessageKey("ex.RegistrationException.OIDC_ERROR");
+                "Can not connect to the OIDC service.", RegistrationException.Reason.valueOf(reason));
+        rf.setMessageParams(new String[] {message});
         return rf;
     }
-
+    
     @Override
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public boolean synchronizeUsersAndGroupsWithOIDCProvider() {
