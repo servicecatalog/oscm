@@ -40,17 +40,9 @@
           </h3>
         </ui:fragment>
 
-        <ui:fragment rendered="#{limitedDescription}">
-          <p id="#{fieldId}ShortDescLimited" class="card-text topPadding">#{service.shortDescriptionLimited}</p>
-        </ui:fragment>
-        
-         <ui:fragment rendered="#{not limitedDescription}">
-          <p id="#{fieldId}ShortDesc" class="card-text">#{service.shortDescription}</p>
-        </ui:fragment>
-        
         <div class="mt-auto">
         <mp:servicePrice service="#{service}" styleClass="servicePriceForCard" showUnit="false" />
-        <h:link id="showServiceDetails#{status.index}" outcome="serviceDetails" class="btn btn-outline-secondary stretched-link" value="#{msg['button.showDetails']}">
+        <h:link data-toggle="tooltip" title="#{service.shortDescriptionLimited}" id="showServiceDetails#{status.index}" outcome="serviceDetails" class="btn btn-outline-secondary stretched-link" value="#{msg['button.showDetails']}">
           <f:param name="selectedServiceKey" value="#{service.key}" />
         </h:link>
         </div>
@@ -59,5 +51,11 @@
     </div>
 
   </div>
+  
+  <script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
 
 </ui:composition>
