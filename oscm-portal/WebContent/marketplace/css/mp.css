@@ -1176,6 +1176,13 @@ h2.priceUnit, h1.priceUnit {
 	position:relative;
 }
 
+.servicePriceForCard {
+	float:left;
+	margin: 8px 0 3px !important;
+    position: relative;
+    font-size: 0.75rem;
+}
+
 /* button to show details of service on home page */
 .serviceShowDetailsButton {
 	float:right;	
@@ -1893,6 +1900,28 @@ table.smallPanel {
 	width: 100%;
 	-moz-box-sizing:border-box;
 	box-sizing:border-box;  
+}
+
+/** Styling for bootstrap star box **/
+.cardStarBox {
+	margin-left: 15px;
+    display: inline-flex;
+    margin: 2px 0 0 0;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box; 
+	padding-top: 20px; 
+}
+
+.cardStarBox .serviceStarBox {
+	padding: 3px 6px 5px;
+	width: 100%;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;  
+}
+
+.cardStarBox .serviceStarBox .ratingStars {
+	display: inline-block;
+    vertical-align: middle;
 }
 
 /* define rating star sprite */
@@ -3560,3 +3589,43 @@ div.responsive-table-panel {
 	margin-left: 5px;
 }
 
+/** Styling for bootstrap cards and their content **/
+.card-header {
+    font-size: 1rem;
+}
+
+.card {
+	box-shadow: 4px 4px 10px 0px rgba(3,3,3,0.24);
+}
+
+.col-lg-4.col-md-6.col-sm-12.mb-4 {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.imgContainer {
+    overflow: hidden;
+}
+
+.imgContainer img {
+    margin-right: 15px;
+    float: left;
+    border:1px solid #eee;
+}
+
+.imgContainer h3,
+.imgContainer p{
+    margin-left: 15px;
+    display: block;
+    margin: 2px 0 0 0;
+}
+
+
+.topPadding{
+    padding-top: 32px;
+}
+
+.mt-auto {
+	text-align: right;
+	padding-top: 32px;
+}
