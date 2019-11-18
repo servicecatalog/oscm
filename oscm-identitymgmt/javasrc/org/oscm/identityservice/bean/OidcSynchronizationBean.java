@@ -69,7 +69,7 @@ public class OidcSynchronizationBean {
         return emptyList();
     }
 
-    List<Organization> synchronizeGroups(String tenantId) {
+    public List<Organization> synchronizeGroups(String tenantId) {
         List<Organization> orgs = new ArrayList<Organization>();
         List<GroupInfo> groups = getAllGroups(tenantId);
         for (GroupInfo g : groups) {
