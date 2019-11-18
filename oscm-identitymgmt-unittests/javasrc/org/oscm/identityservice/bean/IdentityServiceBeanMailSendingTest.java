@@ -26,6 +26,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doThrow;
 import static org.oscm.types.constants.marketplace.Marketplace.MARKETPLACE_ROOT;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.SettingType;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
 import org.oscm.internal.types.enumtypes.UserRoleType;
+import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.vo.VOUser;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.test.data.Organizations;
@@ -71,6 +73,7 @@ import org.oscm.triggerservice.local.TriggerProcessMessageData;
 import org.oscm.triggerservice.local.TriggerQueueServiceLocal;
 import org.oscm.types.constants.Configuration;
 import org.oscm.types.enumtypes.EmailType;
+
 import org.oscm.usergroupservice.bean.UserGroupServiceLocalBean;
 
 /**
@@ -128,7 +131,7 @@ public class IdentityServiceBeanMailSendingTest {
                     }
                 });
 
-        doReturn(null).when(idSrv).loadUser(anyString(), any(Tenant.class));
+        doThrow(new ObjectNotFoundException()).when(idSrv).loadUser(anyString(), any(Tenant.class));
         Query triggerQuery = mock(Query.class);
         when(triggerQuery.getSingleResult()).thenReturn(Long.valueOf(0));
         when(dm.createNamedQuery(contains("TriggerProcessIdentifier")))
