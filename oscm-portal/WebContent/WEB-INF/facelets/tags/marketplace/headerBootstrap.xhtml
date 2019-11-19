@@ -1,130 +1,78 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
   <c:if test="#{empty loginHandler}">
 
   </c:if>
-  <a4j:outputPanel layout="block" styleClass="headerBootstrap">
-    <a4j:outputPanel layout="block" styleClass="headertopBootstrap clearfix">
-      <a4j:outputPanel layout="block" id="corporatesymbol">
-        <p>
-          <a href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="/marketplace/img/transparentPixel.png"
-              alt="#{msg['marketplace.header.title']}" /> </a>
-        </p>
-      </a4j:outputPanel>
-      <a4j:outputPanel layout="block" id="headerrightareaBootstrap" styleClass="headerrightareaBootstrap">
-        <a4j:outputPanel layout="block" id="headsearch">
-          <!-- search  -->
-          <h:form id="searchForm">
-            <a4j:outputPanel layout="block">
-              <a4j:outputPanel layout="block" style="float: left;">
-                <h:inputHidden value="all_www" name="restrict" />
-                <h:inputHidden id="searchPhrase" value="#{servicePagingBean.searchPhrase}" />
-                <c:if test="#{empty servicePagingBean.searchPhrase}">
-                  <input id="Search" placeholder="#{msg['marketplace.search']}" size="30"
-                    maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
-                    onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" onfocus="this.value = '';" />
-                </c:if>
-                <c:if test="#{not empty servicePagingBean.searchPhrase}">
-                  <input id="Search" value="#{servicePagingBean.searchPhrase}"
-                    placeholder="#{msg['marketplace.search']}" size="30"
-                    maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
-                    onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" />
-                </c:if>
-                <h:commandLink id="hiddenLink" style="display:none; visibility: hidden;"
-                  onclick="AdmUtils.copyElementValues('Search','searchForm:searchPhrase');AdmUtils.IE9AfterClick('Search');return true;"
-                  action="#{serviceListingBean.showServiceListSearch}" />
-                <h:inputHidden value="UTF-8" name="ie" />
-              </a4j:outputPanel>
-              <a4j:outputPanel layout="block">
 
-                <c:if test="#{servicePagingBean.searchAvailable}">
-                  <h:commandButton name="btnG" id="submit"
-                                   action="#{serviceListingBean.showServiceListSearch}"
-                    onclick="AdmUtils.IE9OnClick('Search');AdmUtils.showProgress(true);AdmUtils.copyElementValues('Search','searchForm:searchPhrase');AdmUtils.IE9AfterClick('Search');return true;"
-                    styleClass="searchButton" />
-                </c:if>
+  <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="/marketplace/img/mp_logo.png"
+            alt="My Logo" />
+        </a>
 
-                <c:if test="#{not servicePagingBean.searchAvailable and userBean.internalAuthMode}">
-                  <h:commandButton name="btnG" id="submit"
-                                   onclick="showLoginPanel('/marketplace/index.jsf');"
-                                   styleClass="searchButton" />
-                </c:if>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="nav navbar-nav">
+          <li class="nav-item active"><a class="nav-link" href="#{mpBaseUrl}/index.jsf?mId=#{mId}"><i
+              class="fa fa-fw fa-home"></i>#{msg['navigation.home']}</a></li>
 
-              </a4j:outputPanel>
-            </a4j:outputPanel>
-          </h:form>
-        </a4j:outputPanel>
-        <a4j:outputPanel layout="block" id="headnavi">
-          <ui:fragment rendered="#{user eq null}">
-            <a4j:outputPanel layout="block" style="float:right;" rendered="#{not userBean.internalAuthMode and userBean.selfRegistrationAllowed}">
-              <!-- Register if user is empty -->
-              <h:form id="formRegister">
-                <h:outputText value="&amp;nbsp;|&amp;nbsp;" escape="false" />
-                <h:commandLink id="registerLink" value="#{msg['register']}" action="#{userBean.showRegistration}" />
-              </h:form>
-            </a4j:outputPanel>
-            <a4j:outputPanel layout="block" >
+          <ui:fragment rendered="#{user ne null}">
+            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbardrop"
+              data-toggle="dropdown"> Menu </a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#{mpBaseUrl}/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a>
+                <a class="dropdown-item" href="#{mpBaseUrl}/account/index.jsf">#{msg['navigation.myAccount']}</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item"
+                  onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">#{msg['marketplace.help']}</a>
+              </div></li>
+          </ui:fragment>
+
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+          <li><ui:fragment rendered="#{user eq null}">
               <!-- login if user is empty -->
               <c:if test="#{userBean.internalAuthMode}">
-                <a href="#" onclick="#{loginHandler}"><h:outputText value="#{msg['login']}" /></a>
+                <a href="#" onclick="#{loginHandler}"><i class="fa fa-fw fa-user"></i>
+                <h:outputText value="#{msg['login']}" /></a>
               </c:if>
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
                   <h:form id="formLogin">
-                    <h:commandLink id="loginLink" action="#{userBean.redirectToIDP}" ><h:outputText value="#{msg['login']}" /></h:commandLink>
+                    <h:commandLink id="loginLink" action="#{userBean.redirectToIDP}">
+                      <h:outputText value="#{msg['login']}" />
+                    </h:commandLink>
                   </h:form>
                 </a4j:region>
-              </c:if> 
-            </a4j:outputPanel>
-          </ui:fragment>
-          <ui:fragment rendered="#{user ne null}">
-            <h:form id="formLogout">
-              <a4j:outputPanel layout="block" style="float:right;max-width: 90px;" >
-                <h:outputText value="&amp;nbsp;|&amp;nbsp;" escape="false" />
-                <c:if test="#{userBean.internalAuthMode}">
-                  <h:commandLink id="logout" value="#{msg['logout']}" action="#{userBean.logoff}" />
-                </c:if>
-                <c:if test="#{not userBean.internalAuthMode}">
-                  <h:commandLink id="logout" action="#{sessionBean.redirectToIdpLogout}" >
-                    <h:outputText value="#{msg['logout']}" />
-                  </h:commandLink>
-                </c:if>
-              </a4j:outputPanel>
-              <a4j:outputPanel layout="block" styleClass="shortenedText">
-                <h:outputText id="welcome" value="#{msg['welcome']} #{user.userId}" />
-              </a4j:outputPanel>
-            </h:form>
-          </ui:fragment>
-        </a4j:outputPanel>
+              </c:if>
+            </ui:fragment> <ui:fragment rendered="#{user ne null}">
+              <h:form id="formLogout">
+                <a4j:outputPanel layout="block" style="float:right;max-width: 90px;">
+                  <h:outputText value="&amp;nbsp;|&amp;nbsp;" escape="false" />
+                  <c:if test="#{userBean.internalAuthMode}">
+                    <h:commandLink id="logout" value="#{msg['logout']}" action="#{userBean.logoff}" />
+                  </c:if>
+                  <c:if test="#{not userBean.internalAuthMode}">
+                    <h:commandLink id="logout" action="#{sessionBean.redirectToIdpLogout}">
+                      <h:outputText value="#{msg['logout']}" />
+                    </h:commandLink>
+                  </c:if>
+                </a4j:outputPanel>
+                <a4j:outputPanel layout="block" styleClass="shortenedText">
+                  <h:outputText id="welcome" value="#{msg['welcome']} #{user.userId}" />
+                </a4j:outputPanel>
+              </h:form>
+            </ui:fragment></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-      </a4j:outputPanel>
-    </a4j:outputPanel>
-
-    <a4j:outputPanel layout="block" styleClass="clearfix" id="headerbottomBootstrap">
-      <ul id="globalnav">
-        <li class="first glbnavlist"><a class="glbnavtitle realtitle" href="#{mpBaseUrl}/index.jsf?mId=#{mId}">
-            <h:outputText value="#{msg['navigation.home']}" id="navigation1" /> </a>
-        </li>
-        <ui:fragment rendered="#{user ne null}">
-          <!-- TODO: adapt to final path of the pages -->
-          <li class="last glbnavlist"><a class="glbnavtitle realtitle" href="#{mpBaseUrl}/subscriptions/index.jsf">
-              <h:outputText value="#{msg['navigation.subscriptions']}" id="navigation2" /> </a>
-          </li>
-          <ui:fragment>
-            <li class="last glbnavlist"><a class="glbnavtitle realtitle" href="#{mpBaseUrl}/account/index.jsf">
-                <h:outputText value="#{msg['navigation.myAccount']}" id="navigation3" /> </a>
-            </li>
-          </ui:fragment>
-        </ui:fragment>
-        <li class="end glbnavlist" id="helpButton"><a class="end glbnavtitle"
-          onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">
-            <span><h:outputText value="#{msg['marketplace.help']}" /> </span> </a>
-        </li>
-      </ul>
-    </a4j:outputPanel>
-  </a4j:outputPanel>
-  <script type="text/javascript">AdmUtils.IE9PlaceHolderFix('#{servicePagingBean.searchPhrase}', 'Search');</script>
 </ui:composition>
