@@ -3589,6 +3589,11 @@ div.responsive-table-panel {
 	margin-left: 5px;
 }
 
+/** Styling for bootstrap navigation bar **/
+.navbar-toggler-icon {
+	vertical-align: bottom !important;
+}
+
 /** Styling for bootstrap cards and their content **/
 .card-header {
     font-size: 1rem;
