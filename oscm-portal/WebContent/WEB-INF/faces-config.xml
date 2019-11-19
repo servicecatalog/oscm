@@ -201,6 +201,11 @@
       <redirect />
     </navigation-case>
     <navigation-case>
+      <from-outcome>marketplace/playgroundLogout</from-outcome>
+      <to-view-id>/marketplace/playground.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    <navigation-case>
       <from-outcome>marketplace/redirect</from-outcome>
       <to-view-id>/marketplace/redirect.xhtml</to-view-id>
       <redirect />
