@@ -24,31 +24,26 @@
               class="fa fa-fw fa-home"></i>#{msg['navigation.home']}</a></li>
 
           <ui:fragment rendered="#{user ne null}">
-            <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbardrop"
-              data-toggle="dropdown"> Menu </a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#{mpBaseUrl}/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a>
-                <a class="dropdown-item" href="#{mpBaseUrl}/account/index.jsf">#{msg['navigation.myAccount']}</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item"
-                  onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">#{msg['marketplace.help']}</a>
-              </div></li>
+            <li class="nav-item"><a class="nav-link" href="#{mpBaseUrl}/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a></li>
+            <li class="nav-item"><a class="nav-link"
+              onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">#{msg['marketplace.help']}</a>
+            </li>
           </ui:fragment>
         </ul>
 
+        <ul class="nav navbar-nav ml-auto">
         <ui:fragment rendered="true">
           <form id="bootstrapForm" class="form-inline my-2 my-lg-0 mx-auto">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" />
-            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+            <input class="form-control mr-sm-2" type="search" placeholder="Search Services" />
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
           </form>
         </ui:fragment>
-
-        <ul class="nav navbar-nav ml-auto">
           <li><ui:fragment rendered="#{user eq null}">
               <!-- login if user is empty -->
               <c:if test="#{userBean.internalAuthMode}">
-                <a href="#" onclick="#{loginHandler}"><i class="fa fa-fw fa-user"></i>
-                <h:outputText value="#{msg['login']}" /></a>
+                <a href="#" onclick="#{loginHandler}"><h:outputText value=" #{msg['login']}" /> <i class="fa fa-fw fa-sign-in"></i></a>
               </c:if>
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
@@ -60,22 +55,20 @@
                 </a4j:region>
               </c:if>
             </ui:fragment> <ui:fragment rendered="#{user ne null}">
-              <h:form id="formLogout">
-                <a4j:outputPanel layout="block" style="float:right;max-width: 90px;">
-                  <h:outputText value="&amp;nbsp;|&amp;nbsp;" escape="false" />
-                  <c:if test="#{userBean.internalAuthMode}">
-                    <h:commandLink id="logout" value="#{msg['logout']}" action="#{userBean.logoff}" />
-                  </c:if>
-                  <c:if test="#{not userBean.internalAuthMode}">
-                    <h:commandLink id="logout" action="#{sessionBean.redirectToIdpLogout}">
-                      <h:outputText value="#{msg['logout']}" />
-                    </h:commandLink>
-                  </c:if>
-                </a4j:outputPanel>
-                <a4j:outputPanel layout="block" styleClass="shortenedText">
-                  <h:outputText id="welcome" value="#{msg['welcome']} #{user.userId}" />
-                </a4j:outputPanel>
-              </h:form>
+
+              <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="logoutdrop"
+                data-toggle="dropdown"><i class="fa fa-fw fa-user"></i>
+                <h:outputText id="welcome" value="#{user.userId}" /></a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#{mpBaseUrl}/account/index.jsf">#{msg['navigation.myAccount']}</a>
+                  <div class="dropdown-divider"></div>
+                  <h:form id="formLogout">
+                    <c:if test="#{userBean.internalAuthMode}">
+                      <h:commandLink class="dropdown-item" id="logout" action="#{userBean.logoff}" ><i class="fa fa-fw fa-sign-out"></i> #{msg['logout']}</h:commandLink>
+                    </c:if>
+                  </h:form>
+                </div></li>
+
             </ui:fragment></li>
         </ul>
       </div>
