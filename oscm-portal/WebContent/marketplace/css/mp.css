@@ -3634,3 +3634,8 @@ div.responsive-table-panel {
 	text-align: right;
 	padding-top: 32px;
 }
+
+.navbar-nav li {
+    padding-left: 0 0 0 10px !important;
+    margin: 0 !important;
+}
