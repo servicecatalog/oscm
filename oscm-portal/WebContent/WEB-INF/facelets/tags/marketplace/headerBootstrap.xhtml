@@ -7,7 +7,7 @@
 
   </c:if>
 
-  <nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <nav class="navbar navbar-expand-lg bg-light navbar-light">
     <div class="container-fluid">
       <div class="navbar-header">
         <a class="navbar-brand" href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="/marketplace/img/mp_logo2.png"
@@ -34,8 +34,15 @@
                   onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">#{msg['marketplace.help']}</a>
               </div></li>
           </ui:fragment>
-
         </ul>
+
+        <ui:fragment rendered="true">
+          <form id="bootstrapForm" class="form-inline my-2 my-lg-0 mx-auto">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" />
+            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </ui:fragment>
+
         <ul class="nav navbar-nav ml-auto">
           <li><ui:fragment rendered="#{user eq null}">
               <!-- login if user is empty -->
