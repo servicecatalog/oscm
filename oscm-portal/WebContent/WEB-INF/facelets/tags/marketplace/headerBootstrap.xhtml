@@ -43,12 +43,12 @@
           <li><ui:fragment rendered="#{user eq null}">
               <!-- login if user is empty -->
               <c:if test="#{userBean.internalAuthMode}">
-                <a href="#" onclick="#{loginHandler}"><h:outputText value=" #{msg['login']}" /> <i class="fa fa-fw fa-sign-in"></i></a>
+                <a href="#" class="nav-link" onclick="#{loginHandler}"><h:outputText value=" #{msg['login']}" /> <i class="fa fa-fw fa-sign-in"></i></a>
               </c:if>
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
                   <h:form id="formLogin">
-                    <h:commandLink id="loginLink" action="#{userBean.redirectToIDP}">
+                    <h:commandLink class="nav-link" id="loginLink" action="#{userBean.redirectToIDP}">
                       <h:outputText value="#{msg['login']}" />
                     </h:commandLink>
                   </h:form>
