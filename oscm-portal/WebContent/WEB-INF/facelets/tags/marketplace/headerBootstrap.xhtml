@@ -24,7 +24,6 @@
               class="fa fa-fw fa-home"></i>#{msg['navigation.home']}</a></li>
 
           <ui:fragment rendered="#{user ne null}">
-            <li class="nav-item"><a class="nav-link" href="#{mpBaseUrl}/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a></li>
             <li class="nav-item"><a class="nav-link"
               onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">#{msg['marketplace.help']}</a>
             </li>
@@ -60,7 +59,8 @@
                 data-toggle="dropdown"><i class="fa fa-fw fa-user"></i>
                 <h:outputText id="welcome" value="#{user.userId}" /></a>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href="#{mpBaseUrl}/account/index.jsf">#{msg['navigation.myAccount']}</a>
+                   <a class="dropdown-item" href="#{mpBaseUrl}/account/index.jsf">#{msg['navigation.myAccount']}</a>
+                  <a class="dropdown-item" href="#{mpBaseUrl}/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a>
                   <div class="dropdown-divider"></div>
                   <h:form id="formLogout">
                     <c:if test="#{userBean.internalAuthMode}">
