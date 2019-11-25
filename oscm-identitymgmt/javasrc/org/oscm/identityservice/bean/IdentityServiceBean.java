@@ -2802,7 +2802,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
                 List<VOUserDetails> members = oidc.getAllUsersFromGroup(org.getGroupId(), tenantId);
                 for (VOUserDetails user : members) {
                     
-                    if (existsInDB(user, org)) {
+                    if (!existsInDB(user, org)) {
                         
                         UserImportModel model = oidc.getUserModel(tenantId, org, user);
 
