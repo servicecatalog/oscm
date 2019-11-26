@@ -42,12 +42,14 @@ public class IdentityServiceTest {
   public void testGetUsersForOrganization() throws Exception {
 
     // given
-    String supplierUserId = ServiceFactory.getDefault().getSupplierUserId();
-    String supplierPwd = ServiceFactory.getDefault().getSupplierUserPassword();
+	ServiceFactory serviceFactory = ServiceFactory.getDefault();
+    String supplierUserId = serviceFactory.getSupplierUserId();
+    String supplierPwd = serviceFactory.getSupplierUserPassword();
+    
     WebserviceTestBase.createOrganization(
         supplierUserId, OrganizationRoleType.TECHNOLOGY_PROVIDER, OrganizationRoleType.SUPPLIER);
 
-    String supplierKey = WebserviceTestBase.readLastMailAndSetPassword(supplierUserId, supplierPwd);
+    String supplierKey = WebserviceTestBase.readLastMailAndGetKey(supplierUserId, serviceFactory.isSSOMode());
 
     IdentityService identityService =
         ServiceFactory.getDefault().getIdentityService(supplierKey, supplierPwd);

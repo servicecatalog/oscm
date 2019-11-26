@@ -317,4 +317,8 @@ public class ServiceFactory {
   public void setAuthMode(String authMode) {
     this.authMode = authMode;
   }
+  
+  public boolean isSSOMode() {
+	  return "OIDC".equals(this.authMode);
+  }
 }

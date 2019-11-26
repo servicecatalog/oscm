@@ -266,7 +266,16 @@ public class WebserviceTestBase {
         id.changePassword(userPwd, password);
         return userKey;
     }
-
+    
+    public static String readLastMailAndGetKey(String userName, boolean ssoMode) throws Exception {
+    	if(ssoMode) {
+    		return getMailReader().readKeyFromEmail(true, userName);
+    	}
+    	else {
+    		return readLastMailAndSetCommonPassword(userName);
+    	}
+    }
+    
     public static void savePaymentInfoToSupplier(VOOrganization supplier,
             PaymentInfoType... types) throws Exception {
         Set<String> typesSet = new HashSet<String>();
