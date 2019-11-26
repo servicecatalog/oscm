@@ -16,6 +16,7 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import org.oscm.ws.base.MailReader;
@@ -28,6 +29,7 @@ import org.oscm.vo.VOOrganization;
 import org.oscm.vo.VOUser;
 import org.oscm.vo.VOUserDetails;
 
+@Ignore
 public class ConcurrencyTest {
 
     private static final int NUMBER_OF_THREADS = 5;
