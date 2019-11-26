@@ -400,6 +400,7 @@ public class BaseBean {
     public static final String OUTCOME_LOGIN = "login";
     public static final String OUTCOME_MARKETPLACE_REDIRECT = "marketplace/redirect";
     public static final String OUTCOME_MARKETPLACE_LOGOUT = "marketplace/logout";
+    public static final String OUTCOME_PLAYGROUND_LOGOUT = "marketplace/playgroundLogout";
     public static final String OUTCOME_ERROR = "error";
     public static final String OUTCOME_CANCEL = "cancel";
     public static final String OUTCOME_NEWGROUP = "addNewGroup";
@@ -1191,6 +1192,12 @@ public class BaseBean {
     protected boolean isMarketplaceSet(HttpServletRequest httpRequest) {
         return httpRequest.getServletPath().startsWith(
                 Marketplace.MARKETPLACE_ROOT);
+    }
+    
+    protected boolean isPlaygroundPage(HttpServletRequest httpRequest) {
+        return httpRequest.getServletPath()
+                .startsWith(Marketplace.MARKETPLACE_ROOT + "/playground.jsf");
+
     }
 
     public boolean isLoggedInAndAdmin() {
