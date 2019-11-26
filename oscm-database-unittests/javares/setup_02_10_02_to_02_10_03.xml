@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright FUJITSU LIMITED 2019-->
+ 
+<dataset>
+ 	<Organization tkey="1700" version="0" organizationid="PLATFORM_OPERATOR" name="" registrationdate="1234" locale="de" cutoffday="1"/>
+ 	<Organization tkey="1701" version="0" organizationid="SUPPLIER" name="" registrationdate="1234" locale="de" cutoffday="1"/>
+ 	<Organization tkey="1702" version="0" organizationid="959c9bf7" name="" registrationdate="1234" locale="en" cutoffday="1"/>
+ 	<Organization tkey="1703" version="0" organizationid="959c9bf8" name="ACME Supplier 1" registrationdate="1234" locale="en" cutoffday="1"/>
+ 	<Organization tkey="1704" version="0" organizationid="NO_NAME"  registrationdate="1234" locale="en" cutoffday="1"/>
+</dataset>
