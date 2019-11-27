@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.List;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.intf.IdentityService;
 import org.oscm.types.enumtypes.OrganizationRoleType;
@@ -12,6 +13,7 @@ import org.oscm.vo.VOUserDetails;
 import org.oscm.ws.base.ServiceFactory;
 import org.oscm.ws.base.WebserviceTestBase;
 
+@Ignore
 public class IdentityServiceTest {
 
   @BeforeClass

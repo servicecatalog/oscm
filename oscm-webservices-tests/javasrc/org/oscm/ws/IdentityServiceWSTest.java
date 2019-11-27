@@ -61,7 +61,6 @@ import org.oscm.ws.base.WebserviceTestSetup;
  * @author weiser
  *
  */
-@Ignore
 public class IdentityServiceWSTest {
 
     private static final String VERSION = "Version not updated: %s > %s";
