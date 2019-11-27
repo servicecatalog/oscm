@@ -2716,7 +2716,6 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
         if (platformUser == null) {
             throwONFExcp(userId);
         }
-
         return platformUser;
     }
 
@@ -2760,6 +2759,9 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
         }
         else if ("NOT_FOUND".equals(reason)) {
             return RegistrationException.Reason.USER_NOT_EXIST.toString();
+        }
+        else if ("FORBIDDEN".equals(reason)) {
+            return RegistrationException.Reason.USER_INSUFFICIENT_PERMISSIONS.toString();
         }
         else {
             return RegistrationException.Reason.OIDC_ERROR.toString();
