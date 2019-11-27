@@ -2716,7 +2716,6 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
         if (platformUser == null) {
             throwONFExcp(userId);
         }
-
         return platformUser;
     }
 
