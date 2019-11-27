@@ -49,7 +49,7 @@ public class IdentityServiceTest {
     WebserviceTestBase.createOrganization(
         supplierUserId, OrganizationRoleType.TECHNOLOGY_PROVIDER, OrganizationRoleType.SUPPLIER);
 
-    String supplierKey = WebserviceTestBase.readLastMailAndGetKey(supplierUserId, serviceFactory.isSSOMode());
+    String supplierKey = WebserviceTestBase.readLastMailAndGetKey(supplierUserId, supplierPwd, serviceFactory.isSSOMode());
 
     IdentityService identityService =
         ServiceFactory.getDefault().getIdentityService(supplierKey, supplierPwd);

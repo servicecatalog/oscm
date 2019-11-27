@@ -267,12 +267,12 @@ public class WebserviceTestBase {
         return userKey;
     }
     
-    public static String readLastMailAndGetKey(String userName, boolean ssoMode) throws Exception {
+    public static String readLastMailAndGetKey(String userName, String password, boolean ssoMode) throws Exception {
     	if(ssoMode) {
     		return getMailReader().readKeyFromEmail(true, userName);
     	}
     	else {
-    		return readLastMailAndSetCommonPassword(userName);
+    		return readLastMailAndSetPassword(userName, password);
     	}
     }
     
