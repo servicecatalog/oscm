@@ -21,7 +21,7 @@ public class IdentityServiceTest {
     WebserviceTestBase.getOperator().addCurrency("EUR");
   }
 
-  @Test
+  //@Test
   public void testGetCurrentUserDetails() throws Exception {
 
     // given
@@ -38,7 +38,7 @@ public class IdentityServiceTest {
     assertEquals(Long.parseLong(userKey), userDetails.getKey());
   }
 
-  @Test
+  //@Test
   public void testGetUsersForOrganization() throws Exception {
 
     // given
