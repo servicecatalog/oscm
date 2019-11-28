@@ -48,7 +48,7 @@
       <adm:outputStep value="#{msg['organization.addCustomer.step2']}" />
       <adm:panelGrid>
       
-        <adm:labelAndInputText id="organizationName" label="#{msg['organization.name']}" required="#{not operatorOrgBean.internalAuthMode}"
+        <adm:labelAndInputText id="organizationName" label="#{msg['organization.name']}" required="true"
           value="#{organizationBean.customerToAdd.name}" converterId="trimConverter" styleClass="field"
           maxlength="#{appBean.nameLen}" />
 
