@@ -139,7 +139,7 @@
 
             <mp:labelAndInputText id="organizationName" label="#{msg['organization.name']}"
               value="#{registrationBean.organization.name}" styleClass="fieldS" maxlength="#{appBean.nameLen}"
-              showHint="true" converterId="trimConverter" />
+              showHint="true" converterId="trimConverter" required="true"/>
 
             <adm:labelAndInputTextarea id="organizationAddress" label="#{msg['organization.address']}"
               value="#{registrationBean.organization.address}" styleClass="fieldS" maxlength="#{appBean.descriptionLen}"

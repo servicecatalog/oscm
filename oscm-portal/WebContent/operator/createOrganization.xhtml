@@ -108,7 +108,7 @@
 
           <adm:labelAndInputText id="organizationName" label="#{msg['organization.name']}"
             value="#{operatorOrgBean.newOrganization.name}" maxlength="#{appBean.nameLen}" converterId="trimConverter"
-            required="#{not isCustomerOrg}" />
+            required="true" />
 
           <adm:labelAndInputText id="organizationEmail" label="#{msg['organization.email']}"
             value="#{operatorOrgBean.newOrganization.email}" maxlength="#{appBean.nameLen}" validatorId="email"
