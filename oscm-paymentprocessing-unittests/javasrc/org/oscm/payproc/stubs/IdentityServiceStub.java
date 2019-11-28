@@ -315,8 +315,4 @@ public class IdentityServiceStub implements IdentityServiceLocal {
         return null;
     }
 
-    @Override
-    public boolean synchronizeUsersAndGroupsWithOIDCProvider() {
-        return false;
-    }
 }
