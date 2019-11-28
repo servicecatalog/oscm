@@ -879,7 +879,7 @@ public class OperatorServiceBean implements OperatorService {
         // necessary because of key and version check in BaseAssembler.
         // Search in configService.getConfigurationSetting uses the business
         // keys. Setting the key value should not provoke an error
-        setting.setKey(dbSetting.getKey());
+        dbSetting.setKey(setting.getKey());
 
         configService.setConfigurationSetting(dbSetting);
 
