@@ -544,7 +544,8 @@ public class IdentityServiceWSTest {
             throw e;
         }
     }
-
+    
+    @Ignore
     @Test(expected = UserActiveException.class)
     public void revokeUserRoles_ActiveSession() throws Exception {
         WebserviceTestBase.getMailReader().deleteMails();
@@ -570,7 +571,8 @@ public class IdentityServiceWSTest {
             is.deleteUser(is.getUser(u), null);
         }
     }
-
+    
+    @Ignore
     @Test
     public void lockUserAccount() throws Exception {
         VOUserDetails u = createUniqueUser();
@@ -622,6 +624,7 @@ public class IdentityServiceWSTest {
     }
 
     @Test
+    @Ignore
     public void requestResetOfUserPassword() throws Exception {
         WebserviceTestBase.getMailReader().deleteMails();
         VOUserDetails u = createUniqueUser();
@@ -634,7 +637,8 @@ public class IdentityServiceWSTest {
         assertEquals(UserAccountStatus.PASSWORD_MUST_BE_CHANGED, u.getStatus());
         is.deleteUser(u, null);
     }
-
+    
+    @Ignore
     @Test(expected = UserActiveException.class)
     public void requestResetOfUserPassword_ActiveSession() throws Exception {
         WebserviceTestBase.getMailReader().deleteMails();
@@ -663,7 +667,8 @@ public class IdentityServiceWSTest {
             is.deleteUser(u, null);
         }
     }
-
+    
+    @Ignore
     @Test(expected = ObjectNotFoundException.class)
     public void requestResetOfUserPassword_NotExisting() throws Exception {
         VOUserDetails u = createUniqueUser();
@@ -685,7 +690,8 @@ public class IdentityServiceWSTest {
             throw e;
         }
     }
-
+    
+    @Ignore
     @Test(expected = ConcurrentModificationException.class)
     public void requestResetOfUserPassword_Concurrent() throws Exception {
         VOUserDetails u = createUniqueUser();
@@ -703,7 +709,8 @@ public class IdentityServiceWSTest {
             is.deleteUser(is.getUser(u), null);
         }
     }
-
+    
+    @Ignore
     @Test
     public void unlockUserAccount() throws Exception {
         VOUserDetails u = createUniqueUser();
