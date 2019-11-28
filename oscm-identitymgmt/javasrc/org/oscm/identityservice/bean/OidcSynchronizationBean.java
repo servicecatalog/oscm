@@ -69,7 +69,7 @@ public class OidcSynchronizationBean {
         return emptyList();
     }
 
-    List<Organization> synchronizeGroups(String tenantId) {
+    public List<Organization> synchronizeGroups(String tenantId) {
         List<Organization> orgs = new ArrayList<Organization>();
         List<GroupInfo> groups = getAllGroups(tenantId);
         for (GroupInfo g : groups) {
@@ -171,7 +171,7 @@ public class OidcSynchronizationBean {
         m.setMarketplace(null);
     }
 
-    protected List<String> getAllTenantIds() {
+    public List<String> getAllTenantIds() {
         List<String> tenantIds = new ArrayList<String>();
         tenantIds.add(DEFAULT_TENANT); // it's necessary to add the default
                                        // tenant, because he is not in the DB
@@ -188,7 +188,7 @@ public class OidcSynchronizationBean {
         return ParameterizedTypes.list(query.getResultList(), Tenant.class);
     }
 
-    protected UserImportModel getUserModel(String tenantId, Organization org, VOUserDetails user) {
+    public UserImportModel getUserModel(String tenantId, Organization org, VOUserDetails user) {
         UserImportModel um = new UserImportModel();
         setUserWithRoles(um, org, user, tenantId);
         setFirstFoundMarketplace(um, org);
