@@ -15,6 +15,7 @@ package org.oscm.ws;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,28 +66,26 @@ public class IdentityServiceWSTest {
 
     private static final String VERSION = "Version not updated: %s > %s";
 
-    //private static WebserviceTestSetup setup;
+    private static WebserviceTestSetup setup;
     private static IdentityService is;
     private static VOFactory factory = new VOFactory();
     private static VOOrganization supplier1;
     private static VOUserDetails supplier2User;
     private static OrganizationalUnitService unitService;
-
+    
+    private static boolean isInternalMode ;
+    
     @BeforeClass
     public static void setUp() throws Exception {
         
+    	ServiceFactory serviceFactory = ServiceFactory.getDefault();	
+    	isInternalMode = !serviceFactory.isSSOMode();
+    	
     	WebserviceTestBase.getMailReader().deleteMails();
         WebserviceTestBase.getOperator().addCurrency("EUR");
 
-        //setup = new WebserviceTestSetup();
         
-        /*supplier1 = setup.createSupplier("Supplier1");
-        is = ServiceFactory.getDefault()
-                .getIdentityService(setup.getSupplierUserKey(),
-                        WebserviceTestBase.DEFAULT_PASSWORD);*/
-        
-        
-        ServiceFactory serviceFactory = ServiceFactory.getDefault();
+         
         String supplierUserId = serviceFactory.getSupplierUserId();
         String supplierPwd = serviceFactory.getSupplierUserPassword();
         
@@ -97,25 +96,17 @@ public class IdentityServiceWSTest {
 
         is = ServiceFactory.getDefault().getIdentityService(supplierKey, supplierPwd);
         
-         
-        
-        
+
         unitService = ServiceFactory.getDefault().getOrganizationalUnitService(supplierKey,supplierPwd);
         WebserviceTestBase.getMailReader().deleteMails();
-
-    /*WebserviceTestBase.createOrganization(
-    		"Supplier2", OrganizationRoleType.TECHNOLOGY_PROVIDER, OrganizationRoleType.SUPPLIER);
-
-    String supplier2Key = WebserviceTestBase.readLastMailAndGetKey("Supplier2", WebserviceTestBase.DEFAULT_PASSWORD, serviceFactory.isSSOMode());
-
-
-    supplier2User = new VOUserDetails();
-    supplier2User.setKey(Long.parseLong(supplier2Key));
-
-    IdentityService is = ServiceFactory.getDefault()
-            .getIdentityService(setup.getSupplierUserKey(),
-                    WebserviceTestBase.DEFAULT_PASSWORD);*/
-    // supplier2User = is.getUsersForOrganization().get(0);
+        
+        assumeTrue(isInternalMode);
+        setup = new WebserviceTestSetup();
+        setup.createSupplier("Supplier2");
+        IdentityService is = ServiceFactory.getDefault()
+                .getIdentityService(setup.getSupplierUserKey(),
+                        WebserviceTestBase.DEFAULT_PASSWORD);
+        supplier2User = is.getUsersForOrganization().get(0);
 
   }
 
@@ -197,9 +188,10 @@ public class IdentityServiceWSTest {
         }
     }
     
-    @Ignore
+    
     @Test(expected = OperationNotPermittedException.class)
     public void getUserDetails_NotOwned() throws Exception {
+    	assumeTrue(isInternalMode);
         try {
             is.getUserDetails(supplier2User);
         } catch (OperationNotPermittedException e) {
@@ -245,9 +237,10 @@ public class IdentityServiceWSTest {
         }
     }
 
-    @Ignore
+    
     @Test(expected = OperationNotPermittedException.class)
     public void updateUser_NotOwned() throws Exception {
+    	assumeTrue(isInternalMode);
         try {
             is.updateUser(supplier2User);
         } catch (OperationNotPermittedException e) {
@@ -323,9 +316,10 @@ public class IdentityServiceWSTest {
         }
     }
 
-    @Ignore
+  
     @Test(expected = OperationNotPermittedException.class)
     public void getAvailableUserRoles_NotOwned() throws Exception {
+    	assumeTrue(isInternalMode);
         try {
             is.getAvailableUserRoles(supplier2User);
         } catch (OperationNotPermittedException e) {
@@ -374,9 +368,10 @@ public class IdentityServiceWSTest {
         }
     }
 
-    @Ignore
+ 
     @Test(expected = OperationNotPermittedException.class)
     public void grantUserRoles_NotOwned() throws Exception {
+    	assumeTrue(isInternalMode);
         try {
             is.grantUserRoles(supplier2User,
                     Arrays.asList(UserRoleType.SERVICE_MANAGER));
@@ -416,9 +411,10 @@ public class IdentityServiceWSTest {
         }
     }
 
-    @Ignore
+
     @Test(expected = OperationNotPermittedException.class)
     public void setUserRoles_NotOwned() throws Exception {
+    	assumeTrue(isInternalMode);
         try {
             is.setUserRoles(supplier2User,
                     Arrays.asList(UserRoleType.SERVICE_MANAGER));
@@ -452,9 +448,10 @@ public class IdentityServiceWSTest {
         }
     }
 
-    @Ignore
+
     @Test(expected = UserActiveException.class)
     public void setUserRoles_ActiveSession() throws Exception {
+    	assumeTrue(isInternalMode);
         WebserviceTestBase.getMailReader().deleteMails();
         // create another user
         VOUserDetails u = createUniqueUser();
@@ -508,9 +505,9 @@ public class IdentityServiceWSTest {
         }
     }
 
-    @Ignore
     @Test(expected = OperationNotPermittedException.class)
     public void revokeUserRoles_NotOwned() throws Exception {
+    	assumeTrue(isInternalMode);
         try {
             is.revokeUserRoles(supplier2User,
                     Arrays.asList(UserRoleType.ORGANIZATION_ADMIN));
@@ -545,9 +542,10 @@ public class IdentityServiceWSTest {
         }
     }
     
-    @Ignore
+
     @Test(expected = UserActiveException.class)
     public void revokeUserRoles_ActiveSession() throws Exception {
+    	assumeTrue(isInternalMode);
         WebserviceTestBase.getMailReader().deleteMails();
         // create another user
         VOUserDetails u = createUniqueUser();
@@ -571,10 +569,10 @@ public class IdentityServiceWSTest {
             is.deleteUser(is.getUser(u), null);
         }
     }
-    
-    @Ignore
+
     @Test
     public void lockUserAccount() throws Exception {
+    	assumeTrue(isInternalMode);
         VOUserDetails u = createUniqueUser();
         is.createUser(u, Arrays.asList(UserRoleType.SERVICE_MANAGER), null);
         u = is.getUserDetails(u);
@@ -596,9 +594,9 @@ public class IdentityServiceWSTest {
         }
     }
 
-    @Ignore
     @Test(expected = OperationNotPermittedException.class)
     public void lockUserAccount_NotOwned() throws Exception {
+    	assumeTrue(isInternalMode);
         try {
             is.lockUserAccount(supplier2User, UserAccountStatus.LOCKED, null);
         } catch (OperationNotPermittedException e) {
@@ -624,8 +622,8 @@ public class IdentityServiceWSTest {
     }
 
     @Test
-    @Ignore
     public void requestResetOfUserPassword() throws Exception {
+    	assumeTrue(isInternalMode);
         WebserviceTestBase.getMailReader().deleteMails();
         VOUserDetails u = createUniqueUser();
         is.createUser(u, Arrays.asList(UserRoleType.SERVICE_MANAGER), null);
@@ -638,9 +636,9 @@ public class IdentityServiceWSTest {
         is.deleteUser(u, null);
     }
     
-    @Ignore
     @Test(expected = UserActiveException.class)
     public void requestResetOfUserPassword_ActiveSession() throws Exception {
+    	assumeTrue(isInternalMode);
         WebserviceTestBase.getMailReader().deleteMails();
         // create another user
         VOUserDetails u = createUniqueUser();
@@ -668,9 +666,10 @@ public class IdentityServiceWSTest {
         }
     }
     
-    @Ignore
+
     @Test(expected = ObjectNotFoundException.class)
     public void requestResetOfUserPassword_NotExisting() throws Exception {
+    	assumeTrue(isInternalMode);
         VOUserDetails u = createUniqueUser();
         try {
             is.requestResetOfUserPassword(u, null);
@@ -680,9 +679,9 @@ public class IdentityServiceWSTest {
         }
     }
 
-    @Ignore
     @Test(expected = OperationNotPermittedException.class)
     public void requestResetOfUserPassword_NotOwned() throws Exception {
+    	assumeTrue(isInternalMode);
         try {
             is.requestResetOfUserPassword(supplier2User, null);
         } catch (OperationNotPermittedException e) {
@@ -691,9 +690,9 @@ public class IdentityServiceWSTest {
         }
     }
     
-    @Ignore
     @Test(expected = ConcurrentModificationException.class)
     public void requestResetOfUserPassword_Concurrent() throws Exception {
+    	assumeTrue(isInternalMode);
         VOUserDetails u = createUniqueUser();
         is.createUser(u, Arrays.asList(UserRoleType.SERVICE_MANAGER), null);
         u = is.getUserDetails(u);
@@ -710,9 +709,9 @@ public class IdentityServiceWSTest {
         }
     }
     
-    @Ignore
     @Test
     public void unlockUserAccount() throws Exception {
+    	assumeTrue(isInternalMode);
         VOUserDetails u = createUniqueUser();
         is.createUser(u, Arrays.asList(UserRoleType.SERVICE_MANAGER), null);
         u = is.getUserDetails(u);
@@ -736,9 +735,10 @@ public class IdentityServiceWSTest {
         }
     }
 
-    @Ignore
+
     @Test(expected = OperationNotPermittedException.class)
     public void unlockUserAccount_NotOwned() throws Exception {
+    	assumeTrue(isInternalMode);
         try {
             is.unlockUserAccount(supplier2User, null);
         } catch (OperationNotPermittedException e) {
