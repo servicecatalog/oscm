@@ -48,9 +48,7 @@ public class CategorizationServiceWSTest {
         WebserviceTestBase.getMailReader().deleteMails();
 
         categorizationService = ServiceFactory.getDefault()
-                .getCategorizationService(
-                        WebserviceTestBase.getPlatformOperatorKey(),
-                        WebserviceTestBase.getPlatformOperatorPassword());
+                .getCategorizationService();
 
         marketplace = WebserviceTestBase.getGlobalMarketplace();
     }
