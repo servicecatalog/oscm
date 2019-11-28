@@ -314,4 +314,9 @@ public class IdentityServiceStub implements IdentityServiceLocal {
             String orgId) throws ObjectNotFoundException {
         return null;
     }
+
+    @Override
+    public boolean synchronizeUsersAndGroupsWithOIDCProvider() {
+        return false;
+    }
 }
