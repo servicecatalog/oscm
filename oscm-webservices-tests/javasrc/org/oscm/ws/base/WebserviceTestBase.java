@@ -641,8 +641,7 @@ public class WebserviceTestBase {
         synchronized (WebserviceTestBase.class) {
             if (globalMarketplace == null) {
                 MarketplaceService ms = ServiceFactory.getDefault()
-                        .getMarketPlaceService(getPlatformOperatorKey(),
-                                getPlatformOperatorPassword());
+                        .getMarketPlaceService();
                 List<VOMarketplace> list = ms.getMarketplacesOwned();
                 if (list.isEmpty()) {
                     VOMarketplace mp = new VOMarketplace();

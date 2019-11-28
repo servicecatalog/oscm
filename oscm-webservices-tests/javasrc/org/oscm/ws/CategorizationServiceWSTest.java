@@ -38,7 +38,6 @@ import org.oscm.vo.VOMarketplace;
  * @author cheld
  * 
  */
-@Ignore
 public class CategorizationServiceWSTest {
 
     private static CategorizationService categorizationService;

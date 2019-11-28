@@ -41,7 +41,9 @@ import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
 import org.oscm.intf.IdentityService;
 import org.oscm.intf.MarketplaceService;
+import org.oscm.intf.ServiceProvisioningService;
 import org.oscm.intf.SubscriptionService;
+import org.oscm.types.enumtypes.OrganizationRoleType;
 import org.oscm.types.enumtypes.PriceModelType;
 import org.oscm.types.enumtypes.UserRoleType;
 import org.oscm.vo.VOCatalogEntry;
@@ -60,7 +62,6 @@ import org.oscm.vo.VOUserDetails;
  * @author Enes Sejfi
  */
 @SuppressWarnings("boxing")
-@Ignore
 public class MarketplaceServiceWSTest {
 
     private static WebserviceTestSetup setup;
@@ -1047,23 +1048,29 @@ public class MarketplaceServiceWSTest {
 
     private static void init() throws Exception {
         setup = new WebserviceTestSetup();
-        supplier = setup.createSupplier("newSupplier");
+        //supplier = setup.createSupplier("newSupplier");
 
-        is = ServiceFactory.getDefault().getIdentityService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+        is = ServiceFactory.getDefault().getIdentityService();
 
         // use the marketplace service as operator
-        mpService_Operator = ServiceFactory.getDefault().getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
-
+        mpService_Operator = ServiceFactory.getDefault().getMarketPlaceService();
+        
+        ServiceFactory serviceFactory = ServiceFactory.getDefault();
+        String supplierUserId = serviceFactory.getSupplierUserId();
+        String supplierPwd = serviceFactory.getSupplierUserPassword();
+        
+        supplier = WebserviceTestBase.createOrganization(
+                supplierUserId, OrganizationRoleType.TECHNOLOGY_PROVIDER, OrganizationRoleType.SUPPLIER);
+        
+        String supplierKey = WebserviceTestBase.readLastMailAndGetKey(supplierUserId, supplierPwd, serviceFactory.isSSOMode());
+        
         // use the marketplace service as supplier
         mpService_Supplier = ServiceFactory.getDefault().getMarketPlaceService(
-                setup.getSupplierUserKey(),
-                WebserviceTestBase.DEFAULT_PASSWORD);
-
-        setup.createTechnicalService();
+        		supplierKey,supplierPwd);
+        
+        ServiceProvisioningService provisioningService = ServiceFactory.getDefault().getServiceProvisioningService(supplierKey,supplierPwd);
+        
+        setup.createTechnicalService(provisioningService);
 
         brandingUrl = WebserviceTestBase.getConfigSetting("bes.https.url")
                 + "/oscm-portal/marketplace/css/mp.css";

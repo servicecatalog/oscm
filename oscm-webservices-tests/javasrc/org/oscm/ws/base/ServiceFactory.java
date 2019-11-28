@@ -134,6 +134,11 @@ public class ServiceFactory {
     return connectToWebService(ReportingService.class, userName, password);
   }
 
+  public MarketplaceService getMarketPlaceService() throws Exception {
+    return connectToWebService(
+        MarketplaceService.class, getDefaultUserKey(), getDefaultUserPassword());
+  }
+
   public MarketplaceService getMarketPlaceService(String userName, String password)
       throws Exception {
     return connectToWebService(MarketplaceService.class, userName, password);
