@@ -379,7 +379,7 @@ public class TimerServiceBean {
                     outcome = accMgmt.checkUserNum();
                     break;
                 case SYNCHRONIZE_USERS_WITH_OIDC_PROVIDER:    
-                    outcome = idServiceLocal.synchronizeUsersAndGroupsWithOIDCProvider();
+                    outcome = idServiceLocal.synchronizeUsersAndGroupsWithOIDCProviderInt();
                     break;
                 default:
                     logger.logError(LogMessageIdentifier.ERROR_TIMER_TIMEOUT_FOR_UNKNOWN_TYPE);
