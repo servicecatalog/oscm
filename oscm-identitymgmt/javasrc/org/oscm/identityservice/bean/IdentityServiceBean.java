@@ -47,7 +47,6 @@ import javax.naming.NamingException;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
-import javax.ws.rs.core.Response;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.GenericValidator;
@@ -2557,7 +2556,6 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
             // ignore
         }
 
-
         // Trigger should not be fired if user exists
         ensureUserDoesntExist(user.getUserId(), tenant);
         
@@ -2726,7 +2724,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
         logger.logWarn(Log4jLogger.SYSTEM_LOG, onf, LogMessageIdentifier.WARN_USER_NOT_FOUND);
         throw onf;
     }
-
+    
     @Override
     public VOUserDetails loadUserDetailsFromOIDCProvider(String userId,
             String tenantId) throws RegistrationException {
@@ -2779,33 +2777,42 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
             throw createRegistrationException(mapReason(e.getReason().toString()), userInfo.getUserId());
         } 
     }
-            
+    
     private RegistrationException createRegistrationException(String reason, String message) {
         logger.logWarn(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.ERROR_CREATE_ORGANIZATION);
-        RegistrationException rf = new RegistrationException(
-                "Can not connect to the OIDC service.", RegistrationException.Reason.valueOf(reason));
-        rf.setMessageParams(new String[] {message});
+        RegistrationException rf = new RegistrationException("Can not connect to the OIDC service.",
+                RegistrationException.Reason.valueOf(reason));
+        rf.setMessageParams(new String[] { message });
         return rf;
     }
-    
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public boolean synchronizeUsersAndGroupsWithOIDCProvider() {
+        return synchronizeUsersAndGroupsWithOIDCProviderIntImpl();
+    }
+
     @Override
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
-    public boolean synchronizeUsersAndGroupsWithOIDCProvider() {
+    public boolean synchronizeUsersAndGroupsWithOIDCProviderInt() {
+        return synchronizeUsersAndGroupsWithOIDCProviderIntImpl();
+    }
 
+    private boolean synchronizeUsersAndGroupsWithOIDCProviderIntImpl() {
         final List<String> tenantIds = oidc.getAllTenantIds();
 
         for (String tenantId : tenantIds) {
-            
-            logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.DEBUG, String.format(
-                    "Synchronizing OIDC groups for tenant %s.", tenantId));
-           
+
+            logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.DEBUG,
+                    String.format("Synchronizing OIDC groups for tenant %s.", tenantId));
+
             List<Organization> orgs = oidc.synchronizeGroups(tenantId);
             for (Organization org : orgs) {
                 List<VOUserDetails> members = oidc.getAllUsersFromGroup(org.getGroupId(), tenantId);
                 for (VOUserDetails user : members) {
-                    
+
                     if (!existsInDB(user, org)) {
-                        
+
                         UserImportModel model = oidc.getUserModel(tenantId, org, user);
 
                         addUserToPlatform(model.getOrganization(), model.getUser(),
