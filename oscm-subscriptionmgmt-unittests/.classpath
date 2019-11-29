@@ -8,7 +8,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-subscriptionmgmt"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-subscriptionmgmt-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
-	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.12.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-identitymgmt-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-intsvc-base"/>

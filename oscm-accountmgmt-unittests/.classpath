@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="javasrc"/>
 	<classpathentry kind="src" path="javasrc-it"/>
-	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.12.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-domainobjects"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-accountmgmt"/>

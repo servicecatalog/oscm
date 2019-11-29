@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="javares"/>
 	<classpathentry kind="src" path="javasrc-it"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-devruntime"/>
-	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.12.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-unittests-base"/>
 	<classpathentry kind="lib" path="/libraries/dbunit/javalib/dbunit-2.4.7.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-server-common"/>
