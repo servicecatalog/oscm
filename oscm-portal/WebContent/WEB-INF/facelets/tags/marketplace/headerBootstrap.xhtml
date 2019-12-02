@@ -32,13 +32,45 @@
 
         <ul class="nav navbar-nav ml-auto">
         <ui:fragment rendered="true">
-          <form id="bootstrapForm" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search Services" />
-            <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">
-              <i class="fa fa-search"></i>
-            </button>
-          </form>
-        </ui:fragment>
+          <!-- search  -->
+          <h:form id="searchForm" class="form-inline my-2 my-lg-0">
+
+                <h:inputHidden value="all_www" name="restrict" />
+                <h:inputHidden id="searchPhrase" value="#{servicePagingBean.searchPhrase}" />
+                <c:if test="#{empty servicePagingBean.searchPhrase}">
+                  <input class="form-control mr-sm-2" id="inputSearch" placeholder="#{msg['marketplace.search']}" size="30"
+                    maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
+                    onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" onfocus="this.value = '';" />
+                </c:if>
+                <c:if test="#{not empty servicePagingBean.searchPhrase}">
+                  <input class="form-control mr-sm-2" id="inputSearch" value="#{servicePagingBean.searchPhrase}"
+                    placeholder="#{msg['marketplace.search']}" size="30"
+                    maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
+                    onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" />
+                </c:if>
+                <h:commandLink id="hiddenLink" style="display:none; visibility: hidden;"
+                  onclick="AdmUtils.copyElementValues('inputSearch','searchForm:searchPhrase');AdmUtils.IE9AfterClick('inputSearch');return true;"
+                  action="#{serviceListingBean.showServiceListSearch}" />
+                <h:inputHidden value="UTF-8" name="ie" />
+            
+                <c:if test="#{servicePagingBean.searchAvailable}">
+                  <h:commandLink name="btnG" id="submit"
+                                   action="#{serviceListingBean.showServiceListSearch}"
+                    onclick="AdmUtils.IE9OnClick('inputSearch');AdmUtils.showProgress(true);AdmUtils.copyElementValues('inputSearch','searchForm:searchPhrase');AdmUtils.IE9AfterClick('inputSearch');return true;"
+                    styleClass="btn btn-outline-secondary my-2 my-sm-0" > <i class="fa fa-search"></i></h:commandLink>
+                </c:if>
+
+                <c:if test="#{not servicePagingBean.searchAvailable and userBean.internalAuthMode}">
+                  <h:commandLink name="btnG" id="submit"
+                                   onclick="showLoginPanel('/marketplace/index.jsf');"
+                                   styleClass="btn btn-outline-secondary my-2 my-sm-0" ><i class="fa fa-search"></i></h:commandLink>
+                </c:if>
+
+          </h:form>
+            
+ 
+
+          </ui:fragment>
           <li><ui:fragment rendered="#{user eq null}">
               <!-- login if user is empty -->
               <c:if test="#{userBean.internalAuthMode}">
@@ -75,4 +107,5 @@
     </div>
   </nav>
 
+<script type="text/javascript">AdmUtils.IE9PlaceHolderFix('#{servicePagingBean.searchPhrase}', 'inputSearch');</script>
 </ui:composition>
