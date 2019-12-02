@@ -265,6 +265,8 @@
     <dependency org="org.jolokia" name="jolokia-jsr160" rev="1.1.1" transitive="false"/>
     <dependency org="com.googlecode.json-simple" name="json-simple" rev="1.1" transitive="false"/>
     <dependency org="junit" name="junit" rev="4.12" transitive="false"/>
+	<dependency org="org.hamcrest" name="hamcrest" rev="2.2" />
+    
     <dependency org="org.mockito" name="mockito-all" rev="1.8.5" transitive="false"/>
     <dependency org="org.omnifaces" name="omnifaces" rev="1.10" transitive="false"/>
     <dependency org="ca.juliusdavies" name="not-yet-commons-ssl" rev="0.3.9" transitive="false"/>

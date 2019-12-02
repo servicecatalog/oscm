@@ -49,5 +49,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/hamcrest-2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -57,5 +57,6 @@
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-kafka"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/hamcrest-2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

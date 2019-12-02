@@ -63,5 +63,6 @@
 	<classpathentry kind="lib" path="/libraries/jboss-hibernate-search/javalib/hibernate-search-orm-5.5.4.Final.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-hibernate-search/javalib/hibernate-search-engine-5.5.4.Final.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/hamcrest-2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

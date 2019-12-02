@@ -51,5 +51,6 @@
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/classmate-1.3.0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-operation"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/hamcrest-2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
