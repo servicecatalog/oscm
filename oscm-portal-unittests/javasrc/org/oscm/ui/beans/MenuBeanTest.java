@@ -764,6 +764,9 @@ public class MenuBeanTest {
 
         assertEquals(HiddenUIConstants.MENU_ITEM_ORGANIZATION_EDIT,
                 visibleMenuItems.get(0).getId());
+        
+        assertEquals(HiddenUIConstants.MENU_ITEM_USER_LIST,
+                visibleMenuItems.get(1).getId());
 
         assertEquals(HiddenUIConstants.MENU_ITEM_ORGANIZATION_REPORT,
                 visibleMenuItems.get(2).getId());
@@ -774,10 +777,6 @@ public class MenuBeanTest {
         assertEquals(
                 HiddenUIConstants.MENU_ITEM_ORGANIZATION_EXPORT_BILLING_DATA,
                 visibleMenuItems.get(4).getId());
-        
-        assertEquals(HiddenUIConstants.MENU_ITEM_USER_LIST,
-                visibleMenuItems.get(1).getId());
-
     }
 
     @Test
