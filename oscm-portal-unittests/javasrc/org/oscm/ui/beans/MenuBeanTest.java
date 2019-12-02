@@ -716,7 +716,7 @@ public class MenuBeanTest {
     }
 
     @Test
-    public void testMenuItemVisibility_NoChangePasswordMenu_SAMLSP_ServiceManager() {
+    public void testMenuItemVisibility_NoChangePasswordMenu_OIDC_ServiceManager() {
         // given
         when(Boolean.valueOf(applicationBean.isInternalAuthMode()))
                 .thenReturn(Boolean.FALSE);
@@ -744,7 +744,7 @@ public class MenuBeanTest {
     }
 
     @Test
-    public void testMenuItemVisibility_HaveChangePasswordMenu_SAMLSP_ADMIN() {
+    public void testMenuItemVisibility_HaveChangePasswordMenu_OIDC_ADMIN() {
         // given
         when(Boolean.valueOf(applicationBean.isInternalAuthMode()))
                 .thenReturn(Boolean.FALSE);

@@ -231,7 +231,7 @@ public class MenuBean extends BaseBean implements UIStatus, Serializable {
             }
         };
 
-        final Condition SAML_SP_AUTH_MODE = new Condition() {
+        final Condition OIDC_AUTH_MODE = new Condition() {
             @Override
             public boolean eval() {
                 return !getApplicationBean().isInternalAuthMode();
@@ -398,7 +398,7 @@ public class MenuBean extends BaseBean implements UIStatus, Serializable {
                 HiddenUIConstants.MENU_ITEM_OPERATOR_MANAGE_BILLING_ADAPTERS,
                 LINK_OPERATOR_MANAGE_BILLING_ADAPTERS, OPERATOR);
         group.addItem(HiddenUIConstants.MENU_ITEM_OPERATOR_MANAGE_TENANTS,
-                LINK_OPERATOR_MANAGE_TENANTS, OPERATOR, SAML_SP_AUTH_MODE);
+                LINK_OPERATOR_MANAGE_TENANTS, OPERATOR, OIDC_AUTH_MODE);
 
         // === CUSTOMER ========================================================
         group = main.addGroup(HiddenUIConstants.MENU_GROUP_NAVIGATION_CUSTOMER,
