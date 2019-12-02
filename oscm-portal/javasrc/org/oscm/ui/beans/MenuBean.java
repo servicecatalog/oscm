@@ -327,10 +327,9 @@ public class MenuBean extends BaseBean implements UIStatus, Serializable {
         group.addItem(HiddenUIConstants.MENU_ITEM_ORGANIZATION_EDIT,
                 LINK_PROFILE_EDIT);
         group.addItem(HiddenUIConstants.MENU_ITEM_USER_PWD, LINK_USER_PWD,
-                not(LDAP), or(INTERNAL_AUTH_MODE,
-                        and(SAML_SP_AUTH_MODE, CALLED_BY_KEY_1000)));
+                not(LDAP), INTERNAL_AUTH_MODE);
         group.addItem(HiddenUIConstants.MENU_ITEM_USER_ADD, LINK_USER_ADD,
-                ADMIN, not(LDAP));
+                ADMIN, not(LDAP), INTERNAL_AUTH_MODE);
         group.addItem(HiddenUIConstants.MENU_ITEM_USER_IMPORT, LINK_USER_IMPORT,
                 ADMIN, LDAP);
         group.addItem(HiddenUIConstants.MENU_ITEM_USER_LIST, LINK_USER_LIST,

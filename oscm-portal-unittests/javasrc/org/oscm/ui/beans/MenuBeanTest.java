@@ -760,26 +760,28 @@ public class MenuBeanTest {
         assertTrue(accountGroup.isVisible());
 
         List<MenuItem> visibleMenuItems = getVisibleMenuItems(accountGroup);
-        assertEquals(6, visibleMenuItems.size());
+        assertEquals(5, visibleMenuItems.size());
 
         assertEquals(HiddenUIConstants.MENU_ITEM_ORGANIZATION_EDIT,
                 visibleMenuItems.get(0).getId());
 
-        assertEquals(HiddenUIConstants.MENU_ITEM_USER_ADD,
-                visibleMenuItems.get(1).getId());
-        assertEquals(HiddenUIConstants.MENU_ITEM_USER_LIST,
-                visibleMenuItems.get(2).getId());
         assertEquals(HiddenUIConstants.MENU_ITEM_ORGANIZATION_REPORT,
-                visibleMenuItems.get(3).getId());
+                visibleMenuItems.get(2).getId());
+
         assertEquals(HiddenUIConstants.MENU_ITEM_ORGANIZATION_MANAGE_TRIGGERS,
-                visibleMenuItems.get(4).getId());
+                visibleMenuItems.get(3).getId());
+
         assertEquals(
                 HiddenUIConstants.MENU_ITEM_ORGANIZATION_EXPORT_BILLING_DATA,
-                visibleMenuItems.get(5).getId());
+                visibleMenuItems.get(4).getId());
+        
+        assertEquals(HiddenUIConstants.MENU_ITEM_USER_LIST,
+                visibleMenuItems.get(1).getId());
+
     }
 
     @Test
-    public void testMenuItemVisibility_HaveChangePasswordMenu_SAMLSP_CALLED_BY_KEY_1000() {
+    public void testMenuItemVisibility_HaveChangePasswordMenu_OIDC() {
         // given
         when(Boolean.valueOf(applicationBean.isInternalAuthMode()))
                 .thenReturn(Boolean.FALSE);
@@ -795,23 +797,24 @@ public class MenuBeanTest {
         assertTrue(accountGroup.isVisible());
 
         List<MenuItem> visibleMenuItems = getVisibleMenuItems(accountGroup);
-        assertEquals(7, visibleMenuItems.size());
+        assertEquals(5, visibleMenuItems.size());
 
         assertEquals(HiddenUIConstants.MENU_ITEM_ORGANIZATION_EDIT,
                 visibleMenuItems.get(0).getId());
-        assertEquals(HiddenUIConstants.MENU_ITEM_USER_PWD,
-                visibleMenuItems.get(1).getId());
-        assertEquals(HiddenUIConstants.MENU_ITEM_USER_ADD,
-                visibleMenuItems.get(2).getId());
+        
         assertEquals(HiddenUIConstants.MENU_ITEM_USER_LIST,
-                visibleMenuItems.get(3).getId());
+                visibleMenuItems.get(1).getId());
+        
         assertEquals(HiddenUIConstants.MENU_ITEM_ORGANIZATION_REPORT,
-                visibleMenuItems.get(4).getId());
+                visibleMenuItems.get(2).getId());
+        
         assertEquals(HiddenUIConstants.MENU_ITEM_ORGANIZATION_MANAGE_TRIGGERS,
-                visibleMenuItems.get(5).getId());
+                visibleMenuItems.get(3).getId());
+        
         assertEquals(
                 HiddenUIConstants.MENU_ITEM_ORGANIZATION_EXPORT_BILLING_DATA,
-                visibleMenuItems.get(6).getId());
+                visibleMenuItems.get(4).getId());
+        
     }
 
     @Test
