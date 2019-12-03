@@ -18,16 +18,8 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import org.oscm.ws.base.ServiceFactory;
-import org.oscm.ws.base.VOFactory;
-import org.oscm.ws.base.WebserviceTestBase;
-import org.oscm.ws.base.WebserviceTestSetup;
-import org.oscm.ws.unitrule.Order;
-import org.oscm.ws.unitrule.OrderedRunner;
 import org.oscm.converter.utils.JaxbConverter;
 import org.oscm.intf.IdentityService;
 import org.oscm.intf.MarketplaceService;
@@ -56,6 +48,13 @@ import org.oscm.vo.VOTriggerProcessParameter;
 import org.oscm.vo.VOUda;
 import org.oscm.vo.VOUsageLicense;
 import org.oscm.vo.VOUserDetails;
+import org.oscm.ws.base.ServiceFactory;
+import org.oscm.ws.base.VOFactory;
+import org.oscm.ws.base.WebserviceTestBase;
+import org.oscm.ws.base.WebserviceTestSetup;
+import org.oscm.ws.unitrule.Order;
+import org.oscm.ws.unitrule.OrderedRunner;
+
 import com.google.common.collect.Lists;
 // import com.sun.xml.ws.fault.ServerSOAPFaultException;
 
