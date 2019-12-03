@@ -60,7 +60,7 @@ public class WebserviceTestBase {
 
     public static final String DEFAULT_PASSWORD = "secret";
     public static final String CURRENCY_EUR = "EUR";
-    public static final String EXAMPLE_BASE_URL = "example.https.url";
+    public static final String EXAMPLE_BASE_URL = "bes.https.url";
     public static final String CS_MAIL_ADDRESS = "mail.address";
     public static final String CS_MAIL_USERNAME = "mail.username";
 
