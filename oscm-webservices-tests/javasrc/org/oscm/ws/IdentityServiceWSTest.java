@@ -102,7 +102,7 @@ public class IdentityServiceWSTest {
     unitService =
         ServiceFactory.getDefault().getOrganizationalUnitService(supplierKey, supplierPwd);
     WebserviceTestBase.getMailReader().deleteMails();
-
+    
     if (isInternalMode) {
       setup = new WebserviceTestSetup();
       setup.createSupplier("Supplier2");
