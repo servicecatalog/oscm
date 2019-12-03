@@ -41,7 +41,6 @@ import org.oscm.ui.common.PartHandler;
 import org.oscm.ui.model.Marketplace;
 import org.oscm.validation.ArgumentValidator;
 
-
 /**
  * Controller for operator manage users.
  *
@@ -49,8 +48,7 @@ import org.oscm.validation.ArgumentValidator;
  */
 @ManagedBean(name = "operatorManageUsersCtrl")
 @ViewScoped
-public class OperatorManageUsersCtrl extends BaseOperatorBean implements
-        Serializable {
+public class OperatorManageUsersCtrl extends BaseOperatorBean implements Serializable {
 
     /**
      *
@@ -79,11 +77,9 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
     long getMaxRegisteredUsersCount() {
         if (maxRegisteredUsersCount == null) {
             VOConfigurationSetting configurationSetting = getConfigurationService()
-                    .getVOConfigurationSetting(
-                            ConfigurationKey.MAX_NUMBER_ALLOWED_USERS,
+                    .getVOConfigurationSetting(ConfigurationKey.MAX_NUMBER_ALLOWED_USERS,
                             Configuration.GLOBAL_CONTEXT);
-            maxRegisteredUsersCount = Long.valueOf(configurationSetting
-                    .getValue());
+            maxRegisteredUsersCount = Long.valueOf(configurationSetting.getValue());
         }
         return maxRegisteredUsersCount.longValue();
     }
@@ -91,13 +87,12 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
     void initModel() {
         model.setMarketplaces(getSelectableMarketplaces());
         model.setMaxNumberOfRegisteredUsers(getMaxRegisteredUsersCount());
-        model.setNumberOfRegisteredUsers(getAccountingService()
-                .countRegisteredUsers());
+        model.setNumberOfRegisteredUsers(getAccountingService().countRegisteredUsers());
         model.setInitialized(true);
     }
 
-    void reinitUser() throws ObjectNotFoundException,
-            OperationNotPermittedException, OrganizationRemovedException {
+    void reinitUser() throws ObjectNotFoundException, OperationNotPermittedException,
+            OrganizationRemovedException {
         model.setUser(null);
         if (!isBlank(model.getUserId())) {
             VOUser reqUser = new VOUser();
@@ -142,7 +137,8 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
     public List<String> getDataTableHeaders() {
         if (dataTableHeaders == null || dataTableHeaders.isEmpty()) {
             try {
-                dataTableHeaders = Arrays.asList("userId", "email", "organizationName", "organizationId");
+                dataTableHeaders = Arrays.asList("userId", "email", "organizationName",
+                        "organizationId");
             } catch (Exception e) {
                 throw new SaaSSystemException(e);
             }
@@ -166,16 +162,15 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
     }
 
     public boolean isExceedMaxNumberOfUsers() {
-        if (model.getNumberOfRegisteredUsers() <= model
-                .getMaxNumberOfRegisteredUsers())
+        if (model.getNumberOfRegisteredUsers() <= model.getMaxNumberOfRegisteredUsers())
             return false;
         else {
             return true;
         }
     }
 
-    public String resetPasswordForUser() throws ObjectNotFoundException,
-            OperationNotPermittedException, MailOperationException,
+    public String resetPasswordForUser()
+            throws ObjectNotFoundException, OperationNotPermittedException, MailOperationException,
             OrganizationAuthoritiesException {
 
         VOUser user = model.getUser();
@@ -193,13 +188,12 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
         return getOutcome(true);
     }
 
-    public String lockUser() throws ObjectNotFoundException,
-            ValidationException, OrganizationAuthoritiesException {
+    public String lockUser()
+            throws ObjectNotFoundException, ValidationException, OrganizationAuthoritiesException {
 
         VOUser user = model.getUser();
         if (user != null) {
-            getOperatorService().setUserAccountStatus(user,
-                    UserAccountStatus.LOCKED);
+            getOperatorService().setUserAccountStatus(user, UserAccountStatus.LOCKED);
             model.getUser().setStatus(UserAccountStatus.LOCKED);
             model.setUser(null);
         }
@@ -207,13 +201,12 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
         return getOutcome(true);
     }
 
-    public String unlockUser() throws ObjectNotFoundException,
-            ValidationException, OrganizationAuthoritiesException {
+    public String unlockUser()
+            throws ObjectNotFoundException, ValidationException, OrganizationAuthoritiesException {
 
         VOUser user = model.getUser();
         if (user != null) {
-            getOperatorService().setUserAccountStatus(user,
-                    UserAccountStatus.ACTIVE);
+            getOperatorService().setUserAccountStatus(user, UserAccountStatus.ACTIVE);
             model.getUser().setStatus(UserAccountStatus.ACTIVE);
             model.setUser(null);
         }
@@ -221,14 +214,21 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
         return getOutcome(true);
     }
 
-    public void updateSelectedUser() throws OperationNotPermittedException, ObjectNotFoundException, OrganizationRemovedException {
+    public void updateSelectedUser() throws OperationNotPermittedException, ObjectNotFoundException,
+            OrganizationRemovedException {
         for (POUserAndOrganization poUser : userAndOrganizations) {
-            if (poUser.getKey() == Long.valueOf(selectedUserKey)) {
+            if (poUser.getKey() == Long.valueOf(selectedUserKey).longValue()) {
                 VOUserDetails voUser = poUserToVO(poUser);
                 model.setUser(voUser);
                 return;
             }
         }
+    }
+
+    public String retrieveNewUsersFromOIDCProvider()
+            throws ObjectNotFoundException, ValidationException, OrganizationAuthoritiesException {
+           getIdService().synchronizeUsersAndGroupsWithOIDCProvider();
+           return getOutcome(true);
     }
 
     private VOUserDetails poUserToVO(POUserAndOrganization poUser) {
@@ -261,8 +261,8 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
             getUserService().importUsers(buffer, getSelectedOrganization(),
                     getSelectedMarketplace());
             model.resetToken();
-            ui.handle("info.user.importStarted.updateHint", model.getUserImport()
-                    .getSubmittedFileName());
+            ui.handle("info.user.importStarted.updateHint",
+                    model.getUserImport().getSubmittedFileName());
         } catch (SaaSApplicationException ex) {
             ui.handleException(ex);
         } catch (IOException ex) {
@@ -288,15 +288,13 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
     }
 
     String getSelectedOrganization() {
-        return ((OperatorSelectOrgBean) ui.findBean("operatorSelectOrgBean"))
-                .getOrganizationId();
+        return ((OperatorSelectOrgBean) ui.findBean("operatorSelectOrgBean")).getOrganizationId();
     }
 
     List<Marketplace> getSelectableMarketplaces() {
         if (isLoggedInAndPlatformOperator()) {
             if (marketplaces.isEmpty()) {
-                for (VOMarketplace mp : getMarketplaceService()
-                        .getMarketplacesForOperator()) {
+                for (VOMarketplace mp : getMarketplaceService().getMarketplacesForOperator()) {
                     marketplaces.add(new Marketplace(mp));
                 }
                 return marketplaces;
@@ -306,7 +304,7 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
     }
 
     public boolean isPwdButtonEnabled() {
-        return selectedUserKey != null && Long.valueOf(selectedUserKey) != 0L;
+        return selectedUserKey != null && Long.valueOf(selectedUserKey).longValue() != 0L;
     }
 
     public boolean isLockButtonEnabled() throws ValidationException, ObjectNotFoundException {
@@ -337,16 +335,13 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements
         return false;
     }
 
-    private boolean validateLdapUser(VOUser user)
-            throws ObjectNotFoundException {
-        UserManagementService service = sl
-                .findService(UserManagementService.class);
+    private boolean validateLdapUser(VOUser user) throws ObjectNotFoundException {
+        UserManagementService service = sl.findService(UserManagementService.class);
 
         String organizationId;
         organizationId = user.getOrganizationId();
         if (service.isOrganizationLDAPManaged(organizationId)) {
-            addMessage(null, FacesMessage.SEVERITY_ERROR,
-                    BaseBean.ERROR_LDAPUSER_RESETPASSWORD);
+            addMessage(null, FacesMessage.SEVERITY_ERROR, BaseBean.ERROR_LDAPUSER_RESETPASSWORD);
             return true;
         }
         return false;
