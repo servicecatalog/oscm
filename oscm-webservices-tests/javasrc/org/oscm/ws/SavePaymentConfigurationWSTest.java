@@ -133,9 +133,7 @@ public class SavePaymentConfigurationWSTest {
     // OPERATOR: create "Marketplace"
     MarketplaceService srvMarketplace =
         ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+            .getMarketPlaceService();
     marketplace =
         srvMarketplace.createMarketplace(
             factory.createMarketplaceVO(

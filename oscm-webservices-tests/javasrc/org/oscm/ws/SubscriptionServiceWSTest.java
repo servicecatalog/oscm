@@ -179,9 +179,7 @@ public class SubscriptionServiceWSTest {
 
     MarketplaceService mpSrvOperator =
         ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+            .getMarketPlaceService();
 
     mpLocal =
         mpSrvOperator.createMarketplace(

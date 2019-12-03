@@ -757,9 +757,7 @@ public class AccountServiceWSTest {
     // Customer subscribes service
     MarketplaceService mpSrvOperator =
         ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+            .getMarketPlaceService();
     VOMarketplace mpLocal =
         mpSrvOperator.createMarketplace(
             factory.createMarketplaceVO(supplier1.getOrganizationId(), false, "Local Marketplace"));

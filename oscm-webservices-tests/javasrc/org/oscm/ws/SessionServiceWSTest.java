@@ -57,9 +57,7 @@ public class SessionServiceWSTest {
 
     MarketplaceService mpSrvOperator =
         ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+            .getMarketPlaceService();
 
     // Create a local marketplace
     VOMarketplace mpLocal =

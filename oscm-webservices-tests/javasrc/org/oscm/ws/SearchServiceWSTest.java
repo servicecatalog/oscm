@@ -142,9 +142,7 @@ public class SearchServiceWSTest {
     // needed for deleting marketplaces
     mpService_Operator =
         ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+            .getMarketPlaceService();
 
     // needed to add supplier to technical services
     String technologyProviderUserKey = createTechnologyProvider();

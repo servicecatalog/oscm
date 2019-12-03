@@ -82,9 +82,7 @@ public class ServiceProvisioningServiceWSTest {
     setup.createTechnologyProvider("Dick-und-Doof");
     MarketplaceService mpSrvOperator =
         ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+            .getMarketPlaceService();
 
     // create "Local" marketplace
     mpLocal =

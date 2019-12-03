@@ -82,9 +82,7 @@ public class OnBehalfActingServiceWSTest {
     // Create the local market place
     MarketplaceService mpSrvOperator =
         ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+            .getMarketPlaceService();
     localMarketplace =
         mpSrvOperator.createMarketplace(
             factory.createMarketplaceVO(hostOrg.getOrganizationId(), false, "Local Marketplace"));

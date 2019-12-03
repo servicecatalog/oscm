@@ -73,9 +73,7 @@ public class OrganizationalUnitServiceWSTest {
     setup.createTechnicalService();
     MarketplaceService mpSrvOperator =
         ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+            .getMarketPlaceService();
 
     // Create a local marketplace
     VOMarketplace mpLocal =
