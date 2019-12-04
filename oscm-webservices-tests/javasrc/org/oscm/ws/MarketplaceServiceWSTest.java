@@ -942,18 +942,10 @@ public class MarketplaceServiceWSTest {
     setup = new WebserviceTestSetup();
     supplier = setup.createSupplier("newSupplier");
 
-    is =
-        ServiceFactory.getDefault()
-            .getIdentityService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+    is = ServiceFactory.getDefault().getIdentityService();
 
     // use the marketplace service as operator
-    mpService_Operator =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+    mpService_Operator = ServiceFactory.getDefault().getMarketPlaceService();
 
     // use the marketplace service as supplier
     mpService_Supplier =
