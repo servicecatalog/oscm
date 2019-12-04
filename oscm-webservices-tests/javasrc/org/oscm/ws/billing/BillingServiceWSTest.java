@@ -4,6 +4,7 @@
 package org.oscm.ws.billing;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 
 import java.util.Calendar;
 
@@ -25,7 +26,7 @@ public class BillingServiceWSTest {
 
   @BeforeClass
   public static void setUpOnce() throws Exception {
-
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     WebserviceTestBase.getMailReader().deleteMails();
     WebserviceTestBase.getOperator().addCurrency("EUR");
 

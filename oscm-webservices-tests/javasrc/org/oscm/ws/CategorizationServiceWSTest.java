@@ -13,6 +13,7 @@ package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -41,6 +42,7 @@ public class CategorizationServiceWSTest {
 
   @BeforeClass
   public static void beforeClass() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     WebserviceTestBase.getMailReader().deleteMails();
 
     categorizationService = ServiceFactory.getDefault().getCategorizationService();

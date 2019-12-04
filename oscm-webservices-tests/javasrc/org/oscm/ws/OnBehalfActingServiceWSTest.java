@@ -14,6 +14,7 @@ package org.oscm.ws;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +68,7 @@ public class OnBehalfActingServiceWSTest {
 
   @Before
   public void setup() throws Exception {
-
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     // define test parameters
     commonUserPWD = "secret";
 

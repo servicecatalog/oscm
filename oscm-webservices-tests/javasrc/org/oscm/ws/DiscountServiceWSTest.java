@@ -6,6 +6,8 @@
 
 package org.oscm.ws;
 
+import static org.junit.Assume.assumeFalse;
+
 import java.math.BigDecimal;
 
 import org.junit.Assert;
@@ -36,6 +38,7 @@ public class DiscountServiceWSTest {
 
   @Before
   public void setUp() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     WebserviceTestBase.getMailReader().deleteMails();
     WebserviceTestBase.getOperator().addCurrency("EUR");
 

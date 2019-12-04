@@ -5,6 +5,8 @@
  *******************************************************************************/
 package org.oscm.ws;
 
+import static org.junit.Assume.assumeFalse;
+
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Collections;
@@ -61,6 +63,7 @@ public class OrganizationalUnitServiceWSTest {
 
   @BeforeClass
   public static void setUp() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     // clean the mails
     WebserviceTestBase.getMailReader().deleteMails();
 

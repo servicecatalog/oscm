@@ -13,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -78,6 +79,7 @@ public class TriggerDefinitonServiceWSTest {
 
   @BeforeClass
   public static void setUp() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     // clean the mails
     WebserviceTestBase.getMailReader().deleteMails();
     setup = new WebserviceTestSetup();

@@ -12,6 +12,7 @@
 package org.oscm.ws;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -85,6 +86,7 @@ public class EventServiceWSTest {
 
   @BeforeClass
   public static void setup() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     WebserviceTestBase.getMailReader().deleteMails();
     initTestData();
   }

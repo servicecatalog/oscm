@@ -9,6 +9,7 @@ package org.oscm.ws;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 
 import javax.xml.ws.soap.SOAPFaultException;
 
@@ -24,6 +25,7 @@ public class BugfixWSTest {
 
   @Before
   public void setUp() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     WebserviceTestBase.getMailReader().deleteMails();
     WebserviceTestBase.getOperator().addCurrency("EUR");
   }

@@ -5,6 +5,7 @@ package org.oscm.ws;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class VatServiceWSTest {
 
   @Before
   public void setUp() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     // clean the mails
     WebserviceTestBase.getMailReader().deleteMails();
     // add currencies

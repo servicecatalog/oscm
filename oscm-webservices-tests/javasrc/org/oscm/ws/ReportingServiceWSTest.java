@@ -8,6 +8,7 @@ package org.oscm.ws;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -70,6 +71,7 @@ public class ReportingServiceWSTest {
 
   @BeforeClass
   public static void setup() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     init();
   }
 

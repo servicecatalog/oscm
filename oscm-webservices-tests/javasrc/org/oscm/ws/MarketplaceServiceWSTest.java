@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,6 +75,7 @@ public class MarketplaceServiceWSTest {
 
   @BeforeClass
   public static void setup() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     WebserviceTestBase.getMailReader().deleteMails();
     init();
   }

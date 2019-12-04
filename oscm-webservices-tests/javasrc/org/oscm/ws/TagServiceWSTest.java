@@ -12,6 +12,7 @@
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeFalse;
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,6 +39,7 @@ public class TagServiceWSTest {
 
   @BeforeClass
   public static void setUp() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     // clean the mails
     WebserviceTestBase.getMailReader().deleteMails();
     setup = new WebserviceTestSetup();

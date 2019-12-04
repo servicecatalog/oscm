@@ -14,6 +14,7 @@ package org.oscm.ws;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -71,6 +72,7 @@ public class ServiceProvisioningServiceWSTest {
 
   @Before
   public void setUp() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     // clean the mails
     WebserviceTestBase.getMailReader().deleteMails();
     // add currencies

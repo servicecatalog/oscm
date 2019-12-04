@@ -12,6 +12,7 @@
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assume.assumeFalse;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,6 +39,7 @@ public class IdentityServiceWSPlatformOperatorTest {
 
   @BeforeClass
   public static void setUp() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     WebserviceTestBase.getMailReader().deleteMails();
     WebserviceTestBase.getOperator().addCurrency("EUR");
 

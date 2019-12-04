@@ -4,6 +4,7 @@
 package org.oscm.ws.concurrency;
 
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -176,6 +177,7 @@ public class ConcurrencyTest {
 
   @Before
   public void setup() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     WebserviceTestBase.getMailReader().deleteMails();
     String administratorId = "admin_" + System.currentTimeMillis();
     organization =

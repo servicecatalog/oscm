@@ -16,6 +16,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
 import static org.oscm.ws.base.WebserviceTestBase.DEFAULT_PASSWORD;
 
 import java.util.Arrays;
@@ -74,6 +75,7 @@ public class MarketingPermissionWSTest {
 
   @Before
   public void setUp() throws Exception {
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
     WebserviceTestBase.getMailReader().deleteMails();
     timeBase = System.currentTimeMillis();
 
