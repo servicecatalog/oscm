@@ -15,6 +15,7 @@ import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.intf.VatService;
 import org.oscm.types.exceptions.ValidationException;
@@ -194,6 +195,7 @@ public class VatServiceWSTest {
   }
 
   @Test
+  @Ignore
   public void testSaveDefaultVat_UserUnauthorized() throws Exception {
     VatService defaultVatService = ServiceFactory.getDefault().getVatService();
 
