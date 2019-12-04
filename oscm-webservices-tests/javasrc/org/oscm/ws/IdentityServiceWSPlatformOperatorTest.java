@@ -43,11 +43,7 @@ public class IdentityServiceWSPlatformOperatorTest {
 
     setup = new WebserviceTestSetup();
     supplier1 = setup.createSupplier("Supplier1");
-    is =
-        ServiceFactory.getDefault()
-            .getIdentityService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+    is = ServiceFactory.getDefault().getIdentityService();
     VOUserDetails userDetails = is.getCurrentUserDetails();
     userDetails.setEMail(WebserviceTestBase.getMailReader().getMailAddress());
     is.updateUser(userDetails);

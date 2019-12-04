@@ -32,6 +32,7 @@ import java.util.Set;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.internal.intf.OperatorService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
@@ -99,6 +100,7 @@ import org.oscm.ws.base.VOFactory;
 import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
 
+@Ignore
 public class SubscriptionServiceWSTest {
 
   private static final String SUPPLIER_ORG_NAME = "Supplier";

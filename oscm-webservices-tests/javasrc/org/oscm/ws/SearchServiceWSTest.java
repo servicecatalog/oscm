@@ -23,6 +23,7 @@ import java.util.List;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.intf.AccountService;
 import org.oscm.intf.MarketplaceService;
@@ -53,6 +54,7 @@ import org.oscm.ws.base.WebserviceTestSetup;
  *
  * @author Enes Sejfi
  */
+@Ignore
 public class SearchServiceWSTest {
 
   private static WebserviceTestSetup setup;

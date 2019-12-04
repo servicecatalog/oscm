@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.intf.AccountService;
 import org.oscm.intf.DiscountService;
@@ -67,6 +68,7 @@ public class DiscountServiceWSTest {
   }
 
   @Test
+  @Ignore
   public void testGetDiscountForService() throws Exception {
     VODiscount voDiscount = discountService.getDiscountForService(chargeableService.getKey());
     Assert.assertEquals(voDiscount.getValue(), new BigDecimal("33.24"));
@@ -82,6 +84,7 @@ public class DiscountServiceWSTest {
    * @throws Exception
    */
   @Test
+  @Ignore
   public void testGetDiscountFreeService() throws Exception {
     VODiscount voDiscount = discountService.getDiscountForService(freeService.getKey());
     Assert.assertEquals(voDiscount.getValue(), new BigDecimal("33.24"));
@@ -96,6 +99,7 @@ public class DiscountServiceWSTest {
   }
 
   @Test
+  @Ignore
   public void testGetDiscountNotDefined() throws Exception {
     // Get the discount service for the customer for whom no discount has
     // been specified by the supplier

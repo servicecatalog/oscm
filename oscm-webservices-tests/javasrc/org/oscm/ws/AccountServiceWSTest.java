@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.intf.AccountService;
@@ -128,6 +129,7 @@ public class AccountServiceWSTest {
   }
 
   @Test(expected = OperationPendingException.class)
+  @Ignore
   public void savePaymentConfiguration_TriggerProcessPending() throws Exception {
     // create a trigger definition
     VOTriggerDefinition triggerDef = WebserviceTestBase.createTriggerDefinition();
@@ -192,6 +194,7 @@ public class AccountServiceWSTest {
   }
 
   @Test
+  @Ignore
   public void getUdasForCustomer_OK() throws Exception {
     // Given - Create UdaDefinitions
     VOUdaDefinition def1 =

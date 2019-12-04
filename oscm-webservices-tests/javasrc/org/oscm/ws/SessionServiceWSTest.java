@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.intf.IdentityService;
 import org.oscm.intf.MarketplaceService;
@@ -32,6 +33,7 @@ import org.oscm.ws.base.VOFactory;
 import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
 
+@Ignore
 public class SessionServiceWSTest {
 
   private static SessionService sessionService;

@@ -75,11 +75,7 @@ public class ReportingServiceWSTest {
 
   private static void init() throws Exception {
     // new reporting service for operator
-    reportingService_Operator =
-        ServiceFactory.getDefault()
-            .getReportingService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+    reportingService_Operator = ServiceFactory.getDefault().getReportingService();
 
     // new reporting service for supplier
     String userId = (String) createOrganizationAndReturnUser(OrganizationRoleType.SUPPLIER)[1];

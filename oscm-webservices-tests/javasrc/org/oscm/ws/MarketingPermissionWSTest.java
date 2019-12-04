@@ -26,6 +26,7 @@ import java.util.Set;
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.intf.AccountService;
 import org.oscm.intf.ServiceProvisioningService;
@@ -50,6 +51,7 @@ import org.oscm.ws.base.WebserviceTestBase;
  *
  * @author Mike J&auml;ger
  */
+@Ignore
 public class MarketingPermissionWSTest {
 
   private VOOrganization tp1;

@@ -24,6 +24,7 @@ import java.util.Set;
 import javax.mail.MessagingException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.converter.api.VOConverter;
 import org.oscm.internal.vo.VOPSPAccount;
@@ -47,6 +48,7 @@ import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
 
 /** @author kulle */
+@Ignore
 public class SavePaymentConfigurationWSTest {
 
   private static final int COUNT_CUSTOMER = 2;

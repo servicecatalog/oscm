@@ -138,7 +138,7 @@ public class SupportedVersionsWSTest {
     return ServiceFactory.getDefault()
         .connectToWebService(
             remoteInterface,
-            WebserviceTestBase.getPlatformOperatorKey(),
-            WebserviceTestBase.getPlatformOperatorPassword());
+            ServiceFactory.getDefault().getDefaultUserKey(),
+            ServiceFactory.getDefault().getDefaultUserKey());
   }
 }

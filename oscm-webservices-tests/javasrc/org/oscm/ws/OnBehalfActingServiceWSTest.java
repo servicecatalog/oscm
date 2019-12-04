@@ -47,6 +47,7 @@ import org.oscm.ws.base.TSXMLForWebService;
 import org.oscm.ws.base.VOFactory;
 import org.oscm.ws.base.WebserviceTestBase;
 
+@Ignore
 public class OnBehalfActingServiceWSTest {
 
   private String commonUserPWD;
