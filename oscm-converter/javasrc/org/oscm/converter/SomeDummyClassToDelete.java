@@ -1,0 +1,82 @@
+package org.oscm.converter;
+
+public class SomeDummyClassToDelete {
+
+  public void method1() {
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+  }
+
+  public void method2() {
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+    System.out.println();
+  }
+}
