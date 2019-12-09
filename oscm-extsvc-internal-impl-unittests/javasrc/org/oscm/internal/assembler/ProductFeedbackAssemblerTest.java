@@ -99,80 +99,80 @@ public class ProductFeedbackAssemblerTest {
         user.setOrganization(org);
         return user;
     }
-
-    /**
-     * Test conversion to VO object if no reviews exist. (Average must be 0 -
-     * not null)
-     */
-    @Test
-    public void toVOServiceFeedback_noReviews() {
-
-        // given a domain object
-        TechnicalProduct technicalProduct = new TechnicalProduct();
-        technicalProduct.setAccessType(ServiceAccessType.LOGIN);
-        Product product = new Product();
-        product.setKey(123);
-        product.setTechnicalProduct(technicalProduct);
-        ProductFeedback feedback = new ProductFeedback();
-        product.setProductFeedback(feedback);
-        feedback.setProduct(product);
-
-        // when converted to value object
-        VOServiceFeedback valueObject = ProductFeedbackAssembler
-                .toVOServiceFeedback(product, createLoggedInUser());
-
-        // then attribute and child reviews must be set to 0 (not null)
-        assertEquals(new BigDecimal(0), valueObject.getAverageRating());
-        assertEquals(0, valueObject.getReviews().size());
-
-        assertEquals(product.getKey(), valueObject.getServiceKey());
-    }
-
-    /**
-     * An empty feedback value object must be constructed if no feedback is
-     * given.
-     */
-    @Test
-    public void toVOServiceFeedback_noFeedback() {
-
-        // given no domain object
-        TechnicalProduct technicalProduct = new TechnicalProduct();
-        technicalProduct.setAccessType(ServiceAccessType.LOGIN);
-        Product product = new Product();
-        product.setKey(123);
-        product.setTechnicalProduct(technicalProduct);
-
-        // when converted to value object
-        VOServiceFeedback valueObject = ProductFeedbackAssembler
-                .toVOServiceFeedback(product, createLoggedInUser());
-
-        // then attribute and child reviews must be set to 0 (not null)
-        assertEquals(new BigDecimal(0), valueObject.getAverageRating());
-        assertEquals(0, valueObject.getReviews().size());
-        assertEquals(product.getKey(), valueObject.getServiceKey());
-    }
-
-    @Test
-    public void toVOServiceFeedback_logedOutUser() {
-
-        // given no domain object
-        Product product = new Product();
-
-        // when converted to value object
-        VOServiceFeedback valueObject = ProductFeedbackAssembler
-                .toVOServiceFeedback(product, null);
-
-        // then attribute and child reviews must be set to 0 (not null)
-        assertFalse(valueObject.isAllowedToWriteReview());
-    }
-
-    @Test
-    public void testReviewList() throws Exception {
-        // test obvious get/set for to ensure bean compliance
-        // though setter is never actually used
-        VOServiceFeedback vo = new VOServiceFeedback();
-        vo.setReviews(new ArrayList<VOServiceReview>());
-        assertNotNull(vo.getReviews());
-        assertTrue(vo.getReviews().isEmpty());
-    }
+//
+//    /**
+//     * Test conversion to VO object if no reviews exist. (Average must be 0 -
+//     * not null)
+//     */
+//    @Test
+//    public void toVOServiceFeedback_noReviews() {
+//
+//        // given a domain object
+//        TechnicalProduct technicalProduct = new TechnicalProduct();
+//        technicalProduct.setAccessType(ServiceAccessType.LOGIN);
+//        Product product = new Product();
+//        product.setKey(123);
+//        product.setTechnicalProduct(technicalProduct);
+//        ProductFeedback feedback = new ProductFeedback();
+//        product.setProductFeedback(feedback);
+//        feedback.setProduct(product);
+//
+//        // when converted to value object
+//        VOServiceFeedback valueObject = ProductFeedbackAssembler
+//                .toVOServiceFeedback(product, createLoggedInUser());
+//
+//        // then attribute and child reviews must be set to 0 (not null)
+//        assertEquals(new BigDecimal(0), valueObject.getAverageRating());
+//        assertEquals(0, valueObject.getReviews().size());
+//
+//        assertEquals(product.getKey(), valueObject.getServiceKey());
+//    }
+//
+//    /**
+//     * An empty feedback value object must be constructed if no feedback is
+//     * given.
+//     */
+//    @Test
+//    public void toVOServiceFeedback_noFeedback() {
+//
+//        // given no domain object
+//        TechnicalProduct technicalProduct = new TechnicalProduct();
+//        technicalProduct.setAccessType(ServiceAccessType.LOGIN);
+//        Product product = new Product();
+//        product.setKey(123);
+//        product.setTechnicalProduct(technicalProduct);
+//
+//        // when converted to value object
+//        VOServiceFeedback valueObject = ProductFeedbackAssembler
+//                .toVOServiceFeedback(product, createLoggedInUser());
+//
+//        // then attribute and child reviews must be set to 0 (not null)
+//        assertEquals(new BigDecimal(0), valueObject.getAverageRating());
+//        assertEquals(0, valueObject.getReviews().size());
+//        assertEquals(product.getKey(), valueObject.getServiceKey());
+//    }
+//
+//    @Test
+//    public void toVOServiceFeedback_logedOutUser() {
+//
+//        // given no domain object
+//        Product product = new Product();
+//
+//        // when converted to value object
+//        VOServiceFeedback valueObject = ProductFeedbackAssembler
+//                .toVOServiceFeedback(product, null);
+//
+//        // then attribute and child reviews must be set to 0 (not null)
+//        assertFalse(valueObject.isAllowedToWriteReview());
+//    }
+//
+//    @Test
+//    public void testReviewList() throws Exception {
+//        // test obvious get/set for to ensure bean compliance
+//        // though setter is never actually used
+//        VOServiceFeedback vo = new VOServiceFeedback();
+//        vo.setReviews(new ArrayList<VOServiceReview>());
+//        assertNotNull(vo.getReviews());
+//        assertTrue(vo.getReviews().isEmpty());
+//    }
 }

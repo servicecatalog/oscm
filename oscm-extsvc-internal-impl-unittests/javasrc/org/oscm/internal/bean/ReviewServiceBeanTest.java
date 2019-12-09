@@ -67,72 +67,72 @@ public class ReviewServiceBeanTest {
         // when
         reviewServiceBean.writeReview(null);
     }
-
-    @Test
-    public void writeReview_OK() throws Exception {
-        // given
-        initResultDO();
-        doReturn(result).when(localBean).writeReview(domainObject,
-                Long.valueOf(voReview.getProductKey()));
-        // when
-        VOServiceReview voResult = reviewServiceBean.writeReview(voReview);
-        // then
-        verify(localBean, times(1)).writeReview(eq(domainObject),
-                eq(Long.valueOf(voReview.getProductKey())));
-        verifyVO(voResult);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void deleteReview_Null() throws Exception {
-        // given
-        // when
-        reviewServiceBean.deleteReview(null);
-    }
-
-    @Test
-    public void deleteReview_OK() throws Exception {
-        // given
-        // when
-        reviewServiceBean.deleteReview(voReview);
-        // then
-        verify(localBean, times(1)).deleteReview(
-                eq(Long.valueOf(voReview.getKey())));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void deleteReviewByMarketplaceOwner_ReviewIsNull() throws Exception {
-        // given
-        // when
-        reviewServiceBean.deleteReviewByMarketplaceOwner(null, "Reason");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void deleteReviewByMarketplaceOwner_ReasonIsNull() throws Exception {
-        // given
-        // when
-        reviewServiceBean.deleteReviewByMarketplaceOwner(voReview, null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void deleteReviewByMarketplaceOwner_ReasonIsEmpty() throws Exception {
-        // given
-        // when
-        reviewServiceBean.deleteReviewByMarketplaceOwner(voReview, "");
-    }
-
-    @Test
-    public void deleteReviewByMarketplaceOwner_OK() throws Exception {
-        // given
-        // when
-        reviewServiceBean.deleteReviewByMarketplaceOwner(voReview, "Reason");
-        // then
-        verify(localBean, times(1)).deleteReviewByMarketplaceOwner(
-                eq(Long.valueOf(domainObject.getKey())), eq("Reason"));
-    }
-
+//
+//    @Test
+//    public void writeReview_OK() throws Exception {
+//        // given
+//        initResultDO();
+//        doReturn(result).when(localBean).writeReview(domainObject,
+//                Long.valueOf(voReview.getProductKey()));
+//        // when
+//        VOServiceReview voResult = reviewServiceBean.writeReview(voReview);
+//        // then
+//        verify(localBean, times(1)).writeReview(eq(domainObject),
+//                eq(Long.valueOf(voReview.getProductKey())));
+//        verifyVO(voResult);
+//    }
+//
+//    @Test(expected = IllegalArgumentException.class)
+//    public void deleteReview_Null() throws Exception {
+//        // given
+//        // when
+//        reviewServiceBean.deleteReview(null);
+//    }
+//
+//    @Test
+//    public void deleteReview_OK() throws Exception {
+//        // given
+//        // when
+//        reviewServiceBean.deleteReview(voReview);
+//        // then
+//        verify(localBean, times(1)).deleteReview(
+//                eq(Long.valueOf(voReview.getKey())));
+//    }
+//
+//    @Test(expected = IllegalArgumentException.class)
+//    public void deleteReviewByMarketplaceOwner_ReviewIsNull() throws Exception {
+//        // given
+//        // when
+//        reviewServiceBean.deleteReviewByMarketplaceOwner(null, "Reason");
+//    }
+//
+//    @Test(expected = IllegalArgumentException.class)
+//    public void deleteReviewByMarketplaceOwner_ReasonIsNull() throws Exception {
+//        // given
+//        // when
+//        reviewServiceBean.deleteReviewByMarketplaceOwner(voReview, null);
+//    }
+//
+//    @Test(expected = IllegalArgumentException.class)
+//    public void deleteReviewByMarketplaceOwner_ReasonIsEmpty() throws Exception {
+//        // given
+//        // when
+//        reviewServiceBean.deleteReviewByMarketplaceOwner(voReview, "");
+//    }
+//
+//    @Test
+//    public void deleteReviewByMarketplaceOwner_OK() throws Exception {
+//        // given
+//        // when
+//        reviewServiceBean.deleteReviewByMarketplaceOwner(voReview, "Reason");
+//        // then
+//        verify(localBean, times(1)).deleteReviewByMarketplaceOwner(
+//                eq(Long.valueOf(domainObject.getKey())), eq("Reason"));
+//    }
+//
     /**
      * verify the result's fields is correct
-     * 
+     *
      * @param target
      *            VO need to be verified
      */
