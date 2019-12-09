@@ -14,7 +14,7 @@ coverage:
         threshold: 5
         base: auto
     patch: yes
-    changes: no
+    changes: yes
 
 parsers:
   gcov:
