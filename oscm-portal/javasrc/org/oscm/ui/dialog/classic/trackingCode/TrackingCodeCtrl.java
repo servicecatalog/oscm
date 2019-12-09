@@ -10,6 +10,7 @@ package org.oscm.ui.dialog.classic.trackingCode;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -17,6 +18,7 @@ import javax.faces.model.SelectItem;
 
 import org.oscm.ui.beans.BaseBean;
 import org.oscm.ui.beans.SessionBean;
+import org.oscm.ui.common.POMarketplacesComparator;
 import org.oscm.internal.components.POMarketplace;
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.trackingCode.POTrackingCode;
@@ -64,6 +66,7 @@ public class TrackingCodeCtrl extends BaseBean implements Serializable {
     void initSelectableMarketplaces() {
         List<POMarketplace> marketplaces = getTrackingCodeManagementService()
                 .getMarketplaceSelections();
+        Collections.sort(marketplaces, new POMarketplacesComparator());
         List<SelectItem> uiMarketplaces = initMarketplaceSelector(marketplaces);
         model.setMarketplaces(uiMarketplaces);
     }

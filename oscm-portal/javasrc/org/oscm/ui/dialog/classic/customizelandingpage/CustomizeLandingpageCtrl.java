@@ -6,6 +6,7 @@ package org.oscm.ui.dialog.classic.customizelandingpage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -14,6 +15,7 @@ import javax.faces.model.SelectItem;
 
 import org.oscm.string.Strings;
 import org.oscm.types.enumtypes.FillinCriterion;
+import org.oscm.ui.common.POMarketplacesComparator;
 import org.oscm.ui.common.SelectItemBuilder;
 import org.oscm.ui.common.UiDelegate;
 import org.oscm.ui.delegates.ServiceLocator;
@@ -89,6 +91,7 @@ public class CustomizeLandingpageCtrl implements Serializable {
     void initSelectableMarketplaces() {
         List<POMarketplace> marketplaces = getLandingpageService()
                 .getMarketplaceSelections();
+        Collections.sort(marketplaces, new POMarketplacesComparator());
         List<SelectItem> uiMarketplaces = initMarketplaceSelector(marketplaces);
         model.setMarketplaces(uiMarketplaces);
     }

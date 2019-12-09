@@ -31,6 +31,7 @@ import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.internal.vo.VOOrganization;
 import org.oscm.ui.beans.BaseBean;
 import org.oscm.ui.common.JSFUtils;
+import org.oscm.ui.common.MarketplacesComparator;
 import org.oscm.ui.common.UiDelegate;
 
 @ManagedBean
@@ -58,6 +59,7 @@ public class ManageAccessCtrl {
 
         List<VOMarketplace> marketplaces = marketplaceService
                 .getMarketplacesOwned();
+        Collections.sort(marketplaces, new MarketplacesComparator());
 
         List<SelectItem> selectableMarketplaces = new ArrayList<SelectItem>();
 
@@ -119,7 +121,6 @@ public class ManageAccessCtrl {
                     .getAllOrganizations(marketplaceId)) {
                 POOrganization poOrganization = toPOOrganization(voOrganization);
 
-                long key = poOrganization.getKey();
                 organizations.add(poOrganization);
             }
 
