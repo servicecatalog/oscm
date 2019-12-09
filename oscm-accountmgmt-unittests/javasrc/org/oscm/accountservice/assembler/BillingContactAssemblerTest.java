@@ -41,97 +41,97 @@ public class BillingContactAssemblerTest {
         voBillingContact.setId("id");
     }
 
-    @Test(expected = ValidationException.class)
-    public void updateBillingContact_NoId() throws Exception {
-        voBillingContact.setId(null);
-        BillingContactAssembler.updateBillingContact(billingContact,
-                voBillingContact);
-    }
-
-    @Test(expected = ValidationException.class)
-    public void updateBillingContact_EmptyName() throws Exception {
-        voBillingContact.setId("   ");
-        BillingContactAssembler.updateBillingContact(billingContact,
-                voBillingContact);
-    }
-
-    @Test
-    public void updateBillingContact() throws Exception {
-        BillingContact bc = BillingContactAssembler.updateBillingContact(
-                billingContact, voBillingContact);
-        Assert.assertNotNull("bc is null", bc);
-        Assert.assertEquals(voBillingContact.getAddress(), bc.getAddress());
-        Assert.assertEquals(voBillingContact.getCompanyName(),
-                bc.getCompanyName());
-        Assert.assertEquals(voBillingContact.getEmail(), bc.getEmail());
-        Assert.assertEquals(voBillingContact.isOrgAddressUsed(),
-                bc.isOrgAddressUsed());
-        Assert.assertEquals(voBillingContact.getId(), bc.getBillingContactId());
-    }
-
-    @Test(expected = ValidationException.class)
-    public void updateBillingContact_EmailNull() throws Exception {
-        voBillingContact.setEmail(null);
-        BillingContactAssembler.updateBillingContact(billingContact,
-                voBillingContact);
-    }
-
-    @Test(expected = ValidationException.class)
-    public void updateBillingContact_CompanyNameNull() throws Exception {
-        voBillingContact.setCompanyName(null);
-        BillingContactAssembler.updateBillingContact(billingContact,
-                voBillingContact);
-    }
-
-    @Test(expected = ValidationException.class)
-    public void updateBillingContact_AddressNull() throws Exception {
-        voBillingContact.setAddress(null);
-        BillingContactAssembler.updateBillingContact(billingContact,
-                voBillingContact);
-    }
-
-    @Test(expected = ValidationException.class)
-    public void updateBillingContact_CompanyNameEmpty() throws Exception {
-        voBillingContact.setCompanyName("   ");
-        BillingContactAssembler.updateBillingContact(billingContact,
-                voBillingContact);
-    }
-
-    @Test(expected = ValidationException.class)
-    public void updateBillingContact_AddressEmpty() throws Exception {
-        voBillingContact.setAddress("   ");
-        BillingContactAssembler.updateBillingContact(billingContact,
-                voBillingContact);
-    }
-
-    @Test(expected = ValidationException.class)
-    public void updateBillingContact_EmailEmpty() throws Exception {
-        voBillingContact.setEmail("   ");
-        BillingContactAssembler.updateBillingContact(billingContact,
-                voBillingContact);
-    }
-
-    @Test(expected = ValidationException.class)
-    public void updateBillingContact_EmailInvalid() throws Exception {
-        voBillingContact.setEmail("invalidmail");
-        BillingContactAssembler.updateBillingContact(billingContact,
-                voBillingContact);
-    }
-
-    @Test
-    public void testToVOBillingContact() throws Exception {
-        VOBillingContact vobc = BillingContactAssembler
-                .toVOBillingContact(billingContact);
-        Assert.assertNotNull("vobc is null", vobc);
-        Assert.assertEquals(billingContact.getAddress(), vobc.getAddress());
-        Assert.assertEquals(billingContact.getCompanyName(),
-                vobc.getCompanyName());
-        Assert.assertEquals(billingContact.getEmail(), vobc.getEmail());
-        Assert.assertEquals(billingContact.getKey(), vobc.getKey());
-        Assert.assertEquals(billingContact.getVersion(), vobc.getVersion());
-        Assert.assertEquals(billingContact.isOrgAddressUsed(),
-                vobc.isOrgAddressUsed());
-    }
+//    @Test(expected = ValidationException.class)
+//    public void updateBillingContact_NoId() throws Exception {
+//        voBillingContact.setId(null);
+//        BillingContactAssembler.updateBillingContact(billingContact,
+//                voBillingContact);
+//    }
+//
+//    @Test(expected = ValidationException.class)
+//    public void updateBillingContact_EmptyName() throws Exception {
+//        voBillingContact.setId("   ");
+//        BillingContactAssembler.updateBillingContact(billingContact,
+//                voBillingContact);
+//    }
+//
+//    @Test
+//    public void updateBillingContact() throws Exception {
+//        BillingContact bc = BillingContactAssembler.updateBillingContact(
+//                billingContact, voBillingContact);
+//        Assert.assertNotNull("bc is null", bc);
+//        Assert.assertEquals(voBillingContact.getAddress(), bc.getAddress());
+//        Assert.assertEquals(voBillingContact.getCompanyName(),
+//                bc.getCompanyName());
+//        Assert.assertEquals(voBillingContact.getEmail(), bc.getEmail());
+//        Assert.assertEquals(voBillingContact.isOrgAddressUsed(),
+//                bc.isOrgAddressUsed());
+//        Assert.assertEquals(voBillingContact.getId(), bc.getBillingContactId());
+//    }
+//
+//    @Test(expected = ValidationException.class)
+//    public void updateBillingContact_EmailNull() throws Exception {
+//        voBillingContact.setEmail(null);
+//        BillingContactAssembler.updateBillingContact(billingContact,
+//                voBillingContact);
+//    }
+//
+//    @Test(expected = ValidationException.class)
+//    public void updateBillingContact_CompanyNameNull() throws Exception {
+//        voBillingContact.setCompanyName(null);
+//        BillingContactAssembler.updateBillingContact(billingContact,
+//                voBillingContact);
+//    }
+//
+//    @Test(expected = ValidationException.class)
+//    public void updateBillingContact_AddressNull() throws Exception {
+//        voBillingContact.setAddress(null);
+//        BillingContactAssembler.updateBillingContact(billingContact,
+//                voBillingContact);
+//    }
+//
+//    @Test(expected = ValidationException.class)
+//    public void updateBillingContact_CompanyNameEmpty() throws Exception {
+//        voBillingContact.setCompanyName("   ");
+//        BillingContactAssembler.updateBillingContact(billingContact,
+//                voBillingContact);
+//    }
+//
+//    @Test(expected = ValidationException.class)
+//    public void updateBillingContact_AddressEmpty() throws Exception {
+//        voBillingContact.setAddress("   ");
+//        BillingContactAssembler.updateBillingContact(billingContact,
+//                voBillingContact);
+//    }
+//
+//    @Test(expected = ValidationException.class)
+//    public void updateBillingContact_EmailEmpty() throws Exception {
+//        voBillingContact.setEmail("   ");
+//        BillingContactAssembler.updateBillingContact(billingContact,
+//                voBillingContact);
+//    }
+//
+//    @Test(expected = ValidationException.class)
+//    public void updateBillingContact_EmailInvalid() throws Exception {
+//        voBillingContact.setEmail("invalidmail");
+//        BillingContactAssembler.updateBillingContact(billingContact,
+//                voBillingContact);
+//    }
+//
+//    @Test
+//    public void testToVOBillingContact() throws Exception {
+//        VOBillingContact vobc = BillingContactAssembler
+//                .toVOBillingContact(billingContact);
+//        Assert.assertNotNull("vobc is null", vobc);
+//        Assert.assertEquals(billingContact.getAddress(), vobc.getAddress());
+//        Assert.assertEquals(billingContact.getCompanyName(),
+//                vobc.getCompanyName());
+//        Assert.assertEquals(billingContact.getEmail(), vobc.getEmail());
+//        Assert.assertEquals(billingContact.getKey(), vobc.getKey());
+//        Assert.assertEquals(billingContact.getVersion(), vobc.getVersion());
+//        Assert.assertEquals(billingContact.isOrgAddressUsed(),
+//                vobc.isOrgAddressUsed());
+//    }
 
     @Test
     public void testToVOBillingContact_Null() throws Exception {
