@@ -67,38 +67,4 @@ public class SecurityInvocationHandlerTest {
         h.call(callable, ctx);
     }
 
-    /**
-     * Roles specified with {@link RolesAllowed}.
-     */
-    @Test
-    public void testRolesAllowedAnnotationPositive() throws Exception {
-        class Bean {
-            @RolesAllowed({ "master", "slave" })
-            public void doit() {
-            }
-        }
-        Method m = Bean.class.getMethod("doit");
-        sessionContext.setRoles(new String[] { "master" });
-
-        IInvocationHandler h = new SecurityInvocationHandler(sessionContext, m);
-        h.call(callable, ctx);
-    }
-
-    /**
-     * Roles specified with {@link RolesAllowed}.
-     */
-    @Test(expected = EJBAccessException.class)
-    public void testRolesAllowedAnnotationNegative() throws Exception {
-        class Bean {
-            @RolesAllowed({ "master", "slave" })
-            public void doit() {
-            }
-        }
-        Method m = Bean.class.getMethod("doit");
-        sessionContext.setRoles(new String[] { "other" });
-
-        IInvocationHandler h = new SecurityInvocationHandler(sessionContext, m);
-        h.call(callable, ctx);
-    }
-
 }

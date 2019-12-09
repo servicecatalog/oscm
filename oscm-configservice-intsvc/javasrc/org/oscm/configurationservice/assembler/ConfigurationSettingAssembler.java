@@ -120,33 +120,10 @@ public class ConfigurationSettingAssembler extends BaseAssembler {
         if (domObj.getKey() != 0) {
             verifyVersionAndKey(domObj, voObj);
         }
-        validate(domObj, voObj);
-
-        copyToDomainAttributes(domObj, voObj);
-        return domObj;
-    }
-
-    /**
-     * Creates VO configuration setting
-     *
-     * @param voObj
-     *            VO configuration setting object
-     * @param domObj
-     *            domain configuration setting object
-     * @return A domain object representation of the value object.
-     * @throws ValidationException
-     *             Thrown in case the configuration setting violates
-     *             configuration setting validation rules.
-     * @throws ConcurrentModificationException
-     *             Thrown in case the value object's version does not match the
-     *             current domain object's.
-     */
-    public static ConfigurationSetting createConfigurationSetting(
-            VOConfigurationSetting voObj, ConfigurationSetting domObj)
-            throws ValidationException, ConcurrentModificationException {
-
-        if (domObj.getKey() != 0) {
-            verifyVersionAndKey(domObj, voObj);
+        if (domObj.getInformationId() == null) {
+            throw new ValidationException("Setting not found.");
+        } else {
+            validate(domObj, voObj);
         }
 
         copyToDomainAttributes(domObj, voObj);

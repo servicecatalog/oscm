@@ -866,70 +866,24 @@ public class OperatorServiceBean implements OperatorService {
 
     @Override
     @RolesAllowed("PLATFORM_OPERATOR")
-    public void saveConfigurationSetting(VOConfigurationSetting configurationSetting)
+    public void saveConfigurationSetting(VOConfigurationSetting setting)
             throws OrganizationAuthoritiesException, ValidationException,
             ConcurrentModificationException, DuplicateTenantIdException {
 
-        ArgumentValidator.notNull("configurationSetting", configurationSetting);
-        ConfigurationSetting st = dm.find(ConfigurationSetting.class, configurationSetting.getKey());
+        ArgumentValidator.notNull("setting", setting);
+        validateDefaultTenantIdUniqueness(setting);
 
-        if (configurationSetting.getKey() > 0 && st == null) {
-            throw new ConcurrentModificationException();
-        }
-        if (st == null) {
-            //creation
-            st = new ConfigurationSetting();
-            ConfigurationSettingAssembler.createConfigurationSetting(configurationSetting, st);
-            try {
-                dm.persist(st);
-            } catch (NonUniqueBusinessKeyException e) {
-                sessionCtx.setRollbackOnly();
-                try {
-                    throw e;
-                } catch (NonUniqueBusinessKeyException e1) {
-                    e1.printStackTrace();
-                }
-            }
-        } else {
-            //modification
-            BaseAssembler.verifyVersionAndKey(st, configurationSetting);
-            try {
-                ConfigurationSetting temp = new ConfigurationSetting();
-                temp.setContextId(configurationSetting.getContextId());
-                temp.setInformationId(configurationSetting.getInformationId());
-                temp.setValue(configurationSetting.getValue());
-                ConfigurationSettingAssembler.updateConfigurationSetting(configurationSetting, temp);
-                dm.validateBusinessKeyUniqueness(temp);
-            } catch (NonUniqueBusinessKeyException e) {
-                e.printStackTrace();
-                try {
-                    throw e;
-                } catch (NonUniqueBusinessKeyException e1) {
-                    e1.printStackTrace();
-                }
-            }
-            ConfigurationSettingAssembler.updateConfigurationSetting(configurationSetting, st);
-        }
-        dm.flush();
-//        VOConfigurationSetting newVOConfigurationSetting = ConfigurationSettingAssembler.toVOConfigurationSetting(st);
-//        return newVOConfigurationSetting;
+        ConfigurationSetting dbSetting = configService.getConfigurationSetting(
+                setting.getInformationId(), setting.getContextId());
+        dbSetting = ConfigurationSettingAssembler
+                .updateConfigurationSetting(setting, dbSetting);
 
+        // necessary because of key and version check in BaseAssembler.
+        // Search in configService.getConfigurationSetting uses the business
+        // keys. Setting the key value should not provoke an error
+        setting.setKey(dbSetting.getKey());
 
-
-//        validateDefaultTenantIdUniqueness(setting);
-//
-//        ConfigurationSetting dbSetting = configService.getConfigurationSetting(
-//                setting.getInformationId(), setting.getContextId());
-//        dbSetting = ConfigurationSettingAssembler
-//                .updateConfigurationSetting(setting, dbSetting);
-//
-//        // necessary because of key and version check in BaseAssembler.
-//        // Search in configService.getConfigurationSetting uses the business
-//        // keys. Setting the key value should not provoke an error
-//        setting.setKey(dbSetting.getKey());
-//
-//        configService.setConfigurationSetting(dbSetting);
-
+        configService.setConfigurationSetting(dbSetting);
     }
 
     private void validateDefaultTenantIdUniqueness(
