@@ -44,7 +44,7 @@ public class ConfigurationSettingAssembler extends BaseAssembler {
     /**
      * Converts a given domain object to a value object containing the same
      * data.
-     * 
+     *
      * @param doSetting
      *            The domain object to be converted.
      * @return A value object representing the same configuration setting as the
@@ -63,7 +63,7 @@ public class ConfigurationSettingAssembler extends BaseAssembler {
 
     /**
      * Converts a list of domain objects to value objects.
-     * 
+     *
      * @param settings
      *            A list of domain objects to be converted.
      * @return A list of value objects corresponding to the given domain
@@ -79,9 +79,28 @@ public class ConfigurationSettingAssembler extends BaseAssembler {
     }
 
     /**
+     * Converts a domain object to a value object.
+     *
+     * @param setting
+     *            A domain object to be converted.
+     * @return A value object corresponding to the given domain
+     *         object.
+     */
+    public static VOConfigurationSetting toVOConfigurationSetting(ConfigurationSetting setting) {
+        VOConfigurationSetting voConfigurationSetting = new VOConfigurationSetting();
+        voConfigurationSetting.setContextId(setting.getContextId());
+        voConfigurationSetting.setInformationId(setting.getInformationId());
+        voConfigurationSetting.setValue(setting.getValue());
+        voConfigurationSetting.setKey(setting.getKey());
+        voConfigurationSetting.setVersion(setting.getVersion());
+
+        return voConfigurationSetting;
+    }
+
+    /**
      * Copies VO configuration setting values from an existing configuration
      * setting object.
-     * 
+     *
      * @param voObj
      *            VO configuration setting object
      * @param domObj
@@ -108,8 +127,35 @@ public class ConfigurationSettingAssembler extends BaseAssembler {
     }
 
     /**
+     * Creates VO configuration setting
+     *
+     * @param voObj
+     *            VO configuration setting object
+     * @param domObj
+     *            domain configuration setting object
+     * @return A domain object representation of the value object.
+     * @throws ValidationException
+     *             Thrown in case the configuration setting violates
+     *             configuration setting validation rules.
+     * @throws ConcurrentModificationException
+     *             Thrown in case the value object's version does not match the
+     *             current domain object's.
+     */
+    public static ConfigurationSetting createConfigurationSetting(
+            VOConfigurationSetting voObj, ConfigurationSetting domObj)
+            throws ValidationException, ConcurrentModificationException {
+
+        if (domObj.getKey() != 0) {
+            verifyVersionAndKey(domObj, voObj);
+        }
+
+        copyToDomainAttributes(domObj, voObj);
+        return domObj;
+    }
+
+    /**
      * Validates the given configuration setting value object.
-     * 
+     *
      * @param voConfigurationSetting
      *            The value object to be validated
      * @throws ValidationException
@@ -133,7 +179,7 @@ public class ConfigurationSettingAssembler extends BaseAssembler {
         }
         value =value.trim();
         voConfigurationSetting.setValue(value);
-        
+
         if (ConfigurationKey.TYPE_LONG.equals(type)) {
             BLValidator.isLong(name, value);
             // length
@@ -168,7 +214,7 @@ public class ConfigurationSettingAssembler extends BaseAssembler {
     /**
      * Checks if a readonly configuration setting has been modified. In this
      * case, throw a ValidationException
-     * 
+     *
      * @param dbConfigurationSetting
      *            the configuration setting stored in the db
      * @param voConfigurationSetting
@@ -208,7 +254,7 @@ public class ConfigurationSettingAssembler extends BaseAssembler {
 
     /**
      * Copies domain object attributes to VO attributes.
-     * 
+     *
      * @param domObj
      *            domain configuration setting object
      * @param voObj
@@ -223,7 +269,7 @@ public class ConfigurationSettingAssembler extends BaseAssembler {
 
     /**
      * Copies VO attributes to domain object attributes.
-     * 
+     *
      * @param domObj
      *            domain configuration setting object
      * @param voObj
