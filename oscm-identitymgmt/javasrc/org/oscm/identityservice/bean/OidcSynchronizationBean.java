@@ -63,8 +63,8 @@ public class OidcSynchronizationBean {
             Set<UserInfo> info = client.getGroupMembers(groupId);
             return (List<VOUserDetails>) UserMapper.fromSet(info);
         } catch (IdentityClientException e) {
-            logger.logWarn(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR, String.format(
-                    "An error occured while getting the members of the OIDC access group %s for tenant %s", groupId, tenantId));
+            logger.logWarn(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_SYNCHRONIZATION, String.format(
+                    "An error occurred while getting the members of the OIDC access group %s for tenant %s", groupId, tenantId));
         }
         return emptyList();
     }
@@ -88,7 +88,7 @@ public class OidcSynchronizationBean {
             return new ArrayList<GroupInfo>(client.getGroups());
            
         } catch (IdentityClientException e) {
-            logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.DEBUG,
+            logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.ERROR_SYNCHRONIZATION,
                     String.format("Cannot get OIDC access groups for tenant %s. Check if the tenant is configured propperly. ", tenantId ));
         }
         return emptyList();
@@ -101,10 +101,10 @@ public class OidcSynchronizationBean {
 
         } catch (NonUniqueResultException e) {
             logger.logWarn(Log4jLogger.SYSTEM_LOG, e,
-                    LogMessageIdentifier.ERROR,
+                    LogMessageIdentifier.ERROR_SYNCHRONIZATION,
                     String.format("Error synchronizing organization: %s (group id and organization name must be unique)", e.getMessage()));
         } catch (EntityNotFoundException e) {
-            logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.ERROR,
+            logger.logInfo(Log4jLogger.SYSTEM_LOG, LogMessageIdentifier.INFO_SYNCHRONIZATION, 
                     String.format("No organization for group %s.", group.getName()));
             
         } 
