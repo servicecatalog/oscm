@@ -13,6 +13,8 @@
 package org.oscm.taskhandling.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
@@ -88,6 +90,38 @@ public class TaskListener implements MessageListener {
     @EJB(beanInterface = ExternalPriceModelService.class)
     protected ExternalPriceModelService eps;
 
+    public void someMethod() {
+        String string1 = "abc";
+        String string2 = "abc";
+        String string3 = "abc";
+        String string4 = "abc";
+        String string5 = "abc";
+        String string6 = "abc";
+        String string7 = "abc";
+        String string8 = "abc";
+        String string9 = "abc";
+        String string10 = "abc";
+        String string11 = "abc";
+        String string12 = "abc";
+        String string13 = "abc";
+        String string14 = "abc";
+
+        List<String> somelist = new ArrayList<>();
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+        somelist.add(string1);
+    }
     /**
      * Message driven bean to handle the task objects sent by the business
      * logic.
