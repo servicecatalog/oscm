@@ -11,7 +11,7 @@ coverage:
     project:
       default:
         target: auto
-        threshold: 5
+        threshold: null
         base: auto
     patch: yes
     changes: no
