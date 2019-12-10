@@ -37,5 +37,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-subscriptionmgmt"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-usergroupmgmt"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/hamcrest-2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
