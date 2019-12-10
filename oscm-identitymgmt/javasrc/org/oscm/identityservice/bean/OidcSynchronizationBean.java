@@ -117,7 +117,7 @@ public class OidcSynchronizationBean {
             return findOrganizationByGroupId(group.getId());
           
         } catch (EntityNotFoundException e) {
-            // Look up in newly added groups 
+            // Look up in newly added groups
             Organization org = findOrganizationByName(group.getName(), tenantId);
             setGroupId(org, group.getId());
             return org;
