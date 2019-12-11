@@ -9,6 +9,7 @@
 package org.oscm.ui.beans;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -29,6 +30,7 @@ import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.string.Strings;
+import org.oscm.ui.common.MarketplacesComparator;
 import org.oscm.ui.model.Marketplace;
 import org.oscm.ui.model.User;
 
@@ -220,6 +222,8 @@ public class UpdateMarketplaceBean extends BaseBean {
             } else {
                 marketplaces = getMarketplaceService().getMarketplacesOwned();
             }
+            Collections.sort(marketplaces, new MarketplacesComparator());
+
             List<SelectItem> result = new ArrayList<SelectItem>();
             // create the selection model based on the read data
             for (VOMarketplace vMp : marketplaces) {

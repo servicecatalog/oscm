@@ -9,7 +9,10 @@
 package org.oscm.ui.dialog.classic.managerevenueshare;
 
 import java.io.Serializable;
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.faces.event.ValueChangeEvent;
@@ -143,6 +146,7 @@ public class ManageRevenueShareCtrl implements Serializable {
         Response response = getPricingService().getTemplateServices();
         List<POServiceForPricing> templates = response
                 .getResultList(POServiceForPricing.class);
+        Collections.sort(templates, new POServiceIdComparator());
         for (POServiceForPricing templateService : templates) {
             uiTemplateServices.add(new SelectItem(Long.valueOf(templateService
                     .getKey()), templateService.getServiceId() + "("
@@ -150,6 +154,16 @@ public class ManageRevenueShareCtrl implements Serializable {
         }
         model.setTemplates(uiTemplateServices);
     }
+    
+    private class POServiceIdComparator implements Comparator<POServiceForPricing> {
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(POServiceForPricing s1, POServiceForPricing s2) {          
+            return collator.compare(s1.getServiceId(), s2.getServiceId());
+        }
+    }
+
 
     /**
      * action method for changing the template select box

@@ -223,9 +223,9 @@ public class UpdateMarketplaceBeanTest {
 
         assertEquals(2, list.size());
         SelectItem item = list.get(0);
-        assertEquals(vMp1.getName() + " (" + vMp1.getMarketplaceId() + ")",
+        assertEquals(vMp2.getName() + " (" + vMp2.getMarketplaceId() + ")",
                 item.getLabel());
-        assertEquals(vMp1.getMarketplaceId(), item.getValue());
+        assertEquals(vMp2.getMarketplaceId(), item.getValue());
     }
 
     @Test
