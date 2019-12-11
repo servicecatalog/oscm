@@ -438,8 +438,6 @@ public interface IdentityServiceLocal {
     PlatformUser getPlatformUserByOrganization(String userId, String orgId)
             throws ObjectNotFoundException;
     
-    
-    
     /**
      * Synchronizes the OIDC groups with the OSCM organizations. For all synchronized organizations the users will be also synchronized. 
      * @return if the synchronization was successful or not. 

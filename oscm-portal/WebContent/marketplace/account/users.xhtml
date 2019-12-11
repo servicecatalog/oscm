@@ -50,7 +50,8 @@
 	              <h:form id="userListForm" enctype="multipart/form-data">
 	                <a4j:outputPanel layout="block" styleClass="clearfix">
 	                  <mp:button id="addUserButton" bean="#{userBean}" action="addUser"
-	                    value="#{msg[userBean.addUserLabelKey]}" style="margin-right: 10px;" />
+	                    value="#{msg[userBean.addUserLabelKey]}" style="margin-right: 10px;" 
+	                    rendered="#{userBean.internalAuthMode}"/>
 	                  <adm:button id="editLdapSettingsButton" value="#{msg['button.editLdapSettings']}" bean="#{userBean}"
 	                    action="editLdapSettings" rendered="#{userBean.loggedInUser.remoteLdapActive}" />
 	                  <a4j:outputPanel style="position:absolute;right:12px;"
@@ -58,7 +59,7 @@
 	                    <adm:fileUpload value="#{userBean.userImport}" labels="false" style="float:left;margin-left:50px;margin-right:10px;"
 	                      marketplace="true" required="false" />
 	                    <adm:button id="importConfirmButton" value="#{msg['button.import']}" bean="#{userBean}"
-	                      action="importUsersOnMarketplace" />
+	                      action="importUsersOnMarketplace"  />
 	                  </a4j:outputPanel>
 	                </a4j:outputPanel>
 	

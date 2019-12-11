@@ -50,41 +50,63 @@
             action="unlockUser" buttonType="unlock" disabled="#{not operatorManageUsersCtrl.unlockButtonEnabled}" />
           <adm:button id="lockUser" value="#{msg['button.lock']}" bean="#{operatorManageUsersCtrl}" action="lockUser"
         buttonType="lock" disabled="#{not operatorManageUsersCtrl.lockButtonEnabled}" />
+        
         </adm:buttonPanel>
       </a4j:outputPanel>
     </h:form>
 
-    <adm:outputStep value="#{msg['user.add.step2']}" />
-    <h:form id="userImportForm" enctype="multipart/form-data">
-      <adm:panelGrid>
-        <adm:selectOrganization inline="true" />
-      </adm:panelGrid>
+		<c:if test="#{not operatorOrgBean.internalAuthMode}">
+			<adm:outputStep value="#{msg['user.sync.step']}" />
+			<h:form id="syncUsers">
+				<a4j:outputPanel id="buttonPanel2" layout="block">
+					<adm:buttonPanel>
+						<adm:button id="retrieveButton"
+							value="#{msg['button.retrieveUsers']}"
+							bean="#{operatorManageUsersCtrl}"
+							action="retrieveNewUsersFromOIDCProvider" buttonType="reset" />
+					</adm:buttonPanel>
+				</a4j:outputPanel>
+			</h:form>
+		</c:if>
 
-      <adm:panelGrid>
-        <adm:outputLabel value="#{msg['service.marketplace']}" />
-        <a4j:outputPanel styleClass="jqSelect" layout="block">
-          <a4j:outputPanel styleClass="select">
-            <a4j:outputPanel styleClass="option" />
-          </a4j:outputPanel>
-          <h:selectOneMenu styleClass="select" id="selectMarketplaceId"
-            value="#{operatorManageUsersModel.selectedMarketplace}">
-            <adm:selectItemPleaseSelect itemValue="0" />
-            <c:forEach items="#{operatorManageUsersModel.marketplaces}" var="mp">
-              <f:selectItem itemLabel="#{mp.name} (#{mp.marketplaceId})" itemValue="#{mp.marketplaceId}" />
-            </c:forEach>
-          </h:selectOneMenu>
-        </a4j:outputPanel>
-      </adm:panelGrid>
-      
-      <adm:panelGrid>
-        <adm:fileUpload value="#{operatorManageUsersModel.userImport}" disabled="#{editDisabled}" />
-      </adm:panelGrid>
+		<c:if test="#{operatorOrgBean.internalAuthMode}">
+			<adm:outputStep value="#{msg['user.add.step2']}" />
+			<h:form id="userImportForm" enctype="multipart/form-data">
+				<adm:panelGrid>
+					<adm:selectOrganization inline="true" />
+				</adm:panelGrid>
 
-      <adm:buttonPanel>
-        <adm:button id="importConfirmButton" value="#{msg['button.import']}" bean="#{operatorManageUsersCtrl}"
-          action="importUsers" buttonType="confirm" />
-      </adm:buttonPanel>
-      <h:inputHidden value="#{operatorManageUsersModel.token}" />
-    </h:form>
-  </ui:define>
+				<adm:panelGrid>
+					<adm:outputLabel value="#{msg['service.marketplace']}" />
+					<a4j:outputPanel styleClass="jqSelect" layout="block">
+						<a4j:outputPanel styleClass="select">
+							<a4j:outputPanel styleClass="option" />
+						</a4j:outputPanel>
+						<h:selectOneMenu styleClass="select" id="selectMarketplaceId"
+							value="#{operatorManageUsersModel.selectedMarketplace}">
+							<adm:selectItemPleaseSelect itemValue="0" />
+							<c:forEach items="#{operatorManageUsersModel.marketplaces}"
+								var="mp">
+								<f:selectItem itemLabel="#{mp.name} (#{mp.marketplaceId})"
+									itemValue="#{mp.marketplaceId}" />
+							</c:forEach>
+						</h:selectOneMenu>
+					</a4j:outputPanel>
+				</adm:panelGrid>
+
+				<adm:panelGrid>
+					<adm:fileUpload value="#{operatorManageUsersModel.userImport}"
+						disabled="#{editDisabled}" />
+				</adm:panelGrid>
+
+				<adm:buttonPanel>
+					<adm:button id="importConfirmButton"
+						value="#{msg['button.import']}" bean="#{operatorManageUsersCtrl}"
+						action="importUsers" buttonType="confirm" />
+				</adm:buttonPanel>
+				<h:inputHidden value="#{operatorManageUsersModel.token}" />
+			</h:form>
+		</c:if>
+
+	</ui:define>
 </ui:composition>
