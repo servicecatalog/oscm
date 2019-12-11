@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="javasrc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-intsvc-base"/>
-	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.12.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-1.2.16.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc"/>

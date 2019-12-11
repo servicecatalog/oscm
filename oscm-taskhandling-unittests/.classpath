@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="javasrc"/>
-	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.12.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-unittests-base"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
@@ -24,5 +24,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-billing-external-interfaces"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-internal-interfaces"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/hamcrest-2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
