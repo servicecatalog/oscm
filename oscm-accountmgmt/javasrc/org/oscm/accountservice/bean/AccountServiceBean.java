@@ -990,6 +990,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     }
 
+    //TODO: Implement uniqueness check here
     @Override
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     @Interceptors({ LdapInterceptor.class })
@@ -1001,6 +1002,11 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
             throws NonUniqueBusinessKeyException, ValidationException,
             MailOperationException, ObjectNotFoundException,
             IncompatibleRolesException, OrganizationAuthorityException {
+
+        if(checkIfOrganizationAlreadyExists(organization)) {
+            throw new NonUniqueBusinessKeyException(
+                    ClassEnum.ORGANIZATION, organization.getOrganizationId());
+        }
 
         long tenantKey = organization.getTenant() == null ? 0
                 : organization.getTenant().getKey();
@@ -1037,7 +1043,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
             imageResource.setObjectKey(storedOrganization.getKey());
             processImage(imageResource, storedOrganization.getKey());
         }
- 
+
         dm.persist(createDefaultUserGroup(storedOrganization));
 
         try {
@@ -1143,7 +1149,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * Create the organization admin. The first user is created implicitly. He
      * will receive the user roles that correspond the the given organization
      * roles.
-     * 
+     *
      */
     void createAdminWithCorrespondingUserRoles(Organization organization,
             VOUserDetails user, String marketplaceId,
@@ -1209,7 +1215,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * Checks if the organization is supplier as well as technology provider. If
      * it is, the organization will be registered as a supplier of itself. For
      * all technical services a marketing permission is created.
-     * 
+     *
      * @param organization
      *            The organization to update the supplier list for.
      * @throws AddMarketingPermissionException
@@ -1242,7 +1248,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     /**
      * The vendor organization will be registered as a customer of itself.
-     * 
+     *
      * @param organization
      *            The organization to update the customer list for.
      * @throws NonUniqueBusinessKeyException
@@ -1270,7 +1276,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     /**
      * Creates the given user for the given organization.
-     * 
+     *
      * @param referenceOrganization
      *            The organization the user belongs to.
      * @param userToCreate
@@ -1326,7 +1332,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * Creates a random id for the organization, set's the value on it and
      * persists it. Additionally a {@link PaymentInfo} of
      * {@link PaymentType#INVOICE} will be created.
-     * 
+     *
      * @param organization
      *            The organization to be enhanced and persisted.
      * @return The saved organization.
@@ -1405,7 +1411,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     /**
      * Assigns the given organization roles to the specified organization.
-     * 
+     *
      * @param organization
      *            The organization to be granted the authorities.
      * @param roles
@@ -1689,6 +1695,22 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
         return caller;
     }
 
+    private boolean checkIfOrganizationAlreadyExists(
+            Organization organization) {
+        Query query = dm
+                .createNamedQuery("Organization.findByBusinessKey");
+        query.setParameter("organizationId", organization.getOrganizationId());
+        try {
+            Organization organizationEntity = (Organization) query.getSingleResult();
+            if (organizationEntity != null) {
+                return true;
+            }
+        } catch (NoResultException e) {
+            // That is good. No user for that tenant exists.
+        }
+            return false;
+    }
+
     // TODO: move it to tenant service as the operator service bean is also
     // using the same code.
     boolean checkIfPlatformUserInGivenTenantExists(long tenantKey,
@@ -1870,6 +1892,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
                 .contains(OrganizationRoleType.SUPPLIER)) {
             type = OrganizationReferenceType.SUPPLIER_TO_CUSTOMER;
         } else {
+
             type = OrganizationReferenceType.RESELLER_TO_CUSTOMER;
         }
         List<OrganizationReference> supplierOrgReferences = customer
