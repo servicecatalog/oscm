@@ -1,52 +1,18 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: Peter Pock                                                      
- *                                                                              
- *  Creation Date: 18.02.2009                                                      
- *                                                                              
- *  Completion Time: 18.02.2009                                             
- *                                                                              
+ *
+ *  Author: Peter Pock
+ *
+ *  Creation Date: 18.02.2009
+ *
+ *  Completion Time: 18.02.2009
+ *
  *******************************************************************************/
 
 package org.oscm.accountservice.bean;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.RolesAllowed;
-import javax.ejb.EJB;
-import javax.ejb.Local;
-import javax.ejb.Remote;
-import javax.ejb.SessionContext;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
-import javax.interceptor.Interceptors;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-
-import org.oscm.accountservice.assembler.BillingContactAssembler;
-import org.oscm.accountservice.assembler.DiscountAssembler;
-import org.oscm.accountservice.assembler.OrganizationAssembler;
-import org.oscm.accountservice.assembler.PaymentInfoAssembler;
-import org.oscm.accountservice.assembler.PaymentTypeAssembler;
-import org.oscm.accountservice.assembler.UdaAssembler;
+import org.oscm.accountservice.assembler.*;
 import org.oscm.accountservice.dao.PaymentTypeDao;
 import org.oscm.accountservice.dataaccess.UdaAccess;
 import org.oscm.accountservice.dataaccess.UdaDefinitionAccess;
@@ -60,29 +26,7 @@ import org.oscm.configurationservice.local.ConfigurationServiceLocal;
 import org.oscm.converter.BigDecimalComparator;
 import org.oscm.converter.ParameterizedTypes;
 import org.oscm.dataservice.local.DataService;
-import org.oscm.domobjects.BillingContact;
-import org.oscm.domobjects.Discount;
-import org.oscm.domobjects.ImageResource;
-import org.oscm.domobjects.Marketplace;
-import org.oscm.domobjects.Organization;
-import org.oscm.domobjects.OrganizationRefToPaymentType;
-import org.oscm.domobjects.OrganizationReference;
-import org.oscm.domobjects.OrganizationRole;
-import org.oscm.domobjects.OrganizationToRole;
-import org.oscm.domobjects.PaymentInfo;
-import org.oscm.domobjects.PaymentType;
-import org.oscm.domobjects.PlatformUser;
-import org.oscm.domobjects.Product;
-import org.oscm.domobjects.ProductToPaymentType;
-import org.oscm.domobjects.Subscription;
-import org.oscm.domobjects.SupportedCountry;
-import org.oscm.domobjects.TechnicalProduct;
-import org.oscm.domobjects.TriggerDefinition;
-import org.oscm.domobjects.TriggerProcess;
-import org.oscm.domobjects.TriggerProcessParameter;
-import org.oscm.domobjects.Uda;
-import org.oscm.domobjects.UdaDefinition;
-import org.oscm.domobjects.UserGroup;
+import org.oscm.domobjects.*;
 import org.oscm.domobjects.enums.LocalizedObjectTypes;
 import org.oscm.domobjects.enums.OrganizationReferenceType;
 import org.oscm.i18nservice.bean.LocalizerFacade;
@@ -94,66 +38,24 @@ import org.oscm.identityservice.local.IdentityServiceLocal;
 import org.oscm.identityservice.local.LdapAccessServiceLocal;
 import org.oscm.identityservice.local.LdapConnector;
 import org.oscm.identityservice.local.LdapSettingsManagementServiceLocal;
-import org.oscm.interceptor.AuditLogDataInterceptor;
-import org.oscm.interceptor.DateFactory;
-import org.oscm.interceptor.ExceptionMapper;
-import org.oscm.interceptor.InvocationDateContainer;
-import org.oscm.interceptor.LdapInterceptor;
+import org.oscm.interceptor.*;
 import org.oscm.internal.intf.AccountService;
-import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.ImageType;
-import org.oscm.internal.types.enumtypes.ImageType.ImageOwnerType;
+import org.oscm.internal.types.enumtypes.*;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.enumtypes.ParameterType;
 import org.oscm.internal.types.enumtypes.PaymentCollectionType;
-import org.oscm.internal.types.enumtypes.PerformanceHint;
 import org.oscm.internal.types.enumtypes.ServiceStatus;
-import org.oscm.internal.types.enumtypes.ServiceType;
 import org.oscm.internal.types.enumtypes.SettingType;
 import org.oscm.internal.types.enumtypes.SubscriptionStatus;
 import org.oscm.internal.types.enumtypes.TriggerType;
-import org.oscm.internal.types.exception.AddMarketingPermissionException;
+import org.oscm.internal.types.enumtypes.ImageType.ImageOwnerType;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
-import org.oscm.internal.types.exception.DeletionConstraintException;
-import org.oscm.internal.types.exception.DistinguishedNameException;
-import org.oscm.internal.types.exception.DomainObjectException;
-import org.oscm.internal.types.exception.DomainObjectException.ClassEnum;
-import org.oscm.internal.types.exception.ImageException;
-import org.oscm.internal.types.exception.IncompatibleRolesException;
-import org.oscm.internal.types.exception.MailOperationException;
-import org.oscm.internal.types.exception.MandatoryUdaMissingException;
-import org.oscm.internal.types.exception.MarketingPermissionNotFoundException;
-import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
+import org.oscm.internal.types.exception.*;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
-import org.oscm.internal.types.exception.OperationNotPermittedException;
-import org.oscm.internal.types.exception.OperationPendingException;
-import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
-import org.oscm.internal.types.exception.OrganizationAuthorityException;
-import org.oscm.internal.types.exception.PaymentDataException;
-import org.oscm.internal.types.exception.PaymentDeregistrationException;
-import org.oscm.internal.types.exception.RegistrationException;
-import org.oscm.internal.types.exception.SaaSSystemException;
-import org.oscm.internal.types.exception.ServiceParameterException;
-import org.oscm.internal.types.exception.SubscriptionStateException;
-import org.oscm.internal.types.exception.TechnicalServiceNotAliveException;
-import org.oscm.internal.types.exception.TechnicalServiceOperationException;
-import org.oscm.internal.types.exception.UserDeletionConstraintException;
-import org.oscm.internal.types.exception.ValidationException;
+import org.oscm.internal.types.exception.DomainObjectException.ClassEnum;
 import org.oscm.internal.types.exception.ValidationException.ReasonEnum;
-import org.oscm.internal.vo.LdapProperties;
-import org.oscm.internal.vo.VOBillingContact;
-import org.oscm.internal.vo.VOImageResource;
-import org.oscm.internal.vo.VOLocalizedText;
-import org.oscm.internal.vo.VOOrganization;
-import org.oscm.internal.vo.VOOrganizationPaymentConfiguration;
-import org.oscm.internal.vo.VOPaymentInfo;
-import org.oscm.internal.vo.VOPaymentType;
-import org.oscm.internal.vo.VOService;
-import org.oscm.internal.vo.VOServicePaymentConfiguration;
-import org.oscm.internal.vo.VOTechnicalService;
-import org.oscm.internal.vo.VOUda;
-import org.oscm.internal.vo.VOUdaDefinition;
-import org.oscm.internal.vo.VOUserDetails;
+import org.oscm.internal.vo.*;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.marketplaceservice.local.MarketplaceServiceLocal;
@@ -169,16 +71,23 @@ import org.oscm.triggerservice.local.TriggerProcessMessageData;
 import org.oscm.triggerservice.local.TriggerQueueServiceLocal;
 import org.oscm.triggerservice.validator.TriggerProcessValidator;
 import org.oscm.types.constants.Configuration;
-import org.oscm.types.enumtypes.EmailType;
-import org.oscm.types.enumtypes.LogMessageIdentifier;
-import org.oscm.types.enumtypes.PlatformParameterIdentifiers;
-import org.oscm.types.enumtypes.TriggerProcessParameterName;
-import org.oscm.types.enumtypes.UdaTargetType;
+import org.oscm.types.enumtypes.*;
 import org.oscm.validation.ArgumentValidator;
 import org.oscm.validation.ImageValidator;
 import org.oscm.validation.PaymentDataValidator;
 import org.oscm.validator.OrganizationRoleValidator;
 import org.oscm.vo.BaseAssembler;
+
+import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
+import javax.ejb.*;
+import javax.inject.Inject;
+import javax.interceptor.Interceptors;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Session Bean implementation class AccountServiceBean
@@ -261,7 +170,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /*
      * Read the caller principal name from the session context and get the
      * organization for this name.
-     * 
+     *
      * @return the organization for the caller principal name.
      */
     Organization getOrganization() {
@@ -370,7 +279,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     /**
      * Returns true if an image is defined for the product with the given key.
-     * 
+     *
      * @param product
      *            The product.
      * @return true if an image is defined for the product with the given key.
@@ -498,7 +407,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * If a persist operation fails with an business key violation although the
      * object does not have a business key defined, log an error and throw a
      * system exception.
-     * 
+     *
      * @param e
      *            The caught exception.
      */
@@ -864,7 +773,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * deregistration method. As the business logic has to be considered as one
      * transaction for every call, the transaction annotation is set
      * accordingly.
-     * 
+     *
      * @throws TechnicalServiceNotAliveException
      *             if the underlying technical service cannot be reached
      * @throws TechnicalServiceOperationException
@@ -1658,7 +1567,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Validates the organization data and the current user's authorization to
      * register a new organization.
-     * 
+     *
      * @param organization
      *            The organization data to be validated.
      * @param user
@@ -1699,7 +1608,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
             Organization organization) {
         Query query = dm
                 .createNamedQuery("Organization.findOrganizationsByName");
-        query.setParameter("tenantId", organization.getTenant().getTenantId());
+        query.setParameter("tenantId", organization.getTenant() == null ? null : organization.getTenant().getTenantId());
         query.setParameter("name", organization.getDataContainer().getName());
         try {
             Organization organizationEntity = (Organization) query.getSingleResult();
@@ -1746,11 +1655,11 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     /**
      * Read a payment type with a certain id from the database
-     * 
+     *
      * @param typeId
      *            the id of the payment type to find (formerly PaymentInfoType
      *            enumeration values)
-     * 
+     *
      * @return the payment type
      * @throws ObjectNotFoundException
      *             in case the payment type wasn't found
@@ -1876,7 +1785,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Checks if the supplier-customer-relation exists between the supplier and
      * the customer organization
-     * 
+     *
      * @param customer
      *            the customer organization
      * @param supplier
@@ -2247,7 +2156,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     /**
      * Configures the payment configuration for the passed wrapper.
-     * 
+     *
      * @param conf
      *            the service payment configuration
      * @param supplier
@@ -2354,7 +2263,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * add new Subscription Key into the list from session when it is just set
      * as suspended/suspended_upd for paymenttype in Customers/Service
      * configuration
-     * 
+     *
      * @param subKey
      */
     private void addToSuspendedInTransactionList(long subKey) {
@@ -2503,7 +2412,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * {@link SubscriptionStatus#SUSPENDED_UPD} that have the passed
      * {@link Product} as the template of their product and use a payment info
      * of the passed {@link PaymentType}.
-     * 
+     *
      * @param ptToSubs
      *            the {@link ptToSubs}
      * @param type
@@ -2520,7 +2429,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * ones that are not supported anymore (also suspends the related
      * subscriptions) and creates the ones that are specified but have not been
      * supported so far.
-     * 
+     *
      * @param map
      *            The supplier specific map of payment types and basic default
      *            settings.
@@ -2603,14 +2512,14 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Reads the organization reference from the supplier to the customer. If it
      * does not exist, an exception is generated.
-     * 
+     *
      * @param source
      *            The source organization
      * @param target
      *            The target organization
      * @param refType
      *            The type of reference to set
-     * 
+     *
      * @return The reference between both of the organizations.
      */
     private OrganizationReference retrieveOrgRef(Organization source,
@@ -2636,7 +2545,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * Updates the default settings for the available payment types on server
      * side according to the settings in the value objects. The method does
      * modify domain objects, as the default settings rae updated.
-     * 
+     *
      * @param defaultConfiguration
      *            The set of payment types containing the target settings for a
      *            payment to be set as default or not.
@@ -2687,7 +2596,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * Has to be called when the supplier disables the payment type of the
      * payment info used by the customer. For those subscriptions that will be
      * suspended, the associated service instance will be deactivated.
-     * 
+     *
      * @param customer
      *            The customer of which the related subscriptions should be
      *            suspended
@@ -2720,7 +2629,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * {@link SubscriptionStatus#SUSPENDED} or
      * {@link SubscriptionStatus#SUSPENDED_UPD} and the associated service
      * instance will be deactivated.
-     * 
+     *
      * @param subscription
      *            the subscription to suspend
      */
@@ -2755,7 +2664,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * customer has a payment info that will be enabled by the supplier (e. g.
      * after disabling it). Also sets the reference of the payment types to the
      * OrgnizationRefToPaymentype object.
-     * 
+     *
      * @param list
      *            the subscriptions that have to be reactivated.
      */
@@ -2796,11 +2705,11 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * {@link SubscriptionStatus#ACTIVE} and the call to activate the service
      * instance will be executed. Exceptions occurring during the web service
      * call will only be logged.
-     * 
+     *
      * If the given {@link Subscription} is in
      * {@link SubscriptionStatus#SUSPENDED_UPD}, the state will be set to
      * {@link SubscriptionStatus#PENDING_UPD}.
-     * 
+     *
      * @param subscription
      *            the {@link Subscription} to activate
      */
@@ -2902,7 +2811,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
      * change it will be checked if the new payment type is supported by its
      * supplier - then the suspended subscription will be activated - or not -
      * then active and chargeable subscription will be suspended.
-     * 
+     *
      * @param newPt
      *            the new {@link PaymentType} to set
      * @param pi
@@ -2948,7 +2857,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Makes the payment types configured as available by default by the
      * supplier available for the new customer.
-     * 
+     *
      * @param supplier
      *            the supplier organization
      * @param customer
@@ -2981,7 +2890,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Create a new organization reference to payment type domain object with
      * the given parameters.
-     * 
+     *
      * @param role
      *            the role context
      * @param paymentType
@@ -3229,7 +3138,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     /**
      * Define was difference in discount, return needed mail type.
-     * 
+     *
      * @param oldDiscount
      *            Old discount.
      * @param newDiscountValue
@@ -3310,7 +3219,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Getting list of organization to sending info mail about ending discount
      * in one week (seven days).
-     * 
+     *
      * @param currentTimeMillis
      *            Current millisecond.
      * @return Organization list for sending notification.
@@ -3339,7 +3248,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     /**
      * Return first millisecond of needed days in future.
-     * 
+     *
      * @param currentDayTimeMillis
      *            Current millisecond.
      * @param daysInFuture
@@ -3423,7 +3332,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Checks if the provided {@link Organization} has at least one role that is
      * required by the provided {@link UdaTargetType}
-     * 
+     *
      * @param organization
      *            the {@link Organization} to check the roles of
      * @param type
@@ -3512,7 +3421,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Return true if the configuration key SUPPLIER_SETS_PAYMENT_TYPE_INVOICE
      * has the value true.
-     * 
+     *
      * @return true if the configuration key has the value true.
      */
     private boolean isSupplierSetsInvoiceASDefault() {
@@ -3527,7 +3436,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     /**
      * Set the payment info of the organization to INVOICE.
-     * 
+     *
      * @param cust
      *            The organization for which the payment info is set.
      * @param supp
@@ -3600,7 +3509,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Reads the platform operator organization and returns it. In case it
      * cannot be found, a system exception will be logged and thrown.
-     * 
+     *
      * @return The platform operator organization.
      */
     protected Organization getPlatformOperatorReference() {
@@ -3625,10 +3534,10 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Gets from the granted roles list of an organization the role with the
      * given roleType
-     * 
+     *
      * @param organization
      *            The organization holding the granted roles.
-     * 
+     *
      *            The organization role type for which we search the
      *            organization to role object.
      * @param roleType
@@ -3884,7 +3793,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     /**
      * Get the organization by key or organization ID which must have at least
      * one of the given roles.
-     * 
+     *
      * @param key
      * @param orgId
      * @return organization object
