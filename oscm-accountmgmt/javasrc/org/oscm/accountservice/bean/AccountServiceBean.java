@@ -85,6 +85,7 @@ import javax.ejb.*;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import java.math.BigDecimal;
 import java.util.*;
@@ -1615,10 +1616,12 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
             if (organizationEntity != null) {
                 return true;
             }
+        } catch (NonUniqueResultException e) {
+            return true;
         } catch (NoResultException e) {
             // That is good. No organization with that name exists
         }
-            return false;
+        return false;
     }
 
     // TODO: move it to tenant service as the operator service bean is also
