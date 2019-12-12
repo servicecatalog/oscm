@@ -268,7 +268,8 @@
       overwrite="true" />
     <copy file="${ivy.lib.dir}/json-simple-1.1.jar" todir="${root.dir}/libraries/jolokia/WebContent/WEB-INF/lib/"
       overwrite="true" />
-    <copy file="${ivy.lib.dir}/junit-4.5.jar" todir="${root.dir}/libraries/junit/javalib/" overwrite="true" />
+    <copy file="${ivy.lib.dir}/junit-4.12.jar" todir="${root.dir}/libraries/junit/javalib/" overwrite="true" />
+  	<copy file="${ivy.lib.dir}/hamcrest-2.2.jar" todir="${root.dir}/libraries/junit/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/mockito-all-1.8.5.jar" todir="${root.dir}/libraries/mockito/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/omnifaces-1.10.jar" todir="${root.dir}/libraries/omnifaces/javalib/" overwrite="true" />
 

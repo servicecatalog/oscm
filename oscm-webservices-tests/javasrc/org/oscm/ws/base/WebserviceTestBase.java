@@ -60,7 +60,7 @@ public class WebserviceTestBase {
 
     public static final String DEFAULT_PASSWORD = "secret";
     public static final String CURRENCY_EUR = "EUR";
-    public static final String EXAMPLE_BASE_URL = "example.https.url";
+    public static final String EXAMPLE_BASE_URL = "bes.https.url";
     public static final String CS_MAIL_ADDRESS = "mail.address";
     public static final String CS_MAIL_USERNAME = "mail.username";
 
@@ -255,7 +255,27 @@ public class WebserviceTestBase {
         id.changePassword(userPwd, DEFAULT_PASSWORD);
         return userKey;
     }
+    
+    public static String readLastMailAndSetPassword(String userName, String password) throws Exception {
+        String[] userKeyAndPass = getMailReader().readPassAndKeyFromEmail(userName);
+        String userKey = userKeyAndPass[0];
+        String userPwd = userKeyAndPass[1];
 
+        IdentityService id = ServiceFactory.getDefault().getIdentityService(
+                userKey, userPwd);
+        id.changePassword(userPwd, password);
+        return userKey;
+    }
+    
+    public static String readLastMailAndGetKey(String userName, String password, boolean ssoMode) throws Exception {
+    	if(ssoMode) {
+    		return getMailReader().readKeyFromEmail(true, userName);
+    	}
+    	else {
+    		return readLastMailAndSetPassword(userName, password);
+    	}
+    }
+    
     public static void savePaymentInfoToSupplier(VOOrganization supplier,
             PaymentInfoType... types) throws Exception {
         Set<String> typesSet = new HashSet<String>();
@@ -621,8 +641,7 @@ public class WebserviceTestBase {
         synchronized (WebserviceTestBase.class) {
             if (globalMarketplace == null) {
                 MarketplaceService ms = ServiceFactory.getDefault()
-                        .getMarketPlaceService(getPlatformOperatorKey(),
-                                getPlatformOperatorPassword());
+                        .getMarketPlaceService();
                 List<VOMarketplace> list = ms.getMarketplacesOwned();
                 if (list.isEmpty()) {
                     VOMarketplace mp = new VOMarketplace();
