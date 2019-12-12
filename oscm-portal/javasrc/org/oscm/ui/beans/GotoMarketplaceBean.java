@@ -10,6 +10,7 @@ package org.oscm.ui.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,7 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.internal.vo.VOMarketplace;
+import org.oscm.ui.common.MarketplacesComparator;
 
 @ViewScoped
 @ManagedBean(name = "gotoMarketplaceBean")
@@ -100,7 +102,10 @@ public class GotoMarketplaceBean extends BaseBean implements Serializable {
 
     private List<SelectItem> convertToUIModel(Set<VOMarketplace> marketplaces) {
         List<SelectItem> uiMarketplaces = new ArrayList<SelectItem>();
-        for (VOMarketplace mp : marketplaces) {
+        List<VOMarketplace> mpList = new ArrayList<VOMarketplace>(marketplaces);
+        
+        Collections.sort(mpList, new MarketplacesComparator());
+        for (VOMarketplace mp : mpList) {
             uiMarketplaces
                     .add(new SelectItem(mp.getMarketplaceId(), getLabel(mp)));
         }

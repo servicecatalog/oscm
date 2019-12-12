@@ -15,6 +15,7 @@ package org.oscm.ui.beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -40,6 +41,7 @@ import org.oscm.internal.vo.VOServiceDetails;
 import org.oscm.string.Strings;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.JSFUtils;
+import org.oscm.ui.common.MarketplacesComparator;
 import org.oscm.ui.model.Marketplace;
 import org.oscm.ui.model.Organization;
 import org.oscm.ui.model.ServiceDetails;
@@ -113,8 +115,11 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      */
     public void reloadMarketplacesForSupplier() {
         marketplaces = new ArrayList<Marketplace>();
-        for (VOMarketplace mp : getMarketplaceService()
-                .getMarketplacesForOrganization()) {
+        List<VOMarketplace> voMarketplaces= getMarketplaceService()
+        .getMarketplacesForOrganization();        
+        Collections.sort(voMarketplaces, new MarketplacesComparator());
+        
+        for (VOMarketplace mp : voMarketplaces) {
             marketplaces.add(new Marketplace(mp));
         }
     }
@@ -294,8 +299,10 @@ public class MarketplaceBean extends BaseBean implements Serializable {
     public List<Marketplace> getMarketplacesForOperator() {
         if (marketplaces == null) {
             marketplaces = new ArrayList<Marketplace>();
-            for (VOMarketplace mp : getMarketplaceService()
-                    .getMarketplacesForOperator()) {
+            List<VOMarketplace> voMarketplaces = getMarketplaceService()
+                    .getMarketplacesForOperator();
+            Collections.sort(voMarketplaces, new MarketplacesComparator());
+            for (VOMarketplace mp : voMarketplaces) {
                 marketplaces.add(new Marketplace(mp));
             }
 
@@ -312,8 +319,11 @@ public class MarketplaceBean extends BaseBean implements Serializable {
     public List<Marketplace> getMarketplacesOwned() {
         if (this.marketplaces == null) {
             this.marketplaces = new ArrayList<>();
-            for (final VOMarketplace mp : this.getMarketplaceService()
-                    .getMarketplacesOwned()) {
+            List<VOMarketplace> voMarketplaces = this.getMarketplaceService()
+                    .getMarketplacesOwned();
+            Collections.sort(voMarketplaces, new MarketplacesComparator());
+            
+            for (final VOMarketplace mp : voMarketplaces) {
                 this.marketplaces.add(new Marketplace(mp));
             }
         }
