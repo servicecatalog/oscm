@@ -1698,15 +1698,15 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
     private boolean checkIfOrganizationAlreadyExists(
             Organization organization) {
         Query query = dm
-                .createNamedQuery("Organization.findByBusinessKey");
-        query.setParameter("organizationId", organization.getOrganizationId());
+                .createNamedQuery("Organization.findOrganizationsByName");
+        query.setParameter("name", organization.getDataContainer().getName());
         try {
             Organization organizationEntity = (Organization) query.getSingleResult();
             if (organizationEntity != null) {
                 return true;
             }
         } catch (NoResultException e) {
-            // That is good. No user for that tenant exists.
+            // That is good. No organization with that name exists
         }
             return false;
     }
