@@ -227,9 +227,7 @@ public class JmsConnectionsTest {
 
         // OPERATOR: create "Marketplace"
         MarketplaceService srvMarketplace = ServiceFactory.getDefault()
-                .getMarketPlaceService(
-                        WebserviceTestBase.getPlatformOperatorKey(),
-                        WebserviceTestBase.getPlatformOperatorPassword());
+                .getMarketPlaceService();
         marketplace = srvMarketplace.createMarketplace(factory
                 .createMarketplaceVO(supplierOrganization.getOrganizationId(),
                         false, MARKETPLACE));

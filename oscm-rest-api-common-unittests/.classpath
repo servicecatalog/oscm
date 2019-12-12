@@ -3,7 +3,7 @@
 	<classpathentry kind="src" path="javasrc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-rest-api-common"/>
 	<classpathentry kind="lib" path="/libraries/gson/javalib/gson-2.6.2.jar"/>
-	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.12.jar"/>
 	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all-1.8.5.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-internal"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/cxf-rt-frontend-jaxrs.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/cxf-core.jar"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/hamcrest-2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
