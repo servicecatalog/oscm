@@ -1699,6 +1699,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
             Organization organization) {
         Query query = dm
                 .createNamedQuery("Organization.findOrganizationsByName");
+        query.setParameter("tenantId", organization.getTenant().getTenantId());
         query.setParameter("name", organization.getDataContainer().getName());
         try {
             Organization organizationEntity = (Organization) query.getSingleResult();
