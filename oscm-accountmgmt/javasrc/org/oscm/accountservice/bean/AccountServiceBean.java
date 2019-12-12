@@ -915,7 +915,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
         if(checkIfOrganizationAlreadyExists(organization)) {
             throw new NonUniqueBusinessKeyException(
-                    ClassEnum.ORGANIZATION, organization.getOrganizationId());
+                    ClassEnum.ORGANIZATION, organization.getDataContainer().getName());
         }
 
         long tenantKey = organization.getTenant() == null ? 0
