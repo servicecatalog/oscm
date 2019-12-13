@@ -913,7 +913,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
             MailOperationException, ObjectNotFoundException,
             IncompatibleRolesException, OrganizationAuthorityException {
 
-        if(checkIfOrganizationAlreadyExists(organization)) {
+        if(isOrganizationNameUnique(organization)) {
             throw new NonUniqueBusinessKeyException(
                     ClassEnum.ORGANIZATION, organization.getDataContainer().getName());
         }
@@ -1605,7 +1605,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
         return caller;
     }
 
-    private boolean checkIfOrganizationAlreadyExists(
+    private boolean isOrganizationNameUnique(
             Organization organization) {
         Query query = dm
                 .createNamedQuery("Organization.findOrganizationsByName");
