@@ -900,7 +900,6 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
 
     }
 
-    //TODO: Implement uniqueness check here
     @Override
     @TransactionAttribute(TransactionAttributeType.MANDATORY)
     @Interceptors({ LdapInterceptor.class })
