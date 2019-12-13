@@ -93,9 +93,7 @@ public class ReviewServiceWSTest {
                         WebserviceTestBase.DEFAULT_PASSWORD);
 
         MarketplaceService mpSrvOperator = ServiceFactory.getDefault()
-                .getMarketPlaceService(
-                        WebserviceTestBase.getPlatformOperatorKey(),
-                        WebserviceTestBase.getPlatformOperatorPassword());
+                .getMarketPlaceService();
 
         mpLocal = mpSrvOperator.createMarketplace(factory.createMarketplaceVO(
                 supplier.getOrganizationId(), false, "Local Marketplace"));

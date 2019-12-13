@@ -1796,7 +1796,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
                     if (cs.isServiceProvider()) {
                         cm.sendMail(pu, EmailType.USER_CREATED_SAML_SP,
                                 new Object[] { pu.getUserId(), cm.getBaseUrlWithTenant(tenantId),
-                                        cm.getBaseUrlHttpsWithTenant(tenantId) },
+                                        cm.getBaseUrlHttpsWithTenant(tenantId), String.valueOf(pu.getKey()) },
                                 marketplace);
                     } else {
                         cm.sendMail(pu, EmailType.USER_CREATED,
@@ -1811,7 +1811,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
                 if (cs.isServiceProvider()) {
                     cm.sendMail(pu, EmailType.USER_CREATED_SAML_SP,
                             new Object[] { pu.getUserId(), cm.getMarketplaceUrl(marketplaceId),
-                                    cm.getMarketplaceUrlHttps(marketplaceId) },
+                                    cm.getMarketplaceUrlHttps(marketplaceId), String.valueOf(pu.getKey()) },
                             marketplace);
                 } else {
                     cm.sendMail(pu, EmailType.USER_CREATED, new Object[] { pu.getUserId(), password,

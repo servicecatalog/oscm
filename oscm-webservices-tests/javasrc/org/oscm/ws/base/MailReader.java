@@ -234,6 +234,51 @@ public class MailReader {
 
         return new String[] {userKey, userPass};
     }
+    
+    public String readKeyFromEmail(boolean delete, String userName)
+            throws MessagingException {
+        // Download message headers from server.
+        int retries = 0;
+        String userKey = null;
+        while (retries < 40 && userKey == null) {
+
+            // Open main "INBOX" folder.
+            Folder folder = getStore().getFolder(MAIL_INBOX);
+            folder.open(Folder.READ_WRITE);
+
+            // Get folder's list of messages.
+            Message[] messages = folder.getMessages();
+
+            // Retrieve message headers for each message in folder.
+            FetchProfile profile = new FetchProfile();
+            profile.add(FetchProfile.Item.ENVELOPE);
+            folder.fetch(messages, profile);
+
+            for (Message message : messages) {
+                if (message.getSubject().equals(MAIL_SUBJECT_USER_ACCOUNT_CREATED_EN)) {
+                    String content = getMessageContent(message);
+                    String userNameFromEmail = readInformationFromGivenMail(MAIL_BODY_USERNAME_PATTERN_EN, content);
+                    if (userName.equals(userNameFromEmail)) {
+                        userKey = readInformationFromGivenMail(MAIL_BODY_USERKEY_PATTERN_EN, content);
+                        if (delete) {
+                            message.setFlag(Flag.DELETED, true);
+                        }
+                        break;
+                    }
+                }
+            }
+            folder.close(true);
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                // ignored
+            }
+            retries++;
+        }
+
+        return userKey;
+    }
 
     private String readInformationFromMail(String subject, String pattern)
             throws MessagingException {

@@ -5,7 +5,7 @@
 	<classpathentry kind="src" path="javasrc-it"/>
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/jboss-logging.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-unittests-base"/>
-	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.12.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-reporting"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-domainobjects"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-sessionmgmt-intsvc"/>
@@ -51,5 +51,6 @@
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/classmate-1.3.0.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-operation"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/hamcrest-2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

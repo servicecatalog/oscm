@@ -10,7 +10,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-domainobjects"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-application-intsvc"/>
-	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.12.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-serviceprovisioning-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-configservice-intsvc"/>
@@ -57,5 +57,6 @@
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-kafka"/>
+	<classpathentry kind="lib" path="/libraries/junit/javalib/hamcrest-2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

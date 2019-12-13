@@ -48,28 +48,29 @@ public class ServiceFactory {
 	
   private static final String TRUST_STORE_PROPERTY = "javax.net.ssl.trustStore";
   private static final String TRUST_STORE_PWD_PROPERTY = "javax.net.ssl.trustStorePassword";
-  private static final String AUTH_MODE_INTERNAL = "INTERNAL";
-  private static final String AUTH_MODE_OIDC = "OIDC";
+  private static final String AUTH_MODE = "auth.mode";
   
-  private final Properties props;
+  private final Properties localProperties;
   private String authMode;
   private static ServiceFactory defaultFactory;
 
   public ServiceFactory() throws Exception {
+	  
     PropertiesReader reader = new PropertiesReader();
-    props = reader.load();
-    logProperties(props);
-
+    localProperties = reader.load();
+    logProperties(localProperties);
+    
+    this.authMode = localProperties.getProperty(AUTH_MODE);
+    
     // Set system properties to pass certificates.
-    System.setProperty(TRUST_STORE_PROPERTY, props.getProperty(TRUST_STORE_PROPERTY));
-    System.setProperty(TRUST_STORE_PWD_PROPERTY, props.getProperty(TRUST_STORE_PWD_PROPERTY));
+    System.setProperty(TRUST_STORE_PROPERTY, localProperties.getProperty(TRUST_STORE_PROPERTY));
+    System.setProperty(TRUST_STORE_PWD_PROPERTY, localProperties.getProperty(TRUST_STORE_PWD_PROPERTY));
   }
 
   public static synchronized ServiceFactory getDefault() throws Exception {
     
 	if (defaultFactory == null) {
       defaultFactory = new ServiceFactory();
-      defaultFactory.setAuthMode(AUTH_MODE_INTERNAL);
       return defaultFactory;
     }
 
@@ -77,19 +78,31 @@ public class ServiceFactory {
   }
 
   private String getWebServiceBaseUrl() {
-    return props.getProperty("bes.https.url");
+    return localProperties.getProperty("bes.https.url");
   }
 
-  private String getDefaultUserName() {
-    return props.getProperty("DEFAULT_USER");
+  public String getDefaultUserId() {
+    return localProperties.getProperty("user.administrator.id");
   }
 
-  private String getDefaultPassword() {
-    return props.getProperty("DEFAULT_PASSWORD");
+  public String getDefaultUserKey() {
+    return localProperties.getProperty("user.administrator.key");
+  }
+
+  private String getDefaultUserPassword() {
+    return localProperties.getProperty("user.administrator.password");
+  }
+
+  public String getSupplierUserId() {
+    return localProperties.getProperty("user.supplier.id");
+  }
+
+  public String getSupplierUserPassword() {
+    return localProperties.getProperty("user.supplier.password");
   }
 
   public IdentityService getIdentityService() throws Exception {
-    return getIdentityService(getDefaultUserName(), getDefaultPassword());
+    return getIdentityService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public IdentityService getIdentityService(String userName, String password) throws Exception {
@@ -97,7 +110,7 @@ public class ServiceFactory {
   }
 
   public SearchService getSearchService() throws Exception {
-    return getSearchService(getDefaultUserName(), getDefaultPassword());
+    return getSearchService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public SearchService getSearchService(String userName, String password) throws Exception {
@@ -105,7 +118,7 @@ public class ServiceFactory {
   }
 
   public ServiceProvisioningService getServiceProvisioningService() throws Exception {
-    return getServiceProvisioningService(getDefaultUserName(), getDefaultPassword());
+    return getServiceProvisioningService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public ServiceProvisioningService getServiceProvisioningService(String userName, String password)
@@ -114,11 +127,16 @@ public class ServiceFactory {
   }
 
   public ReportingService getReportingService() throws Exception {
-    return getReportingService(getDefaultUserName(), getDefaultPassword());
+    return getReportingService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public ReportingService getReportingService(String userName, String password) throws Exception {
     return connectToWebService(ReportingService.class, userName, password);
+  }
+
+  public MarketplaceService getMarketPlaceService() throws Exception {
+    return connectToWebService(
+        MarketplaceService.class, getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public MarketplaceService getMarketPlaceService(String userName, String password)
@@ -127,7 +145,7 @@ public class ServiceFactory {
   }
 
   public ReviewService getReviewService() throws Exception {
-    return getReviewService(getDefaultUserName(), getDefaultPassword());
+    return getReviewService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public ReviewService getReviewService(String userName, String password) throws Exception {
@@ -135,7 +153,7 @@ public class ServiceFactory {
   }
 
   public SubscriptionService getSubscriptionService() throws Exception {
-    return getSubscriptionService(getDefaultUserName(), getDefaultPassword());
+    return getSubscriptionService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public SubscriptionService getSubscriptionService(String userName, String password)
@@ -144,7 +162,7 @@ public class ServiceFactory {
   }
 
   public EventService getEventService() throws Exception {
-    return getEventService(getDefaultUserName(), getDefaultPassword());
+    return getEventService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public EventService getEventService(String userName, String password) throws Exception {
@@ -152,7 +170,7 @@ public class ServiceFactory {
   }
 
   public AccountService getAccountService() throws Exception {
-    return getAccountService(getDefaultUserName(), getDefaultPassword());
+    return getAccountService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public AccountService getAccountService(String userName, String password) throws Exception {
@@ -160,11 +178,11 @@ public class ServiceFactory {
   }
 
   public SessionService getSessionService() throws Exception {
-    return getSessionService(getDefaultUserName(), getDefaultPassword());
+    return getSessionService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public VatService getVatService() throws Exception {
-    return getVatService(getDefaultUserName(), getDefaultPassword());
+    return getVatService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public VatService getVatService(String userName, String password) throws Exception {
@@ -172,7 +190,7 @@ public class ServiceFactory {
   }
 
   public DiscountService getDiscountService() throws Exception {
-    return getDiscountService(getDefaultUserName(), getDefaultPassword());
+    return getDiscountService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public DiscountService getDiscountService(String userName, String password) throws Exception {
@@ -184,7 +202,7 @@ public class ServiceFactory {
   }
 
   public TagService getTagService() throws Exception {
-    return getTagService(getDefaultUserName(), getDefaultPassword());
+    return getTagService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public TagService getTagService(String userName, String password) throws Exception {
@@ -192,7 +210,7 @@ public class ServiceFactory {
   }
 
   public CategorizationService getCategorizationService() throws Exception {
-    return getCategorizationService(getDefaultUserName(), getDefaultPassword());
+    return getCategorizationService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public CategorizationService getCategorizationService(String userName, String password)
@@ -213,7 +231,7 @@ public class ServiceFactory {
   }
 
   public OperatorService getOperatorService() throws Exception {
-    return getOperatorService(getDefaultUserName(), getDefaultPassword());
+    return getOperatorService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public OperatorService getOperatorService(String userName, String password) throws Exception {
@@ -221,7 +239,7 @@ public class ServiceFactory {
   }
 
   public TriggerDefinitionService getTriggerDefinitionService() throws Exception {
-    return getTriggerDefinitionService(getDefaultUserName(), getDefaultPassword());
+    return getTriggerDefinitionService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public TriggerDefinitionService getTriggerDefinitionService(String userName, String password)
@@ -239,11 +257,11 @@ public class ServiceFactory {
   }
 
   public OrganizationalUnitService getOrganizationalUnitService() throws Exception {
-    return getOrganizationalUnitService(getDefaultUserName(), getDefaultPassword());
+    return getOrganizationalUnitService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public BillingService getBillingService() throws Exception {
-    return getBillingService(getDefaultUserName(), getDefaultPassword());
+    return getBillingService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public BillingService getBillingService(String userName, String password) throws Exception {
@@ -251,7 +269,7 @@ public class ServiceFactory {
   }
 
   public TenantService getTenantService() throws Exception {
-    return getTenantService(getDefaultUserName(), getDefaultPassword());
+    return getTenantService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public TenantService getTenantService(String userName, String password) throws Exception {
@@ -259,7 +277,7 @@ public class ServiceFactory {
   }
 
   public ConfigurationService getConfigurationService() throws Exception {
-    return getConfigurationService(getDefaultUserName(), getDefaultPassword());
+    return getConfigurationService(getDefaultUserKey(), getDefaultUserPassword());
   }
 
   public ConfigurationService getConfigurationService(String userName, String password)
@@ -271,10 +289,15 @@ public class ServiceFactory {
   private <T> T connectToEJB(Class<T> remoteInterface, String userName, String password)
       throws SaaSSystemException {
     try {
-      props.put(Context.SECURITY_PRINCIPAL, userName);
-      props.put(Context.SECURITY_CREDENTIALS, password);
 
-      Context context = new InitialContext(props);
+      if ("OIDC".equals(getAuthMode())) {
+        password = "WS" + password;
+      }
+      
+      localProperties.put(Context.SECURITY_PRINCIPAL, userName);
+      localProperties.put(Context.SECURITY_CREDENTIALS, password);
+
+      Context context = new InitialContext(localProperties);
       T service = (T) context.lookup(remoteInterface.getName());
       return service;
     } catch (NamingException e) {
@@ -288,10 +311,7 @@ public class ServiceFactory {
     for (Object key : properties.keySet()) {
       sb.append("\n\t").append(key).append("=").append(properties.getProperty((String) key));
     }
-    sb.append(
-        "\n\nIf the environment specific properties are wrong, especially bes"
-            + ".https.url and glassfish.bes.domain\n\tplease override them in "
-            + "oscm-devruntime/javares/local/<hostname>/test.properties!\n");
+
     System.out.println(sb.toString());
   }
 
@@ -301,5 +321,9 @@ public class ServiceFactory {
 
   public void setAuthMode(String authMode) {
     this.authMode = authMode;
+  }
+  
+  public boolean isSSOMode() {
+	  return "OIDC".equals(this.authMode);
   }
 }

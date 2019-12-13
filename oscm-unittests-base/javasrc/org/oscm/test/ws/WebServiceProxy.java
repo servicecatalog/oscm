@@ -33,8 +33,7 @@ public class WebServiceProxy {
       String password)
       throws Exception {
 
-    String wsdlUrl =
-        baseUrl + CONTEXT_ROOT + remoteInterface.getSimpleName() + "/BASIC?wsdl";
+    String wsdlUrl = baseUrl + CONTEXT_ROOT + remoteInterface.getSimpleName() + "/BASIC?wsdl";
 
     URL url = new URL(wsdlUrl);
     QName qName = new QName(namespace, remoteInterface.getSimpleName());
@@ -44,17 +43,18 @@ public class WebServiceProxy {
     BindingProvider bindingProvider = (BindingProvider) port;
 
     if ("OIDC".equals(authMode)) {
-
-    } else {
-      Binding binding = bindingProvider.getBinding();
-      List<Handler> handlerChain = binding.getHandlerChain();
-      if (handlerChain == null) {
-        handlerChain = new ArrayList<>();
-      }
-
-      handlerChain.add(new SOAPSecurityHandler(userName, password));
-      binding.setHandlerChain(handlerChain);
+      password = "WS" + password;
     }
+
+    Binding binding = bindingProvider.getBinding();
+    List<Handler> handlerChain = binding.getHandlerChain();
+    if (handlerChain == null) {
+      handlerChain = new ArrayList<>();
+    }
+
+    handlerChain.add(new SOAPSecurityHandler(userName, password));
+    binding.setHandlerChain(handlerChain);
+
     return port;
   }
 }
