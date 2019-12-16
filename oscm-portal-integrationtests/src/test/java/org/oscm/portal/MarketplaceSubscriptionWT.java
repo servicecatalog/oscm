@@ -9,11 +9,7 @@ package org.oscm.portal;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
@@ -66,7 +62,7 @@ public class MarketplaceSubscriptionWT {
 
     }
 
-    @Test
+    @Ignore
     public void test02createSubscription() throws Exception {
         tester.setWaitingTime(
                 Integer.parseInt(tester.getPropertie(WebTester.TIME_INTERVAL)));
