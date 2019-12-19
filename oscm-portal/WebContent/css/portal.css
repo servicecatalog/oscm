@@ -411,7 +411,15 @@ tr.formHighlight textarea, .formHighlight select {
 }
 
 .labelAndValuePanelCol1 .label{
+	color: #000 !important;
+	font-size: 9pt !important;
+	font-weight: normal; 
+}
 
+.labelAndValuePanelCol2 .label{
+	color: #000 !important;
+	font-size: 9pt !important;
+	font-weight: normal; 
 }
 .smallPanelCol2 .field,
 .smallPanelCol2 .fieldS {
