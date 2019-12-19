@@ -6,7 +6,7 @@
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
   <c:if test="#{empty labelStyleClass}">
-    <c:set var="labelStyleClass" value="label" />
+    <c:set var="labelStyleClass" value="bootsfacesLabel" />
   </c:if>
 
   <a4j:outputPanel layout="block" styleClass="#{labelStyleClass}" rendered="#{empty rendered or rendered}">
