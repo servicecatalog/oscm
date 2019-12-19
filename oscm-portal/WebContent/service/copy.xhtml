@@ -4,6 +4,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:b="http://bootsfaces.net/ui"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
   xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/main.xhtml">
   <script src="#{facesContext.externalContext.requestContextPath}/scripts/parameterHelper.js" type="text/javascript"></script>
@@ -23,19 +24,16 @@
       <adm:outputStep value="#{msg['service.copy.step1']}" />
       <adm:panelGrid>
         <adm:outputLabel value="#{msg['service.serviceId']}" />
-        <a4j:outputPanel styleClass="jqSelect" layout="block">
-	    	<a4j:outputPanel styleClass="select">
-	      		<a4j:outputPanel styleClass="option" />
-	      	</a4j:outputPanel>  
-	        <h:selectOneMenu styleClass="select" id="selectedServiceId" value="#{serviceBean.selectedServiceKeyReadOnly}"
+ 
+	        <b:selectOneMenu select2="true" id="selectedServiceId" value="#{serviceBean.selectedServiceKeyReadOnly}"
 	          onclick="AdmUtils.storeValue(this);"
 	          onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}else{AdmUtils.restoreValue(this)}">
 	          <adm:selectItemPleaseSelect itemValue="0" />
 	          <c:forEach items="#{serviceBean.serviceNames}" var="service">
 	            <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
 	          </c:forEach>
-	        </h:selectOneMenu>
-	        </a4j:outputPanel>
+	        </b:selectOneMenu>
+	      
         <adm:message for="selectedServiceId" />
 
         <adm:outputLabel value="#{msg['techService.techServiceId']}" />
