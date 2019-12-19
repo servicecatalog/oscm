@@ -59,9 +59,7 @@ public class BillingSetupTest {
         WebserviceTestBase.getOperator().addCurrency("USD");
         WebserviceTestBase.getOperator().addCurrency("JPY");
 
-        mpSrvOperator = ServiceFactory.getDefault().getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+        mpSrvOperator = ServiceFactory.getDefault().getMarketPlaceService();
 
         createSupplierWith3MP1Currency();
         createSupplierWith1MP2Currencies();

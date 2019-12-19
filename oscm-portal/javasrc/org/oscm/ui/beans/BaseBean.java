@@ -130,6 +130,7 @@ public class BaseBean {
 
     public static final String CUSTOMER = "CUSTOMER";
     public static final String CUSTOMER_SUBSCRIPTION = "CUSTOMER_SUBSCRIPTION";
+    public static final String ERROR_CREATE_ORGANISATION_FAILURE = "error.createOrg.failure";
     public static final String ERROR_COMPLETE_REGISTRATION = "error.complete.registration";
     public static final String ERROR_CONVERTER_BIG_DECIMAL = "error.converter.bigDecimal";
     public static final String ERROR_DATABASE_NOT_AVAILABLE = "error.database.notAvailable";
@@ -159,6 +160,7 @@ public class BaseBean {
     public static final String ERROR_REGISTRATION_ACKNOWLEDGE_MAIL = "error.registration.acknowledge.mail";
     public static final String ERROR_REGISTRATION_TERMS = "error.registration.terms";
     public static final String ERROR_REGISTRATION_CAPTCHA = "error.registration.captcha";
+    public static final String ERROR_REGISTER_USER= "error.register.user";
     public static final String ERROR_CAPTCHA = "error.captcha";
     public static final String ERROR_PARAMETER_VALUE_OUT_OF_RANGE = "error.parameter.value.outOfRange";
     public static final String ERROR_LONG_VALUE_OUT_OF_RANGE = "error.long.value.outOfRange";
@@ -181,6 +183,7 @@ public class BaseBean {
     public static final String ERROR_TRANSLATIONS_FILEFORMAT = "error.translations.fileformat";
     public static final String ERROR_TRANSLATIONS_ONELANGUAGE = "error.translations.onelanguageallowed";
     public static final String ERROR_UPLOAD = "error.upload";
+    public static final String ERROR_CONNECT_TO_OIDC = "error.connect.to.oidc";
     public static final String ERROR_DELETE_USER_FROM_EXPIRED_SUBSCRIPTION = "error.deleteUser.subscriptionExpired";
     public static final String ERROR_UPLOAD_SIZE_LIMIT_EXCEEDED = "error.upload.sizeLimitExceeded";
     public static final String ERROR_UPLOAD_SIZE_LIMIT_EXCEEDED_KNOWNMAX = "error.upload.sizeLimitExceeded.konwnMax";
@@ -219,6 +222,7 @@ public class BaseBean {
     public static final String ERROR_REVENUESHARE_VALUE = "error.revenueshare.value";
     public static final String ERROR_RECOVERPASSWORD_INVALID_LINK = "error.recoverpassword.invalid.link";
     public static final String ERROR_GENERATE_AUTHNREQUEST = "error.generating.authnrequest";
+    public static final String ERROR_TOKEN_VALIDATION_FAILED = "error.auth.tokenvalidation";
     public static final String ERROR_INVALID_SAML_RESPONSE = "error.invalid.samlResponse";
     public static final String ERROR_INVALID_SAML_RESPONSE_STATUS_CODE = "error.invalid.samlResponseStatusCode";
     public static final String ERROR_SAML_TIMEOUT = "error.timeout.during.saml";
@@ -347,9 +351,7 @@ public class BaseBean {
     public static final String INFO_TENANT_SAVED = "info.tenant.saved";
     public static final String INFO_TENANT_ADDED = "info.tenant.added";
     public static final String INFO_TENANT_DELETED = "info.tenant.deleted";
-    public static final String INFO_IDP_SETTINGS_IMPORTED = "info.tenant.idpsettings.imported";
-    public static final String INFO_IDP_SETTINGS_CLEAR = "info.tenant.idpsettings.clear";
-
+    
     public static final String LABEL_USERINTERFACE_TRANSLARIONS = "label.userinterface.title";
     public static final String LABEL_MAIL_TRANSLARIONS = "label.mail.title";
     public static final String LABEL_PLATFORM_TRANSLARIONS = "label.platform.title";

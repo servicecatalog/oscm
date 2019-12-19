@@ -15,7 +15,6 @@ import javax.ejb.*;
 import javax.interceptor.Interceptors;
 
 import org.oscm.domobjects.Tenant;
-import org.oscm.domobjects.TenantSetting;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;
 import org.oscm.internal.intf.TenantService;
@@ -25,7 +24,7 @@ import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.TenantDeletionConstraintException;
 import org.oscm.internal.types.exception.TenantDeletionConstraintException.Reason;
 import org.oscm.internal.vo.VOTenant;
-import org.oscm.internal.vo.VOTenantSetting;
+
 import org.oscm.tenant.assembler.TenantAssembler;
 import org.oscm.tenant.local.TenantServiceLocal;
 
@@ -82,45 +81,8 @@ public class TenantServiceBean implements TenantService {
         }
         tenantServiceLocal.removeTenant(tenantToRemove);
     }
-
-    @Override
-    @RolesAllowed("PLATFORM_OPERATOR")
-    @TransactionAttribute(value = TransactionAttributeType.REQUIRED)
-    public void addTenantSettings(List<VOTenantSetting> tenantSettings, VOTenant voTenant) throws
-        NonUniqueBusinessKeyException, ObjectNotFoundException {
-        removeTenantSettings(voTenant.getKey());
-        for (VOTenantSetting voTenantSetting : tenantSettings) {
-            tenantServiceLocal.saveTenantSetting(TenantAssembler.toTenantSetting(voTenantSetting));
-        }
-    }
-
-    @Override
-    @RolesAllowed("PLATFORM_OPERATOR")
-    public void removeTenantSettings(long key) throws ObjectNotFoundException {
-        Tenant tenant = new Tenant();
-        tenant.setKey(key);
-        List<TenantSetting> settings = tenantServiceLocal.getAllTenantSettingsForTenant(tenant);
-        if (settings.isEmpty()) {
-            return;
-        }
-        for (TenantSetting tenantSetting : settings) {
-            tenantServiceLocal.removeTenantSetting(tenantSetting);
-        }
-    }
-
-    @Override
-    @RolesAllowed("PLATFORM_OPERATOR")
-    public List<VOTenantSetting> getSettingsForTenant(long key) {
-        Tenant tenant = new Tenant();
-        tenant.setKey(key);
-        List<VOTenantSetting> voTenantSettings = new ArrayList<>();
-        List<TenantSetting> settings = tenantServiceLocal.getAllTenantSettingsForTenant(tenant);
-        for (TenantSetting tenantSetting : settings) {
-            voTenantSettings.add(TenantAssembler.toVOTenantSetting(tenantSetting));
-        }
-        return voTenantSettings;
-    }
-
+    
+    
     @Override
     public List<VOTenant> getTenantsByIdPattern(String tenantIdPattern) {
         List<VOTenant> voTenants = new ArrayList<>();
@@ -146,4 +108,9 @@ public class TenantServiceBean implements TenantService {
         Tenant tenant = tenantServiceLocal.getTenantByKey(key);
         return TenantAssembler.toVOTenant(tenant);
     }
+
+	@Override
+	public void removeTenantSettings(long key) throws ObjectNotFoundException {
+		// nope
+	}
 }

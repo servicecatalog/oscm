@@ -9,7 +9,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -20,14 +19,10 @@ import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.RevenueShareModel;
 import org.oscm.domobjects.Tenant;
-import org.oscm.domobjects.TenantSetting;
 import org.oscm.domobjects.enums.RevenueShareModelType;
-import org.oscm.internal.types.enumtypes.IdpSettingType;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
-import org.oscm.internal.vo.VOTenant;
-import org.oscm.internal.vo.VOTenantSetting;
 import org.oscm.tenant.assembler.TenantAssembler;
 import org.oscm.tenant.bean.TenantServiceBean;
 import org.oscm.tenant.bean.TenantServiceLocalBean;
@@ -50,8 +45,7 @@ public class TenantDaoIT extends EJBTestBase {
     final Tenant tenant3 = createTenant(3L);
     final Tenant tenant4 = createTenant(4L);
 
-    private Collection<TenantSetting> tenantSettings = Collections.emptyList();
-
+  
     @Override
     protected void setup(TestContainer container) throws Exception {
 
@@ -67,10 +61,7 @@ public class TenantDaoIT extends EJBTestBase {
 
         container.login("setup", ROLE_PLATFORM_OPERATOR);
 
-        tenant1.setTenantSettings(tenantSettings);
-        tenant2.setTenantSettings(tenantSettings);
-        tenant3.setTenantSettings(tenantSettings);
-        tenant4.setTenantSettings(tenantSettings);
+       
     }
 
     @Test
@@ -126,60 +117,7 @@ public class TenantDaoIT extends EJBTestBase {
         assertTrue(returnedTenant != null);
     }
 
-    @Test
-    public void getAllTenantSettingsForTenant() throws Exception {
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                final Tenant tenant = new Tenant();
-                tenant.setTenantId("tenantID1");
-                tenant.getDataContainer().setName("tenant name");
-                dm.persist(tenant);
-                return null;
-            }
-        });
-        final VOTenant returnedTenant = runTX(new Callable<VOTenant>() {
-            @Override
-            public VOTenant call() throws Exception {
-                return bean.getTenantByTenantId("tenantID1");
-            }
-        });
-        final List<VOTenantSetting> settingsList = new ArrayList<>();
-
-        final VOTenantSetting settingOne = new VOTenantSetting();
-        settingOne.setName(IdpSettingType.SSO_IDP_URL);
-        settingOne.setValue("someUrl");
-        settingOne.setVoTenant(returnedTenant);
-
-        VOTenantSetting settingTwo = new VOTenantSetting();
-        settingTwo.setName(IdpSettingType.SSO_ISSUER_ID);
-        settingTwo.setValue("someIssuer");
-        settingTwo.setVoTenant(returnedTenant);
-
-        settingsList.add(settingOne);
-        settingsList.add(settingTwo);
-
-        runTX(new Callable<Object>() {
-            @Override
-            public Object call() throws Exception {
-                for (VOTenantSetting voSetting : settingsList) {
-                    final TenantSetting domSetting = TenantAssembler
-                            .toTenantSetting(voSetting);
-                    dm.persist(domSetting);
-                }
-                return null;
-            }
-        });
-        final List<TenantSetting> tenantSettings = runTX(
-                new Callable<List<TenantSetting>>() {
-                    @Override
-                    public List<TenantSetting> call() throws Exception {
-                        return tenantDao.getAllTenantSettingsForTenant(
-                                TenantAssembler.toTenant(returnedTenant));
-                    }
-                });
-        assertTrue(tenantSettings.size() == 2);
-    }
+  
 
     @Test
     public void getTenantsByIdPattern() throws Exception {
@@ -553,7 +491,7 @@ public class TenantDaoIT extends EJBTestBase {
         final Tenant tenant = new Tenant();
         tenant.setTenantId("tenantID" + modifier);
         tenant.getDataContainer().setName("tenant name");
-        tenant.setTenantSettings(tenantSettings);
+       
         tenant.setHistoryModificationTime(10000000000L);
         tenant.setMarketplaces(createMarketplaces());
         tenant.setOrganizations(createOrganizations());

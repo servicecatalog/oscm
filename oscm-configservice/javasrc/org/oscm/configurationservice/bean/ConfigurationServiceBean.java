@@ -217,7 +217,7 @@ public class ConfigurationServiceBean
 
     @Override
     public boolean isServiceProvider() {
-        return AuthenticationMode.SAML_SP.name()
+        return AuthenticationMode.OIDC.name()
                 .equals(getConfigurationSetting(ConfigurationKey.AUTH_MODE,
                         Configuration.GLOBAL_CONTEXT).getValue());
     }

@@ -10,12 +10,15 @@ package org.oscm.tenant.bean;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
-import javax.ejb.*;
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Tenant;
-import org.oscm.domobjects.TenantSetting;
 import org.oscm.interceptor.InvocationDateContainer;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
@@ -63,24 +66,7 @@ public class TenantServiceLocalBean implements TenantServiceLocal {
     public void removeTenant(Tenant tenant) {
         dataManager.remove(tenant);
     }
-
-    @Override
-    @RolesAllowed("PLATFORM_OPERATOR")
-    public void saveTenantSetting(TenantSetting tenantSetting) throws NonUniqueBusinessKeyException {
-        dataManager.persist(tenantSetting);
-    }
-
-    @Override
-    @RolesAllowed("PLATFORM_OPERATOR")
-    public void removeTenantSetting(TenantSetting tenantSetting) throws ObjectNotFoundException {
-        dataManager.remove(tenantSetting);
-    }
-
-    @Override
-    @RolesAllowed("PLATFORM_OPERATOR")
-    public List<TenantSetting> getAllTenantSettingsForTenant(Tenant tenant) {
-        return tenantDao.getAllTenantSettingsForTenant(tenant);
-    }
+  
 
     @Override
     public List<Tenant> getTenantsByIdPattern(String tenantIdPattern) {
@@ -116,9 +102,5 @@ public class TenantServiceLocalBean implements TenantServiceLocal {
 
         return false;
     }
-
-    @Override
-    public TenantSetting getTenantSetting(String settingKey, String tenantId) throws ObjectNotFoundException {
-        return this.tenantDao.getTenantSetting(settingKey, tenantId);
-    }
+    
 }

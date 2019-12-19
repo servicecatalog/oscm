@@ -20,25 +20,26 @@
         <ui:param name="isSupplierOrg" value="#{operatorOrgBean.newSupplier}" />
         <adm:outputStep value="#{msg['operator.createOrganization.step2']}" />
         <adm:panelGrid>
+        
 
-          <adm:labelAndSelect id="administratorSalutation" label="#{msg['user.salutation']}"
+          <adm:labelAndSelect rendered="#{operatorOrgBean.internalAuthMode}" id="administratorSalutation" label="#{msg['user.salutation']}"
             value="#{operatorOrgBean.newAdministrator.salutation}" styleClass="selectXS">
             <adm:salutationItems />
           </adm:labelAndSelect>
 
-          <adm:userName firstNameId="administratorFirstName"
+          <adm:userName rendered="#{operatorOrgBean.internalAuthMode}" firstNameId="administratorFirstName"
             firstNameValue="#{operatorOrgBean.newAdministrator.firstName}" lastNameId="administratorLastName"
             lastNameValue="#{operatorOrgBean.newAdministrator.lastName}" />
 
-          <adm:labelAndInputText id="administratorEmail" label="#{msg['user.email']}" required="true"
-            value="#{operatorOrgBean.newAdministrator.EMail}" maxlength="#{appBean.nameLen}" validatorId="email"
-            converterId="trimConverter" />
-
-          <adm:labelAndInputText id="administratorUserId" label="#{msg['public.registration.userId']}" required="true"
+        <adm:labelAndInputText id="administratorUserId" label="#{msg['public.registration.userId']}" required="true"
             value="#{operatorOrgBean.newAdministrator.userId}" maxlength="#{appBean.userIdLen}" validatorId="userId"
             converterId="trimConverter" />
 
-          <adm:labelAndSelect id="administratorLocale" label="#{msg['user.locale']}" required="true"
+          <adm:labelAndInputText rendered="#{operatorOrgBean.internalAuthMode}" id="administratorEmail" label="#{msg['user.email']}" required="true"
+            value="#{operatorOrgBean.newAdministrator.EMail}" maxlength="#{appBean.nameLen}" validatorId="email"
+            converterId="trimConverter" />
+
+          <adm:labelAndSelect rendered="#{operatorOrgBean.internalAuthMode}" id="administratorLocale" label="#{msg['user.locale']}" required="true"
             value="#{operatorOrgBean.newAdministrator.locale}" styleClass="select">
             <adm:localeItems />
             <f:validator validatorId="SupportedLanguageValidator" />
@@ -107,7 +108,7 @@
 
           <adm:labelAndInputText id="organizationName" label="#{msg['organization.name']}"
             value="#{operatorOrgBean.newOrganization.name}" maxlength="#{appBean.nameLen}" converterId="trimConverter"
-            required="#{not isCustomerOrg}" />
+            required="true" />
 
           <adm:labelAndInputText id="organizationEmail" label="#{msg['organization.email']}"
             value="#{operatorOrgBean.newOrganization.email}" maxlength="#{appBean.nameLen}" validatorId="email"

@@ -36,9 +36,10 @@
                 </h:commandLink>
               </c:if>
               <c:if test="#{not userBean.internalAuthMode}">
-                <h:commandLink id="logout" action="#{sessionBean.redirectToIdpLogout}" >
-                  <h:outputText value="#{msg['logout']}" />
-                </h:commandLink>
+                <h:outputLink id="logout">
+				  <h:outputText value="#{msg['logout']}" />
+				  <f:param name="logout" value="oidc" />
+			  	</h:outputLink>
               </c:if>
             </p>
           </h:form>

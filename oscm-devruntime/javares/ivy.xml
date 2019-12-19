@@ -264,7 +264,9 @@
     <dependency org="org.jolokia" name="jolokia-core" rev="1.1.1" transitive="false"/>
     <dependency org="org.jolokia" name="jolokia-jsr160" rev="1.1.1" transitive="false"/>
     <dependency org="com.googlecode.json-simple" name="json-simple" rev="1.1" transitive="false"/>
-    <dependency org="junit" name="junit" rev="4.5" transitive="false"/>
+    <dependency org="junit" name="junit" rev="4.12" transitive="false"/>
+	<dependency org="org.hamcrest" name="hamcrest" rev="2.2" transitive="false"/>
+    
     <dependency org="org.mockito" name="mockito-all" rev="1.8.5" transitive="false"/>
     <dependency org="org.omnifaces" name="omnifaces" rev="1.10" transitive="false"/>
     <dependency org="ca.juliusdavies" name="not-yet-commons-ssl" rev="0.3.9" transitive="false"/>
@@ -378,7 +380,7 @@
     <dependency org="org.apache.wss4j" name="wss4j-ws-security-policy-stax" rev="2.1.7" transitive="false"/>
     <dependency org="org.apache.wss4j" name="wss4j-ws-security-stax" rev="2.1.7" transitive="false"/>
     <dependency org="org.apache.tomee" name="openejb-loader" rev="7.0.3" transitive="false"/>
-
+   
     <dependency org="org.glassfish" name="javax.faces" rev="2.2.12" transitive="false"/>
     <dependency org="org.apache.kafka" name="kafka-clients" rev="0.10.2.1" transitive="false"/>
     <dependency org="org.apache.cxf" name="cxf-rt-frontend-jaxrs" rev="3.1.0" transitive="false"/>
@@ -386,7 +388,10 @@
     <dependency org="org.apache.cxf" name="cxf-rt-rs-client" rev="3.1.10" transitive="false"/>
 
     <dependency org="commons-lang" name="commons-lang" rev="2.6" transitive="false"/>
-
+    
+    <!-- OIDC related libs -->
+	<dependency org="com.auth0" name="java-jwt" rev="3.8.1" transitive="false"/>
+	
     <exclude org="org.netbeans.api"/>
     <exclude org="*" ext="*" type="source"/>
     <exclude org="*" ext="*" type="javadoc"/>

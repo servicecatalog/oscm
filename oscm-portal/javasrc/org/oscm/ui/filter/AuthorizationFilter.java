@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.ejb.EJBException;
@@ -101,7 +102,11 @@ public class AuthorizationFilter extends BaseBesFilter {
         AuthorizationRequestData rdo = initializeRequestDataObject(httpRequest);
 
         try {
-            if (isPublicAccess(rdo, httpRequest)) {
+            
+        	Optional<Object> sessionIdToken =
+        	   	Optional.ofNullable(httpRequest.getSession().getAttribute(Constants.SESS_ATTR_ID_TOKEN));
+        	
+            if (isPublicAccess(rdo, httpRequest) && !sessionIdToken.isPresent()) {
                 proceedWithFilterChain(chain, httpRequest, httpResponse);
             } else {
                 handleProtectedUrlAndChangePwdCase(chain, httpRequest,
@@ -273,17 +278,22 @@ public class AuthorizationFilter extends BaseBesFilter {
                 }
             } else if (ADMStringUtils.isBlank(rdo.getUserId())) {
                 if (authSettings.isServiceProvider()) {
-                    if (isSamlForward(httpRequest)) {
-                        SAMLCredentials samlCredentials = new SAMLCredentials(
-                                httpRequest);
-                        rdo.setUserId(samlCredentials.getUserId());
-                        if (rdo.getUserId() == null) {
-                            httpRequest.setAttribute(
-                                    Constants.REQ_ATTR_ERROR_KEY,
-                                    BaseBean.ERROR_INVALID_SAML_RESPONSE);
-                            forward(errorPage, httpRequest, httpResponse);
-                        }
-                    }
+                	
+                	OidcTokenHandler tokenHandler = new OidcTokenHandler(httpRequest);
+
+                	String userId = tokenHandler.getUserId();
+	                rdo.setUserId(userId);
+                    String idToken = tokenHandler.getIdToken();
+                    rdo.setPassword("UI"+idToken);
+
+	                if (rdo.getUserId() == null) {
+	                    httpRequest.setAttribute(
+	                            Constants.REQ_ATTR_ERROR_KEY,
+	                            BaseBean.ERROR_INVALID_SAML_RESPONSE);
+	                    forward(errorPage, httpRequest, httpResponse);
+	                    return;
+	                }
+                    
                 } else {
                     rdo.setUserId(httpRequest
                             .getParameter(Constants.REQ_PARAM_USER_ID));
@@ -313,14 +323,12 @@ public class AuthorizationFilter extends BaseBesFilter {
             if (authSettings.isServiceProvider()) {
                 rollbackDefaultTimeout(httpRequest);
                 if (ADMStringUtils.isBlank(rdo.getUserId())) {
-                    httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
+                    
+                	// TODO: handle invalid token
+                	httpRequest.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
                             BaseBean.ERROR_INVALID_SAML_RESPONSE);
-                    if (isSamlForward(httpRequest)) {
-                        forward(errorPage, httpRequest, httpResponse);
-                    } else {
-                        forwardToLoginPage(rdo.getRelativePath(), true,
-                                httpRequest, httpResponse, chain);
-                    }
+                    	
+                    forward(errorPage, httpRequest, httpResponse);  
                     return;
                 }
             } else {
@@ -535,29 +543,14 @@ public class AuthorizationFilter extends BaseBesFilter {
 
             rdo.setTenantID(getTenantID(rdo, request));
 
-            if (!isSamlForward(request)) {
-                return;
-            }
-
             rdo.refreshData(request);
 
-            SAMLCredentials samlCredentials = new SAMLCredentials(request);
+            OidcTokenHandler tokenHandler = new OidcTokenHandler(request);
 
             if (rdo.getUserId() == null) {
-                rdo.setUserId(samlCredentials.getUserId());
+                rdo.setUserId(tokenHandler.getUserId());
             }
-
-            if (rdo.getPassword() == null) {
-                String generatedPassword = samlCredentials.generatePassword();
-                if (generatedPassword == null) {
-                    request.setAttribute(Constants.REQ_ATTR_ERROR_KEY,
-                            BaseBean.ERROR_SAML_TIMEOUT);
-                    forward(errorPage, request, response);
-                }
-                rdo.setPassword(generatedPassword);
-
-                // if generated password is null, then timeout!!!
-            }
+            
         } else {
             rdo.refreshData(request);
             // store some parameters if the login fails (needed for login.xhtml)
@@ -1374,12 +1367,5 @@ public class AuthorizationFilter extends BaseBesFilter {
             baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
         }
         return baseUrl;
-    }
-
-    private boolean isSamlForward(HttpServletRequest httpRequest) {
-        Boolean isSamlForward = (Boolean) httpRequest
-                .getAttribute(Constants.REQ_ATTR_IS_SAML_FORWARD);
-        return isSamlForward != null && isSamlForward.booleanValue();
-
     }
 }

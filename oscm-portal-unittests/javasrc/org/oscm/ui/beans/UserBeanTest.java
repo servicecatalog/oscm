@@ -305,7 +305,7 @@ public class UserBeanTest {
     @Test
     public void isServiceProvider_True() {
 
-        setupConfigurationMockForAuthentication(AuthenticationMode.SAML_SP);
+        setupConfigurationMockForAuthentication(AuthenticationMode.OIDC);
 
         assertTrue(userBean.isServiceProvider());
 
@@ -345,7 +345,7 @@ public class UserBeanTest {
     @Test
     public void showRegistration_NotInternalMode() throws Exception {
         // given
-        doReturn(mockConfigurationService(AuthenticationMode.SAML_SP.name()))
+        doReturn(mockConfigurationService(AuthenticationMode.OIDC.name()))
                 .when(userBean).getConfigurationService();
         doReturn(authHandlerMock).when(userBean).getAuthenticationHandler();
 
@@ -404,7 +404,7 @@ public class UserBeanTest {
     @Test
     public void getAuthSettings() throws Exception {
         // given
-        ConfigurationService csMock = mockConfigurationService(AuthenticationMode.SAML_SP
+        ConfigurationService csMock = mockConfigurationService(AuthenticationMode.OIDC
                 .name());
         AuthenticationSettings authSettings = new AuthenticationSettings(tenantService, csMock);
         doReturn(authSettings).when(userBean).getAuthenticationSettings();
@@ -683,7 +683,7 @@ public class UserBeanTest {
     public void createInt_MailOperationException_NotInternal() throws Exception {
         // given
         String mId = "mId1";
-        doReturn(mockConfigurationService(AuthenticationMode.SAML_SP.name()))
+        doReturn(mockConfigurationService(AuthenticationMode.OIDC.name()))
                 .when(userBean).getConfigurationService();
         when(
                 idServiceMock.createUser(any(VOUserDetails.class),
@@ -831,7 +831,7 @@ public class UserBeanTest {
             AuthenticationMode mode) {
         ConfigurationService csMock = mock(ConfigurationService.class);
         doReturn(csMock).when(userBean).getConfigurationService();
-        if (AuthenticationMode.SAML_SP.equals(mode)) {
+        if (AuthenticationMode.OIDC.equals(mode)) {
             doReturn(Boolean.TRUE).when(csMock).isServiceProvider();
         } else {
             doReturn(Boolean.FALSE).when(csMock).isServiceProvider();

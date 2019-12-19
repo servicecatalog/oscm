@@ -128,8 +128,8 @@
             required="true" rendered="#{operatorOrgBean.supplier}" />
 
           <adm:labelAndInputText id="organizationName" label="#{msg['organization.name']}" value="#{selectedOrg.name}"
-            maxlength="#{appBean.nameLen}" disabled="#{!orgSelected}" required="#{operatorOrgBean.vendor}"
-            renderRequired="true" displayRequired="#{operatorOrgBean.vendor}" requiredId="requiredName"
+            maxlength="#{appBean.nameLen}" disabled="#{!orgSelected}" required="true"
+            renderRequired="true" displayRequired="true" requiredId="requiredName"
             converterId="trimConverter" />
 
           <adm:labelAndInputText id="organizationEmail" label="#{msg['organization.email']}" disabled="#{!orgSelected}"

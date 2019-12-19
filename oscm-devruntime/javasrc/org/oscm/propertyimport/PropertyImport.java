@@ -105,7 +105,7 @@ public class PropertyImport {
 
             initStartCount(conn);
             ConfigurationKey[] allKeys = ConfigurationKey.values();
-            boolean isSamlSP = isSamlSPMode(p);
+            boolean isSamlSP = isSSOMode(p);
 
             for (ConfigurationKey key : allKeys) {
                 String keyName = key.getKeyName();
@@ -164,8 +164,7 @@ public class PropertyImport {
     private void verifyValueValid(ConfigurationKey key, String value,
             boolean isSamlSP) {
         if (isNullValue(value)
-                && (key.isMandatory() || isMandatoryAttributeInSamlSPMode(
-                        isSamlSP, key.getKeyName()))) {
+                && (key.isMandatory())) {
             if (key == ConfigurationKey.AUDIT_LOG_ENABLED
                     || key == ConfigurationKey.AUDIT_LOG_MAX_ENTRIES_RETRIEVED
                     || key == ConfigurationKey.MAX_NUMBER_ALLOWED_USERS
@@ -177,41 +176,23 @@ public class PropertyImport {
             }
         }
     }
-
-    private boolean isMandatoryAttributeInSamlSPMode(boolean isSamlSP,
-            String keyName) {
-        return isSamlSP && verifyMandatoryInSamlSP(keyName);
-    }
-
+   
     private boolean isNullValue(String value) {
         return (value == null || value.isEmpty());
     }
 
-    private boolean isSamlSPMode(Properties p) {
+    private boolean isSSOMode(Properties p) {
         String authMode = (String) p
                 .get(ConfigurationKey.AUTH_MODE.getKeyName());
 
         if (!isNullValue(authMode)
-                && authMode.equals(AuthenticationMode.SAML_SP.name())) {
+                && authMode.equals(AuthenticationMode.OIDC.name())) {
             return true;
         } else {
             return false;
         }
     }
-
-    private boolean verifyMandatoryInSamlSP(String keyName) {
-        boolean isMandatory = false;
-        MandatoryAttributesInSamlSP[] attrs = MandatoryAttributesInSamlSP
-                .values();
-        for (MandatoryAttributesInSamlSP attr : attrs) {
-            if (attr.name().equals(keyName)) {
-                isMandatory = true;
-                break;
-            }
-        }
-        return isMandatory;
-    }
-
+    
     private void verifyAuthMode(String keyName, String value) {
         boolean isContained = false;
         if (ConfigurationKey.AUTH_MODE.name().equals(keyName)) {
@@ -224,7 +205,7 @@ public class PropertyImport {
             }
             if (!isContained) {
                 throw new RuntimeException(
-                        "Authentication mode has an invalid value - Allowed values are [INTERNAL, SAML_SP, SAML_IDP, OPENID_RP]");
+                        "Authentication mode has an invalid value - Allowed values are [INTERNAL, OIDC]");
             }
         }
     }

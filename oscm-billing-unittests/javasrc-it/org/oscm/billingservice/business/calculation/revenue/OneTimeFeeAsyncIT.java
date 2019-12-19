@@ -23,7 +23,6 @@ import javax.persistence.Query;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.oscm.encrypter.AESEncrypter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 

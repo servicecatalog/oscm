@@ -4,10 +4,6 @@ sudo: required
 jdk:
   - openjdk8
 
-cache:
-  directories:
-    - $TRAVIS_BUILD_DIR/libraries
-
 env:
   global:
     - ANT_OPTS=-Xmx6g

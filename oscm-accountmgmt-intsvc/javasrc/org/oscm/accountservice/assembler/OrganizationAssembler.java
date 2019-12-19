@@ -212,6 +212,7 @@ public class OrganizationAssembler extends BaseAssembler {
             Organization organization) {
         voOrganization.setOrganizationId(organization.getOrganizationId());
         voOrganization.setName(organization.getName());
+        voOrganization.setOidcGroupId(organization.getGroupId());
     }
 
     private static void fillListingFields(VOOrganization voOrganization,
@@ -358,6 +359,7 @@ public class OrganizationAssembler extends BaseAssembler {
                 .setDistinguishedName(voOrganization.getDistinguishedName());
         organization.setUrl(voOrganization.getUrl());
         organization.setSupportEmail(voOrganization.getSupportEmail());
+        organization.setGroupId(voOrganization.getOidcGroupId());
         long tenantKey = voOrganization.getTenantKey();
         if (tenantKey != 0) {
             Tenant t = new Tenant();

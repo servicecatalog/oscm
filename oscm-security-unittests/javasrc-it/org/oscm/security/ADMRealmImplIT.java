@@ -23,8 +23,6 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 import java.sql.SQLException;
 import java.util.Collections;
@@ -109,8 +107,7 @@ public class ADMRealmImplIT extends EJBTestBase {
         doReturn("").when(realm).findAndBind(any(Properties.class), anyString(),
                 anyString(), anyString());
         acs = mock(AssertionConsumerService.class);
-        doReturn(acs).when(realm).getAssertionConsumerService(
-                any(AuthenticationModeQuery.class));
+       
         doNothing().when(acs).validateResponse(anyString(), anyString(),
                 eq(tenantID));
     }
@@ -278,47 +275,7 @@ public class ADMRealmImplIT extends EJBTestBase {
             throw e;
         }
     }
-
-    @Test
-    public void handleUICaller() throws Exception {
-
-        // when
-        realm.handleUICaller(ANY_KEY, UI_PASSWORD,
-                mock(AuthenticationModeQuery.class));
-
-        // then
-        verify(acs, times(1)).validateResponse(SAML_RESPONSE, REQUEST_ID,
-                TENANT_ID);
-    }
-
-    @Test
-    public void handleWebServiceCaller_positive() throws LoginException {
-
-        // given
-        long wsPasswordAge = System.currentTimeMillis() - 1;
-        String wsPassword = "WS" + wsPasswordAge;
-
-        // then
-        realm.handleWebServiceCaller(ANY_KEY, wsPassword);
-    }
-
-    @Test(expected = LoginException.class)
-    public void handleWebServiceCaller_negative1() throws LoginException {
-
-        realm.handleWebServiceCaller(ANY_KEY, WRONG_PASSWORD);
-    }
-
-    @Test(expected = LoginException.class)
-    public void handleWebServiceCaller_negative2() throws LoginException {
-
-        // given
-        long wsPasswordAge = 600000;
-        String wsPassword = "WS" + wsPasswordAge;
-
-        // then
-        realm.handleWebServiceCaller(ANY_KEY, wsPassword);
-    }
-
+      
     @Test
     public void handleOperatorClientCaller_positive() throws Exception {
         // given
@@ -340,63 +297,7 @@ public class ADMRealmImplIT extends EJBTestBase {
 
         // then: exception
     }
-
-    @Test
-    public void handleSSO_UICaller() throws Exception {
-
-        // given
-        AuthenticationModeQuery authModeQuery = mock(
-                AuthenticationModeQuery.class);
-        mockCallerHandlers();
-
-        // when
-        realm.handleSSOLogin(ANY_KEY, UI_PASSWORD, authModeQuery, userQuery);
-
-        // then
-        verify(realm, times(1)).handleUICaller(ANY_KEY, UI_PASSWORD,
-                authModeQuery);
-    }
-
-    @Test
-    public void handleSSO_WebServiceCaller() throws Exception {
-
-        // given
-        AuthenticationModeQuery authModeQuery = mock(
-                AuthenticationModeQuery.class);
-        mockCallerHandlers();
-
-        // when
-        realm.handleSSOLogin(ANY_KEY, WS_PASSWORD, authModeQuery, userQuery);
-
-        // then
-        verify(realm, times(1)).handleWebServiceCaller(ANY_KEY, WS_PASSWORD);
-    }
-
-    @Test
-    public void handleSSO_OperatorClientCaller() throws Exception {
-
-        // given
-        AuthenticationModeQuery authModeQuery = mock(
-                AuthenticationModeQuery.class);
-        mockCallerHandlers();
-
-        // when
-        realm.handleSSOLogin(ANY_KEY, WRONG_PASSWORD, authModeQuery, userQuery);
-
-        // then
-        verify(realm, times(1)).handleOperatorClientCaller(ANY_KEY,
-                WRONG_PASSWORD, userQuery);
-    }
-
-    private void mockCallerHandlers() throws Exception {
-        doNothing().when(realm).handleUICaller(anyString(), anyString(),
-                any(AuthenticationModeQuery.class));
-        doNothing().when(realm).handleWebServiceCaller(anyString(),
-                anyString());
-        doNothing().when(realm).handleOperatorClientCaller(anyString(),
-                anyString(), any(UserQuery.class));
-    }
-
+   
     private void initConfigSetting(final int max_tries) throws Exception {
         runTX(new Callable<Void>() {
             @Override

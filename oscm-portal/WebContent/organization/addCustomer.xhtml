@@ -21,32 +21,34 @@
       <adm:outputStep value="#{msg['organization.addCustomer.step1']}" />
       <adm:panelGrid>
 
-        <adm:labelAndSelect id="salutation" label="#{msg['user.salutation']}"
+        <adm:labelAndSelect rendered="#{operatorOrgBean.internalAuthMode}" id="salutation" label="#{msg['user.salutation']}"
           value="#{organizationBean.customerUserToAdd.salutation}" styleClass="selectXS">
           <adm:salutationItems />
         </adm:labelAndSelect>
 
-        <adm:userName firstNameId="firstName" firstNameValue="#{organizationBean.customerUserToAdd.firstName}"
+        <adm:userName rendered="#{operatorOrgBean.internalAuthMode}" 
+          firstNameId="firstName" firstNameValue="#{organizationBean.customerUserToAdd.firstName}"
           lastNameId="lastName" lastNameValue="#{organizationBean.customerUserToAdd.lastName}" />
 
-        <adm:labelAndInputText id="email" label="#{msg['user.email']}" required="true"
+        <adm:labelAndInputText rendered="#{operatorOrgBean.internalAuthMode}" id="email" label="#{msg['user.email']}" required="true"
           value="#{organizationBean.customerUserToAdd.email}" maxlength="#{appBean.nameLen}" validatorId="email"
           converterId="trimConverter" />
 
         <adm:labelAndInputText id="userId" label="#{msg['public.registration.userId']}" required="true"
           value="#{organizationBean.customerUserToAdd.userId}" maxlength="#{appBean.userIdLen}" validatorId="userId"
-          converterId="trimConverter" />
+          converterId="trimConverter"  />
 
-        <adm:labelAndSelect id="locale" label="#{msg['organization.locale']}"
+        <adm:labelAndSelect rendered="#{operatorOrgBean.internalAuthMode}" id="locale" label="#{msg['organization.locale']}"
           value="#{organizationBean.customerToAdd.locale}" styleClass="select">
           <adm:localeItems />
-          <f:validator validatorId="SupportedLanguageValidator" />
+          <f:validator validatorId="SupportedLanguageValidator" /> 
         </adm:labelAndSelect>
       </adm:panelGrid>
 
       <adm:outputStep value="#{msg['organization.addCustomer.step2']}" />
       <adm:panelGrid>
-        <adm:labelAndInputText id="organizationName" label="#{msg['organization.name']}"
+      
+        <adm:labelAndInputText id="organizationName" label="#{msg['organization.name']}" required="true"
           value="#{organizationBean.customerToAdd.name}" converterId="trimConverter" styleClass="field"
           maxlength="#{appBean.nameLen}" />
 

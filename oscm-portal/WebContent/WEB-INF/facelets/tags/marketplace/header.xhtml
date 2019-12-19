@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:f="http://xmlns.jcp.org/jsf/core">
   <c:if test="#{empty loginHandler}">
 
   </c:if>
@@ -74,7 +75,10 @@
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
                   <h:form id="formLogin">
-                    <h:commandLink id="loginLink" action="#{userBean.redirectToIDP}" ><h:outputText value="#{msg['login']}" /></h:commandLink>
+                    <h:outputLink id="loginLink">
+                    	<h:outputText value="#{msg['login']}" />
+                    	<f:param name="login" value="oidc" />
+                    </h:outputLink>
                   </h:form>
                 </a4j:region>
               </c:if> 
@@ -86,13 +90,14 @@
                 <h:outputText value="&amp;nbsp;|&amp;nbsp;" escape="false" />
                 <c:if test="#{userBean.internalAuthMode}">
                   <h:commandLink id="logout" value="#{msg['logout']}" action="#{userBean.logoff}" />
-                </c:if>
-                <c:if test="#{not userBean.internalAuthMode}">
-                  <h:commandLink id="logout" action="#{sessionBean.redirectToIdpLogout}" >
-                    <h:outputText value="#{msg['logout']}" />
-                  </h:commandLink>
-                </c:if>
-              </a4j:outputPanel>
+               	</c:if>
+				<c:if test="#{not userBean.internalAuthMode}">
+				  <h:outputLink id="logout">
+					<h:outputText value="#{msg['logout']}" />
+					<f:param name="logout" value="oidc" />
+				  </h:outputLink>
+				</c:if>
+			  </a4j:outputPanel>
               <a4j:outputPanel layout="block" styleClass="shortenedText">
                 <h:outputText id="welcome" value="#{msg['welcome']} #{user.userId}" />
               </a4j:outputPanel>

@@ -70,7 +70,6 @@
 		<project>oscm-vat</project>
 		<project>oscm-webservices</project>
 		<project>oscm-webservices-client</project>
-		<project>oscm-wsdldeliver</project>
 		<project>oscm-tenantmgmt</project>
 		<project>oscm-tenantmgmt-intsvc</project>
 		<project>oscm-kafka</project>

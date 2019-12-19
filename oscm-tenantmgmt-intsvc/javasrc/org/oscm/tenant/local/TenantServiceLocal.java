@@ -9,39 +9,31 @@ package org.oscm.tenant.local;
 
 import java.util.List;
 
+import javax.ejb.Local;
+
 import org.oscm.domobjects.Tenant;
-import org.oscm.domobjects.TenantSetting;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
-
-import javax.ejb.Local;
 
 @Local
 public interface TenantServiceLocal {
 
-    List<Tenant> getAllTenants();
+	List<Tenant> getAllTenants();
 
-    Tenant getTenantByTenantId(String tenantId) throws ObjectNotFoundException;
+	Tenant getTenantByTenantId(String tenantId) throws ObjectNotFoundException;
 
-    void saveTenant(Tenant tenant) throws NonUniqueBusinessKeyException;
+	void saveTenant(Tenant tenant) throws NonUniqueBusinessKeyException;
 
-    Tenant getTenantByKey(long tkey) throws ObjectNotFoundException;
+	Tenant getTenantByKey(long tkey) throws ObjectNotFoundException;
 
-    void removeTenant(Tenant tenant);
+	void removeTenant(Tenant tenant);
 
-    void saveTenantSetting(TenantSetting tenantSetting) throws NonUniqueBusinessKeyException;
+	List<Tenant> getTenantsByIdPattern(String tenantIdPattern);
 
-    void removeTenantSetting(TenantSetting tenantSetting) throws ObjectNotFoundException;
+	boolean doesOrganizationAssignedToTenantExist(Tenant tenant);
 
-    List<TenantSetting> getAllTenantSettingsForTenant(Tenant tenant);
+	boolean doesMarketplaceAssignedToTenantExist(Tenant tenant);
 
-    List<Tenant> getTenantsByIdPattern(String tenantIdPattern);
+	boolean doOrgUsersExistInTenant(String orgId, long tenantKey);
 
-    boolean doesOrganizationAssignedToTenantExist(Tenant tenant);
-
-    boolean doesMarketplaceAssignedToTenantExist(Tenant tenant);
-    
-    boolean doOrgUsersExistInTenant(String orgId, long tenantKey);
-
-    TenantSetting getTenantSetting(String settingKey, String tenantId) throws ObjectNotFoundException;
 }
