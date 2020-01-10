@@ -8,14 +8,30 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.oscm.domobjects.*;
-import org.oscm.internal.types.enumtypes.ConfigurationKey;
+import javax.ejb.Local;
+
+import org.oscm.domobjects.Marketplace;
+import org.oscm.domobjects.Organization;
+import org.oscm.domobjects.PlatformUser;
+import org.oscm.domobjects.TriggerProcess;
+import org.oscm.domobjects.UnitUserRole;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
 import org.oscm.internal.types.enumtypes.UserRoleType;
-import org.oscm.internal.types.exception.*;
+import org.oscm.internal.types.exception.ConcurrentModificationException;
+import org.oscm.internal.types.exception.MailOperationException;
+import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
+import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.types.exception.OperationNotPermittedException;
+import org.oscm.internal.types.exception.OperationPendingException;
+import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
+import org.oscm.internal.types.exception.TechnicalServiceNotAliveException;
+import org.oscm.internal.types.exception.TechnicalServiceOperationException;
+import org.oscm.internal.types.exception.UserActiveException;
+import org.oscm.internal.types.exception.UserDeletionConstraintException;
+import org.oscm.internal.types.exception.UserModificationConstraintException;
+import org.oscm.internal.types.exception.UserRoleAssignmentException;
+import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOUserDetails;
-
-import javax.ejb.Local;
 
 @Local
 public interface IdentityServiceLocal {
@@ -421,4 +437,12 @@ public interface IdentityServiceLocal {
      */
     PlatformUser getPlatformUserByOrganization(String userId, String orgId)
             throws ObjectNotFoundException;
+    
+    /**
+     * Synchronizes the OIDC groups with the OSCM organizations. For all synchronized organizations the users will be also synchronized. 
+     * @return if the synchronization was successful or not. 
+     */
+    default boolean synchronizeUsersAndGroupsWithOIDCProviderInt() {
+        return false;
+    }
 }

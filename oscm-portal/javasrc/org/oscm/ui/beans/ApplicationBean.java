@@ -123,7 +123,7 @@ public class ApplicationBean implements Serializable {
      */
     private Long interval = null;
 
-    private Boolean samlSpAuthMode = null;
+    private Boolean ssoAuthMode = null;
 
     /**
      * URL for the online help.
@@ -170,8 +170,8 @@ public class ApplicationBean implements Serializable {
 
     }
 
-    public void setSamlSpAuthMode(Boolean samlSpAuthMode) {
-        this.samlSpAuthMode = samlSpAuthMode;
+    public void setSSOAuthMode(Boolean ssoAuthMode) {
+        this.ssoAuthMode = ssoAuthMode;
     }
 
     /**
@@ -586,16 +586,16 @@ public class ApplicationBean implements Serializable {
      * @return <code>true</code> if AUTH_MODE is set to INTERNAL otherwise
      *         <code>false</code>.
      */
-    public boolean isSamlSpAuthMode() {
-        if (samlSpAuthMode == null) {
+    public boolean isSSOAuthMode() {
+        if (ssoAuthMode == null) {
             lookupConfigurationService();
             VOConfigurationSetting authMode = configurationService
                 .getVOConfigurationSetting(ConfigurationKey.AUTH_MODE,
                     Configuration.GLOBAL_CONTEXT);
-            samlSpAuthMode = Boolean.valueOf(authMode.getValue().equals(
-                AuthenticationMode.SAML_SP.name()));
+            ssoAuthMode = Boolean.valueOf(authMode.getValue().equals(
+                AuthenticationMode.OIDC.name()));
         }
-        return samlSpAuthMode.booleanValue();
+        return ssoAuthMode.booleanValue();
     }
 
     /**

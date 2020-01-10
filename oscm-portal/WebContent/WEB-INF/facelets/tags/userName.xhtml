@@ -6,11 +6,12 @@
 
   <adm:labelAndInputText id="#{firstNameId}" label="#{msg['user.firstName']}" value="#{firstNameValue}"
     maxlength="#{appBean.nameLen}" disabled="#{firstNameDisabled}" converterId="trimConverter"
-    rendered="#{not sessionBean.nameSequenceReversed}" />
+    rendered="#{not sessionBean.nameSequenceReversed and (empty rendered or rendered) }" />
   <adm:labelAndInputText id="#{lastNameId}" label="#{msg['user.lastName']}" value="#{lastNameValue}"
     maxlength="#{appBean.nameLen}" disabled="#{lastNameDisabled}" converterId="trimConverter" />
   <adm:labelAndInputText id="#{firstNameId}2" label="#{msg['user.firstName']}" value="#{firstNameValue}"
     maxlength="#{appBean.nameLen}" disabled="#{firstNameDisabled}" converterId="trimConverter"
-    rendered="#{sessionBean.nameSequenceReversed}" />
+    rendered="#{sessionBean.nameSequenceReversed and (empty rendered or rendered)}" />
 
 </ui:composition>
+ 

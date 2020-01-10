@@ -381,4 +381,9 @@ public class IdentityServiceStub implements IdentityService,
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public boolean synchronizeUsersAndGroupsWithOIDCProvider() {
+        throw new UnsupportedOperationException();
+    }
+
 }

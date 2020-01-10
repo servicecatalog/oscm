@@ -199,7 +199,7 @@ public class PropertyImportTest {
             importer.execute();
         } catch (RuntimeException e) {
             assertEquals(
-                    "Authentication mode has an invalid value - Allowed values are [INTERNAL, SAML_SP, SAML_IDP, OPENID_RP]",
+                    "Authentication mode has an invalid value - Allowed values are [INTERNAL, OIDC]",
                     e.getMessage());
             throw e;
         }
@@ -227,34 +227,6 @@ public class PropertyImportTest {
         } catch (RuntimeException e) {
             assertEquals(
                     "Mandatory attribute " + ConfigurationKey.AUTH_MODE.name()
-                            + " can not be set a null value",
-                    e.getMessage());
-            throw e;
-        }
-
-    }
-
-    @Test(expected = RuntimeException.class)
-    public void execute_nullMandatoryValueInSamlSPMode() throws Exception {
-        p_overwriteFlag = true;
-        p_contextId = "PROXY";
-        Properties p = getProperties();
-        p.put(ConfigurationKey.AUTH_MODE.name(), "SAML_SP");
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(tempFile);
-            p.store(fos, "No comment");
-        } finally {
-            if (fos != null) {
-                fos.close();
-            }
-        }
-        PropertyImport importer = createImport();
-        try {
-            importer.execute();
-        } catch (RuntimeException e) {
-            assertEquals(
-                    "Mandatory attribute " + ConfigurationKey.SSO_IDP_URL.name()
                             + " can not be set a null value",
                     e.getMessage());
             throw e;

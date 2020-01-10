@@ -60,8 +60,6 @@ public class ConfigurationSettingsBean extends BaseOperatorBean implements
 
     // String value of the authentication mode key
     private static final String AUTH_MODE = "AUTH_MODE";
-    // Auth mode key value when running in SSO mode
-    private static final String AUTH_MODE_SAML_SP = "SAML_SP";
 
     // The id of the SOP_ORGANIZATION_IDENTIFIER SOP configuration setting.
     private static final String SOP_ORGANIZATION_IDENTIFIER = "SOP_ORGANIZATION_IDENTIFIER";
@@ -155,7 +153,7 @@ public class ConfigurationSettingsBean extends BaseOperatorBean implements
      * the application is not running in SSO mode.
      */
     private void filterSSOConfigurationSettings() {
-        if (isSamlMode()) {
+        if (isSSOMode()) {
             return; // do not filter
         }
         for (Iterator<VOConfigurationSetting> i = configurationSettings
@@ -199,7 +197,7 @@ public class ConfigurationSettingsBean extends BaseOperatorBean implements
 
     /**
      * returns true if a VOConfigurationSetting is an SSO configuration setting
-     * and false otherwise. Settings required in both INTERNAL and SAML_SP modes
+     * and false otherwise. Settings required in both INTERNAL and OIDC modes
      * are NOT treated as SSO settings.
      *
      * @param setting the VOConfigurationSetting to check.
@@ -260,11 +258,11 @@ public class ConfigurationSettingsBean extends BaseOperatorBean implements
         return false;
     }
 
-    private boolean isSamlMode() {
+    private boolean isSSOMode() {
         for (VOConfigurationSetting setting : configurationSettings) {
             if (setting.getInformationId().getKeyName()
                     .equals(AUTH_MODE)
-                    && setting.getValue().equals(AUTH_MODE_SAML_SP)) {
+                    && setting.getValue().equals("OIDC")) {
                 return true;
             }
         }

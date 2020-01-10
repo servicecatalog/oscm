@@ -110,7 +110,7 @@ public class OrganizationAssemblerTest {
         org.setAddress("org address");
         org.setUrl("http://www.fujitsu.de");
         org.setSupportEmail("testSupport@mail.test");
-
+        org.setGroupId("12345");
         Organization supplier = new Organization();
         supplier.setOrganizationId("supplier id");
 
@@ -166,6 +166,7 @@ public class OrganizationAssemblerTest {
         assertEquals("Wrong locale", "es", voOrg.getLocale());
         assertEquals("Wrong organization name", "Test organization",
                 voOrg.getName());
+        assertEquals("Wrong oidc group id", "12345", voOrg.getOidcGroupId());
         assertEquals("Wrong phone", "0151/555555", voOrg.getPhone());
         assertEquals("Wrong address", "org address", voOrg.getAddress());
         assertEquals(org.getUrl(), voOrg.getUrl());

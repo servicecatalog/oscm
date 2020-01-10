@@ -1037,7 +1037,7 @@ public class AccountServiceBean implements AccountService, AccountServiceLocal {
             imageResource.setObjectKey(storedOrganization.getKey());
             processImage(imageResource, storedOrganization.getKey());
         }
-
+ 
         dm.persist(createDefaultUserGroup(storedOrganization));
 
         try {

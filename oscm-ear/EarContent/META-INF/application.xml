@@ -57,12 +57,6 @@
     </web>
   </module>
   <module>
-    <web>
-      <web-uri>oscm-wsdldeliver.war</web-uri>
-      <context-root>oscm</context-root>
-    </web>
-  </module>
-  <module>
     <ejb>oscm-i18n.jar</ejb>
   </module>
   <module>

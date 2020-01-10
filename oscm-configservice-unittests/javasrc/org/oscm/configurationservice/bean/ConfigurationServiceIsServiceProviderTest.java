@@ -45,7 +45,7 @@ public class ConfigurationServiceIsServiceProviderTest {
         csb.dm = ds;
 
         setting = new ConfigurationSetting(ConfigurationKey.AUTH_MODE,
-                "global", "SAML_SP");
+                "global", "OIDC");
 
         query = mock(TypedQuery.class);
         when(query.getResultList()).thenReturn(Arrays.asList(setting));

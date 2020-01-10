@@ -274,9 +274,9 @@ public class Organizations {
     }
 
     public static Organization createOrganizationWithTenant(DataService mgr,
-            String orgId, String tenantID, OrganizationRoleType... roles)
+            String orgId, String name, String tenantID, OrganizationRoleType... roles)
             throws NonUniqueBusinessKeyException, ObjectNotFoundException {
-        Organization org = createOrganizationWithTenant(orgId, tenantID, mgr);
+        Organization org = createOrganizationWithTenant(orgId, name, tenantID, mgr);
         if (Arrays.asList(roles).contains(OrganizationRoleType.SUPPLIER)) {
             createOperatorRevenueShare(mgr, org, BigDecimal.ZERO);
         }
@@ -366,10 +366,10 @@ public class Organizations {
         return org;
     }
 
-    public static Organization createOrganizationWithTenant(String orgId, String tenantID, DataService mgr) {
+    public static Organization createOrganizationWithTenant(String orgId, String name, String tenantID, DataService mgr) {
         Organization org = new Organization();
         org.setOrganizationId(orgId);
-        org.setName("Name of organization " + org.getOrganizationId());
+        org.setName(name);
         org.setAddress("Address of organization " + org.getOrganizationId());
         org.setEmail(org.getOrganizationId() + "@organization.com");
         org.setPhone("012345/678" + org.getOrganizationId());
@@ -387,6 +387,20 @@ public class Organizations {
                 e.printStackTrace();
             }
         }
+        return org;
+    }
+    
+    public static Organization createOrganizationWithTenant(String orgId, String name, Tenant tenant, DataService mgr) {
+        Organization org = new Organization();
+        org.setOrganizationId(orgId);
+        org.setName(name);
+        org.setAddress("Address of organization " + org.getOrganizationId());
+        org.setEmail(org.getOrganizationId() + "@organization.com");
+        org.setPhone("012345/678" + org.getOrganizationId());
+        org.setLocale("en");
+        org.setUrl("http://www.organization.com");
+        org.setCutOffDay(1);
+        org.setTenant(tenant);
         return org;
     }
 

@@ -8,11 +8,14 @@
 package org.oscm.internal.tenant;
 
 import java.util.List;
-import java.util.Properties;
 
 import javax.ejb.Remote;
 
-import org.oscm.internal.types.exception.*;
+import org.oscm.internal.types.exception.ConcurrentModificationException;
+import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
+import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.types.exception.TenantDeletionConstraintException;
+import org.oscm.internal.types.exception.ValidationException;
 
 /**
  * Service used by view controllers to manage tenant presentation objects.
@@ -25,6 +28,13 @@ public interface ManageTenantService {
      * @return ArrayList of value objects.
      */
     List<POTenant> getAllTenants();
+    
+    /**
+     * Method which lists all the tenants from system including the default tenant.
+     * @return ArrayList of value objects.
+     * @see #getAllTenants();
+     */
+    List<POTenant> getAllTenantsWithDefaultTenant();
 
     /**
      * Queries db for tenant by its tenantID.
@@ -60,30 +70,7 @@ public interface ManageTenantService {
      */
     void removeTenant(POTenant poTenant) throws ObjectNotFoundException, TenantDeletionConstraintException;
 
-    /**
-     * Persists tenant IDP settings.
-     * @param properties list of settings to persist.
-     * @param tenantId tenant to which settings belongs
-     * @throws NonUniqueBusinessKeyException if settings' business key is not unique
-     * @throws ObjectNotFoundException if tenant is not found
-     */
-    void setTenantSettings(Properties properties, String tenantId)
-        throws ObjectNotFoundException, NonUniqueBusinessKeyException;
-
-    /**
-     * Retrieves settings for tenant
-     * @param tenantKey tenant key to which settings are being returned.
-     * @return
-     */
-    Properties getTenantSettings(long tenantKey);
-
-    /**
-     * Removes all settings for tenant
-     * @param tenantKey tenant key to which settings are being removed
-     * @throws ObjectNotFoundException if tenant is not found.
-     */
-    void removeTenantSettings(long tenantKey) throws ObjectNotFoundException;
-
+      
     /**
      * Finds tenant by its id pattern.
      * @param tenantIdPattern set of characters to which tenant should be found.
@@ -98,4 +85,6 @@ public interface ManageTenantService {
      * @return
      */
     void validateOrgUsersUniqnessInTenant(String orgId, long tenantKey) throws ValidationException;
+
+    
 }

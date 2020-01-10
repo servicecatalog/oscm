@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Callable;
 
 import javax.ejb.EJBException;
@@ -32,18 +33,9 @@ import javax.persistence.Query;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import org.oscm.domobjects.enums.ModificationType;
 import org.oscm.domobjects.enums.OrganizationReferenceType;
 import org.oscm.domobjects.enums.RevenueShareModelType;
-import org.oscm.test.ReflectiveClone;
-import org.oscm.test.ReflectiveCompare;
-import org.oscm.test.data.Marketplaces;
-import org.oscm.test.data.OrganizationReferences;
-import org.oscm.test.data.Organizations;
-import org.oscm.test.data.PlatformUsers;
-import org.oscm.test.data.Udas;
-import org.oscm.types.enumtypes.UdaTargetType;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.enumtypes.PaymentInfoType;
 import org.oscm.internal.types.enumtypes.ServiceType;
@@ -55,6 +47,14 @@ import org.oscm.internal.types.enumtypes.UserAccountStatus;
 import org.oscm.internal.types.exception.IllegalArgumentException;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.SaaSSystemException;
+import org.oscm.test.ReflectiveClone;
+import org.oscm.test.ReflectiveCompare;
+import org.oscm.test.data.Marketplaces;
+import org.oscm.test.data.OrganizationReferences;
+import org.oscm.test.data.Organizations;
+import org.oscm.test.data.PlatformUsers;
+import org.oscm.test.data.Udas;
+import org.oscm.types.enumtypes.UdaTargetType;
 
 /**
  * Tests of the organization-related domain objects (incl. auditing
@@ -845,6 +845,147 @@ public class OrganizationIT extends DomainObjectTestBase {
             }
         });
     }
+    
+    @Test
+    public void findOrganizationsByName_customTenant() throws Exception {
+
+        // Given
+        givenOrgTenant("Supplier1", "tenant1");
+        givenOrgTenant("Supplier2", "tenant3");
+        givenOrgTenant("Supplier1", "tenant2");
+                
+        runTX(new Callable<Void>() {
+            public Void call() throws Exception {
+                // When
+                Query query = mgr
+                        .createNamedQuery("Organization.findOrganizationsByName");
+                query.setParameter("name", "Supplier1");
+                query.setParameter("tenantId", "tenant1");
+                
+                // Then
+                assertEquals(1, query.getResultList().size());
+                return null;
+            }
+        });
+    }
+
+    
+    @Test
+    public void findOrganizationsByName_differentName_defaultTenant() throws Exception {
+
+        // Given
+        givenOrgDefaultTenant("Supplier1");
+        givenOrgDefaultTenant("Supplier2");
+        
+                
+        runTX(new Callable<Void>() {
+            public Void call() throws Exception {
+                // When
+                Query query = mgr
+                        .createNamedQuery("Organization.findOrganizationsByName");
+                query.setParameter("name", "Supplier2");
+                query.setParameter("tenantId", null);
+                
+                // Then
+                assertEquals(1, query.getResultList().size());
+                return null;
+            }
+        });
+    }
+    
+    @Test
+    public void findOrganizationsByName_differentName_customTenant() throws Exception {
+
+        // Given
+        Organization org = givenOrgTenant("Supplier1", "tenant1");
+        givenOrgExistingTenant("Supplier2", org.getTenant());
+        
+                
+        runTX(new Callable<Void>() {
+            public Void call() throws Exception {
+                // When
+                Query query = mgr
+                        .createNamedQuery("Organization.findOrganizationsByName");
+                query.setParameter("name", "Supplier2");
+                query.setParameter("tenantId", "tenant1");
+                
+                // Then
+                assertEquals(1, query.getResultList().size());
+                return null;
+            }
+        });
+    }
+    
+    @Test
+    public void findOrganizationsByName_sameName_bothDefaultTenant() throws Exception {
+
+        // Given
+        givenOrgDefaultTenant("Supplier2");
+        givenOrgDefaultTenant("Supplier2");
+        
+                
+        runTX(new Callable<Void>() {
+            public Void call() throws Exception {
+                // When
+                Query query = mgr
+                        .createNamedQuery("Organization.findOrganizationsByName");
+                query.setParameter("name", "Supplier2");
+                query.setParameter("tenantId", null);
+                
+                // Then
+                assertEquals(2, query.getResultList().size());
+                return null;
+            }
+        });
+    }
+    
+    
+    @Test
+    public void findOrganizationsByName_sameName_differentTenants_queryDefault() throws Exception {
+
+        // Given
+        givenOrgDefaultTenant("Supplier2");
+        givenOrgTenant("Supplier2", "tenant1");
+        
+                
+        runTX(new Callable<Void>() {
+            public Void call() throws Exception {
+                // When
+                Query query = mgr
+                        .createNamedQuery("Organization.findOrganizationsByName");
+                query.setParameter("name", "Supplier2");
+                query.setParameter("tenantId", null);
+                
+                // Then
+                assertEquals(1, query.getResultList().size());
+                return null;
+            }
+        });
+    }
+    
+    @Test
+    public void findOrganizationsByName_sameName_differentTenants_queryCustom() throws Exception {
+
+        // Given
+        givenOrgDefaultTenant("Supplier2");
+        givenOrgTenant("Supplier2", "tenant1");
+        
+                
+        runTX(new Callable<Void>() {
+            public Void call() throws Exception {
+                // When
+                Query query = mgr
+                        .createNamedQuery("Organization.findOrganizationsByName");
+                query.setParameter("name", "Supplier2");
+                query.setParameter("tenantId", "tenant1");
+                
+                // Then
+                assertEquals(1, query.getResultList().size());
+                return null;
+            }
+        });
+    }
+
 
     @Test
     public void testGetVisiblePlatformUsers() throws Exception {
@@ -1501,6 +1642,36 @@ public class OrganizationIT extends DomainObjectTestBase {
         Assert.assertEquals(ModificationType.DELETE, revShmHistObjs.get(1)
                 .getModtype());
 
+    }
+
+    private Organization givenOrgDefaultTenant(final String name) throws Exception {
+        return givenOrgTenant(name, null);   
+    }
+        
+    private Organization givenOrgTenant(final String name, final String tenantId)
+            throws Exception {
+        return runTX(new Callable<Organization>() {
+            @Override
+            public Organization call() throws Exception {
+                Organization org = Organizations.createOrganizationWithTenant(
+                        UUID.randomUUID().toString(), name, tenantId, mgr);
+                mgr.persist(org);
+                return org;
+            }
+        });
+    }
+
+    private Organization givenOrgExistingTenant(final String name, final Tenant tenant)
+            throws Exception {
+        return runTX(new Callable<Organization>() {
+            @Override
+            public Organization call() throws Exception {
+                Organization org = Organizations.createOrganizationWithTenant(
+                        UUID.randomUUID().toString(), name, tenant, mgr);
+                mgr.persist(org);
+                return org;
+            }
+        });
     }
 
 }

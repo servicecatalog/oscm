@@ -32,7 +32,7 @@ if (ExceptionHandler.isInvalidUserSession(exception)) {
 
       </div>
     </div>
-    
+
   </div>
 
 </div>
@@ -48,7 +48,7 @@ if (ExceptionHandler.isInvalidUserSession(exception)) {
 <table cellspacing="0" cellpadding="0" border="0"><tr><td>
 <div style="text-align:left;">
   <div class="rich-panel-header"><%=ExceptionHandler.getErrorTitle(request)%></div>
-  
+
   <div style="border: 1px solid grey; width: 300px; height: 80px; padding: 5px 5px 5px 5px;">
     <%=ExceptionHandler.getErrorText(request)%>
     <%

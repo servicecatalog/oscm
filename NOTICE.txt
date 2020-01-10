@@ -5,29 +5,30 @@ Copyright 2019 FUJITSU LIMITED
 -------------------------------------------------------
 This software includes the following software licensed under Apache 2.0 license:
 
-  * activemq-broker-5.14.3
-  * activemq-client-5.14.3
-  * activemq-jdbc-store-5.14.3
-  * activemq-kahadb-store-5.14.3
-  * activemq-openwire-legacy-5.14.3
+  * activemq-broker-5.15.8
+  * activemq-client-5.15.8
+  * activemq-jdbc-store-5.15.8
+  * activemq-kahadb-store-5.15.8
+  * activemq-openwire-legacy-5.15.8
   * activemq-protobuf-1.1
-  * activemq-ra-5.14.3
+  * activemq-ra-5.15.8
   * adal4j-1.1.3
   * tomcat-annotations-api-7.0.76
   * commons-collections-3.2.1
-  * CabParser-2.15
+  * apache-commons-daemon
   * commons-dbcp-1.4
-  * commons-el-5.5.23
   * commons-logging-1.1.2
+  * apache-commons-logging
   * commons-pool-1.6
   * asm-1.0.2
+  * avalon-framework-api-4.3
   * avalon-framework-impl-4.3
+  * CabParser-2.15
   * avalon-logkit-2.1
   * aws-java-sdk-core-1.11.37
   * aws-java-sdk-ec2-1.11.37
   * axis-1.4
   * axis-ant-1.4
-  * axis-jaxrpc-1.4
   * axis-saaj-1.4
   * azure-core-0.9.7
   * azure-mgmt-compute-0.9.7
@@ -40,12 +41,12 @@ This software includes the following software licensed under Apache 2.0 license:
   * bval-jsr-1.1.2
   * catalina-ant
   * tomcat-catalina-ha-7.0.76
-  * tomcat-storeconfig-8.5.11
+  * tomcat-storeconfig-8.5.41
   * tomcat-tribes-7.0.76
   * tomcat-catalina-7.0.76
   * classmate-1.3.0
   * commons-beanutils-1.8.3
-  * commons-beanutils-core-1.8.3
+  * commons-beanutils-1.9.3
   * commons-cli-1.2
   * commons-codec-1.10
   * commons-collections-3.2.2
@@ -55,82 +56,130 @@ This software includes the following software licensed under Apache 2.0 license:
   * commons-dbcp2-2.1
   * commons-digester-1.8.1
   * commons-digester-1.8
+  * commons-el
   * commons-fileupload-1.2.1
+  * commons-fileupload-1.3.3
   * commons-httpclient-3.1
-  * commons-io-1.4
+  * org-apache-commons-io-RELEASE112
   * commons-io-2.5
-  * commons-lang-2.6
+  * org-apache-commons-lang-RELEASE112
   * commons-lang3-3.5
-  * commons-logging-1.1.1
+  * commons-lang3-3.7
+  * commons-lang3-3.8
   * commons-logging-1.1.3
   * commons-logging-1.2
+  * commons-logging-adapters
+  * commons-logging-api
+  * commons-pool
   * commons-pool2-2.3
   * commons-pool2-2.4.2
   * commons-validator-1.4.0
   * cryptacular-1.0
-  * cxf-core-3.1.10
-  * cxf-rt-bindings-soap-3.1.10
-  * cxf-rt-bindings-xml-3.1.10
-  * cxf-rt-databinding-jaxb-3.1.10
-  * cxf-rt-frontend-jaxrs-3.1.10
-  * cxf-rt-frontend-jaxws-3.1.10
-  * cxf-rt-frontend-simple-3.1.10
-  * cxf-rt-management-3.1.10
-  * cxf-rt-rs-client-3.1.10
-  * cxf-rt-rs-extension-providers-3.1.10
-  * cxf-rt-rs-extension-search-3.1.10
-  * cxf-rt-rs-json-basic-3.1.10
-  * cxf-rt-rs-security-cors-3.1.10
-  * cxf-rt-rs-security-jose-3.1.10
-  * cxf-rt-rs-security-jose-jaxrs-3.1.10
-  * cxf-rt-rs-security-oauth2-3.1.10
-  * cxf-rt-rs-service-description-3.1.10
-  * cxf-rt-security-3.1.10
-  * cxf-rt-security-saml-3.1.10
-  * cxf-rt-transports-http-3.1.10
-  * cxf-rt-ws-addr-3.1.10
-  * cxf-rt-ws-policy-3.1.10
-  * cxf-rt-ws-security-3.1.10
-  * cxf-rt-wsdl-3.1.10
-  * tomcat-el-api-8.5.11
+  * cxf-core-3.1.17
+  * cxf-rt-bindings-soap-3.1.17
+  * cxf-rt-bindings-xml-3.1.17
+  * cxf-rt-databinding-jaxb-3.1.17
+  * cxf-rt-frontend-jaxrs-3.1.17
+  * cxf-rt-frontend-jaxws-3.1.17
+  * cxf-rt-frontend-simple-3.1.17
+  * cxf-rt-management-3.1.17
+  * cxf-rt-rs-client-3.1.17
+  * cxf-rt-rs-extension-providers-3.1.17
+  * cxf-rt-rs-extension-search-3.1.17
+  * cxf-rt-rs-json-basic-3.1.17
+  * cxf-rt-rs-security-cors-3.1.17
+  * cxf-rt-rs-security-jose-3.1.17
+  * cxf-rt-rs-security-jose-jaxrs-3.1.17
+  * cxf-rt-rs-security-oauth2-3.1.17
+  * cxf-rt-rs-service-description-3.1.17
+  * cxf-rt-security-3.1.17
+  * cxf-rt-security-saml-3.1.17
+  * cxf-rt-transports-http-3.1.17
+  * cxf-rt-ws-addr-3.1.17
+  * cxf-rt-ws-policy-3.1.17
+  * cxf-rt-ws-security-3.1.17
+  * cxf-rt-wsdl-3.1.17
+  * ecj-4.5.2
+  * eclipse-ecj
+  * tomcat-el-api-8.5.41
+  * error_prone_annotations-2.2.0
+  * failureaccess-1.0.1
   * fluent-hc-4.3.1
+  * flute-1.3
   * geronimo-connector-3.1.4
   * geronimo-javamail_1.4_mail-1.9.0-alpha-2
   * geronimo-jms_1.1_spec-1.1.1
+  * geronimo-jsonb_1.0_spec-1.0
   * geronimo-jta_1.1_spec-1.1.1
   * geronimo-transaction-3.1.4
+  * gson-2.2.4
   * gson-2.6.2
   * gson-2.8.5
   * guava-18.0
   * guava-19.0
+  * guava-27.1-jre
   * hawtbuf-1.11
+  * httpclient-4.3.6
   * httpclient-4.5.2
   * httpclient-4.5.6
+  * httpcore-4.3.3
   * httpcore-4.4.1
   * httpcore-4.4.10
+  * httpcore-4.4.4
   * j2ep
+  * j2objc-annotations-1.1
+  * jackson-annotations-2.10.1
+  * jackson-annotations-2.8.4
+  * jackson-annotations-2.9.0
   * jackson-annotations-2.9.4
-  * jackson-core-asl-1.9.13
+  * jackson-core-2.10.1
+  * jackson-core-2.6.6
+  * jackson-core-2.7.3
+  * jackson-core-2.8.4
+  * jackson-core-2.9.6
+  * jackson-core-2.9.9
+  * jackson-core-asl-1.9.2
   * jackson-core-2.9.4
+  * jackson-databind-2.10.1
+  * jackson-databind-2.6.6
+  * jackson-databind-2.7.3
+  * jackson-databind-2.8.4
+  * jackson-databind-2.9.6
+  * jackson-databind-2.9.9
   * jackson-databind-2.9.4
-  * jackson-mapper-asl-1.9.13
+  * jackson-dataformat-yaml-2.9.9
+  * jackson-datatype-jsr310-2.9.9
+  * jackson-jaxrs-base-2.8.4
+  * jackson-jaxrs-base-2.9.9
+  * jackson-jaxrs-json-provider-2.8.4
+  * jackson-jaxrs-json-provider-2.9.9
+  * jackson-mapper-asl-1.9.2
+  * jackson-module-jaxb-annotations-2.8.4
+  * jackson-module-jaxb-annotations-2.9.9
   * jandex-2.0.0.Final
   * tomcat-jasper-el-7.0.76
+  * jasper-jdt
   * tomcat-jasper-7.0.76
-  * tomcat-jaspic-api-8.5.11
+  * tomcat-jaspic-api-8.5.41
   * jasypt-1.9.2
   * java-support-7.1.1
   * javaee-api-7.0-1
+  * javassist-3.18.1-GA
   * javassist-3.20.0-GA
+  * javassist-3.22.0-GA
+  * jaxp_parser_impl
   * jboss-logging-3.3.0.Final
-  * joda-time-2.2
   * joda-time-2.7
-  * johnzon-core-1.0.0
-  * johnzon-jaxrs-1.0.0
-  * johnzon-mapper-1.0.0
-  * json-smart-2.2.1
-  * tomcat-jsp-api-8.5.11
+  * joda-time-2.8.1
+  * johnzon-core-1.0.2
+  * johnzon-jaxrs-1.0.2
+  * johnzon-jsonb-1.0.2
+  * johnzon-mapper-1.0.2
+  * json-smart-1.1.1
+  * tomcat-jsp-api-8.5.41
+  * jsr305-3.0.2
   * kafka-clients-0.10.2.1
+  * listenablefuture-9999.0-empty-to-avoid-conflict-with-guava
   * lucene-analyzers-common-5.3.1
   * lucene-backward-codecs-5.3.1
   * lucene-core-5.3.1
@@ -138,32 +187,31 @@ This software includes the following software licensed under Apache 2.0 license:
   * lucene-misc-5.3.1
   * lucene-queries-5.3.1
   * lucene-queryparser-5.3.1
-  * mbean-annotation-api-7.0.3
+  * mbean-annotation-api-7.1.1
   * neethi-3.0.3
-  * nimbus-jose-jwt-4.33
+  * nimbus-jose-jwt-3.1.2
   * oauth2-oidc-sdk-4.5
   * omnifaces-1.10
   * opencsv-3.7
-  * openejb-api-7.0.3
-  * openejb-client-7.0.3
-  * openejb-core-7.0.3
-  * openejb-core-eclipselink-7.0.3
-  * openejb-cxf-7.0.3
-  * openejb-cxf-rs-7.0.3
-  * openejb-cxf-transport-7.0.3
-  * openejb-ejbd-7.0.3
-  * openejb-hsql-7.0.3
-  * openejb-http-7.0.3
-  * openejb-javaagent-7.0.3
-  * openejb-jee-7.0.3
-  * openejb-jee-accessors-7.0.3
-  * openejb-jpa-integration-7.0.3
-  * openejb-jstl-1.2
-  * openejb-loader-7.0.3
-  * openejb-rest-7.0.3
-  * openejb-server-7.0.3
-  * openejb-webservices-7.0.3
-  * openjpa-2.4.2
+  * openejb-api-7.1.1
+  * openejb-client-7.1.1
+  * openejb-core-7.1.1
+  * openejb-core-eclipselink-7.1.1
+  * openejb-cxf-7.1.1
+  * openejb-cxf-rs-7.1.1
+  * openejb-cxf-transport-7.1.1
+  * openejb-ejbd-7.1.1
+  * openejb-hsql-7.1.1
+  * openejb-http-7.1.1
+  * openejb-javaagent-7.1.1
+  * openejb-jee-7.1.1
+  * openejb-jee-accessors-7.1.1
+  * openejb-jpa-integration-7.1.1
+  * openejb-loader-7.1.1
+  * openejb-rest-7.1.1
+  * openejb-server-7.1.1
+  * openejb-webservices-7.1.1
+  * openjpa-2.4.3
   * opensaml-core-3.1.1
   * opensaml-profile-api-3.1.1
   * opensaml-saml-api-3.1.1
@@ -177,66 +225,87 @@ This software includes the following software licensed under Apache 2.0 license:
   * opensaml-xacml-saml-impl-3.1.1
   * opensaml-xmlsec-api-3.1.1
   * opensaml-xmlsec-impl-3.1.1
-  * openwebbeans-ee-1.7.2
-  * openwebbeans-ee-common-1.7.2
-  * openwebbeans-ejb-1.7.2
-  * openwebbeans-el22-1.7.2
-  * openwebbeans-impl-1.7.2
-  * openwebbeans-jsf-1.7.2
-  * openwebbeans-spi-1.7.2
-  * openwebbeans-web-1.7.2
+  * openwebbeans-ee-1.7.6
+  * openwebbeans-ee-common-1.7.6
+  * openwebbeans-ejb-1.7.6
+  * openwebbeans-el22-1.7.6
+  * openwebbeans-impl-1.7.6
+  * openwebbeans-jsf-1.7.6
+  * openwebbeans-spi-1.7.6
+  * openwebbeans-web-1.7.6
+  * commons-codec-1.6
+  * org.eclipse.core.jobs-0.3
   * org.eclipse.equinox.app-0.3
   * org.eclipse.equinox.common-0.3
   * org.eclipse.equinox.preferences-0.3
   * org.eclipse.equinox.registry-0.3
   * poi-3.9
   * quartz-openejb-shade-2.2.1
-  * tomcat-servlet-api-8.5.11
+  * serializer-2.7.2
+  * tomcat-servlet-api-8.5.41
+  * snakeyaml-1.23
   * solr-core-5.3.1
   * solr-solrj-5.3.1
+  * swagger-annotations-2.0.9
+  * swagger-core-2.0.9
+  * swagger-integration-2.0.9
+  * swagger-jaxrs2-2.0.9
+  * swagger-models-2.0.9
   * swizzle-stream-1.6.2
+  * taglibs-standard-impl-1.2.5
+  * taglibs-standard-jstlel-1.2.5
+  * taglibs-standard-spec-1.2.5
   * tomahawk20-1.1.14
   * tomcat-api-7.0.76
   * tomcat-coyote-7.0.76
-  * tomcat-dbcp-8.5.11
+  * tomcat-dbcp-8.5.41
+  * tomcat-el-api
   * tomcat-i18n-es
+  * tomcat-i18n-ru-8.5.41
+  * tomcat-jni-8.5.41
+  * tomcat-jsp-api
   * tomcat-i18n-fr
   * tomcat-i18n-ja
   * tomcat-jdbc
-  * tomcat-jni-8.5.11
+  * tomcat-juli-adapters
+  * tomcat-juli
+  * tomcat7-websocket
   * tomcat-servlet-api
-  * tomcat-util-scan-8.5.11
+  * tomcat-util-scan-8.5.41
   * tomcat-util-7.0.76
-  * tomcat-websocket-8.5.11
-  * tomee-catalina-7.0.3
-  * tomee-common-7.0.3
-  * tomee-jaxrs-7.0.3
-  * tomee-jdbc-7.0.3
-  * tomee-loader-7.0.3
-  * tomee-mojarra-7.0.3
-  * tomee-webapp-7.0.3
-  * tomee-webservices-7.0.3
-  * websocket-api-1.1
+  * tomcat-websocket-8.5.41
+  * tomee-catalina-7.1.1
+  * tomee-common-7.1.1
+  * tomee-jaxrs-7.1.1
+  * tomee-jdbc-7.1.1
+  * tomee-loader-7.1.1
+  * tomee-mojarra-7.1.1
+  * tomee-webapp-7.1.1
+  * tomee-webservices-7.1.1
+  * validation-api-1.1.0.Final
+  * websocket-api
   * woodstox-core-asl-4.4.1
-  * wss4j-bindings-2.1.7
-  * wss4j-policy-2.1.7
-  * wss4j-ws-security-common-2.1.7
-  * wss4j-ws-security-dom-2.1.7
-  * wss4j-ws-security-policy-stax-2.1.7
-  * wss4j-ws-security-stax-2.1.7
+  * wss4j-bindings-2.1.9
+  * wss4j-policy-2.1.9
+  * wss4j-ws-security-common-2.1.9
+  * wss4j-ws-security-dom-2.1.9
+  * wss4j-ws-security-policy-stax-2.1.9
+  * wss4j-ws-security-stax-2.1.9
+  * xalan-2.7.2
   * serializer-2.7.1
   * xalan-2.7.1
-  * xbean-asm5-shaded-4.5
-  * xbean-bundleutils-4.5
-  * xbean-finder-shaded-4.5
-  * xbean-naming-4.5
-  * xbean-reflect-4.5
+  * xbean-asm6-shaded-4.8
+  * xbean-asm7-shaded-4.14
+  * xbean-bundleutils-4.14
+  * xbean-finder-shaded-4.14
+  * xbean-naming-4.14
+  * xbean-reflect-4.14
   * xercesImpl-2.11.0
   * xml-apis-1.4.01
   * xml-apis-ext-1.3.04
   * xml-apis-2.0.2
   * xml-resolver-1.2
-  * xmlschema-core-2.2.1
+  * xmlschema-core-2.2.3
   * xmlsec-2.0.6
 
 License Text:
@@ -449,7 +518,9 @@ License Text:
 This software includes the following software licensed under Apache license:
 
   * commons-discovery-0.2
+  * httpclient-4.3.1
   * httpclient-cache-4.3.1
+  * httpcore-4.3
   * httpmime-4.3.1
   * oro-2.0.8
 
@@ -563,16 +634,29 @@ OF SUCH DAMAGE.
 -------------------------------------------------------
 This software includes the following software licensed under CDDL license:
 
-  * dsn-1.4.6 (source code is available at "http://central.maven.org/maven2/com/sun/mail/dsn/1.4.6/")
-  * gimap-1.4.6 (source code is available at "http://central.maven.org/maven2/com/sun/mail/gimap/1.4.6/")
-  * imap-1.4.6 (source code is available at "http://central.maven.org/maven2/com/sun/mail/imap/1.4.6/")
+  * aopalliance-repackaged-2.5.0-b32 (source code is available at "http://search.maven.org/#search|ga|1|1%3A6af37c3f8ec6f9e9653ec837eb508da28ce443cd")
+  * dsn-1.4.6 (source code is available at "https://repo1.maven.org/maven2/com/sun/mail/dsn/1.4.6/")
+  * gimap-1.4.6 (source code is available at "https://repo1.maven.org/maven2/com/sun/mail/gimap/1.4.6/")
+  * hk2-api-2.5.0-b32 (source code is available at "http://search.maven.org/#search|ga|1|1%3A6a576c9653832ce610b80a2f389374ef19d96171")
+  * hk2-locator-2.5.0-b32 (source code is available at "http://search.maven.org/#search|ga|1|1%3A195474f8ad0a8d130e9ea949a771bcf1215fc33b")
+  * hk2-utils-2.5.0-b32 (source code is available at "http://search.maven.org/#search|ga|1|1%3A5108a926988c4ceda7f1e681dddfe3101454a002")
+  * imap-1.4.6 (source code is available at "https://repo1.maven.org/maven2/com/sun/mail/imap/1.4.6/")
+  * javax.annotation-api-1.2 (source code is available at "http://search.maven.org/#search|ga|1|1%3A479c1e06db31c432330183f5cae684163f186146")
   * javax.faces-2.2.12 (source code is available at "http://search.maven.org/#search|ga|1|1%3A3e0cd82d568c90b5daf12530801152707f4192b5")
-  * javax.mail-api-1.4.6 (source code is available at "http://central.maven.org/maven2/javax/mail/javax.mail-api/1.4.6/")
-  * javax.mail-1.4.6 (source code is available at "http://central.maven.org/maven2/javax/mail/mail/1.4.6/")
+  * javax.inject-2.5.0-b32 (source code is available at "http://search.maven.org/#search|ga|1|1%3Ab2fa50c8186a38728c35fe6a9da57ce4cc806923")
+  * javax.mail-api-1.4.6 (source code is available at "https://repo1.maven.org/maven2/javax/mail/javax.mail-api/1.4.6/")
+  * javax.mail-1.4.6 (source code is available at "https://repo1.maven.org/maven2/javax/mail/mail/1.4.6/")
+  * jaxb-core-2.3.0 (source code is available at "http://search.maven.org/#search|ga|1|1%3Ad044c784e41d026778693fb44a8026c1fd9a7506")
+  * jaxb-impl-2.3.0 (source code is available at "http://search.maven.org/#search|ga|1|1%3A3a3c6a62719d967175b76b63925f1fb495f11437")
   * jboss-transaction-api_1.1_spec-1.0.1.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A18f0e1d42f010a8b53aa447bf274a706d5148852")
-  * pop3-1.4.6 (source code is available at "http://central.maven.org/maven2/com/sun/mail/pop3/1.4.6/")
-  * servlet (source code is available at "https://github.com/javaee/servlet-spec")
-  * smtp-1.4.6 (source code is available at "http://central.maven.org/maven2/com/sun/mail/smtp/1.4.6/")
+  * jersey-client-2.25.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A4d563b1f93352ee9fad597e9e1daf2c6159993c6")
+  * jersey-common-2.25.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A2438ce68d4907046095ab54aa83a6092951b4bbb")
+  * jersey-entity-filtering-2.25.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A4a5805060f796ec2c9bb1ba0ce91c1db6d889524")
+  * jersey-guava-2.25.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3Aa2bb4f8208e134cf2cf71dfb8824e42942f7bd06")
+  * jersey-media-json-jackson-2.25.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A19d1e4276eb7b6386640c344d9e5c01eba7eae5d")
+  * osgi-resource-locator-1.0.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A4ed2b2d4738aed5786cfa64cba5a332779c4c708")
+  * pop3-1.4.6 (source code is available at "https://repo1.maven.org/maven2/com/sun/mail/pop3/1.4.6/")
+  * smtp-1.4.6 (source code is available at "https://repo1.maven.org/maven2/com/sun/mail/smtp/1.4.6/")
   * sxc-jaxb-core-0.8 (source code is available at "http://search.maven.org/#search|ga|1|1%3A5fad2be537981e047436b4e7d98b56f0e2c04a22")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
@@ -965,9 +1049,12 @@ of liability.
 -------------------------------------------------------
 This software includes the following software licensed under CDDL 1.1 license:
 
+  * javax.ws.rs-api-2.0.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A104e9c2b5583cfcfeac0402316221648d6d8ea6b")
+  * jaxb-api-2.3.0 (source code is available at "http://search.maven.org/#search|ga|1|1%3A99f802e0cb3e953ba3d6e698795c4aeb98d37c48")
   * jersey-bundle-1.18.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3Acb8113ab1cca74cfff42e6814c74141eacfe0267")
-  * mimepull-1.7 (source code is available at "http://search.maven.org/#search|ga|1|1%3Aa51895cd0af5c85def2ed3bd1a9c29e487e86a2b")
-  * saaj-impl-1.3.18 (source code is available at "http://search.maven.org/#search|ga|1|1%3A353ec287fade0062410e10d788350bdfb0f9c13b")
+  * mimepull-1.9 (source code is available at "http://search.maven.org/#search|ga|1|1%3A818e6cceef03485cffeaf4f87ac0537623bbd1ce")
+  * saaj-impl-1.3.23 (source code is available at "http://search.maven.org/#search|ga|1|1%3Afbebd2a0ceeb7daa633d579687f98eb90b1097d2")
+  * stax-ex-1.7.4 (source code is available at "http://search.maven.org/#search|ga|1|1%3Aed36eef83c093301ce329f09e55249af676c808f")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
 
@@ -1355,52 +1442,9 @@ distribute such responsibility on an equitable basis. Nothing
 herein is intended or shall be deemed to constitute any admission
 of liability.
 
-
--------------------------------------------------------
-This software includes the following software licensed under EDL 1.0 license:
-
-  * commonj.sdo-2.1.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A90d4c89ce0a69f58619f1a247bbf420122139ff5")
-  * eclipselink-2.6.3 (source code is available at "http://search.maven.org/#search|ga|1|1%3A7c8ca22df28ccd67cca0968b6228991b8ec1526c")
-  * hibernate-jpa-2.1-api-1.0.0.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A5e731d961297e5a07290bfaf3db1fbc8bbbf405a")
-
-In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
-
-License Text:
-
-
-Eclipse Distribution License - v 1.0
-
-Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, 
-are permitted provided that the following conditions are met:
-
-    * Redistributions of source code must retain the above copyright notice, 
-      this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright notice,
-      this list of conditions and the following disclaimer in the documentation 
-      and/or other materials provided with the distribution.
-    * Neither the name of the Eclipse Foundation, Inc. nor the names of its 
-      contributors may be used to endorse or promote products derived from this 
-      software without specific prior written permission. 
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
-IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
-INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
-BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
-LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
-OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
-OF THE POSSIBILITY OF SUCH DAMAGE.
-
-
 -------------------------------------------------------
 This software includes the following software licensed under EPL 2.0 license:
-
+  
 * BIRT 4.5 - http://ftp.fau.de/eclipse/birt/downloads/drops/R-R1-4_5_0-201506092134/birt-runtime-4.5.0-20150609.zip
   (See notice file https://www.eclipse.org/legal/epl/notice.php, source code is available at "http://ftp.fau.de/eclipse/birt/downloads/drops/R-R1-4_5_0-201506092134/")
     
@@ -1495,6 +1539,47 @@ Exhibit A – Form of Secondary Licenses Notice
     You may add additional accurate notices of copyright ownership.
 
 -------------------------------------------------------
+This software includes the following software licensed under EDL 1.0 license:
+
+  * commonj.sdo-2.1.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A90d4c89ce0a69f58619f1a247bbf420122139ff5")
+  * eclipselink-2.6.4 (source code is available at "http://search.maven.org/#search|ga|1|1%3A526cc0ddb69c01784e7e9b0a048f39dc313403cb")
+  * hibernate-jpa-2.1-api-1.0.0.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A5e731d961297e5a07290bfaf3db1fbc8bbbf405a")
+
+In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
+
+License Text:
+
+
+Eclipse Distribution License - v 1.0
+
+Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, 
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice, 
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright notice,
+      this list of conditions and the following disclaimer in the documentation 
+      and/or other materials provided with the distribution.
+    * Neither the name of the Eclipse Foundation, Inc. nor the names of its 
+      contributors may be used to endorse or promote products derived from this 
+      software without specific prior written permission. 
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, 
+INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-------------------------------------------------------
 This software includes the following software licensed under W3C license:
 
   * sac-1.3
@@ -1543,14 +1628,20 @@ software and any associated documentation will at all times remain with copyrigh
 -------------------------------------------------------
 This software includes the following software licensed under MIT license:
 
+  * animal-sniffer-annotations-1.17
+  * checker-qual-2.5.2
+  * classgraph-4.6.32
   * commons-cli-1.0-2.0
   * dom4j-1.6.1-2.0
+  * java-jwt-3.8.1
   * log4j-1.2.17-2.0
+  * lombok-1.18.8
   * openstack4j-3.1.0
   * openstack4j-core-3.1.0
   * openstack4j-httpclient-3.1.0
   * slf4j-api-1.7.16
   * slf4j-api-1.7.21
+  * slf4j-api-1.7.26
   * slf4j-jdk14-1.7.21
   * slf4j-log4j12-1.7.16
   * slf4j-log4j12-1.7.7
@@ -2270,10 +2361,38 @@ necessary.  Here is a sample; alter the names:
 
 That's all there is to it!
 
+
+-------------------------------------------------------
+This software includes the following software licensed under POSTGRESQL license:
+
+  * Postgres 9.6
+  * postgresql-9.4-1206-jdbc42
+  
+
+License Text:
+
+License
+
+PostgreSQL is released under the PostgreSQL License (https://opensource.org/licenses/postgresql), a liberal Open Source license, similar to the BSD or MIT licenses.
+
+PostgreSQL Database Management System
+(formerly known as Postgres, then as Postgres95)
+
+Portions Copyright (c) 1996-2018, The PostgreSQL Global Development Group
+
+Portions Copyright (c) 1994, The Regents of the University of California
+
+Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
+
+IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+
 -------------------------------------------------------
 This software includes the following software licensed under Individual VMWare license:
 
-  * VMware vSphere SDK 5.5, vim25
+  * VMware vSphere Software Development Kit wsvim25-1.0.0
 
 License Text:
 
@@ -2356,7 +2475,7 @@ THE FOREGOING LIMITATIONS SHALL APPLY TO THE MAXIMUM EXTENT PERMITTED BY APPLICA
 -------------------------------------------------------
 This software includes the following software licensed under GPL 2 with Classpath Exception license:
 
-  * OpenJDK 1.8.0_u201 (source code is available at "http://openjdk.java.net/projects/jdk8u/")
+  * OpenJDK 1.8.0_u232 (source code is available at "http://openjdk.java.net/projects/jdk8u/")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
 
@@ -2710,28 +2829,3 @@ exception as provided by Oracle in the LICENSE file that accompanied this code."
     the library, but you are not obligated to do so.  If you do not wish to do
     so, delete this exception statement from your version.
 
- 
--------------------------------------------------------
-This software includes the following software licensed under PostgreSQL License
-
- * Postgres 9.6
- * postgresql-9.4-1206-jdbc42
-
-License Text:
-
-License
-
-PostgreSQL is released under the PostgreSQL License, a liberal Open Source license, similar to the BSD or MIT licenses.
-
-PostgreSQL Database Management System
-(formerly known as Postgres, then as Postgres95)
-
-Portions Copyright (c) 1996-2018, The PostgreSQL Global Development Group
-
-Portions Copyright (c) 1994, The Regents of the University of California
-
-Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
-
-IN NO EVENT SHALL THE UNIVERSITY OF CALIFORNIA BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF THE UNIVERSITY OF CALIFORNIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-THE UNIVERSITY OF CALIFORNIA SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND THE UNIVERSITY OF CALIFORNIA HAS NO OBLIGATIONS TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS
