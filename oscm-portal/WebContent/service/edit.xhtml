@@ -31,7 +31,7 @@
 	
 	        <adm:outputLabel value="#{msg['service.serviceId']}" />
 	        
-		        <b:selectOneMenu select2="true" id="selectedServiceId" value="#{serviceBean.selectedServiceKeyReadOnly}"
+		        <b:selectOneMenu styleClass="select" select2="true" id="selectedServiceId" value="#{serviceBean.selectedServiceKeyReadOnly}"
 		          onclick="AdmUtils.storeValue(this);"
 		          onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}else{AdmUtils.restoreValue(this)}">
 		          <adm:selectItemPleaseSelect itemValue="0" />
@@ -43,7 +43,7 @@
 	
 	        <adm:outputLabel value="#{msg['techService.techServiceId']}" />
 	        <h:panelGroup>
-	          <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="label" />
+	          <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel" />
 	        </h:panelGroup>
 	        <h:outputText value="" />
 	      </adm:panelGrid>
