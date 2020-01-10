@@ -5,6 +5,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:b="http://bootsfaces.net/ui"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
   xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/main.xhtml">
 
@@ -24,10 +25,7 @@
         </h:panelGroup>
         <h:panelGroup>
           <a4j:outputPanel styleClass="jqSelect" layout="block">
-            <a4j:outputPanel styleClass="select">
-              <a4j:outputPanel styleClass="option" />
-            </a4j:outputPanel>
-            <h:selectOneMenu styleClass="select" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
+            <b:selectOneMenu styleClass="select" select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
               valueChangeListener="#{manageRevenueShareCtrl.templateChanged}" immediate="true"
               onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
                  #{rich:element('selectForm')}.submit();
@@ -35,7 +33,7 @@
               onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();">
               <adm:selectItemPleaseSelect itemValue="0" />
               <f:selectItems value="#{manageRevenueShareModel.templates}" />
-            </h:selectOneMenu>
+            </b:selectOneMenu>
           </a4j:outputPanel>
         </h:panelGroup>
         <h:panelGroup>
