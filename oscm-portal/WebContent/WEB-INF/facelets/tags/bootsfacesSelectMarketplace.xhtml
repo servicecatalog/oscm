@@ -1,0 +1,38 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:b="http://bootsfaces.net/ui"
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:a4j="http://richfaces.org/a4j">
+
+  <!-- Component to select (global) marketplaces from a select box. -->
+  <!-- The selection triggers a immediate summit which updates the corresponding value in the MarketplaceBean-->
+  <c:if test="#{items eq null}">
+    <c:set var="items" value="#{marketplaceBean.marketplacesOwned}"/>
+  </c:if>
+  <h:form id="marketplaceSelectForm">
+    <!-- Holds the ID of the selected marketplace option for summit -->
+    <adm:panelGrid>
+      <adm:outputLabel value="#{msg['service.marketplace']}" />
+
+
+        <b:selectOneMenu select2="true" id="selectMarketplaceId"
+                         styleClass="select"
+                         valueChangeListener="#{listenerBean['processValueChange']}"
+                         value="#{marketplaceBean['marketplaceId']}">
+             <adm:selectItemPleaseSelect itemValue="0" />
+             <f:selectItems value="#{items}" var="mp" itemLabel="#{mp.name} (#{mp.marketplaceId})" itemValue="#{mp.marketplaceId}"/>
+             <f:ajax event="change"
+                       execute="@this"
+                       render=":mainTmplMessagesPanel @form #{render}"
+                       oncomplete="AdmUtils.setSelectBoxes();"/>
+        </b:selectOneMenu>
+
+      <adm:message for="selectMarketplaceId" />
+
+    </adm:panelGrid>
+  </h:form>
+</ui:composition>

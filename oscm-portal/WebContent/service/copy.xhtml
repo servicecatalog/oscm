@@ -25,15 +25,28 @@
       <adm:panelGrid>
         <adm:outputLabel labelStyleClass="bootsfacesLabel" value="#{msg['service.serviceId']}" />
  
-	        <b:selectOneMenu styleClass="select" select2="true" id="selectedServiceId" value="#{serviceBean.selectedServiceKeyReadOnly}"
-	          onclick="AdmUtils.storeValue(this);"
-	          onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}else{AdmUtils.restoreValue(this)}">
+	        <b:selectOneMenu select2="true" id="selectedServiceId" value="#{serviceBean.selectedServiceKeyReadOnly}" onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}">
 	          <adm:selectItemPleaseSelect itemValue="0" />
 	          <c:forEach items="#{serviceBean.serviceNames}" var="service">
 	            <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
 	          </c:forEach>
 	        </b:selectOneMenu>
-	      
+
+    <script type = "text/javascript" >
+	$(document).ready(function () {
+			$("[id='copyForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {
+				if (AdmUtils.isNotDirtyOrConfirmed()) {
+
+				} else {
+					e.preventDefault();
+				}
+
+			});
+
+	});
+    </script>
+  
+
         <adm:message for="selectedServiceId" />
 
         <adm:outputLabel labelStyleClass="bootsfacesLabel" value="#{msg['techService.techServiceId']}" />

@@ -39,6 +39,21 @@
 		            <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
 		          </c:forEach>
 		        </b:selectOneMenu>
+             <script type="text/javascript">
+          $(document).ready(function () {           
+              $("[id='editForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {
+                AdmUtils.storeValue(this);
+                if (AdmUtils.isNotDirtyOrConfirmed()) {
+                } else {
+                  AdmUtils.restoreValue(this);
+                  e.preventDefault();
+                }
+
+              });
+
+          });
+          </script>
+            
 	        <adm:message for="selectedServiceId" />
 	
 	        <adm:outputLabel value="#{msg['techService.techServiceId']}" />
