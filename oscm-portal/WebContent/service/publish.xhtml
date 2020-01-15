@@ -24,12 +24,11 @@
 
         <adm:outputLabel value="#{msg['service.serviceId']}" />
           <b:selectOneMenu select2="true" styleClass="select" id="selectedServiceId"
-            value="#{marketableServicePublishModel.selectedServiceKey}"
+            onchange="ajax:ajaxBean.onChange();" value="#{marketableServicePublishModel.selectedServiceKey}"
             oncomplete="ajax:ajaxBean.onComplete();AdmUtils.setUIElements();"
+            update="mainTmplMessagesPanel editForm"
             valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}" onclick="AdmUtils.storeValue(this);" >
 
-              <f:ajax event="change" render="mainTmplMessagesPanel, editForm" />
-               
             <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
           </b:selectOneMenu>
     
