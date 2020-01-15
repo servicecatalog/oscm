@@ -5,6 +5,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:b="http://bootsfaces.net/ui"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
   xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/main.xhtml">
 
@@ -22,19 +23,31 @@
       <adm:panelGrid>
 
         <adm:outputLabel value="#{msg['service.serviceId']}" />
-        <a4j:outputPanel styleClass="jqSelect" layout="block">
-          <a4j:outputPanel styleClass="select">
-            <a4j:outputPanel styleClass="option" />
-          </a4j:outputPanel>
-          <h:selectOneMenu styleClass="select" id="selectedServiceId"
+          <b:selectOneMenu select2="true" styleClass="select" id="selectedServiceId"
             value="#{marketableServicePublishModel.selectedServiceKey}"
-            valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}" onclick="AdmUtils.storeValue(this);">
-            <a4j:ajax event="change" render="mainTmplMessagesPanel, editForm"
-              onbeforesubmit="if(AdmUtils.isNotDirtyOrConfirmed()){setDirty(false); } else {AdmUtils.restoreValue(this);return false;}"
-              oncomplete="AdmUtils.setUIElements();" />
+            oncomplete="ajax:ajaxBean.onComplete();AdmUtils.setUIElements();"
+            valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}" onclick="AdmUtils.storeValue(this);" >
+
+              <f:ajax event="change" render="mainTmplMessagesPanel, editForm" />
+               
             <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
-          </h:selectOneMenu>
-        </a4j:outputPanel>
+          </b:selectOneMenu>
+    
+          <script type="text/javascript">
+          $(document).ready(function () {          
+              $("[id='editForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {
+            	AdmUtils.storeValue(this);  
+                if (AdmUtils.isNotDirtyOrConfirmed()) {
+                  setDirty(false); 
+                } else {
+                  AdmUtils.restoreValue(this);
+                  e.preventDefault();
+                }
+
+              });
+          });
+          </script>
+
         <adm:message for="selectedServiceId" />
 
         <adm:outputLabel value="#{msg['service.nameForCustomer']}" />
