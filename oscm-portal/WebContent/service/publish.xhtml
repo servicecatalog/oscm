@@ -23,30 +23,14 @@
       <adm:panelGrid>
 
         <adm:outputLabel value="#{msg['service.serviceId']}" />
-          <b:selectOneMenu select2="true" styleClass="select" id="selectedServiceId"
-            onchange="ajax:ajaxBean.onChange();" value="#{marketableServicePublishModel.selectedServiceKey}"
-            oncomplete="ajax:ajaxBean.onComplete();AdmUtils.setUIElements();"
-            update="mainTmplMessagesPanel editForm"
-            valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}" onclick="AdmUtils.storeValue(this);" >
 
+          <b:selectOneMenu select2="true" styleClass="select" id="selectedServiceId"
+            value="#{marketableServicePublishModel.selectedServiceKey}"
+            valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}" onclick="AdmUtils.storeValue(this);"
+            oncomplete="AdmUtils.setUIElements();" update="mainTmplMessagesPanel, editForm, editForm:marketplace" >
+          
             <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
           </b:selectOneMenu>
-    
-          <script type="text/javascript">
-          $(document).ready(function () {          
-              $("[id='editForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {
-            	AdmUtils.storeValue(this);  
-                if (AdmUtils.isNotDirtyOrConfirmed()) {
-                  setDirty(false); 
-                } else {
-                  AdmUtils.restoreValue(this);
-                  e.preventDefault();
-                }
-
-              });
-          });
-          </script>
-
         <adm:message for="selectedServiceId" />
 
         <adm:outputLabel value="#{msg['service.nameForCustomer']}" />
