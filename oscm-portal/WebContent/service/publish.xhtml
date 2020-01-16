@@ -31,6 +31,21 @@
           
             <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
           </b:selectOneMenu>
+        
+         <script type="text/javascript">
+          $(document).ready(function () {          
+              $("[id='editForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {
+             
+                if (AdmUtils.isNotDirtyOrConfirmed()) {
+                  setDirty(false); 
+                } else {
+                  e.preventDefault();
+                }
+
+              });
+          });
+          </script>
+            
         <adm:message for="selectedServiceId" />
 
         <adm:outputLabel value="#{msg['service.nameForCustomer']}" />
