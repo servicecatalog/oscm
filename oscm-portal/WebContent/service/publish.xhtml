@@ -19,19 +19,6 @@
     <adm:initialize initializingMethod="#{marketableServicePublishCtrl.initializePublish}"/>
 
     <h:form id="editForm">
-      <adm:outputStep value="#{msg['service.edit.step1']}" />
-      <adm:panelGrid>
-
-        <adm:outputLabel value="#{msg['service.serviceId']}" />
-
-          <b:selectOneMenu select2="true" styleClass="select" id="selectedServiceId"
-            value="#{marketableServicePublishModel.selectedServiceKey}"
-            valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}" onclick="AdmUtils.storeValue(this);"
-            oncomplete="AdmUtils.setUIElements();" update="mainTmplMessagesPanel, editForm, editForm:marketplace" >
-          
-            <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
-          </b:selectOneMenu>
-        
          <script type="text/javascript">
           $(document).ready(function () {          
               $("[id='editForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {
@@ -45,7 +32,19 @@
               });
           });
           </script>
-            
+      <adm:outputStep value="#{msg['service.edit.step1']}" />
+      <adm:panelGrid>
+
+        <adm:outputLabel value="#{msg['service.serviceId']}" />
+
+          <b:selectOneMenu select2="true" styleClass="select" id="selectedServiceId"
+            value="#{marketableServicePublishModel.selectedServiceKey}"
+            valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}" onclick="AdmUtils.storeValue(this);"
+            oncomplete="AdmUtils.setUIElements();" update="mainTmplMessagesPanel, editForm, editForm:marketplace" >
+          
+            <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
+          </b:selectOneMenu>
+  
         <adm:message for="selectedServiceId" />
 
         <adm:outputLabel value="#{msg['service.nameForCustomer']}" />
