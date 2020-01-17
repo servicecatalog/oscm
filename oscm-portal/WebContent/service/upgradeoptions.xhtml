@@ -12,6 +12,20 @@
     <c:set var="focusElement" value="srcServiceId" />
   </ui:define>
   <ui:define name="body">
+  
+  <script type = "text/javascript" >
+  $(document).ready(function () {
+      $("[id='editForm:srcServiceIdInner']").select2().on('select2:selecting', function (e) {
+        if (AdmUtils.isNotDirtyOrConfirmed()) {
+
+        } else {
+          e.preventDefault();
+        }
+
+      });
+
+  });
+  </script> 
 
     <h:form id="selectForm">
       <h:inputHidden id="selectedKey" value="#{serviceBean.selectedServiceKey}" />
@@ -80,7 +94,7 @@
             <f:facet name="header">
               <h:outputText value="#{msg['service.shortDescription']}" />
             </f:facet>
-            <adm:outputLarge style="border-style: none;" value="#{rowItem.shortDescription}" />
+            <adm:outputLarge labelStyleClass="bootsfacesLabel" style="border-style: none;" value="#{rowItem.shortDescription}" />
           </rich:column>
         </adm:dataTable>
       </a4j:outputPanel>
