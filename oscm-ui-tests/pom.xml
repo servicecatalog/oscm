@@ -64,8 +64,6 @@
             <version>9.3-1104-jdbc41</version>
         </dependency>
 
-
-
         <dependency>
             <groupId>org.oscm.webtest</groupId>
             <artifactId>oscm-webtest-base</artifactId>
