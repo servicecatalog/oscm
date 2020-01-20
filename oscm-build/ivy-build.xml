@@ -146,6 +146,8 @@
       overwrite="true" />
     <copy file="${ivy.lib.dir}/axis2-xmlbeans-1.5.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/"
       overwrite="true" />
+    <copy file="${ivy.lib.dir}/bootsfaces-1.4.2.jar" todir="${root.dir}/libraries/net-bootsfaces"
+      overwrite="true" />  
     <copy file="${ivy.lib.dir}/geronimo-stax-api_1.0_spec-1.0.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib/"
       overwrite="true" />
     <copy file="${ivy.lib.dir}/httpcore-4.4.1.jar" todir="${root.dir}/libraries/apache-axis2-lib/javalib"

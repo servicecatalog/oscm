@@ -376,7 +376,17 @@ input[type="file"]{
   color: #FFF;
 }
 
+.formHighlight .bootsfacesLabel .mandatory {
+  color: #FFF;
+}
+
 tr.formHighlight .label,
+tr.formHighlight.rf-dt-r > td{
+  background-color:  #9DBEE9 !important;
+  color:#000!important;
+}
+
+tr.formHighlight .bootsfacesLabel,
 tr.formHighlight.rf-dt-r > td{
   background-color:  #9DBEE9 !important;
   color:#000!important;
@@ -402,6 +412,16 @@ tr.formHighlight textarea, .formHighlight select {
   margin-top:1px;
 }
 
+.bootsfacesLabel{
+  min-width: 100px;
+  white-space: normal;
+  position: relative;
+  padding:0 12px 0 0;
+  vertical-align:middle;
+  display:block !important;
+  line-height:20px;
+  margin-top:1px;
+}
 .labelAndValuePanelCol1 .label,
 .smallPanelCol1 .label{
   -moz-border-radius:6px;
@@ -410,8 +430,25 @@ tr.formHighlight textarea, .formHighlight select {
   margin:0 6px;
 }
 
-.labelAndValuePanelCol1 .label{
+.labelAndValuePanelCol1 .bootsfacesLabel,
+.smallPanelCol1 .bootsfacesLabel{
+  -moz-border-radius:6px;
+  border-radius:6px;
+  padding:1px 4px;
+  margin:0 6px;
+}
 
+
+.labelAndValuePanelCol1 .label{
+	color: #000 !important;
+	font-size: 9pt !important;
+	font-weight: normal; 
+}
+
+.labelAndValuePanelCol2 .label{
+	color: #000 !important;
+	font-size: 9pt !important;
+	font-weight: normal; 
 }
 .smallPanelCol2 .field,
 .smallPanelCol2 .fieldS {
@@ -419,6 +456,13 @@ tr.formHighlight textarea, .formHighlight select {
 }
 
 .label span.label{
+	padding:0;
+	margin:0 !important;
+	-moz-border-radius:0;
+   	border-radius:0;
+}
+
+.bootsfacesLabel span.bootsfacesLabel{
 	padding:0;
 	margin:0 !important;
 	-moz-border-radius:0;
@@ -707,6 +751,10 @@ th[sortable="true"].extdt-subheadercell:hover{
  }
 
 .formHighlight .labelAndValuePanelCol1 .label{
+	background:none;
+}
+
+.formHighlight .labelAndValuePanelCol1 .bootsfacesLabel{
 	background:none;
 }
 
