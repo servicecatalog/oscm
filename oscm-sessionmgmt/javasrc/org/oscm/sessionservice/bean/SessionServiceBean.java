@@ -1,4 +1,12 @@
+/*******************************************************************************
+ *                                                                              
+ *  Copyright FUJITSU LIMITED 2020
+ *                                                                              
+ *  Creation Date: 20-01-2020                                                      
+ *                                                                              
+ *******************************************************************************/
 
+ 
 package org.oscm.sessionservice.bean;
 
 import java.util.ArrayList;
