@@ -1,12 +1,4 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2020
- *                                                                              
- *  Creation Date: 20-01-2020                                                      
- *                                                                              
- *******************************************************************************/
 
- 
 package org.oscm.sessionservice.bean;
 
 import java.util.ArrayList;
@@ -71,44 +63,50 @@ import org.oscm.internal.types.exception.ValidationException;
  * @author Mike J&auml;ger
  */
 @Stateless
-@Local(SessionServiceLocal.class)
-@Remote(SessionService.class)
-@Interceptors({ InvocationDateContainer.class, ExceptionMapper.class })
+        @Local(SessionServiceLocal.class)
+            @Remote(SessionService.class)
+                @Interceptors({ InvocationDateContainer.class, ExceptionMapper.class })
+
+
+
+
+
+
 public class SessionServiceBean implements SessionServiceLocal, SessionService {
 
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(SessionServiceBean.class);
 
-    @EJB(beanInterface = DataService.class)
-    DataService dm;
+        @EJB(beanInterface = DataService.class)
+        DataService dm;
 
-    @EJB(beanInterface = SubscriptionServiceLocal.class)
-    SubscriptionServiceLocal subMgmt;
+        @EJB(beanInterface = SubscriptionServiceLocal.class)
+        SubscriptionServiceLocal subMgmt;
 
-    @EJB(beanInterface = UserGroupServiceLocalBean.class)
-    UserGroupServiceLocalBean userGroupService;
+        @EJB(beanInterface = UserGroupServiceLocalBean.class)
+        UserGroupServiceLocalBean userGroupService;
 
-    @EJB
-    private EventServiceBean evtMgmt;
+        @EJB
+        private EventServiceBean evtMgmt;
 
-    @EJB(beanInterface = ConfigurationServiceLocal.class)
-    private ConfigurationServiceLocal cfgSvc;
+@EJB(beanInterface = ConfigurationServiceLocal.class)
+private ConfigurationServiceLocal cfgSvc;
 
-    @Resource
-    private SessionContext sessionCtx;
+@Resource
+private SessionContext sessionCtx;
 
-    @Override
-    public void deleteAllSessions() {
+@Override
+public void deleteAllSessions() {
 
-        String nodeName = cfgSvc.getNodeName();
+    String nodeName = cfgSvc.getNodeName();
 
         // also here the logout events have to be created; as this is only
-        // invoked during the startup, no concurrent access will occur.
-        Query query = dm.createNamedQuery("Session.getAllEntriesForNode");
-        query.setParameter("nodeName", nodeName);
-        for (Session session : ParameterizedTypes.iterable(
-                query.getResultList(), Session.class)) {
-            if (session.getSessionType() == SessionType.SERVICE_SESSION) {
+            // invoked during the startup, no concurrent access will occur.
+            Query query = dm.createNamedQuery("Session.getAllEntriesForNode");
+            query.setParameter("nodeName", nodeName);
+            for (Session session : ParameterizedTypes.iterable(
+                    query.getResultList(), Session.class)) {
+                if (session.getSessionType() == SessionType.SERVICE_SESSION) {
                 createLogoutEvent(session);
             }
         }

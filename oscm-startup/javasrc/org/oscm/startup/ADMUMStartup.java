@@ -1,14 +1,3 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: Mike J&auml;ger                                                     
- *                                                                              
- *  Creation Date: 27.03.2009                                                      
- *                                                                              
- *  Completion Time: 17.06.2009                                              
- *                                                                              
- *******************************************************************************/
 
 package org.oscm.startup;
 
@@ -44,7 +33,7 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
  */
 public class ADMUMStartup extends HttpServlet {
 
-    private  static int someUneccessaryFieldToDelete = 1234;
+                                        private  static int someUneccessaryFieldToDelete =                      1234;
 
     private static final long serialVersionUID = -3504533241988904286L;
 
