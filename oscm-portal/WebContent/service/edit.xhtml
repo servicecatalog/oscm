@@ -26,6 +26,18 @@
 	    <h:form id="editForm" enctype="multipart/form-data"
 	      onsubmit="return AdmUtils.ie7UploadValidation(#{rich:element('image')});">
 	
+   <script type="text/javascript">
+          $(document).ready(function () {           
+              $("[id='editForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {     
+                if (AdmUtils.isNotDirtyOrConfirmed()) {
+                } else {
+                  e.preventDefault();
+                }
+
+              });
+
+          });
+          </script>
 	      <adm:outputStep value="#{msg['service.edit.step1']}" />
 	      <adm:panelGrid>
 	
@@ -39,6 +51,7 @@
 		            <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
 		          </c:forEach>
 		        </b:selectOneMenu>
+          
 	        <adm:message for="selectedServiceId" />
 	
 	        <adm:outputLabel value="#{msg['techService.techServiceId']}" />
