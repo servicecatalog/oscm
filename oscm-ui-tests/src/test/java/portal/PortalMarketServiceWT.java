@@ -27,6 +27,7 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PortalMarketServiceWT {
 
+    // TODO move to properties
     private static final String TECHSERVICE_IAAS_USER_ID = "DummyUser";
     private static final String TECHSERVICE_IAAS_USER_PWD = "DummyPwd123";
     private static final String marketServiceName = "ms_"
@@ -59,7 +60,7 @@ public class PortalMarketServiceWT {
                 5);
         Select dropdownServiceName = new Select(tester.getDriver().findElement(
                 By.id(PortalHtmlElements.DEFINE_MARKETSERVICE_DROPDOWN_SERVICENAME)));
-        dropdownServiceName.selectByVisibleText("AppSampleService");
+        dropdownServiceName.selectByVisibleText("AppSampleService"); // TODO move to properties
         tester.waitForElementVisible(
                 By.id(PortalHtmlElements.DEFINE_MARKETSERVICE_BUTTONLINK_SAVE),
                 5);

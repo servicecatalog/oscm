@@ -59,10 +59,10 @@ public class PortalHtmlElements {
     public static final String IMPORT_TECHSERVICE_UPLOAD_BUTTON = "importForm:importButtonLink";
 
     public static final String UPDATE_TECHSERVICE_PARAM_TABLE = "editForm:parameterTable";
-    public static final String UPDATE_TECHSERVICE_DROPDOWN_SERVICENAME = "techServiceForm:techServiceId";
+    public static final String UPDATE_TECHSERVICE_DROPDOWN_SERVICENAME = "techServiceForm:techServiceIdInner";
     public static final String UPDATE_TECHSERVICE_BUTTONLINK_SAVE = "editForm:saveButtonLink";
 
-    public static final String DEFINE_MARKETSERVICE_DROPDOWN_SERVICENAME = "editForm:techServiceId";
+    public static final String DEFINE_MARKETSERVICE_DROPDOWN_SERVICENAME = "editForm:techServiceIdInner";
     public static final String DEFINE_MARKETSERVICE_INPUT_SERVICENAME = "editForm:serviceName";
     public static final String DEFINE_MARKETSERVICE_INPUT_SERVICEID = "editForm:serviceId";
     public static final String DEFINE_MARKETSERVICE_PARAM_TABLE = "editForm:parameterTable";
@@ -75,7 +75,7 @@ public class PortalHtmlElements {
     public static final String DEFINE_PRICEMODEL_CHECKBOX_PRO_RATE = "editForm:isfree:1";
     public static final String DEFINE_PRICEMODEL_CHECKBOX_PER_UNITE = "editForm:isfree:2";
 
-    public static final String DEFINE_PUBLISH_OPTION_DROPDOWN_SERVICENAME = "editForm:selectedServiceId";
+    public static final String DEFINE_PUBLISH_OPTION_DROPDOWN_SERVICENAME = "editForm:selectedServiceIdInner";
     public static final String DEFINE_PUBLISH_OPTION_DROPDOWN_MARKETPLACE = "editForm:marketplace";
     public static final String DEFINE_PUBLISH_OPTION_BUTTON_SAVE = "editForm:saveButton";
 

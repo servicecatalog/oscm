@@ -21,7 +21,7 @@ public class AppControllerDBTester {
     private static final String DB_DRIVER = "org.postgresql.Driver";
     private static final String DB_TYPE = "postgresql";
     private static final String DB_PORT = "5432";
-    private static final String DB_HOST = "localhost";
+    private static final String DB_HOST = "10.140.18.99";
     private static final String DB_NAME = "bssapp";
     private static final String DB_USERNAME = "bssappuser";
     private static final String DB_PASSWORD = "secret";
