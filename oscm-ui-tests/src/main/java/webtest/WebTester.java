@@ -9,6 +9,7 @@
  */
 package webtest;
 
+import com.gargoylesoftware.htmlunit.WebClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -74,7 +75,14 @@ public class WebTester {
   public WebTester() throws Exception {
 
     loadPropertiesFile();
-    driver = new HtmlUnitDriver(true);
+    driver = new HtmlUnitDriver(true){
+      @Override
+      protected WebClient modifyWebClient(WebClient client) {
+        final WebClient webClient = super.modifyWebClient(client);
+        webClient.getOptions().setThrowExceptionOnScriptError(false);
+        return webClient;
+      }
+    };
     driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
     setWaitingTime(IMPLICIT_WAIT);
     setAuthenticationContext();
