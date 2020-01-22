@@ -1,9 +1,9 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018                                           
- *                                                                                                                                 
+ *
  *  Creation Date: Feb 8, 2017                                                      
- *                                                                              
+ *
  *******************************************************************************/
 
 package portal;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Integration web test to create a technical service.
- * 
+ *
  * @author sxu
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
