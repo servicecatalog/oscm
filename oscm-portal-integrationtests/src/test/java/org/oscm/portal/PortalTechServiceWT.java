@@ -98,6 +98,8 @@ public class PortalTechServiceWT {
 
         tester.clickElement(
                 PortalHtmlElements.UPDATE_TECHSERVICE_BUTTONLINK_SAVE);
+        tester.waitForElement(
+                By.id(PortalHtmlElements.PORTAL_SPAN_INFOS), 10);
         assertTrue(tester.getExecutionResult());
         PlaygroundSuiteTest.techServiceName = importTechSerName;
     }
