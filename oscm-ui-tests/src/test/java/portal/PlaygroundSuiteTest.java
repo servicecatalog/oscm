@@ -1,9 +1,9 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018                                           
- *                                                                                                                                 
+ *
  *  Creation Date: Feb 7, 2017                                                      
- *                                                                              
+ *
  *******************************************************************************/
 
 package portal;
@@ -15,13 +15,13 @@ import webtest.WebTester;
 
 /**
  * Test suite for integration web tests for the OSCM portal
- * 
+ *
  * @author miethaner
  */
 @RunWith(Suite.class)
-@SuiteClasses({ PortalOrganizationWT.class, PortalMarketplaceWT.class,
+@SuiteClasses({PortalOrganizationWT.class, PortalMarketplaceWT.class,
         AppConfigurationWT.class, PortalTechServiceWT.class,
-        PortalMarketServiceWT.class, MarketplaceSubscriptionWT.class })
+        PortalMarketServiceWT.class, MarketplaceSubscriptionWT.class})
 public class PlaygroundSuiteTest {
 
     public static String supplierOrgId = "";

@@ -1,9 +1,9 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018                                           
- *                                                                                                                                 
+ *
  *  Creation Date: Feb 8, 2017                                                      
- *                                                                              
+ *
  *******************************************************************************/
 
 package portal;
@@ -14,7 +14,7 @@ import org.junit.runners.MethodSorters;
 
 /**
  * Integration web test to create a new user.
- * 
+ *
  * @author miethaner
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

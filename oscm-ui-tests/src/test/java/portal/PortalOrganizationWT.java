@@ -1,9 +1,9 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018                                           
- *                                                                                                                                 
+ *
  *  Creation Date: Feb 8, 2017                                                      
- *                                                                              
+ *
  *******************************************************************************/
 
 package portal;
@@ -24,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Integration web test to create an organization.
- * 
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PortalOrganizationWT {
