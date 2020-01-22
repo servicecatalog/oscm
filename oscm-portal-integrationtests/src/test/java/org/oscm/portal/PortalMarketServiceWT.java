@@ -120,6 +120,8 @@ public class PortalMarketServiceWT {
         tester.waitForElementVisible(
                 By.id(PortalHtmlElements.DEFINE_PRICEMODEL_BUTTON_SAVE), 10);
         tester.clickElement(PortalHtmlElements.DEFINE_PRICEMODEL_BUTTON_SAVE);
+        tester.waitForElement(
+                By.id(PortalHtmlElements.PORTAL_SPAN_INFOS), 10);
 
         assertTrue(tester.getExecutionResult());
 
@@ -168,6 +170,9 @@ public class PortalMarketServiceWT {
         }
         tester.clickElement(
                 PortalHtmlElements.DEACTIVATION_SERVICE_BUTTON_SAVE);
+        tester.waitForElement(
+                By.id(PortalHtmlElements.PORTAL_SPAN_INFOS), 10);
+
         assertTrue(tester.getExecutionResult());
     }
 
