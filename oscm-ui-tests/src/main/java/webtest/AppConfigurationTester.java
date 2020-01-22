@@ -1,9 +1,9 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018                                           
- *                                                                                                                                 
+ *
  *  Creation Date: 20 6, 2018                                                      
- *                                                                              
+ *
  *******************************************************************************/
 package webtest;
 
@@ -43,11 +43,9 @@ public class AppConfigurationTester extends WebTester {
     /**
      * Attempts a login to the OSCM portal with the given credentials. Note that
      * this method assumes the webdriver to be at the login page.
-     * 
-     * @param user
-     *            the user name
-     * @param password
-     *            the password
+     *
+     * @param user     the user name
+     * @param password the password
      * @throws InterruptedException
      * @throws Exception
      */
@@ -73,9 +71,8 @@ public class AppConfigurationTester extends WebTester {
 
     /**
      * Navigates the webdriver to the given page of the OSCM portal.
-     * 
-     * @param page
-     *            the page of the portal
+     *
+     * @param page the page of the portal
      * @throws Exception
      */
     public void visitAppConfig() throws Exception {
@@ -95,7 +92,7 @@ public class AppConfigurationTester extends WebTester {
      * Logs out the current user from the OSCM portal. Note that this method
      * assumes that there is a logged in user and that the driverApp is at a
      * portal page.
-     * 
+     *
      * @throws Exception
      */
     public void logoutAppConfig() throws Exception {
@@ -103,10 +100,9 @@ public class AppConfigurationTester extends WebTester {
 
     /**
      * Reads the error message from the page notification.
-     * 
+     *
      * @return the error message
-     * @throws NoSuchElementException
-     *             if error message is not present
+     * @throws NoSuchElementException if error message is not present
      */
     public String readErrorMessage() {
         WebElement element = driver.findElement(
@@ -119,10 +115,9 @@ public class AppConfigurationTester extends WebTester {
 
     /**
      * Reads the info message from the page notification.
-     * 
+     *
      * @return the info message
-     * @throws NoSuchElementException
-     *             if info message is not present
+     * @throws NoSuchElementException if info message is not present
      */
     public String readInfoMessage() {
         WebElement element = driver.findElement(
@@ -141,7 +136,7 @@ public class AppConfigurationTester extends WebTester {
         if (!verifyFoundElement(By
                 .className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR))
                 && verifyFoundElement(By.className(
-                        AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK))) {
+                AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK))) {
             logger.info(readInfoMessage());
             return true;
         } else {

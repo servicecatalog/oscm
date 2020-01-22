@@ -21,32 +21,32 @@ import static webtest.WebTester.IMPLICIT_WAIT;
 
 public class InternalAuthenticationContext implements AuthenticationContext {
 
-  private static final Logger logger = Logger.getLogger(InternalAuthenticationContext.class);
+    private static final Logger logger = Logger.getLogger(InternalAuthenticationContext.class);
 
-  private WebDriver driver;
+    private WebDriver driver;
 
-  public InternalAuthenticationContext(WebDriver driver) {
-    this.driver = driver;
-  }
-
-  @Override
-  public void loginPortal(String user, String password) throws LoginException {
-    WebElement userInput = driver.findElement(By.id(PortalHtmlElements.PORTAL_INPUT_USERID));
-    userInput.sendKeys(user);
-
-    WebElement pwdInput = driver.findElement(By.name(PortalHtmlElements.PORTAL_INPUT_PASSWORD));
-    pwdInput.sendKeys(password);
-
-    driver.findElement(By.id(PortalHtmlElements.PORTAL_BUTTON_LOGIN)).click();
-    driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
-
-    try {
-      driver.findElement(By.id(PortalHtmlElements.PORTAL_DIV_LOGIN_FAILED));
-      String info = "Login to OSCM Portal failed with userId:" + user;
-      logger.info(info);
-      throw new LoginException(info);
-    } catch (NoSuchElementException exc) {
-      logger.info("Login to OSCM Portal successfully with userId:" + user);
+    public InternalAuthenticationContext(WebDriver driver) {
+        this.driver = driver;
     }
-  }
+
+    @Override
+    public void loginPortal(String user, String password) throws LoginException {
+        WebElement userInput = driver.findElement(By.id(PortalHtmlElements.PORTAL_INPUT_USERID));
+        userInput.sendKeys(user);
+
+        WebElement pwdInput = driver.findElement(By.name(PortalHtmlElements.PORTAL_INPUT_PASSWORD));
+        pwdInput.sendKeys(password);
+
+        driver.findElement(By.id(PortalHtmlElements.PORTAL_BUTTON_LOGIN)).click();
+        driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
+
+        try {
+            driver.findElement(By.id(PortalHtmlElements.PORTAL_DIV_LOGIN_FAILED));
+            String info = "Login to OSCM Portal failed with userId:" + user;
+            logger.info(info);
+            throw new LoginException(info);
+        } catch (NoSuchElementException exc) {
+            logger.info("Login to OSCM Portal successfully with userId:" + user);
+        }
+    }
 }
