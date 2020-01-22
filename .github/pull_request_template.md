@@ -1,5 +1,5 @@
 **Changes in this Pull Request:**
-- Change #1
+- <enter list of changes here>
 
 **Mandatory checks:**
 - [ ] latest changes were fetched from the upstream branch before creating this PR (branch is up to date)
@@ -9,5 +9,5 @@
 - [ ] respective Jenkins jobs were referenced in *additional context* section of this PR
 
 **OSCM Build References:**
-- [OSCM Build And Push job](http://link-to-latest-passing-jenkins-job.com)
-- [OSCM Pull And Start job](http://link-to-latest-passing-jenkins-job.com)
+- [OSCM Build And Push job](<enter URL to a job here>)
+- [OSCM Pull And Start job](<enter URL to a job here>)
