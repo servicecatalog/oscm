@@ -12,7 +12,12 @@
     <ui:param name="dirty" value="#{dirty}" />
   </ui:include>
   <link rel="stylesheet" type="text/css" href="#{facesContext.externalContext.requestContextPath}/css/portal.css" />
-  <link rel="stylesheet" type="text/css" href="#{appBean.brandingURL}/css/main.css" />  
+  <link rel="stylesheet" type="text/css" href="#{appBean.brandingURL}/css/main.css" />
+  
+  <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces/jquery.js"></script>
+  <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/javax.faces.resource/jsf.js.jsf?ln=javax.faces"></script>
+  <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces/richfaces.js"></script>
+  <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces/richfaces-queue.js"></script>
 </h:head>
 
 <h:body class="mainBg">
