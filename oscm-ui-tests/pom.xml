@@ -65,13 +65,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.oscm.webtest</groupId>
-            <artifactId>oscm-webtest-base</artifactId>
-            <version>16.1.5-SNAPSHOT</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.10.19</version>
@@ -109,6 +102,7 @@
             <version>3.141.59</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
@@ -132,6 +126,7 @@
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -141,7 +136,6 @@
     </dependencies>
 
     <build>
-        <!-- <finalName>oscm-webtest-base</finalName> -->
         <plugins>
             <!-- Make this jar executable -->
             <plugin>
@@ -166,10 +160,10 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.oscm.webtest.WebTester</mainClass>
-                            <mainClass>org.oscm.webtest.PortalTester</mainClass>
-                            <mainClass>org.oscm.webtest.AppControllerDBTester</mainClass>
-                            <mainClass>org.oscm.webtest.AppConfigurationTester</mainClass>
+                            <mainClass>webtest.WebTester</mainClass>
+                            <mainClass>webtest.PortalTester</mainClass>
+                            <mainClass>webtest.AppControllerDBTester</mainClass>
+                            <mainClass>webtest.AppConfigurationTester</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>
