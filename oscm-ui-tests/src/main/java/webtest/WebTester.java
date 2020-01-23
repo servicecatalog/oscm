@@ -9,6 +9,7 @@
  */
 package webtest;
 
+import com.gargoylesoftware.htmlunit.WebClient;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -16,6 +17,8 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.remote.BrowserType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -39,110 +42,116 @@ import java.util.concurrent.TimeUnit;
  */
 public class WebTester {
 
-    public static final int IMPLICIT_WAIT = 10;
-    // property keys
-    public static final String BES_SECURE = "bes.secure";
-    public static final String BES_HTTP_URL = "bes.http.url";
-    public static final String BES_HTTPS_URL = "bes.https.url";
-    public static final String BES_ADMIN_USER_ID = "bes.user.id";
-    public static final String BES_ADMIN_USER_PWD = "bes.user.password";
-    public static final String BES_ADMIN_USER_KEY = "bes.user.key";
+  public static final int IMPLICIT_WAIT = 10;
+  // property keys
+  public static final String BES_SECURE = "bes.secure";
+  public static final String BES_HTTP_URL = "bes.http.url";
+  public static final String BES_HTTPS_URL = "bes.https.url";
+  public static final String BES_ADMIN_USER_ID = "bes.user.id";
+  public static final String BES_ADMIN_USER_PWD = "bes.user.password";
+  public static final String BES_ADMIN_USER_KEY = "bes.user.key";
 
-    public static final String APP_SECURE = "app.secure";
-    public static final String APP_HTTP_URL = "app.http.url";
-    public static final String APP_HTTPS_URL = "app.https.url";
-    public static final String APP_ADMIN_USER_ID = "app.user.id";
-    public static final String APP_ADMIN_USER_PWD = "app.user.password";
-    public static final String TIME_INTERVAL = "create.subscription.waiting.seconds";
+  public static final String APP_SECURE = "app.secure";
+  public static final String APP_HTTP_URL = "app.http.url";
+  public static final String APP_HTTPS_URL = "app.https.url";
+  public static final String APP_ADMIN_USER_ID = "app.user.id";
+  public static final String APP_ADMIN_USER_PWD = "app.user.password";
+  public static final String TIME_INTERVAL = "create.subscription.waiting.seconds";
 
-    private static final String AUTH_MODE = "auth.mode";
+  private static final String AUTH_MODE = "auth.mode";
 
-    protected static final Logger logger = Logger.getLogger(WebTester.class);
-    // web element keys
-    protected static final String ATTRIUBTE_VALUE = "value";
-    protected String baseUrl = "";
-    protected WebDriver driver;
-    protected Properties prop;
-    private int waitingTime;
+  protected static final Logger logger = Logger.getLogger(WebTester.class);
+  // web element keys
+  protected static final String ATTRIUBTE_VALUE = "value";
+  protected String baseUrl = "";
+  protected WebDriver driver;
+  protected Properties prop;
+  private int waitingTime;
 
     // path schemas
     private static final String PROPERTY_PATH =
             "../oscm-ui-tests/src/main/resources/webtest.properties";
 
-    AuthenticationContext authenticationCtx;
+  AuthenticationContext authenticationCtx;
 
-    public WebTester() throws Exception {
+  public WebTester() throws Exception {
 
         loadPropertiesFile();
-        driver = new HtmlUnitDriver(true);
+        DesiredCapabilities capabilities = DesiredCapabilities.htmlUnit();
+        capabilities.setVersion(BrowserType.FIREFOX);
+        capabilities.setJavascriptEnabled(true);
+        driver = new HtmlUnitDriver(capabilities) {
+            @Override
+            protected WebClient modifyWebClient(WebClient client) {
+                final WebClient webClient = super.modifyWebClient(client);
+                webClient.getOptions().setThrowExceptionOnScriptError(false);
+                return webClient;
+            }
+        };
         driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
         setWaitingTime(IMPLICIT_WAIT);
         setAuthenticationContext();
     }
 
-    private void setAuthenticationContext() {
-        String authMode = prop.getProperty(AUTH_MODE);
-        switch (authMode) {
-            case "INTERNAL":
-                authenticationCtx = new InternalAuthenticationContext(driver);
-                break;
-            case "OIDC":
-                authenticationCtx = new OIDCAuthenticationContext(driver);
-                break;
-            default:
-                throw new ConfigurationException(
-                        "Invalid authentication mode set or related property is missing. Current value: "
-                                + authMode);
-        }
+  private void setAuthenticationContext() {
+    String authMode = prop.getProperty(AUTH_MODE);
+    switch (authMode) {
+      case "INTERNAL":
+        authenticationCtx = new InternalAuthenticationContext(driver);
+        break;
+      case "OIDC":
+        authenticationCtx = new OIDCAuthenticationContext(driver);
+        break;
+      default:
+        throw new ConfigurationException(
+            "Invalid authentication mode set or related property is missing. Current value: "
+                + authMode);
     }
+  }
 
-    /**
-     * Load properties from personal devruntime folder
-     */
-    private void loadPropertiesFile() throws Exception {
+  /** Load properties from personal devruntime folder */
+  private void loadPropertiesFile() throws Exception {
 
-        Map<String, String> env = System.getenv();
-        String localhost = env.get("HOSTNAME");
-        if (StringUtils.isEmpty(localhost)) {
-            localhost = InetAddress.getLocalHost().getHostName();
-        }
-        String filePath = String.format(PROPERTY_PATH, localhost);
-
-        prop = new Properties();
-        FileInputStream fis = new FileInputStream(filePath);
-        prop.load(fis);
-        fis.close();
+    Map<String, String> env = System.getenv();
+    String localhost = env.get("HOSTNAME");
+    if (StringUtils.isEmpty(localhost)) {
+      localhost = InetAddress.getLocalHost().getHostName();
     }
+    String filePath = String.format(PROPERTY_PATH, localhost);
 
-    /**
-     * load Url
-     *
-     * @param prefix
-     * @return
-     * @throws NoSuchFieldException
-     * @throws SecurityException
-     */
-    protected String loadUrl(String secureUrl, String httpsUrl, String httpUrl)
-            throws NoSuchFieldException, SecurityException {
+    prop = new Properties();
+    FileInputStream fis = new FileInputStream(filePath);
+    prop.load(fis);
+    fis.close();
+  }
 
-        boolean secure = Boolean.parseBoolean(prop.getProperty(secureUrl));
-        if (secure) {
-            return prop.getProperty(httpUrl);
-        } else {
-            return prop.getProperty(httpsUrl);
-        }
+  /**
+   * load Url
+   *
+   * @param prefix
+   * @return
+   * @throws NoSuchFieldException
+   * @throws SecurityException
+   */
+  protected String loadUrl(String secureUrl, String httpsUrl, String httpUrl)
+      throws NoSuchFieldException, SecurityException {
+
+    boolean secure = Boolean.parseBoolean(prop.getProperty(secureUrl));
+    if (secure) {
+      return prop.getProperty(httpUrl);
+    } else {
+      return prop.getProperty(httpsUrl);
     }
+  }
 
-    public String getPropertie(String propertie) {
-        return prop.getProperty(propertie);
-    }
+  public String getPropertie(String propertie) {
+    return prop.getProperty(propertie);
+  }
 
-    /**
-     * Closes all open resources of the helper
-     */
-    public void close() {
-        driver.close();
-    }
+  /** Closes all open resources of the helper */
+  public void close() {
+    driver.close();
+  }
 
     /**
      * found the text between two given text in String
