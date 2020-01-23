@@ -8,7 +8,7 @@ determine_files_to_process
 
 if [[ ! -z "$GIT_DIFF_OUTPUT" ]] ; then
     if [ ! -f libraries/google-java-format.jar ] ; then 
-        curl -o libraries/google-java-format.jar http://central.maven.org/maven2/com/google/googlejavaformat/google-java-format/1.7/google-java-format-1.7-all-deps.jar
+        curl -o libraries/google-java-format.jar https://repo1.maven.org/maven2/com/google/googlejavaformat/google-java-format/1.7/google-java-format-1.7-all-deps.jar
         chmod 755 libraries/google-java-format.jar
     fi
 
