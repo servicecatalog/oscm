@@ -58,6 +58,7 @@ public class WebTester {
   public static final String TIME_INTERVAL = "create.subscription.waiting.seconds";
 
   private static final String AUTH_MODE = "auth.mode";
+  private static final String CHROME_DRIVER_PATH = "chrome.driver.path";
 
   protected static final Logger logger = Logger.getLogger(WebTester.class);
   // web element keys
@@ -80,6 +81,8 @@ public class WebTester {
     options.setHeadless(true);
     options.setAcceptInsecureCerts(true);
     options.addArguments("--no-sandbox");
+
+    System.setProperty("webdriver.chrome.driver", prop.getProperty(CHROME_DRIVER_PATH));
 
     driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
