@@ -72,23 +72,19 @@
           <adm:message for="publicServiceCheckBox" />
 
           <adm:outputLabel value="#{msg['service.marketplace']}" />
-          <a4j:outputPanel styleClass="jqSelect" layout="block">
-            <a4j:outputPanel styleClass="select">
-              <a4j:outputPanel styleClass="option" />
-            </a4j:outputPanel>
-            <h:selectOneMenu id="marketplace" value="#{marketableServicePublishModel.serviceDetails.marketplaceId}"
+      
+            <b:selectOneMenu select2="true" id="marketplace" value="#{marketableServicePublishModel.serviceDetails.marketplaceId}"
               styleClass="select" valueChangeListener="#{marketableServicePublishCtrl.marketplaceChanged}"
-              disabled="#{marketableServicePublishModel.disabled}">
+              disabled="#{marketableServicePublishModel.disabled}" update="categoriesPanel, categoriesLabelPanel, revenueShare, revenueShareReseller, revenueShareBroker, resalePermissions"
+              oncomplete="setDirty(true);">
               <adm:selectItemPleaseSelect itemValue="" />
-              <a4j:ajax event="change"
-                render="categoriesPanel,categoriesLabelPanel,revenueShare,revenueShareReseller,revenueShareBroker,resalePermissions"
-                oncomplete="setDirty(true);" />
+     
               <c:forEach items="#{marketplaceBean.marketplacesForSupplier}" var="mp">
                 <f:selectItem itemLabel="#{mp.name}(#{mp.marketplaceId})" itemValue="#{mp.marketplaceId}" />
               </c:forEach>
               <f:event listener="#{marketplaceBean.reloadMarketplacesListener}" type="preValidate"></f:event>
-            </h:selectOneMenu>
-          </a4j:outputPanel>
+            </b:selectOneMenu>
+     
           <adm:message id="marketplaceErrorMsg" for="marketplace" />
 
           <adm:outputLabel value="#{msg['marketplace.view.operatorRevenueShare']}"
