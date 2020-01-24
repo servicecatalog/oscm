@@ -15,6 +15,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -74,7 +76,12 @@ public class WebTester {
   public WebTester() throws Exception {
 
     loadPropertiesFile();
-    driver = new HtmlUnitDriver(true);
+    ChromeOptions options = new ChromeOptions();
+    options.setHeadless(true);
+    options.setAcceptInsecureCerts(true);
+    options.addArguments("--no-sandbox");
+
+    driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
     setWaitingTime(IMPLICIT_WAIT);
     setAuthenticationContext();
