@@ -3,9 +3,10 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:b="http://bootsfaces.net/ui"
   xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  template="../templates/main.xhtml">
+  template="../templates/mainBootsfaces.xhtml">
 
   <ui:define name="pageId">
     <c:set var="pageId" value="marketplace.manageAccess" />
@@ -15,23 +16,31 @@
   <ui:define name="body">
 
     <h:form id="manageAccessForm">
+     <script type = "text/javascript" >
+  $(document).ready(function () {
+      $("[id='manageAccessForm:marketplaceInner']").select2().on('select2:selecting', function (e) {
+    	 
+        if (AdmUtils.isNotDirtyOrConfirmed()) {
+        	AdmUtils.storeValue(this);
+
+        } else {
+          e.preventDefault();
+        }
+
+      });
+
+  });
+    </script>
 
       <adm:outputStep value="#{msg['marketplace.manageAccess.step1']}" />
       <adm:panelGrid>
         <adm:outputLabel value="#{msg['service.marketplace']}" />
-        <a4j:outputPanel styleClass="jqSelect" layout="block">
-          <a4j:outputPanel styleClass="select">
-            <a4j:outputPanel styleClass="option" />
-          </a4j:outputPanel>
-          <h:selectOneMenu id="marketplace" value="#{manageAccessCtrl.model.selectedMarketplaceId}" styleClass="select"
-            onclick="AdmUtils.storeValue(this);">
-            <a4j:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="marketplaceAccessDetails"
-              onbeforesubmit="if(AdmUtils.isNotDirtyOrConfirmed()){setDirty(false); } else {AdmUtils.restoreValue(this);return false;}"
-              oncomplete="AdmUtils.setUIElements();AdmUtils.emitResizeEvent();" />
+          <b:selectOneMenu select2="true" id="marketplace" value="#{manageAccessCtrl.model.selectedMarketplaceId}" styleClass="select"
+           oncomplete="javascsript:AdmUtils.setUIElements();">
+            <f:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="marketplaceAccessDetails"/>
             <adm:selectItemPleaseSelect itemValue="" />
             <f:selectItems value="#{manageAccessCtrl.model.selectableMarketplaces}" />
-          </h:selectOneMenu>
-        </a4j:outputPanel>
+          </b:selectOneMenu>
       </adm:panelGrid>
 
       <a4j:outputPanel id="marketplaceAccessDetails">
@@ -39,13 +48,12 @@
           <adm:outputStep value="#{msg['marketplace.manageAccess.step2']}" />
           <adm:panelGrid>
             <t:panelGroup colspan="3">
-              <h:selectBooleanCheckbox id="isRestricted"
+               <b:selectBooleanCheckbox id="isRestricted"
                 disabled="#{empty manageAccessCtrl.model.selectedMarketplaceId}"
                 value="#{manageAccessCtrl.model.selectedMarketplaceRestricted}"
-                onchange="setDirty(true);AdmUtils.showProgress(true);">
-                <a4j:ajax event="change" render="accessOrganizationsPanel" listener="#{manageAccessCtrl.accessChanged}"
-                  oncomplete="AdmUtils.showProgress(false);" />
-              </h:selectBooleanCheckbox>
+                onchange="setDirty(true);AdmUtils.showProgress(true);" oncomplete="AdmUtils.showProgress(false);">
+                <f:ajax event="change" render="accessOrganizationsPanel" listener="#{manageAccessCtrl.accessChanged}"/>
+              </b:selectBooleanCheckbox>
               <h:outputLabel value="#{msg['marketplace.manageAccess.isRestricted']}" />
             </t:panelGroup>
           </adm:panelGrid>
