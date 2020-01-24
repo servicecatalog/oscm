@@ -69,14 +69,18 @@ public class WebTester {
     // path schemas
     private static final String PROPERTY_PATH =
             "../oscm-ui-tests/src/main/resources/webtest.properties";
+    private static final String CHROME_DRIVER_PATH = "chrome.driver.path";
 
     AuthenticationContext authenticationCtx;
 
     public WebTester() throws Exception {
 
         loadPropertiesFile();
+        System.setProperty("webdriver.chrome.driver", prop.getProperty(CHROME_DRIVER_PATH));
         ChromeOptions capabilities = new ChromeOptions();
+        capabilities.setHeadless(true);
         capabilities.setAcceptInsecureCerts(true);
+        capabilities.addArguments("--no-sandbox");
         driver = new ChromeDriver(capabilities);
         driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
         setWaitingTime(IMPLICIT_WAIT);
