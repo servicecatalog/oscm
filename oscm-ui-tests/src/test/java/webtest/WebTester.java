@@ -68,7 +68,7 @@ public class WebTester {
 
     // path schemas
     private static final String PROPERTY_PATH =
-            "../oscm-ui-tests/src/main/resources/webtest.properties";
+            "../oscm-ui-tests/src/test/resources/webtest.properties";
 
     AuthenticationContext authenticationCtx;
 

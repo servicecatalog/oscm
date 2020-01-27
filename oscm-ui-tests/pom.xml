@@ -136,7 +136,7 @@
                 <configuration>
                     <!--                    DO NOT include log4j.properties file in your Jar-->
                     <excludes>
-                        <exclude>src/main/resources/log4j.properties</exclude>
+                        <exclude>src/test/resources/log4j.properties</exclude>
                     </excludes>
                     <archive>
                         <manifest>
