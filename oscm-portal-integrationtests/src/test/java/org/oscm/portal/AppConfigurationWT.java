@@ -7,17 +7,14 @@
  *******************************************************************************/
 package org.oscm.portal;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.oscm.webtest.AppConfigurationTester;
 import org.oscm.webtest.AppControllerDBTester;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Ignore
 public class AppConfigurationWT {
 
     private static AppConfigurationTester tester;
