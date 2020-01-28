@@ -27,7 +27,6 @@ import org.oscm.webtest.WebTester;
  * 
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Ignore
 public class PortalOrganizationWT {
 
     private static final String ORG = PlaygroundSuiteTest.currentTimestampe;

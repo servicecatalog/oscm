@@ -18,10 +18,10 @@ import org.oscm.webtest.WebTester;
  * 
  * @author miethaner
  */
-/*@RunWith(Suite.class)
+@RunWith(Suite.class)
 @SuiteClasses({ PortalOrganizationWT.class, PortalMarketplaceWT.class,
         AppConfigurationWT.class, PortalTechServiceWT.class,
-        PortalMarketServiceWT.class, MarketplaceSubscriptionWT.class })*/
+        PortalMarketServiceWT.class, MarketplaceSubscriptionWT.class })
 public class PlaygroundSuiteTest {
 
     public static String supplierOrgId = "";

@@ -14,7 +14,6 @@ import org.oscm.webtest.AppConfigurationTester;
 import org.oscm.webtest.AppControllerDBTester;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Ignore
 public class AppConfigurationWT {
 
     private static AppConfigurationTester tester;

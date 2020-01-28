@@ -22,7 +22,6 @@ import org.oscm.webtest.PortalTester;
  * Integration web test to create an new marketplace.
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Ignore
 public class PortalMarketplaceWT {
 
     @Rule

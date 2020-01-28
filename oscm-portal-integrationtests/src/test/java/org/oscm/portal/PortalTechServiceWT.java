@@ -25,7 +25,6 @@ import org.oscm.webtest.PortalTester;
  * @author sxu
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Ignore
 public class PortalTechServiceWT {
 
     private static final String FILE_PATH_IMPORT_TECHSERVICE = "technicalservice.xml.path";

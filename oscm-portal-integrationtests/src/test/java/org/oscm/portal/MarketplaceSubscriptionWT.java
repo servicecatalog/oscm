@@ -19,7 +19,6 @@ import org.oscm.webtest.PortalTester;
 import org.oscm.webtest.WebTester;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Ignore
 public class MarketplaceSubscriptionWT {
     private static PortalTester tester;
     private static final String COUNT_CREATE_SUBSCRIPTION = "create.subscription.count";

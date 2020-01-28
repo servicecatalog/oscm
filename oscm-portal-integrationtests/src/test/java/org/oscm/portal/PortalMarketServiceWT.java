@@ -25,7 +25,6 @@ import org.oscm.webtest.PortalTester;
  * @author miethaner
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Ignore
 public class PortalMarketServiceWT {
 
     private static final String TECHSERVICE_IAAS_USER_ID = "DummyUser";
