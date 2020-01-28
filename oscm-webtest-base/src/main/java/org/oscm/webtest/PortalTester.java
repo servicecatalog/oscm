@@ -10,6 +10,7 @@
 package org.oscm.webtest;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import javax.mail.*;
@@ -116,7 +117,11 @@ public class PortalTester extends WebTester {
    * logged in user and that the driverApp is at a portal page.
    */
   public void logoutPortal() {
-    driver.findElement(By.id(PortalHtmlElements.PORTAL_LINK_LOGOUT)).click();
+    WebElement logoutLink = driver.findElement(By.id(PortalHtmlElements.PORTAL_LINK_LOGOUT));
+    JavascriptExecutor executor = (JavascriptExecutor) driver;
+    executor.executeScript("arguments[0].click();", logoutLink);
+
+    //driver.findElement(By.id(PortalHtmlElements.PORTAL_LINK_LOGOUT)).click();
     log("Login out from OSCM Portal successfully");
   }
 
