@@ -1,7 +1,7 @@
-/*******************************************************************************
- *  Copyright FUJITSU LIMITED 2018
- *******************************************************************************/
-
+/**
+ * ***************************************************************************** Copyright FUJITSU
+ * LIMITED 2018 *****************************************************************************
+ */
 package org.oscm.accountservice.bean;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +28,6 @@ import org.mockito.Captor;
 import org.mockito.MockitoAnnotations;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-import org.oscm.accountservice.local.AccountServiceLocal;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.DomainObject;
 import org.oscm.domobjects.Marketplace;
@@ -50,147 +49,163 @@ import org.oscm.test.ejb.TestContainer;
 
 public class AccountServiceLocalBeanIT extends EJBTestBase {
 
-    private AccountServiceBean asl;
-    private VOUserDetails user;
-    private Organization orgToRegister;
+  private AccountServiceBean asl;
+  private VOUserDetails user;
+  private Organization orgToRegister;
 
-    @Captor
-    ArgumentCaptor<DomainObject<?>> storedValues;
+  @Captor ArgumentCaptor<DomainObject<?>> storedValues;
 
-    @Override
-    protected void setup(TestContainer container) throws Exception {
-        container.enableInterfaceMocking(true);
-        container.addBean(spy(new AccountServiceBean()));
+  @Override
+  protected void setup(TestContainer container) throws Exception {
+    container.enableInterfaceMocking(true);
+    container.addBean(spy(new AccountServiceBean()));
 
-        addMocks();
+    addMocks();
 
-        asl = container.get(AccountServiceBean.class);
-        doReturn(Boolean.FALSE).when(asl)
-                .checkIfPlatformUserInGivenTenantExists(anyLong(), anyString());
+    asl = container.get(AccountServiceBean.class);
 
-        user = new VOUserDetails();
-        user.setUserId("user1");
+    doReturn(Boolean.FALSE)
+        .when(asl)
+        .checkIfPlatformUserInGivenTenantExists(anyLong(), anyString());
 
-        orgToRegister = new Organization();
-    }
+    user = new VOUserDetails();
+    user.setUserId("user1");
 
-    @Test
-    public void registerOrganization_NoLdapUsed() throws Exception {
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                asl.registerOrganization(orgToRegister, null, user, null, "DE",
-                        "mId", null, OrganizationRoleType.CUSTOMER);
-                return null;
-            }
+    doNothing().when(asl).validateGivenOrganizationName(any());
+
+    orgToRegister = new Organization();
+  }
+
+  @Test
+  public void registerOrganization_NoLdapUsed() throws Exception {
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
+            asl.registerOrganization(
+                orgToRegister, null, user, null, "DE", "mId", null, OrganizationRoleType.CUSTOMER);
+            return null;
+          }
         });
-        Organization org = validateStoredOrganization();
-        assertFalse(org.isRemoteLdapActive());
-    }
+    Organization org = validateStoredOrganization();
+    assertFalse(org.isRemoteLdapActive());
+  }
 
-    @Test
-    public void registerOrganization_LdapUsed() throws Exception {
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                asl.registerOrganization(orgToRegister, null, user,
-                        new Properties(), "DE", "mId", null,
-                        OrganizationRoleType.CUSTOMER);
-                return null;
-            }
+  @Test
+  public void registerOrganization_LdapUsed() throws Exception {
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
+            asl.registerOrganization(
+                orgToRegister,
+                null,
+                user,
+                new Properties(),
+                "DE",
+                "mId",
+                null,
+                OrganizationRoleType.CUSTOMER);
+            return null;
+          }
         });
-        Organization org = validateStoredOrganization();
-        assertTrue(org.isRemoteLdapActive());
-    }
+    Organization org = validateStoredOrganization();
+    assertTrue(org.isRemoteLdapActive());
+  }
 
-    private Properties getLdapProperties() {
-        Properties properties = new Properties();
-        properties.setProperty(SettingType.LDAP_URL.name(),
-                "ldap://somehost:389");
-        properties.setProperty(SettingType.LDAP_BASE_DN.name(),
-                "uid=user,o=company");
-        properties.setProperty(SettingType.LDAP_CONTEXT_FACTORY.name(),
-                "defaultContextFactory");
-        properties.setProperty(SettingType.LDAP_ATTR_UID.name(), "uid");
-        return properties;
-    }
+  private Properties getLdapProperties() {
+    Properties properties = new Properties();
+    properties.setProperty(SettingType.LDAP_URL.name(), "ldap://somehost:389");
+    properties.setProperty(SettingType.LDAP_BASE_DN.name(), "uid=user,o=company");
+    properties.setProperty(SettingType.LDAP_CONTEXT_FACTORY.name(), "defaultContextFactory");
+    properties.setProperty(SettingType.LDAP_ATTR_UID.name(), "uid");
+    return properties;
+  }
 
-    @SuppressWarnings("unchecked")
-    private void addMocks() throws Exception {
-        MockitoAnnotations.initMocks(this);
-        LocalizerServiceLocal localizerMock = mock(LocalizerServiceLocal.class);
-        doReturn("").when(localizerMock).getLocalizedTextFromDatabase(
-                anyString(), anyLong(), any(LocalizedObjectTypes.class));
+  @SuppressWarnings("unchecked")
+  private void addMocks() throws Exception {
+    MockitoAnnotations.initMocks(this);
+    LocalizerServiceLocal localizerMock = mock(LocalizerServiceLocal.class);
+    doReturn("")
+        .when(localizerMock)
+        .getLocalizedTextFromDatabase(anyString(), anyLong(), any(LocalizedObjectTypes.class));
 
-        DataService ds = mock(DataService.class);
-        doAnswer(new Answer<DomainObject<?>>() {
-            @Override
-            public DomainObject<?> answer(InvocationOnMock invocation)
-                    throws Throwable {
-                DomainObject<?> arg = (DomainObject<?>) invocation
-                        .getArguments()[0];
+    DataService ds = mock(DataService.class);
+    doAnswer(
+            new Answer<DomainObject<?>>() {
+              @Override
+              public DomainObject<?> answer(InvocationOnMock invocation) throws Throwable {
+                DomainObject<?> arg = (DomainObject<?>) invocation.getArguments()[0];
                 if (arg instanceof PaymentType) {
-                    return new PaymentType();
+                  return new PaymentType();
                 } else if (arg instanceof Marketplace) {
-                    return new Marketplace();
+                  return new Marketplace();
                 }
                 return null;
-            }
-        }).when(ds).getReferenceByBusinessKey(any(DomainObject.class));
-        doAnswer(new Answer<DomainObject<?>>() {
-            @Override
-            public DomainObject<?> answer(InvocationOnMock invocation)
-                    throws Throwable {
-                DomainObject<?> arg = (DomainObject<?>) invocation
-                        .getArguments()[0];
+              }
+            })
+        .when(ds)
+        .getReferenceByBusinessKey(any(DomainObject.class));
+    doAnswer(
+            new Answer<DomainObject<?>>() {
+              @Override
+              public DomainObject<?> answer(InvocationOnMock invocation) throws Throwable {
+                DomainObject<?> arg = (DomainObject<?>) invocation.getArguments()[0];
                 if (arg instanceof OrganizationRole) {
-                    return new OrganizationRole();
+                  return new OrganizationRole();
                 } else if (arg instanceof SupportedCountry) {
-                    return new SupportedCountry();
+                  return new SupportedCountry();
                 }
                 return null;
-            }
-        }).when(ds).find(any(DomainObject.class));
-        doNothing().when(ds).persist(storedValues.capture());
+              }
+            })
+        .when(ds)
+        .find(any(DomainObject.class));
+    doNothing().when(ds).persist(storedValues.capture());
 
-        LdapAccessServiceLocal ldapAccess = mock(LdapAccessServiceLocal.class);
-        doReturn(Collections.singletonList(new VOUserDetails())).when(
-                ldapAccess).search(any(Properties.class), anyString(),
-                anyString(), any(ILdapResultMapper.class), anyBoolean());
-        doReturn("user1").when(ldapAccess).dnSearch(any(Properties.class),
-                anyString(), anyString());
+    LdapAccessServiceLocal ldapAccess = mock(LdapAccessServiceLocal.class);
+    doReturn(Collections.singletonList(new VOUserDetails()))
+        .when(ldapAccess)
+        .search(
+            any(Properties.class),
+            anyString(),
+            anyString(),
+            any(ILdapResultMapper.class),
+            anyBoolean());
+    doReturn("user1").when(ldapAccess).dnSearch(any(Properties.class), anyString(), anyString());
 
-        LdapSettingsManagementServiceLocal ldapSettingsMgmt = mock(LdapSettingsManagementServiceLocal.class);
-        doReturn(getLdapProperties()).when(ldapSettingsMgmt)
-                .getOrganizationSettingsResolved(anyString());
-        when(ldapSettingsMgmt.getDefaultValueForSetting(any(SettingType.class)))
-                .thenReturn("someDefault");
+    LdapSettingsManagementServiceLocal ldapSettingsMgmt =
+        mock(LdapSettingsManagementServiceLocal.class);
+    doReturn(getLdapProperties())
+        .when(ldapSettingsMgmt)
+        .getOrganizationSettingsResolved(anyString());
+    when(ldapSettingsMgmt.getDefaultValueForSetting(any(SettingType.class)))
+        .thenReturn("someDefault");
 
-        MarketplaceServiceLocal mplService = mock(MarketplaceServiceLocal.class);
-        doReturn(getMarketplace("TestMpl")).when(mplService)
-                .getMarketplaceForId(anyString());
+    MarketplaceServiceLocal mplService = mock(MarketplaceServiceLocal.class);
+    doReturn(getMarketplace("TestMpl")).when(mplService).getMarketplaceForId(anyString());
 
-        container.addBean(ldapSettingsMgmt);
-        container.addBean(localizerMock);
-        container.addBean(ds);
-        container.addBean(ldapAccess);
-        container.addBean(mplService);
+    container.addBean(ldapSettingsMgmt);
+    container.addBean(localizerMock);
+    container.addBean(ds);
+    container.addBean(ldapAccess);
+    container.addBean(mplService);
+  }
+
+  private Organization validateStoredOrganization() {
+    Organization org = null;
+    int orgCount = 0;
+    for (DomainObject<?> entry : storedValues.getAllValues()) {
+      if (entry instanceof Organization) {
+        orgCount++;
+        org = (Organization) entry;
+      }
     }
+    assertEquals(1, orgCount);
+    return org;
+  }
 
-    private Organization validateStoredOrganization() {
-        Organization org = null;
-        int orgCount = 0;
-        for (DomainObject<?> entry : storedValues.getAllValues()) {
-            if (entry instanceof Organization) {
-                orgCount++;
-                org = (Organization) entry;
-            }
-        }
-        assertEquals(1, orgCount);
-        return org;
-    }
-
-    private Marketplace getMarketplace(String mplId) {
-        return new Marketplace(mplId);
-    }
+  private Marketplace getMarketplace(String mplId) {
+    return new Marketplace(mplId);
+  }
 }
