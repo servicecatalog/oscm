@@ -1,9 +1,9 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018                                           
- *                                                                                                                                 
+ *
  *  Creation Date: 10 7, 2018                                                      
- *                                                                              
+ *
  *******************************************************************************/
 package portal;
 
@@ -70,7 +70,7 @@ public class MarketplaceSubscriptionWT {
             String referencenr = WebTester.getCurrentTime();
             String subscriptionName = "sub_"
                     + PlaygroundSuiteTest.currentTimestampe + "_"
-                    + String.format("%03d",i);
+                    + String.format("%03d", i);
             tester.visitMarketplace(PortalPathSegments.INDEX_MARKETPLACE);
             String xpathServiceLink = String.format(
                     PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME,

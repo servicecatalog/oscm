@@ -1,9 +1,9 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018                                           
- *                                                                                                                                 
+ *
  *  Creation Date: Feb 8, 2017                                                      
- *                                                                              
+ *
  *******************************************************************************/
 
 package portal;
@@ -21,7 +21,6 @@ import javax.security.auth.login.LoginException;
 
 /**
  * Integration web test to create an organization.
- * 
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PortalOrganizationWT {

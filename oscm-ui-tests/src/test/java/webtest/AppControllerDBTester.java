@@ -1,9 +1,9 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018                                           
- *                                                                                                                                 
+ *
  *  Creation Date: 10 7, 2018                                                      
- *                                                                              
+ *
  *******************************************************************************/
 package webtest;
 
@@ -25,7 +25,7 @@ public class AppControllerDBTester {
     private static final String DB_NAME = "bssapp";
     private static final String DB_USERNAME = "bssappuser";
     private static final String DB_PASSWORD = "secret";
-    
+
     private String DB_CONNECTION_URL = "jdbc:%s://%s:%s/%s";
 
     public static final int IV_BYTES = 16;
@@ -39,7 +39,7 @@ public class AppControllerDBTester {
 
         DB_CONNECTION_URL = String.format(DB_CONNECTION_URL,
                 DB_TYPE, DB_HOST,
-               DB_PORT, DB_NAME);
+                DB_PORT, DB_NAME);
         databaseTester = new JdbcDatabaseTester(DB_DRIVER,
                 DB_CONNECTION_URL, DB_USERNAME, DB_PASSWORD);
     }
@@ -74,7 +74,7 @@ public class AppControllerDBTester {
     }
 
     public void insertSetting(String settingKey, String settingValue,
-            String controllerId) throws SQLException, Exception {
+                              String controllerId) throws SQLException, Exception {
 
         String query = "INSERT INTO configurationsetting VALUES ('" + settingKey
                 + "','" + settingValue + "', '" + controllerId + "');";

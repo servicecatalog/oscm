@@ -1,17 +1,17 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018                                           
- *                                                                                                                                 
+ *
  *  Creation Date: 20 6, 2018                                                      
- *                                                                              
+ *
  *******************************************************************************/
 package portal;
 
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
-import webtest.AppControllerDBTester;
 import webtest.AppConfigurationTester;
+import webtest.AppControllerDBTester;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppConfigurationWT {
