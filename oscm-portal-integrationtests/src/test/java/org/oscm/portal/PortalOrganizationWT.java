@@ -13,11 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 import javax.security.auth.login.LoginException;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
