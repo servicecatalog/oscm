@@ -85,6 +85,10 @@ public class WebserviceTestSetup {
   private AccountService accSrvCustomer;
   private VOFactory factory = new VOFactory();
 
+  static String uniqueOrgName(String namePrefix) {
+    return namePrefix + "_" + WebserviceTestBase.createUniqueKey();
+  }
+
   private VOTechnicalService voTechnicalServiceWithOperations;
 
   public VOOrganization createSupplier(String namePrefix) throws Exception {
@@ -92,7 +96,7 @@ public class WebserviceTestSetup {
     VOOrganization supplier =
         WebserviceTestBase.createOrganization(
             supplierUserId,
-            namePrefix,
+            uniqueOrgName(namePrefix),
             OrganizationRoleType.TECHNOLOGY_PROVIDER,
             OrganizationRoleType.SUPPLIER);
     supplierUserKey = WebserviceTestBase.readLastMailAndSetCommonPassword(supplierUserId);
@@ -131,7 +135,7 @@ public class WebserviceTestSetup {
     resellerUserId = namePrefix + "_" + WebserviceTestBase.createUniqueKey();
     VOOrganization reseller =
         WebserviceTestBase.createOrganization(
-            resellerUserId, namePrefix, OrganizationRoleType.RESELLER);
+            resellerUserId, uniqueOrgName(namePrefix), OrganizationRoleType.RESELLER);
     resellerUserKey = WebserviceTestBase.readLastMailAndSetCommonPassword(resellerUserId);
     List<VOPSP> psps = WebserviceTestBase.getOperator().getPSPs();
     for (VOPSP voPsp : psps) {
@@ -182,7 +186,9 @@ public class WebserviceTestSetup {
     String technologyProviderUserId = namePrefix + "_" + WebserviceTestBase.createUniqueKey();
     VOOrganization technologyProvider =
         WebserviceTestBase.createOrganization(
-            technologyProviderUserId, namePrefix, OrganizationRoleType.TECHNOLOGY_PROVIDER);
+            technologyProviderUserId,
+            uniqueOrgName(namePrefix),
+            OrganizationRoleType.TECHNOLOGY_PROVIDER);
     technologyProviderUserKey =
         WebserviceTestBase.readLastMailAndSetCommonPassword(technologyProviderUserId);
 
@@ -414,7 +420,7 @@ public class WebserviceTestSetup {
 
   public VOOrganization registerCustomerForSupplier(String namePrefix) throws Exception {
     VOOrganization voCustomer = factory.createOrganizationVO();
-    voCustomer.setName(namePrefix + "_" + WebserviceTestBase.createUniqueKey());
+    voCustomer.setName(uniqueOrgName(namePrefix));
     voCustomerUser = factory.createUserVO(namePrefix + "_" + WebserviceTestBase.createUniqueKey());
     return accSrvAsSupplier.registerKnownCustomer(
         voCustomer, voCustomerUser, null, getGlobalMarketplaceId());

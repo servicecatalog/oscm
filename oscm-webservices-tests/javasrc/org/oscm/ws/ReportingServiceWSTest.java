@@ -1,8 +1,10 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018                                            
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -172,7 +174,9 @@ public class ReportingServiceWSTest {
 
   private static VOOrganization createOrganization(OrganizationRoleType role) throws Exception {
     return WebserviceTestBase.createOrganization(
-        role.name() + "_" + WebserviceTestBase.createUniqueKey(), role.name(), role);
+        role.name() + "_" + WebserviceTestBase.createUniqueKey(),
+        role.name() + "_" + WebserviceTestBase.createUniqueKey(),
+        role);
   }
 
   private static Object[] createOrganizationAndReturnUser(OrganizationRoleType role)
