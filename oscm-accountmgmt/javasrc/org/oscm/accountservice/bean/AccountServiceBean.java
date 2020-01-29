@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
@@ -41,7 +40,6 @@ import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-
 import org.oscm.accountservice.assembler.BillingContactAssembler;
 import org.oscm.accountservice.assembler.DiscountAssembler;
 import org.oscm.accountservice.assembler.OrganizationAssembler;

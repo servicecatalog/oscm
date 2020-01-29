@@ -21,7 +21,6 @@ import static org.mockito.Mockito.when;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.concurrent.Callable;
-
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
