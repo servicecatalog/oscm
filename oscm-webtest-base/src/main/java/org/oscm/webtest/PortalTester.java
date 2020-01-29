@@ -120,8 +120,6 @@ public class PortalTester extends WebTester {
     WebElement logoutLink = driver.findElement(By.id(PortalHtmlElements.PORTAL_LINK_LOGOUT));
     JavascriptExecutor executor = (JavascriptExecutor) driver;
     executor.executeScript("arguments[0].click();", logoutLink);
-
-    //driver.findElement(By.id(PortalHtmlElements.PORTAL_LINK_LOGOUT)).click();
     log("Login out from OSCM Portal successfully");
   }
 
