@@ -9,6 +9,13 @@
  */
 package org.oscm.webtest;
 
+import java.io.FileInputStream;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -17,7 +24,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,14 +31,6 @@ import org.oscm.webtest.authentication.AuthenticationContext;
 import org.oscm.webtest.authentication.InternalAuthenticationContext;
 import org.oscm.webtest.authentication.OIDCAuthenticationContext;
 import org.oscm.webtest.exception.ConfigurationException;
-
-import java.io.FileInputStream;
-import java.net.InetAddress;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
