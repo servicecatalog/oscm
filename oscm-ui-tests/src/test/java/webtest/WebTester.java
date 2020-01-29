@@ -15,7 +15,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -56,6 +57,7 @@ public class WebTester {
     public static final String TIME_INTERVAL = "create.subscription.waiting.seconds";
 
     private static final String AUTH_MODE = "auth.mode";
+    private static final String CHROME_DRIVER_PATH = "chrome.driver.path";
 
     protected static final Logger logger = Logger.getLogger(WebTester.class);
     // web element keys
@@ -74,7 +76,14 @@ public class WebTester {
     public WebTester() throws Exception {
 
         loadPropertiesFile();
-        driver = new HtmlUnitDriver(true);
+        ChromeOptions options = new ChromeOptions();
+        options.setHeadless(true);
+        options.setAcceptInsecureCerts(true);
+        options.addArguments("--no-sandbox");
+
+        System.setProperty("webdriver.chrome.driver", prop.getProperty(CHROME_DRIVER_PATH));
+
+        driver = new ChromeDriver(options);
         driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
         setWaitingTime(IMPLICIT_WAIT);
         setAuthenticationContext();
