@@ -131,10 +131,10 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>webtest.WebTester</mainClass>
-                            <mainClass>webtest.PortalTester</mainClass>
-                            <mainClass>webtest.AppControllerDBTester</mainClass>
-                            <mainClass>webtest.AppConfigurationTester</mainClass>
+                            <mainClass>org.oscm.webtest.WebTester</mainClass>
+                            <mainClass>org.oscm.webtest.PortalTester</mainClass>
+                            <mainClass>org.oscm.webtest.AppControllerDBTester</mainClass>
+                            <mainClass>org.oscm.webtest.AppConfigurationTester</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>
