@@ -21,9 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
-import org.oscm.test.setup.PropertiesReader;
-import org.oscm.types.constants.Configuration;
 import org.oscm.converter.api.EnumConverter;
 import org.oscm.converter.api.VOConverter;
 import org.oscm.internal.intf.OperatorService;
@@ -34,6 +31,8 @@ import org.oscm.intf.IdentityService;
 import org.oscm.intf.MarketplaceService;
 import org.oscm.intf.ServiceProvisioningService;
 import org.oscm.intf.SubscriptionService;
+import org.oscm.test.setup.PropertiesReader;
+import org.oscm.types.constants.Configuration;
 import org.oscm.types.enumtypes.OrganizationRoleType;
 import org.oscm.types.enumtypes.PaymentInfoType;
 import org.oscm.types.enumtypes.PriceModelType;

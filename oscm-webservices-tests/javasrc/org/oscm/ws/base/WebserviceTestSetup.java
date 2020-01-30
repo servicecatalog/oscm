@@ -19,7 +19,6 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.oscm.converter.api.VOConverter;
 import org.oscm.internal.vo.VOPSP;
 import org.oscm.internal.vo.VOPSPAccount;
