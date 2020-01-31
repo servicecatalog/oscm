@@ -54,11 +54,9 @@ import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.Callable;
-
 import javax.ejb.EJBAccessException;
 import javax.ejb.EJBException;
 import javax.persistence.Query;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;

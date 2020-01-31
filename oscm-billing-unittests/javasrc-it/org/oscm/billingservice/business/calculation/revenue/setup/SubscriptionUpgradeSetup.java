@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-
 import org.mockito.Mockito;
 import org.oscm.accountservice.bean.AccountServiceBean;
 import org.oscm.accountservice.bean.MarketingPermissionServiceBean;

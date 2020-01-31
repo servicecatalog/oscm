@@ -1,11 +1,12 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2018                                           
+ * <p>Copyright FUJITSU LIMITED 2018
  *
- *  Creation Date: Feb 8, 2017                                                      
+ * <p>Creation Date: Feb 8, 2017
  *
- *******************************************************************************/
-
+ * <p>*****************************************************************************
+ */
 package org.oscm.portal;
 
 import org.junit.FixMethodOrder;
@@ -20,8 +21,6 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PortalUserTest {
 
-    @Test
-    public void test01Create() {
-
-    }
+  @Test
+  public void test01Create() {}
 }
