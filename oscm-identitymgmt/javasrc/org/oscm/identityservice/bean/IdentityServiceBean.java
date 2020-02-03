@@ -3076,11 +3076,8 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
           members.stream().map(m -> m.getUserId()).collect(Collectors.toList());
       for (PlatformUser pu : org.getPlatformUsers()) {
         if (!memberIds.contains(pu.getUserId())) {
-          List<Marketplace> mps = org.getMarketplaces();
-          for (Marketplace mp : mps) {
-            deletePlatformUser(pu, mp);
-            break;
-          }
+          deletePlatformUser(pu, firstFoundMP(org));
+          break;
         }
       }
     } catch (ObjectNotFoundException
@@ -3089,6 +3086,15 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
         | TechnicalServiceOperationException e) {
       // Already logged
     }
+  }
+
+  private Marketplace firstFoundMP(Organization org) {
+    List<Marketplace> mps = org.getMarketplaces();
+    Marketplace mpRef = null;
+    if (!mps.isEmpty()) {
+      mpRef = mps.get(0);
+    }
+    return mpRef;
   }
 
   private boolean existsInDB(VOUserDetails user, Organization organization) {
