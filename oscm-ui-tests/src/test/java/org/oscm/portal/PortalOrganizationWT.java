@@ -28,6 +28,7 @@ public class PortalOrganizationWT {
 
   private static final String ORG = PlaygroundSuiteTest.currentTimestampe;
   private static final String ORG_ADMIN = "mp_admin_" + ORG;
+  private static final String ORG_ADMIN_EMAIL = "mp_email_" + ORG + "@test.com";
   private static final int PASSWORD_LENGTH = 8;
   private static final int USERKEY_LENGTH = 5;
   private static String passwordOrgAdmin = "";
@@ -56,7 +57,7 @@ public class PortalOrganizationWT {
     tester.visitPortal(PortalPathSegments.CREATE_ORGANIZATION);
 
     tester.writeValue(
-        PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ADMINEMAIL, tester.getEmailAddress());
+        PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ADMINEMAIL, ORG_ADMIN_EMAIL);
     tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_DESIRED_USERID, ORG_ADMIN);
     tester.selectDropdown(PortalHtmlElements.CREATE_ORGANIZATION_DROPDOWN_LANGUAGE, "en");
 
@@ -67,7 +68,7 @@ public class PortalOrganizationWT {
     tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_REVENUESHARE, "5");
     tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGNAME, ORG);
     tester.writeValue(
-        PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGEMAIL, tester.getEmailAddress());
+        PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGEMAIL, ORG_ADMIN_EMAIL);
     tester.selectDropdown(PortalHtmlElements.CREATE_ORGANIZATION_DROPDOWN_ORGLOCALE, "en");
     tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGPHONE, "123");
     tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGURL, "http://abc.de");
@@ -80,7 +81,7 @@ public class PortalOrganizationWT {
     PlaygroundSuiteTest.supplierOrgName = ORG;
     PlaygroundSuiteTest.supplierOrgId = tester.readInfoMessage().split(" ")[2];
     PlaygroundSuiteTest.supplierOrgAdminId = ORG_ADMIN;
-    PlaygroundSuiteTest.supplierOrgAdminMail = tester.getEmailAddress();
+    PlaygroundSuiteTest.supplierOrgAdminMail = ORG_ADMIN_EMAIL;
   }
 
   @Test
@@ -99,7 +100,7 @@ public class PortalOrganizationWT {
         body.substring(
             index + phrasePassword.length(), index + phrasePassword.length() + PASSWORD_LENGTH);
     assertTrue(passwordOrgAdmin != "");
-    tester.log("password from " + tester.getEmailAddress() + " is: " + passwordOrgAdmin);
+    tester.log("password from " + PlaygroundSuiteTest.supplierOrgAdminMail + " is: " + passwordOrgAdmin);
   }
 
   @Test
