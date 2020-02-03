@@ -18,6 +18,13 @@
         <junit.version>4.12</junit.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- Third party libraries -->
         <dependency>
@@ -112,6 +119,11 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>9.3-1104-jdbc41</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.servicecatalog.oscm-commons</groupId>
+            <artifactId>oscm-common</artifactId>
+            <version>mailreader_fix-c370d27d15-1</version>
         </dependency>
     </dependencies>
 
