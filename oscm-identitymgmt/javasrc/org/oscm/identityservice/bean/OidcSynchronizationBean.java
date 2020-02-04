@@ -161,7 +161,6 @@ public class OidcSynchronizationBean {
   protected Organization findOrganizationByName(String name, String tenantId)
       throws NonUniqueResultException, EntityNotFoundException {
     Query query = dm.createNamedQuery("Organization.findOrganizationsByName");
-
     query.setParameter("name", name);
     setTenant(tenantId, query);
     return resultFrom(query, name);

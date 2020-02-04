@@ -3077,7 +3077,6 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
       for (PlatformUser pu : org.getPlatformUsers()) {
         if (!memberIds.contains(pu.getUserId())) {
           deletePlatformUser(pu, firstFoundMP(org));
-          break;
         }
       }
     } catch (ObjectNotFoundException
