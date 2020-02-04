@@ -76,32 +76,39 @@ public class MarketingPermissionWSTest {
   @Before
   public void setUp() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
-    WebserviceTestBase.getMailReader().deleteMails();
     timeBase = System.currentTimeMillis();
 
     // create two technology providers
+    String tp1adminId = "tp1_admin" + timeBase;
     tp1 =
         WebserviceTestBase.createOrganization(
-            "tp1_admin" + timeBase, OrganizationRoleType.TECHNOLOGY_PROVIDER);
-    tp1_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+        		tp1adminId, OrganizationRoleType.TECHNOLOGY_PROVIDER);
+    tp1_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(tp1adminId);
+    
+    String tp2adminId = "tp2_admin" + timeBase;
     tp2 =
         WebserviceTestBase.createOrganization(
-            "tp2_admin" + timeBase, OrganizationRoleType.TECHNOLOGY_PROVIDER);
-    tp2_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+        		tp2adminId, OrganizationRoleType.TECHNOLOGY_PROVIDER);
+    tp2_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(tp2adminId);
 
     // create three suppliers
+    String supp1adminId = "supp1_admin" + timeBase;
     supp1 =
         WebserviceTestBase.createOrganization(
-            "supp1_admin" + timeBase, OrganizationRoleType.SUPPLIER);
-    supp1_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+        		supp1adminId, OrganizationRoleType.SUPPLIER);
+    supp1_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(supp1adminId);
+    
+    String supp2adminId = "supp2_admin" + timeBase;
     supp2 =
         WebserviceTestBase.createOrganization(
-            "supp2_admin" + timeBase, OrganizationRoleType.SUPPLIER);
-    supp2_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+        		supp2adminId, OrganizationRoleType.SUPPLIER);
+    supp2_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(supp2adminId);
+    
+    String supp3adminId = "supp3_admin" + timeBase;
     supp3 =
         WebserviceTestBase.createOrganization(
-            "supp3_admin" + timeBase, OrganizationRoleType.SUPPLIER);
-    supp3_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+        		supp3adminId, OrganizationRoleType.SUPPLIER);
+    supp3_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(supp3adminId);
 
     // create two technical services for tp1
     serviceFactory = ServiceFactory.getDefault();

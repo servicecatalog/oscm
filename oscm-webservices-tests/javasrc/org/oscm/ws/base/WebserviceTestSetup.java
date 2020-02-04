@@ -401,7 +401,6 @@ public class WebserviceTestSetup {
 
   public VOOrganization createCustomer(String namePrefix) throws Exception {
     VOOrganization voCustomer = registerCustomerForSupplier(namePrefix);
-    voCustomerUser.setKey(Long.parseLong(WebserviceTestBase.readLastMailAndSetCommonPassword()));
     accSrvCustomer =
         ServiceFactory.getDefault()
             .getAccountService(
@@ -421,6 +420,7 @@ public class WebserviceTestSetup {
     VOOrganization voCustomer = factory.createOrganizationVO();
     voCustomer.setName(uniqueOrgName(namePrefix));
     voCustomerUser = factory.createUserVO(namePrefix + "_" + WebserviceTestBase.createUniqueKey());
+    voCustomerUser.setKey(Long.parseLong(WebserviceTestBase.readLastMailAndSetCommonPassword(voCustomerUser.getUserId())));
     return accSrvAsSupplier.registerKnownCustomer(
         voCustomer, voCustomerUser, null, getGlobalMarketplaceId());
   }

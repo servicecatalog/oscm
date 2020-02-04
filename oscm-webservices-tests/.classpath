@@ -32,5 +32,8 @@
 	<classpathentry kind="lib" path="/libraries/bouncycastle/javalib/bcprov-jdk15-145.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/openejb-client-7.0.3.jar"/>
+	<classpathentry kind="lib" path="/libraries/jackson/javalib/jackson-databind.jar"/>
+	<classpathentry kind="lib" path="/libraries/jackson/javalib/jackson-core.jar"/>
+	<classpathentry kind="lib" path="/libraries/jackson/javalib/jackson-annotations.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

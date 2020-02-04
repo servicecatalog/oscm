@@ -17,13 +17,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.oscm.email.MaildevReader;
 import org.oscm.intf.IdentityService;
 import org.oscm.types.enumtypes.OrganizationRoleType;
 import org.oscm.types.enumtypes.UserRoleType;
 import org.oscm.vo.VOOrganization;
 import org.oscm.vo.VOUser;
 import org.oscm.vo.VOUserDetails;
-import org.oscm.ws.base.MailReader;
 import org.oscm.ws.base.ServiceFactory;
 import org.oscm.ws.base.WebserviceTestBase;
 
@@ -61,7 +61,7 @@ public class ConcurrencyTest {
   private class CreateUserThread extends Thread {
     private final int executionTimes;
     private final String organizationAdminKey;
-    private final MailReader mailReader;
+    private final MaildevReader mailReader;
     private final String organizationId;
     private final String emailUser;
 
@@ -77,8 +77,7 @@ public class ConcurrencyTest {
       this.organizationId = organizationId;
       this.organizationAdminKey = organizationAdminId;
       this.emailUser = emailUser;
-      this.mailReader = new MailReader();
-      mailReader.setMailUser(emailUser);
+      this.mailReader = WebserviceTestBase.getMailDevReader();
     }
 
     @Override
@@ -120,7 +119,7 @@ public class ConcurrencyTest {
 
     private void initialPasswordChange(List<String> userKeys, VOUserDetails createdUser)
         throws Exception {
-      String[] userKeyAndPass = mailReader.readPassAndKeyFromEmail(createdUser.getUserId());
+      String[] userKeyAndPass = mailReader.readPasswordAndKeyFromEmail(createdUser.getUserId());
       String userKey = userKeyAndPass[0];
       String userPwd = userKeyAndPass[1];
       userKeys.add(userKey);
@@ -132,7 +131,6 @@ public class ConcurrencyTest {
       // probably because the new mail arrives later in inbox, so a
       // previous
       // mail is read - ensure this is not happening
-      mailReader.deleteMails();
     }
   }
 
@@ -178,7 +176,6 @@ public class ConcurrencyTest {
   @Before
   public void setup() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
-    WebserviceTestBase.getMailReader().deleteMails();
     String administratorId = "admin_" + System.currentTimeMillis();
     organization =
         WebserviceTestBase.createOrganization(

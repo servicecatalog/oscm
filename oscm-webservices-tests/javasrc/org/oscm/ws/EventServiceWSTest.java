@@ -87,7 +87,6 @@ public class EventServiceWSTest {
   @BeforeClass
   public static void setup() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
-    WebserviceTestBase.getMailReader().deleteMails();
     initTestData();
   }
 
@@ -178,7 +177,7 @@ public class EventServiceWSTest {
             null,
             null,
             org.oscm.internal.types.enumtypes.OrganizationRoleType.TECHNOLOGY_PROVIDER);
-    providerAdminKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+    providerAdminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(adminUser.getUserId());
   }
 
   public static void registerSupplier() throws Exception {
@@ -197,7 +196,7 @@ public class EventServiceWSTest {
                     null,
                     null,
                     org.oscm.internal.types.enumtypes.OrganizationRoleType.SUPPLIER));
-    supplierAdminKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+    supplierAdminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(adminUser.getUserId());
   }
 
   private static void importTechnicalService(ServiceProvisioningService serviceProvisioningService)

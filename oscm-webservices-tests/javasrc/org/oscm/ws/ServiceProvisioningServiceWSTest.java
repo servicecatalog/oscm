@@ -74,7 +74,6 @@ public class ServiceProvisioningServiceWSTest {
   public void setUp() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
     // clean the mails
-    WebserviceTestBase.getMailReader().deleteMails();
     // add currencies
     WebserviceTestBase.getOperator().addCurrency("EUR");
 

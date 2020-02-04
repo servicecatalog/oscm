@@ -23,6 +23,7 @@ import java.util.Properties;
 import java.util.Set;
 import org.oscm.converter.api.EnumConverter;
 import org.oscm.converter.api.VOConverter;
+import org.oscm.email.MaildevReader;
 import org.oscm.internal.intf.OperatorService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.vo.VOConfigurationSetting;
@@ -63,15 +64,13 @@ public class WebserviceTestBase {
   public static final String DEFAULT_PASSWORD = "secret";
   public static final String CURRENCY_EUR = "EUR";
   public static final String EXAMPLE_BASE_URL = "bes.https.url";
-  public static final String CS_MAIL_ADDRESS = "mail.address";
-  public static final String CS_MAIL_USERNAME = "mail.username";
-
+  public static final String MAIL_URL = "mail.url";
+  
   private static OperatorService operator;
-  private static MailReader mailReader;
+  private static MaildevReader mailDevReader;
   private static String platformOperatorKey;
   private static String platformOperatorPassword;
   private static Properties configSettings;
-  private static String mailAddress;
   private static VOMarketplace globalMarketplace;
   private static VOFactory factory = new VOFactory();
 
@@ -83,21 +82,16 @@ public class WebserviceTestBase {
     }
     return operator;
   }
-
-  public static MailReader getMailReader() throws Exception {
-    synchronized (WebserviceTestBase.class) {
-      if (mailReader == null) {
-        mailReader = new MailReader();
-      }
-      if (mailAddress == null) {
-        mailAddress = getConfigSetting(CS_MAIL_ADDRESS);
-      }
-      if (mailAddress == null || mailAddress.trim().equals("")) {
-        mailAddress = getConfigSetting(CS_MAIL_USERNAME);
-      }
-    }
-    return mailReader;
-  }
+  
+	public static MaildevReader getMailDevReader() throws Exception {
+		synchronized (WebserviceTestBase.class) {
+			if (mailDevReader == null) {
+				String mailUrl = getConfigSetting(MAIL_URL);
+				mailDevReader = new MaildevReader(mailUrl);
+			}
+		}
+		return mailDevReader;
+	}
 
   public static String getPlatformOperatorKey() throws Exception {
     ensureProperties();
@@ -210,36 +204,11 @@ public class WebserviceTestBase {
    * Looking for the last mail of mail server and read password and userkey from the mail. At the
    * same time, the user password is changed to common password.
    *
-   * @deprecated Use #{@link WebserviceTestBase#readLastMailAndSetCommonPassword(String)} Using this
-   *     method will cause 401 Unauthorized on WS tests!
-   * @return user key written in last mail
-   * @throws Exception
-   */
-  @Deprecated
-  public static String readLastMailAndSetCommonPassword() throws Exception {
-    String userKey = getMailReader().readUserKeyFromMail();
-    String userPwd = getMailReader().readPasswordFromMail();
-
-    IdentityService id = ServiceFactory.getDefault().getIdentityService(userKey, userPwd);
-    id.changePassword(userPwd, DEFAULT_PASSWORD);
-
-    // sometimes WS tests fail at id.changePassword() with "Unauthorized"
-    // probably because the new mail arrives later in inbox, so a previous
-    // mail is read - ensure this is not happening
-    getMailReader().deleteMails();
-
-    return userKey;
-  }
-
-  /**
-   * Looking for the last mail of mail server and read password and userkey from the mail. At the
-   * same time, the user password is changed to common password.
-   *
    * @return user key written in last mail
    * @throws Exception
    */
   public static String readLastMailAndSetCommonPassword(String userName) throws Exception {
-    String[] userKeyAndPass = getMailReader().readPassAndKeyFromEmail(userName);
+    String[] userKeyAndPass = getMailDevReader().readPasswordAndKeyFromEmail(userName);
     String userKey = userKeyAndPass[0];
     String userPwd = userKeyAndPass[1];
 
@@ -250,7 +219,7 @@ public class WebserviceTestBase {
 
   public static String readLastMailAndSetPassword(String userName, String password)
       throws Exception {
-    String[] userKeyAndPass = getMailReader().readPassAndKeyFromEmail(userName);
+    String[] userKeyAndPass = getMailDevReader().readPasswordAndKeyFromEmail(userName);
     String userKey = userKeyAndPass[0];
     String userPwd = userKeyAndPass[1];
 
@@ -262,7 +231,7 @@ public class WebserviceTestBase {
   public static String readLastMailAndGetKey(String userName, String password, boolean ssoMode)
       throws Exception {
     if (ssoMode) {
-      return getMailReader().readKeyFromEmail(true, userName);
+      return getMailDevReader().readKeyFromEmail(userName);
     } else {
       return readLastMailAndSetPassword(userName, password);
     }
@@ -312,7 +281,7 @@ public class WebserviceTestBase {
             supplierUserId,
             OrganizationRoleType.TECHNOLOGY_PROVIDER,
             OrganizationRoleType.SUPPLIER);
-    String supplierUserKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+    String supplierUserKey = WebserviceTestBase.readLastMailAndSetCommonPassword(supplierUserId);
     result.put("userId", supplierUserId);
     result.put("userKey", supplierUserKey);
     result.put("organizationId", supplier.getOrganizationId());
@@ -335,7 +304,7 @@ public class WebserviceTestBase {
     IdentityService is =
         ServiceFactory.getDefault().getIdentityService(supplierUserKey, DEFAULT_PASSWORD);
     is.createUser(user, userRoles, (String) mpResult.get("marketplaceId"));
-    String srvManagerUserKey = readLastMailAndSetCommonPassword();
+    String srvManagerUserKey = readLastMailAndSetCommonPassword(user.getUserId());
     result.put("serviceManagerUserKey", srvManagerUserKey);
 
     result.put("voOrganization", supplier);

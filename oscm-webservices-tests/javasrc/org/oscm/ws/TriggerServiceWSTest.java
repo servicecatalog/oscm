@@ -84,7 +84,6 @@ public class TriggerServiceWSTest {
   @BeforeClass
   public static void setUp() throws Exception {
     // clean the mails
-    WebserviceTestBase.getMailReader().deleteMails();
     setup = new WebserviceTestSetup();
 
     // create supplier1
@@ -99,7 +98,6 @@ public class TriggerServiceWSTest {
     tpServiceSupplier =
         ServiceFactory.getDefault()
             .getTriggerService(setup.getSupplierUserKey(), WebserviceTestBase.DEFAULT_PASSWORD);
-    WebserviceTestBase.getMailReader().deleteMails();
 
     // create mp
     setup.createTechnicalService();
@@ -120,7 +118,6 @@ public class TriggerServiceWSTest {
     isSP2 =
         ServiceFactory.getDefault()
             .getIdentityService(setup.getSupplierUserKey(), WebserviceTestBase.DEFAULT_PASSWORD);
-    WebserviceTestBase.getMailReader().deleteMails();
 
     // create user
     setup.createCustomer("Customer");
@@ -157,7 +154,6 @@ public class TriggerServiceWSTest {
     VOTriggerDefinition voDef = createVOTriggerDefinition(TriggerType.REGISTER_OWN_USER, true);
     serviceSupplier.createTriggerDefinition(voDef);
     VOUserDetails u = createUniqueUser();
-    u.setEMail(WebserviceTestBase.getMailReader().getMailAddress());
     is.createUser(u, Arrays.asList(UserRoleType.SERVICE_MANAGER), null);
     isSP2.createUser(u, Arrays.asList(UserRoleType.SERVICE_MANAGER), null);
     waitForJmsQueueToStartTrigger();

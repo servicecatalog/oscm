@@ -76,7 +76,6 @@ public class MarketplaceServiceWSTest {
   @BeforeClass
   public static void setup() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
-    WebserviceTestBase.getMailReader().deleteMails();
     init();
   }
 

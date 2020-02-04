@@ -81,7 +81,6 @@ public class ReviewServiceWSTest {
 
     @BeforeClass
     public static void setUpOnce() throws Exception {
-        WebserviceTestBase.getMailReader().deleteMails();
         WebserviceTestBase.getOperator().addCurrency("EUR");
 
         setup = new WebserviceTestSetup();

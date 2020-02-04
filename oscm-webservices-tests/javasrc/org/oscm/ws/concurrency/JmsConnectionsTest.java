@@ -171,8 +171,6 @@ public class JmsConnectionsTest {
 
     @Before
     public void setup() throws MessagingException, Exception {
-        WebserviceTestBase.getMailReader().deleteMails();
-
         // add currency
         WebserviceTestBase.getOperator().addCurrency(CURRENCY_EUR);
 
@@ -199,7 +197,7 @@ public class JmsConnectionsTest {
                                 org.oscm.internal.types.enumtypes.OrganizationRoleType.SUPPLIER));
 
         supplierAdminKey = WebserviceTestBase
-                .readLastMailAndSetCommonPassword();
+                .readLastMailAndSetCommonPassword(supplierAdmin.getUserId());
         supplierOrganizationId = supplierOrganization.getOrganizationId();
         supplierAdmin.setKey(Long.parseLong(supplierAdminKey));
 

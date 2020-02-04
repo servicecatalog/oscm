@@ -137,8 +137,6 @@ public class SearchServiceWSTest {
    * 4. Services are created for marketplace one but not for marketplace two
    */
   private static void init() throws Exception {
-    WebserviceTestBase.getMailReader().deleteMails();
-
     setup = new WebserviceTestSetup();
 
     // needed for deleting marketplaces
@@ -628,11 +626,12 @@ public class SearchServiceWSTest {
   }
 
   private static String createTechnologyProvider() throws Exception {
+    String userId = "newTechnologyProvider" + WebserviceTestBase.createUniqueKey();
     WebserviceTestBase.createOrganization(
-        "newTechnologyProvider" + WebserviceTestBase.createUniqueKey(),
+        userId,
         "newTechnologyProvider" + WebserviceTestBase.createUniqueKey(),
         OrganizationRoleType.TECHNOLOGY_PROVIDER);
-    return WebserviceTestBase.readLastMailAndSetCommonPassword();
+    return WebserviceTestBase.readLastMailAndSetCommonPassword(userId);
   }
 
   private static void deactivateAndDeleteService(VOService serviceToDelete) throws Exception {
