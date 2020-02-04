@@ -51,7 +51,8 @@
         
         <c:if test="#{updateMarketplaceBean.model.tenantSelectVisible}">
         <adm:panelGrid>
-            <adm:selectTenant context="#{updateMarketplaceBean.model.tenantId}" bean="#{updateMarketplaceBean}" />
+            <adm:labelAndInputText label="#{msg['tenant.tenantID']}" disabled="true" value="#{updateMarketplaceBean.model.tenantId}"
+              bean="#{updateMarketplaceBean}"/>
           </adm:panelGrid>
         </c:if>
         
