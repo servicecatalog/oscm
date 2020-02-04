@@ -9,13 +9,11 @@
  */
 package org.oscm.webtest;
 
-import java.util.Properties;
-import javax.mail.*;
-import javax.mail.search.SubjectTerm;
 import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.oscm.email.MaildevReader;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
@@ -23,11 +21,7 @@ import org.openqa.selenium.WebElement;
  * @author miethaner
  */
 public class PortalTester extends WebTester {
-  private static final String EMAIL_ADDRESS = "email.address";
-  private static final String EMAIL_HOST = "email.host";
-  private static final String EMAIL_USER = "email.user";
-  private static final String EMAIL_PASSWORD = "email.password";
-  private static final String EMAIL_PROTOCOL = "email.protocol";
+  private static final String EMAIL_HOST = "email.http.url";
   public static final String TECHSERVICE_PARAM_EMAIL = "The receiver of emails.";
   public static final String TECHSERVICE_PARAM_USER = "IAAS user";
   public static final String TECHSERVICE_PARAM_PWD = "IAAS password";
@@ -36,47 +30,14 @@ public class PortalTester extends WebTester {
   private static final String BASE_PATH_PORTAL = "%s/oscm-portal/%s";
   private static final String BASE_PATH_MARKETPLACE = "%s/oscm-portal/marketplace/%s";
 
-  // email parameters
-  private static final String MAIL_INBOX = "INBOX";
-
-  private String address;
-  private Session mailSession;
-  private Properties emailProp;
+  private MaildevReader maildevReader;;
 
   public PortalTester() throws Exception {
     super();
 
     baseUrl = loadUrl(BES_SECURE, BES_HTTPS_URL, BES_HTTP_URL);
-    initMailSession();
-
+    this.maildevReader = new MaildevReader(prop.getProperty(EMAIL_HOST));
     visitPortal("");
-  }
-
-  /** initialize java mail session */
-  private void initMailSession() {
-
-    address = prop.getProperty(EMAIL_ADDRESS);
-    String host = prop.getProperty(EMAIL_HOST);
-    final String user = prop.getProperty(EMAIL_USER);
-    final String password = prop.getProperty(EMAIL_PASSWORD);
-    String protocol = prop.getProperty(EMAIL_PROTOCOL);
-
-    emailProp = new Properties();
-    emailProp.setProperty("mail.store.protocol", protocol);
-    emailProp.setProperty("mail.host", host);
-    emailProp.setProperty("mail.user", user);
-    emailProp.setProperty("mail.from", address);
-    emailProp.setProperty("mail.debug", "true");
-
-    mailSession =
-        Session.getInstance(
-            emailProp,
-            new Authenticator() {
-              @Override
-              protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(user, password);
-              }
-            });
   }
 
   /**
@@ -237,40 +198,7 @@ public class PortalTester extends WebTester {
    * @throws Exception
    */
   public String readLatestEmailWithSubject(String subject) throws Exception {
-    Store store = mailSession.getStore();
-    store.connect();
-
-    Folder folder = store.getFolder(MAIL_INBOX);
-    folder.open(Folder.READ_WRITE);
-
-    Message[] messages = null;
-
-    messages = folder.search(new SubjectTerm(subject));
-
-    String body = null;
-    if (messages.length > 0) {
-      Message latest = messages[0];
-
-      for (Message m : messages) {
-        if (latest.getSentDate().compareTo(m.getSentDate()) < 0) {
-          latest = m;
-        }
-      }
-      body = (String) latest.getContent();
-    }
-
-    folder.close(false);
-    store.close();
-
-    return body;
+    return maildevReader.getLatestEmailBySubject(subject).getText();
   }
 
-  /**
-   * Returns the configured email address.
-   *
-   * @return the email address
-   */
-  public String getEmailAddress() {
-    return address;
-  }
 }
