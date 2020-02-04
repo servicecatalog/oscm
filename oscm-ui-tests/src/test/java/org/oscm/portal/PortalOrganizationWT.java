@@ -56,8 +56,7 @@ public class PortalOrganizationWT {
   public void test01createSupplierOrg() throws Exception {
     tester.visitPortal(PortalPathSegments.CREATE_ORGANIZATION);
 
-    tester.writeValue(
-        PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ADMINEMAIL, ORG_ADMIN_EMAIL);
+    tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ADMINEMAIL, ORG_ADMIN_EMAIL);
     tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_DESIRED_USERID, ORG_ADMIN);
     tester.selectDropdown(PortalHtmlElements.CREATE_ORGANIZATION_DROPDOWN_LANGUAGE, "en");
 
@@ -67,8 +66,7 @@ public class PortalOrganizationWT {
     tester.waitForElement(By.id(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_REVENUESHARE), 10);
     tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_REVENUESHARE, "5");
     tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGNAME, ORG);
-    tester.writeValue(
-        PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGEMAIL, ORG_ADMIN_EMAIL);
+    tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGEMAIL, ORG_ADMIN_EMAIL);
     tester.selectDropdown(PortalHtmlElements.CREATE_ORGANIZATION_DROPDOWN_ORGLOCALE, "en");
     tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGPHONE, "123");
     tester.writeValue(PortalHtmlElements.CREATE_ORGANIZATION_INPUT_ORGURL, "http://abc.de");
@@ -100,7 +98,8 @@ public class PortalOrganizationWT {
         body.substring(
             index + phrasePassword.length(), index + phrasePassword.length() + PASSWORD_LENGTH);
     assertTrue(passwordOrgAdmin != "");
-    tester.log("password from " + PlaygroundSuiteTest.supplierOrgAdminMail + " is: " + passwordOrgAdmin);
+    tester.log(
+        "password from " + PlaygroundSuiteTest.supplierOrgAdminMail + " is: " + passwordOrgAdmin);
   }
 
   @Test

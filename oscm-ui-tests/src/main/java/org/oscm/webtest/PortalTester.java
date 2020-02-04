@@ -200,5 +200,4 @@ public class PortalTester extends WebTester {
   public String readLatestEmailWithSubject(String subject) throws Exception {
     return maildevReader.getLatestEmailBySubject(subject).getText();
   }
-
 }
