@@ -9,12 +9,13 @@
  */
 package org.oscm.portal;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
 public class JUnitHelper extends TestWatcher {
-  public static final Logger logger = Logger.getLogger(JUnitHelper.class);
+  public static final Logger logger = LogManager.getLogger(JUnitHelper.class.getName());
 
   @Override
   protected void starting(Description description) {

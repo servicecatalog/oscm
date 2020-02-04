@@ -9,15 +9,9 @@
  */
 package org.oscm.webtest;
 
-import java.io.FileInputStream;
-import java.net.InetAddress;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -31,6 +25,14 @@ import org.oscm.webtest.authentication.AuthenticationContext;
 import org.oscm.webtest.authentication.InternalAuthenticationContext;
 import org.oscm.webtest.authentication.OIDCAuthenticationContext;
 import org.oscm.webtest.exception.ConfigurationException;
+
+import java.io.FileInputStream;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
@@ -58,7 +60,7 @@ public class WebTester {
   private static final String AUTH_MODE = "auth.mode";
   private static final String CHROME_DRIVER_PATH = "chrome.driver.path";
 
-  protected static final Logger logger = Logger.getLogger(WebTester.class);
+  protected static final Logger logger = LogManager.getLogger(WebTester.class.getName());
   // web element keys
   protected static final String ATTRIUBTE_VALUE = "value";
   protected String baseUrl = "";
