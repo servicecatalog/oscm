@@ -123,7 +123,7 @@
         <dependency>
             <groupId>com.github.servicecatalog.oscm-commons</groupId>
             <artifactId>oscm-common</artifactId>
-            <version>mailreader_fix-c370d27d15-1</version>
+            <version>master-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
