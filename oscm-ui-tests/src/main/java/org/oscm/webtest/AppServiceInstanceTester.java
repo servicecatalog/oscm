@@ -9,8 +9,9 @@
  */
 package org.oscm.webtest;
 
-import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
+
+import javax.security.auth.login.LoginException;
 
 /** Helper class for integration web tests for oscm-app/controller/controller/?cid=abc */
 public class AppServiceInstanceTester extends WebTester {
@@ -57,9 +58,9 @@ public class AppServiceInstanceTester extends WebTester {
     wait(IMPLICIT_WAIT);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_SERVICEINSTANCE_TABLE_ID))) {
-      logger.info("Login to " + url + " successfully with userid:" + userid);
+      logger.info(String.format("Login to %s successfully with userid:%s", url, userid));
     } else {
-      String info = "Login to " + url + " failed with userid:" + userid;
+      String info = String.format("Login to %s failed with userid:%s", url, userid);
       logger.info(info);
       throw new LoginException(info);
     }
@@ -76,10 +77,10 @@ public class AppServiceInstanceTester extends WebTester {
     driver.navigate().to(target);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_SERVICEINSTANCE_TABLE_ID))) {
-      logger.info("Navigate to " + target + " failed : HTTP Status 404 - Not Found");
+      logger.info(String.format("Navigate to %s failed : HTTP Status 404 - Not Found", target));
       throw new Exception("Page not found!");
     } else {
-      logger.info("Navigate to " + target + " successfully");
+      logger.info(String.format("Navigate to %s successfully", target));
     }
   }
 

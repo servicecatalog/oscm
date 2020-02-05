@@ -9,15 +9,9 @@
  */
 package org.oscm.webtest;
 
-import java.io.FileInputStream;
-import java.net.InetAddress;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -31,6 +25,14 @@ import org.oscm.webtest.authentication.AuthenticationContext;
 import org.oscm.webtest.authentication.InternalAuthenticationContext;
 import org.oscm.webtest.authentication.OIDCAuthenticationContext;
 import org.oscm.webtest.exception.ConfigurationException;
+
+import java.io.FileInputStream;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
@@ -58,7 +60,7 @@ public class WebTester {
   private static final String AUTH_MODE = "auth.mode";
   private static final String CHROME_DRIVER_PATH = "chrome.driver.path";
 
-  protected static final Logger logger = Logger.getLogger(WebTester.class);
+  protected static final Logger logger = LogManager.getLogger(WebTester.class.getName());
   // web element keys
   protected static final String ATTRIUBTE_VALUE = "value";
   protected String baseUrl = "";
@@ -125,11 +127,10 @@ public class WebTester {
    *
    * @param prefix
    * @return
-   * @throws NoSuchFieldException
    * @throws SecurityException
    */
   protected String loadUrl(String secureUrl, String httpsUrl, String httpUrl)
-      throws NoSuchFieldException, SecurityException {
+      throws SecurityException {
 
     boolean secure = Boolean.parseBoolean(prop.getProperty(secureUrl));
     if (secure) {
@@ -194,8 +195,10 @@ public class WebTester {
     try {
       if (driver.findElement(by) != null) return true;
     } catch (NoSuchElementException e) {
+      logger.error("Element is not present");
       return false;
     }
+    logger.error("Cannot find elements");
     return false;
   }
 
@@ -214,11 +217,11 @@ public class WebTester {
     String attribute = element.getAttribute(ATTRIUBTE_VALUE);
 
     if (attribute != null && attribute.equals(value)) {
-      System.out.println("Element with id " + id + " and value " + value + " is valid");
+      log(String.format("Element with id %s and value %s is valid", id, value));
       return true;
     } else {
-      System.out.println(
-          "Element with id " + id + " is invalid (" + value + " != " + attribute + ")");
+      logger.warn(
+              String.format("Element with id %s is invalid (%s != %s)", id, value, attribute));
       return false;
     }
   }
@@ -232,7 +235,7 @@ public class WebTester {
   public void clickElement(String id) {
     driver.findElement(By.id(id)).click();
 
-    System.out.println("Clicked the element with id " + id);
+    log(String.format("Clicked the element with id %s", id));
   }
 
   /**
@@ -269,6 +272,8 @@ public class WebTester {
   public void writeValue(String id, String value) {
     WebElement element = driver.findElement(By.id(id));
     element.sendKeys(value);
+
+    log(String.format("Wrote value: %s to element with id %s", value, id));
   }
 
   /**
@@ -281,6 +286,8 @@ public class WebTester {
   public void selectDropdown(String id, String value) {
     Select select = new Select(driver.findElement(By.id(id)));
     select.selectByValue(value);
+
+    log(String.format("Selected value: %s from element with id %s", value, id));
   }
 
   /**
@@ -292,7 +299,7 @@ public class WebTester {
   public void submitForm(String id) {
     driver.findElement(By.id(id)).submit();
 
-    System.out.println("Submitted form with id " + id);
+    log(String.format("Submitted form with id %s", id));
   }
 
   /**

@@ -58,10 +58,10 @@ public class AppConfigurationTester extends WebTester {
     wait(IMPLICIT_WAIT);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_CONFIG_FORM1))) {
-      logger.info("Login to " + url + " successfully with userid:" + user);
+      logger.info(String.format("Login to %s successfully with userid:%s", url, user));
     } else {
-      String info = "Login to " + url + " failed with userid:" + user;
-      logger.info(info);
+      String info = String.format("Login to %s failed with userid:%s", url, user);
+      logger.error(info);
       throw new LoginException(info);
     }
   }
@@ -77,10 +77,10 @@ public class AppConfigurationTester extends WebTester {
     driver.navigate().to(target);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_CONFIG_FORM1))) {
-      logger.info("Navigate to " + target + " failed : HTTP Status 404 - Not Found");
+      logger.error(String.format("Navigate to %s failed : HTTP Status 404 - Not Found", target));
       throw new Exception("Page not found!");
     } else {
-      logger.info("Navigate to " + target + " successfully");
+      logger.info(String.format("Navigate to %s successfully", target));
     }
   }
 

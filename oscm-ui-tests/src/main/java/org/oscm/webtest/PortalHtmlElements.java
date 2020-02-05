@@ -92,7 +92,7 @@ public class PortalHtmlElements {
 
   public static final String DEFINE_PUBLISH_OPTION_DROPDOWN_SERVICENAME =
       "editForm:selectedServiceIdInner";
-  public static final String DEFINE_PUBLISH_OPTION_DROPDOWN_MARKETPLACE = "editForm:marketplace";
+  public static final String DEFINE_PUBLISH_OPTION_DROPDOWN_MARKETPLACE = "editForm:marketplaceInner";
   public static final String DEFINE_PUBLISH_OPTION_BUTTON_SAVE = "editForm:saveButton";
 
   public static final String DEACTIVATION_SERVICE_FORM = "serviceDeActivationForm";
