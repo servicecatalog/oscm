@@ -9,6 +9,10 @@
  */
 package org.oscm.webtest.authentication;
 
+import static org.oscm.webtest.WebTester.IMPLICIT_WAIT;
+
+import java.util.concurrent.TimeUnit;
+import javax.security.auth.login.LoginException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -17,14 +21,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.oscm.webtest.PortalHtmlElements;
 
-import javax.security.auth.login.LoginException;
-import java.util.concurrent.TimeUnit;
-
-import static org.oscm.webtest.WebTester.IMPLICIT_WAIT;
-
 public class InternalAuthenticationContext implements AuthenticationContext {
 
-  private static final Logger logger = LogManager.getLogger(InternalAuthenticationContext.class.getName());
+  private static final Logger logger =
+      LogManager.getLogger(InternalAuthenticationContext.class.getName());
 
   private WebDriver driver;
 

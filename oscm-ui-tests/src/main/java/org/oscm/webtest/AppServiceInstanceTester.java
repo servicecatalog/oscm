@@ -9,9 +9,8 @@
  */
 package org.oscm.webtest;
 
-import org.openqa.selenium.By;
-
 import javax.security.auth.login.LoginException;
+import org.openqa.selenium.By;
 
 /** Helper class for integration web tests for oscm-app/controller/controller/?cid=abc */
 public class AppServiceInstanceTester extends WebTester {
