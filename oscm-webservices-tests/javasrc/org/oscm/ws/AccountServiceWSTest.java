@@ -79,8 +79,8 @@ public class AccountServiceWSTest {
 
   @Before
   public void setUp() throws Exception {
-	  
-	assumeFalse(ServiceFactory.getDefault().isSSOMode());
+
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
 
     // add currencies
     WebserviceTestBase.getOperator().addCurrency("EUR");

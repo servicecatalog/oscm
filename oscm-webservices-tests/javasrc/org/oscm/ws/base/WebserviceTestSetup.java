@@ -403,8 +403,7 @@ public class WebserviceTestSetup {
     VOOrganization voCustomer = registerCustomerForSupplier(namePrefix);
     accSrvCustomer =
         ServiceFactory.getDefault()
-            .getAccountService(
-                String.valueOf(voCustomerUser.getKey()), WebserviceTestBase.DEFAULT_PASSWORD);
+            .getAccountService(supplierUserKey, WebserviceTestBase.DEFAULT_PASSWORD);
     List<VOPaymentInfo> paymentInfos = accSrvCustomer.getPaymentInfos();
     assertEquals("Only the default INVOICE payment info expected", 1, paymentInfos.size());
     voCustomerPaymentInfo = paymentInfos.get(0);
@@ -420,7 +419,7 @@ public class WebserviceTestSetup {
     VOOrganization voCustomer = factory.createOrganizationVO();
     voCustomer.setName(uniqueOrgName(namePrefix));
     voCustomerUser = factory.createUserVO(namePrefix + "_" + WebserviceTestBase.createUniqueKey());
-    voCustomerUser.setKey(Long.parseLong(WebserviceTestBase.readLastMailAndSetCommonPassword(voCustomerUser.getUserId())));
+    //voCustomerUser.setKey(Long.parseLong(WebserviceTestBase.readLastMailAndSetCommonPassword(voCustomerUser.getUserId())));
     return accSrvAsSupplier.registerKnownCustomer(
         voCustomer, voCustomerUser, null, getGlobalMarketplaceId());
   }
