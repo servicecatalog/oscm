@@ -22,6 +22,7 @@ import org.oscm.types.exceptions.BulkUserImportException;
 import org.oscm.types.exceptions.BulkUserImportException.Reason;
 import org.oscm.types.exceptions.ObjectNotFoundException;
 import org.oscm.vo.VOOrganization;
+import org.oscm.vo.VOUserDetails;
 import org.oscm.ws.base.ServiceFactory;
 import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
@@ -44,6 +45,9 @@ public class IdentityServiceWSPlatformOperatorTest {
     setup = new WebserviceTestSetup();
     supplier1 = setup.createSupplier("Supplier1");
     is = ServiceFactory.getDefault().getIdentityService();
+    VOUserDetails userDetails = is.getCurrentUserDetails();	
+    userDetails.setEMail("sampleuseremail@fujitsu.com");	
+    is.updateUser(userDetails);
   }
 
   @Test
