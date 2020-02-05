@@ -49,7 +49,7 @@ public class InternalAuthenticationContext implements AuthenticationContext {
       logger.info(info);
       throw new LoginException(info);
     } catch (NoSuchElementException exc) {
-      logger.info("Login to OSCM Portal successfully with userId:" + user);
+      logger.info(String.format("Login to OSCM Portal successfully with userId: %s", user));
     }
   }
 }

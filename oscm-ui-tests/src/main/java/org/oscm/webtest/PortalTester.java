@@ -9,11 +9,12 @@
  */
 package org.oscm.webtest;
 
-import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.oscm.email.MaildevReader;
+
+import javax.security.auth.login.LoginException;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
@@ -130,7 +131,7 @@ public class PortalTester extends WebTester {
 
     driver.navigate().to(target);
 
-    System.out.println("Goto " + target);
+    log("Goto " + target);
   }
 
   /**
@@ -139,7 +140,7 @@ public class PortalTester extends WebTester {
    */
   public void logoutMarketplace() {
     driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
-    System.out.println("Logout OSCM Marketplace");
+    log("Logout OSCM Marketplace");
   }
 
   /**

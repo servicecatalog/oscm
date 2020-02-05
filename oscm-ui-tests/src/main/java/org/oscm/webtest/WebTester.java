@@ -216,10 +216,10 @@ public class WebTester {
     String attribute = element.getAttribute(ATTRIUBTE_VALUE);
 
     if (attribute != null && attribute.equals(value)) {
-      System.out.println("Element with id " + id + " and value " + value + " is valid");
+      log("Element with id " + id + " and value " + value + " is valid");
       return true;
     } else {
-      System.out.println(
+      log(
           "Element with id " + id + " is invalid (" + value + " != " + attribute + ")");
       return false;
     }
@@ -234,7 +234,7 @@ public class WebTester {
   public void clickElement(String id) {
     driver.findElement(By.id(id)).click();
 
-    System.out.println("Clicked the element with id " + id);
+    log("Clicked the element with id " + id);
   }
 
   /**
@@ -294,7 +294,7 @@ public class WebTester {
   public void submitForm(String id) {
     driver.findElement(By.id(id)).submit();
 
-    System.out.println("Submitted form with id " + id);
+    log("Submitted form with id " + id);
   }
 
   /**

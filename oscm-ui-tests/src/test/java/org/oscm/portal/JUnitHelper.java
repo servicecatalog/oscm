@@ -28,7 +28,7 @@ public class JUnitHelper extends TestWatcher {
   protected void succeeded(Description description) {
     super.succeeded(description);
     logger.info(
-        "TEST SUCCESSFUL :" + description.getClassName() + " - " + description.getMethodName());
+        "TEST SUCCESSFUL :" + description.getClassName() + " - " + description.getMethodName() + "/n");
   }
 
   @Override
