@@ -4,8 +4,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:b="http://bootsfaces.net/ui"
   xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/main.xhtml">
+  xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/mainBootsfaces.xhtml">
 
   <ui:define name="pageId">
     <c:set var="pageId" value="priceModel.customer.delete" />
@@ -16,26 +17,29 @@
     <adm:initialize initializingMethod="#{deleteCustomerPriceModelCtrl.initialize}" />
 
     <h:form id="customerPriceModelDeleteForm">
+    <script type = "text/javascript">
+    $(document).ready(function () {
+      $("[id='customerPriceModelDeleteForm:customerSelectionInner']").select2().on('select2:selecting', function (e) {
+        if (!AdmUtils.isNotDirtyOrConfirmed()) {
+          e.preventDefault();
+        } 
+      });
+
+    });
+    </script>
 
       <adm:outputStep value="#{msg['priceModel.customer.select']}" />
 
       <adm:panelGrid>
         <!-- customer's combo box -->
         <adm:outputLabel value="#{msg['priceModel.checkbox.customer.label']}" />
-        <a4j:outputPanel styleClass="jqSelect" layout="block">
-          <a4j:outputPanel styleClass="select">
-            <a4j:outputPanel styleClass="option" />
-          </a4j:outputPanel>
-          <h:selectOneMenu id="customerSelection" styleClass="select" onclick="AdmUtils.storeValue(this);"
-            value="#{deleteCustomerPriceModelModel.selectedOrgId}"
-            disabled="#{deleteCustomerPriceModelCtrl.selectDisabled}">
+          <b:selectOneMenu select2="true" id="customerSelection" onclick="AdmUtils.storeValue(this);" value="#{deleteCustomerPriceModelModel.selectedOrgId}" 
+          disabled="#{deleteCustomerPriceModelCtrl.selectDisabled}" 
+          oncomplete="javascript:AdmUtils.hideMessages();javascsript:AdmUtils.setUIElements();">
+            <f:ajax event="change" listener="#{deleteCustomerPriceModelCtrl.selectedOrgIdChanged}"
+              render="tablePanel" /> 
             <f:selectItems value="#{deleteCustomerPriceModelModel.customers}" />
-            <a4j:ajax event="change" listener="#{deleteCustomerPriceModelCtrl.selectedOrgIdChanged}"
-              onbeforesubmit="if(!AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.restoreValue(this); return false;}"
-              oncomplete="AdmUtils.hideMessages();AdmUtils.initFocus();AdmUtils.setUIElements();"
-              render="tablePanel" />
-          </h:selectOneMenu>
-        </a4j:outputPanel>
+          </b:selectOneMenu>
         <adm:message for="customerSelection" />
       </adm:panelGrid>
 
