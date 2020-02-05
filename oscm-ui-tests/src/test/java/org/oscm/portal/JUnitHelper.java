@@ -15,26 +15,39 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 
 public class JUnitHelper extends TestWatcher {
-  public static final Logger logger = LogManager.getLogger(JUnitHelper.class.getName());
+    public static final Logger logger = LogManager.getLogger(JUnitHelper.class.getName());
 
-  @Override
-  protected void starting(Description description) {
-    super.starting(description);
-    logger.info(
-        "TEST STARTED :" + description.getClassName() + " - " + description.getMethodName());
-  }
+    @Override
+    protected void starting(Description description) {
+        super.starting(description);
+        logger.info(
+                new StringBuilder()
+                        .append("TEST STARTED :")
+                        .append(description.getClassName())
+                        .append(" - ")
+                        .append(description.getMethodName()).toString());
+    }
 
-  @Override
-  protected void succeeded(Description description) {
-    super.succeeded(description);
-    logger.info(
-        "TEST SUCCESSFUL :" + description.getClassName() + " - " + description.getMethodName() + "\n");
-  }
+    @Override
+    protected void succeeded(Description description) {
+        super.succeeded(description);
+        logger.info(
+                new StringBuilder()
+                        .append("TEST SUCCESSFUL :")
+                        .append(description.getClassName())
+                        .append(" - ")
+                        .append(description.getMethodName())
+                        .append("\n").toString());
+    }
 
-  @Override
-  protected void failed(Throwable e, Description description) {
-    super.failed(e, description);
-    logger.error(
-        "TEST FAILURE :" + description.getClassName() + " - " + description.getMethodName());
-  }
+    @Override
+    protected void failed(Throwable e, Description description) {
+        super.failed(e, description);
+        logger.error(
+                new StringBuilder()
+                        .append("TEST FAILURE :")
+                        .append(description.getClassName())
+                        .append(" - ")
+                        .append(description.getMethodName()).toString());
+    }
 }

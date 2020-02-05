@@ -60,7 +60,7 @@ public class AppServiceInstanceTester extends WebTester {
     if (verifyFoundElement(By.id(AppHtmlElements.APP_SERVICEINSTANCE_TABLE_ID))) {
       logger.info(String.format("Login to %s successfully with userid:%s", url, userid));
     } else {
-      String info = "Login to " + url + " failed with userid:" + userid;
+      String info = String.format("Login to %s failed with userid:%s", url, userid);
       logger.info(info);
       throw new LoginException(info);
     }

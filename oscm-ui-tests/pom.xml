@@ -101,11 +101,6 @@
             <version>2.13.0</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.13.0</version>
-        </dependency>
-        <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
@@ -130,28 +125,6 @@
     <build>
         <!-- <finalName>oscm-ui-tests</finalName> -->
         <plugins>
-            <!-- Make this jar executable -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <!--                    DO NOT include log4j2.properties file in your Jar-->
-                    <excludes>
-                        <exclude>src/test/resources/log4j2.properties</exclude>
-                    </excludes>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>org.oscm.webtest.WebTester</mainClass>
-                            <mainClass>org.oscm.webtest.PortalTester</mainClass>
-                            <mainClass>org.oscm.webtest.AppControllerDBTester</mainClass>
-                            <mainClass>org.oscm.webtest.AppConfigurationTester</mainClass>
-                            <classpathPrefix>dependency-jars/</classpathPrefix>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

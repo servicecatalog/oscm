@@ -45,8 +45,8 @@ public class InternalAuthenticationContext implements AuthenticationContext {
 
     try {
       driver.findElement(By.id(PortalHtmlElements.PORTAL_DIV_LOGIN_FAILED));
-      String info = "Login to OSCM Portal failed with userId:" + user;
-      logger.info(info);
+      String info = String.format("Login to OSCM Portal failed with userId:%s", user);
+      logger.error(info);
       throw new LoginException(info);
     } catch (NoSuchElementException exc) {
       logger.info(String.format("Login to OSCM Portal successfully with userId: %s", user));

@@ -127,11 +127,10 @@ public class WebTester {
    *
    * @param prefix
    * @return
-   * @throws NoSuchFieldException
    * @throws SecurityException
    */
   protected String loadUrl(String secureUrl, String httpsUrl, String httpUrl)
-      throws NoSuchFieldException, SecurityException {
+      throws SecurityException {
 
     boolean secure = Boolean.parseBoolean(prop.getProperty(secureUrl));
     if (secure) {
@@ -196,8 +195,10 @@ public class WebTester {
     try {
       if (driver.findElement(by) != null) return true;
     } catch (NoSuchElementException e) {
+      logger.error("Element is not present");
       return false;
     }
+    logger.error("Cannot find elements");
     return false;
   }
 
@@ -216,11 +217,11 @@ public class WebTester {
     String attribute = element.getAttribute(ATTRIUBTE_VALUE);
 
     if (attribute != null && attribute.equals(value)) {
-      log("Element with id " + id + " and value " + value + " is valid");
+      log(String.format("Element with id %s and value %s is valid", id, value));
       return true;
     } else {
-      log(
-          "Element with id " + id + " is invalid (" + value + " != " + attribute + ")");
+      logger.warn(
+              String.format("Element with id %s is invalid (%s != %s)", id, value, attribute));
       return false;
     }
   }
@@ -234,7 +235,7 @@ public class WebTester {
   public void clickElement(String id) {
     driver.findElement(By.id(id)).click();
 
-    log("Clicked the element with id " + id);
+    log(String.format("Clicked the element with id %s", id));
   }
 
   /**
@@ -271,6 +272,8 @@ public class WebTester {
   public void writeValue(String id, String value) {
     WebElement element = driver.findElement(By.id(id));
     element.sendKeys(value);
+
+    log(String.format("Wrote value: %s to element with id %s", value, id));
   }
 
   /**
@@ -283,6 +286,8 @@ public class WebTester {
   public void selectDropdown(String id, String value) {
     Select select = new Select(driver.findElement(By.id(id)));
     select.selectByValue(value);
+
+    log(String.format("Selected value: %s from element with id %s", value, id));
   }
 
   /**
@@ -294,7 +299,7 @@ public class WebTester {
   public void submitForm(String id) {
     driver.findElement(By.id(id)).submit();
 
-    log("Submitted form with id " + id);
+    log(String.format("Submitted form with id %s", id));
   }
 
   /**

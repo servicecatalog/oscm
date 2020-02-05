@@ -52,6 +52,7 @@ public class PortalTester extends WebTester {
    */
   public void loginPortal(String user, String password) throws LoginException {
     authenticationCtx.loginPortal(user, password);
+    log(String.format("Login to portal as %s", user));
   }
 
   /**
@@ -66,10 +67,10 @@ public class PortalTester extends WebTester {
 
     String actualTitle = driver.getTitle();
     if (actualTitle == null || !actualTitle.contentEquals(PortalHtmlElements.PORTAL_TITLE)) {
-      log("Navigate to " + target + " failed : HTTP Status 404 - Not Found");
+      log(String.format("Navigate to %s failed : HTTP Status 404 - Not Found", target));
       throw new Exception("Page not found!");
     } else {
-      log("Navigate to " + target + " successfully");
+      log(String.format("Navigate to %s successfully", target));
     }
   }
 
@@ -113,9 +114,9 @@ public class PortalTester extends WebTester {
 
     driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_BUTTON_LOGIN)).click();
     if (verifyFoundElement(By.id(PortalHtmlElements.MARKETPLACE_SPAN_WELCOME))) {
-      log("Login to OSCM Marketplace successfully with userid:" + user);
+      log(String.format("Login to OSCM Marketplace successfully with userID: %s", user));
     } else {
-      String info = "Login to Marketplace Portal failed with userid:" + user;
+      String info = String.format("Login to Marketplace Portal failed with userID: %s", user);
       log(info);
       throw new LoginException(info);
     }
@@ -131,7 +132,7 @@ public class PortalTester extends WebTester {
 
     driver.navigate().to(target);
 
-    log("Goto " + target);
+    log(String.format("Navigate to %s successfully", target));
   }
 
   /**
