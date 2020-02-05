@@ -1,10 +1,12 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2018
+ * <p>Copyright FUJITSU LIMITED 2018
  *
- *  Creation Date: 29.08.2016
+ * <p>Creation Date: 29.08.2016
  *
- *******************************************************************************/
+ * <p>*****************************************************************************
+ */
 package org.oscm.ui.dialog.classic.manageTenants;
 
 import java.io.ByteArrayOutputStream;
@@ -12,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Properties;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -21,6 +22,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.io.IOUtils;
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.tenant.ManageTenantService;
 import org.oscm.internal.tenant.POTenant;
@@ -34,252 +36,221 @@ import org.oscm.ui.profile.FieldData;
 @ViewScoped
 public class ManageTenantsCtrl extends BaseBean implements Serializable {
 
-    private static final long serialVersionUID = 3995366775624605906L;
+  private static final long serialVersionUID = 3995366775624605906L;
 
-    @EJB
-    private ManageTenantService manageTenantService;
+  @EJB private ManageTenantService manageTenantService;
 
-    @ManagedProperty(value = "#{manageTenantsModel}")
-    private ManageTenantsModel model;
+  @ManagedProperty(value = "#{manageTenantsModel}")
+  private ManageTenantsModel model;
 
-    @PostConstruct
-    public void init() {
-        if (model.getSelectedTenant() == null) {
-            initWithoutSelection();
+  @PostConstruct
+  public void init() {
+    if (model.getSelectedTenant() == null) {
+      initWithoutSelection();
+    }
+  }
+
+  public int getTenantsNumber() {
+    return model.getTenants().size();
+  }
+
+  public ManageTenantsModel getModel() {
+    return model;
+  }
+
+  public void setModel(ManageTenantsModel model) {
+    this.model = model;
+  }
+
+  public List<String> getDataTableHeaders() {
+    if (model.getDataTableHeaders() == null || model.getDataTableHeaders().isEmpty()) {
+      try {
+        model.setDataTableHeaders(DataTableHandler.getTableHeaders(POTenant.class.getName()));
+      } catch (Exception e) {
+        throw new SaaSSystemException(e);
+      }
+    }
+    return model.getDataTableHeaders();
+  }
+
+  private void initWithoutSelection() {
+    model.setTenants(manageTenantService.getAllTenantsWithDefaultTenant());
+    model.setTenantId(new FieldData<String>(null, true, false));
+    model.setTenantName(new FieldData<String>(null, true, true));
+    model.setTenantDescription(new FieldData<String>(null, true, false));
+    model.setSaveDisabled(true);
+    model.setDeleteDisabled(true);
+  }
+
+  public void setSelectedTenantId(String tenantId) {
+    model.setSelectedTenantId(tenantId);
+  }
+
+  public void setSelectedTenant() {
+    POTenant poTenant = getSelectedTenant();
+    model.setSelectedTenant(poTenant);
+    model.setTenantId(new FieldData<>(poTenant.getTenantId(), true, false));
+    model.setTenantName(new FieldData<>(poTenant.getName(), isDefault(poTenant), true));
+    model.setTenantDescription(
+        new FieldData<>(poTenant.getDescription(), isDefault(poTenant), false));
+    model.setSaveDisabled(isDefault(poTenant));
+    model.setDeleteDisabled(isDefault(poTenant));
+  }
+
+  private POTenant getSelectedTenant() {
+    POTenant defaultTenant = getDefaultTenant();
+
+    if (tenantSelectedAndNotEquals(defaultTenant)) {
+      try {
+        return getManageTenantService().getTenantByTenantId(model.getSelectedTenantId());
+      } catch (SaaSApplicationException e) {
+        ui.handleException(e);
+      }
+    }
+    return defaultTenant;
+  }
+
+  private boolean tenantSelectedAndNotEquals(POTenant tenant) {
+
+    if (null == model.getSelectedTenantId()) return false;
+
+    boolean selected = !tenant.getTenantId().equals(model.getSelectedTenantId());
+    return selected;
+  }
+
+  public String save() {
+    try {
+      if (model.getSelectedTenant() != null) {
+
+        model.getSelectedTenant().setTenantId(model.getTenantId().getValue());
+
+        if (!isDefault(model.getSelectedTenant())) {
+          model.getSelectedTenant().setName(model.getTenantName().getValue());
+          model.getSelectedTenant().setDescription(model.getTenantDescription().getValue());
+
+          manageTenantService.updateTenant(model.getSelectedTenant());
+          model.setSelectedTenantId(model.getSelectedTenant().getTenantId());
         }
-    }
 
-    public int getTenantsNumber() {
-        return model.getTenants().size();
-    }
+        handleSuccessMessage(BaseBean.INFO_TENANT_SAVED, model.getTenantId().getValue());
+      } else {
+        POTenant poTenant = new POTenant();
+        poTenant.setName(model.getTenantName().getValue());
+        poTenant.setDescription(model.getTenantDescription().getValue());
+        String generatedTenantId = manageTenantService.addTenant(poTenant);
+        model.setSelectedTenantId(generatedTenantId);
+        handleSuccessMessage(BaseBean.INFO_TENANT_ADDED, generatedTenantId);
+      }
+      model.setDirty(false);
 
-    public ManageTenantsModel getModel() {
-        return model;
+    } catch (SaaSApplicationException e) {
+      ui.handleException(e);
     }
+    refreshModel();
+    return OUTCOME_SUCCESS;
+  }
 
-    public void setModel(ManageTenantsModel model) {
-        this.model = model;
+  public void handleSuccessMessage(String message, String tenantId) {
+    ui.handle(new Response(), message, tenantId);
+  }
+
+  public String delete() {
+    try {
+      manageTenantService.removeTenant(model.getSelectedTenant());
+      handleSuccessMessage(BaseBean.INFO_TENANT_DELETED, model.getSelectedTenantId());
+      refreshModelAfterDelete();
+      model.setDirty(false);
+    } catch (SaaSApplicationException e) {
+      ui.handleException(e);
     }
+    return null;
+  }
 
-    public List<String> getDataTableHeaders() {
-        if (model.getDataTableHeaders() == null
-                || model.getDataTableHeaders().isEmpty()) {
-            try {
-                model.setDataTableHeaders(DataTableHandler
-                        .getTableHeaders(POTenant.class.getName()));
-            } catch (Exception e) {
-                throw new SaaSSystemException(e);
-            }
-        }
-        return model.getDataTableHeaders();
-    }
-
-    private void initWithoutSelection() {
-        model.setTenants(manageTenantService.getAllTenantsWithDefaultTenant());
-        model.setTenantId(new FieldData<String>(null, true, false));
-        model.setTenantName(new FieldData<String>(null, true, true));
-        model.setTenantDescription(new FieldData<String>(null, true, false));
-        model.setSaveDisabled(true);
-        model.setDeleteDisabled(true);
-    }
-
-    public void setSelectedTenantId(String tenantId) {
-        model.setSelectedTenantId(tenantId);
-    }
-
-    public void setSelectedTenant() {
-        POTenant poTenant = getSelectedTenant();
+  private void refreshModel() {
+    model.setTenants(manageTenantService.getAllTenantsWithDefaultTenant());
+    for (POTenant poTenant : model.getTenants()) {
+      if (poTenant.getTenantId().equals(model.getSelectedTenantId())) {
         model.setSelectedTenant(poTenant);
         model.setTenantId(new FieldData<>(poTenant.getTenantId(), true, false));
-        model.setTenantName(new FieldData<>(poTenant.getName(),
-                isDefault(poTenant), true));
-        model.setTenantDescription(new FieldData<>(poTenant.getDescription(),
-                isDefault(poTenant), false));
-        model.setSaveDisabled(isDefault(poTenant));
-        model.setDeleteDisabled(isDefault(poTenant));
+        model.setDeleteDisabled(false);
+        return;
+      }
+    }
+  }
+
+  private void refreshModelAfterDelete() {
+    model.setSelectedTenant(null);
+    model.setSelectedTenantId(null);
+    initWithoutSelection();
+  }
+
+  public void addTenant() {
+    model.setSelectedTenant(null);
+    model.setSelectedTenantId(null);
+    model.setTenantId(new FieldData<String>(null, true, false));
+    model.setTenantName(new FieldData<String>(null, false, true));
+    model.setTenantDescription(new FieldData<String>(null, false, false));
+    model.setSaveDisabled(false);
+    model.setDeleteDisabled(true);
+  }
+
+  public void setManageTenantService(ManageTenantService manageTenantService) {
+    this.manageTenantService = manageTenantService;
+  }
+
+  public ManageTenantService getManageTenantService() {
+    return this.manageTenantService;
+  }
+
+  public String exportSettingsTemplate() throws IOException {
+    final String selectedTenantId = model.getSelectedTenantId();
+
+    String tenantId = Value.of(selectedTenantId).ifNotGivenReturn("default");
+
+    try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+      final String fName = String.format("tenant-%s.properties", tenantId);
+      writeSettings(generateTenantSettingsTemplate(), fName);
     }
 
-    private POTenant getSelectedTenant() {
-        POTenant defaultTenant = getDefaultTenant();
+    return OUTCOME_SUCCESS;
+  }
 
-        if (tenantSelectedAndNotEquals(defaultTenant)) {
-            try {
-                return getManageTenantService()
-                        .getTenantByTenantId(model.getSelectedTenantId());
-            } catch (SaaSApplicationException e) {
-                ui.handleException(e);
-            }
-        }
-        return defaultTenant;
+  public void writeSettings(byte[] content, String fileName) throws IOException {
+    super.writeContentToResponse(content, fileName, "text/x-java-properties");
+  }
+
+  public byte[] generateTenantSettingsTemplate() throws IOException {
+    FacesContext fc = ui.getFacesContext();
+
+    try (InputStream in =
+        fc.getExternalContext().getResourceAsStream("/oidc/tenant-default.properties")) {
+      return IOUtils.toByteArray(in);
+    }
+  }
+
+  boolean isDefault(POTenant poTenant) {
+    return "default".equals(poTenant.getTenantId());
+  }
+
+  POTenant getDefaultTenant() {
+    for (POTenant t : model.getTenants()) if (isDefault(t)) return t;
+
+    throw new RuntimeException("Default Tenant missing");
+  }
+
+  static class Value<T> {
+    private T value;
+
+    static <T> Value<T> of(T value) {
+      return new Value<T>(value);
     }
 
-    private boolean tenantSelectedAndNotEquals(POTenant tenant) {
-
-        if (null == model.getSelectedTenantId())
-            return false;
-
-        boolean selected = !tenant.getTenantId()
-                .equals(model.getSelectedTenantId());
-        return selected;
+    Value(T value) {
+      this.value = value;
     }
 
-    public String save() {
-        try {
-            if (model.getSelectedTenant() != null) {
-
-                model.getSelectedTenant()
-                        .setTenantId(model.getTenantId().getValue());
-
-                if (!isDefault(model.getSelectedTenant())) {
-                    model.getSelectedTenant()
-                            .setName(model.getTenantName().getValue());
-                    model.getSelectedTenant().setDescription(
-                            model.getTenantDescription().getValue());
-
-                    manageTenantService.updateTenant(model.getSelectedTenant());
-                    model.setSelectedTenantId(
-                            model.getSelectedTenant().getTenantId());
-                }
-
-                handleSuccessMessage(BaseBean.INFO_TENANT_SAVED,
-                        model.getTenantId().getValue());
-            } else {
-                POTenant poTenant = new POTenant();
-                poTenant.setName(model.getTenantName().getValue());
-                poTenant.setDescription(
-                        model.getTenantDescription().getValue());
-                String generatedTenantId = manageTenantService
-                        .addTenant(poTenant);
-                model.setSelectedTenantId(generatedTenantId);
-                handleSuccessMessage(BaseBean.INFO_TENANT_ADDED,
-                        generatedTenantId);
-            }
-            model.setDirty(false);
-
-        } catch (SaaSApplicationException e) {
-            ui.handleException(e);
-        }
-        refreshModel();
-        return OUTCOME_SUCCESS;
+    T ifNotGivenReturn(T otherValue) {
+      return (value != null) ? value : otherValue;
     }
-
-    public void handleSuccessMessage(String message, String tenantId) {
-        ui.handle(new Response(), message, tenantId);
-    }
-
-    public String delete() {
-        try {
-            manageTenantService.removeTenant(model.getSelectedTenant());
-            handleSuccessMessage(BaseBean.INFO_TENANT_DELETED,
-                    model.getSelectedTenantId());
-            refreshModelAfterDelete();
-            model.setDirty(false);
-        } catch (SaaSApplicationException e) {
-            ui.handleException(e);
-        }
-        return null;
-    }
-
-    private void refreshModel() {
-        model.setTenants(manageTenantService.getAllTenantsWithDefaultTenant());
-        for (POTenant poTenant : model.getTenants()) {
-            if (poTenant.getTenantId().equals(model.getSelectedTenantId())) {
-                model.setSelectedTenant(poTenant);
-                model.setTenantId(
-                        new FieldData<>(poTenant.getTenantId(), true, false));
-                model.setDeleteDisabled(false);
-                return;
-            }
-        }
-    }
-
-    private void refreshModelAfterDelete() {
-        model.setSelectedTenant(null);
-        model.setSelectedTenantId(null);
-        initWithoutSelection();
-    }
-
-    public void addTenant() {
-        model.setSelectedTenant(null);
-        model.setSelectedTenantId(null);
-        model.setTenantId(new FieldData<String>(null, true, false));
-        model.setTenantName(new FieldData<String>(null, false, true));
-        model.setTenantDescription(new FieldData<String>(null, false, false));
-        model.setSaveDisabled(false);
-        model.setDeleteDisabled(true);
-    }
-
-    public void setManageTenantService(
-            ManageTenantService manageTenantService) {
-        this.manageTenantService = manageTenantService;
-    }
-
-    public ManageTenantService getManageTenantService() {
-        return this.manageTenantService;
-    }
-
-    public String exportSettingsTemplate() throws IOException {
-        final String selectedTenantId = model.getSelectedTenantId();
-
-        String tenantId = Value.of(selectedTenantId)
-                .ifNotGivenReturn("default");
-
-        Properties properties = generateTenantSettingsTemplate(tenantId);
-        
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) { 
-            final String fName = String.format("tenant-%s.properties",
-                    tenantId);
-            properties.store(baos, null);
-            writeSettings(baos.toByteArray(), fName);
-        } 
-
-        return OUTCOME_SUCCESS;
-    }
-
-    public void writeSettings(byte[] content, String fileName)
-            throws IOException {
-        super.writeContentToResponse(content, fileName,
-                "text/x-java-properties");
-    }
-
-    public Properties generateTenantSettingsTemplate(String tenantId)
-            throws IOException {
-        FacesContext fc = ui.getFacesContext();
-         
-        try (InputStream in = fc.getExternalContext().getResourceAsStream(
-                "/oidc/tenant-default.properties")) {
-            Properties props = new Properties();
-            props.load(in);
-            return props;
-        }       
-    }
-
-    boolean isDefault(POTenant poTenant) {
-        return "default".equals(poTenant.getTenantId());
-    }
-
-    POTenant getDefaultTenant() {
-        for (POTenant t : model.getTenants())
-            if (isDefault(t))
-                return t;
-
-        throw new RuntimeException("Default Tenant missing");
-    }
-  
-    static class Value<T> {
-        private T value;
-
-        static <T> Value<T> of(T value) {
-            return new Value<T>(value);
-        }
-
-        Value(T value) {
-            this.value = value;
-        }
-
-        T ifNotGivenReturn(T otherValue) {
-            return (value != null) ? value : otherValue;
-        }
-    }
-
+  }
 }
