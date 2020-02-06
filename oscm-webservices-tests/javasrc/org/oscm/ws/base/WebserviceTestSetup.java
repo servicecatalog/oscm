@@ -401,9 +401,12 @@ public class WebserviceTestSetup {
 
   public VOOrganization createCustomer(String namePrefix) throws Exception {
     VOOrganization voCustomer = registerCustomerForSupplier(namePrefix);
+    String customerKey =
+        WebserviceTestBase.readLastMailAndSetCommonPassword(voCustomerUser.getUserId());
+    voCustomerUser.setKey(Long.parseLong(customerKey));
     accSrvCustomer =
         ServiceFactory.getDefault()
-            .getAccountService(supplierUserKey, WebserviceTestBase.DEFAULT_PASSWORD);
+            .getAccountService(customerKey, WebserviceTestBase.DEFAULT_PASSWORD);
     List<VOPaymentInfo> paymentInfos = accSrvCustomer.getPaymentInfos();
     assertEquals("Only the default INVOICE payment info expected", 1, paymentInfos.size());
     voCustomerPaymentInfo = paymentInfos.get(0);

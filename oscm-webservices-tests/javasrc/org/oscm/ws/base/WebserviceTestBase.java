@@ -82,16 +82,16 @@ public class WebserviceTestBase {
     }
     return operator;
   }
-  
-	public static MaildevReader getMailDevReader() throws Exception {
-		synchronized (WebserviceTestBase.class) {
-			if (mailDevReader == null) {
-				String mailUrl = getConfigSetting(MAIL_URL);
-				mailDevReader = new MaildevReader(mailUrl);
-			}
-		}
-		return mailDevReader;
-	}
+
+  public static MaildevReader getMailDevReader() throws Exception {
+    synchronized (WebserviceTestBase.class) {
+      if (mailDevReader == null) {
+        String mailUrl = getConfigSetting(MAIL_URL);
+        mailDevReader = new MaildevReader(mailUrl);
+      }
+    }
+    return mailDevReader;
+  }
 
   public static String getPlatformOperatorKey() throws Exception {
     ensureProperties();
