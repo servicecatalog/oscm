@@ -12,6 +12,7 @@ package org.oscm.ui.dialog.classic.manageTenants;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.List;
 
@@ -224,7 +225,7 @@ public class ManageTenantsCtrl extends BaseBean implements Serializable {
 
     try (InputStream in =
         fc.getExternalContext().getResourceAsStream("/oidc/tenant-default.properties")) {
-      return IOUtils.toByteArray(in);
+      return IOUtils.toByteArray(new InputStreamReader(in), "UTF-8");
     }
   }
 
