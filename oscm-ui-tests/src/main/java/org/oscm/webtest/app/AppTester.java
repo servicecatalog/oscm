@@ -104,7 +104,7 @@ public class AppTester extends WebTester {
     WebElement element =
         driver.findElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG));
     return element
-        .findElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR))
+        .findElement(By.xpath("//span[2]/span"))
         .getText();
   }
 
@@ -231,7 +231,6 @@ public class AppTester extends WebTester {
         driver.findElement(By.xpath("//form[@id='" + formId + "']/table/tbody"));
     List<WebElement> tableRows = baseTableBody.findElements(By.tagName("tr"));
 
-    tableRows.forEach(content -> System.out.println(content));
     return tableRows;
   }
 
@@ -279,15 +278,7 @@ public class AppTester extends WebTester {
     if (!getExecutionResult()) throw new Exception();
   }
 
-  private WebElement getSettingWebElement(int index) {
-    WebElement element = driver.findElement(
-            By.xpath(
-                    "//form[@id='"
-                            + AppHtmlElements.APP_CONFIG_FORM2
-                            + "']/table/tbody[1]/tr["
-                            + index
-                            + "]/td[2]/input"));
-    System.out.println(element.getText());
+  public WebElement getSettingWebElement(int index) {
     return driver.findElement(
                     By.xpath(
                             "//form[@id='"
@@ -297,8 +288,8 @@ public class AppTester extends WebTester {
                                     + "]/td[2]/input"));
   }
 
-  public String returnValueFromAppSettings(int index) {
-    return getSettingWebElement(index).getText();
+  public void testConnection() {
+    driver.findElement(By.id("configurationSettings:j_idt52:2:pingButton")).click();
   }
 
   private String returnInputValueForm2(int index) {
