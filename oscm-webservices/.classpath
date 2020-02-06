@@ -36,7 +36,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-internal"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-converter"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-saml2-api"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-apiversioning-soapmgmt"/>
 	<classpathentry kind="lib" path="/libraries/apache-commons-lang/javalib/commons-lang3-3.5.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="/oscm-i18n-intsvc"/>

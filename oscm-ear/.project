@@ -5,7 +5,6 @@
 	<projects>
 		<project>oscm-accountmgmt</project>
 		<project>oscm-accountmgmt-intsvc</project>
-		<project>oscm-apiversioning-soapmgmt</project>
 		<project>oscm-application</project>
 		<project>oscm-application-intsvc</project>
 		<project>oscm-auditlog</project>
@@ -37,6 +36,7 @@
 		<project>oscm-internal</project>
 		<project>oscm-internal-interfaces</project>
 		<project>oscm-intsvc-base</project>
+		<project>oscm-kafka</project>
 		<project>oscm-marketplaceservice</project>
 		<project>oscm-marketplaceservice-intsvc</project>
 		<project>oscm-operatorsvc</project>
@@ -70,9 +70,6 @@
 		<project>oscm-vat</project>
 		<project>oscm-webservices</project>
 		<project>oscm-webservices-client</project>
-		<project>oscm-tenantmgmt</project>
-		<project>oscm-tenantmgmt-intsvc</project>
-		<project>oscm-kafka</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
