@@ -7,15 +7,17 @@
  *
  * <p>*****************************************************************************
  */
-package org.oscm.webtest;
+package org.oscm.webtest.app;
 
 import java.util.List;
 import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.oscm.webtest.AppPathSegments;
+import org.oscm.webtest.WebTester;
 
 /** Helper class for integration web tests for oscm-app/default.jsf */
-public class AppConfigurationTester extends WebTester {
+public class AppTester extends WebTester {
 
   public static final String ERROR_MSG_CONTROLLER_EXISTS = "Controller ID already exists.";
   private String appAdminMailAddress = "";
@@ -27,7 +29,7 @@ public class AppConfigurationTester extends WebTester {
   private String base;
   private String head;
 
-  public AppConfigurationTester() throws Exception {
+  public AppTester() throws Exception {
     super();
 
     baseUrl = loadUrl(APP_SECURE, APP_HTTPS_URL, APP_HTTP_URL);
@@ -58,7 +60,7 @@ public class AppConfigurationTester extends WebTester {
     wait(IMPLICIT_WAIT);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_CONFIG_FORM1))) {
-      logger.info(String.format("Login to %s successfully with userid:%s", url, user));
+      logger.info(String.format("Login to %s successfully with userid: %s", url, user));
     } else {
       String info = String.format("Login to %s failed with userid:%s", url, user);
       logger.error(info);
@@ -142,6 +144,7 @@ public class AppConfigurationTester extends WebTester {
                     + "')]"));
     inputCid.clear();
     inputCid.sendKeys(controllerId);
+
     WebElement inputOrgid =
         driver.findElement(
             By.xpath(
@@ -151,14 +154,25 @@ public class AppConfigurationTester extends WebTester {
     inputOrgid.clear();
     inputOrgid.sendKeys(orgId);
 
-    WebElement baseForm =
-        driver.findElement(By.xpath("//form[@id='" + AppHtmlElements.APP_CONFIG_FORM1 + "']"));
-    baseForm.findElement(By.className(AppHtmlElements.APP_CONFIG_FORM_BUTTON_CLASS)).click();
+    driver.findElement(By.name("configurationSettings:j_idt62")).click();
     if (!getExecutionResult()) {
-      if (readErrorMessage().contains(ERROR_MSG_CONTROLLER_EXISTS))
+      if (readErrorMessage().contains(ERROR_MSG_CONTROLLER_EXISTS)) {
         throw new Exception(ERROR_MSG_CONTROLLER_EXISTS);
+      }
       else throw new Exception("other error");
     }
+  }
+
+  public void removeCreatedController() {
+     if(driver.findElement(
+             By.xpath("//td[contains(.,'a.ess.sample')]")).isDisplayed()) {
+       driver.findElement(
+               By.xpath("//td[@id='configurationSettings:j_idt52:0:j_idt58']/a")).click();
+       logger.info("Old controller was deleted");}
+     else {
+       logger.error("Couldn't find created controller");
+     }
+    driver.findElement(By.name("configurationSettings:j_idt62")).click();
   }
 
   private void clearNewEntry() {
@@ -217,6 +231,7 @@ public class AppConfigurationTester extends WebTester {
         driver.findElement(By.xpath("//form[@id='" + formId + "']/table/tbody"));
     List<WebElement> tableRows = baseTableBody.findElements(By.tagName("tr"));
 
+    tableRows.forEach(content -> System.out.println(content));
     return tableRows;
   }
 
@@ -245,28 +260,8 @@ public class AppConfigurationTester extends WebTester {
     href.click();
   }
 
-  private String returnInputValueForm2(int index) {
-
-    return driver
-        .findElement(
-            By.xpath(
-                "//form[@id='"
-                    + AppHtmlElements.APP_CONFIG_FORM2
-                    + "']/table/tbody[1]/tr/["
-                    + index
-                    + "]/td[2]/input"))
-        .getAttribute(ATTRIUBTE_VALUE);
-  }
-
   private void changeInputValueForm2(int index, String keyword) throws Exception {
-    WebElement input =
-        driver.findElement(
-            By.xpath(
-                "//form[@id='"
-                    + AppHtmlElements.APP_CONFIG_FORM2
-                    + "']/table/tbody[1]/tr["
-                    + index
-                    + "]/td[2]/input"));
+    WebElement input = getSettingWebElement(index);
     input.clear();
     input.sendKeys(keyword);
 
@@ -282,6 +277,37 @@ public class AppConfigurationTester extends WebTester {
         .click();
 
     if (!getExecutionResult()) throw new Exception();
+  }
+
+  private WebElement getSettingWebElement(int index) {
+    WebElement element = driver.findElement(
+            By.xpath(
+                    "//form[@id='"
+                            + AppHtmlElements.APP_CONFIG_FORM2
+                            + "']/table/tbody[1]/tr["
+                            + index
+                            + "]/td[2]/input"));
+    System.out.println(element.getText());
+    return driver.findElement(
+                    By.xpath(
+                            "//form[@id='"
+                                    + AppHtmlElements.APP_CONFIG_FORM2
+                                    + "']/table/tbody[1]/tr["
+                                    + index
+                                    + "]/td[2]/input"));
+  }
+
+  public String returnValueFromAppSettings(int index) {
+    return getSettingWebElement(index).getText();
+  }
+
+  private String returnInputValueForm2(int index) {
+    return getSettingWebElement(index).getAttribute(ATTRIUBTE_VALUE);
+  }
+
+  public String readValue(String id) {
+    WebElement element = driver.findElement(By.id(id));
+    return element.getText();
   }
 
   public String getAppAdminMailAddress() {
