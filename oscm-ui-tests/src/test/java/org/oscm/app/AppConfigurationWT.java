@@ -43,18 +43,12 @@ public class AppConfigurationWT {
   @Test
   public void test01setConfiguration() throws Exception {
 
-    tester.getContentAppConfigTable("formID");
-
     tester.setAppAdminMailAddress(PlaygroundSuiteTest.supplierOrgAdminMail);
     tester.setBssUserId(tester.getPropertie(AppTester.APP_ADMIN_USER_ID));
     tester.setBssUserKey("10");
-    System.out.println(AppTester.APP_ADMIN_USER_ID + ":::::::::" + AppTester.APP_ADMIN_USER_PWD);
-//    tester.setBssUserPwd(tester.getPropertie(AppTester.APP_ADMIN_USER_PWD));
+    tester.setBssUserPwd(tester.getPropertie(AppTester.APP_ADMIN_USER_PWD));
 
-    assertEquals(PlaygroundSuiteTest.supplierOrgAdminMail, tester.returnValueFromAppSettings(1));
-    assertEquals(AppTester.APP_ADMIN_USER_ID, tester.returnValueFromAppSettings(3));
-    assertEquals("10", tester.returnValueFromAppSettings(4));
-//    assertEquals(AppTester.APP_ADMIN_USER_PWD, tester.returnValueFromAppSettings(5));
+    assertTrue(tester.readInfoMessage().contains("saved successfully"));
   }
 
   @Test
@@ -82,9 +76,8 @@ public class AppConfigurationWT {
 
   @Test
   public void test04checkConnection() {
-    tester.removeCreatedController();
+    tester.testConnection();
 
-    assertNotEquals(
-        AppHtmlElements.TEST_CONTROLLER_ID, tester.readValue("configurationSettings:j_idt52:0:j_idt53"));
+    assertFalse(tester.getExecutionResult());
   }
 }
