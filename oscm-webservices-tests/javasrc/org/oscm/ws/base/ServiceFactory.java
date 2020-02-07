@@ -8,6 +8,7 @@
 
 package org.oscm.ws.base;
 
+import java.io.InputStream;
 import java.util.Properties;
 
 import javax.naming.Context;
@@ -55,21 +56,25 @@ public class ServiceFactory {
   private static ServiceFactory defaultFactory;
 
   public ServiceFactory() throws Exception {
-	  
-    PropertiesReader reader = new PropertiesReader();
-    localProperties = reader.load();
+
+    InputStream stream = getClass().getClassLoader().getResourceAsStream("wstests.properties");
+    localProperties = new Properties();
+    localProperties.load(stream);
+    /*PropertiesReader reader = new PropertiesReader();
+    localProperties = reader.load();*/
     logProperties(localProperties);
-    
+
     this.authMode = localProperties.getProperty(AUTH_MODE);
-    
+
     // Set system properties to pass certificates.
     System.setProperty(TRUST_STORE_PROPERTY, localProperties.getProperty(TRUST_STORE_PROPERTY));
-    System.setProperty(TRUST_STORE_PWD_PROPERTY, localProperties.getProperty(TRUST_STORE_PWD_PROPERTY));
+    System.setProperty(
+        TRUST_STORE_PWD_PROPERTY, localProperties.getProperty(TRUST_STORE_PWD_PROPERTY));
   }
 
   public static synchronized ServiceFactory getDefault() throws Exception {
-    
-	if (defaultFactory == null) {
+
+    if (defaultFactory == null) {
       defaultFactory = new ServiceFactory();
       return defaultFactory;
     }
