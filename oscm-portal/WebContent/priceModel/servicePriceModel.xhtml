@@ -47,12 +47,11 @@
 			<h:form id="editForm">
 				<adm:panelGrid>
 					<adm:outputLabel value="#{msg['service.nameForCustomer']}" />
-					<h:outputText id="serviceName"
-						value="#{priceModelBean.selectedServiceNameToDisplay}"
-						styleClass="label" />
+					<h:outputText styleClass="bootsfacesLabel" id="serviceName"
+						value="#{priceModelBean.selectedServiceNameToDisplay}" />
 					<h:outputText value="" />
 
-					<adm:labelAndOutputLarge label="#{msg['service.shortDescription']}"
+					<adm:labelAndOutputLarge labelStyleClass="bootsfacesLabel" label="#{msg['service.shortDescription']}"
 						inline="false"
 						value="#{priceModelBean.selectedService.shortDescription}" />
 				</adm:panelGrid>

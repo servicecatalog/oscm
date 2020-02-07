@@ -6,17 +6,22 @@
   xmlns:rich="http://richfaces.org/rich" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
   xmlns:a4j="http://richfaces.org/a4j">
+  
+  <c:if test="#{empty labelStyleClass}">
+    <c:set var="labelStyleClass" value="label" />
+  </c:if>
+  
   <a4j:outputPanel rendered="#{fn:length(value) &gt; 500 and (empty rendered or rendered)}" layout="block"
     styleClass="scrollableOutput" style="#{style}">
-    <h:outputText styleClass="label" value="#{value}" escape="false" rendered="#{empty inline or inline}" />
-    <h:outputText styleClass="label" value="#{value}" escape="false" rendered="#{not empty inline and not inline}"
+    <h:outputText styleClass="#{labelStyleClass}" value="#{value}" escape="false" rendered="#{empty inline or inline}" />
+    <h:outputText styleClass="#{labelStyleClass}" value="#{value}" escape="false" rendered="#{not empty inline and not inline}"
       converter="htmlnewline.converter">
     </h:outputText>
   </a4j:outputPanel>
-  <h:outputText styleClass="block label" value="#{value}"
+  <h:outputText styleClass="block #{labelStyleClass}" value="#{value}"
     rendered="#{fn:length(value) &lt;= 500 and (empty rendered or rendered) and (empty inline or inline)}"
     escape="false" />
-  <h:outputText styleClass="block label" value="#{value}" converter="htmlnewline.converter"
+  <h:outputText styleClass="block #{labelStyleClass}" value="#{value}" converter="htmlnewline.converter"
     rendered="#{fn:length(value) &lt;= 500 and (empty rendered or rendered) and (not empty inline and not inline)}"
     escape="false" />
 </ui:composition>
