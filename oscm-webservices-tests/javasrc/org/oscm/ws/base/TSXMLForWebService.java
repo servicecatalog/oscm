@@ -26,15 +26,14 @@ public class TSXMLForWebService {
     private static final String MOCK = "oscm-soap-mock";
     private static final String USER = "tomee";
     private static final String PWD = "tomee";
-
+    
     private TSXMLForWebService() {
     }
 
     public static String createTSXMLWithTags(String technicalProductId)
             throws Exception {
 
-        String baseUrl = WebserviceTestBase
-                .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
+        String baseUrl = WSProperties.load().getBaseUrl();
 
         StringBuilder sb = new StringBuilder();
         sb.append(XML_FIRST_PART);
@@ -70,8 +69,7 @@ public class TSXMLForWebService {
     public static String createTSXMLWithAllowingOnBehalfActingConnectable(
             String booleanValue) throws Exception {
 
-        String baseUrl = WebserviceTestBase
-                .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
+        String baseUrl = WSProperties.load().getBaseUrl();
         String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
                 + " <" + TNS
                 + "TechnicalService id=\"tp1\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
@@ -97,8 +95,7 @@ public class TSXMLForWebService {
     }
 
     public static String createTSXML(String serviceId) throws Exception {
-        String baseUrl = WebserviceTestBase
-                .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
+        String baseUrl = WSProperties.load().getBaseUrl();
         String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
                 + " <" + TNS + "TechnicalService id=\"" + serviceId
                 + "\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
@@ -120,8 +117,7 @@ public class TSXMLForWebService {
 
     public static String createTSXMLWithModificationTypeAttribute(
             String serviceId) throws Exception {
-        String baseUrl = WebserviceTestBase
-                .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
+        String baseUrl = WSProperties.load().getBaseUrl();
         String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
                 + " <" + TNS + "TechnicalService id=\"" + serviceId
                 + "\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
@@ -154,8 +150,7 @@ public class TSXMLForWebService {
     public static String createTSXMLWithModificationTypeAttribute()
             throws Exception {
 
-        String baseUrl = WebserviceTestBase
-                .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
+        String baseUrl = WSProperties.load().getBaseUrl();
         String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
                 + " <" + TNS
                 + "TechnicalService id=\"technicalProduct2\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
@@ -183,8 +178,7 @@ public class TSXMLForWebService {
     public static String createTSXMLWithModificationTypeAttribute(
             String serviceId, String modificationType) throws Exception {
 
-        String baseUrl = WebserviceTestBase
-                .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
+        String baseUrl = WSProperties.load().getBaseUrl();
         String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
                 + " <" + TNS + "TechnicalService id=\"" + serviceId
                 + "\" build=\"1\" provisioningType=\"SYNCHRONOUS\""
@@ -216,8 +210,7 @@ public class TSXMLForWebService {
 
     public static String createAsynTSXML() throws Exception {
 
-        String baseUrl = WebserviceTestBase
-                .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
+        String baseUrl = WSProperties.load().getBaseUrl();
         String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + ">"
                 + " <" + TNS
                 + "TechnicalService id=\"asynTechnicalProduct\" build=\"1\" provisioningType=\"ASYNCHRONOUS\""
@@ -252,8 +245,7 @@ public class TSXMLForWebService {
      */
     public static String createTSXMLWithOpsAndOpParams(String id)
             throws Exception {
-        String baseUrl = WebserviceTestBase
-                .getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL);
+        String baseUrl = WSProperties.load().getBaseUrl();
         String xml = "<" + TNS + "TechnicalServices " + TARGET_NAMESPACE + "><"
                 + TNS + "TechnicalService id=\"" + id
                 + "\" build=\"1\" provisioningType=\"SYNCHRONOUS\""

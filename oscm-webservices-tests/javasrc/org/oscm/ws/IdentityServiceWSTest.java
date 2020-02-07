@@ -54,6 +54,7 @@ import org.oscm.vo.VOUser;
 import org.oscm.vo.VOUserDetails;
 import org.oscm.ws.base.ServiceFactory;
 import org.oscm.ws.base.VOFactory;
+import org.oscm.ws.base.WSProperties;
 import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
 
@@ -83,8 +84,8 @@ public class IdentityServiceWSTest {
 
     WebserviceTestBase.getOperator().addCurrency("EUR");
 
-    String supplierUserId = serviceFactory.getSupplierUserId();
-    String supplierPwd = serviceFactory.getSupplierUserPassword();
+    String supplierUserId = WSProperties.load().getSupplierUserId();
+    String supplierPwd = WSProperties.load().getSupplierUserPassword();
 
     supplier1 =
         WebserviceTestBase.createOrganization(

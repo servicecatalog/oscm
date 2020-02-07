@@ -37,6 +37,7 @@ import org.junit.Test;
 import org.oscm.types.exceptions.*;
 import org.oscm.ws.base.ServiceFactory;
 import org.oscm.ws.base.VOFactory;
+import org.oscm.ws.base.WSProperties;
 import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
 import org.oscm.intf.IdentityService;
@@ -955,9 +956,7 @@ public class MarketplaceServiceWSTest {
 
     setup.createTechnicalService();
 
-    brandingUrl =
-        WebserviceTestBase.getConfigSetting("bes.https.url")
-            + "/oscm-portal/marketplace/css/mp.css";
+    brandingUrl = WSProperties.load().getBaseUrl() + "/oscm-portal/marketplace/css/mp.css";
   }
 
   private VOMarketplace createAndValidateMarketplace(VOMarketplace transientMarketplace)

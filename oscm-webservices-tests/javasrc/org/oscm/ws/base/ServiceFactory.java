@@ -8,12 +8,19 @@
 
 package org.oscm.ws.base;
 
-import java.io.InputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.xml.namespace.QName;
+import javax.xml.ws.Binding;
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
+import javax.xml.ws.handler.Handler;
 
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.OperatorService;
@@ -37,8 +44,7 @@ import org.oscm.intf.TagService;
 import org.oscm.intf.TriggerDefinitionService;
 import org.oscm.intf.TriggerService;
 import org.oscm.intf.VatService;
-import org.oscm.test.setup.PropertiesReader;
-import org.oscm.test.ws.WebServiceProxy;
+import org.oscm.security.SOAPSecurityHandler;
 
 /**
  * Factory class to retrieve service references in the web service tests.
@@ -46,34 +52,25 @@ import org.oscm.test.ws.WebServiceProxy;
  * @author Mike J&auml;ger
  */
 public class ServiceFactory {
-	
+
   private static final String TRUST_STORE_PROPERTY = "javax.net.ssl.trustStore";
   private static final String TRUST_STORE_PWD_PROPERTY = "javax.net.ssl.trustStorePassword";
-  private static final String AUTH_MODE = "auth.mode";
-  
-  private final Properties localProperties;
-  private String authMode;
+  private static final String CONTEXT_ROOT = "/oscm-webservices/";
+  private static final String WS_NAMESPACE = "http://oscm.org/xsd";
+
+  private final WSProperties wsProperties;
   private static ServiceFactory defaultFactory;
 
   public ServiceFactory() throws Exception {
 
-    InputStream stream = getClass().getClassLoader().getResourceAsStream("wstests.properties");
-    localProperties = new Properties();
-    localProperties.load(stream);
-    /*PropertiesReader reader = new PropertiesReader();
-    localProperties = reader.load();*/
-    logProperties(localProperties);
-
-    this.authMode = localProperties.getProperty(AUTH_MODE);
+    wsProperties = WSProperties.load();
 
     // Set system properties to pass certificates.
-    System.setProperty(TRUST_STORE_PROPERTY, localProperties.getProperty(TRUST_STORE_PROPERTY));
-    System.setProperty(
-        TRUST_STORE_PWD_PROPERTY, localProperties.getProperty(TRUST_STORE_PWD_PROPERTY));
+    System.setProperty(TRUST_STORE_PROPERTY, wsProperties.getTrustStore());
+    System.setProperty(TRUST_STORE_PWD_PROPERTY, wsProperties.getTrustStorePassword());
   }
 
   public static synchronized ServiceFactory getDefault() throws Exception {
-
     if (defaultFactory == null) {
       defaultFactory = new ServiceFactory();
       return defaultFactory;
@@ -82,32 +79,9 @@ public class ServiceFactory {
     return defaultFactory;
   }
 
-  private String getWebServiceBaseUrl() {
-    return localProperties.getProperty("bes.https.url");
-  }
-
-  public String getDefaultUserId() {
-    return localProperties.getProperty("user.administrator.id");
-  }
-
-  public String getDefaultUserKey() {
-    return localProperties.getProperty("user.administrator.key");
-  }
-
-  private String getDefaultUserPassword() {
-    return localProperties.getProperty("user.administrator.password");
-  }
-
-  public String getSupplierUserId() {
-    return localProperties.getProperty("user.supplier.id");
-  }
-
-  public String getSupplierUserPassword() {
-    return localProperties.getProperty("user.supplier.password");
-  }
-
   public IdentityService getIdentityService() throws Exception {
-    return getIdentityService(getDefaultUserKey(), getDefaultUserPassword());
+    return getIdentityService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public IdentityService getIdentityService(String userName, String password) throws Exception {
@@ -115,7 +89,8 @@ public class ServiceFactory {
   }
 
   public SearchService getSearchService() throws Exception {
-    return getSearchService(getDefaultUserKey(), getDefaultUserPassword());
+    return getSearchService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public SearchService getSearchService(String userName, String password) throws Exception {
@@ -123,7 +98,8 @@ public class ServiceFactory {
   }
 
   public ServiceProvisioningService getServiceProvisioningService() throws Exception {
-    return getServiceProvisioningService(getDefaultUserKey(), getDefaultUserPassword());
+    return getServiceProvisioningService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public ServiceProvisioningService getServiceProvisioningService(String userName, String password)
@@ -132,7 +108,8 @@ public class ServiceFactory {
   }
 
   public ReportingService getReportingService() throws Exception {
-    return getReportingService(getDefaultUserKey(), getDefaultUserPassword());
+    return getReportingService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public ReportingService getReportingService(String userName, String password) throws Exception {
@@ -140,8 +117,8 @@ public class ServiceFactory {
   }
 
   public MarketplaceService getMarketPlaceService() throws Exception {
-    return connectToWebService(
-        MarketplaceService.class, getDefaultUserKey(), getDefaultUserPassword());
+    return getMarketPlaceService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public MarketplaceService getMarketPlaceService(String userName, String password)
@@ -150,7 +127,8 @@ public class ServiceFactory {
   }
 
   public ReviewService getReviewService() throws Exception {
-    return getReviewService(getDefaultUserKey(), getDefaultUserPassword());
+    return getReviewService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public ReviewService getReviewService(String userName, String password) throws Exception {
@@ -158,7 +136,8 @@ public class ServiceFactory {
   }
 
   public SubscriptionService getSubscriptionService() throws Exception {
-    return getSubscriptionService(getDefaultUserKey(), getDefaultUserPassword());
+    return getSubscriptionService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public SubscriptionService getSubscriptionService(String userName, String password)
@@ -167,7 +146,7 @@ public class ServiceFactory {
   }
 
   public EventService getEventService() throws Exception {
-    return getEventService(getDefaultUserKey(), getDefaultUserPassword());
+    return getEventService(wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public EventService getEventService(String userName, String password) throws Exception {
@@ -175,7 +154,8 @@ public class ServiceFactory {
   }
 
   public AccountService getAccountService() throws Exception {
-    return getAccountService(getDefaultUserKey(), getDefaultUserPassword());
+    return getAccountService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public AccountService getAccountService(String userName, String password) throws Exception {
@@ -183,11 +163,12 @@ public class ServiceFactory {
   }
 
   public SessionService getSessionService() throws Exception {
-    return getSessionService(getDefaultUserKey(), getDefaultUserPassword());
+    return getSessionService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public VatService getVatService() throws Exception {
-    return getVatService(getDefaultUserKey(), getDefaultUserPassword());
+    return getVatService(wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public VatService getVatService(String userName, String password) throws Exception {
@@ -195,7 +176,8 @@ public class ServiceFactory {
   }
 
   public DiscountService getDiscountService() throws Exception {
-    return getDiscountService(getDefaultUserKey(), getDefaultUserPassword());
+    return getDiscountService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public DiscountService getDiscountService(String userName, String password) throws Exception {
@@ -207,7 +189,7 @@ public class ServiceFactory {
   }
 
   public TagService getTagService() throws Exception {
-    return getTagService(getDefaultUserKey(), getDefaultUserPassword());
+    return getTagService(wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public TagService getTagService(String userName, String password) throws Exception {
@@ -215,7 +197,8 @@ public class ServiceFactory {
   }
 
   public CategorizationService getCategorizationService() throws Exception {
-    return getCategorizationService(getDefaultUserKey(), getDefaultUserPassword());
+    return getCategorizationService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public CategorizationService getCategorizationService(String userName, String password)
@@ -223,20 +206,9 @@ public class ServiceFactory {
     return connectToWebService(CategorizationService.class, userName, password);
   }
 
-  public <T> T connectToWebService(Class<T> remoteInterface, String userName, String password)
-      throws Exception {
-
-    return WebServiceProxy.get(
-        getWebServiceBaseUrl(),
-        getAuthMode(),
-        "http://oscm.org/xsd",
-        remoteInterface,
-        userName,
-        password);
-  }
-
   public OperatorService getOperatorService() throws Exception {
-    return getOperatorService(getDefaultUserKey(), getDefaultUserPassword());
+    return getOperatorService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public OperatorService getOperatorService(String userName, String password) throws Exception {
@@ -244,7 +216,8 @@ public class ServiceFactory {
   }
 
   public TriggerDefinitionService getTriggerDefinitionService() throws Exception {
-    return getTriggerDefinitionService(getDefaultUserKey(), getDefaultUserPassword());
+    return getTriggerDefinitionService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public TriggerDefinitionService getTriggerDefinitionService(String userName, String password)
@@ -256,17 +229,19 @@ public class ServiceFactory {
     return connectToWebService(TriggerService.class, userName, password);
   }
 
+  public OrganizationalUnitService getOrganizationalUnitService() throws Exception {
+      return getOrganizationalUnitService(
+          wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
+    }
+  
   public OrganizationalUnitService getOrganizationalUnitService(String userName, String password)
       throws Exception {
     return connectToWebService(OrganizationalUnitService.class, userName, password);
   }
 
-  public OrganizationalUnitService getOrganizationalUnitService() throws Exception {
-    return getOrganizationalUnitService(getDefaultUserKey(), getDefaultUserPassword());
-  }
-
   public BillingService getBillingService() throws Exception {
-    return getBillingService(getDefaultUserKey(), getDefaultUserPassword());
+    return getBillingService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public BillingService getBillingService(String userName, String password) throws Exception {
@@ -274,7 +249,8 @@ public class ServiceFactory {
   }
 
   public TenantService getTenantService() throws Exception {
-    return getTenantService(getDefaultUserKey(), getDefaultUserPassword());
+    return getTenantService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public TenantService getTenantService(String userName, String password) throws Exception {
@@ -282,7 +258,8 @@ public class ServiceFactory {
   }
 
   public ConfigurationService getConfigurationService() throws Exception {
-    return getConfigurationService(getDefaultUserKey(), getDefaultUserPassword());
+    return getConfigurationService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
   }
 
   public ConfigurationService getConfigurationService(String userName, String password)
@@ -290,17 +267,48 @@ public class ServiceFactory {
     return connectToEJB(ConfigurationService.class, userName, password);
   }
 
-  @SuppressWarnings("unchecked")
-  private <T> T connectToEJB(Class<T> remoteInterface, String userName, String password)
-      throws SaaSSystemException {
-    try {
+  public <T> T connectToWebService(Class<T> remoteInterface, String userName, String password)
+      throws Exception {
 
-      if ("OIDC".equals(getAuthMode())) {
+    String wsdlUrl =
+        wsProperties.getBaseUrl() + CONTEXT_ROOT + remoteInterface.getSimpleName() + "/BASIC?wsdl";
+
+    URL url = new URL(wsdlUrl);
+    QName qName = new QName(WS_NAMESPACE, remoteInterface.getSimpleName());
+    Service service = Service.create(url, qName);
+
+    T port = service.getPort(remoteInterface);
+    BindingProvider bindingProvider = (BindingProvider) port;
+
+    if (isSSOMode()) {
+      password = "WS" + password;
+    }
+
+    Binding binding = bindingProvider.getBinding();
+    List<Handler> handlerChain = binding.getHandlerChain();
+    if (handlerChain == null) {
+      handlerChain = new ArrayList<>();
+    }
+
+    handlerChain.add(new SOAPSecurityHandler(userName, password));
+    binding.setHandlerChain(handlerChain);
+
+    return port;
+  }
+
+  @SuppressWarnings("unchecked")
+  private <T> T connectToEJB(Class<T> remoteInterface, String userName, String password) throws SaaSSystemException {
+    try {
+      if (isSSOMode()) {
         password = "WS" + password;
       }
       
+      Properties localProperties = new Properties();
       localProperties.put(Context.SECURITY_PRINCIPAL, userName);
       localProperties.put(Context.SECURITY_CREDENTIALS, password);
+      localProperties.put(Context.INITIAL_CONTEXT_FACTORY, wsProperties.getNamingFactory());
+      localProperties.put(Context.PROVIDER_URL, wsProperties.getNamingProvider());
+      localProperties.put(wsProperties.getRealmNameProperty(), wsProperties.getRealmName());
 
       Context context = new InitialContext(localProperties);
       T service = (T) context.lookup(remoteInterface.getName());
@@ -310,25 +318,7 @@ public class ServiceFactory {
     }
   }
 
-  public static void logProperties(Properties properties) {
-    StringBuilder sb =
-        new StringBuilder("Starting WebService test with the following " + "properties:\n");
-    for (Object key : properties.keySet()) {
-      sb.append("\n\t").append(key).append("=").append(properties.getProperty((String) key));
-    }
-
-    System.out.println(sb.toString());
-  }
-
-  public String getAuthMode() {
-    return authMode;
-  }
-
-  public void setAuthMode(String authMode) {
-    this.authMode = authMode;
-  }
-  
   public boolean isSSOMode() {
-	  return "OIDC".equals(this.authMode);
+    return "OIDC".equals(wsProperties.getAuthMode());
   }
 }

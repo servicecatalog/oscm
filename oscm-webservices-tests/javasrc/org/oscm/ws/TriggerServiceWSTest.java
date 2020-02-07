@@ -51,13 +51,13 @@ import org.oscm.vo.VOUsageLicense;
 import org.oscm.vo.VOUserDetails;
 import org.oscm.ws.base.ServiceFactory;
 import org.oscm.ws.base.VOFactory;
+import org.oscm.ws.base.WSProperties;
 import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
 import org.oscm.ws.unitrule.Order;
 import org.oscm.ws.unitrule.OrderedRunner;
 
 import com.google.common.collect.Lists;
-// import com.sun.xml.ws.fault.ServerSOAPFaultException;
 
 /** @author yuyin */
 @RunWith(OrderedRunner.class)
@@ -101,9 +101,7 @@ public class TriggerServiceWSTest {
 
     // create mp
     setup.createTechnicalService();
-    MarketplaceService mpSrvOperator =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService();
+    MarketplaceService mpSrvOperator = ServiceFactory.getDefault().getMarketPlaceService();
 
     mpLocal =
         mpSrvOperator.createMarketplace(
@@ -138,7 +136,7 @@ public class TriggerServiceWSTest {
     suspendedTriggerDef = new VOTriggerDefinition();
     suspendedTriggerDef.setName("name");
     suspendedTriggerDef.setTarget(
-        WebserviceTestBase.getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL)
+        WSProperties.load().getBaseUrl()
             + "/oscm-integrationtests-mockproduct/NotificationService?wsdl");
     suspendedTriggerDef.setType(TriggerType.SUBSCRIBE_TO_SERVICE);
     suspendedTriggerDef.setTargetType(TriggerTargetType.WEB_SERVICE);
@@ -634,7 +632,7 @@ public class TriggerServiceWSTest {
     VOTriggerDefinition triggerCreate = new VOTriggerDefinition();
     triggerCreate.setName("name");
     triggerCreate.setTarget(
-        WebserviceTestBase.getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL)
+        WSProperties.load().getBaseUrl()
             + "/oscm-integrationtests-mockproduct/NotificationService?wsdl");
     triggerCreate.setType(triggerType);
     triggerCreate.setTargetType(TriggerTargetType.WEB_SERVICE);
