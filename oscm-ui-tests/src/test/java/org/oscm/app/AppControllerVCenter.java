@@ -27,13 +27,11 @@ public class AppControllerVCenter {
   public static File createdFile;
 
   @Rule public TestWatcher testWatcher = new JUnitHelper();
-  @Rule public static TemporaryFolder folder= new TemporaryFolder();
+  @Rule public TemporaryFolder folder = new TemporaryFolder();
 
   @BeforeClass
   public static void setup() throws Exception {
     instanceTester = new AppServiceInstanceTester();
-    createdFile = folder.newFile("vcenter.csv");
-    FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
 
     userkey = RANDOM.nextInt(100000) + 1;
     changedUserID = "newUser";
@@ -50,20 +48,7 @@ public class AppControllerVCenter {
   }
 
   @Test
-  public void test01setSettingsIntoController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("47:1", 54, changedUserID);
-    instanceTester.changeValueInputInSpecificField("47:2", 54, String.valueOf(userkey));
-    instanceTester.changeValueInputInSpecificField("47:3", 53, changedPassword);
-
-    instanceTester.buttonClickEvent(58);
-
-    assertEquals(changedUserID, instanceTester.readValue("47:1", 54));
-    assertEquals(String.valueOf(userkey), instanceTester.readValue("47:2", 54));
-    assertEquals(changedPassword, instanceTester.readValue("47:3", 53));
-  }
-
-  @Test
-  public void test02setSettingsAPIvSphere() throws Exception {
+  public void test01setSettingsAPIvSphere() throws Exception {
     instanceTester.changeValueInputInBalancerField("url", "https://webiste.com");
     instanceTester.changeValueInputInBalancerField("user", userid);
     instanceTester.changeValueInputInBalancerField("pwd", userpassword);
@@ -83,11 +68,28 @@ public class AppControllerVCenter {
   }
 
   @Test
-  public void test03importServiceTemplate() throws Exception {
+  public void test02importServiceTemplate() throws Exception {
+    createdFile = folder.newFile("vcenter.csv");
+    FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
     instanceTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
     instanceTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
 
     assertTrue(
-        instanceTester.readDefaultInfoMessage("//span[@id='status']").contains("imported successfully"));
+        instanceTester
+            .readDefaultInfoMessage("//span[@id='status']")
+            .contains("saved successfully"));
+  }
+
+  @Test
+  public void test03setSettingsIntoController() throws Exception {
+    instanceTester.changeValueInputInSpecificField("47:1", 54, changedUserID);
+    instanceTester.changeValueInputInSpecificField("47:2", 54, String.valueOf(userkey));
+    instanceTester.changeValueInputInSpecificField("47:3", 53, changedPassword);
+
+    instanceTester.buttonClickEvent(58);
+
+    assertEquals(changedUserID, instanceTester.readValue("47:1", 54));
+    assertEquals(String.valueOf(userkey), instanceTester.readValue("47:2", 54));
+    assertEquals(changedPassword, instanceTester.readValue("47:3", 53));
   }
 }

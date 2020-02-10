@@ -59,13 +59,13 @@ public class AppControllerAzure {
   @Test
   public void test02undoSettingsIntoController() throws Exception {
     instanceTester.changeValueInputInSpecificField("49:1", 56, userid);
-    instanceTester.changeValueInputInSpecificField("49:2", 56, String.valueOf(userkey));
+    instanceTester.changeValueInputInSpecificField("49:2", 56, "1000");
     instanceTester.changeValueInputInSpecificField("49:3", 55, userpassword);
 
     instanceTester.buttonClickEvent(76);
 
-    assertEquals(changedUserID, instanceTester.readValue("49:1", 56));
+    assertEquals(userid, instanceTester.readValue("49:1", 56));
     assertEquals("1000", instanceTester.readValue("49:2", 56));
-    assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
+    assertEquals(userpassword, instanceTester.readValue("49:3", 55));
   }
 }

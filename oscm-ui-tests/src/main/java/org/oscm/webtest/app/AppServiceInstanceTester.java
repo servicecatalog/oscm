@@ -183,7 +183,7 @@ public class AppServiceInstanceTester extends WebTester {
     return driver.findElement(By.xpath("//body/span[2]")).getText();
   }
 
-  public String (String elementXPath) {
+  public String readDefaultInfoMessage(String elementXPath) {
     return driver.findElement(By.xpath(elementXPath)).getText();
   }
 
@@ -191,11 +191,7 @@ public class AppServiceInstanceTester extends WebTester {
     Thread.sleep(3000);
     logger.info(readInfoMessage());
 
-    if (!verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR))) {
-      return true;
-    } else {
-      return false;
-    }
+    return !verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR));
   }
 
   public String getProperties(String propertie) {

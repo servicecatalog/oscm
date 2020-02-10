@@ -53,7 +53,7 @@ public class AppControllerAWS {
     assertEquals(String.valueOf(userkey), instanceTester.readValue("49:2", 56));
     assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
 
-//    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
+    //    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
   }
 
   @Test
@@ -79,7 +79,7 @@ public class AppControllerAWS {
     assertEquals(changedUserID, instanceTester.readValue("62:0", 68));
     assertEquals(changedPassword, instanceTester.readValue("62:1", 68));
 
-//    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
+    //    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
   }
 
   @Test

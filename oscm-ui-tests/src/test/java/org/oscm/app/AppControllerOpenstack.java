@@ -1,11 +1,14 @@
 package org.oscm.app;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.*;
+import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.webtest.app.AppServiceInstanceTester;
 
+import java.io.File;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
@@ -21,8 +24,10 @@ public class AppControllerOpenstack {
   private static String changedPassword;
   private static String userid;
   private static String userpassword;
+  public static File createdFile;
 
   @Rule public TestWatcher testWatcher = new JUnitHelper();
+  @Rule public TemporaryFolder folder = new TemporaryFolder();
 
   @BeforeClass
   public static void setup() throws Exception {
@@ -43,35 +48,7 @@ public class AppControllerOpenstack {
   }
 
   @Test
-  public void test01setSettingsIntoController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
-    instanceTester.changeValueInputInSpecificField("49:2", 56, String.valueOf(userkey));
-    instanceTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
-
-    instanceTester.buttonClickEvent(75);
-
-    assertEquals(changedUserID, instanceTester.readValue("49:1", 56));
-    assertEquals(String.valueOf(userkey), instanceTester.readValue("49:2", 56));
-    assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
-
-    //    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
-  }
-
-  @Test
-  public void test02undoSettingsIntoController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("49:1", 56, userid);
-    instanceTester.changeValueInputInSpecificField("49:2", 56, "1000");
-    instanceTester.changeValueInputInSpecificField("49:3", 55, userpassword);
-
-    instanceTester.buttonClickEvent(76);
-
-    assertEquals(userid, instanceTester.readValue("49:1", 56));
-    assertEquals("1000", instanceTester.readValue("49:2", 56));
-    assertEquals(userpassword, instanceTester.readValue("49:3", 55));
-  }
-
-  @Test
-  public void test03setSettingsIntoSpecificController() throws Exception {
+  public void test01setSettingsIntoSpecificController() throws Exception {
     instanceTester.changeValueInputInSpecificField("62:0", 69, changedUserID);
     instanceTester.changeValueInputInSpecificField("62:1", 68, changedPassword);
     instanceTester.changeValueInputInSpecificField("62:2", 69, "https://webiste.com");
@@ -92,7 +69,7 @@ public class AppControllerOpenstack {
   }
 
   @Test
-  public void test04undoSettingsIntoSpecificController() throws Exception {
+  public void test02undoSettingsIntoSpecificController() throws Exception {
     instanceTester.changeValueInputInSpecificField("62:0", 69, userid);
     instanceTester.changeValueInputInSpecificField("62:1", 68, userpassword);
     instanceTester.changeValueInputInSpecificField("62:2", 69, "");
@@ -103,25 +80,57 @@ public class AppControllerOpenstack {
 
     instanceTester.buttonClickEvent(76);
 
-    assertEquals(userid, instanceTester.readValue("62:0", 69));
-    assertEquals(userpassword, instanceTester.readValue("62:1", 68));
-    assertEquals("", instanceTester.readValue("62:2", 69));
-    assertEquals("", instanceTester.readValue("62:4", 69));
-    assertEquals("", instanceTester.readValue("62:5", 69));
+    assertEquals(changedUserID, instanceTester.readValue("62:0", 69));
+    assertEquals(changedPassword, instanceTester.readValue("62:1", 68));
+    assertEquals("https://webiste.com", instanceTester.readValue("62:2", 69));
+    assertEquals("Website", instanceTester.readValue("62:4", 69));
+    assertEquals("https://template/...", instanceTester.readValue("62:5", 69));
   }
 
   @Test
-  public void test05importServiceTemplate() throws Exception {
-//    instanceTester.uploadFileEvent("//input[@id='templateForm:file']", createdFile);
+  public void test03importServiceTemplate() throws Exception {
+    createdFile = folder.newFile("vcenter.csv");
+    FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
+    instanceTester.uploadFileEvent("//input[@id='templateForm:file']", createdFile);
     instanceTester.buttonDefaultClickEvent("//input[@name='templateForm:j_idt112']");
 
-    assertTrue(instanceTester.readDefaultInfoMessage("//body/span[2]").contains("imported successfully"));
+    assertTrue(
+        instanceTester.readDefaultInfoMessage("//body/span[2]").contains("imported successfully"));
   }
 
   @Test
-  public void test06removeServiceTemplate() throws Exception {
+  public void test04removeServiceTemplate() throws Exception {
     instanceTester.buttonDefaultClickEvent("//td[@id='templateForm:j_idt87:0:j_idt94']/a");
 
-    assertTrue(instanceTester.readDefaultInfoMessage("//body/span[2]").contains("deleted successfully"));
+    assertTrue(
+        instanceTester.readDefaultInfoMessage("//body/span[2]").contains("deleted successfully"));
+  }
+
+  @Test
+  public void test05setSettingsIntoController() throws Exception {
+    instanceTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
+    instanceTester.changeValueInputInSpecificField("49:2", 56, String.valueOf(userkey));
+    instanceTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
+
+    instanceTester.buttonClickEvent(75);
+
+    assertEquals(changedUserID, instanceTester.readValue("49:1", 56));
+    assertEquals(String.valueOf(userkey), instanceTester.readValue("49:2", 56));
+    assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
+
+    //    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
+  }
+
+  @Test
+  public void test06undoSettingsIntoController() throws Exception {
+    instanceTester.changeValueInputInSpecificField("49:1", 56, userid);
+    instanceTester.changeValueInputInSpecificField("49:2", 56, "1000");
+    instanceTester.changeValueInputInSpecificField("49:3", 55, userpassword);
+
+    instanceTester.buttonClickEvent(76);
+
+    assertEquals(userid, instanceTester.readValue("49:1", 56));
+    assertEquals("1000", instanceTester.readValue("49:2", 56));
+    assertEquals(userpassword, instanceTester.readValue("49:3", 55));
   }
 }

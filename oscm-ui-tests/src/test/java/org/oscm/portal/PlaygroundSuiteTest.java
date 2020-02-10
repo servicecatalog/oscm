@@ -12,7 +12,7 @@ package org.oscm.portal;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-import org.oscm.app.AppConfigurationWT;
+import org.oscm.app.*;
 import org.oscm.webtest.WebTester;
 
 /**
@@ -25,17 +25,21 @@ import org.oscm.webtest.WebTester;
   PortalOrganizationWT.class,
   PortalMarketplaceWT.class,
   AppConfigurationWT.class,
+  AppControllerAWS.class,
+  AppControllerAzure.class,
+  AppControllerOpenstack.class,
+  AppControllerVCenter.class,
   PortalTechServiceWT.class,
   PortalMarketServiceWT.class,
   MarketplaceSubscriptionWT.class
 })
 public class PlaygroundSuiteTest {
 
-  public static String supplierOrgId = "PLATFORM_OPERATOR";
+  public static String supplierOrgId = "";
   public static String supplierOrgName = "";
   public static String supplierOrgAdminId = "";
   public static String supplierOrgAdminPwd = "";
-  public static String supplierOrgAdminMail = "admin@email.com";
+  public static String supplierOrgAdminMail = "";
   public static String supplierOrgAdminUserkey = "";
   public static String marketPlaceId = "";
 

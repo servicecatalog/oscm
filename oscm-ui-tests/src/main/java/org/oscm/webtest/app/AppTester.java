@@ -101,7 +101,9 @@ public class AppTester extends WebTester {
   public String readErrorMessage() {
     WebElement element =
         driver.findElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG));
-    return element.findElement(By.className(AppHtmlElements.APP_STATUS_MSG_ERROR)).getText();
+    return element
+        .findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR))
+        .getText();
   }
 
   /**
@@ -112,7 +114,9 @@ public class AppTester extends WebTester {
   public String readInfoMessage() {
     WebElement element =
         driver.findElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG));
-    return element.findElement(By.className(AppHtmlElements.APP_STATUS_MSG_INFO)).getText();
+    return element
+        .findElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK))
+        .getText();
   }
 
   public boolean getExecutionResult() {
@@ -279,7 +283,9 @@ public class AppTester extends WebTester {
   }
 
   public void testConnection() {
-    driver.findElement(By.id("configurationSettings:j_idt52:2:pingButton")).click();
+    driver
+        .findElement(By.xpath("//input[@id='configurationSettings:j_idt52:3:pingButton']"))
+        .click();
   }
 
   private String returnInputValueForm2(int index) {
