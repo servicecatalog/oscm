@@ -55,11 +55,13 @@ public class AppConfigurationWT {
   public void test02createNewControllerId() throws Exception {
 
     try {
-      tester.registerController(AppHtmlElements.TEST_CONTROLLER_ID, PlaygroundSuiteTest.supplierOrgId);
+      tester.registerController(
+          AppHtmlElements.TEST_CONTROLLER_ID, PlaygroundSuiteTest.supplierOrgId);
     } catch (Exception e) {
       if (e.getMessage() != null
           && e.getMessage().contentEquals(AppTester.ERROR_MSG_CONTROLLER_EXISTS)) {
-        tester.changeOrgIdOnController(AppHtmlElements.TEST_CONTROLLER_ID, PlaygroundSuiteTest.supplierOrgId);
+        tester.changeOrgIdOnController(
+            AppHtmlElements.TEST_CONTROLLER_ID, PlaygroundSuiteTest.supplierOrgId);
       }
     }
 
@@ -71,7 +73,8 @@ public class AppConfigurationWT {
     tester.removeCreatedController();
 
     assertNotEquals(
-        AppHtmlElements.TEST_CONTROLLER_ID, tester.readValue(AppHtmlElements.APP_CONTROLLER_TABLE_FIELD));
+        AppHtmlElements.TEST_CONTROLLER_ID,
+        tester.readValue(AppHtmlElements.APP_CONTROLLER_TABLE_FIELD));
   }
 
   @Test
