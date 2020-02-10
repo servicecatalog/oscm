@@ -27,7 +27,6 @@ public class BillingServiceWSTest {
   @BeforeClass
   public static void setUpOnce() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
-    WebserviceTestBase.getMailReader().deleteMails();
     WebserviceTestBase.getOperator().addCurrency("EUR");
 
     setup = new WebserviceTestSetup();

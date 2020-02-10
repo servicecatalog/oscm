@@ -54,6 +54,7 @@ import org.oscm.vo.VOUser;
 import org.oscm.vo.VOUserDetails;
 import org.oscm.ws.base.ServiceFactory;
 import org.oscm.ws.base.VOFactory;
+import org.oscm.ws.base.WSProperties;
 import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
 
@@ -81,11 +82,10 @@ public class IdentityServiceWSTest {
     ServiceFactory serviceFactory = ServiceFactory.getDefault();
     isInternalMode = !serviceFactory.isSSOMode();
 
-    WebserviceTestBase.getMailReader().deleteMails();
     WebserviceTestBase.getOperator().addCurrency("EUR");
 
-    String supplierUserId = serviceFactory.getSupplierUserId();
-    String supplierPwd = serviceFactory.getSupplierUserPassword();
+    String supplierUserId = WSProperties.load().getSupplierUserId();
+    String supplierPwd = WSProperties.load().getSupplierUserPassword();
 
     supplier1 =
         WebserviceTestBase.createOrganization(
@@ -101,7 +101,6 @@ public class IdentityServiceWSTest {
 
     unitService =
         ServiceFactory.getDefault().getOrganizationalUnitService(supplierKey, supplierPwd);
-    WebserviceTestBase.getMailReader().deleteMails();
     
     if (isInternalMode) {
       setup = new WebserviceTestSetup();
@@ -439,17 +438,17 @@ public class IdentityServiceWSTest {
       throw e;
     }
   }
-
+  
+  
   @Test(expected = UserActiveException.class)
   public void setUserRoles_ActiveSession() throws Exception {
     assumeTrue(isInternalMode);
-    WebserviceTestBase.getMailReader().deleteMails();
     // create another user
     VOUserDetails u = createUniqueUser();
     is.createUser(u, Arrays.asList(UserRoleType.SERVICE_MANAGER), null);
     u = is.getUserDetails(u);
     // read key and reset password
-    String userKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+    String userKey = WebserviceTestBase.readLastMailAndSetCommonPassword(u.getUserId());
     // get session service ...
     SessionService ss =
         ServiceFactory.getDefault().getSessionService(userKey, WebserviceTestBase.DEFAULT_PASSWORD);
@@ -537,13 +536,12 @@ public class IdentityServiceWSTest {
   @Test(expected = UserActiveException.class)
   public void revokeUserRoles_ActiveSession() throws Exception {
     assumeTrue(isInternalMode);
-    WebserviceTestBase.getMailReader().deleteMails();
     // create another user
     VOUserDetails u = createUniqueUser();
     is.createUser(u, Arrays.asList(UserRoleType.SERVICE_MANAGER), null);
     u = is.getUserDetails(u);
     // read key and reset password
-    String userKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+    String userKey = WebserviceTestBase.readLastMailAndSetCommonPassword(u.getUserId());
     // get session service ...
     SessionService ss =
         ServiceFactory.getDefault().getSessionService(userKey, WebserviceTestBase.DEFAULT_PASSWORD);
@@ -614,10 +612,9 @@ public class IdentityServiceWSTest {
   @Test
   public void requestResetOfUserPassword() throws Exception {
     assumeTrue(isInternalMode);
-    WebserviceTestBase.getMailReader().deleteMails();
     VOUserDetails u = createUniqueUser();
     is.createUser(u, Arrays.asList(UserRoleType.SERVICE_MANAGER), null);
-    WebserviceTestBase.readLastMailAndSetCommonPassword();
+    WebserviceTestBase.readLastMailAndSetCommonPassword(u.getUserId());
     u = is.getUserDetails(u);
     assertEquals(UserAccountStatus.ACTIVE, u.getStatus());
     is.requestResetOfUserPassword(u, null);
@@ -629,12 +626,11 @@ public class IdentityServiceWSTest {
   @Test(expected = UserActiveException.class)
   public void requestResetOfUserPassword_ActiveSession() throws Exception {
     assumeTrue(isInternalMode);
-    WebserviceTestBase.getMailReader().deleteMails();
     // create another user
     VOUserDetails u = createUniqueUser();
     is.createUser(u, Arrays.asList(UserRoleType.SERVICE_MANAGER), null);
     // read key and reset password
-    String userKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+    String userKey = WebserviceTestBase.readLastMailAndSetCommonPassword(u.getUserId());
     // get session service ...
     SessionService ss =
         ServiceFactory.getDefault().getSessionService(userKey, WebserviceTestBase.DEFAULT_PASSWORD);
@@ -984,8 +980,8 @@ public class IdentityServiceWSTest {
 
     // than
     String lastMailContent =
-        WebserviceTestBase.getMailReader()
-            .getLastMailContentWithSubject("Bulk user import finished");
+        WebserviceTestBase.getMailDevReader()
+            .getLatestEmailBySubject("Bulk user import finished").getText();
     assertNotNull(lastMailContent);
     assertTrue(lastMailContent.indexOf("1 out of 1") > 0);
   }

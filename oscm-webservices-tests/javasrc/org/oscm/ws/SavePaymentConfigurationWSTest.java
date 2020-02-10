@@ -65,7 +65,6 @@ public class SavePaymentConfigurationWSTest {
 
   @Before
   public void setup() throws MessagingException, Exception {
-    WebserviceTestBase.getMailReader().deleteMails();
 
     // add currency
     WebserviceTestBase.getOperator().addCurrency(WebserviceTestBase.CURRENCY_EUR);
@@ -99,7 +98,8 @@ public class SavePaymentConfigurationWSTest {
                     null,
                     org.oscm.internal.types.enumtypes.OrganizationRoleType.TECHNOLOGY_PROVIDER,
                     org.oscm.internal.types.enumtypes.OrganizationRoleType.SUPPLIER));
-    supplierAdminKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+    supplierAdminKey =
+        WebserviceTestBase.readLastMailAndSetCommonPassword(supplierAdmin.getUserId());
     supplierAdmin.setKey(Long.parseLong(supplierAdminKey));
 
     VOPSPAccount pspAccount = new VOPSPAccount();

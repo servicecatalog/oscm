@@ -7,12 +7,30 @@
  *******************************************************************************/
 package org.oscm.ws;
 
-import com.sun.xml.internal.ws.fault.ServerSOAPFaultException;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.oscm.intf.*;
+import org.oscm.intf.AccountService;
+import org.oscm.intf.BillingService;
+import org.oscm.intf.CategorizationService;
+import org.oscm.intf.DiscountService;
+import org.oscm.intf.EventService;
+import org.oscm.intf.IdentityService;
+import org.oscm.intf.MarketplaceService;
+import org.oscm.intf.OrganizationalUnitService;
+import org.oscm.intf.ReportingService;
+import org.oscm.intf.ReviewService;
+import org.oscm.intf.SearchService;
+import org.oscm.intf.ServiceProvisioningService;
+import org.oscm.intf.SessionService;
+import org.oscm.intf.SubscriptionService;
+import org.oscm.intf.TagService;
+import org.oscm.intf.TriggerDefinitionService;
+import org.oscm.intf.TriggerService;
+import org.oscm.intf.VatService;
 import org.oscm.ws.base.ServiceFactory;
-import org.oscm.ws.base.WebserviceTestBase;
+import org.oscm.ws.base.WSProperties;
+
+import com.sun.xml.internal.ws.fault.ServerSOAPFaultException;
 
 /** @author stavreva */
 public class SupportedVersionsWSTest {
@@ -138,7 +156,7 @@ public class SupportedVersionsWSTest {
     return ServiceFactory.getDefault()
         .connectToWebService(
             remoteInterface,
-            ServiceFactory.getDefault().getDefaultUserKey(),
-            ServiceFactory.getDefault().getDefaultUserKey());
+            WSProperties.load().getDefaultUserKey(),
+            WSProperties.load().getDefaultUserKey());
   }
 }

@@ -48,11 +48,7 @@ public class BillingSetupTest {
 
     @Before
     public void setup() throws Exception {
-
         setup = new WebserviceTestSetup();
-
-        // clean the mails
-        WebserviceTestBase.getMailReader().deleteMails();
 
         // add currencies
         WebserviceTestBase.getOperator().addCurrency("EUR");
@@ -64,9 +60,6 @@ public class BillingSetupTest {
         createSupplierWith3MP1Currency();
         createSupplierWith1MP2Currencies();
         createSupplierWith3MP2Currencies();
-
-        // clean the mails
-        WebserviceTestBase.getMailReader().deleteMails();
     }
 
     private void createSupplierWith3MP1Currency() throws Exception {

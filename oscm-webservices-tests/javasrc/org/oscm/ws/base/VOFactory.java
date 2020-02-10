@@ -33,17 +33,15 @@ import org.oscm.vo.VOUserDetails;
 public class VOFactory {
 
     public VOOrganization createOrganizationVO() throws Exception {
-        String mailAddress = WebserviceTestBase.getMailReader()
-                .getMailAddress();
         VOOrganization org = new VOOrganization();
-        org.setEmail(mailAddress);
+        org.setEmail("sampleorgemail@fujitsu.com");
         org.setAddress("address");
         org.setLocale("en");
         org.setName("Fujitsu EST");
         org.setPhone("+49 89 000000");
         org.setDomicileCountry("DE");
         org.setUrl("http://de.fujitsu.com");
-        org.setSupportEmail(mailAddress);
+        org.setSupportEmail("supportemail@fujitsu.com");
         return org;
     }
 
@@ -137,8 +135,7 @@ public class VOFactory {
     }
 
     public VOUserDetails createUserVO(String userId) throws Exception {
-        return createUserVO(userId,
-                WebserviceTestBase.getMailReader().getMailAddress());
+        return createUserVO(userId,"sampleuseremail@fujitsu.com");
     }
 
     public VOUserDetails createUserVO(String userId, String email) {

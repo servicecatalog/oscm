@@ -43,7 +43,6 @@ public class CategorizationServiceWSTest {
   @BeforeClass
   public static void beforeClass() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
-    WebserviceTestBase.getMailReader().deleteMails();
 
     categorizationService = ServiceFactory.getDefault().getCategorizationService();
 

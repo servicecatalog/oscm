@@ -19,10 +19,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
+
 import org.oscm.converter.api.EnumConverter;
 import org.oscm.converter.api.VOConverter;
+import org.oscm.email.MaildevReader;
 import org.oscm.internal.intf.OperatorService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.vo.VOConfigurationSetting;
@@ -31,7 +32,6 @@ import org.oscm.intf.IdentityService;
 import org.oscm.intf.MarketplaceService;
 import org.oscm.intf.ServiceProvisioningService;
 import org.oscm.intf.SubscriptionService;
-import org.oscm.test.setup.PropertiesReader;
 import org.oscm.types.constants.Configuration;
 import org.oscm.types.enumtypes.OrganizationRoleType;
 import org.oscm.types.enumtypes.PaymentInfoType;
@@ -62,16 +62,9 @@ public class WebserviceTestBase {
 
   public static final String DEFAULT_PASSWORD = "secret";
   public static final String CURRENCY_EUR = "EUR";
-  public static final String EXAMPLE_BASE_URL = "bes.https.url";
-  public static final String CS_MAIL_ADDRESS = "mail.address";
-  public static final String CS_MAIL_USERNAME = "mail.username";
-
+  
   private static OperatorService operator;
-  private static MailReader mailReader;
-  private static String platformOperatorKey;
-  private static String platformOperatorPassword;
-  private static Properties configSettings;
-  private static String mailAddress;
+  private static MaildevReader mailDevReader;
   private static VOMarketplace globalMarketplace;
   private static VOFactory factory = new VOFactory();
 
@@ -84,54 +77,14 @@ public class WebserviceTestBase {
     return operator;
   }
 
-  public static MailReader getMailReader() throws Exception {
+  public static MaildevReader getMailDevReader() throws Exception {
     synchronized (WebserviceTestBase.class) {
-      if (mailReader == null) {
-        mailReader = new MailReader();
-      }
-      if (mailAddress == null) {
-        mailAddress = getConfigSetting(CS_MAIL_ADDRESS);
-      }
-      if (mailAddress == null || mailAddress.trim().equals("")) {
-        mailAddress = getConfigSetting(CS_MAIL_USERNAME);
+      if (mailDevReader == null) {
+        String mailUrl = WSProperties.load().getMailUrl();
+        mailDevReader = new MaildevReader(mailUrl);
       }
     }
-    return mailReader;
-  }
-
-  public static String getPlatformOperatorKey() throws Exception {
-    ensureProperties();
-    return platformOperatorKey;
-  }
-
-  public static String getPlatformOperatorPassword() throws Exception {
-    ensureProperties();
-    return platformOperatorPassword;
-  }
-
-  public static String getConfigSetting(String key) throws Exception {
-    if (configSettings == null) {
-      ensureProperties();
-    }
-    return configSettings.getProperty(key);
-  }
-
-  public static Properties getConfigSetting() throws Exception {
-    if (configSettings == null) {
-      ensureProperties();
-    }
-    return configSettings;
-  }
-
-  private static void ensureProperties() throws Exception {
-    synchronized (WebserviceTestBase.class) {
-      if (platformOperatorKey == null) {
-        PropertiesReader reader = new PropertiesReader();
-        configSettings = reader.load();
-        platformOperatorKey = configSettings.getProperty("DEFAULT_USER");
-        platformOperatorPassword = configSettings.getProperty("DEFAULT_PASSWORD");
-      }
-    }
+    return mailDevReader;
   }
 
   public static synchronized String createUniqueKey() {
@@ -152,8 +105,9 @@ public class WebserviceTestBase {
    */
   public static void grantMarketplaceUsage(
       String mpId, String orgId, String granteeUserKey, String password) throws Exception {
-    String userKey = (granteeUserKey == null) ? getPlatformOperatorKey() : granteeUserKey;
-    String pwd = (password == null) ? getPlatformOperatorPassword() : password;
+    WSProperties wsProperties = WSProperties.load();
+    String userKey = (granteeUserKey == null) ? wsProperties.getDefaultUserKey() : granteeUserKey;
+    String pwd = (password == null) ? wsProperties.getDefaultUserPassword() : password;
     MarketplaceService mps = ServiceFactory.getDefault().getMarketPlaceService(userKey, pwd);
     mps.addOrganizationsToMarketplace(Collections.singletonList(orgId), mpId);
   }
@@ -210,36 +164,11 @@ public class WebserviceTestBase {
    * Looking for the last mail of mail server and read password and userkey from the mail. At the
    * same time, the user password is changed to common password.
    *
-   * @deprecated Use #{@link WebserviceTestBase#readLastMailAndSetCommonPassword(String)} Using this
-   *     method will cause 401 Unauthorized on WS tests!
-   * @return user key written in last mail
-   * @throws Exception
-   */
-  @Deprecated
-  public static String readLastMailAndSetCommonPassword() throws Exception {
-    String userKey = getMailReader().readUserKeyFromMail();
-    String userPwd = getMailReader().readPasswordFromMail();
-
-    IdentityService id = ServiceFactory.getDefault().getIdentityService(userKey, userPwd);
-    id.changePassword(userPwd, DEFAULT_PASSWORD);
-
-    // sometimes WS tests fail at id.changePassword() with "Unauthorized"
-    // probably because the new mail arrives later in inbox, so a previous
-    // mail is read - ensure this is not happening
-    getMailReader().deleteMails();
-
-    return userKey;
-  }
-
-  /**
-   * Looking for the last mail of mail server and read password and userkey from the mail. At the
-   * same time, the user password is changed to common password.
-   *
    * @return user key written in last mail
    * @throws Exception
    */
   public static String readLastMailAndSetCommonPassword(String userName) throws Exception {
-    String[] userKeyAndPass = getMailReader().readPassAndKeyFromEmail(userName);
+    String[] userKeyAndPass = getMailDevReader().readPasswordAndKeyFromEmail(userName);
     String userKey = userKeyAndPass[0];
     String userPwd = userKeyAndPass[1];
 
@@ -250,7 +179,7 @@ public class WebserviceTestBase {
 
   public static String readLastMailAndSetPassword(String userName, String password)
       throws Exception {
-    String[] userKeyAndPass = getMailReader().readPassAndKeyFromEmail(userName);
+    String[] userKeyAndPass = getMailDevReader().readPasswordAndKeyFromEmail(userName);
     String userKey = userKeyAndPass[0];
     String userPwd = userKeyAndPass[1];
 
@@ -262,7 +191,7 @@ public class WebserviceTestBase {
   public static String readLastMailAndGetKey(String userName, String password, boolean ssoMode)
       throws Exception {
     if (ssoMode) {
-      return getMailReader().readKeyFromEmail(true, userName);
+      return getMailDevReader().readKeyFromEmail(userName);
     } else {
       return readLastMailAndSetPassword(userName, password);
     }
@@ -284,11 +213,7 @@ public class WebserviceTestBase {
     boolean notOpen = false;
     VOMarketplace voMarketplace =
         factory.createMarketplaceVO(organizationId, notOpen, "m_" + createUniqueKey());
-    MarketplaceService mps =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+    MarketplaceService mps = ServiceFactory.getDefault().getMarketPlaceService();
     voMarketplace = mps.createMarketplace(voMarketplace);
     result.put("voMarketplace", voMarketplace);
     result.put("marketplaceKey", String.valueOf(voMarketplace.getKey()));
@@ -312,7 +237,7 @@ public class WebserviceTestBase {
             supplierUserId,
             OrganizationRoleType.TECHNOLOGY_PROVIDER,
             OrganizationRoleType.SUPPLIER);
-    String supplierUserKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+    String supplierUserKey = WebserviceTestBase.readLastMailAndSetCommonPassword(supplierUserId);
     result.put("userId", supplierUserId);
     result.put("userKey", supplierUserKey);
     result.put("organizationId", supplier.getOrganizationId());
@@ -335,7 +260,7 @@ public class WebserviceTestBase {
     IdentityService is =
         ServiceFactory.getDefault().getIdentityService(supplierUserKey, DEFAULT_PASSWORD);
     is.createUser(user, userRoles, (String) mpResult.get("marketplaceId"));
-    String srvManagerUserKey = readLastMailAndSetCommonPassword();
+    String srvManagerUserKey = readLastMailAndSetCommonPassword(user.getUserId());
     result.put("serviceManagerUserKey", srvManagerUserKey);
 
     result.put("voOrganization", supplier);
@@ -569,11 +494,7 @@ public class WebserviceTestBase {
 
   public static VOMarketplace registerMarketplace(String organizationId, String marketplaceName)
       throws Exception {
-    MarketplaceService srvMarketplace =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService(
-                WebserviceTestBase.getPlatformOperatorKey(),
-                WebserviceTestBase.getPlatformOperatorPassword());
+    MarketplaceService srvMarketplace = ServiceFactory.getDefault().getMarketPlaceService();
     return srvMarketplace.createMarketplace(
         factory.createMarketplaceVO(organizationId, false, marketplaceName));
   }
@@ -601,7 +522,7 @@ public class WebserviceTestBase {
     VOTriggerDefinition triggerDef = new VOTriggerDefinition();
     triggerDef.setName("name");
     triggerDef.setTarget(
-        WebserviceTestBase.getConfigSetting(WebserviceTestBase.EXAMPLE_BASE_URL)
+        WSProperties.load().getBaseUrl()
             + "/oscm-integrationtests-mockproduct/NotificationService?wsdl");
     triggerDef.setType(TriggerType.ACTIVATE_SERVICE);
     triggerDef.setTargetType(TriggerTargetType.WEB_SERVICE);
@@ -631,9 +552,7 @@ public class WebserviceTestBase {
   }
 
   public static void deleteMarketplaces() throws Exception {
-    MarketplaceService ms =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService(getPlatformOperatorKey(), getPlatformOperatorPassword());
+    MarketplaceService ms = ServiceFactory.getDefault().getMarketPlaceService();
     List<VOMarketplace> mps = ms.getMarketplacesForOperator();
     for (VOMarketplace mp : mps) {
       ms.deleteMarketplace(mp.getMarketplaceId());

@@ -65,7 +65,6 @@ public class OrganizationalUnitServiceWSTest {
   public static void setUp() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
     // clean the mails
-    WebserviceTestBase.getMailReader().deleteMails();
 
     WebserviceTestSetup setup = new WebserviceTestSetup();
 

@@ -81,7 +81,6 @@ public class TriggerDefinitonServiceWSTest {
   public static void setUp() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
     // clean the mails
-    WebserviceTestBase.getMailReader().deleteMails();
     setup = new WebserviceTestSetup();
     setup.createSupplier("Supplier1");
     setup.createCustomer("Customer1");

@@ -168,7 +168,6 @@ public class SubscriptionServiceWSTest {
   @BeforeClass
   public static void setUpOnce() throws Exception {
 
-    WebserviceTestBase.getMailReader().deleteMails();
     WebserviceTestBase.getOperator().addCurrency("EUR");
     PaymentTypeFactory.preparePaymentType();
     setup = new WebserviceTestSetup();
@@ -1923,7 +1922,6 @@ public class SubscriptionServiceWSTest {
   @Test
   public void checkReceivedMailContent_CustomerLine() throws Exception {
     // given
-    WebserviceTestBase.getMailReader().deleteMails();
     createdSubscription = subscribe();
 
     // when: call the reportIssue method
@@ -1937,7 +1935,6 @@ public class SubscriptionServiceWSTest {
 
   @Test
   public void checkReceivedMailContent_SubscriptionLine() throws Exception {
-    WebserviceTestBase.getMailReader().deleteMails();
     createdSubscription = subscribe();
     // call the reportIssue method
     subscrServiceForCustomer.reportIssue(subscriptionID, mailSubjectToSend, mailContentToSend);
@@ -1952,7 +1949,6 @@ public class SubscriptionServiceWSTest {
 
   @Test
   public void checkReceivedMailContent_ServiceLine() throws Exception {
-    WebserviceTestBase.getMailReader().deleteMails();
     createdSubscription = subscribe();
     // call the reportIssue method
     subscrServiceForCustomer.reportIssue(subscriptionID, mailSubjectToSend, mailContentToSend);
@@ -1964,7 +1960,6 @@ public class SubscriptionServiceWSTest {
 
   @Test
   public void checkReceivedMailContent_TechnicalServicLine() throws Exception {
-    WebserviceTestBase.getMailReader().deleteMails();
     createdSubscription = subscribe();
     // call the reportIssue method
     subscrServiceForCustomer.reportIssue(subscriptionID, mailSubjectToSend, mailContentToSend);
@@ -1980,7 +1975,6 @@ public class SubscriptionServiceWSTest {
 
   @Test
   public void checkReceivedMailContent_ContentLine() throws Exception {
-    WebserviceTestBase.getMailReader().deleteMails();
     createdSubscription = subscribe();
     // call the reportIssue method
     subscrServiceForCustomer.reportIssue(subscriptionID, mailSubjectToSend, mailContentToSend);
@@ -1992,7 +1986,6 @@ public class SubscriptionServiceWSTest {
 
   @Test
   public void reportIssueNoEmail() throws Exception {
-    WebserviceTestBase.getMailReader().deleteMails();
     createdSubscription = subscribe();
 
     // set the supportMail of supplier is ""
@@ -2012,7 +2005,6 @@ public class SubscriptionServiceWSTest {
 
   @Test
   public void reportIssueChangeEmail() throws Exception {
-    WebserviceTestBase.getMailReader().deleteMails();
     createdSubscription = subscribe();
 
     // change the supportMail address to another one
@@ -2057,7 +2049,6 @@ public class SubscriptionServiceWSTest {
   @Test(expected = ObjectNotFoundException.class)
   public void reportIssueForUserNotCustomer() throws Exception {
 
-    WebserviceTestBase.getMailReader().deleteMails();
     // create subscription
     VOSubscription subscription = createSubscription();
     String subscriptionID = subscription.getSubscriptionId();
@@ -2310,8 +2301,9 @@ public class SubscriptionServiceWSTest {
    * @throws Exception
    */
   String readContentFromServiceTicketMail() throws Exception {
-    return WebserviceTestBase.getMailReader()
-        .getLastMailContentWithSubject(MAIL_SUBJECT_SERVICE_TICKET_EN);
+    return WebserviceTestBase.getMailDevReader()
+        .getLatestEmailBySubject(MAIL_SUBJECT_SERVICE_TICKET_EN)
+        .getText();
   }
 
   /** Read the tag from the received mail content and check for the given values. */

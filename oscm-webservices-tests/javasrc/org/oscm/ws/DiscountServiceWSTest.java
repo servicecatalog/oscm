@@ -39,7 +39,6 @@ public class DiscountServiceWSTest {
   @Before
   public void setUp() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
-    WebserviceTestBase.getMailReader().deleteMails();
     WebserviceTestBase.getOperator().addCurrency("EUR");
 
     setup = new WebserviceTestSetup();

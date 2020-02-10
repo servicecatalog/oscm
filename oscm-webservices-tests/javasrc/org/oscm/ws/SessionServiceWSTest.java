@@ -110,7 +110,8 @@ public class SessionServiceWSTest {
             Arrays.asList(UserRoleType.SUBSCRIPTION_MANAGER),
             mpLocal.getMarketplaceId());
     subscriptionManager.setKey(
-        Long.parseLong(WebserviceTestBase.readLastMailAndSetCommonPassword()));
+        Long.parseLong(
+            WebserviceTestBase.readLastMailAndSetCommonPassword(subscriptionManager.getUserId())));
 
     subscriptionServiceForSubManager =
         ServiceFactory.getDefault()

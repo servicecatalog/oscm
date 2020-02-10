@@ -40,17 +40,14 @@ public class IdentityServiceWSPlatformOperatorTest {
   @BeforeClass
   public static void setUp() throws Exception {
     assumeFalse(ServiceFactory.getDefault().isSSOMode());
-    WebserviceTestBase.getMailReader().deleteMails();
     WebserviceTestBase.getOperator().addCurrency("EUR");
 
     setup = new WebserviceTestSetup();
     supplier1 = setup.createSupplier("Supplier1");
     is = ServiceFactory.getDefault().getIdentityService();
-    VOUserDetails userDetails = is.getCurrentUserDetails();
-    userDetails.setEMail(WebserviceTestBase.getMailReader().getMailAddress());
+    VOUserDetails userDetails = is.getCurrentUserDetails();	
+    userDetails.setEMail("sampleuseremail@fujitsu.com");	
     is.updateUser(userDetails);
-
-    WebserviceTestBase.getMailReader().deleteMails();
   }
 
   @Test

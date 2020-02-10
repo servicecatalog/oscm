@@ -79,11 +79,8 @@ public class AccountServiceWSTest {
 
   @Before
   public void setUp() throws Exception {
-	  
-	assumeFalse(ServiceFactory.getDefault().isSSOMode());
- 
-    // clean the mails
-    WebserviceTestBase.getMailReader().deleteMails();
+
+    assumeFalse(ServiceFactory.getDefault().isSSOMode());
 
     // add currencies
     WebserviceTestBase.getOperator().addCurrency("EUR");

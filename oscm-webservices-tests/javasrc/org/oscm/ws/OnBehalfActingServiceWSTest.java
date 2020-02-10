@@ -73,12 +73,11 @@ public class OnBehalfActingServiceWSTest {
     commonUserPWD = "secret";
 
     // create host organization 'PaaS'
-    WebserviceTestBase.getMailReader().deleteMails();
     String hostUserId = "PaaS_" + WebserviceTestBase.createUniqueKey();
     hostOrg =
         WebserviceTestBase.createOrganization(
             hostUserId, OrganizationRoleType.TECHNOLOGY_PROVIDER, OrganizationRoleType.SUPPLIER);
-    hostUserKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+    hostUserKey = WebserviceTestBase.readLastMailAndSetCommonPassword(hostUserId);
     WebserviceTestBase.savePaymentInfoToSupplier(hostOrg, PaymentInfoType.INVOICE);
 
     // Create the local market place
@@ -93,13 +92,12 @@ public class OnBehalfActingServiceWSTest {
             .getMarketPlaceService(hostUserKey, WebserviceTestBase.DEFAULT_PASSWORD);
 
     // create Technology Provider 'TP1'
-    WebserviceTestBase.getMailReader().deleteMails();
     techProviderUserId = "tp_" + WebserviceTestBase.createUniqueKey();
     techProviderOrg =
         WebserviceTestBase.createOrganization(
             techProviderUserId, OrganizationRoleType.TECHNOLOGY_PROVIDER);
 
-    techProviderUserKey = WebserviceTestBase.readLastMailAndSetCommonPassword();
+    techProviderUserKey = WebserviceTestBase.readLastMailAndSetCommonPassword(techProviderUserId);
   }
 
   /**
