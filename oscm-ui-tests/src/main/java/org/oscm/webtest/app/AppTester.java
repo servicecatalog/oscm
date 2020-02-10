@@ -9,12 +9,12 @@
  */
 package org.oscm.webtest.app;
 
-import java.util.List;
-import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.oscm.webtest.AppPathSegments;
 import org.oscm.webtest.WebTester;
+
+import javax.security.auth.login.LoginException;
+import java.util.List;
 
 /** Helper class for integration web tests for oscm-app/default.jsf */
 public class AppTester extends WebTester {
@@ -48,7 +48,7 @@ public class AppTester extends WebTester {
    * @param user the user name
    * @param password the password
    * @throws InterruptedException
-   * @throws Exception
+   * @throws LoginException
    */
   public void loginAppConfig(String user, String password)
       throws LoginException, InterruptedException {
@@ -71,7 +71,6 @@ public class AppTester extends WebTester {
   /**
    * Navigates the webdriver to the given page of the OSCM portal.
    *
-   * @param page the page of the portal
    * @throws Exception
    */
   public void visitAppConfig() throws Exception {
@@ -98,28 +97,22 @@ public class AppTester extends WebTester {
    * Reads the error message from the page notification.
    *
    * @return the error message
-   * @throws NoSuchElementException if error message is not present
    */
   public String readErrorMessage() {
     WebElement element =
         driver.findElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG));
-    return element
-        .findElement(By.xpath("//span[2]/span"))
-        .getText();
+    return element.findElement(By.className(AppHtmlElements.APP_STATUS_MSG_ERROR)).getText();
   }
 
   /**
    * Reads the info message from the page notification.
    *
    * @return the info message
-   * @throws NoSuchElementException if info message is not present
    */
   public String readInfoMessage() {
     WebElement element =
         driver.findElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG));
-    return element
-        .findElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK))
-        .getText();
+    return element.findElement(By.className(AppHtmlElements.APP_STATUS_MSG_INFO)).getText();
   }
 
   public boolean getExecutionResult() {
@@ -158,20 +151,17 @@ public class AppTester extends WebTester {
     if (!getExecutionResult()) {
       if (readErrorMessage().contains(ERROR_MSG_CONTROLLER_EXISTS)) {
         throw new Exception(ERROR_MSG_CONTROLLER_EXISTS);
-      }
-      else throw new Exception("other error");
+      } else throw new Exception("other error");
     }
   }
 
   public void removeCreatedController() {
-     if(driver.findElement(
-             By.xpath("//td[contains(.,'a.ess.sample')]")).isDisplayed()) {
-       driver.findElement(
-               By.xpath("//td[@id='configurationSettings:j_idt52:0:j_idt58']/a")).click();
-       logger.info("Old controller was deleted");}
-     else {
-       logger.error("Couldn't find created controller");
-     }
+    if (driver.findElement(By.xpath("//td[contains(.,'a.ess.sample')]")).isDisplayed()) {
+      driver.findElement(By.xpath("//td[@id='configurationSettings:j_idt52:0:j_idt58']/a")).click();
+      logger.info("Old controller was deleted");
+    } else {
+      logger.error("Couldn't find created controller");
+    }
     driver.findElement(By.name("configurationSettings:j_idt62")).click();
   }
 
@@ -280,12 +270,12 @@ public class AppTester extends WebTester {
 
   public WebElement getSettingWebElement(int index) {
     return driver.findElement(
-                    By.xpath(
-                            "//form[@id='"
-                                    + AppHtmlElements.APP_CONFIG_FORM2
-                                    + "']/table/tbody[1]/tr["
-                                    + index
-                                    + "]/td[2]/input"));
+        By.xpath(
+            "//form[@id='"
+                + AppHtmlElements.APP_CONFIG_FORM2
+                + "']/table/tbody[1]/tr["
+                + index
+                + "]/td[2]/input"));
   }
 
   public void testConnection() {
@@ -301,30 +291,9 @@ public class AppTester extends WebTester {
     return element.getText();
   }
 
-  public String getAppAdminMailAddress() {
-
-    this.appAdminMailAddress = returnInputValueForm2(1);
-    return this.appAdminMailAddress;
-  }
-
   public void setAppAdminMailAddress(String appAdminMailAddress) throws Exception {
     changeInputValueForm2(1, appAdminMailAddress);
     this.appAdminMailAddress = appAdminMailAddress;
-  }
-
-  public String getAppBaseUrl() {
-    this.appBaseUrl = returnInputValueForm2(2);
-    return this.appBaseUrl;
-  }
-
-  public void setAppBaseUrl(String appBaseUrl) throws Exception {
-    changeInputValueForm2(2, appBaseUrl);
-    this.appBaseUrl = appBaseUrl;
-  }
-
-  public String getBssUserId() {
-    this.bssUserId = returnInputValueForm2(3);
-    return this.bssUserId;
   }
 
   public void setBssUserId(String bssUserId) throws Exception {
@@ -332,19 +301,9 @@ public class AppTester extends WebTester {
     this.bssUserId = bssUserId;
   }
 
-  public String getBssUserKey() {
-    this.bssUserKey = returnInputValueForm2(4);
-    return this.bssUserKey;
-  }
-
   public void setBssUserKey(String bssUserKey) throws Exception {
     changeInputValueForm2(4, bssUserKey);
     this.bssUserKey = bssUserKey;
-  }
-
-  public String getBssUserPwd() {
-    this.bssUserPwd = returnInputValueForm2(5);
-    return this.bssUserPwd;
   }
 
   public void setBssUserPwd(String bssUserPwd) throws Exception {
