@@ -23,7 +23,6 @@ import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -101,7 +100,7 @@ public class IdentityServiceWSTest {
 
     unitService =
         ServiceFactory.getDefault().getOrganizationalUnitService(supplierKey, supplierPwd);
-    
+
     if (isInternalMode) {
       setup = new WebserviceTestSetup();
       setup.createSupplier("Supplier2");
@@ -438,8 +437,7 @@ public class IdentityServiceWSTest {
       throw e;
     }
   }
-  
-  
+
   @Test(expected = UserActiveException.class)
   public void setUserRoles_ActiveSession() throws Exception {
     assumeTrue(isInternalMode);
@@ -981,7 +979,8 @@ public class IdentityServiceWSTest {
     // than
     String lastMailContent =
         WebserviceTestBase.getMailDevReader()
-            .getLatestEmailBySubject("Bulk user import finished").getText();
+            .getLatestEmailBySubject("Bulk user import finished")
+            .getText();
     assertNotNull(lastMailContent);
     assertTrue(lastMailContent.indexOf("1 out of 1") > 0);
   }

@@ -1,14 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: cheld                                                     
- *                                                                              
- *  Creation Date: 20.02.2012                                                      
- *                                                                              
- *  Completion Time: 20.02.2012                                              
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: cheld
+ *
+ * <p>Creation Date: 20.02.2012
+ *
+ * <p>Completion Time: 20.02.2012
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -18,7 +20,6 @@ import static org.junit.Assume.assumeFalse;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;

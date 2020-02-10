@@ -1,14 +1,16 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2018
+ * <p>Copyright FUJITSU LIMITED 2018
  *
- *  Author: cheld
+ * <p>Author: cheld
  *
- *  Creation Date: 16.12.2011
+ * <p>Creation Date: 16.12.2011
  *
- *  Completion Time: 16.12.2011
+ * <p>Completion Time: 16.12.2011
  *
- *******************************************************************************/
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -16,19 +18,16 @@ import static org.junit.Assume.assumeFalse;
 
 import java.util.Arrays;
 import java.util.List;
-
 import javax.xml.ws.soap.SOAPFaultException;
-
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-
+import org.oscm.intf.TagService;
+import org.oscm.vo.VOTag;
+import org.oscm.vo.VOTechnicalService;
 import org.oscm.ws.base.ServiceFactory;
 import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
-import org.oscm.vo.VOTag;
-import org.oscm.vo.VOTechnicalService;
-import org.oscm.intf.TagService;
 
 /** @author cheld */
 public class TagServiceWSTest {

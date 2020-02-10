@@ -1,14 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: Mike J&auml;ger                                                      
- *                                                                              
- *  Creation Date: 12.12.2011                                                      
- *                                                                              
- *  Completion Time: 14.12.2011                                              
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: Mike J&auml;ger
+ *
+ * <p>Creation Date: 12.12.2011
+ *
+ * <p>Completion Time: 14.12.2011
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -23,9 +25,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.xml.ws.soap.SOAPFaultException;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -81,33 +81,25 @@ public class MarketingPermissionWSTest {
     // create two technology providers
     String tp1adminId = "tp1_admin" + timeBase;
     tp1 =
-        WebserviceTestBase.createOrganization(
-        		tp1adminId, OrganizationRoleType.TECHNOLOGY_PROVIDER);
+        WebserviceTestBase.createOrganization(tp1adminId, OrganizationRoleType.TECHNOLOGY_PROVIDER);
     tp1_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(tp1adminId);
-    
+
     String tp2adminId = "tp2_admin" + timeBase;
     tp2 =
-        WebserviceTestBase.createOrganization(
-        		tp2adminId, OrganizationRoleType.TECHNOLOGY_PROVIDER);
+        WebserviceTestBase.createOrganization(tp2adminId, OrganizationRoleType.TECHNOLOGY_PROVIDER);
     tp2_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(tp2adminId);
 
     // create three suppliers
     String supp1adminId = "supp1_admin" + timeBase;
-    supp1 =
-        WebserviceTestBase.createOrganization(
-        		supp1adminId, OrganizationRoleType.SUPPLIER);
+    supp1 = WebserviceTestBase.createOrganization(supp1adminId, OrganizationRoleType.SUPPLIER);
     supp1_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(supp1adminId);
-    
+
     String supp2adminId = "supp2_admin" + timeBase;
-    supp2 =
-        WebserviceTestBase.createOrganization(
-        		supp2adminId, OrganizationRoleType.SUPPLIER);
+    supp2 = WebserviceTestBase.createOrganization(supp2adminId, OrganizationRoleType.SUPPLIER);
     supp2_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(supp2adminId);
-    
+
     String supp3adminId = "supp3_admin" + timeBase;
-    supp3 =
-        WebserviceTestBase.createOrganization(
-        		supp3adminId, OrganizationRoleType.SUPPLIER);
+    supp3 = WebserviceTestBase.createOrganization(supp3adminId, OrganizationRoleType.SUPPLIER);
     supp3_adminKey = WebserviceTestBase.readLastMailAndSetCommonPassword(supp3adminId);
 
     // create two technical services for tp1

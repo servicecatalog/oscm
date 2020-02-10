@@ -1,6 +1,7 @@
-/*******************************************************************************
- *  Copyright FUJITSU LIMITED 2018
- *******************************************************************************/
+/**
+ * ***************************************************************************** Copyright FUJITSU
+ * LIMITED 2018 *****************************************************************************
+ */
 package org.oscm.ws.concurrency;
 
 import static org.junit.Assert.fail;
@@ -14,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.email.MaildevReader;

@@ -1,14 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: weiser                                                   
- *                                                                              
- *  Creation Date: 13.12.2011                                                      
- *                                                                              
- *  Completion Time: 13.12.2011                                              
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: weiser
+ *
+ * <p>Creation Date: 13.12.2011
+ *
+ * <p>Completion Time: 13.12.2011
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -18,19 +20,12 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.xml.ws.soap.SOAPFaultException;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import org.oscm.ws.base.ServiceFactory;
-import org.oscm.ws.base.VOFactory;
-import org.oscm.ws.base.WebserviceTestBase;
-import org.oscm.ws.base.WebserviceTestSetup;
 import org.oscm.intf.IdentityService;
 import org.oscm.intf.MarketplaceService;
 import org.oscm.intf.ReviewService;
@@ -52,6 +47,10 @@ import org.oscm.vo.VOServiceReview;
 import org.oscm.vo.VOSubscription;
 import org.oscm.vo.VOUda;
 import org.oscm.vo.VOUserDetails;
+import org.oscm.ws.base.ServiceFactory;
+import org.oscm.ws.base.VOFactory;
+import org.oscm.ws.base.WebserviceTestBase;
+import org.oscm.ws.base.WebserviceTestSetup;
 
 /**
  * Tests for {@link ReviewService} web service.

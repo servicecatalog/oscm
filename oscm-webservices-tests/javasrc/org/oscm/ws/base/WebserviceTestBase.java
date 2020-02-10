@@ -20,7 +20,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.oscm.converter.api.EnumConverter;
 import org.oscm.converter.api.VOConverter;
 import org.oscm.email.MaildevReader;
@@ -62,7 +61,7 @@ public class WebserviceTestBase {
 
   public static final String DEFAULT_PASSWORD = "secret";
   public static final String CURRENCY_EUR = "EUR";
-  
+
   private static OperatorService operator;
   private static MaildevReader mailDevReader;
   private static VOMarketplace globalMarketplace;

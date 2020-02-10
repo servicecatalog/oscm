@@ -1,14 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: kulle                                                   
- *                                                                              
- *  Creation Date: 13.12.2011                                                      
- *                                                                              
- *  Completion Time: 13.12.2011                                              
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: kulle
+ *
+ * <p>Creation Date: 13.12.2011
+ *
+ * <p>Completion Time: 13.12.2011
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertTrue;
@@ -17,9 +19,7 @@ import static org.junit.Assume.assumeFalse;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Set;
-
 import javax.xml.ws.soap.SOAPFaultException;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;

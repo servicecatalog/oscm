@@ -1,12 +1,15 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                                                                                 
- *  Creation Date: 18.11.2015                                                      
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Creation Date: 18.11.2015
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
+import com.sun.xml.internal.ws.fault.ServerSOAPFaultException;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.intf.AccountService;
@@ -29,8 +32,6 @@ import org.oscm.intf.TriggerService;
 import org.oscm.intf.VatService;
 import org.oscm.ws.base.ServiceFactory;
 import org.oscm.ws.base.WSProperties;
-
-import com.sun.xml.internal.ws.fault.ServerSOAPFaultException;
 
 /** @author stavreva */
 public class SupportedVersionsWSTest {

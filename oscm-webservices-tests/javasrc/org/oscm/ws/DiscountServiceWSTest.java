@@ -1,15 +1,15 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018                                                                                                                     
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assume.assumeFalse;
 
 import java.math.BigDecimal;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;

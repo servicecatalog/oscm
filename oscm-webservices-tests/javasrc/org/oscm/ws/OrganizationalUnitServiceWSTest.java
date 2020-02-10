@@ -1,8 +1,10 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018                                            
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assume.assumeFalse;
@@ -11,7 +13,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Collections;
 import java.util.List;
-
+import junit.framework.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,8 +44,6 @@ import org.oscm.ws.base.WebserviceTestSetup;
 import org.oscm.ws.unitrule.Order;
 import org.oscm.ws.unitrule.OrderedRunner;
 
-import junit.framework.Assert;
-
 @RunWith(OrderedRunner.class)
 public class OrganizationalUnitServiceWSTest {
 
@@ -73,9 +73,7 @@ public class OrganizationalUnitServiceWSTest {
 
     // create mp
     setup.createTechnicalService();
-    MarketplaceService mpSrvOperator =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService();
+    MarketplaceService mpSrvOperator = ServiceFactory.getDefault().getMarketPlaceService();
 
     // Create a local marketplace
     VOMarketplace mpLocal =

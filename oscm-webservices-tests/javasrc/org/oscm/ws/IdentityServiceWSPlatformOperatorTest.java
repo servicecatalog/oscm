@@ -1,14 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: weiser                                                   
- *                                                                              
- *  Creation Date: 13.12.2011                                                      
- *                                                                              
- *  Completion Time: 13.12.2011                                              
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: weiser
+ *
+ * <p>Creation Date: 13.12.2011
+ *
+ * <p>Completion Time: 13.12.2011
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -45,8 +47,8 @@ public class IdentityServiceWSPlatformOperatorTest {
     setup = new WebserviceTestSetup();
     supplier1 = setup.createSupplier("Supplier1");
     is = ServiceFactory.getDefault().getIdentityService();
-    VOUserDetails userDetails = is.getCurrentUserDetails();	
-    userDetails.setEMail("sampleuseremail@fujitsu.com");	
+    VOUserDetails userDetails = is.getCurrentUserDetails();
+    userDetails.setEMail("sampleuseremail@fujitsu.com");
     is.updateUser(userDetails);
   }
 

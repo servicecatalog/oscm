@@ -1,14 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: Enes Sejfi                                               
- *                                                                              
- *  Creation Date: 09.01.2012                                                     
- *                                                                              
- *  Completion Time:                                               
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: Enes Sejfi
+ *
+ * <p>Creation Date: 09.01.2012
+ *
+ * <p>Completion Time:
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -19,7 +21,6 @@ import static org.junit.Assert.assertTrue;
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -140,9 +141,7 @@ public class SearchServiceWSTest {
     setup = new WebserviceTestSetup();
 
     // needed for deleting marketplaces
-    mpService_Operator =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService();
+    mpService_Operator = ServiceFactory.getDefault().getMarketPlaceService();
 
     // needed to add supplier to technical services
     String technologyProviderUserKey = createTechnologyProvider();

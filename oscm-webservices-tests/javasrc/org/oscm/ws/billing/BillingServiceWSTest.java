@@ -1,13 +1,13 @@
-/*******************************************************************************
- *  Copyright FUJITSU LIMITED 2018
- *******************************************************************************/
+/**
+ * ***************************************************************************** Copyright FUJITSU
+ * LIMITED 2018 *****************************************************************************
+ */
 package org.oscm.ws.billing;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeFalse;
 
 import java.util.Calendar;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.oscm.intf.BillingService;

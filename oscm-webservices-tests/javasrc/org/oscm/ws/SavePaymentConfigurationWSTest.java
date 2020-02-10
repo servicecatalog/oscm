@@ -1,14 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: kulle                                            
- *                                                                              
- *  Creation Date: 27.10.2011                                                      
- *                                                                              
- *  Completion Time: 27.10.2011                                              
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: kulle
+ *
+ * <p>Creation Date: 27.10.2011
+ *
+ * <p>Completion Time: 27.10.2011
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -20,9 +22,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
 import javax.mail.MessagingException;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -133,9 +133,7 @@ public class SavePaymentConfigurationWSTest {
         defaultPaymentTypes, Collections.singletonList(c), defaultPaymentTypes, null);
 
     // OPERATOR: create "Marketplace"
-    MarketplaceService srvMarketplace =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService();
+    MarketplaceService srvMarketplace = ServiceFactory.getDefault().getMarketPlaceService();
     marketplace =
         srvMarketplace.createMarketplace(
             factory.createMarketplaceVO(

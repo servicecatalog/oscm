@@ -1,10 +1,12 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Creation Date: 15.04.2011                                                      
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Creation Date: 15.04.2011
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertTrue;
@@ -12,7 +14,6 @@ import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
 
 import javax.xml.ws.soap.SOAPFaultException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.intf.ServiceProvisioningService;

@@ -1,6 +1,7 @@
-/*******************************************************************************
- *  Copyright FUJITSU LIMITED 2018
- *******************************************************************************/
+/**
+ * ***************************************************************************** Copyright FUJITSU
+ * LIMITED 2018 *****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertTrue;
@@ -11,9 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import javax.xml.ws.soap.SOAPFaultException;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;

@@ -1,14 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: Enes Sejfi                                               
- *                                                                              
- *  Creation Date: 15.12.2011                                                      
- *                                                                              
- *  Completion Time:                                               
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: Enes Sejfi
+ *
+ * <p>Creation Date: 15.12.2011
+ *
+ * <p>Completion Time:
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -26,25 +28,17 @@ import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
 import javax.xml.ws.soap.SOAPFaultException;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import org.oscm.types.exceptions.*;
-import org.oscm.ws.base.ServiceFactory;
-import org.oscm.ws.base.VOFactory;
-import org.oscm.ws.base.WSProperties;
-import org.oscm.ws.base.WebserviceTestBase;
-import org.oscm.ws.base.WebserviceTestSetup;
 import org.oscm.intf.IdentityService;
 import org.oscm.intf.MarketplaceService;
 import org.oscm.intf.SubscriptionService;
 import org.oscm.types.enumtypes.PriceModelType;
 import org.oscm.types.enumtypes.UserRoleType;
+import org.oscm.types.exceptions.*;
 import org.oscm.vo.VOCatalogEntry;
 import org.oscm.vo.VOMarketplace;
 import org.oscm.vo.VOOrganization;
@@ -54,6 +48,11 @@ import org.oscm.vo.VOServiceEntry;
 import org.oscm.vo.VOSubscription;
 import org.oscm.vo.VOUda;
 import org.oscm.vo.VOUserDetails;
+import org.oscm.ws.base.ServiceFactory;
+import org.oscm.ws.base.VOFactory;
+import org.oscm.ws.base.WSProperties;
+import org.oscm.ws.base.WebserviceTestBase;
+import org.oscm.ws.base.WebserviceTestSetup;
 
 /**
  * Tests the marketplace webservice.

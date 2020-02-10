@@ -1,14 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: Dirk Bernsau                                                      
- *                                                                              
- *  Creation Date: Dec 13, 2011                                                      
- *                                                                              
- *  Completion Time: Dec 14, 2011                                              
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: Dirk Bernsau
+ *
+ * <p>Creation Date: Dec 13, 2011
+ *
+ * <p>Completion Time: Dec 14, 2011
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +30,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -178,9 +179,7 @@ public class SubscriptionServiceWSTest {
         setup.createTechnicalServiceWithOperationsAndOperationParameters(
             "TP with OP", setup.getServiceProvisioningSrvAsSupplier());
 
-    MarketplaceService mpSrvOperator =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService();
+    MarketplaceService mpSrvOperator = ServiceFactory.getDefault().getMarketPlaceService();
 
     mpLocal =
         mpSrvOperator.createMarketplace(

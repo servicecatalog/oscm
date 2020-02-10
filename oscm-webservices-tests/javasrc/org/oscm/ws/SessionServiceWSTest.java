@@ -1,6 +1,7 @@
-/*******************************************************************************
- *  Copyright FUJITSU LIMITED 2018
- *******************************************************************************/
+/**
+ * ***************************************************************************** Copyright FUJITSU
+ * LIMITED 2018 *****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
@@ -10,7 +11,6 @@ import static org.junit.Assert.assertNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -57,9 +57,7 @@ public class SessionServiceWSTest {
     // Create a technical service
     setup.createTechnicalService();
 
-    MarketplaceService mpSrvOperator =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService();
+    MarketplaceService mpSrvOperator = ServiceFactory.getDefault().getMarketPlaceService();
 
     // Create a local marketplace
     VOMarketplace mpLocal =

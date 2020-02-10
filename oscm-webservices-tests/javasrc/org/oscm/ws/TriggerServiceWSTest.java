@@ -1,21 +1,23 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                                                                                 
- *  Creation Date: 2012-8-29                                                      
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Creation Date: 2012-8-29
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -56,8 +58,6 @@ import org.oscm.ws.base.WebserviceTestBase;
 import org.oscm.ws.base.WebserviceTestSetup;
 import org.oscm.ws.unitrule.Order;
 import org.oscm.ws.unitrule.OrderedRunner;
-
-import com.google.common.collect.Lists;
 
 /** @author yuyin */
 @RunWith(OrderedRunner.class)

@@ -1,18 +1,18 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Creation Date: 30.05.2011                                                      
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Creation Date: 30.05.2011
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws.base;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -21,7 +21,6 @@ import javax.xml.ws.Binding;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 import javax.xml.ws.handler.Handler;
-
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.OperatorService;
 import org.oscm.internal.intf.TenantService;
@@ -230,10 +229,10 @@ public class ServiceFactory {
   }
 
   public OrganizationalUnitService getOrganizationalUnitService() throws Exception {
-      return getOrganizationalUnitService(
-          wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
-    }
-  
+    return getOrganizationalUnitService(
+        wsProperties.getDefaultUserKey(), wsProperties.getDefaultUserPassword());
+  }
+
   public OrganizationalUnitService getOrganizationalUnitService(String userName, String password)
       throws Exception {
     return connectToWebService(OrganizationalUnitService.class, userName, password);
@@ -297,12 +296,13 @@ public class ServiceFactory {
   }
 
   @SuppressWarnings("unchecked")
-  private <T> T connectToEJB(Class<T> remoteInterface, String userName, String password) throws SaaSSystemException {
+  private <T> T connectToEJB(Class<T> remoteInterface, String userName, String password)
+      throws SaaSSystemException {
     try {
       if (isSSOMode()) {
         password = "WS" + password;
       }
-      
+
       Properties localProperties = new Properties();
       localProperties.put(Context.SECURITY_PRINCIPAL, userName);
       localProperties.put(Context.SECURITY_CREDENTIALS, password);

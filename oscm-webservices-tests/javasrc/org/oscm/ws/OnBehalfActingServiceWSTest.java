@@ -1,14 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: tokoda                                                    
- *                                                                              
- *  Creation Date: 01.06.2011                                                      
- *                                                                              
- *  Completion Time: 03.06.2011                                               
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: tokoda
+ *
+ * <p>Creation Date: 01.06.2011
+ *
+ * <p>Completion Time: 03.06.2011
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ws;
 
 import static org.junit.Assert.assertNotNull;
@@ -18,9 +20,7 @@ import static org.junit.Assume.assumeFalse;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.xml.ws.soap.SOAPFaultException;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -81,9 +81,7 @@ public class OnBehalfActingServiceWSTest {
     WebserviceTestBase.savePaymentInfoToSupplier(hostOrg, PaymentInfoType.INVOICE);
 
     // Create the local market place
-    MarketplaceService mpSrvOperator =
-        ServiceFactory.getDefault()
-            .getMarketPlaceService();
+    MarketplaceService mpSrvOperator = ServiceFactory.getDefault().getMarketPlaceService();
     localMarketplace =
         mpSrvOperator.createMarketplace(
             factory.createMarketplaceVO(hostOrg.getOrganizationId(), false, "Local Marketplace"));
