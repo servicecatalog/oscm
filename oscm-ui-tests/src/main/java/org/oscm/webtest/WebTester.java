@@ -77,9 +77,9 @@ public class WebTester {
 
     loadPropertiesFile();
     ChromeOptions options = new ChromeOptions();
-//    options.setHeadless(true);
+    options.setHeadless(true);
     options.setAcceptInsecureCerts(true);
-//    options.addArguments("--no-sandbox");
+    options.addArguments("--no-sandbox");
 
     System.setProperty("webdriver.chrome.driver", prop.getProperty(CHROME_DRIVER_PATH));
 
@@ -177,7 +177,7 @@ public class WebTester {
     return "";
   }
 
-  public boolean getExecutionResult() throws InterruptedException {
+  public boolean getExecutionResult() {
     return false;
   }
 

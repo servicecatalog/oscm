@@ -12,7 +12,7 @@ package org.oscm.webtest.app;
 public class AppHtmlElements {
   public static final String APP_CONFIG_DIV_CLASS_STATUS_MSG = "statusPanel";
   public static final String APP_CONFIG_LICLASS_STATUS_MSG_OK = "statusGreen";
-  public static final String APP_CONFIG_LICLASS_STATUS_MSG_ERROR = "statusRed";
+  public static final String APP_CONFIG_LICLASS_STATUS_MSG_ERROR = "//span[2]/span";
   public static final String APP_CONFIG_LICLASS_STATUS_MSG_INFO = "statusPanel";
 
   public static final String APP_STATUS_MSG_INFO = "statusPanel statusInfo";
