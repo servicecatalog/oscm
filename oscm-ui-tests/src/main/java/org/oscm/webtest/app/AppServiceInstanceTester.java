@@ -106,10 +106,10 @@ public class AppServiceInstanceTester extends WebTester {
                     + ":j_idt"
                     + idKey
                     + "']"));
+    logger.info(String.format("Clicked button %s", element.getTagName()));
     element.click();
 
     Thread.sleep(1000);
-    logger.info(String.format("Clicked \"%sbutton\"", element.getTagName()));
 
     if (idKey == 75 && !getExecutionResult()) {
       if (readErrorMessage().contains(AppTester.ERROR_MSG_CONTROLLER_EXISTS)) {
@@ -123,9 +123,9 @@ public class AppServiceInstanceTester extends WebTester {
   public void buttonDefaultClickEvent(String idKey) throws Exception {
     Thread.sleep(1000);
     WebElement element = driver.findElement(By.xpath(idKey));
+    logger.info(String.format("Clicked button %s", element.getTagName()));
     element.click();
     Thread.sleep(1000);
-    logger.info(String.format("Clicked \"%sbutton\"", element.getTagName()));
   }
 
   public void uploadFileEvent(String index, File file) {
@@ -155,10 +155,26 @@ public class AppServiceInstanceTester extends WebTester {
 
     field.clear();
     field.sendKeys(value);
+
+    logger.info(String.format("Wrote value: %s to element with id %s", value, index));
   }
 
   public String readDefaultValue(String index) {
     WebElement element = getWebElement(index);
+    return element.getAttribute("value");
+  }
+
+  public String readValue(String index, int idKey) {
+    WebElement element =
+            driver.findElement(
+                    By.xpath(
+                            "//input[@name='"
+                                    + AppHtmlElements.APP_SAMPLECONTROLLER_FORM_ID
+                                    + ":j_idt"
+                                    + index
+                                    + ":j_idt"
+                                    + idKey
+                                    + "']"));
     return element.getAttribute("value");
   }
 
@@ -172,18 +188,17 @@ public class AppServiceInstanceTester extends WebTester {
                             + "']"));
   }
 
-  public String readValue(String index, int idKey) {
-    WebElement element =
-        driver.findElement(
-            By.xpath(
-                "//input[@name='"
-                    + AppHtmlElements.APP_SAMPLECONTROLLER_FORM_ID
-                    + ":j_idt"
-                    + index
-                    + ":j_idt"
-                    + idKey
-                    + "']"));
-    return element.getAttribute("value");
+  public boolean getExecutionResult() {
+    waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 10);
+
+    if (!verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR_AT_CONTROLLER))
+            && verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER))) {
+      logger.info(readInfoMessage());
+      return true;
+    } else {
+      logger.info(readErrorMessage());
+      return false;
+    }
   }
 
   /**
@@ -192,17 +207,15 @@ public class AppServiceInstanceTester extends WebTester {
    * @return the info message
    */
   public String readInfoMessage() {
-    return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR)).getText();
+    return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER)).getText();
+  }
+
+  public String readErrorMessage() {
+    return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR_AT_CONTROLLER)).getText();
   }
 
   public String readDefaultInfoMessage(String elementXPath) {
     return driver.findElement(By.xpath(elementXPath)).getText();
-  }
-
-  public boolean getExecutionResult() {
-    logger.info(readInfoMessage());
-
-    return !verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR));
   }
 
   public String getProperties(String propertie) {

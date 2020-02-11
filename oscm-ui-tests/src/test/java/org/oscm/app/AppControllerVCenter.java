@@ -56,7 +56,7 @@ public class AppControllerVCenter {
 
     instanceTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt120']");
     instanceTester.readDefaultInfoMessage(
-        AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_FIELD_UPPER);
+        AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER);
 
     assertEquals("https://webiste.com", instanceTester.readDefaultValue("url"));
     assertEquals(userid, instanceTester.readDefaultValue("user"));
@@ -72,7 +72,7 @@ public class AppControllerVCenter {
 
     assertTrue(
         instanceTester
-            .readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_FIELD_UPPER)
+            .readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER)
             .contains("saved successfully"));
   }
 
