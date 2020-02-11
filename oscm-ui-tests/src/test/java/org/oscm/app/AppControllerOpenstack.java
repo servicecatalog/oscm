@@ -19,8 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class AppControllerOpenstack {
 
   private static AppServiceInstanceTester instanceTester;
-  private static final Random RANDOM = new Random();
-  private static int userkey;
+  private static String userkey;
   private static String changedUserID;
   private static String changedPassword;
   private static String userid;
@@ -34,7 +33,7 @@ public class AppControllerOpenstack {
   public static void setup() throws Exception {
     instanceTester = new AppServiceInstanceTester();
 
-    userkey = RANDOM.nextInt(100000) + 1;
+    userkey = "1000";
     changedUserID = "newUser";
     changedPassword = "Password12";
 
@@ -96,7 +95,7 @@ public class AppControllerOpenstack {
     instanceTester.buttonDefaultClickEvent("//input[@name='templateForm:j_idt112']");
 
     assertTrue(
-        instanceTester.readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER).contains("imported successfully"));
+        instanceTester.readInfoMessage().contains("imported successfully"));
   }
 
   @Test
@@ -104,19 +103,19 @@ public class AppControllerOpenstack {
     instanceTester.buttonDefaultClickEvent("//td[@id='templateForm:j_idt87:0:j_idt94']/a");
 
     assertTrue(
-        instanceTester.readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER).contains("deleted successfully"));
+        instanceTester.readInfoMessage().contains("deleted successfully"));
   }
 
   @Test
   public void test05setSettingsIntoController() throws Exception {
     instanceTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
-    instanceTester.changeValueInputInSpecificField("49:2", 56, String.valueOf(userkey));
+    instanceTester.changeValueInputInSpecificField("49:2", 56, userkey);
     instanceTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
 
     instanceTester.buttonClickEvent(75);
 
     assertEquals(changedUserID, instanceTester.readValue("49:1", 56));
-    assertEquals(String.valueOf(userkey), instanceTester.readValue("49:2", 56));
+    assertEquals(userkey, instanceTester.readValue("49:2", 56));
     assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
 
     assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));

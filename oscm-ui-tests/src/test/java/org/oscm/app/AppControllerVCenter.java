@@ -19,8 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class AppControllerVCenter {
 
   private static AppServiceInstanceTester instanceTester;
-  private static final Random RANDOM = new Random();
-  private static int userkey;
+  private static String userkey;
   private static String changedUserID;
   private static String changedPassword;
   private static String userid;
@@ -34,7 +33,7 @@ public class AppControllerVCenter {
   public static void setup() throws Exception {
     instanceTester = new AppServiceInstanceTester();
 
-    userkey = RANDOM.nextInt(100000) + 1;
+    userkey = "1000";
     changedUserID = "newUser";
     changedPassword = "Password12";
 
@@ -56,7 +55,7 @@ public class AppControllerVCenter {
 
     instanceTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt120']");
     instanceTester.readDefaultInfoMessage(
-        AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER);
+        AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND);
 
     assertEquals("https://webiste.com", instanceTester.readDefaultValue("url"));
     assertEquals(userid, instanceTester.readDefaultValue("user"));
@@ -72,20 +71,21 @@ public class AppControllerVCenter {
 
     assertTrue(
         instanceTester
-            .readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER)
+            .readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND)
             .contains("saved successfully"));
   }
 
   @Test
   public void test03setSettingsIntoController() throws Exception {
     instanceTester.changeValueInputInSpecificField("47:1", 54, changedUserID);
-    instanceTester.changeValueInputInSpecificField("47:2", 54, String.valueOf(userkey));
+    instanceTester.changeValueInputInSpecificField("47:2", 54, userkey);
     instanceTester.changeValueInputInSpecificField("47:3", 53, changedPassword);
 
     instanceTester.buttonClickEvent(58);
+    instanceTester.readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_FIRST);
 
     assertEquals(changedUserID, instanceTester.readValue("47:1", 54));
-    assertEquals(String.valueOf(userkey), instanceTester.readValue("47:2", 54));
+    assertEquals(userkey, instanceTester.readValue("47:2", 54));
     assertEquals(changedPassword, instanceTester.readValue("47:3", 53));
   }
 }

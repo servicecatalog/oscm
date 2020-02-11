@@ -191,8 +191,8 @@ public class AppServiceInstanceTester extends WebTester {
   public boolean getExecutionResult() {
     waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 10);
 
-    if (!verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR_AT_CONTROLLER))
-            && verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER))) {
+    if (!verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER))
+            && verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER))) {
       logger.info(readInfoMessage());
       return true;
     } else {
@@ -207,11 +207,11 @@ public class AppServiceInstanceTester extends WebTester {
    * @return the info message
    */
   public String readInfoMessage() {
-    return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER)).getText();
+    return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER)).getText();
   }
 
   public String readErrorMessage() {
-    return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR_AT_CONTROLLER)).getText();
+    return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER)).getText();
   }
 
   public String readDefaultInfoMessage(String elementXPath) {
