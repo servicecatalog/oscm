@@ -14,7 +14,6 @@ import org.openqa.selenium.WebElement;
 import org.oscm.webtest.WebTester;
 
 import javax.security.auth.login.LoginException;
-import java.util.List;
 
 /** Helper class for integration web tests for oscm-app/default.jsf */
 public class AppTester extends WebTester {
@@ -152,7 +151,7 @@ public class AppTester extends WebTester {
     inputOrgid.sendKeys(orgId);
 
     driver.findElement(By.name("configurationSettings:j_idt62")).click();
-    logger.info("Clicked \"Create new controller button\"");
+    logger.info("Clicked save configuration button in controllers configurations");
     if (!getExecutionResult()) {
       if (readErrorMessage().contains(ERROR_MSG_CONTROLLER_EXISTS)) {
         throw new Exception(ERROR_MSG_CONTROLLER_EXISTS);
@@ -220,44 +219,12 @@ public class AppTester extends WebTester {
     if (!getExecutionResult()) throw new Exception();
   }
 
-  public List<WebElement> getContentAppConfigTable(String formId) {
-
-    WebElement baseTableBody =
-        driver.findElement(By.xpath("//form[@id='" + formId + "']/table/tbody"));
-    List<WebElement> tableRows = baseTableBody.findElements(By.tagName("tr"));
-
-    return tableRows;
-  }
-
-  public String returnControllerId(List<WebElement> tableRows, int index) {
-
-    WebElement td = tableRows.get(index).findElement(By.xpath("//td[0]"));
-    return td.getText();
-  }
-
-  public String returnOrgId(List<WebElement> tableRows, int index) {
-
-    WebElement td = tableRows.get(index).findElement(By.xpath("//td[1]"));
-    WebElement input =
-        td.findElement(
-            By.xpath(
-                "//*[ends-with(@id,'"
-                    + AppHtmlElements.APP_CONFIG_FORM1_INPUT_END_EXISTORGID
-                    + "')]"));
-    return input.getAttribute("value");
-  }
-
-  public void clickRemoveLink(List<WebElement> tableRows, int index) {
-
-    WebElement td = tableRows.get(index).findElement(By.xpath("//td[2]"));
-    WebElement href = td.findElement(By.tagName("a"));
-    href.click();
-  }
-
   private void changeInputValueForm2(int index, String keyword) throws Exception {
     WebElement input = getSettingWebElement(index);
     input.clear();
     input.sendKeys(keyword);
+
+    logger.info(String.format("Wrote value: %s to element with id %s", keyword, index));
 
     driver
         .findElement(
@@ -270,7 +237,7 @@ public class AppTester extends WebTester {
                     + "']"))
         .click();
 
-    logger.info("Clicked \"Save input value button\"");
+    logger.info("Clicked save configuration button in APP settings");
 
     if (!getExecutionResult()) throw new Exception();
   }
@@ -287,12 +254,11 @@ public class AppTester extends WebTester {
 
   public void testConnection() {
     driver
-        .findElement(By.xpath("//input[@id='configurationSettings:j_idt52:3:pingButton']"))
+        .findElement(By.xpath("//input[@id='configurationSettings:j_idt52:2:pingButton']"))
         .click();
 
-    logger.info("Clicked \"Test connection hyperlink\"");
+    logger.info("Clicked test connection hyperlink");
   }
-
 
   public String readValue(String id) {
     WebElement element = driver.findElement(By.id(id));

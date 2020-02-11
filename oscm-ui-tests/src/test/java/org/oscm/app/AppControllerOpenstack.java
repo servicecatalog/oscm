@@ -96,7 +96,7 @@ public class AppControllerOpenstack {
     instanceTester.buttonDefaultClickEvent("//input[@name='templateForm:j_idt112']");
 
     assertTrue(
-        instanceTester.readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_FIELD_DOWN).contains("imported successfully"));
+        instanceTester.readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER).contains("imported successfully"));
   }
 
   @Test
@@ -104,7 +104,7 @@ public class AppControllerOpenstack {
     instanceTester.buttonDefaultClickEvent("//td[@id='templateForm:j_idt87:0:j_idt94']/a");
 
     assertTrue(
-        instanceTester.readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_FIELD_DOWN).contains("deleted successfully"));
+        instanceTester.readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER).contains("deleted successfully"));
   }
 
   @Test
@@ -119,7 +119,7 @@ public class AppControllerOpenstack {
     assertEquals(String.valueOf(userkey), instanceTester.readValue("49:2", 56));
     assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
 
-        assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
+    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
   }
 
   @Test
