@@ -9,6 +9,8 @@
  */
 package org.oscm.webtest.app;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.oscm.webtest.WebTester;
@@ -21,6 +23,7 @@ public class AppServiceInstanceTester extends WebTester {
 
   private String base = "";
   private String head = "";
+  protected static final Logger logger = LogManager.getLogger(WebTester.class.getName());
 
   public AppServiceInstanceTester() throws Exception {
     super();
@@ -92,20 +95,22 @@ public class AppServiceInstanceTester extends WebTester {
    *
    * @throws Exception
    */
-  public void logoutAppServiceInstance() throws Exception {}
 
   public void buttonClickEvent(int idKey) throws Exception {
     Thread.sleep(1000);
-    driver
+    WebElement element = driver
         .findElement(
             By.xpath(
                 "//input[@name='"
                     + AppHtmlElements.APP_SAMPLECONTROLLER_FORM_ID
                     + ":j_idt"
                     + idKey
-                    + "']"))
-        .click();
+                    + "']"));
+    element.click();
+
     Thread.sleep(1000);
+    logger.info(String.format("Clicked \"%sbutton\"", element.getTagName()));
+
     if (idKey == 75 && !getExecutionResult()) {
       if (readErrorMessage().contains(AppTester.ERROR_MSG_CONTROLLER_EXISTS)) {
         throw new Exception(AppTester.ERROR_MSG_CONTROLLER_EXISTS);
@@ -117,14 +122,17 @@ public class AppServiceInstanceTester extends WebTester {
 
   public void buttonDefaultClickEvent(String idKey) throws Exception {
     Thread.sleep(1000);
-    driver.findElement(By.xpath(idKey)).click();
+    WebElement element = driver.findElement(By.xpath(idKey));
+    element.click();
     Thread.sleep(1000);
+    logger.info(String.format("Clicked \"%sbutton\"", element.getTagName()));
   }
 
-  public void uploadFileEvent(String index, File file) throws Exception {
+  public void uploadFileEvent(String index, File file) {
     WebElement element = driver.findElement(By.xpath(index));
 
     element.sendKeys(file.toPath().toString());
+    logger.info("File with .csv extension uploaded");
   }
 
   public void changeValueInputInSpecificField(String index, int idKey, String value) {
@@ -143,16 +151,25 @@ public class AppServiceInstanceTester extends WebTester {
   }
 
   public void changeValueInputInBalancerField(String index, String value) {
-    WebElement field =
-        driver.findElement(
-            By.xpath(
-                "//input[@id='"
-                    + AppHtmlElements.APP_VSPHERE_API_SETTINGS
-                    + ":vsphere_api_"
-                    + index
-                    + "']"));
+    WebElement field = getWebElement(index);
+
     field.clear();
     field.sendKeys(value);
+  }
+
+  public String readDefaultValue(String index) {
+    WebElement element = getWebElement(index);
+    return element.getAttribute("value");
+  }
+
+  public WebElement getWebElement(String index) {
+    return driver.findElement(
+            By.xpath(
+                    "//input[@id='"
+                            + AppHtmlElements.APP_VSPHERE_API_SETTINGS
+                            + ":vsphere_api_"
+                            + index
+                            + "']"));
   }
 
   public String readValue(String index, int idKey) {
@@ -166,11 +183,6 @@ public class AppServiceInstanceTester extends WebTester {
                     + ":j_idt"
                     + idKey
                     + "']"));
-    return element.getAttribute("value");
-  }
-
-  public String readDefaultValue(String target) {
-    WebElement element = driver.findElement(By.xpath(target));
     return element.getAttribute("value");
   }
 

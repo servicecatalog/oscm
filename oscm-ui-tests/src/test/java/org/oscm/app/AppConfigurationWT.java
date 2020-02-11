@@ -41,14 +41,10 @@ public class AppConfigurationWT {
   }
 
   @Test
-  public void test01setConfiguration() throws Exception {
+  public void test01checkConnection() {
+    tester.testConnection();
 
-    tester.setAppAdminMailAddress(PlaygroundSuiteTest.supplierOrgAdminMail);
-    tester.setBssUserId(tester.getPropertie(AppTester.APP_ADMIN_USER_ID));
-    tester.setBssUserKey("10");
-    tester.setBssUserPwd(tester.getPropertie(AppTester.APP_ADMIN_USER_PWD));
-
-    assertTrue(tester.readInfoMessage().contains("saved successfully"));
+    assertFalse(tester.getExecutionResult());
   }
 
   @Test
@@ -78,9 +74,13 @@ public class AppConfigurationWT {
   }
 
   @Test
-  public void test04checkConnection() {
-    tester.testConnection();
+  public void test04setConfiguration() throws Exception {
 
-    assertFalse(tester.getExecutionResult());
+    tester.setAppAdminMailAddress(PlaygroundSuiteTest.supplierOrgAdminMail);
+    tester.setBssUserId(tester.getPropertie(AppTester.APP_ADMIN_USER_ID));
+    tester.setBssUserKey("10");
+    tester.setBssUserPwd(tester.getPropertie(AppTester.APP_ADMIN_USER_PWD));
+
+    assertTrue(tester.readInfoMessage().contains("saved successfully"));
   }
 }
