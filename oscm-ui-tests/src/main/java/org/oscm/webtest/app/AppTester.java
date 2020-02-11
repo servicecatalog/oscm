@@ -152,6 +152,7 @@ public class AppTester extends WebTester {
     inputOrgid.sendKeys(orgId);
 
     driver.findElement(By.name("configurationSettings:j_idt62")).click();
+    logger.info("Clicked \"Create new controller button\"");
     if (!getExecutionResult()) {
       if (readErrorMessage().contains(ERROR_MSG_CONTROLLER_EXISTS)) {
         throw new Exception(ERROR_MSG_CONTROLLER_EXISTS);
@@ -269,6 +270,8 @@ public class AppTester extends WebTester {
                     + "']"))
         .click();
 
+    logger.info("Clicked \"Save input value button\"");
+
     if (!getExecutionResult()) throw new Exception();
   }
 
@@ -286,11 +289,10 @@ public class AppTester extends WebTester {
     driver
         .findElement(By.xpath("//input[@id='configurationSettings:j_idt52:3:pingButton']"))
         .click();
+
+    logger.info("Clicked \"Test connection hyperlink\"");
   }
 
-  private String returnInputValueForm2(int index) {
-    return getSettingWebElement(index).getAttribute(ATTRIUBTE_VALUE);
-  }
 
   public String readValue(String id) {
     WebElement element = driver.findElement(By.id(id));

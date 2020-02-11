@@ -6,6 +6,7 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.oscm.portal.JUnitHelper;
+import org.oscm.webtest.app.AppHtmlElements;
 import org.oscm.webtest.app.AppServiceInstanceTester;
 
 import java.io.File;
@@ -54,17 +55,12 @@ public class AppControllerVCenter {
     instanceTester.changeValueInputInBalancerField("pwd", userpassword);
 
     instanceTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt120']");
-    instanceTester.readDefaultInfoMessage("//span[@id='status']");
+    instanceTester.readDefaultInfoMessage(
+        AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_FIELD_UPPER);
 
-    assertEquals(
-        "https://webiste.com",
-        instanceTester.readDefaultValue("//input[@id='balancer_form:vsphere_api_url']"));
-    assertEquals(
-        changedUserID,
-        instanceTester.readDefaultValue("//input[@id='balancer_form:vsphere_api_user']"));
-    assertEquals(
-        changedPassword,
-        instanceTester.readDefaultValue("//input[@id='balancer_form:vsphere_api_pwd']"));
+    assertEquals("https://webiste.com", instanceTester.readDefaultValue("url"));
+    assertEquals(userid, instanceTester.readDefaultValue("user"));
+    assertEquals(userpassword, instanceTester.readDefaultValue("pwd"));
   }
 
   @Test
@@ -76,7 +72,7 @@ public class AppControllerVCenter {
 
     assertTrue(
         instanceTester
-            .readDefaultInfoMessage("//span[@id='status']")
+            .readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_FIELD_UPPER)
             .contains("saved successfully"));
   }
 

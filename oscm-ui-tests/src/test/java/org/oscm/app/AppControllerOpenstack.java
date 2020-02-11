@@ -6,6 +6,7 @@ import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.oscm.portal.JUnitHelper;
+import org.oscm.webtest.app.AppHtmlElements;
 import org.oscm.webtest.app.AppServiceInstanceTester;
 
 import java.io.File;
@@ -65,7 +66,7 @@ public class AppControllerOpenstack {
     assertEquals("Website", instanceTester.readValue("62:4", 69));
     assertEquals("https://template/...", instanceTester.readValue("62:5", 69));
 
-    //    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
+    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
   }
 
   @Test
@@ -95,7 +96,7 @@ public class AppControllerOpenstack {
     instanceTester.buttonDefaultClickEvent("//input[@name='templateForm:j_idt112']");
 
     assertTrue(
-        instanceTester.readDefaultInfoMessage("//body/span[2]").contains("imported successfully"));
+        instanceTester.readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_FIELD_DOWN).contains("imported successfully"));
   }
 
   @Test
@@ -103,7 +104,7 @@ public class AppControllerOpenstack {
     instanceTester.buttonDefaultClickEvent("//td[@id='templateForm:j_idt87:0:j_idt94']/a");
 
     assertTrue(
-        instanceTester.readDefaultInfoMessage("//body/span[2]").contains("deleted successfully"));
+        instanceTester.readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_FIELD_DOWN).contains("deleted successfully"));
   }
 
   @Test
@@ -118,7 +119,7 @@ public class AppControllerOpenstack {
     assertEquals(String.valueOf(userkey), instanceTester.readValue("49:2", 56));
     assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
 
-    //    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
+        assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
   }
 
   @Test
