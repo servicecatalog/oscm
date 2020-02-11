@@ -35,7 +35,7 @@ import org.oscm.webtest.WebTester;
 })
 public class PlaygroundSuiteTest {
 
-  public static String supplierOrgId = "PLATFORM_OPERATOR";
+  public static String supplierOrgId = "";
   public static String supplierOrgName = "";
   public static String supplierOrgAdminId = "";
   public static String supplierOrgAdminPwd = "";
