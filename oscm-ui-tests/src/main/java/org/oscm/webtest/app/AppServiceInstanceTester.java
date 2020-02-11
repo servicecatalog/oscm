@@ -191,12 +191,10 @@ public class AppServiceInstanceTester extends WebTester {
   public boolean getExecutionResult() {
     waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 10);
 
-    if (!verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER))
-            && verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER))) {
-      logger.info(readInfoMessage());
+    logger.info(readInfoMessage());
+    if (verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER))) {
       return true;
     } else {
-      logger.info(readErrorMessage());
       return false;
     }
   }
@@ -207,10 +205,6 @@ public class AppServiceInstanceTester extends WebTester {
    * @return the info message
    */
   public String readInfoMessage() {
-    return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER)).getText();
-  }
-
-  public String readErrorMessage() {
     return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER)).getText();
   }
 
