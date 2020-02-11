@@ -192,10 +192,10 @@ public class AppServiceInstanceTester extends WebTester {
     waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 10);
 
     logger.info(readInfoMessage());
-    if (verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER))) {
-      return true;
-    } else {
+    if (verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR))) {
       return false;
+    } else {
+      return true;
     }
   }
 
