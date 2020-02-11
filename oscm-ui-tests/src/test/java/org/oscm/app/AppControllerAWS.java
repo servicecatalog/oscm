@@ -61,8 +61,8 @@ public class AppControllerAWS {
 
     instanceTester.buttonClickEvent(76);
 
-    assertEquals("nothing", instanceTester.readValue("62:0", 68));
-    assertEquals("nothing", instanceTester.readValue("62:1", 68));
+    assertEquals(changedUserID, instanceTester.readValue("62:0", 68));
+    assertEquals(changedPassword, instanceTester.readValue("62:1", 68));
   }
 
   @Test
