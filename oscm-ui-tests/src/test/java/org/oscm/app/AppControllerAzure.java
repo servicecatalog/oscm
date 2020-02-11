@@ -52,8 +52,6 @@ public class AppControllerAzure {
     assertEquals(changedUserID, instanceTester.readValue("49:1", 56));
     assertEquals(userkey, instanceTester.readValue("49:2", 56));
     assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
-
-    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
   }
 
   @Test
