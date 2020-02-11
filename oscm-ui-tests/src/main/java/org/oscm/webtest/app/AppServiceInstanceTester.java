@@ -180,15 +180,14 @@ public class AppServiceInstanceTester extends WebTester {
    * @return the info message
    */
   public String readInfoMessage() {
-    return driver.findElement(By.xpath("//body/span[2]")).getText();
+    return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR)).getText();
   }
 
   public String readDefaultInfoMessage(String elementXPath) {
     return driver.findElement(By.xpath(elementXPath)).getText();
   }
 
-  public boolean getExecutionResult() throws InterruptedException {
-    Thread.sleep(3000);
+  public boolean getExecutionResult() {
     logger.info(readInfoMessage());
 
     return !verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR));
