@@ -9,13 +9,6 @@
  */
 package org.oscm.webtest;
 
-import java.io.FileInputStream;
-import java.net.InetAddress;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +26,14 @@ import org.oscm.webtest.authentication.InternalAuthenticationContext;
 import org.oscm.webtest.authentication.OIDCAuthenticationContext;
 import org.oscm.webtest.exception.ConfigurationException;
 
+import java.io.FileInputStream;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Helper class for integration web tests using selenium and java mail.
  *
@@ -47,13 +48,18 @@ public class WebTester {
   public static final String BES_ADMIN_USER_PWD = "bes.user.password";
   public static final String BES_ADMIN_USER_KEY = "bes.user.key";
 
+  public static final String OIDC_SUPPLIER_ID = "oidc.supplier.id";
+  public static final String OIDC_SUPPLIER_PASSWORD = "oidc.supplier.password";
+
+  public static final String APP_SECURE = "app.secure";
+  public static final String APP_HTTP_URL = "app.http.url";
   public static final String APP_HTTPS_URL = "app.https.url";
   public static final String APP_ADMIN_USER_ID = "app.user.id";
   public static final String APP_ADMIN_USER_PWD = "app.user.password";
   public static final String TIME_INTERVAL = "create.subscription.waiting.seconds";
 
-  private static final String AUTH_MODE = "auth.mode";
-  private static final String CHROME_DRIVER_PATH = "chrome.driver.path";
+  public static final String AUTH_MODE = "auth.mode";
+  public static final String CHROME_DRIVER_PATH = "chrome.driver.path";
 
   protected static final Logger logger = LogManager.getLogger(WebTester.class.getName());
   // web element keys
@@ -74,7 +80,7 @@ public class WebTester {
     ChromeOptions options = new ChromeOptions();
     options.setHeadless(true);
     options.setAcceptInsecureCerts(true);
-    options.addArguments("--no-sandbox");
+    options.addArguments("--no-sandbox", "--lang=en");
 
     System.setProperty("webdriver.chrome.driver", prop.getProperty(CHROME_DRIVER_PATH));
 
