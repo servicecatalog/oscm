@@ -147,6 +147,8 @@ public class AppServiceInstanceTester extends WebTester {
                     + "']"));
     field.clear();
     field.sendKeys(value);
+
+    logger.info(String.format("Wrote value: %s to element with id %s", value, idKey));
   }
 
   public void changeValueInputInBalancerField(String index, String value) {

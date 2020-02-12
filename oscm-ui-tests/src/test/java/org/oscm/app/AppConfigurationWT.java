@@ -66,13 +66,14 @@ public class AppConfigurationWT {
   }
 
   @Test
-  public void test03removeControllerId() {
+  public void test03removeControllerId() throws InterruptedException {
     tester.removeCreatedController();
     tester.waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 5);
 
     assertNotEquals(
         AppHtmlElements.TEST_CONTROLLER_ID,
         tester.readValue(AppHtmlElements.APP_CONTROLLER_TABLE_FIELD));
+    assertTrue(tester.readInfoMessage().contains("saved successfully"));
   }
 
   @Test
