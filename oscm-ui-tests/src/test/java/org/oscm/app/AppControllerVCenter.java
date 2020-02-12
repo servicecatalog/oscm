@@ -68,7 +68,6 @@ public class AppControllerVCenter {
     FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
     instanceTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
     instanceTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
-    instanceTester.waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 5);
 
     assertTrue(
         instanceTester
