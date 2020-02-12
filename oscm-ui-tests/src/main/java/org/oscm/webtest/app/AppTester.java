@@ -159,7 +159,7 @@ public class AppTester extends WebTester {
     }
   }
 
-  public void removeCreatedController() {
+  public void removeCreatedController() throws InterruptedException {
     if (driver.findElement(By.xpath("//td[contains(.,'a.ess.sample')]")).isDisplayed()) {
       driver.findElement(By.xpath("//td[@id='configurationSettings:j_idt52:0:j_idt58']/a")).click();
 
@@ -167,6 +167,7 @@ public class AppTester extends WebTester {
     } else {
       logger.error("Couldn't find created controller");
     }
+    Thread.sleep(1000);
     driver.findElement(By.name("configurationSettings:j_idt62")).click();
   }
 
