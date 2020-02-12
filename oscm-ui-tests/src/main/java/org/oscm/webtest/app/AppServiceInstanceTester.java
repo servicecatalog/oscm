@@ -105,7 +105,7 @@ public class AppServiceInstanceTester extends WebTester {
                     + ":j_idt"
                     + idKey
                     + "']"));
-    logger.info(String.format("Clicked button %s", element.getTagName()));
+    logger.info(String.format("Clicked %s button with id %s", element.getText(), idKey));
     element.click();
 
     Thread.sleep(1000);
@@ -122,7 +122,7 @@ public class AppServiceInstanceTester extends WebTester {
   public void buttonDefaultClickEvent(String idKey) throws Exception {
     Thread.sleep(1000);
     WebElement element = driver.findElement(By.xpath(idKey));
-    logger.info(String.format("Clicked button %s", element.getTagName()));
+    logger.info(String.format("Clicked %s button", element.getText()));
     element.click();
     Thread.sleep(1000);
   }
