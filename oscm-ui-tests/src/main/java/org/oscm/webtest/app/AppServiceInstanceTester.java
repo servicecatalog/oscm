@@ -95,11 +95,10 @@ public class AppServiceInstanceTester extends WebTester {
    *
    * @throws Exception
    */
-
   public void buttonClickEvent(int idKey) throws Exception {
     Thread.sleep(1000);
-    WebElement element = driver
-        .findElement(
+    WebElement element =
+        driver.findElement(
             By.xpath(
                 "//input[@name='"
                     + AppHtmlElements.APP_SAMPLECONTROLLER_FORM_ID
@@ -166,37 +165,33 @@ public class AppServiceInstanceTester extends WebTester {
 
   public String readValue(String index, int idKey) {
     WebElement element =
-            driver.findElement(
-                    By.xpath(
-                            "//input[@name='"
-                                    + AppHtmlElements.APP_SAMPLECONTROLLER_FORM_ID
-                                    + ":j_idt"
-                                    + index
-                                    + ":j_idt"
-                                    + idKey
-                                    + "']"));
+        driver.findElement(
+            By.xpath(
+                "//input[@name='"
+                    + AppHtmlElements.APP_SAMPLECONTROLLER_FORM_ID
+                    + ":j_idt"
+                    + index
+                    + ":j_idt"
+                    + idKey
+                    + "']"));
     return element.getAttribute("value");
   }
 
   public WebElement getWebElement(String index) {
     return driver.findElement(
-            By.xpath(
-                    "//input[@id='"
-                            + AppHtmlElements.APP_VSPHERE_API_SETTINGS
-                            + ":vsphere_api_"
-                            + index
-                            + "']"));
+        By.xpath(
+            "//input[@id='"
+                + AppHtmlElements.APP_VSPHERE_API_SETTINGS
+                + ":vsphere_api_"
+                + index
+                + "']"));
   }
 
   public boolean getExecutionResult() {
-    waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 10);
+    waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 5);
 
     logger.info(readInfoMessage());
-    if (verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR))) {
-      return false;
-    } else {
-      return true;
-    }
+    return !verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR));
   }
 
   /**
@@ -205,7 +200,9 @@ public class AppServiceInstanceTester extends WebTester {
    * @return the info message
    */
   public String readInfoMessage() {
-    return driver.findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER)).getText();
+    return driver
+        .findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_AT_CONTROLLER))
+        .getText();
   }
 
   public String readDefaultInfoMessage(String elementXPath) {

@@ -12,6 +12,7 @@ package org.oscm.app;
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.app.AppHtmlElements;
@@ -67,6 +68,7 @@ public class AppConfigurationWT {
   @Test
   public void test03removeControllerId() {
     tester.removeCreatedController();
+    tester.waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 5);
 
     assertNotEquals(
         AppHtmlElements.TEST_CONTROLLER_ID,

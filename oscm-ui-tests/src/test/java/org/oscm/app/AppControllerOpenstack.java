@@ -5,12 +5,12 @@ import org.junit.*;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.webtest.app.AppHtmlElements;
 import org.oscm.webtest.app.AppServiceInstanceTester;
 
 import java.io.File;
-import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -93,17 +93,17 @@ public class AppControllerOpenstack {
     FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
     instanceTester.uploadFileEvent("//input[@id='templateForm:file']", createdFile);
     instanceTester.buttonDefaultClickEvent("//input[@name='templateForm:j_idt112']");
+    instanceTester.waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 5);
 
-    assertTrue(
-        instanceTester.readInfoMessage().contains("imported successfully"));
+    assertTrue(instanceTester.readInfoMessage().contains("imported successfully"));
   }
 
   @Test
   public void test04removeServiceTemplate() throws Exception {
     instanceTester.buttonDefaultClickEvent("//td[@id='templateForm:j_idt87:0:j_idt94']/a");
+    instanceTester.waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 5);
 
-    assertTrue(
-        instanceTester.readInfoMessage().contains("deleted successfully"));
+    assertTrue(instanceTester.readInfoMessage().contains("deleted successfully"));
   }
 
   @Test
