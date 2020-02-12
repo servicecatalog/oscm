@@ -40,10 +40,6 @@ public class ConfigurationServiceStub implements ConfigurationService,
     @Override
     public ConfigurationSetting getConfigurationSetting(
             ConfigurationKey informationId, String contextId) {
-        if (ConfigurationKey.SSO_DEFAULT_TENANT_ID.equals(informationId)) {
-            return new ConfigurationSetting(informationId,
-                    Configuration.GLOBAL_CONTEXT, "8f96dede");
-        }
         final ConfigurationSetting vo = settings.get(informationId);
 
         if (vo != null) {

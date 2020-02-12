@@ -8,8 +8,6 @@
 
 package org.oscm.operatorservice.bean;
 
-import static org.oscm.internal.types.exception.DuplicateTenantIdException.Reason.TENANT_ALREADY_EXISTS;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -100,7 +98,19 @@ import org.oscm.internal.types.exception.PaymentDataException.Reason;
 import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.types.exception.ValidationException.ReasonEnum;
-import org.oscm.internal.vo.*;
+import org.oscm.internal.vo.LdapProperties;
+import org.oscm.internal.vo.VOConfigurationSetting;
+import org.oscm.internal.vo.VOImageResource;
+import org.oscm.internal.vo.VOOperatorOrganization;
+import org.oscm.internal.vo.VOOrganization;
+import org.oscm.internal.vo.VOPSP;
+import org.oscm.internal.vo.VOPSPAccount;
+import org.oscm.internal.vo.VOPSPSetting;
+import org.oscm.internal.vo.VOPaymentType;
+import org.oscm.internal.vo.VOSubscriptionUsageEntry;
+import org.oscm.internal.vo.VOTimerInfo;
+import org.oscm.internal.vo.VOUser;
+import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.marketplaceservice.local.MarketplaceServiceLocal;
@@ -869,8 +879,6 @@ public class OperatorServiceBean implements OperatorService {
             throws OrganizationAuthoritiesException, ValidationException,
             ConcurrentModificationException, DuplicateTenantIdException {
 
-        validateDefaultTenantIdUniqueness(setting);
-
         ConfigurationSetting dbSetting = configService.getConfigurationSetting(
                 setting.getInformationId(), setting.getContextId());
         dbSetting = ConfigurationSettingAssembler
@@ -883,22 +891,6 @@ public class OperatorServiceBean implements OperatorService {
 
         configService.setConfigurationSetting(dbSetting);
 
-    }
-
-    private void validateDefaultTenantIdUniqueness(
-            VOConfigurationSetting setting)
-            throws ValidationException, DuplicateTenantIdException {
-        if (setting.getInformationId()
-                .equals(ConfigurationKey.SSO_DEFAULT_TENANT_ID)) {
-            final String id = setting.getValue();
-            Query query = dm.createNamedQuery("Tenant.findByBusinessKey");
-            query.setParameter("tenantId", id);
-            List<Object[]> resultList = query.getResultList();
-            if (!resultList.isEmpty()) {
-                throw new DuplicateTenantIdException(
-                        "Default tenant ID not unique", TENANT_ALREADY_EXISTS);
-            }
-        }
     }
 
     @Override

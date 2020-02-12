@@ -126,7 +126,6 @@ public class PropertyImportIT {
         p.put(ConfigurationKey.TAGGING_MIN_SCORE.name(), "1");
 
         p.put(ConfigurationKey.WS_TIMEOUT.name(), "180000");
-        p.put(ConfigurationKey.SSO_DEFAULT_TENANT_ID.name(), "8f96dede");
         p.put(ConfigurationKey.SSO_IDP_SAML_ASSERTION_ISSUER_ID.name(),
                 "default");
         p.put(ConfigurationKey.HIDDEN_UI_ELEMENTS.name(),

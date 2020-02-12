@@ -8,7 +8,11 @@
 
 package org.oscm.ui.filter;
 
+import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
+import static org.oscm.ui.common.Constants.SESSION_PARAM_SAML_LOGOUT_REQUEST;
+
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -19,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.TenantService;
 import org.oscm.internal.types.enumtypes.SigningAlgorithmType;
@@ -41,11 +44,6 @@ import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.common.UiDelegate;
 import org.oscm.ui.delegates.ServiceLocator;
-
-import static org.oscm.internal.types.enumtypes.ConfigurationKey.SSO_DEFAULT_TENANT_ID;
-import static org.oscm.types.constants.Configuration.GLOBAL_CONTEXT;
-import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
-import static org.oscm.ui.common.Constants.SESSION_PARAM_SAML_LOGOUT_REQUEST;
 
 /**
  * @author farmaki
@@ -265,7 +263,7 @@ public class IdPResponseFilter extends BaseBesFilter implements Filter {
             tenantID = (String) httpRequest.getSession().getAttribute(REQ_PARAM_TENANT_ID);
         }
         if(StringUtils.isBlank(tenantID)) {
-            tenantID = getConfigurationService(httpRequest).getVOConfigurationSetting(SSO_DEFAULT_TENANT_ID, GLOBAL_CONTEXT).getValue();
+            tenantID = "default";
             httpRequest.getSession().setAttribute(REQ_PARAM_TENANT_ID, tenantID);
         }
         return tenantID;

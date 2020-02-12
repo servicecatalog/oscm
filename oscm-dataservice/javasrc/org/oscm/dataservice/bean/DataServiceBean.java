@@ -327,17 +327,7 @@ public class DataServiceBean implements DataService {
     }
 
     private String getDefaultTenant() {
-        TypedQuery<ConfigurationSetting> query = em.createNamedQuery(
-                "ConfigurationSetting.findByInfoAndContext",
-                ConfigurationSetting.class);
-        query.setParameter("informationId",
-                ConfigurationKey.SSO_DEFAULT_TENANT_ID);
-        query.setParameter("contextId", Configuration.GLOBAL_CONTEXT);
-        try {
-            return query.getSingleResult().getValue();
-        } catch (Exception exc) {
-            return null;
-        }
+        return "default";
     }
 
     @Override
