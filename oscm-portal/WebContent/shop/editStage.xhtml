@@ -80,6 +80,8 @@
       <adm:buttonPanel columns="1">
         <adm:button id="preview" value="#{msg['button.preview']}" bean="#{translationBean}" action="preview"
           disabled="#{marketplaceBean.disabledForEdit}" buttonType="preview" />
+        <adm:button id="saveButton" value="#{msg['button.save']}" bean="#{translationBean}" action="saveStage"
+                    disabled="#{marketplaceBean.disabledForEdit}" buttonType="save" />
       </adm:buttonPanel>
 
     </h:form>
