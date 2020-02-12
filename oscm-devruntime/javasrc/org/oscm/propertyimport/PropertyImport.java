@@ -20,7 +20,6 @@ import java.util.Properties;
 import org.oscm.converter.PropertiesLoader;
 import org.oscm.internal.types.enumtypes.AuthenticationMode;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
-import org.oscm.internal.types.enumtypes.MandatoryAttributesInSamlSP;
 
 public class PropertyImport {
 

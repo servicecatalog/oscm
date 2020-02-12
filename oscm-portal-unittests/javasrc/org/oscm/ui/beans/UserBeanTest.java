@@ -8,16 +8,32 @@
 
 package org.oscm.ui.beans;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
 import javax.security.auth.login.LoginException;
@@ -37,7 +53,12 @@ import org.oscm.internal.types.enumtypes.AuthenticationMode;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
 import org.oscm.internal.types.enumtypes.UserRoleType;
-import org.oscm.internal.types.exception.*;
+import org.oscm.internal.types.exception.MailOperationException;
+import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.types.exception.OperationNotPermittedException;
+import org.oscm.internal.types.exception.OrganizationRemovedException;
+import org.oscm.internal.types.exception.SaaSApplicationException;
+import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.usergroupmgmt.UserGroupService;
 import org.oscm.internal.vo.VOConfigurationSetting;
 import org.oscm.internal.vo.VOTenant;
@@ -850,16 +871,6 @@ public class UserBeanTest {
                 new VOConfigurationSetting(ConfigurationKey.BASE_URL,
                         Configuration.GLOBAL_CONTEXT, RECIPIENT)).when(cfgMock)
                 .getVOConfigurationSetting(ConfigurationKey.BASE_URL,
-                        Configuration.GLOBAL_CONTEXT);
-        doReturn(
-                new VOConfigurationSetting(ConfigurationKey.SSO_ISSUER_ID,
-                        Configuration.GLOBAL_CONTEXT, ISSUER)).when(cfgMock)
-                .getVOConfigurationSetting(ConfigurationKey.SSO_ISSUER_ID,
-                        Configuration.GLOBAL_CONTEXT);
-        doReturn(
-                new VOConfigurationSetting(ConfigurationKey.SSO_IDP_URL,
-                        Configuration.GLOBAL_CONTEXT, IDP)).when(cfgMock)
-                .getVOConfigurationSetting(ConfigurationKey.SSO_IDP_URL,
                         Configuration.GLOBAL_CONTEXT);
         doReturn(
                 new VOConfigurationSetting(ConfigurationKey.SSO_IDP_TRUSTSTORE,

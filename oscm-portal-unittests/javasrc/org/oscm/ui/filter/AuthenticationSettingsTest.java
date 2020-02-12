@@ -67,16 +67,6 @@ public class AuthenticationSettingsTest {
         .getVOConfigurationSetting(ConfigurationKey.AUTH_MODE, Configuration.GLOBAL_CONTEXT);
     doReturn(
             new VOConfigurationSetting(
-                ConfigurationKey.SSO_IDP_URL, Configuration.GLOBAL_CONTEXT, idpUrl))
-        .when(cfgMock)
-        .getVOConfigurationSetting(ConfigurationKey.SSO_IDP_URL, Configuration.GLOBAL_CONTEXT);
-    doReturn(
-            new VOConfigurationSetting(
-                ConfigurationKey.SSO_ISSUER_ID, Configuration.GLOBAL_CONTEXT, idpUrl))
-        .when(cfgMock)
-        .getVOConfigurationSetting(ConfigurationKey.SSO_ISSUER_ID, Configuration.GLOBAL_CONTEXT);
-    doReturn(
-            new VOConfigurationSetting(
                 ConfigurationKey.BASE_URL, Configuration.GLOBAL_CONTEXT, idpUrl))
         .when(cfgMock)
         .getVOConfigurationSetting(ConfigurationKey.BASE_URL, Configuration.GLOBAL_CONTEXT);

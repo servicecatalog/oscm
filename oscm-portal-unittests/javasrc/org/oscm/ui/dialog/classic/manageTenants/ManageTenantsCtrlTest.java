@@ -38,7 +38,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Matchers;
 import org.oscm.internal.tenant.ManageTenantService;
 import org.oscm.internal.tenant.POTenant;
-import org.oscm.internal.types.enumtypes.IdpSettingType;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
@@ -306,12 +305,6 @@ public class ManageTenantsCtrlTest {
         poTenant.setVersion(0);
         model.setTenants(tenants);
         return poTenant;
-    }
-
-    private Properties prepareProperties() {
-        Properties properties = new Properties();
-        properties.put(IdpSettingType.SSO_IDP_URL.name(), "idp.url");
-        return properties;
     }
 
     protected void assertTenantIdReadOnly(POTenant selectedTenant) {

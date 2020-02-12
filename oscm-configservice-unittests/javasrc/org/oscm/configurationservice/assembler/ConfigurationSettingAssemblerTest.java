@@ -405,10 +405,10 @@ public class ConfigurationSettingAssemblerTest {
     public void validate_Readonly_NULL() throws Exception {
         // given
         VOConfigurationSetting voConfigSetting = givenVOConfigurationSetting(
-                ConfigurationKey.SSO_IDP_URL, "");
+                ConfigurationKey.HIDE_PAYMENT_INFORMATION, "");
 
         ConfigurationSetting dbConfigSetting = givenConfigurationSetting(
-                ConfigurationKey.SSO_IDP_URL, null);
+                ConfigurationKey.HIDE_PAYMENT_INFORMATION, null);
 
         // when
         ConfigurationSettingAssembler
@@ -435,10 +435,10 @@ public class ConfigurationSettingAssemblerTest {
     public void validate_NotReadonly_Modify() throws Exception {
         // given
         VOConfigurationSetting voConfigSetting = givenVOConfigurationSetting(
-                ConfigurationKey.SSO_IDP_URL, "http://www.fujitsu.com");
+                ConfigurationKey.HELP_URL, "http://www.fujitsu.com");
 
         ConfigurationSetting dbConfigSetting = givenConfigurationSetting(
-                ConfigurationKey.SSO_IDP_URL, "http://www.fujitsu.com");
+                ConfigurationKey.HELP_URL, "http://www.fujitsu.com");
 
         // when
         ConfigurationSettingAssembler

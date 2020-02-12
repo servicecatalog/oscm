@@ -117,7 +117,6 @@ public class PropertyImportIT {
         Properties p = new Properties();
         p.put(ConfigurationKey.AUTH_MODE.name(), "INTERNAL");
         p.put(ConfigurationKey.BASE_URL.name(), "http://localhost:8180");
-        p.put(ConfigurationKey.SSO_STS_URL.name(), "http://localhost:8680");
 
         p.put(ConfigurationKey.BASE_URL_HTTPS.name(), "http://localhost:8180");
         p.put(ConfigurationKey.LOG_FILE_PATH.name(), "../logs");
@@ -126,8 +125,6 @@ public class PropertyImportIT {
         p.put(ConfigurationKey.TAGGING_MIN_SCORE.name(), "1");
 
         p.put(ConfigurationKey.WS_TIMEOUT.name(), "180000");
-        p.put(ConfigurationKey.SSO_IDP_SAML_ASSERTION_ISSUER_ID.name(),
-                "default");
         p.put(ConfigurationKey.HIDDEN_UI_ELEMENTS.name(),
                 "operator.manageBillingAdapters,techService.viewBillingAdapters");
         p.put(ConfigurationKey.SSO_SIGNING_KEYSTORE.name(), "./cacerts.jks");
