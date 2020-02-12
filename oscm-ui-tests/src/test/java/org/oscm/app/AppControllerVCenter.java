@@ -5,12 +5,12 @@ import org.junit.*;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
+import org.openqa.selenium.By;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.webtest.app.AppHtmlElements;
 import org.oscm.webtest.app.AppServiceInstanceTester;
 
 import java.io.File;
-import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -68,10 +68,12 @@ public class AppControllerVCenter {
     FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
     instanceTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
     instanceTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
+    instanceTester.waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 5);
 
     assertTrue(
         instanceTester
-            .readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND)
+            .readDefaultInfoMessage(
+                AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND)
             .contains("saved successfully"));
   }
 
@@ -82,7 +84,8 @@ public class AppControllerVCenter {
     instanceTester.changeValueInputInSpecificField("47:3", 53, changedPassword);
 
     instanceTester.buttonClickEvent(58);
-    instanceTester.readDefaultInfoMessage(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_FIRST);
+    instanceTester.readDefaultInfoMessage(
+        AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_FIRST);
 
     assertEquals(changedUserID, instanceTester.readValue("47:1", 54));
     assertEquals(userkey, instanceTester.readValue("47:2", 54));

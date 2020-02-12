@@ -6,10 +6,7 @@ import org.junit.runners.MethodSorters;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.webtest.app.AppServiceInstanceTester;
 
-import java.util.Random;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppControllerAzure {

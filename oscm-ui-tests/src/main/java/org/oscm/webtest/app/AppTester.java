@@ -119,7 +119,7 @@ public class AppTester extends WebTester {
   }
 
   public boolean getExecutionResult() {
-    waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 10);
+    waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 5);
 
     if (!verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR))
         && verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK))) {
@@ -162,6 +162,7 @@ public class AppTester extends WebTester {
   public void removeCreatedController() {
     if (driver.findElement(By.xpath("//td[contains(.,'a.ess.sample')]")).isDisplayed()) {
       driver.findElement(By.xpath("//td[@id='configurationSettings:j_idt52:0:j_idt58']/a")).click();
+
       logger.info("Old controller was deleted");
     } else {
       logger.error("Couldn't find created controller");
