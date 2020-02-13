@@ -5,7 +5,7 @@
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/main.xhtml">
+  xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/mainBootsfaces.xhtml">
   <ui:define name="pageId">
     <c:set var="pageId" value="shop.editStage" />
     <c:set var="focusElement" value="marketplaceSelectForm:selectMarketplaceId" />
@@ -74,10 +74,11 @@
       <h:outputText styleClass="stepDescription" value="#{msg['marketplace.stage.example']}" />
 
       <h:commandButton style="display:none;" id="changeLocaleButton" value="" action="#{translationBean.changeLocale}" />
-      <h:commandButton style="display:none;" id="saveButton" value="" action="#{translationBean.saveStage}" />
       <h:commandButton style="display:none;" id="cancelPreview" value="" action="#{translationBean.cancelPreview}" />
       
       <adm:buttonPanel columns="1">
+        <adm:button id="saveButton" value="#{msg['button.save']}" bean="#{translationBean}" action="saveStage"
+                    disabled="#{marketplaceBean.disabledForEdit}" buttonType="save" />
         <adm:button id="preview" value="#{msg['button.preview']}" bean="#{translationBean}" action="preview"
           disabled="#{marketplaceBean.disabledForEdit}" buttonType="preview" />
       </adm:buttonPanel>
