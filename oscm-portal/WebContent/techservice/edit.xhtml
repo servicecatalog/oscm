@@ -21,6 +21,18 @@
     </h:form>
 
     <h:form id="techServiceForm" enctype="multipart/form-data">
+
+      <script type="text/javascript">
+          $(document).ready(function () {
+              $("[id='techServiceForm:techServiceIdInner']").select2().on('select2:selecting', function (e) {
+                if (AdmUtils.isNotDirtyOrConfirmed()) {
+                } else {
+                  e.preventDefault();
+                }
+              });
+          });
+          </script>
+
       <adm:outputStep value="#{msg['techService.edit.step1']}" />
 
       <adm:panelGrid>
@@ -38,6 +50,15 @@
         <adm:message for="techServiceId" />
       </adm:panelGrid>
     </h:form>
+
+    <c:if test="#{serviceBean.dirty}">
+      <script type="text/javascript">
+	      jQuery().ready(function(){
+	    	  setDirty(true);
+	      })
+	      </script>
+    </c:if>
+
     <h:form id="editForm" enctype="multipart/form-data">    
       <adm:outputStep value="#{msg['techService.edit.step2']}" />
       
