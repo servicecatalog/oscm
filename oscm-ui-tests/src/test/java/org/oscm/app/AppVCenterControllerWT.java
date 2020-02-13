@@ -18,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppVCenterControllerWT {
 
-  private static AppControllerTester instanceTester;
+  private static AppControllerTester controllerTester;
   private static String userKey;
   private static String changedUserID;
   private static String changedPassword;
@@ -31,47 +31,47 @@ public class AppVCenterControllerWT {
 
   @BeforeClass
   public static void setup() throws Exception {
-    instanceTester = new AppControllerTester();
+    controllerTester = new AppControllerTester();
 
     userKey = "1000";
     changedUserID = "newUser";
     changedPassword = "Password12";
 
-    userID = instanceTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
-    userPassword = instanceTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
-    instanceTester.loginAppController(
+    userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
+    userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
+    controllerTester.loginAppController(
         userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_VCENTER);
   }
 
   @AfterClass
   public static void cleanUp() {
-    instanceTester.close();
+    controllerTester.close();
   }
 
   @Test
   public void test01setSettingsAPIvSphere() throws Exception {
-    instanceTester.changeValueInputInBalancerField("url", "https://webiste.com");
-    instanceTester.changeValueInputInBalancerField("user", userID);
-    instanceTester.changeValueInputInBalancerField("pwd", userPassword);
+    controllerTester.changeValueInputInBalancerField("url", "https://webiste.com");
+    controllerTester.changeValueInputInBalancerField("user", userID);
+    controllerTester.changeValueInputInBalancerField("pwd", userPassword);
 
-    instanceTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt120']");
-    instanceTester.readDefaultInfoMessage(
+    controllerTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt120']");
+    controllerTester.readDefaultInfoMessage(
         AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND);
 
-    assertEquals("https://webiste.com", instanceTester.readDefaultValue("url"));
-    assertEquals(userID, instanceTester.readDefaultValue("user"));
-    assertEquals(userPassword, instanceTester.readDefaultValue("pwd"));
+    assertEquals("https://webiste.com", controllerTester.readDefaultValue("url"));
+    assertEquals(userID, controllerTester.readDefaultValue("user"));
+    assertEquals(userPassword, controllerTester.readDefaultValue("pwd"));
   }
 
   @Test
   public void test02importServiceTemplate() throws Exception {
     createdFile = folder.newFile("vcenter.csv");
     FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
-    instanceTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
-    instanceTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
+    controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
+    controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
 
     assertTrue(
-        instanceTester
+        controllerTester
             .readDefaultInfoMessage(
                 AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND)
             .contains("saved successfully"));
@@ -79,16 +79,16 @@ public class AppVCenterControllerWT {
 
   @Test
   public void test03setSettingsIntoController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("47:1", 54, changedUserID);
-    instanceTester.changeValueInputInSpecificField("47:2", 54, userKey);
-    instanceTester.changeValueInputInSpecificField("47:3", 53, changedPassword);
+    controllerTester.changeValueInputInSpecificField("47:1", 54, changedUserID);
+    controllerTester.changeValueInputInSpecificField("47:2", 54, userKey);
+    controllerTester.changeValueInputInSpecificField("47:3", 53, changedPassword);
 
-    instanceTester.buttonClickEvent(58);
-    instanceTester.readDefaultInfoMessage(
+    controllerTester.buttonClickEvent(58);
+    controllerTester.readDefaultInfoMessage(
         AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_FIRST);
 
-    assertEquals(changedUserID, instanceTester.readValue("47:1", 54));
-    assertEquals(userKey, instanceTester.readValue("47:2", 54));
-    assertEquals(changedPassword, instanceTester.readValue("47:3", 53));
+    assertEquals(changedUserID, controllerTester.readValue("47:1", 54));
+    assertEquals(userKey, controllerTester.readValue("47:2", 54));
+    assertEquals(changedPassword, controllerTester.readValue("47:3", 53));
   }
 }

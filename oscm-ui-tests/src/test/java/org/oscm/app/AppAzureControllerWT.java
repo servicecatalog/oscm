@@ -4,15 +4,20 @@ import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.oscm.portal.JUnitHelper;
+import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.app.AppControllerTester;
 import org.oscm.webtest.app.AppPathSegments;
+import org.oscm.webtest.app.AppTester;
+
+import javax.security.auth.login.LoginException;
 
 import static org.junit.Assert.assertEquals;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppAzureControllerWT {
 
-  private static AppControllerTester instanceTester;
+  private static AppControllerTester controllerTester;
+  private static AppTester tester;
   private static String userKey;
   private static String changedUserID;
   private static String changedPassword;
@@ -23,46 +28,67 @@ public class AppAzureControllerWT {
 
   @BeforeClass
   public static void setup() throws Exception {
-    instanceTester = new AppControllerTester();
+    controllerTester = new AppControllerTester();
+    tester = new AppTester();
 
-    userKey = "1000";
-    changedUserID = "newUser";
-    changedPassword = "Password12";
+    userKey = PlaygroundSuiteTest.supplierOrgAdminUserkey;
+    changedUserID = PlaygroundSuiteTest.supplierOrgAdminId;
+    changedPassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
 
-    userID = instanceTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
-    userPassword = instanceTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
-    instanceTester.loginAppController(
+    userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
+    userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
+    controllerTester.loginAppController(
         userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
   }
 
   @AfterClass
   public static void cleanUp() {
-    instanceTester.close();
+    controllerTester.close();
   }
 
   @Test
   public void test01setSettingsIntoController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
-    instanceTester.changeValueInputInSpecificField("49:2", 56, userKey);
-    instanceTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
+    controllerTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
+    controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
+    controllerTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
 
-    instanceTester.buttonClickEvent(75);
+    controllerTester.buttonClickEvent(75);
 
-    assertEquals(changedUserID, instanceTester.readValue("49:1", 56));
-    assertEquals(userKey, instanceTester.readValue("49:2", 56));
-    assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
+    assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
+    assertEquals(userKey, controllerTester.readValue("49:2", 56));
+    assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
+    cleanUp();
   }
 
   @Test
-  public void test02undoSettingsIntoController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("49:1", 56, userID);
-    instanceTester.changeValueInputInSpecificField("49:2", 56, "1000");
-    instanceTester.changeValueInputInSpecificField("49:3", 55, userPassword);
+  public void test02changeOrganizationIdInAppConfigurator() throws Exception {
+    tester.loginAppConfig(userID, userPassword);
 
-    instanceTester.buttonClickEvent(76);
+    controllerTester.changeValueInputInSpecificField("52:0", 56, PlaygroundSuiteTest.supplierOrgId);
+    controllerTester.buttonClickEvent(62);
 
-    assertEquals(userID, instanceTester.readValue("49:1", 56));
-    assertEquals("1000", instanceTester.readValue("49:2", 56));
-    assertEquals(userPassword, instanceTester.readValue("49:3", 55));
+    assertEquals(PlaygroundSuiteTest.supplierOrgId, controllerTester.readValue("52:0", 56));
+    tester.close();
+  }
+
+  @Test
+  public void test03checkThatOrganizationIdIsChanged() throws LoginException, InterruptedException {
+    controllerTester.loginAppController(
+        changedUserID, changedPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
+
+    assertEquals(PlaygroundSuiteTest.supplierOrgId, controllerTester.readValue("49:0", 56));
+  }
+
+  @Test
+  public void test04undoSettingsIntoController() throws Exception {
+    controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
+    controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
+    controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
+
+    controllerTester.buttonClickEvent(76);
+
+    assertEquals(userID, controllerTester.readValue("49:1", 56));
+    assertEquals("1000", controllerTester.readValue("49:2", 56));
+    assertEquals(userPassword, controllerTester.readValue("49:3", 55));
   }
 }

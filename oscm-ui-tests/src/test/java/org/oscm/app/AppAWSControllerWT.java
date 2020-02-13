@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppAWSControllerWT {
 
-  private static AppControllerTester instanceTester;
+  private static AppControllerTester controllerTester;
   private static String userKey;
   private static String changedUserID;
   private static String changedPassword;
@@ -24,70 +24,70 @@ public class AppAWSControllerWT {
 
   @BeforeClass
   public static void setup() throws Exception {
-    instanceTester = new AppControllerTester();
+    controllerTester = new AppControllerTester();
 
     userKey = "1000";
     changedUserID = "newUser";
     changedPassword = "Password12";
 
-    userID = instanceTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
-    userPassword = instanceTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
-    instanceTester.loginAppController(
+    userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
+    userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
+    controllerTester.loginAppController(
         userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_AWS);
   }
 
   @AfterClass
   public static void cleanUp() {
-    instanceTester.close();
+    controllerTester.close();
   }
 
   @Test
   public void test01setSettingsIntoSpecificController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("62:0", 68, changedUserID);
-    instanceTester.changeValueInputInSpecificField("62:1", 68, changedPassword);
+    controllerTester.changeValueInputInSpecificField("62:0", 68, changedUserID);
+    controllerTester.changeValueInputInSpecificField("62:1", 68, changedPassword);
 
-    instanceTester.buttonClickEvent(75);
+    controllerTester.buttonClickEvent(75);
 
-    assertEquals(changedUserID, instanceTester.readValue("62:0", 68));
-    assertEquals(changedPassword, instanceTester.readValue("62:1", 68));
+    assertEquals(changedUserID, controllerTester.readValue("62:0", 68));
+    assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
 
-    assertTrue(instanceTester.readInfoMessage().contains("saved successfully"));
+    assertTrue(controllerTester.readInfoMessage().contains("saved successfully"));
   }
 
   @Test
   public void test02undoSettingsIntoSpecificController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("62:0", 68, "nothing");
-    instanceTester.changeValueInputInSpecificField("62:1", 68, "nothing");
+    controllerTester.changeValueInputInSpecificField("62:0", 68, "nothing");
+    controllerTester.changeValueInputInSpecificField("62:1", 68, "nothing");
 
-    instanceTester.buttonClickEvent(76);
+    controllerTester.buttonClickEvent(76);
 
-    assertEquals(changedUserID, instanceTester.readValue("62:0", 68));
-    assertEquals(changedPassword, instanceTester.readValue("62:1", 68));
+    assertEquals(changedUserID, controllerTester.readValue("62:0", 68));
+    assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
   }
 
   @Test
   public void test03setSettingsIntoController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
-    instanceTester.changeValueInputInSpecificField("49:2", 56, userKey);
-    instanceTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
+    controllerTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
+    controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
+    controllerTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
 
-    instanceTester.buttonClickEvent(75);
+    controllerTester.buttonClickEvent(75);
 
-    assertEquals(changedUserID, instanceTester.readValue("49:1", 56));
-    assertEquals(userKey, instanceTester.readValue("49:2", 56));
-    assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
+    assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
+    assertEquals(userKey, controllerTester.readValue("49:2", 56));
+    assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
   }
 
   @Test
   public void test04undoSettingsIntoController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("49:1", 56, userID);
-    instanceTester.changeValueInputInSpecificField("49:2", 56, "1000");
-    instanceTester.changeValueInputInSpecificField("49:3", 55, userPassword);
+    controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
+    controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
+    controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
 
-    instanceTester.buttonClickEvent(76);
+    controllerTester.buttonClickEvent(76);
 
-    assertEquals(userID, instanceTester.readValue("49:1", 56));
-    assertEquals("1000", instanceTester.readValue("49:2", 56));
-    assertEquals(userPassword, instanceTester.readValue("49:3", 55));
+    assertEquals(userID, controllerTester.readValue("49:1", 56));
+    assertEquals("1000", controllerTester.readValue("49:2", 56));
+    assertEquals(userPassword, controllerTester.readValue("49:3", 55));
   }
 }
