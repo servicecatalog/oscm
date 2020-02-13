@@ -5,7 +5,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-server-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-internal"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-saml2-api"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/openejb-core-7.0.3.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-1.2.16.jar"/>

@@ -41,7 +41,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
-import javax.xml.datatype.DatatypeConfigurationException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.internal.intf.IdentityService;
@@ -58,7 +57,6 @@ import org.oscm.internal.types.exception.MarketplaceRemovedException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.OrganizationRemovedException;
-import org.oscm.internal.types.exception.SAML2AuthnRequestException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.internal.types.exception.ServiceParameterException;
@@ -992,8 +990,6 @@ public class AuthorizationFilter extends BaseBesFilter {
      * 
      * @throws ServletException
      * @throws IOException
-     * @throws DatatypeConfigurationException
-     * @throws SAML2AuthnRequestException
      */
     protected boolean handleChangeUserPasswordRequest(FilterChain chain,
             HttpServletRequest httpRequest, HttpServletResponse httpResponse,
@@ -1128,9 +1124,6 @@ public class AuthorizationFilter extends BaseBesFilter {
      *         with the filter chain
      * @throws IOException
      * @throws ServletException
-     * @throws DatatypeConfigurationException
-     * @throws SAML2AuthnRequestException
-     * @throws Exception
      */
     private HttpServletRequest processServiceUrl(HttpServletRequest request,
             HttpServletResponse response, FilterChain chain, String subKey,
