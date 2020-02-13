@@ -57,7 +57,7 @@ public class AppAzureControllerWT {
     assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
     assertEquals(userKey, controllerTester.readValue("49:2", 56));
     assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
-    cleanUp();
+    controllerTester.close();
   }
 
   @Test

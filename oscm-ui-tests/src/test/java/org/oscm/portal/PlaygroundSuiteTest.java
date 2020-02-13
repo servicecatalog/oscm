@@ -24,9 +24,9 @@ import org.oscm.webtest.WebTester;
 @SuiteClasses({
   PortalOrganizationWT.class,
   PortalMarketplaceWT.class,
+  AppAzureControllerWT.class,
   AppConfigurationWT.class,
   AppAWSControllerWT.class,
-  AppAzureControllerWT.class,
   AppOpenstackControllerWT.class,
   AppVCenterControllerWT.class,
   PortalTechServiceWT.class,
