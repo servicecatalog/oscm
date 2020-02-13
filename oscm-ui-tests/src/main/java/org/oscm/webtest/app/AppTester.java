@@ -26,17 +26,12 @@ public class AppTester extends WebTester {
   private String bssUserPwd = "";
 
   private String base;
-  private String head;
+  private final String head = "https://";
 
   public AppTester() throws Exception {
     super();
 
     baseUrl = loadUrl(APP_SECURE, APP_HTTPS_URL, APP_HTTP_URL);
-    if (baseUrl.contains("https")) {
-      head = "https://";
-    } else {
-      head = "http://";
-    }
     base = baseUrl.replace(head, "");
   }
 
@@ -59,9 +54,9 @@ public class AppTester extends WebTester {
     wait(IMPLICIT_WAIT);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_CONFIG_FORM1))) {
-      logger.info(String.format("Login to %s successfully with userid: %s", url, user));
+      logger.info(String.format("Login to %s successfully with userID: %s", url, user));
     } else {
-      String info = String.format("Login to %s failed with userid:%s", url, user);
+      String info = String.format("Login to %s failed with userID:%s", url, user);
       logger.error(info);
       throw new LoginException(info);
     }

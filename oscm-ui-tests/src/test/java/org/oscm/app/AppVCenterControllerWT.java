@@ -5,10 +5,10 @@ import org.junit.*;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
-import org.openqa.selenium.By;
 import org.oscm.portal.JUnitHelper;
+import org.oscm.webtest.app.AppControllerTester;
 import org.oscm.webtest.app.AppHtmlElements;
-import org.oscm.webtest.app.AppServiceInstanceTester;
+import org.oscm.webtest.app.AppPathSegments;
 
 import java.io.File;
 
@@ -16,14 +16,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AppControllerVCenter {
+public class AppVCenterControllerWT {
 
-  private static AppServiceInstanceTester instanceTester;
-  private static String userkey;
+  private static AppControllerTester instanceTester;
+  private static String userKey;
   private static String changedUserID;
   private static String changedPassword;
-  private static String userid;
-  private static String userpassword;
+  private static String userID;
+  private static String userPassword;
   public static File createdFile;
 
   @Rule public TestWatcher testWatcher = new JUnitHelper();
@@ -31,15 +31,16 @@ public class AppControllerVCenter {
 
   @BeforeClass
   public static void setup() throws Exception {
-    instanceTester = new AppServiceInstanceTester();
+    instanceTester = new AppControllerTester();
 
-    userkey = "1000";
+    userKey = "1000";
     changedUserID = "newUser";
     changedPassword = "Password12";
 
-    userid = instanceTester.getProperties(AppServiceInstanceTester.APP_ADMIN_USER_ID);
-    userpassword = instanceTester.getProperties(AppServiceInstanceTester.APP_ADMIN_USER_PWD);
-    instanceTester.loginAppServiceInstance(userid, userpassword, "-vmware/");
+    userID = instanceTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
+    userPassword = instanceTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
+    instanceTester.loginAppController(
+        userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_VCENTER);
   }
 
   @AfterClass
@@ -50,16 +51,16 @@ public class AppControllerVCenter {
   @Test
   public void test01setSettingsAPIvSphere() throws Exception {
     instanceTester.changeValueInputInBalancerField("url", "https://webiste.com");
-    instanceTester.changeValueInputInBalancerField("user", userid);
-    instanceTester.changeValueInputInBalancerField("pwd", userpassword);
+    instanceTester.changeValueInputInBalancerField("user", userID);
+    instanceTester.changeValueInputInBalancerField("pwd", userPassword);
 
     instanceTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt120']");
     instanceTester.readDefaultInfoMessage(
         AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND);
 
     assertEquals("https://webiste.com", instanceTester.readDefaultValue("url"));
-    assertEquals(userid, instanceTester.readDefaultValue("user"));
-    assertEquals(userpassword, instanceTester.readDefaultValue("pwd"));
+    assertEquals(userID, instanceTester.readDefaultValue("user"));
+    assertEquals(userPassword, instanceTester.readDefaultValue("pwd"));
   }
 
   @Test
@@ -79,7 +80,7 @@ public class AppControllerVCenter {
   @Test
   public void test03setSettingsIntoController() throws Exception {
     instanceTester.changeValueInputInSpecificField("47:1", 54, changedUserID);
-    instanceTester.changeValueInputInSpecificField("47:2", 54, userkey);
+    instanceTester.changeValueInputInSpecificField("47:2", 54, userKey);
     instanceTester.changeValueInputInSpecificField("47:3", 53, changedPassword);
 
     instanceTester.buttonClickEvent(58);
@@ -87,7 +88,7 @@ public class AppControllerVCenter {
         AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_FIRST);
 
     assertEquals(changedUserID, instanceTester.readValue("47:1", 54));
-    assertEquals(userkey, instanceTester.readValue("47:2", 54));
+    assertEquals(userKey, instanceTester.readValue("47:2", 54));
     assertEquals(changedPassword, instanceTester.readValue("47:3", 53));
   }
 }

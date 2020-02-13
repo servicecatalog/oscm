@@ -30,9 +30,9 @@ public class AppConfigurationWT {
   @BeforeClass
   public static void setup() throws Exception {
     tester = new AppTester();
-    String userid = tester.getPropertie(AppTester.APP_ADMIN_USER_ID);
-    String userpassword = tester.getPropertie(AppTester.APP_ADMIN_USER_PWD);
-    tester.loginAppConfig(userid, userpassword);
+    String userID = tester.getPropertie(AppTester.APP_ADMIN_USER_ID);
+    String userPassword = tester.getPropertie(AppTester.APP_ADMIN_USER_PWD);
+    tester.loginAppConfig(userID, userPassword);
   }
 
   @AfterClass

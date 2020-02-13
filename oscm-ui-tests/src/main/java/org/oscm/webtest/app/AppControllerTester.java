@@ -19,21 +19,16 @@ import javax.security.auth.login.LoginException;
 import java.io.File;
 
 /** Helper class for integration web tests for oscm-app/controller/controller/?cid=abc */
-public class AppServiceInstanceTester extends WebTester {
+public class AppControllerTester extends WebTester {
 
   private String base = "";
-  private String head = "";
+  private final String head = "https://";
   protected static final Logger logger = LogManager.getLogger(WebTester.class.getName());
 
-  public AppServiceInstanceTester() throws Exception {
+  public AppControllerTester() throws Exception {
     super();
 
     baseUrl = loadUrl(APP_SECURE, APP_HTTPS_URL, APP_HTTP_URL);
-    if (baseUrl.contains("https")) {
-      head = "https://";
-    } else {
-      head = "http://";
-    }
     base = baseUrl.replace(head, "");
   }
 
@@ -41,32 +36,24 @@ public class AppServiceInstanceTester extends WebTester {
    * Attempts a login to the OSCM portal with the given credentials. Note that this method assumes
    * the webdriver to be at the login page.
    *
-   * @param userid the user name
+   * @param userID the user name
    * @param password the password
    * @throws InterruptedException
    * @throws Exception
    */
-  public void loginAppServiceInstance(String userid, String password, String controllerId)
+  public void loginAppController(String userID, String password, String controllerName)
       throws LoginException, InterruptedException {
 
-    String url =
-        head
-            + userid
-            + ":"
-            + password
-            + "@"
-            + base
-            + AppPathSegments.APP_SERVICE_INSTANCE
-            + controllerId;
+    String url = head + userID + ":" + password + "@" + base + controllerName;
     driver.get(url);
     driver.manage().window().maximize();
 
     wait(IMPLICIT_WAIT);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_ACCORDION_AREA))) {
-      logger.info(String.format("Login to %s successfully with userid: %s", url, userid));
+      logger.info(String.format("Login to %s successfully with userID: %s", url, userID));
     } else {
-      String info = String.format("Login to %s failed with userid: %s", url, userid);
+      String info = String.format("Login to %s failed with userID: %s", url, userID);
       logger.info(info);
       throw new LoginException(info);
     }
@@ -78,7 +65,7 @@ public class AppServiceInstanceTester extends WebTester {
    * @throws Exception
    */
   public void visitAppServiceInstance() throws Exception {
-    String target = baseUrl + AppPathSegments.APP_SERVICE_INSTANCE;
+    String target = baseUrl + AppPathSegments.APP_CONFIGURATION;
     driver.navigate().to(target);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_SERVICEINSTANCE_TABLE_ID))) {

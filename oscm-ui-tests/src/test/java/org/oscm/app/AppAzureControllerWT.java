@@ -4,33 +4,35 @@ import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.oscm.portal.JUnitHelper;
-import org.oscm.webtest.app.AppServiceInstanceTester;
+import org.oscm.webtest.app.AppControllerTester;
+import org.oscm.webtest.app.AppPathSegments;
 
 import static org.junit.Assert.assertEquals;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class AppControllerAzure {
+public class AppAzureControllerWT {
 
-  private static AppServiceInstanceTester instanceTester;
-  private static String userkey;
+  private static AppControllerTester instanceTester;
+  private static String userKey;
   private static String changedUserID;
   private static String changedPassword;
-  private static String userid;
-  private static String userpassword;
+  private static String userID;
+  private static String userPassword;
 
   @Rule public TestWatcher testWatcher = new JUnitHelper();
 
   @BeforeClass
   public static void setup() throws Exception {
-    instanceTester = new AppServiceInstanceTester();
+    instanceTester = new AppControllerTester();
 
-    userkey = "1000";
+    userKey = "1000";
     changedUserID = "newUser";
     changedPassword = "Password12";
 
-    userid = instanceTester.getProperties(AppServiceInstanceTester.APP_ADMIN_USER_ID);
-    userpassword = instanceTester.getProperties(AppServiceInstanceTester.APP_ADMIN_USER_PWD);
-    instanceTester.loginAppServiceInstance(userid, userpassword, "-azure/");
+    userID = instanceTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
+    userPassword = instanceTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
+    instanceTester.loginAppController(
+        userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
   }
 
   @AfterClass
@@ -41,26 +43,26 @@ public class AppControllerAzure {
   @Test
   public void test01setSettingsIntoController() throws Exception {
     instanceTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
-    instanceTester.changeValueInputInSpecificField("49:2", 56, userkey);
+    instanceTester.changeValueInputInSpecificField("49:2", 56, userKey);
     instanceTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
 
     instanceTester.buttonClickEvent(75);
 
     assertEquals(changedUserID, instanceTester.readValue("49:1", 56));
-    assertEquals(userkey, instanceTester.readValue("49:2", 56));
+    assertEquals(userKey, instanceTester.readValue("49:2", 56));
     assertEquals(changedPassword, instanceTester.readValue("49:3", 55));
   }
 
   @Test
   public void test02undoSettingsIntoController() throws Exception {
-    instanceTester.changeValueInputInSpecificField("49:1", 56, userid);
+    instanceTester.changeValueInputInSpecificField("49:1", 56, userID);
     instanceTester.changeValueInputInSpecificField("49:2", 56, "1000");
-    instanceTester.changeValueInputInSpecificField("49:3", 55, userpassword);
+    instanceTester.changeValueInputInSpecificField("49:3", 55, userPassword);
 
     instanceTester.buttonClickEvent(76);
 
-    assertEquals(userid, instanceTester.readValue("49:1", 56));
+    assertEquals(userID, instanceTester.readValue("49:1", 56));
     assertEquals("1000", instanceTester.readValue("49:2", 56));
-    assertEquals(userpassword, instanceTester.readValue("49:3", 55));
+    assertEquals(userPassword, instanceTester.readValue("49:3", 55));
   }
 }
