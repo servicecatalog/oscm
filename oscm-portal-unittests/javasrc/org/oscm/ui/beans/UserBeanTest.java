@@ -68,7 +68,6 @@ import org.oscm.types.constants.Configuration;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ServiceAccess;
 import org.oscm.ui.common.UiDelegate;
-import org.oscm.ui.dialog.common.saml2.AuthenticationHandler;
 import org.oscm.ui.dialog.state.TableState;
 import org.oscm.ui.filter.AuthenticationSettings;
 import org.oscm.ui.model.User;
@@ -88,8 +87,6 @@ public class UserBeanTest {
     private VOUserDetails loggedInUser;
     private final String OUTCOME_CANCEL = "cancel";
     private final String OUTCOME_SHOW_REGISTRATION = "showRegistration";
-    private final String ERROR_COMPLETE_REGISTRATION = "error.complete.registration";
-    private final String BASE_URL = "http://localhost:8180/oscm-portal";
     private final String SUBSCRIPTION_ADD_PAGE = "/marketplace/subscriptions/creation/add.jsf";
 
     private HttpServletRequest requestMock;
@@ -103,16 +100,12 @@ public class UserBeanTest {
     private List<UserRole> roles;
     private ApplicationBean appBean;
     private AuthenticationSettings authSettingsMock;
-    private AuthenticationHandler authHandlerMock;
     private HttpSession sessionMock;
     private UserGroupService userGroupService = mock(UserGroupService.class);
     private MarketplaceService marketplaceService = mock(MarketplaceService.class);
-    private static final String ISSUER = "CT-MG";
     private static final String RECIPIENT = "http://www.bes-portal.de";
-    private static final String IDP = "http://www.idp.de/openam/SSORedirect/request";
     private static final String KEYSTORE_PATH = "/openam/keystore.jks";
     private static final String KEYSTORE_PASSWORD = "changeit";
-    private static final String OUTCOME_SAMLSP_REDIRECT = "redirectToIdp";
     static final String OUTCOME_ADD_USER = "addUser";
 
     private String errorCodeValue = null;
@@ -177,10 +170,6 @@ public class UserBeanTest {
         doReturn(loggedInUser).when(userBean).getLoggedInUser();
 
         authSettingsMock = mock(AuthenticationSettings.class);
-
-        authHandlerMock = mock(AuthenticationHandler.class);
-        doReturn(OUTCOME_SAMLSP_REDIRECT).when(authHandlerMock)
-                .handleAuthentication(true, sessionMock);
 
         responseMock = mock(HttpServletResponse.class);
         doReturn(responseMock).when(userBean).getResponse();
@@ -364,21 +353,6 @@ public class UserBeanTest {
     }
 
     @Test
-    public void showRegistration_NotInternalMode() throws Exception {
-        // given
-        doReturn(mockConfigurationService(AuthenticationMode.OIDC.name()))
-                .when(userBean).getConfigurationService();
-        doReturn(authHandlerMock).when(userBean).getAuthenticationHandler();
-
-        // when
-        userBean.showRegistration();
-
-        // then
-        verify(authHandlerMock, times(1)).handleAuthentication(true,
-                sessionMock);
-    }
-
-    @Test
     public void showRegistration_INTERNAL() throws Exception {
         // given
         doReturn(mockConfigurationService(AuthenticationMode.INTERNAL.name()))
@@ -389,37 +363,6 @@ public class UserBeanTest {
 
         // then
         assertEquals(OUTCOME_SHOW_REGISTRATION, result);
-    }
-
-    @Test
-    public void redirectToIDP_OK() throws Exception {
-        // given
-        String redirect = "/marketplace/index.jsf";
-        userBean.setConfirmedRedirect(redirect);
-        doReturn(authSettingsMock).when(userBean).getAuthenticationSettings();
-        doReturn(authHandlerMock).when(userBean).getAuthenticationHandler();
-
-        // when
-        userBean.redirectToIDP();
-
-        // then
-        verify(authHandlerMock, times(1)).handleAuthentication(true,
-                sessionMock);
-    }
-
-    @Test
-    public void redirectToIDP_SelfRegistration() throws Exception {
-        // given
-        userBean.setConfirmedRedirect("/marketplace/registration.jsf");
-        doReturn(authSettingsMock).when(userBean).getAuthenticationSettings();
-
-        // when
-        String outcome = userBean.redirectToIDP();
-
-        // then
-        verify(userBean.ui, times(1)).handleError(anyString(),
-                eq(ERROR_COMPLETE_REGISTRATION));
-        assertEquals(OUTCOME_SHOW_REGISTRATION, outcome);
     }
 
     @Test

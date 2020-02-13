@@ -51,18 +51,15 @@ import org.oscm.internal.types.exception.LoginToClosedMarketplaceException;
 import org.oscm.internal.types.exception.MailOperationException;
 import org.oscm.internal.types.exception.MarketplaceRemovedException;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
-import org.oscm.internal.types.exception.NotExistentTenantException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.OperationPendingException;
 import org.oscm.internal.types.exception.OrganizationRemovedException;
-import org.oscm.internal.types.exception.SAML2AuthnRequestException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.internal.types.exception.SecurityCheckException;
 import org.oscm.internal.types.exception.UserRoleAssignmentException;
 import org.oscm.internal.types.exception.ValidationException;
-import org.oscm.internal.types.exception.WrongTenantConfigurationException;
 import org.oscm.internal.vo.VOConfigurationSetting;
 import org.oscm.internal.vo.VOUser;
 import org.oscm.internal.vo.VOUserDetails;
@@ -78,7 +75,6 @@ import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.common.PartHandler;
 import org.oscm.ui.common.ServiceAccess;
 import org.oscm.ui.common.SessionListener;
-import org.oscm.ui.dialog.common.saml2.AuthenticationHandler;
 import org.oscm.ui.dialog.state.TableState;
 import org.oscm.ui.filter.AuthenticationSettings;
 import org.oscm.ui.model.User;
@@ -409,8 +405,10 @@ public class UserBean extends BaseBean implements Serializable {
       getLoginRedirect(getRequest(), session, false);
       return OUTCOME_SHOW_REGISTRATION;
     } else {
-      storeRelayStateInSession(SELF_REGISTRATION);
-      return handleAuthentication(session);
+      // TODO: investigate and handle marketplace registration case (if it is valid), for now error
+      // page is displayed
+      ui.handleError(null, BaseBean.ERROR_LOGIN_IMPOSSIBLE);
+      return OUTCOME_MARKETPLACE_ERROR_PAGE;
     }
   }
 
@@ -430,10 +428,6 @@ public class UserBean extends BaseBean implements Serializable {
       e.printStackTrace();
       return BaseBean.OUTCOME_ERROR;
     }
-  }
-
-  private void storeRelayStateInSession(String relayState) {
-    getSession().setAttribute(Constants.SESS_ATTR_RELAY_STATE, relayState);
   }
 
   public String login() throws ValidationException {
@@ -1078,48 +1072,11 @@ public class UserBean extends BaseBean implements Serializable {
     return appBean.isInternalAuthMode();
   }
 
-  public String redirectToIDP() {
-    // use getRedirect to store originally requested page in session
-    // confirmedRedirect variable is set
-    HttpSession session = getSession();
-    getLoginRedirect(getRequest(), session, false);
-
-    // an error message is displayed if called during registration process
-    if (SELF_REGISTRATION.equals(confirmedRedirect)) {
-      ui.handleError(null, ERROR_COMPLETE_REGISTRATION);
-      return OUTCOME_SHOW_REGISTRATION;
-    }
-    storeRelayStateInSession(confirmedRedirect);
-
-    return handleAuthentication(session);
-  }
-
-  private String handleAuthentication(HttpSession session) {
-    try {
-      return getAuthenticationHandler().handleAuthentication(true, session);
-    } catch (SAML2AuthnRequestException e) {
-      ui.handleError(null, BaseBean.ERROR_GENERATE_AUTHNREQUEST);
-    } catch (NotExistentTenantException | ObjectNotFoundException | MarketplaceRemovedException e) {
-      ui.handleError(null, BaseBean.ERROR_MISSING_TENANTID);
-    } catch (WrongTenantConfigurationException e) {
-      ui.handleError(null, BaseBean.ERROR_TENANT_SETTINGS_MISSING);
-    }
-    return OUTCOME_MARKETPLACE_ERROR_PAGE;
-  }
-
   protected AuthenticationSettings getAuthenticationSettings() {
     if (authenticationSettings == null) {
       authenticationSettings = new AuthenticationSettings(tenantService, getConfigurationService());
     }
     return authenticationSettings;
-  }
-
-  protected AuthenticationHandler getAuthenticationHandler()
-      throws ObjectNotFoundException, NotExistentTenantException, WrongTenantConfigurationException,
-          MarketplaceRemovedException {
-    AuthenticationSettings authenticationSettings = getAuthenticationSettings();
-    authenticationSettings.init(sessionBean.getTenantID());
-    return new AuthenticationHandler(getRequest(), getResponse(), authenticationSettings);
   }
 
   public Part getUserImport() {

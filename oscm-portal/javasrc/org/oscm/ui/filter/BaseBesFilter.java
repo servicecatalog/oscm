@@ -21,6 +21,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.datatype.DatatypeConfigurationException;
 
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.MarketplaceCacheService;
@@ -47,7 +48,6 @@ import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.EJBServiceAccess;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.common.ServiceAccess;
-import org.oscm.ui.dialog.common.saml2.AuthenticationHandler;
 import org.oscm.validator.ADMValidator;
 
 /**
@@ -353,23 +353,6 @@ public abstract class BaseBesFilter implements Filter {
                 authSettings);
         String redirectUrl = request.getContextPath() + actualLoginPage;
 
-        if (authSettings.isServiceProvider()) {
-
-            if (save) {
-                saveForwardUrl(relativePath, request);
-            }
-
-            storeRelayStateInSession(relativePath, request);
-            try {
-                AuthenticationHandler ah = new AuthenticationHandler(request,
-                        response, authSettings);
-                ah.handleAuthentication(false, request.getSession());
-                return;
-            } catch (SAML2AuthnRequestException e) {
-                // forward to chain.doFilter
-            }
-        }
-
         if (!isLoginPage(relativePath, actualLoginPage)) {
             logger.logDebug("Forward to login page");
             if (save) {
@@ -468,21 +451,6 @@ public abstract class BaseBesFilter implements Filter {
             forwardUrl += paramString;
         }
         return forwardUrl;
-    }
-
-    private void storeRelayStateInSession(String relativePath,
-            HttpServletRequest request) {
-        String forwardUrl = relativePath;
-        forwardUrl = copyParameters(request, forwardUrl);
-
-        if (BesServletRequestReader.isMarketplaceLogin(request)) {
-            forwardUrl = BesServletRequestReader
-                    .copyRequestAttributeToURLParam(request,
-                            Constants.REQ_ATTR_SERVICE_LOGIN_TYPE, forwardUrl);
-        }
-
-        request.getSession().setAttribute(Constants.SESS_ATTR_RELAY_STATE,
-                forwardUrl);
     }
 
     /**
