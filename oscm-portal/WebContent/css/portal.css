@@ -2305,3 +2305,29 @@ form .formHighlight div.div-for-input {
     position: absolute;
     right: 5px;
 }
+
+/* Div to enclose styling for replaced b:selectBooleanCheckbox. */
+.selectBooleanCheckboxDiv .form-group {
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.selectBooleanCheckboxDiv .control-label {
+    margin-bottom: 0;
+    vertical-align: middle;
+    margin-left: 6px;
+}
+
+.selectBooleanCheckboxDiv .checkbox label {
+    padding-left: 0;
+}
+
+.selectBooleanCheckboxDiv .checkbox {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+    position: relative;
+}
+
