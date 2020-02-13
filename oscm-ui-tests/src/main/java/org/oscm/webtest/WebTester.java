@@ -21,6 +21,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.oscm.identity.IdentityUrlBuilder;
 import org.oscm.webtest.authentication.AuthenticationContext;
 import org.oscm.webtest.authentication.InternalAuthenticationContext;
 import org.oscm.webtest.authentication.OIDCAuthenticationContext;
@@ -60,6 +61,7 @@ public class WebTester {
 
   public static final String AUTH_MODE = "auth.mode";
   public static final String CHROME_DRIVER_PATH = "chrome.driver.path";
+  public static final String IDENTITY_URL = "identity.url";
 
   protected static final Logger logger = LogManager.getLogger(WebTester.class.getName());
   // web element keys
@@ -88,6 +90,7 @@ public class WebTester {
     driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
     setWaitingTime(IMPLICIT_WAIT);
     setAuthenticationContext();
+    IdentityUrlBuilder.setHOSTNAME(prop.getProperty(IDENTITY_URL));
   }
 
   private void setAuthenticationContext() {
