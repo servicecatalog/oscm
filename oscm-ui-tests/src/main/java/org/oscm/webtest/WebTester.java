@@ -80,7 +80,7 @@ public class WebTester {
     ChromeOptions options = new ChromeOptions();
     options.setHeadless(true);
     options.setAcceptInsecureCerts(true);
-    options.addArguments("--no-sandbox", "--lang=en");
+    options.addArguments("--no-sandbox", "--lang=en", "--whitelisted-ips");
 
     System.setProperty("webdriver.chrome.driver", prop.getProperty(CHROME_DRIVER_PATH));
 
