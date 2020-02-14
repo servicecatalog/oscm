@@ -41,8 +41,8 @@ public class AppAzureControllerWT {
         userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
   }
 
-  @AfterClass
-  public static void cleanUp() {
+  @After
+  public void cleanUp() {
     controllerTester.close();
   }
 
@@ -57,7 +57,6 @@ public class AppAzureControllerWT {
     assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
     assertEquals(userKey, controllerTester.readValue("49:2", 56));
     assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
-    controllerTester.close();
   }
 
   @Test
@@ -68,7 +67,6 @@ public class AppAzureControllerWT {
     controllerTester.buttonClickEvent(62);
 
     assertEquals(PlaygroundSuiteTest.supplierOrgId, controllerTester.readValue("52:0", 56));
-    tester.close();
   }
 
   @Test
@@ -81,6 +79,8 @@ public class AppAzureControllerWT {
 
   @Test
   public void test04undoSettingsIntoController() throws Exception {
+    controllerTester.loginAppController(
+            changedUserID, changedPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
     controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
     controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
     controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
