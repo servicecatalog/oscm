@@ -29,7 +29,6 @@ public class AppAzureControllerWT {
   @BeforeClass
   public static void setup() throws Exception {
     controllerTester = new AppControllerTester();
-    tester = new AppTester();
 
     userKey = PlaygroundSuiteTest.supplierOrgAdminUserkey;
     changedUserID = PlaygroundSuiteTest.supplierOrgAdminId;
@@ -41,8 +40,8 @@ public class AppAzureControllerWT {
         userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
   }
 
-  @After
-  public void cleanUp() {
+  @AfterClass
+  public static void cleanUp() {
     controllerTester.close();
   }
 
@@ -61,6 +60,7 @@ public class AppAzureControllerWT {
 
   @Test
   public void test02changeOrganizationIdInAppConfigurator() throws Exception {
+    tester = new AppTester();
     tester.loginAppConfig(userID, userPassword);
 
     controllerTester.changeValueInputInSpecificField("52:0", 56, PlaygroundSuiteTest.supplierOrgId);
