@@ -146,7 +146,7 @@ public class AppTester extends WebTester {
     inputOrgid.sendKeys(orgId);
 
     driver.findElement(By.name("configurationSettings:j_idt62")).click();
-    logger.info("Clicked save configuration button in controllers configurations");
+
     if (!getExecutionResult()) {
       if (readErrorMessage().contains(ERROR_MSG_CONTROLLER_EXISTS)) {
         throw new Exception(ERROR_MSG_CONTROLLER_EXISTS);
@@ -164,6 +164,18 @@ public class AppTester extends WebTester {
     }
     Thread.sleep(1000);
     driver.findElement(By.name("configurationSettings:j_idt62")).click();
+  }
+
+  public void changeOrganizationID(String index, String value) throws InterruptedException {
+    WebElement field = driver.findElement(By.xpath(index));
+
+    field.clear();
+    field.sendKeys(value);
+    Thread.sleep(1000);
+    logger.info(String.format("Change organization ID into: %s for Azure Controller", value, index));
+
+    driver.findElement(By.name("configurationSettings:j_idt62")).click();
+    logger.info("Clicked save configuration button in controllers configurations");
   }
 
   private void clearNewEntry() {
