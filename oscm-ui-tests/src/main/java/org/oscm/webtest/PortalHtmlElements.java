@@ -84,7 +84,7 @@ public class PortalHtmlElements {
   public static final String DEFINE_MARKETSERVICE_BUTTON_SAVE = "editForm:saveButton";
 
   public static final String DEFINE_PRICEMODEL_DROPDOWN_SERVICENAME =
-      "serviceSelectForm:serviceSelection";
+      "serviceSelectForm:serviceSelectionInner";
   public static final String DEFINE_PRICEMODEL_BUTTON_SAVE = "editForm:saveButton";
   public static final String DEFINE_PRICEMODEL_CHECKBOX_FREE_OF_CHARGE = "editForm:isfree:0";
   public static final String DEFINE_PRICEMODEL_CHECKBOX_PRO_RATE = "editForm:isfree:1";

@@ -138,6 +138,15 @@ public class AppControllerTester extends WebTester {
     logger.info(String.format("Wrote value: %s to element with id %s", value, idKey));
   }
 
+  public void changeOrganizationID(String index, String value) {
+    WebElement field = driver.findElement(By.xpath(index));
+
+    field.clear();
+    field.sendKeys(value);
+
+    logger.info(String.format("Change organization ID into: %s for Azure Controller", value, index));
+  }
+
   public void changeValueInputInBalancerField(String index, String value) {
     WebElement field = getWebElement(index);
 
