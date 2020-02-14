@@ -25,8 +25,7 @@
       <script type="text/javascript">
           $(document).ready(function () {
               $("[id='techServiceForm:techServiceIdInner']").select2().on('select2:selecting', function (e) {
-                if (AdmUtils.isNotDirtyOrConfirmed()) {
-                } else {
+                if (!AdmUtils.isNotDirtyOrConfirmed()) {
                   e.preventDefault();
                 }
               });
@@ -51,27 +50,19 @@
       </adm:panelGrid>
     </h:form>
 
-    <c:if test="#{serviceBean.dirty}">
-      <script type="text/javascript">
-	      jQuery().ready(function(){
-	    	  setDirty(true);
-	      })
-	      </script>
-    </c:if>
-
     <h:form id="editForm" enctype="multipart/form-data">    
       <adm:outputStep value="#{msg['techService.edit.step2']}" />
       
-      <adm:labelAndRichEditor id="accessInfo" label="#{msg['techService.accessInfo']}"
+      <adm:labelAndRichEditor id="accessInfo" label="#{msg['techService.accessInfo']}" onchange="setDirty(true)"
         required="#{techServiceBean.checkingAccessInfoEmpty}" converterId="trimConverter" 
         value="#{techServiceBean.selectedTechnicalService.accessInfo}"
         disabled="#{empty techServiceBean.selectedTechnicalService}" />
 
-      <adm:labelAndRichEditor id="description" label="#{msg['techService.description']}"
+      <adm:labelAndRichEditor id="description" label="#{msg['techService.description']}" onchange="setDirty(true)"
         value="#{techServiceBean.selectedTechnicalService.technicalServiceDescription}"
         disabled="#{empty techServiceBean.selectedTechnicalService}" />
 
-      <adm:labelAndRichEditor id="license" label="#{msg['techService.license']}"
+      <adm:labelAndRichEditor id="license" label="#{msg['techService.license']}" onchange="setDirty(true)"
         value="#{techServiceBean.selectedTechnicalService.license}"
         disabled="#{empty techServiceBean.selectedTechnicalService}" />
       <br />
