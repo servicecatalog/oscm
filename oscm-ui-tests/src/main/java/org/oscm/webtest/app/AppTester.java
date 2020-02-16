@@ -171,7 +171,7 @@ public class AppTester extends WebTester {
 
     field.clear();
     field.sendKeys(value);
-    Thread.sleep(1000);
+    Thread.sleep(5000);
     logger.info(String.format("Change organization ID into: %s for Azure Controller", value, index));
 
     driver.findElement(By.name("configurationSettings:j_idt62")).click();
@@ -272,6 +272,11 @@ public class AppTester extends WebTester {
   public String readValue(String id) {
     WebElement element = driver.findElement(By.id(id));
     return element.getText();
+  }
+
+  public String readDefaultValue(String index) {
+    WebElement element = driver.findElement(By.xpath(index));
+    return element.getAttribute("value");
   }
 
   public void setAppAdminMailAddress(String appAdminMailAddress) throws Exception {
