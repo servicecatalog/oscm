@@ -1021,6 +1021,10 @@ span.select .option.disabled{
 	color:#999;
 }
 
+.selectWide {
+    min-width: 450px;
+}
+
 .jqSelect{
 	position:relative;
 	height:24px;
