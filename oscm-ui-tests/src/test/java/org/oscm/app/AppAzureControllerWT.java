@@ -72,10 +72,10 @@ public class AppAzureControllerWT {
 
   @Test
   public void test03checkThatOrganizationIdIsChanged() throws LoginException, InterruptedException {
+    controllerTester.getDriver().manage().deleteAllCookies();
+
     controllerTester.loginAppController(
         changedUserID, changedPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
-
-    Thread.sleep(5000);
 
     assertEquals(PlaygroundSuiteTest.supplierOrgId, controllerTester.readValue("49:0", 56));
   }
