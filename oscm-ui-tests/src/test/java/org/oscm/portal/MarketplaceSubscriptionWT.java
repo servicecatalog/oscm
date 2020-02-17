@@ -39,6 +39,7 @@ public class MarketplaceSubscriptionWT {
     tester.close();
   }
 
+  @Test
   @Ignore
   public void test01gotoMarketPlace() throws Exception {
 
