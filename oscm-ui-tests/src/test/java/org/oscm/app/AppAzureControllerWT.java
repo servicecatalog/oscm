@@ -51,6 +51,8 @@ public class AppAzureControllerWT {
     controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
     controllerTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
 
+    controllerTester.readValue("49:0", 56);
+
     controllerTester.buttonClickEvent(75);
 
     assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
@@ -73,6 +75,8 @@ public class AppAzureControllerWT {
     controllerTester.loginAppController(
         changedUserID, changedPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
 
+    Thread.sleep(5000);
+
     assertEquals(PlaygroundSuiteTest.supplierOrgId, controllerTester.readValue("49:0", 56));
   }
 
@@ -85,6 +89,8 @@ public class AppAzureControllerWT {
     controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
 
     controllerTester.buttonClickEvent(76);
+
+    controllerTester.readValue("49:0", 56);
 
     assertEquals(userID, controllerTester.readValue("49:1", 56));
     assertEquals("1000", controllerTester.readValue("49:2", 56));

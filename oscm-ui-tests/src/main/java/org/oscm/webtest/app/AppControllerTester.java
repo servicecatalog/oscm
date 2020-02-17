@@ -163,7 +163,7 @@ public class AppControllerTester extends WebTester {
                     + ":j_idt"
                     + idKey
                     + "']"));
-    logger.info(String.format("Read value from element with id %s", index));
+    logger.info(String.format("Read value %s from element with id %s", element.getAttribute("value"), index));
 
     return element.getAttribute("value");
   }
