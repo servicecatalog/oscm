@@ -24,7 +24,7 @@
           <adm:outputLabel value="#{msg['service.serviceId']}" />
         </h:panelGroup>
         <h:panelGroup>
-            <b:selectOneMenu styleClass="select" select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
+            <b:selectOneMenu styleClass="selectWide" select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
               valueChangeListener="#{manageRevenueShareCtrl.templateChanged}" immediate="true"
               onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
                  #{rich:element('selectForm')}.submit();

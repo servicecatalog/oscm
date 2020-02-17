@@ -25,7 +25,7 @@
         </h:panelGroup>
         <h:panelGroup>
           <a4j:outputPanel styleClass="jqSelect" layout="block">
-            <b:selectOneMenu styleClass="select" select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
+            <b:selectOneMenu styleClass="selectWide" select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
               valueChangeListener="#{manageRevenueShareCtrl.templateChanged}" immediate="true"
               onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
                  #{rich:element('selectForm')}.submit();
