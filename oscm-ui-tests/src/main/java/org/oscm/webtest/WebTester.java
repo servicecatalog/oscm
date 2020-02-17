@@ -90,7 +90,6 @@ public class WebTester {
     driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
     setWaitingTime(IMPLICIT_WAIT);
     setAuthenticationContext();
-    IdentityUrlBuilder.setHOSTNAME(prop.getProperty(IDENTITY_URL));
   }
 
   private void setAuthenticationContext() {
