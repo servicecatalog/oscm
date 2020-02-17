@@ -39,23 +39,27 @@ public class PortalOrganizationWT {
   private static String authMode;
   private static PortalTester tester;
 
+
   private static final Logger logger =
-      LogManager.getLogger(InternalAuthenticationContext.class.getName());
+      LogManager.getLogger(PortalOrganizationWT.class.getName());
   @Rule public TestWatcher testWatcher = new JUnitHelper();
 
   @BeforeClass
   public static void setup() throws Exception {
+    logger.info("PortalOrganizationWT tests setup");
     tester = new PortalTester();
     String userid = tester.getPropertie(WebTester.BES_ADMIN_USER_ID);
     String userpassword = tester.getPropertie(WebTester.BES_ADMIN_USER_PWD);
     tester.loginPortal(userid, userpassword);
     authMode = tester.getPropertie(WebTester.AUTH_MODE);
     if (authMode.equals("OIDC")) {
+      logger.info("Running OIDC mode");
       tester.deleteSupplierGroup("OIDC_UI_TEST_ORG");
       org = "OIDC_UI_TEST_ORG";
       orgAdmin = tester.getPropertie(WebTester.OIDC_SUPPLIER_ID);
       orgAdminPassword = tester.getPropertie(WebTester.OIDC_SUPPLIER_PASSWORD);
     } else {
+      logger.info("Running INTERNAL mode");
       org = PlaygroundSuiteTest.currentTimestampe;
       orgAdmin = "mp_admin_" + org;
     }
