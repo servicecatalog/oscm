@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright FUJITSU LIMITED 2020-->
+ 
+<dataset>
+    <ConfigurationSetting tkey="10" information_Id="SSO_SIGNING_KEYSTORE" context_id="global" env_value="path_to_keystore" version="0" />
+    <ConfigurationSetting tkey="11" information_Id="SSO_SIGNING_KEYSTORE_PASS" context_id="global" env_value="changeit" version="0" />
+    <ConfigurationSetting tkey="12" information_Id="MAIL_JA_CHARSET" context_id="global" env_value="UTF-8" version="0" />
+    <ConfigurationSetting tkey="13" information_Id="AUTH_MODE" context_id="global" env_value="INTERNAL" version="0" />
+</dataset>
