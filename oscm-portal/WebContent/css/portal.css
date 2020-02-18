@@ -1034,7 +1034,9 @@ span.select .option.disabled{
 }
 
 .selectWide {
-    min-width: 450px;
+    width: 100%
+    padding: 0, 10px
+    max-width: 450px;
 }
 
 .jqSelect{
