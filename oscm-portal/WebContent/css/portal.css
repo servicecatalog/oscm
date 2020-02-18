@@ -2292,7 +2292,6 @@ form .formHighlight div.div-for-input {
 }
 
 #manageAccessForm tr.formHighlight .label,
-#manageAccessForm tr.formHighlight .bootsfacesLabel,
 #manageAccessForm tr.formHighlight.rf-dt-r > td,
 #manageAccessForm .clicked-column-header {
   background:  none !important;
