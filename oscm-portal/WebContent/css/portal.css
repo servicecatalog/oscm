@@ -381,6 +381,7 @@ input[type="file"]{
 }
 
 tr.formHighlight .label,
+tr.formHighlight .bootsfacesLabel,
 tr.formHighlight.rf-dt-r > td{
   background-color:  #9DBEE9 !important;
   color:#000!important;
@@ -392,9 +393,14 @@ tr.formHighlight.rf-dt-r > td{
   color:#000!important;
 }
 
+.formHighlight td.labelAndValuePanelCol1 .bootsfacesLabel{
+  background-color:  #9DBEE9 !important;
+  color:#000!important;
+}
+
 tr.formHighlight input[type="text"], 
 tr.formHighlight input[type="password"], 
-tr.formHighlight textarea, .formHighlight select {
+tr.formHighlight textarea, .formHighlight select, .formHighlight select2 {
     border-color:  #9DBEE9 !important;
     color: #000;
 }
@@ -535,6 +541,12 @@ textarea {
 .formHighlight input[type="password"],
 .formHighlight textarea,
 .formHighlight select{
+	outline:none;
+	background:#Fff;
+	border:solid 1px #2e75d2 !important;
+}
+
+.formHighlight select2{
 	outline:none;
 	background:#Fff;
 	border:solid 1px #2e75d2 !important;
@@ -2280,6 +2292,7 @@ form .formHighlight div.div-for-input {
 }
 
 #manageAccessForm tr.formHighlight .label,
+#manageAccessForm tr.formHighlight .bootsfacesLabel,
 #manageAccessForm tr.formHighlight.rf-dt-r > td,
 #manageAccessForm .clicked-column-header {
   background:  none !important;
@@ -2288,7 +2301,7 @@ form .formHighlight div.div-for-input {
 
 #manageAccessForm tr.formHighlight input[type="text"],
 #manageAccessForm tr.formHighlight input[type="password"],
-#manageAccessForm tr.formHighlight textarea, #manageAccessForm .formHighlight select {
+#manageAccessForm tr.formHighlight textarea, #manageAccessForm .formHighlight select, #manageAccessForm .formHighlight select2 {
     border-color:  transparent !important;
 }
 
