@@ -1033,8 +1033,12 @@ span.select .option.disabled{
 	color:#999;
 }
 
+.selectWideCol {
+    width: 60%;
+}
+
 .selectWide {
-    max-width: 50%;
+    width: 100%;
 }
 
 .jqSelect{
