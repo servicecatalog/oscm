@@ -19,11 +19,11 @@
     <h:form id="selectForm">
       <adm:outputStep value="#{msg['marketplace.manageBrokerRevenueShare.step1']}" />
 
-      <adm:panelGrid  columnClasses='labelAndValuePanelCol1,selectWide ,labelAndValuePanelCol3'>
+      <adm:panelGrid columnClasses='labelAndValuePanelCol1, ,labelAndValuePanelCol3'>
         <h:panelGroup>
           <adm:outputLabel value="#{msg['service.serviceId']}" />
         </h:panelGroup>
-        <h:panelGroup styleClass="selectWide">
+        <h:panelGroup>
             <b:selectOneMenu styleClass="selectWide" select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
               valueChangeListener="#{manageRevenueShareCtrl.templateChanged}" immediate="true"
               onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
