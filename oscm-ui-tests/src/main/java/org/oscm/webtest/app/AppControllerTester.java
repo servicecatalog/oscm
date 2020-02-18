@@ -28,7 +28,7 @@ public class AppControllerTester extends WebTester {
   public AppControllerTester() throws Exception {
     super();
 
-    base = APP_HTTPS_URL.replace(head, "");
+    base = prop.getProperty(APP_HTTPS_URL).replace(head, "");
   }
 
   /**
@@ -64,7 +64,7 @@ public class AppControllerTester extends WebTester {
    * @throws Exception
    */
   public void visitAppServiceInstance() throws Exception {
-    String target = APP_HTTPS_URL + AppPathSegments.APP_CONFIGURATION;
+    String target = prop.getProperty(APP_HTTPS_URL) + AppPathSegments.APP_CONFIGURATION;
     driver.navigate().to(target);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_SERVICEINSTANCE_TABLE_ID))) {

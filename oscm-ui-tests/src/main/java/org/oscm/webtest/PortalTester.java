@@ -60,7 +60,7 @@ public class PortalTester extends WebTester {
    * @throws Exception
    */
   public void visitPortal(String segments) throws Exception {
-    String target = String.format(BASE_PATH_PORTAL, BES_HTTPS_URL, segments);
+    String target = String.format(BASE_PATH_PORTAL, prop.getProperty(BES_HTTPS_URL), segments);
     driver.navigate().to(target);
 
     String actualTitle = driver.getTitle();
@@ -126,7 +126,7 @@ public class PortalTester extends WebTester {
    * @param page the page of the portal
    */
   public void visitMarketplace(String context) {
-    String target = String.format(BASE_PATH_MARKETPLACE, BES_HTTPS_URL, context);
+    String target = String.format(BASE_PATH_MARKETPLACE, prop.getProperty(BES_HTTPS_URL), context);
 
     driver.navigate().to(target);
 
