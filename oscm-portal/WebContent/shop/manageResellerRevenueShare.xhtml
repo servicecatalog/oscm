@@ -24,7 +24,6 @@
           <adm:outputLabel value="#{msg['service.serviceId']}" />
         </h:panelGroup>
         <h:panelGroup>
-          <a4j:outputPanel styleClass="jqSelect" layout="block">
             <b:selectOneMenu select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
               valueChangeListener="#{manageRevenueShareCtrl.templateChanged}" immediate="true"
               onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
@@ -34,7 +33,6 @@
               <adm:selectItemPleaseSelect itemValue="0" />
               <f:selectItems value="#{manageRevenueShareModel.templates}" />
             </b:selectOneMenu>
-          </a4j:outputPanel>
         </h:panelGroup>
         <h:panelGroup>
           <adm:message for="templateKey" />
