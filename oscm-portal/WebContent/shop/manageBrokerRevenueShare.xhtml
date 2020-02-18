@@ -23,7 +23,7 @@
         <h:panelGroup>
           <adm:outputLabel value="#{msg['service.serviceId']}" />
         </h:panelGroup>
-        <h:panelGroup>
+        <h:panelGroup styleClass="selectWide">
             <b:selectOneMenu styleClass="selectWide" select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
               valueChangeListener="#{manageRevenueShareCtrl.templateChanged}" immediate="true"
               onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
