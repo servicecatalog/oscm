@@ -19,13 +19,13 @@
     <h:form id="selectForm">
       <adm:outputStep value="#{msg['marketplace.manageResellerRevenueShare.step1']}" />
 
-      <adm:panelGrid>
+      <adm:panelGrid columnClasses='labelAndValuePanelCol1,selectWideCol,labelAndValuePanelCol3'>
         <h:panelGroup>
           <adm:outputLabel value="#{msg['service.serviceId']}" />
         </h:panelGroup>
         <h:panelGroup>
           <a4j:outputPanel styleClass="jqSelect" layout="block">
-            <b:selectOneMenu styleClass="selectWide" select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
+            <b:selectOneMenu select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
               valueChangeListener="#{manageRevenueShareCtrl.templateChanged}" immediate="true"
               onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
                  #{rich:element('selectForm')}.submit();
@@ -124,6 +124,11 @@
           action="saveForReseller" disabled="#{manageRevenueShareModel.resellerSaveDisabled}" buttonType="save" />
       </adm:buttonPanel>
     </h:form>
+    <script type="text/javascript">
+      $('document').ready(function(){
+      document.getElementsByClassName('select2')[0].style="width: 100%"
+      });
+    </script>
 
   </ui:define>
 </ui:composition>

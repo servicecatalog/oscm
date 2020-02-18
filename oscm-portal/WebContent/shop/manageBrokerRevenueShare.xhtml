@@ -123,6 +123,11 @@
           action="saveForBroker" disabled="#{manageRevenueShareModel.brokerSaveDisabled}" buttonType="save" />
       </adm:buttonPanel>
     </h:form>
+    <script type="text/javascript">
+      $('document').ready(function(){
+      document.getElementsByClassName('select2')[0].style="width: 100%"
+      });
+    </script>
 
   </ui:define>
 </ui:composition>
