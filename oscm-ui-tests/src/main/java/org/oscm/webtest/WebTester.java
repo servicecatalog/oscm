@@ -61,7 +61,6 @@ public class WebTester {
 
   public static final String AUTH_MODE = "auth.mode";
   public static final String CHROME_DRIVER_PATH = "chrome.driver.path";
-  public static final String IDENTITY_URL = "identity.url";
 
   protected static final Logger logger = LogManager.getLogger(WebTester.class.getName());
   // web element keys
