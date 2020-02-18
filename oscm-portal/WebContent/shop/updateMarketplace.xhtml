@@ -19,6 +19,18 @@
       <adm:outputLabel value="#{msg['service.marketplace']}" required="true"   displayRequired="false"/>
     <h:panelGroup>
       <h:form id="marketplaceSelectForm">
+
+    <script type = "text/javascript" >
+      $(document).ready(function () {
+        $("[id='marketplaceSelectForm:selectMarketplaceIdInner']").select2().on('select2:selecting', function (e) {
+          if (AdmUtils.isNotDirtyOrConfirmed()) {
+        	AdmUtils.storeValue(this);
+          } else {
+            e.preventDefault();
+          }
+        });
+      });
+    </script>
        
           <b:selectOneMenu select2="true" styleClass="select" id="selectMarketplaceId"
             value="#{updateMarketplaceBean.model.marketplaceId}" immediate="true"
