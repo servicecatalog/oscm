@@ -28,8 +28,7 @@ public class AppControllerTester extends WebTester {
   public AppControllerTester() throws Exception {
     super();
 
-    baseUrl = loadUrl(APP_SECURE, APP_HTTPS_URL, APP_HTTP_URL);
-    base = baseUrl.replace(head, "");
+    base = APP_HTTPS_URL.replace(head, "");
   }
 
   /**
@@ -65,7 +64,7 @@ public class AppControllerTester extends WebTester {
    * @throws Exception
    */
   public void visitAppServiceInstance() throws Exception {
-    String target = baseUrl + AppPathSegments.APP_CONFIGURATION;
+    String target = APP_HTTPS_URL + AppPathSegments.APP_CONFIGURATION;
     driver.navigate().to(target);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_SERVICEINSTANCE_TABLE_ID))) {

@@ -31,8 +31,7 @@ public class AppTester extends WebTester {
   public AppTester() throws Exception {
     super();
 
-    baseUrl = loadUrl(APP_SECURE, APP_HTTPS_URL, APP_HTTP_URL);
-    base = baseUrl.replace(head, "");
+    base = APP_HTTPS_URL.replace(head, "");
   }
 
   /**
@@ -68,7 +67,7 @@ public class AppTester extends WebTester {
    * @throws Exception
    */
   public void visitAppConfig() throws Exception {
-    String target = baseUrl + AppPathSegments.APP_CONFIGURATION;
+    String target = APP_HTTPS_URL + AppPathSegments.APP_CONFIGURATION;
     driver.navigate().to(target);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_CONFIG_FORM1))) {

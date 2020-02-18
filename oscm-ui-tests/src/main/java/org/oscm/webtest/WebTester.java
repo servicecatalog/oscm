@@ -42,15 +42,11 @@ public class WebTester {
 
   public static final int IMPLICIT_WAIT = 10;
   // property keys
-  public static final String BES_SECURE = "bes.secure";
-  public static final String BES_HTTP_URL = "bes.http.url";
   public static final String BES_HTTPS_URL = "bes.https.url";
   public static final String BES_ADMIN_USER_ID = "bes.user.id";
   public static final String BES_ADMIN_USER_PWD = "bes.user.password";
   public static final String BES_ADMIN_USER_KEY = "bes.user.key";
 
-  public static final String APP_SECURE = "app.secure";
-  public static final String APP_HTTP_URL = "app.http.url";
   public static final String APP_HTTPS_URL = "app.https.url";
   public static final String APP_ADMIN_USER_ID = "app.user.id";
   public static final String APP_ADMIN_USER_PWD = "app.user.password";
@@ -62,7 +58,6 @@ public class WebTester {
   protected static final Logger logger = LogManager.getLogger(WebTester.class.getName());
   // web element keys
   protected static final String ATTRIUBTE_VALUE = "value";
-  protected String baseUrl = "";
   protected WebDriver driver;
   protected Properties prop;
   private int waitingTime;
@@ -119,24 +114,6 @@ public class WebTester {
     FileInputStream fis = new FileInputStream(filePath);
     prop.load(fis);
     fis.close();
-  }
-
-  /**
-   * load Url
-   *
-   * @param prefix
-   * @return
-   * @throws SecurityException
-   */
-  protected String loadUrl(String secureUrl, String httpsUrl, String httpUrl)
-      throws SecurityException {
-
-    boolean secure = Boolean.parseBoolean(prop.getProperty(secureUrl));
-    if (secure) {
-      return prop.getProperty(httpUrl);
-    } else {
-      return prop.getProperty(httpsUrl);
-    }
   }
 
   public String getPropertie(String propertie) {
