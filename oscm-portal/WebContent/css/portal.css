@@ -1034,7 +1034,8 @@ span.select .option.disabled{
 }
 
 .selectWideCol {
-    width: 40%;
+    min-width: 300px;
+    width: 50%;
 }
 
 .jqSelect{
