@@ -1,11 +1,12 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2019                                           
- *                                                                                                                                 
- *  Creation Date: 30.07.2019                                                      
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2019
+ *
+ * <p>Creation Date: 30.07.2019
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ui.filter;
 
 import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
@@ -13,7 +14,6 @@ import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.internal.cache.MarketplaceConfiguration;
 import org.oscm.internal.intf.ConfigurationService;
@@ -23,26 +23,19 @@ import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.ui.common.ServiceAccess;
 
-/**
- * @author goebel
- *
- */
+/** @author goebel */
 @LocalBean
 public class TenantResolver {
 
   private static final Log4jLogger logger = LoggerFactory.getLogger(TenantResolver.class);
 
-  @EJB
-  private MarketplaceService marketplaceService;
+  @EJB private MarketplaceService marketplaceService;
 
   public MarketplaceConfiguration getConfig(String marketplaceId) {
     return marketplaceService.getCachedMarketplaceConfiguration(marketplaceId);
   }
 
-  /**
-   * Get Tenant ID from context. TODO LG - Replace extracted logic in
-   * AuthorizationFilter
-   */
+  /** Get Tenant ID from context. TODO LG - Replace extracted logic in AuthorizationFilter */
   public String getTenantID(AuthorizationRequestData ard, HttpServletRequest httpRequest)
       throws MarketplaceRemovedException {
     String tenantID;
@@ -65,8 +58,9 @@ public class TenantResolver {
     return tenantID;
   }
 
-  private String getTenantIDFromMarketplace(HttpServletRequest httpRequest,
-      AuthorizationRequestData ard) throws MarketplaceRemovedException {
+  private String getTenantIDFromMarketplace(
+      HttpServletRequest httpRequest, AuthorizationRequestData ard)
+      throws MarketplaceRemovedException {
     String marketplaceId = ard.getMarketplaceId();
     String tenantID = null;
     if (StringUtils.isNotBlank(marketplaceId)) {

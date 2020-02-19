@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
 import javax.crypto.Cipher;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -36,7 +35,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.app.v2_0.intf.APPlatformService;
@@ -122,9 +120,8 @@ public class UserBean extends BaseBean implements Serializable {
   private OrganizationBean organizationBean;
 
   @EJB private TenantService tenantService;
-  
-  @EJB
-  private ConfigurationService configService;
+
+  @EJB private ConfigurationService configService;
 
   private Part userImport;
   transient ApplicationBean appBean;
@@ -731,9 +728,9 @@ public class UserBean extends BaseBean implements Serializable {
     HttpServletRequest request = invalidateSession();
 
     if (isMarketplaceSet(request)) {
-        if (isPlaygroundPage(request)) {
-            return OUTCOME_PLAYGROUND_LOGOUT;
-        }
+      if (isPlaygroundPage(request)) {
+        return OUTCOME_PLAYGROUND_LOGOUT;
+      }
       return OUTCOME_MARKETPLACE_LOGOUT;
     }
 
@@ -871,7 +868,6 @@ public class UserBean extends BaseBean implements Serializable {
   public String change() throws SaaSApplicationException {
 
     boolean wasPwdChangeRequired = isPasswordChangeRequired();
-    
 
     try {
       getIdService().changePassword(currentPassword, password);
@@ -927,7 +923,7 @@ public class UserBean extends BaseBean implements Serializable {
       Optional<String> encryptedPassword = encryptPassword(password);
 
       if (encryptedPassword.isPresent()) {
-        VOUserDetails user = getIdService().getCurrentUserDetails();  
+        VOUserDetails user = getIdService().getCurrentUserDetails();
         APPlatformService platformService = sl.findRemoteService(APPlatformService.class);
         platformService.updateUserCredentials(
             user.getKey(), user.getUserId(), encryptedPassword.get());

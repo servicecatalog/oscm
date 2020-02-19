@@ -1,19 +1,19 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2018
+ * <p>Copyright FUJITSU LIMITED 2018
  *
- *  Creation Date: 30.08.2016
+ * <p>Creation Date: 30.08.2016
  *
- *******************************************************************************/
+ * <p>*****************************************************************************
+ */
 package org.oscm.tenant.dao;
 
 import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
-
 import org.oscm.converter.ParameterizedTypes;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Tenant;
