@@ -1,28 +1,25 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core"
-  xmlns:a4j="http://richfaces.org/a4j">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:rich="http://richfaces.org/rich" >
   
   <rich:collapsiblePanel switchType="client" id="#{sectionId}" expanded="#{openStateBean.states[sectionId]}" onswitch="updateSectionState('#{sectionId}');" 
     rendered="#{empty rendered or rendered}" leftCollapsedIcon="/img/collapsibleSection_right.gif" leftExpandedIcon="/img/collapsibleSection_down.gif">
-    <f:facet name="headerExpanded">
+    <ui:define name="headerExpanded">
       <h:panelGroup>
         <h:outputText value="#{label}" />
         <h:outputText escape="false" value="&amp;nbsp;*" styleClass="mandatory"
           title="#{msg['techService.accessInfo.mandatory']}" rendered="#{(not empty required and required) }" />
       </h:panelGroup>
-    </f:facet>
-    <f:facet name="headerCollapsed">
+    </ui:define>
+    <ui:define name="headerCollapsed">
       <h:panelGroup>
         <h:outputText value="#{label}" />
         <h:outputText escape="false" value="&amp;nbsp;*" styleClass="mandatory"
           title="#{msg['techService.accessInfo.mandatory']}" rendered="#{(not empty required and required) }" />
       </h:panelGroup>
-    </f:facet>
-    <ui:insert />
+    </ui:define>
   </rich:collapsiblePanel>
 
 </ui:composition>
