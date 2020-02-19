@@ -21,13 +21,13 @@
                                     <!-- operator...  Eclipse Refactoring??? -->
       <adm:outputStep value="#{msg['operator.manageOperatorRevenueShare.step1']}" />
 
-      <adm:panelGrid>
+      <adm:panelGrid columnClasses='labelAndValuePanelCol1,selectWideCol,labelAndValuePanelCol3'>
         <h:panelGroup>
           <adm:outputLabel value="#{msg['service.serviceId']}" />
         </h:panelGroup>
         <h:panelGroup>
 
-            <b:selectOneMenu select2="true" styleClass="select" id="templateKey" value="#{manageOperatorRevenueShareModel.selectedTemplateKey}"
+            <b:selectOneMenu select2="true" id="templateKey" value="#{manageOperatorRevenueShareModel.selectedTemplateKey}"
               valueChangeListener="#{manageOperatorRevenueShareCtrl.templateChanged}" immediate="true"
               onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
                  #{rich:element('selectForm')}.submit();
@@ -83,6 +83,10 @@
           action="save" disabled="#{manageOperatorRevenueShareModel.saveDisabled}" buttonType="save" />
       </adm:buttonPanel>
     </h:form>
+
+    <script type="text/javascript">
+       $(".select2").select2({width: '100%' });
+    </script>
 
   </ui:define>
 </ui:composition>

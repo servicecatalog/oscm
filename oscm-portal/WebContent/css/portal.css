@@ -1033,6 +1033,11 @@ span.select .option.disabled{
 	color:#999;
 }
 
+.selectWideCol {
+    min-width: 300px;
+    width: 50%;
+}
+
 .jqSelect{
 	position:relative;
 	height:24px;

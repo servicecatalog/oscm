@@ -19,12 +19,12 @@
     <h:form id="selectForm">
       <adm:outputStep value="#{msg['marketplace.manageBrokerRevenueShare.step1']}" />
 
-      <adm:panelGrid>
+      <adm:panelGrid columnClasses='labelAndValuePanelCol1,selectWideCol,labelAndValuePanelCol3'>
         <h:panelGroup>
           <adm:outputLabel value="#{msg['service.serviceId']}" />
         </h:panelGroup>
         <h:panelGroup>
-            <b:selectOneMenu styleClass="select" select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
+            <b:selectOneMenu select2="true" id="templateKey" value="#{manageRevenueShareModel.selectedTemplateKey}"
               valueChangeListener="#{manageRevenueShareCtrl.templateChanged}" immediate="true"
               onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
                  #{rich:element('selectForm')}.submit();
@@ -123,6 +123,9 @@
           action="saveForBroker" disabled="#{manageRevenueShareModel.brokerSaveDisabled}" buttonType="save" />
       </adm:buttonPanel>
     </h:form>
+    <script type="text/javascript">
+      $(".select2").select2({width: '100%' });
+    </script>
 
   </ui:define>
 </ui:composition>
