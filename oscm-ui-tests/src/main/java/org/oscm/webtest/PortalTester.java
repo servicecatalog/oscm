@@ -83,7 +83,7 @@ public class PortalTester extends WebTester {
   }
 
   public void visitLoginPage() throws Exception {
-    driver.navigate().to(String.format(BASE_PATH_PORTAL, baseUrl, ""));
+    driver.navigate().to(String.format(BASE_PATH_PORTAL, prop.getProperty(BES_HTTPS_URL), ""));
     String expectedTitle =
         prop.get(AUTH_MODE).equals("OIDC")
             ? AzureHtmlElements.AZURE_TITLE_LOGIN
