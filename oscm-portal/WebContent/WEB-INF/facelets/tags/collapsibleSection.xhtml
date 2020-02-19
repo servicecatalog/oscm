@@ -2,24 +2,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:rich="http://richfaces.org/rich" >
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
   
   <rich:collapsiblePanel switchType="client" id="#{sectionId}" expanded="#{openStateBean.states[sectionId]}" onswitch="updateSectionState('#{sectionId}');" 
     rendered="#{empty rendered or rendered}" leftCollapsedIcon="/img/collapsibleSection_right.gif" leftExpandedIcon="/img/collapsibleSection_down.gif">
-    <ui:define name="headerExpanded">
+    <f:facet name="headerExpanded">
       <h:panelGroup>
         <h:outputText value="#{label}" />
         <h:outputText escape="false" value="&amp;nbsp;*" styleClass="mandatory"
           title="#{msg['techService.accessInfo.mandatory']}" rendered="#{(not empty required and required) }" />
       </h:panelGroup>
-    </ui:define>
-    <ui:define name="headerCollapsed">
+    </f:facet>
+    <f:facet name="headerCollapsed">
       <h:panelGroup>
         <h:outputText value="#{label}" />
         <h:outputText escape="false" value="&amp;nbsp;*" styleClass="mandatory"
           title="#{msg['techService.accessInfo.mandatory']}" rendered="#{(not empty required and required) }" />
       </h:panelGroup>
-    </ui:define>
+    </f:facet>
   </rich:collapsiblePanel>
 
 </ui:composition>
