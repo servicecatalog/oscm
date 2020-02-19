@@ -7,20 +7,21 @@
   
   <rich:collapsiblePanel switchType="client" id="#{sectionId}" expanded="#{openStateBean.states[sectionId]}" onswitch="updateSectionState('#{sectionId}');" 
     rendered="#{empty rendered or rendered}" leftCollapsedIcon="/img/collapsibleSection_right.gif" leftExpandedIcon="/img/collapsibleSection_down.gif">
-    <ui:insert name="headerExpanded">
-      <h:panelGroup>
-        <h:outputText value="#{label}" />
-        <h:outputText escape="false" value="&amp;nbsp;*" styleClass="mandatory"
-          title="#{msg['techService.accessInfo.mandatory']}" rendered="#{(not empty required and required) }" />
-      </h:panelGroup>
-    </ui:insert>
-    <ui:insert name="headerCollapsed">
-      <h:panelGroup>
-        <h:outputText value="#{label}" />
-        <h:outputText escape="false" value="&amp;nbsp;*" styleClass="mandatory"
-          title="#{msg['techService.accessInfo.mandatory']}" rendered="#{(not empty required and required) }" />
-      </h:panelGroup>
+    <ui:insert name="header">
+      <f:facet name="headerExpanded">
+        <h:panelGroup>
+          <h:outputText value="#{label}" />
+          <h:outputText escape="false" value="&amp;nbsp;*" styleClass="mandatory"
+                        title="#{msg['techService.accessInfo.mandatory']}" rendered="#{(not empty required and required) }" />
+        </h:panelGroup>
+      </f:facet>
+      <f:facet name="headerCollapsed">
+        <h:panelGroup>
+          <h:outputText value="#{label}" />
+          <h:outputText escape="false" value="&amp;nbsp;*" styleClass="mandatory"
+                        title="#{msg['techService.accessInfo.mandatory']}" rendered="#{(not empty required and required) }" />
+        </h:panelGroup>
+      </f:facet>
     </ui:insert>
   </rich:collapsiblePanel>
-
 </ui:composition>
