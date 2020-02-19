@@ -35,7 +35,6 @@ public class PortalTester extends WebTester {
   public PortalTester() throws Exception {
     super();
 
-    baseUrl = loadUrl(BES_SECURE, BES_HTTPS_URL, BES_HTTP_URL);
     this.maildevReader = new MaildevReader(prop.getProperty(EMAIL_HOST));
     visitPortal("");
   }
@@ -61,7 +60,7 @@ public class PortalTester extends WebTester {
    * @throws Exception
    */
   public void visitPortal(String segments) throws Exception {
-    String target = String.format(BASE_PATH_PORTAL, baseUrl, segments);
+    String target = String.format(BASE_PATH_PORTAL, prop.getProperty(BES_HTTPS_URL), segments);
     driver.navigate().to(target);
 
     String actualTitle = driver.getTitle();
@@ -127,7 +126,7 @@ public class PortalTester extends WebTester {
    * @param page the page of the portal
    */
   public void visitMarketplace(String context) {
-    String target = String.format(BASE_PATH_MARKETPLACE, baseUrl, context);
+    String target = String.format(BASE_PATH_MARKETPLACE, prop.getProperty(BES_HTTPS_URL), context);
 
     driver.navigate().to(target);
 

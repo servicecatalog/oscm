@@ -20,6 +20,7 @@ public class JUnitHelper extends TestWatcher {
   @Override
   protected void starting(Description description) {
     super.starting(description);
+    System.out.println("\n");
     logger.info(
         new StringBuilder()
             .append("TEST STARTED :")
@@ -38,7 +39,6 @@ public class JUnitHelper extends TestWatcher {
             .append(description.getClassName())
             .append(" - ")
             .append(description.getMethodName())
-            .append("\n")
             .toString());
   }
 

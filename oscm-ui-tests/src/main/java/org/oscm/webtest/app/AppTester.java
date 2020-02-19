@@ -7,15 +7,16 @@
  *
  * <p>*****************************************************************************
  */
-package org.oscm.webtest;
+package org.oscm.webtest.app;
 
-import java.util.List;
-import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.oscm.webtest.WebTester;
+
+import javax.security.auth.login.LoginException;
 
 /** Helper class for integration web tests for oscm-app/default.jsf */
-public class AppConfigurationTester extends WebTester {
+public class AppTester extends WebTester {
 
   public static final String ERROR_MSG_CONTROLLER_EXISTS = "Controller ID already exists.";
   private String appAdminMailAddress = "";
@@ -25,18 +26,12 @@ public class AppConfigurationTester extends WebTester {
   private String bssUserPwd = "";
 
   private String base;
-  private String head;
+  private final String head = "https://";
 
-  public AppConfigurationTester() throws Exception {
+  public AppTester() throws Exception {
     super();
 
-    baseUrl = loadUrl(APP_SECURE, APP_HTTPS_URL, APP_HTTP_URL);
-    if (baseUrl.contains("https")) {
-      head = "https://";
-    } else {
-      head = "http://";
-    }
-    base = baseUrl.replace(head, "");
+    base = prop.getProperty(APP_HTTPS_URL).replace(head, "");
   }
 
   /**
@@ -46,7 +41,7 @@ public class AppConfigurationTester extends WebTester {
    * @param user the user name
    * @param password the password
    * @throws InterruptedException
-   * @throws Exception
+   * @throws LoginException
    */
   public void loginAppConfig(String user, String password)
       throws LoginException, InterruptedException {
@@ -58,9 +53,9 @@ public class AppConfigurationTester extends WebTester {
     wait(IMPLICIT_WAIT);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_CONFIG_FORM1))) {
-      logger.info(String.format("Login to %s successfully with userid:%s", url, user));
+      logger.info(String.format("Login to %s successfully with userID: %s", url, user));
     } else {
-      String info = String.format("Login to %s failed with userid:%s", url, user);
+      String info = String.format("Login to %s failed with userID:%s", url, user);
       logger.error(info);
       throw new LoginException(info);
     }
@@ -69,11 +64,10 @@ public class AppConfigurationTester extends WebTester {
   /**
    * Navigates the webdriver to the given page of the OSCM portal.
    *
-   * @param page the page of the portal
    * @throws Exception
    */
   public void visitAppConfig() throws Exception {
-    String target = baseUrl + AppPathSegments.APP_CONFIGURATION;
+    String target = prop.getProperty(APP_HTTPS_URL) + AppPathSegments.APP_CONFIGURATION;
     driver.navigate().to(target);
 
     if (verifyFoundElement(By.id(AppHtmlElements.APP_CONFIG_FORM1))) {
@@ -96,13 +90,12 @@ public class AppConfigurationTester extends WebTester {
    * Reads the error message from the page notification.
    *
    * @return the error message
-   * @throws NoSuchElementException if error message is not present
    */
   public String readErrorMessage() {
     WebElement element =
         driver.findElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG));
     return element
-        .findElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR))
+        .findElement(By.xpath(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR))
         .getText();
   }
 
@@ -110,7 +103,6 @@ public class AppConfigurationTester extends WebTester {
    * Reads the info message from the page notification.
    *
    * @return the info message
-   * @throws NoSuchElementException if info message is not present
    */
   public String readInfoMessage() {
     WebElement element =
@@ -121,7 +113,7 @@ public class AppConfigurationTester extends WebTester {
   }
 
   public boolean getExecutionResult() {
-    waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 10);
+    waitForElement(By.className(AppHtmlElements.APP_CONFIG_DIV_CLASS_STATUS_MSG), 5);
 
     if (!verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_ERROR))
         && verifyFoundElement(By.className(AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK))) {
@@ -142,6 +134,7 @@ public class AppConfigurationTester extends WebTester {
                     + "')]"));
     inputCid.clear();
     inputCid.sendKeys(controllerId);
+
     WebElement inputOrgid =
         driver.findElement(
             By.xpath(
@@ -151,14 +144,37 @@ public class AppConfigurationTester extends WebTester {
     inputOrgid.clear();
     inputOrgid.sendKeys(orgId);
 
-    WebElement baseForm =
-        driver.findElement(By.xpath("//form[@id='" + AppHtmlElements.APP_CONFIG_FORM1 + "']"));
-    baseForm.findElement(By.className(AppHtmlElements.APP_CONFIG_FORM_BUTTON_CLASS)).click();
+    driver.findElement(By.name("configurationSettings:j_idt62")).click();
+
     if (!getExecutionResult()) {
-      if (readErrorMessage().contains(ERROR_MSG_CONTROLLER_EXISTS))
+      if (readErrorMessage().contains(ERROR_MSG_CONTROLLER_EXISTS)) {
         throw new Exception(ERROR_MSG_CONTROLLER_EXISTS);
-      else throw new Exception("other error");
+      } else throw new Exception("other error");
     }
+  }
+
+  public void removeCreatedController() throws InterruptedException {
+    if (driver.findElement(By.xpath("//td[contains(.,'a.ess.sample')]")).isDisplayed()) {
+      driver.findElement(By.xpath("//td[@id='configurationSettings:j_idt52:0:j_idt58']/a")).click();
+
+      logger.info("Old controller was deleted");
+    } else {
+      logger.error("Couldn't find created controller");
+    }
+    Thread.sleep(1000);
+    driver.findElement(By.name("configurationSettings:j_idt62")).click();
+  }
+
+  public void changeOrganizationID(String index, String value) throws InterruptedException {
+    WebElement field = driver.findElement(By.xpath(index));
+
+    field.clear();
+    field.sendKeys(value);
+    Thread.sleep(5000);
+    logger.info(String.format("Change organization ID into: %s for Azure Controller", value, index));
+
+    driver.findElement(By.name("configurationSettings:j_idt62")).click();
+    logger.info("Clicked save configuration button in controllers configurations");
   }
 
   private void clearNewEntry() {
@@ -211,64 +227,12 @@ public class AppConfigurationTester extends WebTester {
     if (!getExecutionResult()) throw new Exception();
   }
 
-  public List<WebElement> getContentAppConfigTable(String formId) {
-
-    WebElement baseTableBody =
-        driver.findElement(By.xpath("//form[@id='" + formId + "']/table/tbody"));
-    List<WebElement> tableRows = baseTableBody.findElements(By.tagName("tr"));
-
-    return tableRows;
-  }
-
-  public String returnControllerId(List<WebElement> tableRows, int index) {
-
-    WebElement td = tableRows.get(index).findElement(By.xpath("//td[0]"));
-    return td.getText();
-  }
-
-  public String returnOrgId(List<WebElement> tableRows, int index) {
-
-    WebElement td = tableRows.get(index).findElement(By.xpath("//td[1]"));
-    WebElement input =
-        td.findElement(
-            By.xpath(
-                "//*[ends-with(@id,'"
-                    + AppHtmlElements.APP_CONFIG_FORM1_INPUT_END_EXISTORGID
-                    + "')]"));
-    return input.getAttribute("value");
-  }
-
-  public void clickRemoveLink(List<WebElement> tableRows, int index) {
-
-    WebElement td = tableRows.get(index).findElement(By.xpath("//td[2]"));
-    WebElement href = td.findElement(By.tagName("a"));
-    href.click();
-  }
-
-  private String returnInputValueForm2(int index) {
-
-    return driver
-        .findElement(
-            By.xpath(
-                "//form[@id='"
-                    + AppHtmlElements.APP_CONFIG_FORM2
-                    + "']/table/tbody[1]/tr/["
-                    + index
-                    + "]/td[2]/input"))
-        .getAttribute(ATTRIUBTE_VALUE);
-  }
-
   private void changeInputValueForm2(int index, String keyword) throws Exception {
-    WebElement input =
-        driver.findElement(
-            By.xpath(
-                "//form[@id='"
-                    + AppHtmlElements.APP_CONFIG_FORM2
-                    + "']/table/tbody[1]/tr["
-                    + index
-                    + "]/td[2]/input"));
+    WebElement input = getSettingWebElement(index);
     input.clear();
     input.sendKeys(keyword);
+
+    logger.info(String.format("Wrote value: %s to element with id %s", keyword, index));
 
     driver
         .findElement(
@@ -281,13 +245,37 @@ public class AppConfigurationTester extends WebTester {
                     + "']"))
         .click();
 
+    logger.info("Clicked save configuration button in APP settings");
+
     if (!getExecutionResult()) throw new Exception();
   }
 
-  public String getAppAdminMailAddress() {
+  public WebElement getSettingWebElement(int index) {
+    return driver.findElement(
+        By.xpath(
+            "//form[@id='"
+                + AppHtmlElements.APP_CONFIG_FORM2
+                + "']/table/tbody[1]/tr["
+                + index
+                + "]/td[2]/input"));
+  }
 
-    this.appAdminMailAddress = returnInputValueForm2(1);
-    return this.appAdminMailAddress;
+  public void testConnection() {
+    driver
+        .findElement(By.xpath("//input[@id='configurationSettings:j_idt52:2:pingButton']"))
+        .click();
+
+    logger.info("Clicked test connection hyperlink");
+  }
+
+  public String readValue(String id) {
+    WebElement element = driver.findElement(By.id(id));
+    return element.getText();
+  }
+
+  public String readDefaultValue(String index) {
+    WebElement element = driver.findElement(By.xpath(index));
+    return element.getAttribute("value");
   }
 
   public void setAppAdminMailAddress(String appAdminMailAddress) throws Exception {
@@ -295,39 +283,14 @@ public class AppConfigurationTester extends WebTester {
     this.appAdminMailAddress = appAdminMailAddress;
   }
 
-  public String getAppBaseUrl() {
-    this.appBaseUrl = returnInputValueForm2(2);
-    return this.appBaseUrl;
-  }
-
-  public void setAppBaseUrl(String appBaseUrl) throws Exception {
-    changeInputValueForm2(2, appBaseUrl);
-    this.appBaseUrl = appBaseUrl;
-  }
-
-  public String getBssUserId() {
-    this.bssUserId = returnInputValueForm2(3);
-    return this.bssUserId;
-  }
-
   public void setBssUserId(String bssUserId) throws Exception {
     changeInputValueForm2(3, bssUserId);
     this.bssUserId = bssUserId;
   }
 
-  public String getBssUserKey() {
-    this.bssUserKey = returnInputValueForm2(4);
-    return this.bssUserKey;
-  }
-
   public void setBssUserKey(String bssUserKey) throws Exception {
     changeInputValueForm2(4, bssUserKey);
     this.bssUserKey = bssUserKey;
-  }
-
-  public String getBssUserPwd() {
-    this.bssUserPwd = returnInputValueForm2(5);
-    return this.bssUserPwd;
   }
 
   public void setBssUserPwd(String bssUserPwd) throws Exception {

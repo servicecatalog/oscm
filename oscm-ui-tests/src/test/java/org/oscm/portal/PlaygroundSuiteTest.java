@@ -12,6 +12,7 @@ package org.oscm.portal;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import org.oscm.app.*;
 import org.oscm.webtest.WebTester;
 
 /**
@@ -23,7 +24,11 @@ import org.oscm.webtest.WebTester;
 @SuiteClasses({
   PortalOrganizationWT.class,
   PortalMarketplaceWT.class,
+  AppAzureControllerWT.class,
   AppConfigurationWT.class,
+  AppAWSControllerWT.class,
+  AppOpenstackControllerWT.class,
+  AppVCenterControllerWT.class,
   PortalTechServiceWT.class,
   PortalMarketServiceWT.class,
   MarketplaceSubscriptionWT.class
