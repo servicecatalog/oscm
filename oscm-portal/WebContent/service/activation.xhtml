@@ -3,9 +3,10 @@
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:b="http://bootsfaces.net/ui"
   xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  template="../templates/main.xhtml">
+  template="../templates/mainBootsfaces.xhtml">
 
   <ui:define name="pageId">
     <c:set var="pageId" value="service.activation" />
@@ -16,11 +17,11 @@
 
       <h:outputText styleClass="step" value="#{msg['service.activation.table.title']}" />
       <a4j:outputPanel layout="block" styleClass="tablePanel">
-        <adm:dataTable tableId="activationTable" value="#{serviceBean.servicesForDeActivation}"
-          label="#{msg['service.activation.table.header']}">
+        <b:dataTable tableId="activationTable" value="#{serviceBean.servicesForDeActivation}"
+          label="#{msg['service.activation.table.header']}" var="rowItem">
           <c:set var="priceModelText" value="#{rowItem.priceModelTextKey}" />
           <c:set var="activationChangeAction" value="#{rich:element('visibleInCatalog')}.disabled=!this.checked;" />
-          <rich:column>
+          <b:dataTableColumn>
             <f:facet name="header">
               <h:outputText value="#{msg['service.active']}" />
             </f:facet>
@@ -28,26 +29,26 @@
               onclick="#{rowItem.visibleInCatalogSupported? activationChangeAction : ''}"
               rendered="#{not rowItem.serviceSuspended}"
               disabled="#{(empty rowItem.priceModel) or (rowItem.priceModel.key eq 0) or (rowItem.noMarketplaceAssigned)}" />
-          </rich:column>
-          <rich:column>
+          </b:dataTableColumn>
+          <b:dataTableColumn>
             <f:facet name="header">
               <h:outputText value="#{msg['service.serviceId']}" />
             </f:facet>
             <h:outputText id="serviceId" value="#{rowItem.serviceIdToDisplay}" />
-          </rich:column>
-          <rich:column>
+          </b:dataTableColumn>
+          <b:dataTableColumn>
             <f:facet name="header">
               <h:outputText value="#{msg['techService.techServiceId']}" />
             </f:facet>
             <h:outputText id="technicalId" value="#{rowItem.technicalId}" />
-          </rich:column>
-          <rich:column>
+          </b:dataTableColumn>
+          <b:dataTableColumn>
             <f:facet name="header">
               <h:outputText value="#{msg['service.marketplace']}" />
             </f:facet>
             <h:outputText id="marketplace" value="#{rowItem.marketplace}" />
-          </rich:column>
-          <rich:column>
+          </b:dataTableColumn>
+          <b:dataTableColumn>
             <f:facet name="header">
               <h:outputText value="#{msg['service.visibleInCatalog']}" />
             </f:facet>
@@ -58,14 +59,14 @@
             <h:selectBooleanCheckbox id="visibleInCatalog" value="#{rowItem.visibleInCatalogChecked}"
               onchange="setDirty(true);" onclick="#{rich:element('viInCatInternal')}.value = this.checked;"
               disabled="#{not rowItem.selected}" rendered="#{rowItem.visibleInCatalogSupported}" />
-          </rich:column>
-          <rich:column>
+          </b:dataTableColumn>
+          <b:dataTableColumn>
             <f:facet name="header">
               <h:outputText value="#{msg['organization.name']}" />
             </f:facet>
             <h:outputText id="organizationName" value="#{rowItem.organizationDisplayName}" />
-          </rich:column>
-        </adm:dataTable>
+          </b:dataTableColumn>
+        </b:dataTable>
       </a4j:outputPanel>
 
       <adm:buttonPanel columns="1"> 
