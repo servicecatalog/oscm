@@ -20,7 +20,7 @@
       <adm:outputStep value="#{msg['organization.manageSuppliers.selectTechnicalService']}" />
       <adm:panelGrid>
         <adm:outputLabel value="#{msg['techService.techServiceId']}" />
-          <b:selectOneMenu id="techServiceId" styleClass="select"
+          <b:selectOneMenu id="techServiceId" styleClass="select" select2="true"
             value="#{techServiceBean.selectedTechnicalServiceKeyReadonly}" onclick="AdmUtils.storeValue(this);"
             onchange="if(AdmUtils.isNotDirtyOrConfirmed()){submit();}else{AdmUtils.restoreValue(this);}"
             valueChangeListener="#{organizationBean.technicalServiceChanged}">
