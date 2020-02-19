@@ -16,21 +16,8 @@
   <ui:define name="body">
 
     <h:form id="manageAccessForm">
-  <script type = "text/javascript" >
-  $(document).ready(function () {
-      $("[id='manageAccessForm:marketplaceInner']").select2().on('select2:selecting', function (e) {
-    	 
-        if (AdmUtils.isNotDirtyOrConfirmed()) {
-        	AdmUtils.storeValue(this);
-
-        } else {
-          e.preventDefault();
-        }
-
-      });
-
-  });
-  </script>
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2DirtyHandler.js" type="text/javascript"></script>
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2FocusHandler.js" type="text/javascript"></script>
 
       <adm:outputStep value="#{msg['marketplace.manageAccess.step1']}" />
       <adm:panelGrid>
@@ -47,13 +34,15 @@
         <a4j:outputPanel id="accessModePanel">
           <adm:outputStep value="#{msg['marketplace.manageAccess.step2']}" />
           <adm:panelGrid>
-            <t:panelGroup colspan="1">
-               <b:selectBooleanCheckbox label="#{msg['marketplace.manageAccess.isRestricted']}" id="isRestricted"
-                disabled="#{empty manageAccessCtrl.model.selectedMarketplaceId}"
+            <t:panelGroup colspan="3">
+            <div class="selectBooleanCheckboxDiv">
+               <b:selectBooleanCheckbox 
+                id="isRestricted" label="#{msg['marketplace.manageAccess.isRestricted']}" disabled="#{empty manageAccessCtrl.model.selectedMarketplaceId}"
                 value="#{manageAccessCtrl.model.selectedMarketplaceRestricted}"
                 onchange="setDirty(true);AdmUtils.showProgress(true);" oncomplete="AdmUtils.showProgress(false);">
                 <f:ajax event="change" render="accessOrganizationsPanel" listener="#{manageAccessCtrl.accessChanged}"/>
               </b:selectBooleanCheckbox>
+            </div>
             </t:panelGroup>
           </adm:panelGrid>
         </a4j:outputPanel>

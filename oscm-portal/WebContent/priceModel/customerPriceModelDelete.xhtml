@@ -17,16 +17,9 @@
     <adm:initialize initializingMethod="#{deleteCustomerPriceModelCtrl.initialize}" />
 
     <h:form id="customerPriceModelDeleteForm">
-    <script type = "text/javascript">
-    $(document).ready(function () {
-      $("[id='customerPriceModelDeleteForm:customerSelectionInner']").select2().on('select2:selecting', function (e) {
-        if (!AdmUtils.isNotDirtyOrConfirmed()) {
-          e.preventDefault();
-        } 
-      });
 
-    });
-    </script>
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2DirtyHandler.js" type="text/javascript"></script>
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2FocusHandler.js" type="text/javascript"></script>
 
       <adm:outputStep value="#{msg['priceModel.customer.select']}" />
 
