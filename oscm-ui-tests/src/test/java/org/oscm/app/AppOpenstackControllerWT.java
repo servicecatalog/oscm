@@ -49,6 +49,11 @@ public class AppOpenstackControllerWT {
 
   @Test
   public void test01setSettingsIntoSpecificController() throws Exception {
+    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
+      controllerTester.log("OIDC MODE SKIPPING TEST");
+    } else {
+
+    }
     controllerTester.changeValueInputInSpecificField("62:0", 69, changedUserID);
     controllerTester.changeValueInputInSpecificField("62:1", 68, changedPassword);
     controllerTester.changeValueInputInSpecificField("62:2", 69, "https://webiste.com");
@@ -70,6 +75,12 @@ public class AppOpenstackControllerWT {
 
   @Test
   public void test02undoSettingsIntoSpecificController() throws Exception {
+    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
+      controllerTester.log("OIDC MODE SKIPPING TEST");
+    } else {
+
+    }
+
     controllerTester.changeValueInputInSpecificField("62:0", 69, userID);
     controllerTester.changeValueInputInSpecificField("62:1", 68, userPassword);
     controllerTester.changeValueInputInSpecificField("62:2", 69, "");
@@ -89,6 +100,12 @@ public class AppOpenstackControllerWT {
 
   @Test
   public void test03importServiceTemplate() throws Exception {
+    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
+      controllerTester.log("OIDC MODE SKIPPING TEST");
+    } else {
+
+    }
+
     createdFile = folder.newFile("vcenter.csv");
     FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
     controllerTester.uploadFileEvent("//input[@id='templateForm:file']", createdFile);
@@ -99,6 +116,12 @@ public class AppOpenstackControllerWT {
 
   @Test
   public void test04removeServiceTemplate() throws Exception {
+    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
+      controllerTester.log("OIDC MODE SKIPPING TEST");
+    } else {
+
+    }
+
     controllerTester.buttonDefaultClickEvent("//td[@id='templateForm:j_idt87:0:j_idt94']/a");
 
     assertTrue(controllerTester.readInfoMessage().contains("deleted successfully"));
@@ -106,6 +129,12 @@ public class AppOpenstackControllerWT {
 
   @Test
   public void test05setSettingsIntoController() throws Exception {
+    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
+      controllerTester.log("OIDC MODE SKIPPING TEST");
+    } else {
+
+    }
+
     controllerTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
     controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
     controllerTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
@@ -119,6 +148,12 @@ public class AppOpenstackControllerWT {
 
   @Test
   public void test06undoSettingsIntoController() throws Exception {
+    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
+      controllerTester.log("OIDC MODE SKIPPING TEST");
+    } else {
+
+    }
+
     controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
     controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
     controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);

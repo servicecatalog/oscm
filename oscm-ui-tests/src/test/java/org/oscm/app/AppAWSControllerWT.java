@@ -43,51 +43,67 @@ public class AppAWSControllerWT {
 
   @Test
   public void test01setSettingsIntoSpecificController() throws Exception {
-    controllerTester.changeValueInputInSpecificField("62:0", 68, changedUserID);
-    controllerTester.changeValueInputInSpecificField("62:1", 68, changedPassword);
+    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
+      controllerTester.log("OIDC MODE SKIPPING TEST");
+    } else {
+      controllerTester.changeValueInputInSpecificField("62:0", 68, changedUserID);
+      controllerTester.changeValueInputInSpecificField("62:1", 68, changedPassword);
 
-    controllerTester.buttonClickEvent(75);
+      controllerTester.buttonClickEvent(75);
 
-    assertEquals(changedUserID, controllerTester.readValue("62:0", 68));
-    assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
+      assertEquals(changedUserID, controllerTester.readValue("62:0", 68));
+      assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
 
-    assertTrue(controllerTester.readInfoMessage().contains("saved successfully"));
+      assertTrue(controllerTester.readInfoMessage().contains("saved successfully"));
+    }
   }
 
   @Test
   public void test02undoSettingsIntoSpecificController() throws Exception {
-    controllerTester.changeValueInputInSpecificField("62:0", 68, "nothing");
-    controllerTester.changeValueInputInSpecificField("62:1", 68, "nothing");
+    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
+      controllerTester.log("OIDC MODE SKIPPING TEST");
+    } else {
+      controllerTester.changeValueInputInSpecificField("62:0", 68, "nothing");
+      controllerTester.changeValueInputInSpecificField("62:1", 68, "nothing");
 
-    controllerTester.buttonClickEvent(76);
+      controllerTester.buttonClickEvent(76);
 
-    assertEquals(changedUserID, controllerTester.readValue("62:0", 68));
-    assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
+      assertEquals(changedUserID, controllerTester.readValue("62:0", 68));
+      assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
+    }
   }
 
   @Test
   public void test03setSettingsIntoController() throws Exception {
-    controllerTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
-    controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
-    controllerTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
+    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
+      controllerTester.log("OIDC MODE SKIPPING TEST");
+    } else {
+      controllerTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
+      controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
+      controllerTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
 
-    controllerTester.buttonClickEvent(75);
+      controllerTester.buttonClickEvent(75);
 
-    assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
-    assertEquals(userKey, controllerTester.readValue("49:2", 56));
-    assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
+      assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
+      assertEquals(userKey, controllerTester.readValue("49:2", 56));
+      assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
+    }
   }
 
   @Test
   public void test04undoSettingsIntoController() throws Exception {
-    controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
-    controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
-    controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
+    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
+      controllerTester.log("OIDC MODE SKIPPING TEST");
+    } else {
+      controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
+      controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
+      controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
 
-    controllerTester.buttonClickEvent(76);
+      controllerTester.buttonClickEvent(76);
 
-    assertEquals(userID, controllerTester.readValue("49:1", 56));
-    assertEquals("1000", controllerTester.readValue("49:2", 56));
-    assertEquals(userPassword, controllerTester.readValue("49:3", 55));
+      assertEquals(userID, controllerTester.readValue("49:1", 56));
+      assertEquals("1000", controllerTester.readValue("49:2", 56));
+      assertEquals(userPassword, controllerTester.readValue("49:3", 55));
+    }
   }
 }

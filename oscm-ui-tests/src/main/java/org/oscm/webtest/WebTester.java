@@ -355,4 +355,8 @@ public class WebTester {
   public void setWaitingTime(int waitingTime) {
     this.waitingTime = waitingTime;
   }
+
+  public String getAuthenticationMode(){
+    return prop.getProperty(AUTH_MODE);
+  }
 }
