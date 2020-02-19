@@ -8,8 +8,6 @@
 
 package org.oscm.ui.filter;
 
-import static org.oscm.internal.types.enumtypes.ConfigurationKey.SSO_DEFAULT_TENANT_ID;
-import static org.oscm.types.constants.Configuration.GLOBAL_CONTEXT;
 import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
 
 import javax.ejb.EJB;
@@ -60,8 +58,7 @@ public class TenantResolver {
     }
     if (StringUtils.isBlank(tenantID)) {
       logger.logDebug("TenantID is missing. Using default.");
-      tenantID = getConfigurationService(httpRequest)
-          .getVOConfigurationSetting(SSO_DEFAULT_TENANT_ID, GLOBAL_CONTEXT).getValue();
+      tenantID = "default";
 
       httpRequest.getSession().setAttribute(REQ_PARAM_TENANT_ID, tenantID);
     }

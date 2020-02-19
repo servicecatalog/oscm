@@ -79,12 +79,13 @@
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
                   <h:form id="formLogin">
-                    <h:commandLink class="nav-link" id="loginLink" action="#{userBean.redirectToIDP}">
-                      <h:outputText value="#{msg['login']}" />
-                    </h:commandLink>
+                    <h:outputLink id="loginLink">
+                    	<h:outputText value="#{msg['login']}" />
+                    	<c:param name="login" value="oidc" />
+                    </h:outputLink>
                   </h:form>
                 </a4j:region>
-              </c:if>
+              </c:if> 
             </ui:fragment> <ui:fragment rendered="#{user ne null}">
 
               <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="logoutdrop"

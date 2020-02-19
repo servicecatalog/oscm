@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright FUJITSU LIMITED 2020-->
+ 
+<dataset>
+	<ConfigurationSetting tkey="1" information_Id="SSO_IDP_URL" context_id="global" env_value="idp_url" version="0" />
+ 	<ConfigurationSetting tkey="2" information_Id="SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD" context_id="global" env_value="POST" version="0" />
+   	<ConfigurationSetting tkey="3" information_Id="SSO_ISSUER_ID" context_id="global" env_value="issuerID" version="0" />
+    <ConfigurationSetting tkey="4" information_Id="SSO_STS_ENCKEY_LEN" context_id="global" env_value="256" version="0" />
+    <ConfigurationSetting tkey="5" information_Id="SSO_STS_URL" context_id="global" env_value="sts_url" version="0" />
+    <ConfigurationSetting tkey="6" information_Id="SSO_STS_METADATA_URL" context_id="global" env_value="metadata_url" version="0" />	
+    <ConfigurationSetting tkey="7" information_Id="SSO_LOGOUT_URL" context_id="global" env_value="http://logout.url" version="0" />
+    <ConfigurationSetting tkey="8" information_Id="SSO_DEFAULT_TENANT_ID" context_id="global" env_value="default" version="0" />
+    <ConfigurationSetting tkey="9" information_Id="SSO_IDP_SAML_ASSERTION_ISSUER_ID" context_id="global" env_value="iss" version="0" />
+    <ConfigurationSetting tkey="10" information_Id="SSO_SIGNING_KEYSTORE" context_id="global" env_value="path_to_keystore" version="0" />
+    <ConfigurationSetting tkey="11" information_Id="SSO_SIGNING_KEYSTORE_PASS" context_id="global" env_value="changeit" version="0" />
+    <ConfigurationSetting tkey="12" information_Id="MAIL_JA_CHARSET" context_id="global" env_value="UTF-8" version="0" />
+    <ConfigurationSetting tkey="13" information_Id="AUTH_MODE" context_id="global" env_value="INTERNAL" version="0" />
+</dataset>

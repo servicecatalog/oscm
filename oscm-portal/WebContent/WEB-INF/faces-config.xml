@@ -224,10 +224,6 @@
       <redirect />
     </navigation-case>
     <navigation-case>
-      <from-outcome>redirectToIdp</from-outcome>
-      <to-view-id>/saml2/redirectToIdp.xhtml</to-view-id>
-    </navigation-case>
-    <navigation-case>
       <from-outcome>serviceLocalize</from-outcome>
       <to-view-id>/service/localize.xhtml</to-view-id>
     </navigation-case>

@@ -27,7 +27,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-internal"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-internal-interfaces"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomahawk/javalib/tomahawk20-1.1.14.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/oscm-saml2-api"/>
 	<classpathentry kind="lib" path="/libraries/apache-io/javalib/commons-io-1.4.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-serviceprovisioning"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-subscriptionmgmt-intsvc"/>

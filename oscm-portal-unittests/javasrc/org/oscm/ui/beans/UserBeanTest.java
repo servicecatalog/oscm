@@ -8,16 +8,32 @@
 
 package org.oscm.ui.beans;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
 
 import javax.faces.application.FacesMessage;
 import javax.security.auth.login.LoginException;
@@ -37,7 +53,12 @@ import org.oscm.internal.types.enumtypes.AuthenticationMode;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
 import org.oscm.internal.types.enumtypes.UserRoleType;
-import org.oscm.internal.types.exception.*;
+import org.oscm.internal.types.exception.MailOperationException;
+import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.types.exception.OperationNotPermittedException;
+import org.oscm.internal.types.exception.OrganizationRemovedException;
+import org.oscm.internal.types.exception.SaaSApplicationException;
+import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.usergroupmgmt.UserGroupService;
 import org.oscm.internal.vo.VOConfigurationSetting;
 import org.oscm.internal.vo.VOTenant;
@@ -47,7 +68,6 @@ import org.oscm.types.constants.Configuration;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ServiceAccess;
 import org.oscm.ui.common.UiDelegate;
-import org.oscm.ui.dialog.common.saml2.AuthenticationHandler;
 import org.oscm.ui.dialog.state.TableState;
 import org.oscm.ui.filter.AuthenticationSettings;
 import org.oscm.ui.model.User;
@@ -67,8 +87,6 @@ public class UserBeanTest {
     private VOUserDetails loggedInUser;
     private final String OUTCOME_CANCEL = "cancel";
     private final String OUTCOME_SHOW_REGISTRATION = "showRegistration";
-    private final String ERROR_COMPLETE_REGISTRATION = "error.complete.registration";
-    private final String BASE_URL = "http://localhost:8180/oscm-portal";
     private final String SUBSCRIPTION_ADD_PAGE = "/marketplace/subscriptions/creation/add.jsf";
 
     private HttpServletRequest requestMock;
@@ -82,16 +100,12 @@ public class UserBeanTest {
     private List<UserRole> roles;
     private ApplicationBean appBean;
     private AuthenticationSettings authSettingsMock;
-    private AuthenticationHandler authHandlerMock;
     private HttpSession sessionMock;
     private UserGroupService userGroupService = mock(UserGroupService.class);
     private MarketplaceService marketplaceService = mock(MarketplaceService.class);
-    private static final String ISSUER = "CT-MG";
     private static final String RECIPIENT = "http://www.bes-portal.de";
-    private static final String IDP = "http://www.idp.de/openam/SSORedirect/request";
     private static final String KEYSTORE_PATH = "/openam/keystore.jks";
     private static final String KEYSTORE_PASSWORD = "changeit";
-    private static final String OUTCOME_SAMLSP_REDIRECT = "redirectToIdp";
     static final String OUTCOME_ADD_USER = "addUser";
 
     private String errorCodeValue = null;
@@ -156,10 +170,6 @@ public class UserBeanTest {
         doReturn(loggedInUser).when(userBean).getLoggedInUser();
 
         authSettingsMock = mock(AuthenticationSettings.class);
-
-        authHandlerMock = mock(AuthenticationHandler.class);
-        doReturn(OUTCOME_SAMLSP_REDIRECT).when(authHandlerMock)
-                .handleAuthentication(true, sessionMock);
 
         responseMock = mock(HttpServletResponse.class);
         doReturn(responseMock).when(userBean).getResponse();
@@ -343,21 +353,6 @@ public class UserBeanTest {
     }
 
     @Test
-    public void showRegistration_NotInternalMode() throws Exception {
-        // given
-        doReturn(mockConfigurationService(AuthenticationMode.OIDC.name()))
-                .when(userBean).getConfigurationService();
-        doReturn(authHandlerMock).when(userBean).getAuthenticationHandler();
-
-        // when
-        userBean.showRegistration();
-
-        // then
-        verify(authHandlerMock, times(1)).handleAuthentication(true,
-                sessionMock);
-    }
-
-    @Test
     public void showRegistration_INTERNAL() throws Exception {
         // given
         doReturn(mockConfigurationService(AuthenticationMode.INTERNAL.name()))
@@ -368,37 +363,6 @@ public class UserBeanTest {
 
         // then
         assertEquals(OUTCOME_SHOW_REGISTRATION, result);
-    }
-
-    @Test
-    public void redirectToIDP_OK() throws Exception {
-        // given
-        String redirect = "/marketplace/index.jsf";
-        userBean.setConfirmedRedirect(redirect);
-        doReturn(authSettingsMock).when(userBean).getAuthenticationSettings();
-        doReturn(authHandlerMock).when(userBean).getAuthenticationHandler();
-
-        // when
-        userBean.redirectToIDP();
-
-        // then
-        verify(authHandlerMock, times(1)).handleAuthentication(true,
-                sessionMock);
-    }
-
-    @Test
-    public void redirectToIDP_SelfRegistration() throws Exception {
-        // given
-        userBean.setConfirmedRedirect("/marketplace/registration.jsf");
-        doReturn(authSettingsMock).when(userBean).getAuthenticationSettings();
-
-        // when
-        String outcome = userBean.redirectToIDP();
-
-        // then
-        verify(userBean.ui, times(1)).handleError(anyString(),
-                eq(ERROR_COMPLETE_REGISTRATION));
-        assertEquals(OUTCOME_SHOW_REGISTRATION, outcome);
     }
 
     @Test
@@ -850,16 +814,6 @@ public class UserBeanTest {
                 new VOConfigurationSetting(ConfigurationKey.BASE_URL,
                         Configuration.GLOBAL_CONTEXT, RECIPIENT)).when(cfgMock)
                 .getVOConfigurationSetting(ConfigurationKey.BASE_URL,
-                        Configuration.GLOBAL_CONTEXT);
-        doReturn(
-                new VOConfigurationSetting(ConfigurationKey.SSO_ISSUER_ID,
-                        Configuration.GLOBAL_CONTEXT, ISSUER)).when(cfgMock)
-                .getVOConfigurationSetting(ConfigurationKey.SSO_ISSUER_ID,
-                        Configuration.GLOBAL_CONTEXT);
-        doReturn(
-                new VOConfigurationSetting(ConfigurationKey.SSO_IDP_URL,
-                        Configuration.GLOBAL_CONTEXT, IDP)).when(cfgMock)
-                .getVOConfigurationSetting(ConfigurationKey.SSO_IDP_URL,
                         Configuration.GLOBAL_CONTEXT);
         doReturn(
                 new VOConfigurationSetting(ConfigurationKey.SSO_IDP_TRUSTSTORE,

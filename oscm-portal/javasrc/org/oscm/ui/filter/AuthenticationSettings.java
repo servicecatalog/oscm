@@ -8,20 +8,15 @@
 
 package org.oscm.ui.filter;
 
-import static org.oscm.internal.types.exception.NotExistentTenantException.Reason.TENANT_NOT_FOUND;
+import java.util.StringTokenizer;
 
-import java.util.*;
-
-import org.apache.commons.lang3.StringUtils;
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.TenantService;
 import org.oscm.internal.types.enumtypes.AuthenticationMode;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
-import org.oscm.internal.types.enumtypes.IdpSettingType;
 import org.oscm.internal.types.exception.NotExistentTenantException;
 import org.oscm.internal.types.exception.WrongTenantConfigurationException;
 import org.oscm.internal.vo.VOConfigurationSetting;
-import org.oscm.internal.vo.VOTenant;
 import org.oscm.types.constants.Configuration;
 
 /**
@@ -94,64 +89,11 @@ public class AuthenticationSettings {
 
     public void init(String tenantID) throws NotExistentTenantException, WrongTenantConfigurationException {
         this.tenantID = tenantID;
-        VOTenant tenant = getTenantWithSettings(tenantID);
         identityProviderURLContextRoot = getContextRoot(identityProviderURL);
         signingKeystorePass = getConfigurationSetting(cfgService, ConfigurationKey.SSO_SIGNING_KEYSTORE_PASS);
         signingKeyAlias = getConfigurationSetting(cfgService, ConfigurationKey.SSO_SIGNING_KEY_ALIAS);
         signingKeystore = getConfigurationSetting(cfgService, ConfigurationKey.SSO_SIGNING_KEYSTORE);
         signingAlgorithm = getConfigurationSetting(cfgService, ConfigurationKey.SSO_SIGNING_ALGORITHM);
-    }
-
-    private VOTenant getTenantWithSettings(String tenantID) throws NotExistentTenantException, WrongTenantConfigurationException {
-        VOTenant tenant;
-        if (StringUtils.isBlank(tenantID)) {
-            tenantID = "default";
-        }
-        try {
-            tenant = tenantService.getTenantByTenantId(tenantID);
-        } catch (Exception e) {
-            // try default if custom tenant is not found
-            tenant = getTenantFromConfigSettings();
-            if (!tenant.getTenantId().equalsIgnoreCase(tenantID)) {
-                throw new NotExistentTenantException(TENANT_NOT_FOUND);
-            }
-        }
-        //validateTenant(tenant);
-        return tenant;
-    }
-
-    private void validateTenant(VOTenant tenant) throws WrongTenantConfigurationException {
-        if (isInternal()) {
-            return;
-        }
-        for (IdpSettingType idpSettingType : getMandatorySSOSettingKeys()) {
-//            String value = tenant.getTenantSettings().get(idpSettingType);
-//            if(StringUtils.isBlank(value)) {
-//                throw new WrongTenantConfigurationException("Mandatory setting "
-//                        + idpSettingType.name() + " for tenant " + tenantID + " are missing");
-//            }
-        }
-    }
-
-    private List<IdpSettingType> getMandatorySSOSettingKeys() {
-        return Arrays.asList(IdpSettingType.SSO_ISSUER_ID, IdpSettingType.SSO_IDP_URL,
-                IdpSettingType.SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD, IdpSettingType.SSO_LOGOUT_URL,
-                IdpSettingType.SSO_IDP_SAML_ASSERTION_ISSUER_ID);
-    }
-
-    private VOTenant getTenantFromConfigSettings() {
-        VOTenant tenant = new VOTenant();
-        Map<IdpSettingType, String> settings = new HashMap<>();
-        settings.put(IdpSettingType.SSO_ISSUER_ID, getConfigurationSetting(cfgService, ConfigurationKey.SSO_ISSUER_ID));
-        settings.put(IdpSettingType.SSO_IDP_URL, getConfigurationSetting(cfgService, ConfigurationKey.SSO_IDP_URL));
-        settings.put(IdpSettingType.SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD,
-                getConfigurationSetting(cfgService, ConfigurationKey.SSO_IDP_AUTHENTICATION_REQUEST_HTTP_METHOD));
-        settings.put(IdpSettingType.SSO_LOGOUT_URL, getConfigurationSetting(cfgService, ConfigurationKey.SSO_LOGOUT_URL));
-        settings.put(IdpSettingType.SSO_IDP_SAML_ASSERTION_ISSUER_ID,
-                getConfigurationSetting(cfgService, ConfigurationKey.SSO_IDP_SAML_ASSERTION_ISSUER_ID));
-
-        tenant.setTenantId(getConfigurationSetting(cfgService, ConfigurationKey.SSO_DEFAULT_TENANT_ID));
-        return tenant;
     }
 
     public String getIdentityProviderURL() {

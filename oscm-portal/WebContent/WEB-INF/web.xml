@@ -149,7 +149,7 @@
     <filter-class>org.oscm.ui.filter.MarketplaceContextFilter</filter-class>
     <init-param>
       <param-name>public-url-pattern</param-name>
-      <param-value>(^/a4j/.*|^/slogout.jsf|^/saml2/redirectToIdp.jsf*|^/saml2/saml2PostInclude.jsf*|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
+      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
     </init-param>
   </filter>
   <filter>
@@ -165,15 +165,6 @@
       <param-value>(^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
     </init-param>
   </filter>
-<!--   <filter>
-    <display-name>IdP Response Filter</display-name>
-    <filter-name>IdPResponseFilter</filter-name>
-    <filter-class>org.oscm.ui.filter.IdPResponseFilter</filter-class>
-    <init-param>
-      <param-name>exclude-url-pattern</param-name>
-      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*)</param-value>
-    </init-param>
-  </filter> -->
   <filter>
     <display-name>Closed Marketplace Filter</display-name>
     <filter-name>ClosedMarketplaceFilter</filter-name>
@@ -190,7 +181,7 @@
     <filter-class>org.oscm.ui.filter.AuthorizationFilter</filter-class>
     <init-param>
       <param-name>public-url-pattern</param-name>
-      <param-value>(^/a4j/.*|^/slogout.jsf|^/saml2/redirectToIdp.jsf*|^/saml2/saml2PostInclude.jsf*|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*</param-value>
+      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*</param-value>
     </init-param>
   </filter>
   <filter>
@@ -234,7 +225,7 @@
     <filter-class>org.oscm.ui.filter.RoleBasedFilter</filter-class>
     <init-param>
       <param-name>public-url-pattern</param-name>
-      <param-value>(^/a4j/.*|^/slogout.jsf|^/saml2/redirectToIdp.jsp*|^/saml2/saml2PostInclude.jsf*|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*
+      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*
       </param-value>
     </init-param>
   </filter>
@@ -274,10 +265,6 @@
     <filter-name>OidcFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-<!--   <filter-mapping>
-    <filter-name>IdPResponseFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping> -->
   <filter-mapping>
     <filter-name>IllegalRequestParameterFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -304,11 +291,6 @@
         <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
-<!--   <filter-mapping>
-    <filter-name>IdPLogoutFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-  </filter-mapping> -->
   <filter-mapping>
     <filter-name>auth</filter-name>
     <url-pattern>/opt/*</url-pattern>

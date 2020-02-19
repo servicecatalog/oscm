@@ -17,7 +17,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.matches;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -32,7 +31,6 @@ import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
 import javax.security.auth.login.LoginException;
-import javax.sql.DataSource;
 
 import org.junit.Test;
 import org.oscm.authorization.PasswordHash;
@@ -42,7 +40,6 @@ import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
-import org.oscm.saml2.api.AssertionConsumerService;
 import org.oscm.test.EJBTestBase;
 import org.oscm.test.data.Organizations;
 import org.oscm.test.ejb.TestContainer;
@@ -53,21 +50,12 @@ import org.oscm.types.constants.Configuration;
 public class ADMRealmImplIT extends EJBTestBase {
 
     private ADMRealmImpl realm;
-    private DataSource dataSource;
     private DataServiceBean dm;
     private PlatformUser user;
     private UserQuery userQuery;
     private OrganizationSettingQuery organizationSettingQuery;
-    private AssertionConsumerService acs;
     private static final String PWD = "password";
     private static final String ANY_KEY = "12345";
-    private static final String WRONG_PASSWORD = "WrongPassword";
-    private static final String WS_PASSWORD = "WSDummyPassword";
-    private static final String REQUEST_ID = "ID_0123456789012345678901234567890123456789";
-    private static final String SAML_RESPONSE = "SAMLResponse";
-    private static final String TENANT_ID = "11111111";
-    private static final String UI_PASSWORD = "UI" + REQUEST_ID + TENANT_ID
-            + SAML_RESPONSE;
     public static final String tenantID = "";
 
     @Override
@@ -78,7 +66,7 @@ public class ADMRealmImplIT extends EJBTestBase {
         container.addBean(dm);
         realm = spy(new ADMRealmImpl(mock(Logger.class)));
 
-        dataSource = TestDataSources.get("oscm-domainobjects").getDataSource();
+        TestDataSources.get("oscm-domainobjects").getDataSource();
 
         user = runTX(new Callable<PlatformUser>() {
             @Override
@@ -106,10 +94,6 @@ public class ADMRealmImplIT extends EJBTestBase {
         doNothing().when(organizationSettingQuery).execute();
         doReturn("").when(realm).findAndBind(any(Properties.class), anyString(),
                 anyString(), anyString());
-        acs = mock(AssertionConsumerService.class);
-       
-        doNothing().when(acs).validateResponse(anyString(), anyString(),
-                eq(tenantID));
     }
 
     @Test

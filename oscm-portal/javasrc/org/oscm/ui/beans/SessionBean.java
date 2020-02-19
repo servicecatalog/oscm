@@ -11,7 +11,6 @@ package org.oscm.ui.beans;
 import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
 import static org.oscm.ui.common.Constants.SESSION_PARAM_SAML_LOGOUT_REQUEST;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -23,7 +22,6 @@ import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +37,12 @@ import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
-import org.oscm.ui.common.*;
+import org.oscm.ui.common.ADMStringUtils;
+import org.oscm.ui.common.Constants;
+import org.oscm.ui.common.JSFUtils;
+import org.oscm.ui.common.ServiceAccess;
+import org.oscm.ui.common.TableHeightMap;
+import org.oscm.ui.common.UiDelegate;
 
 /**
  * Managed bean to store session specific values which are not persisted in the
@@ -461,11 +464,6 @@ public class SessionBean implements Serializable {
                     .getService(MarketplaceService.class);
         }
         return marketplaceService;
-    }
-
-    public void redirectToIdpLogout() throws IOException {
-        ExternalContext externalContext = getFacesContext().getExternalContext();
-        externalContext.redirect(getSamlLogoutRequest());
     }
 
     public void setSelfRegistrationEnabled(Boolean selfRegistrationEnabled) {
