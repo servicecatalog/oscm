@@ -24,14 +24,15 @@
       </ui:fragment>
 
       <adm:outputStep value="#{msg['organization.editCustomer.edit']}"
-        rendered="#{not empty organizationBean.organizationUdas}" />
-<!--      <ui:fragment rendered="#{not empty organizationBean.organizationUdas}">-->
-<!--        <ui:include src="udaTable.xhtml">-->
-<!--          <ui:param name="inputList" value="#{organizationBean.organizationUdas}" />-->
+        rendered="#{not empty organizationBean.getOrganizationUdas().size()}" />
+
+      <ui:fragment rendered="#{not empty organizationBean.getOrganizationUdas().size()}">
+        <ui:include src="udaTable.xhtml">
+          <ui:param name="inputList" value="#{organizationBean.getOrganizationUdas()}" />
 <!--          <ui:param name="disabled" value="#{empty organizationBean.selectedCustomerId}" />-->
-<!--          <ui:param name="collapsible" value="true" />-->
-<!--        </ui:include>-->
-<!--      </ui:fragment>-->
+          <ui:param name="collapsible" value="true" />
+        </ui:include>
+      </ui:fragment>
 
       <adm:outputStep value="#{msg['organization.editCustomer.discount.edit']}" />
       <adm:panelGrid  columnClasses='labelAndValuePanelCol1,labelAndValuePanelCol2 shortColumn,labelAndValuePanelCol3'>
