@@ -24,13 +24,13 @@
       </ui:fragment>
 
       <adm:outputStep value="#{msg['organization.editCustomer.edit']}"
-        rendered="#{not empty organizationBean.getOrganizationUdas().size()}" />
+        rendered="#{not empty organizationBean.organizationUdas}" />
 
-      <ui:fragment rendered="#{not empty organizationBean.getOrganizationUdas().size()}">
+      <ui:fragment rendered="#{not empty organizationBean.organizationUdas}">
         <ui:include src="udaTable.xhtml">
-          <ui:param name="inputList" value="#{organizationBean.getOrganizationUdas()}" />
-<!--          <ui:param name="disabled" value="#{empty organizationBean.selectedCustomerId}" />-->
-          <ui:param name="collapsible" value="true" />
+          <ui:param name="inputList" value="#{organizationBean.organizationUdas}" />
+          <ui:param name="disabled" value="#{empty organizationBean.selectedCustomerId}" />
+<!--          <ui:param name="collapsible" value="true" />-->
         </ui:include>
       </ui:fragment>
 
