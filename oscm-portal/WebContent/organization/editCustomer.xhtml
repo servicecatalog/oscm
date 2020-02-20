@@ -27,11 +27,11 @@
         rendered="#{not empty organizationBean.organizationUdas}" />
 
       <ui:fragment rendered="#{not empty organizationBean.organizationUdas}">
-        <ui:include src="udaTable.xhtml">
+<!--        <ui:include src="udaTable.xhtml">-->
 <!--          <ui:param name="inputList" value="#{organizationBean.organizationUdas}" />-->
 <!--          <ui:param name="disabled" value="#{empty organizationBean.selectedCustomerId}" />-->
 <!--          <ui:param name="collapsible" value="true" />-->
-        </ui:include>
+<!--        </ui:include>-->
       </ui:fragment>
 
       <adm:outputStep value="#{msg['organization.editCustomer.discount.edit']}" />
