@@ -36,8 +36,10 @@ public class AppAzureControllerWT {
 
     userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
     userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
-    controllerTester.loginAppController(
-        userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
+    if(controllerTester.getAuthenticationMode().equals("INTERNAL")){
+      controllerTester.loginAppController(
+              userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
+    }
   }
 
   @AfterClass

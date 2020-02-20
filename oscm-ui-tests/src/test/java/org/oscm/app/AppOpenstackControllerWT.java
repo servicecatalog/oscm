@@ -38,8 +38,10 @@ public class AppOpenstackControllerWT {
 
     userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
     userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
-    controllerTester.loginAppController(
-        userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_OPENSTACK);
+    if(controllerTester.getAuthenticationMode().equals("INTERNAL")){
+      controllerTester.loginAppController(
+              userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_OPENSTACK);
+    }
   }
 
   @AfterClass
