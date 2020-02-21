@@ -1850,7 +1850,7 @@ th.rf-dt-shdr-c.rf-dt-c-srt {
     border-width: 1px;
     border-style: solid;
     border-color: #aaa;
-    text-align: left;
+    text-align: center;
     background-image: url("../img/btn_var_bg.gif");
     border-radius: 3px;
     min-width: 95px;
@@ -1859,43 +1859,35 @@ th.rf-dt-shdr-c.rf-dt-c-srt {
 #mainContainer .rf-pick-add-all {
     background-position: inherit;
     background: url("../img/list_button_icons.png") 0 0px no-repeat , url("../img/btn_var_bg.gif") -1px -1px;
-    padding-left: 22px;
 }
 #mainContainer .rf-pick-add {
     background-position: inherit;
     background: url("../img/list_button_icons.png") 0 -15px no-repeat , url("../img/btn_var_bg.gif") -1px -1px;
-    padding-left: 22px;
 }
 #mainContainer .rf-pick-rem {
     background-position: inherit;
     background: url("../img/list_button_icons.png") 0 -30px no-repeat , url("../img/btn_var_bg.gif") -1px -1px;
-    padding-left: 22px;
 }
 #mainContainer .rf-pick-rem-all {
     background-position: inherit;
     background: url("../img/list_button_icons.png") 0 -45px no-repeat , url("../img/btn_var_bg.gif") -1px -1px;
-    padding-left: 22px;
 }
 
 #mainContainer .rf-ord-up-tp {
     background-position: inherit;
     background: url("../img/list_button_icons.png") 0 -60px no-repeat , url("../img/btn_var_bg.gif") -1px -1px;
-    padding-left: 22px;
 }
 #mainContainer .rf-ord-up {
     background-position: inherit;
     background: url("../img/list_button_icons.png") 0 -75px no-repeat , url("../img/btn_var_bg.gif") -1px -1px;
-    padding-left: 22px;
 }
 #mainContainer .rf-ord-dn {
     background-position: inherit;
     background: url("../img/list_button_icons.png") 0 -90px no-repeat , url("../img/btn_var_bg.gif") -1px -1px;
-    padding-left: 22px;
 }
 #mainContainer .rf-ord-dn-bt {
     background-position: inherit;
     background: url("../img/list_button_icons.png") 0 -105px no-repeat , url("../img/btn_var_bg.gif") -1px -1px;
-    padding-left: 22px;
 }
 
 #mainContainer .rf-pick-src-cptn,
