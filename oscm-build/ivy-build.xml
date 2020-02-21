@@ -234,7 +234,6 @@
       overwrite="true" />
     <copy file="${ivy.lib.dir}/dbunit-2.4.7.jar" todir="${root.dir}/libraries/dbunit/javalib" overwrite="true" />
     <copy file="${ivy.lib.dir}/ecj-4.5.1.jar" todir="${root.dir}/libraries/eclipse-ecj/javalib" overwrite="true" />
-    <copy file="${ivy.lib.dir}/log4j-1.2.16.jar" todir="${root.dir}/j2ep/WebContent/WEB-INF/lib" overwrite="true" />
     <copy file="${ivy.lib.dir}/org.jacoco.agent-0.7.8.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true" />
     <unjar src="${ivy.lib.dir}/org.jacoco.agent-0.7.8.jar" dest="${root.dir}/libraries/jacoco/resources"
       overwrite="true">
