@@ -1514,8 +1514,12 @@ textarea[style]{
 	width: auto!important;
 }
 #customerPriceModelDeleteForm td:first-child{
-	width: 18px!important;
-}
+ 	width: 18px!important;
+ }
+
+#customerPriceModelDeleteForm td:nth-child(2){
+ 	width: 380px!important;
+ }
 
 /* fixes alignment and attach background image for rich:autocomplete*/
 .ct-autocomplete {
