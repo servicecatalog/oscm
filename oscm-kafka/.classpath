@@ -8,12 +8,13 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/libraries/apache-kafka/javalib/kafka-clients.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="/libraries/gson/javalib/gson-2.6.2.jar"/>
 	<classpathentry kind="src" path="/oscm-subscriptionmgmt-intsvc"/>
 	<classpathentry kind="src" path="/oscm-domainobjects"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-internal"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-devruntime"/>
+	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-api-2.13.0.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-core-2.13.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

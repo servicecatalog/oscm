@@ -20,16 +20,16 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import org.apache.log4j.Logger;
-
-import org.oscm.ui.common.ExceptionHandler;
-import org.oscm.ui.common.JSFUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.oscm.internal.types.enumtypes.TriggerTargetType;
 import org.oscm.internal.types.enumtypes.TriggerType;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
 import org.oscm.internal.types.exception.DomainObjectException.ClassEnum;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.vo.VOTriggerDefinition;
+import org.oscm.ui.common.ExceptionHandler;
+import org.oscm.ui.common.JSFUtils;
 
 /**
  * Backing bean for trigger definition related actions
@@ -38,7 +38,7 @@ import org.oscm.internal.vo.VOTriggerDefinition;
 @ViewScoped
 @ManagedBean(name = "triggerDefinitionBean")
 public class TriggerDefinitionBean extends BaseBean implements Serializable {
-    private static final Logger LOGGER = Logger.getLogger(TriggerDefinitionBean.class);
+    private static final Logger LOGGER = LogManager.getLogger(TriggerDefinitionBean.class);
     private static final long serialVersionUID = 7284668598929521354L;
     private List<VOTriggerDefinition> triggerDefinitionList = null;
     private VOTriggerDefinition selectedTriggerDefinition;
