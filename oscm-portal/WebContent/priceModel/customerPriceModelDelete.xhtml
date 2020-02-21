@@ -22,10 +22,10 @@
 
       <adm:outputStep value="#{msg['priceModel.customer.select']}" />
 
-      <adm:panelGrid>
+      <adm:panelGrid style="width: 400px !important">
         <!-- customer's combo box -->
         <adm:outputLabel value="#{msg['priceModel.checkbox.customer.label']}" />
-          <b:selectOneMenu select2="true" style="width: 100% !important; max-width: fit-content" id="customerSelection" onclick="AdmUtils.storeValue(this);" value="#{deleteCustomerPriceModelModel.selectedOrgId}"
+          <b:selectOneMenu select2="true" style="width: 100% !important" id="customerSelection" onclick="AdmUtils.storeValue(this);" value="#{deleteCustomerPriceModelModel.selectedOrgId}"
           disabled="#{deleteCustomerPriceModelCtrl.selectDisabled}" 
           oncomplete="javascript:AdmUtils.hideMessages();javascsript:AdmUtils.setUIElements();">
             <f:ajax event="change" listener="#{deleteCustomerPriceModelCtrl.selectedOrgIdChanged}"

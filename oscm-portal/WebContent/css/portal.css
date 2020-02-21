@@ -1511,7 +1511,7 @@ textarea[style]{
 	margin-left: 10px!important;
 }
 #customerPriceModelDeleteForm td, #customerPriceModelDeleteForm th{
-	width:auto;
+	width: auto!important;
 }
 #customerPriceModelDeleteForm td:first-child{
 	width: 18px!important;
