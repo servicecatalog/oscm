@@ -1517,10 +1517,6 @@ textarea[style]{
 	width: 18px!important;
 }
 
-#customerPriceModelDeleteForm td:second-child{
-	width: 350px!important;
-}
-
 /* fixes alignment and attach background image for rich:autocomplete*/
 .ct-autocomplete {
     vertical-align: middle;
