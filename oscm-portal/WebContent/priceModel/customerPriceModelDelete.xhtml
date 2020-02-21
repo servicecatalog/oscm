@@ -22,7 +22,7 @@
 
       <adm:outputStep value="#{msg['priceModel.customer.select']}" />
 
-      <adm:panelGrid style="width: 400px !important">
+      <adm:panelGrid>
         <!-- customer's combo box -->
         <adm:outputLabel value="#{msg['priceModel.checkbox.customer.label']}" />
           <b:selectOneMenu select2="true" style="width: 100% !important" id="customerSelection" onclick="AdmUtils.storeValue(this);" value="#{deleteCustomerPriceModelModel.selectedOrgId}"
