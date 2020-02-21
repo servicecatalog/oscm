@@ -15,7 +15,7 @@
   <ui:define name="body">
     <adm:initialize initializingMethod="#{deleteCustomerPriceModelCtrl.initialize}" />
 
-    <h:form id="customerPriceModelDeleteForm">
+    <h:form id="customerPriceModelDeleteForm" style="width: 350px">
 
     <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2DirtyHandler.js" type="text/javascript"></script>
     <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2FocusHandler.js" type="text/javascript"></script>
@@ -25,7 +25,7 @@
       <adm:panelGrid>
         <!-- customer's combo box -->
         <adm:outputLabel value="#{msg['priceModel.checkbox.customer.label']}" />
-          <b:selectOneMenu select2="true" style="width: 100% !important; max-width: 350px" id="customerSelection" onclick="AdmUtils.storeValue(this);" value="#{deleteCustomerPriceModelModel.selectedOrgId}"
+          <b:selectOneMenu select2="true" style="width: 100% !important" id="customerSelection" onclick="AdmUtils.storeValue(this);" value="#{deleteCustomerPriceModelModel.selectedOrgId}"
           disabled="#{deleteCustomerPriceModelCtrl.selectDisabled}" 
           oncomplete="javascript:AdmUtils.hideMessages();javascsript:AdmUtils.setUIElements();">
             <f:ajax event="change" listener="#{deleteCustomerPriceModelCtrl.selectedOrgIdChanged}"
