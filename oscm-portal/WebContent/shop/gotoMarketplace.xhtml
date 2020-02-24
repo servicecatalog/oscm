@@ -15,6 +15,7 @@
 
   <ui:define name="body">
     <h:form id="gotoMarketplaceForm">
+      <adm:outputStep value="#{msg['marketplace.gotoMarketplace.step']}" />
       <adm:panelGrid>
         <adm:outputLabel label="#{msg['service.marketplace']}"/>
         <b:selectOneMenu id="marketplace" select2="true" value="#{gotoMarketplaceBean.selectedMarketplace}">
@@ -26,7 +27,7 @@
         <!--          <adm:selectItemPleaseSelect itemValue="" />-->
         <!--        </adm:labelAndSelect>-->
       </adm:panelGrid>
-      <adm:outputStep value="#{msg['marketplace.gotoMarketplace.step']}" />
+
     </h:form>
     <h:form id="goForm">
       <adm:buttonPanel>
