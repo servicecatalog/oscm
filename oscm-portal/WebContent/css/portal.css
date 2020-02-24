@@ -1959,8 +1959,9 @@ th.rf-dt-shdr-c.rf-dt-c-srt {
 
 /* area beneath the target pick list */
 .fillinDiv {
-    width: 300px;
     padding: 0 0 0 490px !important;
+    width: fit-content;
+    margin-top: 5px;
 }
 
 
