@@ -17,11 +17,12 @@
 
       <h:outputText styleClass="step" value="#{msg['service.activation.table.title']}" />
       <a4j:outputPanel layout="block" styleClass="tablePanel">
-        <b:dataTable tableId="activationTable" value="#{serviceBean.servicesForDeActivation}"
-          label="#{msg['service.activation.table.header']}" var="rowItem">
+      
+        <b:dataTable mark-search-results="true" border="false" responsive="true" tableId="activationTable" value="#{serviceBean.servicesForDeActivation}"
+          label="#{msg['service.activation.table.header']}" var="rowItem" rowStyleClass="bootsfacesRowOdd, bootsfacesRowEven">
           <c:set var="priceModelText" value="#{rowItem.priceModelTextKey}" />
           <c:set var="activationChangeAction" value="#{rich:element('visibleInCatalog')}.disabled=!this.checked;" />
-          <b:dataTableColumn>
+          <b:dataTableColumn headerStyleClass="bootsfacesHeader">
             <f:facet name="header">
               <h:outputText value="#{msg['service.active']}" />
             </f:facet>
@@ -30,25 +31,25 @@
               rendered="#{not rowItem.serviceSuspended}"
               disabled="#{(empty rowItem.priceModel) or (rowItem.priceModel.key eq 0) or (rowItem.noMarketplaceAssigned)}" />
           </b:dataTableColumn>
-          <b:dataTableColumn>
+          <b:dataTableColumn  headerStyleClass="bootsfacesHeader">
             <f:facet name="header">
               <h:outputText value="#{msg['service.serviceId']}" />
             </f:facet>
             <h:outputText id="serviceId" value="#{rowItem.serviceIdToDisplay}" />
           </b:dataTableColumn>
-          <b:dataTableColumn>
+          <b:dataTableColumn  headerStyleClass="bootsfacesHeader">
             <f:facet name="header">
               <h:outputText value="#{msg['techService.techServiceId']}" />
             </f:facet>
             <h:outputText id="technicalId" value="#{rowItem.technicalId}" />
           </b:dataTableColumn>
-          <b:dataTableColumn>
+          <b:dataTableColumn  headerStyleClass="bootsfacesHeader">
             <f:facet name="header">
               <h:outputText value="#{msg['service.marketplace']}" />
             </f:facet>
             <h:outputText id="marketplace" value="#{rowItem.marketplace}" />
           </b:dataTableColumn>
-          <b:dataTableColumn>
+          <b:dataTableColumn  headerStyleClass="bootsfacesHeader">
             <f:facet name="header">
               <h:outputText value="#{msg['service.visibleInCatalog']}" />
             </f:facet>
@@ -60,7 +61,7 @@
               onchange="setDirty(true);" onclick="#{rich:element('viInCatInternal')}.value = this.checked;"
               disabled="#{not rowItem.selected}" rendered="#{rowItem.visibleInCatalogSupported}" />
           </b:dataTableColumn>
-          <b:dataTableColumn>
+          <b:dataTableColumn  headerStyleClass="bootsfacesHeader">
             <f:facet name="header">
               <h:outputText value="#{msg['organization.name']}" />
             </f:facet>
