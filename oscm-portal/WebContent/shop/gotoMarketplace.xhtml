@@ -4,7 +4,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" template="../templates/main.xhtml">
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" template="../templates/main.xhtml"
+  xmlns:b="http://bootsfaces.net/ui"
+>
 
   <ui:define name="pageId">
     <c:set var="pageId" value="marketplace.gotoMarketplace" />
@@ -13,14 +15,17 @@
 
   <ui:define name="body">
     <h:form id="gotoMarketplaceForm">
-      <adm:outputStep value="#{msg['marketplace.gotoMarketplace.step']}" />
       <adm:panelGrid>
-        <adm:labelAndSelect id="marketplace" label="#{msg['service.marketplace']}" render="gotoBtn"
-          value="#{gotoMarketplaceBean.selectedMarketplace}" listenerBean="#{gotoMarketplaceBean}">
+        <b:selectOneMenu id="marketplace" value="#{gotoMarketplaceBean.selectedMarketplace}">
           <adm:selectItemPleaseSelect itemValue="" />
-          <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />
-        </adm:labelAndSelect>
+        </b:selectOneMenu>
+        <!--        <adm:labelAndSelect id="marketplace" label="#{msg['service.marketplace']}" render="gotoBtn"-->
+        <!--          value="#{gotoMarketplaceBean.selectedMarketplace}" listenerBean="#{gotoMarketplaceBean}">-->
+        <!--          <adm:selectItemPleaseSelect itemValue="" />-->
+        <!--          <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />-->
+        <!--        </adm:labelAndSelect>-->
       </adm:panelGrid>
+      <adm:outputStep value="#{msg['marketplace.gotoMarketplace.step']}" />
     </h:form>
     <h:form id="goForm">
       <adm:buttonPanel>
