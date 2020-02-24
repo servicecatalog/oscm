@@ -17,6 +17,8 @@ import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
@@ -129,8 +131,8 @@ public class GotoMarketplaceBean extends BaseBean implements Serializable {
     /*
      * value change listener for marketplace chooser
      */
-    public void processValueChange(ValueChangeEvent event) {
-        selectedMarketplace = (String) event.getNewValue();
+    public void processValueChange(AjaxBehaviorEvent event) {
+        selectedMarketplace = (String) ((UIOutput) event.getSource()).getValue();
     }
 
     public boolean isButtonEnabled() {
