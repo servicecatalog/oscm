@@ -19,6 +19,7 @@
       <adm:panelGrid>
         <adm:outputLabel label="#{msg['service.marketplace']}"/>
         <b:selectOneMenu id="marketplace" select2="true" value="#{gotoMarketplaceBean.selectedMarketplace}">
+          <f:ajax event="change" listener="#{gotoMarketplaceBean.processValueChange}" render="marketplaceAccessDetails"/>
           <adm:selectItemPleaseSelect itemValue="" />
           <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />
         </b:selectOneMenu>
