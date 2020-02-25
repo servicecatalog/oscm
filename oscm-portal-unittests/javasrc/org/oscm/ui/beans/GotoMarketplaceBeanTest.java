@@ -170,7 +170,6 @@ public class GotoMarketplaceBeanTest {
         marketplaceGotoBean.setSelectedMarketplace(null);
         AjaxBehaviorEvent mockedEvent = mock(AjaxBehaviorEvent.class);
         UIOutput mockedOutput = mock(UIOutput.class);
-        doReturn("id").when(mockedEvent);
         when(mockedEvent.getSource()).thenReturn(mockedOutput);
         when(mockedOutput.getValue()).thenReturn("id");
 
