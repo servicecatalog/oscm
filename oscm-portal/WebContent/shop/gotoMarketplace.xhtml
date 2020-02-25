@@ -20,11 +20,11 @@
 <!--        <b:selectOneMenu id="marketplace" select2="true" value="#{gotoMarketplaceBean.selectedMarketplace}" onchange="setDirty(true);">-->
 <!--          <f:ajax event="change" listener="#{gotoMarketplaceBean.processValueChange}" render="goForm"/>-->
 <!--          <adm:selectItemPleaseSelect itemValue="" />-->
-<!--          <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />-->
 <!--        </b:selectOneMenu>-->
                 <adm:bootsfacesLabelAndSelect id="marketplace" label="#{msg['service.marketplace']}" render="goForm"
                   value="#{gotoMarketplaceBean.selectedMarketplace}" listener="#{gotoMarketplaceBean}">
                   <adm:selectItemPleaseSelect itemValue="" />
+                  <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />
                 </adm:bootsfacesLabelAndSelect>
       </adm:panelGrid>
 
