@@ -22,7 +22,7 @@
 <!--          <adm:selectItemPleaseSelect itemValue="" />-->
 <!--        </b:selectOneMenu>-->
                 <adm:bootsfacesLabelAndSelect id="marketplace" label="#{msg['service.marketplace']}" render="goForm"
-                  value="#{gotoMarketplaceBean.selectedMarketplace}" listener="#{gotoMarketplaceBean}">
+                  value="#{gotoMarketplaceBean.selectedMarketplace}" listener="#{gotoMarketplaceBean.processValueChange}">
                   <adm:selectItemPleaseSelect itemValue="" />
                   <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />
                 </adm:bootsfacesLabelAndSelect>
