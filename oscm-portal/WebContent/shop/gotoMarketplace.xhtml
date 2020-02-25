@@ -18,7 +18,7 @@
       <adm:outputStep value="#{msg['marketplace.gotoMarketplace.step']}" />
       <adm:panelGrid>
         <adm:outputLabel value="#{msg['service.marketplace']}"/>
-        <b:selectOneMenu id="marketplace" select2="true" value="#{gotoMarketplaceBean.selectedMarketplace}">
+        <b:selectOneMenu id="marketplace" select2="true" value="#{gotoMarketplaceBean.selectedMarketplace}" onchange="setDirty(true);">
           <f:ajax event="change" listener="#{gotoMarketplaceBean.processValueChange}" render="goForm"/>
           <adm:selectItemPleaseSelect itemValue="" />
           <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />
