@@ -9,7 +9,7 @@
 
   <adm:outputLabel value="#{label}" />
   <b:selectOneMenu id="#{id}" select2="true" value="#{value}" onchange="setDirty(true);">
-    <f:ajax event="change" listener="#{listener}" render="#{listener}"/>
+    <f:ajax event="change" listener="#{listener}" render="#{render}"/>
     <ui:insert />
   </b:selectOneMenu>
 
