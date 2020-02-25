@@ -5,7 +5,6 @@
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" template="../templates/main.xhtml"
-  xmlns:b="http://bootsfaces.net/ui"
 >
 
   <ui:define name="pageId">
@@ -17,16 +16,16 @@
     <h:form id="gotoMarketplaceForm">
       <adm:outputStep value="#{msg['marketplace.gotoMarketplace.step']}" />
       <adm:panelGrid>
-        <adm:outputLabel value="#{msg['service.marketplace']}"/>
-        <b:selectOneMenu id="marketplace" select2="true" value="#{gotoMarketplaceBean.selectedMarketplace}" onchange="setDirty(true);">
-          <f:ajax event="change" listener="#{gotoMarketplaceBean.processValueChange}" render="goForm"/>
-          <adm:selectItemPleaseSelect itemValue="" />
-          <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />
-        </b:selectOneMenu>
-        <!--        <adm:labelAndSelect id="marketplace" label="#{msg['service.marketplace']}" render="gotoBtn"-->
-        <!--          value="#{gotoMarketplaceBean.selectedMarketplace}" listenerBean="#{gotoMarketplaceBean}">-->
-        <!--          <adm:selectItemPleaseSelect itemValue="" />-->
-        <!--        </adm:labelAndSelect>-->
+<!--        <adm:outputLabel value="#{msg['service.marketplace']}"/>-->
+<!--        <b:selectOneMenu id="marketplace" select2="true" value="#{gotoMarketplaceBean.selectedMarketplace}" onchange="setDirty(true);">-->
+<!--          <f:ajax event="change" listener="#{gotoMarketplaceBean.processValueChange}" render="goForm"/>-->
+<!--          <adm:selectItemPleaseSelect itemValue="" />-->
+<!--          <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />-->
+<!--        </b:selectOneMenu>-->
+                <adm:bootsfacesLabelAndSelect id="marketplace" label="#{msg['service.marketplace']}" render="goForm"
+                  value="#{gotoMarketplaceBean.selectedMarketplace}" listener="#{gotoMarketplaceBean}">
+                  <adm:selectItemPleaseSelect itemValue="" />
+                </adm:bootsfacesLabelAndSelect>
       </adm:panelGrid>
 
     </h:form>

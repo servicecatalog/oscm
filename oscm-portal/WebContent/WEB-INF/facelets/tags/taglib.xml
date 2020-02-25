@@ -222,6 +222,10 @@
     <tag-name>selectTenant</tag-name>
     <source>selectTenant.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>bootsfacesLabelAndSelect</tag-name>
+    <source>bootsfacesLabelAndSelect.xhtml</source>
+  </tag>
 
   <function>
     <function-name>matchBegin</function-name>
