@@ -25,6 +25,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
@@ -166,8 +168,11 @@ public class GotoMarketplaceBeanTest {
     public void processValueChange() {
         // given
         marketplaceGotoBean.setSelectedMarketplace(null);
-        ValueChangeEvent mockedEvent = mock(ValueChangeEvent.class);
-        doReturn("id").when(mockedEvent).getNewValue();
+        AjaxBehaviorEvent mockedEvent = mock(AjaxBehaviorEvent.class);
+        UIOutput mockedOutput = mock(UIOutput.class);
+        doReturn("id").when(mockedEvent);
+        when(mockedEvent.getSource()).thenReturn(mockedOutput);
+        when(mockedOutput.getValue()).thenReturn("id");
 
         // when
         marketplaceGotoBean.processValueChange(mockedEvent);
