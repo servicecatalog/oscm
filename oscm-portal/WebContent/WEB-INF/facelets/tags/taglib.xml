@@ -223,6 +223,10 @@
     <source>selectTenant.xhtml</source>
   </tag>
   <tag>
+    <tag-name>bootsfacesSelectMenu</tag-name>
+    <source>bootsfacesSelectMenu.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>bootsfacesLabelAndSelect</tag-name>
     <source>bootsfacesLabelAndSelect.xhtml</source>
   </tag>
