@@ -14,7 +14,6 @@
     <adm:outputStep value="#{msg['marketplace.update.step1']}" />
 
     <adm:panelGrid columns="3">
-      <h:form id="marketplaceSelectForm">
 
     <script type = "text/javascript" >
       $(document).ready(function () {
@@ -38,7 +37,6 @@
                                    selectValue="#{updateMarketplaceBean.selectableMarketplaces}"/>
         <adm:message for="selectMarketplaceId" />
         <h:commandButton id="updateMarketPlaceButton"  action="#{updateMarketplaceBean.marketplaceChanged}" style="display: none;" />
-      </h:form>
     </adm:panelGrid>
 
     <h:form id="updateForm">
