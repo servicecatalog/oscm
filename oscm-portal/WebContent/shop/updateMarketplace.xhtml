@@ -16,7 +16,6 @@
     <adm:outputStep value="#{msg['marketplace.update.step1']}" />
 
     <adm:panelGrid columns="3">
-      <adm:outputLabel value="#{msg['service.marketplace']}" required="true"   displayRequired="false"/>
     <h:panelGroup>
       <h:form id="marketplaceSelectForm">
 
@@ -33,7 +32,7 @@
     </script>
        <adm:bootsfacesSelectMenu   id="selectMarketplaceId"
                                    onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();"
-                                   onchange="#{rich:element('updateMarketPlaceButton')}.click();return false;"
+                                   onchange="#{rich:element('updateMarketPlaceButton')}.click(); AdmUtils.setFocus(e.target,true); return false;"
                                    label="#{msg['service.marketplace']}"
                                    immediate="true"
                                    render=":stageForm"
