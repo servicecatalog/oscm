@@ -13,8 +13,6 @@
   <ui:define name="body">
     <adm:outputStep value="#{msg['marketplace.update.step1']}" />
 
-    <adm:panelGrid columns="3">
-
     <script type = "text/javascript" >
       $(document).ready(function () {
         $("[id='marketplaceSelectForm:selectMarketplaceIdInner']").select2().on('select2:selecting', function (e) {
@@ -26,6 +24,7 @@
         });
       });
     </script>
+    
        <adm:bootsfacesSelectMenu   id="selectMarketplaceId"
                                    onclick="AdmUtils.storeValue(this); AdmUtils.initFocus();"
                                    onchange="#{rich:element('updateMarketPlaceButton')}.click(); return false; AdmUtils.initFocus();"
@@ -37,7 +36,6 @@
                                    selectValue="#{updateMarketplaceBean.selectableMarketplaces}"/>
         <adm:message for="selectMarketplaceId" />
         <h:commandButton id="updateMarketPlaceButton"  action="#{updateMarketplaceBean.marketplaceChanged}" style="display: none;" />
-    </adm:panelGrid>
 
     <h:form id="updateForm">
       <adm:outputStep value="#{msg['marketplace.update.step2']}" />
