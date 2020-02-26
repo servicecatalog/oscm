@@ -36,10 +36,10 @@
                                    onchange="#{rich:element('updateMarketPlaceButton')}.click();return false;"
                                    label="#{msg['service.marketplace']}"
                                    immediate="true"
+                                   render=":stageForm"
+                                   listenerBean="#{translationBean}"
                                    value="#{updateMarketplaceBean.model.marketplaceId}"
-                                   itemValue=""
-                                   selectValue="#{updateMarketplaceBean.selectableMarketplaces}">
-       </adm:bootsfacesSelectMenu>
+                                   selectValue="#{updateMarketplaceBean.selectableMarketplaces}"/>
         <adm:message for="selectMarketplaceId" />
         <h:commandButton id="updateMarketPlaceButton"  action="#{updateMarketplaceBean.marketplaceChanged}" style="display: none;" />
       </h:form>
