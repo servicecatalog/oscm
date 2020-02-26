@@ -28,8 +28,8 @@
       });
     </script>
        <adm:bootsfacesSelectMenu   id="selectMarketplaceId"
-                                   onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();"
-                                   onchange="#{rich:element('updateMarketPlaceButton')}.click(); e = AdmUtils.getParentElementWithTagName([id='marketplaceSelectForm:j_idt494'], 'tr'); jQuery(e).addClass('formHighlight'); return false;"
+                                   onclick="AdmUtils.storeValue(this); AdmUtils.initFocus();"
+                                   onchange="#{rich:element('updateMarketPlaceButton')}.click(); AdmUtils.initFocus();"
                                    label="#{msg['service.marketplace']}"
                                    immediate="true"
                                    render=":stageForm"
