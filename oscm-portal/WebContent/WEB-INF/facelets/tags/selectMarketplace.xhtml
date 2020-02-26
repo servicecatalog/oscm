@@ -22,7 +22,7 @@
         <b:selectOneMenu select2="true" id="selectMarketplaceId"
                          styleClass="select"
                          valueChangeListener="#{listenerBean['processValueChange']}"
-                         value="#{marketplaceBean['marketplaceId']}" update=":mainTmplMessagesPanel @form #{render}" oncomplete="AdmUtils.setSelectBoxes(); ">
+                         value="#{marketplaceBean['marketplaceId']}" update=":mainTmplMessagesPanel @form #{render}" oncomplete="AdmUtils.setSelectBoxes();">
              <adm:selectItemPleaseSelect itemValue="0" />
              <f:selectItems value="#{items}" var="mp" itemLabel="#{mp.name} (#{mp.marketplaceId})" itemValue="#{mp.marketplaceId}"/>
       
