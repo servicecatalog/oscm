@@ -2982,7 +2982,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
     String caller = dm.getCurrentUser().getOrganization().getName();
     try {
       ApiIdentityClient client = RestUtils.createClient(tenantId);
-      if(client.getGroups().stream().noneMatch(group -> group.getName().equals(groupName))){
+      if(client.getGroups().stream().noneMatch(group -> group.getName().equals( "OSCM_" + groupName))){
         GroupInfo groupInfo =
                 client.createGroup(groupName, "TenantId: " + tenantId + ". Organization:" + caller);
         return groupInfo.getId();
