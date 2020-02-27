@@ -38,7 +38,7 @@
                                   immediate="true"
                                   value="#{customizeLandingpageModel.selectedMarketplace}"
                                   render=":stageForm"
-                                  valueChangeListener="#{customizeLandingpageCtrl.marketplaceChanged}"
+                                  valueChangeListener="#{listenerBean['processValueChange']}"
                                   selectValue="#{customizeLandingpageModel.marketplaces}">
       </adm:bootsfacesSelectMenu>
       <adm:message id="marketplaceErrorMsg" for="marketplace" />
