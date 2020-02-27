@@ -113,7 +113,7 @@ public class PortalHtmlElements {
   public static final String MARKETPLACE_PASSWORD_BUTTONLINK_SAVE = "passwordForm:changeButtonLink";
   public static final String MARKETPLACE_SPAN_WELCOME = "formLogout:welcome";
   public static final String GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE =
-      "gotoMarketplaceForm:marketplace";
+      "gotoMarketplaceForm:marketplaceInner";
   public static final String GOTO_MARKETPLACE_BUTTONLINK_GOTO = "goForm:gotoBtnLink";
   public static final String MARKETPLACE_INPUT_USERID = "loginForm:loginUserId";
   public static final String MARKETPLACE_INPUT_PASSWORD = "loginForm:loginPassword";

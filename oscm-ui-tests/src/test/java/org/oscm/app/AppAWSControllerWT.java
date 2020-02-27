@@ -32,10 +32,8 @@ public class AppAWSControllerWT {
 
     userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
     userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
-    if(controllerTester.getAuthenticationMode().equals("INTERNAL")) {
       controllerTester.loginAppController(
               userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_AWS);
-    }
   }
 
   @AfterClass
@@ -45,9 +43,6 @@ public class AppAWSControllerWT {
 
   @Test
   public void test01setSettingsIntoSpecificController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
       controllerTester.changeValueInputInSpecificField("62:0", 68, changedUserID);
       controllerTester.changeValueInputInSpecificField("62:1", 68, changedPassword);
 
@@ -57,14 +52,10 @@ public class AppAWSControllerWT {
       assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
 
       assertTrue(controllerTester.readInfoMessage().contains("saved successfully"));
-    }
   }
 
   @Test
   public void test02undoSettingsIntoSpecificController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
       controllerTester.changeValueInputInSpecificField("62:0", 68, "nothing");
       controllerTester.changeValueInputInSpecificField("62:1", 68, "nothing");
 
@@ -72,14 +63,11 @@ public class AppAWSControllerWT {
 
       assertEquals(changedUserID, controllerTester.readValue("62:0", 68));
       assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
-    }
   }
 
   @Test
   public void test03setSettingsIntoController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       controllerTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
       controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
       controllerTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
@@ -89,14 +77,11 @@ public class AppAWSControllerWT {
       assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
       assertEquals(userKey, controllerTester.readValue("49:2", 56));
       assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
-    }
   }
 
   @Test
   public void test04undoSettingsIntoController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
       controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
       controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
@@ -106,6 +91,5 @@ public class AppAWSControllerWT {
       assertEquals(userID, controllerTester.readValue("49:1", 56));
       assertEquals("1000", controllerTester.readValue("49:2", 56));
       assertEquals(userPassword, controllerTester.readValue("49:3", 55));
-    }
   }
 }

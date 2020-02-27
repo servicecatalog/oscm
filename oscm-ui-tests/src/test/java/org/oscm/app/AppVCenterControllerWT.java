@@ -39,10 +39,8 @@ public class AppVCenterControllerWT {
 
     userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
     userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
-    if(controllerTester.getAuthenticationMode().equals("INTERNAL")){
       controllerTester.loginAppController(
               userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_VCENTER);
-    }
   }
 
   @AfterClass
@@ -52,9 +50,6 @@ public class AppVCenterControllerWT {
 
   @Test
   public void test01setSettingsAPIvSphere() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
       controllerTester.changeValueInputInBalancerField("url", "https://webiste.com");
       controllerTester.changeValueInputInBalancerField("user", userID);
       controllerTester.changeValueInputInBalancerField("pwd", userPassword);
@@ -66,14 +61,11 @@ public class AppVCenterControllerWT {
       assertEquals("https://webiste.com", controllerTester.readDefaultValue("url"));
       assertEquals(userID, controllerTester.readDefaultValue("user"));
       assertEquals(userPassword, controllerTester.readDefaultValue("pwd"));
-    }
   }
 
   @Test
   public void test02importServiceTemplate() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       createdFile = folder.newFile("vcenter.csv");
       FileUtils.writeStringToFile(
           createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
@@ -85,14 +77,12 @@ public class AppVCenterControllerWT {
               .readDefaultInfoMessage(
                   AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND)
               .contains("saved successfully"));
-    }
+
   }
 
   @Test
   public void test03setSettingsIntoController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       controllerTester.changeValueInputInSpecificField("47:1", 54, changedUserID);
       controllerTester.changeValueInputInSpecificField("47:2", 54, userKey);
       controllerTester.changeValueInputInSpecificField("47:3", 53, changedPassword);
@@ -105,5 +95,5 @@ public class AppVCenterControllerWT {
       assertEquals(userKey, controllerTester.readValue("47:2", 54));
       assertEquals(changedPassword, controllerTester.readValue("47:3", 53));
     }
-  }
+
 }

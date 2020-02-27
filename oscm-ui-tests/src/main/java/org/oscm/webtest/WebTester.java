@@ -47,13 +47,10 @@ public class WebTester {
   public static final String BES_HTTPS_URL = "bes.https.url";
   public static final String BES_ADMIN_USER_ID = "bes.user.id";
   public static final String BES_ADMIN_USER_PWD = "bes.user.password";
-  public static final String BES_ADMIN_USER_KEY = "bes.user.key";
 
   public static final String OIDC_SUPPLIER_ID = "oidc.supplier.id";
   public static final String OIDC_SUPPLIER_PASSWORD = "oidc.supplier.password";
 
-  public static final String APP_SECURE = "app.secure";
-  public static final String APP_HTTP_URL = "app.http.url";
   public static final String APP_HTTPS_URL = "app.https.url";
   public static final String APP_ADMIN_USER_ID = "app.user.id";
   public static final String APP_ADMIN_USER_PWD = "app.user.password";
@@ -79,7 +76,7 @@ public class WebTester {
 
     loadPropertiesFile();
     ChromeOptions options = new ChromeOptions();
-    options.setHeadless(true);
+//    options.setHeadless(true);
     options.setAcceptInsecureCerts(true);
     options.addArguments("--no-sandbox", "--lang=en");
 
