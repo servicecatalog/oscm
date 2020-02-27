@@ -25,6 +25,7 @@
     <!--  Select a marketplace -->
     <adm:outputStep value="#{msg['marketplace.select']}" />
 
+    <h:form id="marketplaceSelectForm">
     <adm:bootsfacesSelectMenu   id="selectMarketplace"
                                 selectValue="#{categoryBean.marketplaceBean.marketplacesOwned}"
                                 displayRequired="false"
@@ -32,9 +33,8 @@
                                 listenerBean="#{categoryBean}"
                                 merketplaceBean="#{categoryBean.marketplaceBean}"
                                 render=":categoriesForm"
-                                label="#{msg['service.marketplace']}">
-      <f:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="marketplaceAccessDetails"/>
-    </adm:bootsfacesSelectMenu>
+                                label="#{msg['service.marketplace']}"/>
+    </h:form>
 
     <h:form id="categoriesForm">
 
