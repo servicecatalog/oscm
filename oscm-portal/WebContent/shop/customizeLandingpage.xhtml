@@ -37,8 +37,8 @@
                                   label="#{msg['service.marketplace']}"
                                   immediate="true"
                                   value="#{customizeLandingpageModel.selectedMarketplace}"
-                                  render=":stageForm"
-                                  valueChangeListener="#{listenerBean['processValueChange']}"
+                                  render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel"
+                                  valueChangeListener="#{customizeLandingpageCtrl.marketplaceChanged}"
                                   selectValue="#{customizeLandingpageModel.marketplaces}">
       </adm:bootsfacesSelectMenu>
       <adm:message id="marketplaceErrorMsg" for="marketplace" />
