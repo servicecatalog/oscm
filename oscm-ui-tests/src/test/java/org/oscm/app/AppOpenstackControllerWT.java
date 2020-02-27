@@ -38,10 +38,8 @@ public class AppOpenstackControllerWT {
 
     userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
     userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
-    if (controllerTester.getAuthenticationMode().equals("INTERNAL")) {
       controllerTester.loginAppController(
           userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_OPENSTACK);
-    }
   }
 
   @AfterClass
@@ -51,9 +49,7 @@ public class AppOpenstackControllerWT {
 
   @Test
   public void test01setSettingsIntoSpecificController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       controllerTester.changeValueInputInSpecificField("62:0", 69, changedUserID);
       controllerTester.changeValueInputInSpecificField("62:1", 68, changedPassword);
       controllerTester.changeValueInputInSpecificField("62:2", 69, "https://webiste.com");
@@ -71,14 +67,11 @@ public class AppOpenstackControllerWT {
       assertEquals("https://template/...", controllerTester.readValue("62:5", 69));
 
       assertTrue(controllerTester.readInfoMessage().contains("saved successfully"));
-    }
   }
 
   @Test
   public void test02undoSettingsIntoSpecificController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       controllerTester.changeValueInputInSpecificField("62:0", 69, userID);
       controllerTester.changeValueInputInSpecificField("62:1", 68, userPassword);
       controllerTester.changeValueInputInSpecificField("62:2", 69, "");
@@ -94,14 +87,12 @@ public class AppOpenstackControllerWT {
       assertEquals("https://webiste.com", controllerTester.readValue("62:2", 69));
       assertEquals("Website", controllerTester.readValue("62:4", 69));
       assertEquals("https://template/...", controllerTester.readValue("62:5", 69));
-    }
+
   }
 
   @Test
   public void test03importServiceTemplate() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       createdFile = folder.newFile("vcenter.csv");
       FileUtils.writeStringToFile(
           createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
@@ -109,25 +100,20 @@ public class AppOpenstackControllerWT {
       controllerTester.buttonDefaultClickEvent("//input[@name='templateForm:j_idt112']");
 
       assertTrue(controllerTester.readInfoMessage().contains("imported successfully"));
-    }
   }
 
   @Test
   public void test04removeServiceTemplate() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       controllerTester.buttonDefaultClickEvent("//td[@id='templateForm:j_idt87:0:j_idt94']/a");
 
       assertTrue(controllerTester.readInfoMessage().contains("deleted successfully"));
-    }
+
   }
 
   @Test
   public void test05setSettingsIntoController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       controllerTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
       controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
       controllerTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
@@ -137,14 +123,12 @@ public class AppOpenstackControllerWT {
       assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
       assertEquals(userKey, controllerTester.readValue("49:2", 56));
       assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
-    }
+
   }
 
   @Test
   public void test06undoSettingsIntoController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
       controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
       controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
@@ -154,6 +138,6 @@ public class AppOpenstackControllerWT {
       assertEquals(userID, controllerTester.readValue("49:1", 56));
       assertEquals("1000", controllerTester.readValue("49:2", 56));
       assertEquals(userPassword, controllerTester.readValue("49:3", 55));
-    }
+
   }
 }

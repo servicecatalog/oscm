@@ -36,10 +36,8 @@ public class AppAzureControllerWT {
 
     userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
     userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
-    if(controllerTester.getAuthenticationMode().equals("INTERNAL")){
       controllerTester.loginAppController(
               userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
-    }
   }
 
   @AfterClass
@@ -49,9 +47,6 @@ public class AppAzureControllerWT {
 
   @Test
   public void test01setSettingsIntoController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
 
       controllerTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
       controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
@@ -62,14 +57,11 @@ public class AppAzureControllerWT {
       assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
       assertEquals(userKey, controllerTester.readValue("49:2", 56));
       assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
-    }
   }
 
   @Test
   public void test02changeOrganizationIdInAppConfigurator() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       tester = new AppTester();
       tester.loginAppConfig(userID, userPassword);
 
@@ -81,28 +73,23 @@ public class AppAzureControllerWT {
           PlaygroundSuiteTest.supplierOrgId,
           tester.readDefaultValue(
               "//input[@id='configurationSettings:j_idt52:1:configurationValue']"));
-    }
   }
 
   @Test
   public void test03checkThatOrganizationIdIsChanged() throws LoginException, InterruptedException {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       controllerTester.getDriver().manage().deleteAllCookies();
 
       controllerTester.loginAppController(
           changedUserID, changedPassword, AppPathSegments.APP_PATH_CONTROLLER_AZURE);
 
       assertEquals(PlaygroundSuiteTest.supplierOrgId, controllerTester.readValue("49:0", 56));
-    }
+
   }
 
   @Test
   public void test04undoSettingsIntoController() throws Exception {
-    if (controllerTester.getAuthenticationMode().equals("OIDC")) {
-      controllerTester.log("OIDC MODE SKIPPING TEST");
-    } else {
+
       controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
       controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
       controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
@@ -112,6 +99,6 @@ public class AppAzureControllerWT {
       assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
       assertEquals(userKey, controllerTester.readValue("49:2", 56));
       assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
-    }
+
   }
 }
