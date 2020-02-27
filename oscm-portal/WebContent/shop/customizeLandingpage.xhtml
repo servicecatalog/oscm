@@ -36,15 +36,16 @@
 <!--      <adm:panelGrid>-->
       <adm:bootsfacesSelectMenu   id="marketplace"
                                   onclick="AdmUtils.storeValue(this);"
-                                  onchange="#{customizeLandingpageCtrl.marketplaceChanged}"
                                   label="#{msg['service.marketplace']}"
                                   immediate="true"
-                                  render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel"
                                   value="#{customizeLandingpageModel.selectedMarketplace}"
-                                  selectValue="#{customizeLandingpageModel.marketplaces}"/>
+                                  selectValue="#{customizeLandingpageModel.marketplaces}">
+        <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
+              render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
+      </adm:bootsfacesSelectMenu>
       <adm:message for="marketplace" />
 
-<!--        <adm:outputLabel value="#{msg['service.marketplace']}" />-->
+      <!--        <adm:outputLabel value="#{msg['service.marketplace']}" />-->
 
 <!--          <b:selectOneMenu id="marketplace" value="#{customizeLandingpageModel.selectedMarketplace}" styleClass="select"-->
 <!--            oncomplete="AdmUtils.setUIElements();">-->
