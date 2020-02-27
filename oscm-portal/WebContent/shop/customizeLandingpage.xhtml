@@ -33,19 +33,28 @@
     });
     </script>
       <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectMarketplace']}" />
-      <adm:panelGrid>
-        <adm:outputLabel value="#{msg['service.marketplace']}" />
-       
-          <b:selectOneMenu id="marketplace" value="#{customizeLandingpageModel.selectedMarketplace}" styleClass="select"
-            oncomplete="AdmUtils.setUIElements();">
-            <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
-              render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
-            <adm:selectItemPleaseSelect itemValue="#{null}" />
-            <f:selectItems value="#{customizeLandingpageModel.marketplaces}" />
-          </b:selectOneMenu>
-       
-        <adm:message id="marketplaceErrorMsg" for="marketplace" />
-      </adm:panelGrid>
+<!--      <adm:panelGrid>-->
+        <adm:selectMarketplace id="marketplace"
+                               items="#{customizeLandingpageModel.marketplaces}"
+                               displayRequired="false"
+                               required="true"
+                               listenerBean="#{categoryBean}"
+                               merketplaceBean="#{categoryBean.marketplaceBean}"
+                               value="#{customizeLandingpageModel.selectedMarketplace}"
+                               render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel"/>
+
+<!--        <adm:outputLabel value="#{msg['service.marketplace']}" />-->
+
+<!--          <b:selectOneMenu id="marketplace" value="#{customizeLandingpageModel.selectedMarketplace}" styleClass="select"-->
+<!--            oncomplete="AdmUtils.setUIElements();">-->
+<!--            <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"-->
+<!--              render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />-->
+<!--            <adm:selectItemPleaseSelect itemValue="#{null}" />-->
+<!--            <f:selectItems value="#{customizeLandingpageModel.marketplaces}" />-->
+<!--          </b:selectOneMenu>-->
+<!--       -->
+<!--        <adm:message id="marketplaceErrorMsg" for="marketplace" />-->
+<!--      </adm:panelGrid>-->
 
       <a4j:outputPanel id="landingpageTypePanel">
         <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectLandingpageType']}" />
