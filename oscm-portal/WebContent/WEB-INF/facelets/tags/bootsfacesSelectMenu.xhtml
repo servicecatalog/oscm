@@ -13,8 +13,8 @@
 
         <b:selectOneMenu select2="true" id="#{id}" styleClass="select"  value="#{value}" immediate="#{immediate}"
                          onclick="#{onclick}" onchange="#{onchange}" oncomplete="#{oncomplete}">
-            <adm:selectItemPleaseSelect itemValue="" />
-            <f:selectItems value="#{selectValue}" var="mp" itemLabel="#{mp.name} (#{mp.marketplaceId})" itemValue="#{mp.marketplaceId}"/>
+          <f:ajax event="change" listener="#{listener}" render="#{render}"/>
+          <ui:insert/>
         </b:selectOneMenu>
     </h:panelGroup>
     </adm:panelGrid>
