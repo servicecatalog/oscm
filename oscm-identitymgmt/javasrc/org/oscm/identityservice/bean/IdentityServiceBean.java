@@ -2983,11 +2983,11 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
     try {
       ApiIdentityClient client = RestUtils.createClient(tenantId);
       if(client.getGroups().stream().noneMatch(group -> group.getName().equals(groupName))){
-        throw createRegistrationException(RegistrationException.Reason.ALREADY_ORG_MEMBER.toString(), "");
-      } else {
         GroupInfo groupInfo =
                 client.createGroup(groupName, "TenantId: " + tenantId + ". Organization:" + caller);
         return groupInfo.getId();
+      } else {
+        throw createRegistrationException(RegistrationException.Reason.ALREADY_ORG_MEMBER.toString(), "");
       }
     } catch (IdentityClientException e) {
       throw createRegistrationException(mapReason(e.getReason().toString()), "");
