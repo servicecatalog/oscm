@@ -52,6 +52,7 @@ import javax.persistence.Query;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.validator.GenericValidator;
+import org.apache.kafka.common.requests.ListGroupsResponse;
 import org.oscm.authorization.PasswordHash;
 import org.oscm.communicationservice.data.SendMailStatus;
 import org.oscm.communicationservice.data.SendMailStatus.SendMailStatusItem;
@@ -2982,9 +2983,13 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
     String caller = dm.getCurrentUser().getOrganization().getName();
     try {
       ApiIdentityClient client = RestUtils.createClient(tenantId);
-      GroupInfo groupInfo =
-          client.createGroup(groupName, "TenantId: " + tenantId + ". Organization:" + caller);
-      return groupInfo.getId();
+      if(client.getGroups().stream().noneMatch(group -> group.getName().equals(groupName))){
+        throw createRegistrationException(RegistrationException.Reason.ALREADY_ORG_MEMBER.toString(), "");
+      } else {
+        GroupInfo groupInfo =
+                client.createGroup(groupName, "TenantId: " + tenantId + ". Organization:" + caller);
+        return groupInfo.getId();
+      }
     } catch (IdentityClientException e) {
       throw createRegistrationException(mapReason(e.getReason().toString()), "");
     }
