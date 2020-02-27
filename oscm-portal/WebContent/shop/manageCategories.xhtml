@@ -32,7 +32,9 @@
                                 listenerBean="#{categoryBean}"
                                 merketplaceBean="#{categoryBean.marketplaceBean}"
                                 render=":categoriesForm"
-                                label="#{msg['service.marketplace']}"/>
+                                label="#{msg['service.marketplace']}">
+      <f:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="marketplaceAccessDetails"/>
+    </adm:bootsfacesSelectMenu>
 
     <h:form id="categoriesForm">
 
