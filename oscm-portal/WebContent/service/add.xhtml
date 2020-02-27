@@ -30,8 +30,10 @@
                                   immediate="true"
                                   render=":stageForm"
                                   value="#{serviceBean.selectedTechServiceKeyReadOnly}"
-                                  label="#{msg['techService.techServiceId']}"
-                                  selectValue="#{techService.key}"/>
+                                  label="#{msg['techService.techServiceId']}"/>
+      <c:forEach items="#{serviceBean.availableTechServices}" var="techService">
+                 <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />
+                 </c:forEach>
       <adm:message for="techServiceId" />
 
 

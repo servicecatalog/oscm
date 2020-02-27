@@ -33,12 +33,14 @@
 <!--      <adm:panelGrid>-->
       <adm:bootsfacesSelectMenu   id="marketplace"
                                   onclick="AdmUtils.storeValue(this);"
-                                  onchange="#{rich:element('updateMarketPlaceButton')}.click(); return false;"
+                                  oncomplete="AdmUtils.setUIElements();"
                                   label="#{msg['service.marketplace']}"
                                   immediate="true"
                                   value="#{customizeLandingpageModel.selectedMarketplace}"
                                   render=":stageForm"
                                   selectValue="#{customizeLandingpageModel.marketplaces}">
+        <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
+                render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
       </adm:bootsfacesSelectMenu>
       <adm:message id="marketplaceErrorMsg" for="marketplace" />
 
