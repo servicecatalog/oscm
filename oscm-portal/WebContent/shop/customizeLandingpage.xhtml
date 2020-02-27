@@ -34,14 +34,15 @@
     </script>
       <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectMarketplace']}" />
 <!--      <adm:panelGrid>-->
-        <adm:selectMarketplace id="marketplace"
-                               items="#{customizeLandingpageModel.marketplaces}"
-                               displayRequired="false"
-                               required="true"
-                               listenerBean="#{categoryBean}"
-                               merketplaceBean="#{categoryBean.marketplaceBean}"
-                               value="#{customizeLandingpageModel.selectedMarketplace}"
-                               render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel"/>
+      <adm:bootsfacesSelectMenu   id="marketplace"
+                                  onclick="AdmUtils.storeValue(this);"
+                                  onchange="#{rich:element('updateMarketPlaceButton')}.click(); return false;"
+                                  label="#{msg['service.marketplace']}"
+                                  immediate="true"
+                                  render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel"
+                                  value="#{customizeLandingpageModel.selectedMarketplace}"
+                                  selectValue="#{customizeLandingpageModel.marketplaces}"/>
+      <adm:message for="marketplace" />
 
 <!--        <adm:outputLabel value="#{msg['service.marketplace']}" />-->
 
