@@ -33,7 +33,8 @@
                                 listenerBean="#{categoryBean}"
                                 merketplaceBean="#{categoryBean.marketplaceBean}"
                                 render=":categoriesForm"
-                                label="#{msg['service.marketplace']}"/>
+                                label="#{msg['service.marketplace']}"
+                                onchange="#{rich:element('updateMarketPlaceButton')}.click(); return false;"/>
     </h:form>
 
     <h:form id="categoriesForm">
