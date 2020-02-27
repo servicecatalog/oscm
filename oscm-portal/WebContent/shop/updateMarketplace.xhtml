@@ -25,7 +25,6 @@
       });
     </script>
 
-    <h:form id="marketplaceSelectForm">
       <adm:bootsfacesSelectMenu   id="selectMarketplaceId"
                                   onclick="AdmUtils.storeValue(this); AdmUtils.initFocus();"
                                   onchange="#{rich:element('updateMarketPlaceButton')}.click(); return false;"
@@ -37,7 +36,6 @@
                                   selectValue="#{updateMarketplaceBean.selectableMarketplaces}"/>
       <adm:message for="selectMarketplaceId" />
       <h:commandButton id="updateMarketPlaceButton"  action="#{updateMarketplaceBean.marketplaceChanged}" style="display: none;" />
-    </h:form>
 
     <h:form id="updateForm">
       <adm:outputStep value="#{msg['marketplace.update.step2']}" />
