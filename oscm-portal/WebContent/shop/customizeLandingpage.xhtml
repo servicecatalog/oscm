@@ -32,7 +32,8 @@
       <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectMarketplace']}" />
 <!--      <adm:panelGrid>-->
       <adm:bootsfacesSelectMenu   id="marketplace"
-                                  oncomplete="AdmUtils.setUIElements();"
+                                  onclick="AdmUtils.storeValue(this);"
+                                  onchange="AdmUtils.setUIElements();"
                                   label="#{msg['service.marketplace']}"
                                   immediate="true"
                                   value="#{customizeLandingpageModel.selectedMarketplace}"

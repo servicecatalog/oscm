@@ -20,21 +20,29 @@
     <h:form id="editForm" enctype="multipart/form-data">
 
       <adm:outputStep value="#{msg['service.add.step1']}" />
-      <adm:panelGrid>
+      <adm:bootsfacesSelectMenu   id="techServiceId"
+                                  onclick="AdmUtils.storeValue(this);"
+                                  onchange="if(AdmUtils.isNotDirtyOrConfirmed())
+                                              {#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;
+                                               #{rich:element('selectForm')}.submit();}
+                                            else{AdmUtils.restoreValue(this)}"
+                                  valueChangeListener="#{manageOperatorRevenueShareCtrl.templateChanged}"
+                                  immediate="true"
+                                  render=":stageForm"
+                                  value="#{serviceBean.selectedTechServiceKeyReadOnly}"
+                                  selectValue="#{techService.key}"/>
+      <adm:message for="techServiceId" />
 
-        <adm:outputLabel value="#{msg['techService.techServiceId']}" />
 
-          <b:selectOneMenu select2="true" id="techServiceId" value="#{serviceBean.selectedTechServiceKeyReadOnly}"
-            onclick="AdmUtils.storeValue(this);"
-            onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}else{AdmUtils.restoreValue(this)}">
-            <adm:selectItemPleaseSelect itemValue="0" />
-            <c:forEach items="#{serviceBean.availableTechServices}" var="techService">
-              <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />
-            </c:forEach>
-          </b:selectOneMenu>
+<!--          <b:selectOneMenu select2="true" id="techServiceId" value="#{serviceBean.selectedTechServiceKeyReadOnly}"-->
+<!--            onclick="AdmUtils.storeValue(this);"-->
+<!--            onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}else{AdmUtils.restoreValue(this)}">-->
+<!--            <adm:selectItemPleaseSelect itemValue="0" />-->
+<!--            <c:forEach items="#{serviceBean.availableTechServices}" var="techService">-->
+<!--              <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />-->
+<!--            </c:forEach>-->
+<!--          </b:selectOneMenu>-->
 
-        <adm:message for="techServiceId" />
-      </adm:panelGrid>
 
       <adm:outputStep value="#{msg['service.add.step2']}" />
       <ui:include src="detail.xhtml">
