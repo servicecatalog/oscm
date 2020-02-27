@@ -13,8 +13,6 @@
 
         <b:selectOneMenu select2="true" id="#{id}" styleClass="select"  value="#{value}" immediate="#{immediate}"
                          onclick="#{onclick}" onchange="#{onchange}">
-            <f:ajax event="ajaxEvent" listener="ajaxListener"
-                    render="ajaxRender" />
             <adm:selectItemPleaseSelect itemValue="" />
             <f:selectItems value="#{selectValue}" var="mp" itemLabel="#{mp.name} (#{mp.marketplaceId})" itemValue="#{mp.marketplaceId}"/>
         </b:selectOneMenu>
