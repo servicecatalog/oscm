@@ -12,9 +12,7 @@
             <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2FocusHandler.js" type="text/javascript"></script>
 
             <b:selectOneMenu select2="true" id="#{id}" styleClass="select"  value="#{value}" immediate="#{immediate}"
-                             valueChangeListener="#{listenerBean['processValueChange']}"
-                             update=":mainTmplMessagesPanel @form #{render}"
-                             oncomplete="AdmUtils.setSelectBoxes();">
+                             onclick="#{onclick}" onchange="#{onchange}" valueChangeListener="#{listenerBean['processValueChange']}">
                 <adm:selectItemPleaseSelect itemValue="" />
                 <f:selectItems value="#{selectValue}" var="mp" itemLabel="#{mp.name} (#{mp.marketplaceId})" itemValue="#{mp.marketplaceId}"/>
             </b:selectOneMenu>

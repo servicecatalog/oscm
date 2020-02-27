@@ -27,7 +27,8 @@
 
     <h:form id="marketplaceSelectForm">
       <adm:bootsfacesSelectMenu   id="selectMarketplaceId"
-
+                                  onclick="AdmUtils.storeValue(this);"
+                                  onchange="#{rich:element('updateMarketPlaceButton')}.click(); return false;"
                                   label="#{msg['service.marketplace']}"
                                   immediate="true"
                                   render=":stageForm"
