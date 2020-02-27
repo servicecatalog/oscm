@@ -22,25 +22,19 @@
       <adm:outputStep value="#{msg['operator.manageOperatorRevenueShare.step1']}" />
 
       <adm:panelGrid columnClasses='labelAndValuePanelCol1,selectWideCol,labelAndValuePanelCol3'>
-        <h:panelGroup>
-          <adm:outputLabel value="#{msg['service.serviceId']}" />
-        </h:panelGroup>
-        <h:panelGroup>
 
-            <b:selectOneMenu select2="true" id="templateKey" value="#{manageOperatorRevenueShareModel.selectedTemplateKey}"
-              valueChangeListener="#{manageOperatorRevenueShareCtrl.templateChanged}" immediate="true"
-              onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
-                 #{rich:element('selectForm')}.submit();
-               } else{AdmUtils.restoreValue(this);}"
-              onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();">
-              <adm:selectItemPleaseSelect itemValue="0" />
-              <f:selectItems value="#{manageOperatorRevenueShareModel.templates}" />
-            </b:selectOneMenu>
-        </h:panelGroup>
-        <h:panelGroup>
-          <adm:message for="templateKey" />
-        </h:panelGroup>
-      </adm:panelGrid>
+        <adm:bootsfacesSelectMenu   id="templateKey"
+                                    onclick="AdmUtils.storeValue(this);"
+                                    onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
+                                              #{rich:element('selectForm')}.submit();
+                                              } else{AdmUtils.restoreValue(this);}"
+                                    label="#{msg['service.serviceId']}"
+                                    valueChangeListener="#{manageOperatorRevenueShareCtrl.templateChanged}"
+                                    immediate="true"
+                                    render=":stageForm"
+                                    value="#{manageOperatorRevenueShareModel.selectedTemplateKey}"
+                                    selectValue="#{manageOperatorRevenueShareModel.templates}"/>
+        <adm:message for="templateKey" />
     </h:form>
     
     <h:form id="editForm">

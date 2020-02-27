@@ -35,7 +35,7 @@
       <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectMarketplace']}" />
 <!--      <adm:panelGrid>-->
       <adm:bootsfacesSelectMenu   id="marketplace"
-                                  onclick="AdmUtils.storeValue(this);"
+                                  oncomplete="AdmUtils.setUIElements();"
                                   label="#{msg['service.marketplace']}"
                                   immediate="true"
                                   value="#{customizeLandingpageModel.selectedMarketplace}"
@@ -43,7 +43,7 @@
         <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
               render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
       </adm:bootsfacesSelectMenu>
-      <adm:message for="marketplace" />
+      <adm:message id="marketplaceErrorMsg" for="marketplace" />
 
       <!--        <adm:outputLabel value="#{msg['service.marketplace']}" />-->
 
