@@ -31,9 +31,9 @@
                                   render=":stageForm"
                                   value="#{serviceBean.selectedTechServiceKeyReadOnly}"
                                   label="#{msg['techService.techServiceId']}"/>
-      <c:forEach items="#{serviceBean.availableTechServices}" var="techService">
+        <c:forEach items="#{serviceBean.availableTechServices}" var="techService">
                  <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />
-                 </c:forEach>
+        </c:forEach>
       <adm:message for="techServiceId" />
 
 
