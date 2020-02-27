@@ -13,6 +13,8 @@
   <c:if test="#{empty inline}" >
     <c:set var="submit" value="#{rich:element('hiddenSubmitter')}.onclick();" />
     <h:form id="selectOrganizationForm">
+        <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2FocusHandler.js" type="text/javascript"></script>
+
       <adm:panelGrid>
         <ui:include src="selectOrganizationInclude.xhtml" />
       </adm:panelGrid>
