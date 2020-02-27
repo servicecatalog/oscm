@@ -39,9 +39,9 @@
                                   label="#{msg['service.marketplace']}"
                                   immediate="true"
                                   value="#{customizeLandingpageModel.selectedMarketplace}"
+                                  render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel"
+                                  valueChangeListener="#{customizeLandingpageModel.marketplaceChanged}"
                                   selectValue="#{customizeLandingpageModel.marketplaces}">
-        <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
-              render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
       </adm:bootsfacesSelectMenu>
       <adm:message id="marketplaceErrorMsg" for="marketplace" />
 

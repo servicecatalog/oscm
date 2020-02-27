@@ -18,10 +18,7 @@
     <adm:initialize initializingMethod="#{manageOperatorRevenueShareCtrl.initializePage}" />
       
     <h:form id="selectForm">
-                                    <!-- operator...  Eclipse Refactoring??? -->
       <adm:outputStep value="#{msg['operator.manageOperatorRevenueShare.step1']}" />
-
-      <adm:panelGrid columnClasses='labelAndValuePanelCol1,selectWideCol,labelAndValuePanelCol3'>
 
         <adm:bootsfacesSelectMenu   id="templateKey"
                                     onclick="AdmUtils.storeValue(this);"
