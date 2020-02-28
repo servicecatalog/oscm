@@ -17,13 +17,10 @@
   $(document).ready(function () {
       $("[id='editForm:srcServiceIdInner']").select2().on('select2:selecting', function (e) {
         if (AdmUtils.isNotDirtyOrConfirmed()) {
-
         } else {
           e.preventDefault();
         }
-
       });
-
   });
   </script> 
 
@@ -35,18 +32,19 @@
 
       <adm:outputStep value="#{msg['service.upgradeOptions.step1']}" />
       <adm:panelGrid>
-
-        <adm:outputLabel value="#{msg['service.serviceId']}" />
-
-          <b:selectOneMenu styleClass="select" select2="true" id="srcServiceId" value="#{serviceBean.selectedServiceKeyReadOnly}"
-            onclick="AdmUtils.storeValue(this);"
-            onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}else{AdmUtils.restoreValue(this)}">
-            <adm:selectItemPleaseSelect itemValue="0" />
-            <c:forEach items="#{serviceBean.serviceNames}" var="service">
-              <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
-            </c:forEach>
-          </b:selectOneMenu>
-
+        <adm:bootsfacesSelectMenu   id="srcServiceId"
+                                    onclick="AdmUtils.storeValue(this);"
+                                    onchange="if(AdmUtils.isNotDirtyOrConfirmed())
+                                                {#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;
+                                                 #{rich:element('selectForm')}.submit();}
+                                              else{AdmUtils.restoreValue(this)}"
+                                    value="#{serviceBean.selectedServiceKeyReadOnly}"
+                                    label="#{msg['service.serviceId']}">
+          <adm:selectItemPleaseSelect itemValue="0" />
+          <c:forEach items="#{serviceBean.serviceNames}" var="service">
+            <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
+          </c:forEach>
+        </adm:bootsfacesSelectMenu>
         <adm:message for="selectedServiceId" />
 
         <adm:outputLabel value="#{msg['techService.techServiceId']}" />

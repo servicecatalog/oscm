@@ -24,25 +24,24 @@
 		<a4j:outputPanel id="mainSection"
 			rendered="#{!priceModelBean.localizeVisible}">
 			<adm:outputStep value="#{msg['priceModel.service.select']}" />
-			<adm:panelGrid>
-				<adm:outputLabel value="#{msg['service.serviceId']}"
-					for="serviceSelection" />
 				<h:form id="serviceSelectForm">
-						<b:selectOneMenu select2="true" id="serviceSelection" styleClass="select"
-							immediate="true"
-							valueChangeListener="#{priceModelBean.reloadPriceModel}"
-							onchange="if(AdmUtils.isNotDirtyOrConfirmed()){ #{rich:element('serviceSelectForm')}.submit(); } else{ AdmUtils.restoreValue(this); }"
-							value="#{priceModelBean.selectedServiceKey}"
-							onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();">
-							<adm:selectItemPleaseSelect itemValue="" />
-							<c:forEach items="#{priceModelBean.services}" var="service">
-								<f:selectItem itemLabel="#{service.serviceId}"
-									itemValue="#{service.key}" />
-							</c:forEach>
-						</b:selectOneMenu>
+					<adm:bootsfacesSelectMenu   id="marketplace"
+												valueChangeListener="#{priceModelBean.reloadPriceModel}"
+												onchange="if(AdmUtils.isNotDirtyOrConfirmed())
+															{#{rich:element('serviceSelectForm')}.submit();}
+														 else{AdmUtils.restoreValue(this);}"
+												value="#{priceModelBean.selectedServiceKey}"
+												onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();"
+												immediate="true"
+												label="#{msg['service.serviceId']}">
+						<adm:selectItemPleaseSelect itemValue="" />
+						<c:forEach items="#{priceModelBean.services}" var="service">
+							<f:selectItem itemLabel="#{service.serviceId}"
+										  itemValue="#{service.key}" />
+						</c:forEach>
+					</adm:bootsfacesSelectMenu>
 					<adm:message for="serviceSelection" />
 				</h:form>
-			</adm:panelGrid>
 
 			<h:form id="editForm">
 				<adm:panelGrid>

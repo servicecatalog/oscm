@@ -2,10 +2,9 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/mainBootsfaces.xhtml">
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                template="../templates/mainBootsfaces.xhtml">
   <ui:define name="pageId">
     <c:set var="pageId" value="organization.editCustomer" />
     <c:set var="focusElement" value="organizationId" />
@@ -14,9 +13,18 @@
 
     <adm:outputStep value="#{msg['organization.editCustomer.select']}" />
 
-    <ui:fragment>
-      <ui:include src="customerSelection.xhtml" />
-    </ui:fragment>
+    <adm:bootsfacesSelectMenu   id="organizationId"
+                                onclick="AdmUtils.storeValue(this);"
+                                onchange="if(AdmUtils.isNotDirtyOrConfirmed()){this.form.submit();}
+                                          else{AdmUtils.restoreValue(this)};"
+                                value="#{organizationBean.selectedCustomerId}"
+                                label="#{msg['organization.organizationId']}">
+      <f:selectItem itemLabel="#{msg['common.pleaseSelect']}" itemValue="" />
+      <c:forEach items="#{organizationBean.customers}" var="customer">
+        <f:selectItem itemLabel="#{customer.nameWithOrganizationId}" itemValue="#{customer.organizationId}" />
+      </c:forEach>
+      <h:outputText value="" />
+    </adm:bootsfacesSelectMenu>
 
     <h:form id="editForm" enctype="multipart/form-data">
       

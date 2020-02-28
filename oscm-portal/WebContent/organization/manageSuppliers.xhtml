@@ -18,19 +18,18 @@
 
     <h:form id="selectForm">
       <adm:outputStep value="#{msg['organization.manageSuppliers.selectTechnicalService']}" />
-      <adm:panelGrid>
-        <adm:outputLabel value="#{msg['techService.techServiceId']}" />
-          <b:selectOneMenu id="techServiceId" styleClass="select" select2="true"
-            value="#{techServiceBean.selectedTechnicalServiceKeyReadonly}" onclick="AdmUtils.storeValue(this);"
-            onchange="if(AdmUtils.isNotDirtyOrConfirmed()){submit();}else{AdmUtils.restoreValue(this);}"
-            valueChangeListener="#{organizationBean.technicalServiceChanged}">
-            <adm:selectItemPleaseSelect itemValue="0" />
-            <c:forEach items="#{techServiceBean.technicalServices}" var="techService">
-              <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />
-            </c:forEach>
-          </b:selectOneMenu>
+      <adm:bootsfacesSelectMenu   id="techServiceId"
+                                  onclick="AdmUtils.storeValue(this);"
+                                  onchange="if(AdmUtils.isNotDirtyOrConfirmed()){submit();}else{AdmUtils.restoreValue(this);}"
+                                  label="#{msg['techService.techServiceId']}"
+                                  valueChangeListener="#{organizationBean.technicalServiceChanged}"
+                                  value="#{techServiceBean.selectedTechnicalServiceKeyReadonly}">
+        <adm:selectItemPleaseSelect itemValue="0" />
+        <c:forEach items="#{techServiceBean.technicalServices}" var="techService">
+          <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />
+        </c:forEach>
+      </adm:bootsfacesSelectMenu>
         <adm:message for="techServiceId" />
-      </adm:panelGrid>
     </h:form>
 
     <h:form id="addSupplierForm">

@@ -16,24 +16,22 @@
   <ui:define name="body">
 
       <adm:outputStep value="#{msg['techService.delete.step1']}" />
-      <adm:panelGrid>
-        <adm:outputLabel value="#{msg['techService.techServiceId']}" />
         <h:form id="selectForm">
-          
-            <b:selectOneMenu id="techServiceKey" styleClass="select" select2="true" value="#{techServiceBean.selectedTechnicalServiceKey}"
-              onchange="this.form.submit();">
-              <adm:selectItemPleaseSelect itemValue="0" />
-              <c:forEach items="#{techServiceBean.technicalServices}" var="techService">
-                <f:selectItem itemLabel="#{techService.technicalServiceId} "
-                  itemValue="#{techService.key}" />
-              </c:forEach>
-            </b:selectOneMenu>
+            <adm:bootsfacesSelectMenu   id="techServiceKey"
+                                        onchange="this.form.submit();"
+                                        value="#{techServiceBean.selectedTechnicalServiceKey}"
+                                        label="#{msg['techService.techServiceId']}">
+                <adm:selectItemPleaseSelect itemValue="0" />
+                <c:forEach items="#{techServiceBean.technicalServices}" var="techService">
+                    <f:selectItem itemLabel="#{techService.technicalServiceId} "
+                                  itemValue="#{techService.key}" />
+                </c:forEach>
+            </adm:bootsfacesSelectMenu>
+            <adm:message for="techServiceKey" />
         </h:form>
-        <adm:message for="techServiceKey" />
-        
+
       <adm:labelAndOutputLarge labelStyleClass="bootsfacesLabel" label="#{msg['techService.description']}"
           value="#{techServiceBean.selectedTechnicalService.technicalServiceDescription}" />
-      </adm:panelGrid>
 
     <h:form id="deleteForm">
       <h:commandButton id="confirmedButton" value="#{msg['button.delete']}" action="#{techServiceBean.delete}"

@@ -35,19 +35,7 @@
           <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />
         </c:forEach>
       </adm:bootsfacesSelectMenu>
-
       <adm:message for="techServiceId" />
-
-
-<!--          <b:selectOneMenu select2="true" id="techServiceId" value="#{serviceBean.selectedTechServiceKeyReadOnly}"-->
-<!--            onclick="AdmUtils.storeValue(this);"-->
-<!--            onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}else{AdmUtils.restoreValue(this)}">-->
-<!--            <adm:selectItemPleaseSelect itemValue="0" />-->
-<!--            <c:forEach items="#{serviceBean.availableTechServices}" var="techService">-->
-<!--              <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />-->
-<!--            </c:forEach>-->
-<!--          </b:selectOneMenu>-->
-
 
       <adm:outputStep value="#{msg['service.add.step2']}" />
       <ui:include src="detail.xhtml">
