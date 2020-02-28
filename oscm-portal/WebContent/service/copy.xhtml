@@ -24,7 +24,6 @@
     <h:form id="copyForm">
     
       <adm:outputStep value="#{msg['service.copy.step1']}" />
-      <adm:panelGrid>
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
                                     onchange="if(AdmUtils.isNotDirtyOrConfirmed())
                                                 {#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;
@@ -37,9 +36,9 @@
           </c:forEach>
         </adm:bootsfacesSelectMenu>
         <adm:message for="selectedServiceId" />
-        <h:panelGroup>
-          <adm:outputLabel labelStyleClass="bootsfacesLabel" value="#{msg['techService.techServiceId']}" />
-        </h:panelGroup>
+
+      <adm:panelGrid>
+        <adm:outputLabel labelStyleClass="bootsfacesLabel" value="#{msg['techService.techServiceId']}" />
         <h:panelGroup>
           <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel"/>
         </h:panelGroup>
@@ -47,6 +46,7 @@
       </adm:panelGrid>
 
       <adm:outputStep value="#{msg['service.copy.step2']}" />
+
       <adm:panelGrid>
         <adm:labelAndInputText id="newServiceId" label="#{msg['service.serviceId']}" required="true"
           value="#{serviceBean.newServiceId}" maxlength="#{appBean.idLen}"
