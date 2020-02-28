@@ -39,7 +39,6 @@
           });
           </script>
 	      <adm:outputStep value="#{msg['service.edit.step1']}" />
-	      <adm:panelGrid>
 			  <adm:bootsfacesSelectMenu   id="selectedServiceId"
 										  onclick="AdmUtils.storeValue(this);"
 										  onchange="if(AdmUtils.isNotDirtyOrConfirmed())
@@ -54,15 +53,12 @@
 				  </c:forEach>
 			  </adm:bootsfacesSelectMenu>
 	        <adm:message for="selectedServiceId" />
-			  <h:panelGroup>
 			  <adm:outputLabel value="#{msg['techService.techServiceId']}" />
-			  </h:panelGroup>
 	        <h:panelGroup>
 	          <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel" />
 	        </h:panelGroup>
 	        <h:outputText value="" />
-	      </adm:panelGrid>
-	
+
 	      <adm:outputStep value="#{msg['service.edit.step2']}" />
 	      <ui:include src="detail.xhtml">
 	        <ui:param name="editDisabled" value="#{serviceBean.editDisabled}" />
