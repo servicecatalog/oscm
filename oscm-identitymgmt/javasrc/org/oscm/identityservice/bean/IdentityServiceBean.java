@@ -2981,7 +2981,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
       throws RegistrationException {
     String caller = dm.getCurrentUser().getOrganization().getName();
     try {
-      ApiIdentityClient client = RestUtils.createClient(tenantId);
+      ApiIdentityClient client = getIdentityClient(tenantId);
       if(client.getGroups().stream().noneMatch(group -> group.getName().equals( "OSCM_" + groupName))){
         GroupInfo groupInfo =
                 client.createGroup(groupName, "TenantId: " + tenantId + ". Organization:" + caller);
@@ -2992,6 +2992,10 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
     } catch (IdentityClientException e) {
       throw createRegistrationException(mapReason(e.getReason().toString()), "");
     }
+  }
+
+  protected ApiIdentityClient getIdentityClient(String tenantId) {
+    return RestUtils.createClient(tenantId);
   }
 
   private String mapReason(String reason) {
