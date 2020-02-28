@@ -36,9 +36,9 @@
                                   render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel"
                                   oncomplete="AdmUtils.setUIElements();"
                                   label="#{msg['service.marketplace']}"
-                                  value="#{customizeLandingpageModel.selectedMarketplace}"
-                                  listener="#{customizeLandingpageCtrl.marketplaceChanged}"
-                                  render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel">
+                                  value="#{customizeLandingpageModel.selectedMarketplace}">
+        <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
+                     render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
         <adm:selectItemPleaseSelect itemValue="#{null}" />
                 <f:selectItems value="#{customizeLandingpageModel.marketplaces}" />
       </adm:bootsfacesSelectMenu>
