@@ -17,7 +17,7 @@
       <adm:outputStep value="#{msg['marketplace.gotoMarketplace.step']}" />
       <adm:bootsfacesSelectMenu   id="marketplace"
                                   onchange="this.form.submit();"
-                                  value="#{gotoMarketplaceBean.selectedMarketplace}"
+                                  value="#{gotoMarketplaceBean.marketplaces}"
                                   label="#{msg['service.marketplace']}">
         <f:ajax event="change" listener="#{gotoMarketplaceBean}" render="#{goForm}"/>
       </adm:bootsfacesSelectMenu>

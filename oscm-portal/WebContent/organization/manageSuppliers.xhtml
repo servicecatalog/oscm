@@ -2,11 +2,11 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:b="http://bootsfaces.net/ui"
-  xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  template="../templates/mainBootsfaces.xhtml">
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                template="../templates/mainBootsfaces.xhtml">
+
   <ui:define name="pageId">
     <c:set var="pageId" value="organization.manageSuppliers" />
 
@@ -20,7 +20,9 @@
       <adm:outputStep value="#{msg['organization.manageSuppliers.selectTechnicalService']}" />
       <adm:bootsfacesSelectMenu   id="techServiceId"
                                   onclick="AdmUtils.storeValue(this);"
-                                  onchange="if(AdmUtils.isNotDirtyOrConfirmed()){submit();}else{AdmUtils.restoreValue(this);}"
+                                  onchange="if(AdmUtils.isNotDirtyOrConfirmed())
+                                              {submit();}
+                                            else{AdmUtils.restoreValue(this);}"
                                   label="#{msg['techService.techServiceId']}"
                                   valueChangeListener="#{organizationBean.technicalServiceChanged}"
                                   value="#{techServiceBean.selectedTechnicalServiceKeyReadonly}">
