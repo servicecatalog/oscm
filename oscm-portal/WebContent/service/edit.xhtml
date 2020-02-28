@@ -22,11 +22,9 @@
 	    <h:form id="selectForm">
 	      <h:inputHidden id="selectedKey" value="#{serviceBean.selectedServiceKey}" />
 	    </h:form>
-	
-	    <h:form id="editForm" enctype="multipart/form-data"
-	      onsubmit="return AdmUtils.ie7UploadValidation(#{rich:element('image')});">
-	
-   <script type="text/javascript">
+
+		<h:form id="serviceSelectForm">
+		<script type="text/javascript">
           $(document).ready(function () {           
               $("[id='editForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {     
                 if (AdmUtils.isNotDirtyOrConfirmed()) {
@@ -39,7 +37,6 @@
           });
           </script>
 	      <adm:outputStep value="#{msg['service.edit.step1']}" />
-		<h:form id="serviceSelectForm">
 			<adm:bootsfacesSelectMenu   id="selectedServiceId"
 										onclick="AdmUtils.storeValue(this);"
 										onchange="if(AdmUtils.isNotDirtyOrConfirmed())
@@ -55,6 +52,8 @@
 			</adm:bootsfacesSelectMenu>
 		</h:form>
 
+		<h:form id="editForm" enctype="multipart/form-data"
+				onsubmit="return AdmUtils.ie7UploadValidation(#{rich:element('image')});">
 			<adm:panelGrid>
 				<adm:message for="selectedServiceId" />
 				<adm:outputLabel value="#{msg['techService.techServiceId']}" />
