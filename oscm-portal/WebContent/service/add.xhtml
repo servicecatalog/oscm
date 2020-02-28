@@ -26,9 +26,6 @@
                                               {#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;
                                                #{rich:element('selectForm')}.submit();}
                                             else{AdmUtils.restoreValue(this)}"
-                                  valueChangeListener="#{manageOperatorRevenueShareCtrl.templateChanged}"
-                                  immediate="true"
-                                  render=":stageForm"
                                   value="#{serviceBean.selectedTechServiceKeyReadOnly}"
                                   label="#{msg['techService.techServiceId']}">
         <c:forEach items="#{serviceBean.availableTechServices}" var="techService">

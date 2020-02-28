@@ -31,7 +31,6 @@
     <h:form id="editForm">
 
       <adm:outputStep value="#{msg['service.upgradeOptions.step1']}" />
-      <adm:panelGrid>
         <adm:bootsfacesSelectMenu   id="srcServiceId"
                                     onclick="AdmUtils.storeValue(this);"
                                     onchange="if(AdmUtils.isNotDirtyOrConfirmed())
@@ -47,7 +46,8 @@
         </adm:bootsfacesSelectMenu>
         <adm:message for="selectedServiceId" />
 
-        <adm:outputLabel value="#{msg['techService.techServiceId']}" />
+      <adm:panelGrid>
+      <adm:outputLabel value="#{msg['techService.techServiceId']}" />
         <h:panelGroup>
           <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel" />
         </h:panelGroup>

@@ -13,6 +13,7 @@
   <ui:define name="body">
 
     <adm:outputStep value="#{msg['service.delete.step1']}"/>
+
       <h:form id="selectForm">
         <adm:bootsfacesSelectMenu   id="serviceId"
                                     onchange="this.form.submit();"
@@ -24,12 +25,10 @@
           </c:forEach>
         </adm:bootsfacesSelectMenu>
       </h:form>
+    <h:outputText value="" />
 
     <adm:panelGrid>
-    <h:outputText value="" />
-      <h:panelGroup>
       <adm:outputLabel value="#{msg['techService.techServiceId']}" />
-      </h:panelGroup>
       <h:panelGroup>
         <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel" />
       </h:panelGroup>

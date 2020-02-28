@@ -15,7 +15,6 @@
   </ui:define>
   <ui:define name="body">
       <adm:outputStep value="#{msg['techService.delete.step1']}" />
-      <adm:panelGrid>
               <adm:bootsfacesSelectMenu   id="techServiceKey"
                                           onchange="this.form.submit();"
                                           value="#{techServiceBean.selectedTechnicalServiceKey}"
@@ -27,12 +26,12 @@
                   </c:forEach>
               </adm:bootsfacesSelectMenu>
               <adm:message for="techServiceKey" />
-          <h:panelGroup>
+      <adm:panelGrid>
+      <h:panelGroup>
               <adm:labelAndOutputLarge labelStyleClass="bootsfacesLabel" label="#{msg['techService.description']}"
                                        value="#{techServiceBean.selectedTechnicalService.technicalServiceDescription}" />
           </h:panelGroup>
       </adm:panelGrid>
-
 
     <h:form id="deleteForm">
       <h:commandButton id="confirmedButton" value="#{msg['button.delete']}" action="#{techServiceBean.delete}"

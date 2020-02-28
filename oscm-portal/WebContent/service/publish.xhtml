@@ -57,12 +57,14 @@
 
       <adm:outputStep value="#{msg['service.publish.step2']}" />
       <a4j:outputPanel>
-
+        <adm:panelGrid columnClasses="labelAndValuePanelCol1,labelAndValuePanelCol2,labelAndValuePanelCol3">
           <adm:outputLabel value="#{msg['service.checkbox.public']}" />
           <h:selectBooleanCheckbox id="publicServiceCheckBox"
-            value="#{marketableServicePublishModel.serviceDetails.catalogEntry.anonymousVisible}"
-            onchange="setDirty(true);" disabled="#{marketableServicePublishModel.disabled}" />
+                                   value="#{marketableServicePublishModel.serviceDetails.catalogEntry.anonymousVisible}"
+                                   onchange="setDirty(true);" disabled="#{marketableServicePublishModel.disabled}" />
           <adm:message for="publicServiceCheckBox" />
+        </adm:panelGrid>
+
           <adm:bootsfacesSelectMenu   id="marketplace"
                                       valueChangeListener="#{marketableServicePublishCtrl.marketplaceChanged}"
                                       disabled="#{marketableServicePublishModel.disabled}"
