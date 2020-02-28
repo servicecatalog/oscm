@@ -12,7 +12,7 @@
         <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2FocusHandler.js" type="text/javascript"></script>
 
         <b:selectOneMenu select2="true" id="#{id}" styleClass="select"  value="#{value}" immediate="#{immediate}"
-                         onclick="#{onclick}" onchange="#{onchange}" oncomplete="#{oncomplete}">
+                         onclick="#{onclick}" onchange="#{onchange}" oncomplete="#{oncomplete}" valueChangeListener="#{valueChangeListener}">
           <ui:insert/>
         </b:selectOneMenu>
     </h:panelGroup>
