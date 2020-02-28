@@ -6,7 +6,6 @@ import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.PlatformUser;
 import org.oscm.identity.ApiIdentityClient;
-import org.oscm.identity.IdentityClient;
 import org.oscm.identity.exception.IdentityClientException;
 import org.oscm.identity.model.GroupInfo;
 import org.oscm.internal.types.exception.RegistrationException;
@@ -26,8 +25,8 @@ public class IdentityServiceBeanOidcTest {
     @Before
     public void setup() {
         this.bean = spy(new IdentityServiceBean());
-        this.bean.dm = mockDataService();
         this.client = mock(ApiIdentityClient.class);
+        this.bean.dm = mockDataService();
         when(this.bean.getIdentityClient(anyString())).thenReturn(this.client);
     }
 
@@ -52,6 +51,7 @@ public class IdentityServiceBeanOidcTest {
         final Set<GroupInfo> groupInfoSet = new HashSet<>();
         final GroupInfo groupInfo = new GroupInfo();
         groupInfo.setName("Test");
+        groupInfoSet.add(groupInfo);
 
         when(this.client.getGroups()).thenReturn(groupInfoSet);
 
@@ -66,8 +66,6 @@ public class IdentityServiceBeanOidcTest {
     public void createAccessGroupInOIDCProviderRegistrationIdentityException() throws IdentityClientException, RegistrationException {
         final IdentityClientException exception = mock(IdentityClientException.class);
         final Set<GroupInfo> groupInfoSet = new HashSet<>();
-        final GroupInfo groupInfo = new GroupInfo();
-        groupInfo.setName("Test");
 
         when(exception.getReason()).thenReturn(IdentityClientException.Reason.OIDC_ERROR);
         when(client.getGroups()).thenReturn(groupInfoSet);
