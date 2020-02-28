@@ -32,8 +32,10 @@
                                   label="#{msg['service.marketplace']}"
                                   immediate="true"
                                   render=":stageForm"
-                                  value="#{updateMarketplaceBean.model.marketplaceId}"
-                                  selectValue="#{updateMarketplaceBean.selectableMarketplaces}"/>
+                                  value="#{updateMarketplaceBean.model.marketplaceId}">
+        <adm:selectItemPleaseSelect itemValue="" />
+        <f:selectItems value="#{updateMarketplaceBean.selectableMarketplaces}" />
+      </adm:bootsfacesSelectMenu>
       <adm:message for="selectMarketplaceId" />
       <h:commandButton id="updateMarketPlaceButton"  action="#{updateMarketplaceBean.marketplaceChanged}" style="display: none;" />
     </h:form>

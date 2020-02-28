@@ -26,9 +26,10 @@
                                     label="#{msg['service.serviceId']}"
                                     valueChangeListener="#{manageRevenueShareCtrl.templateChanged}"
                                     immediate="true"
-                                    render=":stageForm"
-                                    value="#{manageRevenueShareModel.selectedTemplateKey}"
-                                    selectValue="#{manageRevenueShareModel.templates}"/>
+                                    value="#{manageRevenueShareModel.selectedTemplateKey}">
+          <adm:selectItemPleaseSelect itemValue="0" />
+          <f:selectItems value="#{manageRevenueShareModel.templates}" />
+        </adm:bootsfacesSelectMenu>
         <adm:message for="templateKey" />
     </h:form>
 

@@ -29,8 +29,10 @@
                                     valueChangeListener="#{manageOperatorRevenueShareCtrl.templateChanged}"
                                     immediate="true"
                                     render=":stageForm"
-                                    value="#{manageOperatorRevenueShareModel.selectedTemplateKey}"
-                                    selectValue="#{manageOperatorRevenueShareModel.templates}"/>
+                                    value="#{manageOperatorRevenueShareModel.selectedTemplateKey}">
+          <adm:selectItemPleaseSelect itemValue="0" />
+          <f:selectItems value="#{manageOperatorRevenueShareModel.templates}" />
+        </adm:bootsfacesSelectMenu>
         <adm:message for="templateKey" />
     </h:form>
     
