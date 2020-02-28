@@ -39,7 +39,6 @@
           });
           </script>
 	      <adm:outputStep value="#{msg['service.edit.step1']}" />
-		<h:form id="serviceSelectForm">
 			<adm:bootsfacesSelectMenu   id="selectedServiceId"
 										onclick="AdmUtils.storeValue(this);"
 										onchange="if(AdmUtils.isNotDirtyOrConfirmed())
@@ -53,9 +52,7 @@
 					<f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
 				</c:forEach>
 			</adm:bootsfacesSelectMenu>
-		</h:form>
 
-		<h:form id="editForm">
 			<adm:panelGrid>
 				<adm:message for="selectedServiceId" />
 				<adm:outputLabel value="#{msg['techService.techServiceId']}" />
@@ -64,7 +61,6 @@
 				</h:panelGroup>
 				<h:outputText value="" />
 			</adm:panelGrid>
-		</h:form>
 
 	      <adm:outputStep value="#{msg['service.edit.step2']}" />
 	      <ui:include src="detail.xhtml">
