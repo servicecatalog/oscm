@@ -13,18 +13,9 @@
 
     <adm:outputStep value="#{msg['organization.editCustomer.select']}" />
 
-    <adm:bootsfacesSelectMenu   id="organizationId"
-                                onclick="AdmUtils.storeValue(this);"
-                                onchange="if(AdmUtils.isNotDirtyOrConfirmed()){this.form.submit();}
-                                          else{AdmUtils.restoreValue(this)};"
-                                value="#{organizationBean.selectedCustomerId}"
-                                label="#{msg['organization.organizationId']}">
-      <f:selectItem itemLabel="#{msg['common.pleaseSelect']}" itemValue="" />
-      <c:forEach items="#{organizationBean.customers}" var="customer">
-        <f:selectItem itemLabel="#{customer.nameWithOrganizationId}" itemValue="#{customer.organizationId}" />
-      </c:forEach>
-      <h:outputText value="" />
-    </adm:bootsfacesSelectMenu>
+    <ui:fragment>
+      <ui:include src="customerSelection.xhtml" />
+    </ui:fragment>
 
     <h:form id="editForm" enctype="multipart/form-data">
       

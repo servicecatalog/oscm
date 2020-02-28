@@ -37,8 +37,9 @@
           </c:forEach>
         </adm:bootsfacesSelectMenu>
         <adm:message for="selectedServiceId" />
-
-        <adm:outputLabel labelStyleClass="bootsfacesLabel" value="#{msg['techService.techServiceId']}" />
+        <h:panelGroup>
+          <adm:outputLabel labelStyleClass="bootsfacesLabel" value="#{msg['techService.techServiceId']}" />
+        </h:panelGroup>
         <h:panelGroup>
           <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel"/>
         </h:panelGroup>
