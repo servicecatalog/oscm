@@ -2987,7 +2987,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
                 client.createGroup(groupName, "TenantId: " + tenantId + ". Organization:" + caller);
         return groupInfo.getId();
       } else {
-        throw createRegistrationException(RegistrationException.Reason.ALREADY_ORG_MEMBER.toString(), "");
+        throw createRegistrationException(RegistrationException.Reason.ALREADY_ORG_MEMBER.toString(), groupName);
       }
     } catch (IdentityClientException e) {
       throw createRegistrationException(mapReason(e.getReason().toString()), "");
