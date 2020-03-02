@@ -25,14 +25,13 @@
 			rendered="#{!priceModelBean.localizeVisible}">
 			<adm:outputStep value="#{msg['priceModel.service.select']}" />
 				<h:form id="serviceSelectForm">
-					<adm:bootsfacesSelectMenu   id="marketplace"
+					<adm:bootsfacesSelectMenu   id="serviceSelection"
 												valueChangeListener="#{priceModelBean.reloadPriceModel}"
 												onchange="if(AdmUtils.isNotDirtyOrConfirmed())
 															{#{rich:element('serviceSelectForm')}.submit();}
 														 else{AdmUtils.restoreValue(this);}"
 												value="#{priceModelBean.selectedServiceKey}"
 												onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();"
-												immediate="true"
 												label="#{msg['service.serviceId']}">
 						<adm:selectItemPleaseSelect itemValue="" />
 						<c:forEach items="#{priceModelBean.services}" var="service">
