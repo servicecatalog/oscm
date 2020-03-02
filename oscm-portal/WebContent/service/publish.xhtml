@@ -63,6 +63,7 @@
                                    value="#{marketableServicePublishModel.serviceDetails.catalogEntry.anonymousVisible}"
                                    onchange="setDirty(true);" disabled="#{marketableServicePublishModel.disabled}" />
           <adm:message for="publicServiceCheckBox" />
+        </adm:panelGrid>
 
           <adm:bootsfacesSelectMenu   id="marketplace"
                                       valueChangeListener="#{marketableServicePublishCtrl.marketplaceChanged}"
@@ -75,10 +76,11 @@
             <c:forEach items="#{marketplaceBean.marketplacesForSupplier}" var="mp">
               <f:selectItem itemLabel="#{mp.name}(#{mp.marketplaceId})" itemValue="#{mp.marketplaceId}" />
             </c:forEach>
-            <f:event listener="#{marketplaceBean.reloadMarketplacesListener}" type="preValidate"></f:event>
+            <f:event listener="#{marketplaceBean.reloadMarketplacesListener}" type="preValidate"/>
           </adm:bootsfacesSelectMenu>
           <adm:message id="marketplaceErrorMsg" for="marketplace" />
 
+        <adm:panelGrid columnClasses="labelAndValuePanelCol1,labelAndValuePanelCol2,labelAndValuePanelCol3">
         <adm:outputLabel value="#{msg['marketplace.view.operatorRevenueShare']}"
             rendered="#{marketableServicePublishModel.operatorShareVisible}" />
           <h:panelGroup rendered="#{marketableServicePublishModel.operatorShareVisible}">
@@ -136,6 +138,7 @@
               </h:column>
             </h:dataTable>
           </h:panelGroup>
+          <h:panelGroup></h:panelGroup>
         </adm:panelGrid>
       </a4j:outputPanel>
 
