@@ -6,13 +6,15 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
+    <adm:panelGrid>
     <adm:outputLabel value="#{label}" />
     <h:panelGroup>
         <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2FocusHandler.js" type="text/javascript"></script>
 
-        <b:selectOneMenu select2="true" styleClass="select" id="#{id}" onchange="#{onchange}" onclick="#{onclick}" value="#{value}"
+        <b:selectOneMenu select2="true" styleClass="select" id="#{id}" onchange="#{onchange}" onclick="#{onclick}"
                          immediate="#{immediate}" oncomplete="#{oncomplete}">
           <ui:insert/>
         </b:selectOneMenu>
     </h:panelGroup>
+    </adm:panelGrid>
 </ui:composition>
