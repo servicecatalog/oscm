@@ -18,6 +18,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 
 import org.oscm.dataservice.local.DataService;
+import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.Tenant;
 import org.oscm.interceptor.InvocationDateContainer;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
@@ -93,6 +94,7 @@ public class TenantServiceLocalBean implements TenantServiceLocal {
 
     @Override
     public boolean doOrgUsersExistInTenant(String orgId, long tenantKey) {
+
         List<String> userIds = this.tenantDao
                 .getNonUniqueOrgUserIdsInTenant(orgId, tenantKey);
 
@@ -101,6 +103,12 @@ public class TenantServiceLocalBean implements TenantServiceLocal {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean doesOrgNameExistInTenant(String orgName, String tenantId){
+        final List<Organization> orgList = tenantDao.getOrgNameInTenant(orgName, tenantId);
+        return orgList != null && !orgList.isEmpty();
     }
     
 }

@@ -103,6 +103,11 @@ public class TenantServiceBean implements TenantService {
     }
 
     @Override
+    public boolean doesOrgNameExistInTenant(String orgId, String tenantKey) {
+        return tenantServiceLocal.doesOrgNameExistInTenant(orgId, tenantKey);
+    }
+
+    @Override
     @TransactionAttribute(value = TransactionAttributeType.REQUIRED)
     public VOTenant getTenantByKey(long key) throws ObjectNotFoundException {
         Tenant tenant = tenantServiceLocal.getTenantByKey(key);
