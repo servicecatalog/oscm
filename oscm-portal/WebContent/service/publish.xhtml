@@ -30,7 +30,7 @@
           });
           </script>
       <adm:outputStep value="#{msg['service.edit.step1']}" />
-
+      <adm:panelGrid>
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
                                     valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}"
                                     onclick="AdmUtils.storeValue(this);"
@@ -40,6 +40,7 @@
                                     label="#{msg['service.serviceId']}">
           <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
         </adm:bootsfacesSelectMenu>
+      </adm:panelGrid>
         <adm:message for="selectedServiceId" />
 
       <adm:panelGrid>
