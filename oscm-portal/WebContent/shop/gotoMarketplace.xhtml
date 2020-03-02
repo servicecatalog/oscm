@@ -21,7 +21,7 @@
                                   label="#{msg['service.marketplace']}">
         <adm:selectItemPleaseSelect itemValue="" />
         <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />
-        <f:ajax event="change" listener="#{processValueChange.gotoMarketplaceBean}" render="#{goForm}"/>
+        <f:ajax event="change" listener="#{gotoMarketplaceBean.processValueChange}" render="#{goForm}"/>
       </adm:bootsfacesSelectMenu>
     </h:form>
     <h:form id="goForm">
