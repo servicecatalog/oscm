@@ -61,4 +61,9 @@ public class OIDCAuthenticationContext implements AuthenticationContext {
               + driver.getTitle());
     }
   }
+
+  @Override
+  public void loginMarketplace(String user, String password) throws LoginException, InterruptedException {
+    loginPortal(user, password);
+  }
 }

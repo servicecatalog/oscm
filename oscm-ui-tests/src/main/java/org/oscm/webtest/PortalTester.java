@@ -137,7 +137,7 @@ public class PortalTester extends WebTester {
       driver.findElement(By.linkText(PortalHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
     }
 
-    authenticationCtx.loginPortal(user, password);
+    authenticationCtx.loginMarketplace(user, password);
   }
 
   /**
