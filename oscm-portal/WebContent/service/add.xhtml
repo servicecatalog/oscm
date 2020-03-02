@@ -28,6 +28,7 @@
                                             else{AdmUtils.restoreValue(this)}"
                                   value="#{serviceBean.selectedTechServiceKeyReadOnly}"
                                   label="#{msg['techService.techServiceId']}">
+        <adm:selectItemPleaseSelect itemValue="0" />
         <c:forEach items="#{serviceBean.availableTechServices}" var="techService">
           <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />
         </c:forEach>
