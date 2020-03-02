@@ -34,12 +34,8 @@
                                     valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}"
                                     onclick="AdmUtils.storeValue(this);"
                                     oncomplete="AdmUtils.setUIElements();"
-                                    onchange="if(AdmUtils.isNotDirtyOrConfirmed())
-												{#{rich:element('editForm')}.submit();}
-											  else{AdmUtils.restoreValue(this);}"
                                     update="mainTmplMessagesPanel, editForm, editForm:marketplace"
                                     value="#{marketableServicePublishModel.selectedServiceKey}"
-                                    immediate="true"
                                     label="#{msg['service.serviceId']}">
           <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
         </adm:bootsfacesSelectMenu>
