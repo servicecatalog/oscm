@@ -24,7 +24,7 @@ public class IdentityServiceBeanOidcTest {
 
     @Before
     public void setup() {
-        this.bean = new IdentityServiceBean();
+        this.bean = spy(new IdentityServiceBean());
         this.client = mock(ApiIdentityClient.class);
         this.bean.dm = mockDataService();
         when(this.bean.getIdentityClient(anyString())).thenReturn(this.client);
