@@ -23,24 +23,25 @@
 
 		<a4j:outputPanel id="mainSection"
 			rendered="#{!priceModelBean.localizeVisible}">
+			<h:form id="serviceSelectForm">
 			<adm:outputStep value="#{msg['priceModel.service.select']}" />
-				<h:form id="serviceSelectForm">
-					<adm:bootsfacesSelectMenu   id="serviceSelection"
-												onchange="if(AdmUtils.isNotDirtyOrConfirmed())
+				<adm:bootsfacesSelectMenu   id="serviceSelection"
+											valueChangeListener="#{priceModelBean.reloadPriceModel}"
+											onchange="if(AdmUtils.isNotDirtyOrConfirmed())
 															{#{rich:element('serviceSelectForm')}.submit();}
 														 else{AdmUtils.restoreValue(this);}"
-												value="#{priceModelBean.selectedServiceKey}"
-												onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();"
-												label="#{msg['service.serviceId']}">
-						<f:ajax event="change" listener="#{priceModelBean.reloadPriceModel}" render="body_boxMain"/>
-						<adm:selectItemPleaseSelect itemValue="" />
-						<c:forEach items="#{priceModelBean.services}" var="service">
-							<f:selectItem itemLabel="#{service.serviceId}"
-										  itemValue="#{service.key}" />
-						</c:forEach>
-					</adm:bootsfacesSelectMenu>
-					<adm:message for="serviceSelection" />
-				</h:form>
+											value="#{priceModelBean.selectedServiceKey}"
+											onclick="AdmUtils.storeValue(this);"
+											immediate="true"
+											label="#{msg['service.serviceId']}">
+					<adm:selectItemPleaseSelect itemValue="" />
+					<c:forEach items="#{priceModelBean.services}" var="service">
+						<f:selectItem itemLabel="#{service.serviceId}"
+									  itemValue="#{service.key}" />
+					</c:forEach>
+				</adm:bootsfacesSelectMenu>
+				<adm:message for="serviceSelection" />
+			</h:form>
 			<h:form id="editForm">
 				<adm:panelGrid>
 					<adm:outputLabel value="#{msg['service.nameForCustomer']}" />
