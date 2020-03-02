@@ -52,7 +52,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-app-extsvc-2-0"/>
 	<classpathentry kind="lib" path="/libraries/net-bootsfaces/bootsfaces-1.4.2.jar"/>
 	<classpathentry kind="lib" path="/libraries/oidc/javalib/java-jwt-3.8.1.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-api-2.13.0.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-core-2.13.0.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-api-2.11.0.jar"/>
+	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-core-2.11.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
