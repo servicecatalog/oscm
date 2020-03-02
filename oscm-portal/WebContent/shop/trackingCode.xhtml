@@ -31,19 +31,18 @@
     });
     </script>
       <adm:outputStep value="#{msg['shop.trackingCode.step1']}" />
-      <adm:panelGrid>
         <adm:outputLabel value="#{msg['service.marketplace']}" />
-        
-          <b:selectOneMenu select2="true" id="marketplace" value="#{trackingCodeModel.selectedMarketplace}" styleClass="select"
-            oncomplete="AdmUtils.setUIElements();AdmUtils.emitResizeEvent();">
-            <f:ajax event="change" listener="#{trackingCodeCtrl.marketplaceChanged}"
-              render="trackingCodePanel,buttonPanel,mainTmplMessagesPanel"/>
-            <adm:selectItemPleaseSelect itemValue="#{null}" />
-            <f:selectItems value="#{trackingCodeModel.marketplaces}" />
-          </b:selectOneMenu>
-      
+
+        <adm:bootsfacesSelectMenu   id="marketplace"
+                                    oncomplete="AdmUtils.setUIElements();AdmUtils.emitResizeEvent();"
+                                    value="#{trackingCodeModel.selectedMarketplace}"
+                                    label="#{msg['service.marketplace']}">
+          <f:ajax event="change" listener="#{trackingCodeCtrl.marketplaceChanged}"
+                  render="trackingCodePanel,buttonPanel,mainTmplMessagesPanel"/>
+          <adm:selectItemPleaseSelect itemValue="#{null}" />
+          <f:selectItems value="#{trackingCodeModel.marketplaces}" />
+        </adm:bootsfacesSelectMenu>
         <adm:message id="marketplaceErrorMsg" for="marketplace" />
-      </adm:panelGrid>
 
       <a4j:outputPanel id="trackingCodePanel">
         <adm:outputStep value="#{msg['shop.trackingCode.step2']}" />

@@ -7,19 +7,18 @@
   				xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
     <h:form id="selectForm">
-		<script src="#{facesContext.externalContext.requestContextPath}/scripts/select2FocusHandler.js" type="text/javascript"></script>
-
-      <adm:panelGrid>
-        <adm:outputLabel value="#{msg['organization.organizationId']}" />
-	        <b:selectOneMenu select2="true" id="organizationId" styleClass="select" value="#{organizationBean.selectedCustomerId}"
-	          onclick="AdmUtils.storeValue(this);"
-	          onchange="if(AdmUtils.isNotDirtyOrConfirmed()){this.form.submit();}else{AdmUtils.restoreValue(this)};">
-	          <f:selectItem itemLabel="#{msg['common.pleaseSelect']}" itemValue="" />
-	          <c:forEach items="#{organizationBean.customers}" var="customer">
-	            <f:selectItem itemLabel="#{customer.nameWithOrganizationId}" itemValue="#{customer.organizationId}" />
-	          </c:forEach>
-	        </b:selectOneMenu>
+		  <adm:bootsfacesSelectMenu  id="organizationId"
+									 value="#{organizationBean.selectedCustomerId}"
+									 onclick="AdmUtils.storeValue(this);"
+									 onchange="if(AdmUtils.isNotDirtyOrConfirmed())
+									 			{this.form.submit();}
+									 		   else{AdmUtils.restoreValue(this)};"
+									  label="#{msg['organization.organizationId']}">
+			  <f:selectItem itemLabel="#{msg['common.pleaseSelect']}" itemValue="" />
+			  <c:forEach items="#{organizationBean.customers}" var="customer">
+				  <f:selectItem itemLabel="#{customer.nameWithOrganizationId}" itemValue="#{customer.organizationId}" />
+			  </c:forEach>
+		  </adm:bootsfacesSelectMenu>
         <h:outputText value="" />
-      </adm:panelGrid>
     </h:form>
 </ui:composition>
