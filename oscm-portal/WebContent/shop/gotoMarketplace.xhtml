@@ -18,6 +18,7 @@
       <adm:bootsfacesSelectMenu   id="marketplace"
                                   onchange="this.form.submit();"
                                   value="#{gotoMarketplaceBean.selectedMarketplace}"
+                                  valueChangeListener="#{gotoMarketplaceBean.processValueChange}"
                                   label="#{msg['service.marketplace']}">
         <adm:selectItemPleaseSelect itemValue="" />
         <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />
