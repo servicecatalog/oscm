@@ -24,16 +24,15 @@
 		<a4j:outputPanel id="mainSection"
 			rendered="#{!priceModelBean.localizeVisible}">
 			<adm:outputStep value="#{msg['priceModel.service.select']}" />
-		<adm:panelGrid>
 				<h:form id="serviceSelectForm">
 					<adm:bootsfacesSelectMenu   id="serviceSelection"
-												valueChangeListener="#{priceModelBean.reloadPriceModel}"
 												onchange="if(AdmUtils.isNotDirtyOrConfirmed())
 															{#{rich:element('serviceSelectForm')}.submit();}
 														 else{AdmUtils.restoreValue(this);}"
 												value="#{priceModelBean.selectedServiceKey}"
 												onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();"
 												label="#{msg['service.serviceId']}">
+						<f:ajax event="change" listener="#{priceModelBean.reloadPriceModel}" render="body_boxMain"/>
 						<adm:selectItemPleaseSelect itemValue="" />
 						<c:forEach items="#{priceModelBean.services}" var="service">
 							<f:selectItem itemLabel="#{service.serviceId}"
@@ -42,7 +41,6 @@
 					</adm:bootsfacesSelectMenu>
 					<adm:message for="serviceSelection" />
 				</h:form>
-		</adm:panelGrid>
 			<h:form id="editForm">
 				<adm:panelGrid>
 					<adm:outputLabel value="#{msg['service.nameForCustomer']}" />

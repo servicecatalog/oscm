@@ -30,17 +30,15 @@
           });
           </script>
       <adm:outputStep value="#{msg['service.edit.step1']}" />
-      <adm:panelGrid>
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
-                                    valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}"
                                     onclick="AdmUtils.storeValue(this);"
                                     oncomplete="AdmUtils.setUIElements();"
                                     update="mainTmplMessagesPanel, editForm, editForm:marketplace"
                                     value="#{marketableServicePublishModel.selectedServiceKey}"
                                     label="#{msg['service.serviceId']}">
+          <f:ajax event="change" listener="#{marketableServicePublishCtrl.serviceChanged}" render="editForm"/>
           <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
         </adm:bootsfacesSelectMenu>
-      </adm:panelGrid>
         <adm:message for="selectedServiceId" />
 
       <adm:panelGrid>
