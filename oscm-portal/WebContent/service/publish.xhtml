@@ -37,7 +37,7 @@
                                     value="#{marketableServicePublishModel.selectedServiceKey}"
                                     label="#{msg['service.serviceId']}">
           <f:ajax event="change" listener="#{marketableServicePublishCtrl.serviceChanged}"
-                  render="mainTmplMessagesPanel, editForm, editForm:marketplace, editForm:buttonPanel" />
+                  render="mainTmplMessagesPanel, editForm, editForm:marketplace" />
           <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
         </adm:bootsfacesSelectMenu>
 
@@ -137,6 +137,7 @@
               </h:column>
             </h:dataTable>
           </h:panelGroup>
+          <h:panelGroup></h:panelGroup>
         </adm:panelGrid>
       </a4j:outputPanel>
 
