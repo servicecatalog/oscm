@@ -27,7 +27,7 @@
 											onclick="AdmUtils.storeValue(this);"
 											label="#{msg['service.serviceId']}">
 					<f:ajax event="change" listener="#{priceModelBean.reloadPriceModel}"
-							render="serviceSelectForm, editForm"/>
+							render="serviceSelectForm"/>
 					<adm:selectItemPleaseSelect itemValue="" />
 					<c:forEach items="#{priceModelBean.services}" var="service">
 						<f:selectItem itemLabel="#{service.serviceId}"
