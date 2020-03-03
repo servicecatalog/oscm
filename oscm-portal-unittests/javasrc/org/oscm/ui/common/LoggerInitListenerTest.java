@@ -25,15 +25,14 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
-
-import org.oscm.logging.Log4jLogger;
-import org.oscm.logging.LoggerFactory;
-import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.vo.VOConfigurationSetting;
+import org.oscm.logging.Log4jLogger;
+import org.oscm.logging.LoggerFactory;
+import org.oscm.types.enumtypes.LogMessageIdentifier;
 
 /**
  * Test for the logger initialization.
@@ -42,13 +41,13 @@ import org.oscm.internal.vo.VOConfigurationSetting;
  */
 public class LoggerInitListenerTest {
 
-    private LoggerInitListener listener;
-    private ConfigurationService configServiceMock;
-    private Log4jLogger logger;
-    private File logsFolder;
+    private static LoggerInitListener listener;
+    private static ConfigurationService configServiceMock;
+    private static Log4jLogger logger;
+    private static File logsFolder;
 
-    @Before
-    public void setup() throws Exception {
+    @BeforeClass
+    public static void setup() throws Exception {
         emptyLogsFolder();
 
         configServiceMock = setupConfigurationMockForLogging();
@@ -59,7 +58,7 @@ public class LoggerInitListenerTest {
             }
         };
 
-        logger = LoggerFactory.getLogger(this.getClass());
+        logger = LoggerFactory.getLogger(LoggerInitListenerTest.class);
     }
 
     @Test
@@ -96,7 +95,7 @@ public class LoggerInitListenerTest {
 
     }
 
-    private ConfigurationService setupConfigurationMockForLogging()
+    private static ConfigurationService setupConfigurationMockForLogging()
             throws Exception {
         HttpServletRequest servletRequestMock = mock(HttpServletRequest.class);
         ConfigurationService csMock = mock(ConfigurationService.class);
@@ -147,7 +146,7 @@ public class LoggerInitListenerTest {
                 Boolean.TRUE, Boolean.valueOf(scanFile(regex)));
     }
 
-    private void emptyLogsFolder() throws IOException {
+    private static void emptyLogsFolder() throws IOException {
         logsFolder = new File("./javares/logs");
         if (!logsFolder.exists()) {
             logsFolder.mkdirs();
