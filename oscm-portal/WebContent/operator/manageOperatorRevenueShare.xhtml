@@ -21,9 +21,6 @@
 
         <adm:bootsfacesSelectMenu   id="templateKey"
                                     onclick="AdmUtils.storeValue(this);"
-                                    onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
-                                              #{rich:element('selectForm')}.submit();
-                                              } else{AdmUtils.restoreValue(this);}"
                                     label="#{msg['service.serviceId']}"
                                     immediate="true"
                                     value="#{manageOperatorRevenueShareModel.selectedTemplateKey}">

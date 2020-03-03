@@ -27,7 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.component.UIOutput;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

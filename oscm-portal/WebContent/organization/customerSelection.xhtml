@@ -9,10 +9,7 @@
 		  <adm:bootsfacesSelectMenu  id="organizationId"
 									 value="#{organizationBean.selectedCustomerId}"
 									 onclick="AdmUtils.storeValue(this);"
-									 onchange="if(AdmUtils.isNotDirtyOrConfirmed())
-									 			{this.form.submit();}
-									 		   else{AdmUtils.restoreValue(this)};"
-									  label="#{msg['organization.organizationId']}">
+									 label="#{msg['organization.organizationId']}">
 			  <f:selectItem itemLabel="#{msg['common.pleaseSelect']}" itemValue="" />
 			  <c:forEach items="#{organizationBean.customers}" var="customer">
 				  <f:selectItem itemLabel="#{customer.nameWithOrganizationId}" itemValue="#{customer.organizationId}" />
