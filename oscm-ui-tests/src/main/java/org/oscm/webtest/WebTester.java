@@ -120,8 +120,8 @@ public class WebTester {
     fis.close();
   }
 
-  public String getProperty(String propertie) {
-    return prop.getProperty(propertie);
+  public String getProperty(String key) {
+    return prop.getProperty(key);
   }
 
   /** Closes all open resources of the helper */

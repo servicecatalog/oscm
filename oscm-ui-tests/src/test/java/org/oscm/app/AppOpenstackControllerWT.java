@@ -36,8 +36,8 @@ public class AppOpenstackControllerWT {
     changedUserID = "newUser";
     changedPassword = "Password12";
 
-    userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
-    userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
+    userID = controllerTester.getProperty(AppControllerTester.APP_ADMIN_USER_ID);
+    userPassword = controllerTester.getProperty(AppControllerTester.APP_ADMIN_USER_PWD);
       controllerTester.loginAppController(
           userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_OPENSTACK);
   }
