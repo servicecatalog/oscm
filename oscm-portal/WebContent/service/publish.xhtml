@@ -67,6 +67,7 @@
           <adm:bootsfacesSelectMenu   id="marketplace"
                                       disabled="#{marketableServicePublishModel.disabled}"
                                       oncomplete="setDirty(true);"
+                                      immediate="true"
                                       value="#{marketableServicePublishModel.serviceDetails.marketplaceId}"
                                       label="#{msg['service.marketplace']}">
             <f:ajax event="change" listener="#{marketableServicePublishCtrl.marketplaceChanged}"
@@ -137,7 +138,6 @@
               </h:column>
             </h:dataTable>
           </h:panelGroup>
-          <h:panelGroup></h:panelGroup>
         </adm:panelGrid>
       </a4j:outputPanel>
 

@@ -676,8 +676,8 @@ public class PriceModelBeanTest {
     @Test
     public void reloadPriceModel_Null() throws Exception {
         // given
-        ValueChangeEvent event = prepareForReloadPriceModel();
-        doReturn(null).when(event).getNewValue();
+        AjaxBehaviorEvent event = prepareForReloadPriceModel();
+        doReturn(null).when((UIOutput) event.getSource()).getValue();
         doNothing().when(externalCustomerPriceModelCtrl)
                 .reloadPriceModel(any(VOServiceDetails.class));
         // when

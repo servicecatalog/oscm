@@ -389,9 +389,8 @@ public class MarketableServicePublishCtrlTest {
                 ms.getModel().getOperatorPriceModel().getRevenueShare());
     }
 
-    private ValueChangeEvent select(Long selectedServiceKey) {
-        return new ValueChangeEvent(new UIComponentStub(null), null,
-                selectedServiceKey);
+    private AjaxBehaviorEvent select(Long selectedServiceKey) {
+        return new AjaxBehaviorEvent(new UIComponentStub(null), null);
     }
 
     private void initialPage() {
