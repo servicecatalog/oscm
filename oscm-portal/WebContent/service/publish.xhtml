@@ -32,23 +32,23 @@
       <adm:outputStep value="#{msg['service.edit.step1']}" />
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
                                     onclick="AdmUtils.storeValue(this);"
+                                    immediate="true"
                                     value="#{marketableServicePublishModel.selectedServiceKey}"
                                     label="#{msg['service.serviceId']}">
           <f:ajax event="change" listener="#{marketableServicePublishCtrl.serviceChanged}" oncomplete="AdmUtils.setUIElements();"
-                  render="mainTmplMessagesPanel, editForm, editForm:marketplace"/>
+                  render="mainTmplMessagesPanel, editForm"/>
           <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
         </adm:bootsfacesSelectMenu>
-        <adm:message for="selectedServiceId" />
 
-      <adm:panelGrid columnClasses="labelAndValuePanelCol1,labelAndValuePanelCol2,labelAndValuePanelCol3">
+      <adm:panelGrid>
       <adm:outputLabel value="#{msg['service.nameForCustomer']}" />
         <h:panelGroup>
-          <h:outputText id="serviceNameForCustomer" value="#{marketableServicePublishModel.serviceDetails.service.nameToDisplay}" />
+          <h:outputText value="#{marketableServicePublishModel.serviceDetails.service.nameToDisplay}" />
         </h:panelGroup>
         <h:outputText value="" />
         <adm:outputLabel value="#{msg['techService.techServiceId']}" />
         <h:panelGroup>
-          <h:outputText id="technicalServiceName" value="#{marketableServicePublishModel.serviceDetails.service.technicalId}" />
+          <h:outputText value="#{marketableServicePublishModel.serviceDetails.service.technicalId}" />
         </h:panelGroup>
         <h:outputText value="" />
       </adm:panelGrid>
