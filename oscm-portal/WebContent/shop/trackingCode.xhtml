@@ -31,8 +31,6 @@
     });
     </script>
       <adm:outputStep value="#{msg['shop.trackingCode.step1']}" />
-        <adm:outputLabel value="#{msg['service.marketplace']}" />
-
         <adm:bootsfacesSelectMenu   id="marketplace"
                                     oncomplete="AdmUtils.setUIElements();AdmUtils.emitResizeEvent();"
                                     value="#{trackingCodeModel.selectedMarketplace}"

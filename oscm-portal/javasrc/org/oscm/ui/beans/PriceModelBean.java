@@ -23,6 +23,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import org.oscm.billing.external.pricemodel.service.PriceModel;
@@ -2112,8 +2114,8 @@ public class PriceModelBean extends BaseBean implements Serializable {
         return priceModel.getType().name();
     }
 
-    public void reloadPriceModel(ValueChangeEvent event) {
-        this.selectedServiceKey = Long.class.cast(event.getNewValue());
+    public void reloadPriceModel(AjaxBehaviorEvent event) {
+        this.selectedServiceKey = (Long) ((UIOutput) event.getSource()).getValue();
         sessionBean.setSelectedServiceKeyForSupplier(this.selectedServiceKey);
         updatePriceModel();
         if (getCurrentPMPage() == PRICEMODEL_FOR_SERVICE) {
