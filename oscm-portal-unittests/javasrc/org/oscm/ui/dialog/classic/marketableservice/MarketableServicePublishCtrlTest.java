@@ -420,7 +420,7 @@ public class MarketableServicePublishCtrlTest {
 
         // when
         ms.marketplaceChanged(
-                new ValueChangeEvent(new UIComponentStub(null), null, "123"));
+                new AjaxBehaviorEvent(new UIComponentStub(null), null));
 
         // then
         assertEquals(0, ms.getModel().getCategorySelection().size());
