@@ -303,9 +303,9 @@ public class MarketableServicePublishCtrl extends BaseBean
         }
     }
 
-    public void marketplaceChanged(ValueChangeEvent event) {
+    public void marketplaceChanged(AjaxBehaviorEvent event) {
         initializeModel(model.getSelectedServiceKey(),
-                event.getNewValue() == null ? "" : (String) event.getNewValue(),
+                ((UIOutput) event.getSource()).getValue() == null ? "" : (String) ((UIOutput) event.getSource()).getValue(),
                 true);
     }
 
