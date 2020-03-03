@@ -147,7 +147,7 @@ public class LoggerInitListenerTest {
     }
 
     private static void emptyLogsFolder() throws IOException {
-        logsFolder = new File("./javares/logs");
+        logsFolder = new File("javares/logs");
         if (!logsFolder.exists()) {
             logsFolder.mkdirs();
         } else {
