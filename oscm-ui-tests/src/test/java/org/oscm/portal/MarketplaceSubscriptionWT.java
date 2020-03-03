@@ -21,7 +21,6 @@ import org.oscm.webtest.WebTester;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplaceSubscriptionWT {
   private static PortalTester tester;
-  private static final String COUNT_CREATE_SUBSCRIPTION = "create.subscription.count";
 
   @Rule public TestWatcher testWatcher = new JUnitHelper();
 
@@ -57,43 +56,38 @@ public class MarketplaceSubscriptionWT {
 
   @Ignore
   public void test02createSubscription() throws Exception {
-    tester.setWaitingTime(Integer.parseInt(tester.getProperty(WebTester.TIME_INTERVAL)));
-    int count = Integer.parseInt(tester.getProperty(COUNT_CREATE_SUBSCRIPTION));
-    for (int i = 0; i <= count; i++) {
-      String referencenr = WebTester.getCurrentTime();
-      String subscriptionName =
-          "sub_" + PlaygroundSuiteTest.currentTimestampe + "_" + String.format("%03d", i);
-      tester.visitMarketplace(PortalPathSegments.INDEX_MARKETPLACE);
-      String xpathServiceLink =
-          String.format(
-              PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME,
-              PlaygroundSuiteTest.marketServiceName);
-      tester.waitForElement(By.xpath(xpathServiceLink), WebTester.IMPLICIT_WAIT);
-      String linkToService =
-          tester.getDriver().findElement(By.xpath(xpathServiceLink)).getAttribute("href");
-      tester.getDriver().navigate().to(linkToService);
-      tester.waitForElement(
-          By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW),
-          WebTester.IMPLICIT_WAIT);
 
-      tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW);
-      tester.waitForElement(
-          By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT),
-          WebTester.IMPLICIT_WAIT);
-      tester
-          .getDriver()
-          .findElement(By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME))
-          .clear();
-      tester.writeValue(
-          PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME, subscriptionName);
-      tester.writeValue(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_REFNUMBER, referencenr);
-      tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT);
-      tester.waitForElementVisible(
-          By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE),
-          WebTester.IMPLICIT_WAIT);
-      tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE);
-      tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_CONFIRM);
-      Assert.assertTrue(tester.getExecutionResult());
-    }
+    String referenceNo = WebTester.getCurrentTime();
+    String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
+    tester.visitMarketplace(PortalPathSegments.INDEX_MARKETPLACE);
+    String xpathServiceLink =
+        String.format(
+            PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME,
+            PlaygroundSuiteTest.marketServiceName);
+    tester.waitForElement(By.xpath(xpathServiceLink), WebTester.IMPLICIT_WAIT);
+    String linkToService =
+        tester.getDriver().findElement(By.xpath(xpathServiceLink)).getAttribute("href");
+    tester.getDriver().navigate().to(linkToService);
+    tester.waitForElement(
+        By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW),
+        WebTester.IMPLICIT_WAIT);
+
+    tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW);
+    tester.waitForElement(
+        By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT),
+        WebTester.IMPLICIT_WAIT);
+    tester
+        .getDriver()
+        .findElement(By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME))
+        .clear();
+    tester.writeValue(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME, subscriptionName);
+    tester.writeValue(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_REFNUMBER, referenceNo);
+    tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT);
+    tester.waitForElementVisible(
+        By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE),
+        WebTester.IMPLICIT_WAIT);
+    tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE);
+    tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_CONFIRM);
+    Assert.assertTrue(tester.getExecutionResult());
   }
 }

@@ -15,10 +15,7 @@ import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
-import org.oscm.webtest.PortalHtmlElements;
-import org.oscm.webtest.PortalPathSegments;
-import org.oscm.webtest.PortalTester;
-import org.oscm.webtest.WebTester;
+import org.oscm.webtest.*;
 
 import javax.security.auth.login.LoginException;
 
@@ -112,9 +109,9 @@ public class PortalOrganizationWT {
       Thread.sleep(30000);
 
       String body =
-          tester.readLatestEmailWithSubject(tester.getProperty("email.createaccount.head"));
+          tester.readLatestEmailWithSubject(EmailMessageElements.EMAIL_CREATE_ACCOUNT_TOPIC);
 
-      String phrasePassword = tester.getProperty("email.createaccount.phrase.password") + " ";
+      String phrasePassword = EmailMessageElements.EMAIL_CREATE_ACCOUNT_PHRASE_PWD + " ";
       assertNotNull(body);
 
       int index = body.indexOf(phrasePassword);
@@ -155,8 +152,8 @@ public class PortalOrganizationWT {
   public void test04readEmailForUserkey() throws Exception {
 
     String body =
-        tester.readLatestEmailWithSubject(tester.getProperty("email.createaccount.head"));
-    String phraseUserKey = tester.getProperty("email.createaccount.phrase.userkey") + " ";
+        tester.readLatestEmailWithSubject(EmailMessageElements.EMAIL_CREATE_ACCOUNT_TOPIC);
+    String phraseUserKey = EmailMessageElements.EMAIL_CREATE_ACCOUNT_PHRASE_KEY + " ";
     assertNotNull(body);
 
     int index = body.indexOf(phraseUserKey);

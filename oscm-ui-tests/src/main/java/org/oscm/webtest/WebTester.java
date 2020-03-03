@@ -54,7 +54,6 @@ public class WebTester {
   public static final String APP_HTTPS_URL = "app.https.url";
   public static final String APP_ADMIN_USER_ID = "app.user.id";
   public static final String APP_ADMIN_USER_PWD = "app.user.password";
-  public static final String TIME_INTERVAL = "create.subscription.waiting.seconds";
 
   public static final String AUTH_MODE = "auth.mode";
   public static final String CHROME_DRIVER_PATH = "chrome.driver.path";
