@@ -20,14 +20,11 @@
 			<h:form id="serviceSelectForm">
 			<adm:outputStep value="#{msg['priceModel.service.select']}" />
 				<adm:bootsfacesSelectMenu   id="serviceSelection"
-											onchange="if(AdmUtils.isNotDirtyOrConfirmed())
-															{#{rich:element('serviceSelectForm')}.submit();}
-														 else{AdmUtils.restoreValue(this);}"
 											value="#{priceModelBean.selectedServiceKey}"
 											onclick="AdmUtils.storeValue(this);"
 											label="#{msg['service.serviceId']}">
 					<f:ajax event="change" listener="#{priceModelBean.reloadPriceModel}"
-							render="serviceSelectForm"/>
+							render="mainSection"/>
 					<adm:selectItemPleaseSelect itemValue="" />
 					<c:forEach items="#{priceModelBean.services}" var="service">
 						<f:selectItem itemLabel="#{service.serviceId}"
