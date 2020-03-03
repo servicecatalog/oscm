@@ -32,7 +32,7 @@
       <adm:outputStep value="#{msg['service.edit.step1']}" />
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
                                     onclick="AdmUtils.storeValue(this);"
-                                    oncomplete="AdmUtils.setUIElements();"
+                                    oncomplete="setDirty(true);"
                                     value="#{marketableServicePublishModel.selectedServiceKey}"
                                     label="#{msg['service.serviceId']}">
           <f:ajax event="change" listener="#{marketableServicePublishCtrl.serviceChanged}"
@@ -65,12 +65,12 @@
         </adm:panelGrid>
 
           <adm:bootsfacesSelectMenu   id="marketplace"
-                                      valueChangeListener="#{marketableServicePublishCtrl.marketplaceChanged}"
                                       disabled="#{marketableServicePublishModel.disabled}"
-                                      update="categoriesPanel, categoriesLabelPanel, revenueShare, revenueShareReseller, revenueShareBroker, resalePermissions"
                                       oncomplete="setDirty(true);"
                                       value="#{marketableServicePublishModel.serviceDetails.marketplaceId}"
                                       label="#{msg['service.marketplace']}">
+            <f:ajax event="change" listener="#{marketableServicePublishCtrl.marketplaceChanged}"
+                    render="categoriesPanel, categoriesLabelPanel, revenueShare, revenueShareReseller, revenueShareBroker, resalePermissions"/>
             <adm:selectItemPleaseSelect itemValue="" />
             <c:forEach items="#{marketplaceBean.marketplacesForSupplier}" var="mp">
               <f:selectItem itemLabel="#{mp.name}(#{mp.marketplaceId})" itemValue="#{mp.marketplaceId}" />
