@@ -119,7 +119,10 @@ public class ManageTenantServiceBean implements ManageTenantService {
 
     @Override
     public void validateOrgNameUniquenessInTenant(String orgName, String tenantId) throws ValidationException {
-        final boolean duplicatedOrgNameExists = tenantService.
+        final boolean duplicatedOrgNameExists = tenantService.doesOrgNameExistInTenant(orgName, tenantId);
+        if(duplicatedOrgNameExists){
+            throw new ValidationException(ReasonEnum.ORGANIZATION_NAME_DUPLICATED, orgName, null);
+        }
     }
 
 }
