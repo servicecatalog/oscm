@@ -141,7 +141,7 @@ public class LoggerInitListenerTest {
 
     private void assertWrittenToLogFile(String regex) throws IOException {
         assertEquals(Boolean.TRUE, Boolean.valueOf(getAccessLogFile().exists()));
-
+        System.out.println(getAccessLogFile().getAbsolutePath() ); 
         assertEquals("No log entry matching '" + regex + "' found in logfile.",
                 Boolean.TRUE, Boolean.valueOf(scanFile(regex)));
     }
@@ -166,6 +166,7 @@ public class LoggerInitListenerTest {
             String line = bReader.readLine();
 
             while (line != null) {
+        	System.out.println(line ); 
                 if (line.matches(regex))
                     return true;
                 line = bReader.readLine();
