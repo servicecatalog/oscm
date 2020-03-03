@@ -22,6 +22,7 @@
       <adm:bootsfacesSelectMenu    id="marketplace"
                                    value="#{manageAccessCtrl.model.selectedMarketplaceId}"
                                    oncomplete="javascsript:AdmUtils.setUIElements();"
+                                   immediate="true"
                                    label="#{msg['service.marketplace']}">
         <f:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="marketplaceAccessDetails"/>
         <adm:selectItemPleaseSelect itemValue="" />

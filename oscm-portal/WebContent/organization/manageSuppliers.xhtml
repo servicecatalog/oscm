@@ -20,9 +20,6 @@
       <adm:outputStep value="#{msg['organization.manageSuppliers.selectTechnicalService']}" />
       <adm:bootsfacesSelectMenu   id="techServiceId"
                                   onclick="AdmUtils.storeValue(this);"
-                                  onchange="if(AdmUtils.isNotDirtyOrConfirmed())
-                                              {submit();}
-                                            else{AdmUtils.restoreValue(this);}"
                                   label="#{msg['techService.techServiceId']}"
                                   immediate="true"
                                   value="#{techServiceBean.selectedTechnicalServiceKeyReadonly}">
