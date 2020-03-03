@@ -12,7 +12,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 
 import org.oscm.ui.common.UiDelegate;
@@ -105,9 +106,8 @@ public class ManageOperatorRevenueShareCtrl implements Serializable {
     /**
      * Action method for changing the template select box
      */
-    public void templateChanged(ValueChangeEvent event) {
-        final long selectedServiceKey = ((Long) event.getNewValue())
-                .longValue();
+    public void templateChanged(AjaxBehaviorEvent event) {
+        final long selectedServiceKey = (Long) ((UIOutput) event.getSource()).getValue();
         if (selectedServiceKey != model.getSelectedTemplateKey()) {
             model.setSelectedTemplateKey(selectedServiceKey);
         }

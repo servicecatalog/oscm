@@ -23,9 +23,10 @@
                                               #{rich:element('selectForm')}.submit();
                                               } else{AdmUtils.restoreValue(this);}"
                                     label="#{msg['service.serviceId']}"
-                                    valueChangeListener="#{manageRevenueShareCtrl.templateChanged}"
                                     immediate="true"
                                     value="#{manageRevenueShareModel.selectedTemplateKey}">
+          <f:ajax event="change" listener="#{manageRevenueShareCtrl.templateChanged}"
+                  render="selectForm, editForm" />
           <adm:selectItemPleaseSelect itemValue="0" />
           <f:selectItems value="#{manageRevenueShareModel.templates}" />
         </adm:bootsfacesSelectMenu>

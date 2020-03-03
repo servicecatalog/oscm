@@ -24,8 +24,10 @@
                                               {submit();}
                                             else{AdmUtils.restoreValue(this);}"
                                   label="#{msg['techService.techServiceId']}"
-                                  valueChangeListener="#{organizationBean.technicalServiceChanged}"
+                                  immediate="true"
                                   value="#{techServiceBean.selectedTechnicalServiceKeyReadonly}">
+        <f:ajax event="change" listener="#{organizationBean.technicalServiceChanged}"
+                render="selectForm, addSupplierForm, removeSuppliersForm" />
         <adm:selectItemPleaseSelect itemValue="0" />
         <c:forEach items="#{techServiceBean.technicalServices}" var="techService">
           <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />
