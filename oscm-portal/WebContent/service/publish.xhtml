@@ -18,7 +18,6 @@
     <adm:initialize initializingMethod="#{marketableServicePublishCtrl.initializePublish}"/>
 
     <h:form id="editForm">
-
          <script type="text/javascript">
           $(document).ready(function () {          
               $("[id='editForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {
@@ -31,7 +30,6 @@
           });
           </script>
       <adm:outputStep value="#{msg['service.edit.step1']}" />
-      <adm:panelGrid>
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
                                     valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}"
                                     onclick="AdmUtils.storeValue(this);"
@@ -39,11 +37,13 @@
                                     update="mainTmplMessagesPanel, editForm, editForm:marketplace"
                                     value="#{marketableServicePublishModel.selectedServiceKey}"
                                     label="#{msg['service.serviceId']}">
+          <f:ajax event="change" listener="#{marketableServicePublishCtrl.serviceChanged}"
+                  render="editForm"/>
           <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
         </adm:bootsfacesSelectMenu>
         <adm:message for="selectedServiceId" />
 
-
+      <adm:panelGrid>
       <adm:outputLabel value="#{msg['service.nameForCustomer']}" />
         <h:panelGroup>
           <h:outputText value="#{marketableServicePublishModel.serviceDetails.service.nameToDisplay}" />
@@ -139,7 +139,6 @@
               </h:column>
             </h:dataTable>
           </h:panelGroup>
-          <h:panelGroup></h:panelGroup>
         </adm:panelGrid>
       </a4j:outputPanel>
 
