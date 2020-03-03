@@ -16,11 +16,10 @@
     <h:form id="gotoMarketplaceForm">
       <adm:outputStep value="#{msg['marketplace.gotoMarketplace.step']}" />
       <adm:bootsfacesSelectMenu   id="marketplace"
-                                  onchange="this.form.submit(); setDirty(true);"
                                   value="#{gotoMarketplaceBean.selectedMarketplace}"
                                   immediate="true"
                                   label="#{msg['service.marketplace']}">
-        <f:ajax event="change" listener="#{gotoMarketplaceBean['processValueChange']}" render="#{goForm}"/>
+        <f:ajax event="change" listener="#{gotoMarketplaceBean.processValueChange}" render="goForm, gotoMarketplaceForm"/>
         <adm:selectItemPleaseSelect itemValue="" />
         <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />
       </adm:bootsfacesSelectMenu>
