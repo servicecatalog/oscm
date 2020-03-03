@@ -31,14 +31,12 @@
           </script>
       <adm:outputStep value="#{msg['service.edit.step1']}" />
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
-                                    valueChangeListener="#{marketableServicePublishCtrl.serviceChanged}"
                                     onclick="AdmUtils.storeValue(this);"
                                     oncomplete="AdmUtils.setUIElements();"
-                                    update="mainTmplMessagesPanel, editForm, editForm:marketplace"
                                     value="#{marketableServicePublishModel.selectedServiceKey}"
                                     label="#{msg['service.serviceId']}">
           <f:ajax event="change" listener="#{marketableServicePublishCtrl.serviceChanged}"
-                  render="editForm"/>
+                  render="mainTmplMessagesPanel, editForm, editForm:marketplace"/>
           <f:selectItems value="#{marketableServicePublishModel.serviceTemplates}" />
         </adm:bootsfacesSelectMenu>
         <adm:message for="selectedServiceId" />

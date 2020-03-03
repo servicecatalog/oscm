@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage.Severity;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpServletRequest;
 
@@ -689,11 +691,14 @@ public class PriceModelBeanTest {
     @Test
     public void reloadPriceModel() throws Exception {
         // given
-        ValueChangeEvent event = prepareForReloadPriceModel();
+        AjaxBehaviorEvent mockedEvent = mock(AjaxBehaviorEvent.class);
+        UIOutput mockedOutput = mock(UIOutput.class);
+        when(mockedEvent.getSource()).thenReturn(mockedOutput);
+        when(mockedOutput.getValue()).thenReturn(any());
         doNothing().when(externalCustomerPriceModelCtrl)
                 .reloadPriceModel(any(VOServiceDetails.class));
         // when
-        bean.reloadPriceModel(event);
+        bean.reloadPriceModel(mockedEvent);
 
         // then
         assertEquals(new Long(11000), bean.getSelectedServiceKey());

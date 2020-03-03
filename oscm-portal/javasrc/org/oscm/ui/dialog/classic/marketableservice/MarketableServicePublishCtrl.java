@@ -313,8 +313,7 @@ public class MarketableServicePublishCtrl extends BaseBean
         final long selectedServiceKey = (Long) ((UIOutput) event.getSource()).getValue();
         if (selectedServiceKey != model.getSelectedServiceKey()) {
             initializeModel(selectedServiceKey, null, true);
-            sessionBean.setSelectedServiceKeyForSupplier(
-                    Long.valueOf(model.getSelectedServiceKey()));
+            sessionBean.setSelectedServiceKeyForSupplier(model.getSelectedServiceKey());
         }
     }
 

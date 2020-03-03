@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.ValueChangeEvent;
 
 import org.junit.Before;
@@ -371,6 +373,10 @@ public class MarketableServicePublishCtrlTest {
     public void serviceChanged() {
         // given
         initialPage();
+        AjaxBehaviorEvent mockedEvent = mock(AjaxBehaviorEvent.class);
+        UIOutput mockedOutput = mock(UIOutput.class);
+        when(mockedEvent.getSource()).thenReturn(mockedOutput);
+        when(mockedOutput.getValue()).thenReturn(3L);
 
         // when
         ms.serviceChanged(select(3L));
