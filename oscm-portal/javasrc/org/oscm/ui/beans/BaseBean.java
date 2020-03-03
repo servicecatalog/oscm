@@ -60,6 +60,7 @@ import org.oscm.internal.review.ReviewInternalService;
 import org.oscm.internal.subscriptiondetails.SubscriptionDetailsService;
 import org.oscm.internal.subscriptions.SubscriptionsService;
 import org.oscm.internal.techserviceoperationmgmt.OperationRecordService;
+import org.oscm.internal.tenant.ManageTenantService;
 import org.oscm.internal.types.enumtypes.UserRoleType;
 import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.internal.usergroupmgmt.UserGroupService;
@@ -478,6 +479,7 @@ public class BaseBean {
     ManageLanguageService manageLanguageService;
     LocalizedDataService localizedDataService;
     ExternalPriceModelService externalPriceModelService;
+    ManageTenantService manageTenantService;
 
     private String token;
     private String tokenIntern;
@@ -811,6 +813,11 @@ public class BaseBean {
         localizedDataService = getService(LocalizedDataService.class,
                 localizedDataService);
         return localizedDataService;
+    }
+
+    protected ManageTenantService getManageTenantService() {
+        manageTenantService = getService(ManageTenantService.class, manageTenantService);
+        return manageTenantService;
     }
 
     /**
