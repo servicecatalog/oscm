@@ -56,7 +56,7 @@ public class PortalTechServiceWT {
 
     String pathFile = System.getProperty(FILE_PATH_IMPORT_TECHSERVICE);
     if (pathFile == null) {
-      pathFile = tester.getPropertie(FILE_PATH_IMPORT_TECHSERVICE);
+      pathFile = tester.getProperty(FILE_PATH_IMPORT_TECHSERVICE);
     }
     tester.log("Import file " + pathFile + " as technical service.");
     tester
@@ -72,7 +72,7 @@ public class PortalTechServiceWT {
   @Test
   public void test02updateTechService() throws Exception {
 
-    String importTechSerName = tester.getPropertie(IMPORT_TECHSERV_NAME);
+    String importTechSerName = tester.getProperty(IMPORT_TECHSERV_NAME);
     tester.visitPortal(PortalPathSegments.UPDATE_TECHNICALSERVICE);
     Select dropdownServiceName =
         new Select(

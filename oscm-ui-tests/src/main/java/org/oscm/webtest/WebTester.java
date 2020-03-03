@@ -120,7 +120,7 @@ public class WebTester {
     fis.close();
   }
 
-  public String getPropertie(String propertie) {
+  public String getProperty(String propertie) {
     return prop.getProperty(propertie);
   }
 

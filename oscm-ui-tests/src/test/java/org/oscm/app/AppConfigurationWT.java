@@ -30,8 +30,8 @@ public class AppConfigurationWT {
   @BeforeClass
   public static void setup() throws Exception {
     tester = new AppTester();
-    String userID = tester.getPropertie(AppTester.APP_ADMIN_USER_ID);
-    String userPassword = tester.getPropertie(AppTester.APP_ADMIN_USER_PWD);
+    String userID = tester.getProperty(AppTester.APP_ADMIN_USER_ID);
+    String userPassword = tester.getProperty(AppTester.APP_ADMIN_USER_PWD);
     tester.loginAppConfig(userID, userPassword);
   }
 
@@ -79,9 +79,9 @@ public class AppConfigurationWT {
   @Test
   public void test04setConfiguration() throws Exception {
       tester.setAppAdminMailAddress(PlaygroundSuiteTest.supplierOrgAdminMail);
-      tester.setBssUserId(tester.getPropertie(AppTester.APP_ADMIN_USER_ID));
+      tester.setBssUserId(tester.getProperty(AppTester.APP_ADMIN_USER_ID));
       tester.setBssUserKey("10");
-      tester.setBssUserPwd(tester.getPropertie(AppTester.APP_ADMIN_USER_PWD));
+      tester.setBssUserPwd(tester.getProperty(AppTester.APP_ADMIN_USER_PWD));
 
       assertTrue(tester.readInfoMessage().contains("saved successfully"));
 

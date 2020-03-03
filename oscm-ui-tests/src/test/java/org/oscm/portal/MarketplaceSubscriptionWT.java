@@ -57,8 +57,8 @@ public class MarketplaceSubscriptionWT {
 
   @Ignore
   public void test02createSubscription() throws Exception {
-    tester.setWaitingTime(Integer.parseInt(tester.getPropertie(WebTester.TIME_INTERVAL)));
-    int count = Integer.parseInt(tester.getPropertie(COUNT_CREATE_SUBSCRIPTION));
+    tester.setWaitingTime(Integer.parseInt(tester.getProperty(WebTester.TIME_INTERVAL)));
+    int count = Integer.parseInt(tester.getProperty(COUNT_CREATE_SUBSCRIPTION));
     for (int i = 0; i <= count; i++) {
       String referencenr = WebTester.getCurrentTime();
       String subscriptionName =

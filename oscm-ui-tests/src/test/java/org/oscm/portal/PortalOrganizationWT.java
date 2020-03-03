@@ -19,7 +19,6 @@ import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalPathSegments;
 import org.oscm.webtest.PortalTester;
 import org.oscm.webtest.WebTester;
-import org.oscm.webtest.authentication.InternalAuthenticationContext;
 
 import javax.security.auth.login.LoginException;
 
@@ -48,16 +47,16 @@ public class PortalOrganizationWT {
   public static void setup() throws Exception {
     logger.info("PortalOrganizationWT tests setup");
     tester = new PortalTester();
-    String userid = tester.getPropertie(WebTester.BES_ADMIN_USER_ID);
-    String userpassword = tester.getPropertie(WebTester.BES_ADMIN_USER_PWD);
+    String userid = tester.getProperty(WebTester.BES_ADMIN_USER_ID);
+    String userpassword = tester.getProperty(WebTester.BES_ADMIN_USER_PWD);
     tester.loginPortal(userid, userpassword);
-    authMode = tester.getPropertie(WebTester.AUTH_MODE);
+    authMode = tester.getProperty(WebTester.AUTH_MODE);
     if (authMode.equals("OIDC")) {
       logger.info("Running OIDC mode");
       tester.deleteSupplierGroup("OIDC_UI_TEST_ORG");
       org = "OIDC_UI_TEST_ORG";
-      orgAdmin = tester.getPropertie(WebTester.OIDC_SUPPLIER_ID);
-      orgAdminPassword = tester.getPropertie(WebTester.OIDC_SUPPLIER_PASSWORD);
+      orgAdmin = tester.getProperty(WebTester.OIDC_SUPPLIER_ID);
+      orgAdminPassword = tester.getProperty(WebTester.OIDC_SUPPLIER_PASSWORD);
     } else {
       logger.info("Running INTERNAL mode");
       org = PlaygroundSuiteTest.currentTimestampe;
@@ -113,9 +112,9 @@ public class PortalOrganizationWT {
       Thread.sleep(30000);
 
       String body =
-          tester.readLatestEmailWithSubject(tester.getPropertie("email.createaccount.head"));
+          tester.readLatestEmailWithSubject(tester.getProperty("email.createaccount.head"));
 
-      String phrasePassword = tester.getPropertie("email.createaccount.phrase.password") + " ";
+      String phrasePassword = tester.getProperty("email.createaccount.phrase.password") + " ";
       assertNotNull(body);
 
       int index = body.indexOf(phrasePassword);
@@ -140,15 +139,15 @@ public class PortalOrganizationWT {
       tester.writeValue(PortalHtmlElements.PORTAL_PASSWORD_INPUT_CURRENT, orgAdminPassword);
       tester.writeValue(
           PortalHtmlElements.PORTAL_PASSWORD_INPUT_CHANGE,
-          tester.getPropertie(WebTester.BES_ADMIN_USER_PWD));
+          tester.getProperty(WebTester.BES_ADMIN_USER_PWD));
       tester.writeValue(
           PortalHtmlElements.PORTAL_PASSWORD_INPUT_REPEAT,
-          tester.getPropertie(WebTester.BES_ADMIN_USER_PWD));
+          tester.getProperty(WebTester.BES_ADMIN_USER_PWD));
       tester.clickElement(PortalHtmlElements.PORTAL_PASSWORD_BUTTON_SAVE);
       tester.wait(WebTester.IMPLICIT_WAIT);
       String currentURL = tester.getCurrentUrl();
       assertTrue(currentURL.contains(PortalPathSegments.IMPORT_TECHNICALSERVICE));
-      PlaygroundSuiteTest.supplierOrgAdminPwd = tester.getPropertie(WebTester.BES_ADMIN_USER_PWD);
+      PlaygroundSuiteTest.supplierOrgAdminPwd = tester.getProperty(WebTester.BES_ADMIN_USER_PWD);
     }
   }
 
@@ -156,8 +155,8 @@ public class PortalOrganizationWT {
   public void test04readEmailForUserkey() throws Exception {
 
     String body =
-        tester.readLatestEmailWithSubject(tester.getPropertie("email.createaccount.head"));
-    String phraseUserKey = tester.getPropertie("email.createaccount.phrase.userkey") + " ";
+        tester.readLatestEmailWithSubject(tester.getProperty("email.createaccount.head"));
+    String phraseUserKey = tester.getProperty("email.createaccount.phrase.userkey") + " ";
     assertNotNull(body);
 
     int index = body.indexOf(phraseUserKey);
