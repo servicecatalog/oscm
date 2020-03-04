@@ -39,6 +39,7 @@ import org.oscm.ui.beans.SelectOrganizationIncludeBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.MarketplacesComparator;
+import org.oscm.ui.model.Marketplace;
 import org.oscm.ui.model.Organization;
 import org.oscm.internal.pricemodel.POCustomer;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
@@ -57,8 +58,9 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
         Serializable {
 
     private static final long serialVersionUID = -7044849342962387357L;
-    private OperatorService operatorService;
-    List<SelectItem> selectableOrganizations;
+    List<SelectItem> availableOrganizations;
+    private Organization orgModel;
+
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(OperatorSelectOrgBean.class);
 
@@ -73,7 +75,14 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
     static final String APPLICATION_BEAN = "appBean";
 
     transient ApplicationBean appBean;
-    
+
+    public Organization getOrgModel() {
+        if (orgModel == null) {
+            // use disabled default if nothing is selected
+            orgModel = new Organization(new VOOrganization);
+        }
+        return orgModel;
+    }
     /**
      * Sort organization labels alphabetically in locale-sensitive order.
      */
@@ -123,11 +132,11 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
     }
 
     public List<SelectItem> getAvailableOrganizations() throws OrganizationAuthoritiesException {
-        if (selectableOrganizations == null) {
+        if (availableOrganizations == null) {
             List<VOOrganization> organizations;
 
-            organizations = operatorService.getOrganizations("",
-                        new ArrayList<OrganizationRoleType>());
+            organizations = getOperatorService().getOrganizations("",
+                    new ArrayList<OrganizationRoleType>());
             Collections.sort(organizations, new OrgComparator());
 
             List<SelectItem> result = new ArrayList<SelectItem>();
@@ -135,9 +144,9 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
             for (VOOrganization vOr : organizations) {
                 result.add(new SelectItem(vOr.getOrganizationId(), getLabel(vOr)));
             }
-            selectableOrganizations = result;
+            availableOrganizations = result;
         }
-        return selectableOrganizations;
+        return availableOrganizations;
     }
 
     private String getLabel(VOOrganization vOr) {
