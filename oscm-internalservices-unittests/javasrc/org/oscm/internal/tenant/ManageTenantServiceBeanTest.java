@@ -9,17 +9,14 @@
 package org.oscm.internal.tenant;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOTenant;
 import org.oscm.tenant.bean.TenantServiceBean;
 
@@ -71,6 +68,20 @@ public class ManageTenantServiceBeanTest {
         assertEquals("tenantId", tenants.get(0).getTenantId());
         assertEquals(2000, tenants.get(1).getKey());
         assertEquals("tenantId2", tenants.get(1).getTenantId());
+    }
+
+    @Test
+    public void validateOrgNameUniquenessInTenantNoDuplicate() throws ValidationException {
+        when(tenantService.doesOrgNameExistInTenant("org", "tenant")).thenReturn(false);
+
+        manageTenantService.validateOrgNameUniquenessInTenant("org", "tenant");
+    }
+
+    @Test(expected = ValidationException.class)
+    public void validateOrgNameUniquenessInTenantDuplicate() throws ValidationException {
+        when(tenantService.doesOrgNameExistInTenant("org", "tenant")).thenReturn(true);
+
+        manageTenantService.validateOrgNameUniquenessInTenant("org", "tenant");
     }
 
     private List<VOTenant> prepareTenants() {

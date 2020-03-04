@@ -4,8 +4,7 @@
 
 package org.oscm.ui.beans;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -27,6 +26,7 @@ import javax.servlet.http.HttpSession;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.intf.IdentityService;
+import org.oscm.internal.tenant.ManageTenantService;
 import org.oscm.internal.types.enumtypes.UserRoleType;
 import org.oscm.internal.usermanagement.UserService;
 import org.oscm.internal.vo.VOUserDetails;
@@ -183,5 +183,24 @@ public class BaseBeanTest {
         verify(responseMock, times(1)).setHeader(eq("Content-disposition"),
                 eq("attachment; filename=\"" + fileName + "\""));
         verify(responseMock, times(1)).setContentLength(eq(content.length));
+    }
+
+    @Test
+    public void getManageTenantServiceWhenServiceIsNull(){
+        assertNull(ctrl.manageTenantService);
+
+        ctrl.getManageTenantService();
+
+        assertNotNull(ctrl.manageTenantService);
+    }
+
+    @Test
+    public void getManageTenantServiceWhenServiceIsNotNull(){
+        final ManageTenantService mockService = mock(ManageTenantService.class);
+        ctrl.manageTenantService = mockService;
+
+        final ManageTenantService resultService = ctrl.getManageTenantService();
+
+        assertEquals(mockService, resultService);
     }
 }

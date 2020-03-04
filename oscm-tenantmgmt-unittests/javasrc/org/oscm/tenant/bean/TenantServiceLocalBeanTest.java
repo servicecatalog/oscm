@@ -13,10 +13,13 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.dataservice.local.DataService;
+import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.Tenant;
 
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
@@ -160,4 +163,34 @@ public class TenantServiceLocalBeanTest {
 		// then
 		assertFalse(result);
 	}
+
+	@Test
+	public void doesOrgNameExistInTenantTrue(){
+		final List<Organization> list = Lists.newArrayList(mock(Organization.class));
+		when(tenantDao.getOrgNameInTenant("org", "tenant")).thenReturn(list);
+
+		boolean result = tenantServiceLocalBean.doesOrgNameExistInTenant("org", "tenant");
+
+		assertTrue(result);
+	}
+
+	@Test
+	public void doesOrgNameExistInTenantFalseListEmpty(){
+		final List<Organization> list = Lists.newArrayList();
+		when(tenantDao.getOrgNameInTenant("org", "tenant")).thenReturn(list);
+
+		boolean result = tenantServiceLocalBean.doesOrgNameExistInTenant("org", "tenant");
+
+		assertFalse(result);
+	}
+
+	@Test
+	public void doesOrgNameExistInTenantFalseListNull(){
+		when(tenantDao.getOrgNameInTenant("org", "tenant")).thenReturn(null);
+
+		boolean result = tenantServiceLocalBean.doesOrgNameExistInTenant("org", "tenant");
+
+		assertFalse(result);
+	}
+
 }

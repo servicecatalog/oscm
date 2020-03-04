@@ -36,5 +36,5 @@ public interface TenantServiceLocal {
 
 	boolean doOrgUsersExistInTenant(String orgId, long tenantKey);
 
-	boolean doesOrgNameExistInTenant(String orgId, String tenantId);
+	boolean doesOrgNameExistInTenant(String orgName, String tenantId);
 }

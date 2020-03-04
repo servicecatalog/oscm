@@ -8,6 +8,7 @@
 
 package org.oscm.tenant.dao;
 
+import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.dataservice.local.DataService;
@@ -109,5 +110,25 @@ public class TenantDaoTest {
 
         //then
         verify(dataManager, times(1)).createNamedQuery("Tenant.checkMarketplace");
+    }
+
+    @Test
+    public void getOrgNameInTenantTestDefaultTenant(){
+        when(query.getResultList()).thenReturn(Lists.newArrayList());
+
+        tenantDao.getOrgNameInTenant("orgName", "default");
+
+        verify(query).setParameter("name", "orgName");
+        verify(query).setParameter("tenantId", null);
+    }
+
+    @Test
+    public void getOrgNameInTenantTestNotDefaultTenant(){
+        when(query.getResultList()).thenReturn(Lists.newArrayList());
+
+        tenantDao.getOrgNameInTenant("orgName", "tenant");
+
+        verify(query).setParameter("name", "orgName");
+        verify(query).setParameter("tenantId", "tenant");
     }
 }
