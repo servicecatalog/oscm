@@ -24,8 +24,7 @@
                          styleClass="select"
                          valueChangeListener="#{listenerBean['processValueChange']}"
                          value="#{marketplaceBean['marketplaceId']}" update=":mainTmplMessagesPanel @form #{render}" oncomplete="AdmUtils.setSelectBoxes();"
-                         onchange="#{onchange}"
-                         onclick="#{onclick}">
+>
              <adm:selectItemPleaseSelect itemValue="0" />
              <f:selectItems value="#{items}" var="mp" itemLabel="#{mp.name} (#{mp.marketplaceId})" itemValue="#{mp.marketplaceId}"/>
       
