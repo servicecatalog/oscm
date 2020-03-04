@@ -23,16 +23,22 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import org.apache.commons.lang3.StringUtils;
 
+import org.oscm.internal.intf.OperatorService;
+import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
+import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
+import org.oscm.string.Strings;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.SelectOrganizationIncludeBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
+import org.oscm.ui.common.MarketplacesComparator;
 import org.oscm.ui.model.Organization;
 import org.oscm.internal.pricemodel.POCustomer;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
@@ -51,7 +57,8 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
         Serializable {
 
     private static final long serialVersionUID = -7044849342962387357L;
-
+    private OperatorService operatorService;
+    List<SelectItem> selectableOrganizations;
     private static final Log4jLogger logger = LoggerFactory
             .getLogger(OperatorSelectOrgBean.class);
 
@@ -70,12 +77,13 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
     /**
      * Sort organization labels alphabetically in locale-sensitive order.
      */
-    private class OrgComparator implements Comparator<Organization> {
+    private class OrgComparator implements Comparator<VOOrganization> {
+
         Collator collator = Collator.getInstance();
 
         @Override
-        public int compare(Organization o1, Organization o2) {
-            return collator.compare(o1.getNameWithOrganizationId(), o2.getNameWithOrganizationId());
+        public int compare(VOOrganization o1, VOOrganization o2) {
+            return collator.compare(o1.getOrganizationId(), o2.getOrganizationId());
         }
     }
 
@@ -112,6 +120,34 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
             getRequest().setAttribute(Constants.REQ_ATTR_DIRTY,
                     Boolean.FALSE.toString());
         }
+    }
+
+    public List<SelectItem> getAvailableOrganizations() throws OrganizationAuthoritiesException {
+        if (selectableOrganizations == null) {
+            List<VOOrganization> organizations;
+
+            organizations = operatorService.getOrganizations("",
+                        new ArrayList<OrganizationRoleType>());
+            Collections.sort(organizations, new OrgComparator());
+
+            List<SelectItem> result = new ArrayList<SelectItem>();
+            // create the selection model based on the read data
+            for (VOOrganization vOr : organizations) {
+                result.add(new SelectItem(vOr.getOrganizationId(), getLabel(vOr)));
+            }
+            selectableOrganizations = result;
+        }
+        return selectableOrganizations;
+    }
+
+    private String getLabel(VOOrganization vOr) {
+        if (vOr == null) {
+            return "";
+        }
+        if (vOr.getName() == null || Strings.isEmpty(vOr.getName())) {
+            return vOr.getOrganizationId();
+        }
+        return String.format("%s (%s)", vOr.getName(), vOr.getOrganizationId());
     }
 
     public String getOrganizationRoleType() {
@@ -155,7 +191,7 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
             String pattern = organizationId + "%";
             List<Organization> organizations = mapper.map(
                     getOperatorService().getOrganizations(pattern, roleTypes));
-            Collections.sort(organizations, new OrgComparator());
+//            Collections.sort(organizations, new OrgComparator());
             return organizations;
         } catch (SaaSApplicationException e) {
             ExceptionHandler.execute(e);

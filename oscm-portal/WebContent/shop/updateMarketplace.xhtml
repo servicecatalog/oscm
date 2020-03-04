@@ -37,7 +37,7 @@
             onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();"
             onchange="#{rich:element('updateMarketPlaceButton')}.click();return false;">
             <adm:selectItemPleaseSelect itemValue="" />
-            <f:selectItems value="#{updateMarketplaceBean.selectableMarketplaces}" />
+            <f:selectItems value="#{operatorSelectOrgBean.getAvailableOrganizations}" />
           </b:selectOneMenu>
         <adm:message for="selectMarketplaceId" />
         <h:commandButton id="updateMarketPlaceButton"  action="#{updateMarketplaceBean.marketplaceChanged}" style="display: none;" />
