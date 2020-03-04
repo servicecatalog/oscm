@@ -32,7 +32,7 @@
                            merketplaceBean="#{categoryBean.marketplaceBean}"
                            render=":categoriesForm"
                            onclick="javascsript:AdmUtils.storeValue(this);"
-                           onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;
+                           onchange="javascsript:if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;
                            }else{AdmUtils.restoreValue(this)}"
     />
 
