@@ -189,9 +189,10 @@ public class BaseBeanTest {
     public void getManageTenantServiceWhenServiceIsNull(){
         assertNull(ctrl.manageTenantService);
 
-        ctrl.getManageTenantService();
+        final ManageTenantService resultService = ctrl.getManageTenantService();
 
-        assertNotNull(ctrl.manageTenantService);
+        assertEquals(ctrl.manageTenantService, resultService);
+        assertEquals(1, callsToService);
     }
 
     @Test
@@ -202,5 +203,6 @@ public class BaseBeanTest {
         final ManageTenantService resultService = ctrl.getManageTenantService();
 
         assertEquals(mockService, resultService);
+        assertEquals(0, callsToService);
     }
 }
