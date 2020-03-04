@@ -37,13 +37,23 @@
             onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();"
             onchange="#{rich:element('updateMarketPlaceButton')}.click();return false;">
             <adm:selectItemPleaseSelect itemValue="" />
-            <f:selectItems value="#{operatorSelectOrgBean.getAvailableOrganizations}" />
+            <f:selectItems value="#{updateMarketplaceBean.selectableMarketplaces}" />
           </b:selectOneMenu>
         <adm:message for="selectMarketplaceId" />
         <h:commandButton id="updateMarketPlaceButton"  action="#{updateMarketplaceBean.marketplaceChanged}" style="display: none;" />
       </h:form>
       </h:panelGroup>
-      <h:panelGroup />
+
+
+      <h:panelGroup>
+        <b:selectOneMenu select2="true" styleClass="select" id="selectOrg"
+                         value="#{operatorSelectOrgBean.orgModel.organizationId}" immediate="true"
+                         onclick="AdmUtils.storeValue(this);A"
+                         onchange="#{rich:element('updateMarketPlaceButton')}.click();return false;">
+          <adm:selectItemPleaseSelect itemValue="" />
+          <f:selectItems value="#{operatorSelectOrgBean.availableOrganizations}" />
+        </b:selectOneMenu>
+      </h:panelGroup>
     </adm:panelGrid>
 
     <h:form id="updateForm">
