@@ -103,8 +103,8 @@ public class TenantServiceBean implements TenantService {
     }
 
     @Override
-    public boolean doesOrgNameExistInTenant(String orgId, String tenantKey) {
-        return tenantServiceLocal.doesOrgNameExistInTenant(orgId, tenantKey);
+    public boolean doesOrgNameExistInTenant(String orgName, String tenantKey) {
+        return tenantServiceLocal.doesOrgNameExistInTenant(orgName, tenantKey);
     }
 
     @Override
