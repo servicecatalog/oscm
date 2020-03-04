@@ -85,9 +85,9 @@ public class TenantDao {
   }
 
    public List<Organization> getOrgNameInTenant(String orgName, String tenantId){
-     TypedQuery<Organization> query = dataManager.createNamedQuery("Organization.findOrganizationsByName", Organization.class);
+     Query query = dataManager.createNamedQuery("Organization.findOrganizationsByName");
      query.setParameter("name", orgName);
      query.setParameter("tenantId", !"default".equals(tenantId) ? tenantId : null);
-     return query.getResultList();
+     return ParameterizedTypes.list(query.getResultList(), Organization.class);
    }
 }
