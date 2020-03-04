@@ -15,7 +15,6 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.dataservice.local.DataService;
@@ -166,7 +165,8 @@ public class TenantServiceLocalBeanTest {
 
 	@Test
 	public void doesOrgNameExistInTenantTrue(){
-		final List<Organization> list = Lists.newArrayList(mock(Organization.class));
+		final List<Organization> list = new ArrayList<>();
+		list.add(mock(Organization.class));
 		when(tenantDao.getOrgNameInTenant("org", "tenant")).thenReturn(list);
 
 		boolean result = tenantServiceLocalBean.doesOrgNameExistInTenant("org", "tenant");
@@ -176,7 +176,7 @@ public class TenantServiceLocalBeanTest {
 
 	@Test
 	public void doesOrgNameExistInTenantFalseListEmpty(){
-		final List<Organization> list = Lists.newArrayList();
+		final List<Organization> list = new ArrayList<>();
 		when(tenantDao.getOrgNameInTenant("org", "tenant")).thenReturn(list);
 
 		boolean result = tenantServiceLocalBean.doesOrgNameExistInTenant("org", "tenant");

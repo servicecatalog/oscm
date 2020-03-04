@@ -8,7 +8,6 @@
 
 package org.oscm.tenant.dao;
 
-import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.dataservice.local.DataService;
@@ -114,8 +113,6 @@ public class TenantDaoTest {
 
     @Test
     public void getOrgNameInTenantTestDefaultTenant(){
-        when(query.getResultList()).thenReturn(Lists.newArrayList());
-
         tenantDao.getOrgNameInTenant("orgName", "default");
 
         verify(query).setParameter("name", "orgName");
@@ -124,8 +121,6 @@ public class TenantDaoTest {
 
     @Test
     public void getOrgNameInTenantTestNotDefaultTenant(){
-        when(query.getResultList()).thenReturn(Lists.newArrayList());
-
         tenantDao.getOrgNameInTenant("orgName", "tenant");
 
         verify(query).setParameter("name", "orgName");
