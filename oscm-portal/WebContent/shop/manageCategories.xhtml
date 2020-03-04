@@ -32,7 +32,6 @@
                            merketplaceBean="#{categoryBean.marketplaceBean}"
                            render=":categoriesForm"
                            onclick="AdmUtils.storeValue(this);"
-                           onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}else{AdmUtils.restoreValue(this)}"
     />
 
     <h:form id="categoriesForm">
