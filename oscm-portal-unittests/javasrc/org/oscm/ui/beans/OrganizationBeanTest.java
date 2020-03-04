@@ -36,7 +36,8 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -809,8 +810,10 @@ public class OrganizationBeanTest {
     }
 
     private void changeTechnicalService() {
-        ValueChangeEvent vcEvent = mock(ValueChangeEvent.class);
-        doReturn(Long.valueOf("2")).when(vcEvent).getNewValue();
+        AjaxBehaviorEvent vcEvent = mock(AjaxBehaviorEvent.class);
+        UIOutput uiOutput = mock(UIOutput.class);
+        when(vcEvent.getSource()).thenReturn(uiOutput);
+        when(uiOutput.getValue()).thenReturn(Long.valueOf("2"));
         organizationBean.technicalServiceChanged(vcEvent);
     }
 

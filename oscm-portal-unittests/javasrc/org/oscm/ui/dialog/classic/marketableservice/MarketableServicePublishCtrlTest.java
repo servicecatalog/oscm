@@ -13,9 +13,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyListOf;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -31,7 +29,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +40,6 @@ import org.oscm.ui.beans.SessionBean;
 import org.oscm.ui.beans.UserBean;
 import org.oscm.ui.model.User;
 import org.oscm.ui.stubs.FacesContextStub;
-import org.oscm.ui.stubs.UIComponentStub;
 import org.oscm.ui.stubs.UiDelegateStub;
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.intf.CategorizationService;
@@ -383,14 +381,24 @@ public class MarketableServicePublishCtrlTest {
                 ms.getModel().getOperatorPriceModel().getRevenueShare());
     }
 
-    private ValueChangeEvent select(Long selectedServiceKey) {
-        return new ValueChangeEvent(new UIComponentStub(null), null,
-                selectedServiceKey);
+    private AjaxBehaviorEvent select(Long selectedServiceKey) {
+        AjaxBehaviorEvent ajaxEvent = mock(AjaxBehaviorEvent.class);
+        UIOutput uiOutput = mock(UIOutput.class);
+        when(ajaxEvent.getSource()).thenReturn(uiOutput);
+        when(uiOutput.getValue()).thenReturn(selectedServiceKey);
+        return ajaxEvent;
+    }
+
+    private AjaxBehaviorEvent marketplaceSelect(String markeplace) {
+        AjaxBehaviorEvent ajaxEvent = mock(AjaxBehaviorEvent.class);
+        UIOutput uiOutput = mock(UIOutput.class);
+        when(ajaxEvent.getSource()).thenReturn(uiOutput);
+        when(uiOutput.getValue()).thenReturn(markeplace);
+        return ajaxEvent;
     }
 
     private void initialPage() {
         ms.setModel(new MarketableServicePublishModel());
-
     }
 
     @Test
@@ -399,8 +407,7 @@ public class MarketableServicePublishCtrlTest {
         ms.getModel().setServiceDetails(new POServiceForPublish());
 
         // when
-        ms.marketplaceChanged(
-                new ValueChangeEvent(new UIComponentStub(null), null, "123"));
+        ms.marketplaceChanged(marketplaceSelect("marketplace"));
 
         // then
         assertEquals(2, ms.getModel().getCategorySelection().size());
@@ -413,8 +420,7 @@ public class MarketableServicePublishCtrlTest {
         returnError = true;
 
         // when
-        ms.marketplaceChanged(
-                new ValueChangeEvent(new UIComponentStub(null), null, "123"));
+        ms.marketplaceChanged(marketplaceSelect("marketplace"));
 
         // then
         assertEquals(0, ms.getModel().getCategorySelection().size());

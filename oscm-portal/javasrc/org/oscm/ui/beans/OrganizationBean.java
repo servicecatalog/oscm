@@ -18,8 +18,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.Part;
 import org.oscm.converter.PropertiesLoader;
 import org.oscm.internal.types.enumtypes.ImageType;
@@ -407,15 +408,18 @@ public class OrganizationBean extends BaseBean implements Serializable {
     return OUTCOME_SUCCESS;
   }
 
-  /** Called by the value changed listener of the technical service selectionOneMenu. */
-  public void technicalServiceChanged(ValueChangeEvent event) {
-    Long newServiceKey = (Long) event.getNewValue();
-    techServiceBean.setSelectedTechnicalServiceKeyWithExceptionAndRefresh(
-        newServiceKey.longValue());
-    supplierIdToAdd = null;
-    // Force a refresh of the displayed suppliers
-    suppliersForTechnicalService = null;
-  }
+    /**
+     * Called by the value changed listener of the technical service
+     * selectionOneMenu.
+     */
+    public void technicalServiceChanged(AjaxBehaviorEvent event) {
+        Long newServiceKey = (Long) ((UIOutput) event.getSource()).getValue();
+        techServiceBean
+                .setSelectedTechnicalServiceKeyWithExceptionAndRefresh(newServiceKey);
+        supplierIdToAdd = null;
+        // Force a refresh of the displayed suppliers
+        suppliersForTechnicalService = null;
+    }
 
   /**
    * Small convince method to retrieve the selected technical service from the corresponding bean
