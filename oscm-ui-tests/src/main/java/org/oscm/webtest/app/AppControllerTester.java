@@ -9,14 +9,13 @@
  */
 package org.oscm.webtest.app;
 
+import java.io.File;
+import javax.security.auth.login.LoginException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.oscm.webtest.WebTester;
-
-import javax.security.auth.login.LoginException;
-import java.io.File;
 
 /** Helper class for integration web tests for oscm-app/controller/controller/?cid=abc */
 public class AppControllerTester extends WebTester {
@@ -162,7 +161,9 @@ public class AppControllerTester extends WebTester {
                     + ":j_idt"
                     + idKey
                     + "']"));
-    logger.info(String.format("Read value %s from element with id %s", element.getAttribute("value"), index));
+    logger.info(
+        String.format(
+            "Read value %s from element with id %s", element.getAttribute("value"), index));
 
     return element.getAttribute("value");
   }

@@ -136,8 +136,8 @@ public class PortalMarketServiceWT {
     assertTrue(tester.getExecutionResult());
   }
 
-// TODO Table is having issues on master branch, waiting for issue to be resolved
-//  @Test
+  // TODO Table is having issues on master branch, waiting for issue to be resolved
+  //  @Test
   public void test04activeService() throws Exception {
 
     tester.visitPortal(PortalPathSegments.ACTIVE_MARKETSERVICE);

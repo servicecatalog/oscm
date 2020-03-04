@@ -9,6 +9,10 @@
  */
 package org.oscm.portal;
 
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import javax.security.auth.login.LoginException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.*;
@@ -16,11 +20,6 @@ import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.oscm.webtest.*;
-
-import javax.security.auth.login.LoginException;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 /** Integration web test to create an organization. */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -35,9 +34,7 @@ public class PortalOrganizationWT {
   private static String authMode;
   private static PortalTester tester;
 
-
-  private static final Logger logger =
-      LogManager.getLogger(PortalOrganizationWT.class.getName());
+  private static final Logger logger = LogManager.getLogger(PortalOrganizationWT.class.getName());
   @Rule public TestWatcher testWatcher = new JUnitHelper();
 
   @BeforeClass

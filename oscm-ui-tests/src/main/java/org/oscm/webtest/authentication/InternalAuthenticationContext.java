@@ -54,11 +54,13 @@ public class InternalAuthenticationContext implements AuthenticationContext {
   }
 
   @Override
-  public void loginMarketplace(String user, String password) throws LoginException, InterruptedException {
+  public void loginMarketplace(String user, String password)
+      throws LoginException, InterruptedException {
     WebElement userInput = driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_INPUT_USERID));
     userInput.sendKeys(user);
 
-    WebElement pwdInput = driver.findElement(By.name(PortalHtmlElements.MARKETPLACE_INPUT_PASSWORD));
+    WebElement pwdInput =
+        driver.findElement(By.name(PortalHtmlElements.MARKETPLACE_INPUT_PASSWORD));
     pwdInput.sendKeys(password);
 
     driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_BUTTON_LOGIN)).click();
@@ -73,6 +75,4 @@ public class InternalAuthenticationContext implements AuthenticationContext {
       logger.info(String.format("Login to OSCM Portal successfully with userId: %s", user));
     }
   }
-
-
 }

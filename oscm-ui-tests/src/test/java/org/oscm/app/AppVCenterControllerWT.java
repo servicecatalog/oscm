@@ -1,5 +1,18 @@
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2020
+ *
+ * <p>Creation Date: 04-03-2020
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.app;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.junit.rules.TemporaryFolder;
@@ -9,11 +22,6 @@ import org.oscm.portal.JUnitHelper;
 import org.oscm.webtest.app.AppControllerTester;
 import org.oscm.webtest.app.AppHtmlElements;
 import org.oscm.webtest.app.AppPathSegments;
-
-import java.io.File;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppVCenterControllerWT {
@@ -39,8 +47,8 @@ public class AppVCenterControllerWT {
 
     userID = controllerTester.getProperty(AppControllerTester.APP_ADMIN_USER_ID);
     userPassword = controllerTester.getProperty(AppControllerTester.APP_ADMIN_USER_PWD);
-      controllerTester.loginAppController(
-              userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_VCENTER);
+    controllerTester.loginAppController(
+        userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_VCENTER);
   }
 
   @AfterClass
@@ -50,50 +58,47 @@ public class AppVCenterControllerWT {
 
   @Test
   public void test01setSettingsAPIvSphere() throws Exception {
-      controllerTester.changeValueInputInBalancerField("url", "https://webiste.com");
-      controllerTester.changeValueInputInBalancerField("user", userID);
-      controllerTester.changeValueInputInBalancerField("pwd", userPassword);
+    controllerTester.changeValueInputInBalancerField("url", "https://webiste.com");
+    controllerTester.changeValueInputInBalancerField("user", userID);
+    controllerTester.changeValueInputInBalancerField("pwd", userPassword);
 
-      controllerTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt120']");
-      controllerTester.readDefaultInfoMessage(
-          AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND);
+    controllerTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt120']");
+    controllerTester.readDefaultInfoMessage(
+        AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND);
 
-      assertEquals("https://webiste.com", controllerTester.readDefaultValue("url"));
-      assertEquals(userID, controllerTester.readDefaultValue("user"));
-      assertEquals(userPassword, controllerTester.readDefaultValue("pwd"));
+    assertEquals("https://webiste.com", controllerTester.readDefaultValue("url"));
+    assertEquals(userID, controllerTester.readDefaultValue("user"));
+    assertEquals(userPassword, controllerTester.readDefaultValue("pwd"));
   }
 
   @Test
   public void test02importServiceTemplate() throws Exception {
 
-      createdFile = folder.newFile("vcenter.csv");
-      FileUtils.writeStringToFile(
-          createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
-      controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
-      controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
+    createdFile = folder.newFile("vcenter.csv");
+    FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
+    controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
+    controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
 
-      assertTrue(
-          controllerTester
-              .readDefaultInfoMessage(
-                  AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND)
-              .contains("saved successfully"));
-
+    assertTrue(
+        controllerTester
+            .readDefaultInfoMessage(
+                AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND)
+            .contains("saved successfully"));
   }
 
   @Test
   public void test03setSettingsIntoController() throws Exception {
 
-      controllerTester.changeValueInputInSpecificField("47:1", 54, changedUserID);
-      controllerTester.changeValueInputInSpecificField("47:2", 54, userKey);
-      controllerTester.changeValueInputInSpecificField("47:3", 53, changedPassword);
+    controllerTester.changeValueInputInSpecificField("47:1", 54, changedUserID);
+    controllerTester.changeValueInputInSpecificField("47:2", 54, userKey);
+    controllerTester.changeValueInputInSpecificField("47:3", 53, changedPassword);
 
-      controllerTester.buttonClickEvent(58);
-      controllerTester.readDefaultInfoMessage(
-          AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_FIRST);
+    controllerTester.buttonClickEvent(58);
+    controllerTester.readDefaultInfoMessage(
+        AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_FIRST);
 
-      assertEquals(changedUserID, controllerTester.readValue("47:1", 54));
-      assertEquals(userKey, controllerTester.readValue("47:2", 54));
-      assertEquals(changedPassword, controllerTester.readValue("47:3", 53));
-    }
-
+    assertEquals(changedUserID, controllerTester.readValue("47:1", 54));
+    assertEquals(userKey, controllerTester.readValue("47:2", 54));
+    assertEquals(changedPassword, controllerTester.readValue("47:3", 53));
+  }
 }
