@@ -52,4 +52,27 @@ public class InternalAuthenticationContext implements AuthenticationContext {
       logger.info(String.format("Login to OSCM Portal successfully with userId: %s", user));
     }
   }
+
+  @Override
+  public void loginMarketplace(String user, String password) throws LoginException, InterruptedException {
+    WebElement userInput = driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_INPUT_USERID));
+    userInput.sendKeys(user);
+
+    WebElement pwdInput = driver.findElement(By.name(PortalHtmlElements.MARKETPLACE_INPUT_PASSWORD));
+    pwdInput.sendKeys(password);
+
+    driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_BUTTON_LOGIN)).click();
+    driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
+
+    try {
+      driver.findElement(By.id(PortalHtmlElements.PORTAL_DIV_LOGIN_FAILED));
+      String info = String.format("Login to OSCM Portal failed with userId:%s", user);
+      logger.error(info);
+      throw new LoginException(info);
+    } catch (NoSuchElementException exc) {
+      logger.info(String.format("Login to OSCM Portal successfully with userId: %s", user));
+    }
+  }
+
+
 }

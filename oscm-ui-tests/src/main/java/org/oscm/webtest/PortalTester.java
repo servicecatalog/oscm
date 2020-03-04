@@ -9,11 +9,15 @@
  */
 package org.oscm.webtest;
 
-import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.oscm.email.MaildevReader;
+import org.oscm.identity.ApiIdentityClient;
+import org.oscm.identity.IdentityConfiguration;
+import org.oscm.identity.exception.IdentityClientException;
+
+import javax.security.auth.login.LoginException;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
@@ -29,14 +33,19 @@ public class PortalTester extends WebTester {
   // path schemas
   private static final String BASE_PATH_PORTAL = "%s/oscm-portal/%s";
   private static final String BASE_PATH_MARKETPLACE = "%s/oscm-portal/marketplace/%s";
+  private static final String AUTH_TENANT = "auth.tenant";
 
-  private MaildevReader maildevReader;;
+  private MaildevReader maildevReader;
+  private ApiIdentityClient identityClient;
 
   public PortalTester() throws Exception {
     super();
 
     this.maildevReader = new MaildevReader(prop.getProperty(EMAIL_HOST));
-    visitPortal("");
+    IdentityConfiguration configuration =
+        IdentityConfiguration.of().tenantId(prop.getProperty(AUTH_TENANT)).build();
+    this.identityClient = new ApiIdentityClient(configuration);
+    visitLoginPage();
   }
 
   /**
@@ -48,7 +57,8 @@ public class PortalTester extends WebTester {
    * @throws InterruptedException
    * @throws Exception
    */
-  public void loginPortal(String user, String password) throws LoginException {
+  public void loginPortal(String user, String password)
+      throws LoginException, InterruptedException {
     authenticationCtx.loginPortal(user, password);
     log(String.format("Login to portal as %s", user));
   }
@@ -69,6 +79,29 @@ public class PortalTester extends WebTester {
       throw new Exception("Page not found!");
     } else {
       log(String.format("Navigate to %s successfully", target));
+    }
+  }
+
+  public void visitLoginPage() throws Exception {
+    driver.navigate().to(String.format(BASE_PATH_PORTAL, prop.getProperty(BES_HTTPS_URL), ""));
+    String expectedTitle =
+        prop.get(AUTH_MODE).equals("OIDC")
+            ? AzureHtmlElements.AZURE_TITLE_LOGIN
+            : PortalHtmlElements.PORTAL_TITLE;
+    String actualTitle = driver.getTitle();
+    if (actualTitle == null || !actualTitle.contentEquals(expectedTitle)) {
+      log(
+          "Navigate to login page failed, title expected:"
+              + expectedTitle
+              + " but it was: "
+              + actualTitle);
+      throw new Exception(
+          "Navigate to login page failed, title expected:"
+              + expectedTitle
+              + " but it was: "
+              + actualTitle);
+    } else {
+      log("Navigate to login page successfully");
     }
   }
 
@@ -102,22 +135,9 @@ public class PortalTester extends WebTester {
 
     if (verifyFoundElement(By.linkText(PortalHtmlElements.MARKETPLACE_LINKTEXT_LOGIN))) {
       driver.findElement(By.linkText(PortalHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
-      waitForElement(By.id(PortalHtmlElements.MARKETPLACE_BUTTON_LOGIN), WebTester.IMPLICIT_WAIT);
     }
 
-    WebElement userInput = driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_INPUT_USERID));
-    userInput.sendKeys(user);
-    WebElement pwdInput = driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_INPUT_PASSWORD));
-    pwdInput.sendKeys(password);
-
-    driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_BUTTON_LOGIN)).click();
-    if (verifyFoundElement(By.id(PortalHtmlElements.MARKETPLACE_SPAN_WELCOME))) {
-      log(String.format("Login to OSCM Marketplace successfully with userID: %s", user));
-    } else {
-      String info = String.format("Login to Marketplace Portal failed with userID: %s", user);
-      log(info);
-      throw new LoginException(info);
-    }
+    authenticationCtx.loginMarketplace(user, password);
   }
 
   /**
@@ -199,5 +219,18 @@ public class PortalTester extends WebTester {
    */
   public String readLatestEmailWithSubject(String subject) throws Exception {
     return maildevReader.getLatestEmailBySubject(subject).getText();
+  }
+
+  public void deleteSupplierGroup(String groupName) throws IdentityClientException {
+    identityClient.getGroups().stream()
+        .filter(groupInfo -> groupInfo.getName().contains(groupName))
+        .forEach(
+            groupInfo -> {
+              try {
+                identityClient.deleteGroup(groupInfo.getId());
+              } catch (IdentityClientException e) {
+                e.printStackTrace();
+              }
+            });
   }
 }

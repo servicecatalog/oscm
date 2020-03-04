@@ -198,8 +198,4 @@ public class AppControllerTester extends WebTester {
   public String readDefaultInfoMessage(String elementXPath) {
     return driver.findElement(By.xpath(elementXPath)).getText();
   }
-
-  public String getProperties(String propertie) {
-    return prop.getProperty(propertie);
-  }
 }

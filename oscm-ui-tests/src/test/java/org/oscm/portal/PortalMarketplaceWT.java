@@ -32,8 +32,8 @@ public class PortalMarketplaceWT {
   @BeforeClass
   public static void setup() throws Exception {
     tester = new PortalTester();
-    String userid = tester.getPropertie(PortalTester.BES_ADMIN_USER_ID);
-    String userpassword = tester.getPropertie(PortalTester.BES_ADMIN_USER_PWD);
+    String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
+    String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
     tester.loginPortal(userid, userpassword);
   }
 

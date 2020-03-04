@@ -36,10 +36,10 @@ public class AppOpenstackControllerWT {
     changedUserID = "newUser";
     changedPassword = "Password12";
 
-    userID = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_ID);
-    userPassword = controllerTester.getProperties(AppControllerTester.APP_ADMIN_USER_PWD);
-    controllerTester.loginAppController(
-        userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_OPENSTACK);
+    userID = controllerTester.getProperty(AppControllerTester.APP_ADMIN_USER_ID);
+    userPassword = controllerTester.getProperty(AppControllerTester.APP_ADMIN_USER_PWD);
+      controllerTester.loginAppController(
+          userID, userPassword, AppPathSegments.APP_PATH_CONTROLLER_OPENSTACK);
   }
 
   @AfterClass
@@ -49,84 +49,95 @@ public class AppOpenstackControllerWT {
 
   @Test
   public void test01setSettingsIntoSpecificController() throws Exception {
-    controllerTester.changeValueInputInSpecificField("62:0", 69, changedUserID);
-    controllerTester.changeValueInputInSpecificField("62:1", 68, changedPassword);
-    controllerTester.changeValueInputInSpecificField("62:2", 69, "https://webiste.com");
-    controllerTester.changeValueInputInSpecificField("62:3", 69, String.valueOf(userKey));
-    controllerTester.changeValueInputInSpecificField("62:4", 69, "Website");
-    controllerTester.changeValueInputInSpecificField("62:5", 69, "https://template/...");
-    controllerTester.changeValueInputInSpecificField("62:6", 69, String.valueOf(userKey));
 
-    controllerTester.buttonClickEvent(75);
+      controllerTester.changeValueInputInSpecificField("62:0", 69, changedUserID);
+      controllerTester.changeValueInputInSpecificField("62:1", 68, changedPassword);
+      controllerTester.changeValueInputInSpecificField("62:2", 69, "https://webiste.com");
+      controllerTester.changeValueInputInSpecificField("62:3", 69, String.valueOf(userKey));
+      controllerTester.changeValueInputInSpecificField("62:4", 69, "Website");
+      controllerTester.changeValueInputInSpecificField("62:5", 69, "https://template/...");
+      controllerTester.changeValueInputInSpecificField("62:6", 69, String.valueOf(userKey));
 
-    assertEquals(changedUserID, controllerTester.readValue("62:0", 69));
-    assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
-    assertEquals("https://webiste.com", controllerTester.readValue("62:2", 69));
-    assertEquals("Website", controllerTester.readValue("62:4", 69));
-    assertEquals("https://template/...", controllerTester.readValue("62:5", 69));
+      controllerTester.buttonClickEvent(75);
 
-    assertTrue(controllerTester.readInfoMessage().contains("saved successfully"));
+      assertEquals(changedUserID, controllerTester.readValue("62:0", 69));
+      assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
+      assertEquals("https://webiste.com", controllerTester.readValue("62:2", 69));
+      assertEquals("Website", controllerTester.readValue("62:4", 69));
+      assertEquals("https://template/...", controllerTester.readValue("62:5", 69));
+
+      assertTrue(controllerTester.readInfoMessage().contains("saved successfully"));
   }
 
   @Test
   public void test02undoSettingsIntoSpecificController() throws Exception {
-    controllerTester.changeValueInputInSpecificField("62:0", 69, userID);
-    controllerTester.changeValueInputInSpecificField("62:1", 68, userPassword);
-    controllerTester.changeValueInputInSpecificField("62:2", 69, "");
-    controllerTester.changeValueInputInSpecificField("62:3", 69, "");
-    controllerTester.changeValueInputInSpecificField("62:4", 69, "");
-    controllerTester.changeValueInputInSpecificField("62:5", 69, "");
-    controllerTester.changeValueInputInSpecificField("62:6", 69, "");
 
-    controllerTester.buttonClickEvent(76);
+      controllerTester.changeValueInputInSpecificField("62:0", 69, userID);
+      controllerTester.changeValueInputInSpecificField("62:1", 68, userPassword);
+      controllerTester.changeValueInputInSpecificField("62:2", 69, "");
+      controllerTester.changeValueInputInSpecificField("62:3", 69, "");
+      controllerTester.changeValueInputInSpecificField("62:4", 69, "");
+      controllerTester.changeValueInputInSpecificField("62:5", 69, "");
+      controllerTester.changeValueInputInSpecificField("62:6", 69, "");
 
-    assertEquals(changedUserID, controllerTester.readValue("62:0", 69));
-    assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
-    assertEquals("https://webiste.com", controllerTester.readValue("62:2", 69));
-    assertEquals("Website", controllerTester.readValue("62:4", 69));
-    assertEquals("https://template/...", controllerTester.readValue("62:5", 69));
+      controllerTester.buttonClickEvent(76);
+
+      assertEquals(changedUserID, controllerTester.readValue("62:0", 69));
+      assertEquals(changedPassword, controllerTester.readValue("62:1", 68));
+      assertEquals("https://webiste.com", controllerTester.readValue("62:2", 69));
+      assertEquals("Website", controllerTester.readValue("62:4", 69));
+      assertEquals("https://template/...", controllerTester.readValue("62:5", 69));
+
   }
 
   @Test
   public void test03importServiceTemplate() throws Exception {
-    createdFile = folder.newFile("vcenter.csv");
-    FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
-    controllerTester.uploadFileEvent("//input[@id='templateForm:file']", createdFile);
-    controllerTester.buttonDefaultClickEvent("//input[@name='templateForm:j_idt112']");
 
-    assertTrue(controllerTester.readInfoMessage().contains("imported successfully"));
+      createdFile = folder.newFile("vcenter.csv");
+      FileUtils.writeStringToFile(
+          createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
+      controllerTester.uploadFileEvent("//input[@id='templateForm:file']", createdFile);
+      controllerTester.buttonDefaultClickEvent("//input[@name='templateForm:j_idt112']");
+
+      assertTrue(controllerTester.readInfoMessage().contains("imported successfully"));
   }
 
   @Test
   public void test04removeServiceTemplate() throws Exception {
-    controllerTester.buttonDefaultClickEvent("//td[@id='templateForm:j_idt87:0:j_idt94']/a");
 
-    assertTrue(controllerTester.readInfoMessage().contains("deleted successfully"));
+      controllerTester.buttonDefaultClickEvent("//td[@id='templateForm:j_idt87:0:j_idt94']/a");
+
+      assertTrue(controllerTester.readInfoMessage().contains("deleted successfully"));
+
   }
 
   @Test
   public void test05setSettingsIntoController() throws Exception {
-    controllerTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
-    controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
-    controllerTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
 
-    controllerTester.buttonClickEvent(75);
+      controllerTester.changeValueInputInSpecificField("49:1", 56, changedUserID);
+      controllerTester.changeValueInputInSpecificField("49:2", 56, userKey);
+      controllerTester.changeValueInputInSpecificField("49:3", 55, changedPassword);
 
-    assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
-    assertEquals(userKey, controllerTester.readValue("49:2", 56));
-    assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
+      controllerTester.buttonClickEvent(75);
+
+      assertEquals(changedUserID, controllerTester.readValue("49:1", 56));
+      assertEquals(userKey, controllerTester.readValue("49:2", 56));
+      assertEquals(changedPassword, controllerTester.readValue("49:3", 55));
+
   }
 
   @Test
   public void test06undoSettingsIntoController() throws Exception {
-    controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
-    controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
-    controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
 
-    controllerTester.buttonClickEvent(76);
+      controllerTester.changeValueInputInSpecificField("49:1", 56, userID);
+      controllerTester.changeValueInputInSpecificField("49:2", 56, "1000");
+      controllerTester.changeValueInputInSpecificField("49:3", 55, userPassword);
 
-    assertEquals(userID, controllerTester.readValue("49:1", 56));
-    assertEquals("1000", controllerTester.readValue("49:2", 56));
-    assertEquals(userPassword, controllerTester.readValue("49:3", 55));
+      controllerTester.buttonClickEvent(76);
+
+      assertEquals(userID, controllerTester.readValue("49:1", 56));
+      assertEquals("1000", controllerTester.readValue("49:2", 56));
+      assertEquals(userPassword, controllerTester.readValue("49:3", 55));
+
   }
 }
