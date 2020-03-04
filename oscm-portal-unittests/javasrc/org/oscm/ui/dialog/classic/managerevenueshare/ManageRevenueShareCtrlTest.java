@@ -27,7 +27,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -292,14 +293,14 @@ public class ManageRevenueShareCtrlTest {
     @Test
     public void templateChanged_DifferentKey() {
         // given
-        ValueChangeEvent eventMock = getMockValueChangeEventForTemplate(2);
+        AjaxBehaviorEvent ajaxEvent = getMockValueChangeEventForTemplate(2);
 
         ManageRevenueShareModel model = new ManageRevenueShareModel();
         model.setSelectedTemplateKey(1);
         ctrl.setModel(model);
 
         // when
-        ctrl.templateChanged(eventMock);
+        ctrl.templateChanged(ajaxEvent);
 
         // then
         assertEquals(2, model.getSelectedTemplateKey());
@@ -308,14 +309,14 @@ public class ManageRevenueShareCtrlTest {
     @Test
     public void templateChanged_SameKey() {
         // given
-        ValueChangeEvent eventMock = getMockValueChangeEventForTemplate(1);
+        AjaxBehaviorEvent ajaxEvent = getMockValueChangeEventForTemplate(1);
 
         ManageRevenueShareModel model = new ManageRevenueShareModel();
         model.setSelectedTemplateKey(1);
         ctrl.setModel(model);
 
         // when
-        ctrl.templateChanged(eventMock);
+        ctrl.templateChanged(ajaxEvent);
 
         // then
         assertEquals(1, model.getSelectedTemplateKey());
@@ -649,11 +650,12 @@ public class ManageRevenueShareCtrlTest {
         return partnerServicePricings;
     }
 
-    private ValueChangeEvent getMockValueChangeEventForTemplate(
+    private AjaxBehaviorEvent getMockValueChangeEventForTemplate(
             long selectedServiceKey) {
-        ValueChangeEvent eventMock = mock(ValueChangeEvent.class);
-        when(eventMock.getNewValue()).thenReturn(
-                Long.valueOf(selectedServiceKey));
+        AjaxBehaviorEvent eventMock = mock(AjaxBehaviorEvent.class);
+        UIOutput uiOutput = mock(UIOutput.class);
+        when(eventMock.getSource()).thenReturn(uiOutput);
+        when(uiOutput.getValue()).thenReturn(selectedServiceKey);
         return eventMock;
     }
 

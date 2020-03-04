@@ -17,9 +17,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
-import javax.servlet.http.HttpSession;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.Part;
 
 import org.oscm.converter.PropertiesLoader;
@@ -31,7 +31,6 @@ import org.oscm.internal.vo.*;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
-import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.ImageUploader;
 import org.oscm.ui.common.JSFUtils;
@@ -438,11 +437,10 @@ public class OrganizationBean extends BaseBean implements Serializable {
      * Called by the value changed listener of the technical service
      * selectionOneMenu.
      */
-    public void technicalServiceChanged(ValueChangeEvent event) {
-        Long newServiceKey = (Long) event.getNewValue();
+    public void technicalServiceChanged(AjaxBehaviorEvent event) {
+        Long newServiceKey = (Long) ((UIOutput) event.getSource()).getValue();
         techServiceBean
-                .setSelectedTechnicalServiceKeyWithExceptionAndRefresh(newServiceKey
-                        .longValue());
+                .setSelectedTechnicalServiceKeyWithExceptionAndRefresh(newServiceKey);
         supplierIdToAdd = null;
         // Force a refresh of the displayed suppliers
         suppliersForTechnicalService = null;

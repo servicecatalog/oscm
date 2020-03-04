@@ -16,7 +16,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.security.auth.login.LoginException;
 
@@ -301,19 +302,17 @@ public class MarketableServicePublishCtrl extends BaseBean
         }
     }
 
-    public void marketplaceChanged(ValueChangeEvent event) {
+    public void marketplaceChanged(AjaxBehaviorEvent event) {
         initializeModel(model.getSelectedServiceKey(),
-                event.getNewValue() == null ? "" : (String) event.getNewValue(),
+                ((UIOutput) event.getSource()).getValue() == null ? "" : (String) ((UIOutput) event.getSource()).getValue(),
                 true);
     }
 
-    public void serviceChanged(ValueChangeEvent event) {
-        final long selectedServiceKey = ((Long) event.getNewValue())
-                .longValue();
+    public void serviceChanged(AjaxBehaviorEvent event) {
+        final long selectedServiceKey = (Long) ((UIOutput) event.getSource()).getValue();
         if (selectedServiceKey != model.getSelectedServiceKey()) {
             initializeModel(selectedServiceKey, null, true);
-            sessionBean.setSelectedServiceKeyForSupplier(
-                    Long.valueOf(model.getSelectedServiceKey()));
+            sessionBean.setSelectedServiceKeyForSupplier(model.getSelectedServiceKey());
         }
     }
 
