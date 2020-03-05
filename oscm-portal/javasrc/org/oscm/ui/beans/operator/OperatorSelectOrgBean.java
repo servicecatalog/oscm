@@ -11,12 +11,7 @@ package org.oscm.ui.beans.operator;
 
 import java.io.Serializable;
 import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -27,9 +22,6 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.lang3.StringUtils;
 
-import org.oscm.internal.intf.OperatorService;
-import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
-import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.string.Strings;
@@ -38,10 +30,7 @@ import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.SelectOrganizationIncludeBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
-import org.oscm.ui.common.MarketplacesComparator;
-import org.oscm.ui.model.Marketplace;
 import org.oscm.ui.model.Organization;
-import org.oscm.internal.pricemodel.POCustomer;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.VOOperatorOrganization;
@@ -54,11 +43,10 @@ import org.oscm.internal.vo.VOOrganization;
  */
 @SessionScoped
 @ManagedBean(name="operatorSelectOrgBean")
-public class OperatorSelectOrgBean extends BaseOperatorBean implements
-        Serializable {
+public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializable {
 
     private static final long serialVersionUID = -7044849342962387357L;
-    List<SelectItem> availableOrganizations;
+    List<Organization> availableOrganizations;
     private Organization orgModel;
 
     private static final Log4jLogger logger = LoggerFactory
@@ -66,9 +54,7 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
 
     private VOOperatorOrganization organization;
 
-    private String organizationRoleType;
-
-    //TODO: think more about that. It breaks architecture in view layer. Maybe model should be a bean and we should not get access to model through this bean but directly.
+    /*TODO: think more about that. It breaks architecture in view layer. Maybe model should be a bean and we should not get access to model through this bean but directly.*/
     @ManagedProperty(value="#{selectOrganizationIncludeBean}")
     private SelectOrganizationIncludeBean selectOrganizationIncludeBean;
 
@@ -79,19 +65,19 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
     public Organization getOrgModel() {
         if (orgModel == null) {
             // use disabled default if nothing is selected
-            orgModel = new Organization(new VOOrganization);
+            orgModel = new Organization(new VOOrganization());
         }
         return orgModel;
     }
     /**
      * Sort organization labels alphabetically in locale-sensitive order.
      */
-    private class OrgComparator implements Comparator<VOOrganization> {
+    private class OrgComparator implements Comparator<Organization> {
 
         Collator collator = Collator.getInstance();
 
         @Override
-        public int compare(VOOrganization o1, VOOrganization o2) {
+        public int compare(Organization o1, Organization o2) {
             return collator.compare(o1.getOrganizationId(), o2.getOrganizationId());
         }
     }
@@ -131,42 +117,66 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
         }
     }
 
-    public List<SelectItem> getAvailableOrganizations() throws OrganizationAuthoritiesException {
-        if (availableOrganizations == null) {
-            List<VOOrganization> organizations;
+    public List<Organization> getAvailableOrganizations() {
+        List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
+        Vo2ModelMapper<VOOrganization, Organization> mapper = new Vo2ModelMapper<VOOrganization, Organization>() {
+            @Override
+            public Organization createModel(final VOOrganization vo) {
+                return new Organization(vo);
+            }
+        };
+        try {
+            String value = getRequest().getParameter(
+                    Constants.REQ_PARAM_ORGANIZATION_ROLE_TYPE);
+            System.out.println("Value string equals: " + value);
+            if (!isBlank(value)) {
+                try {
+                    StringTokenizer st = new StringTokenizer(value, ",");
+                    while (st.hasMoreElements()) {
+                        roleTypes.add(OrganizationRoleType.valueOf(st
+                                .nextToken()));
+                    }
+                } catch (NoSuchElementException e) {
+                    logger.logError(
+                            Log4jLogger.SYSTEM_LOG,
+                            e,
+                            LogMessageIdentifier.ERROR_CONVERT_ORGANIZATION_ROLE_TYPE_FAILED);
+                }
+            }
 
-            organizations = getOperatorService().getOrganizations("",
-                    new ArrayList<OrganizationRoleType>());
+            if (availableOrganizations == null) {
+                System.out.println("List length before initialize equals null");
+
+                String pattern = getOrganizationId();
+                System.out.println("Pattern value equals: " + pattern);
+            for (OrganizationRoleType vMp : roleTypes) {
+                System.out.println("Role types value equals: " + vMp.toString());
+            }
+            List<Organization> organizations = mapper.map(
+                    getOperatorService().getOrganizations(pattern, roleTypes));
             Collections.sort(organizations, new OrgComparator());
 
-            List<SelectItem> result = new ArrayList<SelectItem>();
-            // create the selection model based on the read data
-            for (VOOrganization vOr : organizations) {
-                result.add(new SelectItem(vOr.getOrganizationId(), getLabel(vOr)));
-            }
-            availableOrganizations = result;
+                for (Organization Org : organizations) {
+                    System.out.println("Organization Id from organization " + getOrganizationId());
+                }
+
+            System.out.println("List length after initialize" + organizations.size());
+            return organizations;
+        } } catch (SaaSApplicationException e) {
+            ExceptionHandler.execute(e);
         }
-        return availableOrganizations;
+        return null;
     }
 
-    private String getLabel(VOOrganization vOr) {
-        if (vOr == null) {
+    String getLabel(Organization Org) {
+        if (Org == null) {
             return "";
         }
-        if (vOr.getName() == null || Strings.isEmpty(vOr.getName())) {
-            return vOr.getOrganizationId();
+        if (Org.getName() == null || Strings.isEmpty(Org.getName())) {
+            return Org.getOrganizationId();
         }
-        return String.format("%s (%s)", vOr.getName(), vOr.getOrganizationId());
+        return String.format("%s (%s)", Org.getName(), Org.getOrganizationId());
     }
-
-    public String getOrganizationRoleType() {
-        return organizationRoleType;
-    }
-
-    public void setOrganizationRoleType(String organizationRoleType) {
-        this.organizationRoleType = organizationRoleType;
-    }
-
 
     public List<Organization> suggest(FacesContext context, UIComponent component, String organizationId) {
 		organizationId = organizationId.replaceAll("\\p{C}", "");
@@ -200,7 +210,7 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements
             String pattern = organizationId + "%";
             List<Organization> organizations = mapper.map(
                     getOperatorService().getOrganizations(pattern, roleTypes));
-//            Collections.sort(organizations, new OrgComparator());
+            Collections.sort(organizations, new OrgComparator());
             return organizations;
         } catch (SaaSApplicationException e) {
             ExceptionHandler.execute(e);
