@@ -22,6 +22,8 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.lang3.StringUtils;
 
+import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
+import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.string.Strings;
@@ -30,6 +32,7 @@ import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.SelectOrganizationIncludeBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
+import org.oscm.ui.common.MarketplacesComparator;
 import org.oscm.ui.model.Organization;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.exception.SaaSApplicationException;
@@ -46,7 +49,7 @@ import org.oscm.internal.vo.VOOrganization;
 public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializable {
 
     private static final long serialVersionUID = -7044849342962387357L;
-    List<Organization> availableOrganizations;
+    List<SelectItem> availableOrganizations;
     private Organization orgModel;
 
     private static final Log4jLogger logger = LoggerFactory
@@ -78,6 +81,16 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
 
         @Override
         public int compare(Organization o1, Organization o2) {
+            return collator.compare(o1.getOrganizationId(), o2.getOrganizationId());
+        }
+    }
+
+    private class OrganizationComparator implements Comparator<VOOrganization> {
+
+        Collator collator = Collator.getInstance();
+
+        @Override
+        public int compare(VOOrganization o1, VOOrganization o2) {
             return collator.compare(o1.getOrganizationId(), o2.getOrganizationId());
         }
     }
@@ -117,54 +130,39 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
         }
     }
 
-    public List<Organization> getAvailableOrganizations(String organizationId) {
-        organizationId = organizationId.replaceAll("\\p{C}", "");
-        Vo2ModelMapper<VOOrganization, Organization> mapper = new Vo2ModelMapper<VOOrganization, Organization>() {
-            @Override
-            public Organization createModel(final VOOrganization vo) {
-                return new Organization(vo);
-            }
-        };
-        try {
-            List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
+    public List<SelectItem> getAvailableOrganizations() throws OrganizationAuthoritiesException {
+        if (availableOrganizations == null) {
+            List<VOOrganization> organizations;
             String value = getRequest().getParameter(
                     Constants.REQ_PARAM_ORGANIZATION_ROLE_TYPE);
-            if (!isBlank(value)) {
-                try {
-                    StringTokenizer st = new StringTokenizer(value, ",");
-                    while (st.hasMoreElements()) {
-                        roleTypes.add(OrganizationRoleType.valueOf(st
-                                .nextToken()));
-                    }
-                } catch (NoSuchElementException e) {
-                    logger.logError(
-                            Log4jLogger.SYSTEM_LOG,
-                            e,
-                            LogMessageIdentifier.ERROR_CONVERT_ORGANIZATION_ROLE_TYPE_FAILED);
-                }
+      System.out.println("Value of value equals: " + value);
+            List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
+            System.out.println("Length of roleTypes list equals: " + roleTypes.size());
+
+            organizations = getOperatorService().getOrganizations(value, roleTypes);
+
+            Collections.sort(organizations, new OrganizationComparator());
+
+            List<SelectItem> result = new ArrayList<SelectItem>();
+            // create the selection model based on the read data
+            for (VOOrganization vOr : organizations) {
+                result.add(new SelectItem(vOr.getOrganizationId(), getLabel(vOr)));
+                System.out.println("Result should consist: " + vOr.getOrganizationId() + " and " + getLabel(vOr));
             }
-            String pattern = organizationId + "%";
-      System.out.println("Pattern value: " + pattern);
-            List<Organization> organizations = mapper.map(
-                    getOperatorService().getOrganizations(pattern, roleTypes));
-            Collections.sort(organizations, new OrgComparator());
-      System.out.println("List size: " + organizations.size());
-            availableOrganizations = organizations;
-            return availableOrganizations;
-        } catch (SaaSApplicationException e) {
-            ExceptionHandler.execute(e);
+            availableOrganizations = result;
+      System.out.println("List have length: " + availableOrganizations.size());
         }
-        return null;
+        return availableOrganizations;
     }
 
-    String getLabel(Organization Org) {
-        if (Org == null) {
+    String getLabel(VOOrganization vOr) {
+        if (vOr == null) {
             return "";
         }
-        if (Org.getName() == null || Strings.isEmpty(Org.getName())) {
-            return Org.getOrganizationId();
+        if (vOr.getName() == null || Strings.isEmpty(vOr.getName())) {
+            return vOr.getOrganizationId();
         }
-        return String.format("%s (%s)", Org.getName(), Org.getOrganizationId());
+        return String.format("%s (%s)", vOr.getName(), vOr.getOrganizationId());
     }
 
     public List<Organization> suggest(FacesContext context, UIComponent component, String organizationId) {
