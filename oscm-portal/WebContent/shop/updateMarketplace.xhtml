@@ -43,13 +43,14 @@
         <h:commandButton id="updateMarketPlaceButton"  action="#{updateMarketplaceBean.marketplaceChanged}" style="display: none;" />
       </h:form>
       </h:panelGroup>
+    </adm:panelGrid>
 
-
+    <adm:panelGrid>
+      <adm:outputLabel value="#{msg['service.name']}"/>
       <h:panelGroup>
         <b:selectOneMenu select2="true" styleClass="select" id="selectOrg"
                          value="#{operatorSelectOrgBean.orgModel.organizationId}" immediate="true"
-                         onclick="AdmUtils.storeValue(this);A"
-                         onchange="#{rich:element('updateMarketPlaceButton')}.click();return false;">
+                         onclick="AdmUtils.storeValue(this);">
           <adm:selectItemPleaseSelect itemValue="" />
           <f:selectItems value="#{operatorSelectOrgBean.availableOrganizations}" />
         </b:selectOneMenu>

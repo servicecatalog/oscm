@@ -8,18 +8,19 @@
 
 package org.oscm.ui.beans.operator;
 
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.oscm.domobjects.PlatformUser;
+import org.oscm.internal.types.enumtypes.OrganizationRoleType;
+import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
+import org.oscm.internal.vo.VOOrganization;
 import org.oscm.ui.beans.SelectOrganizationIncludeBean;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,8 @@ import org.oscm.ui.common.UiDelegate;
 import org.oscm.internal.intf.OperatorService;
 import org.oscm.internal.vo.VOOperatorOrganization;
 
+import javax.faces.model.SelectItem;
+
 /**
  * @author ZhouMin
  * 
@@ -36,11 +39,28 @@ import org.oscm.internal.vo.VOOperatorOrganization;
 public class OperatorSelectOrgBeanTest {
     private VOOperatorOrganization org;
     private OperatorSelectOrgBean bean;
+    private VOOrganization voOrg;
+    private PlatformUser platformUser;
     private final ApplicationBean appBean = mock(ApplicationBean.class);
     private final OperatorService operatorService = mock(OperatorService.class);
 
     @Before
     public void setup() throws Exception {
+        platformUser = new PlatformUser();
+        voOrg = new VOOrganization();
+        voOrg.setOrganizationId(
+                platformUser.getOrganization().getOrganizationId());
+        voOrg.setEmail("admin@organization.com");
+        voOrg.setPhone("123456");
+        voOrg.setUrl("http://www.example.com");
+        voOrg.setName("example");
+        voOrg.setAddress("an address");
+        voOrg.setLocale(platformUser.getLocale());
+        voOrg.setVersion(platformUser.getOrganization().getVersion());
+        voOrg.setKey(platformUser.getOrganization().getKey());
+        voOrg.setDomicileCountry("DE");
+        voOrg.setNameSpace("http://oscm.org/xsd/2.0");
+
         bean = new OperatorSelectOrgBean() {
 
             private static final long serialVersionUID = -9126265695343363133L;
@@ -78,6 +98,38 @@ public class OperatorSelectOrgBeanTest {
 
         // then
         verify(appBean, times(1)).checkLocaleValidation("en");
+    }
+
+    @Test
+    public void getAvailableOrganizations_NotNull() throws OrganizationAuthoritiesException {
+        List<SelectItem> list = bean.getAvailableOrganizations();
+        assertNotNull(list);
+        verify(operatorService, times(1)).getOrganizations("",
+                new ArrayList<OrganizationRoleType>());
+    }
+
+    @Test
+    public void getAvailableOrganizations_Same() throws OrganizationAuthoritiesException {
+        List<SelectItem> list1 = bean.getAvailableOrganizations();
+        verify(operatorService, times(1)).getOrganizations("",
+                new ArrayList<OrganizationRoleType>());
+        List<SelectItem> list2 = bean.getAvailableOrganizations();
+        verifyNoMoreInteractions(operatorService);
+        assertSame(list1, list2);
+    }
+
+    @Test
+    public void getAvailableOrganizations() throws OrganizationAuthoritiesException {
+        List<SelectItem> list = bean.getAvailableOrganizations();
+        verify(operatorService, times(1)).getOrganizations("",
+                new ArrayList<OrganizationRoleType>());
+
+        assertEquals(2, list.size());
+        SelectItem item = list.get(0);
+        assertEquals(voOrg.getName() + " (" + voOrg.getOrganizationId() + ")",
+                item.getLabel());
+        assertEquals(operatorService.getOrganizations("",
+                new ArrayList<OrganizationRoleType>()), item.getValue());
     }
 
 }
