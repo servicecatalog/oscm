@@ -22,7 +22,6 @@ import javax.faces.model.SelectItem;
 
 import org.apache.commons.lang3.StringUtils;
 
-import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.string.Strings;
@@ -151,8 +150,11 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
                                 LogMessageIdentifier.ERROR_CONVERT_ORGANIZATION_ROLE_TYPE_FAILED);
                     }
                 }
+                VOOrganization voOrg = new VOOrganization();
+                String pattern = voOrg.getOrganizationId() + "%";
 
-            organizations = getOperatorService().getOrganizations(value, roleTypes);
+            System.out.println("Pattern value is: " + pattern);
+            organizations = getOperatorService().getOrganizations(pattern, roleTypes);
 
             Collections.sort(organizations, new OrganizationComparator());
 
@@ -163,12 +165,11 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
                 System.out.println("Result should consist: " + vOr.getOrganizationId() + " and " + getLabel(vOr));
             }
             availableOrganizations = result;
-      System.out.println("List have length: " + availableOrganizations.size());
-                return availableOrganizations;
-            }catch (SaaSApplicationException e) {
+            System.out.println("List have length: " + availableOrganizations.size());
+            return availableOrganizations;
+            } catch (SaaSApplicationException e) {
                 ExceptionHandler.execute(e);
-            }
-            }
+            } }
         return null;
     }
 
@@ -212,9 +213,11 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
                 }
             }
             String pattern = organizationId + "%";
+            System.out.println("Pattern value in suggest method: " + pattern);
             List<Organization> organizations = mapper.map(
                     getOperatorService().getOrganizations(pattern, roleTypes));
             Collections.sort(organizations, new OrgComparator());
+            System.out.println("List in suggest method have length: " + organizations.size());
             return organizations;
         } catch (SaaSApplicationException e) {
             ExceptionHandler.execute(e);
