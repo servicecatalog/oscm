@@ -250,7 +250,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
     public String getMarketplaceId() {
         if (marketplaceId == null){
             final String id = sessionBean.getMarketplaceId();
-            if(id != null && id.equals("")){
+            if(id != null && !id.equals("")){
                 setMarketplaceId(id);
             }
         }
