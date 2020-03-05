@@ -24,7 +24,7 @@
                                    oncomplete="javascsript:AdmUtils.setUIElements();"
                                    immediate="true"
                                    label="#{msg['service.marketplace']}">
-        <f:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="marketplaceAccessDetails"/>
+        <f:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="manageAccessForm"/>
         <adm:selectItemPleaseSelect itemValue="" />
         <f:selectItems value="#{manageAccessCtrl.model.selectableMarketplaces}" />
       </adm:bootsfacesSelectMenu>

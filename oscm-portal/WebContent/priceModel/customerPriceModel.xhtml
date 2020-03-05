@@ -43,9 +43,8 @@
             </a4j:outputPanel>
             <h:selectOneMenu id="serviceSelection" styleClass="select" immediate="true"
               value="#{priceModelBean.selectedServiceKey}" disabled="#{empty priceModelBean.customers}"
-              valueChangeListener="#{priceModelBean.reloadPriceModel}"
-              onchange="if(AdmUtils.isNotDirtyOrConfirmed()){ #{rich:element('serviceSelectForm')}.submit(); } else{ AdmUtils.restoreValue(this); }"
               onclick="AdmUtils.storeValue(this);AdmUtils.initFocus();">
+              <f:ajax event="change" render="mainSection" listener="#{priceModelBean.reloadPriceModel}"/>
               <adm:selectItemPleaseSelect itemValue="" />
               <c:forEach items="#{priceModelBean.services}" var="service">
                 <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
