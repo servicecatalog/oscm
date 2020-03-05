@@ -80,7 +80,6 @@ public class MarketplaceBean extends BaseBean implements Serializable {
 
     public MarketplaceBean() {
         super();
-        getMarketplaceId();
     }
 
     public MenuBean getMenuBean() {
@@ -394,7 +393,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      *         <code>false</code>
      */
     public boolean isDisabledForEdit() {
-        return (marketplaceId == null || marketplaceId.equals("0"));
+        return getMarketplaceId() == null;
     }
 
     /**
