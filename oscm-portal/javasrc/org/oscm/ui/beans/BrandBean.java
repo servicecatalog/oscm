@@ -70,7 +70,7 @@ public class BrandBean extends BaseBean implements Serializable {
             final String marketplace = marketplaceBean.getMarketplaceId();
            if(marketplace != null){
                try{
-               getMarketplaceService().getBrandingUrl(marketplace);
+               setBrandingUrl(getMarketplaceService().getBrandingUrl(marketplace));
                } catch (ObjectNotFoundException e) {
                    brandingUrl = null;
                }
