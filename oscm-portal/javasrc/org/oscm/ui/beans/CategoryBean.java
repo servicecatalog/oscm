@@ -215,7 +215,7 @@ public class CategoryBean extends BaseBean implements Serializable {
 
     @Override
     public String getMarketplaceId() {
-        return marketplaceId;
+        return marketplaceBean.getMarketplaceId();
     }
 
     @Override
