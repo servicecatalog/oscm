@@ -90,6 +90,14 @@ public class MarketplaceBean extends BaseBean implements Serializable {
         this.menuBean = menuBean;
     }
 
+    public SessionBean getSessionBean(){
+        return sessionBean;
+    }
+
+    public void setSessionBean(SessionBean sessionBean){
+        this.sessionBean = sessionBean;
+    }
+
     private MarketplaceConfiguration getConfig() {
         return marketplaceService.getCachedMarketplaceConfiguration(BaseBean
                 .getMarketplaceIdStatic());
