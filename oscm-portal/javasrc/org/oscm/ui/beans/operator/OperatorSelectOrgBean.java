@@ -153,7 +153,7 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
                 System.out.println("Role types value equals: " + vMp.toString());
             }
             List<Organization> organizations = mapper.map(
-                    getOperatorService().getOrganizations(pattern, roleTypes));
+                    getOperatorService().getOrganizations("", new ArrayList<OrganizationRoleType>()));
             Collections.sort(organizations, new OrgComparator());
 
                 for (Organization Org : organizations) {
