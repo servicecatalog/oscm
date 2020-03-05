@@ -117,8 +117,8 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
         }
     }
 
-    public List<Organization> getAvailableOrganizations() {
-        List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
+    public List<Organization> getAvailableOrganizations(String organizationId) {
+        organizationId = organizationId.replaceAll("\\p{C}", "");
         Vo2ModelMapper<VOOrganization, Organization> mapper = new Vo2ModelMapper<VOOrganization, Organization>() {
             @Override
             public Organization createModel(final VOOrganization vo) {
@@ -126,9 +126,9 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
             }
         };
         try {
+            List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
             String value = getRequest().getParameter(
                     Constants.REQ_PARAM_ORGANIZATION_ROLE_TYPE);
-            System.out.println("Value string equals: " + value);
             if (!isBlank(value)) {
                 try {
                     StringTokenizer st = new StringTokenizer(value, ",");
@@ -143,26 +143,14 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
                             LogMessageIdentifier.ERROR_CONVERT_ORGANIZATION_ROLE_TYPE_FAILED);
                 }
             }
-
-            if (availableOrganizations == null) {
-                System.out.println("List length before initialize equals null");
-
-                String pattern = getOrganizationId();
-                System.out.println("Pattern value equals: " + pattern);
-            for (OrganizationRoleType vMp : roleTypes) {
-                System.out.println("Role types value equals: " + vMp.toString());
-            }
+            String pattern = organizationId + "%";
+      System.out.println("Pattern value: " + pattern);
             List<Organization> organizations = mapper.map(
-                    getOperatorService().getOrganizations("", new ArrayList<OrganizationRoleType>()));
+                    getOperatorService().getOrganizations(pattern, roleTypes));
             Collections.sort(organizations, new OrgComparator());
-
-                for (Organization Org : organizations) {
-                    System.out.println("Organization Id from organization " + getOrganizationId());
-                }
-
-            System.out.println("List length after initialize" + organizations.size());
+      System.out.println("List size: " + organizations.size());
             return organizations;
-        } } catch (SaaSApplicationException e) {
+        } catch (SaaSApplicationException e) {
             ExceptionHandler.execute(e);
         }
         return null;
