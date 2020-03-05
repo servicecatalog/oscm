@@ -29,6 +29,7 @@ import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.internal.vo.VOOrganization;
 import org.oscm.ui.beans.BaseBean;
+import org.oscm.ui.beans.MarketplaceBean;
 import org.oscm.ui.beans.SessionBean;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.common.MarketplacesComparator;
@@ -221,13 +222,5 @@ public class ManageAccessCtrl {
   }
     public void setMarketplaceService(MarketplaceService marketplaceService) {
         this.marketplaceService = marketplaceService;
-    }
-
-    public SessionBean getSessionBean(){
-        return sessionBean;
-    }
-
-    public void setSessionBean(SessionBean sessionBean){
-        this.sessionBean = sessionBean;
     }
 }
