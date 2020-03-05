@@ -570,8 +570,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
     }
 
     public boolean isUiRenderEnabled() {
-        return !this.isDisabledForEdit() && this.marketplace != null
-                && this.marketplace.getKey() != 0;
+        return !this.isDisabledForEdit() && getMarketplaceId() != null;
     }
 
     public boolean isRestricted() {
