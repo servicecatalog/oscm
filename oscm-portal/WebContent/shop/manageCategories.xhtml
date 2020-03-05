@@ -29,10 +29,8 @@
                            displayRequired="false"
                            required="true"
                            listenerBean="#{categoryBean}"
-                           merketplaceBean="#{categoryBean.marketplaceBean}"
-                           render=":categoriesForm"
-                           onclick="AdmUtils.storeValue(this);"
-    />
+                           marketplaceBean="#{categoryBean.marketplaceBean}"
+                           render=":categoriesForm"/>
 
     <h:form id="categoriesForm">
 
