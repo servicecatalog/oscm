@@ -72,6 +72,9 @@ public class MarketplaceBean extends BaseBean implements Serializable {
     @ManagedProperty(value = "#{menuBean}")
     private MenuBean menuBean;
 
+    @ManagedProperty(value="#{sessionBean}")
+    private SessionBean sessionBean;
+
     @EJB
     private MarketplaceService marketplaceService;
 
@@ -237,6 +240,12 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      */
     @Override
     public String getMarketplaceId() {
+        if (marketplaceId == null){
+            final String id = sessionBean.getMarketplaceId();
+            if(id.equals("")){
+                setMarketplaceId(id);
+            }
+        }
         return marketplaceId;
     }
 
