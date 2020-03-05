@@ -23,7 +23,6 @@ import javax.faces.model.SelectItem;
 import org.apache.commons.lang3.StringUtils;
 
 import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
-import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.string.Strings;
@@ -32,7 +31,6 @@ import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.SelectOrganizationIncludeBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
-import org.oscm.ui.common.MarketplacesComparator;
 import org.oscm.ui.model.Organization;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.exception.SaaSApplicationException;
@@ -130,14 +128,29 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
         }
     }
 
-    public List<SelectItem> getAvailableOrganizations() throws OrganizationAuthoritiesException {
+    public List<SelectItem> getAvailableOrganizations() {
         if (availableOrganizations == null) {
             List<VOOrganization> organizations;
-            String value = getRequest().getParameter(
-                    Constants.REQ_PARAM_ORGANIZATION_ROLE_TYPE);
-      System.out.println("Value of value equals: " + value);
-            List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
-            System.out.println("Length of roleTypes list equals: " + roleTypes.size());
+            try {
+                List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
+                System.out.println("Length of roleTypes list equals: " + roleTypes.size());
+                String value = getRequest().getParameter(
+                        Constants.REQ_PARAM_ORGANIZATION_ROLE_TYPE);
+                System.out.println("Value of value equals: " + value);
+                if (!isBlank(value)) {
+                    try {
+                        StringTokenizer st = new StringTokenizer(value, ",");
+                        while (st.hasMoreElements()) {
+                            roleTypes.add(OrganizationRoleType.valueOf(st
+                                    .nextToken()));
+                        }
+                    } catch (NoSuchElementException e) {
+                        logger.logError(
+                                Log4jLogger.SYSTEM_LOG,
+                                e,
+                                LogMessageIdentifier.ERROR_CONVERT_ORGANIZATION_ROLE_TYPE_FAILED);
+                    }
+                }
 
             organizations = getOperatorService().getOrganizations(value, roleTypes);
 
@@ -151,8 +164,12 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
             }
             availableOrganizations = result;
       System.out.println("List have length: " + availableOrganizations.size());
-        }
-        return availableOrganizations;
+                return availableOrganizations;
+            }catch (SaaSApplicationException e) {
+                ExceptionHandler.execute(e);
+            }
+            }
+        return null;
     }
 
     String getLabel(VOOrganization vOr) {
