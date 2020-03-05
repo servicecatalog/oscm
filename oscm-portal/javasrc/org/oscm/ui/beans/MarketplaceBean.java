@@ -355,12 +355,16 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      *
      * @return the current VOMarketplace object.
      */
-    public Marketplace getMarketplace() throws ObjectNotFoundException {
+    public Marketplace getMarketplace()  {
         if (marketplace == null && marketplaceId == null) {
             marketplace = new Marketplace();
             marketplace.setOpen(false);
         } else {
-            marketplace = new Marketplace(marketplaceService.getMarketplaceById(marketplaceId));
+            try{
+                marketplace = new Marketplace(marketplaceService.getMarketplaceById(marketplaceId));
+            } catch (Exception e){
+
+            }
         }
         return marketplace;
     }
