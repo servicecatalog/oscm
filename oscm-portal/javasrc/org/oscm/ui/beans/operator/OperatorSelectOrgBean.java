@@ -132,10 +132,8 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
             List<VOOrganization> organizations;
             try {
                 List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
-                System.out.println("Length of roleTypes list equals: " + roleTypes.size());
                 String value = getRequest().getParameter(
                         Constants.REQ_PARAM_ORGANIZATION_ROLE_TYPE);
-                System.out.println("Value of value equals: " + value);
                 if (!isBlank(value)) {
                     try {
                         StringTokenizer st = new StringTokenizer(value, ",");
@@ -150,21 +148,14 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
                                 LogMessageIdentifier.ERROR_CONVERT_ORGANIZATION_ROLE_TYPE_FAILED);
                     }
                 }
-            String pattern = "%";
-
-            System.out.println("Pattern value is: " + pattern);
-            organizations = getOperatorService().getOrganizations(pattern, roleTypes);
+            organizations = getOperatorService().getOrganizations("%", roleTypes);
 
             Collections.sort(organizations, new OrganizationComparator());
-
             List<SelectItem> result = new ArrayList<SelectItem>();
-            // create the selection model based on the read data
             for (VOOrganization vOr : organizations) {
                 result.add(new SelectItem(vOr.getOrganizationId(), getLabel(vOr)));
-                System.out.println("Result should consist: " + vOr.getOrganizationId() + " and " + getLabel(vOr));
             }
             availableOrganizations = result;
-            System.out.println("List have length: " + availableOrganizations.size());
             return availableOrganizations;
             } catch (SaaSApplicationException e) {
                 ExceptionHandler.execute(e);
@@ -195,10 +186,8 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
         };
         try {
             List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
-            System.out.println("Length of roleTypes list equals: " + roleTypes.size());
             String value = getRequest().getParameter(
                     Constants.REQ_PARAM_ORGANIZATION_ROLE_TYPE);
-            System.out.println("Value of value equals: " + value);
             if (!isBlank(value)) {
                 try {
                     StringTokenizer st = new StringTokenizer(value, ",");
@@ -214,11 +203,9 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
                 }
             }
             String pattern = organizationId + "%";
-            System.out.println("Pattern value in suggest method: " + pattern);
             List<Organization> organizations = mapper.map(
                     getOperatorService().getOrganizations(pattern, roleTypes));
             Collections.sort(organizations, new OrgComparator());
-            System.out.println("List in suggest method have length: " + organizations.size());
             return organizations;
         } catch (SaaSApplicationException e) {
             ExceptionHandler.execute(e);
