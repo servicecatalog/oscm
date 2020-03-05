@@ -24,11 +24,8 @@
       <adm:outputStep value="#{msg['marketplace.manageAccess.step1']}" />
       <adm:panelGrid>
         <adm:outputLabel value="#{msg['service.marketplace']}" />
-          <b:selectOneMenu select2="true" id="marketplace" value="#{manageAccessCtrl.model.selectedMarketplaceId}" styleClass="select"
-                           onclick="AdmUtils.storeValue(this);"
-                           onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}else{AdmUtils.restoreValue(this)}"
-           >
-<!--            <f:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="marketplaceAccessDetails"/>-->
+          <b:selectOneMenu select2="true" id="marketplace" value="#{manageAccessCtrl.model.selectedMarketplaceId}" styleClass="select">
+            <f:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="marketplaceAccessDetails"/>
             <adm:selectItemPleaseSelect itemValue="" />
             <f:selectItems value="#{manageAccessCtrl.model.selectableMarketplaces}" />
           </b:selectOneMenu>
