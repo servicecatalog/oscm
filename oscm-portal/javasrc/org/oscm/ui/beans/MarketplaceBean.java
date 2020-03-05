@@ -175,6 +175,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      */
     @Override
     public void setMarketplaceId(String marketplaceId) {
+        this.marketplaceId = marketplaceId;
         sessionBean.setMarketplaceId(marketplaceId);
     }
 
