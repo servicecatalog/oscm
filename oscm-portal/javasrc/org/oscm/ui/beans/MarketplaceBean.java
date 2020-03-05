@@ -125,14 +125,14 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      * Reload the list of marketplaces available for the supplier
      */
     public void reloadMarketplacesForSupplier() {
-        marketplaces = new ArrayList<Marketplace>();
-        List<VOMarketplace> voMarketplaces= getMarketplaceService()
-        .getMarketplacesForOrganization();        
-        Collections.sort(voMarketplaces, new MarketplacesComparator());
-        
-        for (VOMarketplace mp : voMarketplaces) {
-            marketplaces.add(new Marketplace(mp));
-        }
+      marketplaces = new ArrayList<Marketplace>();
+      List<VOMarketplace> voMarketplaces = getMarketplaceService().getMarketplacesForOrganization();
+      Collections.sort(voMarketplaces, new MarketplacesComparator());
+
+      for (VOMarketplace mp : voMarketplaces) {
+        marketplaces.add(new Marketplace(mp));
+      }
+
     }
 
     /**
@@ -355,10 +355,12 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      *
      * @return the current VOMarketplace object.
      */
-    public Marketplace getMarketplace() {
-        if (marketplace == null) {
+    public Marketplace getMarketplace() throws ObjectNotFoundException {
+        if (marketplace == null && marketplaceId == null) {
             marketplace = new Marketplace();
             marketplace.setOpen(false);
+        } else {
+            marketplace = new Marketplace(marketplaceService.getMarketplaceById(marketplaceId));
         }
         return marketplace;
     }
