@@ -25,6 +25,7 @@ import org.oscm.ui.common.RequestUrlHandler;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.VOMarketplace;
+import org.oscm.ui.model.Marketplace;
 
 /**
  * The bean for the customization of the branding package.
@@ -61,10 +62,20 @@ public class BrandBean extends BaseBean implements Serializable {
     }
 
     public boolean isMarketplaceSelected() {
-        return marketplace != null;
+        return marketplaceBean.getMarketplaceId() != null;
     }
 
     public String getBrandingUrl() {
+        if(brandingUrl == null){
+            final String marketplace = marketplaceBean.getMarketplaceId();
+           if(marketplace != null){
+               try{
+               getMarketplaceService().getBrandingUrl(marketplace);
+               } catch (ObjectNotFoundException e) {
+                   brandingUrl = null;
+               }
+           }
+        }
         return brandingUrl;
     }
 
