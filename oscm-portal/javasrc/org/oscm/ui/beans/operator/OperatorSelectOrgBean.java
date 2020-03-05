@@ -149,7 +149,8 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
                     getOperatorService().getOrganizations(pattern, roleTypes));
             Collections.sort(organizations, new OrgComparator());
       System.out.println("List size: " + organizations.size());
-            return organizations;
+            availableOrganizations = organizations;
+            return availableOrganizations;
         } catch (SaaSApplicationException e) {
             ExceptionHandler.execute(e);
         }
