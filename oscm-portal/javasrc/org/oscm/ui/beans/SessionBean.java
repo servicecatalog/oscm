@@ -126,6 +126,7 @@ public class SessionBean implements Serializable {
   private PriceModel selectedExternalPriceModel;
   private String samlLogoutRequest;
   private String tenantID;
+  private String marketplaceId;
 
   public boolean isMyOperationsOnly() {
     return myOperationsOnly;
@@ -367,7 +368,11 @@ public class SessionBean implements Serializable {
   }
 
   public String getMarketplaceId() {
-    return BaseBean.getMarketplaceIdStatic();
+    return marketplaceId;
+  }
+
+  public void setMarketplaceId(String marketplaceId){
+    this.marketplaceId = marketplaceId;
   }
 
   FacesContext getFacesContext() {
