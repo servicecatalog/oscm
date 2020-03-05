@@ -150,8 +150,7 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
                                 LogMessageIdentifier.ERROR_CONVERT_ORGANIZATION_ROLE_TYPE_FAILED);
                     }
                 }
-                VOOrganization voOrg = new VOOrganization();
-                String pattern = voOrg.getOrganizationId() + "%";
+            String pattern = "%";
 
             System.out.println("Pattern value is: " + pattern);
             organizations = getOperatorService().getOrganizations(pattern, roleTypes);
@@ -196,8 +195,10 @@ public class OperatorSelectOrgBean extends BaseOperatorBean implements Serializa
         };
         try {
             List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
+            System.out.println("Length of roleTypes list equals: " + roleTypes.size());
             String value = getRequest().getParameter(
                     Constants.REQ_PARAM_ORGANIZATION_ROLE_TYPE);
+            System.out.println("Value of value equals: " + value);
             if (!isBlank(value)) {
                 try {
                     StringTokenizer st = new StringTokenizer(value, ",");
