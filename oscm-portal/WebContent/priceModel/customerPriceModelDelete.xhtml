@@ -4,7 +4,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                mlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 template="../templates/mainBootsfaces.xhtml">
 
   <ui:define name="pageId">
@@ -25,7 +25,8 @@
                                   onclick="AdmUtils.storeValue(this);"
                                   value="#{deleteCustomerPriceModelModel.selectedOrgId}"
                                   disabled="#{deleteCustomerPriceModelCtrl.selectDisabled}"
-                                  oncomplete="javascript:AdmUtils.hideMessages();javascsript:AdmUtils.setUIElements();"
+                                  oncomplete="AdmUtils.hideMessages();AdmUtils.setUIElements();"
+                                  immediate="true"
                                   label="#{msg['priceModel.checkbox.customer.label']}">
         <f:ajax event="change" listener="#{deleteCustomerPriceModelCtrl.selectedOrgIdChanged}"
                 render="tablePanel" />
