@@ -21,12 +21,12 @@
 			<adm:outputStep value="#{msg['priceModel.service.select']}" />
 				<adm:bootsfacesSelectMenu   id="serviceSelection"
 											value="#{priceModelBean.selectedServiceKey}"
-											onchange="setDirty(true);"
+											onchange="setDirty(true); Document.dirtyFlagSetOnMenu('storeValue')"
 											onclick="AdmUtils.storeValue(this);"
 											immediate="true"
 											label="#{msg['service.serviceId']}">
 					<f:ajax event="change" listener="#{priceModelBean.reloadPriceModel}"
-							render="mainSection"/>
+							render="contentPanel"/>
 					<adm:selectItemPleaseSelect itemValue="" />
 					<c:forEach items="#{priceModelBean.services}" var="service">
 						<f:selectItem itemLabel="#{service.serviceId}"
