@@ -119,7 +119,7 @@ public class CustomizeLandingpageCtrl implements Serializable {
         String result = "";
         String selectedMarketplaceId = model.getSelectedMarketplace();
         try {
-            if (selectedMarketplaceId != null) {
+            if (selectedMarketplaceId.equals("")) {
                 boolean isOK = false;
                 model.setSelectedMarketplace(selectedMarketplaceId);
                 if (isPublicLandingpageActivated(selectedMarketplaceId)) {
