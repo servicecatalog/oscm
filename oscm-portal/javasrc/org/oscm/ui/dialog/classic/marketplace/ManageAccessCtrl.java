@@ -29,8 +29,6 @@ import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.internal.vo.VOOrganization;
 import org.oscm.ui.beans.BaseBean;
-import org.oscm.ui.beans.MarketplaceBean;
-import org.oscm.ui.beans.SessionBean;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.common.MarketplacesComparator;
 import org.oscm.ui.common.UiDelegate;
