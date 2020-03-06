@@ -11,13 +11,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -34,6 +28,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import org.oscm.domobjects.Session;
 import org.oscm.ui.stubs.FacesContextStub;
 import org.oscm.internal.intf.MarketplaceService;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
@@ -45,6 +40,7 @@ public class BrandBeanTest {
     private BrandBean brandBean;
     private MarketplaceBean marketplaceBean;
     private MarketplaceService marketplaceServiceMock;
+    private SessionBean sessionBeanMock;
 
     private ExternalContext extContextMock;
 
@@ -72,7 +68,9 @@ public class BrandBeanTest {
         brandBean = spy(new BrandBean());
         marketplaceBean = spy(new MarketplaceBean());
         MenuBean menuBean = new MenuBean();
+        sessionBeanMock = mock(SessionBean.class);
         marketplaceBean.setMenuBean(menuBean);
+        marketplaceBean.setSessionBean(mock(SessionBean.class));
 
         brandBean.setMarketplaceBean(marketplaceBean);
         brandBean.setMarketplaceId("FUJITSU");
@@ -107,14 +105,25 @@ public class BrandBeanTest {
     }
 
     @Test
-    public void testGetMarketplace() throws Exception {
+    public void testGetMarketplaceCleanSession() throws Exception {
+        when(sessionBeanMock.getMarketplaceId()).thenReturn(null);
+
         assertFalse(brandBean.isMarketplaceSelected());
+    }
+
+    @Test
+    public void testGetMarketplaceSelected(){
+        when(sessionBeanMock.getMarketplaceId()).thenReturn("some id");
+
+        assertTrue(brandBean.isMarketplaceSelected());
     }
 
     @Test
     public void testGetBrandingUrl() throws Exception {
         brandBean.setBrandingUrl("some url");
+
         assertEquals("some url", brandBean.getBrandingUrl());
+        verify(marketplaceBean, never()).getMarketplaceId();
     }
 
     @Test
