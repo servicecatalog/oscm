@@ -14,6 +14,7 @@ package org.oscm.ui.beans;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,6 +60,7 @@ public class MarketplaceBeanTest {
     private static final String LOCAL_MP = "local";
 
     private MarketplaceBean bean;
+    private SessionBean sessionBeanMock;
 
     protected boolean serviceCalled = false;
     protected VOService passedService = null;
@@ -221,6 +223,7 @@ public class MarketplaceBeanTest {
         };
 
         marketplaceServiceSetUp = marketplaceService;
+        sessionBeanMock = mock(SessionBean.class);
 
         bean = new MarketplaceBean() {
 
@@ -243,6 +246,7 @@ public class MarketplaceBeanTest {
 
         };
         bean.setToken(bean.getToken());
+        bean.setSessionBean(sessionBeanMock);
 
         MenuBean menuBean = new MenuBean();
         bean.setMenuBean(menuBean);
