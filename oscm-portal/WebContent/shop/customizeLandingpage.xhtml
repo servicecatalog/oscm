@@ -31,10 +31,12 @@
       <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectMarketplace']}" />
       <adm:bootsfacesSelectMenu   id="marketplace"
                                   oncomplete="AdmUtils.setUIElements();"
+                                  onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('marketplace')}.value=this.options[this.selectedIndex].value;#{rich:element('customizeLandingpageForm')}.submit();}else{AdmUtils.restoreValue(this)}"
+                                  immediate="true"
                                   label="#{msg['service.marketplace']}"
                                   value="#{customizeLandingpageModel.selectedMarketplace}">
         <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
-                     render="contentPanel" />
+                     render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
         <adm:selectItemPleaseSelect itemValue="#{null}" />
                 <f:selectItems value="#{customizeLandingpageModel.marketplaces}" />
       </adm:bootsfacesSelectMenu>
