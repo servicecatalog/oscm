@@ -217,7 +217,11 @@ public class MarketplaceBeanTest {
                     throws ObjectNotFoundException {
                 serviceCalled = true;
                 passedMarketplaceId = marketplaceId;
-                return passedVoMp;
+                if(marketplaceId.equals(GLOBAL_MP)){
+                    return globalMarketplace;
+                } else {
+                    return passedVoMp;
+                }
             }
 
         };
