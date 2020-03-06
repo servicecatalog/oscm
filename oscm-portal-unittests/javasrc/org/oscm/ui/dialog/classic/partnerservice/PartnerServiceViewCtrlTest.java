@@ -41,6 +41,7 @@ import org.oscm.ui.beans.PriceModelBean;
 import org.oscm.ui.beans.ServiceBean;
 import org.oscm.ui.beans.SessionBean;
 import org.oscm.ui.beans.UserBean;
+import org.oscm.ui.common.UiDelegate;
 import org.oscm.ui.model.RoleSpecificPrice;
 import org.oscm.ui.model.Service;
 import org.oscm.ui.stubs.FacesContextStub;
@@ -103,7 +104,7 @@ public class PartnerServiceViewCtrlTest {
                 if ("serviceBean".equals(beanName)) {
                     ServiceBean serviceBean = new ServiceBean();
                     serviceBean.setSessionBean(new SessionBean());
-                    serviceBean.setMarketplaceBean(new MarketplaceBean());
+                    serviceBean.setMarketplaceBean(mock(MarketplaceBean.class));
                     return (T) serviceBean;
                 }
                 if ("userBean".equals(beanName)) {
