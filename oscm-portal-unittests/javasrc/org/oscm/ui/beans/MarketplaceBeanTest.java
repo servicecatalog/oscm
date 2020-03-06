@@ -287,9 +287,6 @@ public class MarketplaceBeanTest {
        
         globalOpenMarketplaceVo = new VOMarketplace();
         globalOpenMarketplaceVo.setMarketplaceId(GLOBAL_OPEN_MP);
-        globalOpenMarketplaceVo.setKey(0);
-        globalOpenMarketplaceVo.setVersion(0);
-        globalOpenMarketplaceVo.setName("");
         globalOpenMarketplaceVo.setOpen(true);
     }
 
