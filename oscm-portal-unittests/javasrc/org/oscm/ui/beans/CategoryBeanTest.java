@@ -123,13 +123,13 @@ public class CategoryBeanTest {
             };
         });
 
-        categoryBean.setMarketplaceId("FUJITSU");
 
         categorySelectionBean = mock(CategorySelectionBean.class);
         UiDelegate ui = mock(UiDelegate.class);
         when(ui.findCategorySelectionBean()).thenReturn(categorySelectionBean);
 
         marketplaceBean = mock(MarketplaceBean.class);
+        when(marketplaceBean.getMarketplaceId()).thenReturn("FUJITSU");
         when(ui.findMarketplaceBean()).thenReturn(marketplaceBean);
         categoryBean.ui = ui;
         ResourceBundleStub resourceBundleStub = new ResourceBundleStub();
