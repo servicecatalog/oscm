@@ -30,13 +30,6 @@
           var element = document.getElementById('#{elementId}');
           try {element.focus();document.getElementById('contentPanelDiv').scrollIntoView(true);} catch (e) {/* if the element cannot get the focus, ignore it */}
         })" />
-    <c:set var="elementId"
-           value="#{(not empty firstErrorElement)?firstErrorElement:(empty b:clientId(focusElement)?focusElement:(b:clientId(focusElement)))}" />
-    <b:jQuery selector="document"
-                 query="ready(function(){
-          var element = document.getElementById('#{elementId}');
-          try {element.focus();document.getElementById('contentPanelDiv').scrollIntoView(true);} catch (e) {/* if the element cannot get the focus, ignore it */}
-        })" />
   </c:if>
 
   <adm:initialize initializingMethod="#{appBean.userLocaleUpdated}" />
