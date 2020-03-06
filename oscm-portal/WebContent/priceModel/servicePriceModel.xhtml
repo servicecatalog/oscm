@@ -18,10 +18,21 @@
 		<a4j:outputPanel id="mainSection"
 			rendered="#{!priceModelBean.localizeVisible}">
 			<h:form id="serviceSelectForm">
+				<script type = "text/javascript" >
+    				$(document).ready(function () {
+      					$("[id='serviceSelectForm:serviceSelectionInner']").select2().on('select2:selecting', function (e) {
+        			if (AdmUtils.isNotDirtyOrConfirmed()) {
+          				AdmUtils.storeValue(this);
+        			} else {
+          				e.preventDefault();
+        			}
+      				});
+    				});
+    			</script>
 			<adm:outputStep value="#{msg['priceModel.service.select']}" />
 				<adm:bootsfacesSelectMenu   id="serviceSelection"
 											value="#{priceModelBean.selectedServiceKey}"
-											onchange="setDirty(true); Document.dirtyFlagSetOnMenu('storeValue')"
+											onchange="setDirty(true);"
 											onclick="AdmUtils.storeValue(this);"
 											immediate="true"
 											label="#{msg['service.serviceId']}">
