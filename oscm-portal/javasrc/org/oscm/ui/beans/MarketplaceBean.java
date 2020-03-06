@@ -417,6 +417,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
                         INFO_MARKETPLACE_DELETED,
                         marketplace.getMarketplaceId());
                 resetToken();
+                setMarketplaceId(null);
             }
         } finally {
             checkMarketplaceDropdownAndMenuVisibility(null);
