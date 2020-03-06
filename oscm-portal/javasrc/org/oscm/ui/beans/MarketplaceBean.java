@@ -187,7 +187,6 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      */
     public void processValueChange(final ValueChangeEvent event) {
         this.setMarketplaceId((String) event.getNewValue());
-        marketplaceChanged();
     }
 
     public String marketplaceChangedForManageSeller() {
