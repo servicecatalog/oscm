@@ -361,8 +361,8 @@ public class MarketplaceBean extends BaseBean implements Serializable {
             marketplace.setOpen(false);
         } else {
             try{
-                marketplace = new Marketplace(marketplaceService.getMarketplaceById(marketplaceId));
-            } catch (Exception e){
+                marketplace = new Marketplace(getMarketplaceService().getMarketplaceById(marketplaceId));
+            } catch (ObjectNotFoundException e){
                 marketplace = new Marketplace();
                 marketplace.setOpen(false);
             }

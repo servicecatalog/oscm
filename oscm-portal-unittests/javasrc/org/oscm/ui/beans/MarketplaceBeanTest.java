@@ -81,6 +81,7 @@ public class MarketplaceBeanTest {
     private VOMarketplace globalMarketplace;
     private VOMarketplace localMarketplace2;
     private VOMarketplace globalMarketplace2;
+    private VOMarketplace globalOpenMarketplaceVo;
     private Marketplace globalOpenMarketplace;
 
     private VOCatalogEntry localMarketplaceCE;
@@ -217,11 +218,17 @@ public class MarketplaceBeanTest {
                     throws ObjectNotFoundException {
                 serviceCalled = true;
                 passedMarketplaceId = marketplaceId;
-                if(marketplaceId.equals(GLOBAL_MP)){
-                    return globalMarketplace;
-                } else {
-                    return passedVoMp;
+                switch(marketplaceId) {
+                case GLOBAL_MP:
+                    return globalMarketplace;   	
+                case GLOBAL_OPEN_MP:
+                	return globalOpenMarketplaceVo;
+                case LOCAL_MP:
+                	return localMarketplace;
+                default:
+                	return passedVoMp;
                 }
+                
             }
 
         };
@@ -258,6 +265,7 @@ public class MarketplaceBeanTest {
 
         localMarketplace = new VOMarketplace();
         localMarketplace.setMarketplaceId(LOCAL_MP);
+        
         localMarketplaceCE = new VOCatalogEntry();
         localMarketplaceCE.setMarketplace(localMarketplace);
         localMarketplaceCE.setAnonymousVisible(true);
@@ -276,6 +284,13 @@ public class MarketplaceBeanTest {
 
         globalMarketplace2 = new VOMarketplace();
         globalMarketplace2.setMarketplaceId(GLOBAL_MP + "2");
+       
+        globalOpenMarketplaceVo = new VOMarketplace();
+        globalOpenMarketplaceVo.setMarketplaceId(GLOBAL_OPEN_MP);
+        globalOpenMarketplaceVo.setKey(0);
+        globalOpenMarketplaceVo.setVersion(0);
+        globalOpenMarketplaceVo.setName("");
+        globalOpenMarketplaceVo.setOpen(true);
     }
 
     @Test
