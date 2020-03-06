@@ -3,7 +3,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:b="http://bootsfaces.net/ui"
   xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
 <h:head>
@@ -30,7 +30,15 @@
           var element = document.getElementById('#{elementId}');
           try {element.focus();document.getElementById('contentPanelDiv').scrollIntoView(true);} catch (e) {/* if the element cannot get the focus, ignore it */}
         })" />
+    <c:set var="elementId"
+           value="#{(not empty firstErrorElement)?firstErrorElement:(empty b:clientId(focusElement)?focusElement:(b:clientId(focusElement)))}" />
+    <b:jQuery selector="document"
+                 query="ready(function(){
+          var element = document.getElementById('#{elementId}');
+          try {element.focus();document.getElementById('contentPanelDiv').scrollIntoView(true);} catch (e) {/* if the element cannot get the focus, ignore it */}
+        })" />
   </c:if>
+
   <adm:initialize initializingMethod="#{appBean.userLocaleUpdated}" />
   <div id="mainContainer">
     <div style="left: 0px; right: 0px; top: 0px; height: 34px;">
