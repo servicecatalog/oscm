@@ -7,7 +7,6 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:rich="http://richfaces.org/rich"
-      xmlns:b="http://bootsfaces.net/ui"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
 	xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
@@ -32,16 +31,6 @@
       value="#{(not empty firstErrorElement)?firstErrorElement:(empty rich:clientId(focusElement)?focusElement:(rich:clientId(focusElement)))}" />
     <rich:jQuery selector="document"
       query="ready(function(){
-          var element = document.getElementById('#{elementId}');
-          try {element.focus();document.getElementById('contentPanelDiv').scrollIntoView(true);} catch (e) {/* if the element cannot get the focus, ignore it */}
-        })" />
-  </c:if>
-  <b:jQuery selector="document" query="ready(function(){AdmUtils.initFocus();AdmUtils.setUIElements()});" />
-  <c:if test="#{not empty firstErrorElement or not empty focusElement}">
-    <c:set var="elementId"
-           value="#{(not empty firstErrorElement)?firstErrorElement:(empty rich:clientId(focusElement)?focusElement:(rich:clientId(focusElement)))}" />
-    <b:jQuery selector="document"
-                 query="ready(function(){
           var element = document.getElementById('#{elementId}');
           try {element.focus();document.getElementById('contentPanelDiv').scrollIntoView(true);} catch (e) {/* if the element cannot get the focus, ignore it */}
         })" />
