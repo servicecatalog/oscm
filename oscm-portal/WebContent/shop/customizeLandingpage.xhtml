@@ -31,7 +31,6 @@
       <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectMarketplace']}" />
       <adm:bootsfacesSelectMenu   id="marketplace"
                                   oncomplete="AdmUtils.setUIElements();"
-                                  immediate="true"
                                   label="#{msg['service.marketplace']}"
                                   value="#{customizeLandingpageModel.selectedMarketplace}">
         <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
