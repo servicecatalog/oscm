@@ -106,14 +106,14 @@ public class BrandBeanTest {
 
     @Test
     public void testGetMarketplaceCleanSession() throws Exception {
-        when(sessionBeanMock.getMarketplaceId()).thenReturn(null);
+        when(marketplaceBean.getMarketplaceId()).thenReturn(null);
 
         assertFalse(brandBean.isMarketplaceSelected());
     }
 
     @Test
     public void testGetMarketplaceSelected(){
-        when(sessionBeanMock.getMarketplaceId()).thenReturn("some id");
+        when(marketplaceBean.getMarketplaceId()).thenReturn("some id");
 
         assertTrue(brandBean.isMarketplaceSelected());
     }
