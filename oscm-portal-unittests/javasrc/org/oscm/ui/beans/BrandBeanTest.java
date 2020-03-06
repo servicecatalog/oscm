@@ -311,6 +311,15 @@ public class BrandBeanTest {
                 .getSeverity());
     }
 
+    @Test
+    public void getBrandingUrlObjectNotFoundException() throws ObjectNotFoundException {
+        doThrow(mock(ObjectNotFoundException.class)).when(marketplaceServiceMock).getBrandingUrl(anyString());
+
+        final String url = brandBean.getBrandingUrl();
+
+        assertNull(url);
+    }
+
     private void ensureSelectedMarketplace() throws Exception {
         // ensure a marketplace is selected
         ValueChangeEvent eventMock = mock(ValueChangeEvent.class);

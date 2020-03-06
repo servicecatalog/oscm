@@ -12,8 +12,7 @@
 
 package org.oscm.ui.beans;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
@@ -225,6 +224,8 @@ public class MarketplaceBeanTest {
                 	return globalOpenMarketplaceVo;
                 case LOCAL_MP:
                 	return localMarketplace;
+                case "id":
+                        throw new ObjectNotFoundException();
                 default:
                 	return passedVoMp;
                 }
@@ -638,6 +639,16 @@ public class MarketplaceBeanTest {
         bean.marketplaceChangedForManageSeller();
         Assert.assertEquals(globalMarketplace.getMarketplaceId(), bean
                 .getMarketplace().getMarketplaceId());
+    }
+
+    @Test
+    public void getMarketplaceObjectNotFoundException(){
+        bean.setMarketplaceId("id");
+
+        final Marketplace marketplace = bean.getMarketplace();
+        assertNotNull(marketplace);
+        assertNull(marketplace.getId());
+        assertFalse(marketplace.isOpen());
     }
 
     @Test
