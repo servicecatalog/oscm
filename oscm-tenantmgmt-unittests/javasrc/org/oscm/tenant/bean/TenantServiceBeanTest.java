@@ -7,7 +7,7 @@
  *******************************************************************************/
 package org.oscm.tenant.bean;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.anyString;
@@ -138,9 +138,6 @@ public class TenantServiceBeanTest {
         tenantServiceBean.removeTenant(voTenant);
     }
 
-
-
-    
     @Test
     public void testTenantByIdPattern() {
         
@@ -156,6 +153,25 @@ public class TenantServiceBeanTest {
         assertEquals(voTenants.size(), 1);
         assertEquals("tenant Id", tenants.get(0).getTenantId());
     }
+
+    @Test
+    public void doesOrgExistInTenantTrue() {
+        when(tenantServiceLocal.doesOrgNameExistInTenant("org", "orn")).thenReturn(true);
+
+        final boolean result = tenantServiceLocal.doesOrgNameExistInTenant("org", "orn");
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void doesOrgExistInTenantFalse() {
+        when(tenantServiceLocal.doesOrgNameExistInTenant("org", "orn")).thenReturn(false);
+
+        final boolean result = tenantServiceLocal.doesOrgNameExistInTenant("org", "orn");
+
+        assertFalse(result);
+    }
+
 
     private Tenant prepareTenant() {
         Tenant tenant = new Tenant();

@@ -23,6 +23,9 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.oscm.converter.PropertiesLoader;
+import org.oscm.internal.intf.IdentityService;
+import org.oscm.internal.intf.TenantService;
+import org.oscm.internal.tenant.ManageTenantService;
 import org.oscm.internal.types.enumtypes.ImageType;
 import org.oscm.internal.types.enumtypes.UdaConfigurationType;
 import org.oscm.internal.types.exception.*;
@@ -564,6 +567,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
             }
             VOUserDetails user = null;
             if(!isInternalAuthMode()) {
+                    getManageTenantService().validateOrgNameUniquenessInTenant(customerToAdd.getName(), sessionBean.getTenantID());
                     user = getIdService().loadUserDetailsFromOIDCProvider(customerUserToAdd.getUserId(), sessionBean.getTenantID());
 
                     String groupId = getIdService().createAccessGroupInOIDCProvider(sessionBean.getTenantID(), customerToAdd.getName());
@@ -881,5 +885,6 @@ public class OrganizationBean extends BaseBean implements Serializable {
 
         return appBean;
     }
+
 
 }

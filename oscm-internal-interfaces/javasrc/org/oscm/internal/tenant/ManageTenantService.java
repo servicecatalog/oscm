@@ -86,5 +86,12 @@ public interface ManageTenantService {
      */
     void validateOrgUsersUniqnessInTenant(String orgId, long tenantKey) throws ValidationException;
 
+    /**
+     * Checks if given organization name already exists for tenant
+     * @param orgName organization name
+     * @param tenantId tenant key
+     * @throws ValidationException if given organization name already exists
+    */
+    void validateOrgNameUniquenessInTenant(String orgName, String tenantId) throws ValidationException;
     
 }

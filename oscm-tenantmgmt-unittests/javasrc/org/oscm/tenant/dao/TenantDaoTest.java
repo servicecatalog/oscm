@@ -11,12 +11,14 @@ package org.oscm.tenant.dao;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.dataservice.local.DataService;
+import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.Tenant;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 
 import static org.mockito.Mockito.*;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 public class TenantDaoTest {
     
@@ -109,5 +111,23 @@ public class TenantDaoTest {
 
         //then
         verify(dataManager, times(1)).createNamedQuery("Tenant.checkMarketplace");
+    }
+
+    @Test
+    public void getOrgNameInTenantTestDefaultTenant(){
+        tenantDao.getOrgNameInTenant("orgName", "default");
+
+        verify(dataManager, times(1)).createNamedQuery("Organization.findOrganizationsByName");
+        verify(query, times(1)).setParameter("name", "orgName");
+        verify(query, times(1)).setParameter("tenantId", null);
+    }
+
+    @Test
+    public void getOrgNameInTenantTestNotDefaultTenant(){
+        tenantDao.getOrgNameInTenant("orgName", "tenant");
+
+        verify(dataManager, times(1)).createNamedQuery("Organization.findOrganizationsByName");
+        verify(query).setParameter("name", "orgName");
+        verify(query).setParameter("tenantId", "tenant");
     }
 }
