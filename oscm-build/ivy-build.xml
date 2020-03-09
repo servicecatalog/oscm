@@ -14,55 +14,55 @@
 	<target name="copyLibraries" depends="resolve">
 
 		<antcall target="getAndUnzip">
-			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc/task~652_2-SNAPSHOT/oscm-extsvc-task~652_2-SNAPSHOT.jar" />
+			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc/master-SNAPSHOT/oscm-extsvc-master-SNAPSHOT.jar" />
 			<param name="to" value="${root.dir}/libraries/servicecatalog/oscm-extsvc/javalib/oscm-extsvc.jar" />
 			<param name="deployin" value="${root.dir}/oscm-extsvc/javares" />
 		</antcall>
 
 		<antcall target="getAndUnzip">
-			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-app-extsvc/task~652_2-SNAPSHOT/oscm-app-extsvc-task~652_2-SNAPSHOT.jar" />
+			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-app-extsvc/master-SNAPSHOT/oscm-app-extsvc-master-SNAPSHOT.jar" />
 			<param name="to" value="${root.dir}/libraries/servicecatalog/oscm-app-extsvc/javalib/oscm-app-extsvc.jar" />
 			<param name="deployin" value="${root.dir}/oscm-app-extsvc-2-0/javares" />
 		</antcall>
 
 		<antcall target="getAndUnzip">
-			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-operation/task~652_2-SNAPSHOT/oscm-extsvc-operation-task~652_2-SNAPSHOT.jar" />
+			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-operation/master-SNAPSHOT/oscm-extsvc-operation-master-SNAPSHOT.jar" />
 			<param name="to" value="${root.dir}/libraries/servicecatalog/oscm-extsvc-operation/javalib/oscm-extsvc-operation.jar" />
 			<param name="deployin" value="${root.dir}/oscm-extsvc-operation/javares" />
 		</antcall>
 
 		<antcall target="getAndUnzip">
-			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-provisioning/task~652_2-SNAPSHOT/oscm-extsvc-provisioning-task~652_2-SNAPSHOT.jar" />
+			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-provisioning/master-SNAPSHOT/oscm-extsvc-provisioning-master-SNAPSHOT.jar" />
 			<param name="to" value="${root.dir}/libraries/servicecatalog/oscm-extsvc-provisioning/javalib/oscm-extsvc-provisioning.jar" />
 			<param name="deployin" value="${root.dir}/oscm-extsvc-provisioning/javares" />
 		</antcall>
 
 		<antcall target="getAndUnzip">
-			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-notification/task~652_2-SNAPSHOT/oscm-extsvc-notification-task~652_2-SNAPSHOT.jar" />
+			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-notification/master-SNAPSHOT/oscm-extsvc-notification-master-SNAPSHOT.jar" />
 			<param name="to" value="${root.dir}/libraries/servicecatalog/oscm-extsvc-notification/javalib/oscm-extsvc-notification.jar" />
 			<param name="deployin" value="${root.dir}/oscm-extsvc-notification/javares" />
 		</antcall>
 
 		<antcall target="getAndUnzip">
-			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-internal/task~652_2-SNAPSHOT/oscm-extsvc-internal-task~652_2-SNAPSHOT.jar" />
+			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-extsvc-internal/master-SNAPSHOT/oscm-extsvc-internal-master-SNAPSHOT.jar" />
 			<param name="to" value="${root.dir}/libraries/servicecatalog/oscm-extsvc-internal/javalib/oscm-extsvc-internal.jar" />
 			<param name="deployin" value="${root.dir}/oscm-extsvc-internal/javares" />
 		</antcall>
 
 		<antcall target="getAndUnzip">
-			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-psp-extsvc/task~652_2-SNAPSHOT/oscm-psp-extsvc-task~652_2-SNAPSHOT.jar" />
+			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-psp-extsvc/master-SNAPSHOT/oscm-psp-extsvc-master-SNAPSHOT.jar" />
 			<param name="to" value="${root.dir}/libraries/servicecatalog/oscm-psp-extsvc/javalib/oscm-psp-extsvc.jar" />
 			<param name="deployin" value="${root.dir}/oscm-psp-extsvc/javares" />
 		</antcall>
 
 		<antcall target="getAndUnzip">
-			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-billing-external-interfaces/task~652_2-SNAPSHOT/oscm-billing-external-interfaces-task~652_2-SNAPSHOT.jar" />
+			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-interfaces/oscm-billing-external-interfaces/master-SNAPSHOT/oscm-billing-external-interfaces-master-SNAPSHOT.jar" />
 			<param name="to" value="${root.dir}/libraries/servicecatalog/oscm-billing-external-interfaces/javalib/oscm-billing-external-interfaces.jar" />
 			<param name="deployin" value="${root.dir}/oscm-billing-external-interfaces/javares" />
 		</antcall>
 
 		<antcall target="getAndUnzip">
-			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-commons/oscm-common/task~652_2-SNAPSHOT/oscm-common-task~652_2-SNAPSHOT.jar" />
+			<param name="from" value="https://jitpack.io/com/github/servicecatalog/oscm-commons/oscm-common/master-SNAPSHOT/oscm-common-master-SNAPSHOT.jar" />
 			<param name="to" value="${root.dir}/libraries/servicecatalog/oscm-common.jar" />
 			<param name="deployin" value="${root.dir}/oscm-common/javares" />
 		</antcall>
