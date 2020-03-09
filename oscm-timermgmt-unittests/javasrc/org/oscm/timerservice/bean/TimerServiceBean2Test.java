@@ -311,30 +311,30 @@ public class TimerServiceBean2Test {
     // given
     TimerStub timer = new TimerStub();
     timer.setInfo(TimerType.SYNCHRONIZE_USERS_WITH_OIDC_PROVIDER);
-    IdentityServiceLocal idServiceLocal = mock(IdentityServiceLocal.class);
-    tm.idServiceLocal = idServiceLocal;
+    IdentityServiceLocal isl = mock(IdentityServiceLocal.class);
+    tm.idServiceLocal = isl;
     cfs.setConfigurationSetting(ConfigurationKey.AUTH_MODE, "INTERNAL");
     // when
     tm.handleTimer(timer);
 
     // then
-    verify(idServiceLocal, times(0)).synchronizeUsersAndGroupsWithOIDCProviderInt();
+    verify(isl, times(0)).synchronizeUsersAndGroupsWithOIDCProviderInt();
   }
 
   @Test
-  public void handleTimer_synchronizeUsers_OidcMode() throws Exception {
+  public void handleTimer_synchronizeUsers_oidcMode() throws Exception {
     // given
     TimerStub timer = new TimerStub();
     timer.setInfo(TimerType.SYNCHRONIZE_USERS_WITH_OIDC_PROVIDER);
-    IdentityServiceLocal idServiceLocal = mock(IdentityServiceLocal.class);
-    tm.idServiceLocal = idServiceLocal;
+    IdentityServiceLocal isl = mock(IdentityServiceLocal.class);
+    tm.idServiceLocal = isl;
     cfs.setConfigurationSetting(ConfigurationKey.AUTH_MODE, "OIDC");
 
     // when
     tm.handleTimer(timer);
 
     // then
-    verify(idServiceLocal, times(1)).synchronizeUsersAndGroupsWithOIDCProviderInt();
+    verify(isl, times(1)).synchronizeUsersAndGroupsWithOIDCProviderInt();
   }
 
   @Test
