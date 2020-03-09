@@ -93,7 +93,7 @@ public class ManageAccessCtrlTest {
     public void testNotSelectedMarketplace() throws Exception {
 
         // given
-        model.setSelectedMarketplaceId(null);
+        model.setSelectedMarketplaceId("");
 
         // when
         ctrl.marketplaceChanged();

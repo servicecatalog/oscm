@@ -16,19 +16,14 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 
 import org.junit.Before;
@@ -281,12 +276,14 @@ public class ManageOperatorRevenueShareCtrlTest {
     @Test
     public void templateChanged() {
         // given
-        ValueChangeEvent event = new ValueChangeEvent(mock(UIComponent.class),
-                Long.valueOf(0L), Long.valueOf(101L));
+        AjaxBehaviorEvent ajaxEvent = mock(AjaxBehaviorEvent.class);
+        UIOutput uiOutput = mock(UIOutput.class);
+        when(ajaxEvent.getSource()).thenReturn(uiOutput);
+        when(uiOutput.getValue()).thenReturn(Long.valueOf(101L));
         ctrl.setModel(spy(new ManageOperatorRevenueShareModel()));
 
         // when
-        ctrl.templateChanged(event);
+        ctrl.templateChanged(ajaxEvent);
 
         // then
         assertEquals(101L, ctrl.getModel().getSelectedTemplateKey());
@@ -296,14 +293,16 @@ public class ManageOperatorRevenueShareCtrlTest {
     @Test
     public void templateChanged_toSameValue() {
         // given
-        ValueChangeEvent event = new ValueChangeEvent(mock(UIComponent.class),
-                Long.valueOf(101L), Long.valueOf(101L));
+        AjaxBehaviorEvent ajaxEvent = mock(AjaxBehaviorEvent.class);
+        UIOutput uiOutput = mock(UIOutput.class);
+        when(ajaxEvent.getSource()).thenReturn(uiOutput);
+        when(uiOutput.getValue()).thenReturn(Long.valueOf(101L));
         ManageOperatorRevenueShareModel model = new ManageOperatorRevenueShareModel();
         model.setSelectedTemplateKey(101L);
         ctrl.setModel(spy(model));
 
         // when
-        ctrl.templateChanged(event);
+        ctrl.templateChanged(ajaxEvent);
 
         // then
         assertEquals(101L, ctrl.getModel().getSelectedTemplateKey());

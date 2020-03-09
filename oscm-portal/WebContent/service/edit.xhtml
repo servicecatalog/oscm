@@ -22,11 +22,10 @@
 	    <h:form id="selectForm">
 	      <h:inputHidden id="selectedKey" value="#{serviceBean.selectedServiceKey}" />
 	    </h:form>
-	
-	    <h:form id="editForm" enctype="multipart/form-data"
-	      onsubmit="return AdmUtils.ie7UploadValidation(#{rich:element('image')});">
-	
-   <script type="text/javascript">
+
+		<h:form id="editForm" enctype="multipart/form-data"
+				onsubmit="return AdmUtils.ie7UploadValidation(#{rich:element('image')});">
+		<script type="text/javascript">
           $(document).ready(function () {           
               $("[id='editForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {     
                 if (AdmUtils.isNotDirtyOrConfirmed()) {
@@ -39,28 +38,29 @@
           });
           </script>
 	      <adm:outputStep value="#{msg['service.edit.step1']}" />
-	      <adm:panelGrid>
-	
-	        <adm:outputLabel value="#{msg['service.serviceId']}" />
-	        
-		        <b:selectOneMenu styleClass="select" select2="true" id="selectedServiceId" value="#{serviceBean.selectedServiceKeyReadOnly}"
-		          onclick="AdmUtils.storeValue(this);"
-		          onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;#{rich:element('selectForm')}.submit();}else{AdmUtils.restoreValue(this)}">
-		          <adm:selectItemPleaseSelect itemValue="0" />
-		          <c:forEach items="#{serviceBean.serviceNames}" var="service">
-		            <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
-		          </c:forEach>
-		        </b:selectOneMenu>
-          
-	        <adm:message for="selectedServiceId" />
-	
-	        <adm:outputLabel value="#{msg['techService.techServiceId']}" />
-	        <h:panelGroup>
-	          <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel" />
-	        </h:panelGroup>
-	        <h:outputText value="" />
-	      </adm:panelGrid>
-	
+			<adm:bootsfacesSelectMenu   id="selectedServiceId"
+										onclick="AdmUtils.storeValue(this);"
+										onchange="if(AdmUtils.isNotDirtyOrConfirmed())
+										  			{#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;
+										  			 #{rich:element('selectForm')}.submit();}
+										  			else{AdmUtils.restoreValue(this)}"
+										value="#{serviceBean.selectedServiceKeyReadOnly}"
+										label="#{msg['service.serviceId']}">
+				<adm:selectItemPleaseSelect itemValue="0" />
+				<c:forEach items="#{serviceBean.serviceNames}" var="service">
+					<f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
+				</c:forEach>
+			</adm:bootsfacesSelectMenu>
+			<adm:message for="selectedServiceId" />
+
+			<adm:panelGrid>
+				<adm:outputLabel value="#{msg['techService.techServiceId']}" />
+				<h:panelGroup>
+					<h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel" />
+				</h:panelGroup>
+				<h:outputText value="" />
+			</adm:panelGrid>
+
 	      <adm:outputStep value="#{msg['service.edit.step2']}" />
 	      <ui:include src="detail.xhtml">
 	        <ui:param name="editDisabled" value="#{serviceBean.editDisabled}" />

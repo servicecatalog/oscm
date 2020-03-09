@@ -1,13 +1,13 @@
 /*******************************************************************************
- *                                                                              
+ *
  *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: Dirk Bernsau                                                      
- *                                                                              
- *  Creation Date: Nov 4, 2011                                                      
- *                                                                              
- *  Completion Time: Nov 4, 2011                                              
- *                                                                              
+ *
+ *  Author: Dirk Bernsau
+ *
+ *  Creation Date: Nov 4, 2011
+ *
+ *  Completion Time: Nov 4, 2011
+ *
  *******************************************************************************/
 
 package org.oscm.ui.beans;
@@ -25,7 +25,8 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.faces.application.FacesMessage.Severity;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.component.UIOutput;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Before;
@@ -672,10 +673,12 @@ public class PriceModelBeanTest {
     }
 
     @Test
-    public void reloadPriceModel_Null() throws Exception {
+    public void reloadPriceModel_Null() {
         // given
-        ValueChangeEvent event = prepareForReloadPriceModel();
-        doReturn(null).when(event).getNewValue();
+        AjaxBehaviorEvent event = prepareForReloadPriceModel();
+        UIOutput uiOutput = mock(UIOutput.class);
+        when(event.getSource()).thenReturn(uiOutput);
+        when(uiOutput.getValue()).thenReturn(null);
         doNothing().when(externalCustomerPriceModelCtrl)
                 .reloadPriceModel(any(VOServiceDetails.class));
         // when
@@ -687,13 +690,13 @@ public class PriceModelBeanTest {
     }
 
     @Test
-    public void reloadPriceModel() throws Exception {
+    public void reloadPriceModel() {
         // given
-        ValueChangeEvent event = prepareForReloadPriceModel();
+        AjaxBehaviorEvent mockedEvent = prepareForReloadPriceModel();
         doNothing().when(externalCustomerPriceModelCtrl)
                 .reloadPriceModel(any(VOServiceDetails.class));
         // when
-        bean.reloadPriceModel(event);
+        bean.reloadPriceModel(mockedEvent);
 
         // then
         assertEquals(new Long(11000), bean.getSelectedServiceKey());
@@ -851,10 +854,12 @@ public class PriceModelBeanTest {
         assertTrue(result == null);
     }
 
-    private ValueChangeEvent prepareForReloadPriceModel() {
+    private AjaxBehaviorEvent prepareForReloadPriceModel() {
         doNothing().when(bean).updatePriceModel();
-        ValueChangeEvent event = mock(ValueChangeEvent.class);
-        doReturn(new Long("11000")).when(event).getNewValue();
+        AjaxBehaviorEvent event = mock(AjaxBehaviorEvent.class);
+        UIOutput uiOutput = mock(UIOutput.class);
+        when(event.getSource()).thenReturn(uiOutput);
+        when(uiOutput.getValue()).thenReturn(11000L);
         bean.setServices(this.selectedServiceList);
         return event;
     }

@@ -2,9 +2,8 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:b="http://bootsfaces.net/ui"
-  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich"
   xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" template="../templates/mainBootsfaces.xhtml">
 
@@ -23,29 +22,25 @@
        
         if (AdmUtils.isNotDirtyOrConfirmed()) {
           AdmUtils.storeValue(this);
-
         } else {
           e.preventDefault();
         }
-
       });
-
     });
     </script>
       <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectMarketplace']}" />
-      <adm:panelGrid>
-        <adm:outputLabel value="#{msg['service.marketplace']}" />
-       
-          <b:selectOneMenu id="marketplace" value="#{customizeLandingpageModel.selectedMarketplace}" styleClass="select"
-            oncomplete="AdmUtils.setUIElements();">
-            <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
-              render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
-            <adm:selectItemPleaseSelect itemValue="#{null}" />
-            <f:selectItems value="#{customizeLandingpageModel.marketplaces}" />
-          </b:selectOneMenu>
-       
-        <adm:message id="marketplaceErrorMsg" for="marketplace" />
-      </adm:panelGrid>
+      <adm:bootsfacesSelectMenu   id="marketplace"
+                                  oncomplete="AdmUtils.setUIElements();"
+                                  onchange="if(AdmUtils.isNotDirtyOrConfirmed()){#{rich:element('marketplace')}.value=this.options[this.selectedIndex].value;#{rich:element('customizeLandingpageForm')}.submit();}else{AdmUtils.restoreValue(this)}"
+                                  immediate="true"
+                                  label="#{msg['service.marketplace']}"
+                                  value="#{customizeLandingpageModel.selectedMarketplace}">
+        <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
+                     render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
+        <adm:selectItemPleaseSelect itemValue="#{null}" />
+                <f:selectItems value="#{customizeLandingpageModel.marketplaces}" />
+      </adm:bootsfacesSelectMenu>
+      <adm:message id="marketplaceErrorMsg" for="marketplace" />
 
       <a4j:outputPanel id="landingpageTypePanel">
         <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectLandingpageType']}" />

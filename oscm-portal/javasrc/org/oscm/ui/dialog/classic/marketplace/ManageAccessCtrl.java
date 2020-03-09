@@ -75,7 +75,7 @@ public class ManageAccessCtrl {
     public void marketplaceChanged() {
         String marketplaceId = model.getSelectedMarketplaceId();
 
-        if (marketplaceId == null) {
+        if (marketplaceId.equals("")) {
             model.setSelectedMarketplaceRestricted(false);
             return;
         }

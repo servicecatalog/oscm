@@ -11,24 +11,23 @@
   <ui:define name="pageId">
     <c:set var="pageId" value="marketplace.manageAccess" />
     <c:set var="dirty" value="false" />
+    <c:set var="focusElement" value="marketplace" />
   </ui:define>
 
   <ui:define name="body">
 
     <h:form id="manageAccessForm">
     <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2DirtyHandler.js" type="text/javascript"></script>
-    <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2FocusHandler.js" type="text/javascript"></script>
 
       <adm:outputStep value="#{msg['marketplace.manageAccess.step1']}" />
-      <adm:panelGrid>
-        <adm:outputLabel value="#{msg['service.marketplace']}" />
-          <b:selectOneMenu select2="true" id="marketplace" value="#{manageAccessCtrl.model.selectedMarketplaceId}" styleClass="select"
-           oncomplete="javascsript:AdmUtils.setUIElements();">
-            <f:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="marketplaceAccessDetails"/>
-            <adm:selectItemPleaseSelect itemValue="" />
-            <f:selectItems value="#{manageAccessCtrl.model.selectableMarketplaces}" />
-          </b:selectOneMenu>
-      </adm:panelGrid>
+      <adm:bootsfacesSelectMenu    id="marketplace"
+                                   value="#{manageAccessCtrl.model.selectedMarketplaceId}"
+                                   oncomplete="javascsript:AdmUtils.setUIElements();"
+                                   label="#{msg['service.marketplace']}">
+        <f:ajax event="change" listener="#{manageAccessCtrl.marketplaceChanged}" render="marketplaceAccessDetails"/>
+        <adm:selectItemPleaseSelect itemValue="" />
+        <f:selectItems value="#{manageAccessCtrl.model.selectableMarketplaces}" />
+      </adm:bootsfacesSelectMenu>
 
       <a4j:outputPanel id="marketplaceAccessDetails">
         <a4j:outputPanel id="accessModePanel">

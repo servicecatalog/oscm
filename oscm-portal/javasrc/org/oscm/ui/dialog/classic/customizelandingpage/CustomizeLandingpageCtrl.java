@@ -40,7 +40,7 @@ public class CustomizeLandingpageCtrl implements Serializable {
     private static final String INFO_SAVED = "info.landingpage.saved";
     private static final String CONCURRENT_MODIFICATION_ERROR = "concurrentModification";
 
-    private static final String NO_MARKETPLACE_SELECTED = null;
+    private static final String NO_MARKETPLACE_SELECTED = "";
     private static final String NO_LANDINGPAGE_SELECTED = "";
 
     CustomizeLandingpageModel model;
