@@ -1,13 +1,14 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: kowalczyka                                                      
- *                                                                              
- *  Creation Date: 18.05.2016                                                      
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: kowalczyka
+ *
+ * <p>Creation Date: 18.05.2016
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ui.dialog.classic.marketplace;
 
 import static org.junit.Assert.assertEquals;
@@ -23,7 +24,6 @@ import static org.mockito.Mockito.verify;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -38,185 +38,186 @@ import org.oscm.ui.stubs.FacesContextStub;
 
 public class ManageAccessCtrlTest {
 
-    private ManageAccessCtrl ctrl;
-    private ManageAccessModel model;
-    private MarketplaceService marketplaceService;
+  private ManageAccessCtrl ctrl;
+  private ManageAccessModel model;
+  private MarketplaceService marketplaceService;
 
-    private static final String MARKETPLACE_ID = "marketplace1";
-    private static final String MARKETPLACE_NAME = "marketplace1Name";
+  private static final String MARKETPLACE_ID = "marketplace1";
+  private static final String MARKETPLACE_NAME = "marketplace1Name";
 
-    @Before
-    public void setup() {
+  @Before
+  public void setup() {
 
-        new FacesContextStub(Locale.ENGLISH);
+    new FacesContextStub(Locale.ENGLISH);
 
-        marketplaceService = mock(MarketplaceService.class);
+    marketplaceService = mock(MarketplaceService.class);
 
-        ctrl = spy(new ManageAccessCtrl());
-        model = new ManageAccessModel();
+    ctrl = spy(new ManageAccessCtrl());
+    model = new ManageAccessModel();
 
-        ctrl.setModel(model);
-        ctrl.setMarketplaceService(marketplaceService);
-    }
+    ctrl.setModel(model);
+    ctrl.setMarketplaceService(marketplaceService);
+  }
 
-    @Test
-    public void testInitializedMarketplaces() {
+  @Test
+  public void testInitializedMarketplaces() {
 
-        // given
-        doReturn(getSampleMarketplaces()).when(marketplaceService)
-                .getMarketplacesOwned();
+    // given
+    doReturn(getSampleMarketplaces()).when(marketplaceService).getMarketplacesOwned();
 
-        // when
-        ctrl.initialize();
+    // when
+    ctrl.initialize();
 
-        // then
-        verify(marketplaceService, times(1)).getMarketplacesOwned();
-        assertEquals(2, model.getSelectableMarketplaces().size());
-    }
+    // then
+    verify(marketplaceService, times(1)).getMarketplacesOwned();
+    assertEquals(2, model.getSelectableMarketplaces().size());
+  }
 
-    @Test
-    public void testSelectedMarketplace() throws Exception {
+  @Test
+  public void testSelectedMarketplace() throws Exception {
 
-        // given
-        model.setSelectedMarketplaceId(MARKETPLACE_ID);
-        doReturn(createSampleMarketplace(MARKETPLACE_NAME, MARKETPLACE_ID))
-                .when(marketplaceService).getMarketplaceById(MARKETPLACE_ID);
+    // given
+    model.setSelectedMarketplaceId(MARKETPLACE_ID);
+    doReturn(createSampleMarketplace(MARKETPLACE_NAME, MARKETPLACE_ID))
+        .when(marketplaceService)
+        .getMarketplaceById(MARKETPLACE_ID);
 
-        // when
-        ctrl.marketplaceChanged();
+    // when
+    ctrl.marketplaceChanged();
 
-        // then
-        verify(marketplaceService, times(1)).getMarketplaceById(MARKETPLACE_ID);
-    }
+    // then
+    verify(marketplaceService, times(1)).getMarketplaceById(MARKETPLACE_ID);
+  }
 
-    @Test
-    public void testNotSelectedMarketplace() throws Exception {
+  @Test
+  public void testNotSelectedMarketplace() throws Exception {
 
-        // given
-        model.setSelectedMarketplaceId("");
+    // given
+    model.setSelectedMarketplaceId("");
 
-        // when
-        ctrl.marketplaceChanged();
+    // when
+    ctrl.marketplaceChanged();
 
-        // then
-        verify(marketplaceService, times(0)).getMarketplaceById(MARKETPLACE_ID);
-        assertEquals(false, model.isSelectedMarketplaceRestricted());
-    }
+    // then
+    verify(marketplaceService, times(0)).getMarketplaceById(MARKETPLACE_ID);
+    assertEquals(false, model.isSelectedMarketplaceRestricted());
+  }
 
-    @Test
-    public void testAccessChange() throws Exception {
-        // given
-        ctrl.getModel().setSelectedMarketplaceId(MARKETPLACE_ID);
-        ctrl.getModel().setSelectedMarketplaceRestricted(true);
+  @Test
+  public void testAccessChange() throws Exception {
+    // given
+    ctrl.getModel().setSelectedMarketplaceId(MARKETPLACE_ID);
+    ctrl.getModel().setSelectedMarketplaceRestricted(true);
 
-        // when
-        ctrl.accessChanged();
+    // when
+    ctrl.accessChanged();
 
-        // then
-        verify(marketplaceService, times(1))
-                .getAllOrganizations(MARKETPLACE_ID);
-    }
+    // then
+    verify(marketplaceService, times(1)).getAllOrganizations(MARKETPLACE_ID);
+  }
 
-    @Test
-    public void testSave_organizationsLists() throws Exception {
+  @Test
+  public void testSave_organizationsLists() throws Exception {
 
-        // given
-        setupValuesForSaveAction(true);
-        doNothing().when(marketplaceService).closeMarketplace(anyString(),
-                Matchers.anySetOf(Long.class), Matchers.anySetOf(Long.class));
-        // when
-        String result = ctrl.save();
+    // given
+    setupValuesForSaveAction(true);
+    doNothing()
+        .when(marketplaceService)
+        .closeMarketplace(
+            anyString(), Matchers.anySetOf(Long.class), Matchers.anySetOf(Long.class));
+    // when
+    String result = ctrl.save();
 
-        // then
-        assertEquals(0, model.getAuthorizedOrganizations().size());
-        assertEquals(0, model.getUnauthorizedOrganizations().size());
-        assertEquals(BaseBean.OUTCOME_SUCCESS, result);
-    }
+    // then
+    assertEquals(0, model.getAuthorizedOrganizations().size());
+    assertEquals(0, model.getUnauthorizedOrganizations().size());
+    assertEquals(BaseBean.OUTCOME_SUCCESS, result);
+  }
 
-    @Test
-    public void testSave_closeMarketplace() throws Exception {
+  @Test
+  public void testSave_closeMarketplace() throws Exception {
 
-        // given
-        setupValuesForSaveAction(true);
-        doNothing().when(marketplaceService).closeMarketplace(anyString(),
-                Matchers.anySetOf(Long.class), Matchers.anySetOf(Long.class));
-        // when
-        String result = ctrl.save();
+    // given
+    setupValuesForSaveAction(true);
+    doNothing()
+        .when(marketplaceService)
+        .closeMarketplace(
+            anyString(), Matchers.anySetOf(Long.class), Matchers.anySetOf(Long.class));
+    // when
+    String result = ctrl.save();
 
-        // then
-        verify(marketplaceService, times(1)).closeMarketplace(MARKETPLACE_ID,
-                model.getAuthorizedOrganizations(),
-                model.getUnauthorizedOrganizations());
-        assertEquals(BaseBean.OUTCOME_SUCCESS, result);
-    }
+    // then
+    verify(marketplaceService, times(1))
+        .closeMarketplace(
+            MARKETPLACE_ID,
+            model.getAuthorizedOrganizations(),
+            model.getUnauthorizedOrganizations());
+    assertEquals(BaseBean.OUTCOME_SUCCESS, result);
+  }
 
-    @Test
-    public void testSave_openMarketplace()
-            throws OperationNotPermittedException, ObjectNotFoundException,
-            NonUniqueBusinessKeyException {
+  @Test
+  public void testSave_openMarketplace()
+      throws OperationNotPermittedException, ObjectNotFoundException,
+          NonUniqueBusinessKeyException {
 
-        // given
-        setupValuesForSaveAction(false);
-        doNothing().when(marketplaceService).openMarketplace(anyString());
-        // when
-        String result = ctrl.save();
+    // given
+    setupValuesForSaveAction(false);
+    doNothing().when(marketplaceService).openMarketplace(anyString());
+    // when
+    String result = ctrl.save();
 
-        // then
-        verify(marketplaceService, times(1)).openMarketplace(MARKETPLACE_ID);
-        assertEquals(BaseBean.OUTCOME_SUCCESS, result);
-    }
+    // then
+    verify(marketplaceService, times(1)).openMarketplace(MARKETPLACE_ID);
+    assertEquals(BaseBean.OUTCOME_SUCCESS, result);
+  }
 
-    private void setupValuesForSaveAction(boolean restrictMarketplace)
-            throws OperationNotPermittedException, ObjectNotFoundException,
-            NonUniqueBusinessKeyException {
-        model.setSelectedMarketplaceId(MARKETPLACE_ID);
-        model.setOrganizations(preparePOOrganizationsList());
-        model.setSelectedMarketplaceRestricted(restrictMarketplace);
+  private void setupValuesForSaveAction(boolean restrictMarketplace)
+      throws OperationNotPermittedException, ObjectNotFoundException,
+          NonUniqueBusinessKeyException {
+    model.setSelectedMarketplaceId(MARKETPLACE_ID);
+    model.setOrganizations(preparePOOrganizationsList());
+    model.setSelectedMarketplaceRestricted(restrictMarketplace);
 
-        VOMarketplace marketplace = createSampleMarketplace(MARKETPLACE_NAME,
-                MARKETPLACE_ID);
-        marketplace.setRestricted(restrictMarketplace);
+    VOMarketplace marketplace = createSampleMarketplace(MARKETPLACE_NAME, MARKETPLACE_ID);
+    marketplace.setRestricted(restrictMarketplace);
 
-        doNothing().when(ctrl).addMessage(any(String.class));
-    }
+    doNothing().when(ctrl).addMessage(any(String.class));
+  }
 
-    private List<VOMarketplace> getSampleMarketplaces() {
+  private List<VOMarketplace> getSampleMarketplaces() {
 
-        VOMarketplace marketplace1 = createSampleMarketplace(
-                "TestMarketplace1", "c34567fg");
-        VOMarketplace marketplace2 = createSampleMarketplace(
-                "TestMarketplace2", "45tf7s20");
+    VOMarketplace marketplace1 = createSampleMarketplace("TestMarketplace1", "c34567fg");
+    VOMarketplace marketplace2 = createSampleMarketplace("TestMarketplace2", "45tf7s20");
 
-        List<VOMarketplace> marketplaces = new ArrayList<>();
-        marketplaces.add(marketplace1);
-        marketplaces.add(marketplace2);
+    List<VOMarketplace> marketplaces = new ArrayList<>();
+    marketplaces.add(marketplace1);
+    marketplaces.add(marketplace2);
 
-        return marketplaces;
-    }
+    return marketplaces;
+  }
 
-    private VOMarketplace createSampleMarketplace(String name, String id) {
+  private VOMarketplace createSampleMarketplace(String name, String id) {
 
-        VOMarketplace marketplace = new VOMarketplace();
-        marketplace.setMarketplaceId(id);
-        marketplace.setName(name);
+    VOMarketplace marketplace = new VOMarketplace();
+    marketplace.setMarketplaceId(id);
+    marketplace.setName(name);
 
-        return marketplace;
-    }
+    return marketplace;
+  }
 
-    private List<POOrganization> preparePOOrganizationsList() {
-        List<POOrganization> organizations = new ArrayList<>();
-        organizations.add(preparePOOrganization(1L, "org1", true));
-        organizations.add(preparePOOrganization(2L, "org2", false));
-        return organizations;
-    }
+  private List<POOrganization> preparePOOrganizationsList() {
+    List<POOrganization> organizations = new ArrayList<>();
+    organizations.add(preparePOOrganization(1L, "org1", true));
+    organizations.add(preparePOOrganization(2L, "org2", false));
+    return organizations;
+  }
 
-    private POOrganization preparePOOrganization(long key,
-            String organizationId, boolean selected) {
-        POOrganization poOrganization = new POOrganization();
-        poOrganization.setOrganizationId(organizationId);
-        poOrganization.setKey(key);
-        poOrganization.setName(organizationId + "Name");
-        poOrganization.setSelected(selected);
-        return poOrganization;
-    }
+  private POOrganization preparePOOrganization(long key, String organizationId, boolean selected) {
+    POOrganization poOrganization = new POOrganization();
+    poOrganization.setOrganizationId(organizationId);
+    poOrganization.setKey(key);
+    poOrganization.setName(organizationId + "Name");
+    poOrganization.setSelected(selected);
+    return poOrganization;
+  }
 }

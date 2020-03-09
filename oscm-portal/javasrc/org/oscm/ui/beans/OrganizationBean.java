@@ -408,18 +408,14 @@ public class OrganizationBean extends BaseBean implements Serializable {
     return OUTCOME_SUCCESS;
   }
 
-    /**
-     * Called by the value changed listener of the technical service
-     * selectionOneMenu.
-     */
-    public void technicalServiceChanged(AjaxBehaviorEvent event) {
-        Long newServiceKey = (Long) ((UIOutput) event.getSource()).getValue();
-        techServiceBean
-                .setSelectedTechnicalServiceKeyWithExceptionAndRefresh(newServiceKey);
-        supplierIdToAdd = null;
-        // Force a refresh of the displayed suppliers
-        suppliersForTechnicalService = null;
-    }
+  /** Called by the value changed listener of the technical service selectionOneMenu. */
+  public void technicalServiceChanged(AjaxBehaviorEvent event) {
+    Long newServiceKey = (Long) ((UIOutput) event.getSource()).getValue();
+    techServiceBean.setSelectedTechnicalServiceKeyWithExceptionAndRefresh(newServiceKey);
+    supplierIdToAdd = null;
+    // Force a refresh of the displayed suppliers
+    suppliersForTechnicalService = null;
+  }
 
   /**
    * Small convince method to retrieve the selected technical service from the corresponding bean
