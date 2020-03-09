@@ -1,11 +1,12 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2018
+ * <p>Copyright FUJITSU LIMITED 2018
  *
- *  Creation Date: 07.09.2016
+ * <p>Creation Date: 07.09.2016
  *
- *******************************************************************************/
-
+ * <p>*****************************************************************************
+ */
 package org.oscm.internal.tenant;
 
 import static org.junit.Assert.assertEquals;
@@ -13,7 +14,6 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.types.exception.ValidationException;
@@ -22,83 +22,81 @@ import org.oscm.tenant.bean.TenantServiceBean;
 
 public class ManageTenantServiceBeanTest {
 
-    private TenantServiceBean tenantService;
-    private ManageTenantServiceBean manageTenantService;
+  private TenantServiceBean tenantService;
+  private ManageTenantServiceBean manageTenantService;
 
-    @Before
-    public void setup() {
+  @Before
+  public void setup() {
 
-        manageTenantService = spy(new ManageTenantServiceBean());
-        tenantService = mock(TenantServiceBean.class);
-        manageTenantService.tenantService = tenantService;
-    }
+    manageTenantService = spy(new ManageTenantServiceBean());
+    tenantService = mock(TenantServiceBean.class);
+    manageTenantService.tenantService = tenantService;
+  }
 
-    @Test
-    public void testGetTenantsByIdPattern() {
+  @Test
+  public void testGetTenantsByIdPattern() {
 
-        // given
-        String tenantIdPattern = "tenantId";
-        when(tenantService.getTenantsByIdPattern(tenantIdPattern))
-                .thenReturn(prepareTenants());
+    // given
+    String tenantIdPattern = "tenantId";
+    when(tenantService.getTenantsByIdPattern(tenantIdPattern)).thenReturn(prepareTenants());
 
-        // when
-        List<POTenant> tenants = manageTenantService
-                .getTenantsByIdPattern(tenantIdPattern);
+    // when
+    List<POTenant> tenants = manageTenantService.getTenantsByIdPattern(tenantIdPattern);
 
-        // then
-        verify(tenantService, times(1)).getTenantsByIdPattern(tenantIdPattern);
-        assertEquals(1000, tenants.get(0).getKey());
-        assertEquals("tenantId", tenants.get(0).getTenantId());
-        assertEquals(2000, tenants.get(1).getKey());
-        assertEquals("tenantId2", tenants.get(1).getTenantId());
-    }
+    // then
+    verify(tenantService, times(1)).getTenantsByIdPattern(tenantIdPattern);
+    assertEquals(1000, tenants.get(0).getKey());
+    assertEquals("tenantId", tenants.get(0).getTenantId());
+    assertEquals(2000, tenants.get(1).getKey());
+    assertEquals("tenantId2", tenants.get(1).getTenantId());
+  }
 
-    @Test
-    public void testGetAllTenants() {
+  @Test
+  public void testGetAllTenants() {
 
-        // given
-        when(tenantService.getTenants()).thenReturn(prepareTenants());
+    // given
+    when(tenantService.getTenants()).thenReturn(prepareTenants());
 
-        // when
-        List<POTenant> tenants = manageTenantService.getAllTenants();
+    // when
+    List<POTenant> tenants = manageTenantService.getAllTenants();
 
-        // then
-        verify(tenantService, times(1)).getTenants();
-        assertEquals(1000, tenants.get(0).getKey());
-        assertEquals("tenantId", tenants.get(0).getTenantId());
-        assertEquals(2000, tenants.get(1).getKey());
-        assertEquals("tenantId2", tenants.get(1).getTenantId());
-    }
+    // then
+    verify(tenantService, times(1)).getTenants();
+    assertEquals(1000, tenants.get(0).getKey());
+    assertEquals("tenantId", tenants.get(0).getTenantId());
+    assertEquals(2000, tenants.get(1).getKey());
+    assertEquals("tenantId2", tenants.get(1).getTenantId());
+  }
 
-    @Test
-    public void validateOrgNameUniquenessInTenantNoDuplicate() throws ValidationException {
-        when(tenantService.doesOrgNameExistInTenant("org", "tenant")).thenReturn(false);
+  @Test
+  public void validateOrgNameUniquenessInTenantNoDuplicate() throws ValidationException {
+    when(tenantService.doesOrgNameExistInTenant("org", "tenant")).thenReturn(false);
 
-        manageTenantService.validateOrgNameUniquenessInTenant("org", "tenant");
-    }
+    manageTenantService.validateOrgNameUniquenessInTenant("org", "tenant");
+  }
 
-    @Test(expected = ValidationException.class)
-    public void validateOrgNameUniquenessInTenantDuplicate() throws ValidationException {
-        when(tenantService.doesOrgNameExistInTenant("org", "tenant")).thenReturn(true);
+  @Test(expected = ValidationException.class)
+  public void validateOrgNameUniquenessInTenantDuplicate() throws ValidationException {
+    when(tenantService.doesOrgNameExistInTenant("org", "tenant")).thenReturn(true);
 
-        manageTenantService.validateOrgNameUniquenessInTenant("org", "tenant");
-    }
+    manageTenantService.validateOrgNameUniquenessInTenant("org", "tenant");
+  }
 
-    private List<VOTenant> prepareTenants() {
+  private List<VOTenant> prepareTenants() {
 
-        ArrayList<VOTenant> tenants = new ArrayList<VOTenant>();
+    ArrayList<VOTenant> tenants = new ArrayList<VOTenant>();
 
-        VOTenant tenant = new VOTenant();
-        tenant.setKey(1000);
-        tenant.setTenantId("tenantId");
+    VOTenant tenant = new VOTenant();
+    tenant.setKey(1000);
+    tenant.setTenantId("tenantId");
 
-        VOTenant tenant2 = new VOTenant();
-        tenant2.setKey(2000);
-        tenant2.setTenantId("tenantId2");
+    VOTenant tenant2 = new VOTenant();
+    tenant2.setKey(2000);
+    tenant2.setTenantId("tenantId2");
 
-        tenants.add(tenant);
-        tenants.add(tenant2);
+    tenants.add(tenant);
+    tenants.add(tenant2);
 
-        return tenants;
-    }
+    return tenants;
+  }
 }

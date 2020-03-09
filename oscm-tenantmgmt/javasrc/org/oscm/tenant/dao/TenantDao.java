@@ -14,8 +14,6 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-
 import org.oscm.converter.ParameterizedTypes;
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.Organization;
@@ -84,10 +82,10 @@ public class TenantDao {
     return ParameterizedTypes.list(query.getResultList(), String.class);
   }
 
-   public List<Organization> getOrgNameInTenant(String orgName, String tenantId){
-     Query query = dataManager.createNamedQuery("Organization.findOrganizationsByName");
-     query.setParameter("name", orgName);
-     query.setParameter("tenantId", !"default".equals(tenantId) ? tenantId : null);
-     return ParameterizedTypes.list(query.getResultList(), Organization.class);
-   }
+  public List<Organization> getOrgNameInTenant(String orgName, String tenantId) {
+    Query query = dataManager.createNamedQuery("Organization.findOrganizationsByName");
+    query.setParameter("name", orgName);
+    query.setParameter("tenantId", !"default".equals(tenantId) ? tenantId : null);
+    return ParameterizedTypes.list(query.getResultList(), Organization.class);
+  }
 }

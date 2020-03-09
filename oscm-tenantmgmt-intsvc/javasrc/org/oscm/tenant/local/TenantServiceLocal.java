@@ -1,16 +1,16 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2018
+ * <p>Copyright FUJITSU LIMITED 2018
  *
- *  Creation Date: 31.08.2016
+ * <p>Creation Date: 31.08.2016
  *
- *******************************************************************************/
+ * <p>*****************************************************************************
+ */
 package org.oscm.tenant.local;
 
 import java.util.List;
-
 import javax.ejb.Local;
-
 import org.oscm.domobjects.Tenant;
 import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
@@ -18,23 +18,23 @@ import org.oscm.internal.types.exception.ObjectNotFoundException;
 @Local
 public interface TenantServiceLocal {
 
-	List<Tenant> getAllTenants();
+  List<Tenant> getAllTenants();
 
-	Tenant getTenantByTenantId(String tenantId) throws ObjectNotFoundException;
+  Tenant getTenantByTenantId(String tenantId) throws ObjectNotFoundException;
 
-	void saveTenant(Tenant tenant) throws NonUniqueBusinessKeyException;
+  void saveTenant(Tenant tenant) throws NonUniqueBusinessKeyException;
 
-	Tenant getTenantByKey(long tkey) throws ObjectNotFoundException;
+  Tenant getTenantByKey(long tkey) throws ObjectNotFoundException;
 
-	void removeTenant(Tenant tenant);
+  void removeTenant(Tenant tenant);
 
-	List<Tenant> getTenantsByIdPattern(String tenantIdPattern);
+  List<Tenant> getTenantsByIdPattern(String tenantIdPattern);
 
-	boolean doesOrganizationAssignedToTenantExist(Tenant tenant);
+  boolean doesOrganizationAssignedToTenantExist(Tenant tenant);
 
-	boolean doesMarketplaceAssignedToTenantExist(Tenant tenant);
+  boolean doesMarketplaceAssignedToTenantExist(Tenant tenant);
 
-	boolean doOrgUsersExistInTenant(String orgId, long tenantKey);
+  boolean doOrgUsersExistInTenant(String orgId, long tenantKey);
 
-	boolean doesOrgNameExistInTenant(String orgName, String tenantId);
+  boolean doesOrgNameExistInTenant(String orgName, String tenantId);
 }

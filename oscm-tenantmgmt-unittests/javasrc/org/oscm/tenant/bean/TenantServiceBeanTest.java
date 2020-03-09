@@ -1,10 +1,12 @@
-/*******************************************************************************
+/**
+ * *****************************************************************************
  *
- *  Copyright FUJITSU LIMITED 2018
+ * <p>Copyright FUJITSU LIMITED 2018
  *
- *  Creation Date: 30.08.2016
+ * <p>Creation Date: 30.08.2016
  *
- *******************************************************************************/
+ * <p>*****************************************************************************
+ */
 package org.oscm.tenant.bean;
 
 import static org.junit.Assert.*;
@@ -21,7 +23,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.domobjects.Tenant;
@@ -35,151 +36,157 @@ import org.oscm.tenant.local.TenantServiceLocal;
 
 public class TenantServiceBeanTest {
 
-    private TenantServiceLocal tenantServiceLocal;
-    private TenantServiceBean tenantServiceBean;
+  private TenantServiceLocal tenantServiceLocal;
+  private TenantServiceBean tenantServiceBean;
 
-    @Before
-    public void setup() {
-        tenantServiceLocal = mock(TenantServiceLocal.class);
-        tenantServiceBean = spy(new TenantServiceBean());
-        tenantServiceBean.setTenantServiceLocal(tenantServiceLocal);
-    }
+  @Before
+  public void setup() {
+    tenantServiceLocal = mock(TenantServiceLocal.class);
+    tenantServiceBean = spy(new TenantServiceBean());
+    tenantServiceBean.setTenantServiceLocal(tenantServiceLocal);
+  }
 
-    @Test
-    public void testGetTenants() {
-        //given
-        List<Tenant> tenants = new ArrayList<>();
-        tenants.add(prepareTenant());
-        when(tenantServiceLocal.getAllTenants()).thenReturn(tenants);
+  @Test
+  public void testGetTenants() {
+    // given
+    List<Tenant> tenants = new ArrayList<>();
+    tenants.add(prepareTenant());
+    when(tenantServiceLocal.getAllTenants()).thenReturn(tenants);
 
-        //when
-        List<VOTenant> voTenants = tenantServiceBean.getTenants();
+    // when
+    List<VOTenant> voTenants = tenantServiceBean.getTenants();
 
-        //then
-        assertEquals(voTenants.size(), 1);
-        assertEquals(voTenants.get(0).getTenantId(), tenants.get(0).getTenantId());
-    }
+    // then
+    assertEquals(voTenants.size(), 1);
+    assertEquals(voTenants.get(0).getTenantId(), tenants.get(0).getTenantId());
+  }
 
-    @Test
-    public void testGetTenantByTenantId() throws ObjectNotFoundException {
-        //given
-        when(tenantServiceLocal.getTenantByTenantId(anyString())).thenReturn(prepareTenant());
+  @Test
+  public void testGetTenantByTenantId() throws ObjectNotFoundException {
+    // given
+    when(tenantServiceLocal.getTenantByTenantId(anyString())).thenReturn(prepareTenant());
 
-        //when
-        VOTenant voTenant = tenantServiceBean.getTenantByTenantId("tenant Id");
+    // when
+    VOTenant voTenant = tenantServiceBean.getTenantByTenantId("tenant Id");
 
-        //then
-        assertEquals(voTenant.getTenantId(), "tenant Id");
-    }
+    // then
+    assertEquals(voTenant.getTenantId(), "tenant Id");
+  }
 
-    @Test
-    public void testAddTenant() throws NonUniqueBusinessKeyException {
-        //given
-        VOTenant voTenant = TenantAssembler.toVOTenant(prepareTenant());
-        doNothing().when(tenantServiceLocal).saveTenant(any(Tenant.class));
+  @Test
+  public void testAddTenant() throws NonUniqueBusinessKeyException {
+    // given
+    VOTenant voTenant = TenantAssembler.toVOTenant(prepareTenant());
+    doNothing().when(tenantServiceLocal).saveTenant(any(Tenant.class));
 
-        //when
-        tenantServiceBean.addTenant(voTenant);
+    // when
+    tenantServiceBean.addTenant(voTenant);
 
-        //then
-        verify(tenantServiceLocal, times(1)).saveTenant(any(Tenant.class));
-    }
+    // then
+    verify(tenantServiceLocal, times(1)).saveTenant(any(Tenant.class));
+  }
 
-    @Test
-    public void testUpdateTenant()
-        throws NonUniqueBusinessKeyException, ConcurrentModificationException, ObjectNotFoundException {
-        //given
-        VOTenant voTenant = TenantAssembler.toVOTenant(prepareTenant());
-        doNothing().when(tenantServiceLocal).saveTenant(any(Tenant.class));
-        when(tenantServiceLocal.getTenantByKey(anyLong())).thenReturn(prepareTenant());
+  @Test
+  public void testUpdateTenant()
+      throws NonUniqueBusinessKeyException, ConcurrentModificationException,
+          ObjectNotFoundException {
+    // given
+    VOTenant voTenant = TenantAssembler.toVOTenant(prepareTenant());
+    doNothing().when(tenantServiceLocal).saveTenant(any(Tenant.class));
+    when(tenantServiceLocal.getTenantByKey(anyLong())).thenReturn(prepareTenant());
 
-        //when
-        tenantServiceBean.updateTenant(voTenant);
+    // when
+    tenantServiceBean.updateTenant(voTenant);
 
-        //then
-        verify(tenantServiceLocal, times(1)).saveTenant(any(Tenant.class));
-    }
+    // then
+    verify(tenantServiceLocal, times(1)).saveTenant(any(Tenant.class));
+  }
 
-    @Test
-    public void testRemoveTenant() throws ObjectNotFoundException, TenantDeletionConstraintException {
-        //given
-        VOTenant voTenant = TenantAssembler.toVOTenant(prepareTenant());
-        when(tenantServiceLocal.getTenantByKey(anyLong())).thenReturn(prepareTenant());
-        doNothing().when(tenantServiceLocal).removeTenant(any(Tenant.class));
+  @Test
+  public void testRemoveTenant() throws ObjectNotFoundException, TenantDeletionConstraintException {
+    // given
+    VOTenant voTenant = TenantAssembler.toVOTenant(prepareTenant());
+    when(tenantServiceLocal.getTenantByKey(anyLong())).thenReturn(prepareTenant());
+    doNothing().when(tenantServiceLocal).removeTenant(any(Tenant.class));
 
-        //when
-        tenantServiceBean.removeTenant(voTenant);
+    // when
+    tenantServiceBean.removeTenant(voTenant);
 
-        //then
-        verify(tenantServiceLocal, times(1)).removeTenant(any(Tenant.class));
-    }
+    // then
+    verify(tenantServiceLocal, times(1)).removeTenant(any(Tenant.class));
+  }
 
-    @Test(expected = TenantDeletionConstraintException.class)
-    public void testRemoveTenant_exceptionExpected() throws ObjectNotFoundException, TenantDeletionConstraintException {
-        //given
-        VOTenant voTenant = TenantAssembler.toVOTenant(prepareTenant());
-        when(tenantServiceLocal.getTenantByKey(anyLong())).thenReturn(prepareTenant());
-        doNothing().when(tenantServiceLocal).removeTenant(any(Tenant.class));
-        doReturn(Boolean.TRUE).when(tenantServiceLocal).doesOrganizationAssignedToTenantExist(any(Tenant.class));
-        //when
-        tenantServiceBean.removeTenant(voTenant);
-    }
+  @Test(expected = TenantDeletionConstraintException.class)
+  public void testRemoveTenant_exceptionExpected()
+      throws ObjectNotFoundException, TenantDeletionConstraintException {
+    // given
+    VOTenant voTenant = TenantAssembler.toVOTenant(prepareTenant());
+    when(tenantServiceLocal.getTenantByKey(anyLong())).thenReturn(prepareTenant());
+    doNothing().when(tenantServiceLocal).removeTenant(any(Tenant.class));
+    doReturn(Boolean.TRUE)
+        .when(tenantServiceLocal)
+        .doesOrganizationAssignedToTenantExist(any(Tenant.class));
+    // when
+    tenantServiceBean.removeTenant(voTenant);
+  }
 
-    @Test(expected = TenantDeletionConstraintException.class)
-    public void testRemoveTenant_exceptionExpectedMarketplace() throws ObjectNotFoundException,
-        TenantDeletionConstraintException {
-        //given
-        VOTenant voTenant = TenantAssembler.toVOTenant(prepareTenant());
-        when(tenantServiceLocal.getTenantByKey(anyLong())).thenReturn(prepareTenant());
-        doNothing().when(tenantServiceLocal).removeTenant(any(Tenant.class));
-        doReturn(Boolean.FALSE).when(tenantServiceLocal).doesOrganizationAssignedToTenantExist(any(Tenant.class));
-        doReturn(Boolean.TRUE).when(tenantServiceLocal).doesMarketplaceAssignedToTenantExist(any(Tenant.class));
-        //when
-        tenantServiceBean.removeTenant(voTenant);
-    }
+  @Test(expected = TenantDeletionConstraintException.class)
+  public void testRemoveTenant_exceptionExpectedMarketplace()
+      throws ObjectNotFoundException, TenantDeletionConstraintException {
+    // given
+    VOTenant voTenant = TenantAssembler.toVOTenant(prepareTenant());
+    when(tenantServiceLocal.getTenantByKey(anyLong())).thenReturn(prepareTenant());
+    doNothing().when(tenantServiceLocal).removeTenant(any(Tenant.class));
+    doReturn(Boolean.FALSE)
+        .when(tenantServiceLocal)
+        .doesOrganizationAssignedToTenantExist(any(Tenant.class));
+    doReturn(Boolean.TRUE)
+        .when(tenantServiceLocal)
+        .doesMarketplaceAssignedToTenantExist(any(Tenant.class));
+    // when
+    tenantServiceBean.removeTenant(voTenant);
+  }
 
-    @Test
-    public void testTenantByIdPattern() {
-        
-        //given
-        ArrayList<Tenant> tenants = new ArrayList<Tenant>();
-        tenants.add(prepareTenant());
-        when(tenantServiceLocal.getTenantsByIdPattern(anyString())).thenReturn(tenants);
+  @Test
+  public void testTenantByIdPattern() {
 
-        //when
-        List<VOTenant> voTenants = tenantServiceBean.getTenantsByIdPattern("tenant Id");
+    // given
+    ArrayList<Tenant> tenants = new ArrayList<Tenant>();
+    tenants.add(prepareTenant());
+    when(tenantServiceLocal.getTenantsByIdPattern(anyString())).thenReturn(tenants);
 
-        //then
-        assertEquals(voTenants.size(), 1);
-        assertEquals("tenant Id", tenants.get(0).getTenantId());
-    }
+    // when
+    List<VOTenant> voTenants = tenantServiceBean.getTenantsByIdPattern("tenant Id");
 
-    @Test
-    public void doesOrgExistInTenantTrue() {
-        when(tenantServiceLocal.doesOrgNameExistInTenant("org", "orn")).thenReturn(true);
+    // then
+    assertEquals(voTenants.size(), 1);
+    assertEquals("tenant Id", tenants.get(0).getTenantId());
+  }
 
-        final boolean result = tenantServiceLocal.doesOrgNameExistInTenant("org", "orn");
+  @Test
+  public void doesOrgExistInTenantTrue() {
+    when(tenantServiceLocal.doesOrgNameExistInTenant("org", "orn")).thenReturn(true);
 
-        assertTrue(result);
-    }
+    final boolean result = tenantServiceLocal.doesOrgNameExistInTenant("org", "orn");
 
-    @Test
-    public void doesOrgExistInTenantFalse() {
-        when(tenantServiceLocal.doesOrgNameExistInTenant("org", "orn")).thenReturn(false);
+    assertTrue(result);
+  }
 
-        final boolean result = tenantServiceLocal.doesOrgNameExistInTenant("org", "orn");
+  @Test
+  public void doesOrgExistInTenantFalse() {
+    when(tenantServiceLocal.doesOrgNameExistInTenant("org", "orn")).thenReturn(false);
 
-        assertFalse(result);
-    }
+    final boolean result = tenantServiceLocal.doesOrgNameExistInTenant("org", "orn");
 
+    assertFalse(result);
+  }
 
-    private Tenant prepareTenant() {
-        Tenant tenant = new Tenant();
-        tenant.setKey(1L);
-        tenant.setTenantId("tenant Id");
-        tenant.getDataContainer().setDescription("description");
-      
-        return tenant;
-    }
-    
+  private Tenant prepareTenant() {
+    Tenant tenant = new Tenant();
+    tenant.setKey(1L);
+    tenant.setTenantId("tenant Id");
+    tenant.getDataContainer().setDescription("description");
+
+    return tenant;
+  }
 }
