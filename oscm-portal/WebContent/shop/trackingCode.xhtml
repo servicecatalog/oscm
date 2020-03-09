@@ -33,7 +33,6 @@
       <adm:outputStep value="#{msg['shop.trackingCode.step1']}" />
         <adm:bootsfacesSelectMenu   id="marketplace"
                                     oncomplete="AdmUtils.setUIElements();AdmUtils.emitResizeEvent();"
-                                    immediate="true"
                                     value="#{trackingCodeModel.selectedMarketplace}"
                                     label="#{msg['service.marketplace']}">
           <f:ajax event="change" listener="#{trackingCodeCtrl.marketplaceChanged}"
