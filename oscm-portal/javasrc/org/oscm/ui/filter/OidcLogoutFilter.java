@@ -1,10 +1,12 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2019
- *                                                                              
- *  Creation Date: Jul 9, 2019                                                      
- *                                                                              
- *******************************************************************************/
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2019
+ *
+ * <p>Creation Date: Jul 9, 2019
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ui.filter;
 
 import java.io.IOException;
@@ -21,9 +23,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.SessionService;
+import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
+import org.oscm.types.constants.Configuration;
 import org.oscm.types.constants.marketplace.Marketplace;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.beans.BaseBean;
@@ -50,24 +55,25 @@ public class OidcLogoutFilter extends BaseBesFilter {
     super.init(config);
   }
 
-
   @Override
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
 
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
-
     if (isLogoutRequested(httpRequest)) {
+
+      String path = getRedirectPath(httpRequest);
       HttpSession currentSession = httpRequest.getSession();
+
       getSessionService().deletePlatformSession(currentSession.getId());
       currentSession.invalidate();
 
       String requestedUrl = httpRequest.getRequestURL().toString();
 
       try {
-        String logoutUrl = buildLogoutUrl(requestedUrl);
-        
+        String logoutUrl = buildLogoutUrl(requestedUrl, path);
+
         JSFUtils.sendRedirect(httpResponse, logoutUrl);
       } catch (URISyntaxException excp) {
 
@@ -86,13 +92,11 @@ public class OidcLogoutFilter extends BaseBesFilter {
     chain.doFilter(request, response);
   }
 
- 
-  protected String buildLogoutUrl(String requestedUrl) throws URISyntaxException {
+  protected String buildLogoutUrl(String requestedUrl, String path) throws URISyntaxException {
     URI uri = new URI(requestedUrl);
-    String redirectionUrl = buildRedirectionUrl(uri);
+    String redirectionUrl = buildRedirectionUrl(uri, path);
     String hostname = uri.getHost();
-    String logoutUrl =
-        "https://" + hostname + ":9091/oscm-identity/logout?state=" + redirectionUrl;
+    String logoutUrl = "https://" + hostname + ":9091/oscm-identity/logout?state=" + redirectionUrl;
     return logoutUrl;
   }
 
@@ -102,8 +106,9 @@ public class OidcLogoutFilter extends BaseBesFilter {
     return logoutRequested.isPresent();
   }
 
-  private String buildRedirectionUrl(URI requestedUri) {
+  private String buildRedirectionUrl(URI requestedUri, String path) {
 
+    path.length();
     StringBuffer mainUrl =
         new StringBuffer()
             .append(requestedUri.getScheme())
@@ -111,13 +116,43 @@ public class OidcLogoutFilter extends BaseBesFilter {
             .append(requestedUri.getAuthority());
 
     if (requestedUri.getPath().contains(Marketplace.MARKETPLACE_ROOT)) {
-      mainUrl.append("/oscm-portal");
+      mainUrl.append(path);
       mainUrl.append(Marketplace.MARKETPLACE_ROOT + "/index.jsf");
     } else {
-      mainUrl.append("/oscm-portal");
+      mainUrl.append(path);
     }
-
     return mainUrl.toString();
+  }
+
+  protected String getRedirectPath(HttpServletRequest httpRequest) {
+    String baseUrl = getBaseUrl(httpRequest);
+    return getPath(baseUrl);
+  }
+
+  private String getPath(String baseUrl) {
+    String path = "";
+    try {
+      URI uri = new URI(baseUrl);
+      path = uri.getPath();
+    } catch (URISyntaxException e) {
+      LOGGER.logError(
+          Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.WARN_IMPORT_PARSER_ERROR_BASE_URL_NEEDED);
+    }
+    return path;
+  }
+
+  private String getBaseUrl(HttpServletRequest httpRequest) {
+    ConfigurationService cs = getConfigurationService(httpRequest);
+    String baseUrl =
+        cs.getVOConfigurationSetting(ConfigurationKey.BASE_URL, Configuration.GLOBAL_CONTEXT)
+            .getValue();
+    if (baseUrl == null || baseUrl.length() == 0) {
+      baseUrl =
+          cs.getVOConfigurationSetting(
+                  ConfigurationKey.BASE_URL_HTTPS, Configuration.GLOBAL_CONTEXT)
+              .getValue();
+    }
+    return baseUrl;
   }
 
   @Override

@@ -12,6 +12,7 @@ package org.oscm.ui.filter;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -21,6 +22,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.MarketplaceCacheService;
 import org.oscm.internal.intf.MarketplaceService;
@@ -380,9 +382,6 @@ public abstract class BaseBesFilter implements Filter {
       Set<String> paramsKeys = paramMap.keySet();
       String paramString = "?";
       for (String paramsKey : paramsKeys) {
-        if (paramsKey.equalsIgnoreCase("SAMLResponse")) {
-          continue;
-        } // TODO
         paramString += paramsKey + "=" + paramMap.get(paramsKey)[0] + "&";
       }
       if (paramString.startsWith("?")) {
