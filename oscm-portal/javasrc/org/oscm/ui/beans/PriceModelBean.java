@@ -818,7 +818,7 @@ public class PriceModelBean extends BaseBean implements Serializable {
     // clear selected role
     selectedRole = null;
     roles = null;
-
+    System.out.println("Service selected: " + selectedService);
     if (selectedService == null) {
       sessionBean.setSelectedServiceKeyForSupplier(null);
       return;
@@ -829,6 +829,8 @@ public class PriceModelBean extends BaseBean implements Serializable {
     } else {
       priceModel = selectedService.getPriceModel();
     }
+    System.out.println("Price model: " + priceModel);
+
     // if the service doesn't have a price model we must create a new one
     boolean newPriceModel = false;
     if (priceModel == null) {
