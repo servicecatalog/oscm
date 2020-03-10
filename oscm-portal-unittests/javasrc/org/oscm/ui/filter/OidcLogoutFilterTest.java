@@ -60,6 +60,18 @@ public class OidcLogoutFilterTest {
   }
 
   @Test
+  public void getRedirectPath() {
+    // given
+    mockLogoutRequest();
+    String expected = "/oscm-portal";
+    // when
+    String result = filter.getRedirectPath(requestMock);
+
+    // then
+    assertEquals(expected, result);
+  }
+
+  @Test
   public void doFilter() throws Exception {
     // given
     mockLogoutRequest();
