@@ -41,7 +41,6 @@ public class CategoryBean extends BaseBean implements Serializable {
     private boolean showConfirm = false;
     private boolean dirty = false;
     private String locale;
-    private String marketplaceId = null;
     @ManagedProperty(value = "#{marketplaceBean}")
     private MarketplaceBean marketplaceBean;
 
@@ -51,7 +50,7 @@ public class CategoryBean extends BaseBean implements Serializable {
     public List<CategoryRow> getCategoriesRows() {
         if (categoriesRows == null) {
             String selectedLocale = getLocale();
-            if (marketplaceId != null && marketplaceId.trim().length() > 0
+            if (marketplaceBean.getMarketplaceId() != null && marketplaceBean.getMarketplaceId().trim().length() > 0
                     && selectedLocale != null
                     && selectedLocale.trim().length() > 0) {
                 loadCategories(selectedLocale);
@@ -67,7 +66,7 @@ public class CategoryBean extends BaseBean implements Serializable {
     private void loadCategories(String selectedLocale) {
         List<CategoryRow> result = new ArrayList<>();
         List<VOCategory> fetchedCategories = getCategorizationService()
-                .getCategories(marketplaceId, selectedLocale);
+                .getCategories(marketplaceBean.getMarketplaceId(), selectedLocale);
         for (VOCategory voCategory : fetchedCategories) {
             result.add(new CategoryRow(voCategory));
         }
@@ -85,7 +84,7 @@ public class CategoryBean extends BaseBean implements Serializable {
 
     private List<CategoryRow> add(List<CategoryRow> list) {
         VOCategory category = new VOCategory();
-        category.setMarketplaceId(marketplaceId);
+        category.setMarketplaceId(marketplaceBean.getMarketplaceId());
         CategoryRow categoryRow = new CategoryRow(category);
 
         list.add(categoryRow);
@@ -215,12 +214,12 @@ public class CategoryBean extends BaseBean implements Serializable {
 
     @Override
     public String getMarketplaceId() {
-        return marketplaceId;
+        return marketplaceBean.getMarketplaceId();
     }
 
     @Override
     public void setMarketplaceId(String marketplaceId) {
-        this.marketplaceId = marketplaceId;
+        marketplaceBean.setMarketplaceId(marketplaceId);
     }
 
     /**

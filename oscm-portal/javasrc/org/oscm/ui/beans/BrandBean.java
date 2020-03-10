@@ -25,6 +25,7 @@ import org.oscm.ui.common.RequestUrlHandler;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.VOMarketplace;
+import org.oscm.ui.model.Marketplace;
 
 /**
  * The bean for the customization of the branding package.
@@ -48,7 +49,6 @@ public class BrandBean extends BaseBean implements Serializable {
     private MarketplaceBean marketplaceBean;
 
     private String brandingUrl;
-    private VOMarketplace marketplace;
 
     private byte[] brandingPackage;
 
@@ -61,10 +61,20 @@ public class BrandBean extends BaseBean implements Serializable {
     }
 
     public boolean isMarketplaceSelected() {
-        return marketplace != null;
+        return marketplaceBean.getMarketplaceId() != null;
     }
 
     public String getBrandingUrl() {
+        if(brandingUrl == null){
+            final String marketplaceId = marketplaceBean.getMarketplaceId();
+           if(marketplaceId != null){
+               try{
+                   this.brandingUrl = getMarketplaceService().getBrandingUrl(marketplaceId);
+               } catch (ObjectNotFoundException e) {
+                   brandingUrl = null;
+               }
+           }
+        }
         return brandingUrl;
     }
 
@@ -86,18 +96,17 @@ public class BrandBean extends BaseBean implements Serializable {
         String selectedMarketplaceId = (String) event.getNewValue();
         this.marketplaceBean.processValueChange(event);
         if (selectedMarketplaceId.equals("0")) {
-            marketplace = null;
+            getMarketplaceBean().setMarketplaceId(null);
             setBrandingUrl(null);
         } else {
             try {
-                marketplace = getMarketplaceService().getMarketplaceById(
-                        selectedMarketplaceId);
+                getMarketplaceBean().setMarketplaceId(selectedMarketplaceId);
                 setBrandingUrl(getMarketplaceService().getBrandingUrl(
                         selectedMarketplaceId));
             } catch (ObjectNotFoundException e) {
                 getMarketplaceBean().checkMarketplaceDropdownAndMenuVisibility(
                         null);
-                marketplace = null;
+                getMarketplaceBean().setMarketplaceId(null);
                 setBrandingUrl(null);
             }
         }
@@ -177,11 +186,12 @@ public class BrandBean extends BaseBean implements Serializable {
     public void saveBrandingUrl() {
         
         try {
+            final VOMarketplace marketplace = getMarketplaceService().getMarketplaceById(
+                    getMarketplaceBean().getMarketplaceId());
             // Call the marketplace service method for saving the URL.
             getMarketplaceService().saveBrandingUrl(marketplace, brandingUrl);
             // refresh the marketplace, to avoid concurrency exception
-            marketplace = getMarketplaceService().getMarketplaceById(
-                    marketplace.getMarketplaceId());
+            getMarketplaceService().getMarketplaceById(marketplace.getMarketplaceId());
             // add success message
             String message = (brandingUrl != null && brandingUrl.trim()
                     .length() > 0) ? INFO_BRANDING_URL_SET
@@ -190,7 +200,6 @@ public class BrandBean extends BaseBean implements Serializable {
         } catch (ObjectNotFoundException e) {
             getMarketplaceBean()
                     .checkMarketplaceDropdownAndMenuVisibility(null);
-            marketplace = null;
             setBrandingUrl(null);
             ExceptionHandler.execute(e, true);
             return;

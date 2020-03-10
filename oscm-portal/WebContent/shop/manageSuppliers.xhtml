@@ -21,7 +21,8 @@
                            required="true"
                            displayRequired="false"
                            render=":descriptionPanel :marketplaceTypePanel :addSupplierForm :removeSuppliersForm"
-                           listenerBean="#{marketplaceBean}"/>
+                           listenerBean="#{marketplaceBean}"
+                           marketplaceBean="#{marketplaceBean}"/>
 
     <a4j:outputPanel id="marketplaceTypePanel" >
       <adm:panelGrid>

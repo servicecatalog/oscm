@@ -12,8 +12,8 @@
 
 package org.oscm.ui.beans;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,6 +59,7 @@ public class MarketplaceBeanTest {
     private static final String LOCAL_MP = "local";
 
     private MarketplaceBean bean;
+    private SessionBean sessionBeanMock;
 
     protected boolean serviceCalled = false;
     protected VOService passedService = null;
@@ -79,6 +80,7 @@ public class MarketplaceBeanTest {
     private VOMarketplace globalMarketplace;
     private VOMarketplace localMarketplace2;
     private VOMarketplace globalMarketplace2;
+    private VOMarketplace globalOpenMarketplaceVo;
     private Marketplace globalOpenMarketplace;
 
     private VOCatalogEntry localMarketplaceCE;
@@ -215,12 +217,25 @@ public class MarketplaceBeanTest {
                     throws ObjectNotFoundException {
                 serviceCalled = true;
                 passedMarketplaceId = marketplaceId;
-                return passedVoMp;
+                switch(marketplaceId) {
+                case GLOBAL_MP:
+                    return globalMarketplace;   	
+                case GLOBAL_OPEN_MP:
+                	return globalOpenMarketplaceVo;
+                case LOCAL_MP:
+                	return localMarketplace;
+                case "id":
+                        throw new ObjectNotFoundException();
+                default:
+                	return passedVoMp;
+                }
+                
             }
 
         };
 
         marketplaceServiceSetUp = marketplaceService;
+        sessionBeanMock = mock(SessionBean.class);
 
         bean = new MarketplaceBean() {
 
@@ -243,6 +258,7 @@ public class MarketplaceBeanTest {
 
         };
         bean.setToken(bean.getToken());
+        bean.setSessionBean(sessionBeanMock);
 
         MenuBean menuBean = new MenuBean();
         bean.setMenuBean(menuBean);
@@ -250,6 +266,7 @@ public class MarketplaceBeanTest {
 
         localMarketplace = new VOMarketplace();
         localMarketplace.setMarketplaceId(LOCAL_MP);
+        
         localMarketplaceCE = new VOCatalogEntry();
         localMarketplaceCE.setMarketplace(localMarketplace);
         localMarketplaceCE.setAnonymousVisible(true);
@@ -268,6 +285,10 @@ public class MarketplaceBeanTest {
 
         globalMarketplace2 = new VOMarketplace();
         globalMarketplace2.setMarketplaceId(GLOBAL_MP + "2");
+       
+        globalOpenMarketplaceVo = new VOMarketplace();
+        globalOpenMarketplaceVo.setMarketplaceId(GLOBAL_OPEN_MP);
+        globalOpenMarketplaceVo.setOpen(true);
     }
 
     @Test
@@ -618,6 +639,16 @@ public class MarketplaceBeanTest {
         bean.marketplaceChangedForManageSeller();
         Assert.assertEquals(globalMarketplace.getMarketplaceId(), bean
                 .getMarketplace().getMarketplaceId());
+    }
+
+    @Test
+    public void getMarketplaceObjectNotFoundException(){
+        bean.setMarketplaceId("id");
+
+        final Marketplace marketplace = bean.getMarketplace();
+        assertNotNull(marketplace);
+        assertNull(marketplace.getId());
+        assertFalse(marketplace.isOpen());
     }
 
     @Test

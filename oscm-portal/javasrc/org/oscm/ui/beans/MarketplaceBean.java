@@ -72,6 +72,9 @@ public class MarketplaceBean extends BaseBean implements Serializable {
     @ManagedProperty(value = "#{menuBean}")
     private MenuBean menuBean;
 
+    @ManagedProperty(value="#{sessionBean}")
+    private SessionBean sessionBean;
+
     @EJB
     private MarketplaceService marketplaceService;
 
@@ -85,6 +88,14 @@ public class MarketplaceBean extends BaseBean implements Serializable {
 
     public void setMenuBean(final MenuBean menuBean) {
         this.menuBean = menuBean;
+    }
+
+    public SessionBean getSessionBean(){
+        return sessionBean;
+    }
+
+    public void setSessionBean(SessionBean sessionBean){
+        this.sessionBean = sessionBean;
     }
 
     private MarketplaceConfiguration getConfig() {
@@ -114,14 +125,14 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      * Reload the list of marketplaces available for the supplier
      */
     public void reloadMarketplacesForSupplier() {
-        marketplaces = new ArrayList<Marketplace>();
-        List<VOMarketplace> voMarketplaces= getMarketplaceService()
-        .getMarketplacesForOrganization();        
-        Collections.sort(voMarketplaces, new MarketplacesComparator());
-        
-        for (VOMarketplace mp : voMarketplaces) {
-            marketplaces.add(new Marketplace(mp));
-        }
+      marketplaces = new ArrayList<Marketplace>();
+      List<VOMarketplace> voMarketplaces = getMarketplaceService().getMarketplacesForOrganization();
+      Collections.sort(voMarketplaces, new MarketplacesComparator());
+
+      for (VOMarketplace mp : voMarketplaces) {
+        marketplaces.add(new Marketplace(mp));
+      }
+
     }
 
     /**
@@ -165,6 +176,8 @@ public class MarketplaceBean extends BaseBean implements Serializable {
     @Override
     public void setMarketplaceId(String marketplaceId) {
         this.marketplaceId = marketplaceId;
+        sessionBean.setMarketplaceId(marketplaceId);
+        marketplaceChanged();
     }
 
     /**
@@ -174,7 +187,6 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      */
     public void processValueChange(final ValueChangeEvent event) {
         this.setMarketplaceId((String) event.getNewValue());
-        marketplaceChanged();
     }
 
     public String marketplaceChangedForManageSeller() {
@@ -237,6 +249,12 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      */
     @Override
     public String getMarketplaceId() {
+        if (marketplaceId == null){
+            final String id = sessionBean.getMarketplaceId();
+            if(id != null && !id.equals("0")){
+                setMarketplaceId(id);
+            }
+        }
         return marketplaceId;
     }
 
@@ -336,10 +354,17 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      *
      * @return the current VOMarketplace object.
      */
-    public Marketplace getMarketplace() {
-        if (marketplace == null) {
+    public Marketplace getMarketplace()  {
+        if (marketplace == null && marketplaceId == null) {
             marketplace = new Marketplace();
             marketplace.setOpen(false);
+        } else {
+            try{
+                marketplace = new Marketplace(getMarketplaceService().getMarketplaceById(marketplaceId));
+            } catch (ObjectNotFoundException e){
+                marketplace = new Marketplace();
+                marketplace.setOpen(false);
+            }
         }
         return marketplace;
     }
@@ -375,7 +400,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
      *         <code>false</code>
      */
     public boolean isDisabledForEdit() {
-        return (marketplaceId == null || marketplaceId.equals("0"));
+        return getMarketplaceId() == null;
     }
 
     /**
@@ -391,6 +416,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
                         INFO_MARKETPLACE_DELETED,
                         marketplace.getMarketplaceId());
                 resetToken();
+                setMarketplaceId(null);
             }
         } finally {
             checkMarketplaceDropdownAndMenuVisibility(null);
@@ -552,8 +578,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
     }
 
     public boolean isUiRenderEnabled() {
-        return !this.isDisabledForEdit() && this.marketplace != null
-                && this.marketplace.getKey() != 0;
+        return !this.isDisabledForEdit() && getMarketplaceId() != null;
     }
 
     public boolean isRestricted() {

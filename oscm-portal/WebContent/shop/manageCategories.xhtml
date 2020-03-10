@@ -98,7 +98,7 @@
 
       <adm:buttonPanelSub styleClass="spacer">
         <adm:button id="addNewCategory" value="#{msg['button.add']}" bean="#{categoryBean}" action="addCategory"
-          disabled="#{empty categoryBean.marketplaceId}" buttonType="add" />
+          disabled="#{categoryBean.marketplaceBean.disabledForEdit}" buttonType="add" />
       </adm:buttonPanelSub>
 
       <adm:buttonPanel>
