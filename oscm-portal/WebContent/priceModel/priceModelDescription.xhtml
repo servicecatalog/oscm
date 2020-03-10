@@ -16,8 +16,7 @@
         <f:selectItem itemValue="FREE_OF_CHARGE" itemLabel="#{msg['priceModel.radio.freeOfCharge']}" />
         <f:selectItem itemValue="PRO_RATA" itemLabel="#{msg['priceModel.radio.proRata']}" />
         <f:selectItem itemValue="PER_UNIT" itemLabel="#{msg['priceModel.radio.perTimeUnit']}" />
-        <a4j:ajax event="click"
-                  immediate="true"
+        <a4j:ajax event="change"
                   render="pmPanel,buttonPanel,:mainTmplMessagesPanel"
                   onbeforesubmit="if(!checkDirtyAndRestoreValue(this)) {return false;}"
                   oncomplete="setOnlyPMTypeDirty();AdmUtils.initFocus();" />
