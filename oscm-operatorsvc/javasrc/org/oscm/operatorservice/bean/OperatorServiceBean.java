@@ -1064,7 +1064,7 @@ public class OperatorServiceBean implements OperatorService {
   public List<VOOrganization> getOrganizations(
       String organizationIdPattern, List<OrganizationRoleType> organizationRoleTypes)
       throws OrganizationAuthoritiesException {
-    return getOrganizationsWithLimit(organizationIdPattern, organizationRoleTypes, DB_SEARCH_LIMIT);
+    return getOrganizationsWithLimit(organizationIdPattern, organizationRoleTypes, Integer.valueOf(DB_SEARCH_LIMIT));
   }
 
   @Override
@@ -1102,7 +1102,7 @@ public class OperatorServiceBean implements OperatorService {
             "select pu.dataContainer.userId, pu.dataContainer.email,o.dataContainer.name, o.dataContainer.organizationId, pu.dataContainer.status, pu.key from PlatformUser pu left join pu.organization o");
 
     List<VOUserDetails> result = new ArrayList<>();
-    final List resultList = query.getResultList();
+    final List<?> resultList = query.getResultList();
     for (Object o : resultList) {
       Object[] row = (Object[]) o;
       final VOUserDetails userDetails = new VOUserDetails();
@@ -1111,7 +1111,7 @@ public class OperatorServiceBean implements OperatorService {
       userDetails.setOrganizationName((String) row[ORGN_NAME_INDEX]);
       userDetails.setOrganizationId((String) row[ORG_ID_INDEX]);
       userDetails.setStatus((UserAccountStatus) row[STATUS_INDEX]);
-      userDetails.setKey((Long) row[TKEY_INDEX_5]);
+      userDetails.setKey(((Long) row[TKEY_INDEX_5]).longValue());
       result.add(userDetails);
     }
     return result;
@@ -1128,7 +1128,7 @@ public class OperatorServiceBean implements OperatorService {
     query.setParameter("subscriptionKey", subscriptionKey);
     query.setParameter("organizationKey", organizationKey);
     List<VOUserDetails> result = new ArrayList<>();
-    List<Object[]> resultList = query.getResultList();
+    @SuppressWarnings("unchecked") List<Object[]> resultList = query.getResultList();
     VOUserDetails pu;
     for (Object[] cols : resultList) {
       pu = new VOUserDetails();
@@ -1152,7 +1152,7 @@ public class OperatorServiceBean implements OperatorService {
                 + "where usr.organizationkey=:organizationKey and (ass.userrole_tkey=8 or ass.userrole_tkey=9 or ass.userrole_tkey=1);");
     query.setParameter("organizationKey", organizationKey);
     List<VOUserDetails> result = new ArrayList<>();
-    List<Object[]> resultList = query.getResultList();
+    @SuppressWarnings("unchecked") List<Object[]> resultList = query.getResultList();
     VOUserDetails pu;
     for (Object[] cols : resultList) {
       pu = new VOUserDetails();
@@ -1489,7 +1489,7 @@ public class OperatorServiceBean implements OperatorService {
   @Override
   @RolesAllowed("PLATFORM_OPERATOR")
   public void deleteConfigurationSetting(Long key) throws ObjectNotFoundException {
-    ConfigurationSetting cs = dm.getReference(ConfigurationSetting.class, key);
+    ConfigurationSetting cs = dm.getReference(ConfigurationSetting.class, key.longValue());
     cs.setValue(cs.getInformationId().getFallBackValue());
     configService.setConfigurationSetting(cs);
   }
@@ -1497,7 +1497,7 @@ public class OperatorServiceBean implements OperatorService {
   @Override
   @RolesAllowed("PLATFORM_OPERATOR")
   public VOConfigurationSetting getConfigurationSetting(Long key) throws ObjectNotFoundException {
-    ConfigurationSetting cs = dm.getReference(ConfigurationSetting.class, key);
+    ConfigurationSetting cs = dm.getReference(ConfigurationSetting.class, key.longValue());
     return ConfigurationSettingAssembler.toValueObject(cs);
   }
 
@@ -1511,15 +1511,17 @@ public class OperatorServiceBean implements OperatorService {
     this.dm = dm;
   }
 
-  /** */
+  @Override                  
   public Map<String, String> getOrganizationIdentifiers(OrganizationRoleType r) {
-    TreeMap<String, String> tm = new TreeMap<String, String>();
+    
     Query query = dm.createQuery("Organization.getOrganizationIdentifiersByRole");
+    
     List<OrganizationRoleType> ort = new ArrayList<OrganizationRoleType>();
     ort.add(OrganizationRoleType.SUPPLIER);
     query.setParameter("organizationRoleTypes", ort);
         
     @SuppressWarnings("unchecked") List<Object[]> list = query.getResultList();
+    TreeMap<String, String> tm = new TreeMap<String, String>();
     for (Object[] obj : list) {
       tm.put((String) obj[0], (String) obj[1]);
     }
