@@ -21,6 +21,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -29,6 +31,7 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.persistence.Query;
+
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.accountservice.assembler.PaymentTypeAssembler;
 import org.oscm.accountservice.local.AccountServiceLocal;
@@ -1506,5 +1509,20 @@ public class OperatorServiceBean implements OperatorService {
 
   public void setDm(DataService dm) {
     this.dm = dm;
+  }
+
+  /** */
+  public Map<String, String> getOrganizationIdentifiers(OrganizationRoleType r) {
+    TreeMap<String, String> tm = new TreeMap<String, String>();
+    Query query = dm.createQuery("Organization.getOrganizationIdenitfiersByRole");
+    List<OrganizationRoleType> ort = new ArrayList<OrganizationRoleType>();
+    ort.add(OrganizationRoleType.SUPPLIER);
+    query.setParameter("organizationRoleTypes", ort);
+        
+    @SuppressWarnings("unchecked") List<Object[]> list = query.getResultList();
+    for (Object[] obj : list) {
+      tm.put((String) obj[0], (String) obj[1]);
+    }
+    return tm;
   }
 }
