@@ -45,10 +45,7 @@ public class ManageAccessCtrl {
 
   @EJB private MarketplaceService marketplaceService;
 
-    @ManagedProperty(value = "#{sessionBean}")
-    private SessionBean sessionBean;
-
-    public ManageAccessCtrl() {
+  public ManageAccessCtrl() {
         ui = new UiDelegate();
     }
 
