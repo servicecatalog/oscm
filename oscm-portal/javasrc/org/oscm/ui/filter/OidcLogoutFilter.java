@@ -107,8 +107,6 @@ public class OidcLogoutFilter extends BaseBesFilter {
   }
 
   private String buildRedirectionUrl(URI requestedUri, String path) {
-
-    path.length();
     StringBuffer mainUrl =
         new StringBuffer()
             .append(requestedUri.getScheme())
