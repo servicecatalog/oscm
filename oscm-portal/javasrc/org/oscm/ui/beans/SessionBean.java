@@ -371,7 +371,7 @@ public class SessionBean implements Serializable {
     return marketplaceId;
   }
 
-  public void setMarketplaceId(String marketplaceId){
+  public void setMarketplaceId(String marketplaceId) {
     this.marketplaceId = marketplaceId;
   }
 

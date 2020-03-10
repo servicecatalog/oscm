@@ -29,7 +29,6 @@ import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.internal.vo.VOOrganization;
 import org.oscm.ui.beans.BaseBean;
-import org.oscm.ui.beans.SessionBean;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.common.MarketplacesComparator;
 import org.oscm.ui.common.UiDelegate;
@@ -46,8 +45,8 @@ public class ManageAccessCtrl {
   @EJB private MarketplaceService marketplaceService;
 
   public ManageAccessCtrl() {
-        ui = new UiDelegate();
-    }
+    ui = new UiDelegate();
+  }
 
   @PostConstruct
   public void initialize() {
@@ -210,7 +209,7 @@ public class ManageAccessCtrl {
     return marketplaceService;
   }
 
-    public void setMarketplaceService(MarketplaceService marketplaceService) {
-        this.marketplaceService = marketplaceService;
-    }
+  public void setMarketplaceService(MarketplaceService marketplaceService) {
+    this.marketplaceService = marketplaceService;
+  }
 }
