@@ -993,7 +993,7 @@ public class OrganizationIT extends DomainObjectTestBase {
           @SuppressWarnings("unchecked")
           public Void call() throws Exception {
             // When
-            Query query = mgr.createNamedQuery("Organization.getOrganizationIdenitfiersByRole");
+            Query query = mgr.createNamedQuery("Organization.getOrganizationIdentifiersByRole");
 
             List<OrganizationRoleType> ort = new ArrayList<OrganizationRoleType>();
             ort.add(OrganizationRoleType.SUPPLIER);
@@ -1010,7 +1010,7 @@ public class OrganizationIT extends DomainObjectTestBase {
           @SuppressWarnings("unchecked")
           public Void call() throws Exception {
             // When
-            Query query = mgr.createNamedQuery("Organization.getOrganizationIdenitfiersByRole");
+            Query query = mgr.createNamedQuery("Organization.getOrganizationIdentifiersByRole");
 
             List<OrganizationRoleType> ort = new ArrayList<OrganizationRoleType>();
             ort.add(OrganizationRoleType.RESELLER);
