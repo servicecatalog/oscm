@@ -109,6 +109,7 @@ public class CustomizeLandingpageCtrl implements Serializable {
   public String marketplaceChanged() {
     String result = "";
     String selectedMarketplaceId = model.getSelectedMarketplace();
+    System.out.println("Wybrano:" + selectedMarketplaceId);
     try {
       if (selectedMarketplaceId != null) {
         boolean isOK = false;
