@@ -135,8 +135,7 @@ public class OidcLogoutFilter extends BaseBesFilter {
       URI uri = new URI(baseUrl);
       path = uri.getPath();
     } catch (URISyntaxException e) {
-      LOGGER.logError(
-          Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.WARN_IMPORT_PARSER_ERROR_BASE_URL_NEEDED);
+      LOGGER.logError(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR_INVALID_BASE_URL);
     }
     return path;
   }
