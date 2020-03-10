@@ -1514,7 +1514,7 @@ public class OperatorServiceBean implements OperatorService {
   /** */
   public Map<String, String> getOrganizationIdentifiers(OrganizationRoleType r) {
     TreeMap<String, String> tm = new TreeMap<String, String>();
-    Query query = dm.createQuery("Organization.getOrganizationIdenitfiersByRole");
+    Query query = dm.createQuery("Organization.getOrganizationIdentifiersByRole");
     List<OrganizationRoleType> ort = new ArrayList<OrganizationRoleType>();
     ort.add(OrganizationRoleType.SUPPLIER);
     query.setParameter("organizationRoleTypes", ort);
