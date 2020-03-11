@@ -28,10 +28,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Callable;
-
 import javax.ejb.EJBException;
 import javax.persistence.Query;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -998,7 +996,7 @@ public class OrganizationIT extends DomainObjectTestBase {
             List<OrganizationRoleType> ort = new ArrayList<OrganizationRoleType>();
             ort.add(OrganizationRoleType.SUPPLIER);
             query.setParameter("organizationRoleTypes", ort);
-            
+
             // Then
             assertTwoSuppliersFound(query.getResultList());
             return null;

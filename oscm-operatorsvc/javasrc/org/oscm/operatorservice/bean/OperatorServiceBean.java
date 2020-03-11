@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -31,7 +30,6 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.persistence.Query;
-
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.accountservice.assembler.PaymentTypeAssembler;
 import org.oscm.accountservice.local.AccountServiceLocal;
@@ -1064,7 +1062,8 @@ public class OperatorServiceBean implements OperatorService {
   public List<VOOrganization> getOrganizations(
       String organizationIdPattern, List<OrganizationRoleType> organizationRoleTypes)
       throws OrganizationAuthoritiesException {
-    return getOrganizationsWithLimit(organizationIdPattern, organizationRoleTypes, Integer.valueOf(DB_SEARCH_LIMIT));
+    return getOrganizationsWithLimit(
+        organizationIdPattern, organizationRoleTypes, Integer.valueOf(DB_SEARCH_LIMIT));
   }
 
   @Override
@@ -1128,7 +1127,8 @@ public class OperatorServiceBean implements OperatorService {
     query.setParameter("subscriptionKey", subscriptionKey);
     query.setParameter("organizationKey", organizationKey);
     List<VOUserDetails> result = new ArrayList<>();
-    @SuppressWarnings("unchecked") List<Object[]> resultList = query.getResultList();
+    @SuppressWarnings("unchecked")
+    List<Object[]> resultList = query.getResultList();
     VOUserDetails pu;
     for (Object[] cols : resultList) {
       pu = new VOUserDetails();
@@ -1152,7 +1152,8 @@ public class OperatorServiceBean implements OperatorService {
                 + "where usr.organizationkey=:organizationKey and (ass.userrole_tkey=8 or ass.userrole_tkey=9 or ass.userrole_tkey=1);");
     query.setParameter("organizationKey", organizationKey);
     List<VOUserDetails> result = new ArrayList<>();
-    @SuppressWarnings("unchecked") List<Object[]> resultList = query.getResultList();
+    @SuppressWarnings("unchecked")
+    List<Object[]> resultList = query.getResultList();
     VOUserDetails pu;
     for (Object[] cols : resultList) {
       pu = new VOUserDetails();
@@ -1511,16 +1512,17 @@ public class OperatorServiceBean implements OperatorService {
     this.dm = dm;
   }
 
-  @Override                  
+  @Override
   public Map<String, String> getOrganizationIdentifiers(OrganizationRoleType r) {
-    
+
     Query query = dm.createQuery("Organization.getOrganizationIdentifiersByRole");
-    
+
     List<OrganizationRoleType> ort = new ArrayList<OrganizationRoleType>();
     ort.add(OrganizationRoleType.SUPPLIER);
     query.setParameter("organizationRoleTypes", ort);
-        
-    @SuppressWarnings("unchecked") List<Object[]> list = query.getResultList();
+
+    @SuppressWarnings("unchecked")
+    List<Object[]> list = query.getResultList();
     TreeMap<String, String> tm = new TreeMap<String, String>();
     for (Object[] obj : list) {
       tm.put((String) obj[0], (String) obj[1]);
