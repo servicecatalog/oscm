@@ -1513,7 +1513,7 @@ public class OperatorServiceBean implements OperatorService {
   }
 
   @Override
-  public Map<String, String> getOrganizationIdentifiers(OrganizationRoleType r) {
+  public Map<String, String> getOrganizationIdentifiers(List<OrganizationRoleType> r) {
 
     Query query = dm.createQuery("Organization.getOrganizationIdentifiersByRole");
 
