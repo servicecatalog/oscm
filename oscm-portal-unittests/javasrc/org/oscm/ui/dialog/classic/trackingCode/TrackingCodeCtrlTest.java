@@ -225,6 +225,7 @@ public class TrackingCodeCtrlTest {
     public void getTrackingCodeManagementService() {
         tcMgmServ = null;
         serviceLocator = mock(ServiceLocator.class);
+        System.out.println(tcMgmServ.toString());
         doReturn(mock(TrackingCodeManagementService.class)).when(serviceLocator).findService(TrackingCodeManagementService.class);
         // when
         TrackingCodeManagementService trackingCodeManagementService = controller.getTrackingCodeManagementService();
@@ -244,8 +245,8 @@ public class TrackingCodeCtrlTest {
 
     @Test
     public void isFieldsDisabled_marketplaceWasSelected() {
-        doReturn(anyString()).when(model).getSelectedMarketplace();
-        doReturn(anyInt()).when(model).getSelectedMarketplace().length();
+        doReturn("").when(model).getSelectedMarketplace();
+        doReturn(1).when(model).getSelectedMarketplace().length();
         // when
         boolean isDisables = controller.isFieldsDisabled();
         // then
