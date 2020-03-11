@@ -161,7 +161,7 @@ public class TrackingCodeCtrl extends BaseBean implements Serializable {
     public String marketplaceChanged() {
         String result = "";
         String selectedMarketplaceId = model.getSelectedMarketplace();
-        if (selectedMarketplaceId == null || selectedMarketplaceId.equals("0")) {
+        if (selectedMarketplaceId == null || selectedMarketplaceId.equals("")) {
             model.setTrackingCodeObject(new POTrackingCode());
             model.setSelectedMarketplace(null);
         } else {
