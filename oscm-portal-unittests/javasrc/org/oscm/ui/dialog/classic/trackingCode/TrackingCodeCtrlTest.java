@@ -10,9 +10,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
@@ -32,7 +30,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.MockitoAnnotations;
 
+import org.oscm.ui.beans.BaseBean;
 import org.oscm.ui.beans.SessionBean;
+import org.oscm.ui.delegates.ServiceLocator;
 import org.oscm.ui.stubs.UiDelegateStub;
 import org.oscm.internal.components.POMarketplace;
 import org.oscm.internal.components.response.Response;
@@ -40,6 +40,8 @@ import org.oscm.internal.trackingCode.POTrackingCode;
 import org.oscm.internal.trackingCode.TrackingCodeManagementService;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
+
+import javax.faces.context.FacesContext;
 
 /**
  * @author tang
@@ -53,6 +55,7 @@ public class TrackingCodeCtrlTest {
     private TrackingCodeModel model;
     private SessionBean session;
     private TrackingCodeManagementService tcMgmServ;
+    private ServiceLocator serviceLocator;
     private POTrackingCode trackingCode;
     private List<POMarketplace> marketplaces;
     private int MARKETPLACE_NUMBER = 10;
@@ -127,6 +130,22 @@ public class TrackingCodeCtrlTest {
     }
 
     @Test
+    public void marketplaceChangedIntoDefaultValue() throws Exception {
+        model.setSelectedMarketplace("");
+        doReturn(new Response()).when(tcMgmServ)
+                .loadTrackingCodeForMarketplace(anyString());
+
+        // when
+        String result = controller.marketplaceChanged();
+
+        // then
+        verify(model).setTrackingCodeObject(new POTrackingCode());
+        verify(model).setSelectedMarketplace(eq(null));
+        assertEquals("", result);
+        assertNull(model.getSelectedMarketplace());
+    }
+
+    @Test
     public void marketplaceChanged_concurrentChanged() throws Exception {
         model.setSelectedMarketplace("mp");
         doThrow(new ObjectNotFoundException()).when(tcMgmServ)
@@ -180,7 +199,7 @@ public class TrackingCodeCtrlTest {
     }
 
     @Test
-    public void getTrackingCodeForCurrentMarketplace_inDB() throws Exception {
+    public void getTrackingCodeForCurrentMarketplace_inDB() {
         model.setSelectedMarketplace("mp8");
         doReturn(null).when(session).getMarketplaceTrackingCode();
         doReturn(Boolean.TRUE).when(controller).loadTrackingCode(anyString());
@@ -194,7 +213,7 @@ public class TrackingCodeCtrlTest {
     }
 
     @Test
-    public void getTrackingCodeForCurrentMarketplace_notInDB() throws Exception {
+    public void getTrackingCodeForCurrentMarketplace_notInDB() {
         model.setSelectedMarketplace("mp8");
         doReturn(null).when(session).getMarketplaceTrackingCode();
         doReturn(Boolean.FALSE).when(controller).loadTrackingCode(anyString());
@@ -204,5 +223,36 @@ public class TrackingCodeCtrlTest {
         verify(session, times(1)).setMarketplaceTrackingCode(eq(""));
 
         assertEquals("", marketplace);
+    }
+
+    @Test
+    public void getTrackingCodeManagementService() {
+        tcMgmServ = null;
+        serviceLocator = mock(ServiceLocator.class);
+        doReturn(mock(TrackingCodeManagementService.class)).when(serviceLocator).findService(TrackingCodeManagementService.class);
+        // when
+        TrackingCodeManagementService trackingCodeManagementService = controller.getTrackingCodeManagementService();
+        // then
+        verify(serviceLocator).findService(TrackingCodeManagementService.class);
+        assertNotNull("", trackingCodeManagementService);
+    }
+
+    @Test
+    public void isFieldsDisabled_marketplaceEqualsNull() {
+        doReturn(null).when(model).getSelectedMarketplace();
+        // when
+        boolean isDisables = controller.isFieldsDisabled();
+        // then
+        assertTrue(isDisables);
+    }
+
+    @Test
+    public void isFieldsDisabled_marketplaceWasSelected() {
+        doReturn(anyString()).when(model).getSelectedMarketplace();
+        doReturn(anyInt()).when(model).getSelectedMarketplace().length();
+        // when
+        boolean isDisables = controller.isFieldsDisabled();
+        // then
+        assertFalse(isDisables);
     }
 }
