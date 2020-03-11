@@ -16,7 +16,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -30,7 +29,6 @@ import javax.ejb.TimerService;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.persistence.Query;
-
 import org.oscm.accountservice.local.AccountServiceLocal;
 import org.oscm.billingservice.service.BillingServiceLocal;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;

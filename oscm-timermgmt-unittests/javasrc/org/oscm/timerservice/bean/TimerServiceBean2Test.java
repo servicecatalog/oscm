@@ -27,7 +27,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-
 import javax.ejb.EJBException;
 import javax.ejb.NoSuchObjectLocalException;
 import javax.ejb.ScheduleExpression;
@@ -35,7 +34,6 @@ import javax.ejb.SessionContext;
 import javax.ejb.Timer;
 import javax.ejb.TimerConfig;
 import javax.persistence.Query;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
