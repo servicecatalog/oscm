@@ -26,7 +26,7 @@
             <h:selectOneMenu id="customerSelection"
                              styleClass="select"
                              onclick="AdmUtils.storeValue(this);"
-                             oncomplete="javascsript:AdmUtils.setUIElements();"
+                             immediate="true"
                              value="#{priceModelBean.customerID}"
                              disabled="#{empty priceModelBean.customers}">
               <c:forEach items="#{priceModelBean.customers}" var="cust">
