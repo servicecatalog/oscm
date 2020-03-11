@@ -240,6 +240,7 @@ public class TrackingCodeCtrlTest {
 
     @Test
     public void isFieldsDisabled_marketplaceWasSelected() {
+        model.setSelectedMarketplace("");
         when(model.getSelectedMarketplace()).thenReturn("");
         // when
         boolean isDisables = controller.isFieldsDisabled();
