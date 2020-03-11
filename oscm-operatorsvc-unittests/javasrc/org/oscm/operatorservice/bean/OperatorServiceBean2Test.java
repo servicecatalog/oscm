@@ -4,16 +4,26 @@
  */
 package org.oscm.operatorservice.bean;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+
 import javax.ejb.SessionContext;
+import javax.persistence.Query;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -35,7 +45,7 @@ public class OperatorServiceBean2Test {
   private AccountServiceLocal accountServiceMock;
   private DataService ds;
   private ConfigurationServiceLocal configurationServiceLocal;
-
+ 
   @Before
   public void setUp() throws Exception {
     operatorServiceBean = new OperatorServiceBean();
@@ -92,5 +102,32 @@ public class OperatorServiceBean2Test {
       // mail server is unreachable
       verify(sessionCtxMock, times(1)).setRollbackOnly();
     }
+  }
+
+  @Test
+  public void getOrganizationIdentifiers() {
+
+    mockOrgQuery();
+
+    // When
+    Map<String, String> m =
+        operatorServiceBean.getOrganizationIdentifiers(Collections.emptyList());
+
+    // Then
+    assertEquals("OrgName1", m.get("orgId1"));
+    assertEquals("OrgName2", m.get("orgId2"));
+  }
+
+  private Query mockOrgQuery() {
+    Query qm = mock(Query.class);
+    doReturn(qm).when(operatorServiceBean.dm).createQuery(anyString());
+    doReturn(qm).when(qm).setParameter(anyString(), any());
+    Object[] pair = new String[] {"orgId1", "OrgName1"};
+    Object[] pair2 = new String[] {"orgId2", "OrgName2"};
+    List<Object[]> result = new ArrayList<Object[]>();
+    result.add(pair);
+    result.add(pair2);
+    doReturn(result).when(qm).getResultList();
+    return qm;
   }
 }
