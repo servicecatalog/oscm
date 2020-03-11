@@ -33,6 +33,9 @@
 				<adm:bootsfacesSelectMenu   id="serviceSelection"
 											value="#{priceModelBean.selectedServiceKey}"
 											onclick="AdmUtils.storeValue(this)"
+											onchange="if(AdmUtils.isNotDirtyOrConfirmed()){
+														#{rich:element('serviceSelectForm')}.submit();}
+													  else{ AdmUtils.restoreValue(this);}"
 											immediate="true"
 											label="#{msg['service.serviceId']}">
 					<f:ajax event="change" listener="#{priceModelBean.reloadPriceModel}"
