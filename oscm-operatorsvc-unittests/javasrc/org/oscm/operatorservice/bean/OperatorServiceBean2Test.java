@@ -13,7 +13,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,7 +42,7 @@ public class OperatorServiceBean2Test {
   private AccountServiceLocal accountServiceMock;
   private DataService ds;
   private ConfigurationServiceLocal configurationServiceLocal;
-
+ 
   @Before
   public void setUp() throws Exception {
     operatorServiceBean = new OperatorServiceBean();
@@ -109,6 +108,7 @@ public class OperatorServiceBean2Test {
 
     // When
     Map<String, String> m = operatorServiceBean.getOrganizationIdentifiers(Collections.emptyList());
+
 
     // Then
     assertEquals("OrgName1", m.get("orgId1"));
