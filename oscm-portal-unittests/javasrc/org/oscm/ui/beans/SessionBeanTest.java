@@ -125,6 +125,7 @@ public class SessionBeanTest {
 
   @Test
   public void testGetMarketplaceBrandUrl_BrandingUrlSet() throws Exception {
+	sessionBean.setMarketplaceId(MARKETPLACE_ID);
     doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
     String result = sessionBean.getMarketplaceBrandUrl();
     assertEquals(BRANDING_URL, result);
