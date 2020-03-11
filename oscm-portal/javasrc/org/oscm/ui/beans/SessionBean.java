@@ -9,23 +9,6 @@
  */
 package org.oscm.ui.beans;
 
-import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
-import static org.oscm.ui.common.Constants.SESSION_PARAM_SAML_LOGOUT_REQUEST;
-
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.billing.external.pricemodel.service.PriceModel;
 import org.oscm.internal.intf.MarketplaceCacheService;
@@ -36,12 +19,25 @@ import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
-import org.oscm.ui.common.ADMStringUtils;
-import org.oscm.ui.common.Constants;
-import org.oscm.ui.common.JSFUtils;
-import org.oscm.ui.common.ServiceAccess;
-import org.oscm.ui.common.TableHeightMap;
-import org.oscm.ui.common.UiDelegate;
+import org.oscm.ui.common.*;
+
+import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
+import static org.oscm.ui.common.Constants.SESSION_PARAM_SAML_LOGOUT_REQUEST;
 
 /** Managed bean to store session specific values which are not persisted in the database. */
 @SessionScoped
@@ -343,7 +339,9 @@ public class SessionBean implements Serializable {
     String marketplaceBrandUrl = brandUrlMidMapping.get(getMarketplaceId());
     if (marketplaceBrandUrl == null) {
       try {
-        marketplaceBrandUrl = getMarketplaceService().getBrandingUrl(getMarketplaceId());
+        if (marketplaceId != null) {
+          marketplaceBrandUrl = getMarketplaceService().getBrandingUrl(getMarketplaceId());
+        }
         if (marketplaceBrandUrl == null) {
           marketplaceBrandUrl = getWhiteLabelBrandingUrl();
         }
