@@ -15,16 +15,6 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -34,9 +24,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.ejb.SessionContext;
-import javax.persistence.Query;
-import javax.persistence.Query;
-
 import javax.persistence.Query;
 
 import org.junit.Before;
@@ -118,7 +105,7 @@ public class OperatorServiceBean2Test {
       verify(sessionCtxMock, times(1)).setRollbackOnly();
     }
   }
-  
+
   @Test
   public void getOrganizationIdentifiers() {
 
