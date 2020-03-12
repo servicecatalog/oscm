@@ -47,7 +47,7 @@ public class OperatorServiceBean2Test {
   private AccountServiceLocal accountServiceMock;
   private DataService ds;
   private ConfigurationServiceLocal configurationServiceLocal;
- 
+
   @Before
   public void setUp() throws Exception {
     operatorServiceBean = new OperatorServiceBean();
