@@ -79,7 +79,7 @@
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
                   <h:form id="formLogin">
-                    <h:outputLink id="loginLink">
+                    <h:outputLink id="loginLink" class="nav-link">
                     	<h:outputText value="#{msg['login']}" />
                     	<f:param name="login" value="oidc" />
                     </h:outputLink>
@@ -97,8 +97,14 @@
                   <div class="dropdown-divider"></div>
                   <h:form id="formLogout">
                     <c:if test="#{userBean.internalAuthMode}">
-                      <h:commandLink class="dropdown-item" id="logout" action="#{userBean.logoff}" ><i class="fa fa-fw fa-sign-out"></i> #{msg['logout']}</h:commandLink>
+                      <h:commandLink class="dropdown-item" id="logout" action="#{userBean.logoff}" ><i class="fa fa-fw fa-sign-out"></i>#{msg['logout']}</h:commandLink>
                     </c:if>
+                     <c:if test="#{not userBean.internalAuthMode}">
+                         <h:outputLink id="logout" class="dropdown-item">
+                             <h:outputText value="#{msg['logout']}" />
+                             <f:param name="logout" value="oidc" />
+                         </h:outputLink>
+                     </c:if>
                   </h:form>
                 </div></li>
 
