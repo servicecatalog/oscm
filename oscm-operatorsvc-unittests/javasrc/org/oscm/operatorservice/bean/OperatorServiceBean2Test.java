@@ -20,10 +20,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-
 import javax.ejb.SessionContext;
 import javax.persistence.Query;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -45,7 +43,7 @@ public class OperatorServiceBean2Test {
   private AccountServiceLocal accountServiceMock;
   private DataService ds;
   private ConfigurationServiceLocal configurationServiceLocal;
- 
+
   @Before
   public void setUp() throws Exception {
     operatorServiceBean = new OperatorServiceBean();
@@ -110,8 +108,7 @@ public class OperatorServiceBean2Test {
     mockOrgQuery();
 
     // When
-    Map<String, String> m =
-        operatorServiceBean.getOrganizationIdentifiers(Collections.emptyList());
+    Map<String, String> m = operatorServiceBean.getOrganizationIdentifiers(Collections.emptyList());
 
     // Then
     assertEquals("OrgName1", m.get("orgId1"));
