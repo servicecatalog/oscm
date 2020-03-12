@@ -1516,9 +1516,13 @@ public class OperatorServiceBean implements OperatorService {
   public Map<String, String> getOrganizationIdentifiers(List<OrganizationRoleType> r) {
 
     Query query = dm.createQuery("Organization.getOrganizationIdentifiersByRole");
-
     List<OrganizationRoleType> ort = new ArrayList<OrganizationRoleType>();
-    ort.add(OrganizationRoleType.SUPPLIER);
+    ort.addAll(r);
+    if (ort.isEmpty()) {
+      ort.add(OrganizationRoleType.SUPPLIER);
+      ort.add(OrganizationRoleType.CUSTOMER);
+      ort.add(OrganizationRoleType.TECHNOLOGY_PROVIDER);
+    }
     query.setParameter("organizationRoleTypes", ort);
 
     @SuppressWarnings("unchecked")
