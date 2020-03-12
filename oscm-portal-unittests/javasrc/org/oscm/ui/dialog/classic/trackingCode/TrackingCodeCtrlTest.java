@@ -128,8 +128,6 @@ public class TrackingCodeCtrlTest {
     @Test
     public void marketplaceChangedIntoDefaultValue() throws Exception {
         model.setSelectedMarketplace("");
-        doReturn(new Response()).when(tcMgmServ)
-                .loadTrackingCodeForMarketplace(anyString());
 
         // when
         String result = controller.marketplaceChanged();
@@ -233,17 +231,17 @@ public class TrackingCodeCtrlTest {
     public void isFieldsDisabled_marketplaceEqualsNull() {
         doReturn(null).when(model).getSelectedMarketplace();
         // when
-        boolean isDisables = controller.isFieldsDisabled();
+        boolean isDisabled = controller.isFieldsDisabled();
         // then
-        assertTrue(isDisables);
+        assertTrue(isDisabled);
     }
 
     @Test
     public void isFieldsDisabled_marketplaceWasSelected() {
         when(model.getSelectedMarketplace()).thenReturn("marketplace");
         // when
-        boolean isDisables = controller.isFieldsDisabled();
+        boolean isDisabled = controller.isFieldsDisabled();
         // then
-        assertFalse(isDisables);
+        assertFalse(isDisabled);
     }
 }
