@@ -13,14 +13,32 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+
 import javax.ejb.SessionContext;
 import javax.persistence.Query;
+import javax.persistence.Query;
+
+import javax.persistence.Query;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -42,7 +60,7 @@ public class OperatorServiceBean2Test {
   private AccountServiceLocal accountServiceMock;
   private DataService ds;
   private ConfigurationServiceLocal configurationServiceLocal;
- 
+
   @Before
   public void setUp() throws Exception {
     operatorServiceBean = new OperatorServiceBean();
@@ -100,30 +118,61 @@ public class OperatorServiceBean2Test {
       verify(sessionCtxMock, times(1)).setRollbackOnly();
     }
   }
-
+  
   @Test
   public void getOrganizationIdentifiers() {
 
     mockOrgQuery();
 
     // When
-    Map<String, String> m = operatorServiceBean.getOrganizationIdentifiers(Collections.emptyList());
-
+    LinkedHashMap<String, String> m =
+        (LinkedHashMap<String, String>)
+            operatorServiceBean.getOrganizationIdentifiers(Collections.emptyList());
 
     // Then
     assertEquals("OrgName1", m.get("orgId1"));
     assertEquals("OrgName2", m.get("orgId2"));
   }
 
+  @Test
+  public void getOrganizationIdentifiers_checkSorting() {
+
+    mockOrgQuery();
+
+    // When
+    LinkedHashMap<String, String> m =
+        (LinkedHashMap<String, String>)
+            operatorServiceBean.getOrganizationIdentifiers(Collections.emptyList());
+
+    Iterator<Map.Entry<String, String>> i = m.entrySet().iterator();
+    Map.Entry<String, String> e1 = i.next();
+    Map.Entry<String, String> e2 = i.next();
+    Map.Entry<String, String> e3 = i.next();
+
+    // Then
+    assertEquals("An OrgName2", e1.getValue());
+    assertEquals("orgId4", e1.getKey());
+
+    assertEquals("An orgName1", e2.getValue());
+    assertEquals("orgId3", e2.getKey());
+
+    assertEquals("OrgName1", e3.getValue());
+    assertEquals("orgId1", e3.getKey());
+  }
+
   private Query mockOrgQuery() {
     Query qm = mock(Query.class);
-    doReturn(qm).when(operatorServiceBean.dm).createQuery(anyString());
+    doReturn(qm).when(operatorServiceBean.dm).createNamedQuery(anyString());
     doReturn(qm).when(qm).setParameter(anyString(), any());
-    Object[] pair = new String[] {"orgId1", "OrgName1"};
-    Object[] pair2 = new String[] {"orgId2", "OrgName2"};
-    List<Object[]> result = new ArrayList<Object[]>();
-    result.add(pair);
-    result.add(pair2);
+    Object[][] orgs = {
+      new String[] {"orgId1", "OrgName1"},
+      new String[] {"orgId2", "OrgName2"},
+      new String[] {"orgId3", "An orgName1"},
+      new String[] {"orgId4", "An OrgName2"}
+    };
+
+    List<Object[]> result = Arrays.asList(orgs);
+
     doReturn(result).when(qm).getResultList();
     return qm;
   }

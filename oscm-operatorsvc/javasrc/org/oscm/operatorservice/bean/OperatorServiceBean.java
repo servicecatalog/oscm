@@ -14,10 +14,14 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Currency;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -1515,7 +1519,7 @@ public class OperatorServiceBean implements OperatorService {
   @Override
   public Map<String, String> getOrganizationIdentifiers(List<OrganizationRoleType> r) {
 
-    Query query = dm.createQuery("Organization.getOrganizationIdentifiersByRole");
+    Query query = dm.createNamedQuery("Organization.getOrganizationIdentifiersByRole");
     List<OrganizationRoleType> ort = new ArrayList<OrganizationRoleType>();
     ort.addAll(r);
     if (ort.isEmpty()) {
@@ -1527,10 +1531,29 @@ public class OperatorServiceBean implements OperatorService {
 
     @SuppressWarnings("unchecked")
     List<Object[]> list = query.getResultList();
-    TreeMap<String, String> tm = new TreeMap<String, String>();
+    
+    TreeMap<String, String> tm = new TreeMap<String, String>();          
     for (Object[] obj : list) {
       tm.put((String) obj[0], (String) obj[1]);
     }
-    return tm;
+    return valueSort(tm);
+  }
+  
+  
+  private <KT, VT extends Comparable<? super VT>> Map<KT, VT> valueSort(Map<KT, VT> m) {
+
+      List<Map.Entry<KT, VT>> l =
+              new LinkedList<Map.Entry<KT, VT>>(m.entrySet());
+
+      Collections.sort(l, new Comparator<Map.Entry<KT, VT>>() {
+          public int compare(Map.Entry<KT, VT> o1, Map.Entry<KT, VT> o2) {
+              return (o1.getValue()).compareTo(o2.getValue());
+          }
+      });
+
+      Map<KT, VT> r = new LinkedHashMap<KT, VT>();
+      l.forEach(e -> r.put(e.getKey(), e.getValue()));
+      
+      return r;
   }
 }
