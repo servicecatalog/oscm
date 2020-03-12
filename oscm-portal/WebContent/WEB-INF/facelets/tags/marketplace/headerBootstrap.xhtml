@@ -97,8 +97,15 @@
                   <div class="dropdown-divider"></div>
                   <h:form id="formLogout">
                     <c:if test="#{userBean.internalAuthMode}">
-                      <h:commandLink class="dropdown-item" id="logout" action="#{userBean.logoff}" ><i class="fa fa-fw fa-sign-out"></i> #{msg['logout']}</h:commandLink>
+                      <h:commandLink class="dropdown-item" id="logout" action="#{userBean.logoff}" ><i class="fa fa-fw fa-sign-out"></i> </h:commandLink>
                     </c:if>
+                     <c:if test="#{not userBean.internalAuthMode}">
+                         <h:outputLink id="logout">
+                             <h:outputText value="#{msg['logout']}" />
+                             <f:param name="logout" value="oidc" />
+                         </h:outputLink>
+<!--                      <h:commandLink class="dropdown-item" ><i class="fa fa-fw fa-sign-out">#{msg['logout']}</i></h:commandLink>-->
+                     </c:if>
                   </h:form>
                 </div></li>
 
