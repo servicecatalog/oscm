@@ -79,7 +79,7 @@
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
                   <h:form id="formLogin">
-                    <h:outputLink id="loginLink">
+                    <h:outputLink id="loginLink" class="nav-link">
                     	<h:outputText value="#{msg['login']}" />
                     	<f:param name="login" value="oidc" />
                     </h:outputLink>
