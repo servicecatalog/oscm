@@ -57,8 +57,6 @@ import org.oscm.types.enumtypes.PlatformEventIdentifier;
  * @author Mike J&auml;ger
  * 
  */
-// FIXME https://github.com/servicecatalog/oscm/issues/490
-@Ignore
 public class EventServiceBeanIT extends EJBTestBase {
 
     private static final String USER_KEY_EXISTING = "1";
