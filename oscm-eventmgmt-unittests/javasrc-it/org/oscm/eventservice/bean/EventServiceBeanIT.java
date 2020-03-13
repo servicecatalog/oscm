@@ -264,7 +264,7 @@ public class EventServiceBeanIT extends EJBTestBase {
         try {
             evMgmt.recordEventForInstance(technicalProductId, instanceId,
                     event);
-            Assert.fail("recordEvent() must faile!");
+            Assert.fail("recordEvent failed!");
         } catch (EJBException e) {
             Assert.assertEquals(NonUniqueResultException.class,
                     e.getCause().getCause().getClass());
