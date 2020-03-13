@@ -2405,14 +2405,26 @@ table.dataTable > tbody > td:hover {
 .responsive-container {
     position: relative;
     overflow: hidden;
-    padding-top: 56.25%;
+    padding-bottom: 29.69%; 
+    height: 0;   
 }
 
-.responsive-iframe {
+.responsive-container iframe {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     border: 0;
 }
+
+.responsive_img {
+    max-width: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+
+
+
+
