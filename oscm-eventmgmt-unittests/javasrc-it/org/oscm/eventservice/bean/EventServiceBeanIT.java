@@ -22,7 +22,6 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.oscm.converter.ParameterizedTypes;
 import org.oscm.dataservice.bean.DataServiceBean;
