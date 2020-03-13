@@ -18,9 +18,8 @@
       
     <h:form id="selectForm">
       <adm:outputStep value="#{msg['operator.manageOperatorRevenueShare.step1']}" />
-
         <adm:bootsfacesSelectMenu   id="templateKey"
-                                    onclick="AdmUtils.storeValue(this);"
+                                    onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
                                     label="#{msg['service.serviceId']}"
                                     immediate="true"
                                     value="#{manageOperatorRevenueShareModel.selectedTemplateKey}">

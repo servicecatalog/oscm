@@ -246,7 +246,7 @@ public class UpdateMarketplaceBean extends BaseBean {
 
     public void marketplaceChanged() {
         String marketplaceId = model.getMarketplaceId();
-        if (marketplaceId == null || marketplaceId.equals("0")) {
+        if (marketplaceId == null || marketplaceId.equals("")) {
             model = null;
         } else {
             applyOrgChange(marketplaceId);

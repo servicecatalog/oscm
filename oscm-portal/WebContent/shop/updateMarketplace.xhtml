@@ -11,33 +11,18 @@
     <c:set var="focusElement" value="marketplaceSelectForm:selectMarketplaceId" />
   </ui:define>
   <ui:define name="body">
-    <adm:outputStep value="#{msg['marketplace.update.step1']}" />
-
-    <script type = "text/javascript" >
-      $(document).ready(function () {
-        $("[id='marketplaceSelectForm:selectMarketplaceIdInner']").select2().on('select2:selecting', function (e) {
-          if (AdmUtils.isNotDirtyOrConfirmed()) {
-        	AdmUtils.storeValue(this);
-          } else {
-            e.preventDefault();
-          }
-        });
-      });
-    </script>
-
+    <adm:outputStep value="#{msg['marketplace.update.step1']}"/>
     <h:form id="marketplaceSelectForm">
       <adm:bootsfacesSelectMenu   id="selectMarketplaceId"
-                                  onclick="AdmUtils.storeValue(this);"
-                                  onchange="#{rich:element('updateMarketPlaceButton')}.click(); return false;"
+                                  onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
                                   label="#{msg['service.marketplace']}"
-                                  immediate="true"
-                                  render=":stageForm"
                                   value="#{updateMarketplaceBean.model.marketplaceId}">
+        <f:ajax event="change" listener="#{updateMarketplaceBean.marketplaceChanged}"
+                render="marketplaceSelectForm,updateForm" />
         <adm:selectItemPleaseSelect itemValue="" />
         <f:selectItems value="#{updateMarketplaceBean.selectableMarketplaces}" />
       </adm:bootsfacesSelectMenu>
       <adm:message for="selectMarketplaceId" />
-      <h:commandButton id="updateMarketPlaceButton"  action="#{updateMarketplaceBean.marketplaceChanged}" style="display: none;" />
     </h:form>
 
     <h:form id="updateForm">
