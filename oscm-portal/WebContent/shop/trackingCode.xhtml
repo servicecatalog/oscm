@@ -14,25 +14,15 @@
   <ui:define name="body">
     <adm:initialize initializingMethod="#{trackingCodeCtrl.initializeTrackingCode}"/>
     <h:form id="trackingCodeForm">
-    <script type = "text/javascript" >
-    $(document).ready(function () {
-      $("[id='trackingCodeForm:marketplaceInner']").select2().on('select2:selecting', function (e) {
-        if (AdmUtils.isNotDirtyOrConfirmed()) {
-          AdmUtils.storeValue(this);
-        } else {
-          e.preventDefault();
-        }
-      });
-    });
-    </script>
       <adm:outputStep value="#{msg['shop.trackingCode.step1']}" />
         <adm:bootsfacesSelectMenu   id="marketplace"
+                                    onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
                                     oncomplete="AdmUtils.setUIElements();AdmUtils.emitResizeEvent();"
                                     value="#{trackingCodeModel.selectedMarketplace}"
                                     label="#{msg['service.marketplace']}">
           <f:ajax event="change" listener="#{trackingCodeCtrl.marketplaceChanged}"
                   render="trackingCodePanel,buttonPanel,mainTmplMessagesPanel"/>
-          <adm:selectItemPleaseSelect itemValue="#{null}" />
+          <adm:selectItemPleaseSelect itemValue="" />
           <f:selectItems value="#{trackingCodeModel.marketplaces}" />
         </adm:bootsfacesSelectMenu>
         <adm:message id="marketplaceErrorMsg" for="marketplace" />
