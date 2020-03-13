@@ -23,10 +23,10 @@
     
       <adm:outputStep value="#{msg['service.copy.step1']}" />
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
-                                    onchange="if(AdmUtils.isNotDirtyOrConfirmed())
+                                    onchange="BootsFacesUtils.preventChangeSelectionForDropDown();
+                                              if(AdmUtils.isNotDirtyOrConfirmed())
                                                 {#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;
-                                                 #{rich:element('selectForm')}.submit();}
-                                              BootsFacesUtils.preventChangeSelectionForDropDown();"
+                                                 #{rich:element('selectForm')}.submit();}"
                                     value="#{serviceBean.selectedServiceKeyReadOnly}"
                                     label="#{msg['service.serviceId']}">
           <adm:selectItemPleaseSelect itemValue="0" />
