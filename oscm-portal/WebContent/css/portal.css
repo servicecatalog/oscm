@@ -2401,30 +2401,3 @@ table.dataTable > tbody > td:hover {
   background-color: #CBD7F5;
   cursor: pointer;
 }
-
-.responsive-container {
-    position: relative;
-    overflow: hidden;
-    padding-bottom: 29.69%; 
-    height: 0;   
-}
-
-.responsive-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    border: 0;
-}
-
-.responsive_img {
-    max-width: 100%;
-    object-fit: cover;
-    width: 100%;
-}
-
-
-
-
-
