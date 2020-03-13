@@ -1,0 +1,38 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="templates/mainBootstrap.xhtml">
+  <ui:define name="pageId">
+    <c:set var="pageId" value="marketplace.home" />
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+    <c:set var="stage" value="#{serviceListingBean.publicLandingpage ? '' : 'landing'}" />
+  </ui:define>
+
+   <ui:define name="feature">
+   <div class="row mx-2">
+      <div class="col-12">
+        <h:outputText escape="false" id="stageResponsive" value="#{skinBean.marketplaceStage}" />
+      </div>
+   </div>
+
+  </ui:define>
+
+  <ui:define name="aside">
+    <a4j:outputPanel id="tagPanel" rendered="#{serviceListingBean.publicLandingpage}">
+      <mp:categorySelection />
+      <mp:tagCloud bean="#{tagCloudBean}" />
+    </a4j:outputPanel>
+  </ui:define>
+
+  <ui:define name="contents">
+    <c:if test="#{serviceListingBean.publicLandingpage}">
+      <ui:include id="listServicesForPublicLandingpage" src="bootstrapServices.xhtml" />
+    </c:if>
+    <c:if test="#{not serviceListingBean.publicLandingpage}">
+      <ui:include id="listServicesForEnterpriseLandingpage" src="enterpriseLandingpage.xhtml" />
+    </c:if>
+  </ui:define>
+</ui:composition>

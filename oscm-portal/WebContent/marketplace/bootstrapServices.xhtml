@@ -16,30 +16,8 @@
 	<link href="${facesContext.externalContext.requestContextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
 	<script src="#{facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-	<ui:define name="pageId">
-		<c:set var="pageId" value="marketplace.services" />
-		<c:set var="stage" value="#{''}" />
-	</ui:define>
 
-	<ui:define name="feature">
-		<div class="row mx-2">
-			<div class="col-12">
-				<h:outputText escape="false" id="stageResponsive" value="#{skinBean.marketplaceStage}" />
-			</div>
-		</div>
-
-	</ui:define>
-
-	<ui:define name="aside">
-		<a4j:outputPanel id="tagPanel" rendered="#{serviceListingBean.publicLandingpage}">
-			<mp:categorySelection />
-			<mp:tagCloud bean="#{tagCloudBean}" />
-		</a4j:outputPanel>
-	</ui:define>
-
-	<ui:define name="contents">
-		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae consequuntur nisi natus aliquid saepe praesentium, non quasi veniam molestias officia.</p>
-	</ui:define>
+	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, voluptates! Possimus eligendi excepturi saepe libero fuga adipisci dolorem molestias, nostrum reiciendis, aperiam dolores nisi quae!</p>
 
 	
 </ui:composition>
