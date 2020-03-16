@@ -24,38 +24,39 @@
      -->
     <div class="container">
         <div class="row">
-            <div class="col-md-9">
-                <!-- Image, title, supplier container -->
-                <div class="col-auto">
-                    <div class="row">
-                        <div class="col-auto">
-                            <h:graphicImage id="#{fieldId}Image"
-                                            value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
-                        </div>
-                        <div class="col">
-                            <ui:fragment rendered="#{service ne null}">
-                                <ui:fragment rendered="#{showName}">
-                                    <h2 id="#{fieldId}Name" class="box_title shortenedText"
-                                        title="#{service.nameToDisplay}"
-                                        onclick="#{onClickHandler}">#{service.nameToDisplay}</h2>
+
+                <div class="col-md-9">
+                    <!-- Image, title, supplier container -->
+                    <div class="col-auto">
+                        <div class="row">
+                            <div class="col-auto">
+                                <h:graphicImage id="#{fieldId}Image"
+                                                value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
+                            </div>
+                            <div class="col">
+                                <ui:fragment rendered="#{service ne null}">
+                                    <ui:fragment rendered="#{showName}">
+                                        <h2 id="#{fieldId}Name" class="box_title shortenedText"
+                                            title="#{service.nameToDisplay}"
+                                            onclick="#{onClickHandler}">#{service.nameToDisplay}</h2>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{showSupplier}">
+                                        <h3 id="#{fieldId}Supplier" class="supplier shortenedText">
+                                            <h:outputFormat value="#{msg['service.by']}" title="#{service.sellerName}">
+                                                <f:param value="#{service.sellerName}"/>
+                                            </h:outputFormat>
+                                        </h3>
+                                    </ui:fragment>
                                 </ui:fragment>
-                                <ui:fragment rendered="#{showSupplier}">
-                                    <h3 id="#{fieldId}Supplier" class="supplier shortenedText">
-                                        <h:outputFormat value="#{msg['service.by']}" title="#{service.sellerName}">
-                                            <f:param value="#{service.sellerName}"/>
-                                        </h:outputFormat>
-                                    </h3>
-                                </ui:fragment>
-                            </ui:fragment>
+                            </div>
                         </div>
                     </div>
+                    <!-- Description container -->
+                    <div class="col-auto">
+                        <br/>
+                        #{service.shortDescription}
+                    </div>
                 </div>
-            </div>
-            <!-- Description container -->
-            <div class="col-auto">
-                <br/>
-                #{service.shortDescription}
-            </div>
             <!-- Stars, price, details button container -->
             <div class="col-md-3">
                 <div class="container">
