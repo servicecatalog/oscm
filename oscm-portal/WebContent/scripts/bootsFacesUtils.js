@@ -19,7 +19,7 @@ alert("Wszedem do funckji change " + dropDownID);
     $(document).on('select2:selecting', function (e) {
         if(AdmUtils.isNotDirtyOrConfirmed()) {
            alert("Wszedem do ifa this to: ");
-           document.getElementById("selectedKey").value = dropDownID.options[dropDownID.selectedIndex].text;
+           document.getElementById("selectedKey").value = $("#dropDownID :selected").val();
 //         document.element('selectedKey')}.value = dropDownID.options[dropDownID.selectedIndex].value;
            document.forms["selectForm"].submit();
 //         #{rich:element('selectForm')}.submit();
