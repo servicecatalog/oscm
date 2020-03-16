@@ -16,8 +16,11 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, dropDownID) {
         if(AdmUtils.isNotDirtyOrConfirmed()) {
-        document.getElementById("selectForm:selectedKey") = dropDownID.options[dropDownID.selectedIndex].value;
-        document.getElementById('selectForm').submit();
+        var keyID = document.getElementById("selectedKey");
+        var menuID = dropDownID.options[dropDownID.selectedIndex].value;
+        alert("key " + keyID + "menu" + menuID);
+        keyID = menuID
+            document.getElementById('selectForm').submit();
         } else {
            e.preventDefault();
         }
