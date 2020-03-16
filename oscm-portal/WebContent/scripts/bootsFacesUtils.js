@@ -5,14 +5,11 @@ var BootsFacesUtils = {
 };
 
 BootsFacesUtils.preventChangeSelectionForDropDown = function() {
-alert("Wszedem do funckji prevent");
     $(document).on('select2:selecting',function (e) {
        if (AdmUtils.isNotDirtyOrConfirmed()) {
-       alert("Wszedem do ifa");
            AdmUtils.storeValue(this);
            $(document).off('select2:selecting');
        } else {
-       alert("Wszedem do else");
            e.preventDefault();
        }
     });
@@ -21,16 +18,16 @@ alert("Wszedem do funckji prevent");
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
 alert("Wszedem do funckji change");
     $(document).on('select2:selecting', function (e) {
-    if(AdmUtils.isNotDirtyOrConfirmed()) {
+        if(AdmUtils.isNotDirtyOrConfirmed()) {
            alert("Wszedem do ifa");
-           document.getElementById("selectedKey").value = dropDownID.value;
+           document.getElementById("selectedKey").value = document.getElementById(dropDownID).value;
 //         document.element('selectedKey')}.value = dropDownID.options[dropDownID.selectedIndex].value;
-       document.forms["selectForm"].submit();
+           document.forms["selectForm"].submit();
 //         #{rich:element('selectForm')}.submit();
-         $(document).off('select2:selecting');}
-    else {
+           $(document).off('select2:selecting');
+        } else {
            alert("Wszedem do else");
-        e.preventDefault();
-    }
+           e.preventDefault();
+        }
     });
 }
