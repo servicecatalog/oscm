@@ -22,7 +22,7 @@
 			<adm:outputStep value="#{msg['priceModel.service.select']}" />
 				<adm:bootsfacesSelectMenu   id="serviceSelection"
 											value="#{priceModelBean.selectedServiceKey}"
-											onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"
+											onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(event, this);"
 											label="#{msg['service.serviceId']}">
 					<f:ajax event="change" listener="#{priceModelBean.reloadPriceModel}"
 							render="contentPanel"/>
