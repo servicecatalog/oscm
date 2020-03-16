@@ -25,7 +25,7 @@
 
 	      <adm:outputStep value="#{msg['service.edit.step1']}" />
 			<adm:bootsfacesSelectMenu   id="selectedServiceId"
-										onchange="BootsFacesUtils.changeSelectionIndexAtDropDown();"
+										onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"
 										value="#{serviceBean.selectedServiceKeyReadOnly}"
 										label="#{msg['service.serviceId']}">
 				<adm:selectItemPleaseSelect itemValue="0" />
