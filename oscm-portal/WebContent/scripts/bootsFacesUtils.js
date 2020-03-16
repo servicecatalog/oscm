@@ -19,13 +19,15 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(event, element) {
     var i = element.selectedIndex;
 	var o = element.options[i];
 	var input = document.getElementById("selectForm:selectedKey");
-            if (AdmUtils.isNotDirtyOrConfirmed()) {
-            if (input != null) {
-                                 input.value = o.value;
-                          }
-                          document.getElementById('selectForm').submit();
+	$(document).on('select2:selecting',function (event) {
+           if (AdmUtils.isNotDirtyOrConfirmed()) {
+                if (input != null) {
+                 input.value = o.value;
+                }
+                document.getElementById('selectForm').submit();
                $(document).off('select2:selecting');
-            } else {
+           } else {
                event.preventDefault();
-            }
+           }
+        });
 }
