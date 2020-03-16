@@ -16,11 +16,12 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
-alert("Wszedem do funckji change" + dropDownID);
+alert("Wszedem do funckji change " + dropDownID);
     $(document).on('select2:selecting', function (e) {
         if(AdmUtils.isNotDirtyOrConfirmed()) {
-           alert("Wszedem do ifa");
-           document.getElementById("selectedKey").value = this.options[this.selectedIndex].value;
+           alert("Wszedem do ifa this to: " + this);
+           AdmUtils.storeValue(this);
+           document.getElementById("selectedKey").value = dropDownID.options[dropDownID.selectedIndex].value;
 //         document.element('selectedKey')}.value = dropDownID.options[dropDownID.selectedIndex].value;
            document.forms["selectForm"].submit();
 //         #{rich:element('selectForm')}.submit();
