@@ -19,13 +19,15 @@
 	<script src="#{facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 	<div class="row mt-4 mx-2">
+		<c:if test="#{((fn:length(serviceListingBean.serviceList)) gt 0) &amp;&amp; (not servicePagingBean.searchRequested)}">
+			<!-- Upper paging control -->
+		</c:if>
+
 		<!-- Paging header (not available if list is empty, and not yet for search results) -->
-			<mp:pagingPanel generateForm="true" prefix="Up" />
 		<c:forEach items="#{serviceListingBean.serviceList}" var="service" varStatus="status">
 			<mp:serviceBlockBootstrap fieldId="service#{status.index}" service="#{service}" limitedDescription="false" />
 		</c:forEach>
 		<!-- Paging footer (not available if list is empty, and not yet for search results) -->
-		<mp:pagingPanel generateForm="false" prefix="Down" />
 	</div>
 
 </ui:composition>
