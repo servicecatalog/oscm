@@ -14,7 +14,7 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
     });
 }
 
-BootsFacesUtils.changeSelectionIndexAtDropDown = function(event.element) {
+BootsFacesUtils.changeSelectionIndexAtDropDown = function(event, element) {
     event = event ? event : window.event;
     var i = element.selectedIndex;
 	var o = element.options[i];
