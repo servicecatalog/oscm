@@ -28,6 +28,4 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(event, element) {
             } else {
                event.preventDefault();
             }
-          });
-
 }
