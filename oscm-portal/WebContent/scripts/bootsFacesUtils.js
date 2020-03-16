@@ -19,13 +19,13 @@ alert("Wszedem do funckji prevent");
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
-alert("Wszedem do funckji prevent");
+alert("Wszedem do funckji change");
     $(document).on('select2:selecting', function (e) {
     if(AdmUtils.isNotDirtyOrConfirmed()) {
            alert("Wszedem do ifa");
-           document.element['selectedKey'].value = $(dropDownID).find(":selected").text();
+           ddocument.getElementById("selectedKey").value = dropDownID.value;
 //         document.element('selectedKey')}.value = dropDownID.options[dropDownID.selectedIndex].value;
-       document.forms['selectForm'].submit();
+       document.forms["selectForm"].submit();
 //         #{rich:element('selectForm')}.submit();
          $(document).off('select2:selecting');}
     else {
