@@ -19,10 +19,7 @@
 
       <adm:outputStep value="#{msg['service.add.step1']}" />
       <adm:bootsfacesSelectMenu   id="techServiceId"
-                                  onchange="BootsFacesUtils.preventChangeSelectionForDropDown();
-                                            if(AdmUtils.isNotDirtyOrConfirmed())
-                                                {#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;
-                                                 #{rich:element('selectForm')}.submit();}"
+                                  onchange="BootsFacesUtils.changeSelectionIndexAtDropDown();"
                                   value="#{serviceBean.selectedTechServiceKeyReadOnly}"
                                   label="#{msg['techService.techServiceId']}">
         <adm:selectItemPleaseSelect itemValue="0" />

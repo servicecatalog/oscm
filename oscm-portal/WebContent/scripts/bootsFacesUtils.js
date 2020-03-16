@@ -14,3 +14,15 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
        }
     });
 }
+
+BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
+    $(document).on('select2:selecting', function (e) {
+    if(AdmUtils.isNotDirtyOrConfirmed())
+        {#{rich:element('selectedKey')}.value = dropDownID.options[this.selectedIndex].value;
+         #{rich:element('selectForm')}.submit();}
+         $(document).off('select2:selecting');
+    else {
+        e.preventDefault();
+    }
+    });
+}
