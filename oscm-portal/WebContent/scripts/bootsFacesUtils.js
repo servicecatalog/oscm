@@ -15,13 +15,12 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
-    $(document).on('select2:selecting', function (e) {
+    var idDD = "#" + dropDownID;
+    $(idDD).on("change", function (e) {
         if(AdmUtils.isNotDirtyOrConfirmed()) {
-        var getValue = document.getElementById(dropDownID);
+        var getValue = $(idDD).val();
         alert (getValue);
-        var value = getValue.options[getValue.selectedIndex].value;
-        alert (value);
-           document.getElementById("selectedKey").value = value;
+        $("#selectedKey").val(getValue);
            document.forms["selectForm"].submit();
            $(document).off('select2:selecting');
         } else {
