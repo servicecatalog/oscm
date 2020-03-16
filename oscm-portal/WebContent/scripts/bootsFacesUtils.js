@@ -28,5 +28,4 @@ alert ("change value");
         AdmUtils.restoreValue(dropDownID);
            e.preventDefault();
         }
-    });
 }
