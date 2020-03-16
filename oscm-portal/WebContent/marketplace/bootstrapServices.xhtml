@@ -18,7 +18,7 @@
 
 	<div class="row mt-4 mx-2">
 		<c:forEach items="#{serviceListingBean.serviceList}" var="service" varStatus="status">
-			<mp:serviceBlockBootstrap fieldId="service#{status.index}" service="#{service}" limitedDescription="true" />
+			<mp:serviceBlockBootstrap fieldId="service#{status.index}" service="#{service}" limitedDescription="false" />
 		</c:forEach>
 	</div>
 	
