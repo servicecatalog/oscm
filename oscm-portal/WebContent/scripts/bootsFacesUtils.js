@@ -14,14 +14,8 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
     });
 }
 
-BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
+BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, dropDownID) {
 alert ("change value");
-    $(document).on('select2:selecting', function (e) {
-    var nonnsa = "#" + dropDownID;
-    var selValue = $(nonnsa).val();
-                    alert ("Value to: " + selValue + " a dropDOwn to: " + dropDownID)
-                        document.getElementById("selectedKey").value=selValue;
-                       document.forms["selectForm"].submit();
         if(AdmUtils.isNotDirtyOrConfirmed()) {
         var selValue = $(nonnsa).val();
         alert ("Value to: " + selValue + " a dropDOwn to: " + dropDownID)
