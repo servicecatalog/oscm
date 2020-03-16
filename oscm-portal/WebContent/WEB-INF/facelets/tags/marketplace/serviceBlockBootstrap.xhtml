@@ -25,7 +25,7 @@
     <div class="container">
         <div class="row">
 
-                <div class="col-md-9">
+                <div class="col-lg-9">
                     <!-- Image, title, supplier container -->
                     <div class="col-auto">
                         <div class="row">
@@ -58,16 +58,16 @@
                     </div>
                 </div>
             <!-- Stars, price, details button container -->
-            <div class="col-md-2">
+            <div class="col-lg-3">
                 <div class="container">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-sm-auto">
                             <mp:ratingStars reviewCount="#{service.reviewCount}" rating="#{service.rating}"/>
                         </div>
-                        <div class="col">
+                        <div class="col-sm-auto">
                             <mp:servicePrice styleClass="servicePriceDetails" service="#{service}"/>
                         </div>
-                        <div class="col">
+                        <div class="col-sm-auto">
                             <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="button linkBtn"
                                     value="#{msg['button.showDetails']}" onclick="AdmUtils.showProgress(true);">
                                 <f:param name="selectedServiceKey" value="#{service.key}"/>
