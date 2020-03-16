@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
 >
     <c:if test="#{empty showTags}">
         <c:set var="showTags" value="false"/>
@@ -26,7 +26,7 @@
             <div class="col-3">
                 <h:graphicImage id="#{fieldId}Image" value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
             </div>
-            <div class="col">
+            <div class="col-9">
                 <ui:fragment rendered="#{service ne null}">
                     <ui:fragment rendered="#{showName}">
                         <h2 id="#{fieldId}Name" class="box_title shortenedText" title="#{service.nameToDisplay}"
@@ -41,14 +41,29 @@
                         </h3>
                     </ui:fragment>
                     <br/>
-                    <c:if test="limitedDescription">
-                        <div>#{service.shortDescriptionLimited}</div>
-                    </c:if>
-                    <c:if test="not limitedDescription">
-                        <div>#{service.shortDescription}</div>
-                    </c:if>
+                    #{service.shortDescription}
                 </ui:fragment>
+            </div>
+            <div class="col-sm-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <mp:ratingStars reviewCount="#{service.reviewCount}" rating="#{service.rating}" />
+                        </div>
+                        <div class="col">
+                            <mp:servicePrice styleClass="servicePriceDetails" service="#{service}" />
+                        </div>
+                        <div class="col">
+                            <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="button linkBtn" value="#{msg['button.showDetails']}" onclick="AdmUtils.showProgress(true);">
+                                <f:param name="selectedServiceKey" value="#{service.key}" />
+                            </h:link>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </ui:composition>
+
+
+
