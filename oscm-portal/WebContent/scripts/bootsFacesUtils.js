@@ -15,9 +15,11 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, dropDownID) {
+        var selValue = "#" + dropDownID;
+        alert("menu" + selValue);
         if(AdmUtils.isNotDirtyOrConfirmed()) {
         var keyID = document.getElementById("selectedKey");
-        var menuID = dropDownID.options[dropDownID.selectedIndex].value;
+        var menuID = $(selValue).val();
         alert("key " + keyID + "menu" + menuID);
         keyID = menuID
             document.getElementById('selectForm').submit();
