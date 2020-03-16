@@ -23,8 +23,12 @@ alert ("change value");
                         document.getElementById("selectedKey").value=selValue;
                        document.forms["selectForm"].submit();
         if(AdmUtils.isNotDirtyOrConfirmed()) {
-alert ("w ifie");
-           $(document).off('select2:selecting');
+        var selValue = $(nonnsa).val();
+        alert ("Value to: " + selValue + " a dropDOwn to: " + dropDownID)
+        $("#selectedKey").val(selValue);
+        document.forms["selectForm"].submit();
+        alert ("w ifie");
+        $(document).off('select2:selecting');
         } else {
         alert ("w elsie");
         AdmUtils.restoreValue(dropDownID);
