@@ -25,7 +25,7 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(event, element) {
         document.getElementById('selectForm').submit();
                $(document).off('select2:selecting');
            } else {
-               e.preventDefault();
+               event.preventDefault();
            }
 
 }
