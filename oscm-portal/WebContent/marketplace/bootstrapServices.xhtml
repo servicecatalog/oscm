@@ -20,7 +20,7 @@
 
 	<div class="row mt-4 mx-2">
 		<!-- Paging header (not available if list is empty, and not yet for search results) -->
-		<c:if test="#{((fn:length(serviceListingBean.serviceList)) gt 0) &amp;&amp; (not servicePagingBean.searchRequested)}">
+		<c:if test="#{((fn:length(serviceListingBean.serviceList)) gt 0) &amp;&amp; (not serviceListingBean.servicePagingBean.searchRequested)}">
 			<!-- Upper paging control -->
 			<mp:pagingPanel generateForm="true" prefix="Up" />
 		</c:if>
@@ -28,7 +28,7 @@
 			<mp:serviceBlockBootstrap fieldId="service#{status.index}" service="#{service}" limitedDescription="false" />
 		</c:forEach>
 		<!-- Paging footer (not available if list is empty, and not yet for search results) -->
-		<c:if test="#{((fn:length(serviceListingBean.serviceList)) gt 0) &amp;&amp; (not servicePagingBean.searchRequested)}">
+		<c:if test="#{((fn:length(serviceListingBean.serviceList)) gt 0) &amp;&amp; (not serviceListingBean.servicePagingBean.searchRequested)}">
 		<!-- Lower paging control -->
 		<mp:pagingPanel generateForm="false" prefix="Down" />
 		</c:if>
