@@ -20,12 +20,9 @@
 
 	<div class="row mt-4 mx-2">
 
-
-		<!-- Paging header (not available if list is empty, and not yet for search results) -->
 		<c:forEach items="#{serviceListingBean.serviceList}" var="service" varStatus="status">
 			<mp:serviceBlockBootstrap fieldId="service#{status.index}" service="#{service}" limitedDescription="false" />
 		</c:forEach>
-		<!-- Paging footer (not available if list is empty, and not yet for search results) -->
 	</div>
 
 </ui:composition>
