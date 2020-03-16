@@ -14,15 +14,15 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
     });
 }
 
-BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, dropDownID) {
-        var selValue = "#" + dropDownID;
-        alert("menu" + selValue);
-        if(AdmUtils.isNotDirtyOrConfirmed()) {
-        var keyID = document.getElementById("selectedKey");
-        var menuID = $(selValue).val();
-        alert("key " + keyID + "menu" + menuID);
-        keyID = menuID
-            document.getElementById('selectForm').submit();
+BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
+    var i = element.selectedIndex;
+	var o = element.options[i];
+	var input = document.getElementById("selectForm:selectedKey");
+	if (input != null) {
+		input.value = o.value;
+    }
+        alert("key " + input + "menu" + o);
+   document.getElementById('selectForm').submit();
         } else {
            e.preventDefault();
         }
