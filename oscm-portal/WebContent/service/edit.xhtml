@@ -28,6 +28,8 @@
 										onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"
 										value="#{serviceBean.selectedServiceKeyReadOnly}"
 										label="#{msg['service.serviceId']}">
+				<f:ajax event="change" listener="#{marketableServicePublishCtrl.serviceChanged}"
+						render="mainTmplMessagesPanel, editForm, editForm:marketplace" />
 				<adm:selectItemPleaseSelect itemValue="0" />
 				<c:forEach items="#{serviceBean.serviceNames}" var="service">
 					<f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
