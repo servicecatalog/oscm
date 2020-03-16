@@ -14,20 +14,20 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
     });
 }
 
-BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
+BootsFacesUtils.changeSelectionIndexAtDropDown = function(event.element) {
+    event = event ? event : window.event;
     var i = element.selectedIndex;
 	var o = element.options[i];
 	var input = document.getElementById("selectForm:selectedKey");
-
-         $(document).on('select2:selecting',function (e) {
             if (AdmUtils.isNotDirtyOrConfirmed()) {
+            if (input != null) {
+                                 input.value = o.value;
+                          }
+                          document.getElementById('selectForm').submit();
                $(document).off('select2:selecting');
             } else {
-               e.preventDefault();
+               event.preventDefault();
             }
           });
-          if (input != null) {
-                     input.value = o.value;
-              }
-              document.getElementById('selectForm').submit();
+
 }
