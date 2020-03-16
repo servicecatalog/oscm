@@ -5,7 +5,7 @@ var BootsFacesUtils = {
 };
 
 BootsFacesUtils.preventChangeSelectionForDropDown = function() {
-    $(document).on('select2:selecting',function (e) {
+    $(document).on('select2:selecting', function(e) {
        if (AdmUtils.isNotDirtyOrConfirmed()) {
            $(document).off('select2:selecting');
        } else {
@@ -19,13 +19,13 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(event, element) {
     var i = element.selectedIndex;
 	var o = element.options[i];
 	var input = document.getElementById("selectForm:selectedKey");
-	$(document).on('select2:selecting',function (event) {
+	$(document).on('select2:selecting', '.select2style', function(event) {
            if (AdmUtils.isNotDirtyOrConfirmed()) {
                 if (input != null) {
                  input.value = o.value;
                 }
                 document.getElementById('selectForm').submit();
-               $(document).off('select2:selecting');
+                $(document).off('select2:selecting', '.select2style');
            } else {
                event.preventDefault();
            }
