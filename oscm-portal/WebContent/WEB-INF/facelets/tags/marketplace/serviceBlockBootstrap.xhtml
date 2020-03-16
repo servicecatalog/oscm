@@ -41,12 +41,11 @@
                         </h3>
                     </ui:fragment>
                     <br/>
-                    Lorem
                     <c:if test="limitedDescription">
-                        #{service.shortDescriptionLimited}
+                        <div>#{service.shortDescriptionLimited}</div>
                     </c:if>
                     <c:if test="not limitedDescription">
-                        #{service.shortDescription}
+                        <div>#{service.shortDescription}</div>
                     </c:if>
                 </ui:fragment>
             </div>
