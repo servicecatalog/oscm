@@ -31,6 +31,7 @@
 		<c:if test="#{((fn:length(serviceListingBean.serviceList)) gt 0) &amp;&amp; (not servicePagingBean.searchRequested)}">
 		<!-- Lower paging control -->
 		<mp:pagingPanel generateForm="false" prefix="Down" />
+		</c:if>
 	</div>
 
 </ui:composition>
