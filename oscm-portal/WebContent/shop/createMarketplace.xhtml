@@ -59,7 +59,7 @@
 
       <adm:outputStep value="#{msg['marketplace.create.select']}" />
       <adm:panelGrid>
-        <adm:selectOrganization inline="true" rendered="true" 
+        <adm:selectOrganization inline="true" rendered="true" render="createMarketplaceForm"
           context="#{newMarketplaceBean.model.owningOrganizationId}"
           defaultContext="false"/>
       </adm:panelGrid>

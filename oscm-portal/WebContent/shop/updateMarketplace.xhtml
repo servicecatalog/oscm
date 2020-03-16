@@ -47,8 +47,8 @@
         <!-- Separate panel grid avoids duplicate error IDs trouble for rich messages binding -->
         <c:if test="#{updateMarketplaceBean.model.organizationSelectVisible}">
           <adm:panelGrid>
-            <adm:selectOrganization disabled="#{updateMarketplaceBean.model.editDisabled}" inline="true" id="orgSelector" />
-            <h:panelGroup />
+            <adm:selectOrganization render="updateForm" disabled="#{updateMarketplaceBean.model.editDisabled}" inline="true" id="orgSelector" />
+             <h:panelGroup />
             <h:outputText value="#{msg['marketplace.update.changeOwnerWarning']}"
               class="labelAndValuePanelCol2 labelWarning" />
             <h:panelGroup />
