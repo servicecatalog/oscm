@@ -14,7 +14,7 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
     });
 }
 
-BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
+BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, element) {
     var i = element.selectedIndex;
 	var o = element.options[i];
 	var input = document.getElementById("selectForm:selectedKey");
@@ -24,6 +24,6 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
         }
         document.getElementById('selectForm').submit();
     } else {
-        element.preventDefault();
+        e.preventDefault();
     }
 }
