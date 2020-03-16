@@ -18,8 +18,8 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
     $(document).on('select2:selecting', function (e) {
         if(AdmUtils.isNotDirtyOrConfirmed()) {
         var selValue = $("#techServiceId").val();
+        alert ("Value to: " + selValue + " a dropDOwn to: " + dropDownID)
             document.getElementById("selectedKey").value=selValue.options[selValue.selectedIndex].value;
-            document.forms["selectForm"].submit();
            document.forms["selectForm"].submit();
            $(document).off('select2:selecting');
         } else {
