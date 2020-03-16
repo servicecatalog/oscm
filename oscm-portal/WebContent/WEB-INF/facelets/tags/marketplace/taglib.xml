@@ -190,4 +190,8 @@
     <tag-name>subscriptionFinder</tag-name>
     <source>subscriptionFinder.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>serviceBlockBootstrap</tag-name>
+    <source>serviceBlockBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>
