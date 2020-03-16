@@ -15,17 +15,12 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
-alert("Wszedem do funckji change " + dropDownID);
     $(document).on('select2:selecting', function (e) {
+      document.getElementById("selectedKey").value = $("#dropDownID :selected").val();
+      document.forms["selectForm"].submit();
         if(AdmUtils.isNotDirtyOrConfirmed()) {
-           alert("Wszedem do ifa this to: ");
-           document.getElementById("selectedKey").value = $("#dropDownID :selected").val();
-//         document.element('selectedKey')}.value = dropDownID.options[dropDownID.selectedIndex].value;
-           document.forms["selectForm"].submit();
-//         #{rich:element('selectForm')}.submit();
            $(document).off('select2:selecting');
         } else {
-           alert("Wszedem do else");
            e.preventDefault();
         }
     });
