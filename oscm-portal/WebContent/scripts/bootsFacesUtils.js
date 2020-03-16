@@ -20,7 +20,8 @@ alert("Wszedem do funckji change");
     $(document).on('select2:selecting', function (e) {
         if(AdmUtils.isNotDirtyOrConfirmed()) {
            alert("Wszedem do ifa");
-           document.getElementById("selectedKey").value = document.getElementById(dropDownID).value;
+           var elementID = document.getElementById(dropDownID);
+           document.getElementById("selectedKey").value = elementID.options[elementID.selectedIndex].value;
 //         document.element('selectedKey')}.value = dropDownID.options[dropDownID.selectedIndex].value;
            document.forms["selectForm"].submit();
 //         #{rich:element('selectForm')}.submit();
