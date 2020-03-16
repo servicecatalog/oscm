@@ -15,7 +15,8 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, dropDownID) {
-alert ("change value");
+        alert ("change value");
+        var nonnsa = "#" + dropDownID;
         if(AdmUtils.isNotDirtyOrConfirmed()) {
         var selValue = $(nonnsa).val();
         alert ("Value to: " + selValue + " a dropDOwn to: " + dropDownID)
