@@ -16,7 +16,7 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
     var idDD = "#" + dropDownID;
-    $(idDD).on("change", function (e) {
+    $(document).on('select2:selecting', function (e) {
         if(AdmUtils.isNotDirtyOrConfirmed()) {
         var getValue = $(idDD).val();
         alert (getValue);
