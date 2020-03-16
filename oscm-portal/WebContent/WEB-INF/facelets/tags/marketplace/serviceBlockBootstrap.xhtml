@@ -44,7 +44,7 @@
                     <c:if test="limitedDescription">
                         #{service.shortDescriptionLimited}
                     </c:if>
-                    <c:if test="limitedDescription">
+                    <c:if test="not limitedDescription">
                         #{service.shortDescription}
                     </c:if>
                 </ui:fragment>
