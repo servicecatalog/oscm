@@ -35,7 +35,8 @@
                         <div class="col">
                             <ui:fragment rendered="#{service ne null}">
                                 <ui:fragment rendered="#{showName}">
-                                    <h2 id="#{fieldId}Name" class="box_title shortenedText" title="#{service.nameToDisplay}"
+                                    <h2 id="#{fieldId}Name" class="box_title shortenedText"
+                                        title="#{service.nameToDisplay}"
                                         onclick="#{onClickHandler}">#{service.nameToDisplay}</h2>
                                 </ui:fragment>
                                 <ui:fragment rendered="#{showSupplier}">
@@ -77,8 +78,7 @@
             </div>
         </div>
     </div>
-</div>
-        </ui:composition>
+</ui:composition>
 
 
 
