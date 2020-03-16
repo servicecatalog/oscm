@@ -5,31 +5,25 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-  <c:if test="#{empty inline}" >
-    <c:set var="submit" value="#{rich:element('hiddenSubmitter')}.onclick();" />
-    <h:form id="selectOrganizationForm">
-      <adm:panelGrid>
-        <ui:include src="selectOrganizationInclude.xhtml" />
-      </adm:panelGrid>
-      <a4j:commandButton id="hiddenSubmitter" render=":manageOrganizationsForm" style="visibility: hidden"
-                         actionListener="#{operatorSelectOrgBean.selectOrganizationAction}"
-                         onclick="AdmUtils.showProgress(true); "
-                         oncomplete="handleOrgSelection();" />
-      <script type="text/javascript">
-        function handleOrgSelection() {
-          AdmUtils.showProgress(false);
-          setDirty(true);
-          AdmUtils.setUIElements();
-        }
-      </script>
-    </h:form>
-  </c:if>
-  <c:if test="#{not empty inline}" >
-    <ui:include src="selectOrganizationInclude.xhtml" />
-  </c:if>
+	<c:if test="#{empty inline}">
+
+		<h:form id="selectOrganizationForm">
+			<adm:panelGrid>
+				<ui:include src="bootsfacesSelectOrgInclude.xhtml">
+					<ui:param name="render" value="#{render}" />
+				</ui:include>
+			</adm:panelGrid>
+		</h:form>
+	</c:if>
+	<c:if test="#{not empty inline}">
+		<ui:include src="bootsfacesSelectOrgInclude.xhtml">
+			<ui:param name="render" value="#{render}" />
+		</ui:include>
+	</c:if>
 </ui:composition>

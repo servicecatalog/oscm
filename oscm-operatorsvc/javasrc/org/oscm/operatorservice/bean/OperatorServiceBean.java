@@ -1533,30 +1533,29 @@ public class OperatorServiceBean implements OperatorService {
     @SuppressWarnings("unchecked")
     List<Object[]> list = query.getResultList();
 
-
     TreeMap<String, String> tm = new TreeMap<String, String>();
-
     for (Object[] obj : list) {
-      tm.put((String) obj[0], (String) obj[1]);
+      final String name = (null != (String) obj[1]) ? (String) obj[1] : (String) obj[0];
+      tm.put((String) obj[0], name);
     }
     return valueSort(tm);
   }
-  
 
   private <KT, VT extends Comparable<? super VT>> Map<KT, VT> valueSort(Map<KT, VT> m) {
 
-      List<Map.Entry<KT, VT>> l =
-              new LinkedList<Map.Entry<KT, VT>>(m.entrySet());
+    List<Map.Entry<KT, VT>> l = new LinkedList<Map.Entry<KT, VT>>(m.entrySet());
 
-      Collections.sort(l, new Comparator<Map.Entry<KT, VT>>() {
+    Collections.sort(
+        l,
+        new Comparator<Map.Entry<KT, VT>>() {
           public int compare(Map.Entry<KT, VT> o1, Map.Entry<KT, VT> o2) {
-              return (o1.getValue()).compareTo(o2.getValue());
+            return (o1.getValue()).compareTo(o2.getValue());
           }
-      });
+        });
 
-      Map<KT, VT> r = new LinkedHashMap<KT, VT>();
-      l.forEach(e -> r.put(e.getKey(), e.getValue()));
-      
-      return r;
+    Map<KT, VT> r = new LinkedHashMap<KT, VT>();
+    l.forEach(e -> r.put(e.getKey(), e.getValue()));
+
+    return r;
   }
 }
