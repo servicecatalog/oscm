@@ -40,6 +40,13 @@
                             </h:outputFormat>
                         </h3>
                     </ui:fragment>
+                    <br/>
+                    <c:if test="limitedDescription">
+                        #{service.shortDescriptionLimited}
+                    </c:if>
+                    <c:if test="limitedDescription">
+                        #{service.shortDescription}
+                    </c:if>
                 </ui:fragment>
             </div>
         </div>
