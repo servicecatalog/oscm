@@ -19,7 +19,7 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
     $(document).on('select2:selecting', function (e) {
         if(AdmUtils.isNotDirtyOrConfirmed()) {
         var getValue = $(idDD).val();
-        alert (getValue);
+        alert (getValue + " " + idDD);
         $("#selectedKey").val(getValue);
            document.forms["selectForm"].submit();
            $(document).off('select2:selecting');

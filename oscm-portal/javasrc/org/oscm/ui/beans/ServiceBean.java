@@ -332,7 +332,7 @@ public class ServiceBean extends BaseBean implements Serializable {
     }
 
     public List<VOTechnicalService> getAvailableTechServices() {
-        if (availableTechServices == null) {
+        if (availableTechServices == null || availableTechServices.equals("")) {
             try {
                 availableTechServices = getProvisioningService()
                         .getTechnicalServices(OrganizationRoleType.SUPPLIER);
@@ -423,7 +423,7 @@ public class ServiceBean extends BaseBean implements Serializable {
     }
 
     private List<VOService> getServices(PerformanceHint performanceHint) {
-        if (services == null) {
+        if (services == null || services.equals("")) {
             services = getProvisioningServiceInternal().getSuppliedServices(
                     performanceHint);
         }
@@ -431,7 +431,7 @@ public class ServiceBean extends BaseBean implements Serializable {
     }
 
     public ServiceDetails getSelectedService() {
-        if (selectedService == null) {
+        if (selectedService == null || selectedService.equals("")) {
             Long key = sessionBean.getSelectedServiceKeyForSupplier();
             if (key != null && inList(key.longValue(), getServiceNames())) {
                 setSelectedServiceKey(key.longValue());
@@ -453,7 +453,7 @@ public class ServiceBean extends BaseBean implements Serializable {
 
     public long getSelectedServiceKey() {
         ServiceDetails service = getSelectedService();
-        if (service == null) {
+        if (service == null || service.equals("")) {
             return 0;
         }
         return service.getKey();
@@ -464,7 +464,7 @@ public class ServiceBean extends BaseBean implements Serializable {
     }
 
     public VOTechnicalService getSelectedTechService() {
-        if (selectedTechService == null) {
+        if (selectedTechService == null  || selectedTechService.equals("")) {
             long key = sessionBean.getSelectedTechnicalServiceKey();
             if (key > 0) {
                 setSelectedTechServiceKey(key);
@@ -477,7 +477,7 @@ public class ServiceBean extends BaseBean implements Serializable {
 
     public long getSelectedTechServiceKey() {
         VOTechnicalService techService = getSelectedTechService();
-        if (techService == null) {
+        if (techService == null || techService.equals("")) {
             return 0;
         }
         return techService.getKey();
@@ -610,7 +610,7 @@ public class ServiceBean extends BaseBean implements Serializable {
      */
     private void setServiceAttributesToLocalization()
             throws OperationNotPermittedException, ObjectNotFoundException {
-        if (selectedService != null) {
+        if (selectedService != null && !selectedService.equals("")) {
             String locale = getUserFromSession().getLocale();
             LocaleUtils.set(getLocalization().getNames(), locale,
                     selectedService.getName());
