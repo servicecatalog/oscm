@@ -19,7 +19,7 @@
 
       <adm:outputStep value="#{msg['service.add.step1']}" />
       <adm:bootsfacesSelectMenu   id="techServiceId"
-                                  onchange="BootsFacesUtils.changeSelectionIndexAtDropDown('techServiceId');"
+                                  onchange="BootsFacesUtils.changeSelectionIndexAtDropDown('editForm:techServiceId');"
                                   value="#{serviceBean.selectedTechServiceKeyReadOnly}"
                                   label="#{msg['techService.techServiceId']}">
         <adm:selectItemPleaseSelect itemValue="0" />

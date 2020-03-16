@@ -15,10 +15,10 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, dropDownID) {
-        if(AdmUtils.isNotDirtyOrConfirmed())
-                                                      {#{rich:element('selectedKey')}.value=dropDownID.options[dropDownID.selectedIndex].value;
-                                                       #{rich:element('selectForm')}.submit();}
-                                                    else{
+        if(AdmUtils.isNotDirtyOrConfirmed()) {
+        document.getElementById("selectForm:selectedKey") = dropDownID.options[dropDownID.selectedIndex].value;
+        document.getElementById('selectForm').submit();
+        } else {
            e.preventDefault();
         }
 }
