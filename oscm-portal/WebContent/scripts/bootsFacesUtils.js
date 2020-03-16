@@ -15,18 +15,10 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, dropDownID) {
-        alert ("change value");
-        if(AdmUtils.isNotDirtyOrConfirmed()) {
-        var selObj = document.getElementById(dropDownID);
-        var selValue = selObj.options[selObj.selectedIndex].value;
-        alert ("Value to: " + selValue + " a dropDOwn to: " + dropDownID)
-        $("#selectedKey").val(selValue);
-        document.forms["selectForm"].submit();
-        alert ("w ifie");
-        $(document).off('select2:selecting');
-        } else {
-        alert ("w elsie");
-        AdmUtils.restoreValue(dropDownID);
+        if(AdmUtils.isNotDirtyOrConfirmed())
+                                                      {#{rich:element('selectedKey')}.value=dropDownID.options[dropDownID.selectedIndex].value;
+                                                       #{rich:element('selectForm')}.submit();}
+                                                    else{
            e.preventDefault();
         }
 }
