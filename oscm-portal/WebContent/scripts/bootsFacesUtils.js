@@ -21,11 +21,13 @@ alert("Wszedem do funckji prevent");
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(dropDownID) {
 alert("Wszedem do funckji prevent");
     $(document).on('select2:selecting', function (e) {
-    if(AdmUtils.isNotDirtyOrConfirmed())
+    if(AdmUtils.isNotDirtyOrConfirmed()) {
            alert("Wszedem do ifa");
-        {#{rich:element('selectedKey')}.value = dropDownID.options[dropDownID.selectedIndex].value;
-         #{rich:element('selectForm')}.submit();}
-         $(document).off('select2:selecting');
+//           var conceptName = $(dropDownID).find(":selected").text();
+       #{rich:element('selectedKey')}.value = dropDownID.options[dropDownID.selectedIndex].value;
+//       document.forms[myFormName].submit();
+         #{rich:element('selectForm')}.submit();
+         $(document).off('select2:selecting');}
     else {
            alert("Wszedem do else");
         e.preventDefault();
