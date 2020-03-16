@@ -1539,12 +1539,7 @@ public class OperatorServiceBean implements OperatorService {
     }
     return valueSort(tm);
   }
-
-  private String name(String i, String name) {
-    if (name == null) return name;
-    return i;
-  }
-
+  
   private <KT, VT extends Comparable<? super VT>> Map<KT, VT> valueSort(Map<KT, VT> m) {
 
     List<Map.Entry<KT, VT>> l = new LinkedList<Map.Entry<KT, VT>>(m.entrySet());

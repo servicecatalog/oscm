@@ -16,26 +16,15 @@
   <ui:define name="body">
     <adm:initialize initializingMethod="#{customizeLandingpageCtrl.initializeCustomizeLandingpage}" />
     <h:form id="customizeLandingpageForm">
-    <script type = "text/javascript" >
-    $(document).ready(function () {
-      $("[id='customizeLandingpageForm:marketplaceInner']").select2().on('select2:selecting', function (e) {
-       
-        if (AdmUtils.isNotDirtyOrConfirmed()) {
-          AdmUtils.storeValue(this);
-        } else {
-          e.preventDefault();
-        }
-      });
-    });
-    </script>
       <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectMarketplace']}" />
       <adm:bootsfacesSelectMenu   id="marketplace"
                                   value="#{customizeLandingpageModel.selectedMarketplace}"
+                                  onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
                                   oncomplete="javascsript:AdmUtils.setUIElements();"
                                   label="#{msg['service.marketplace']}">
         <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
-                     render="landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
-        <adm:selectItemPleaseSelect itemValue="#{null}" />
+                     render="customizeLandingpageForm,landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
+        <adm:selectItemPleaseSelect itemValue="" />
                 <f:selectItems value="#{customizeLandingpageModel.marketplaces}" />
       </adm:bootsfacesSelectMenu>
       <adm:message id="marketplaceErrorMsg" for="marketplace" />
