@@ -18,12 +18,12 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, element) {
     var i = element.selectedIndex;
 	var o = element.options[i];
 	var input = document.getElementById("selectForm:selectedKey");
-        if (AdmUtils.isNotDirtyOrConfirmed()) {
-            if (input != null) {
-            	input.value = o.value;
-            }
-            document.getElementById('selectForm').submit();
-        } else {
-            e.preventDefault();
-        }
+    if (AdmUtils.isNotDirtyOrConfirmed()) {
+       if (input != null) {
+          input.value = o.value;
+       }
+       document.getElementById('selectForm').submit();
+    } else {
+          return false;
+    }
 }
