@@ -16,9 +16,9 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, dropDownID) {
         alert ("change value");
-        var nonnsa = "#" + dropDownID;
         if(AdmUtils.isNotDirtyOrConfirmed()) {
-        var selValue = $(nonnsa).val();
+        var selObj = document.getElementById(dropDownID);
+        var selValue = selObj.options[selObj.selectedIndex].value;
         alert ("Value to: " + selValue + " a dropDOwn to: " + dropDownID)
         $("#selectedKey").val(selValue);
         document.forms["selectForm"].submit();
