@@ -4,6 +4,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:rich="http://richfaces.org/rich"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 
     <c:set var="hasPrev" value="#{servicePagingBean.previousAvailable}"/>
@@ -14,6 +15,9 @@
 
     <div class="container">
         <div class="row">
+            <div class="col-md">
+
+            </div>
             <div class="col-md">
                 <p>#{msg['paging.show']}</p>
                 <br/>
@@ -32,16 +36,13 @@
                         </li>
                     </c:forEach>
                 </ul>
-            </div>
-            <div class="col-md">
-                show 5 10 20
-                <select>
-                    <option>Text</option>
-                    <option>Text</option>
-                    <option>Longer text</option>
-                    <option>Very long text</option>
-                    <option>Even larger than long text</option>
-                </select>
+                <h:selectOneMenu styleClass="sortingCombo" value="#{servicePagingBean.sorting}"
+                                 onchange="AdmUtils.selectDropDownOption(this, 'showListForm', 'sortingOrder', 'listButton');">
+                    <c:forEach items="#{servicePagingBean.sortingCriteria}" var="key" varStatus="status">
+                        <c:set var="sortKey" value="catalog.sortorder.#{key}" />
+                        <f:selectItem id="sort#{prefix}#{key}" itemLabel="#{msg[sortKey]}" itemValue="#{key}" />
+                    </c:forEach>
+                </h:selectOneMenu>
             </div>
         </div>
     </div>
