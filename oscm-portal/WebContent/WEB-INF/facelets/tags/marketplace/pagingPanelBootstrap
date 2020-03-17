@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:rich="http://richfaces.org/rich"
@@ -14,23 +15,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md">
-                <p>#{msg['paging.show']}</p>
-                <br/>
-                <ul>
-                    <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
-                        <li>
-                            <c:if test="#{size eq servicePagingBean.pageSize}">
-                                <strong class="current">#{size}</strong>
-                            </c:if>
-                            <c:if test="#{size ne servicePagingBean.pageSize}">
-                                <h:outputLink styleClass="linkNormal" id="pagingSize#{prefix}#{size}" value=""
-                                              onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
-                                    #{size}
-                                </h:outputLink>
-                            </c:if>
-                        </li>
-                    </c:forEach>
-                </ul>
+
             </div>
             <div class="col-md">
                 show 5 10 20
