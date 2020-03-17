@@ -17,52 +17,60 @@
         <div class="row">
             <div class="col-md">
                 <div class="row">
-                    <!--  Number of services and filter tag info -->
-                    <p id="listInfo#{prefix}">
-                        <h:outputFormat value="#{msg['catalog.selectedTag.pageInfo']}" escape="true">
-                            <f:param value="#{servicePagingBean.firstOnPage}"/>
-                            <f:param value="#{servicePagingBean.lastOnPage}"/>
-                            <f:param value="#{servicePagingBean.resultSize}"/>
-                        </h:outputFormat>
-                    </p>
 
+                    <!--  Number of services and filter tag info -->
+                    <div class="col">
+                        <p id="listInfo#{prefix}">
+                            <h:outputFormat value="#{msg['catalog.selectedTag.pageInfo']}" escape="true">
+                                <f:param value="#{servicePagingBean.firstOnPage}"/>
+                                <f:param value="#{servicePagingBean.lastOnPage}"/>
+                                <f:param value="#{servicePagingBean.resultSize}"/>
+                            </h:outputFormat>
+                        </p>
+                    </div>
                     <!--  Previous button -->
-                    <c:if test="#{servicePagingBean.previousAvailable}">
-                        <h:outputLink id="pagePrevious#{prefix}" styleClass="previous "
-                                      onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage - 1}';#{rich:element('selectPagingButton')}.click();return false;">
-                            #{msg['paging.previous']}
-                        </h:outputLink>
-                    </c:if>
-                    <c:if test="#{not servicePagingBean.previousAvailable}">
-                        <p id="previous#{prefix}" class="previous disabled">#{msg['paging.previous']}</p>
-                    </c:if>
+                    <div class="col">
+                        <c:if test="#{servicePagingBean.previousAvailable}">
+                            <h:outputLink id="pagePrevious#{prefix}" styleClass="previous "
+                                          onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage - 1}';#{rich:element('selectPagingButton')}.click();return false;">
+                                #{msg['paging.previous']}
+                            </h:outputLink>
+                        </c:if>
+                        <c:if test="#{not servicePagingBean.previousAvailable}">
+                            <p id="previous#{prefix}" class="previous disabled">#{msg['paging.previous']}</p>
+                        </c:if>
+                    </div>
                     <!-- Page selection -->
-                    <ul class="pagingElement">
-                        <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
-                            <li>
-                                <c:if test="#{selpage eq servicePagingBean.selectedPage}">
-                                    <strong class="current ">#{selpage}</strong>
-                                </c:if>
-                                <c:if test="#{selpage ne servicePagingBean.selectedPage}">
-                                    <h:outputLink id="link#{prefix}Page#{selpage}" value=""
-                                                  onclick="#{rich:element('selectPage')}.value='#{selpage}';#{rich:element('selectPagingButton')}.click();return false;">
-                                        #{selpage}
-                                    </h:outputLink>
-                                </c:if>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                    <div class="col">
+                        <ul class="pagingElement">
+                            <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
+                                <li>
+                                    <c:if test="#{selpage eq servicePagingBean.selectedPage}">
+                                        <strong class="current ">#{selpage}</strong>
+                                    </c:if>
+                                    <c:if test="#{selpage ne servicePagingBean.selectedPage}">
+                                        <h:outputLink id="link#{prefix}Page#{selpage}" value=""
+                                                      onclick="#{rich:element('selectPage')}.value='#{selpage}';#{rich:element('selectPagingButton')}.click();return false;">
+                                            #{selpage}
+                                        </h:outputLink>
+                                    </c:if>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
                     <!-- Next selection -->
-                    <c:if test="#{servicePagingBean.nextAvailable}">
-                        <h:outputLink styleClass="#{next} next "
-                                      onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage + 1}';#{rich:element('selectPagingButton')}.click();return false;"
-                                      id="pageNext#{prefix}">
-                            #{msg['paging.next']}
-                        </h:outputLink>
-                    </c:if>
-                    <c:if test="#{not servicePagingBean.nextAvailable}">
-                        <p id="next#{prefix}" class="next disabled">#{msg['paging.next']}</p>
-                    </c:if>
+                    <div class="col">
+                        <c:if test="#{servicePagingBean.nextAvailable}">
+                            <h:outputLink styleClass="#{next} next "
+                                          onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage + 1}';#{rich:element('selectPagingButton')}.click();return false;"
+                                          id="pageNext#{prefix}">
+                                #{msg['paging.next']}
+                            </h:outputLink>
+                        </c:if>
+                        <c:if test="#{not servicePagingBean.nextAvailable}">
+                            <p id="next#{prefix}" class="next disabled">#{msg['paging.next']}</p>
+                        </c:if>
+                    </div>
                 </div>
             </div>
             <div class="col-md">
