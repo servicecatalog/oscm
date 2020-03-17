@@ -34,6 +34,9 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
        if (input != null) {
            input.value = o.value;
        }
+        $(document).on('select2:selecting', function(e) {
+              alert("Jest dobrze onclick");
+           });
        document.getElementById('selectForm').submit();
 }
 

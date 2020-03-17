@@ -19,7 +19,7 @@
     <h:form id="editForm" enctype="multipart/form-data">
       <adm:outputStep value="#{msg['service.add.step1']}" />
       <adm:bootsfacesSelectMenu   id="techServiceId"
-                                  onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"
+                                  onselect="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"
                                   value="#{serviceBean.selectedTechServiceKeyReadOnly}"
                                   label="#{msg['techService.techServiceId']}">
         <adm:selectItemPleaseSelect itemValue="0" />
