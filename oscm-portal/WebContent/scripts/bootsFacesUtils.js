@@ -5,8 +5,8 @@ var BootsFacesUtils = {
 };
 
 BootsFacesUtils.preventChangeSelectionForDropDown = function() {
-alert("w środku metody");
     $(document).on('select2:selecting', function(e) {
+alert("w środku metody");
        if (AdmUtils.isNotDirtyOrConfirmed()) {
        alert("czysto");
            $(document).off('select2:selecting');
