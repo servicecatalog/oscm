@@ -17,9 +17,8 @@
         <div class="row">
             <div class="col-md">
                 <div class="row">
-
                     <!--  Number of services and filter tag info -->
-                    <div class="col">
+                    <div class="col-auto">
                         <p id="listInfo#{prefix}">
                             <h:outputFormat value="#{msg['catalog.selectedTag.pageInfo']}" escape="true">
                                 <f:param value="#{servicePagingBean.firstOnPage}"/>
@@ -29,7 +28,7 @@
                         </p>
                     </div>
                     <!--  Previous button -->
-                    <div class="col">
+                    <div class="col-auto">
                         <c:if test="#{servicePagingBean.previousAvailable}">
                             <h:outputLink id="pagePrevious#{prefix}" styleClass="previous "
                                           onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage - 1}';#{rich:element('selectPagingButton')}.click();return false;">
@@ -41,7 +40,7 @@
                         </c:if>
                     </div>
                     <!-- Page selection -->
-                    <div class="col">
+                    <div class="col-auto">
                         <ul class="pagingElement">
                             <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
                                 <li>
@@ -59,7 +58,7 @@
                         </ul>
                     </div>
                     <!-- Next selection -->
-                    <div class="col">
+                    <div class="col-auto">
                         <c:if test="#{servicePagingBean.nextAvailable}">
                             <h:outputLink styleClass="#{next} next "
                                           onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage + 1}';#{rich:element('selectPagingButton')}.click();return false;"
