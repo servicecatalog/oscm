@@ -20,12 +20,11 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
 	var input = document.getElementById("selectForm:selectedKey");
 	var isNotDirty = true;
 	$(document).on('select2:selecting', function(event) {
-	    event = event ? event : window.event;
            if (AdmUtils.isNotDirtyOrConfirmed()) {
                 $(document).off('select2:selecting');
            } else {
                 isNotDirty = false;
-                event.preventDefault();
+                AdmUtils.preventDefaultSubmit(event);
            }
     });
     if (isNotDirty) {
