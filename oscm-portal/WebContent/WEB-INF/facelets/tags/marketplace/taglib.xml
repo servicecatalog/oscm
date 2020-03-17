@@ -194,4 +194,8 @@
     <tag-name>serviceBlockBootstrap</tag-name>
     <source>serviceBlockBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>pagingPanelBootstrap</tag-name>
+    <source>pagingPanelBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>

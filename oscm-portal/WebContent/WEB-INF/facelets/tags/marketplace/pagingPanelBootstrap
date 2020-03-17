@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:rich="http://richfaces.org/rich"
+>
+
+    <c:set var="hasPrev" value="#{servicePagingBean.previousAvailable}"/>
+    <c:set var="hasNext" value="#{servicePagingBean.nextAvailable}"/>
+    <c:set var="firstPage" value="#{servicePagingBean.firstVisiblePage}"/>
+    <c:set var="lastPage" value="#{servicePagingBean.lastVisiblePage}"/>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md">
+                <p>#{msg['paging.show']}</p>
+                <br/>
+                <ul>
+                    <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
+                        <li>
+                            <c:if test="#{size eq servicePagingBean.pageSize}">
+                                <strong class="current">#{size}</strong>
+                            </c:if>
+                            <c:if test="#{size ne servicePagingBean.pageSize}">
+                                <h:outputLink styleClass="linkNormal" id="pagingSize#{prefix}#{size}" value=""
+                                              onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
+                                    #{size}
+                                </h:outputLink>
+                            </c:if>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <div class="col-md">
+                show 5 10 20
+                <select>
+                    <option>Text</option>
+                    <option>Text</option>
+                    <option>Longer text</option>
+                    <option>Very long text</option>
+                    <option>Even larger than long text</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- -->
+    <c:if test="#{generateForm}">
+        <h:form id="selectPagingForm">
+            <h:inputHidden value="#{servicePagingBean.selectedPage}" id="selectPage"/>
+            <h:commandButton style="display:none;" id="selectPagingButton" value=""
+                             action="#{serviceListingBean.showServiceList}"/>
+        </h:form>
+
+        <h:form id="showListForm">
+            <h:inputHidden value="#{servicePagingBean.filterTag}" id="filterTag"/>
+            <h:inputHidden value="#{servicePagingBean.pageSize}" id="pageSize"/>
+            <h:inputHidden value="#{servicePagingBean.sorting}" id="sortingOrder"/>
+            <h:commandButton style="display:none;" id="listButton" value=""
+                             action="#{serviceListingBean.showServiceList}"/>
+        </h:form>
+    </c:if>
+</ui:composition>
