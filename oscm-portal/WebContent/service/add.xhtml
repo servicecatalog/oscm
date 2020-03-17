@@ -15,15 +15,10 @@
       <h:inputHidden id="selectedKey" value="#{serviceBean.selectedTechServiceKey}" />
     </h:form>
 
-    <h:form id="editForm" enctype="multipart/form-data">
+    <h:form id="editForm" enctype="multipart/form-data" onload="BootsFacesUtils.changeSelectionIndexAtDropDown('editForm:techServiceId');">
 
       <adm:outputStep value="#{msg['service.add.step1']}" />
       <adm:bootsfacesSelectMenu   id="techServiceId"
-                                  onfocus="BootsFacesUtils.textshowingforme('mousedown');"
-                                  onselect="BootsFacesUtils.textshowingforme('onselect');"
-                                  onchange="BootsFacesUtils.textshowingforme('onchange');"
-                                  onblur="BootsFacesUtils.textshowingforme('onblur');"
-                                  ondropdownshown="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"
                                   value="#{serviceBean.selectedTechServiceKeyReadOnly}"
                                   label="#{msg['techService.techServiceId']}">
         <adm:selectItemPleaseSelect itemValue="0" />
