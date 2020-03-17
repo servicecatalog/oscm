@@ -16,9 +16,9 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 
 BootsFacesUtils.preventChangeSelectionForDropDown = function(element) {
     var elementID = "[id='" + element + "']";
+            alert("Bedzie dobrze");
     $(elementID).on('select2:selecting', function(e) {
        if (!AdmUtils.isNotDirtyOrConfirmed()) {
-            alert("Bedzie dobrze");
            e.preventDefault();
        }
     });
