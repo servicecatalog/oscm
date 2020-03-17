@@ -6,9 +6,9 @@
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="templates/mainBootstrap.xhtml">
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.home" />
+    <c:set var="pageId" value="marketplace.services" />
+    <c:set var="stage" value="#{''}" />
     <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <c:set var="stage" value="#{serviceListingBean.publicLandingpage ? '' : 'landing'}" />
   </ui:define>
 
   <ui:define name="feature">
@@ -35,4 +35,4 @@
       <ui:include id="listServicesForEnterpriseLandingpage" src="enterpriseLandingpage.xhtml" />
     </c:if>
   </ui:define>
-</ui:composition> 
+</ui:composition>
