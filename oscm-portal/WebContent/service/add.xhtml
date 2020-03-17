@@ -19,7 +19,10 @@
 
       <adm:outputStep value="#{msg['service.add.step1']}" />
       <adm:bootsfacesSelectMenu   id="techServiceId"
-                                  onDropdownShow="function(event){console.log('shown');}"
+                                  onmousedown="function(event){console.log('mousedown');}"
+                                  onselect="function(event){console.log('onselect');}"
+                                  onchange="function(event){console.log('onchange');}"
+                                  onblur="function(event){console.log('onblur');}"
                                   ondropdownshown="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"
                                   value="#{serviceBean.selectedTechServiceKeyReadOnly}"
                                   label="#{msg['techService.techServiceId']}">
