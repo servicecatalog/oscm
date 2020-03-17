@@ -14,16 +14,16 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
     });
 }
 
-BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, element) {
+BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
     var i = element.selectedIndex;
 	var o = element.options[i];
 	var input = document.getElementById("selectForm:selectedKey");
 	var isNotDirty = true;
 
-    $(document).on('select2:selecting', function(e) {
+    document.getElementById(element).on('select2:selecting', function(e) {
        if (AdmUtils.isNotDirtyOrConfirmed()) {
            AdmUtils.storeValue(this);
-           $(document).off('select2:selecting');
+           document.getElementById(element).off('select2:selecting');
        } else {
            isNotDirty = false;
            e.preventDefault();
