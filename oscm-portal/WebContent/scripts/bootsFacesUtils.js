@@ -35,3 +35,7 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
 
     });
 }
+
+BootsFacesUtils.textshowingforme = function(element) {
+alert(element);
+}
