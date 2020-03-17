@@ -14,18 +14,24 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
     });
 }
 
-BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, element) {
+BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
     var i = element.selectedIndex;
 	var o = element.options[i];
 	var input = document.getElementById("selectForm:selectedKey");
-	BootsFacesUtils.preventChangeSelectionForDropDown();
-
+	var isNotDirty = true;
+	
+	$(document).on("click", function(e) {
+           if (AdmUtils.isNotDirtyOrConfirmed()) {
+               $(document).off("click");
+           } else {
+               isNotDirty = false;
+               e.preventDefault();
+           }
+        });
     if (AdmUtils.isNotDirtyOrConfirmed()) {
         if (input != null) {
            input.value = o.value;
         }
         document.getElementById('selectForm').submit();
-    } else {
-        e.preventDefault();
     }
 }
