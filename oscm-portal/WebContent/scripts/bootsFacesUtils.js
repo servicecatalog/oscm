@@ -23,7 +23,7 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(e, element) {
            if (AdmUtils.isNotDirtyOrConfirmed()) {
            } else {
                 isNotDirty = false;
-                return false;
+                AdmUtils.preventDefaultSubmit();
            }
 
     if (isNotDirty) {
