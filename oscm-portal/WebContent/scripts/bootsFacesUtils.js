@@ -17,9 +17,8 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 BootsFacesUtils.preventChangeSelectionForDropDown = function(element) {
     var elementID = "[id='" + element + "']";
     $(elementID).on('select2:selecting', function(e) {
-       if (AdmUtils.isNotDirtyOrConfirmed()) {
-           $(elementID).off('select2:selecting');
-       } else {
+       if (!AdmUtils.isNotDirtyOrConfirmed()) {
+            alert("Bedzie dobrze");
            e.preventDefault();
        }
     });
