@@ -15,18 +15,22 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
+    alert("Wchodzę do otwartego dropdowna");
     $(document).on('select2:selecting', function(e) {
+    alert("wybrano!");
        var i = element.selectedIndex;
        var o = element.options[i];
        var input = document.getElementById("selectForm:selectedKey");
        if (AdmUtils.isNotDirtyOrConfirmed()) {
-           if (input != null) {
-              input.value = o.value;
-           }
-           document.getElementById('selectForm').submit();
+           alert("zmieniono i czysto!");
            $(document).off('select2:selecting');
        } else {
+       alert("zmieniono ale brudno!");
            e.preventDefault();
        }
+       if (input != null) {
+                     input.value = o.value;
+                  }
+                  document.getElementById('selectForm').submit();
     });
 }
