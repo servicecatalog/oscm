@@ -6,13 +6,9 @@ var BootsFacesUtils = {
 
 BootsFacesUtils.preventChangeSelectionForDropDown = function() {
     $(document).on('select2:selecting', function(e) {
-alert("w środku metody");
        if (AdmUtils.isNotDirtyOrConfirmed()) {
-       alert("czysto");
            $(document).off('select2:selecting');
        } else {
-              alert("brudno");
-
            e.preventDefault();
        }
     });
@@ -22,12 +18,15 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
     var i = element.selectedIndex;
 	var o = element.options[i];
 	var input = document.getElementById("selectForm:selectedKey");
-	BootsFacesUtils.preventChangeSelectionForDropDown();
-
-    if (AdmUtils.isNotDirtyOrConfirmed()) {
-        if (input != null) {
-           input.value = o.value;
-        }
-        document.getElementById('selectForm').submit();
-    }
+    $(document).on('select2:selecting', function(e) {
+       if (AdmUtils.isNotDirtyOrConfirmed()) {
+           if (input != null) {
+              input.value = o.value;
+           }
+           document.getElementById('selectForm').submit();
+           $(document).off('select2:selecting');
+       } else {
+           e.preventDefault();
+       }
+    });
 }
