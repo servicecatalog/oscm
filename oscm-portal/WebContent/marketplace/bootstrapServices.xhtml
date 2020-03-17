@@ -17,10 +17,11 @@
 	<script src="#{facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 	<div class="row mt-4 mx-2">
-		<div class="col-3">
-			Category div
+		<div class="col-lg-2">
+			<mp:categorySelection/>
+			<mp:tagCloud bean="#{tagCloudBean}" />
 		</div>
-		<div class="col-9">
+		<div class="col-lg-10">
 			<!-- Paging header (not available if list is empty, and not yet for search results) -->
 			<c:if test="#{((fn:length(serviceListingBean.serviceList)) gt 0) &amp;&amp; (not servicePagingBean.searchRequested)}">
 				<!-- Upper paging control -->
