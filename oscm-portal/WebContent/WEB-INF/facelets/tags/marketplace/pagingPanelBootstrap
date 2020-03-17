@@ -31,20 +31,4 @@
     </div>
 
 
-    <!-- -->
-    <c:if test="#{generateForm}">
-        <h:form id="selectPagingForm">
-            <h:inputHidden value="#{servicePagingBean.selectedPage}" id="selectPage"/>
-            <h:commandButton style="display:none;" id="selectPagingButton" value=""
-                             action="#{serviceListingBean.showServiceList}"/>
-        </h:form>
-
-        <h:form id="showListForm">
-            <h:inputHidden value="#{servicePagingBean.filterTag}" id="filterTag"/>
-            <h:inputHidden value="#{servicePagingBean.pageSize}" id="pageSize"/>
-            <h:inputHidden value="#{servicePagingBean.sorting}" id="sortingOrder"/>
-            <h:commandButton style="display:none;" id="listButton" value=""
-                             action="#{serviceListingBean.showServiceList}"/>
-        </h:form>
-    </c:if>
 </ui:composition>
