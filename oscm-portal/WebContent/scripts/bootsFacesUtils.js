@@ -17,11 +17,14 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 BootsFacesUtils.preventChangeSelectionForDropDown = function(element) {
     var elementID = "[id='" + element + "']";
             alert("Bedzie dobrze");
-    $(elementID).on('select2:selecting', function(e) {
+    $(document).ready(function () {
+                alert("Jest dobrze");
+     $(elementID).select2().on('select2:selecting', function(e) {
        if (!AdmUtils.isNotDirtyOrConfirmed()) {
            e.preventDefault();
        }
     });
+});
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
