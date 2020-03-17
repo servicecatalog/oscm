@@ -72,27 +72,37 @@
                     </div>
                 </div>
             </div>
+            <!-- Right menu container -->
             <div class="col-md">
-                <div class="row">
-                    <p>#{msg['paging.show']}</p>
-                    <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
-                        <c:if test="#{size eq servicePagingBean.pageSize}">
-                            <strong class="current">#{size}</strong>
-                        </c:if>
-                        <c:if test="#{size ne servicePagingBean.pageSize}">
-                            <h:outputLink styleClass="linkNormal" id="pagingSize#{prefix}#{size}" value=""
-                                          onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
-                                #{size}
-                            </h:outputLink>
-                        </c:if>
-                    </c:forEach>
-                    <h:selectOneMenu styleClass="sortingCombo" value="#{servicePagingBean.sorting}"
-                                     onchange="AdmUtils.selectDropDownOption(this, 'showListForm', 'sortingOrder', 'listButton');">
-                        <c:forEach items="#{servicePagingBean.sortingCriteria}" var="key" varStatus="status">
-                            <c:set var="sortKey" value="catalog.sortorder.#{key}"/>
-                            <f:selectItem id="sort#{prefix}#{key}" itemLabel="#{msg[sortKey]}" itemValue="#{key}"/>
+                <div class="row justify-content-end">
+                    <!-- Show p -->
+                    <div class="col-auto">
+                        <p>#{msg['paging.show']}</p>
+                    </div>
+                    <!-- Page size buttons -->
+                    <div class="col-auto">
+                        <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
+                            <c:if test="#{size eq servicePagingBean.pageSize}">
+                                <strong class="current">#{size}</strong>
+                            </c:if>
+                            <c:if test="#{size ne servicePagingBean.pageSize}">
+                                <h:outputLink styleClass="linkNormal" id="pagingSize#{prefix}#{size}" value=""
+                                              onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
+                                    #{size}
+                                </h:outputLink>
+                            </c:if>
                         </c:forEach>
-                    </h:selectOneMenu>
+                    </div>
+                    <!-- Sorting select menu -->
+                    <div class="col-auto">
+                        <h:selectOneMenu styleClass="sortingCombo" value="#{servicePagingBean.sorting}"
+                                         onchange="AdmUtils.selectDropDownOption(this, 'showListForm', 'sortingOrder', 'listButton');">
+                            <c:forEach items="#{servicePagingBean.sortingCriteria}" var="key" varStatus="status">
+                                <c:set var="sortKey" value="catalog.sortorder.#{key}"/>
+                                <f:selectItem id="sort#{prefix}#{key}" itemLabel="#{msg[sortKey]}" itemValue="#{key}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </div>
                 </div>
             </div>
         </div>
