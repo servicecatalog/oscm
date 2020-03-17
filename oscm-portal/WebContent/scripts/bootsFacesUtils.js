@@ -15,10 +15,10 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
-    var i = element.selectedIndex;
-	var o = element.options[i];
-	var input = document.getElementById("selectForm:selectedKey");
     $(document).on('select2:selecting', function(e) {
+       var i = element.selectedIndex;
+       var o = element.options[i];
+       var input = document.getElementById("selectForm:selectedKey");
        if (AdmUtils.isNotDirtyOrConfirmed()) {
            if (input != null) {
               input.value = o.value;
