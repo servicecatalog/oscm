@@ -24,6 +24,7 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
                 $(document).off('select2:selecting');
            } else {
                isNotDirty = false;
+               window.onbeforeunload = null;
                return false;
            }
     });
