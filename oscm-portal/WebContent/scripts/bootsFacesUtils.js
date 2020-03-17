@@ -23,14 +23,15 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
        var input = document.getElementById("selectForm:selectedKey");
        if (AdmUtils.isNotDirtyOrConfirmed()) {
            alert("zmieniono i czysto!");
+           if (input != null) {
+                                input.value = o.value;
+                             }
+                             document.getElementById('selectForm').submit();
            $(document).off('select2:selecting');
        } else {
        alert("zmieniono ale brudno!");
            e.preventDefault();
        }
-       if (input != null) {
-                     input.value = o.value;
-                  }
-                  document.getElementById('selectForm').submit();
+
     });
 }
