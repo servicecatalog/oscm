@@ -5,10 +5,14 @@ var BootsFacesUtils = {
 };
 
 BootsFacesUtils.preventChangeSelectionForDropDown = function() {
-    $(document).on('select2:selecting', 'select2:select', function(e) {
+alert("w środku metody");
+    $(document).on('select2:selecting', function(e) {
        if (AdmUtils.isNotDirtyOrConfirmed()) {
-           $(document).off('select2:selecting', 'select2:select');
+       alert("czysto");
+           $(document).off('select2:selecting');
        } else {
+              alert("brudno");
+
            e.preventDefault();
        }
     });
