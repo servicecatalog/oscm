@@ -8,7 +8,7 @@
             rendered="#{marketplaceConfigurationBean.currentConfiguration.categoriesEnabled}">
         <f:phaseListener binding="#{categorySelectionBean.listener}"/>
         <!-- Browse all services button container-->
-        <div>
+        <div class="col">
             <h:commandButton style="display:none;" id="browseAllBtn" action="#{serviceListingBean.showServiceList}"/>
             <mp:button id="buttonBrowseAll" value="#{msg['button.browseAll']}" bean="#{serviceListingBean}"
                        action="showServiceList">
@@ -19,7 +19,7 @@
         </div>
         <!-- Browse all services button container-->
         <c:if test="#{categorySelectionBean.hasCategories}">
-            <div>
+            <div class="col">
                 <ul>
                     <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
                         <li class="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? 'selectedCategory' : 'categoryItem'}">
