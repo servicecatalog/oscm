@@ -22,18 +22,15 @@
             <div class="col">
                 <ul>
                     <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
-                        <li class="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? 'selectedCategory' : 'categoryItem'}">
-                            <strong class="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? 'current' : ' '}">
+                        <li>
                                 <h:commandLink value="#{cat.displayName}"
                                                action="#{categorySelectionBean.selectByCategory}"
-                                               actionListener="#{serviceListingBean.reloadData}"
-                                               styleClass="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? 'selectedCategory' : 'categoryItem'}">
+                                               actionListener="#{serviceListingBean.reloadData}">
                                     <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
                                                                  value="#{cat.categoryId}"/>
                                     <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
                                                                  value="#{cat.displayName}"/>
                                 </h:commandLink>
-                            </strong>
                         </li>
                     </c:forEach>
                 </ul>
