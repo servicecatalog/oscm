@@ -16,7 +16,8 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.oscm.ct.login.ProgrammaticLoginHandler;
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.SubscriptionService;
@@ -34,7 +35,7 @@ import org.oscm.kafka.serializer.UUIDSerializer;
  */
 public class Consumer implements Runnable {
 
-    private static final Logger LOGGER = Logger.getLogger(Consumer.class);
+    private static final Logger LOGGER = LogManager.getLogger(Consumer.class);
 
     private final static String TOPIC = "provisioning-release";
     private final static String CONSUMER_GROUP = "oscm-group";

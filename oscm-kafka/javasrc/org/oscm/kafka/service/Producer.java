@@ -14,7 +14,8 @@ import java.util.UUID;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.oscm.domobjects.Subscription;
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
@@ -28,7 +29,7 @@ import org.oscm.kafka.serializer.UUIDSerializer;
  * Authored by dawidch
  */
 public class Producer {
-    private static final Logger LOGGER = Logger.getLogger(Producer.class);
+    private static final Logger LOGGER = LogManager.getLogger(Producer.class);
     private final static String TOPIC = "core-subscription";
 
     private KafkaProducer<UUID, Object> producer;

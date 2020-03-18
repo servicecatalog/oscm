@@ -40,7 +40,8 @@ import javax.faces.model.SelectItem;
 import javax.ws.rs.core.UriBuilder;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.SubscriptionService;
 import org.oscm.internal.subscriptions.OperationModel;
@@ -69,8 +70,7 @@ public class MySubscriptionsCtrl implements Serializable {
 
     private static final long serialVersionUID = -9209968842729517052L;
 
-    private static final Logger LOGGER = Logger
-            .getLogger(MySubscriptionsCtrl.class);
+    private static final Logger LOGGER = LogManager.getLogger(MySubscriptionsCtrl.class);
 
     @ManagedProperty(value = "#{mySubscriptionsLazyDataModel}")
     private MySubscriptionsLazyDataModel model;

@@ -17,14 +17,15 @@ import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 @Singleton
 @Startup
 public class ConsumerTrigger {
 
-    private static final Logger LOGGER = Logger
-            .getLogger(ConsumerTrigger.class);
+    private static final Logger LOGGER = LogManager.getLogger(ConsumerTrigger.class);
 
     ExecutorService executor = null;
 

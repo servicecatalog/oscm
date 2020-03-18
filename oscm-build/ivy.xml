@@ -89,7 +89,8 @@
     <dependency org="org.apache.httpcomponents" name="httpmime" rev="4.3.1" transitive="false"/>
     <dependency org="commons-io" name="commons-io" rev="1.4" transitive="false" force="true"/>
     <dependency org="org.apache.sling" name="org.apache.sling.commons.json" rev="2.0.6" transitive="false"/>
-    <dependency org="log4j" name="log4j" rev="1.2.16" transitive="false" force="true"/>
+    <dependency org="org.apache.logging.log4j" name="log4j-api" rev="2.13.0" transitive="false" force="true"/>
+    <dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.13.0" transitive="false" force="true"/>
     <dependency org="org.apache.lucene" name="lucene-analyzers-common" rev="5.3.1" transitive="false"/>
     <dependency org="org.apache.lucene" name="lucene-core" rev="5.3.1" transitive="false"/>
     <dependency org="org.apache.lucene" name="lucene-facet" rev="5.3.1" transitive="false"/>

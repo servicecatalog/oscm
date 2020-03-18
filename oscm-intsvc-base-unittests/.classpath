@@ -4,7 +4,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-intsvc-base"/>
 	<classpathentry kind="lib" path="/libraries/junit/javalib/junit-4.12.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
-	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-1.2.16.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-domainobjects"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>

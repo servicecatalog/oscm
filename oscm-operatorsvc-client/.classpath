@@ -9,7 +9,6 @@
 	<classpathentry kind="lib" path="/libraries/apache-ant/javalib/ant-junit.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-ant/javalib/ant-launcher.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-ant/javalib/wsit-ant-tasks.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-1.2.16.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-internal"/>
 	<classpathentry kind="lib" path="/libraries/apache-commons-csv/javalib/commons-csv-1.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>

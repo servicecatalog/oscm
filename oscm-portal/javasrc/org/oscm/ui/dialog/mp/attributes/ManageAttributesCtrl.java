@@ -20,7 +20,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.oscm.internal.intf.AccountService;
 import org.oscm.internal.intf.MarketplaceService;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
@@ -49,8 +50,7 @@ import org.oscm.ui.model.UdaRow;
 @ViewScoped
 public class ManageAttributesCtrl {
 
-    private static final Logger LOGGER = Logger
-            .getLogger(ManageAttributesCtrl.class);
+    private static final Logger LOGGER = LogManager.getLogger(ManageAttributesCtrl.class);
 
     @ManagedProperty(value = "#{manageAttributesModel}")
     private ManageAttributesModel model;

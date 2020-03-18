@@ -21,16 +21,16 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.apache.commons.lang3.BooleanUtils;
-import org.apache.log4j.Logger;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.oscm.internal.techserviceoperationmgmt.OperationRecordService;
+import org.oscm.internal.techserviceoperationmgmt.POOperationRecord;
+import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.ui.beans.BaseBean;
 import org.oscm.ui.beans.SessionBean;
 import org.oscm.ui.beans.UserBean;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.common.UiDelegate;
-import org.oscm.internal.techserviceoperationmgmt.OperationRecordService;
-import org.oscm.internal.techserviceoperationmgmt.POOperationRecord;
-import org.oscm.internal.types.exception.SaaSApplicationException;
 
 /**
  * @author maoq
@@ -39,7 +39,7 @@ import org.oscm.internal.types.exception.SaaSApplicationException;
 @ViewScoped
 @ManagedBean(name = "operationRecordCtrl")
 public class OperationRecordCtrl {
-    private static final Logger LOGGER = Logger.getLogger(OperationRecordCtrl.class);
+    private static final Logger LOGGER = LogManager.getLogger(OperationRecordCtrl.class);
     private UiDelegate ui;
     @ManagedProperty(value = "#{operationRecordModel}")
     private OperationRecordModel model;

@@ -7,7 +7,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-internal"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/openejb-core-7.0.3.jar"/>
-	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/openejb-cxf-7.0.3.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/wss4j-ws-security-common-2.1.7.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/wss4j-ws-security-dom-2.1.7.jar"/>
