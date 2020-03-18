@@ -10,20 +10,21 @@
         <div class="container">
             <!-- Browse all services button container-->
             <div class="col">
-                <h:commandButton style="display:none;" id="browseAllBtn" action="#{serviceListingBean.showServiceList}"/>
-                <mp:button id="buttonBrowseAll" value="#{msg['button.browseAll']}" bean="#{serviceListingBean}"
-                           action="showServiceList">
+                <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}">
                     <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
                     <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
                     <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
-                </mp:button>
+                </h:commandButton>
+<!--                <mp:button id="buttonBrowseAll" value="#{msg['button.browseAll']}" bean="#{serviceListingBean}"-->
+<!--                           action="showServiceList">-->
+<!--                </mp:button>-->
             </div>
             <!-- Browse all services button container-->
             <c:if test="#{categorySelectionBean.hasCategories}">
                 <div class="col">
-                    <ul>
+                    <ul class="list-group">
                         <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
-                            <li>
+                            <li class="list-group-item">
                                 <h:commandLink value="#{cat.displayName}"
                                                action="#{categorySelectionBean.selectByCategory}"
                                                actionListener="#{serviceListingBean.reloadData}">
