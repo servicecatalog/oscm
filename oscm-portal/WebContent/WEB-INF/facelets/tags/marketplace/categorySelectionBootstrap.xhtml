@@ -1,0 +1,43 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html >
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+    <h:form id="categorySelectionForm"
+            rendered="#{marketplaceConfigurationBean.currentConfiguration.categoriesEnabled}">
+        <f:phaseListener binding="#{categorySelectionBean.listener}"/>
+        <!-- Browse all services button container-->
+        <div>
+            <h:commandButton style="display:none;" id="browseAllBtn" action="#{serviceListingBean.showServiceList}"/>
+            <mp:button id="buttonBrowseAll" value="#{msg['button.browseAll']}" bean="#{serviceListingBean}"
+                       action="showServiceList">
+                <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
+                <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
+                <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
+            </mp:button>
+        </div>
+        <!-- Browse all services button container-->
+        <c:if test="#{categorySelectionBean.hasCategories}">
+            <div>
+                <ul>
+                    <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
+                        <li class="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? 'selectedCategory' : 'categoryItem'}">
+                            <strong class="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? 'current' : ' '}">
+                                <h:commandLink value="#{cat.displayName}"
+                                               action="#{categorySelectionBean.selectByCategory}"
+                                               actionListener="#{serviceListingBean.reloadData}"
+                                               styleClass="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? 'selectedCategory' : 'categoryItem'}">
+                                    <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
+                                                                 value="#{cat.categoryId}"/>
+                                    <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
+                                                                 value="#{cat.displayName}"/>
+                                </h:commandLink>
+                            </strong>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
+        </c:if>
+    </h:form>
+</ui:composition>
