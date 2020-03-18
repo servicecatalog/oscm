@@ -1533,6 +1533,7 @@ public class OperatorServiceBean implements OperatorService {
     @SuppressWarnings("unchecked")
     List<Object[]> list = query.getResultList();
 
+
     TreeMap<String, String> tm = new TreeMap<String, String>();
 
     for (Object[] obj : list) {
@@ -1541,6 +1542,7 @@ public class OperatorServiceBean implements OperatorService {
     return valueSort(tm);
   }
   
+
   private <KT, VT extends Comparable<? super VT>> Map<KT, VT> valueSort(Map<KT, VT> m) {
 
       List<Map.Entry<KT, VT>> l =
