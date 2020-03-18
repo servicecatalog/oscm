@@ -1,25 +1,24 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                                                                                 
- *  Creation Date: Oct 20, 2016                                                      
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Creation Date: Oct 20, 2016
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ui.dialog.mp.attributes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.oscm.internal.intf.AccountService;
@@ -41,141 +40,142 @@ import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.model.UdaRow;
 
 /**
- * Manages the custom attributes of all suppliers that are allowed to publish to
- * the marketplace for the customer.
- * 
+ * Manages the custom attributes of all suppliers that are allowed to publish to the marketplace for
+ * the customer.
+ *
  * @author miethaner
  */
 @ManagedBean(name = "manageAttributesCtrl")
 @ViewScoped
 public class ManageAttributesCtrl {
 
-    private static final Logger LOGGER = LogManager.getLogger(ManageAttributesCtrl.class);
+  private static final Logger LOGGER = LogManager.getLogger(ManageAttributesCtrl.class);
 
-    @ManagedProperty(value = "#{manageAttributesModel}")
-    private ManageAttributesModel model;
-    @ManagedProperty(value = "#{sessionBean}")
-    private SessionBean sessionBean;
-    @ManagedProperty(value = "#{userBean}")
-    private UserBean userBean;
+  @ManagedProperty(value = "#{manageAttributesModel}")
+  private ManageAttributesModel model;
 
-    @EJB
-    private AccountService accountService;
+  @ManagedProperty(value = "#{sessionBean}")
+  private SessionBean sessionBean;
 
-    @EJB
-    private MarketplaceService marketplaceService;
+  @ManagedProperty(value = "#{userBean}")
+  private UserBean userBean;
 
-    public ManageAttributesModel getModel() {
-        return model;
-    }
+  @EJB private AccountService accountService;
 
-    public void setModel(ManageAttributesModel model) {
-        this.model = model;
-    }
+  @EJB private MarketplaceService marketplaceService;
 
-    public SessionBean getSessionBean() {
-        return sessionBean;
-    }
+  public ManageAttributesModel getModel() {
+    return model;
+  }
 
-    public void setSessionBean(SessionBean sessionBean) {
-        this.sessionBean = sessionBean;
-    }
+  public void setModel(ManageAttributesModel model) {
+    this.model = model;
+  }
 
-    public UserBean getUserBean() {
-        return userBean;
-    }
+  public SessionBean getSessionBean() {
+    return sessionBean;
+  }
 
-    public void setUserBean(UserBean userBean) {
-        this.userBean = userBean;
-    }
+  public void setSessionBean(SessionBean sessionBean) {
+    this.sessionBean = sessionBean;
+  }
 
-    public void setAccountService(AccountService accountService) {
-        this.accountService = accountService;
-    }
+  public UserBean getUserBean() {
+    return userBean;
+  }
 
-    public void setMarketplaceService(MarketplaceService marketplaceService) {
-        this.marketplaceService = marketplaceService;
-    }
+  public void setUserBean(UserBean userBean) {
+    this.userBean = userBean;
+  }
 
-    @PostConstruct
-    public void construct() {
-        model.setAttributeMap(initModel());
-    }
+  public void setAccountService(AccountService accountService) {
+    this.accountService = accountService;
+  }
 
-    private Map<String, UdaRow> initModel() {
+  public void setMarketplaceService(MarketplaceService marketplaceService) {
+    this.marketplaceService = marketplaceService;
+  }
 
-        Map<String, UdaRow> result = new HashMap<>();
-        VOOrganization customer = userBean.getOrganizationBean()
-                .getOrganization();
+  @PostConstruct
+  public void construct() {
+    model.setAttributeMap(initModel());
+  }
 
-        try {
-            String marketplaceId = sessionBean.getMarketplaceId();
-            List<VOOrganization> orgList = marketplaceService
-                    .getSuppliersForMarketplace(marketplaceId);
+  private Map<String, UdaRow> initModel() {
 
-            for (VOOrganization org : orgList) {
+    Map<String, UdaRow> result = new HashMap<>();
+    VOOrganization customer = userBean.getOrganizationBean().getOrganization();
 
-                List<VOUdaDefinition> udaDefList = accountService
-                        .getUdaDefinitionsForCustomer(org.getOrganizationId());
+    try {
+      String marketplaceId = sessionBean.getMarketplaceId();
+      List<VOOrganization> orgList = marketplaceService.getSuppliersForMarketplace(marketplaceId);
 
-                for (VOUdaDefinition udaDef : udaDefList) {
-                    if (udaDef.getTargetType().equals("CUSTOMER")) {
-                        VOUda uda = new VOUda();
-                        uda.setUdaDefinition(udaDef);
-                        uda.setTargetObjectKey(customer.getKey());
-                        uda.setUdaValue(udaDef.getDefaultValue());
-                        result.put(udaDef.getUdaId(),
-                                new UdaRow(udaDef, uda, org));
-                    }
-                }
+      for (VOOrganization org : orgList) {
 
-                List<VOUda> udaList = accountService.getUdasForCustomer(
-                        "CUSTOMER", customer.getKey(), org.getOrganizationId());
-                for (VOUda uda : udaList) {
-                    result.put(uda.getUdaDefinition().getUdaId(),
-                            new UdaRow(uda.getUdaDefinition(), uda, org));
-                }
-            }
-        } catch (ObjectNotFoundException | OperationNotPermittedException
-                | ValidationException | OrganizationAuthoritiesException e) {
-            LOGGER.error(e.getMessage());
-        }
-        initPasswordFields(result);
-        return result;
-    }
+        List<VOUdaDefinition> udaDefList =
+            accountService.getUdaDefinitionsForCustomer(org.getOrganizationId());
 
-    private void initPasswordFields(Map<String, UdaRow> udas) {
-        for (Map.Entry<String, UdaRow> row : udas.entrySet()) {
-            row.getValue().initPasswordValueToStore();
-        }
-    }
-
-    public String saveAttributes() {
-
-        List<VOUda> list = new ArrayList<>();
-
-        for (UdaRow row : model.getAttributes()) {
-
-            VOUda uda = row.getUda();
-            row.rewriteEncryptedValues();
-            list.add(uda);
+        for (VOUdaDefinition udaDef : udaDefList) {
+          if (udaDef.getTargetType().equals("CUSTOMER")) {
+            VOUda uda = new VOUda();
+            uda.setUdaDefinition(udaDef);
+            uda.setTargetObjectKey(customer.getKey());
+            uda.setUdaValue(udaDef.getDefaultValue());
+            result.put(udaDef.getUdaId(), new UdaRow(udaDef, uda, org));
+          }
         }
 
-        try {
-            accountService.saveUdas(list);
-            JSFUtils.addMessage(null, FacesMessage.SEVERITY_INFO,
-                    BaseBean.INFO_UDA_SAVED, null);
-
-            return BaseBean.OUTCOME_SUCCESS;
-
-        } catch (ObjectNotFoundException | NonUniqueBusinessKeyException
-                | ValidationException | OperationNotPermittedException
-                | ConcurrentModificationException | MandatoryUdaMissingException
-                | OrganizationAuthoritiesException e) {
-            LOGGER.error(e.getMessage());
-
-            return BaseBean.OUTCOME_ERROR;
+        List<VOUda> udaList =
+            accountService.getUdasForCustomer(
+                "CUSTOMER", customer.getKey(), org.getOrganizationId());
+        for (VOUda uda : udaList) {
+          result.put(
+              uda.getUdaDefinition().getUdaId(), new UdaRow(uda.getUdaDefinition(), uda, org));
         }
-
+      }
+    } catch (ObjectNotFoundException
+        | OperationNotPermittedException
+        | ValidationException
+        | OrganizationAuthoritiesException e) {
+      LOGGER.error(e.getMessage());
     }
+    initPasswordFields(result);
+    return result;
+  }
+
+  private void initPasswordFields(Map<String, UdaRow> udas) {
+    for (Map.Entry<String, UdaRow> row : udas.entrySet()) {
+      row.getValue().initPasswordValueToStore();
+    }
+  }
+
+  public String saveAttributes() {
+
+    List<VOUda> list = new ArrayList<>();
+
+    for (UdaRow row : model.getAttributes()) {
+
+      VOUda uda = row.getUda();
+      row.rewriteEncryptedValues();
+      list.add(uda);
+    }
+
+    try {
+      accountService.saveUdas(list);
+      JSFUtils.addMessage(null, FacesMessage.SEVERITY_INFO, BaseBean.INFO_UDA_SAVED, null);
+
+      return BaseBean.OUTCOME_SUCCESS;
+
+    } catch (ObjectNotFoundException
+        | NonUniqueBusinessKeyException
+        | ValidationException
+        | OperationNotPermittedException
+        | ConcurrentModificationException
+        | MandatoryUdaMissingException
+        | OrganizationAuthoritiesException e) {
+      LOGGER.error(e.getMessage());
+
+      return BaseBean.OUTCOME_ERROR;
+    }
+  }
 }
