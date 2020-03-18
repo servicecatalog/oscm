@@ -7,10 +7,9 @@
     <h:form id="categorySelectionForm"
             rendered="#{marketplaceConfigurationBean.currentConfiguration.categoriesEnabled}">
         <f:phaseListener binding="#{categorySelectionBean.listener}"/>
-        <div class="container">
             <!-- Browse all services button container-->
-            <div class="col">
-                <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}">
+            <div>
+                <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}" value="#{msg['button.browseAll']}">
                     <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
                     <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
                     <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
@@ -21,7 +20,7 @@
             </div>
             <!-- Browse all services button container-->
             <c:if test="#{categorySelectionBean.hasCategories}">
-                <div class="col">
+                <div>
                     <ul class="list-group">
                         <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
                             <li class="list-group-item">
@@ -38,6 +37,5 @@
                     </ul>
                 </div>
             </c:if>
-        </div>
     </h:form>
 </ui:composition>
