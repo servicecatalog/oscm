@@ -16,7 +16,7 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 
 BootsFacesUtils.preventChangeSelectionForDropDown = function(element) {
     var elementID = "[id='" + element + "']";
-            alert("Bedzie dobrze");
+            alert("Bedzie dobrze " + elementID);
     $(document).ready(function () {
                 alert("Jest dobrze");
      $(elementID).select2().on('select2:selecting', function(e) {
