@@ -7,22 +7,23 @@
     <h:form id="categorySelectionForm"
             rendered="#{marketplaceConfigurationBean.currentConfiguration.categoriesEnabled}">
         <f:phaseListener binding="#{categorySelectionBean.listener}"/>
-        <!-- Browse all services button container-->
-        <div class="col">
-            <h:commandButton style="display:none;" id="browseAllBtn" action="#{serviceListingBean.showServiceList}"/>
-            <mp:button id="buttonBrowseAll" value="#{msg['button.browseAll']}" bean="#{serviceListingBean}"
-                       action="showServiceList">
-                <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
-                <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
-                <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
-            </mp:button>
-        </div>
-        <!-- Browse all services button container-->
-        <c:if test="#{categorySelectionBean.hasCategories}">
+        <div class="container">
+            <!-- Browse all services button container-->
             <div class="col">
-                <ul>
-                    <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
-                        <li>
+                <h:commandButton style="display:none;" id="browseAllBtn" action="#{serviceListingBean.showServiceList}"/>
+                <mp:button id="buttonBrowseAll" value="#{msg['button.browseAll']}" bean="#{serviceListingBean}"
+                           action="showServiceList">
+                    <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
+                    <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
+                    <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
+                </mp:button>
+            </div>
+            <!-- Browse all services button container-->
+            <c:if test="#{categorySelectionBean.hasCategories}">
+                <div class="col">
+                    <ul>
+                        <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
+                            <li>
                                 <h:commandLink value="#{cat.displayName}"
                                                action="#{categorySelectionBean.selectByCategory}"
                                                actionListener="#{serviceListingBean.reloadData}">
@@ -31,10 +32,11 @@
                                     <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
                                                                  value="#{cat.displayName}"/>
                                 </h:commandLink>
-                        </li>
-                    </c:forEach>
-                </ul>
-            </div>
-        </c:if>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:if>
+        </div>
     </h:form>
 </ui:composition>
