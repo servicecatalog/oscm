@@ -16,24 +16,12 @@
 
   <ui:define name="body">
     <adm:initialize initializingMethod="#{marketableServicePublishCtrl.initializePublish}"/>
-
     <h:form id="editForm">
-         <script type="text/javascript">
-          $(document).ready(function () {          
-              $("[id='editForm:selectedServiceIdInner']").select2().on('select2:selecting', function (e) {
-                if (AdmUtils.isNotDirtyOrConfirmed()) {
-                  setDirty(false); 
-                } else {
-                  e.preventDefault();
-                }
-              });
-          });
-          </script>
       <adm:outputStep value="#{msg['service.edit.step1']}" />
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
-                                    onclick="AdmUtils.storeValue(this);"
-                                    immediate="true"
+                                    onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
                                     oncomplete="AdmUtils.setUIElements();"
+                                    immediate="true"
                                     value="#{marketableServicePublishModel.selectedServiceKey}"
                                     label="#{msg['service.serviceId']}">
           <f:ajax event="change" listener="#{marketableServicePublishCtrl.serviceChanged}"
