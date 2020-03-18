@@ -198,4 +198,8 @@
     <tag-name>pagingPanelBootstrap</tag-name>
     <source>pagingPanelBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>categorySelectionBootstrap</tag-name>
+    <source>categorySelectionBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>
