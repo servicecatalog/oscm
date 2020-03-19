@@ -47,22 +47,16 @@
                             <div class="row">
                                 <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
                                     <!-- Current page -->
-                                    <div>
                                         <c:if test="#{selpage eq servicePagingBean.selectedPage}">
-                                            <button type="button" class="btn btn-secondary text-white" disabled="disabled">#{selpage}</button>
+                                            <button type="button" class="btn btn-secondary text-white px-1" disabled="disabled">#{selpage}</button>
                                         </c:if>
-                                    </div>
                                     <!-- Other pages -->
-                                    <div>
                                         <c:if test="#{selpage ne servicePagingBean.selectedPage}">
-                                            <h:outputLink id="link#{prefix}Page#{selpage}" value="" class="btn btn-secondary text-white"
+                                            <h:outputLink id="link#{prefix}Page#{selpage}" value="" class="btn btn-secondary text-white px-1"
                                             onclick="#{rich:element('selectPage')}.value='#{selpage}';#{rich:element('selectPagingButton')}.click();return false;">
                                             #{selpage}
                                             </h:outputLink>
                                         </c:if>
-                                    </div>
-
-
                                 </c:forEach>
                             </div>
                         </div>
