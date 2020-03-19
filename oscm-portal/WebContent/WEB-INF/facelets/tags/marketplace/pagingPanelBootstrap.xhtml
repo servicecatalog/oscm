@@ -90,7 +90,7 @@
                         <div class="col-auto pl-0">
                             <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
                                 <c:if test="#{size eq servicePagingBean.pageSize}">
-                                    <button type="button" class="btn btn-secondary text-white px-1" disabled="disabled">#{size}</button>
+                                    <button type="button" class="btn btn-secondary text-white px-1 mr-1" disabled="disabled">#{size}</button>
                                 </c:if>
                                 <c:if test="#{size ne servicePagingBean.pageSize}">
                                     <h:outputLink styleClass="btn btn-secondary text-white px-1 mr-1" id="pagingSize#{prefix}#{size}" value=""
@@ -102,11 +102,11 @@
                     </div>
                     <!-- Sorting select menu -->
                     <div class="col-auto my-1">
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-auto">
-                                <p>Sort</p>
+                                <p class="m-0">Sort</p>
                             </div>
-                            <div class="col-auto">
+                            <div class="col-auto pl-0">
                                 <h:selectOneMenu styleClass="custom-select" value="#{servicePagingBean.sorting}"
                                                  onchange="AdmUtils.selectDropDownOption(this, 'showListForm', 'sortingOrder', 'listButton');">
                                     <c:forEach items="#{servicePagingBean.sortingCriteria}" var="key" varStatus="status">
