@@ -30,7 +30,7 @@
                     <!-- Select page container -->
                     <div class="row justify-content-around my-1">
                         <!--  Previous button -->
-                        <div class="col-auto">
+                        <div class="col-auto pr-0">
                             <c:if test="#{servicePagingBean.previousAvailable}">
                                 <h:outputLink id="pagePrevious#{prefix}" styleClass="btn btn-secondary text-white"
                                               onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage - 1}';#{rich:element('selectPagingButton')}.click();return false;">
@@ -43,16 +43,16 @@
                             </c:if>
                         </div>
                         <!-- Page selection -->
-                        <div class="col-auto">
+                        <div class="col-auto ml-2 mr-1">
                             <div class="row">
                                 <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
                                     <!-- Current page -->
                                         <c:if test="#{selpage eq servicePagingBean.selectedPage}">
-                                            <button type="button" class="btn btn-secondary text-white px-1" disabled="disabled">#{selpage}</button>
+                                            <button type="button" class="btn btn-secondary text-white px-1 mr-1" disabled="disabled">#{selpage}</button>
                                         </c:if>
                                     <!-- Other pages -->
                                         <c:if test="#{selpage ne servicePagingBean.selectedPage}">
-                                            <h:outputLink id="link#{prefix}Page#{selpage}" value="" class="btn btn-secondary text-white px-1"
+                                            <h:outputLink id="link#{prefix}Page#{selpage}" value="" class="btn btn-secondary text-white px-1 mr-1"
                                             onclick="#{rich:element('selectPage')}.value='#{selpage}';#{rich:element('selectPagingButton')}.click();return false;">
                                             #{selpage}
                                             </h:outputLink>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <!-- Next selection -->
-                        <div class="col-auto">
+                        <div class="col-auto pl-0">
                             <c:if test="#{servicePagingBean.nextAvailable}">
                                 <h:outputLink styleClass="btn btn-secondary text-white"
                                               onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage + 1}';#{rich:element('selectPagingButton')}.click();return false;"
@@ -87,19 +87,18 @@
                             <p class="mb-0">#{msg['paging.show']}</p>
                         </div>
                         <!-- Page size buttons -->
-                        <div class="col-auto">
+                        <div class="col-auto pl-0">
                             <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
                                 <c:if test="#{size eq servicePagingBean.pageSize}">
                                     <button type="button" class="btn btn-secondary text-white px-1" disabled="disabled">#{size}</button>
                                 </c:if>
                                 <c:if test="#{size ne servicePagingBean.pageSize}">
                                     <h:outputLink styleClass="btn btn-secondary text-white px-1" id="pagingSize#{prefix}#{size}" value=""
-                                                  onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
-                                        #{size}
+                                                  onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">#{size}
                                     </h:outputLink>
                                 </c:if>
                             </c:forEach>
-                        </div>
+                        </div>w
                     </div>
 
                     <!-- Sorting select menu -->
