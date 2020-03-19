@@ -13,13 +13,13 @@
     <c:set var="lastPage" value="#{servicePagingBean.lastVisiblePage}"/>
 
 
-    <div class="container mb-1">
+    <div class="container mb-1 border-bottom border-top">
         <div class="row row justify-content-around">
             <div class="col-auto">
                 <div class="row">
                     <!--  Number of services and filter tag info -->
                     <div class="col-auto">
-                        <p id="listInfo#{prefix}">
+                        <p id="listInfo#{prefix}" class="mb-0">
                             <h:outputFormat value="#{msg['catalog.selectedTag.pageInfo']}" escape="true">
                                 <f:param value="#{servicePagingBean.firstOnPage}"/>
                                 <f:param value="#{servicePagingBean.lastOnPage}"/>
@@ -36,14 +36,14 @@
                                     </h:outputLink>
                                 </c:if>
                                 <c:if test="#{not servicePagingBean.previousAvailable}">
-                                    <p id="previous#{prefix}" class="previous disabled">#{msg['paging.previous']}</p>
+                                    <p id="previous#{prefix}" class="mb-0 previous disabled">#{msg['paging.previous']}</p>
                                 </c:if>
                             </div>
                             <!-- Page selection -->
                             <div class="col-auto">
                                 <ul class="pagingElement">
                                     <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
-                                        <li>
+                                        <li class="mb-0">
                                             <c:if test="#{selpage eq servicePagingBean.selectedPage}">
                                                 <strong class="current ">#{selpage}</strong>
                                             </c:if>
@@ -67,7 +67,7 @@
                                     </h:outputLink>
                                 </c:if>
                                 <c:if test="#{not servicePagingBean.nextAvailable}">
-                                    <p id="next#{prefix}" class="next disabled">#{msg['paging.next']}</p>
+                                    <p id="next#{prefix}" class="mb-0 next disabled">#{msg['paging.next']}</p>
                                 </c:if>
                             </div>
                 </div>
@@ -77,7 +77,7 @@
                 <div class="row justify-content-end">
                     <!-- Show p -->
                     <div class="col-auto">
-                        <p>#{msg['paging.show']}</p>
+                        <p class="mb-0">#{msg['paging.show']}</p>
                     </div>
                     <!-- Page size buttons -->
                     <div class="col-auto">
