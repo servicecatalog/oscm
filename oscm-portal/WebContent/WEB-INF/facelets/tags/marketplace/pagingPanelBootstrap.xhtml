@@ -58,27 +58,13 @@
                                             <h:outputLink id="link#{prefix}Page#{selpage}" value="" class="btn btn-secondary text-white"
                                             onclick="#{rich:element('selectPage')}.value='#{selpage}';#{rich:element('selectPagingButton')}.click();return false;">
                                             #{selpage}
+                                            </h:outputLink>
                                         </c:if>
                                     </div>
 
 
                                 </c:forEach>
                             </div>
-<!--                            <ul class="pagingElement">-->
-<!--                                <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">-->
-<!--                                    <li class="mb-0">-->
-<!--                                        <c:if test="#{selpage eq servicePagingBean.selectedPage}">-->
-<!--                                            <strong class="current ">#{selpage}</strong>-->
-<!--                                        </c:if>-->
-<!--                                        <c:if test="#{selpage ne servicePagingBean.selectedPage}">-->
-<!--                                            <h:outputLink id="link#{prefix}Page#{selpage}" value=""-->
-<!--                                                          onclick="#{rich:element('selectPage')}.value='#{selpage}';#{rich:element('selectPagingButton')}.click();return false;">-->
-<!--                                                #{selpage}-->
-<!--                                            </h:outputLink>-->
-<!--                                        </c:if>-->
-<!--                                    </li>-->
-<!--                                </c:forEach>-->
-<!--                            </ul>-->
                         </div>
                         <!-- Next selection -->
                         <div class="col-auto pl-0">
