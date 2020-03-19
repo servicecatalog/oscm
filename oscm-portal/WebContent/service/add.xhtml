@@ -15,7 +15,7 @@
       <h:inputHidden id="selectedKey" value="#{serviceBean.selectedTechServiceKey}" />
     </h:form>
     <h:form id="editForm" enctype="multipart/form-data">
-      <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForAllDropDowns();</script>
+      <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForDropDown();</script>
       <adm:outputStep value="#{msg['service.add.step1']}" />
       <adm:bootsfacesSelectMenu   id="techServiceId"
                                   onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"

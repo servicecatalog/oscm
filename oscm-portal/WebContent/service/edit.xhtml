@@ -22,7 +22,7 @@
 
 		<h:form id="editForm" enctype="multipart/form-data"
 				onsubmit="return AdmUtils.ie7UploadValidation(#{rich:element('image')});">
-			<script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForAllDropDowns();</script>
+			<script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForDropDown();</script>
 	      <adm:outputStep value="#{msg['service.edit.step1']}" />
 			<adm:bootsfacesSelectMenu   id="selectedServiceId"
 										onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"

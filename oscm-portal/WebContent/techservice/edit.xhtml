@@ -19,7 +19,7 @@
     </h:form>
 
     <h:form id="techServiceForm" enctype="multipart/form-data">
-      <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForAllDropDowns();</script>
+      <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForDropDown();</script>
       <adm:outputStep value="#{msg['techService.edit.step1']}" />
       <adm:bootsfacesSelectMenu   id="techServiceId"
                                   onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"

@@ -17,7 +17,7 @@
     </h:form>
 
     <h:form id="copyForm">
-    <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForAllDropDowns();</script>
+    <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForDropDown();</script>
       <adm:outputStep value="#{msg['service.copy.step1']}" />
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
                                     onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"

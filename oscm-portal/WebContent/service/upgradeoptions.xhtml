@@ -18,7 +18,7 @@
     </h:form>
 
     <h:form id="editForm">
-      <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForAllDropDowns();</script>
+      <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForDropDown();</script>
       <adm:outputStep value="#{msg['service.upgradeOptions.step1']}" />
         <adm:bootsfacesSelectMenu   id="srcServiceId"
                                     onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"

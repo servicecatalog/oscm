@@ -17,9 +17,9 @@
   <ui:define name="body">
     <adm:initialize initializingMethod="#{marketableServicePublishCtrl.initializePublish}"/>
     <h:form id="editForm">
+      <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForSpecificDropDown(editForm:selectedServiceIdInner);</script>
       <adm:outputStep value="#{msg['service.edit.step1']}" />
         <adm:bootsfacesSelectMenu   id="selectedServiceId"
-                                    onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
                                     oncomplete="AdmUtils.setUIElements();"
                                     immediate="true"
                                     value="#{marketableServicePublishModel.selectedServiceKey}"
