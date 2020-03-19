@@ -97,7 +97,7 @@
                     </div>
                     <!-- Sorting select menu -->
                     <div class="col-auto">
-                        <h:selectOneMenu styleClass="sortingCombo" value="#{servicePagingBean.sorting}"
+                        <h:selectOneMenu styleClass="custom-select" value="#{servicePagingBean.sorting}"
                                          onchange="AdmUtils.selectDropDownOption(this, 'showListForm', 'sortingOrder', 'listButton');">
                             <c:forEach items="#{servicePagingBean.sortingCriteria}" var="key" varStatus="status">
                                 <c:set var="sortKey" value="catalog.sortorder.#{key}"/>
