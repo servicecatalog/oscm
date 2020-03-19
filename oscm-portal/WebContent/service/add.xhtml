@@ -14,16 +14,11 @@
     <h:form id="selectForm">
       <h:inputHidden id="selectedKey" value="#{serviceBean.selectedTechServiceKey}" />
     </h:form>
-
     <h:form id="editForm" enctype="multipart/form-data">
-
+      <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForDropDown();</script>
       <adm:outputStep value="#{msg['service.add.step1']}" />
       <adm:bootsfacesSelectMenu   id="techServiceId"
-                                  onclick="AdmUtils.storeValue(this);"
-                                  onchange="if(AdmUtils.isNotDirtyOrConfirmed())
-                                              {#{rich:element('selectedKey')}.value=this.options[this.selectedIndex].value;
-                                               #{rich:element('selectForm')}.submit();}
-                                            else{AdmUtils.restoreValue(this)}"
+                                  onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"
                                   value="#{serviceBean.selectedTechServiceKeyReadOnly}"
                                   label="#{msg['techService.techServiceId']}">
         <adm:selectItemPleaseSelect itemValue="0" />

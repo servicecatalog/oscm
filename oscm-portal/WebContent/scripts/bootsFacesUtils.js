@@ -5,12 +5,32 @@ var BootsFacesUtils = {
 };
 
 BootsFacesUtils.preventChangeSelectionForDropDown = function() {
-    $(document).on('select2:selecting',function (e) {
+    $(document).on('select2:selecting', function(e) {
        if (AdmUtils.isNotDirtyOrConfirmed()) {
-           AdmUtils.storeValue(this);
            $(document).off('select2:selecting');
        } else {
            e.preventDefault();
        }
     });
+}
+
+BootsFacesUtils.preventChangeSelectionForSpecificDropDown = function(item) {
+    var itemID = "[id='" + item + "']";
+      $(itemID).on('select2:selecting', function (e) {
+        if (AdmUtils.isNotDirtyOrConfirmed()) {
+           setDirty(false);
+        } else {
+            e.preventDefault();
+        }
+      });
+}
+
+BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
+       var i = element.selectedIndex;
+       var o = element.options[i];
+       var input = document.getElementById("selectForm:selectedKey");
+       if (input != null) {
+           input.value = o.value;
+       }
+       document.getElementById('selectForm').submit();
 }

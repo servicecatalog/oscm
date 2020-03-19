@@ -16,17 +16,12 @@
     <adm:initialize initializingMethod="#{deleteCustomerPriceModelCtrl.initialize}" />
 
     <h:form id="customerPriceModelDeleteForm">
-
-    <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2DirtyHandler.js" type="text/javascript"></script>
-
       <adm:outputStep value="#{msg['priceModel.customer.select']}" />
-
       <adm:bootsfacesSelectMenu   id="customerSelection"
-                                  onclick="AdmUtils.storeValue(this);"
+                                  onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
                                   value="#{deleteCustomerPriceModelModel.selectedOrgId}"
                                   disabled="#{deleteCustomerPriceModelCtrl.selectDisabled}"
-                                  oncomplete="AdmUtils.hideMessages();AdmUtils.setUIElements();"
-                                  immediate="true"
+                                  oncomplete="javascsript:AdmUtils.setUIElements();AdmUtils.hideMessages();"
                                   label="#{msg['priceModel.checkbox.customer.label']}">
         <f:ajax event="change" listener="#{deleteCustomerPriceModelCtrl.selectedOrgIdChanged}"
                 render="tablePanel" />
