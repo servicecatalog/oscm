@@ -13,7 +13,7 @@
     <c:set var="lastPage" value="#{servicePagingBean.lastVisiblePage}"/>
 
 
-    <div class="container">
+    <div class="container mb-1">
         <div class="row row justify-content-around">
             <div class="col-auto">
                 <div class="row">
@@ -28,7 +28,7 @@
                         </p>
                     </div>
                             <!--  Previous button -->
-                            <div class="col-auto">
+                            <div class="col-auto pr-0">
                                 <c:if test="#{servicePagingBean.previousAvailable}">
                                     <h:outputLink id="pagePrevious#{prefix}" styleClass="previous "
                                                   onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage - 1}';#{rich:element('selectPagingButton')}.click();return false;">
@@ -58,7 +58,7 @@
                                 </ul>
                             </div>
                             <!-- Next selection -->
-                            <div class="col-auto">
+                            <div class="col-auto pl-0">
                                 <c:if test="#{servicePagingBean.nextAvailable}">
                                     <h:outputLink styleClass="#{next} next "
                                                   onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage + 1}';#{rich:element('selectPagingButton')}.click();return false;"
