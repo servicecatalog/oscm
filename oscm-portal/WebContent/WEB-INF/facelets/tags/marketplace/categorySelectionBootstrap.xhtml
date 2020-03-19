@@ -37,7 +37,7 @@
                                 </li>
                             </c:if>
                             <c:if test="#{cat.categoryId ne categorySelectionBean.selectedCategoryId}">
-                                <li class="list-group-item list-group-item-action active">
+                                <li class="list-group-item list-group-item-action">
                                     <h:commandLink value="#{cat.displayName}"
                                                    action="#{categorySelectionBean.selectByCategory}"
                                                    actionListener="#{serviceListingBean.reloadData}">
@@ -48,17 +48,6 @@
                                     </h:commandLink>
                                 </li>
                             </c:if>
-
-                            <li class="list-group-item list-group-item-action">
-                                <h:commandLink value="#{cat.displayName}"
-                                               action="#{categorySelectionBean.selectByCategory}"
-                                               actionListener="#{serviceListingBean.reloadData}">
-                                    <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
-                                                                 value="#{cat.categoryId}"/>
-                                    <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
-                                                                 value="#{cat.displayName}"/>
-                                </h:commandLink>
-                            </li>
                         </c:forEach>
                     </ul>
                 </div>
