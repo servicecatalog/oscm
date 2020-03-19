@@ -24,7 +24,32 @@
                 <div>
                     <ul class="list-group">
                         <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
-                            <li class="list-group-item">
+                            <c:if test="cat.categoryId eq categorySelectionBean.selectedCategoryId">
+                                <li class="list-group-item list-group-item active">
+                                    <h:commandLink value="#{cat.displayName}"
+                                                   action="#{categorySelectionBean.selectByCategory}"
+                                                   actionListener="#{serviceListingBean.reloadData}">
+                                        <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
+                                                                     value="#{cat.categoryId}"/>
+                                        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
+                                                                     value="#{cat.displayName}"/>
+                                    </h:commandLink>
+                                </li>
+                            </c:if>
+                            <c:if test="cat.categoryId ne categorySelectionBean.selectedCategoryId">
+                                <li class="list-group-item list-group-item">
+                                    <h:commandLink value="#{cat.displayName}"
+                                                   action="#{categorySelectionBean.selectByCategory}"
+                                                   actionListener="#{serviceListingBean.reloadData}">
+                                        <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
+                                                                     value="#{cat.categoryId}"/>
+                                        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
+                                                                     value="#{cat.displayName}"/>
+                                    </h:commandLink>
+                                </li>
+                            </c:if>
+
+                            <li class="list-group-item list-group-item">
                                 <h:commandLink value="#{cat.displayName}"
                                                action="#{categorySelectionBean.selectByCategory}"
                                                actionListener="#{serviceListingBean.reloadData}">
