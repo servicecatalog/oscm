@@ -30,7 +30,7 @@
       <adm:outputStep value="#{msg['operator.exportBillingData']}" />
       <adm:panelGrid minColWidth="false" nowrap="true">
 
-        <adm:selectOrganization render="getBillingData" inline="true" />
+        <adm:selectOrganization render="billingDataButton" inline="true" />
 
         <adm:outputLabel value="#{msg['organization.billingData.from']}" required="true" />
         <rich:calendar id="fromDate" value="#{billingBean.fromDate}" popup="true" locale="#{userBean.myLocale}"
