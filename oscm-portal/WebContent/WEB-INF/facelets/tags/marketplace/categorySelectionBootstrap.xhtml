@@ -10,7 +10,7 @@
             <!-- Browse all services button container-->
             <div>
                 <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}" value="#{msg['button.browseAll']}"
-                class="btn btn-secondary btn-lg btn-block text-wrap">
+                class="btn-sm btn-secondary btn-lg btn-block text-wrap">
                     <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
                     <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
                     <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
