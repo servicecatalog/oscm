@@ -102,10 +102,7 @@
                     <!-- Sorting select menu -->
                     <div class="col-auto my-1">
                         <div class="row align-items-center">
-                            <div class="col-auto">
                                 <p class="m-0">Sort</p>
-                            </div>
-                            <div class="col-auto pl-0">
                                 <h:selectOneMenu styleClass="custom-select" value="#{servicePagingBean.sorting}"
                                                  onchange="AdmUtils.selectDropDownOption(this, 'showListForm', 'sortingOrder', 'listButton');">
                                     <c:forEach items="#{servicePagingBean.sortingCriteria}" var="key" varStatus="status">
@@ -113,7 +110,6 @@
                                         <f:selectItem id="sort#{prefix}#{key}" itemLabel="#{msg[sortKey]}" itemValue="#{key}"/>
                                     </c:forEach>
                                 </h:selectOneMenu>
-                            </div>
                         </div>
                     </div>
                 </div>
