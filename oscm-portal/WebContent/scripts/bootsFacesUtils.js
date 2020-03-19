@@ -16,7 +16,6 @@ BootsFacesUtils.preventChangeSelectionForDropDown = function() {
 
 BootsFacesUtils.preventChangeSelectionForSpecificDropDown = function(item) {
     var itemID = "[id='" + item + "']";
-    $(document).ready(function () {
       $(itemID).on('select2:selecting', function (e) {
         if (AdmUtils.isNotDirtyOrConfirmed()) {
            setDirty(false);
@@ -24,7 +23,6 @@ BootsFacesUtils.preventChangeSelectionForSpecificDropDown = function(item) {
             e.preventDefault();
         }
       });
-   });
 }
 
 BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
