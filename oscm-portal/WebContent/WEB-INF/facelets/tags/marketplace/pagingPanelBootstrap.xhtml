@@ -30,7 +30,7 @@
                     <!-- Select page container -->
                     <div class="row justify-content-around my-1">
                         <!--  Previous button -->
-                        <div class="col-auto pr-0">
+                        <div class="col-auto">
                             <c:if test="#{servicePagingBean.previousAvailable}">
                                 <h:outputLink id="pagePrevious#{prefix}" styleClass="btn btn-secondary text-white"
                                               onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage - 1}';#{rich:element('selectPagingButton')}.click();return false;">
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <!-- Next selection -->
-                        <div class="col-auto pl-0">
+                        <div class="col-auto">
                             <c:if test="#{servicePagingBean.nextAvailable}">
                                 <h:outputLink styleClass="btn btn-secondary text-white"
                                               onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage + 1}';#{rich:element('selectPagingButton')}.click();return false;"
@@ -90,10 +90,10 @@
                         <div class="col-auto">
                             <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
                                 <c:if test="#{size eq servicePagingBean.pageSize}">
-                                    <strong class="current">#{size}</strong>
+                                    <button type="button" class="btn btn-secondary text-white px-1" disabled="disabled">#{size}</button>
                                 </c:if>
                                 <c:if test="#{size ne servicePagingBean.pageSize}">
-                                    <h:outputLink styleClass="linkNormal" id="pagingSize#{prefix}#{size}" value=""
+                                    <h:outputLink styleClass="btn btn-secondary text-white px-1" id="pagingSize#{prefix}#{size}" value=""
                                                   onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
                                         #{size}
                                     </h:outputLink>
