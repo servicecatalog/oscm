@@ -36,7 +36,8 @@
                                     </h:outputLink>
                                 </c:if>
                                 <c:if test="#{not servicePagingBean.previousAvailable}">
-                                    <p id="previous#{prefix}" class="mb-0 previous disabled">#{msg['paging.previous']}</p>
+                                    <button id="previous#{prefix}" type="button" class="btn-sm btn-secondary btn-lg" disabled="disabled">#{msg['paging.previous']}</button>
+<!--                                    <p  class="mb-0 previous disabled">#{msg['paging.previous']}</p>-->
                                 </c:if>
                             </div>
                             <!-- Page selection -->
@@ -67,7 +68,8 @@
                                     </h:outputLink>
                                 </c:if>
                                 <c:if test="#{not servicePagingBean.nextAvailable}">
-                                    <p id="next#{prefix}" class="mb-0 next disabled">#{msg['paging.next']}</p>
+                                    <button id="next#{prefix}" type="button" class="btn-sm btn-secondary btn-lg" disabled="disabled">#{msg['paging.next']}</button>
+<!--                                    <p id="next#{prefix}" class="mb-0 next disabled">#{msg['paging.next']}</p>-->
                                 </c:if>
                             </div>
                 </div>
