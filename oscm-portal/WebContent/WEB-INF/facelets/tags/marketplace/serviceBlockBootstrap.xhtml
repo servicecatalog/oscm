@@ -65,7 +65,7 @@
                             <mp:servicePrice styleClass="servicePriceDetails" service="#{service}"/>
                         </div>
                         <div class="col-sm-auto">
-                            <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="button linkBtn"
+                            <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="btn btn-outline-secondary"
                                     value="#{msg['button.showDetails']}" onclick="AdmUtils.showProgress(true);">
                                 <f:param name="selectedServiceKey" value="#{service.key}"/>
                             </h:link>
