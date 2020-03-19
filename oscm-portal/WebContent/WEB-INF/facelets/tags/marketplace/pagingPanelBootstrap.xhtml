@@ -16,7 +16,7 @@
     <div class="container mb-1 border-bottom border-top">
         <div class="row justify-content-around">
             <div class="col-auto">
-                <div class="row">
+                <div class="row align-items-center">
                     <!--  Number of services and filter tag info -->
                     <div class="col-auto">
                         <p id="listInfo#{prefix}" class="mb-0">
@@ -38,7 +38,7 @@
                                 </h:outputLink>
                             </c:if>
                             <c:if test="#{not servicePagingBean.previousAvailable}">
-                                <button id="previous#{prefix}" type="button" class="btn-sm btn-secondary text-white" disabled="disabled"><i class="fa fa-arrow-left"></i> #{msg['paging.previous']}</button>
+                                <button id="previous#{prefix}" type="button" class="btn btn-secondary text-white" disabled="disabled"><i class="fa fa-arrow-left"></i> #{msg['paging.previous']}</button>
                                 <!--                                    <p  class="mb-0 previous disabled">#{msg['paging.previous']}</p>-->
                             </c:if>
                         </div>
@@ -79,9 +79,9 @@
             </div>
             <!-- Right menu container -->
             <div class="col-auto">
-                <div class="row justify-content-end">
+                <div class="row">
                     <!-- Page size container -->
-                    <div class="row">
+                    <div class="row align-items-center">
                         <!-- Show p -->
                         <div class="col-auto">
                             <p class="mb-0">#{msg['paging.show']}</p>
