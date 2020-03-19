@@ -38,7 +38,7 @@
                 </h:outputLink>
               </c:if>
               <c:if test="#{not servicePagingBean.previousAvailable}">
-                <button id="previous#{prefix}" type="button" class="btn btn-secondary text-white" disabled="disabled"><i
+                <button id="previous#{prefix}" type="button" class="btn btn-outline-secondary" disabled="disabled"><i
                     class="fa fa-arrow-left"></i> #{msg['paging.previous']}
                 </button>
                 <!--                                    <p  class="mb-0 previous disabled">#{msg['paging.previous']}</p>-->
@@ -50,7 +50,7 @@
                 <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
                   <!-- Current page -->
                   <c:if test="#{selpage eq servicePagingBean.selectedPage}">
-                    <button type="button" class="btn btn-secondary text-white px-1 mr-1" disabled="disabled">
+                    <button type="button" class="btn btn-outline-secondary px-1 mr-1" disabled="disabled">
                       #{selpage}
                     </button>
                   </c:if>
@@ -96,7 +96,7 @@
             <div class="col-auto pl-0">
               <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
                 <c:if test="#{size eq servicePagingBean.pageSize}">
-                  <button type="button" class="btn btn-secondary text-white px-1 mr-1" disabled="disabled">#{size}
+                  <button type="button" class="btn btn-outline-secondary px-1 mr-1" disabled="disabled">#{size}
                   </button>
                 </c:if>
                 <c:if test="#{size ne servicePagingBean.pageSize}">
