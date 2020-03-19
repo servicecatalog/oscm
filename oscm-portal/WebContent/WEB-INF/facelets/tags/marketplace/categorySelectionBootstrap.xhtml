@@ -24,7 +24,7 @@
                 <div>
                     <ul class="list-group">
                         <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
-                            <c:if test="cat.categoryId eq categorySelectionBean.selectedCategoryId">
+                            <c:if test="#{cat.categoryId eq categorySelectionBean.selectedCategoryId}">
                                 <li class="list-group-item list-group-item-action active">
                                     <h:commandLink value="#{cat.displayName}"
                                                    action="#{categorySelectionBean.selectByCategory}"
@@ -36,7 +36,7 @@
                                     </h:commandLink>
                                 </li>
                             </c:if>
-                            <c:if test="cat.categoryId ne categorySelectionBean.selectedCategoryId">
+                            <c:if test="#{cat.categoryId ne categorySelectionBean.selectedCategoryId}">
                                 <li class="list-group-item list-group-item-action active">
                                     <h:commandLink value="#{cat.displayName}"
                                                    action="#{categorySelectionBean.selectByCategory}"
