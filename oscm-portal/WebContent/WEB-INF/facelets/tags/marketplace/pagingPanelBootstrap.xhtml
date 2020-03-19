@@ -93,23 +93,25 @@
                                     <button type="button" class="btn btn-secondary text-white px-1" disabled="disabled">#{size}</button>
                                 </c:if>
                                 <c:if test="#{size ne servicePagingBean.pageSize}">
-                                    <h:outputLink styleClass="btn btn-secondary text-white px-1" id="pagingSize#{prefix}#{size}" value=""
-                                                  onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">#{size}
-                                    </h:outputLink>
+                                    <h:outputLink styleClass="btn btn-secondary text-white px-1 mr-1" id="pagingSize#{prefix}#{size}" value=""
+                                                  onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">#{size}</h:outputLink>
                                 </c:if>
                             </c:forEach>
-                        </div>w
+                        </div>
                     </div>
 
                     <!-- Sorting select menu -->
                     <div class="col-auto my-1">
-                        <h:selectOneMenu styleClass="custom-select" value="#{servicePagingBean.sorting}"
-                                         onchange="AdmUtils.selectDropDownOption(this, 'showListForm', 'sortingOrder', 'listButton');">
-                            <c:forEach items="#{servicePagingBean.sortingCriteria}" var="key" varStatus="status">
-                                <c:set var="sortKey" value="catalog.sortorder.#{key}"/>
-                                <f:selectItem id="sort#{prefix}#{key}" itemLabel="#{msg[sortKey]}" itemValue="#{key}"/>
-                            </c:forEach>
-                        </h:selectOneMenu>
+                        <div class="row">
+                            <p>Sort</p>
+                            <h:selectOneMenu styleClass="custom-select" value="#{servicePagingBean.sorting}"
+                                             onchange="AdmUtils.selectDropDownOption(this, 'showListForm', 'sortingOrder', 'listButton');">
+                                <c:forEach items="#{servicePagingBean.sortingCriteria}" var="key" varStatus="status">
+                                    <c:set var="sortKey" value="catalog.sortorder.#{key}"/>
+                                    <f:selectItem id="sort#{prefix}#{key}" itemLabel="#{msg[sortKey]}" itemValue="#{key}"/>
+                                </c:forEach>
+                            </h:selectOneMenu>
+                        </div>
                     </div>
                 </div>
             </div>
