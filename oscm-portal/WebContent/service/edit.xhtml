@@ -9,7 +9,7 @@
   <ui:define name="pageId">
     <c:set var="localizeVisible" value="#{serviceBean.localizeVisible}" />
     <c:set var="pageId" value="${localizeVisible ? 'service.localize' : 'service.edit'}"  />
-    <c:set var="focusElement" value="selectedServiceId" />
+    <c:set var="focusElementID" value="editForm:selectedServiceIdInner" />
     <c:set var="dirty" value="false" />
   </ui:define>
 
