@@ -58,14 +58,14 @@
             <!-- Stars, price, details button container -->
             <div class="col-xl-3 col-lg-12">
                     <div class="row justify-content-around">
-                        <div class="col-sm-auto">
+                        <div class="col-sm-6 col-md-auto">
                             <mp:ratingStars reviewCount="#{service.reviewCount}" rating="#{service.rating}"/>
                         </div>
-                        <div class="col-sm-auto">
+                        <div class="col-sm-6 col-md-auto">
                             <mp:servicePrice styleClass="servicePriceDetails" service="#{service}"/>
                         </div>
-                        <div class="col-sm-auto">
-                            <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="btn btn-outline-secondary"
+                        <div class="col-sm-12 col-md-auto">
+                            <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="btn btn-outline-secondary btn-block"
                                     value="#{msg['button.showDetails']}" onclick="AdmUtils.showProgress(true);">
                                 <f:param name="selectedServiceKey" value="#{service.key}"/>
                             </h:link>
