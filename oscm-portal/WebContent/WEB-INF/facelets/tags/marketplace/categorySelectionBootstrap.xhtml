@@ -24,7 +24,7 @@
                 <div class="list-group">
                         <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
                             <c:if test="#{cat.categoryId eq categorySelectionBean.selectedCategoryId}">
-                                    <h:commandLink value="#{cat.displayName}" styleClass="list-group-item list-group-item-action list-group-item-secondary active text-white"
+                                    <h:commandLink value="#{cat.displayName}" styleClass="list-group-item list-group-item-action list-group-item-secondary active"
                                                    action="#{categorySelectionBean.selectByCategory}"
                                                    actionListener="#{serviceListingBean.reloadData}">
                                         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
