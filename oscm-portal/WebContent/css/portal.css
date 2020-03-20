@@ -2428,6 +2428,14 @@ table.dataTable > tbody > td:hover {
     border: 0;
 }
 
+iframe {
+    margin: none;
+    padding: none;
+    border: none;
+    line-height: 0;
+    float: left; 
+}
+
 
 .responsive_img {
     max-width: 100%;
