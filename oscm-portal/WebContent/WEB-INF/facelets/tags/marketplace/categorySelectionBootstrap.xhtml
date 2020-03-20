@@ -38,9 +38,9 @@
                                     <h:commandLink styleClass="list-group-item list-group-item-action text-center text-lg-left"
                                                    action="#{categorySelectionBean.selectByCategory}"
                                                    actionListener="#{serviceListingBean.reloadData}">
-                                      <p>
+                                      <small class="test">
                                         #{cat.displayName}
-                                      </p>
+                                      </small>
                                         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
                                                                      value="#{cat.categoryId}"/>
                                         <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
