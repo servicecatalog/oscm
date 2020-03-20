@@ -4,13 +4,38 @@
 
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
-                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/bootsFacesUtils.js" type="text/javascript"></script>
+
+    <c:if test="#{not empty firstErrorElement or not empty focusElementID}">
+        <c:set var="elementId"
+               value="#{(not empty firstErrorElement)?firstErrorElement:focusElementID}" />
+        <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(){
+            var element = document.getElementById('#{elementId}');
+            try { element.focus();
+                  document.getElementById('contentPanelDiv').scrollIntoView(true);
+                } catch (e) {/* if the element cannot get the focus, ignore it */}
+
+            var elementClicked = false;
+            $(document).on('select2:opening', function(e) {
+	            elementClicked = true;
+	            AdmUtils.setFocus(element, false);
+	            AdmUtils.setFocus(e.target, true);
+	        });
+            document.addEventListener('click', function() {
+                if(!elementClicked) {
+                    AdmUtils.setFocus(element, false);
+                }
+            });
+		 });
+	     </script>
+    </c:if>
 
     <adm:panelGrid>
     <adm:outputLabel value="#{label}" />
     <h:panelGroup>
-        <script src="#{facesContext.externalContext.requestContextPath}/scripts/select2FocusHandler.js" type="text/javascript"></script>
-
         <b:selectOneMenu select2="true" styleClass="select" id="#{id}" onchange="#{onchange}" onclick="#{onclick}"
                          immediate="#{immediate}" oncomplete="#{oncomplete}" value="#{value}" disabled="#{disabled}">
           <ui:insert/>
