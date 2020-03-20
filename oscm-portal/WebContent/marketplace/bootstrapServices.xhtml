@@ -19,7 +19,9 @@
 	<div class="row mt-4 mx-2">
 		<div class="col-lg-2 pr-0">
 			<mp:categorySelectionBootstrap/>
-			<mp:tagCloud bean="#{tagCloudBean}" />
+			<c:if test="#{tagCloudBean.tags.size() ne 0}">
+				<mp:tagCloud bean="#{tagCloudBean}" />
+			</c:if>
 		</div>
 		<div class="col-lg-10">
 			<!-- Paging header (not available if list is empty, and not yet for search results) -->
