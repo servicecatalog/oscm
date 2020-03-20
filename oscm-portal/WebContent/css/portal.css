@@ -2409,7 +2409,7 @@ table.dataTable > tbody > td:hover {
     height: 0;   
 }
 
-.responsive-iframe {
+.responsive-container iframe {
     position: absolute;
     top: 0;
     left: 0;
