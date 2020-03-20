@@ -27,12 +27,12 @@
                 <div class="col-lg-9">
                     <!-- Image, title, supplier container -->
                     <div class="col-auto">
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-auto">
                                 <h:graphicImage id="#{fieldId}Image"
                                                 value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
                             </div>
-                            <div class="col">
+                            <div class="col-8 col-lg pl-sm-1 pr-sm-0">
                                 <ui:fragment rendered="#{service ne null}">
                                     <ui:fragment rendered="#{showName}">
                                         <h2 id="#{fieldId}Name" class="box_title shortenedText"
