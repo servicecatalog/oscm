@@ -35,10 +35,12 @@
                                     </h:commandLink>
                             </c:if>
                             <c:if test="#{cat.categoryId ne categorySelectionBean.selectedCategoryId}">
-                                    <h:commandLink value="#{cat.displayName}"
-                                                   styleClass="list-group-item list-group-item-action text-center text-lg-left"
+                                    <h:commandLink styleClass="list-group-item list-group-item-action text-center text-lg-left"
                                                    action="#{categorySelectionBean.selectByCategory}"
                                                    actionListener="#{serviceListingBean.reloadData}">
+                                      <p>
+                                        #{cat.displayName}
+                                      </p>
                                         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
                                                                      value="#{cat.categoryId}"/>
                                         <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
