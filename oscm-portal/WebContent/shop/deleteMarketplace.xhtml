@@ -2,13 +2,13 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  template="../templates/main.xhtml">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" template="../templates/mainBootsfaces.xhtml">
+
   <ui:define name="pageId">
     <c:set var="dirty" value="false" />
     <c:set var="pageId" value="marketplace.delete" />
-    <c:set var="focusElement" value="marketplaceSelectForm:selectMarketplaceId" />
+    <c:set var="focusElementID" value="marketplaceSelectForm:selectMarketplaceIdInner" />
   </ui:define>
   <ui:define name="body">
     <adm:outputStep value="#{msg['marketplace.select']}" />

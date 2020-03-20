@@ -32,6 +32,31 @@
         })" />
   </c:if>
 
+  <c:if test="#{not empty firstErrorElement or not empty focusElementID}">
+    <c:set var="elementId"
+           value="#{(not empty firstErrorElement)?firstErrorElement:focusElementID}" />
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(){
+            var element = document.getElementById('#{elementId}');
+            try { element.focus();
+                  document.getElementById('contentPanelDiv').scrollIntoView(true);
+                } catch (e) {/* if the element cannot get the focus, ignore it */}
+
+            var elementClicked = false;
+            $(document).on('select2:opening', function(e) {
+	            elementClicked = true;
+	            AdmUtils.setFocus(element, false);
+	            AdmUtils.setFocus(e.target, true);
+	        });
+            document.addEventListener('click', function() {
+                if(!elementClicked) {
+                    AdmUtils.setFocus(element, false);
+                }
+            });
+		 });
+	     </script>
+  </c:if>
+
   <adm:initialize initializingMethod="#{appBean.userLocaleUpdated}" />
   <div id="mainContainer">
     <div style="left: 0px; right: 0px; top: 0px; height: 34px;">
