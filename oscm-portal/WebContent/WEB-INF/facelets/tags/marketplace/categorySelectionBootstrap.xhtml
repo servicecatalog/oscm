@@ -25,7 +25,7 @@
                         <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
                             <c:if test="#{cat.categoryId eq categorySelectionBean.selectedCategoryId}">
                                     <h:commandLink value="#{cat.displayName}"
-                                                   styleClass="list-group-item list-group-item-action list-group-item-secondary active text-sm-center text-lg-left"
+                                                   styleClass="list-group-item list-group-item-action list-group-item-secondary active text-center text-lg-left"
                                                    action="#{categorySelectionBean.selectByCategory}"
                                                    actionListener="#{serviceListingBean.reloadData}">
                                         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
@@ -36,7 +36,7 @@
                             </c:if>
                             <c:if test="#{cat.categoryId ne categorySelectionBean.selectedCategoryId}">
                                     <h:commandLink value="#{cat.displayName}"
-                                                   styleClass="list-group-item list-group-item-action text-sm-center text-lg-left"
+                                                   styleClass="list-group-item list-group-item-action text-center text-lg-left"
                                                    action="#{categorySelectionBean.selectByCategory}"
                                                    actionListener="#{serviceListingBean.reloadData}">
                                         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
