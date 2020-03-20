@@ -35,7 +35,7 @@
 			<!-- Paging footer (not available if list is empty, and not yet for search results) -->
 			<c:if test="#{((fn:length(serviceListingBean.serviceList)) gt 0) &amp;&amp; (not servicePagingBean.searchRequested)}">
 				<!-- Lower paging control -->
-				<mp:pagingPanel generateForm="false" prefix="Down" />
+				<mp:pagingPanelBootstrap generateForm="false" prefix="Down" />
 			</c:if>
 		</div>
 	</div>
