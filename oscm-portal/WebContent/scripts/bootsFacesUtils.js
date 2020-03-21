@@ -34,9 +34,3 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
        }
        document.getElementById('selectForm').submit();
 }
-
-
-BootsFacesUtils.focusLabelNextToDropDown = function(tagName) {
-    var element = document.getElementsByTagName(tagName);
-    AdmUtils.initFocus(element);
-});
