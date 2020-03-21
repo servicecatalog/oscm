@@ -6,18 +6,12 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
-    <script type="text/javascript">
-      $(document).ready(function() {
-        var element = document.getElementsByTagName("adm:bootsfacesSelectMenu");
-        AdmUtils.initFocus(element);
-      });
-    </script>
-
     <adm:panelGrid>
     <adm:outputLabel value="#{label}" />
     <h:panelGroup>
         <b:selectOneMenu select2="true" styleClass="select" id="#{id}" onchange="#{onchange}" onclick="#{onclick}"
-                         immediate="#{immediate}" oncomplete="#{oncomplete}" value="#{value}" disabled="#{disabled}">
+                         immediate="#{immediate}" oncomplete="#{oncomplete}" value="#{value}" disabled="#{disabled}"
+                         onblur="AdmUtils.setFocus(this, false)" onfocus="AdmUtils.setFocus(this, true)">
           <ui:insert/>
         </b:selectOneMenu>
     </h:panelGroup>
