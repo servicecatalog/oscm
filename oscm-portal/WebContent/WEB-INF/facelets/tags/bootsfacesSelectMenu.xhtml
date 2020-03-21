@@ -8,13 +8,17 @@
 
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function(){
-           var itemID = document.getElementsByTagName("adm:bootsfacesSelectMenu");
-            $(itemID).on('focus', function (e) {
-                AdmUtils.setFocus(this, true)
-            });
-            $(itemID).on('blur', function (e) {
-                AdmUtils.setFocus(this, false)
-            });
+            var element = document.getElementByTagName("adm:bootsfacesSelectMenu");
+            var elementClicked = false;
+            $(document).on('select2:opening', function(e) {
+	            elementClicked = true;
+	            AdmUtils.setFocus(element, false);
+	            AdmUtils.setFocus(e.target, true);
+	        });
+            document.addEventListener('click', function() {
+                if(!elementClicked) {
+                    AdmUtils.setFocus(element, false);
+                }
 		 });
 	</script>
 
@@ -22,8 +26,7 @@
     <adm:outputLabel value="#{label}" />
     <h:panelGroup>
         <b:selectOneMenu select2="true" styleClass="select" id="#{id}" onchange="#{onchange}" onclick="#{onclick}"
-                         immediate="#{immediate}" oncomplete="#{oncomplete}" value="#{value}" disabled="#{disabled}"
-                         onblur="AdmUtils.setFocus(this, false)" onfocus="AdmUtils.setFocus(this, true)">
+                         immediate="#{immediate}" oncomplete="#{oncomplete}" value="#{value}" disabled="#{disabled}">
           <ui:insert/>
         </b:selectOneMenu>
     </h:panelGroup>
