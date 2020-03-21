@@ -6,6 +6,18 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(){
+           var itemID = document.getElementsByTagName("adm:bootsfacesSelectMenu");
+            $(itemID).on('focus', function (e) {
+                AdmUtils.setFocus(this, true)
+            });
+            $(itemID).on('blur', function (e) {
+                AdmUtils.setFocus(this, false)
+            });
+		 });
+	</script>
+
     <adm:panelGrid>
     <adm:outputLabel value="#{label}" />
     <h:panelGroup>
