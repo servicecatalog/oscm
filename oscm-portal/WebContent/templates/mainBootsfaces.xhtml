@@ -22,40 +22,29 @@
 </h:head>
 
 <h:body class="mainBg">
-  <c:if test="#{not empty firstErrorElement or not empty focusElement}">
-    <c:set var="elementId"
-      value="#{(not empty firstErrorElement)?firstErrorElement:(empty rich:clientId(focusElement)?focusElement:(rich:clientId(focusElement)))}" />
-    <rich:jQuery selector="document"
-      query="ready(function(){
-          var element = document.getElementById('#{elementId}');
-          try {element.focus();document.getElementById('contentPanelDiv').scrollIntoView(true);} catch (e) {/* if the element cannot get the focus, ignore it */}
-        })" />
-  </c:if>
-
-  <c:if test="#{not empty firstErrorElement or not empty focusElementID}">
-    <c:set var="elementId"
-           value="#{(not empty firstErrorElement)?firstErrorElement:focusElementID}" />
-    <script type="text/javascript">
+  <c:choose>
+    <c:when test="#{not empty focusElementID}">
+      <c:set var="elementId"
+             value="#{focusElementID}" />
+      <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function(){
             var element = document.getElementById('#{elementId}');
             try { element.focus();
                   document.getElementById('contentPanelDiv').scrollIntoView(true);
                 } catch (e) {/* if the element cannot get the focus, ignore it */}
-
-            var elementClicked = false;
-            $(document).on('select2:opening', function(e) {
-	            elementClicked = true;
-	            AdmUtils.setFocus(element, false);
-	            AdmUtils.setFocus(e.target, true);
-	        });
-            document.addEventListener('click', function() {
-                if(!elementClicked) {
-                    AdmUtils.setFocus(element, false);
-                }
-            });
 		 });
 	     </script>
-  </c:if>
+    </c:when>
+    <c:when test="#{not empty firstErrorElement or not empty focusElement}">
+      <c:set var="elementId"
+             value="#{(not empty firstErrorElement)?firstErrorElement:(empty rich:clientId(focusElement)?focusElement:(rich:clientId(focusElement)))}" />
+      <rich:jQuery selector="document"
+                   query="ready(function(){
+          var element = document.getElementById('#{elementId}');
+          try {element.focus();document.getElementById('contentPanelDiv').scrollIntoView(true);} catch (e) {/* if the element cannot get the focus, ignore it */}
+        })" />
+    </c:when>
+  </c:choose>
 
   <adm:initialize initializingMethod="#{appBean.userLocaleUpdated}" />
   <div id="mainContainer">
