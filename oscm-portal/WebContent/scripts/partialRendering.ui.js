@@ -20,7 +20,6 @@
       var status = data.status;
 
       if(!status){
-        console.log("If data status is wrong" + getIdsToUpdate(data.responseXML));
         return true;
       }
 
@@ -28,7 +27,6 @@
 
         switch(status){
           case 'success':
-            console.log("For success case");
             onSuccess(getIdsToUpdate(data.responseXML));
             break;
         }

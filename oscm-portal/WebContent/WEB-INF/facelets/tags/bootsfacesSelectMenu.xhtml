@@ -7,6 +7,12 @@
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
     <adm:panelGrid>
+       <script type="text/javascript">
+        function() {
+            var element = document.getElementsByTagName("adm:bootsfacesSelectMenu");
+            AdmUtils.initFocus(element);
+        }
+      </script>
     <adm:outputLabel value="#{label}" />
     <h:panelGroup>
         <b:selectOneMenu select2="true" styleClass="select" id="#{id}" onchange="#{onchange}" onclick="#{onclick}"
