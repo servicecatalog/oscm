@@ -7,7 +7,7 @@
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function(){
+        $(document).ready(function() {
             var element = document.getElementByTagName("adm:bootsfacesSelectMenu");
             alert(element);
             var elementClicked = false;
@@ -17,7 +17,6 @@
 	            AdmUtils.setFocus(e.target, true);
 	        });
             document.addEventListener('click', function() {
-                        alert("event");
                 if(!elementClicked) {
                     AdmUtils.setFocus(element, false);
                 }
