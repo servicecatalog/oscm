@@ -1,4 +1,4 @@
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", function(){
             var elements = document.getElementsByClassName("select2-selection__rendered");
             var elementClicked = false;
             $(document).on('select2-opening', function(e) {
@@ -13,6 +13,5 @@ $(document).ready(function () {
                     for (var i = 0; i < elements.length; i++) {
                         AdmUtils.setFocus(elements[i], false);
                     }}
-                elementClicked = false;
 		    });
 		 });
