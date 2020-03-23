@@ -8,7 +8,7 @@
 
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function(){
-            $(document).on('select2:opening', '.select2style', function (e) {
+            $(document).on('select2:opening', function (e) {
 		        AdmUtils.setFocus(e.target,true);
 		    });
             $(document).on('blur', '.select2-selection--single', function (e) {
