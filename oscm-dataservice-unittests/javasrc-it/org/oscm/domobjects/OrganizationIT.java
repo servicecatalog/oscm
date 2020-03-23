@@ -1636,7 +1636,7 @@ public class OrganizationIT extends DomainObjectTestBase {
       }
     }
     // Then
-    assertEquals(2, found);
+    assertEquals(1, found);
   }
 
   private void deleteOrganization() {
