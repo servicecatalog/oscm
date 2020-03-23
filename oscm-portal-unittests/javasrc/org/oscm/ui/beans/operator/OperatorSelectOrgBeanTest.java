@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,14 +31,13 @@ import org.mockito.Matchers;
 import org.oscm.internal.intf.OperatorService;
 import org.oscm.internal.vo.VOOperatorOrganization;
 import org.oscm.ui.beans.ApplicationBean;
-import org.oscm.ui.beans.SelectOrganizationIncludeBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.UiDelegate;
 
 /** @author ZhouMin */
 public class OperatorSelectOrgBeanTest {
   private VOOperatorOrganization org;
-  private OperatorSelectOrgBean bean;
+  private OperatorSelectOrgCtrl bean;
   private final ApplicationBean appBean = mock(ApplicationBean.class);
   private final OperatorService operatorService = mock(OperatorService.class);
   private HttpServletRequest request;
@@ -46,7 +46,7 @@ public class OperatorSelectOrgBeanTest {
   public void setup() throws Exception {
     request = mock(HttpServletRequest.class);
     bean =
-        new OperatorSelectOrgBean() {
+        new OperatorSelectOrgCtrl() {
 
           private static final long serialVersionUID = -9126265695343363133L;
 
@@ -61,15 +61,18 @@ public class OperatorSelectOrgBeanTest {
           }
         };
     bean = spy(bean);
-
+    HttpSession s = mock(HttpSession.class);
+    doReturn(s).when(request).getSession();
+    
     org = new VOOperatorOrganization();
     org.setOrganizationId("organizationId");
+    doReturn(org.getOrganizationId()).when(s).getAttribute(eq("organizationId"));
     when(operatorService.getOrganization(anyString())).thenReturn(org);
     bean.ui = mock(UiDelegate.class);
-    when(bean.ui.findBean(eq(OperatorSelectOrgBean.APPLICATION_BEAN))).thenReturn(appBean);
+    bean.setModel(new OperatorSelectOrgModel());
+    bean.init();
+    when(bean.ui.findBean(eq(OperatorSelectOrgCtrl.APPLICATION_BEAN))).thenReturn(appBean);
     when(bean.getApplicationBean()).thenReturn(appBean);
-
-    bean.setSelectOrganizationIncludeBean(new SelectOrganizationIncludeBean());
   }
 
   @Test
@@ -93,7 +96,7 @@ public class OperatorSelectOrgBeanTest {
   public void suggestOrg() throws Exception {
     // given
     org.setName("organizationName");
-      
+
     doReturn("SUPPLIER").when(request).getParameter(eq(Constants.REQ_PARAM_ORGANIZATION_ROLE_TYPE));
     bean.setOrganizationId("orgId");
 
@@ -101,7 +104,6 @@ public class OperatorSelectOrgBeanTest {
     Map<String, String> res = bean.getSuggestedOrgs();
 
     // then
-    verify(operatorService, times(1)).getOrganizationIdentifiers(Matchers.any());
-    
+    verify(operatorService, times(2)).getOrganizationIdentifiers(Matchers.any());
   }
 }

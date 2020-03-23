@@ -38,6 +38,8 @@ public class OperatorSelectOrgModel extends BaseOperatorBean implements Serializ
 
   private String organizationId = null;
 
+  private boolean initialized;
+
   public VOOperatorOrganization getOrganization() {
     return operatorOrg;
   }
@@ -78,5 +80,13 @@ public class OperatorSelectOrgModel extends BaseOperatorBean implements Serializ
 
   public VOOperatorOrganization getExistingOrganization() {
     return existingOrg;
+  }
+
+  public boolean isInitialized() {
+    return initialized;
+  }
+
+  public void setInitialized(boolean initialized) {
+    this.initialized = initialized;
   }
 }

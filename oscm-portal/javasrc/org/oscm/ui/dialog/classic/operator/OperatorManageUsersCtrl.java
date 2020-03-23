@@ -24,7 +24,14 @@ import javax.faces.bean.ViewScoped;
 
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
-import org.oscm.internal.types.exception.*;
+import org.oscm.internal.types.exception.MailOperationException;
+import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.types.exception.OperationNotPermittedException;
+import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
+import org.oscm.internal.types.exception.OrganizationRemovedException;
+import org.oscm.internal.types.exception.SaaSApplicationException;
+import org.oscm.internal.types.exception.SaaSSystemException;
+import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.usermanagement.POUserAndOrganization;
 import org.oscm.internal.usermanagement.UserManagementService;
 import org.oscm.internal.vo.VOConfigurationSetting;
@@ -35,7 +42,7 @@ import org.oscm.types.constants.Configuration;
 import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.BaseBean;
 import org.oscm.ui.beans.operator.BaseOperatorBean;
-import org.oscm.ui.beans.operator.OperatorSelectOrgBean;
+import org.oscm.ui.beans.operator.OperatorSelectOrgCtrl;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.PartHandler;
 import org.oscm.ui.model.Marketplace;
@@ -288,7 +295,7 @@ public class OperatorManageUsersCtrl extends BaseOperatorBean implements Seriali
     }
 
     String getSelectedOrganization() {
-        return ((OperatorSelectOrgBean) ui.findBean("operatorSelectOrgBean")).getOrganizationId();
+        return ((OperatorSelectOrgCtrl) ui.findBean("operatorSelectOrgCtrl")).getOrganizationId();
     }
 
     List<Marketplace> getSelectableMarketplaces() {

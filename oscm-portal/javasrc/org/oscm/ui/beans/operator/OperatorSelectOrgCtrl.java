@@ -22,9 +22,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.event.AjaxBehaviorEvent;
 
-import org.apache.commons.lang3.StringUtils;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.types.exception.SaaSSystemException;
@@ -38,7 +37,11 @@ import org.oscm.ui.model.Organization;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-/** Controller to select an organization to perform operator tasks on it. */
+/**
+ * Controller to select an organization for performing operator tasks.
+ *
+ * @author goebel
+ */
 @ManagedBean(name = "operatorSelectOrgCtrl")
 @ViewScoped
 public class OperatorSelectOrgCtrl extends BaseOperatorBean implements Serializable {
@@ -52,35 +55,35 @@ public class OperatorSelectOrgCtrl extends BaseOperatorBean implements Serializa
 
   @PostConstruct
   public void init() {
-    OperatorSelectOrgModel m = model;
-    initSelectedOrganizationId();
+    if (!model.isInitialized()) {
+      OperatorSelectOrgModel m = model;
+      initializeModel(m);
+      model.setInitialized(true);
+    }
+  }
+
+  void initializeModel(OperatorSelectOrgModel m) {
+    String id = (String) getRequest().getSession().getAttribute("organizationId");
+    String selected = (id != null) ? id : getUserFromSession().getOrganizationId();
+    reloadOrganization(selected);
     Map<String, String> orgs = getSuggestedOrgs();
     m.setSuggestedOrgs(orgs);
   }
 
-  void initSelectedOrganizationId() {
-    OperatorSelectOrgModel m = model;
-    String id = (String) getRequest().getSession().getAttribute("SelectedOrgId");
-    String selected = (id != null) ? id : getUserFromSession().getOrganizationId();
-
-    selectOrganizationAction(selected);
-  }
-
   public void setExistingOrganization(VOOperatorOrganization existingOrgInDB) {
-    VOOperatorOrganization clone = deepCopy(existingOrgInDB);
-    model.setExistingOrganization(clone);
+    model.setExistingOrganization(deepCopy(existingOrgInDB, VOOperatorOrganization.class));
   }
 
-  private VOOperatorOrganization deepCopy(VOOperatorOrganization org) {
-
+  private <T> T deepCopy(Object obj, Class<T> clazz) {
     try {
       ObjectMapper om = new ObjectMapper();
-      String s = om.writeValueAsString(org);
-
-      VOOperatorOrganization deepCopy = om.readValue(s, VOOperatorOrganization.class);
-      return deepCopy;
+      if (clazz.isAssignableFrom(obj.getClass())) {
+        T t = clazz.cast(obj);
+        final String s = om.writeValueAsString(obj);
+        return clazz.cast(om.readValue(s, t.getClass()));
+      }
+      throw new AssertionError("Cannot cast " + obj.getClass().getName());
     } catch (IOException e) {
-
       throw new SaaSSystemException(e);
     }
   }
@@ -93,7 +96,6 @@ public class OperatorSelectOrgCtrl extends BaseOperatorBean implements Serializa
 
   transient ApplicationBean appBean;
 
-  /** Sort organization labels alphabetically in locale-sensitive order. */
   private class OrgComparator implements Comparator<Organization> {
     Collator collator = Collator.getInstance();
 
@@ -103,15 +105,15 @@ public class OperatorSelectOrgCtrl extends BaseOperatorBean implements Serializa
     }
   }
 
-  void reloadOrganization(String id) throws SaaSApplicationException {
+  private void reloadOrganizationIntern(String id) throws SaaSApplicationException {
     VOOperatorOrganization org = getOperatorService().getOrganization(id);
-
     if (org.getLocale() != null) {
       getApplicationBean().checkLocaleValidation(org.getLocale());
     }
     model.setOrganization(org);
     setExistingOrganization(org);
     model.setOrganizationId(id);
+    getRequest().getSession().setAttribute("organizationId", id);
   }
 
   public String getOrganizationId() {
@@ -121,23 +123,18 @@ public class OperatorSelectOrgCtrl extends BaseOperatorBean implements Serializa
   public void setOrganizationId(String id) {
     if (id != null) {
       if (!id.equals(model.getOrganizationId())) {
-        selectOrganizationAction(id);
+        reloadOrganization(id);
       }
     }
   }
 
-  public void selectOrganizationAction(ValueChangeEvent e) {
-    String id = (String) e.getNewValue();
-    String oldId = (String) e.getOldValue();
-    if (StringUtils.isNotBlank(id) && !id.equals(oldId)) {
-      model.setOrganizationId(id);
-      selectOrganizationAction(id);
-    }
+  public void selectOrganizationAction(AjaxBehaviorEvent e) {
+    reloadOrganization(model.getOrganizationId());
   }
 
-  public void selectOrganizationAction(String id) {
+  public void reloadOrganization(String id) {
     try {
-      reloadOrganization(id);
+      reloadOrganizationIntern(id);
     } catch (SaaSApplicationException exc) {
       ExceptionHandler.execute(exc);
       getRequest().setAttribute(Constants.REQ_ATTR_DIRTY, Boolean.FALSE.toString());
@@ -160,7 +157,7 @@ public class OperatorSelectOrgCtrl extends BaseOperatorBean implements Serializa
     model.setOrganization(o);
   }
 
-  public Map<String, String> getSuggestedOrgs() {
+  protected Map<String, String> getSuggestedOrgs() {
     List<OrganizationRoleType> roleTypes = new ArrayList<OrganizationRoleType>();
     String value = getRequest().getParameter(Constants.REQ_PARAM_ORGANIZATION_ROLE_TYPE);
     if (!isBlank(value)) {

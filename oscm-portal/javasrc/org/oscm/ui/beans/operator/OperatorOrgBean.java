@@ -193,6 +193,8 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
                 ldapProperties,
                 selectedMarketplace,
                 selectedRoles);
+    
+    getRequest().getSession().setAttribute("organizationId", newOrganization.getOrganizationId());
 
     addMessage(
         null,
@@ -408,16 +410,16 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
 
     manageTenantService.validateOrgUsersUniqnessInTenant(org.getOrganizationId(), updatedTenantKey);
     
-    VOOperatorOrganization existingOrgInDB =
+    VOOperatorOrganization updated =
         operatorService.updateOrganization(org, getImageUploader().getVOImageResource());
 
-    operatorSelectOrgCtrl.setExistingOrganization(existingOrgInDB);
-    operatorSelectOrgCtrl.setOrganization(org);
+    operatorSelectOrgCtrl.setExistingOrganization(updated);
+    operatorSelectOrgCtrl.setOrganization(updated);
     addMessage(
         null,
         FacesMessage.SEVERITY_INFO,
         INFO_ORGANIZATION_SAVED,
-        existingOrgInDB.getOrganizationId());
+        updated.getOrganizationId());
 
 
     selectedPSPAccounts = null;

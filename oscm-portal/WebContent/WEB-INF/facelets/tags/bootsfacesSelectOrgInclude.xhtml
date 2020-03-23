@@ -2,35 +2,35 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:b="http://bootsfaces.net/ui"
-  xmlns:rich="http://richfaces.org/rich"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-  <adm:outputLabel value="#{msg['organization.organizationId']}"
-    required="true" />
-  <h:panelGroup>
-    <b:selectOneMenu styleClass="select" select2="true"
-      id="organizationId" immediate="true"
-      update=":mainTmplMessagesPanel @form #{render}"
-      oncomplete="AdmUtils.setSelectBoxes();"
-      value="#{operatorSelectOrgCtrl.organizationId}">
-      <adm:selectItemPleaseSelect itemValue="" />
+	<adm:outputLabel value="#{msg['organization.organizationId']}"
+		required="true" />
+	<h:panelGroup>
+		<b:selectOneMenu styleClass="select" select2="true"
+			id="organizationId" immediate="true"
+			update=":mainTmplMessagesPanel @form #{render}"
+			oncomplete="AdmUtils.setSelectBoxes();"
+			value="#{operatorSelectOrgCtrl.organizationId}">
+			
+			<c:forEach var="entry"
+				items="#{operatorSelectOrgCtrl.model.suggestedOrgs.entrySet().toArray()}"
+				varStatus="status">
+				<f:selectItem itemLabel="${entry.value} (${entry.key})"
+					itemValue="${entry.key}" />
+			</c:forEach>
 
-      <c:forEach
-        items="#{operatorSelectOrgModel.suggestedOrgs.entrySet().toArray()}"
-        var="entry">
-        <f:selectItem itemLabel="${entry.value} (${entry.key})"
-          itemValue="${entry.key}" />
-      </c:forEach>
-
-      <f:ajax event="change" render="@form, #{render}, mainTmplMessagesPanel"
-        listener="#{operatorSelectOrgCtrl.selectOrganizationAction}" />
-    </b:selectOneMenu>
-  </h:panelGroup>
-  <adm:message for="organizationId" />
+			<f:ajax event="change"
+				render="@form, #{render}, mainTmplMessagesPanel"
+				listener="#{operatorSelectOrgCtrl.selectOrganizationAction}" />
+		</b:selectOneMenu>
+	</h:panelGroup>
+	<adm:message for="organizationId" />
 
 </ui:composition>

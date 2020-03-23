@@ -872,11 +872,11 @@ public class OperatorServiceBean implements OperatorService {
   }
 
   @Override
-  @RolesAllowed("PLATFORM_OPERATOR")
   public VOOperatorOrganization getOrganization(String organizationId)
       throws OrganizationAuthoritiesException, ObjectNotFoundException {
 
     Organization organization = getOrganizationInt(organizationId);
+    
     VOOperatorOrganization vo =
         OrganizationAssembler.toVOOperatorOrganization(
             organization,

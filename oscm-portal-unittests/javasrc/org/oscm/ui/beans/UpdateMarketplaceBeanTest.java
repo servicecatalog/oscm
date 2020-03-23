@@ -8,12 +8,25 @@
 
 package org.oscm.ui.beans;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.matches;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -24,6 +37,8 @@ import java.util.Locale;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,13 +46,18 @@ import org.mockito.ArgumentCaptor;
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.intf.MarketplaceService;
 import org.oscm.internal.marketplace.MarketplaceServiceManagePartner;
-import org.oscm.internal.pricing.*;
+import org.oscm.internal.pricing.POMarketplacePriceModel;
+import org.oscm.internal.pricing.POMarketplacePricing;
+import org.oscm.internal.pricing.POPartnerPriceModel;
+import org.oscm.internal.pricing.PORevenueShare;
+import org.oscm.internal.pricing.PricingService;
 import org.oscm.internal.tenant.ManageTenantService;
 import org.oscm.internal.types.exception.DomainObjectException.ClassEnum;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOMarketplace;
+import org.oscm.internal.vo.VOOperatorOrganization;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.ui.model.Marketplace;
 import org.oscm.ui.model.User;
@@ -173,7 +193,15 @@ public class UpdateMarketplaceBeanTest {
                 any(POPartnerPriceModel.class));
 
         this.selectOrganizationIncludeBean = mock(SelectOrganizationIncludeBean.class);
-        umpb.setSelectOrganizationIncludeBean(this.selectOrganizationIncludeBean);
+        
+        
+        HttpServletRequest request = mock(HttpServletRequest.class);
+        HttpSession s = mock(HttpSession.class);
+        doReturn(s).when(request).getSession();
+        VOOperatorOrganization org = new VOOperatorOrganization();
+        org.setOrganizationId("organizationId");
+        doReturn(org.getOrganizationId()).when(s).getAttribute(eq("organizationId"));
+    
     }
 
     @Test
