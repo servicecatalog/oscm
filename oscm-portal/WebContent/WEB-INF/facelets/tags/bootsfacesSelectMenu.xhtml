@@ -12,20 +12,21 @@
             var elementClicked = false;
             alert(element);
             $(document).on('select2-opening', function(e) {
-                var elementClicked = true;
+                elementClicked = true;
 		        AdmUtils.setFocus(e.target, true);
 		    });
             document.addEventListener('click', function() {
 		         if(!elementClicked) {
                     AdmUtils.setFocus(element, false);
                 }
+                elementClicked = false;
 		    });
 		    $(document).on('blur', '.select2-selection--single', function (e) {
 		      alert("It's working");
 		        if(!elementClicked) {
                     AdmUtils.setFocus(element, false);
                 }
-              var elementClicked = false;
+              elementClicked = false;
 		    });
 		 });
 	</script>
