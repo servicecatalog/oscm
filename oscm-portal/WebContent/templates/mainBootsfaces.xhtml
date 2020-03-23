@@ -22,15 +22,29 @@
 </h:head>
 
 <h:body class="mainBg">
-  <c:if test="#{not empty firstErrorElement or not empty focusElement}">
-    <c:set var="elementId"
-      value="#{(not empty firstErrorElement)?firstErrorElement:(empty rich:clientId(focusElement)?focusElement:(rich:clientId(focusElement)))}" />
-    <rich:jQuery selector="document"
-      query="ready(function(){
+  <c:choose>
+    <c:when test="#{not empty focusElementID}">
+      <c:set var="elementId"
+             value="#{focusElementID}" />
+      <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(){
+            var element = document.getElementById('#{elementId}');
+            try { element.focus();
+                  document.getElementById('contentPanelDiv').scrollIntoView(true);
+                } catch (e) {/* if the element cannot get the focus, ignore it */}
+		 });
+	     </script>
+    </c:when>
+    <c:when test="#{not empty firstErrorElement or not empty focusElement}">
+      <c:set var="elementId"
+             value="#{(not empty firstErrorElement)?firstErrorElement:(empty rich:clientId(focusElement)?focusElement:(rich:clientId(focusElement)))}" />
+      <rich:jQuery selector="document"
+                   query="ready(function(){
           var element = document.getElementById('#{elementId}');
           try {element.focus();document.getElementById('contentPanelDiv').scrollIntoView(true);} catch (e) {/* if the element cannot get the focus, ignore it */}
         })" />
-  </c:if>
+    </c:when>
+  </c:choose>
 
   <adm:initialize initializingMethod="#{appBean.userLocaleUpdated}" />
   <div id="mainContainer">
@@ -230,6 +244,7 @@
     <script type="text/javascript">
       $(function(){
         AdmUtils.initFocus();
+        BootsFacesUtils.focusLabelNextToDropDown();
         AdmUtils.setUIElements();
       });
     </script>
@@ -243,6 +258,7 @@
       </h:form>
     </a4j:region>
 
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/bootsFacesUtils.js" type="text/javascript"></script>
     <script src="#{facesContext.externalContext.requestContextPath}/scripts/partialRendering.ui.js" type="text/javascript"></script>
   </div>
 </h:body>
