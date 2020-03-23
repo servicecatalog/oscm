@@ -8,18 +8,12 @@
 
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function(){
-            var element = document.getElementsByClassName("bootsMenu")[0];
-            alert(element);
-            var elementClicked = false;
-
-            element.addEventListener('focus', function() {
-                        alert("focus");
-                AdmUtils.setFocus(element, true);
-            });
-            element.addEventListener('blur', function() {
-                                    alert("blur");
-                AdmUtils.setFocus(element, false);
-            });
+            $(document).on('select2:opening', '.select2style', function (e) {
+		        AdmUtils.setFocus(e.target,true);
+		    });
+            $(document).on('blur', '.select2-selection--single', function (e) {
+		            AdmUtils.setFocus(e.target,false);
+		    });
 		 });
 	</script>
 
