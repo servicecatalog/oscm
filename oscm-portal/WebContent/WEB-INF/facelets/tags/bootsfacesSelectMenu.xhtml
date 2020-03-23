@@ -11,15 +11,15 @@
             var element = document.getElementByTagName("adm:bootsfacesSelectMenu");
             alert(element);
             var elementClicked = false;
-            $(document).on('select2:opening', function(e) {
-	            elementClicked = true;
-	            AdmUtils.setFocus(element, false);
-	            AdmUtils.setFocus(e.target, true);
-	        });
-            document.addEventListener('click', function() {
-                if(!elementClicked) {
-                    AdmUtils.setFocus(element, false);
-                });
+
+            element.addEventListener('focus', function() {
+                        alert("focus");
+                AdmUtils.setFocus(element, true);
+            });
+            element.addEventListener('blur', function() {
+                                    alert("blur");
+                AdmUtils.setFocus(element, false);
+            });
 		 });
 	</script>
 
