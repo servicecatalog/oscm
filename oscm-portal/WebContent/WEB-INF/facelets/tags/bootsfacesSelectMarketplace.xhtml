@@ -12,11 +12,12 @@
   <c:if test="#{items eq null}">
     <c:set var="items" value="#{marketplaceBean.marketplacesOwned}"/>
   </c:if>
+
+  <script src="#{facesContext.externalContext.requestContextPath}/scripts/bootsFacesUtils.js" type="text/javascript" >BootsFacesUtils.focusLabelNextToDropDown();</script>
   <h:form id="marketplaceSelectForm">
     <!-- Holds the ID of the selected marketplace option for summit -->
     <adm:panelGrid>
     <adm:outputLabel value="#{msg['service.marketplace']}" />
-
 
     <b:selectOneMenu select2="true" id="selectMarketplaceId"
                      styleClass="select"

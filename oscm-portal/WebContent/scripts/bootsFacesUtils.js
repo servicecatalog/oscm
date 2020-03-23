@@ -34,3 +34,25 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
        }
        document.getElementById('selectForm').submit();
 }
+
+BootsFacesUtils.focusLabelNextToDropDown = function() {
+  var elements = document.getElementsByClassName("select2-selection__rendered");
+  var elementClicked = false;
+  $(document).on('select2:opening', function(e) {
+    BootsFacesUtils.blurAllDropDown();
+	AdmUtils.setFocus(e.target, true);
+    elementClicked = true;
+  });
+  document.addEventListener('click', function() {
+	if(!elementClicked) {
+      BootsFacesUtils.blurAllDropDown();
+    }
+    elementClicked = false;
+  });
+}
+
+BootsFacesUtils.blurAllDropDown = function() {
+  for (var i = 0; i < elements.length; i++) {
+    AdmUtils.setFocus(elements[i], false);
+  }
+}
