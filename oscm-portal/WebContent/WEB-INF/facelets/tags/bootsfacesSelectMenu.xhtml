@@ -13,20 +13,17 @@
             alert(element);
             $(document).on('select2-opening', function(e) {
                 elementClicked = true;
+                for (var i = 0; i < elements.length; i++) {
+                    AdmUtils.setFocus(elements[i], false);
+                }
 		        AdmUtils.setFocus(e.target, true);
 		    });
             document.addEventListener('click', function() {
 		         if(!elementClicked) {
-                    AdmUtils.setFocus(element, false);
-                }
+                    for (var i = 0; i < elements.length; i++) {
+                        AdmUtils.setFocus(elements[i], false);
+                    }}
                 elementClicked = false;
-		    });
-		    $(document).on('blur', '.select2-selection--single', function (e) {
-		      alert("It's working");
-		        if(!elementClicked) {
-                    AdmUtils.setFocus(element, false);
-                }
-              elementClicked = false;
 		    });
 		 });
 	</script>
