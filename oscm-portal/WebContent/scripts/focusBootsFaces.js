@@ -5,10 +5,10 @@ $(document).ready(function () {
     for (var i = 0; i < elements.length; i++) {
       AdmUtils.setFocus(elements[i], false);
     }
+    alert("opening");
 	AdmUtils.setFocus(e.target, true);
     elementClicked = true;
-	$(document).off('select2:opening');
-	});
+  });
     document.addEventListener('click', function() {
 	  if(!elementClicked) {
         for (var i = 0; i < elements.length; i++) {
