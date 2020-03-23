@@ -73,6 +73,8 @@ public class BillingBeanTest {
 
     @Before
     public void setup() throws Exception {
+        HttpServletRequest r = mock(HttpServletRequest.class);
+        
         final OperatorServiceStub stub = new OperatorServiceStub() {
 
             @Override
@@ -132,12 +134,19 @@ public class BillingBeanTest {
             protected OperatorService getOperatorService() {
                 return operatorService;
             }
+            
+            @Override
+            protected HttpServletRequest getRequest() {
+                return r;
+            }
+           
+            
         };
         orgCtrl = spy(orgCtrl);
         
-        HttpServletRequest request = mock(HttpServletRequest.class);
         HttpSession s = mock(HttpSession.class);
-        doReturn(s).when(request).getSession();
+        doReturn(s).when(r).getSession();
+        
         VOOperatorOrganization org = new VOOperatorOrganization();
         org.setOrganizationId("organizationId");
         doReturn(org.getOrganizationId()).when(s).getAttribute(eq("organizationId"));
@@ -147,6 +156,7 @@ public class BillingBeanTest {
                 .thenReturn(appBean);
         when(operatorService.getOrganization(anyString())).thenReturn(org);
         orgCtrl.setModel(new OperatorSelectOrgModel());
+        
         orgCtrl.init();
         when(orgCtrl.getApplicationBean()).thenReturn(appBean);
         bean.setOperatorSelectOrgCtrl(orgCtrl);
@@ -174,7 +184,7 @@ public class BillingBeanTest {
         bean.setToDate(date);
         
         // when
-        orgCtrl.setOrganizationId(null);
+        orgCtrl.getModel().setOrganizationId(null);
         String result = bean.getBillingData();
         
         // then
