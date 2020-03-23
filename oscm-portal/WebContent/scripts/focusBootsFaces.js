@@ -7,10 +7,8 @@ $(document).ready(function () {
 	AdmUtils.setFocus(e.target, true);
 	});
     document.addEventListener('click', function() {
-	  if(!elementClicked) {
         for (var i = 0; i < elements.length; i++) {
            AdmUtils.setFocus(elements[i], false);
-        }
       }
 	});
 });
