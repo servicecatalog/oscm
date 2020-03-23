@@ -10,7 +10,7 @@
   <ui:define name="pageId">
     <c:set var="dirty" value="false" />
     <c:set var="pageId" value="marketplace.manageCategories" />
-    <c:set var="focusElement" value="marketplaceSelectForm:selectMarketplaceId" />
+    <c:set var="focusElementID" value="marketplaceSelectForm:selectMarketplaceIdInner" />
   </ui:define>
 
   <ui:define name="body">
@@ -29,7 +29,7 @@
                            displayRequired="false"
                            required="true"
                            listenerBean="#{categoryBean}"
-                           merketplaceBean="#{categoryBean.marketplaceBean}"
+                           marketplaceBean="#{categoryBean.marketplaceBean}"
                            render=":categoriesForm"/>
     <h:form id="categoriesForm">
 
