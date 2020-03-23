@@ -36,8 +36,8 @@ BootsFacesUtils.changeSelectionIndexAtDropDown = function(element) {
 }
 
 BootsFacesUtils.focusLabelNextToDropDown = function() {
-  var elements = document.getElementsByClassName("select2-selection__rendered");
   var elementClicked = false;
+  alert("working");
   $(document).on('select2:opening', function(e) {
     BootsFacesUtils.blurAllDropDown();
 	AdmUtils.setFocus(e.target, true);
@@ -52,6 +52,7 @@ BootsFacesUtils.focusLabelNextToDropDown = function() {
 }
 
 BootsFacesUtils.blurAllDropDown = function() {
+  var elements = document.getElementsByClassName("select2-selection__rendered");
   for (var i = 0; i < elements.length; i++) {
     AdmUtils.setFocus(elements[i], false);
   }
