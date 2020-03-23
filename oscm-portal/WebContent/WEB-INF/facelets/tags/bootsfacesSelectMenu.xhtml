@@ -8,9 +8,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var element = document.getElementsByClassName("select2-selection__rendered");
+            var elements = document.getElementsByClassName("select2-selection__rendered");
             var elementClicked = false;
-            alert(element);
             $(document).on('select2-opening', function(e) {
                 elementClicked = true;
                 for (var i = 0; i < elements.length; i++) {
