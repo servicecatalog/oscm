@@ -7,7 +7,7 @@
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function(){
+        $(document).ready(function () {
             var element = document.getElementsByClassName("select2-selection__rendered");
             var elementClicked = false;
             alert(element);
@@ -19,6 +19,13 @@
 		         if(!elementClicked) {
                     AdmUtils.setFocus(element, false);
                 }
+		    });
+		    $(document).on('blur', '.select2-selection--single', function (e) {
+		      alert("It's working");
+		        if(!elementClicked) {
+                    AdmUtils.setFocus(element, false);
+                }
+              var elementClicked = false;
 		    });
 		 });
 	</script>
