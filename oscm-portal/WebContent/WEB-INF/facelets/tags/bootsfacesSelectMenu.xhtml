@@ -8,7 +8,7 @@
 
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function(){
-            var element = document.getElementsByTagName('adm:bootsfacesSelectMenu')[0];
+            var element = document.getElementsByClassName("bootsMenu")[0];
             alert(element);
             var elementClicked = false;
 
@@ -26,7 +26,7 @@
     <adm:panelGrid>
     <adm:outputLabel value="#{label}" />
     <h:panelGroup>
-        <b:selectOneMenu select2="true" styleClass="select" id="#{id}" onchange="#{onchange}" onclick="#{onclick}"
+        <b:selectOneMenu class="bootsMenu" select2="true" styleClass="select" id="#{id}" onchange="#{onchange}" onclick="#{onclick}"
                          immediate="#{immediate}" oncomplete="#{oncomplete}" value="#{value}" disabled="#{disabled}">
           <ui:insert/>
         </b:selectOneMenu>
