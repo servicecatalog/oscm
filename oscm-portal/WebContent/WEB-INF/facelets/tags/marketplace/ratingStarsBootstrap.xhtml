@@ -23,9 +23,10 @@
           <c:if test="#{empty rating}">
             <c:set var="rating" value="0"/>
           </c:if>
-          <a4j:outputPanel layout="block" styleClass="serviceStarBox">
+          <!-- Stars box -->
+          <div class="placeholder">
             <a4j:outputPanel layout="block" styleClass="ratingStars rating#{rating}"/>
-          </a4j:outputPanel>
+          </div>
         </div>
         <!-- Text -->
         <div class="col-auto">
