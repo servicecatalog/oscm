@@ -203,8 +203,6 @@
     <source>categorySelectionBootstrap.xhtml</source>
   </tag>
   <tag>
-    <tag-name>reviewStarsBootstrap</tag-name>
-    <source>reviewStarsBootstrap.xhtml</source>
     <tag-name>ratingStarsBootstrap</tag-name>
     <source>ratingStarsBootstrap.xhtml</source>
   </tag>
