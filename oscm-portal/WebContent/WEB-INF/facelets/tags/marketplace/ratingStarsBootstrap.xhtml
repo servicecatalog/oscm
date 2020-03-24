@@ -7,25 +7,19 @@
     xmlns:a4j="http://richfaces.org/a4j"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 >
-  <!-- Debug only, to remove -->
-  <link href="${facesContext.externalContext.requestContextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-        type="text/css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="#{facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-
 
   <c:set var="ratingRendered" value="#{marketplaceConfigurationBean.currentConfiguration.reviewEnabled}"/>
   <c:if test="#{ratingRendered}">
     <div class="#{styleClass}">
       <div class="row no-gutters justify-content-center">
-        <!-- Stars -->
+        <!-- Stars box container -->
         <div class="col-auto px-1 py-1 bg-white">
           <c:if test="#{empty rating}">
             <c:set var="rating" value="0"/>
             <c:set var="decimal" value="0"/>
           </c:if>
-          <!-- Stars box -->
-            <a4j:outputPanel id="ratingStars" layout="block" styleClass="ratingStars rating#{rating}"/>
+          <!-- Stars -->
+          <a4j:outputPanel id="ratingStars" layout="block" styleClass="ratingStars rating#{rating}"/>
         </div>
         <!-- Line break -->
         <div class="w-100"></div>
