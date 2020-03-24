@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
-
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -32,7 +31,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.oscm.converter.PropertiesLoader;
@@ -92,7 +90,6 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
 
   @ManagedProperty(value = "#{operatorSelectOrgCtrl}")
   private OperatorSelectOrgCtrl operatorSelectOrgCtrl;
-   
 
   // The new organization and administrator user
   private VOOrganization newOrganization = null;
@@ -105,7 +102,6 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
   // Contains _all_ roles of the new organization
   private EnumSet<OrganizationRoleType> newRoles = EnumSet.noneOf(OrganizationRoleType.class);
 
-  
   private List<VOPSPAccount> selectedPSPAccounts = null;
   private VOPSP selectedPSP = null;
   private Long selectedPspAccountKey = null;
@@ -193,7 +189,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
                 ldapProperties,
                 selectedMarketplace,
                 selectedRoles);
-    
+
     getRequest().getSession().setAttribute("organizationId", newOrganization.getOrganizationId());
 
     addMessage(
@@ -368,7 +364,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     addMessage(null, FacesMessage.SEVERITY_INFO, INFO_PAYMENT_INFO_SAVED);
 
     newPspAccount = null;
-    
+
     selectedPSP = null;
     selectedPspAccountKey = null;
     pspAccountPaymentTypesAsString = null;
@@ -409,18 +405,14 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     long updatedTenantKey = org.getTenantKey();
 
     manageTenantService.validateOrgUsersUniqnessInTenant(org.getOrganizationId(), updatedTenantKey);
-    
+
     VOOperatorOrganization updated =
         operatorService.updateOrganization(org, getImageUploader().getVOImageResource());
 
     operatorSelectOrgCtrl.setExistingOrganization(updated);
     operatorSelectOrgCtrl.setOrganization(updated);
     addMessage(
-        null,
-        FacesMessage.SEVERITY_INFO,
-        INFO_ORGANIZATION_SAVED,
-        updated.getOrganizationId());
-
+        null, FacesMessage.SEVERITY_INFO, INFO_ORGANIZATION_SAVED, updated.getOrganizationId());
 
     selectedPSPAccounts = null;
 

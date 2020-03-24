@@ -11,10 +11,8 @@ package org.oscm.ui.beans.operator;
 
 import java.io.Serializable;
 import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import org.oscm.internal.vo.VOOperatorOrganization;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;

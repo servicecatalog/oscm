@@ -21,10 +21,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -63,7 +61,7 @@ public class OperatorSelectOrgBeanTest {
     bean = spy(bean);
     HttpSession s = mock(HttpSession.class);
     doReturn(s).when(request).getSession();
-    
+
     org = new VOOperatorOrganization();
     org.setOrganizationId("organizationId");
     doReturn(org.getOrganizationId()).when(s).getAttribute(eq("organizationId"));

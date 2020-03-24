@@ -9,6 +9,7 @@
  */
 package org.oscm.ui.beans.operator;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.Collator;
@@ -17,13 +18,11 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.AjaxBehaviorEvent;
-
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.types.exception.SaaSSystemException;
@@ -34,8 +33,6 @@ import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.model.Organization;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Controller to select an organization for performing operator tasks.
