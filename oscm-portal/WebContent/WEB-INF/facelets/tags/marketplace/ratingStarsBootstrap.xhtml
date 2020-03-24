@@ -24,7 +24,14 @@
             <c:set var="rating" value="0"/>
           </c:if>
           <!-- Stars box -->
-            <a4j:outputPanel id="ratingStars" layout="block" styleClass="ratingStars rating#{rating}"/>
+          <div class="row">
+            <c:forEach var="star" begin="0" end="rating">
+              <i class="far fa-star"></i>
+            </c:forEach>
+
+
+          </div>
+<!--            <a4j:outputPanel id="ratingStars" layout="block" styleClass="ratingStars rating#{rating}"/>-->
         </div>
         <!-- Text -->
         <div class="col-auto">
