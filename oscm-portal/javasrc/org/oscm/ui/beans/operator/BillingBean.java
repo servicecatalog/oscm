@@ -54,20 +54,20 @@ public class BillingBean extends BaseOperatorBean implements Serializable {
     private Date fromDate;
     private Date toDate;
     
-    @ManagedProperty(value="#{operatorSelectOrgBean}")
-    private OperatorSelectOrgBean operatorSelectOrgBean;
+    @ManagedProperty(value="#{operatorSelectOrgCtrl}")
+    private OperatorSelectOrgCtrl operatorSelectOrgCtrl;
     
     private DateFromToValidator validator = new DateFromToValidator();
 
     private byte[] billingData;
 
-    public OperatorSelectOrgBean getOperatorSelectOrgBean() {
-        return operatorSelectOrgBean;
+    public OperatorSelectOrgCtrl getOperatorSelectOrgCtrl() {
+        return operatorSelectOrgCtrl;
     }
 
-    public void setOperatorSelectOrgBean(
-            OperatorSelectOrgBean operatorSelectOrgBean) {
-        this.operatorSelectOrgBean = operatorSelectOrgBean;
+    public void setOperatorSelectOrgCtrl(
+            OperatorSelectOrgCtrl operatorSelectOrgCtrl) {
+        this.operatorSelectOrgCtrl = operatorSelectOrgCtrl;
     }
 
 
@@ -138,7 +138,7 @@ public class BillingBean extends BaseOperatorBean implements Serializable {
     public String getBillingData() throws ObjectNotFoundException,
             OrganizationAuthoritiesException {
         
-        String orgId = operatorSelectOrgBean.getOrganizationId();
+        String orgId = operatorSelectOrgCtrl.getOrganizationId();
         if (fromDate == null || toDate == null || orgId == null
                 || orgId.trim().length() == 0) {
             addMessage(null, FacesMessage.SEVERITY_ERROR,

@@ -12,11 +12,13 @@ package org.oscm.ui.beans;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
+
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.marketplace.MarketplaceServiceManagePartner;
 import org.oscm.internal.pricing.POMarketplacePriceModel;
@@ -43,12 +45,6 @@ public class UpdateMarketplaceBean extends BaseBean {
 
   @ManagedProperty(value = "#{menuBean}")
   private MenuBean menuBean;
-
-  // TODO: think more about that. It breaks architecture in view layer. Maybe
-  // model should be a bean and we should not get access to model through this
-  // bean but directly.
-  @ManagedProperty(value = "#{selectOrganizationIncludeBean}")
-  private SelectOrganizationIncludeBean selectOrganizationIncludeBean;
 
   PricingService pricingService;
   MarketplaceServiceManagePartner marketplaceManagePartnerService;
@@ -115,8 +111,9 @@ public class UpdateMarketplaceBean extends BaseBean {
   public String updateMarketplace() {
     final boolean assignedOrgChanged = model.assignedOrgChanged();
     final String mId = model.getMarketplaceId();
-    // see todo above
-    model.setOwningOrganizationId(getSelectOrganizationIncludeBean().getOrganizationId());
+
+    String id = (String) getRequest().getSession().getAttribute("organizationId");
+    model.setOwningOrganizationId(id);
     try {
       Response response =
           getMarketplaceManagePartnerService()
@@ -195,7 +192,8 @@ public class UpdateMarketplaceBean extends BaseBean {
     addToModel(pricing.getPartnerPriceModel());
 
     if (null != mp) {
-      this.selectOrganizationIncludeBean.setOrganizationId(mp.getOwningOrganizationId());
+        getRequest().getSession().setAttribute("organizationId", mp.getOwningOrganizationId());
+      
     }
 
     return OUTCOME_SUCCESS;
@@ -297,14 +295,5 @@ public class UpdateMarketplaceBean extends BaseBean {
       marketplaceManagePartnerService = getService(MarketplaceServiceManagePartner.class, null);
     }
     return marketplaceManagePartnerService;
-  }
-
-  public void setSelectOrganizationIncludeBean(
-      SelectOrganizationIncludeBean selectOrganizationIncludeBean) {
-    this.selectOrganizationIncludeBean = selectOrganizationIncludeBean;
-  }
-
-  public SelectOrganizationIncludeBean getSelectOrganizationIncludeBean() {
-    return selectOrganizationIncludeBean;
   }
 }

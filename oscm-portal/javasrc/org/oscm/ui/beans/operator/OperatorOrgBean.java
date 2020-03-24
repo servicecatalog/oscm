@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -31,6 +32,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.oscm.converter.PropertiesLoader;
@@ -62,7 +64,6 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.MenuBean;
 import org.oscm.ui.beans.SessionBean;
-import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.ImageUploader;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.model.PSPSettingRow;
@@ -89,8 +90,9 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
           Arrays.asList(
               "requiredEmail", "requiredPhone", "requiredUrl", "requiredName", "requiredAddress"));
 
-  @ManagedProperty(value = "#{operatorSelectOrgBean}")
-  private OperatorSelectOrgBean operatorSelectOrgBean;
+  @ManagedProperty(value = "#{operatorSelectOrgCtrl}")
+  private OperatorSelectOrgCtrl operatorSelectOrgCtrl;
+   
 
   // The new organization and administrator user
   private VOOrganization newOrganization = null;
@@ -103,7 +105,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
   // Contains _all_ roles of the new organization
   private EnumSet<OrganizationRoleType> newRoles = EnumSet.noneOf(OrganizationRoleType.class);
 
-  private VOOperatorOrganization selectedOrganization = null;
+  
   private List<VOPSPAccount> selectedPSPAccounts = null;
   private VOPSP selectedPSP = null;
   private Long selectedPspAccountKey = null;
@@ -191,6 +193,8 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
                 ldapProperties,
                 selectedMarketplace,
                 selectedRoles);
+    
+    getRequest().getSession().setAttribute("organizationId", newOrganization.getOrganizationId());
 
     addMessage(
         null,
@@ -364,7 +368,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     addMessage(null, FacesMessage.SEVERITY_INFO, INFO_PAYMENT_INFO_SAVED);
 
     newPspAccount = null;
-    selectedOrganization = null;
+    
     selectedPSP = null;
     selectedPspAccountKey = null;
     pspAccountPaymentTypesAsString = null;
@@ -402,22 +406,22 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     OperatorService operatorService = getOperatorService();
     VOOperatorOrganization org = getSelectedOrganization();
 
-    long updatedTenantKey = selectedOrganization.getTenantKey();
+    long updatedTenantKey = org.getTenantKey();
 
     manageTenantService.validateOrgUsersUniqnessInTenant(org.getOrganizationId(), updatedTenantKey);
-
-    selectedOrganization =
+    
+    VOOperatorOrganization updated =
         operatorService.updateOrganization(org, getImageUploader().getVOImageResource());
 
+    operatorSelectOrgCtrl.setExistingOrganization(updated);
+    operatorSelectOrgCtrl.setOrganization(updated);
     addMessage(
         null,
         FacesMessage.SEVERITY_INFO,
         INFO_ORGANIZATION_SAVED,
-        selectedOrganization.getOrganizationId());
+        updated.getOrganizationId());
 
-    // make sure the next page access will trigger the reload of the
-    // selected organization the next time getSelectedOrg will be called
-    this.selectedOrganization = null;
+
     selectedPSPAccounts = null;
 
     return OUTCOME_SUCCESS;
@@ -458,12 +462,12 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     setSelectedPSP(selectedPSP);
   }
 
-  public OperatorSelectOrgBean getOperatorSelectOrgBean() {
-    return operatorSelectOrgBean;
+  public OperatorSelectOrgCtrl getOperatorSelectOrgCtrl() {
+    return operatorSelectOrgCtrl;
   }
 
-  public void setOperatorSelectOrgBean(OperatorSelectOrgBean operatorSelectOrgBean) {
-    this.operatorSelectOrgBean = operatorSelectOrgBean;
+  public void setOperatorSelectOrgCtrl(OperatorSelectOrgCtrl operatorSelectOrgCtrl) {
+    this.operatorSelectOrgCtrl = operatorSelectOrgCtrl;
   }
 
   // *****************************************************
@@ -549,47 +553,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
    * organization of the operatorSelectOrgBean.
    */
   public VOOperatorOrganization getSelectedOrganization() {
-
-    if (operatorSelectOrgBean.getOrganization() == null) {
-      resetUIInputChildren(); // similar case for Bug#7589
-      selectedOrganization = null;
-      selectedPSPAccounts = null;
-      pspAccountPaymentTypesAsString = null;
-      // The organization is not set yet (e.g. on page load)
-      return new VOOperatorOrganization();
-    }
-
-    String opSelectOrgId = operatorSelectOrgBean.getOrganizationId();
-    try {
-      if (selectedOrganization == null
-          || !selectedOrganization.getOrganizationId().equals(opSelectOrgId)) {
-
-        // Bug #7726: The object might have been (concurrently) changed
-        // => reload the organization
-        operatorSelectOrgBean.reloadOrganization();
-
-        // On page load or after save or if the user selected another
-        // organization, make sure to update the local instance of the
-        // selected organization. On summit the attributes of this
-        // object will might be changed so it'll be acquired directly
-        // from the operator service instead of the
-        // operatorSelectOrgBean
-        selectedOrganization = getOperatorService().getOrganization(opSelectOrgId);
-        selectedPSPAccounts = null;
-        pspAccountPaymentTypesAsString = null;
-
-        // reset the '*' for the conditional mandatory attributes
-        resetUIComponents(CONDITIONAL_MANDATORY_FIELD_IDS);
-        resetUIInputChildren(); // similar case for Bug#7589
-      }
-    } catch (SaaSApplicationException e) {
-      ExceptionHandler.execute(e);
-    }
-    if (selectedOrganization == null) {
-      selectedPSPAccounts = null;
-      selectedPspAccountKey = null;
-    }
-    return selectedOrganization;
+    return operatorSelectOrgCtrl.getOrganization();
   }
 
   public List<VOPSP> getPSPs() {
@@ -847,7 +811,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
 
   /** Returns true if the passed roletype is available for the passed organization. */
   private boolean isRoleAvailable(VOOperatorOrganization voorg, OrganizationRoleType... roles) {
-    if (operatorSelectOrgBean.getOrganization() == null) {
+    if (operatorSelectOrgCtrl.getOrganization() == null) {
       return false;
     }
     List<OrganizationRoleType> orgRoles = voorg.getOrganizationRoles();
@@ -859,7 +823,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
 
   /** Returns true if the passed role is set on the organization of the operatorSelectOrgBean. */
   private boolean isPersistedRole(OrganizationRoleType... role) {
-    return isRoleAvailable(operatorSelectOrgBean.getOrganization(), role);
+    return isRoleAvailable(operatorSelectOrgCtrl.getExistingOrganization(), role);
   }
 
   /** Adds the passed role type to the local organization. */
@@ -954,7 +918,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
 
   /** Returns true if the passed payment type is available for the passed organization. */
   private boolean isPaymentTypeAvailable(VOOperatorOrganization voOrg, PaymentInfoType type) {
-    if (operatorSelectOrgBean.getOrganization() == null) {
+    if (operatorSelectOrgCtrl.getOrganization() == null) {
       return false;
     }
     List<VOPaymentType> paymentTypes = voOrg.getPaymentTypes();
@@ -989,7 +953,7 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
    * DB.
    */
   private boolean isPersistedType(PaymentInfoType type) {
-    return isPaymentTypeAvailable(operatorSelectOrgBean.getOrganization(), type);
+    return isPaymentTypeAvailable(operatorSelectOrgCtrl.getExistingOrganization(), type);
   }
 
   public ImageUploader getImageUploader() {
@@ -1039,7 +1003,8 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
 
   public String getPSPAccountPaymentTypesAsString() {
     if (pspAccountPaymentTypesAsString == null) {
-      if (getSelectedOrganization().getOrganizationId() == null) {
+      if (getSelectedOrganization() == null
+          || getSelectedOrganization().getOrganizationId() == null) {
         return "";
       }
       String s = ",";

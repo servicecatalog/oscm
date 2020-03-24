@@ -13,9 +13,9 @@
   </ui:define>
 
   <ui:define name="body">
-    <c:set var="orgSelected" value="#{operatorSelectOrgBean.organization != null}" />
-    <c:set var="selectedOrg" value="#{operatorOrgBean.selectedOrganization}" />
-    <c:set var="allPSPs" value="#{operatorOrgBean.PSPs}" />
+    <ui:param name="orgSelected" value="#{operatorSelectOrgCtrl.organization != null}" />
+    <ui:param name="selectedOrg" value="#{operatorSelectOrgCtrl.organization}" />
+    <ui:param name="allPSPs" value="#{operatorOrgBean.PSPs}" />
     <c:set var="normalWidth" value="20%" />
     <c:set var="moreWidth" value="60%" />
 
@@ -52,15 +52,15 @@
     </a4j:outputPanel>
 
     <adm:outputStep value="#{msg['operator.manageOrganizations.step1']}" />
-    <adm:selectOrganization />
+    <adm:selectOrganization render="manageOrganizationsForm:manageSupplierRerenderPanel" />
 
 
     <h:form id="manageOrganizationsForm" enctype="multipart/form-data"
       onsubmit="return AdmUtils.ie7UploadValidation(#{rich:element('image')});">
 
       <a4j:outputPanel id="manageSupplierRerenderPanel" layout="block">
-        <ui:param name="orgSelected" value="#{operatorSelectOrgBean.organization.organizationId != null}" />
-        <ui:param name="selectedOrg" value="#{operatorOrgBean.selectedOrganization}" />
+        <ui:param name="orgSelected" value="#{operatorSelectOrgCtrl.organization.organizationId != null}" />
+        <ui:param name="selectedOrg" value="#{operatorSelectOrgCtrl.organization}" />
 
 
         <adm:outputStep value="#{msg['operator.manageOrganizations.step2']}" />
@@ -119,7 +119,7 @@
           <adm:message for="checkboxRoleBroker" />
 
           <adm:outputLabel value="#{msg['organization.organizationId']}" />
-          <h:outputText id="organizationIdSelected" value="#{operatorSelectOrgBean.organization.organizationId}" />
+          <h:outputText id="organizationIdSelected" value="#{operatorSelectOrgCtrl.organization.organizationId}" />
           <h:outputText value="" />
 
           <adm:labelAndInputText id="operatorRevenueShare" label="#{msg['supplier.operatorRevenueShare']}"
@@ -244,20 +244,20 @@
         action="#{operatorOrgBean.saveOrganization}" />
 
       <script>
-			//<![CDATA[
-				function profileImageSize(w,h){
-					return w<= 154 && h<=154;
-				}
-				//]]>
-		  </script>
+      //<![CDATA[
+        function profileImageSize(w,h){
+          return w<= 154 && h<=154;
+        }
+        //]]>
+      </script>
 
 
       <adm:buttonPanel>
         <adm:buttonCustomizedOnClick id="saveButton" value="#{msg['button.save']}" disabled="#{!orgSelected}"
           buttonType="save"
           onclick="setDirty(false);
-        		   #{rich:element('hiddenSaveButton')}.click();
-        		   return true;" />
+               #{rich:element('hiddenSaveButton')}.click();
+               return true;" />
       </adm:buttonPanel>
 
     </h:form>

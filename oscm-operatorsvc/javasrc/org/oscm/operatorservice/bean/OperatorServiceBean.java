@@ -872,11 +872,11 @@ public class OperatorServiceBean implements OperatorService {
   }
 
   @Override
-  @RolesAllowed("PLATFORM_OPERATOR")
   public VOOperatorOrganization getOrganization(String organizationId)
       throws OrganizationAuthoritiesException, ObjectNotFoundException {
 
     Organization organization = getOrganizationInt(organizationId);
+    
     VOOperatorOrganization vo =
         OrganizationAssembler.toVOOperatorOrganization(
             organization,
@@ -1520,6 +1520,7 @@ public class OperatorServiceBean implements OperatorService {
   public Map<String, String> getOrganizationIdentifiers(List<OrganizationRoleType> r) {
 
     Query query = dm.createNamedQuery("Organization.getOrganizationIdentifiersByRole");
+
     List<OrganizationRoleType> ort = new ArrayList<OrganizationRoleType>();
     ort.addAll(r);
     if (ort.isEmpty()) {
@@ -1534,11 +1535,12 @@ public class OperatorServiceBean implements OperatorService {
 
     TreeMap<String, String> tm = new TreeMap<String, String>();
     for (Object[] obj : list) {
-      tm.put((String) obj[0], (String) obj[1]);
+      final String name = (null != (String) obj[1]) ? (String) obj[1] : (String) obj[0];
+      tm.put((String) obj[0], name);
     }
     return valueSort(tm);
   }
-
+  
   private <KT, VT extends Comparable<? super VT>> Map<KT, VT> valueSort(Map<KT, VT> m) {
 
     List<Map.Entry<KT, VT>> l = new LinkedList<Map.Entry<KT, VT>>(m.entrySet());

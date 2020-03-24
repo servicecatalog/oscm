@@ -18,6 +18,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -32,19 +33,20 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import org.oscm.test.stubs.OperatorServiceStub;
-import org.oscm.ui.beans.ApplicationBean;
-import org.oscm.ui.beans.BaseBean;
-import org.oscm.ui.beans.SelectOrganizationIncludeBean;
-import org.oscm.ui.common.UiDelegate;
-import org.oscm.ui.validator.DateFromToValidator;
 import org.oscm.internal.intf.OperatorService;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
+import org.oscm.internal.vo.VOOperatorOrganization;
+import org.oscm.test.stubs.OperatorServiceStub;
+import org.oscm.ui.beans.ApplicationBean;
+import org.oscm.ui.beans.BaseBean;
+import org.oscm.ui.common.UiDelegate;
+import org.oscm.ui.validator.DateFromToValidator;
 
 /**
  * @author weiser
@@ -53,7 +55,7 @@ import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
 public class BillingBeanTest {
 
     private BillingBean bean;
-    private OperatorSelectOrgBean orgBean;
+    private OperatorSelectOrgCtrl orgCtrl;
     private FacesContext context;
     private UIComponent toValidate;
     private Object value;
@@ -70,7 +72,9 @@ public class BillingBeanTest {
     private static final String ORG_ID = "A1B2C3D4";
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
+        HttpServletRequest r = mock(HttpServletRequest.class);
+        
         final OperatorServiceStub stub = new OperatorServiceStub() {
 
             @Override
@@ -122,7 +126,7 @@ public class BillingBeanTest {
             }
 
         };
-        orgBean = new OperatorSelectOrgBean() {
+        orgCtrl = new OperatorSelectOrgCtrl() {
 
             private static final long serialVersionUID = -9126265695343363133L;
 
@@ -130,14 +134,32 @@ public class BillingBeanTest {
             protected OperatorService getOperatorService() {
                 return operatorService;
             }
+            
+            @Override
+            protected HttpServletRequest getRequest() {
+                return r;
+            }
+           
+            
         };
-        orgBean = spy(orgBean);
-        orgBean.ui = mock(UiDelegate.class);
-        when(orgBean.ui.findBean(eq(OperatorSelectOrgBean.APPLICATION_BEAN)))
+        orgCtrl = spy(orgCtrl);
+        
+        HttpSession s = mock(HttpSession.class);
+        doReturn(s).when(r).getSession();
+        
+        VOOperatorOrganization org = new VOOperatorOrganization();
+        org.setOrganizationId("organizationId");
+        doReturn(org.getOrganizationId()).when(s).getAttribute(eq("organizationId"));
+        
+        orgCtrl.ui = mock(UiDelegate.class);
+        when(orgCtrl.ui.findBean(eq(OperatorSelectOrgCtrl.APPLICATION_BEAN)))
                 .thenReturn(appBean);
-        when(orgBean.getApplicationBean()).thenReturn(appBean);
-        orgBean.setSelectOrganizationIncludeBean(new SelectOrganizationIncludeBean());
-        bean.setOperatorSelectOrgBean(orgBean);
+        when(operatorService.getOrganization(anyString())).thenReturn(org);
+        orgCtrl.setModel(new OperatorSelectOrgModel());
+        
+        orgCtrl.init();
+        when(orgCtrl.getApplicationBean()).thenReturn(appBean);
+        bean.setOperatorSelectOrgCtrl(orgCtrl);
         context = mock(FacesContext.class);
         toValidate = mock(UIComponent.class);
         value = mock(Object.class);
@@ -156,10 +178,16 @@ public class BillingBeanTest {
 
     @Test
     public void testGetBillingData_OrgIdNull() throws Exception {
+        // given
         Date date = new Date(System.currentTimeMillis());
         bean.setFromDate(date);
         bean.setToDate(date);
+        
+        // when
+        orgCtrl.getModel().setOrganizationId(null);
         String result = bean.getBillingData();
+        
+        // then
         assertEquals(BaseBean.OUTCOME_ERROR, result);
         assertEquals(BaseOperatorBean.ERROR_EXPORT_BILLING_DATA, messageKey);
         assertFalse(serviceCalled);
@@ -171,7 +199,7 @@ public class BillingBeanTest {
         Date date = new Date(System.currentTimeMillis());
         bean.setFromDate(date);
         bean.setToDate(date);
-        orgBean.setOrganizationId("   ");
+        orgCtrl.setOrganizationId("   ");
         String result = bean.getBillingData();
         assertEquals(BaseBean.OUTCOME_ERROR, result);
         assertEquals(BaseOperatorBean.ERROR_EXPORT_BILLING_DATA, messageKey);
@@ -269,7 +297,7 @@ public class BillingBeanTest {
 
     @Test
     public void testGetOperatorSelectOrgBean() throws Exception {
-        assertEquals(orgBean, bean.getOperatorSelectOrgBean());
+        assertEquals(orgCtrl, bean.getOperatorSelectOrgCtrl());
     }
 
     @Test
@@ -291,7 +319,7 @@ public class BillingBeanTest {
         Date date = new Date(System.currentTimeMillis());
         bean.setFromDate(date);
         bean.setToDate(date);
-        orgBean.setOrganizationId(ORG_ID);
+        orgCtrl.setOrganizationId(ORG_ID);
         String result = bean.getBillingData();
         return result;
     }
