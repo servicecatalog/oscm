@@ -1,0 +1,46 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+>
+
+  <c:set var="ratingRendered" value="#{marketplaceConfigurationBean.currentConfiguration.reviewEnabled}"/>
+  <c:if test="#{ratingRendered}">
+    <div class="#{styleClass}">
+      <div class="row no-gutters justify-content-center">
+        <!-- Stars box container -->
+        <div class="col-auto px-1 py-1 bg-white">
+          <c:if test="#{empty rating}">
+            <c:set var="rating" value="0"/>
+            <c:set var="decimal" value="0"/>
+          </c:if>
+          <!-- Stars -->
+          <a4j:outputPanel id="ratingStars" layout="block" styleClass="ratingStars rating#{rating}"/>
+        </div>
+        <!-- Line break -->
+        <div class="w-100"></div>
+        <!-- Text -->
+        <div class="col-auto">
+          <c:if test="#{not empty reviewCount}">
+            <c:set var="text" value="#{msg['ratingText.reviews']}"/>
+            <c:if test="#{not empty ratingText}">
+              <c:set var="text" value="#{ratingText}"/>
+            </c:if>
+            <c:choose>
+              <c:when test="#{reviewCount eq 0}">
+                <h:outputText value="#{msg['ratingText.noReviews']}" styleClass="serviceRating"/>
+              </c:when>
+              <c:otherwise>
+                <h:outputText value="#{reviewCount} #{text}" styleClass="serviceRating"/>
+              </c:otherwise>
+            </c:choose>
+          </c:if>
+        </div>
+      </div>
+    </div>
+  </c:if>
+</ui:composition>
