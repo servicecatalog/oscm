@@ -12,32 +12,32 @@
   <c:if test="#{ratingRendered}">
     <div class="container">
       <div class="row justify-content-center">
-      </div>
-      <!-- Stars -->
-      <div class="col-12">
-        <c:if test="#{empty rating}">
-          <c:set var="rating" value="0"/>
-        </c:if>
-        <a4j:outputPanel layout="block" styleClass="serviceStarBox">
-          <a4j:outputPanel layout="block" styleClass="ratingStars rating#{rating}"/>
-        </a4j:outputPanel>
-      </div>
-      <!-- Text -->
-      <div class="col-auto">
-        <c:if test="#{not empty reviewCount}">
-          <c:set var="text" value="#{msg['ratingText.reviews']}"/>
-          <c:if test="#{not empty ratingText}">
-            <c:set var="text" value="#{ratingText}"/>
+        <!-- Stars -->
+        <div class="col-12">
+          <c:if test="#{empty rating}">
+            <c:set var="rating" value="0"/>
           </c:if>
-          <c:choose>
-            <c:when test="#{reviewCount eq 0}">
-              <h:outputText value="#{msg['ratingText.noReviews']}" styleClass="serviceRating"/>
-            </c:when>
-            <c:otherwise>
-              <h:outputText value="#{reviewCount} #{text}" styleClass="serviceRating"/>
-            </c:otherwise>
-          </c:choose>
-        </c:if>
+          <a4j:outputPanel layout="block" styleClass="serviceStarBox">
+            <a4j:outputPanel layout="block" styleClass="ratingStars rating#{rating}"/>
+          </a4j:outputPanel>
+        </div>
+        <!-- Text -->
+        <div class="col-auto">
+          <c:if test="#{not empty reviewCount}">
+            <c:set var="text" value="#{msg['ratingText.reviews']}"/>
+            <c:if test="#{not empty ratingText}">
+              <c:set var="text" value="#{ratingText}"/>
+            </c:if>
+            <c:choose>
+              <c:when test="#{reviewCount eq 0}">
+                <h:outputText value="#{msg['ratingText.noReviews']}" styleClass="serviceRating"/>
+              </c:when>
+              <c:otherwise>
+                <h:outputText value="#{reviewCount} #{text}" styleClass="serviceRating"/>
+              </c:otherwise>
+            </c:choose>
+          </c:if>
+        </div>
       </div>
     </div>
   </c:if>
