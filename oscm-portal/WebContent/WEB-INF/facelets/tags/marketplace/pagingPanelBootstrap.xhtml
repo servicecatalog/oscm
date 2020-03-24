@@ -1,3 +1,4 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -41,7 +42,6 @@
                 <button id="previous#{prefix}" type="button" class="btn btn-outline-secondary" disabled="disabled"><i
                     class="fa fa-arrow-left"></i> #{msg['paging.previous']}
                 </button>
-                <!--                                    <p  class="mb-0 previous disabled">#{msg['paging.previous']}</p>-->
               </c:if>
             </div>
             <!-- Page selection -->
@@ -77,7 +77,6 @@
               <c:if test="#{not servicePagingBean.nextAvailable}">
                 <button id="next#{prefix}" type="button" class="btn btn-outline-secondary" disabled="disabled">
                   #{msg['paging.next']} <i class="fa fa-arrow-right"></i></button>
-                <!--                                    <p id="next#{prefix}" class="mb-0 next disabled">#{msg['paging.next']}</p>-->
               </c:if>
             </div>
           </div>
