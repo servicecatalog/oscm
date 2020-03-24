@@ -19,14 +19,12 @@
     <div class="container">
       <div class="row justify-content-center">
         <!-- Stars -->
-        <div class="col-12">
+        <div class="col-auto px-1 py-1 bg-white">
           <c:if test="#{empty rating}">
             <c:set var="rating" value="0"/>
           </c:if>
           <!-- Stars box -->
-          <div class="placeholder">
-            <a4j:outputPanel layout="block" styleClass="ratingStars rating#{rating}"/>
-          </div>
+            <a4j:outputPanel id="ratingStars" layout="block" styleClass="ratingStars rating#{rating}"/>
         </div>
         <!-- Text -->
         <div class="col-auto">
