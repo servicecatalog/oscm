@@ -16,8 +16,8 @@
 
   <c:set var="ratingRendered" value="#{marketplaceConfigurationBean.currentConfiguration.reviewEnabled}"/>
   <c:if test="#{ratingRendered}">
-    <div class="container #{styleClass}">
-      <div class="row justify-content-center">
+    <div class="#{styleClass}">
+      <div class="row no-gutters justify-content-center">
         <!-- Stars -->
         <div class="col-auto px-1 py-1 bg-white">
           <c:if test="#{empty rating}">
