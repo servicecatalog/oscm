@@ -3639,7 +3639,7 @@ div.responsive-table-panel {
     margin: 0 !important;
 }
 
-responsive-container {
+.responsive-container {
     position: relative;
     overflow: hidden;
     padding-bottom: 31.25%; 
