@@ -21,14 +21,13 @@
         <b:dataTable mark-search-results="true" border="false" responsive="true" tableId="activationTable" value="#{serviceBean.servicesForDeActivation}"
           label="#{msg['service.activation.table.header']}" var="rowItem" rowStyleClass="bootsfacesRowOdd, bootsfacesRowEven">
           <c:set var="priceModelText" value="#{rowItem.priceModelTextKey}" />
-          <c:set var="activationChangeAction" value="#{rich:element('visibleInCatalog')}.disabled=!this.checked;" />
           <b:dataTableColumn headerStyleClass="bootsfacesHeader"  >
             <f:facet name="header">
               <h:outputText value="#{msg['service.active']}" />
             </f:facet>
             <div class="dataTableCheckbox">
-              <b:selectBooleanCheckbox id="active" value="#{rowItem.selected}" onchange="setDirty(true);" styleClass="containerStyle"
-                                       onclick="#{rowItem.visibleInCatalogSupported? activationChangeAction : ''}"
+              <b:selectBooleanCheckbox id="active" value="#{rowItem.selected}" onchange="setDirty(true);"
+                                       onclick="ajax:rowItem.selected" update="visibleInCatalog"
                                        rendered="#{not rowItem.serviceSuspended}"
                                        disabled="#{(empty rowItem.priceModel) or (rowItem.priceModel.key eq 0) or (rowItem.noMarketplaceAssigned)}" />
             </div>
@@ -61,7 +60,7 @@
             <!-- instead we use a hidden field -->
             <div class="dataTableCheckbox">
               <b:selectBooleanCheckbox styleClass="test" id="visibleInCatalog" value="#{rowItem.visibleInCatalogChecked}"
-                                       onchange="setDirty(true);" onclick="#{rich:element('viInCatInternal')}.value = this.checked;"
+                                       onchange="setDirty(true);"
                                        disabled="#{not rowItem.selected}" rendered="#{rowItem.visibleInCatalogSupported}" />
             </div>
            </b:dataTableColumn>
