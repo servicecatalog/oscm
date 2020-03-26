@@ -1680,6 +1680,14 @@ div.rf-cp-b{
     width: 100%;
 }
 
+.dataTableCheckbox form-group {
+  margin-bottom: 0px;
+}
+.dataTableCheckbox form-group checkbox {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
 /* paging row styling */
 #mainContainer .sortable .rf-dt-hdr-c {
  background: none repeat scroll 0% 0% #FFF !important;
