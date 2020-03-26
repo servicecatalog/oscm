@@ -381,5 +381,4 @@ public class CategoryBeanTest {
 
     assertEquals("English", categoryBean.getLocale());
   }
-
 }
