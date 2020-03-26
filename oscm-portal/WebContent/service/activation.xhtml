@@ -50,7 +50,7 @@
             </f:facet>
             <h:outputText id="marketplace" value="#{rowItem.marketplace}" />
           </b:dataTableColumn>
-          <b:dataTableColumn  headerStyleClass="bootsfacesHeader">
+          <b:dataTableColumn headerStyleClass="bootsfacesHeader">
             <f:facet name="header">
               <h:outputText value="#{msg['service.visibleInCatalog']}" />
             </f:facet>
@@ -59,8 +59,8 @@
             <!-- the checkbox cannot be used for data exchange because it might be in a disabled state -->
             <!-- instead we use a hidden field -->
             <div class="dataTableCheckbox">
-              <b:selectBooleanCheckbox styleClass="test" id="visibleInCatalog" value="#{rowItem.visibleInCatalogChecked}"
-                                       onchange="setDirty(true);"
+              <b:selectBooleanCheckbox id="visibleInCatalog" value="#{rowItem.visibleInCatalogChecked}"
+                                       onchange="setDirty(true);" onclick="#{rich:element('viInCatInternal')}.value = this.checked;"
                                        disabled="#{not rowItem.selected}" rendered="#{rowItem.visibleInCatalogSupported}" />
             </div>
            </b:dataTableColumn>
