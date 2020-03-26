@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -34,6 +35,7 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.persistence.Query;
+
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.accountservice.assembler.PaymentTypeAssembler;
 import org.oscm.accountservice.local.AccountServiceLocal;
@@ -875,7 +877,7 @@ public class OperatorServiceBean implements OperatorService {
   public VOOperatorOrganization getOrganization(String organizationId)
       throws OrganizationAuthoritiesException, ObjectNotFoundException {
 
-    Organization organization = getOrganizationInt(organizationId);
+    Organization organization = getOrganizationAccess(organizationId);
 
     VOOperatorOrganization vo =
         OrganizationAssembler.toVOOperatorOrganization(
@@ -884,6 +886,40 @@ public class OperatorServiceBean implements OperatorService {
             new LocalizerFacade(localizer, dm.getCurrentUser().getLocale()));
 
     return vo;
+  }
+
+  private Organization getOrganizationAccess(String targetOrgId)
+      throws OrganizationAuthoritiesException, ObjectNotFoundException {
+    Organization myOrg = dm.getCurrentUser().getOrganization();
+    Organization org = getOrganizationInt(targetOrgId);
+    if (org.getKey() != myOrg.getKey()) {
+      for (OrganizationReference r : myOrg.getTargets()) {
+        if (org.getKey() == r.getTarget().getKey()) return org;
+      }
+      throw unauthorizedAccess(myOrg.getOrganizationId(), org.getOrganizationId());
+    }
+    return org;
+  }
+
+  private OrganizationAuthoritiesException unauthorizedAccess(String myOrgId, String targetOrgId)
+      throws OrganizationAuthoritiesException {
+    String message =
+        String.format(
+            "Organization '%s' tried to access organization '%s' but is not allowed to.",
+            myOrgId, targetOrgId);
+    OrganizationAuthoritiesException e = new OrganizationAuthoritiesException(message);
+    if (logger != null) {
+      logger.logWarn(
+          Log4jLogger.SYSTEM_LOG,
+          e,
+          LogMessageIdentifier.WARN_INSUFFICIENT_AUTH_BY_ORGANIZATION_ACCESS,
+          myOrgId,
+          targetOrgId);
+    }
+    if (sessionCtx != null) {
+      sessionCtx.setRollbackOnly();
+    }
+    return e;
   }
 
   /**
