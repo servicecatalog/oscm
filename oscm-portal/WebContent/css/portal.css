@@ -1683,9 +1683,14 @@ div.rf-cp-b{
 .dataTableCheckbox .form-group {
   margin-bottom: 0px;
 }
+
 .dataTableCheckbox .form-group .checkbox {
   margin-top: 0px;
   margin-bottom: 0px;
+}
+
+.dataTableCheckbox .form-group .checkbox label {
+  min-height: 15px;
 }
 
 /* paging row styling */
