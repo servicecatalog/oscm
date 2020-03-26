@@ -42,8 +42,8 @@
             <a4j:outputPanel styleClass="option" />
           </a4j:outputPanel>
           <h:selectOneMenu id="locale" valueChangeListener="#{categoryBean.localeValueChanged}" styleClass="select"
-            onclick="#{onClickSelectLocale}" onchange="#{onChangeSelectLocale}" label="#{msg['user.locale']}"
-            value="#{categoryBean.locale}" disabled="#{categoryBean.marketplaceBean.disabledForEdit}">
+                           onclick="#{onClickSelectLocale}" onchange="#{onChangeSelectLocale}" label="#{msg['user.locale']}"
+                           value="#{categoryBean.locale}" disabled="#{categoryBean.marketplaceBean.disabledForEdit}">
             <adm:localeItems />
             <f:validator validatorId="SupportedLanguageValidator" />
           </h:selectOneMenu>

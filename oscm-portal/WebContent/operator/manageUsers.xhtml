@@ -11,8 +11,7 @@
     <c:set var="focusElement" value="userId" />
   </ui:define>
 
-  <ui:define name="body">
-
+	<ui:define name="body">
 
     <h:form id="numberOfUsersForm">
       <adm:outputStep value="#{msg['operator.numberOfUsers']}" />
@@ -68,11 +67,11 @@
 			</h:form>
 		</c:if>
 
-		<c:if test="#{operatorOrgBean.internalAuthMode}">
+	  <c:if test="#{operatorOrgBean.internalAuthMode}">
 			<adm:outputStep value="#{msg['user.add.step2']}" />
 			<h:form id="userImportForm" enctype="multipart/form-data">
 				<adm:panelGrid>
-					<adm:selectOrganization inline="true" />
+					<adm:selectOrganization inline="true" render="@form" />
 				</adm:panelGrid>
 
 			<adm:bootsfacesSelectMenu   id="selectMarketplaceId"

@@ -370,4 +370,16 @@ public class CategoryBeanTest {
     categoryBean.processValueChange(eventMock);
     assertEquals(0, facesMessages.size());
   }
+
+  @Test
+  public void localeValueChanged() {
+    ValueChangeEvent eventMock = mock(ValueChangeEvent.class);
+    when(eventMock.getNewValue()).thenReturn("English");
+    categoryBean.getCategoriesRows();
+
+    categoryBean.localeValueChanged(eventMock);
+
+    assertEquals("English", categoryBean.getLocale());
+  }
+
 }
