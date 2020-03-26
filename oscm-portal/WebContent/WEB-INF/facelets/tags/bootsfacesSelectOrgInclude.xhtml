@@ -27,7 +27,7 @@
 			</c:forEach>
 
 			<f:ajax event="change"
-				render="@form, #{render}, mainTmplMessagesPanel"
+				render="#{render}, mainTmplMessagesPanel"
 				listener="#{operatorSelectOrgCtrl.selectOrganizationAction}" />
 		</b:selectOneMenu>
 	</h:panelGroup>

@@ -5,10 +5,10 @@
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/main.xhtml">
+  xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/mainBootsfaces.xhtml">
   <ui:define name="pageId">
     <c:set var="pageId" value="operator.exportBillingData" />
-    <c:set var="focusElement" value="organizationId" />
+    <c:set var="focusElementID" value="getBillingData:organizationIdInner" />
   </ui:define>
   <ui:define name="body">
 
@@ -26,11 +26,10 @@
     </h:form>
 
     <h:form id="getBillingData">
-
       <adm:outputStep value="#{msg['operator.exportBillingData']}" />
       <adm:panelGrid minColWidth="false" nowrap="true">
 
-        <adm:selectOrganization render="billingDataButton" inline="true" />
+        <adm:selectOrganization render="@form" inline="true" />
 
         <adm:outputLabel value="#{msg['organization.billingData.from']}" required="true" />
         <rich:calendar id="fromDate" value="#{billingBean.fromDate}" popup="true" locale="#{userBean.myLocale}"
