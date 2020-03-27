@@ -1,4 +1,5 @@
 /* import only the necessary Bootstrap files */
+<<<<<<< Upstream, based on origin/master
 @import "../bootstrap/scss/functions"; 
 @import "../bootstrap/scss/variables";
 /* -------begin customization-------- *//* change the primary theme color to red */
@@ -11,3 +12,12 @@ $border-radius: 10rem;
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "../bootstrap/scss/bootstrap"; 
+=======
+@import "bootstrap/scss/functions"; 
+@import "bootstrap/scss/variables";/* -------begin customization-------- *//* change the primary theme color to red */
+$theme-colors: (
+  primary: red;
+);
+/* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
+@import "bootstrap";
+>>>>>>> bd8b90a Fixes #730 -Initial .scss template for the customization of bootstrap.
