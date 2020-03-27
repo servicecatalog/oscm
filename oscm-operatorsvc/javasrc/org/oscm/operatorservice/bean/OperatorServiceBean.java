@@ -891,10 +891,12 @@ public class OperatorServiceBean implements OperatorService {
     Organization myOrg = dm.getCurrentUser().getOrganization();
     Organization org = getOrganizationInt(targetOrgId);
     if (org.getKey() != myOrg.getKey()) {
-      for (OrganizationReference r : myOrg.getTargets()) {
-        if (org.getKey() == r.getTarget().getKey()) return org;
+      if (!myOrg.hasRole(OrganizationRoleType.PLATFORM_OPERATOR)) {
+        for (OrganizationReference r : myOrg.getTargets()) {
+          if (org.getKey() == r.getTarget().getKey()) return org;
+        }
+        throw unauthorizedAccess(myOrg.getOrganizationId(), org.getOrganizationId());
       }
-      throw unauthorizedAccess(myOrg.getOrganizationId(), org.getOrganizationId());
     }
     return org;
   }
