@@ -22,19 +22,19 @@
         <ul class="nav navbar-nav">
           <!-- Home -->
           <c:if test="#{pageId eq 'marketplace.home'}">
-            <li class="nav-item active"><a class="nav-link" href="#{mpBaseUrl}/index.jsf?mId=#{mId}"><i
+            <li id="homeLink" class="nav-item active"><a class="nav-link" href="#{mpBaseUrl}/index.jsf?mId=#{mId}"><i
                 class="fa fa-fw fa-home"></i>#{msg['navigation.home']}</a></li>
           </c:if>
           <c:if test="#{pageId ne 'marketplace.home'}">
-            <li class="nav-item"><a class="nav-link" href="#{mpBaseUrl}/index.jsf?mId=#{mId}"><i
+            <li id="homeLink" class="nav-item"><a class="nav-link" href="#{mpBaseUrl}/index.jsf?mId=#{mId}"><i
                 class="fa fa-fw fa-home"></i>#{msg['navigation.home']}</a></li>
           </c:if>
           <!-- Browse Services -->
           <c:if test="#{pageId eq 'marketplace.services'}">
-            <li class="nav-item active"><a class="nav-link" href="#{mpBaseUrl}/services.jsf">Browse Services</a></li>
+            <li id="servicesLink" class="nav-item active"><a class="nav-link" href="#{mpBaseUrl}/services.jsf">Browse Services</a></li>
           </c:if>
           <c:if test="#{pageId ne 'marketplace.services'}">
-            <li class="nav-item"><a class="nav-link" href="#{mpBaseUrl}/services.jsf">Browse Services</a></li>
+            <li id="servicesLink" class="nav-item"><a class="nav-link" href="#{mpBaseUrl}/services.jsf">Browse Services</a></li>
           </c:if>
           <!-- Help -->
           <ui:fragment rendered="#{user ne null}">

@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import org.oscm.app.*;
+import org.oscm.marketplace.MarketplacePlaygroundWT;
 import org.oscm.webtest.WebTester;
 
 /**
@@ -31,7 +32,8 @@ import org.oscm.webtest.WebTester;
   AppVCenterControllerWT.class,
   PortalTechServiceWT.class,
   PortalMarketServiceWT.class,
-  MarketplaceSubscriptionWT.class
+  MarketplaceSubscriptionWT.class,
+  MarketplacePlaygroundWT.class
 })
 public class PlaygroundSuiteTest {
 
