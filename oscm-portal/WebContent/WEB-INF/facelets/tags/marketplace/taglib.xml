@@ -206,4 +206,8 @@
     <tag-name>ratingStarsBootstrap</tag-name>
     <source>ratingStarsBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>tagCloudBootstrap</tag-name>
+    <source>tagCloudBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>
