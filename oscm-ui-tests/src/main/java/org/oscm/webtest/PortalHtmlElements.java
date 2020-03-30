@@ -33,13 +33,15 @@ public class PortalHtmlElements {
 
   public static final String CREATE_MARKETPLACE_INPUT_NAME =
       "createMarketplaceForm:marketplaceName";
+  public static final String CREATE_MARKETPLACE_INPUT_ID =
+          "createMarketplaceForm:marketplaceId";
   public static final String CREATE_MARKETPLACE_INPUT_ORG_ID =
-      "createMarketplaceForm:organizationIdInput";
+      "createMarketplaceForm:organizationIdInner";
   public static final String CREATE_MARKETPLACE__BUTTON_SAVE =
       "createMarketplaceForm:saveButtonLink";
 
   public static final String DELETE_MARKETPLACE_DROPDOWN_IDLIST =
-      "marketplaceSelectForm:selectMarketplaceId";
+      "marketplaceSelectForm:selectMarketplaceIdInner";
   public static final String DELETE_MARKETPLACE_BUTTON_DELETE =
       "deleteMarketplaceForm:deleteButton";
   public static final String DELETE_MARKETPLACE_BUTTON_CONFIRM = "confirmForm:okButton";
@@ -97,7 +99,7 @@ public class PortalHtmlElements {
   public static final String DEFINE_PUBLISH_OPTION_BUTTON_SAVE = "editForm:saveButton";
 
   public static final String DEACTIVATION_SERVICE_FORM = "serviceDeActivationForm";
-  public static final String DEACTIVATION_SERVICE_TABLE = "serviceDeActivationForm:activationTable";
+  public static final String DEACTIVATION_SERVICE_TABLE = "serviceDeActivationForm:j_idt491";
   public static final String DEACTIVATION_SERVICE_BUTTON_SAVE =
       "serviceDeActivationForm:deActivateButtonLink";
 
@@ -122,8 +124,8 @@ public class PortalHtmlElements {
   public static final String MARKETPLACE_LINKTEXT_LOGIN = "Login";
 
   public static final String MARKETPLACE_LINK_SERVICE_NAME =
-      "//*[@title='%s']/../../..//*[@class='serviceShowDetailsButton']/a";
-  public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW = "buyme";
+      "showDetails0";
+  public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW = "//a[@id='buyme']/span";
   public static final String MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME =
       "configurationForm:subscriptionIdText";
   public static final String MARKETPLACE_SUBSCRIPTION_INPUT_REFNUMBER =

@@ -9,8 +9,6 @@
  */
 package org.oscm.portal;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -19,6 +17,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalPathSegments;
 import org.oscm.webtest.PortalTester;
+
+import java.util.Properties;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Integration web test to create a marketable service.
@@ -31,7 +33,9 @@ public class PortalMarketServiceWT {
   private static final String TECHSERVICE_IAAS_USER_ID = "DummyUser";
   private static final String TECHSERVICE_IAAS_USER_PWD = "DummyPwd123";
   private static final String marketServiceName = "ms_" + PlaygroundSuiteTest.currentTimestampe;
+  public static final String AUTH_MODE = "auth.mode";
   private static PortalTester tester;
+  protected Properties prop;
 
   @Rule public TestWatcher testWatcher = new JUnitHelper();
 
@@ -123,12 +127,9 @@ public class PortalMarketServiceWT {
                 .findElement(By.id(PortalHtmlElements.DEFINE_PUBLISH_OPTION_DROPDOWN_SERVICENAME)));
     dropdownServiceName.selectByVisibleText(PlaygroundSuiteTest.marketServiceName);
 
-    Select dropdownMarketplace =
-        new Select(
-            tester
-                .getDriver()
-                .findElement(By.id(PortalHtmlElements.DEFINE_PUBLISH_OPTION_DROPDOWN_MARKETPLACE)));
-    dropdownMarketplace.selectByValue(PlaygroundSuiteTest.supplierOrgId);
+    tester.selectDropdown(
+        PortalHtmlElements.DEFINE_PUBLISH_OPTION_DROPDOWN_MARKETPLACE,
+        PlaygroundSuiteTest.marketPlaceId);
 
     tester.waitForElementVisible(By.id(PortalHtmlElements.DEFINE_PUBLISH_OPTION_BUTTON_SAVE), 10);
     tester.clickElement(PortalHtmlElements.DEFINE_PUBLISH_OPTION_BUTTON_SAVE);
@@ -136,16 +137,23 @@ public class PortalMarketServiceWT {
     assertTrue(tester.getExecutionResult());
   }
 
-  // TODO Table is having issues on master branch, waiting for issue to be resolved
-  //  @Test
+  @Test
   public void test04activeService() throws Exception {
 
     tester.visitPortal(PortalPathSegments.ACTIVE_MARKETSERVICE);
     tester.waitForElement(By.id(PortalHtmlElements.DEACTIVATION_SERVICE_TABLE), 5);
 
-    String serviceXpath = "//input[@id='serviceDeActivationForm:j_idt489:0:active']";
-    if (!tester.getDriver().findElement(By.xpath(serviceXpath)).isSelected()) {
-      tester.getDriver().findElement(By.xpath(serviceXpath)).click();
+    String authMode = prop.getProperty(AUTH_MODE);
+    if (authMode.contains("INTERNAL")) {
+      String serviceXpath = "//input[@id='serviceDeActivationForm:j_idt491:0:active']";
+      if (!tester.getDriver().findElement(By.xpath(serviceXpath)).isSelected()) {
+        tester.getDriver().findElement(By.xpath(serviceXpath)).click();
+      }
+    } else {
+      String serviceOIDCXpath = "//input[@id='serviceDeActivationForm:j_idt492:0:active']";
+      if (!tester.getDriver().findElement(By.xpath(serviceOIDCXpath)).isSelected()) {
+        tester.getDriver().findElement(By.xpath(serviceOIDCXpath)).click();
+      }
     }
     tester.clickElement(PortalHtmlElements.DEACTIVATION_SERVICE_BUTTON_SAVE);
     tester.waitForElement(By.id(PortalHtmlElements.PORTAL_SPAN_INFOS), 10);

@@ -41,6 +41,7 @@ public class PlaygroundSuiteTest {
   public static String supplierOrgAdminPwd = "";
   public static String supplierOrgAdminMail = "";
   public static String supplierOrgAdminUserkey = "";
+  public static String marketPlaceName = "";
   public static String marketPlaceId = "";
 
   public static String controllerId = "";
