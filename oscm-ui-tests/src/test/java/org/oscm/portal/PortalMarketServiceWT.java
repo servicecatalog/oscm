@@ -19,8 +19,6 @@ import org.oscm.webtest.PortalPathSegments;
 import org.oscm.webtest.PortalTester;
 import org.oscm.webtest.WebTester;
 
-import java.util.Properties;
-
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -143,8 +141,8 @@ public class PortalMarketServiceWT {
     tester.visitPortal(PortalPathSegments.ACTIVE_MARKETSERVICE);
     tester.waitForElement(By.id(PortalHtmlElements.DEACTIVATION_SERVICE_TABLE), 5);
 
-    if (webTester.authMode.contains("INTERNAL")) {
-      String serviceXpath = "//input[@id='serviceDeActivationForm:j_idt491:0:active']";
+    String serviceXpath = "//input[@id='serviceDeActivationForm:j_idt491:0:active']";
+    if (tester.getDriver().findElements(By.xpath(serviceXpath)).size() != 0) {
       if (!tester.getDriver().findElement(By.xpath(serviceXpath)).isSelected()) {
         tester.getDriver().findElement(By.xpath(serviceXpath)).click();
       }
