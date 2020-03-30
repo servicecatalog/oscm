@@ -17,6 +17,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalPathSegments;
 import org.oscm.webtest.PortalTester;
+import org.oscm.webtest.WebTester;
 
 import java.util.Properties;
 
@@ -33,9 +34,8 @@ public class PortalMarketServiceWT {
   private static final String TECHSERVICE_IAAS_USER_ID = "DummyUser";
   private static final String TECHSERVICE_IAAS_USER_PWD = "DummyPwd123";
   private static final String marketServiceName = "ms_" + PlaygroundSuiteTest.currentTimestampe;
-  public static final String AUTH_MODE = "auth.mode";
   private static PortalTester tester;
-  protected Properties prop;
+  private static WebTester webTester;
 
   @Rule public TestWatcher testWatcher = new JUnitHelper();
 
@@ -143,8 +143,7 @@ public class PortalMarketServiceWT {
     tester.visitPortal(PortalPathSegments.ACTIVE_MARKETSERVICE);
     tester.waitForElement(By.id(PortalHtmlElements.DEACTIVATION_SERVICE_TABLE), 5);
 
-    String authMode = prop.getProperty(AUTH_MODE);
-    if (authMode.contains("INTERNAL")) {
+    if (webTester.authMode.contains("INTERNAL")) {
       String serviceXpath = "//input[@id='serviceDeActivationForm:j_idt491:0:active']";
       if (!tester.getDriver().findElement(By.xpath(serviceXpath)).isSelected()) {
         tester.getDriver().findElement(By.xpath(serviceXpath)).click();

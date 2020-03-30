@@ -62,6 +62,7 @@ public class WebTester {
   protected WebDriver driver;
   protected Properties prop;
   private int waitingTime;
+  public String authMode;
 
   // path schemas
   private static final String PROPERTY_PATH =
@@ -86,7 +87,7 @@ public class WebTester {
   }
 
   private void setAuthenticationContext() {
-    String authMode = prop.getProperty(AUTH_MODE);
+    authMode = prop.getProperty(AUTH_MODE);
     switch (authMode) {
       case "INTERNAL":
         authenticationCtx = new InternalAuthenticationContext(driver);
