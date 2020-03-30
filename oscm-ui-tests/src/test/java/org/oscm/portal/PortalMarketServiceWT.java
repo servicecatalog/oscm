@@ -17,7 +17,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalPathSegments;
 import org.oscm.webtest.PortalTester;
-import org.oscm.webtest.WebTester;
 
 import static org.junit.Assert.assertTrue;
 
@@ -33,7 +32,6 @@ public class PortalMarketServiceWT {
   private static final String TECHSERVICE_IAAS_USER_PWD = "DummyPwd123";
   private static final String marketServiceName = "ms_" + PlaygroundSuiteTest.currentTimestampe;
   private static PortalTester tester;
-  private static WebTester webTester;
 
   @Rule public TestWatcher testWatcher = new JUnitHelper();
 
@@ -147,7 +145,7 @@ public class PortalMarketServiceWT {
         tester.getDriver().findElement(By.xpath(serviceXpath)).click();
       }
     } else {
-      String serviceOIDCXpath = "//input[@id='serviceDeActivationForm:j_idt492:0:active']";
+      String serviceOIDCXpath = "//input[@id='input_serviceDeActivationForm:j_idt492:0:active']";
       if (!tester.getDriver().findElement(By.xpath(serviceOIDCXpath)).isSelected()) {
         tester.getDriver().findElement(By.xpath(serviceOIDCXpath)).click();
       }
