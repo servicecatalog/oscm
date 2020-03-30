@@ -75,6 +75,7 @@ public class PortalHtmlElements {
   public static final String UPDATE_TECHSERVICE_DROPDOWN_SERVICENAME =
       "techServiceForm:techServiceIdInner";
   public static final String UPDATE_TECHSERVICE_BUTTONLINK_SAVE = "editForm:saveButtonLink";
+  public static final String UPDATE_TECHSERVICE_TAG_CLOUD_INPUT = "editForm:tagListInput";
 
   public static final String DEFINE_MARKETSERVICE_DROPDOWN_SERVICENAME =
       "editForm:techServiceIdInner";

@@ -20,7 +20,7 @@
 
   <h:form id="filterSelectionForm">
     <c:if test="#{cloudRendered}">
-      <div class="pd-2 border shadow text-center">
+      <div class="my-2 pd-2 border shadow text-center">
         <c:forEach items="#{bean[listMethod]}" var="tag" varStatus="status">
           <mp:tagCloudLink tag="#{tag}" status="#{status}" preview="#{preview}" />
         </c:forEach>
