@@ -1,10 +1,10 @@
-**What is Sass?**
+### **What is Sass?**
 
 Sass is a **CSS pre-processor**. It lets you compile **.sass** and **.scss** files into **.css** code (the .scss format is preferably used, as it is an extension of the usual CSS syntax with Sass features).
 
 The css code can therefore become more re-usable.
 
-##**Steps of Installation of Sass with Ruby.**
+### **Installation of Sass with Ruby.**
 
 1. Download RubyInstaller  for Windows from the page: https://rubyinstaller.org/downloads/
 2. Select recommended version: **Ruby+Devkit 2.6.X (x64)**
@@ -13,9 +13,9 @@ The css code can therefore become more re-usable.
 5. Install Sass with the command: `gem install sass`.
 6. Confirm that Sass has been successfully installed by typing the command: `sass –v`.
 
-##**Integrate CSS-Preprocessig with Eclipse**
+### **Integrate CSS-Preprocessing with Eclipse**
 
-###**Part 1 - Associate the .scss file type with the native Eclipse CSS Editor**
+**Part 1 - Associate the .scss file type with the native Eclipse CSS Editor**
 
 1. Go to Window \&gt; Preferences
 2. Drill down to General \&gt; Editors \&gt; File Associations
@@ -27,7 +27,7 @@ The css code can therefore become more re-usable.
 
 This associated the file type .scss with eclipses native CSS Editor. Now we have to configure the native CSS Editor to support .scss files. To do this, follow this steps:
 
-###**Part 2 - Add the .scss file type to the native CSS Editor**
+**Part 2 - Add the .scss file type to the native CSS Editor**
 
 1. Go to Window \&gt; Preferences
 2. Drill down to General \&gt; Content Types
@@ -38,13 +38,13 @@ This associated the file type .scss with eclipses native CSS Editor. Now we have
 
 Note: If the css colours do not appear you may have to do the following: Right click the .scss file \&gt; Open With \&gt; CSS Editor.
 
-###**Part 3 - Configure a Sass Builder in Eclipse:**
+**Part 3 - Configure a Sass Builder in Eclipse:**
 
 1. From the Project menu select &quot;Properties&quot; and choose the &quot;Builders&quot; section.
 2. Create a new Builder and select &quot;Program&quot; as configuration type.
 3. Choose a name for your launch configuration, e.g. &quot;Sass\_Builder&quot;.
 4. Insert the path of your sass installation into the Location field (e.g. &quot;C:\Ruby26-x64\bin\sass.bat&quot;.
-5. Use ${project\_loc} as working directory.
+5. Use `${project\_loc}` as working directory.
 6. In the &quot;Build Options&quot; tab just check all options under the &quot;Run the builder:&quot; section. You can also &quot;Specify working set of relevant resources&quot; to launch the builder only when files contained in selected folders are saved.
 7. In the Arguments text box insert the following:
 
