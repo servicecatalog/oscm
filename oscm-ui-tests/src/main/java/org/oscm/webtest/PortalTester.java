@@ -172,7 +172,8 @@ public class PortalTester extends WebTester {
   }
 
   public void logoutMarketplacePlayground(){
-    driver.findElement(By.id("logoutdrop")).click();
+    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
+    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGOUT_DROPDOWN)).click();
     driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
   }
 
