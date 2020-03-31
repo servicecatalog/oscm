@@ -24,12 +24,12 @@ public class MarketplacePlaygroundWT {
     tester = new PortalTester();
     String userid = PlaygroundSuiteTest.supplierOrgAdminId;
     String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
-    tester.loginMarketplace(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
   @AfterClass
   public static void cleanUp() {
-    tester.logoutMarketplace();
+    tester.logoutMarketplacePlayground();
     tester.close();
   }
 
