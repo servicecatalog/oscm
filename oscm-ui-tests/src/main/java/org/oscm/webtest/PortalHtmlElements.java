@@ -33,8 +33,7 @@ public class PortalHtmlElements {
 
   public static final String CREATE_MARKETPLACE_INPUT_NAME =
       "createMarketplaceForm:marketplaceName";
-  public static final String CREATE_MARKETPLACE_INPUT_ID =
-          "createMarketplaceForm:marketplaceId";
+  public static final String CREATE_MARKETPLACE_INPUT_ID = "createMarketplaceForm:marketplaceId";
   public static final String CREATE_MARKETPLACE_INPUT_ORG_ID =
       "createMarketplaceForm:organizationIdInner";
   public static final String CREATE_MARKETPLACE__BUTTON_SAVE =
@@ -123,8 +122,7 @@ public class PortalHtmlElements {
   public static final String MARKETPLACE_LINK_LOGOUT = "formLogout:logout";
   public static final String MARKETPLACE_LINKTEXT_LOGIN = "Login";
 
-  public static final String MARKETPLACE_LINK_SERVICE_NAME =
-      "showDetails0";
+  public static final String MARKETPLACE_LINK_SERVICE_NAME = "showDetails0";
   public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW = "//a[@id='buyme']/span";
   public static final String MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME =
       "configurationForm:subscriptionIdText";

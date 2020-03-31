@@ -45,7 +45,8 @@ public class MarketplaceSubscriptionWT {
     tester.waitForElement(
         By.id(PortalHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE), WebTester.IMPLICIT_WAIT);
     tester.selectDropdown(
-        PortalHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE, PlaygroundSuiteTest.marketPlaceId);
+        PortalHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE,
+        PlaygroundSuiteTest.marketPlaceId);
     tester.waitForElementVisible(
         By.id(PortalHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
     tester.clickElement(PortalHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);
@@ -59,7 +60,8 @@ public class MarketplaceSubscriptionWT {
     String referenceNo = WebTester.getCurrentTime();
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
     tester.visitMarketplace(PortalPathSegments.INDEX_MARKETPLACE);
-    tester.waitForElement(By.id(PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME), WebTester.IMPLICIT_WAIT);
+    tester.waitForElement(
+        By.id(PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME), WebTester.IMPLICIT_WAIT);
     tester.clickElement(PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME);
     tester.waitForElement(
         By.xpath(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW),

@@ -9,6 +9,8 @@
  */
 package org.oscm.portal;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -17,8 +19,6 @@ import org.openqa.selenium.support.ui.Select;
 import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalPathSegments;
 import org.oscm.webtest.PortalTester;
-
-import static org.junit.Assert.assertTrue;
 
 /**
  * Integration web test to create a marketable service.

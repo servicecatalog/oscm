@@ -67,15 +67,14 @@ public class PortalMarketplaceWT {
     tester.visitPortal(PortalPathSegments.CREATE_MARKETPLACE);
 
     tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_NAME, MARKETPLACE);
-    tester.writeValue(
-            PortalHtmlElements.CREATE_MARKETPLACE_INPUT_ID, marketplaceId);
+    tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_ID, marketplaceId);
 
     tester.clickElement(PortalHtmlElements.CREATE_MARKETPLACE__BUTTON_SAVE);
 
     assertTrue(tester.getExecutionResult());
   }
 
-   @Test
+  @Test
   public void test03remove() throws Exception {
     marketplaceId = tester.getCreatedId(tester.readInfoMessage());
 
