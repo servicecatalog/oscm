@@ -17,8 +17,8 @@ The css code can therefore become more re-usable.
 
 **Part 1 - Associate the .scss file type with the native Eclipse CSS Editor**
 
-1. Go to Window \&gt; Preferences
-2. Drill down to General \&gt; Editors \&gt; File Associations
+1. Go to Window &amp; Preferences
+2. Drill down to General &amp; Editors &amp; File Associations
 3. In File Associations pane, click the &#39;Add...&quot; button on the top right.
 4. For File Type:, enter \*.scss and then click OK.
 5. Find the \*.scss entry in the File Associations list and select it.
@@ -29,8 +29,8 @@ This associated the file type .scss with eclipses native CSS Editor. Now we have
 
 **Part 2 - Add the .scss file type to the native CSS Editor**
 
-1. Go to Window \&gt; Preferences
-2. Drill down to General \&gt; Content Types
+1. Go to Window &amp; Preferences
+2. Drill down to General &amp; Content Types
 3. In the Content Types pane, expand Text, then select CSS
 4. After CSS is selected, on the bottom File associations: pane, click the .. button.
 5. For Content type:, enter \*.scss and then click OK.
@@ -44,7 +44,7 @@ Note: If the css colours do not appear you may have to do the following: Right c
 2. Create a new Builder and select &quot;Program&quot; as configuration type.
 3. Choose a name for your launch configuration, e.g. &quot;Sass\_Builder&quot;.
 4. Insert the path of your sass installation into the Location field (e.g. &quot;C:\Ruby26-x64\bin\sass.bat&quot;.
-5. Use `${project\_loc}` as working directory.
+5. Use `${project_loc}` as working directory.
 6. In the &quot;Build Options&quot; tab just check all options under the &quot;Run the builder:&quot; section. You can also &quot;Specify working set of relevant resources&quot; to launch the builder only when files contained in selected folders are saved.
 7. In the Arguments text box insert the following:
 
