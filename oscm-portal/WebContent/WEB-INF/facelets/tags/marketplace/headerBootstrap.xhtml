@@ -31,10 +31,10 @@
           </c:if>
           <!-- Browse Services -->
           <c:if test="#{pageId eq 'marketplace.services'}">
-            <li id="servicesLink" class="nav-item active"><a class="nav-link" href="#{mpBaseUrl}/services.jsf">Browse Services</a></li>
+            <li id="servicesLink" class="nav-item active"><a class="nav-link" href="#{mpBaseUrl}/services.jsf">#{msg['button.browse']}</a></li>
           </c:if>
           <c:if test="#{pageId ne 'marketplace.services'}">
-            <li id="servicesLink" class="nav-item"><a class="nav-link" href="#{mpBaseUrl}/services.jsf">Browse Services</a></li>
+            <li id="servicesLink" class="nav-item"><a class="nav-link" href="#{mpBaseUrl}/services.jsf">#{msg['button.browse']}</a></li>
           </c:if>
           <!-- Help -->
           <ui:fragment rendered="#{user ne null}">
