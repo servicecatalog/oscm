@@ -65,7 +65,7 @@ public class PortalTester extends WebTester {
   /**
    * Navigates the webdriver to the given page of the OSCM portal.
    *
-   * @param page the page of the portal
+   * @param segments the page of the portal
    * @throws Exception
    */
   public void visitPortal(String segments) throws Exception {
@@ -142,7 +142,7 @@ public class PortalTester extends WebTester {
   /**
    * Navigates the webdriver to the given page of the OSCM marketplace.
    *
-   * @param page the page of the portal
+   * @param context the end of path
    */
   public void visitMarketplace(String context) {
     String target = String.format(BASE_PATH_MARKETPLACE, prop.getProperty(BES_HTTPS_URL), context);
@@ -176,7 +176,6 @@ public class PortalTester extends WebTester {
    * Reads the error message from the page notification.
    *
    * @return the error message
-   * @throws NoSuchElementException if error message is not present
    */
   public String readErrorMessage() {
     WebElement element = driver.findElement(By.id(PortalHtmlElements.PORTAL_SPAN_ERRORS));
@@ -187,7 +186,6 @@ public class PortalTester extends WebTester {
    * Reads the info message from the page notification.
    *
    * @return the info message
-   * @throws NoSuchElementException if info message is not present
    */
   public String readInfoMessage() {
     WebElement element = driver.findElement(By.id(PortalHtmlElements.PORTAL_SPAN_INFOS));

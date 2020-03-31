@@ -29,7 +29,7 @@ public class MarketplaceSubscriptionWT {
     tester = new PortalTester();
     String userid = PlaygroundSuiteTest.supplierOrgAdminId;
     String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
-    tester.loginMarketplace(userid, userpassword, PlaygroundSuiteTest.supplierOrgId);
+    tester.loginPortal(userid, userpassword);
   }
 
   @AfterClass
@@ -45,8 +45,7 @@ public class MarketplaceSubscriptionWT {
     tester.waitForElement(
         By.id(PortalHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE), WebTester.IMPLICIT_WAIT);
     tester.selectDropdown(
-        PortalHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE,
-        PlaygroundSuiteTest.supplierOrgId);
+        PortalHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE, PlaygroundSuiteTest.marketPlaceId);
     tester.waitForElementVisible(
         By.id(PortalHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
     tester.clickElement(PortalHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);
@@ -54,25 +53,19 @@ public class MarketplaceSubscriptionWT {
         tester.verifyFoundElement(By.id(PortalHtmlElements.MARKETPLACE_SPAN_WELCOME)));
   }
 
-  @Ignore
-  public void test02createSubscription() throws Exception {
+  @Test
+  public void test02createSubscription() {
 
     String referenceNo = WebTester.getCurrentTime();
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
     tester.visitMarketplace(PortalPathSegments.INDEX_MARKETPLACE);
-    String xpathServiceLink =
-        String.format(
-            PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME,
-            PlaygroundSuiteTest.marketServiceName);
-    tester.waitForElement(By.xpath(xpathServiceLink), WebTester.IMPLICIT_WAIT);
-    String linkToService =
-        tester.getDriver().findElement(By.xpath(xpathServiceLink)).getAttribute("href");
-    tester.getDriver().navigate().to(linkToService);
+    tester.waitForElement(By.id(PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME), WebTester.IMPLICIT_WAIT);
+    tester.clickElement(PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME);
     tester.waitForElement(
-        By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW),
+        By.xpath(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW),
         WebTester.IMPLICIT_WAIT);
 
-    tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW);
+    tester.clickElementXPath(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW);
     tester.waitForElement(
         By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT),
         WebTester.IMPLICIT_WAIT);

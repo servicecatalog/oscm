@@ -215,6 +215,18 @@ public class WebTester {
   }
 
   /**
+   * Clicks the element with the given xpath.
+   *
+   * @param xpath the element xpath
+   * @throws NoSuchElementException if element is not present
+   */
+  public void clickElementXPath(String xpath) {
+    driver.findElement(By.xpath(xpath)).click();
+
+    log(String.format("Clicked the element with xpath %s", xpath));
+  }
+
+  /**
    * Reads the value of the element with the given id. This is used for fields that use the value
    * attribute, e.g. input fields.
    *

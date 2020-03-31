@@ -50,21 +50,36 @@ public class PortalMarketplaceWT {
     tester.visitPortal(PortalPathSegments.CREATE_MARKETPLACE);
 
     tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_NAME, MARKETPLACE);
-    tester.writeValue(
+    tester.selectDropdown(
         PortalHtmlElements.CREATE_MARKETPLACE_INPUT_ORG_ID, PlaygroundSuiteTest.supplierOrgId);
 
     tester.clickElement(PortalHtmlElements.CREATE_MARKETPLACE__BUTTON_SAVE);
 
     assertTrue(tester.getExecutionResult());
-    PlaygroundSuiteTest.marketPlaceId = MARKETPLACE;
+    PlaygroundSuiteTest.marketPlaceName = MARKETPLACE;
   }
 
-  // @Test
-  public void remove() throws Exception {
+  @Test
+  public void test02create() throws Exception {
+    PlaygroundSuiteTest.marketPlaceId = tester.getCreatedId(tester.readInfoMessage());
+    marketplaceId = "marketplaceToRemove";
 
+    tester.visitPortal(PortalPathSegments.CREATE_MARKETPLACE);
+
+    tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_NAME, MARKETPLACE);
+    tester.writeValue(
+            PortalHtmlElements.CREATE_MARKETPLACE_INPUT_ID, marketplaceId);
+
+    tester.clickElement(PortalHtmlElements.CREATE_MARKETPLACE__BUTTON_SAVE);
+
+    assertTrue(tester.getExecutionResult());
+  }
+
+   @Test
+  public void test03remove() throws Exception {
     marketplaceId = tester.getCreatedId(tester.readInfoMessage());
 
-    if (marketplaceId == null || marketplaceId == "")
+    if (marketplaceId == null || marketplaceId.equals(""))
       throw new Exception("Marketplace " + MARKETPLACE + " doesn't exists!");
 
     tester.visitPortal(PortalPathSegments.DELETE_MARKETPLACE);
