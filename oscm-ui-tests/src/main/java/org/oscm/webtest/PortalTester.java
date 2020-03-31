@@ -142,9 +142,8 @@ public class PortalTester extends WebTester {
   public void loginMarketplacePlayground(String user, String password, String supplierOrgId) throws Exception {
     visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
 
-    if (verifyFoundElement(By.linkText(PortalHtmlElements.MARKETPLACE_LINKTEXT_LOGIN))) {
-      driver.findElement(By.linkText(PortalHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
-    }
+    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
+    driver.findElement(By.linkText(PortalHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
 
     authenticationCtx.loginMarketplace(user, password);
   }
