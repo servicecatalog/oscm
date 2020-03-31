@@ -43,7 +43,7 @@ Note: If the css colors do not appear you may have to do the following: Right cl
 1. From the Project menu select &quot;*Properties*&quot; and choose the &quot;*Builders*&quot; section.
 2. Create a new Builder and select &quot;*Program*&quot; as configuration type.
 3. Choose a name for your launch configuration, e.g. &quot;Sass\_Builder&quot;.
-4. Insert the path of your sass installation into the Location field (e.g. &quot;C:\Ruby26-x64\bin\sass.bat&quot;.
+4. Insert the path of your sass installation into the Location field (e.g. &quot;`C:\Ruby26-x64\bin\sass.bat&quot;.
 5. Use `${project_loc}` as working directory.
 6. In the &quot;Build Options&quot; tab just check all options under the &quot;Run the builder:&quot; section. You can also &quot;Specify working set of relevant resources&quot; to launch the builder only when files contained in selected folders are saved.
 7. In the Arguments text box insert the following:
