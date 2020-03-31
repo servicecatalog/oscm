@@ -75,7 +75,17 @@ Copyright 2010-2012 FUJITSU LIMITED
 		8.6 Miscellaneous Graphics
 		
 	9 Footer
-
+	
+	10 Bootstrap Elements
+	   10.1 Navigation bar
+	   10.2 Cards
+	   10.3 Columns and Rows
+	   10.5 Footer
+	   
+    11 Responsive iframe, embeds and images for stage customization
+       11.1 Responsive iframe
+       11.2 Responsive embed
+       11.3 Responsive image
 */
 
 /*
@@ -3596,6 +3606,10 @@ div.responsive-table-panel {
 	vertical-align: bottom !important;
 }
 
+.navbar-nav li {
+    margin: 0 !important;
+}
+
 /** Styling for bootstrap cards and their content **/
 .card-header {
     font-size: 1rem;
@@ -3627,7 +3641,6 @@ div.responsive-table-panel {
     margin: 2px 0 0 0;
 }
 
-
 .topPadding{
     padding-top: 32px;
 }
@@ -3635,10 +3648,6 @@ div.responsive-table-panel {
 .mt-auto {
 	text-align: right;
 	padding-top: 32px;
-}
-
-.navbar-nav li {
-    margin: 0 !important;
 }
 
 .responsive-container {
