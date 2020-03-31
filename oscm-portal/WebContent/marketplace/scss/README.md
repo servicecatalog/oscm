@@ -17,8 +17,8 @@ The css code can therefore become more re-usable.
 
 **Part 1 - Associate the .scss file type with the native Eclipse CSS Editor**
 
-1. Go to Window &amp; Preferences
-2. Drill down to General &amp; Editors &amp; File Associations
+1. Go to Window > Preferences
+2. Drill down to General > Editors > File Associations
 3. In File Associations pane, click the &#39;Add...&quot; button on the top right.
 4. For File Type:, enter \*.scss and then click OK.
 5. Find the \*.scss entry in the File Associations list and select it.
@@ -29,19 +29,19 @@ This associated the file type .scss with eclipses native CSS Editor. Now we have
 
 **Part 2 - Add the .scss file type to the native CSS Editor**
 
-1. Go to Window &amp; Preferences
-2. Drill down to General &amp; Content Types
+1. Go to Window > Preferences
+2. Drill down to General > Content Types
 3. In the Content Types pane, expand Text, then select CSS
 4. After CSS is selected, on the bottom File associations: pane, click the .. button.
 5. For Content type:, enter \*.scss and then click OK.
 6. Click OK to close out the Preferences window.
 
-Note: If the css colours do not appear you may have to do the following: Right click the .scss file \&gt; Open With \&gt; CSS Editor.
+Note: If the css colors do not appear you may have to do the following: Right click the .scss file > Open With > CSS Editor.
 
 **Part 3 - Configure a Sass Builder in Eclipse:**
 
-1. From the Project menu select &quot;Properties&quot; and choose the &quot;Builders&quot; section.
-2. Create a new Builder and select &quot;Program&quot; as configuration type.
+1. From the Project menu select &quot;*Properties*&quot; and choose the &quot;*Builders*&quot; section.
+2. Create a new Builder and select &quot;*Program*&quot; as configuration type.
 3. Choose a name for your launch configuration, e.g. &quot;Sass\_Builder&quot;.
 4. Insert the path of your sass installation into the Location field (e.g. &quot;C:\Ruby26-x64\bin\sass.bat&quot;.
 5. Use `${project_loc}` as working directory.
@@ -50,7 +50,7 @@ Note: If the css colours do not appear you may have to do the following: Right c
 
 `--update WebContent/marketplace/scss:WebContent/marketplace/css`
 
- (The --update parameter defines the directory source of your sass files followed by &quot;:&quot; and the destination folder for the compiled css files. In my configuration &quot;scss&quot; is the source folder containing the .scss files and &quot;css&quot; is the destination directory containing the compiled .css files. The --update command will check for modifications in the source folder and all sub-folders.)
+ The --update parameter defines the directory source of your sass files followed by &quot;:&quot; and the destination folder for the compiled css files. In my configuration &quot;scss&quot; is the source folder containing the .scss files and &quot;css&quot; is the destination directory containing the compiled .css files. The --update command will check for modifications in the source folder and all sub-folders.
 
 You can also optionally type `--style-compressed` in order to compress the resulting stylesheet.
 
