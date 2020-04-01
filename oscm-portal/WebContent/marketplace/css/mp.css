@@ -74,17 +74,15 @@ Copyright 2010-2012 FUJITSU LIMITED
 		
 	9 Footer
 	
-	10 Bootstrap Elements
-	   10.1 Header section
-	   10.2 Navigation bar
-	   10.3 Cards
-	   10.4 Bootstrap grid
-	   10.5 Footer
+	10 Responsive iframes, embeds and images
+	
+	11 Bootstrap Elements
+	   11.1 Header section
+	   11.2 Navigation bar
+	   11.3 Cards
+	   11.4 Bootstrap grid
+	   11.5 Footer
 	   
-    11 Responsive iframe, embeds and images for stage customization
-       11.1 Responsive iframe
-       11.2 Responsive embed
-       11.3 Responsive image
 
 */
 
@@ -3539,8 +3537,53 @@ div.responsive-table-panel {
   text-transform: uppercase;
 }
 
+/*
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10. Responsive iframes, embeds and images
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
+
+.responsive-container {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 31.25%; 
+    height: 0;   
+}
+
+.responsive-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border: 0;
+}
+
+.responsive-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border: 0;
+}
+
+.responsive-img {
+    max-width: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+/*
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+11. Bootstrap Elements
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-10.1 Header section
+11.1 Header section
      Styling for Bootstrap header.
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
@@ -3579,7 +3622,7 @@ div#headerrightareaBootstrap, rightarea a {
 #headerbottomBootstrap { clear: both; position: relative; display: block; background: #B3B7BC;  width: 100%;   }
  
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-10.2 Navigation bar
+11.2 Navigation bar
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 .navbar-toggler-icon {
@@ -3591,7 +3634,7 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-10.3 Cards
+11.3 Cards
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 .card-header {
@@ -3624,7 +3667,7 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-10.4 Bootstrap grid
+11.4 Bootstrap grid
      Styling for containers and columns.
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
@@ -3645,7 +3688,7 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-10.5 Footer
+11.5 Footer
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .bootstrap_footer {
 	background: #B3B7BC;
@@ -3670,41 +3713,4 @@ div#headerrightareaBootstrap, rightarea a {
 	16px; 
 }
 
-/*
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-11. Responsive iframes and embeds.
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-*/
-
-.responsive-container {
-    position: relative;
-    overflow: hidden;
-    padding-bottom: 31.25%; 
-    height: 0;   
-}
-
-.responsive-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    border: 0;
-}
-
-.responsive-container embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    border: 0;
-}
-
-.responsive-img {
-    max-width: 100%;
-    object-fit: cover;
-    width: 100%;
-}
 
