@@ -591,7 +591,6 @@ input#Search:focus, #subListForm\:search:focus {
 			
 /* top navigation wrapper */
 #headerbottom { clear: both; position: relative; display: block; background: #B3B7BC;  width: 980px;   }
-#headerbottomBootstrap { clear: both; position: relative; display: block; background: #B3B7BC;  width: 100%;   }
 #globalnav { padding: 0; }			
 
 /* navigation list elements */
@@ -3557,9 +3556,11 @@ div.responsive-table-panel {
 }
 
 
-/** Styling for Bootstrap header**/
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+10.1 Header section
+     Styling for Bootstrap header.
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
- /* Bootstrap header */
  div.headerBootstrap { 
 	clear: left; 
 	width: 100%; 
@@ -3592,7 +3593,12 @@ div#headerrightareaBootstrap, rightarea a {
 	font-size:110%;
  }
  
-/** Styling for bootstrap navigation bar **/
+#headerbottomBootstrap { clear: both; position: relative; display: block; background: #B3B7BC;  width: 100%;   }
+ 
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+10.2 Navigation bar
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
 .navbar-toggler-icon {
 	vertical-align: bottom !important;
 }
@@ -3601,18 +3607,16 @@ div#headerrightareaBootstrap, rightarea a {
     margin: 0 !important;
 }
 
-/** Styling for bootstrap cards and their content **/
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+10.3 Cards
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
 .card-header {
     font-size: 1rem;
 }
 
 .card {
 	box-shadow: 4px 4px 10px 0px rgba(3,3,3,0.24);
-}
-
-.col-lg-4.col-md-6.col-sm-12.mb-4 {
-	padding-left: 10px;
-	padding-right: 10px;
 }
 
 .imgContainer {
@@ -3632,6 +3636,14 @@ div#headerrightareaBootstrap, rightarea a {
     margin: 2px 0 0 0;
 }
 
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+10.4 Rows and Columns
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+.col-lg-4.col-md-6.col-sm-12.mb-4 {
+	padding-left: 10px;
+	padding-right: 10px;
+}
 
 .topPadding{
     padding-top: 32px;
@@ -3641,6 +3653,10 @@ div#headerrightareaBootstrap, rightarea a {
 	text-align: right;
 	padding-top: 32px;
 }
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+10.5 Footer
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 .bootstrap_footer ul { 
 	font-size: 93%; 
