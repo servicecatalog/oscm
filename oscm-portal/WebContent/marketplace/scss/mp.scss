@@ -80,13 +80,14 @@ Copyright 2010-2012 FUJITSU LIMITED
 	   10.1 Header section
 	   10.2 Navigation bar
 	   10.3 Cards
-	   10.4 Columns and Rows
+	   10.4 Bootstrap grid
 	   10.5 Footer
 	   
     11 Responsive iframe, embeds and images for stage customization
        11.1 Responsive iframe
        11.2 Responsive embed
        11.3 Responsive image
+
 */
 
 /*
@@ -625,7 +626,6 @@ input#Search:focus, #subListForm\:search:focus {
 			
 /* top navigation wrapper */
 #headerbottom { clear: both; position: relative; display: block; background: #B3B7BC;  width: 980px;   }
-#headerbottomBootstrap { clear: both; position: relative; display: block; background: #B3B7BC;  width: 100%;   }
 #globalnav { padding: 0; }			
 
 /* navigation list elements */
@@ -2904,14 +2904,7 @@ div.pagingOptions p{
 	color: #fff;
 }
 
-.bootstrap_footer {
-	background: #B3B7BC;
-	border-bottom:1px solid #4c4c4c;
-	width: 100%;
-	color: #fff;
-}
 
-.bootstrap_footer a{ color: #fff; }
 
 .footer a{ color: #fff; }
 	
@@ -2940,20 +2933,6 @@ div.pagingOptions p{
 }
 
 .footer li {
-	display: inline;
-	margin: 0; 
-	margin-left: 
-	16px; 
-}
-
-.bootstrap_footer ul { 
-	font-size: 93%; 
-	list-style: none; 
-	padding: 0; 
-	margin: 0;
-}
-
-.bootstrap_footer li {
 	display: inline;
 	margin: 0; 
 	margin-left: 
@@ -3595,14 +3574,49 @@ div.responsive-table-panel {
   text-transform: uppercase;
 }
 
-.container {
-	padding-left: 15px;
-	padding-right: 15px;
-	margin-right: 5px;
-	margin-left: 5px;
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+10.1 Header section
+     Styling for Bootstrap header.
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+ div.headerBootstrap { 
+	clear: left; 
+	width: 100%; 
+	margin: 0 auto 1px; 
+	text-align: left;
+	position: relative; 
+}
+ 
+div.headerBootstrap a { text-decoration: none; }
+div.headerBootstrap a:hover { text-decoration: underline; }
+div.headerBootstrap a img { border: none; }
+
+div.headertopBootstrap{ 
+	width: 100%; 
+	background: #CFD4D9; 
+	float:left;
+	margin:0 0 1px;
 }
 
-/** Styling for bootstrap navigation bar **/
+/* wrapper block for search and login functions */
+div#headerrightareaBootstrap{ 
+	display: block; 
+	float: right; width: 626px; 
+	margin: 16px 16px 0 0; 
+  	width: 60%;
+}
+
+div#headerrightareaBootstrap, rightarea a { 
+	color:#333!important;	
+	font-size:110%;
+ }
+ 
+#headerbottomBootstrap { clear: both; position: relative; display: block; background: #B3B7BC;  width: 100%;   }
+ 
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+10.2 Navigation bar
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
 .navbar-toggler-icon {
 	vertical-align: bottom !important;
 }
@@ -3611,7 +3625,10 @@ div.responsive-table-panel {
     margin: 0 !important;
 }
 
-/** Styling for bootstrap cards and their content **/
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+10.3 Cards
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
 .card-header {
     font-size: 1rem;
 }
@@ -3620,9 +3637,8 @@ div.responsive-table-panel {
 	box-shadow: 4px 4px 10px 0px rgba(3,3,3,0.24);
 }
 
-.col-lg-4.col-md-6.col-sm-12.mb-4 {
-	padding-left: 10px;
-	padding-right: 10px;
+.topPadding{
+    padding-top: 32px;
 }
 
 .imgContainer {
@@ -3642,13 +3658,51 @@ div.responsive-table-panel {
     margin: 2px 0 0 0;
 }
 
-.topPadding{
-    padding-top: 32px;
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+10.4 Bootstrap grid
+     Styling for containers and columns.
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+.container {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+.col-lg-4.col-md-6.col-sm-12.mb-4 {
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .mt-auto {
 	text-align: right;
 	padding-top: 32px;
+}
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+10.5 Footer
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+.bootstrap_footer {
+	background: #B3B7BC;
+	border-bottom:1px solid #4c4c4c;
+	width: 100%;
+	color: #fff;
+}
+
+.bootstrap_footer a{ color: #fff; }
+
+.bootstrap_footer ul { 
+	font-size: 93%; 
+	list-style: none; 
+	padding: 0; 
+	margin: 0;
+}
+
+.bootstrap_footer li {
+	display: inline;
+	margin: 0; 
+	margin-left: 
+	16px; 
 }
 
 /*
