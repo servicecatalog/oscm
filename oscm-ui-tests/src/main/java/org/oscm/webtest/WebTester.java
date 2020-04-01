@@ -73,7 +73,7 @@ public class WebTester {
 
     loadPropertiesFile();
     ChromeOptions options = new ChromeOptions();
-      options.setHeadless(true);
+    options.setHeadless(true);
     options.setAcceptInsecureCerts(true);
     options.addArguments("--no-sandbox", "--lang=en");
 

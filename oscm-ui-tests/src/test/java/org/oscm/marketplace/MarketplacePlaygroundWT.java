@@ -9,8 +9,7 @@ import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.*;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplacePlaygroundWT {
@@ -63,5 +62,14 @@ public class MarketplacePlaygroundWT {
 
     assertFalse(homeStyle.contains("active"));
     assertTrue(browseStyle.contains("active"));
+  }
+
+  @Test
+  public void test03_cloudTag(){
+    tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_SERVICES);
+
+    if(!tester.verifyFoundElement(By.linkText("cloud tag"))){
+      fail("Cloud tag item not found");
+    }
   }
 }
