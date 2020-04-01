@@ -78,7 +78,7 @@ Copyright 2010-2012 FUJITSU LIMITED
 	   10.1 Header section
 	   10.2 Navigation bar
 	   10.3 Cards
-	   10.4 Columns and Rows
+	   10.4 Bootstrap grid.
 	   10.5 Footer
 	   
     11 Responsive iframe, embeds and images for stage customization
@@ -3548,14 +3548,6 @@ div.responsive-table-panel {
   text-transform: uppercase;
 }
 
-.container {
-	padding-left: 15px;
-	padding-right: 15px;
-	margin-right: 5px;
-	margin-left: 5px;
-}
-
-
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 10.1 Header section
      Styling for Bootstrap header.
@@ -3619,6 +3611,10 @@ div#headerrightareaBootstrap, rightarea a {
 	box-shadow: 4px 4px 10px 0px rgba(3,3,3,0.24);
 }
 
+.topPadding{
+    padding-top: 32px;
+}
+
 .imgContainer {
     overflow: hidden;
 }
@@ -3637,16 +3633,19 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-10.4 Rows and Columns
+10.4 Bootstrap grid
+     Styling for containers and columns.
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
+.container {
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
 .col-lg-4.col-md-6.col-sm-12.mb-4 {
 	padding-left: 10px;
 	padding-right: 10px;
-}
-
-.topPadding{
-    padding-top: 32px;
 }
 
 .mt-auto {
