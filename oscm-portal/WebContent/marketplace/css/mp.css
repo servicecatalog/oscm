@@ -78,7 +78,7 @@ Copyright 2010-2012 FUJITSU LIMITED
 	   10.1 Header section
 	   10.2 Navigation bar
 	   10.3 Cards
-	   10.4 Bootstrap grid.
+	   10.4 Bootstrap grid
 	   10.5 Footer
 	   
     11 Responsive iframe, embeds and images for stage customization
@@ -2869,14 +2869,7 @@ div.pagingOptions p{
 	color: #fff;
 }
 
-.bootstrap_footer {
-	background: #B3B7BC;
-	border-bottom:1px solid #4c4c4c;
-	width: 100%;
-	color: #fff;
-}
 
-.bootstrap_footer a{ color: #fff; }
 
 .footer a{ color: #fff; }
 	
@@ -3656,6 +3649,14 @@ div#headerrightareaBootstrap, rightarea a {
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 10.5 Footer
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+.bootstrap_footer {
+	background: #B3B7BC;
+	border-bottom:1px solid #4c4c4c;
+	width: 100%;
+	color: #fff;
+}
+
+.bootstrap_footer a{ color: #fff; }
 
 .bootstrap_footer ul { 
 	font-size: 93%; 
