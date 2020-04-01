@@ -77,9 +77,10 @@ Copyright 2010-2012 FUJITSU LIMITED
 	9 Footer
 	
 	10 Bootstrap Elements
-	   10.1 Navigation bar
-	   10.2 Cards
-	   10.3 Columns and Rows
+	   10.1 Header section
+	   10.2 Navigation bar
+	   10.3 Cards
+	   10.4 Columns and Rows
 	   10.5 Footer
 	   
     11 Responsive iframe, embeds and images for stage customization
@@ -3649,6 +3650,13 @@ div.responsive-table-panel {
 	text-align: right;
 	padding-top: 32px;
 }
+
+/*
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+11. Responsive iframes and embeds.
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
 
 .responsive-container {
     position: relative;

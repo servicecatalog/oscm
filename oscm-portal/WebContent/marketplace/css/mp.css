@@ -75,9 +75,10 @@ Copyright 2010-2012 FUJITSU LIMITED
 	9 Footer
 	
 	10 Bootstrap Elements
-	   10.1 Navigation bar
-	   10.2 Cards
-	   10.3 Columns and Rows
+	   10.1 Header section
+	   10.2 Navigation bar
+	   10.3 Cards
+	   10.4 Columns and Rows
 	   10.5 Footer
 	   
     11 Responsive iframe, embeds and images for stage customization
@@ -458,40 +459,7 @@ div#headerrightarea, rightarea a {
 	font-size:110%;
  }
  
- /* Bootstrap header */
- div.headerBootstrap { 
-	clear: left; 
-	width: 100%; 
-	margin: 0 auto 1px; 
-	text-align: left;
-	position: relative; 
-}
- 
-div.headerBootstrap a { text-decoration: none; }
-div.headerBootstrap a:hover { text-decoration: underline; }
-div.headerBootstrap a img { border: none; }
 
-div.headertopBootstrap{ 
-	width: 100%; 
-	background: #CFD4D9; 
-	float:left;
-	margin:0 0 1px;
-}
-
-
-
-/* wrapper block for search and login functions */
-div#headerrightareaBootstrap{ 
-	display: block; 
-	float: right; width: 626px; 
-	margin: 16px 16px 0 0; 
-  	width: 60%;
-}
-
-div#headerrightareaBootstrap, rightarea a { 
-	color:#333!important;	
-	font-size:110%;
- }
 
  /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 3.2 Corporate Logo
@@ -2944,19 +2912,7 @@ div.pagingOptions p{
 	16px; 
 }
 
-.bootstrap_footer ul { 
-	font-size: 93%; 
-	list-style: none; 
-	padding: 0; 
-	margin: 0;
-}
 
-.bootstrap_footer li {
-	display: inline;
-	margin: 0; 
-	margin-left: 
-	16px; 
-}
 
 .footer li.firstchild { 
 	margin-left: 0; 
@@ -3600,6 +3556,42 @@ div.responsive-table-panel {
 	margin-left: 5px;
 }
 
+
+/** Styling for Bootstrap header**/
+
+ /* Bootstrap header */
+ div.headerBootstrap { 
+	clear: left; 
+	width: 100%; 
+	margin: 0 auto 1px; 
+	text-align: left;
+	position: relative; 
+}
+ 
+div.headerBootstrap a { text-decoration: none; }
+div.headerBootstrap a:hover { text-decoration: underline; }
+div.headerBootstrap a img { border: none; }
+
+div.headertopBootstrap{ 
+	width: 100%; 
+	background: #CFD4D9; 
+	float:left;
+	margin:0 0 1px;
+}
+
+/* wrapper block for search and login functions */
+div#headerrightareaBootstrap{ 
+	display: block; 
+	float: right; width: 626px; 
+	margin: 16px 16px 0 0; 
+  	width: 60%;
+}
+
+div#headerrightareaBootstrap, rightarea a { 
+	color:#333!important;	
+	font-size:110%;
+ }
+ 
 /** Styling for bootstrap navigation bar **/
 .navbar-toggler-icon {
 	vertical-align: bottom !important;
@@ -3650,7 +3642,26 @@ div.responsive-table-panel {
 	padding-top: 32px;
 }
 
-/** Styling for responsive iframe, embed and image **/
+.bootstrap_footer ul { 
+	font-size: 93%; 
+	list-style: none; 
+	padding: 0; 
+	margin: 0;
+}
+
+.bootstrap_footer li {
+	display: inline;
+	margin: 0; 
+	margin-left: 
+	16px; 
+}
+
+/*
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+11. Responsive iframes and embeds.
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
 
 .responsive-container {
     position: relative;
