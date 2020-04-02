@@ -468,6 +468,7 @@ public class AuthorizationFilter extends BaseBesFilter {
       }
       JSFUtils.sendRedirect(httpResponse, httpRequest.getContextPath() + forwardErrorPage);
     } else {
+        logger.logError(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR);
       // make sure we do not catch exceptions cause by
       // ViewExpiredException here, they'll be handled directly in the
       // doFilter()

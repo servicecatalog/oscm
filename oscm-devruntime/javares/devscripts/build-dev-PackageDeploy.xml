@@ -79,6 +79,34 @@
     </ant>
   </target>
 
+  <target name="BES.PackageAndRedeploy" description="Deploys the portal webcontent" depends="bootstrap">
+    <antcall target="All.CLEAN" />
+    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
+      <property name="projects" value="oscm-ear, oscm-portal, oscm-security, oscm-portal-help, oscm-devruntime,oscm-reports" />
+    </ant>
+    <antcall target="redeployPortal" />
+    <antcall target="redeployBesEar" />
+    <antcall target="restartContainer" />
+  </target>
+
+  <target name="Portal.RedeployWarFile" description="Deploys the portal webcontent" depends="bootstrap">
+    <antcall target="redeployPortal" />
+    <antcall target="restartContainer" />
+  </target>
+
+  <target name="redeployPortal" depends="bootstrap">
+    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="mkdir --parents /tmp/oscm-portal"
+      trust="true" />
+    <scp file="${build.result.package.dir}/oscm-portal/oscm-portal.war" todir="${env.SCP_USER}:${env.SCP_PASS}@${env.SCP_TARGETHOST}:/tmp/oscm-portal"
+      trust="true" />
+    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
+      command="docker exec oscm-core rm -f /opt/apache-tomee/webapps/oscm-portal.war" trust="true" />
+    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
+      command="docker exec oscm-core rm -rf /opt/apache-tomee/webapps/oscm-portal" trust="true" />
+    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
+      command="docker cp /tmp/oscm-portal/oscm-portal.war oscm-core:/opt/apache-tomee/webapps/oscm-portal.war" trust="true" />
+  </target>
+
   <target name="Portal.RedeployWebContents" description="Deploys the portal webcontent" depends="bootstrap">
     <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="mkdir --parents /tmp/WebContents"
       trust="true" />
@@ -89,23 +117,25 @@
     </scp>
     <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
       command="docker cp /tmp/WebContents/. oscm-core:/opt/apache-tomee/webapps/oscm-portal/" trust="true" />
+    <antcall target="restartContainer" />
+  </target>
+
+  <target name="redeployBesEar" depends="bootstrap">
+    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="mkdir --parents /tmp/oscm-ear"
+      trust="true" />
+    <scp file="${build.result.package.dir}/oscm-ear/oscm.ear" todir="${env.SCP_USER}:${env.SCP_PASS}@${env.SCP_TARGETHOST}:/tmp/oscm-ear"
+      trust="true" />
+    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
+      command="docker exec oscm-core rm -f /opt/apache-tomee/apps/oscm.ear" trust="true" />
+    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
+      command="docker exec oscm-core rm -rf /opt/apache-tomee/apps/oscm" trust="true" />
+    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
+      command="docker cp /tmp/oscm-ear/oscm.ear oscm-core:/opt/apache-tomee/apps/oscm.ear" trust="true" />
+  </target>
+
+  <target name="restartContainer" depends="bootstrap">
     <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="docker restart oscm-core"
       trust="true" />
   </target>
 
-  <target name="Portal.RedeployWarFile" description="Deploys the portal webcontent" depends="bootstrap">
-    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="mkdir --parents /tmp/oscm-portal"
-      trust="true" />
-    <scp file="${build.result.package.dir}/oscm-portal/oscm-portal.war" todir="${env.SCP_USER}:${env.SCP_PASS}@${env.SCP_TARGETHOST}:/tmp/oscm-portal"
-      trust="true" />
-
-    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
-      command="docker exec oscm-core rm -f /opt/apache-tomee/webapps/oscm-portal.war" trust="true" />
-    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
-      command="docker exec oscm-core rm -rf /opt/apache-tomee/webapps/oscm-portal" trust="true" />
-    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
-      command="docker cp /tmp/oscm-portal/oscm-portal.war oscm-core:/opt/apache-tomee/webapps/oscm-portal.war" trust="true" />
-    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="docker restart oscm-core"
-      trust="true" />
-  </target>
 </project>
