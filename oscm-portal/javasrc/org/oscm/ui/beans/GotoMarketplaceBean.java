@@ -9,29 +9,38 @@
  */
 package org.oscm.ui.beans;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
+import org.oscm.internal.vo.VOMarketplace;
+import org.oscm.ui.common.MarketplacesComparator;
+
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIOutput;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
-import org.apache.commons.lang3.StringUtils;
-import org.oscm.internal.vo.VOMarketplace;
-import org.oscm.ui.common.MarketplacesComparator;
+import java.io.Serializable;
+import java.util.*;
 
 @ViewScoped
 @ManagedBean(name = "gotoMarketplaceBean")
 public class GotoMarketplaceBean extends BaseBean implements Serializable {
 
+  @ManagedProperty(value = "#{sessionBean}")
+  private SessionBean sessionBean;
+
   private static final long serialVersionUID = 6745716919639233847L;
 
   private List<SelectItem> cachedMarketplaces;
   private String selectedMarketplace;
+
+  public SessionBean getSessionBean() {
+    return sessionBean;
+  }
+
+  public void setSessionBean(SessionBean sessionBean) {
+    this.sessionBean = sessionBean;
+  }
 
   public String getSelectedMarketplace() {
     return selectedMarketplace;
@@ -83,9 +92,7 @@ public class GotoMarketplaceBean extends BaseBean implements Serializable {
       if (!validateMarketplaceTenant(marketplace, tenantId)) {
         continue;
       }
-      if (!marketplace.isRestricted()) {
-        marketplacesToDisplay.add(marketplace);
-      } else if (restrictedMarketplaces.contains(marketplace)) {
+      if (!marketplace.isRestricted() || restrictedMarketplaces.contains(marketplace)) {
         marketplacesToDisplay.add(marketplace);
       }
     }
@@ -113,6 +120,7 @@ public class GotoMarketplaceBean extends BaseBean implements Serializable {
   /** updates the session's mid attribute and forwards to the selected marketplace */
   public String gotoMarketplace() {
     setMarketplaceId(selectedMarketplace);
+    sessionBean.setMarketplaceId(selectedMarketplace);
     return OUTCOME_SUCCESS;
   }
 
