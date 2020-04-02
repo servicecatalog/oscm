@@ -122,7 +122,7 @@ public class SessionBean implements Serializable {
   private PriceModel selectedExternalPriceModel;
   private String samlLogoutRequest;
   private String tenantID;
-  private String marketplaceId;
+  private String marketplaceId = BaseBean.getMarketplaceIdStatic();
 
   public boolean isMyOperationsOnly() {
     return myOperationsOnly;
