@@ -14,15 +14,18 @@
             alt="My Logo" />
         </a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <button id="navbarToggleButton" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
-          <li class="nav-item active"><a class="nav-link" href="#{mpBaseUrl}/index.jsf?mId=#{mId}"><i
-              class="fa fa-fw fa-home"></i>#{msg['navigation.home']}</a></li>
-
+          <!-- Home -->
+            <li id="homeLink" class="#{pageId eq 'marketplace.home' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="#{mpBaseUrl}/index.jsf?mId=#{mId}"><i
+                class="fa fa-fw fa-home"></i>#{msg['navigation.home']}</a></li>
+          <!-- Browse Services -->
+         <li id="servicesLink" class="#{pageId eq 'marketplace.services' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="#{mpBaseUrl}/services.jsf">#{msg['button.browse']}</a></li>
+          <!-- Help -->
           <ui:fragment rendered="#{user ne null}">
             <li class="nav-item"><a class="nav-link"
               onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">#{msg['marketplace.help']}</a>
@@ -88,7 +91,7 @@
               </c:if> 
             </ui:fragment> <ui:fragment rendered="#{user ne null}">
 
-              <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="logoutdrop"
+              <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="logoutDrop"
                 data-toggle="dropdown"><i class="fa fa-fw fa-user"></i>
                 <h:outputText id="welcome" value="#{user.userId}" /></a>
                 <div class="dropdown-menu">
