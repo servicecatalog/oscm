@@ -73,7 +73,7 @@ public class WebTester {
 
     loadPropertiesFile();
     ChromeOptions options = new ChromeOptions();
-      options.setHeadless(true);
+    options.setHeadless(true);
     options.setAcceptInsecureCerts(true);
     options.addArguments("--no-sandbox", "--lang=en");
 
@@ -366,7 +366,7 @@ public class WebTester {
     return prop.getProperty(AUTH_MODE);
   }
 
-  public String getStyleClass(WebElement element){
+  public String getStyleClass(WebElement element) {
     return element.getAttribute("class");
   }
 }

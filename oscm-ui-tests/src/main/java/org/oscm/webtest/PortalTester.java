@@ -139,7 +139,8 @@ public class PortalTester extends WebTester {
     authenticationCtx.loginMarketplace(user, password);
   }
 
-  public void loginMarketplacePlayground(String user, String password, String supplierOrgId) throws Exception {
+  public void loginMarketplacePlayground(String user, String password, String supplierOrgId)
+      throws Exception {
     visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
 
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
@@ -170,7 +171,7 @@ public class PortalTester extends WebTester {
     log("Logout OSCM Marketplace");
   }
 
-  public void logoutMarketplacePlayground(){
+  public void logoutMarketplacePlayground() {
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGOUTDROP)).click();
     driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
