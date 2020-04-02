@@ -33,7 +33,6 @@ import org.oscm.webtest.WebTester;
   PortalTechServiceWT.class,
   PortalMarketServiceWT.class,
   MarketplaceSubscriptionWT.class,
-  MarketplaceSubscriptionWT.class,
   MarketplaceAccountWT.class,
   MarketplacePlaygroundWT.class
 })
