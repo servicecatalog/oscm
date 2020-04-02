@@ -26,21 +26,10 @@ import java.util.*;
 @ManagedBean(name = "gotoMarketplaceBean")
 public class GotoMarketplaceBean extends BaseBean implements Serializable {
 
-  @ManagedProperty(value = "#{sessionBean}")
-  private SessionBean sessionBean;
-
   private static final long serialVersionUID = 6745716919639233847L;
 
   private List<SelectItem> cachedMarketplaces;
   private String selectedMarketplace;
-
-  public SessionBean getSessionBean() {
-    return sessionBean;
-  }
-
-  public void setSessionBean(SessionBean sessionBean) {
-    this.sessionBean = sessionBean;
-  }
 
   public String getSelectedMarketplace() {
     return selectedMarketplace;
@@ -120,7 +109,6 @@ public class GotoMarketplaceBean extends BaseBean implements Serializable {
   /** updates the session's mid attribute and forwards to the selected marketplace */
   public String gotoMarketplace() {
     setMarketplaceId(selectedMarketplace);
-    sessionBean.setMarketplaceId(selectedMarketplace);
     return OUTCOME_SUCCESS;
   }
 
