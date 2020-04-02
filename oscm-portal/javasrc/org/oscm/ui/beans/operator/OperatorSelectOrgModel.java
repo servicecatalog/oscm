@@ -54,8 +54,6 @@ public class OperatorSelectOrgModel extends BaseOperatorBean implements Serializ
     this.organizationId = organizationId;
   }
 
-  public void selectOrganizationAction() {}
-
   public String getOrganizationRoleType() {
     return organizationRoleType;
   }

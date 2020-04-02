@@ -1,11 +1,8 @@
 /*******************************************************************************
- *  Copyright FUJITSU LIMITED 2018
+ *  Copyright FUJITSU LIMITED 2020
  *******************************************************************************/
 
 package org.oscm.ui.converter;
-
-import org.oscm.ui.beans.operator.OperatorOrgBean;
-import org.oscm.internal.vo.VOPSP;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -14,18 +11,21 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
+import org.oscm.internal.vo.VOPSP;
+import org.oscm.ui.beans.operator.ManagePSPModel;
+
 @ManagedBean
 @RequestScoped
 public class PSPConverter implements Converter {
 
-    @ManagedProperty(value = "#{operatorOrgBean}")
-    private OperatorOrgBean oob;
+    @ManagedProperty(value = "#{managePSPModel}")
+    private ManagePSPModel model;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component,
                               String value) {
         VOPSP retVal = null;
-        for (VOPSP vopsp : oob.getPSPs()) {
+        for (VOPSP vopsp : model.getPSPs()) {
             if ((Long.valueOf(vopsp.getKey()).toString().equals(value))) {
                 retVal = vopsp;
             }
@@ -45,11 +45,11 @@ public class PSPConverter implements Converter {
         return retVal;
     }
 
-    public OperatorOrgBean getOob() {
-        return oob;
+    public ManagePSPModel getModel() {
+        return model;
     }
 
-    public void setOob(OperatorOrgBean oob) {
-        this.oob = oob;
+    public void setModel(ManagePSPModel mspsm) {
+        this.model = mspsm;
     }
 }

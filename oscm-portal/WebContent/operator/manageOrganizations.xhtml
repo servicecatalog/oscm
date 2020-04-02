@@ -15,7 +15,7 @@
   <ui:define name="body">
     <ui:param name="orgSelected" value="#{operatorSelectOrgCtrl.organization != null}" />
     <ui:param name="selectedOrg" value="#{operatorSelectOrgCtrl.organization}" />
-    <ui:param name="allPSPs" value="#{operatorOrgBean.PSPs}" />
+    <ui:param name="allPSPs" value="#{managePSPCtrl.model.PSPs}" />
     <c:set var="normalWidth" value="20%" />
     <c:set var="moreWidth" value="60%" />
 
@@ -64,7 +64,7 @@
         <adm:outputStep value="#{msg['operator.manageOrganizations.step2']}" />
         <adm:panelGrid>
           <adm:outputLabel value="#{msg['operator.createOrganization.role']}" />
-
+         
           <h:panelGroup>
             <h:selectBooleanCheckbox id="checkboxRoleSupplier" value="#{operatorOrgBean.supplier}"
               disabled="#{!orgSelected || operatorOrgBean.supplierDisabled}" valueChangeListener="#{operatorOrgBean.supplierRoleChanged}" immediate="true" >
@@ -78,6 +78,7 @@
           <adm:message for="checkboxRoleSupplier" />
 
           <adm:nbsp />
+         
           <h:panelGroup>
             <h:selectBooleanCheckbox id="checkboxRoleTechnologyProvider" value="#{operatorOrgBean.technologyProvider}"
               disabled="#{!orgSelected || operatorOrgBean.technologyProviderDisabled}"
@@ -195,17 +196,17 @@
           <a4j:jsFunction name="selectPaymentTypeItem"
             render=":paymentTypeOrganizationEditForm"
             oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('paymentTypeOrganizationEdit').show();AdmUtils.setUIElements();">
-            <a4j:param name="param1" assignTo="#{operatorOrgBean.selectedPspAccountKey}" />
+            <a4j:param name="param1" assignTo="#{managePSPCtrl.model.selectedPspAccountKey}" />
           </a4j:jsFunction>
           <a4j:jsFunction name="newPaymentTypeItem"
             render=":paymentTypeOrganizationForm"
             oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('paymentTypeOrganization').show();AdmUtils.setUIElements();">
-            <a4j:param name="param1" value="0" assignTo="#{operatorOrgBean.selectedPspAccountKey}" />
+            <a4j:param name="param1" value="0" assignTo="#{managePSPCtrl.model.selectedPspAccountKey}" />
           </a4j:jsFunction>
           <a4j:outputPanel layout="block" styleClass="tablePanel table_padding" style="margin-top: 10px;" rendered="#{not empty allPSPs}">
 
             <rich:dataTable width="100%" style="min-width:680px;position:relative;" headerClass="rowTitle"
-              rowClasses="rowOdd,rowEven" id="paymentTypeTable" value="#{operatorOrgBean.PSPAccounts}" var="pspAccount"
+              rowClasses="rowOdd,rowEven" id="paymentTypeTable" value="#{managePSPCtrl.model.PSPAccounts}" var="pspAccount"
               columnClasses="smallCell,smallCell,smallCell,smallCell" selectionMode="single"
               onrowclick="AdmUtils.selectRow(this);selectPaymentTypeItem(#{pspAccount.key});"
               onrowmouseover="AdmUtils.mouseOverRow(this);" onrowmouseout="AdmUtils.mouseOutRow(this);"
