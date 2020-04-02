@@ -1,7 +1,9 @@
 /* 
- *  Copyright FUJITSU LIMITED 2018
+ *  Copyright FUJITSU LIMITED 2020
  */ 
 @charset "utf-8";
+
+@import "variables";
 
 /* --------------------------------------------------------------------
 
@@ -98,29 +100,29 @@ Copyright 2010-2012 FUJITSU LIMITED
 */
 #tabDescription .bold-larger {
     font-size: larger;
-    font-weight: bold;
+    font-weight: $bold-font-weight;
 }
 
 #tabDescription .bold-smaller {
     font-size: smaller;
-    font-weight: bold;
+    font-weight: $bold-font-weight;
 }
 
 #tabDescription .red-bold {
-    color: red;
-    font-weight: bold;
+    color: $primary-color;
+    font-weight: $bold-font-weight;
 }
 
 #tabDescription .red-bold-larger {
-    color: red;
+    color: $primary-color;
     font-size: larger;
-    font-weight: bold;
+    font-weight: $bold-font-weight;
 }
 
 #tabDescription .red-bold-smaller {
-    color: red;
+    color: $primary-color;
     font-size: smaller;
-    font-weight: bold;
+    font-weight: $bold-font-weight;
 }
 
 #tabDescription .disabled {
@@ -2499,7 +2501,7 @@ div.pagingOptions p{
 .rich-tab-active{
 	border: 1px solid #CCC;
 	border-bottom:none;
-	font-weight: bold;
+	font-weight: $bold-font-weight;
 	padding: 7px 19px;
 	-mozkit-border-radius: 2px 2px 0 0;
 	border-radius: 2px 2px 0 0;
@@ -2929,7 +2931,7 @@ div.pagingOptions p{
     border-left: 5px solid #E7B51D;
     padding: 2px 0 1px 4px;
     font-size: 150%;
-    font-weight: bold;
+    font-weight: $bold-font-weight;
 }
 
  #supplierName, #brokerName{
