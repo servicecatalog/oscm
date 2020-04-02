@@ -259,6 +259,7 @@ public class WebTester {
    */
   public void writeValue(String id, String value) {
     WebElement element = driver.findElement(By.id(id));
+    element.clear();
     element.sendKeys(value);
 
     log(String.format("Wrote value: %s to element with id %s", value, id));

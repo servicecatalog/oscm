@@ -135,4 +135,29 @@ public class PortalHtmlElements {
       "confirmForm:agreeCheckbox";
   public static final String MARKETPLACE_SUBSCRIPTION_BUTTONLINK_CONFIRM =
       "confirmForm:confirmLink";
+
+  public static final String MARKETPLACE_ACCOUNT_BUTTON = "navigation3";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON = "//a[@id='editProfileButton']/span";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_TITLE_DROPDOWN = "userForm:salutation";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_FIRST_NAME_FIELD = "userForm:firstName";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_LAST_NAME_FIELD = "userForm:lastName";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_EMAIL_FIELD = "userForm:email";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_LANGUAGE_DROPDOWN = "userForm:locale";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_BUTTON = "//span[contains(.,'Organization Data')]";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_FIELD = "orgForm:organizationName";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_EMAIL_FIELD = "orgForm:organizationEmail";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_ADDRESS_FIELD = "orgForm:organizationAddress";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_COUNTRY_DROPDOWN = "orgForm:country";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_SAVE_BUTTON = "//a[@id='orgForm:saveOrgButtonLink']/span";
+
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_BUTTON = "menu2";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_ADD_BILLING_ADDRESS_BUTTON = "//span[contains(.,'Add Billing Address')]";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_DISPLAY_FIELD = "billingContactPanelForm:displayName";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_NAME_FIELD = "billingContactPanelForm:companyName";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_EMAIL_FIELD = "billingContactPanelForm:email";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_ADDRESS_FIELD = "billingContactPanelForm:address";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_SAVE_BUTTON = "billingContactPanelForm:saveBillingContactButton";
+
+
+
 }
