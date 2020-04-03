@@ -157,7 +157,35 @@ public class PortalHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_EMAIL_FIELD = "billingContactPanelForm:email";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_ADDRESS_FIELD = "billingContactPanelForm:address";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_SAVE_BUTTON = "billingContactPanelForm:saveBillingContactButton";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE = "paymentOptionListForm:paymentOptionListTable:0:j_idt372";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_NAME_FIELD = "paymentOptionEditPanelForm:displayName";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_SAVE_BUTTON = "paymentOptionEditPanelForm:hiddenSetDisplayName";
 
+  public static final String MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON = "//a[@id='showUsersButton']/span";
+  public static final String MARKETPLACE_ACCOUNT_USERS_ADD_USER_BUTTON = "//a[@id='userListForm:addUserButtonLink']/span";
+  public static final String MARKETPLACE_ACCOUNT_USERS_USERID_FIELD = "userForm:userId";
+  public static final String MARKETPLACE_ACCOUNT_USERS_CREATE_BUTTON = "userForm:j_idt246";
+  public static final String MARKETPLACE_ACCOUNT_USERS_ADD_ROLE_CHECKBOX = "//input[@id='editUserForm:userRolesTable:0:rolesCheckbox']";
+  public static final String MARKETPLACE_ACCOUNT_USERS_ROLE_ASSIGN_BUTTON = "editUserForm:j_idt340";
 
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_UNIT_BUTTON = "//span[contains(.,'Organizational units')]";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ADD_UNIT_BUTTON = "//span[contains(.,'Add Unit')]";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ORG_NAME_FIELD = "groupForm:groupId";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ORG_ID_FIELD = "groupForm:groupReferenceId";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ORG_DESCRIPTION_FIELD = "groupForm:groupDescription";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_CREATE_BUTTON = "//a[@id='groupForm:createButtonLink']/span";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ADD_ADMINISTRATOR_CHECKBOX = "editGroupForm:usersInGroup:administrator:assignCheckbox";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ADD_USER_CHECKBOX = "editGroupForm:usersInGroup:isabelSmith:assignCheckbox";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ASSIGN_ROLE_DROPDOWN = "editGroupForm:usersInGroup:administrator:unitRole";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ASSIGN_ROLE_BUTTON = "//a[@id='editGroupForm:createButtonLink']/span";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_DELETE_INPUT = "//input[@id='groupsListForm:groupListTable:0:deleteBt']";
+  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_DELETE_CONFIRM_BUTTON = "//a[@id='deleteGroupForm:deleteConfirmPlOkButton']/span";
 
+  public static final String MARKETPLACE_ACCOUNT_PROCESSES_SHOW_BUTTON = "//a[@id='showProcessesButton']/span";
+  public static final String MARKETPLACE_ACCOUNT_PROCESSES_ADD_PROCESS_BUTTON = "//a[@id='triggerDefinitionListForm:addTriggerDefinition']/span";
+  public static final String MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_NAME_FIELD = "triggerDefinitionPanelForm:triggerName";
+  public static final String MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_TYPE_DROPDOWN = "triggerDefinitionPanelForm:triggerType";
+  public static final String MARKETPLACE_ACCOUNT_PROCESSES_TARGET_TYPE_DROPDOWN = "triggerDefinitionPanelForm:targetType";
+  public static final String MARKETPLACE_ACCOUNT_PROCESSES_TARGET_URL_FIELD = "triggerDefinitionPanelForm:targetURL";
+  public static final String MARKETPLACE_ACCOUNT_PROCESSES_TARGET_SAVE_BUTTON = "//a[@id='triggerDefinitionPanelForm:triggerDefinitionPanelSave']/span";
 }
