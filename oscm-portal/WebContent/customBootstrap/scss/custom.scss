@@ -18,6 +18,9 @@ $border-radius: 10rem;
 $theme-colors: (
   primary: red;
 );
+
+$border-radius: 10rem;
+
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "bootstrap";
 >>>>>>> bd8b90a Fixes #730 -Initial .scss template for the customization of bootstrap.
