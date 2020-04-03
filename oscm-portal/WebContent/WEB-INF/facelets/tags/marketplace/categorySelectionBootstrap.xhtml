@@ -11,7 +11,7 @@
     <div>
       <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}"
                        value="#{msg['button.browseAll']}"
-                       class="btn-sm btn-secondary btn-lg btn-block text-wrap">
+                       class="btn btn-secondary btn-lg text-lg-left text-center btn-block text-wrap">
         <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
         <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
@@ -24,7 +24,7 @@
           <!-- Selected category -->
           <c:if test="#{cat.categoryId eq categorySelectionBean.selectedCategoryId}">
             <h:commandLink value="#{cat.displayName}"
-                           styleClass="list-group-item list-group-item-action list-group-item-secondary active text-center text-lg-left"
+                           styleClass="list-group-item list-  group-item-action list-group-item-secondary active text-center text-lg-left"
                            action="#{categorySelectionBean.selectByCategory}"
                            actionListener="#{serviceListingBean.reloadData}">
               <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
