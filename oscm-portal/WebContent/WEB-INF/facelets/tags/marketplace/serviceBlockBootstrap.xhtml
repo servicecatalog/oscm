@@ -49,6 +49,12 @@
         <div class="col mb-2 text-justify">
           #{service.shortDescription}
         </div>
+        <!-- Tags container -->
+        <div class="col mb-2">
+          <ui:fragment rendered="#{showTags}">
+            <mp:serviceTags fieldId="#{fieldId}Tags" service="#{service}"/>
+          </ui:fragment>
+        </div>
       </div>
       <!-- Stars, price, details button container -->
       <div class="col-xl-3 col-lg-12">

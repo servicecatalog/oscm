@@ -27,7 +27,7 @@
          <li id="servicesLink" class="#{pageId eq 'marketplace.services' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="#{mpBaseUrl}/services.jsf">#{msg['button.browse']}</a></li>
           <!-- Help -->
           <ui:fragment rendered="#{user ne null}">
-            <li class="nav-item"><a class="nav-link"
+            <li class="nav-item"><a class="nav-link" href="#"
               onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">#{msg['marketplace.help']}</a>
             </li>
           </ui:fragment>
