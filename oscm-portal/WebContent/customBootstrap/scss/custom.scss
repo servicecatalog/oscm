@@ -1,8 +1,9 @@
 /* import only the necessary Bootstrap files */
-@import "bootstrap/scss/functions"; 
-@import "bootstrap/scss/variables";/* -------begin customization-------- *//* change the primary theme color to red */
+@import "../bootstrap/scss/functions"; 
+@import "../bootstrap/scss/variables";
+/* -------begin customization-------- *//* change the primary theme color to red */
 $theme-colors: (
-  primary: red;
+  primary: red
 );
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
-@import "bootstrap";
+@import "../bootstrap/scss/bootstrap"; 
