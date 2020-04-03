@@ -88,6 +88,8 @@ public class PortalTechServiceWT {
     setParamDescription("PARAM_PWD", PortalTester.TECHSERVICE_PARAM_PWD);
     setParamDescription("PARAM_MESSAGETEXT", PortalTester.TECHSERVICE_PARAM_MESSAGETEXT);
 
+    tester.writeValue(PortalHtmlElements.UPDATE_TECHSERVICE_TAG_CLOUD_INPUT, "cloud tag");
+
     tester.clickElement(PortalHtmlElements.UPDATE_TECHSERVICE_BUTTONLINK_SAVE);
     tester.waitForElement(By.id(PortalHtmlElements.PORTAL_SPAN_INFOS), 10);
     assertTrue(tester.getExecutionResult());
