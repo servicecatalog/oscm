@@ -15,10 +15,7 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
-import org.oscm.webtest.PortalHtmlElements;
-import org.oscm.webtest.PortalPathSegments;
-import org.oscm.webtest.PortalTester;
-import org.oscm.webtest.WebTester;
+import org.oscm.webtest.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplaceSubscriptionWT {
@@ -45,15 +42,15 @@ public class MarketplaceSubscriptionWT {
 
     tester.visitPortal(PortalPathSegments.GOTO_MARKETPLACE);
     tester.waitForElement(
-        By.id(PortalHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE), WebTester.IMPLICIT_WAIT);
+        By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE), WebTester.IMPLICIT_WAIT);
     tester.selectDropdown(
-        PortalHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE,
+            MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE,
         PlaygroundSuiteTest.marketPlaceId);
     tester.waitForElementVisible(
-        By.id(PortalHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
-    tester.clickElement(PortalHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);
+        By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
+    tester.clickElement(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);
     Assert.assertTrue(
-        tester.verifyFoundElement(By.id(PortalHtmlElements.MARKETPLACE_SPAN_WELCOME)));
+        tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_SPAN_WELCOME)));
   }
 
   @Test
@@ -61,30 +58,30 @@ public class MarketplaceSubscriptionWT {
 
     String referenceNo = WebTester.getCurrentTime();
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
-    tester.visitMarketplace(PortalPathSegments.INDEX_MARKETPLACE);
+    tester.visitMarketplace(MarketplacePathSegments.INDEX_MARKETPLACE);
     tester.waitForElement(
-        By.id(PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME), WebTester.IMPLICIT_WAIT);
-    tester.clickElement(PortalHtmlElements.MARKETPLACE_LINK_SERVICE_NAME);
+        By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_SERVICE_NAME), WebTester.IMPLICIT_WAIT);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_LINK_SERVICE_NAME);
     tester.waitForElement(
-        By.xpath(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW),
+        By.xpath(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW),
         WebTester.IMPLICIT_WAIT);
 
-    tester.clickElementXPath(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW);
     tester.waitForElement(
-        By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT),
+        By.id(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT),
         WebTester.IMPLICIT_WAIT);
     tester
         .getDriver()
-        .findElement(By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME))
+        .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME))
         .clear();
-    tester.writeValue(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME, subscriptionName);
-    tester.writeValue(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_REFNUMBER, referenceNo);
-    tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT);
+    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME, subscriptionName);
+    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_REFNUMBER, referenceNo);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT);
     tester.waitForElementVisible(
-        By.id(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE),
+        By.id(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE),
         WebTester.IMPLICIT_WAIT);
-    tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE);
-    tester.clickElement(PortalHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_CONFIRM);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_CONFIRM);
     Assert.assertTrue(tester.getExecutionResult());
   }
 }

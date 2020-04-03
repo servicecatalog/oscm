@@ -19,6 +19,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.PortalHtmlElements;
 
 public class InternalAuthenticationContext implements AuthenticationContext {
@@ -56,14 +57,14 @@ public class InternalAuthenticationContext implements AuthenticationContext {
   @Override
   public void loginMarketplace(String user, String password)
       throws LoginException, InterruptedException {
-    WebElement userInput = driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_INPUT_USERID));
+    WebElement userInput = driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_INPUT_USERID));
     userInput.sendKeys(user);
 
     WebElement pwdInput =
-        driver.findElement(By.name(PortalHtmlElements.MARKETPLACE_INPUT_PASSWORD));
+        driver.findElement(By.name(MarketplaceHtmlElements.MARKETPLACE_INPUT_PASSWORD));
     pwdInput.sendKeys(password);
 
-    driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_BUTTON_LOGIN)).click();
+    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_BUTTON_LOGIN)).click();
     driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
 
     try {
