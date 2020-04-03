@@ -125,15 +125,15 @@ public class PortalTester extends WebTester {
    */
   public void loginMarketplace(String user, String password, String supplierOrgId)
       throws Exception {
-    visitMarketplace(PortalPathSegments.URL_MARKETPLACE_ID + supplierOrgId);
+    visitMarketplace(MarketplacePathSegments.URL_MARKETPLACE_ID + supplierOrgId);
 
-    if (verifyFoundElement(By.id(PortalHtmlElements.MARKETPLACE_LINK_LOGOUT))) {
-      driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
-      waitForElement(By.id(PortalHtmlElements.MARKETPLACE_LINKTEXT_LOGIN), WebTester.IMPLICIT_WAIT);
+    if (verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT))) {
+      driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
+      waitForElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN), WebTester.IMPLICIT_WAIT);
     }
 
-    if (verifyFoundElement(By.linkText(PortalHtmlElements.MARKETPLACE_LINKTEXT_LOGIN))) {
-      driver.findElement(By.linkText(PortalHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
+    if (verifyFoundElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN))) {
+      driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
     }
 
     authenticationCtx.loginMarketplace(user, password);
@@ -144,7 +144,7 @@ public class PortalTester extends WebTester {
     visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
 
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
-    driver.findElement(By.linkText(PortalHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
+    driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
 
     authenticationCtx.loginMarketplace(user, password);
   }
@@ -167,14 +167,14 @@ public class PortalTester extends WebTester {
    * is a logged in user and that the driverApp is at a marketplace page.
    */
   public void logoutMarketplace() {
-    driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
+    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
     log("Logout OSCM Marketplace");
   }
 
   public void logoutMarketplacePlayground() {
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGOUTDROP)).click();
-    driver.findElement(By.id(PortalHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
+    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
   }
 
   /**
