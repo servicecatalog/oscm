@@ -9,6 +9,7 @@
  */
 package org.oscm.marketplace;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -20,8 +21,6 @@ import org.openqa.selenium.WebElement;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.*;
-
-import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplacePlaygroundWT {
@@ -77,10 +76,10 @@ public class MarketplacePlaygroundWT {
   }
 
   @Test
-  public void test03_cloudTag(){
+  public void test03_cloudTag() {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_SERVICES);
 
-    if(!tester.verifyFoundElement(By.linkText("cloud tag"))){
+    if (!tester.verifyFoundElement(By.linkText("cloud tag"))) {
       fail("Cloud tag item not found");
     }
   }
