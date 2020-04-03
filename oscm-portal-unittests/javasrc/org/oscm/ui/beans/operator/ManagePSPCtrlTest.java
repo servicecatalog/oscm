@@ -16,8 +16,11 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,41 +186,64 @@ public class ManagePSPCtrlTest {
   public void savePaymentType() throws Exception {
     // given
     givenPSPSettings();
+    VOPaymentType pt = ctrl.getModel().getSelectedPaymentType();
+    VOPSP psp = ctrl.getModel().getSelectedPSP();
 
     // when
     ctrl.setToken("token");
     ctrl.savePaymentType();
+
+    verify(ctrl.getOperatorService(), times(1)).savePaymentType(eq(psp), eq(pt));
+    assertEquals(FacesMessage.SEVERITY_INFO, facesMessages.get(0).getSeverity());
   }
 
   @Test
-  public void prepareForEdit() throws Exception {
+  public void prepareDataForEditPaymentType() throws Exception {
     // given
     givenPSPSettings();
-    long current = ctrl.getModel().getSelectedPaymentType().getKey();
+
+    VOPaymentType pt = ctrl.getModel().getSelectedPSP().getPaymentTypes().get(0);
 
     // when
-    ctrl.getModel().setSelectedPaymentTypeKey(Long.valueOf(current));
+    ctrl.getModel().setSelectedPaymentTypeKey(Long.valueOf(pt.getKey()));
     ctrl.prepareDataForEditPaymentType();
+
+    // then
+    assertSame(pt, ctrl.getModel().getSelectedPaymentType());
   }
 
+  @SuppressWarnings("boxing")
   @Test
-  public void prepareForEdit_otherSelection() throws Exception {
+  public void prepareDataForEditPaymentType_otherSelection() throws Exception {
     // given
     givenPSPSettings();
+
+    VOPaymentType pt = ctrl.getModel().getSelectedPaymentType();
+    VOPaymentType otherPt = otherPaymentType();
 
     // when
-    ctrl.getModel().setSelectedPaymentTypeKey(Long.valueOf(1));
+    ctrl.getModel().setSelectedPaymentType(otherPt);
+    ctrl.getModel().setSelectedPaymentTypeKey(pt.getKey());
     ctrl.prepareDataForEditPaymentType();
+
+    // then
+    assertSame(pt, ctrl.getModel().getSelectedPaymentType());
+    assertNotSame(otherPt, ctrl.getModel().getSelectedPaymentType());
   }
 
   @Test
-  public void prepareForEdit_noSelection() throws Exception {
+  public void prepareDataForEditPaymentType_noSelection() throws Exception {
+    // given
     // given
     givenPSPSettings();
+    VOPaymentType current = ctrl.getModel().getSelectedPaymentType();
 
     // when
     ctrl.getModel().setSelectedPaymentTypeKey(null);
     ctrl.prepareDataForEditPaymentType();
+
+    // then
+    assertSame(current, ctrl.getModel().getSelectedPaymentType());
   }
 
   @Test
@@ -276,15 +302,17 @@ public class ManagePSPCtrlTest {
 
     // when
     ctrl.getModel().setPSPs(ctrl.getOperatorService().getPSPs());
-    ;
-
     ctrl.getModel().setPspAccountPaymentTypesAsString("");
     ctrl.savePaymentTypeForOrganization();
 
     // then
     final String pStr = ctrl.getModel().getPspAccountPaymentTypesAsString();
+
     assertTrue(pStr, pStr.contains(pt1Key));
     assertTrue(pStr, pStr.contains(pt2Key));
+
+    verify(ctrl.getOperatorService(), times(1)).savePSPAccount(eq(org), any());
+    verify(ctrl.getOperatorService(), times(1)).addAvailablePaymentTypes(eq(org), any());
   }
 
   @Test
@@ -351,9 +379,9 @@ public class ManagePSPCtrlTest {
     assertTrue("CC not in DB", ctrl.isCreditCardDisabled());
     assertTrue("DD not in DB", ctrl.isDirectDebitDisabled());
     assertFalse("Invoice enabled", ctrl.isInvoiceDisabled());
-    
+
     assertTrue("CC selected", ctrl.isCreditCardAvailable());
-    assertTrue("DD selected",  ctrl.isDirectDebitAvailable());
+    assertTrue("DD selected", ctrl.isDirectDebitAvailable());
     assertFalse("Invoice not selected", ctrl.isInvoiceAvailable());
   }
 
@@ -435,5 +463,11 @@ public class ManagePSPCtrlTest {
     dbOrg.setPaymentTypes(paymentTypes);
     doReturn(org).when(orgSelector).getExistingOrganization();
     return dbOrg;
+  }
+
+  private VOPaymentType otherPaymentType() {
+    VOPaymentType otherPt = new VOPaymentType();
+    otherPt.setKey(2L);
+    return otherPt;
   }
 }
