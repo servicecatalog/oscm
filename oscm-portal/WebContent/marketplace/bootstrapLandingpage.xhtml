@@ -10,6 +10,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 
+
     <h:form id="tagFilterForm" rendered="#{!isMplRestricted or empty userBean.loggedInUser}">
       <h:inputHidden id="tagFilterValue" value="#{servicePagingBean.filterTag}" />
       <h:commandButton id="applyTagFilter" action="#{serviceListingBean.showServiceList}" style="display: none;">
