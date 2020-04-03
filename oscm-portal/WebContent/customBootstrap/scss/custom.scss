@@ -6,5 +6,8 @@ $theme-colors: (
   "primary": red,
   "secondary": #6f42c1
 );
+
+$border-radius: 10rem;
+
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "../bootstrap/scss/bootstrap"; 
