@@ -59,7 +59,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
   private List<Marketplace> marketplaces = null;
 
   // Holds the ID of the currently selected marketplace.
-  private String marketplaceId;
+  private String marketplaceId = BaseBean.getMarketplaceIdStatic();;
 
   // Holds the VO of the currently selected marketplace
   Marketplace marketplace;
@@ -164,9 +164,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
    */
   @Override
   public String getMarketplaceId() {
-    final String id = BaseBean.getMarketplaceIdStatic();
-    setMarketplaceId(id);
-    return id;
+    return marketplaceId;
   }
 
   /**
