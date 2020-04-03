@@ -1,9 +1,11 @@
-package org.oscm.portal;
+package org.oscm.marketplace;
 
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
+import org.oscm.portal.JUnitHelper;
+import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalTester;
 
