@@ -59,7 +59,7 @@ public class MarketplaceBean extends BaseBean implements Serializable {
   private List<Marketplace> marketplaces = null;
 
   // Holds the ID of the currently selected marketplace.
-  private String marketplaceId;
+  private String marketplaceId = BaseBean.getMarketplaceIdStatic();;
 
   // Holds the VO of the currently selected marketplace
   Marketplace marketplace;
@@ -69,9 +69,6 @@ public class MarketplaceBean extends BaseBean implements Serializable {
 
   @ManagedProperty(value = "#{menuBean}")
   private MenuBean menuBean;
-
-  @ManagedProperty(value = "#{sessionBean}")
-  private SessionBean sessionBean;
 
   @EJB private MarketplaceService marketplaceService;
 
@@ -85,14 +82,6 @@ public class MarketplaceBean extends BaseBean implements Serializable {
 
   public void setMenuBean(final MenuBean menuBean) {
     this.menuBean = menuBean;
-  }
-
-  public SessionBean getSessionBean() {
-    return sessionBean;
-  }
-
-  public void setSessionBean(SessionBean sessionBean) {
-    this.sessionBean = sessionBean;
   }
 
   private MarketplaceConfiguration getConfig() {
@@ -165,8 +154,17 @@ public class MarketplaceBean extends BaseBean implements Serializable {
   @Override
   public void setMarketplaceId(String marketplaceId) {
     this.marketplaceId = marketplaceId;
-    sessionBean.setMarketplaceId(marketplaceId);
     marketplaceChanged();
+  }
+
+  /**
+   * Returns the selected marketplace id
+   *
+   * @return the marketplace id
+   */
+  @Override
+  public String getMarketplaceId() {
+    return marketplaceId;
   }
 
   /**
@@ -224,22 +222,6 @@ public class MarketplaceBean extends BaseBean implements Serializable {
     this.marketplaces = null;
     this.marketplace = null;
     this.marketplaceId = null;
-  }
-
-  /**
-   * Returns the selected marketplace id
-   *
-   * @return the marketplace id
-   */
-  @Override
-  public String getMarketplaceId() {
-    if (marketplaceId == null) {
-      final String id = sessionBean.getMarketplaceId();
-      if (id != null && !id.equals("0")) {
-        setMarketplaceId(id);
-      }
-    }
-    return marketplaceId;
   }
 
   /**

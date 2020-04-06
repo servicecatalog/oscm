@@ -83,14 +83,11 @@ public class PortalHtmlElements {
   public static final String DEFINE_MARKETSERVICE_INPUT_SERVICEID = "editForm:serviceId";
   public static final String DEFINE_MARKETSERVICE_PARAM_TABLE = "editForm:parameterTable";
   public static final String DEFINE_MARKETSERVICE_BUTTONLINK_SAVE = "editForm:saveButtonLink";
-  public static final String DEFINE_MARKETSERVICE_BUTTON_SAVE = "editForm:saveButton";
 
   public static final String DEFINE_PRICEMODEL_DROPDOWN_SERVICENAME =
       "serviceSelectForm:serviceSelectionInner";
   public static final String DEFINE_PRICEMODEL_BUTTON_SAVE = "editForm:saveButton";
   public static final String DEFINE_PRICEMODEL_CHECKBOX_FREE_OF_CHARGE = "editForm:isfree:0";
-  public static final String DEFINE_PRICEMODEL_CHECKBOX_PRO_RATE = "editForm:isfree:1";
-  public static final String DEFINE_PRICEMODEL_CHECKBOX_PER_UNITE = "editForm:isfree:2";
 
   public static final String DEFINE_PUBLISH_OPTION_DROPDOWN_SERVICENAME =
       "editForm:selectedServiceIdInner";
@@ -98,41 +95,7 @@ public class PortalHtmlElements {
       "editForm:marketplaceInner";
   public static final String DEFINE_PUBLISH_OPTION_BUTTON_SAVE = "editForm:saveButton";
 
-  public static final String DEACTIVATION_SERVICE_FORM = "serviceDeActivationForm";
   public static final String DEACTIVATION_SERVICE_TABLE = "serviceDeActivationForm:j_idt491";
   public static final String DEACTIVATION_SERVICE_BUTTON_SAVE =
       "serviceDeActivationForm:deActivateButtonLink";
-
-  public static final String REGISTER_CUSTOMER_INPUT_EMAIL = "editForm:email";
-  public static final String REGISTER_CUSTOMER_INPUT_USERID = "editForm:userId";
-  public static final String REGISTER_CUSTOMER_DROPDOWN_COUNTRY = "editForm:country";
-  public static final String REGISTER_CUSTOMER_DROPDOWN_MARKETPLACE = "editForm:marketplace";
-  public static final String REGISTER_CUSTOMER_BUTTONLINK_SAVE = "editForm:saveButtonLink";
-
-  public static final String MARKETPLACE_PASSWORD_INPUT_CURRENT = "passwordForm:currentPassword";
-  public static final String MARKETPLACE_PASSWORD_INPUT_CHANGE = "passwordForm:password";
-  public static final String MARKETPLACE_PASSWORD_INPUT_REPEAT = "passwordForm:password2";
-  public static final String MARKETPLACE_PASSWORD_BUTTONLINK_SAVE = "passwordForm:changeButtonLink";
-  public static final String MARKETPLACE_SPAN_WELCOME = "formLogout:welcome";
-  public static final String GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE =
-      "gotoMarketplaceForm:marketplaceInner";
-  public static final String GOTO_MARKETPLACE_BUTTONLINK_GOTO = "goForm:gotoBtnLink";
-  public static final String MARKETPLACE_INPUT_USERID = "loginForm:loginUserId";
-  public static final String MARKETPLACE_INPUT_PASSWORD = "loginForm:loginPassword";
-  public static final String MARKETPLACE_BUTTON_LOGIN = "loginForm:loginButtonLink";
-  public static final String MARKETPLACE_LINK_LOGOUT = "formLogout:logout";
-  public static final String MARKETPLACE_LINKTEXT_LOGIN = "Login";
-
-  public static final String MARKETPLACE_LINK_SERVICE_NAME = "showDetails0";
-  public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW = "//a[@id='buyme']/span";
-  public static final String MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME =
-      "configurationForm:subscriptionIdText";
-  public static final String MARKETPLACE_SUBSCRIPTION_INPUT_REFNUMBER =
-      "configurationForm:purchaseOrderNumberText";
-  public static final String MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT =
-      "configurationForm:nextLink";
-  public static final String MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE =
-      "confirmForm:agreeCheckbox";
-  public static final String MARKETPLACE_SUBSCRIPTION_BUTTONLINK_CONFIRM =
-      "confirmForm:confirmLink";
 }

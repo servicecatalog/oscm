@@ -9,20 +9,17 @@
  */
 package org.oscm.ui.beans;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.apache.commons.lang3.StringUtils;
+import org.oscm.internal.vo.VOMarketplace;
+import org.oscm.ui.common.MarketplacesComparator;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIOutput;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
-import org.apache.commons.lang3.StringUtils;
-import org.oscm.internal.vo.VOMarketplace;
-import org.oscm.ui.common.MarketplacesComparator;
+import java.io.Serializable;
+import java.util.*;
 
 @ViewScoped
 @ManagedBean(name = "gotoMarketplaceBean")
@@ -75,17 +72,11 @@ public class GotoMarketplaceBean extends BaseBean implements Serializable {
   void prepareMarketplaces(
       Set<VOMarketplace> marketplacesToDisplay, List<VOMarketplace> marketplaces, String tenantId) {
 
-    List<VOMarketplace> restrictedMarketplaces =
-        getMarketplaceService().getRestrictedMarketplaces();
-
     for (VOMarketplace marketplace : marketplaces) {
-
       if (!validateMarketplaceTenant(marketplace, tenantId)) {
         continue;
       }
       if (!marketplace.isRestricted()) {
-        marketplacesToDisplay.add(marketplace);
-      } else if (restrictedMarketplaces.contains(marketplace)) {
         marketplacesToDisplay.add(marketplace);
       }
     }
