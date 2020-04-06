@@ -41,11 +41,15 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_BUTTON = "navigation3";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON =
           "//a[@id='editProfileButton']/span";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_PERSONAL_BUTTON =
+          "//span[contains(.,'Personal Data')]";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_TITLE_DROPDOWN = "userForm:salutation";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_FIRST_NAME_FIELD = "userForm:firstName";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_LAST_NAME_FIELD = "userForm:lastName";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_EMAIL_FIELD = "userForm:email";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_LANGUAGE_DROPDOWN = "userForm:locale";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON = "userForm:j_idt263";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON_OIDC = "userForm:j_idt265";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_BUTTON =
           "//span[contains(.,'Organization Data')]";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_FIELD =
@@ -99,12 +103,8 @@ public class MarketplaceHtmlElements {
           "groupForm:groupDescription";
   public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_CREATE_BUTTON =
           "//a[@id='groupForm:createButtonLink']/span";
-  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ADD_ADMINISTRATOR_CHECKBOX =
-          "editGroupForm:usersInGroup:administrator:assignCheckbox";
   public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ADD_USER_CHECKBOX =
           "editGroupForm:usersInGroup:isabelSmith:assignCheckbox";
-  public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ASSIGN_ROLE_DROPDOWN =
-          "editGroupForm:usersInGroup:administrator:unitRole";
   public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_ASSIGN_ROLE_BUTTON =
           "//a[@id='editGroupForm:createButtonLink']/span";
   public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_DELETE_INPUT =

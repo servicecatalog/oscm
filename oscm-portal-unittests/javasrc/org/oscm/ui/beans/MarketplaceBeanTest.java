@@ -54,7 +54,6 @@ public class MarketplaceBeanTest {
   private static final String LOCAL_MP = "local";
 
   private MarketplaceBean bean;
-  private SessionBean sessionBeanMock;
 
   protected boolean serviceCalled = false;
   protected VOService passedService = null;
@@ -219,7 +218,6 @@ public class MarketplaceBeanTest {
         };
 
     marketplaceServiceSetUp = marketplaceService;
-    sessionBeanMock = mock(SessionBean.class);
 
     bean =
         new MarketplaceBean() {
@@ -238,7 +236,6 @@ public class MarketplaceBeanTest {
           protected void addMessage(String clientId, Severity severity, String key) {}
         };
     bean.setToken(bean.getToken());
-    bean.setSessionBean(sessionBeanMock);
 
     MenuBean menuBean = new MenuBean();
     bean.setMenuBean(menuBean);
