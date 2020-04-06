@@ -14,7 +14,6 @@ import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.ui.common.MarketplacesComparator;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIOutput;
 import javax.faces.event.AjaxBehaviorEvent;
@@ -77,7 +76,9 @@ public class GotoMarketplaceBean extends BaseBean implements Serializable {
       if (!validateMarketplaceTenant(marketplace, tenantId)) {
         continue;
       }
+      if (!marketplace.isRestricted()) {
         marketplacesToDisplay.add(marketplace);
+      }
     }
   }
 

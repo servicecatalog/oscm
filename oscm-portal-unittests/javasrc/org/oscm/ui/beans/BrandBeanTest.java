@@ -36,7 +36,6 @@ public class BrandBeanTest {
   private BrandBean brandBean;
   private MarketplaceBean marketplaceBean;
   private MarketplaceService marketplaceServiceMock;
-  private SessionBean sessionBeanMock;
 
   private ExternalContext extContextMock;
 
@@ -63,9 +62,7 @@ public class BrandBeanTest {
     brandBean = spy(new BrandBean());
     marketplaceBean = spy(new MarketplaceBean());
     MenuBean menuBean = new MenuBean();
-    sessionBeanMock = mock(SessionBean.class);
     marketplaceBean.setMenuBean(menuBean);
-    marketplaceBean.setSessionBean(mock(SessionBean.class));
 
     brandBean.setMarketplaceBean(marketplaceBean);
     brandBean.setMarketplaceId("FUJITSU");

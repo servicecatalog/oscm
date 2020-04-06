@@ -339,9 +339,7 @@ public class SessionBean implements Serializable {
     String marketplaceBrandUrl = brandUrlMidMapping.get(getMarketplaceId());
     if (marketplaceBrandUrl == null) {
       try {
-        if (marketplaceId != null) {
-          marketplaceBrandUrl = getMarketplaceService().getBrandingUrl(getMarketplaceId());
-        }
+        marketplaceBrandUrl = getMarketplaceService().getBrandingUrl(getMarketplaceId());
         if (marketplaceBrandUrl == null) {
           marketplaceBrandUrl = getWhiteLabelBrandingUrl();
         }
