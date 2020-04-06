@@ -57,7 +57,8 @@ public class InternalAuthenticationContext implements AuthenticationContext {
   @Override
   public void loginMarketplace(String user, String password)
       throws LoginException, InterruptedException {
-    WebElement userInput = driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_INPUT_USERID));
+    WebElement userInput =
+        driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_INPUT_USERID));
     userInput.sendKeys(user);
 
     WebElement pwdInput =

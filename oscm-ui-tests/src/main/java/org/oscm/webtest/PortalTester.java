@@ -129,7 +129,8 @@ public class PortalTester extends WebTester {
 
     if (verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT))) {
       driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
-      waitForElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN), WebTester.IMPLICIT_WAIT);
+      waitForElement(
+          By.id(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN), WebTester.IMPLICIT_WAIT);
     }
 
     if (verifyFoundElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN))) {

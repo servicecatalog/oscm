@@ -9,6 +9,16 @@
  */
 package org.oscm.ui.dialog.mp.attributes;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.oscm.internal.intf.AccountService;
@@ -22,17 +32,6 @@ import org.oscm.ui.beans.SessionBean;
 import org.oscm.ui.beans.UserBean;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.model.UdaRow;
-
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Manages the custom attributes of all suppliers that are allowed to publish to the marketplace for

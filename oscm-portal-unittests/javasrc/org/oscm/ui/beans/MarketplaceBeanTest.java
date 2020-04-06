@@ -14,7 +14,6 @@
 package org.oscm.ui.beans;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.Arrays;

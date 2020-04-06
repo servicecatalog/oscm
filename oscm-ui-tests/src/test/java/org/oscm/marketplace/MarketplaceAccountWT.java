@@ -1,4 +1,15 @@
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2020
+ *
+ * <p>Creation Date: 06-04-2020
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.marketplace;
+
+import static org.junit.Assert.assertTrue;
 
 import org.junit.*;
 import org.junit.rules.TestWatcher;
@@ -8,8 +19,6 @@ import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.PortalTester;
-
-import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplaceAccountWT {
@@ -137,13 +146,14 @@ public class MarketplaceAccountWT {
   @Test
   public void test05addUser() throws InterruptedException {
 
-      tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_BUTTON);
-      tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_BUTTON);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
     if (tester
             .getDriver()
-            .findElements(By.xpath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_ADD_USER_BUTTON))
+            .findElements(
+                By.xpath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_ADD_USER_BUTTON))
             .size()
-            != 0) {
+        != 0) {
       tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_ADD_USER_BUTTON);
       tester.selectDropdown(
           MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_TITLE_DROPDOWN, "MS");

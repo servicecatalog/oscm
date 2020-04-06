@@ -9,17 +9,16 @@
  */
 package org.oscm.ui.beans;
 
-import org.apache.commons.lang3.StringUtils;
-import org.oscm.internal.vo.VOMarketplace;
-import org.oscm.ui.common.MarketplacesComparator;
-
+import java.io.Serializable;
+import java.util.*;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIOutput;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
-import java.io.Serializable;
-import java.util.*;
+import org.apache.commons.lang3.StringUtils;
+import org.oscm.internal.vo.VOMarketplace;
+import org.oscm.ui.common.MarketplacesComparator;
 
 @ViewScoped
 @ManagedBean(name = "gotoMarketplaceBean")
