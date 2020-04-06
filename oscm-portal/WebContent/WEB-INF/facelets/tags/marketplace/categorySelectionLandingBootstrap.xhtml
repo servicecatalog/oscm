@@ -7,32 +7,30 @@
   <h:form id="categorySelectionForm"
           rendered="#{marketplaceConfigurationBean.currentConfiguration.categoriesEnabled}">
     <f:phaseListener binding="#{categorySelectionBean.listener}"/>
-      <div class="row">
-        <div class="col-auto">
+    <div class="container">
+      <div class="list-group list-group-horizontal-lg align-items-center m-2">
+        <div class="col-12 col-lg-auto list-group-item mx-1 p-1 border-0">
           <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}"
-                           value="#{msg['button.browseAll']}"
-                           class="btn-sm btn-secondary btn-lg btn-block text-wrap">
+                           value="#{msg['button.browseAll']}" class="btn-sm btn-secondary btn-block">
             <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
             <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
             <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
           </h:commandButton>
         </div>
-        <div class="col">
-          <div class="row">
-            <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
-              <div class="col-auto">
-                <h:commandLink value="#{cat.displayName}"
-                               action="#{categorySelectionBean.selectByCategory}"
-                               actionListener="#{serviceListingBean.reloadData}">
-                  <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
-                                               value="#{cat.categoryId}"/>
-                  <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
-                                               value="#{cat.displayName}"/>
-                </h:commandLink>
-              </div>
-            </c:forEach>
+        <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
+          <div class="col-12 col-lg-auto px-1 text-center">
+            <h:commandLink value="#{cat.displayName}"
+                           styleClass="list-group-item list-group-item-action text-truncate py-1 border-0"
+                           action="#{categorySelectionBean.selectByCategory}"
+                           actionListener="#{serviceListingBean.reloadData}">
+              <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
+                                           value="#{cat.categoryId}"/>
+              <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
+                                           value="#{cat.displayName}"/>
+            </h:commandLink>
           </div>
-        </div>
+        </c:forEach>
       </div>
+    </div>
   </h:form>
 </ui:composition>
