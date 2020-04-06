@@ -11,6 +11,7 @@ package org.oscm.webtest;
 
 import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.oscm.email.MaildevReader;
@@ -144,7 +145,9 @@ public class PortalTester extends WebTester {
       throws Exception {
     visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
 
-    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
+//    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
+//    FIXME javascript dropdown not working on oidc temporary fix
+    driver.manage().window().setSize(new Dimension(1200, 800));
     driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
 
     authenticationCtx.loginMarketplace(user, password);
@@ -173,7 +176,8 @@ public class PortalTester extends WebTester {
   }
 
   public void logoutMarketplacePlayground() {
-    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
+    //    FIXME javascript dropdown not working on oidc temporary fix
+//    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGOUTDROP)).click();
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
   }

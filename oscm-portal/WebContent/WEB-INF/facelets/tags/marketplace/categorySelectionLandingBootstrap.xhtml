@@ -17,9 +17,9 @@
             <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
           </h:commandButton>
         </div>
-        <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
+        <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
           <div class="col-12 col-lg-auto px-1 text-center">
-            <h:commandLink value="#{cat.displayName}"
+            <h:commandLink id="categoryLink#{count.index}" value="#{cat.displayName}"
                            styleClass="list-group-item list-group-item-action text-truncate py-1 border-0"
                            action="#{categorySelectionBean.selectByCategory}"
                            actionListener="#{serviceListingBean.reloadData}">

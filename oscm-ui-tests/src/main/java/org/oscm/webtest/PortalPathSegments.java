@@ -13,6 +13,7 @@ public class PortalPathSegments {
 
   public static final String CREATE_MARKETPLACE = "shop/createMarketplace.jsf";
   public static final String DELETE_MARKETPLACE = "shop/deleteMarketplace.jsf";
+  public static final String MANAGE_CATEGORIES = "shop/manageCategories.jsf";
 
   public static final String CREATE_ORGANIZATION = "operator/createOrganization.jsf";
 
