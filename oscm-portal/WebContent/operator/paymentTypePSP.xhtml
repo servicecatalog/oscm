@@ -13,13 +13,13 @@
 
   <ui:define name="dialogTitle">
     <h:outputText
-      value="#{empty operatorOrgBean.selectedPaymentType.paymentTypeId ? 
+      value="#{empty managePSPCtrl.model.selectedPaymentType.paymentTypeId ? 
                msg['payment.new.PaymentType.title'] : msg['payment.edit.PaymentType.title']}" />
   </ui:define>
 
   <ui:define name="dialogDescription">
     <c:set var="dialogDescription"
-      value="#{empty operatorOrgBean.selectedPaymentType.paymentTypeId ? 
+      value="#{empty managePSPCtrl.model.selectedPaymentType.paymentTypeId ? 
                msg['payment.new.PaymentType.description'] :  msg['payment.edit.PaymentType.description']}" />
     <a4j:outputPanel rendered="#{not empty dialogDescription}">
       <h:outputText value="#{dialogDescription}" />
@@ -36,7 +36,7 @@
 
             <adm:outputLabel value="#{msg['payment.paymentName']}" required="true" />
             <h:inputText id="paymentTypeName" label="#{msg['payment.paymentName']}"
-              value="#{operatorOrgBean.selectedPaymentType.name}" maxlength="#{appBean.nameLen}"
+              value="#{managePSPCtrl.model.selectedPaymentType.name}" maxlength="#{appBean.nameLen}"
               onchange="setDirty(true)" styleClass="field" required="true">
               <f:converter converterId="trimConverter" />
             </h:inputText>
@@ -44,7 +44,7 @@
 
             <adm:outputLabel value="#{msg['payment.select']}" required="true" />
             <h:inputText id="paymentTypeId" label="#{msg['payment.select']}"
-              value="#{operatorOrgBean.selectedPaymentType.paymentTypeId}" maxlength="#{appBean.idLen}"
+              value="#{managePSPCtrl.model.selectedPaymentType.paymentTypeId}" maxlength="#{appBean.idLen}"
               onchange="setDirty(true)" styleClass="field" required="true" >
               <f:validator validatorId="idChar" />
               <f:converter converterId="trimConverter" />
@@ -55,7 +55,7 @@
 
           <adm:buttonPanel>
               <a4j:commandButton style="display:none;" id="hiddenSaveBtn" value="#{msg['button.save']}"
-                action="#{operatorOrgBean.savePaymentType}" render="#{dialogId}RenderErrorPanel :mainTmplMessagesPanel"
+                action="#{managePSPCtrl.savePaymentType}" render="#{dialogId}RenderErrorPanel :mainTmplMessagesPanel"
                 oncomplete="
                 AdmUtils.showProgress(false);
                 if(!#{facesContext.maximumSeverity.ordinal > 0})

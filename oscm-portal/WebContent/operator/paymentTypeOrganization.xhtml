@@ -38,9 +38,9 @@
               <a4j:outputPanel styleClass="select">
                 <a4j:outputPanel styleClass="option" />
               </a4j:outputPanel> 
-              <h:selectOneMenu id="#{dialogId}psp" disabled="#{operatorOrgBean.selectedPspAccount.key != 0}"
-                styleClass="select" value="#{operatorOrgBean.PSPAccountPSPKey}" onchange="renderPaymentTypes()">
-                <c:forEach items="#{operatorOrgBean.PSPs}" var="psp">
+              <h:selectOneMenu id="#{dialogId}psp" disabled="#{managePSPCtrl.selectedPspAccount.key != 0}"
+                styleClass="select" value="#{managePSPCtrl.PSPAccountPSPKey}" onchange="renderPaymentTypes()">
+                <c:forEach items="#{managePSPCtrl.model.PSPs}" var="psp">
                   <f:selectItem itemLabel="#{psp.id}" itemValue="#{psp.key}" />
                 </c:forEach>
               </h:selectOneMenu>
@@ -50,7 +50,7 @@
             </h:panelGroup>
 
             <adm:labelAndInputText id="#{dialogId}PSPId" label="#{msg['payment.pspid']}"
-              value="#{operatorOrgBean.selectedPspAccount.pspIdentifier}" maxlength="#{appBean.nameLen}" required="true" converterId="trimConverter"
+              value="#{managePSPCtrl.selectedPspAccount.pspIdentifier}" maxlength="#{appBean.nameLen}" required="true" converterId="trimConverter"
               isDirtySet="false" />
 
             <adm:outputLabel value="#{msg['payment.select']}" />
@@ -60,7 +60,7 @@
             <h:panelGroup />
 
             <h:inputHidden id="#{dialogId}PaymentTypesAsString"
-              value="#{operatorOrgBean.PSPAccountPaymentTypesAsString}" />
+              value="#{managePSPCtrl.model.pspAccountPaymentTypesAsString}" />
             <h:panelGroup>
               <adm:message for="#{dialogId}PaymentTypes" />
             </h:panelGroup>
@@ -72,13 +72,15 @@
             <table cellspacing="0" cellpadding="2" border="0" width="100%">
 
               <a4j:commandButton style="display:none;" id="hiddenSaveBtn" value="#{msg['button.save']}"
-                action="#{operatorOrgBean.savePaymentTypeForOrganization}"
-                render="#{dialogId}RerenderPanel, manageOrganizationsForm:paymentTypeTable, mainTmplMessagesPanel"
+                action="#{managePSPCtrl.savePaymentTypeForOrganization}"
+                render="#{dialogId}RerenderPanel :mainTmplMessagesPanel"
                 oncomplete="
                 AdmUtils.showProgress(false);
                 if(!#{facesContext.maximumSeverity.ordinal > 0})
                 {
+                  AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorPanel');
                   #{rich:component(dialogId)}.hide();
+                  #{rich:element('refreshPaymentTypesButton')}.click();
                 }
                 else
                 {
@@ -98,7 +100,7 @@
           <script type="text/javascript">
             renderPaymentTypes = function() {
               var paymentType = new Object();
-              #{operatorOrgBean.JSForPaymentTypeSelection}
+              #{managePSPCtrl.JSForPaymentTypeSelection}
               
               var psp = document.getElementById("#{dialogId}Form:#{dialogId}psp").value;
               var pts = document.getElementById("#{dialogId}Form:#{dialogId}PaymentTypes");

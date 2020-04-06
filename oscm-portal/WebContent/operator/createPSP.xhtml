@@ -19,18 +19,18 @@
       <adm:panelGrid>
  
          <adm:labelAndInputText id="pspIdentifier" label="#{msg['operator.createPSP.identifier']}"
-          value="#{operatorOrgBean.newPSP.id}" maxlength="#{appBean.idLen}" required="true" validatorId="userId" converterId="trimConverter" />
+          value="#{managePSPCtrl.model.newPSP.id}" maxlength="#{appBean.idLen}" required="true" validatorId="userId" converterId="trimConverter" />
  
          <adm:labelAndInputText id="pspWsdl" label="#{msg['operator.createPSP.wsdl']}"
-          value="#{operatorOrgBean.newPSP.wsdlUrl}" maxlength="#{appBean.descriptionLen}" required="true" validatorId="url" />
+          value="#{managePSPCtrl.model.newPSP.wsdlUrl}" maxlength="#{appBean.descriptionLen}" required="true" validatorId="url" />
 
          <adm:labelAndInputTextarea id="pspDistinguishedName" label="#{msg['operator.createPSP.distinguishedName']}"
-          value="#{operatorOrgBean.newPSP.distinguishedName}" maxlength="#{appBean.DNLen}" required="true" converterId="trimConverter"/>
+          value="#{managePSPCtrl.model.newPSP.distinguishedName}" maxlength="#{appBean.DNLen}" required="true" converterId="trimConverter"/>
 
       </adm:panelGrid>
 
       <adm:buttonPanel>
-        <adm:button id="saveButton" value="#{msg['button.save']}" bean="#{operatorOrgBean}" action="createPSP" buttonType="save"  />
+        <adm:button id="saveButton" value="#{msg['button.save']}" bean="#{managePSPCtrl}" action="createPSP" buttonType="save"  />
       </adm:buttonPanel>
     </h:form>
 

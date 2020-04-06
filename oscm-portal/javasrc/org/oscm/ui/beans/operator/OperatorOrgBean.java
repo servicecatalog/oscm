@@ -18,12 +18,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -31,6 +30,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.myfaces.custom.fileupload.UploadedFile;
 import org.oscm.converter.PropertiesLoader;
@@ -40,20 +40,13 @@ import org.oscm.internal.tenant.ManageTenantService;
 import org.oscm.internal.tenant.POTenant;
 import org.oscm.internal.types.enumtypes.ImageType;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
-import org.oscm.internal.types.enumtypes.PaymentCollectionType;
-import org.oscm.internal.types.enumtypes.PaymentInfoType;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.RegistrationException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
-import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.internal.vo.LdapProperties;
 import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.internal.vo.VOOperatorOrganization;
 import org.oscm.internal.vo.VOOrganization;
-import org.oscm.internal.vo.VOPSP;
-import org.oscm.internal.vo.VOPSPAccount;
-import org.oscm.internal.vo.VOPSPSetting;
-import org.oscm.internal.vo.VOPaymentType;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
@@ -64,7 +57,6 @@ import org.oscm.ui.beans.MenuBean;
 import org.oscm.ui.beans.SessionBean;
 import org.oscm.ui.common.ImageUploader;
 import org.oscm.ui.common.JSFUtils;
-import org.oscm.ui.model.PSPSettingRow;
 
 /**
  * This class is responsible to provide the functionality to create and manage organization to the
@@ -94,25 +86,16 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
   // The new organization and administrator user
   private VOOrganization newOrganization = null;
   private VOUserDetails newAdministrator = null;
-  private VOPSPAccount newPspAccount = null;
-  private VOPaymentType selectedPaymentType;
-  private VOPSP newPSP = null;
-  private String pspId;
 
   // Contains _all_ roles of the new organization
   private EnumSet<OrganizationRoleType> newRoles = EnumSet.noneOf(OrganizationRoleType.class);
 
-  private List<VOPSPAccount> selectedPSPAccounts = null;
-  private VOPSP selectedPSP = null;
-  private Long selectedPspAccountKey = null;
-  private String pspAccountPaymentTypesAsString = null;
   private List<SelectItem> selectableMarketplaces = new ArrayList<>();
   private String selectedMarketplace;
   private String selectedTenant;
 
   private ImageUploader imageUploader = new ImageUploader(ImageType.ORGANIZATION_IMAGE);
 
-  private final List<PSPSettingRow> pspSettingRowList = new ArrayList<PSPSettingRow>();
   private UploadedFile organizationProperties;
   private boolean ldapManaged;
   private boolean ldapSettingVisible;
@@ -128,6 +111,8 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
 
   @ManagedProperty(value = "#{sessionBean}")
   SessionBean sessionBean;
+
+
 
   /**
    * Registers the newly created organization.
@@ -205,6 +190,38 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     organizationProperties = null;
     selectedMarketplace = null;
     selectedTenant = null;
+
+    return OUTCOME_SUCCESS;
+  }
+  
+
+  /**
+   * This functions persists the changed data of the currently selected organization.
+   *
+   * @return <code>OUTCOME_SUCCESS</code> if the organization was successfully updated.
+   * @throws SaaSApplicationException if any problems occurs while persisting the values
+   * @throws ImageException Thrown in case the access to the uploaded file failed.
+   */
+  public String saveOrganization() throws SaaSApplicationException {
+
+    OperatorService operatorService = getOperatorService();
+    VOOperatorOrganization org = getSelectedOrganization();
+
+    long updatedTenantKey = org.getTenantKey();
+
+    manageTenantService.validateOrgUsersUniqnessInTenant(org.getOrganizationId(), updatedTenantKey);
+
+    VOOperatorOrganization updated =
+        operatorService.updateOrganization(org, getImageUploader().getVOImageResource());
+
+    operatorSelectOrgCtrl.setExistingOrganization(updated);
+    operatorSelectOrgCtrl.setOrganization(updated);
+    
+  
+    addMessage(
+        null, FacesMessage.SEVERITY_INFO, INFO_ORGANIZATION_SAVED, updated.getOrganizationId());
+
+    
 
     return OUTCOME_SUCCESS;
   }
@@ -301,159 +318,6 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     return String.format("%s (%s)", vMp.getName(), vMp.getMarketplaceId());
   }
 
-  public void prepareDataForNewPaymentType() {
-    selectedPaymentType = new VOPaymentType();
-    selectedPaymentType.setCollectionType(PaymentCollectionType.PAYMENT_SERVICE_PROVIDER);
-  }
-
-  /** Prepares payment type data for update */
-  public void prepareDataForEditPaymentType() {
-    if (selectedPaymentTypeKey == null) {
-      return;
-    }
-    for (VOPaymentType voPaymentType : getSelectedPSP().getPaymentTypes()) {
-      if (selectedPaymentTypeKey.equals(new Long(voPaymentType.getKey()))) {
-        selectedPaymentType = voPaymentType;
-        return;
-      }
-    }
-  }
-
-  /**
-   * Registers payment types for PSP.
-   *
-   * @return <code>OUTCOME_SUCCESS</code> if the payment type was successfully registered, otherwise
-   *     <code>OUTCOME_ERROR</code>.
-   */
-  public void savePaymentType() throws SaaSApplicationException {
-    getOperatorService().savePaymentType(getSelectedPSP(), getSelectedPaymentType());
-    addMessage(null, FacesMessage.SEVERITY_INFO, INFO_PAYMENT_TYPE_SAVED);
-  }
-
-  /**
-   * http://marketplace.eclipse.org/marketplace-client-intro?mpc_install= 1775079 Registers payment
-   * types for an organization.
-   *
-   * @return <code>OUTCOME_SUCCESS</code> if the payment type for organization was successfully
-   *     registered, otherwise <code>OUTCOME_ERROR</code> .
-   */
-  public String savePaymentTypeForOrganization() throws SaaSApplicationException {
-
-    final List<VOPSP> psps = getPSPs();
-    final Map<String, String> ptMap = new HashMap<String, String>();
-    for (VOPSP psp : psps) {
-      for (VOPaymentType pt : psp.getPaymentTypes()) {
-        ptMap.put("" + pt.getKey(), pt.getPaymentTypeId());
-      }
-    }
-
-    final String[] pts = pspAccountPaymentTypesAsString.split(",");
-    Set<String> ptsSet = new HashSet<String>();
-    for (String s : pts) {
-      if (s.trim().length() > 0) {
-        if (ptMap.containsKey(s)) {
-          ptsSet.add(ptMap.get(s));
-        } else {
-          throw new SaaSSystemException("payment type fpr key " + s + " not found!");
-        }
-      }
-    }
-    getOperatorService().savePSPAccount(getSelectedOrganization(), getSelectedPspAccount());
-    getOperatorService().addAvailablePaymentTypes(getSelectedOrganization(), ptsSet);
-
-    addMessage(null, FacesMessage.SEVERITY_INFO, INFO_PAYMENT_INFO_SAVED);
-
-    newPspAccount = null;
-
-    selectedPSP = null;
-    selectedPspAccountKey = null;
-    pspAccountPaymentTypesAsString = null;
-
-    return OUTCOME_SUCCESS;
-  }
-
-  /**
-   * Registers the newly created PSP.
-   *
-   * @return <code>OUTCOME_SUCCESS</code> if the organization was successfully registered, otherwise
-   *     <code>OUTCOME_ERROR</code>.
-   */
-  public String createPSP() throws SaaSApplicationException {
-
-    VOPSP newVoPSP = getOperatorService().savePSP(newPSP);
-
-    addMessage(null, FacesMessage.SEVERITY_INFO, INFO_PSP_CREATED, newVoPSP.getId());
-
-    // Reset the form
-    newPSP = null;
-
-    return OUTCOME_SUCCESS;
-  }
-
-  /**
-   * This functions persists the changed data of the currently selected organization.
-   *
-   * @return <code>OUTCOME_SUCCESS</code> if the organization was successfully updated.
-   * @throws SaaSApplicationException if any problems occurs while persisting the values
-   * @throws ImageException Thrown in case the access to the uploaded file failed.
-   */
-  public String saveOrganization() throws SaaSApplicationException {
-
-    OperatorService operatorService = getOperatorService();
-    VOOperatorOrganization org = getSelectedOrganization();
-
-    long updatedTenantKey = org.getTenantKey();
-
-    manageTenantService.validateOrgUsersUniqnessInTenant(org.getOrganizationId(), updatedTenantKey);
-
-    VOOperatorOrganization updated =
-        operatorService.updateOrganization(org, getImageUploader().getVOImageResource());
-
-    operatorSelectOrgCtrl.setExistingOrganization(updated);
-    operatorSelectOrgCtrl.setOrganization(updated);
-    addMessage(
-        null, FacesMessage.SEVERITY_INFO, INFO_ORGANIZATION_SAVED, updated.getOrganizationId());
-
-    selectedPSPAccounts = null;
-
-    return OUTCOME_SUCCESS;
-  }
-
-  /**
-   * This functions persists the changed data of the currently selected organization.
-   *
-   * @throws SaaSApplicationException if any problems occurs while persisting the values
-   * @throws ImageException Thrown in case the access to the uploaded file failed.
-   */
-  public void savePSP() throws SaaSApplicationException {
-    if (!isTokenValid() && pspId != null) {
-      updateSelectedPSP();
-    }
-
-    final List<VOPSPSetting> list = new ArrayList<>();
-    for (PSPSettingRow row : pspSettingRowList) {
-      if (!row.isSelected()
-          && (row.getDefinition().getSettingKey() != null
-                  && row.getDefinition().getSettingKey().trim().length() > 0
-              || row.getDefinition().getSettingValue() != null
-                  && row.getDefinition().getSettingValue().trim().length() > 0)) {
-        list.add(row.getDefinition());
-      }
-    }
-    final VOPSP psp = getSelectedPSP();
-    psp.setPspSettings(list);
-
-    OperatorService operatorService = getOperatorService();
-    selectedPSP = operatorService.savePSP(psp);
-
-    resetToken();
-    addMessage(null, FacesMessage.SEVERITY_INFO, INFO_PSP_SAVED, selectedPSP.getId());
-
-    // make sure the next page access will trigger the reload of the
-    // selected organization the next time getSelectedOrg will be called
-    setSelectedPSP(selectedPSP);
-  }
-
   public OperatorSelectOrgCtrl getOperatorSelectOrgCtrl() {
     return operatorSelectOrgCtrl;
   }
@@ -471,13 +335,6 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
       newOrganization = new VOOrganization();
     }
     return newOrganization;
-  }
-
-  public VOPSP getNewPSP() {
-    if (newPSP == null) {
-      newPSP = new VOPSP();
-    }
-    return newPSP;
   }
 
   public VOUserDetails getNewAdministrator() {
@@ -548,62 +405,9 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     return operatorSelectOrgCtrl.getOrganization();
   }
 
-  public List<VOPSP> getPSPs() {
-    return getOperatorService().getPSPs();
-  }
-
-  public List<VOPSPAccount> getPSPAccounts() {
-    if (selectedPSPAccounts == null) {
-      final VOOrganization org = getSelectedOrganization();
-      if (org.getOrganizationId() != null) {
-        try {
-          selectedPSPAccounts = getOperatorService().getPSPAccounts(org);
-        } catch (ObjectNotFoundException e) {
-          // will return null at the end, which is correct, since
-          // the organization has been deleted
-        }
-      }
-    }
-    return selectedPSPAccounts;
-  }
-
-  /**
-   * Returns the locally selected PSP. On page load or if the selected organization in the
-   * corresponding operatorSelectOrgBean have changed this object will be in sync with the
-   * organization of the operatorSelectOrgBean.
-   */
-  public VOPSP getSelectedPSP() {
-    return selectedPSP;
-  }
-
   @Override
   protected OperatorService getOperatorService() {
     return super.getOperatorService();
-  }
-
-  public void setSelectedPSP(VOPSP selectedPSP) {
-    this.selectedPSP = selectedPSP;
-    pspSettingRowList.clear();
-    if (selectedPSP != null) {
-      for (VOPSPSetting setting : selectedPSP.getPspSettings()) {
-        pspSettingRowList.add(new PSPSettingRow(setting));
-      }
-    }
-  }
-
-  private void updateSelectedPSP() {
-    final List<VOPSP> psps = getOperatorService().getPSPs();
-    selectedPSP = null;
-    pspSettingRowList.clear();
-    for (VOPSP psp : psps) {
-      if (pspId.equals("" + psp.getKey())) {
-        selectedPSP = psp;
-        for (VOPSPSetting setting : psp.getPspSettings()) {
-          pspSettingRowList.add(new PSPSettingRow(setting));
-        }
-        break;
-      }
-    }
   }
 
   // ********************************************************************
@@ -654,6 +458,14 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     }
   }
 
+  /*
+   * value change listener for supplier role check-box
+   */
+  public void supplierRoleChanged(ValueChangeEvent event) {
+    Boolean checkBoxChecked = (Boolean) event.getNewValue();
+    setSupplier(((checkBoxChecked.booleanValue())));
+  }
+  
   /** Sets or removes the corresponding role from the local organization object. */
   public void setReseller(boolean setRole) {
     if (setRole && !this.isReseller()) {
@@ -747,14 +559,6 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
     return isRoleAvailable(getSelectedOrganization(), OrganizationRoleType.RESELLER);
   }
 
-  /*
-   * value change listener for supplier role check-box
-   */
-  public void supplierRoleChanged(ValueChangeEvent event) {
-    Boolean checkBoxChecked = (Boolean) event.getNewValue();
-    setSupplier(((checkBoxChecked.booleanValue())));
-  }
-
   public void newSupplierRoleChanged(ValueChangeEvent event) {
     Boolean checkBoxChecked = (Boolean) event.getNewValue();
     this.setNewSupplier(((checkBoxChecked.booleanValue())));
@@ -837,214 +641,8 @@ public class OperatorOrgBean extends BaseOperatorBean implements Serializable {
   // of the selected organization
   // ********************************************************************
 
-  /** Indicates if the corresponding payment type is available for the local organization. */
-  public boolean isCreditCardAvailable() {
-    return isPaymentTypeAvailable(getSelectedOrganization(), PaymentInfoType.CREDIT_CARD);
-  }
-
-  /**
-   * Reflects the state of the payment type in relation to persisted object.
-   *
-   * @return true if the payment type is set locally and in the DB object.
-   */
-  public boolean isCreditCardDisabled() {
-    return (isPersistedType(PaymentInfoType.CREDIT_CARD) && isCreditCardAvailable()) ? true : false;
-  }
-
-  /** Sets or removes the corresponding payment type locally. */
-  public void setCreditCardAvailable(boolean setpaymentType) {
-    if (setpaymentType && !this.isCreditCardAvailable()) {
-      addVoPayment(PaymentInfoType.CREDIT_CARD);
-    } else if (!setpaymentType) {
-      removeVoPayment(PaymentInfoType.CREDIT_CARD);
-    }
-  }
-
-  /** Indicates if the corresponding payment type is available for the local organization. */
-  public boolean isInvoiceAvailable() {
-    return isPaymentTypeAvailable(getSelectedOrganization(), PaymentInfoType.INVOICE);
-  }
-
-  /**
-   * Reflects the state of the payment type in relation to persisted object.
-   *
-   * @return true if the payment type is set locally and in the DB object.
-   */
-  public boolean isInvoiceDisabled() {
-    return (isPersistedType(PaymentInfoType.INVOICE) && isInvoiceAvailable()) ? true : false;
-  }
-
-  /** Sets or removes the corresponding payment type locally. */
-  public void setInvoiceAvailable(boolean setpaymentType) {
-    if (setpaymentType && !this.isInvoiceAvailable()) {
-      addVoPayment(PaymentInfoType.INVOICE);
-    } else if (!setpaymentType) {
-      removeVoPayment(PaymentInfoType.INVOICE);
-    }
-  }
-
-  /** Indicates if the corresponding payment type is available for the local organization. */
-  public boolean isDirectDebitAvailable() {
-    return isPaymentTypeAvailable(getSelectedOrganization(), PaymentInfoType.DIRECT_DEBIT);
-  }
-
-  /**
-   * Reflects the state of the payment type in relation to persisted object.
-   *
-   * @return true if the payment type is set locally and in the DB object.
-   */
-  public boolean isDirectDebitDisabled() {
-    return (isPersistedType(PaymentInfoType.DIRECT_DEBIT) && isDirectDebitAvailable())
-        ? true
-        : false;
-  }
-
-  /** Sets or removes the corresponding payment type locally. */
-  public void setDirectDebitAvailable(boolean setpaymentType) {
-    if (setpaymentType && !this.isDirectDebitAvailable()) {
-      addVoPayment(PaymentInfoType.DIRECT_DEBIT);
-    } else if (!setpaymentType) {
-      removeVoPayment(PaymentInfoType.DIRECT_DEBIT);
-    }
-  }
-
-  /** Returns true if the passed payment type is available for the passed organization. */
-  private boolean isPaymentTypeAvailable(VOOperatorOrganization voOrg, PaymentInfoType type) {
-    if (operatorSelectOrgCtrl.getOrganization() == null) {
-      return false;
-    }
-    List<VOPaymentType> paymentTypes = voOrg.getPaymentTypes();
-    for (VOPaymentType voPaymentType : paymentTypes) {
-      if (voPaymentType.getPaymentTypeId().equals(type.name())) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /** Adds the passed payment type to the local organization object. */
-  private void addVoPayment(PaymentInfoType type) {
-    VOPaymentType voPaymentType = new VOPaymentType();
-    voPaymentType.setPaymentTypeId(type.name());
-    getSelectedOrganization().getPaymentTypes().add(voPaymentType);
-  }
-
-  /** Removes the passed payment type to the local organization object. */
-  private void removeVoPayment(PaymentInfoType type) {
-    List<VOPaymentType> voPaymentTypes = getSelectedOrganization().getPaymentTypes();
-    for (VOPaymentType voPaymentType : voPaymentTypes) {
-      if (voPaymentType.getPaymentTypeId().equals(type.name())) {
-        voPaymentTypes.remove(voPaymentType);
-        return;
-      }
-    }
-  }
-
-  /**
-   * Returns true if the passed payment type is available in the object which is in sync with the
-   * DB.
-   */
-  private boolean isPersistedType(PaymentInfoType type) {
-    return isPaymentTypeAvailable(operatorSelectOrgCtrl.getExistingOrganization(), type);
-  }
-
   public ImageUploader getImageUploader() {
     return imageUploader;
-  }
-
-  /** @param pspAccountKey the pspAccountKey to set */
-  public void setSelectedPspAccountKey(Long pspAccountKey) {
-    if (pspAccountKey != null) {
-      this.selectedPspAccountKey = pspAccountKey;
-      pspAccountPaymentTypesAsString = null;
-    }
-    newPspAccount = null;
-  }
-
-  public VOPSPAccount getSelectedPspAccount() {
-    if (selectedPspAccountKey != null
-        && selectedPspAccountKey.longValue() != 0
-        && getPSPAccounts() != null) {
-      for (VOPSPAccount acc : getPSPAccounts()) {
-        if (selectedPspAccountKey.equals(new Long(acc.getKey()))) {
-          return acc;
-        }
-      }
-    }
-    if (newPspAccount == null) {
-      newPspAccount = new VOPSPAccount();
-      newPspAccount.setPsp(new VOPSP());
-    }
-    return newPspAccount;
-  }
-
-  /** @param paymentTypeKey the paymentTypeKey to set */
-  public void setSelectedPaymentTypeKey(Long paymentTypeKey) {
-    selectedPaymentTypeKey = paymentTypeKey;
-  }
-
-  public void setPSPAccountPSPKey(final Long key) {
-    if (key != null) {
-      getSelectedPspAccount().getPsp().setKey(key.longValue());
-    }
-  }
-
-  public Long getPSPAccountPSPKey() {
-    return Long.valueOf(getSelectedPspAccount().getPsp().getKey());
-  }
-
-  public String getPSPAccountPaymentTypesAsString() {
-    if (pspAccountPaymentTypesAsString == null) {
-      if (getSelectedOrganization() == null
-          || getSelectedOrganization().getOrganizationId() == null) {
-        return "";
-      }
-      String s = ",";
-      final List<VOPaymentType> pts = getSelectedOrganization().getPaymentTypes();
-      for (VOPaymentType pt : pts) {
-        s += pt.getKey() + ",";
-      }
-      pspAccountPaymentTypesAsString = s;
-    }
-    return pspAccountPaymentTypesAsString;
-  }
-
-  public void setPSPAccountPaymentTypesAsString(String value) {
-    pspAccountPaymentTypesAsString = value;
-  }
-
-  public VOPaymentType getSelectedPaymentType() {
-    return selectedPaymentType;
-  }
-
-  /**
-   * Adds a new {@link VOPSPSetting} to the list.
-   *
-   * @return the modified list
-   */
-  public final List<PSPSettingRow> addPSPSettingRow() {
-    PSPSettingRow pspSettingRow = new PSPSettingRow(new VOPSPSetting());
-    pspSettingRow.setNewDefinition(true);
-    pspSettingRowList.add(0, pspSettingRow);
-    return pspSettingRowList;
-  }
-
-  public final List<PSPSettingRow> getPSPSettings() {
-    return pspSettingRowList;
-  }
-
-  public String getJSForPaymentTypeSelection() {
-    final StringBuilder b = new StringBuilder("");
-    final List<VOPSP> psps = getPSPs();
-    String s;
-    for (VOPSP psp : psps) {
-      b.append("paymentType['" + psp.getKey() + "'] = new Object();\n");
-      s = "paymentType['" + psp.getKey() + "']['";
-      for (VOPaymentType pt : psp.getPaymentTypes()) {
-        b.append(s + pt.getKey() + "'] = '" + pt.getName() + "';\n");
-      }
-    }
-    return b.toString();
   }
 
   public boolean isCustomerOrganization() {
