@@ -17,9 +17,6 @@
 			id="organizationId" immediate="true"
 			update=":mainTmplMessagesPanel @form #{render}"
 			oncomplete="AdmUtils.setSelectBoxes();"
-			onchange="if(AdmUtils.isNotDirtyOrConfirmed())
-                        {this.form.submit();}
-                         else{AdmUtils.restoreValue(this)};"
 			value="#{operatorSelectOrgCtrl.organizationId}">
 			<c:forEach var="entry"
 				items="#{operatorSelectOrgCtrl.model.suggestedOrgs.entrySet().toArray()}"
