@@ -1,0 +1,38 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html >
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
+>
+  <h:form id="categorySelectionForm"
+          rendered="#{marketplaceConfigurationBean.currentConfiguration.categoriesEnabled}">
+    <f:phaseListener binding="#{categorySelectionBean.listener}"/>
+      <div class="row">
+        <div class="col-auto">
+          <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}"
+                           value="#{msg['button.browseAll']}"
+                           class="btn-sm btn-secondary btn-lg btn-block text-wrap">
+            <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
+            <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
+            <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
+          </h:commandButton>
+        </div>
+        <div class="col">
+          <div class="row">
+            <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
+              <div class="col-auto">
+                <h:commandLink value="#{cat.displayName}"
+                               action="#{categorySelectionBean.selectByCategory}"
+                               actionListener="#{serviceListingBean.reloadData}">
+                  <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
+                                               value="#{cat.categoryId}"/>
+                  <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
+                                               value="#{cat.displayName}"/>
+                </h:commandLink>
+              </div>
+            </c:forEach>
+          </div>
+        </div>
+      </div>
+  </h:form>
+</ui:composition>
