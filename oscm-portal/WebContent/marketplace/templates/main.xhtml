@@ -1,6 +1,5 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -48,7 +47,7 @@
     <a id="top" name="top" />
 
     <!-- header -->
-    <mp:header user="#{userBean.loggedInUser}" loginHandler="showLoginPanel('#{defaultLoginRedirect}');return false;" />
+    <mp:headerBootstrap user="#{userBean.loggedInUser}" loginHandler="showLoginPanel('#{defaultLoginRedirect}');return false;" />
     <ui:include src="../login.xhtml">
       <ui:param name="canCloseLogin" value="#{not isMplRestricted}" />
     </ui:include>
@@ -160,31 +159,24 @@
   <!-- footer -->
   <c:set var="defaultImprintUrl" value="#{mpBaseUrl}/terms/imprint.jsf" />
   <c:set var="imprintUrl"
-    value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}" />
+         value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}" />
 
-  <div class="footer">
-    <a4j:outputPanel layout="block" styleClass="clearfix" id="footerinner">
-      <div id="permanentmenu">
-        <ul>
-          <li class="firstchild"><a id="imprintLink" href="#{imprintUrl}" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/imprint.jsf');return false;}" target="_blank"><h:outputText
+  <footer class="bootstrap_footer">
+    <div class="container-fluid text-center py-3">
+      <ul>
+        <li class="firstchild"><a id="imprintLink" href="#{imprintUrl}" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/imprint.jsf');return false;}" target="_blank"><h:outputText
                 value="#{msg['marketplace.imprint.title']}" /> </a>
-          </li>
-          <li><a href="#{mpBaseUrl}/terms/terms.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/terms.jsf');return false;}"><h:outputText value="#{msg['marketplace.terms.title']}" />
-          </a>
-          </li>
-          <li><a id="privacyPolicyLink" href="#{mpBaseUrl}/terms/privacypolicy.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/privacypolicy.jsf');return false;}"><h:outputText
+        </li>
+        <li><a href="#{mpBaseUrl}/terms/terms.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/terms.jsf');return false;}"><h:outputText value="#{msg['marketplace.terms.title']}" />
+        </a>
+        </li>
+        <li><a id="privacyPolicyLink" href="#{mpBaseUrl}/terms/privacypolicy.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/privacypolicy.jsf');return false;}"><h:outputText
                 value="#{msg['marketplace.privacypolicy.title']}" /> </a>
-          </li>
-        </ul>
-        <ul class="parentcom"></ul>
-      </div>
-      <a4j:outputPanel layout="block" id="creditline">
-        <p lang="en" xml:lang="en">
-          <a id="termsLink" href="#{mpBaseUrl}/terms/terms.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/terms.jsf');return false;}"><h:outputText value="#{msg['marketplace.copyright']}" /></a><br />
-        </p>
-      </a4j:outputPanel>
-    </a4j:outputPanel>
-  </div>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
   <script type="text/javascript">
     <c:forEach items="#{additionalErrorElements}" var="ee">
       AdmUtils.setHighlight("#{ee}");
