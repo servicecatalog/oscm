@@ -1,6 +1,6 @@
 /* import only the necessary Bootstrap files */
-@import "../bootstrap/scss/functions"; 
-@import "../bootstrap/scss/variables";
+@import "../../bootstrap/scss/functions"; 
+@import "../../bootstrap/scss/variables";
 /* -------begin customization-------- *//* change the primary theme color to red */
 $theme-colors: (
   "primary": red,
@@ -10,4 +10,4 @@ $theme-colors: (
 $border-radius: 10rem;
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
-@import "../bootstrap/scss/bootstrap"; 
+@import "../../bootstrap/scss/bootstrap"; 
