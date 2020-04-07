@@ -34,8 +34,7 @@ public class MarketplacePlaygroundWT {
     tester = new PortalTester();
     String userid = PlaygroundSuiteTest.supplierOrgAdminId;
     String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
-//    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
-    tester.loginMarketplacePlayground("administrator", "admin123", "d25eb631");
+    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
   @AfterClass
