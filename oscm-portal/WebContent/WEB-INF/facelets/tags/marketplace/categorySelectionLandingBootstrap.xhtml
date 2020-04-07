@@ -22,10 +22,12 @@
      </div>
         <div class="align-self-start navbar navbar-expand-lg">
           <div class="collapse navbar-collapse" id="categoryDrop">
+            <c:set var="listItem" value="list-group-item list-group-item-action text-truncate py-1 border-0"/>
+            <c:set var="activeListItem" value="active list-group-item-light list-group-item list-group-item-action text-truncate py-1 border-0"/>
             <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
               <div class="col-12 col-lg-auto px-1">
                 <h:commandLink id="categoryLink#{count.index}" value="#{cat.displayName}"
-                               styleClass="list-group-item list-group-item-action text-truncate py-1 border-0"
+                               styleClass="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? activeListItem : listItem}"
                                action="#{categorySelectionBean.selectByCategory}"
                                actionListener="#{serviceListingBean.reloadData}">
                   <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
