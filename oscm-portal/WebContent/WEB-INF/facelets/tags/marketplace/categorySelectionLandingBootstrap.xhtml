@@ -8,21 +8,19 @@
           rendered="#{marketplaceConfigurationBean.currentConfiguration.categoriesEnabled}">
     <f:phaseListener binding="#{categorySelectionBean.listener}"/>
     <div class="container">
-      <div class="list-group list-group-horizontal-lg align-items-center m-2">
+      <div class="list-group list-group-horizontal-lg align-items-center">
         <div class="col-12 col-lg-auto list-group-item mx-1 p-1 border-0">
-          <div class="row">
-            <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}"
-                             value="#{msg['button.browseAll']}" class="btn-sm text-left btn-secondary">
-              <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
-              <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
-              <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
-            </h:commandButton>
-            <button id="categoryToggleButton" class="sss" type="button" data-toggle="collapse" data-target="#categoryDrop">
-              PRESS ME
-            </button>
-          </div>
+          <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}"
+                           value="#{msg['button.browseAll']}" class="btn-sm text-left btn-secondary">
+            <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
+            <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
+            <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
+          </h:commandButton>
+          <button id="categoryToggleButton" class="btn-sm btn-outline-secondary d-lg-none" type="button" data-toggle="collapse" data-target="#categoryDrop">
+            <i class="fa fa-bars"></i>
+          </button>
      </div>
-        <div class="navbar navbar-expand-lg">
+        <div class="align-self-start navbar navbar-expand-lg">
           <div class="collapse navbar-collapse" id="categoryDrop">
             <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
               <div class="col-12 col-lg-auto px-1">
