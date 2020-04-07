@@ -3633,6 +3633,13 @@ div#headerrightareaBootstrap, rightarea a {
     margin: 0 !important;
 }
 
+.btn-toggler>.close-nav {
+    display:inline;
+}
+.btn-toggler.collapsed>.close-nav, .btn-toggler:not(.collapsed)>.open-nav {
+    display:none;
+}
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 11.3 Cards
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */

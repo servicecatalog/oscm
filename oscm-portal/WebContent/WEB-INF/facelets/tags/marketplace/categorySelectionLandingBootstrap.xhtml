@@ -16,14 +16,16 @@
             <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
             <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
           </h:commandButton>
-          <button id="categoryToggleButton" class="btn-sm btn-outline-secondary d-lg-none" type="button" data-toggle="collapse" data-target="#categoryDrop">
-            <i class="fa fa-bars"></i>
+<!--          <button id="categoryToggleButton" class="btn-sm btn-outline-secondary d-lg-none" type="button" data-toggle="collapse" data-target="#categoryDrop">-->
+          <button id="categoryToggleButton" class="btn-toggler btn-sm d-lg-none btn-outline-secondary collapsed" type="button" data-toggle="collapse" data-target="#categoryDrop">
+            <span class="close-nav"><i class="fa fa-caret-up"></i></span>
+            <span class="open-nav"><i class="fa fa-caret-down"></i></span>
           </button>
      </div>
-        <div class="align-self-start navbar navbar-expand-lg">
+        <div class="px-0 align-self-start navbar navbar-expand-lg">
           <div class="collapse navbar-collapse" id="categoryDrop">
             <c:set var="listItem" value="list-group-item list-group-item-action text-truncate py-1 border-0"/>
-            <c:set var="activeListItem" value="active list-group-item-light list-group-item list-group-item-action text-truncate py-1 border-0"/>
+            <c:set var="activeListItem" value="list-group-item list-group-item-action list-group-item-secondary text-truncate py-1 border-0"/>
             <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
               <div class="col-12 col-lg-auto px-1">
                 <h:commandLink id="categoryLink#{count.index}" value="#{cat.displayName}"
