@@ -12,7 +12,7 @@ package org.oscm.webtest;
 public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_NAVBAR_HOME_LINK = "homeLink";
   public static final String MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK = "servicesLink";
-  public static final String MARKETPLACE_NAVBAR_TOGGLE_BUTTON = "navbarToggleButton";
+  public static final String MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH = "//button[@id='navbarToggleButton']/span";
   public static final String MARKETPLACE_NAVBAR_LOGOUTDROP = "logoutDrop";
 
   public static final String MARKETPLACE_HOME_LINKTEXT = "//a[contains(text(),'Home')]";
@@ -75,6 +75,8 @@ public class MarketplaceHtmlElements {
       "billingContactPanelForm:saveBillingContactButton";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE =
       "paymentOptionListForm:paymentOptionListTable:0:j_idt361";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE_OIDC =
+      "paymentOptionListForm:paymentOptionListTable:0:j_idt364";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_NAME_FIELD =
       "paymentOptionEditPanelForm:displayName";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_SAVE_BUTTON =
@@ -135,12 +137,12 @@ public class MarketplaceHtmlElements {
       "//a[contains(text(),'Browse')]";
   public static final String MARKETPLACE_HEADER_HOME_LINK = "//a[contains(text(),'Home')]";
   public static final String MARKETPLACE_HEADER_HELP_LINK = "//a[contains(text(),'Help')]";
-  public static final String MARKETPLACE_HEADER_USER_FUNCTION_LIST = "welcome";
+  public static final String MARKETPLACE_HEADER_USER_FUNCTION_LIST = "logoutDrop";
   public static final String MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK =
       "//a[contains(text(),'My Subscriptions')]";
   public static final String MARKETPLACE_HEADER_USER_ACCOUNT_LINK =
       "//a[contains(text(),'Account')]";
-  public static final String MARKETPLACE_HEADER_USER_LOGOUT_LINK = "//a[contains(text(),'Logout')]";
+  public static final String MARKETPLACE_HEADER_USER_LOGOUT_LINK = "formLogout:logout";
   public static final String MARKETPLACE_HEADER_USER_LOGIN_LINK = "//a[contains(text(),'Login')]";
   public static final String MARKETPLACE_FOOTER_IMPRINT_LINK = "imprintLink";
   public static final String MARKETPLACE_FOOTER_PRIVACY_LINK = "privacyPolicyLink";
