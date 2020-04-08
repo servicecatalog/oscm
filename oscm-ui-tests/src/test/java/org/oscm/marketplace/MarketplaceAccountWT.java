@@ -148,7 +148,6 @@ public class MarketplaceAccountWT {
       tester.clickElement(
           MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE_OIDC);
     }
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE);
     Thread.sleep(1000);
     tester.writeValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_NAME_FIELD, "Smiths payment");
