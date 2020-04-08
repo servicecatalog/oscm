@@ -27,7 +27,7 @@
   <c:set var="bodyClass" value="body4span" />
 </c:if>
 
-<h:body class="small, #{bodyClass}">
+<h:body class="#{bodyClass}">
   <rich:jQuery selector="document" query="ready(function(){AdmUtils.initFocus();AdmUtils.setUIElements()});" />
   <c:if test="#{not empty firstErrorElement or not empty focusElement}">
     <c:set var="elementId"
@@ -61,7 +61,6 @@
       <adm:initialize initializingMethod="#{appBean.userLocaleUpdated}" />
       <ui:insert name="feature" />
       <ui:insert name="breadcrumbs" />
-    
 
       <div class="aside">
         <ui:insert name="aside" />

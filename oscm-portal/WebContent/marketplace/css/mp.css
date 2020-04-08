@@ -168,8 +168,8 @@ Copyright 2010-2012 FUJITSU LIMITED
  */
 
 body {
-	font-size: 81.25%; /* 13px */ 
-	font-family: "OpenSansRegular",Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; 
+	font-size: 81.25% !important; /* 13px */
+	font-family: "OpenSansRegular",Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif !important;
 	margin:0px; 
 	position: relative;
 	text-align: center;
@@ -203,10 +203,10 @@ h1,h2,h3,h4,h5,h6{
 	font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; 	
 }
 
-h1 { font-size: 163%; line-height: 1.5; } 
-h2 { font-size: 133%; line-height: 1.5; } 
-h3 { font-size: 108%; line-height: 1.5; }
-h4,h5,h6 { font-size: 100%; line-height: 1.5;  }
+h1 { font-size: 163% !important; line-height: 1.5; }
+h2 { font-size: 133% !important; line-height: 1.5; }
+h3 { font-size: 108% !important; line-height: 1.5; }
+h4,h5,h6 { font-size: 100% !important; line-height: 1.5;  }
  
 p { margin-top: 0; margin-bottom: 1.75em; padding: 0; line-height: 1.5; }
 ul { margin-top: 0; margin-bottom: 1.75em; margin-left: 0; padding: 0 0 0 2.8em; }
