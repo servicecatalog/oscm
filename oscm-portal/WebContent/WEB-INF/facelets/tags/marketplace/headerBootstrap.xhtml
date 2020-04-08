@@ -1,14 +1,14 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:f="http://xmlns.jcp.org/jsf/core" 
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:f="http://xmlns.jcp.org/jsf/core"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
   <c:if test="#{empty loginHandler}">
 
   </c:if>
 
   <nav class="navbar navbar-expand-lg bg-light navbar-light">
-    <div class="container-fluid">
+    <div class="container-fluid h6">
       <div class="navbar-header">
         <a class="navbar-brand" href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="/marketplace/img/mp_logo3.png"
             alt="My Logo" />
@@ -55,23 +55,21 @@
                   onclick="AdmUtils.copyElementValues('inputSearch','searchForm:searchPhrase');AdmUtils.IE9AfterClick('inputSearch');return true;"
                   action="#{serviceListingBean.showServiceListSearch}" />
                 <h:inputHidden value="UTF-8" name="ie" />
-            
+
                 <c:if test="#{servicePagingBean.searchAvailable}">
                   <h:commandLink name="btnG" id="submit"
                                    action="#{serviceListingBean.showServiceListSearch}"
                     onclick="AdmUtils.IE9OnClick('inputSearch');AdmUtils.showProgress(true);AdmUtils.copyElementValues('inputSearch','searchForm:searchPhrase');AdmUtils.IE9AfterClick('inputSearch');return true;"
-                    styleClass="btn btn-outline-secondary my-2 my-sm-0" > <i class="fa fa-search"></i></h:commandLink>
+                    styleClass="btn btn-outline-secondary my-2 my-sm-0" > <i class="fa fa-search"/></h:commandLink>
                 </c:if>
 
                 <c:if test="#{not servicePagingBean.searchAvailable and userBean.internalAuthMode}">
                   <h:commandLink name="btnG" id="submit"
                                    onclick="showLoginPanel('/marketplace/index.jsf');"
-                                   styleClass="btn btn-outline-secondary my-2 my-sm-0" ><i class="fa fa-search"></i></h:commandLink>
+                                   styleClass="btn btn-outline-secondary my-2 my-sm-0" ><i class="fa fa-search"/></h:commandLink>
                 </c:if>
 
           </h:form>
-            
- 
 
           </ui:fragment>
           <li><ui:fragment rendered="#{user eq null}">
@@ -83,35 +81,37 @@
                 <a4j:region>
                   <h:form id="formLogin">
                     <h:outputLink id="loginLink" class="nav-link">
-                    	<h:outputText value="#{msg['login']}" />
+                        <h:outputText value=" #{msg['login']}" /><i class="fa fa-fw fa-sign-in"/>
                     	<f:param name="login" value="oidc" />
                     </h:outputLink>
                   </h:form>
                 </a4j:region>
-              </c:if> 
-            </ui:fragment> <ui:fragment rendered="#{user ne null}">
+              </c:if>
+            </ui:fragment>
 
-              <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="logoutDrop"
-                data-toggle="dropdown"><i class="fa fa-fw fa-user"></i>
-                <h:outputText id="welcome" value="#{user.userId}" /></a>
-                <div class="dropdown-menu">
+             <ui:fragment rendered="#{user ne null}">
+              <li class="nav-item dropdown"><a class="nav-link dropdown-toggle waves-effect waves-light" href="#" id="logoutDrop"
+                data-toggle="dropdown"><i class="fa fa-user"/>
+                <h:outputText id="welcome"/> User </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <p class="px-4 py-sm-2"> Logged in as: <strong><br>#{user.userId}</br></strong></p>
+                    <div class="dropdown-divider"></div>
                    <a class="dropdown-item" href="#{mpBaseUrl}/account/index.jsf">#{msg['navigation.myAccount']}</a>
                   <a class="dropdown-item" href="#{mpBaseUrl}/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a>
                   <div class="dropdown-divider"></div>
                   <h:form id="formLogout">
                     <c:if test="#{userBean.internalAuthMode}">
-                      <h:commandLink class="dropdown-item" id="logout" action="#{userBean.logoff}" ><i class="fa fa-fw fa-sign-out"></i>#{msg['logout']}</h:commandLink>
+                      <h:commandLink class="dropdown-item" id="logout" action="#{userBean.logoff}" ><i class="fa fa-fw fa-sign-out"/>#{msg['logout']}</h:commandLink>
                     </c:if>
                      <c:if test="#{not userBean.internalAuthMode}">
                          <h:outputLink id="logout" class="dropdown-item">
-                             <h:outputText value="#{msg['logout']}" />
+                             <i class="fa fa-fw fa-sign-out"/><h:outputText class="px-1" value="#{msg['logout']}" />
                              <f:param name="logout" value="oidc" />
                          </h:outputLink>
                      </c:if>
                   </h:form>
                 </div></li>
-
-            </ui:fragment></li>
+             </ui:fragment></li>
         </ul>
       </div>
     </div>
