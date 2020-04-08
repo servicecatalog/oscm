@@ -1,13 +1,48 @@
 /* import only the necessary Bootstrap files */
 @import "../../bootstrap/scss/functions"; 
 @import "../../bootstrap/scss/variables";
-/* -------begin customization-------- *//* change the primary theme color to red */
+
+/* -------begin customization-------- *//* change the fonts, and primary theme color to green */
+@import url(https://fonts.googleapis.com/css?family=Comfortaa:200,300,400,700);
+$font-family-base: Comfortaa;
+@import url(https://fonts.googleapis.com/css?family=Comfortaa:200,300,400,700);
+$headings-font-family: Comfortaa;
+
+$body-bg: #1A1B1D;
+$body-color: #111;
+$link-color: $green;
+
 $theme-colors: (
-  "primary": red,
-  "secondary": $purple
+  "primary": $green,
+  "secondary": $green
 );
 
 $border-radius: 10rem;
+
+
+$navbar-light-hover-color: $green;
+$navbar-light-color: #00ffcc;
+$navbar-light-disabled-color: #d1e0e0;
+
+.navbar {
+	width: 100%;
+	background: none !important;
+	
+	.navbar-toggler {
+	cursor:pointer;
+	outline: 0;
+    }
+    
+    .navbar-link {
+    text-transform: uppercase;
+    font-weight: bold;
+    }
+    
+    .nav-item {
+       padding: 0 1rem;
+    }
+}
+
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "../../bootstrap/scss/bootstrap"; 
