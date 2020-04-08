@@ -83,9 +83,11 @@ public class MarketplacePlaygroundWT {
   }
 
   @Test
-  public void test04_landingPageCategories(){
+  public void test04_landingPageCategories() {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
 
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LANDING_PAGE_CATEGORY_LINK)));
+    assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_LANDING_PAGE_CATEGORY_LINK)));
   }
 }

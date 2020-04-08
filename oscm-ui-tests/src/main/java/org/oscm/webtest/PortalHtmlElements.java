@@ -99,10 +99,12 @@ public class PortalHtmlElements {
   public static final String DEACTIVATION_SERVICE_BUTTON_SAVE =
       "serviceDeActivationForm:deActivateButtonLink";
 
-  public static final String MANAGE_CATEGORIES_DROPDOWN = "marketplaceSelectForm:selectMarketplaceIdInner";
+  public static final String MANAGE_CATEGORIES_DROPDOWN =
+      "marketplaceSelectForm:selectMarketplaceIdInner";
   public static final String MANAGE_CATEGORIES_ADD_BUTTON = "categoriesForm:addNewCategoryLink";
-  public static final String MANAGE_CATEGORIES_CATEGORY_ID_INPUT = "categoriesForm:categoriesTable:0:categoryId";
-  public static final String MANAGE_CATEGORIES_CATEGORY_NAME_INPUT = "categoriesForm:categoriesTable:0:localizedValue";
+  public static final String MANAGE_CATEGORIES_CATEGORY_ID_INPUT =
+      "categoriesForm:categoriesTable:0:categoryId";
+  public static final String MANAGE_CATEGORIES_CATEGORY_NAME_INPUT =
+      "categoriesForm:categoriesTable:0:localizedValue";
   public static final String MANAGE_CATEGORIES_SAVE_BUTTON = "categoriesForm:saveButton";
-
 }

@@ -128,6 +128,6 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_PROCESSES_TARGET_SAVE_BUTTON =
       "//a[@id='triggerDefinitionPanelForm:triggerDefinitionPanelSave']/span";
 
-  public static final String MARKETPLACE_LANDING_PAGE_CATEGORY_LINK = "categorySelectionForm:categoryLink0";
-
+  public static final String MARKETPLACE_LANDING_PAGE_CATEGORY_LINK =
+      "categorySelectionForm:categoryLink0";
 }
