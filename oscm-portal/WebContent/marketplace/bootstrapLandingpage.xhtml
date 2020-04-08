@@ -20,6 +20,7 @@
       </h:commandButton>
     </h:form>
 
+    <mp:categorySelectionLandingBootstrap/>
     <div class="row mt-4 mx-2">
       <c:forEach items="#{serviceListingBean.servicesForLandingPage}" var="service" varStatus="status">
         <mp:serviceCard fieldId="service#{status.index}" service="#{service}" limitedDescription="true" />

@@ -210,4 +210,8 @@
     <tag-name>tagCloudBootstrap</tag-name>
     <source>tagCloudBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>categorySelectionLandingBootstrap</tag-name>
+    <source>categorySelectionLandingBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>

@@ -79,8 +79,13 @@ public class MarketplacePlaygroundWT {
   public void test03_cloudTag() {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_SERVICES);
 
-    if (!tester.verifyFoundElement(By.linkText("cloud tag"))) {
-      fail("Cloud tag item not found");
-    }
+    assertTrue(tester.verifyFoundElement(By.linkText("cloud tag")));
+  }
+
+  @Test
+  public void test04_landingPageCategories(){
+    tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
+
+    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LANDING_PAGE_CATEGORY_LINK)));
   }
 }
