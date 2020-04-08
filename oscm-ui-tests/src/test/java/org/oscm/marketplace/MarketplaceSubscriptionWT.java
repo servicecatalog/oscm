@@ -80,7 +80,7 @@ public class MarketplaceSubscriptionWT {
             By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK)));
     Assert.assertTrue(
         tester.verifyFoundElement(
-            By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)));
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)));
   }
 
   @Test

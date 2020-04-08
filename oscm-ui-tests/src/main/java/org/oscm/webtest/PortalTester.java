@@ -162,9 +162,15 @@ public class PortalTester extends WebTester {
    * is a logged in user and that the driverApp is at a marketplace page.
    */
   public void logoutMarketplace() {
-    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
+    //    FIXME related with loginMarketplace method
+    if (driver
+            .findElements(
+                    By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH))
+            .size() != 0) {
+      clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH);
+    }
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGOUTDROP)).click();
-    driver.findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)).click();
+    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)).click();
     log("Logout OSCM Marketplace");
   }
 
