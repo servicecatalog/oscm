@@ -165,8 +165,8 @@ public class PortalTester extends WebTester {
     //    FIXME related with loginMarketplace method
     if (driver
             .findElements(
-                    By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH))
-            .size() != 0) {
+                    By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_HELP_LINK))
+            .size() == 0) {
       clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH);
     }
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGOUTDROP)).click();

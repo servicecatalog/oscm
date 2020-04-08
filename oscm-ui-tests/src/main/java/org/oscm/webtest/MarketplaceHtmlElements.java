@@ -47,7 +47,7 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_PROFILE_LANGUAGE_DROPDOWN = "userForm:locale";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON = "userForm:j_idt263";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON_OIDC =
-      "userForm:j_idt265";
+      "userForm:j_idt255";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_BUTTON =
       "//span[contains(.,'Organization Data')]";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_FIELD =
