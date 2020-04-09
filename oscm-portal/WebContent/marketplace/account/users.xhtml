@@ -54,7 +54,7 @@
 	                    rendered="#{userBean.internalAuthMode}"/>
 	                  <adm:button id="editLdapSettingsButton" value="#{msg['button.editLdapSettings']}" bean="#{userBean}"
 	                    action="editLdapSettings" rendered="#{userBean.loggedInUser.remoteLdapActive}" />
-	                  <a4j:outputPanel style="position:absolute;right:12px;"
+	                  <a4j:outputPanel style="position:relative;float:right;"
 	                    rendered="#{not userBean.loggedInUser.remoteLdapActive}">
 	                    <adm:fileUpload value="#{userBean.userImport}" labels="false" style="float:left;margin-left:50px;margin-right:10px;"
 	                      marketplace="true" required="false" />
