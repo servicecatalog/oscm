@@ -898,7 +898,7 @@
     <from-view-id>/shop/gotoMarketplace.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>
-      <to-view-id>/marketplace/index.jsp</to-view-id>
+      <to-view-id>/marketplace/playground.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>
