@@ -75,9 +75,7 @@ public class GotoMarketplaceBean extends BaseBean implements Serializable {
       if (!validateMarketplaceTenant(marketplace, tenantId)) {
         continue;
       }
-      if (!marketplace.isRestricted()) {
-        marketplacesToDisplay.add(marketplace);
-      }
+      marketplacesToDisplay.add(marketplace);
     }
   }
 

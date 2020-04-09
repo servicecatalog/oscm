@@ -25,17 +25,21 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 import javax.faces.component.UIOutput;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.intf.IdentityService;
 import org.oscm.internal.intf.MarketplaceService;
 import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.internal.vo.VOUserDetails;
+import org.oscm.ui.stubs.FacesContextStub;
 
 public class GotoMarketplaceBeanTest {
 
@@ -47,6 +51,7 @@ public class GotoMarketplaceBeanTest {
 
   @Before
   public void setup() {
+    new FacesContextStub(Locale.ENGLISH);
     mpServiceMock = mock(MarketplaceService.class);
     marketplaceGotoBean = spy(new GotoMarketplaceBean());
     servletRequestMock = mock(HttpServletRequest.class);
@@ -83,13 +88,19 @@ public class GotoMarketplaceBeanTest {
     }
   }
 
-  private List<VOMarketplace> marketplace(long key, String mpId) {
-    List<VOMarketplace> publish = new ArrayList<VOMarketplace>();
-    VOMarketplace mp1 = new VOMarketplace();
-    mp1.setKey(key);
-    mp1.setMarketplaceId(mpId);
-    publish.add(mp1);
-    return publish;
+  @Test
+  public void getMarketplaces_restricted() {
+    // given
+    given(mpServiceMock.getMarketplacesForOrganization())
+        .willReturn(restrictedMarketplace(1L, "restrictedMp"));
+
+    // when
+    int size = marketplaceGotoBean.getMarketplaces().size();
+    // then
+    assertEquals(1, size);
+    SelectItem i = marketplaceGotoBean.getMarketplaces().get(0);
+    assertTrue(i.getValue() instanceof String);
+    assertEquals("restrictedMp", (String) i.getValue());
   }
 
   @Test
@@ -318,5 +329,24 @@ public class GotoMarketplaceBeanTest {
 
     VOUserDetails userDetails = new VOUserDetails(1, 0);
     return userDetails;
+  }
+
+  private List<VOMarketplace> marketplace(long key, String mpId) {
+    List<VOMarketplace> publish = new ArrayList<VOMarketplace>();
+    VOMarketplace mp1 = new VOMarketplace();
+    mp1.setKey(key);
+    mp1.setMarketplaceId(mpId);
+    publish.add(mp1);
+    return publish;
+  }
+
+  private List<VOMarketplace> restrictedMarketplace(long key, String mpId) {
+    List<VOMarketplace> publish = new ArrayList<VOMarketplace>();
+    VOMarketplace mp1 = new VOMarketplace();
+    mp1.setKey(key);
+    mp1.setRestricted(true);
+    mp1.setMarketplaceId(mpId);
+    publish.add(mp1);
+    return publish;
   }
 }
