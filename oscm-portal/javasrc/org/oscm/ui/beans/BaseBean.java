@@ -416,7 +416,7 @@ public class BaseBean {
   public static final String INFO_BILLINGSYSTEM_CONNECTION_SUCCESS =
       "info.billingSystem.connection.success";
 
-  public static final String MARKETPLACE_START_SITE = Marketplace.MARKETPLACE_ROOT + "/index.jsf";
+  public static final String MARKETPLACE_START_SITE = Marketplace.MARKETPLACE_ROOT + "/playground.jsf";
   public static final String MARKETPLACE_LOGIN_PAGE =
       Marketplace.MARKETPLACE_ROOT + "/loginPage.jsf";
 
