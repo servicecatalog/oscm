@@ -136,7 +136,7 @@ public class RegistrationBeanTest {
     @Test
     public void getValueOf_MARKETPLACE_START_SITE() throws Exception {
         String page = registrationBean.getValueOf("MARKETPLACE_START_SITE");
-        assertEquals("/marketplace/index.jsf", page);
+        assertEquals("/marketplace/playground.jsf", page);
     }
 
     @Test
