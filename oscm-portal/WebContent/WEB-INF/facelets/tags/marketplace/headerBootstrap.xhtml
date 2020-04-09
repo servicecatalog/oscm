@@ -92,9 +92,9 @@
              <ui:fragment rendered="#{user ne null}">
               <li class="nav-item dropdown"><a class="nav-link dropdown-toggle waves-effect waves-light" href="#" id="logoutDrop"
                 data-toggle="dropdown"><i class="fa fa-user"/>
-                <h:outputText id="welcome"/> User </a>
+                <h:outputText id="welcome"/> #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <p class="px-4 py-sm-2"> Logged in as: <strong><br>#{user.userId}</br></strong></p>
+                    <p class="px-4 py-sm-2"> #{msg['marketplace.logging']} <strong><br>#{user.userId}</br></strong></p>
                     <div class="dropdown-divider"></div>
                    <a class="dropdown-item" href="#{mpBaseUrl}/account/index.jsf">#{msg['navigation.myAccount']}</a>
                   <a class="dropdown-item" href="#{mpBaseUrl}/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a>
