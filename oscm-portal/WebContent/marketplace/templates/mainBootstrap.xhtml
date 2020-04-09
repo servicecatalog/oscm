@@ -24,6 +24,9 @@
 </c:if>
 
 <h:body>
+
+<link href="${facesContext.externalContext.requestContextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+    type="text/css" />
   <rich:jQuery selector="document" query="ready(function(){AdmUtils.initFocus();AdmUtils.setUIElements()});" />
   <c:if test="#{not empty firstErrorElement or not empty focusElement}">
     <c:set var="elementId"
