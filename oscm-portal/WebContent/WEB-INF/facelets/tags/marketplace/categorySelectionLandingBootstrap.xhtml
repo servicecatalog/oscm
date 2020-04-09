@@ -7,7 +7,7 @@
   <h:form id="categorySelectionForm"
           rendered="#{marketplaceConfigurationBean.currentConfiguration.categoriesEnabled}">
     <f:phaseListener binding="#{categorySelectionBean.listener}"/>
-    <div class="container">
+    <div class="col-12 mt-1 p-0 ">
       <div class="list-group list-group-horizontal-lg align-items-center">
         <div class="col-12 col-lg-auto list-group-item mx-1 p-1 border-0">
           <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}"
@@ -21,12 +21,12 @@
             <span class="open-nav"><i class="fa fa-caret-down"></i></span>
           </button>
      </div>
-        <div class="px-0 align-self-start navbar navbar-expand-lg">
+        <div class="p-0 align-self-start navbar navbar-expand-lg">
           <div class="collapse navbar-collapse" id="categoryDrop">
-            <c:set var="listItem" value="list-group-item list-group-item-action text-truncate py-1 px-1 border-0"/>
-            <c:set var="activeListItem" value="list-group-item list-group-item-action list-group-item-secondary text-truncate py-1 border-0"/>
+            <c:set var="listItem" value="list-group-item list-group-item-action text-truncate p-1 border-0"/>
+            <c:set var="activeListItem" value="list-group-item list-group-item-action list-group-item-secondary text-truncate p-1 border-0"/>
             <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
-              <div class="col-12 col-lg-auto px-1">
+              <div class="col-12 col-lg-auto p-1">
                 <h:commandLink id="categoryLink#{count.index}" value="#{cat.displayName}"
                                styleClass="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? activeListItem : listItem}"
                                action="#{categorySelectionBean.selectByCategory}"
