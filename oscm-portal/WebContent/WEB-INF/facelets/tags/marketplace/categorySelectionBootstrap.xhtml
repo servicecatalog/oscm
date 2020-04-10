@@ -20,11 +20,12 @@
     <!-- Service categories list container-->
     <c:if test="#{categorySelectionBean.hasCategories}">
       <div class="list-group shadow mb-2">
-        <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat">
+        <c:set var="listItem" value="list-group-item list-group-item-action text-center text-lg-left"/>
+        <c:set var="activeListItem" value="list-group-item list-group-item-action list-group-item-secondary active text-center text-lg-left"/>
+        <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
           <!-- Selected category -->
-          <c:if test="#{cat.categoryId eq categorySelectionBean.selectedCategoryId}">
-            <h:commandLink value="#{cat.displayName}"
-                           styleClass="list-group-item list-group-item-action list-group-item-secondary active text-center text-lg-left"
+            <h:commandLink id="categoryLink#{count.index}" value="#{cat.displayName}"
+                           styleClass="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? activeListItem : listItem}"
                            action="#{categorySelectionBean.selectByCategory}"
                            actionListener="#{serviceListingBean.reloadData}">
               <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
@@ -32,19 +33,7 @@
               <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
                                            value="#{cat.displayName}"/>
             </h:commandLink>
-          </c:if>
           <!-- Not selected category -->
-          <c:if test="#{cat.categoryId ne categorySelectionBean.selectedCategoryId}">
-            <h:commandLink value="#{cat.displayName}"
-                           styleClass="list-group-item list-group-item-action text-center text-lg-left"
-                           action="#{categorySelectionBean.selectByCategory}"
-                           actionListener="#{serviceListingBean.reloadData}">
-              <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
-                                           value="#{cat.categoryId}"/>
-              <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
-                                           value="#{cat.displayName}"/>
-            </h:commandLink>
-          </c:if>
         </c:forEach>
       </div>
     </c:if>
