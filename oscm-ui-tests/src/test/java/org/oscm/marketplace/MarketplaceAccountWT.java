@@ -9,8 +9,6 @@
  */
 package org.oscm.marketplace;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -19,6 +17,8 @@ import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.PortalTester;
+
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplaceAccountWT {
@@ -44,7 +44,8 @@ public class MarketplaceAccountWT {
   @Test
   public void test01fillOrganizationData() {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_BUTTON);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON);
     tester.clickElementXPath(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_BUTTON);
@@ -62,13 +63,13 @@ public class MarketplaceAccountWT {
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SAVE_BUTTON);
 
     assertTrue(tester.readInfoMessage().contains("Your profile has been successfully saved"));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_SPAN_WELCOME)));
   }
 
   @Test
   public void test02fillPersonalData() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_BUTTON);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON);
     if (tester
             .getDriver()
@@ -105,7 +106,8 @@ public class MarketplaceAccountWT {
   @Test
   public void test03addBillingAddress() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_BUTTON);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_BUTTON);
     tester.clickElementXPath(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_ADD_BILLING_ADDRESS_BUTTON);
@@ -131,9 +133,21 @@ public class MarketplaceAccountWT {
 
   @Test
   public void test04addPaymentType() throws InterruptedException {
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_BUTTON);
+
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_BUTTON);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE);
+    if (tester
+            .getDriver()
+            .findElements(
+                By.id(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE))
+            .size()
+        != 0) {
+      tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE);
+    } else {
+      tester.clickElement(
+          MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE_OIDC);
+    }
     Thread.sleep(1000);
     tester.writeValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_NAME_FIELD, "Smiths payment");
@@ -146,7 +160,8 @@ public class MarketplaceAccountWT {
   @Test
   public void test05addUser() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_BUTTON);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
     if (tester
             .getDriver()
@@ -179,6 +194,7 @@ public class MarketplaceAccountWT {
 
   @Test
   public void test06addUserRoles() throws InterruptedException {
+
     if (tester
             .getDriver()
             .findElements(
@@ -197,7 +213,9 @@ public class MarketplaceAccountWT {
 
   @Test
   public void test07addOrganization() throws InterruptedException {
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_BUTTON);
+
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_ORGANIZATION_UNIT_BUTTON);
     tester.clickElementXPath(
@@ -222,6 +240,7 @@ public class MarketplaceAccountWT {
 
   @Test
   public void test08addUsersToOrganization() throws InterruptedException {
+
     tester.clickElement(
         "editGroupForm:usersInGroup:" + PlaygroundSuiteTest.supplierOrgAdminId + ":assignCheckbox");
     if (tester
@@ -247,7 +266,9 @@ public class MarketplaceAccountWT {
 
   @Test
   public void test09deleteOrganization() throws InterruptedException {
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_BUTTON);
+
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_ORGANIZATION_UNIT_BUTTON);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_ORGANIZATION_DELETE_INPUT);
@@ -264,7 +285,9 @@ public class MarketplaceAccountWT {
 
   @Test
   public void test10addProcessTrigger() throws InterruptedException {
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_BUTTON);
+
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_SHOW_BUTTON);
     tester.clickElementXPath(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_ADD_PROCESS_BUTTON);

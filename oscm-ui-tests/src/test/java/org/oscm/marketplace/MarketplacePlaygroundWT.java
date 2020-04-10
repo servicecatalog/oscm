@@ -9,10 +9,6 @@
  */
 package org.oscm.marketplace;
 
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -20,7 +16,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
-import org.oscm.webtest.*;
+import org.oscm.webtest.MarketplaceHtmlElements;
+import org.oscm.webtest.MarketplacePathSegments;
+import org.oscm.webtest.PortalTester;
+
+import static org.junit.Assert.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplacePlaygroundWT {
@@ -34,12 +34,12 @@ public class MarketplacePlaygroundWT {
     tester = new PortalTester();
     String userid = PlaygroundSuiteTest.supplierOrgAdminId;
     String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
-    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+    tester.loginMarketplace(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
   @AfterClass
   public static void cleanUp() {
-    tester.logoutMarketplacePlayground();
+    tester.logoutMarketplace();
     tester.close();
   }
 

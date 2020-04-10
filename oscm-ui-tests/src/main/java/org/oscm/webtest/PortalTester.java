@@ -9,7 +9,6 @@
  */
 package org.oscm.webtest;
 
-import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
@@ -18,6 +17,8 @@ import org.oscm.email.MaildevReader;
 import org.oscm.identity.ApiIdentityClient;
 import org.oscm.identity.IdentityConfiguration;
 import org.oscm.identity.exception.IdentityClientException;
+
+import javax.security.auth.login.LoginException;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
@@ -127,29 +128,27 @@ public class PortalTester extends WebTester {
   public void loginMarketplace(String user, String password, String supplierOrgId)
       throws Exception {
     visitMarketplace(MarketplacePathSegments.URL_MARKETPLACE_ID + supplierOrgId);
-
-    if (verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT))) {
-      driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
+    driver
+        .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON))
+        .click();
+    if (verifyFoundElement(
+        By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST))) {
+      clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
+      driver
+          .findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK))
+          .click();
       waitForElement(
-          By.id(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN), WebTester.IMPLICIT_WAIT);
+          By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGIN_LINK),
+          WebTester.IMPLICIT_WAIT);
     }
 
-    if (verifyFoundElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN))) {
-      driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
-    }
-
-    authenticationCtx.loginMarketplace(user, password);
-  }
-
-  public void loginMarketplacePlayground(String user, String password, String supplierOrgId)
-      throws Exception {
-    visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
-
-    //
-    // driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
     //    FIXME javascript dropdown not working on oidc temporary fix
     driver.manage().window().setSize(new Dimension(1200, 800));
-    driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
+    if (verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGIN_LINK))) {
+      driver
+          .findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGIN_LINK))
+          .click();
+    }
 
     authenticationCtx.loginMarketplace(user, password);
   }
@@ -172,16 +171,13 @@ public class PortalTester extends WebTester {
    * is a logged in user and that the driverApp is at a marketplace page.
    */
   public void logoutMarketplace() {
-    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
-    log("Logout OSCM Marketplace");
-  }
-
-  public void logoutMarketplacePlayground() {
-    //    FIXME javascript dropdown not working on oidc temporary fix
-    //
-    // driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
+    //    FIXME related with loginMarketplace method
+    if (driver.manage().window().getSize().width < 1100) {
+      clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH);
+    }
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGOUTDROP)).click();
-    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
+    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)).click();
+    log("Logout OSCM Marketplace");
   }
 
   /**

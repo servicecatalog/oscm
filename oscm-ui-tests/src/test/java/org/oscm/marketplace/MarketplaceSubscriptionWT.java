@@ -51,11 +51,50 @@ public class MarketplaceSubscriptionWT {
         By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
     tester.clickElement(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);
     Assert.assertTrue(
-        tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_SPAN_WELCOME)));
+        tester.verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HOME_LINKTEXT)));
   }
 
   @Test
-  public void test02createSubscription() {
+  public void test02checkHeader() {
+    String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
+    tester.visitMarketplace(MarketplacePathSegments.INDEX_MARKETPLACE);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SUBSCRIPTION_FIELD, subscriptionName);
+    Assert.assertTrue(
+        tester.verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_HOME_LINK)));
+    Assert.assertTrue(
+        tester.verifyFoundElement(
+            By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_BROWSE_SUBSCRIPTION_LINK)));
+    Assert.assertTrue(
+        tester.verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_HELP_LINK)));
+    Assert.assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SUBSCRIPTION_BUTTON)));
+    Assert.assertTrue(
+        tester.verifyFoundElement(
+            By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK)));
+    Assert.assertTrue(
+        tester.verifyFoundElement(
+            By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK)));
+    Assert.assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)));
+  }
+
+  @Test
+  public void test03checkFooter() {
+    Assert.assertTrue(
+        tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_FOOTER_IMPRINT_LINK)));
+    Assert.assertTrue(
+        tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_FOOTER_PRIVACY_LINK)));
+    Assert.assertTrue(
+        tester.verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_FOOTER_TERMS_LINK)));
+  }
+
+  @Test
+  public void test04createSubscription() {
 
     String referenceNo = WebTester.getCurrentTime();
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
