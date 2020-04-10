@@ -42,8 +42,10 @@ public class MarketplaceAccountWT {
   }
 
   @Test
-  public void test01fillOrganizationData() {
+  public void test01fillOrganizationData() throws InterruptedException {
 
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
+    Thread.sleep(1000);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON);
@@ -68,6 +70,8 @@ public class MarketplaceAccountWT {
   @Test
   public void test02fillPersonalData() throws InterruptedException {
 
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
+    Thread.sleep(1000);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON);
@@ -106,6 +110,8 @@ public class MarketplaceAccountWT {
   @Test
   public void test03addBillingAddress() throws InterruptedException {
 
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
+    Thread.sleep(1000);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_BUTTON);
@@ -134,6 +140,8 @@ public class MarketplaceAccountWT {
   @Test
   public void test04addPaymentType() throws InterruptedException {
 
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
+    Thread.sleep(1000);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_BUTTON);
@@ -160,6 +168,8 @@ public class MarketplaceAccountWT {
   @Test
   public void test05addUser() throws InterruptedException {
 
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
+    Thread.sleep(1000);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
@@ -214,6 +224,8 @@ public class MarketplaceAccountWT {
   @Test
   public void test07addOrganization() throws InterruptedException {
 
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
+    Thread.sleep(1000);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
@@ -267,6 +279,8 @@ public class MarketplaceAccountWT {
   @Test
   public void test09deleteOrganization() throws InterruptedException {
 
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
+    Thread.sleep(1000);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
@@ -286,6 +300,8 @@ public class MarketplaceAccountWT {
   @Test
   public void test10addProcessTrigger() throws InterruptedException {
 
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
+    Thread.sleep(1000);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_SHOW_BUTTON);

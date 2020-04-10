@@ -10,7 +10,6 @@
 package org.oscm.webtest;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.oscm.email.MaildevReader;
@@ -142,8 +141,6 @@ public class PortalTester extends WebTester {
           WebTester.IMPLICIT_WAIT);
     }
 
-    //    FIXME javascript dropdown not working on oidc temporary fix
-    driver.manage().window().setSize(new Dimension(1200, 800));
     if (verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGIN_LINK))) {
       driver
           .findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGIN_LINK))
@@ -171,10 +168,7 @@ public class PortalTester extends WebTester {
    * is a logged in user and that the driverApp is at a marketplace page.
    */
   public void logoutMarketplace() {
-    //    FIXME related with loginMarketplace method
-    if (driver.manage().window().getSize().width < 1100) {
-      clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH);
-    }
+    clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH);
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGOUTDROP)).click();
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)).click();
     log("Logout OSCM Marketplace");
