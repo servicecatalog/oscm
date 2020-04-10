@@ -91,7 +91,7 @@ public class PortalMarketplaceWT {
     assertTrue(tester.getExecutionResult());
   }
 
-  @Test
+//  @Test
   public void test04addCategory() throws Exception {
     tester.visitPortal(PortalPathSegments.MANAGE_CATEGORIES);
     tester.selectDropdown(
