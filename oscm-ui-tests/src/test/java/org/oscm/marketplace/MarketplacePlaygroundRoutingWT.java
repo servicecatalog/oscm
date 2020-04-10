@@ -22,15 +22,17 @@ public class MarketplacePlaygroundRoutingWT {
     @BeforeClass
     public static void setup() throws Exception {
         tester = new PortalTester();
-//        String userid = PlaygroundSuiteTest.supplierOrgAdminId;
-//        String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
-        tester.loginMarketplacePlayground("service", "qwerty12", "playground");
+        String userid = PlaygroundSuiteTest.supplierOrgAdminId;
+        String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
+        tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
     }
 
     @Test
     public void test01_routing(){
         tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
         tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_BROWSE_ALL_SERVICES_BUTTON);
+        assertTrue(tester.getCurrentUrl().endsWith(MarketplacePathSegments.MARKETPLACE_SERVICES));
+        tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_LANDING_PAGE_CATEGORY_LINK);
         assertTrue(tester.getCurrentUrl().endsWith(MarketplacePathSegments.MARKETPLACE_SERVICES));
     }
 
