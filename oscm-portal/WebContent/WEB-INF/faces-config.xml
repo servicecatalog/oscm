@@ -1109,6 +1109,25 @@
       <redirect />
     </navigation-case>
   </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/marketplace/playgroundServices.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>showServiceList</from-outcome>
+      <to-view-id>/marketplace/playgroundServices.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>
+
+  <navigation-rule>
+    <from-view-id>/marketplace/playground.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>showServiceList</from-outcome>
+      <to-view-id>/marketplace/playgroundServices.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>
+
   <validator>
     <validator-id>ldapUser</validator-id>
     <validator-class>org.oscm.ui.validator.LdapUserValidator</validator-class>
