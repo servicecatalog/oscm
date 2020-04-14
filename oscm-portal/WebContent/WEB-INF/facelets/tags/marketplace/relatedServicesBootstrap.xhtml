@@ -1,0 +1,39 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html >
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
+  <!-- parameter: "bean" = subscription bean -->
+  <h:form id="showRelatedServiceForm">
+     <h:inputHidden id="relatedServiceKey" value="#{serviceDetailsModel.selectedServiceKey}" />
+    <h:commandButton id="showRelatedService" action="#{serviceDetailsCtrl.redirectToServiceDetails}" style="display: none;" />
+  </h:form>
+
+  <h:form id="filterSelectionForm">
+    <h:inputHidden id="tagFilter" value="#{servicePagingBean.filterTag}" />
+    <h:commandButton id="showFilteredList" action="#{serviceListingBean.showServiceList}" style="display: none;" />
+  </h:form>
+
+  <div class="container">
+    <div class="list-group">
+      <div class="list-group-item">
+        #{msg['marketplace.services.related.title']}
+      </div>
+      <c:forEach items="#{bean.relatedServices}" var="service" varStatus="status">
+        <div class="list-group-item list-group-item-action" onclick="AdmUtils.showProgress(true);#{rich:element('relatedServiceKey')}.value=#{service.key};#{rich:element('showRelatedService')}.click();return false;">
+          <h4 id="selectedServiceH3#{status.index}" class="relatedServiceName">#{service.nameToDisplay}</h4>
+          <h4 id="supplier#{status.index}" class="relatedServicePrice">#{service.priceToDisplay}</h4>
+        </div>
+      </c:forEach>
+
+    </div>
+    <!-- Browse all button -->
+    <button type="button" id="buttonBrowseAllRelated" class="btn btn-secondary btn-block"
+            onclick="AdmUtils.showProgress(true);#{rich:element('tagFilter')}.value=''; #{rich:element('showFilteredList')}.click(); return false;">
+      #{msg['button.browseAll']}
+    </button>
+  </div>
+
+</ui:composition>
