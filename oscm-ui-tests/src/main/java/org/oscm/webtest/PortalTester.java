@@ -9,6 +9,7 @@
  */
 package org.oscm.webtest;
 
+import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -16,8 +17,6 @@ import org.oscm.email.MaildevReader;
 import org.oscm.identity.ApiIdentityClient;
 import org.oscm.identity.IdentityConfiguration;
 import org.oscm.identity.exception.IdentityClientException;
-
-import javax.security.auth.login.LoginException;
 
 /**
  * Helper class for integration web tests using selenium and java mail.

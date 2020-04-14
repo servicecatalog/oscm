@@ -12,7 +12,8 @@ package org.oscm.webtest;
 public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_NAVBAR_HOME_LINK = "homeLink";
   public static final String MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK = "servicesLink";
-  public static final String MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH = "//button[@id='navbarToggleButton']/span";
+  public static final String MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH =
+      "//button[@id='navbarToggleButton']/span";
   public static final String MARKETPLACE_NAVBAR_LOGOUTDROP = "logoutDrop";
 
   public static final String MARKETPLACE_HOME_LINKTEXT = "//a[contains(text(),'Home')]";
