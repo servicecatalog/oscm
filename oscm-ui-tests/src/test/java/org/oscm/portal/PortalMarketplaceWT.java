@@ -103,4 +103,17 @@ public class PortalMarketplaceWT {
 
     assertTrue(tester.getExecutionResult());
   }
+
+  @Test
+  public void test05createPlayground() throws Exception {
+    tester.visitPortal(PortalPathSegments.CREATE_MARKETPLACE);
+
+    tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_NAME, "PlaygroundMarketplace");
+    tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_ID, "pg_marketplace");
+
+    tester.clickElement(PortalHtmlElements.CREATE_MARKETPLACE__BUTTON_SAVE);
+
+    assertTrue(tester.getExecutionResult());
+  }
+
 }

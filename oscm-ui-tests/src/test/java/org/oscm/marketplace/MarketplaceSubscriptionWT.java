@@ -50,7 +50,6 @@ public class MarketplaceSubscriptionWT {
     tester.waitForElementVisible(
         By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
     tester.clickElement(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);
-    Assert.assertTrue(tester.getCurrentUrl().contains(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE));
     Assert.assertTrue(
         tester.verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HOME_LINKTEXT)));
   }
