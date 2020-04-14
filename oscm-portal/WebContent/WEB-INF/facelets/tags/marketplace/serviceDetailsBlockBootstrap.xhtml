@@ -1,0 +1,135 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:rich="http://richfaces.org/rich"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:a4j="http://richfaces.org/a4j"
+>
+  <c:if test="#{empty showTags}">
+    <c:set var="showTags" value="false"/>
+  </c:if>
+  <c:if test="#{empty showSupplier}">
+    <c:set var="showSupplier" value="true"/>
+  </c:if>
+  <c:if test="#{empty limitedDescription}">
+    <c:set var="limitedDescription" value="false"/>
+  </c:if>
+  <!--  <c:set var="mpBaseUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace" />-->
+  <div class="container bg-light border shadow py-3 mb-3">
+    <div class="border-bottom mb-2">
+      #{serviceDetailsModel.selectedService.nameToDisplay}
+    </div>
+    <!--  -->
+    <div class="row">
+      <!-- Service info container -->
+      <div class="col-xl-9 col-lg-12">
+        <!-- Image, supplier container -->
+        <div class="col-auto mb-2">
+          <div class="row align-items-center">
+            <div class="col-auto pr-1">
+              <h:graphicImage id="#{fieldId}Image"
+                              value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
+            </div>
+            <div class="col-8 col-lg pl-1">
+              <ui:fragment rendered="#{service ne null}">
+                <ui:fragment rendered="#{showSupplier}">
+                  <h3 id="#{fieldId}Supplier" class="supplier shortenedText">
+                    <h:outputFormat value="#{msg['service.by']}" title="#{service.sellerName}">
+                      <f:param value="#{service.sellerName}"/>
+                    </h:outputFormat>
+                  </h3>
+                </ui:fragment>
+              </ui:fragment>
+            </div>
+          </div>
+        </div>
+        <!-- Short description container -->
+        <div class="col mb-2 text-justify">
+          #{service.shortDescription}
+        </div>
+        <!-- Tags container -->
+        <div class="col mb-2">
+          <ui:fragment rendered="#{showTags}">
+            <mp:serviceTags fieldId="#{fieldId}Tags" service="#{service}"/>
+          </ui:fragment>
+        </div>
+      </div>
+      <!-- Stars, price, details button container -->
+      <div id="serviceStatus" class="col-xl-3 col-lg-12">
+        <ui:fragment rendered="#{serviceActivationBean.serviceStatusChangeAllowed}">
+          <ui:include src="/marketplace/service/deactivateService.xhtml">
+            <ui:param name="dialogId" value="deactivateServicePanel"/>
+            <ui:param name="dialogHeight" value="130"/>
+            <ui:param name="additionalRender" value=":serviceStatusDisplay :infoPanelHolder"/>
+          </ui:include>
+
+          <ui:include src="/marketplace/service/reactivateService.xhtml">
+            <ui:param name="dialogId" value="reactivateServicePanel"/>
+            <ui:param name="dialogHeight" value="100"/>
+            <ui:param name="additionalRender" value=":serviceStatusDisplay :infoPanelHolder"/>
+          </ui:include>
+
+          <a4j:outputPanel id="serviceStatusDisplay">
+            <c:if test="#{serviceActivationBean.reactivationLinkVisible}">
+              <h:form id="reactivateSelectForm">
+                <a4j:commandLink id="reactivateService"
+                                 render="reactivateServicePanel :reactivateServicePanelForm"
+                                 oncomplete="RichFaces.$('reactivateServicePanel').show();return false;">
+                  <h:outputText value="#{msg['button.service.reactivateLink']}"/>
+                </a4j:commandLink>
+              </h:form>
+            </c:if>
+
+            <c:if test="#{serviceActivationBean.deactivationLinkVisible}">
+              <h:form id="deactivateServiceForm">
+                <a4j:commandLink id="deactivateService"
+                                 render="deactivateServicePanel :deactivateServicePanelForm"
+                                 oncomplete="RichFaces.$('deactivateServicePanel').show();return false;">
+                  <h:outputText value="#{msg['button.service.deactivateLink']}"/>
+                </a4j:commandLink>
+              </h:form>
+            </c:if>
+
+            <mp:serviceStatus service="#{serviceActivationBean.serviceWrapper}"/>
+            <br/>
+          </a4j:outputPanel>
+        </ui:fragment>
+
+        <mp:ratingStarsBootstrap reviewCount="#{serviceDetailsModel.selectedService.reviewCount}"
+                                 rating="#{serviceDetailsModel.selectedService.rating}"/>
+
+        <mp:servicePrice styleClass="servicePriceDetails" service="#{serviceDetailsModel.selectedService}"/>
+        <h:link id="getItForLoggedUser" outcome="addSubscription"/>
+        <c:if test="#{(userBean.loggedInUser eq null) or (userBean.loggedInAndAllowedToSubscribe)}">
+          <button id="buyme" type="button" class="btn btn-primary"
+                  onclick="if (#{serviceDetailsModel.selectedService.external}) {
+                        window.open('#{serviceDetailsCtrl.serviceUrl}', 'Service');
+                     } else if (#{userBean.loggedInAndAllowedToSubscribe}) {
+                        AdmUtils.showProgress(true);
+                        document.getElementById('getItForLoggedUser').click();
+                        return false;
+                     } else if (#{userBean.internalAuthMode}) {
+                        showLoginPanel('/marketplace/subscriptions/creation/add.jsf');
+                     } else {
+                        setRelayStateAndRedirectToIdp('/marketplace/subscriptions/creation/add.jsf');
+                        return false;
+                      }">
+            #{msg['button.getItNow']}
+          </button>
+        </c:if>
+        <!--        <mp:button disabled="#{not serviceDetailsModel.selectedService.subscribable}" big="true" />-->
+      </div>
+    </div>
+
+    <div>
+
+    <mp:serviceInfoTable/>
+
+
+    </div>
+  </div>
+</ui:composition>
+
+
+
