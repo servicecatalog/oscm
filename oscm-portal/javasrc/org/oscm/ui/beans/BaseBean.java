@@ -451,6 +451,7 @@ public class BaseBean {
   public static final String OUTCOME_CANCEL = "cancel";
   public static final String OUTCOME_NEWGROUP = "addNewGroup";
   public static final String OUTCOME_SUCCESS = "success";
+  public static final String OUTCOME_SUCCESS_PLAYGROUND = "successPlayground";
   public static final String OUTCOME_SUCCESS_UNIT_ADMIN = "successUnitAdmin";
   public static final String OUTCOME_PENDING = "pending";
   public static final String OUTCOME_PSP_ERROR = "psp_error";
