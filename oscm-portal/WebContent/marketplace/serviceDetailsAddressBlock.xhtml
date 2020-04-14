@@ -17,13 +17,13 @@
     </div>
   </c:if>
   <c:if test="#{not shortVersionOnly}">
-    <a4j:outputPanel layout="block" styleClass="col4span lastcol">
+    <a4j:outputPanel layout="block" styleClass="lastcol">
       <h:graphicImage id="#{prefix}Image" style="float: right;"
         value="/image?type=ORGANIZATION_IMAGE&amp;sId=#{supplier.key}" />
       <h1 id="#{prefix}Name" title="#{supplier.name}" class="shortenedText" >#{supplier.name}</h1>
     </a4j:outputPanel>
     <br />
-    <a4j:outputPanel layout="block" styleClass="col4span lastcol rowspacer">
+    <a4j:outputPanel layout="block" styleClass="lastcol rowspacer">
       <h2>#{msg['supplier.contactInfo']}</h2>
       <mp:pixelline />
       <h:outputText id="#{prefix}Address" value="#{supplier.address}" layout="block"
@@ -50,7 +50,7 @@
       </a4j:outputPanel>
     </a4j:outputPanel>
 
-    <a4j:outputPanel layout="block" styleClass="col4span lastcol rowspacer">
+    <a4j:outputPanel layout="block" styleClass="lastcol rowspacer">
       <c:if test="#{reportIssueSectionVisible}">
         <c:set var="reportPanelId" value="#{reportPrefix}reportIssuePanel" />
         <a4j:outputPanel layout="block" styleClass="labelValuePairInsideOfTab">
@@ -67,7 +67,7 @@
         </a4j:outputPanel>
       </c:if>
     </a4j:outputPanel>
-    <a4j:outputPanel layout="block" styleClass="col4span lastcol rowspacer">
+    <a4j:outputPanel layout="block" styleClass="lastcol rowspacer">
       <h2>#{msg['supplier.about']}</h2>
       <mp:pixelline />
       <h:outputText id="#{prefix}Description" value="#{supplier.description}" escape="false" layout="block"

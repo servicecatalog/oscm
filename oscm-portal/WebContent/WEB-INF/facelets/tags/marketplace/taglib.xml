@@ -218,4 +218,17 @@
     <tag-name>categorySelectionLandingBootstrap</tag-name>
     <source>categorySelectionLandingBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>relatedServicesBootstrap</tag-name>
+    <source>relatedServicesBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>serviceDetailsBlockBootstrap</tag-name>
+    <source>serviceDetailsBlockBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>serviceInfoTable</tag-name>
+    <source>serviceInfoTable.xhtml</source>
+  </tag>
+
 </facelet-taglib>
