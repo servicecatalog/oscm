@@ -16,9 +16,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
-import org.oscm.webtest.MarketplaceHtmlElements;
-import org.oscm.webtest.MarketplacePathSegments;
-import org.oscm.webtest.PortalTester;
+import org.oscm.webtest.*;
 
 import static org.junit.Assert.*;
 
@@ -89,5 +87,20 @@ public class MarketplacePlaygroundWT {
     assertTrue(
         tester.verifyFoundElement(
             By.id(MarketplaceHtmlElements.MARKETPLACE_LANDING_PAGE_CATEGORY_LINK)));
+  }
+
+  @Test
+  public void test05_gotoMarketplacePlayground() throws Exception {
+    tester.visitPortal(PortalPathSegments.GOTO_MARKETPLACE);
+    tester.waitForElement(
+            By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE),
+            WebTester.IMPLICIT_WAIT);
+    tester.selectDropdown(
+            MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE,
+            "pg_marketplace");
+    tester.waitForElementVisible(
+            By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
+    tester.clickElement(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);
+    Assert.assertTrue(tester.getCurrentUrl().contains(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE));
   }
 }

@@ -130,6 +130,19 @@ public class GotoMarketplaceBeanTest {
     verify(marketplaceGotoBean, times(1)).setMarketplaceId(eq("mid"));
   }
 
+  @Test
+  public void gotoMarketplacePlayground() {
+    // given
+    marketplaceGotoBean.setSelectedMarketplace("pg_mid");
+
+    // when
+    String outcome = marketplaceGotoBean.gotoMarketplace();
+
+    // then
+    assertEquals("successPlayground", outcome);
+    verify(marketplaceGotoBean, times(1)).setMarketplaceId(eq("pg_mid"));
+  }
+
   /** Test if the goto marketplace button is enabled when marketplace ID is set. */
   @Test
   public void isButtonEnabled() {
