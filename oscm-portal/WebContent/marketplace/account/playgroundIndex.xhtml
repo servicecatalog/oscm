@@ -37,32 +37,32 @@
           <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.profile.title']}</div>
             <div class="card-body">
-                 <a4j:outputPanel layout="block" styleClass="accountBox">
-            <a4j:outputPanel id="userName" layout="block" style="margin-bottom:8px;">
-              <h:outputText value="#{msg['user.salutation.MR']} "
-                rendered="#{organizationBean.currentUser.salutation == 'MR'}" />
-              <h:outputText value="#{msg['user.salutation.MS']} "
-                rendered="#{organizationBean.currentUser.salutation == 'MS'}" />
-              <h:outputText value="#{organizationBean.currentUser.firstName} #{organizationBean.currentUser.lastName}"
-                rendered="#{not sessionBean.nameSequenceReversed}" />
-              <h:outputText value="#{organizationBean.currentUser.lastName} #{organizationBean.currentUser.firstName}"
-                rendered="#{sessionBean.nameSequenceReversed}" />
-            </a4j:outputPanel>
-             <a4j:outputPanel layout="block" style="margin-bottom:8px;">
-              <h:outputText value="#{organizationBean.currentUser.email}" />
-            </a4j:outputPanel>
-            <a4j:outputPanel layout="block" id="organizationName" rendered="#{userBean.loggedInAndAdmin}">
-              <h:outputText value="#{organizationBean.organization.name}" styleClass="preWrapping" />
-            </a4j:outputPanel>
-            
-            <mp:pixelline marginTop="11" />
-          <a4j:outputPanel layout="block" styleClass="clearfix">
-             <h:link id="editProfileButton" outcome="profile" class="btn btn-outline-secondary"
-                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
-          </a4j:outputPanel>
-            </a4j:outputPanel>
+              <a4j:outputPanel layout="block" styleClass="accountBox">
+                <a4j:outputPanel id="userName" layout="block" style="margin-bottom:8px;">
+                  <h:outputText value="#{msg['user.salutation.MR']} "
+                    rendered="#{organizationBean.currentUser.salutation == 'MR'}" />
+                  <h:outputText value="#{msg['user.salutation.MS']} "
+                    rendered="#{organizationBean.currentUser.salutation == 'MS'}" />
+                  <h:outputText
+                    value="#{organizationBean.currentUser.firstName} #{organizationBean.currentUser.lastName}"
+                    rendered="#{not sessionBean.nameSequenceReversed}" />
+                  <h:outputText
+                    value="#{organizationBean.currentUser.lastName} #{organizationBean.currentUser.firstName}"
+                    rendered="#{sessionBean.nameSequenceReversed}" />
+                </a4j:outputPanel>
+                <a4j:outputPanel layout="block" style="margin-bottom:8px;">
+                  <h:outputText value="#{organizationBean.currentUser.email}" />
+                </a4j:outputPanel>
+                <a4j:outputPanel layout="block" id="organizationName" rendered="#{userBean.loggedInAndAdmin}">
+                  <h:outputText value="#{organizationBean.organization.name}" styleClass="preWrapping" />
+                </a4j:outputPanel>
+              </a4j:outputPanel>
             </div>
- 
+            <div class="card-footer bg-transparent">
+              <h:link id="editProfileButton" outcome="profile" class="btn btn-sm btn-outline-secondary"
+                value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            </div>
+
           </div>
         </a4j:outputPanel>
 
@@ -76,9 +76,11 @@
                 <h:outputText value="#{msg['marketplace.account.payments.description']}" />
               </a4j:outputPanel>
             </div>
- 
-            <h:link id="showPaymentsButton" outcome="payments" class="btn btn-outline-secondary"
-                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+
+            <div class="card-footer bg-transparent">
+              <h:link id="showPaymentsButton" outcome="payments" class="btn btn-sm btn-outline-secondary"
+                value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            </div>
           </div>
         </a4j:outputPanel>
 
@@ -92,9 +94,11 @@
                 <h:outputText value="#{msg['marketplace.account.subscriptions.description']}" />
               </a4j:outputPanel>
             </div>
-            
-            <h:link id="showSubscriptionsButton" outcome="subscriptions" class="btn btn-outline-secondary"
-                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+
+            <div class="card-footer bg-transparent">
+              <h:link id="showSubscriptionsButton" outcome="subscriptions" class="btn btn-sm btn-outline-secondary"
+                value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            </div>
           </div>
         </a4j:outputPanel>
 
@@ -111,9 +115,11 @@
                 <h:outputText value="#{msg['marketplace.account.users.group.description']}" />
               </a4j:outputPanel>
             </div>
-          
-             <h:link id="showUsersButton" outcome="users" class="btn btn-outline-secondary"
-                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+
+            <div class="card-footer bg-transparent">
+              <h:link id="showUsersButton" outcome="users" class="btn btn-sm btn-outline-secondary"
+                value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            </div>
           </div>
         </a4j:outputPanel>
 
@@ -127,9 +133,10 @@
                 <h:outputText value="#{msg['marketplace.account.units.description']}" />
               </a4j:outputPanel>
             </div>
-            
-             <h:link id="showUnitsButton" outcome="units" class="btn btn-outline-secondary"
-                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            <div class="card-footer bg-transparent">
+              <h:link id="showUnitsButton" outcome="units" class="btn btn-sm btn-outline-secondary"
+                value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            </div>
           </div>
         </a4j:outputPanel>
 
@@ -150,9 +157,10 @@
                 </c:forEach>
               </a4j:outputPanel>
             </div>
-          
-            <h:link id="showReportsButton" outcome="reports" class="btn btn-outline-secondary"
-                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            <div class="card-footer bg-transparent">
+              <h:link id="showReportsButton" outcome="reports" class="btn btn-sm btn-outline-secondary"
+                value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            </div>
           </div>
         </a4j:outputPanel>
 
@@ -166,9 +174,10 @@
                 <h:outputText value="#{msg['marketplace.account.processes.description']}" />
               </a4j:outputPanel>
             </div>
-          
-            <h:link id="showProcessesButton" outcome="processes" class="btn btn-outline-secondary"
-                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            <div class="card-footer bg-transparent">
+              <h:link id="showProcessesButton" outcome="processes" class="btn btn-sm btn-outline-secondary"
+                value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            </div>
           </div>
         </a4j:outputPanel>
 
@@ -182,9 +191,10 @@
                 <h:outputText value="#{msg['marketplace.account.operations.description']}" />
               </a4j:outputPanel>
             </div>
- 
-            <h:link id="showOperationsButton" outcome="operations" class="btn btn-outline-secondary"
-                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            <div class="card-footer bg-transparent">
+              <h:link id="showOperationsButton" outcome="operations" class="btn btn-sm btn-outline-secondary"
+                value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+            </div>
           </div>
         </a4j:outputPanel>
 
@@ -198,13 +208,13 @@
                 <h:outputText value="#{msg['marketplace.account.administration.description']}" />
               </a4j:outputPanel>
             </div>
-            <div class="card-footer">
+            <div class="card-footer bg-transparent">
               <mp:button id="showAdministrationButton"
                 onclick="AdmUtils.showProgress(true);location.href='#{userBean.adminPortalAddress}';return false;"
                 value="#{msg['marketplace.account.button.show']}" />
             </div>
-            
-         <!--     <h:link id="showAdministrationButton" outcome="subscriptions" class="btn btn-outline-secondary"
+
+            <!--     <h:link id="showAdministrationButton" outcome="subscriptions" class="btn btn-outline-secondary"
                     value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" /> -->
           </div>
         </a4j:outputPanel>
