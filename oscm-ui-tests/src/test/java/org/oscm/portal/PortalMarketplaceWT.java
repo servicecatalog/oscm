@@ -115,5 +115,4 @@ public class PortalMarketplaceWT {
 
     assertTrue(tester.getExecutionResult());
   }
-
 }
