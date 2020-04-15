@@ -23,10 +23,37 @@
 		</div>
 		<div class="col-9">
 			<div>
-				<mp:serviceDetailsBlockBootstrap bean="#{serviceDetailsModel}" service="#{serviceDetailsModel.selectedService}" fieldId="serviceDetail" showTags="true">
+				<div class="border-bottom mb-2">
+					#{serviceDetailsModel.selectedService.nameToDisplay}
+				</div>
 
-				</mp:serviceDetailsBlockBootstrap>
+				<mp:serviceBlockBootstrap bean="#{serviceDetailsModel}" service="#{serviceDetailsModel.selectedService}" fieldId="serviceDetail" showTags="true"
+																	showName="false">
+					<c:if test="#{(userBean.loggedInUser eq null) or (userBean.loggedInAndAllowedToSubscribe)}">
+						<h:link id="getItForLoggedUser" outcome="addSubscription" />
+						<button id="buyme" type="button" class="btn btn-outline-secondary btn-block"
+										onclick="if (#{serviceDetailsModel.selectedService.external}) {
+                        window.open('#{serviceDetailsCtrl.serviceUrl}', 'Service');
+                     } else if (#{userBean.loggedInAndAllowedToSubscribe}) {
+                        AdmUtils.showProgress(true);
+                        document.getElementById('getItForLoggedUser').click();
+                        return false;
+                     } else if (#{userBean.internalAuthMode}) {
+                        showLoginPanel('/marketplace/subscriptions/creation/add.jsf');
+                     } else {
+                        setRelayStateAndRedirectToIdp('/marketplace/subscriptions/creation/add.jsf');
+                        return false;
+                      }">
+							#{msg['button.getItNow']}
+						</button>
+					</c:if>
+				</mp:serviceBlockBootstrap>
 
+				<mp:serviceInfoTable/>
+
+				<c:if test="#{marketplaceConfigurationBean.currentConfiguration.reviewEnabled}">
+					<mp:serviceReviewsBootstrap/>
+				</c:if>
 			</div>
 
 		</div>

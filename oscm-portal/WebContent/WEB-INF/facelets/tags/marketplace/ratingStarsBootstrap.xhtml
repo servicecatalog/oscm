@@ -16,16 +16,16 @@
         <div class="col-auto px-1 py-1 bg-white">
           <c:if test="#{empty rating}">
             <c:set var="rating" value="0"/>
-            <c:set var="decimal" value="0"/>
           </c:if>
           <!-- Stars -->
-          <a4j:outputPanel id="ratingStars" layout="block" styleClass="ratingStars rating#{rating}"/>
+          <a4j:outputPanel layout="block" styleClass="ratingStars rating#{rating}"/>
         </div>
-        <!-- Line break -->
-        <div class="w-100"></div>
-        <!-- Text -->
-        <div class="col-auto">
-          <c:if test="#{not empty reviewCount}">
+
+        <c:if test="#{not empty reviewCount}">
+          <!-- Line break -->
+          <div class="w-100"></div>
+          <!-- Text -->
+          <div class="col-auto">
             <c:set var="text" value="#{msg['ratingText.reviews']}"/>
             <c:if test="#{not empty ratingText}">
               <c:set var="text" value="#{ratingText}"/>
@@ -38,8 +38,8 @@
                 <h:outputText value="#{reviewCount} #{text}" styleClass="serviceRating"/>
               </c:otherwise>
             </c:choose>
-          </c:if>
-        </div>
+          </div>
+        </c:if>
       </div>
     </div>
   </c:if>

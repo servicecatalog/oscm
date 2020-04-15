@@ -230,5 +230,13 @@
     <tag-name>serviceInfoTable</tag-name>
     <source>serviceInfoTable.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>serviceReviewsBootstrap</tag-name>
+    <source>serviceReviewsBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>reviewBootstrap</tag-name>
+    <source>reviewBootstrap.xhtml</source>
+  </tag>
 
 </facelet-taglib>
