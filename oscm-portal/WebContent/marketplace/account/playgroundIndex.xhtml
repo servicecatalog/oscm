@@ -31,12 +31,12 @@
     <a4j:outputPanel id="all" layout="block" styleClass="container-fluid">
 
       <div class="row">
-        <a4j:outputPanel id="profile" layout="block" styleClass="col-md-6 marginBottomDefault"
+        <a4j:outputPanel id="profile" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
           rendered="#{empty appBean.hiddenUIElements['marketplace.navigation.Profile']}">
 
           <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.profile.title']}</div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
                  <a4j:outputPanel layout="block" styleClass="accountBox">
             <a4j:outputPanel id="userName" layout="block" style="margin-bottom:8px;">
               <h:outputText value="#{msg['user.salutation.MR']} "
@@ -54,58 +54,56 @@
             <a4j:outputPanel layout="block" id="organizationName" rendered="#{userBean.loggedInAndAdmin}">
               <h:outputText value="#{organizationBean.organization.name}" styleClass="preWrapping" />
             </a4j:outputPanel>
+            
+            <mp:pixelline marginTop="11" />
+          <a4j:outputPanel layout="block" styleClass="clearfix">
+             <h:link id="editProfileButton" outcome="profile" class="btn btn-outline-secondary"
+                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
+          </a4j:outputPanel>
             </a4j:outputPanel>
             </div>
-            <div class="card-footer">
-              <mp:button id="editProfileButton"
-                onclick="AdmUtils.showProgress(true);location.href='profile.jsf';return false;"
-                value="#{msg['marketplace.account.button.show']}" />
-            </div>
+ 
           </div>
         </a4j:outputPanel>
 
-        <a4j:outputPanel id="payments" layout="block" styleClass="col-md-6 marginBottomDefault"
+        <a4j:outputPanel id="payments" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
           rendered="#{userBean.loggedInAndAdmin and empty appBean.hiddenUIElements['marketplace.navigation.Payment'] and appBean.paymentInfoAvailable}">
 
           <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.payments.title']}</div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
                 <h:outputText value="#{msg['marketplace.account.payments.description']}" />
               </a4j:outputPanel>
             </div>
-            <div class="card-footer">
-              <mp:button id="showPaymentsButton"
-                onclick="AdmUtils.showProgress(true);location.href='payments.jsf';return false;"
-                value="#{msg['marketplace.account.button.show']}" />
-            </div>
+ 
+            <h:link id="showPaymentsButton" outcome="payments" class="btn btn-outline-secondary"
+                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
           </div>
         </a4j:outputPanel>
 
-        <a4j:outputPanel id="subscriptions" layout="block" styleClass="col-md-6 marginBottomDefault"
+        <a4j:outputPanel id="subscriptions" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
           rendered="#{(userBean.loggedInAndAdmin or userBean.loggedInAndSubscriptionManager or userBean.loggedInAndUnitAdmin) and empty appBean.hiddenUIElements['marketplace.navigation.Subscriptions']}">
 
           <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.subscriptions.title']}</div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
                 <h:outputText value="#{msg['marketplace.account.subscriptions.description']}" />
               </a4j:outputPanel>
             </div>
-            <div class="card-footer">
-              <mp:button id="showSubscriptionsButton"
-                onclick="AdmUtils.showProgress(true);location.href='subscriptions.jsf';return false;"
-                value="#{msg['marketplace.account.button.show']}" />
-            </div>
+            
+            <h:link id="showSubscriptionsButton" outcome="subscriptions" class="btn btn-outline-secondary"
+                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
           </div>
         </a4j:outputPanel>
 
-        <a4j:outputPanel id="users" layout="block" styleClass="col-md-6 marginBottomDefault"
+        <a4j:outputPanel id="users" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
           rendered="#{userBean.loggedInAndAdmin and empty appBean.hiddenUIElements['marketplace.navigation.Users']}">
 
           <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.users.title']}</div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
                 <h:outputText value="#{msg['marketplace.account.users.description']}" />
                 <br />
@@ -113,38 +111,34 @@
                 <h:outputText value="#{msg['marketplace.account.users.group.description']}" />
               </a4j:outputPanel>
             </div>
-            <div class="card-footer">
-              <mp:button id="showUsersButton"
-                onclick="AdmUtils.showProgress(true);location.href='users.jsf';return false;"
-                value="#{msg['marketplace.account.button.show']}" />
-            </div>
+          
+             <h:link id="showUsersButton" outcome="users" class="btn btn-outline-secondary"
+                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
           </div>
         </a4j:outputPanel>
 
-        <a4j:outputPanel id="units" layout="block" styleClass="col-md-6 marginBottomDefault"
+        <a4j:outputPanel id="units" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
           rendered="#{userBean.loggedInAndUnitAdmin and empty appBean.hiddenUIElements['marketplace.navigation.Units']}">
 
           <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.units.title']}</div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
                 <h:outputText value="#{msg['marketplace.account.units.description']}" />
               </a4j:outputPanel>
             </div>
-            <div class="card-footer">
-              <mp:button id="showUnitsButton"
-                onclick="AdmUtils.showProgress(true);location.href='units.jsf';return false;"
-                value="#{msg['marketplace.account.button.show']}" />
-            </div>
+            
+             <h:link id="showUnitsButton" outcome="units" class="btn btn-outline-secondary"
+                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
           </div>
         </a4j:outputPanel>
 
-        <a4j:outputPanel id="reports" layout="block" styleClass="col-md-6 marginBottomDefault"
+        <a4j:outputPanel id="reports" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
           rendered="#{accountNavigationBean.reportingAvailable}">
 
           <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.reports.title']}</div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
                 <c:forEach items="#{reportBean.filteredReports}" var="report" varStatus="v">
                   <a4j:outputPanel layout="block" style="margin-bottom:8px;">
@@ -156,56 +150,50 @@
                 </c:forEach>
               </a4j:outputPanel>
             </div>
-            <div class="card-footer">
-              <mp:button id="showReportsButton"
-                onclick="AdmUtils.showProgress(true);location.href='reports.jsf';return false;"
-                value="#{msg['marketplace.account.button.show']}" />
-            </div>
+          
+            <h:link id="showReportsButton" outcome="reports" class="btn btn-outline-secondary"
+                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
           </div>
         </a4j:outputPanel>
 
-        <a4j:outputPanel id="processes" layout="block" styleClass="col-md-6 marginBottomDefault"
+        <a4j:outputPanel id="processes" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
           rendered="#{empty appBean.hiddenUIElements['marketplace.navigation.Processes']}">
 
           <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.processes.title']}</div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
                 <h:outputText value="#{msg['marketplace.account.processes.description']}" />
               </a4j:outputPanel>
             </div>
-            <div class="card-footer">
-              <mp:button id="showProcessesButton"
-                onclick="AdmUtils.showProgress(true);location.href='processes.jsf';return false;"
-                value="#{msg['marketplace.account.button.show']}" />
-            </div>
+          
+            <h:link id="showProcessesButton" outcome="processes" class="btn btn-outline-secondary"
+                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
           </div>
         </a4j:outputPanel>
 
-        <a4j:outputPanel id="operations" layout="block" styleClass="col-md-6 marginBottomDefault"
+        <a4j:outputPanel id="operations" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
           rendered="#{empty appBean.hiddenUIElements['marketplace.navigation.Operations']}">
 
           <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.operations.title']}</div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
                 <h:outputText value="#{msg['marketplace.account.operations.description']}" />
               </a4j:outputPanel>
             </div>
-            <div class="card-footer">
-              <mp:button id="showOperationsButton"
-                onclick="AdmUtils.showProgress(true);location.href='operations.jsf';return false;"
-                value="#{msg['marketplace.account.button.show']}" />
-            </div>
+ 
+            <h:link id="showOperationsButton" outcome="operations" class="btn btn-outline-secondary"
+                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" />
           </div>
         </a4j:outputPanel>
 
-        <a4j:outputPanel id="administration" layout="block" styleClass="col-md-6 marginBottomDefault"
+        <a4j:outputPanel id="administration" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
           rendered="#{userBean.administrationAccess and empty appBean.hiddenUIElements['marketplace.navigation.Administration']}">
 
           <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.administration.title']}</div>
-            <div class="card-body d-flex flex-column">
+            <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
                 <h:outputText value="#{msg['marketplace.account.administration.description']}" />
               </a4j:outputPanel>
@@ -215,6 +203,9 @@
                 onclick="AdmUtils.showProgress(true);location.href='#{userBean.adminPortalAddress}';return false;"
                 value="#{msg['marketplace.account.button.show']}" />
             </div>
+            
+         <!--     <h:link id="showAdministrationButton" outcome="subscriptions" class="btn btn-outline-secondary"
+                    value="#{msg['marketplace.account.button.show']}" onclick="AdmUtils.showProgress(true);" /> -->
           </div>
         </a4j:outputPanel>
 
