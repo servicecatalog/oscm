@@ -91,6 +91,10 @@
     <source>linkPageTop.xhtml</source>
   </tag>
   <tag>
+    <tag-name>header</tag-name>
+    <source>header.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>headerBootstrap</tag-name>
     <source>headerBootstrap.xhtml</source>
   </tag>
