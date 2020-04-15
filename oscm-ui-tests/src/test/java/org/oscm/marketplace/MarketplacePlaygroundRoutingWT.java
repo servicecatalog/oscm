@@ -1,4 +1,15 @@
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2020
+ *
+ * <p>Creation Date: 15-04-2020
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.marketplace;
+
+import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -10,30 +21,26 @@ import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.MarketplacePathSegments;
 import org.oscm.webtest.PortalTester;
 
-import static org.junit.Assert.assertTrue;
-
 public class MarketplacePlaygroundRoutingWT {
 
-    private static PortalTester tester;
+  private static PortalTester tester;
 
-    @Rule
-    public TestWatcher testWatcher = new JUnitHelper();
+  @Rule public TestWatcher testWatcher = new JUnitHelper();
 
-    @BeforeClass
-    public static void setup() throws Exception {
-        tester = new PortalTester();
-        String userid = PlaygroundSuiteTest.supplierOrgAdminId;
-        String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
-        tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
-    }
+  @BeforeClass
+  public static void setup() throws Exception {
+    tester = new PortalTester();
+    String userid = PlaygroundSuiteTest.supplierOrgAdminId;
+    String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
+    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+  }
 
-    @Test
-    public void test01_routing(){
-        tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
-        tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_BROWSE_ALL_SERVICES_BUTTON);
-        assertTrue(tester.getCurrentUrl().endsWith(MarketplacePathSegments.MARKETPLACE_SERVICES));
-        tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_LANDING_PAGE_CATEGORY_LINK);
-        assertTrue(tester.getCurrentUrl().endsWith(MarketplacePathSegments.MARKETPLACE_SERVICES));
-    }
-
+  @Test
+  public void test01_routing() {
+    tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_BROWSE_ALL_SERVICES_BUTTON);
+    assertTrue(tester.getCurrentUrl().endsWith(MarketplacePathSegments.MARKETPLACE_SERVICES));
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_LANDING_PAGE_CATEGORY_LINK);
+    assertTrue(tester.getCurrentUrl().endsWith(MarketplacePathSegments.MARKETPLACE_SERVICES));
+  }
 }
