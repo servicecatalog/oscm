@@ -149,4 +149,6 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_FOOTER_PRIVACY_LINK = "privacyPolicyLink";
   public static final String MARKETPLACE_FOOTER_TERMS_LINK =
       "//a[contains(text(),'Terms and Conditions')]";
+
+  public static final String MARKETPLACE_BROWSE_ALL_SERVICES_BUTTON = "categorySelectionForm:browseAllBtn";
 }
