@@ -1,6 +1,5 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
 <ui:composition
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -8,11 +7,11 @@
   xmlns:a4j="http://richfaces.org/a4j"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   >
-  <a4j:outputPanel layout="block" id="location">
-    <ol class="clearfix location-inside">
+ <nav aria-label="breadcrumb" id="location">
+  <ol class="breadcrumb location-inside bg-light">
       <li><a
         href="#{facesContext.externalContext.requestContextPath}/marketplace/index.jsf">#{msg['navigation.home']}</a></li>
       <ui:insert />
     </ol>
-  </a4j:outputPanel>
+  </nav>
 </ui:composition>
