@@ -17,9 +17,6 @@
   </c:if>
   <!--  <c:set var="mpBaseUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace" />-->
   <div class="container bg-light border shadow py-3 mb-3">
-    <div class="border-bottom mb-2">
-      #{serviceDetailsModel.selectedService.nameToDisplay}
-    </div>
     <!--  -->
     <div class="row">
       <!-- Service info container -->
@@ -100,31 +97,14 @@
                                  rating="#{serviceDetailsModel.selectedService.rating}"/>
 
         <mp:servicePrice styleClass="servicePriceDetails" service="#{serviceDetailsModel.selectedService}"/>
-        <h:link id="getItForLoggedUser" outcome="addSubscription"/>
-        <c:if test="#{(userBean.loggedInUser eq null) or (userBean.loggedInAndAllowedToSubscribe)}">
-          <button id="buyme" type="button" class="btn btn-primary"
-                  onclick="if (#{serviceDetailsModel.selectedService.external}) {
-                        window.open('#{serviceDetailsCtrl.serviceUrl}', 'Service');
-                     } else if (#{userBean.loggedInAndAllowedToSubscribe}) {
-                        AdmUtils.showProgress(true);
-                        document.getElementById('getItForLoggedUser').click();
-                        return false;
-                     } else if (#{userBean.internalAuthMode}) {
-                        showLoginPanel('/marketplace/subscriptions/creation/add.jsf');
-                     } else {
-                        setRelayStateAndRedirectToIdp('/marketplace/subscriptions/creation/add.jsf');
-                        return false;
-                      }">
-            #{msg['button.getItNow']}
-          </button>
-        </c:if>
+
         <!--        <mp:button disabled="#{not serviceDetailsModel.selectedService.subscribable}" big="true" />-->
       </div>
     </div>
 
     <div>
 
-    <mp:serviceInfoTable/>
+
 
 
     </div>
