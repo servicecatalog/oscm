@@ -5,22 +5,17 @@
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 xmlns:a4j="http://richfaces.org/a4j"
 >
-
-    <div class="col">
-      <div class="list-group list-group-horizontal" id="list-tab" role="tablist">
-        <a class="list-group-item list-group-item-action active" id="descriptionLink" data-toggle="list" href="#description" role="tab" aria-controls="description">#{msg['service.description']}</a>
+      <div class="list-group list-group-horizontal-sm text-center" id="list-tab" role="tablist">
+        <a class="list-group-item list-group-item-secondary list-group-item-action active" id="descriptionLink" data-toggle="list" href="#description" role="tab" aria-controls="description">#{msg['service.description']}</a>
         <c:if test="#{serviceDetailsModel.selectedService.priceModel.chargeable}">
-        <a class="list-group-item list-group-item-action" id="priceModelLink" data-toggle="list" href="#priceModel" role="tab" aria-controls="priceModel">#{msg['service.priceModel']}</a>
+        <a class="list-group-item list-group-item-secondary list-group-item-action" id="priceModelLink" data-toggle="list" href="#priceModel" role="tab" aria-controls="priceModel">#{msg['service.priceModel']}</a>
         </c:if>
         <c:if test="#{serviceDetailsModel.selectedService.priceModel.external}">
-        <a class="list-group-item list-group-item-action" id="externalPriceModelLink" data-toggle="list" href="#externalPriceModel" role="tab" aria-controls="externalPriceModel">#{msg['service.priceModel']}</a>
+        <a class="list-group-item list-group-item-secondary list-group-item-action" id="externalPriceModelLink" data-toggle="list" href="#externalPriceModel" role="tab" aria-controls="externalPriceModel">#{msg['service.priceModel']}</a>
         </c:if>
-        <a class="list-group-item list-group-item-action" id="supplierLink" data-toggle="list" href="#supplier" role="tab" aria-controls="supplier">#{msg['service.supplier']}</a>
-
-
-      </div>
+        <a class="list-group-item list-group-item-secondary list-group-item-action" id="supplierLink" data-toggle="list" href="#supplier" role="tab" aria-controls="supplier">#{msg['service.supplier']}</a>
     </div>
-    <div class="col">
+    <div class="mt-1 px-2 text-justify">
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="descriptionLink">
           #{serviceDetailsModel.selectedService.description}
@@ -41,8 +36,6 @@
                         </ui:include>
           </div>
         </c:if>
-
-
         <div class="tab-pane fade" id="supplier" role="tabpanel" aria-labelledby="supplierLink">
             <ui:include src="../../../../marketplace/serviceDetailsAddress.xhtml">
               <ui:param name="reportIssueVisible" value="false" />

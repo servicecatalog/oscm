@@ -5,7 +5,7 @@
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
 
-  <div class="container bg-light border shadow mb-3">
+  <div class="bg-light border shadow px-3 mb-3">
     <c:set var="allowedToWriteReview" value="#{serviceDetailsModel.selectedServiceFeedback.allowedToWriteReview}" />
     <c:set var="allowedToDeleteReviews" value="#{manageReviewCtrl.marketplaceOwner}" />
     <c:if test="#{allowedToDeleteReviews}">
