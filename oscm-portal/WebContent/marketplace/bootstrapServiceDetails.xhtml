@@ -18,21 +18,22 @@
 	<script src="#{facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 
 	<div class="row mt-2">
-		<div class="col-3">
+		<div class="col-lg-3">
 			<mp:relatedServicesBootstrap bean="#{serviceDetailsModel}" selectedService="#{serviceDetailsModel.selectedService}" />
 		</div>
-		<div class="col-9">
-			<div>
-				<div class="border-bottom mb-2">
-					#{serviceDetailsModel.selectedService.nameToDisplay}
-				</div>
-
-				<mp:serviceBlockBootstrap bean="#{serviceDetailsModel}" service="#{serviceDetailsModel.selectedService}" fieldId="serviceDetail" showTags="true"
-																	showName="false">
-					<c:if test="#{(userBean.loggedInUser eq null) or (userBean.loggedInAndAllowedToSubscribe)}">
-						<h:link id="getItForLoggedUser" outcome="addSubscription" />
-						<button id="buyme" type="button" class="btn btn-outline-secondary btn-block"
-										onclick="if (#{serviceDetailsModel.selectedService.external}) {
+		<div class="col-lg-9">
+	<div class="bg-light px-3 py-1 shadow mb-3">
+		<div class="row justify-content-between no-gutters border-bottom mb-2">
+			<h2 class="m-0">#{serviceDetailsModel.selectedService.nameToDisplay}</h2>
+			<mp:serviceStatusBootstrap serviceActivationBean="#{serviceActivationBean}"/>
+		</div>
+		<div class="px-2">
+			<mp:serviceBlockBootstrap bean="#{serviceDetailsModel}" service="#{serviceDetailsModel.selectedService}" fieldId="serviceDetail" showTags="true"
+																showName="false">
+				<c:if test="#{(userBean.loggedInUser eq null) or (userBean.loggedInAndAllowedToSubscribe)}">
+					<h:link id="getItForLoggedUser" outcome="addSubscription" />
+					<button id="buyme" type="button" class="btn btn-outline-secondary btn-block"
+									onclick="if (#{serviceDetailsModel.selectedService.external}) {
                         window.open('#{serviceDetailsCtrl.serviceUrl}', 'Service');
                      } else if (#{userBean.loggedInAndAllowedToSubscribe}) {
                         AdmUtils.showProgress(true);
@@ -44,12 +45,17 @@
                         setRelayStateAndRedirectToIdp('/marketplace/subscriptions/creation/add.jsf');
                         return false;
                       }">
-							#{msg['button.getItNow']}
-						</button>
-					</c:if>
-				</mp:serviceBlockBootstrap>
+						#{msg['button.getItNow']}
+					</button>
+				</c:if>
+			</mp:serviceBlockBootstrap>
+		</div>
+		<div class="my-1">
+			<mp:serviceInfoTable/>
+		</div>
+	</div>
 
-				<mp:serviceInfoTable/>
+
 
 				<c:if test="#{marketplaceConfigurationBean.currentConfiguration.reviewEnabled}">
 					<mp:serviceReviewsBootstrap/>
@@ -57,8 +63,4 @@
 			</div>
 
 		</div>
-
-
-	</div>
-
 </ui:composition>

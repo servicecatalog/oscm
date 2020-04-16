@@ -28,7 +28,7 @@
 				<mp:pagingPanelBootstrap generateForm="true" prefix="Up" />
 			</c:if>
 			<c:forEach items="#{serviceListingBean.serviceList}" var="service" varStatus="status">
-				<div class="bg-light border shadow mb-3">
+				<div class="bg-light border shadow mb-3 p-3">
 					<mp:serviceBlockBootstrap fieldId="service#{status.index}" service="#{service}" limitedDescription="false" showTags="true">
 						<h:link id="showDetails#{status.index}" outcome="serviceDetails" class="btn btn-outline-secondary btn-block"
 										value="#{msg['button.showDetails']}" onclick="AdmUtils.showProgress(true);">

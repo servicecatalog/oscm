@@ -12,7 +12,7 @@
 
   <!-- requires a review (POServiceReview) -->
 
-  <div class="container mt-2 mb-3">
+  <div class="mt-2 mb-3">
     <!-- Stars, date, user, control button -->
     <div class="row mb-2">
       <div class="col">
@@ -32,9 +32,8 @@
         </div>
       </div>
       <!-- Review controls -->
-      <div>
         <c:if test="#{allowedToWriteReview and review.belongsToLoggedInUser}">
-          <div style="float: right">
+          <div class="col-auto">
             <h:outputLink onclick="#{rich:component('writeReviewPanel')}.show();return false;">
               <h:outputText style="white-space: nowrap;" value="#{msg['service.reviews.manage']}"/>
             </h:outputLink>
@@ -42,7 +41,7 @@
         </c:if>
 
         <c:if test="#{allowedToDeleteReviews and !review.belongsToLoggedInUser}">
-          <div style="float: right">
+          <div class="col-auto">
             <h:form>
               <a4j:commandLink
                   id="deleteReview#{(status.index + 1)}"
@@ -55,7 +54,6 @@
             </h:form>
           </div>
         </c:if>
-      </div>
     </div>
     <!-- Title and review -->
     <div class="col text-justify">
