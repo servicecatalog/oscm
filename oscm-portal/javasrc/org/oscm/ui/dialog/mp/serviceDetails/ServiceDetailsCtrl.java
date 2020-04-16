@@ -149,7 +149,7 @@ public class ServiceDetailsCtrl {
         logger.logDebug("entering redirectToServiceDetails");
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext extContext = context.getExternalContext();
-        String viewId = Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf";
+        String viewId = ui.getMarketplaceId().startsWith("pg_") ? Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf" : Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf";
 
         try {
             viewId = extContext.getRequestContextPath()
