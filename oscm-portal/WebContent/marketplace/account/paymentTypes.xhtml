@@ -56,7 +56,7 @@
                   <f:facet name="header">
                     <h:outputText value="#{msg['payment.displayName']}" />
                   </f:facet>
-                  <a4j:outputPanel onmouseover="AdmUtils.mouseOverCell(this);" onmouseout="AdmUtils.mouseOutCell(this)"
+                  <a4j:outputPanel id="displayCell" onmouseover="AdmUtils.mouseOverCell(this);" onmouseout="AdmUtils.mouseOutCell(this)"
                     onclick="if(AdmUtils.isNotDirtyOrConfirmed()){editPaymentInfo('#{paymentInfo.key}')}"
                     layout="block">
 
