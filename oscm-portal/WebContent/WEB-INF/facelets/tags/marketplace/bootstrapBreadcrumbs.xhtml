@@ -1,0 +1,17 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
+<ui:composition
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  >
+ <nav aria-label="breadcrumb" id="location">
+  <ol class="breadcrumb location-inside bg-light">
+      <li><a
+        href="#{facesContext.externalContext.requestContextPath}/marketplace/playground.jsf">#{msg['navigation.home']}</a></li>
+      <ui:insert />
+    </ol>
+  </nav>
+</ui:composition>

@@ -83,6 +83,10 @@
     <source>breadcrumbs.xhtml</source>
   </tag>
   <tag>
+    <tag-name>bootstrapBreadcrumbs</tag-name>
+    <source>bootstrapBreadcrumbs.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>crumb</tag-name>
     <source>crumb.xhtml</source>
   </tag>

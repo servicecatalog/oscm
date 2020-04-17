@@ -2074,7 +2074,7 @@ table.smallPanel {
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */	
 	
 /* breadrumb wrapper */
-#location { width: 978px;
+#location { width: 100%;
 background: #f7f7f7;
 border: 1px solid #eeeeee;
 padding: 0;
