@@ -44,10 +44,7 @@ public class MarketplaceAccountWT {
   @Test
   public void test01fillOrganizationData() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
-    Thread.sleep(1000);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
-    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON);
     tester.clickElementXPath(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_BUTTON);
@@ -70,10 +67,7 @@ public class MarketplaceAccountWT {
   @Test
   public void test02fillPersonalData() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
-    Thread.sleep(1000);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
-    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON);
     if (tester
             .getDriver()
@@ -92,17 +86,9 @@ public class MarketplaceAccountWT {
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_EMAIL_FIELD, "jacob.smith@email.com");
     tester.selectDropdown(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_LANGUAGE_DROPDOWN, "en");
-    if (tester
-            .getDriver()
-            .findElements(
-                By.id(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON))
-            .size()
-        != 0) {
-      tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON);
-    } else {
-      tester.clickElement(
-          MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON_OIDC);
-    }
+    tester.clickElement(
+            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON);
+
 
     assertTrue(tester.readInfoMessage().contains("Your profile has been successfully saved"));
   }
@@ -110,10 +96,7 @@ public class MarketplaceAccountWT {
   @Test
   public void test03addBillingAddress() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
-    Thread.sleep(1000);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
-    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_BUTTON);
     tester.clickElementXPath(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_ADD_BILLING_ADDRESS_BUTTON);
@@ -138,40 +121,23 @@ public class MarketplaceAccountWT {
   }
 
   @Test
-  public void test04addPaymentType() throws InterruptedException {
+  public void test04updatePaymentType() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
-    Thread.sleep(1000);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
-    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_BUTTON);
-    if (tester
-            .getDriver()
-            .findElements(
-                By.id(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE))
-            .size()
-        != 0) {
-      tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE);
-    } else {
-      tester.clickElement(
-          MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE_OIDC);
-    }
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE);
+
     Thread.sleep(1000);
-    tester.writeValue(
-        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_NAME_FIELD, "Smiths payment");
+    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_NAME_FIELD, "Smiths payment");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_SAVE_BUTTON);
 
-    assertTrue(
-        tester.readInfoMessage().contains("The payment information has been successfully saved"));
+    assertTrue(tester.readInfoMessage().contains("The payment information has been successfully saved"));
   }
 
   @Test
   public void test05addUser() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
-    Thread.sleep(1000);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
-    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
     if (tester
             .getDriver()
@@ -224,10 +190,7 @@ public class MarketplaceAccountWT {
   @Test
   public void test07addOrganization() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
-    Thread.sleep(1000);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
-    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_ORGANIZATION_UNIT_BUTTON);
     tester.clickElementXPath(
@@ -279,10 +242,7 @@ public class MarketplaceAccountWT {
   @Test
   public void test09deleteOrganization() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
-    Thread.sleep(1000);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
-    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_USERS_SHOW_BUTTON);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_ORGANIZATION_UNIT_BUTTON);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_ORGANIZATION_DELETE_INPUT);
@@ -300,10 +260,7 @@ public class MarketplaceAccountWT {
   @Test
   public void test10addProcessTrigger() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
-    Thread.sleep(1000);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
-    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_SHOW_BUTTON);
     tester.clickElementXPath(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_ADD_PROCESS_BUTTON);
