@@ -11,10 +11,11 @@ package org.oscm.webtest;
 
 public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_NAVBAR_HOME_LINK = "homeLink";
+  public static final String MARKETPLACE_NAVBAR_LOGIN_LINK_TEXT = "Login";
+  public static final String MARKETPLACE_NAVBAR_LOGOUT_LINK = "formLogout:logout";
   public static final String MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK = "servicesLink";
-  public static final String MARKETPLACE_NAVBAR_TOGGLE_BUTTON_XPATH =
-      "//button[@id='navbarToggleButton']/span";
-  public static final String MARKETPLACE_NAVBAR_LOGOUTDROP = "logoutDrop";
+  public static final String MARKETPLACE_NAVBAR_TOGGLE_BUTTON = "navbarToggleButton";
+  public static final String MARKETPLACE_NAVBAR_USER_TOGGLE_BUTTON = "navbarUserToggle";
 
   public static final String MARKETPLACE_HOME_LINKTEXT = "//a[contains(text(),'Home')]";
   public static final String GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE =
@@ -46,9 +47,8 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_PROFILE_LAST_NAME_FIELD = "userForm:lastName";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_EMAIL_FIELD = "userForm:email";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_LANGUAGE_DROPDOWN = "userForm:locale";
-  public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON = "userForm:j_idt252";
-  public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON_OIDC =
-      "userForm:j_idt255";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON = "userForm:saveUserButtonLink";
+
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_BUTTON =
       "//span[contains(.,'Organization Data')]";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_FIELD =
@@ -75,9 +75,7 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_SAVE_BUTTON =
       "billingContactPanelForm:saveBillingContactButton";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE =
-      "paymentOptionListForm:paymentOptionListTable:0:j_idt361";
-  public static final String MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE_OIDC =
-      "paymentOptionListForm:paymentOptionListTable:0:j_idt364";
+          "paymentOptionListForm:paymentOptionListTable:0:displayCell";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_NAME_FIELD =
       "paymentOptionEditPanelForm:displayName";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_SAVE_BUTTON =
@@ -88,10 +86,10 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_USERS_ADD_USER_BUTTON =
       "//a[@id='userListForm:addUserButtonLink']/span";
   public static final String MARKETPLACE_ACCOUNT_USERS_USERID_FIELD = "userForm:userId";
-  public static final String MARKETPLACE_ACCOUNT_USERS_CREATE_BUTTON = "userForm:j_idt235";
+  public static final String MARKETPLACE_ACCOUNT_USERS_CREATE_BUTTON = "userForm:createButtonLink";
   public static final String MARKETPLACE_ACCOUNT_USERS_ADD_ROLE_CHECKBOX =
       "//input[@id='editUserForm:userRolesTable:0:rolesCheckbox']";
-  public static final String MARKETPLACE_ACCOUNT_USERS_ROLE_ASSIGN_BUTTON = "editUserForm:j_idt329";
+  public static final String MARKETPLACE_ACCOUNT_USERS_ROLE_ASSIGN_BUTTON = "editUserForm:saveButtonLink";
 
   public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_UNIT_BUTTON =
       "//span[contains(.,'Organizational units')]";
@@ -132,17 +130,16 @@ public class MarketplaceHtmlElements {
       "categorySelectionForm:categoryLink0";
 
   public static final String MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON = "navbarToggleButton";
-  public static final String MARKETPLACE_HEADER_SEARCH_SUBSCRIPTION_FIELD = "inputSearch";
-  public static final String MARKETPLACE_HEADER_SEARCH_SUBSCRIPTION_BUTTON = "searchForm:submit";
-  public static final String MARKETPLACE_HEADER_BROWSE_SUBSCRIPTION_LINK =
-      "//a[contains(text(),'Browse')]";
-  public static final String MARKETPLACE_HEADER_HOME_LINK = "//a[contains(text(),'Home')]";
-  public static final String MARKETPLACE_HEADER_HELP_LINK = "//a[contains(text(),'Help')]";
+  public static final String MARKETPLACE_HEADER_SEARCH_SERVICE_FIELD = "Search";
+  public static final String MARKETPLACE_HEADER_SEARCH_SERVICE_BUTTON = "searchForm:submit";
+
+  public static final String MARKETPLACE_HEADER_HOME_LINK = "navigation1";
+  public static final String MARKETPLACE_HEADER_HELP_LINK = "helpButton";
   public static final String MARKETPLACE_HEADER_USER_FUNCTION_LIST = "logoutDrop";
   public static final String MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK =
-      "//a[contains(text(),'My Subscriptions')]";
+      "navigation2";
   public static final String MARKETPLACE_HEADER_USER_ACCOUNT_LINK =
-      "//a[contains(text(),'Account')]";
+      "navigation3";
   public static final String MARKETPLACE_HEADER_USER_LOGOUT_LINK = "formLogout:logout";
   public static final String MARKETPLACE_HEADER_USER_LOGIN_LINK = "//a[contains(text(),'Login')]";
   public static final String MARKETPLACE_FOOTER_IMPRINT_LINK = "imprintLink";
@@ -152,4 +149,7 @@ public class MarketplaceHtmlElements {
 
   public static final String MARKETPLACE_BROWSE_ALL_SERVICES_BUTTON =
       "categorySelectionForm:browseAllBtn";
+  public static final String MARKETPLACE_SPAN_WELCOME = "formLogout:welcome";
+  public static final String MARKETPLACE_LINK_LOGOUT = "formLogout:logout";
+  public static final String MARKETPLACE_LINKTEXT_LOGIN = "Login";
 }

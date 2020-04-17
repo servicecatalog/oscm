@@ -17,6 +17,8 @@ import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.*;
 
+import static org.junit.Assert.assertTrue;
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplaceSubscriptionWT {
   private static PortalTester tester;
@@ -50,46 +52,29 @@ public class MarketplaceSubscriptionWT {
     tester.waitForElementVisible(
         By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
     tester.clickElement(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);
-    Assert.assertTrue(
-        tester.verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HOME_LINKTEXT)));
+    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_SPAN_WELCOME)));
   }
 
   @Test
   public void test02checkHeader() {
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
     tester.visitMarketplace(MarketplacePathSegments.INDEX_MARKETPLACE);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_HAMBURGER_MENU_BUTTON);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_FUNCTION_LIST);
-    tester.writeValue(
-        MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SUBSCRIPTION_FIELD, subscriptionName);
-    Assert.assertTrue(
-        tester.verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_HOME_LINK)));
-    Assert.assertTrue(
-        tester.verifyFoundElement(
-            By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_BROWSE_SUBSCRIPTION_LINK)));
-    Assert.assertTrue(
-        tester.verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_HELP_LINK)));
-    Assert.assertTrue(
-        tester.verifyFoundElement(
-            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SUBSCRIPTION_BUTTON)));
-    Assert.assertTrue(
-        tester.verifyFoundElement(
-            By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK)));
-    Assert.assertTrue(
-        tester.verifyFoundElement(
-            By.xpath(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK)));
-    Assert.assertTrue(
-        tester.verifyFoundElement(
-            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)));
+    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_FIELD, subscriptionName);
+    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HOME_LINK)));
+    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HELP_LINK)));
+    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_BUTTON)));
+    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK)));
+    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK)));
+    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)));
   }
 
   @Test
   public void test03checkFooter() {
-    Assert.assertTrue(
+    assertTrue(
         tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_FOOTER_IMPRINT_LINK)));
-    Assert.assertTrue(
+    assertTrue(
         tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_FOOTER_PRIVACY_LINK)));
-    Assert.assertTrue(
+    assertTrue(
         tester.verifyFoundElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_FOOTER_TERMS_LINK)));
   }
 
@@ -124,6 +109,6 @@ public class MarketplaceSubscriptionWT {
         WebTester.IMPLICIT_WAIT);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_CONFIRM);
-    Assert.assertTrue(tester.getExecutionResult());
+    assertTrue(tester.getExecutionResult());
   }
 }
