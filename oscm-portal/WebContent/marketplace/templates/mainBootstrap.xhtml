@@ -14,7 +14,7 @@
 <c:set var="isMplRestricted" value="#{marketplaceBean.restricted}" />
 <ui:insert name="pageId" />
 <ui:insert name="stage"/>
-<ui:include src="head.xhtml">
+<ui:include src="headBootstrap.xhtml">
   <ui:param name="dirty" value="#{dirty}" />
 </ui:include>
 </h:head>
@@ -24,13 +24,6 @@
 </c:if>
 
 <h:body>
-
-  <link href="${facesContext.externalContext.requestContextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet"
-      type="text/css" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
-  <script src="#{facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    
-    
   <rich:jQuery selector="document" query="ready(function(){AdmUtils.initFocus();AdmUtils.setUIElements()});" />
   <c:if test="#{not empty firstErrorElement or not empty focusElement}">
     <c:set var="elementId"
