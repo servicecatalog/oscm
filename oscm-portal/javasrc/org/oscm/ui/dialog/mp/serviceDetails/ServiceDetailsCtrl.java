@@ -149,7 +149,7 @@ public class ServiceDetailsCtrl {
         logger.logDebug("entering redirectToServiceDetails");
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext extContext = context.getExternalContext();
-        String viewId = ui.getMarketplaceId().startsWith("pg_") ? Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf" : Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf";
+        String viewId = getTargetUrl();
 
         try {
             viewId = extContext.getRequestContextPath()
@@ -515,5 +515,9 @@ public class ServiceDetailsCtrl {
         displayHandler.setContentType(model.getPriceModelContent().getContentType());
         displayHandler.setFilename(model.getPriceModelContent().getFilename());
         displayHandler.display();
+    }
+
+    public String getTargetUrl(){
+        return ui.getMarketplaceId().startsWith("pg_") ? Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf" : Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf";
     }
 }
