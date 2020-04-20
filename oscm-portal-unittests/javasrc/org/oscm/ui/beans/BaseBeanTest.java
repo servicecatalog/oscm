@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.http.HttpRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.intf.IdentityService;
