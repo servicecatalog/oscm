@@ -9,12 +9,8 @@
 package org.oscm.ui.dialog.mp.serviceDetails;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -163,6 +159,22 @@ public class serviceDetailsCtrlTest {
 
         // then
         assertEquals(Boolean.TRUE, Boolean.valueOf(result));
+    }
+
+    @Test
+    public void getTargetUrl(){
+        final String url = ctrl.getTargetUrl();
+
+        assertTrue(url.endsWith("/serviceDetails.jsf"));
+    }
+
+    @Test
+    public void getTargetUrlPlayground(){
+        when(ctrl.ui.getMarketplaceId()).thenReturn("pg_mpl");
+
+        final String url = ctrl.getTargetUrl();
+
+        assertTrue(url.endsWith("/playgroundServiceDetails.jsf"));
     }
 
     private void initServiceInServer() throws Exception {
