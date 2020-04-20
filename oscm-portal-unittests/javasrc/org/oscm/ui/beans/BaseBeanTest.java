@@ -6,10 +6,7 @@ package org.oscm.ui.beans;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,6 +18,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.http.HttpRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.intf.IdentityService;
@@ -28,6 +27,7 @@ import org.oscm.internal.tenant.ManageTenantService;
 import org.oscm.internal.types.enumtypes.UserRoleType;
 import org.oscm.internal.usermanagement.UserService;
 import org.oscm.internal.vo.VOUserDetails;
+import org.oscm.types.constants.marketplace.Marketplace;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.stubs.ExternalContextStub;
@@ -87,7 +87,7 @@ public class BaseBeanTest {
 
     callsToService = 0;
     ctrl =
-        new BaseBean() {
+        spy(new BaseBean() {
           @Override
           protected <T> T getService(final Class<T> clazz, Object service) {
             if (service == null) {
@@ -95,7 +95,7 @@ public class BaseBeanTest {
             }
             return clazz.cast(service);
           }
-        };
+        });
     identityService = mock(IdentityService.class);
     ctrl.idService = identityService;
     doReturn(voUser).when(identityService).getCurrentUserDetails();
@@ -198,5 +198,41 @@ public class BaseBeanTest {
 
     assertEquals(mockService, resultService);
     assertEquals(0, callsToService);
+  }
+
+  @Test
+  public void getServiceDetailQueryPartNotServiceDetailsPage(){
+    final HttpServletRequest request = mock(HttpServletRequest.class);
+    final SessionBean sessionBean = mock(SessionBean.class);
+    when(request.getServletPath()).thenReturn(Marketplace.MARKETPLACE_ROOT + "randomPage.jsf");
+    final String queryPart = ctrl.getServiceDetailsQueryPart(request, sessionBean);
+
+    assertEquals("", queryPart);
+  }
+
+  @Test
+  public void getServiceDetailQueryPartServiceDetailsPage(){
+    final HttpServletRequest request = mock(HttpServletRequest.class);
+    final SessionBean sessionBean = mock(SessionBean.class);
+    when(request.getServletPath()).thenReturn(Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf");
+    doReturn("Service").when(ctrl).getSelectedServiceQueryPart(eq(sessionBean));
+    doReturn("Marketplace").when(ctrl).getMarketplaceIdQueryPart();
+
+    final String queryPart = ctrl.getServiceDetailsQueryPart(request, sessionBean);
+
+    assertEquals("ServiceMarketplace", queryPart);
+  }
+
+  @Test
+  public void getServiceDetailQueryPartPlaygroundServiceDetailsPage(){
+    final HttpServletRequest request = mock(HttpServletRequest.class);
+    final SessionBean sessionBean = mock(SessionBean.class);
+    when(request.getServletPath()).thenReturn(Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf");
+    doReturn("Service").when(ctrl).getSelectedServiceQueryPart(eq(sessionBean));
+    doReturn("Marketplace").when(ctrl).getMarketplaceIdQueryPart();
+
+    final String queryPart = ctrl.getServiceDetailsQueryPart(request, sessionBean);
+
+    assertEquals("ServiceMarketplace", queryPart);
   }
 }
