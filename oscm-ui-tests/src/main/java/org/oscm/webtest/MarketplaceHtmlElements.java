@@ -154,6 +154,12 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_LINKTEXT_LOGIN = "Login";
 
   public static final String MARKETPLACE_SERVICE_DETAILS_WRITE_REVIEW_BUTTON = "btnWriteFeedback";
+  public static final String MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_LINK = "deactivateServiceForm:deactivateService";
+  public static final String MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_REASON_INPUT = "deactivateServicePanelForm:reasonTextArea";
+  public static final String MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_REASON_BUTTON = "deactivateServicePanelForm:deactivateServicePanelDeactivate";
+  public static final String MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_REASON_BUTTON = "reactivateServicePanelForm:reactivateServicePanelReactivate";
+  public static final String MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_LINK = "reactivateSelectForm:reactivateService";
+  public static final String MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR = "serviceStatusColor";
 
   public static final String MARKETPLACE_SHOW_SERVICE_DETAILS_BUTTON = "showServiceDetails0";
 

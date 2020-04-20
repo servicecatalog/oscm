@@ -3,6 +3,7 @@ package org.oscm.marketplace;
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.MarketplaceHtmlElements;
@@ -56,5 +57,24 @@ public class MarketplacePlaygroundServiceDetailsWT {
         tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_WRITE_REVIEW_BUTTON);
         tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_REVIEW_REMOVE_BUTTON);
         assertFalse(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_REVIEW_BLOCK)));
+    }
+
+    @Test
+    public void test03_deactivateService(){
+        tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_LINK);
+        tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_REASON_INPUT, "Reason");
+        tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_REASON_BUTTON);
+
+        final WebElement indicator = tester.getDriver().findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR));
+        assertTrue(tester.getStyleClass(indicator).contains("serverSubscriptionSuspended"));
+    }
+
+    @Test
+    public void test04_reactivateService(){
+        tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_LINK);
+        tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_REASON_BUTTON);
+
+        final WebElement indicator = tester.getDriver().findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR));
+        assertTrue(tester.getStyleClass(indicator).contains("serverSubscriptionActive"));
     }
 }
