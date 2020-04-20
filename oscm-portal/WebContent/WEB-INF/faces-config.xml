@@ -901,6 +901,11 @@
       <to-view-id>/marketplace/index.jsp</to-view-id>
       <redirect />
     </navigation-case>
+    <navigation-case>
+      <from-outcome>successPlayground</from-outcome>
+      <to-view-id>/marketplace/playground.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
   <navigation-rule>
     <from-view-id>/shop/customizeLandingpage.xhtml</from-view-id>
