@@ -130,7 +130,7 @@ public class PortalTester extends WebTester {
     if (verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT))) {
       driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
       waitForElement(
-              By.id(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN), WebTester.IMPLICIT_WAIT);
+          By.id(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN), WebTester.IMPLICIT_WAIT);
     }
 
     if (verifyFoundElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN))) {
@@ -141,11 +141,13 @@ public class PortalTester extends WebTester {
   }
 
   public void loginMarketplacePlayground(String user, String password, String supplierOrgId)
-          throws Exception {
+      throws Exception {
     visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
 
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
-    driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK_TEXT)).click();
+    driver
+        .findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK_TEXT))
+        .click();
 
     authenticationCtx.loginMarketplace(user, password);
   }
@@ -174,7 +176,9 @@ public class PortalTester extends WebTester {
 
   public void logoutMarketplacePlayground() {
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
-    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_USER_TOGGLE_BUTTON)).click();
+    driver
+        .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_USER_TOGGLE_BUTTON))
+        .click();
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGOUT_LINK)).click();
   }
 
