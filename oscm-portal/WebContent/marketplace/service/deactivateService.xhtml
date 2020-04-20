@@ -45,7 +45,7 @@
                                style="display:none;"
                                action="#{serviceActivationBean.suspendService}">
                   <a4j:ajax execute="@form"
-                          render=":#{dialogId}RerenderPanel #{serviceActivationBean.errorPanel} #{additionalRender} @form"/>
+                          render=":#{dialogId}RerenderPanel #{serviceActivationBean.errorPanel} #{additionalRender} @form @parent"/>
               </h:commandButton>
 
             <mp:button id="#{dialogId}Deactivate"

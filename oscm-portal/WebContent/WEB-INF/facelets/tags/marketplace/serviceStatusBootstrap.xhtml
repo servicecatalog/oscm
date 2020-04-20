@@ -16,7 +16,7 @@
         <ui:param name="additionalRender" value=":serviceStatusDisplay :infoPanelHolder"/>
       </ui:include>
 
-      <div id="serviceStatusDisplay" class="row no-gutters">
+      <a4j:outputPanel id="serviceStatusDisplay" class="row no-gutters">
           <c:if test="#{serviceActivationBean.serviceSuspended}">
             <a4j:outputPanel id="serviceStatusColor" layout="block" styleClass="serverSubscriptionSuspended pr-1">
               <h:outputText id="serviceStatusLabel" value="#{msg[serviceActivationBean.statusKey]}  " style="margin-left: 18px;" />
@@ -48,7 +48,7 @@
               </a4j:commandLink>
             </h:form>
           </c:if>
-      </div>
+      </a4j:outputPanel>
 
 
 
