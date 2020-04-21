@@ -6,11 +6,13 @@
   <c:if test="#{empty loginHandler}">
 
   </c:if>
+  
+  <c:set var="logoimg" value="#{sessionBean.marketplaceBrandBaseUrl}/img/mp_logo3.png"/>
 
-  <nav class="px-1 navbar navbar-expand-lg bg-light navbar-light">
+  <nav class="px-1 navbar navbar-expand-lg bg-dark fixed-top navbar-dark">
     <div class="container-fluid h6">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="/marketplace/img/mp_logo3.png"
+        <a class="navbar-brand" href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="${logoimg}"
             alt="My Logo" />
         </a>
 
@@ -117,5 +119,6 @@
     </div>
   </nav>
 
-<script type="text/javascript">AdmUtils.IE9PlaceHolderFix('#{servicePagingBean.searchPhrase}', 'inputSearch');</script>
+<script type="text/javascript">AdmUtils.IE9PlaceHolderFix('#{servicePagingBean.searchPhrase}', 'inputSearch');
+</script>
 </ui:composition>

@@ -27,13 +27,18 @@ import org.oscm.ui.stubs.FacesContextStub;
 
 public class SessionBeanTest {
 
-  public static final String MARKETPLACE_ID = "FUJITSU";
+  private static final String MARKETPLACE_ID = "FUJITSU";
 
-  public static final String WHITE_LABEL_PATH = "http://localhost:8180/oscm-portal";
-  public static final String WHITE_LABEL_URL =
+  private static final String WHITE_LABEL_PATH = "/oscm-portal";
+  private static final String WHITE_LABEL_URL =
       "http://localhost:8180/oscm-portal/marketplace/css/mp.css";
-  public static final String BRANDING_URL =
-      "http://localhost:8180/oscm-portal/marketplace/css/mp_custom.css";
+
+  private static final String WHITE_LABEL_URI = "/oscm-portal/marketplace/css/mp.css";
+  private static final String WHITE_LABEL_BASE_URI = "/marketplace";
+
+  private static final String BRANDING_BASE_URL = "http://localhost:8180/oscm-portal/marketplace";
+
+  private static final String BRANDING_URL = BRANDING_BASE_URL + "/css/mp_custom.css";
 
   private SessionBean sessionBean;
   private MarketplaceService marketplaceServiceMock;
@@ -120,7 +125,7 @@ public class SessionBeanTest {
 
   @Test
   public void testGetWhiteLabeBrandingUrl() throws Exception {
-    assertEquals(WHITE_LABEL_URL, sessionBean.getWhiteLabelBrandingUrl());
+    assertEquals(WHITE_LABEL_URI, sessionBean.getWhiteLabelBrandingUrl());
   }
 
   @Test
@@ -134,7 +139,7 @@ public class SessionBeanTest {
   public void testGetMarketplaceBrandUrl_NullBrandingUrl() throws Exception {
     doReturn(null).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
     String result = sessionBean.getMarketplaceBrandUrl();
-    assertEquals(WHITE_LABEL_URL, result);
+    assertEquals(WHITE_LABEL_URI, result);
   }
 
   @Test
@@ -143,7 +148,76 @@ public class SessionBeanTest {
         .when(marketplaceServiceMock)
         .getBrandingUrl(MARKETPLACE_ID);
     String result = sessionBean.getMarketplaceBrandUrl();
-    assertEquals(WHITE_LABEL_URL, result);
+    assertEquals(WHITE_LABEL_URI, result);
+  }
+
+  @Test
+  public void getMarketplaceBrandBaseUrl_whitelabel() throws Exception {
+    // given
+    doReturn(WHITE_LABEL_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+    sessionBean.setMarketplaceBrandUrl(WHITE_LABEL_URI);
+
+    // when
+    String result = sessionBean.getMarketplaceBrandBaseUrl();
+
+    // then
+    assertEquals(WHITE_LABEL_BASE_URI, result);
+  }
+
+  @Test
+  public void getMarketplaceBrandBaseUrl_branded() throws Exception {
+    // given
+    doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+    sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
+
+    // when
+    String result = sessionBean.getMarketplaceBrandBaseUrl();
+   
+    // then
+    assertEquals(BRANDING_BASE_URL, result);
+  }
+  
+  @Test
+  public void getMarketplaceBrandBaseUrl_null_set() throws Exception {
+    // given
+    doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+    sessionBean.setMarketplaceBrandUrl(null);
+
+    // when
+    String result = sessionBean.getMarketplaceBrandBaseUrl();
+
+    // then
+    assertEquals(WHITE_LABEL_BASE_URI, result);
+  }
+
+  @Test
+  public void getMarketplaceBrandBaseUrl_branded_wrongURL() throws Exception {
+    // given
+    final String brUrl = BRANDING_BASE_URL + "/css/error.jsp";
+
+    doReturn(brUrl).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+    sessionBean.setMarketplaceBrandUrl(brUrl);
+
+    // when
+    String result = sessionBean.getMarketplaceBrandBaseUrl();
+
+    // then
+    assertEquals(WHITE_LABEL_BASE_URI, result);
+  }
+
+  @Test
+  public void getMarketplaceBrandBaseUrl_branded_wrongURL2() throws Exception {
+    // given
+    final String brUrl = BRANDING_BASE_URL + "/css1/error.css";
+
+    doReturn(brUrl).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+    sessionBean.setMarketplaceBrandUrl(brUrl);
+
+    // when
+    String result = sessionBean.getMarketplaceBrandBaseUrl();
+
+    // then
+    assertEquals(WHITE_LABEL_BASE_URI, result);
   }
 
   @Test
