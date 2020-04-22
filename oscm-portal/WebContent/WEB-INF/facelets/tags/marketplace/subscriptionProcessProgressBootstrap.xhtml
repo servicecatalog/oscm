@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+  <c:set var="activeItem" value="bg-info py-1 rounded-pill col-auto"/>
+  <c:set var="item" value="col-auto"/>
+  <div class="col">
+    <div class="row align-items-center">
+      <div class="#{active eq 'configuration' ? activeItem : item}">
+        #{msg['subscription.add.progress.configuration']}
+      </div>
+      <div class="${item}">
+        <i class="fa fa-angle-right"></i>
+      </div>
+      <c:if test="#{showPayment}">
+        <div class="#{active eq 'payment' ? activeItem : item}">
+          #{msg['subscription.add.progress.paymentoptions']}
+        </div>
+        <div class="${item}">
+          <i class="fa fa-angle-right"></i>
+        </div>
+      </c:if>
+      <div class="#{active eq 'confirmation' ? activeItem : item}">
+        #{msg['subscription.add.progress.confirmation']}
+      </div>
+    </div>
+  </div>
+</ui:composition>

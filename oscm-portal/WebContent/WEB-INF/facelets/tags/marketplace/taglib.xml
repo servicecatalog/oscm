@@ -238,5 +238,20 @@
     <tag-name>serviceStatusBootstrap</tag-name>
     <source>serviceStatusBootstrap.xhtml</source>
   </tag>
-
+  <tag>
+    <tag-name>subscriptionProcessProgressBootstrap</tag-name>
+    <source>subscriptionProcessProgressBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>buttonBootstrap</tag-name>
+    <source>buttonBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>subscriptionProcessConfigurationBootstrap</tag-name>
+    <source>subscriptionProcessConfigurationBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>outputStepBootstrap</tag-name>
+    <source>outputStepBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>
