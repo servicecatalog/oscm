@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -54,6 +57,8 @@ public class SessionBean implements Serializable {
   private Boolean selfRegistrationEnabled = null;
   @EJB private MarketplaceCacheService mkpCache;
   @EJB private MarketplaceService mkpService;
+
+  static final Pattern CSS_PATH_PATTERN = Pattern.compile("(.*)/css/[^/]*\\.css$");
 
   /** The key of the last edited user group. */
   private String selectedUserGroupId;
@@ -348,6 +353,28 @@ public class SessionBean implements Serializable {
       setMarketplaceBrandUrl(marketplaceBrandUrl);
     }
     return marketplaceBrandUrl;
+  }
+
+  public String getMarketplaceBrandBaseUrl() {
+    String mId = getMarketplaceId();
+    if (isCustomBranded(mId)) {
+      final String brandUrl = brandUrlMidMapping.get(mId);
+      if (CSS_PATH_PATTERN.matcher(brandUrl).find()) {
+        return removeCSSPath(brandUrl);
+      }
+    }
+    return "/marketplace";
+  }
+
+  private String removeCSSPath(final String brandUrl) {
+    Matcher matcher = CSS_PATH_PATTERN.matcher(brandUrl);
+    return matcher.replaceAll("$1");
+  }
+
+  boolean isCustomBranded(String mId) {
+    final String brandUrl = brandUrlMidMapping.get(mId);
+    final String appCtx = getFacesContext().getExternalContext().getRequestContextPath();
+    return (brandUrl != null && !brandUrl.startsWith(appCtx));
   }
 
   public void setMarketplaceBrandUrl(String marketplaceBrandUrl) {
