@@ -130,6 +130,10 @@
     <tag-name>navigationMenu</tag-name>
     <source>navigationMenu.xhtml</source>
   </tag>
+   <tag>
+    <tag-name>bootstrapNavigationMenu</tag-name>
+    <source>bootstrapNavigationMenu.xhtml</source>
+  </tag>
   <tag>
     <tag-name>confirmPanel</tag-name>
     <source>confirmPanel.xhtml</source>
