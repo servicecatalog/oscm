@@ -172,11 +172,11 @@ public class SessionBeanTest {
 
     // when
     String result = sessionBean.getMarketplaceBrandBaseUrl();
-   
+
     // then
     assertEquals(BRANDING_BASE_URL, result);
   }
-  
+
   @Test
   public void getMarketplaceBrandBaseUrl_null_set() throws Exception {
     // given
