@@ -17,9 +17,8 @@
   <c:if test="#{empty limitedDescription}">
     <c:set var="limitedDescription" value="false"/>
   </c:if>
-  <div class="container bg-light border shadow py-3 mb-3">
     <div class="row">
-      <div class="col-xl-9 col-lg-12">
+      <div class="col-xl-9 col-lg-12 pl-0">
         <!-- Image, title, supplier container -->
         <div class="col-auto mb-2">
           <div class="row align-items-center">
@@ -66,15 +65,11 @@
             <mp:servicePrice styleClass="servicePriceDetails" service="#{service}"/>
           </div>
           <div class="col-sm-12 col-md-auto col-xl-12">
-            <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="btn btn-outline-secondary btn-block"
-                    value="#{msg['button.showDetails']}" onclick="AdmUtils.showProgress(true);">
-              <f:param name="selectedServiceKey" value="#{service.key}"/>
-            </h:link>
+            <ui:insert/>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </ui:composition>
 
 

@@ -901,13 +901,11 @@
       <to-view-id>/marketplace/index.jsp</to-view-id>
       <redirect />
     </navigation-case>
-
     <navigation-case>
       <from-outcome>successPlayground</from-outcome>
-      <to-view-id>/marketplace/playground.jsf</to-view-id>
+      <to-view-id>/marketplace/playground.xhtml</to-view-id>
       <redirect />
     </navigation-case>
-
   </navigation-rule>
   <navigation-rule>
     <from-view-id>/shop/customizeLandingpage.xhtml</from-view-id>
@@ -1124,8 +1122,12 @@
       <to-view-id>/marketplace/playgroundServices.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    <navigation-case>
+      <from-outcome>serviceDetails</from-outcome>
+      <to-view-id>/marketplace/playgroundServiceDetails.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
-
   <navigation-rule>
     <from-view-id>/marketplace/playground.xhtml</from-view-id>
     <navigation-case>
@@ -1133,7 +1135,23 @@
       <to-view-id>/marketplace/playgroundServices.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    <navigation-case>
+      <from-outcome>serviceDetails</from-outcome>
+      <to-view-id>/marketplace/playgroundServiceDetails.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
+  <navigation-rule>
+    <from-view-id>/marketplace/playgroundServiceDetails.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>addSubscription</from-outcome>
+      <to-view-id>/marketplace/subscriptions/creation/add.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>
+
+
+
 
   <validator>
     <validator-id>ldapUser</validator-id>

@@ -218,4 +218,25 @@
     <tag-name>categorySelectionLandingBootstrap</tag-name>
     <source>categorySelectionLandingBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>relatedServicesBootstrap</tag-name>
+    <source>relatedServicesBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>serviceInfoTable</tag-name>
+    <source>serviceInfoTable.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>serviceReviewsBootstrap</tag-name>
+    <source>serviceReviewsBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>reviewBootstrap</tag-name>
+    <source>reviewBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>serviceStatusBootstrap</tag-name>
+    <source>serviceStatusBootstrap.xhtml</source>
+  </tag>
+
 </facelet-taglib>

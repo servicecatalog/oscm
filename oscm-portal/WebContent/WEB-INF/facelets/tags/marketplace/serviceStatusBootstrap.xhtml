@@ -1,0 +1,59 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <c:if test="#{serviceActivationBean.serviceStatusChangeAllowed}">
+      <ui:include src="../../../../marketplace/service/deactivateService.xhtml">
+        <ui:param name="dialogId" value="deactivateServicePanel"/>
+        <ui:param name="dialogHeight" value="130"/>
+        <ui:param name="additionalRender" value=":serviceStatusDisplay :infoPanelHolder"/>
+      </ui:include>
+
+      <ui:include src="../../../../marketplace/service/reactivateService.xhtml">
+        <ui:param name="dialogId" value="reactivateServicePanel"/>
+        <ui:param name="dialogHeight" value="100"/>
+        <ui:param name="additionalRender" value=":serviceStatusDisplay :infoPanelHolder"/>
+      </ui:include>
+
+      <a4j:outputPanel id="serviceStatusDisplay" class="row no-gutters">
+          <c:if test="#{serviceActivationBean.serviceSuspended}">
+            <a4j:outputPanel id="serviceStatusColor" layout="block" styleClass="serverSubscriptionSuspended pr-1">
+              <h:outputText id="serviceStatusLabel" value="#{msg[serviceActivationBean.statusKey]}  " style="margin-left: 18px;" />
+            </a4j:outputPanel>
+          </c:if>
+
+          <c:if test="#{serviceActivationBean.serviceActive}">
+            <a4j:outputPanel id="serviceStatusColor" layout="block" styleClass="serverSubscriptionActive pr-1">
+              <h:outputText id="serviceStatusLabel" value="#{msg[serviceActivationBean.statusKey]}  " style="margin-left: 18px;" />
+            </a4j:outputPanel>
+          </c:if>
+
+          <c:if test="#{serviceActivationBean.reactivationLinkVisible}">
+            <h:form id="reactivateSelectForm">
+              <a4j:commandLink id="reactivateService"
+                               render="reactivateServicePanel :reactivateServicePanelForm"
+                               oncomplete="RichFaces.$('reactivateServicePanel').show();return false;">
+                <h:outputText value="#{msg['button.service.reactivateLink']}"/>
+              </a4j:commandLink>
+            </h:form>
+          </c:if>
+
+          <c:if test="#{serviceActivationBean.deactivationLinkVisible}">
+            <h:form id="deactivateServiceForm">
+              <a4j:commandLink id="deactivateService"
+                               render="deactivateServicePanel :deactivateServicePanelForm"
+                               oncomplete="RichFaces.$('deactivateServicePanel').show();return false;">
+                <h:outputText value="#{msg['button.service.deactivateLink']}"/>
+              </a4j:commandLink>
+            </h:form>
+          </c:if>
+      </a4j:outputPanel>
+
+
+
+
+    </c:if>
+
+
+</ui:composition>

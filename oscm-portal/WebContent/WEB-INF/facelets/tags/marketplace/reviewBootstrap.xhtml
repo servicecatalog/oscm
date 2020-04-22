@@ -1,0 +1,64 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html>
+<ui:composition
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:rich="http://richfaces.org/rich"
+    xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
+  <!-- requires a review (POServiceReview) -->
+
+  <div id="reviewBlock#{(status.index + 1)}" class="mt-2 mb-3">
+    <!-- Stars, date, user, control button -->
+    <div class="row mb-2">
+      <div class="col">
+        <div class="row align-items-center m-0">
+          <div class="col-auto pr-1">
+            <mp:ratingStarsBootstrap rating="#{rating}"/>
+          </div>
+          <div class="col-auto pl-1">
+            <h:outputText class="serviceRating" rendered="#{not sessionBean.nameSequenceReversed}"
+                          value="#{msg['review.by']} #{empty review.po.firstName and empty review.po.lastName ? msg['review.name.unknown'] : review.po.firstName} #{review.po.lastName} #{msg['review.on']} "/>
+            <h:outputText class="serviceRating" rendered="#{sessionBean.nameSequenceReversed}"
+                          value="#{msg['review.by']} #{empty review.po.firstName and empty review.po.lastName ? msg['review.name.unknown'] : review.po.lastName} #{review.po.firstName} #{msg['review.on']} "/>
+            <h:outputText class="serviceRating" value="#{review.po.modificationDate}">
+              <f:convertDateTime pattern="#{msg[appBean.dateInputPattern]}"/>
+            </h:outputText>
+          </div>
+        </div>
+      </div>
+      <!-- Review controls -->
+        <c:if test="#{allowedToWriteReview and review.belongsToLoggedInUser}">
+          <div class="col-auto">
+            <h:outputLink onclick="#{rich:component('writeReviewPanel')}.show();return false;">
+              <h:outputText style="white-space: nowrap;" value="#{msg['service.reviews.manage']}"/>
+            </h:outputLink>
+          </div>
+        </c:if>
+
+        <c:if test="#{allowedToDeleteReviews and !review.belongsToLoggedInUser}">
+          <div class="col-auto">
+            <h:form>
+              <a4j:commandLink
+                  id="deleteReview#{(status.index + 1)}"
+                  action="#{manageReviewCtrl.setupForDeletion}"
+                  render=":removeReviewPanel :removeReviewPanelForm"
+                  oncomplete="RichFaces.$('removeReviewPanel', {param1:'#{review.po.key}'}).show();return false;">
+                <a4j:param value="#{review.po.key}" assignTo="#{manageReviewCtrl.keyForDeletion}"/>
+                <h:outputText value="#{msg['button.delete']}"/>
+              </a4j:commandLink>
+            </h:form>
+          </div>
+        </c:if>
+    </div>
+    <!-- Title and review -->
+    <div class="col text-justify">
+      <h2 id="review#{reviewNumber}" class="preWrapping">#{review.po.title}</h2>
+      #{review.po.comment}
+    </div>
+  </div>
+</ui:composition>
