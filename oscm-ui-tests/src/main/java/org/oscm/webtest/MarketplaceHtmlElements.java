@@ -47,7 +47,8 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_PROFILE_LAST_NAME_FIELD = "userForm:lastName";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_EMAIL_FIELD = "userForm:email";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_LANGUAGE_DROPDOWN = "userForm:locale";
-  public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON = "userForm:saveUserButtonLink";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON =
+      "userForm:saveUserButtonLink";
 
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_BUTTON =
       "//span[contains(.,'Organization Data')]";
@@ -75,7 +76,7 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_SAVE_BUTTON =
       "billingContactPanelForm:saveBillingContactButton";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_MANAGE_PAYMENT_TABLE =
-          "paymentOptionListForm:paymentOptionListTable:0:displayCell";
+      "paymentOptionListForm:paymentOptionListTable:0:displayCell";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_NAME_FIELD =
       "paymentOptionEditPanelForm:displayName";
   public static final String MARKETPLACE_ACCOUNT_PAYMENT_PAYMENT_SAVE_BUTTON =
@@ -89,7 +90,8 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_USERS_CREATE_BUTTON = "userForm:createButtonLink";
   public static final String MARKETPLACE_ACCOUNT_USERS_ADD_ROLE_CHECKBOX =
       "//input[@id='editUserForm:userRolesTable:0:rolesCheckbox']";
-  public static final String MARKETPLACE_ACCOUNT_USERS_ROLE_ASSIGN_BUTTON = "editUserForm:saveButtonLink";
+  public static final String MARKETPLACE_ACCOUNT_USERS_ROLE_ASSIGN_BUTTON =
+      "editUserForm:saveButtonLink";
 
   public static final String MARKETPLACE_ACCOUNT_ORGANIZATION_UNIT_BUTTON =
       "//span[contains(.,'Organizational units')]";
@@ -136,10 +138,8 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_HEADER_HOME_LINK = "navigation1";
   public static final String MARKETPLACE_HEADER_HELP_LINK = "helpButton";
   public static final String MARKETPLACE_HEADER_USER_FUNCTION_LIST = "logoutDrop";
-  public static final String MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK =
-      "navigation2";
-  public static final String MARKETPLACE_HEADER_USER_ACCOUNT_LINK =
-      "navigation3";
+  public static final String MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK = "navigation2";
+  public static final String MARKETPLACE_HEADER_USER_ACCOUNT_LINK = "navigation3";
   public static final String MARKETPLACE_HEADER_USER_LOGOUT_LINK = "formLogout:logout";
   public static final String MARKETPLACE_HEADER_USER_LOGIN_LINK = "//a[contains(text(),'Login')]";
   public static final String MARKETPLACE_FOOTER_IMPRINT_LINK = "imprintLink";
@@ -154,12 +154,18 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_LINKTEXT_LOGIN = "Login";
 
   public static final String MARKETPLACE_SERVICE_DETAILS_WRITE_REVIEW_BUTTON = "btnWriteFeedback";
-  public static final String MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_LINK = "deactivateServiceForm:deactivateService";
-  public static final String MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_REASON_INPUT = "deactivateServicePanelForm:reasonTextArea";
-  public static final String MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_REASON_BUTTON = "deactivateServicePanelForm:deactivateServicePanelDeactivate";
-  public static final String MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_REASON_BUTTON = "reactivateServicePanelForm:reactivateServicePanelReactivate";
-  public static final String MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_LINK = "reactivateSelectForm:reactivateService";
-  public static final String MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR = "serviceStatusColor";
+  public static final String MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_LINK =
+      "deactivateServiceForm:deactivateService";
+  public static final String MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_REASON_INPUT =
+      "deactivateServicePanelForm:reasonTextArea";
+  public static final String MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_REASON_BUTTON =
+      "deactivateServicePanelForm:deactivateServicePanelDeactivate";
+  public static final String MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_REASON_BUTTON =
+      "reactivateServicePanelForm:reactivateServicePanelReactivate";
+  public static final String MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_LINK =
+      "reactivateSelectForm:reactivateService";
+  public static final String MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR =
+      "serviceStatusColor";
 
   public static final String MARKETPLACE_SHOW_SERVICE_DETAILS_BUTTON = "showServiceDetails0";
 

@@ -1214,7 +1214,9 @@ public class BaseBean {
   protected String getServiceDetailsQueryPart(HttpServletRequest request, SessionBean sessionBean) {
     String queryPart = "";
     if (request.getServletPath().startsWith(Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf")
-            || request.getServletPath().startsWith(Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf") ) {
+        || request
+            .getServletPath()
+            .startsWith(Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf")) {
       queryPart = getSelectedServiceQueryPart(sessionBean) + getMarketplaceIdQueryPart();
     }
     return queryPart;

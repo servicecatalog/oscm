@@ -18,7 +18,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.intf.IdentityService;
@@ -86,15 +85,16 @@ public class BaseBeanTest {
 
     callsToService = 0;
     ctrl =
-        spy(new BaseBean() {
-          @Override
-          protected <T> T getService(final Class<T> clazz, Object service) {
-            if (service == null) {
-              callsToService++;
-            }
-            return clazz.cast(service);
-          }
-        });
+        spy(
+            new BaseBean() {
+              @Override
+              protected <T> T getService(final Class<T> clazz, Object service) {
+                if (service == null) {
+                  callsToService++;
+                }
+                return clazz.cast(service);
+              }
+            });
     identityService = mock(IdentityService.class);
     ctrl.idService = identityService;
     doReturn(voUser).when(identityService).getCurrentUserDetails();
@@ -200,7 +200,7 @@ public class BaseBeanTest {
   }
 
   @Test
-  public void getServiceDetailQueryPartNotServiceDetailsPage(){
+  public void getServiceDetailQueryPartNotServiceDetailsPage() {
     final HttpServletRequest request = mock(HttpServletRequest.class);
     final SessionBean sessionBean = mock(SessionBean.class);
     when(request.getServletPath()).thenReturn(Marketplace.MARKETPLACE_ROOT + "randomPage.jsf");
@@ -210,7 +210,7 @@ public class BaseBeanTest {
   }
 
   @Test
-  public void getServiceDetailQueryPartServiceDetailsPage(){
+  public void getServiceDetailQueryPartServiceDetailsPage() {
     final HttpServletRequest request = mock(HttpServletRequest.class);
     final SessionBean sessionBean = mock(SessionBean.class);
     when(request.getServletPath()).thenReturn(Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf");
@@ -223,10 +223,11 @@ public class BaseBeanTest {
   }
 
   @Test
-  public void getServiceDetailQueryPartPlaygroundServiceDetailsPage(){
+  public void getServiceDetailQueryPartPlaygroundServiceDetailsPage() {
     final HttpServletRequest request = mock(HttpServletRequest.class);
     final SessionBean sessionBean = mock(SessionBean.class);
-    when(request.getServletPath()).thenReturn(Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf");
+    when(request.getServletPath())
+        .thenReturn(Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf");
     doReturn("Service").when(ctrl).getSelectedServiceQueryPart(eq(sessionBean));
     doReturn("Marketplace").when(ctrl).getMarketplaceIdQueryPart();
 
