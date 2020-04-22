@@ -1,0 +1,67 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+
+  <mp:outputStepBootstrap value="#{msg['marketplace.subscription.configuration.nameAndReference']}"/>
+
+  <adm:panelGrid styleClasses="m-0">
+    <adm:labelAndInputText id="subscriptionIdText" label="#{msg['subscription.subscriptionId']}"
+                           required="true"
+                           value="#{subscriptionWizardConversation.model.subscription.subscriptionId}"
+                           maxlength="#{appBean.idLen}" validatorId="idChar"
+                           backingBean="#{subscriptionWizardConversation}"
+                           validationMethod="validateSubscriptionId" converterId="trimConverter"
+                           showHint="true"/>
+    <adm:labelAndInputText id="purchaseOrderNumberText" label="#{msg['subscription.purchaseOrderNumber']}"
+                           value="#{subscriptionWizardConversation.model.subscription.purchaseOrderNumber}"
+                           maxlength="#{appBean.descriptionLen}"
+                           converterId="trimConverter" showHint="true"/>
+    <adm:labelAndUnitSelectBootstrap id="organizationalUnitSelect" label="#{msg['unit.organizationalUnit']}"
+                                     value="#{subscriptionWizardConversation.subscriptionUnitCtrl.model.selectedUnitName}"
+                                     showHint="true"
+                                     disabled="#{not userBean.isOrganizationAdmin and not userBean.isUnitAdmin}"/>
+  </adm:panelGrid>
+
+
+  <ui:include src="../../../../marketplace/account/subscriptionUdaDetails.xhtml">
+    <ui:param name="inputList" value="#{subscriptionWizardConversation.model.subscriptionUdaRows}"/>
+    <ui:param name="udasReadOnly" value="false"/>
+  </ui:include>
+
+  <ui:fragment rendered="#{subscriptionWizardConversation.model.useExternalConfigurator}">
+    <mp:outputStepBootstrap value="#{msg['parameter.table.header']}" />
+    <ui:include src="../../../../marketplace/subscriptions/parameterConfiguration.xhtml">
+      <ui:param name="formId" value="configurationForm" />
+      <ui:param name="dialogId" value="configurator" />
+      <ui:param name="dialogHeight" value="115" />
+      <ui:param name="bean" value="#{subscriptionWizardConversation}" />
+      <ui:param name="conversationTimeout" value="#{subscriptionWizardConversation.timeout}" />
+      <ui:param name="cancelHandler" value="AdmUtils.blurButton('configurationForm:btnConfigureLabel');setDirty(false);#{rich:component(dialogId)}.hide();" />
+    </ui:include>
+    <a4j:outputPanel styleClass="buttonWrapper">
+      <a4j:commandLink id="btnConfigure" styleClass="button" style="text-decoration: none;"
+                       oncomplete="if(#{subscriptionWizardConversation.model.showExternalConfigurator}){#{rich:component('configurator')}.show();configurator.activateFallbackTimer();window.scrollTo(0,document.body.scrollHeight);};"
+                       action="#{subscriptionWizardConversation.actionLoadIframe}"
+                       render="configurationForm:externalToolDialog,subcribe_configurationWarning,configurationForm:configRqScript,hiddenErrorPanel">
+        <h:outputText id="btnConfigureLabel" style="white-space: nowrap;" value="#{msg['button.configure']}"/>
+      </a4j:commandLink>
+    </a4j:outputPanel>
+    <a4j:outputPanel id="subcribe_configurationWarning" styleClass="configurationWarning">
+      <mp:notice rendered="#{subscriptionWizardConversation.model.configurationChanged}" noticeText="#{msg['info.subscriptions.configuration.unsaved']}"/>
+    </a4j:outputPanel>
+  </ui:fragment>
+
+  <ui:fragment rendered="#{subscriptionWizardConversation.model.useInternalConfigurator}" >
+    <mp:outputStepBootstrap value="#{msg['parameter.table.header']}" />
+    <ui:include src="../../../../marketplace/account/paramtable.xhtml">
+      <ui:param name="inputList" value="#{subscriptionWizardConversation.model.serviceParameters}" />
+      <ui:param name="formName" value="configurationForm" />
+      <ui:param name="showPrices" value="#{subscriptionWizardConversation.model.showServicePrices}" />
+      <ui:param name="bean" value="#{subscriptionWizardConversation}" />
+    </ui:include>
+  </ui:fragment>
+
+</ui:composition>
