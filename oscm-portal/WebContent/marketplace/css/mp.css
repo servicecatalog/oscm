@@ -3719,7 +3719,11 @@ div#headerrightareaBootstrap, rightarea a {
 	margin-left: 16px;
 }	
 
-
+@media screen and (min-width: 768px) {
+.custom-collapse .collapse{
+            display:block;
+      }  
+}
 @media (max-width: 768px) {
   .aside {
     float: none;
