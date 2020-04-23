@@ -1115,6 +1115,7 @@
     </navigation-case>
   </navigation-rule>
 
+<!--  PLAYGROUND ROUTING -->
   <navigation-rule>
     <from-view-id>/marketplace/playgroundServices.xhtml</from-view-id>
     <navigation-case>
@@ -1145,11 +1146,29 @@
     <from-view-id>/marketplace/playgroundServiceDetails.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>addSubscription</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/add.xhtml</to-view-id>
+      <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>
-
+  <navigation-rule>
+    <from-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/marketplace/subscriptions/creation/confirmAdd.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>enterPayment</from-outcome>
+      <to-view-id>/marketplace/subscriptions/creation/paymentAdd.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>error</from-outcome>
+      <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/marketplace/playgroundServiceDetails.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
 
 

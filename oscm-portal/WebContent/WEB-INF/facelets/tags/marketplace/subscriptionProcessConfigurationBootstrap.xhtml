@@ -7,22 +7,19 @@
 
   <mp:outputStepBootstrap value="#{msg['marketplace.subscription.configuration.nameAndReference']}"/>
 
-  <adm:panelGrid styleClasses="m-0">
+  <adm:panelGrid styleClasses="responsivePanelGrid"
+                 columnClasses="responsivePanelGridLabelCol,responsivePanelGridValueCol,responsivePanelGridHintCol">
     <adm:labelAndInputText id="subscriptionIdText" label="#{msg['subscription.subscriptionId']}"
-                           required="true"
+                           required="true" backingBean="#{subscriptionWizardConversation}"
                            value="#{subscriptionWizardConversation.model.subscription.subscriptionId}"
-                           maxlength="#{appBean.idLen}" validatorId="idChar"
-                           backingBean="#{subscriptionWizardConversation}"
-                           validationMethod="validateSubscriptionId" converterId="trimConverter"
-                           showHint="true"/>
+                           maxlength="#{appBean.idLen}" validatorId="idChar" showHint="true"
+                           validationMethod="validateSubscriptionId" converterId="trimConverter"/>
     <adm:labelAndInputText id="purchaseOrderNumberText" label="#{msg['subscription.purchaseOrderNumber']}"
                            value="#{subscriptionWizardConversation.model.subscription.purchaseOrderNumber}"
-                           maxlength="#{appBean.descriptionLen}"
-                           converterId="trimConverter" showHint="true"/>
+                           maxlength="#{appBean.descriptionLen}" converterId="trimConverter" showHint="true"/>
     <adm:labelAndUnitSelectBootstrap id="organizationalUnitSelect" label="#{msg['unit.organizationalUnit']}"
                                      value="#{subscriptionWizardConversation.subscriptionUnitCtrl.model.selectedUnitName}"
-                                     showHint="true"
-                                     disabled="#{not userBean.isOrganizationAdmin and not userBean.isUnitAdmin}"/>
+                                     showHint="true" disabled="#{not userBean.isOrganizationAdmin and not userBean.isUnitAdmin}"/>
   </adm:panelGrid>
 
 
