@@ -8,15 +8,14 @@
 
   <!-- Sidebar -->
   <div class="custom-collapse">
-    <button class="btn-toggler btn-secondary btn d-block d-md-none" aria-label="Toggle Navigation" type="button"
+    <button class="btn-toggler btn-secondary btn d-block d-md-none mt-2" aria-label="Toggle Navigation" type="button"
       data-toggle="collapse" data-target="#sidebarCollapse" aria-expanded="true" aria-controls="sidebarCollapse">
       <span class="hamburger_icon"><i class="fa fa-navicon"></i></span>
     </button>
 
     <div id="sidebar-wrapper">
-      <!-- bg-light border-right  -->
 
-      <div class="list-group collapse navbar-collapse mt-sm-2" id="sidebarCollapse">
+      <div class="list-group collapse navbar-collapse mt-0 mt-sm-2" id="sidebarCollapse">
 
         <!--  Menu Rows -->
         <c:forEach items="#{bean['title']}" var="key" varStatus="index">
