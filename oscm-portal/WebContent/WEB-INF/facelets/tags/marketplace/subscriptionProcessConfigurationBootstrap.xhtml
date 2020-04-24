@@ -19,7 +19,8 @@
                            maxlength="#{appBean.descriptionLen}" converterId="trimConverter" showHint="true"/>
     <adm:labelAndUnitSelectBootstrap id="organizationalUnitSelect" label="#{msg['unit.organizationalUnit']}"
                                      value="#{subscriptionWizardConversation.subscriptionUnitCtrl.model.selectedUnitName}"
-                                     showHint="true" disabled="#{not userBean.isOrganizationAdmin and not userBean.isUnitAdmin}"/>
+                                     showHint="true" disabled="#{not userBean.isOrganizationAdmin and not userBean.isUnitAdmin}"
+                                     buttonStyle="btn-sm btn-secondary"/>
   </adm:panelGrid>
 
 

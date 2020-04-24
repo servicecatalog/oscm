@@ -1,4 +1,4 @@
-  <!-- Copyright FUJITSU LIMITED 2018-->
+  <!-- Copyright FUJITSU LIMITED 2020-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -15,17 +15,19 @@
     <a4j:outputPanel layout="block" styleClass="long-label" id="unitNameDisplay" >
         <h:outputText value="#{value}" />
     </a4j:outputPanel>
-    <c:if test="#{not disabled}">
-      <a4j:commandLink styleClass="btn-sm btn-secondary text-white text-decoration-none" id="selectOrgUnitBtn" immediate="true" role="button"
-                         render="organizationUnitPanel organizationUnitPanelForm" value="#{msg['button.select']}"
-                         action="#{subscriptionWizardConversation.subscriptionUnitCtrl.initializeUnitListForModifySubscription}"
-                         oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('organizationUnitPanel').show();">
-      </a4j:commandLink>
-    </c:if>
-    <c:if test="#{disabled}">
-      <a4j:commandButton styleClass="btn btn-primary disabled" id="selectOrgUnitBtnDisabled" value="#{msg['button.select']}">
-      </a4j:commandButton>
-    </c:if>
+    <div class="col-auto">
+      <c:if test="#{not disabled}">
+        <a4j:commandButton styleClass="#{buttonStyle}" id="selectOrgUnitBtn" immediate="true" role="button"
+                           render="organizationUnitPanel organizationUnitPanelForm" value="#{msg['button.select']}"
+                           action="#{subscriptionWizardConversation.subscriptionUnitCtrl.initializeUnitListForModifySubscription}"
+                           oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('organizationUnitPanel').show();">
+        </a4j:commandButton>
+      </c:if>
+      <c:if test="#{disabled}">
+        <a4j:commandButton styleClass="#{buttonStyle} disabled" id="selectOrgUnitBtnDisabled" value="#{msg['button.select']}">
+        </a4j:commandButton>
+      </c:if>
+    </div>
   </a4j:outputPanel>
 
   <!-- Tooltip -->
