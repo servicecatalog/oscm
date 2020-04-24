@@ -79,9 +79,10 @@ Copyright 2010-2012 FUJITSU LIMITED
 	11 Bootstrap Elements
 	   11.1 Header section
 	   11.2 Navigation bar
-	   11.3 Cards
-	   11.4 Bootstrap grid
-	   11.5 Footer
+	   11.3 Aside Menu
+	   11.4 Cards
+	   11.5 Bootstrap grid
+	   11.6 Footer
 	   
 
 */
@@ -3641,7 +3642,22 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-11.3 Cards
+11.3 Aside Menu
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+@media screen and (min-width: 768px) {
+.custom-collapse .collapse{
+            display:block;
+      }  
+}
+@media (max-width: 768px) {
+  .aside {
+    float: none;
+  }
+}
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+11.4 Cards
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 .card-header {
@@ -3674,7 +3690,7 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-11.4 Bootstrap grid
+11.5 Bootstrap grid
      Styling for containers and columns.
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
@@ -3695,7 +3711,7 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-11.5 Footer
+11.6 Footer
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .bootstrap_footer {
 	background: #B3B7BC;
@@ -3716,8 +3732,13 @@ div#headerrightareaBootstrap, rightarea a {
 .bootstrap_footer li {
 	display: inline;
 	margin: 0; 
-	margin-left: 
-	16px; 
+	margin-left: 16px;
+}	
+
+#sidebarCollapse {
+	margin-top: 0.5rem !important;
 }
+
+
 
 

@@ -20,13 +20,6 @@
 
   </ui:define>
 
-  <ui:define name="aside">
-    <a4j:outputPanel id="tagPanel" rendered="#{serviceListingBean.publicLandingpage}">
-      <mp:categorySelection />
-      <mp:tagCloud bean="#{tagCloudBean}" />
-    </a4j:outputPanel>
-  </ui:define>
-
   <ui:define name="contents">
     <c:if test="#{serviceListingBean.publicLandingpage}">
       <ui:include id="listServicesForPublicLandingpage" src="bootstrapServices.xhtml" />

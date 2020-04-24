@@ -14,6 +14,10 @@
       <mp:crumb labelPageId="marketplace.account" />
     </mp:bootstrapBreadcrumbs>
   </ui:define>
+  
+   <ui:define name="aside">
+       <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" />
+  </ui:define> 
 
   <ui:define name="contentstitle">
     <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
@@ -21,15 +25,14 @@
     </a4j:outputPanel>
   </ui:define>
 
-  <ui:define name="aside">
-    <mp:navigationMenu bean="#{accountNavigationBean}" />
-  </ui:define>
+
+
 
   <ui:define name="contents">
 
-    <a4j:outputPanel id="all" layout="block" styleClass="container-fluid">
+    <a4j:outputPanel id="all" layout="block" >
 
-      <div class="row">
+      <div class="row mt-4">
         <a4j:outputPanel id="profile" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
           rendered="#{empty appBean.hiddenUIElements['marketplace.navigation.Profile']}">
 
