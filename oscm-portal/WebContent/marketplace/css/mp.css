@@ -3634,6 +3634,10 @@ div#headerrightareaBootstrap, rightarea a {
     margin: 0 !important;
 }
 
+.navbar-margin {
+   margin-top: 3.65rem;
+}
+
 .btn-toggler>.close-nav {
     display:inline;
 }
