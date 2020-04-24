@@ -7,14 +7,13 @@
 
   <mp:outputStepBootstrap value="#{msg['marketplace.subscription.configuration.nameAndReference']}"/>
 
-  <adm:panelGrid styleClasses="responsivePanelGrid"
-                 columnClasses="responsivePanelGridLabelCol,responsivePanelGridValueCol,responsivePanelGridHintCol">
-    <adm:labelAndInputText id="subscriptionIdText" label="#{msg['subscription.subscriptionId']}"
+  <adm:panelGrid styleClasses="table-responsive" columnClasses="col-auto px-1 text-left,col-sm-6 px-1,col-auto px-1">
+    <adm:labelAndInputText id="subscriptionIdText" label="#{msg['subscription.subscriptionId']}" styleClass="w-100"
                            required="true" backingBean="#{subscriptionWizardConversation}"
                            value="#{subscriptionWizardConversation.model.subscription.subscriptionId}"
                            maxlength="#{appBean.idLen}" validatorId="idChar" showHint="true"
                            validationMethod="validateSubscriptionId" converterId="trimConverter"/>
-    <adm:labelAndInputText id="purchaseOrderNumberText" label="#{msg['subscription.purchaseOrderNumber']}"
+    <adm:labelAndInputText id="purchaseOrderNumberText" label="#{msg['subscription.purchaseOrderNumber']}" styleClass="w-100"
                            value="#{subscriptionWizardConversation.model.subscription.purchaseOrderNumber}"
                            maxlength="#{appBean.descriptionLen}" converterId="trimConverter" showHint="true"/>
     <adm:labelAndUnitSelectBootstrap id="organizationalUnitSelect" label="#{msg['unit.organizationalUnit']}"

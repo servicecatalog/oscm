@@ -3743,32 +3743,6 @@ div#headerrightareaBootstrap, rightarea a {
 	margin-top: 0.5rem !important;
 }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-11.6 Responsive panel grid
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-
-.responsivePanelGrid {
-  width: 100%;
-  margin: 0;
-}
-
-.responsivePanelGridLabelCol {
-  min-width: 154px;
-}
-
-.responsivePanelGridValueCol {
-  width: 25%;
-  min-width: 200px;
-}
-
-.responsivePanelGridValueCol input {
-  width: 100%;
-}
-
-.responsivePanelGridHintCol {
-  width: 65%;
-}
-
 
 
 
