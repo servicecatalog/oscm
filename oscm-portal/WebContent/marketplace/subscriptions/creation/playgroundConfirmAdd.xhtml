@@ -2,48 +2,52 @@
 
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:t="http://myfaces.apache.org/tomahawk"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-  template="../../templates/mainBootstrap.xhtml">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                template="../../templates/mainBootstrap.xhtml">
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.subscriptions.confirm" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+    <c:set var="pageId" value="marketplace.subscriptions.confirm"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
     <mp:breadcrumbs>
-      <mp:crumb labelPageId="marketplace.services" link="/marketplace/services.jsf" />
-      <mp:crumb label="#{subscriptionWizardConversation.model.service.nameToDisplay}" />
+      <mp:crumb labelPageId="marketplace.services" link="/marketplace/services.jsf"/>
+      <mp:crumb label="#{subscriptionWizardConversation.model.service.nameToDisplay}"/>
     </mp:breadcrumbs>
   </ui:define>
 
   <ui:define name="contents">
 
-    <div class="col">
-      <mp:subscriptionProcess active="confirmation" bean="#{subscriptionWizardConversation}"
-        showPayment="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}"
-        service="#{subscriptionWizardConversation.model.service}">
-        <a4j:outputPanel layout="block" styleClass="col5span clearfix">
-          <h:form id="confirmForm">
-            <c:if test="true">
-              <adm:keepDirty value="#{subscriptionWizardConversation.model.dirty}" />
-            </c:if>
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-md-11 col-sm-12">
+        <c:if test="true">
+          <adm:keepDirty value="#{subscriptionWizardConversation.model.dirty}"/>
+        </c:if>
 
-            <mp:pixelline />
+        <!--      <mp:subscriptionProcess active="confirmation" bean="#{subscriptionWizardConversation}"-->
+        <!--        showPayment="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}"-->
+        <!--        service="#{subscriptionWizardConversation.model.service}">-->
+        <!--      </mp:subscriptionProcess>-->
+        <div class="bg-light mb-4 p-2">
+          <mp:serviceBlockBootstrap service="#{subscriptionWizardConversation.model.service}"/>
+          <mp:subscriptionProcessConfirmDetails/>
+          <mp:subscriptionProcessConfirmBilling/>
+          <mp:subscriptionProcessConfirmLicense/>
+
+
+          <div class="row justify-content-between no-gutters border-top border-bottom mt-2">
             <mp:button id="previous" value="#{msg['button.previous']}" bean="#{subscriptionWizardConversation}"
-              action="previousFromConfirmPage" keepDirty="true" immediate="true" />
+                       action="previousFromConfirmPage" keepDirty="true" immediate="true"/>
 
             <mp:button id="confirm" value="#{msg['button.confirm']}" bean="#{subscriptionWizardConversation}"
-              action="subscribe" style="float: right;" big="true" />
-          </h:form>
-        </a4j:outputPanel>
-      </mp:subscriptionProcess>
-    <mp:subscriptionProcessConfirmDetails/>
-    <mp:subscriptionProcessConfirmBilling/>
-    <mp:subscriptionProcessConfirmLicense/>
+                       action="subscribe" style="float: right;" big="true"/>
+          </div>
+        </div>
 
+      </div>
     </div>
+
   </ui:define>
 </ui:composition>
