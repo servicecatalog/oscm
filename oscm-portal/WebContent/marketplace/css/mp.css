@@ -727,7 +727,7 @@ input#Search:focus, #subListForm\:search:focus {
   margin: 2rem 2.5rem 1.5rem 0rem;
 }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 3.5 Header Navigation
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
@@ -3476,7 +3476,7 @@ div.pagenate div.pagingBar .previous {
   margin-left: 0;
 }
 
-/* align footer to page bottom by minimal distance to start of content panel 
+/* align footer to page bottom by minimal distance to start of content panel
    (Note: We set it to page bottom, not to screen bottom. We don't want sticky footers as they reduce the visible content area)
 */
 #contentPanelDiv {
