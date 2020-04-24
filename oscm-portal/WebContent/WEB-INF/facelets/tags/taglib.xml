@@ -234,10 +234,6 @@
     <tag-name>labelAndUnitSelectBootstrap</tag-name>
     <source>labelAndUnitSelectBootstrap.xhtml</source>
   </tag>
-  <tag>
-    <tag-name>hintBootstrap</tag-name>
-    <source>hintBootstrap.xhtml</source>
-  </tag>
 
   <function>
     <function-name>matchBegin</function-name>
