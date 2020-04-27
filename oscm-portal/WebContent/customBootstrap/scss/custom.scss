@@ -1,9 +1,4 @@
 /* import only the necessary Bootstrap files */
-<<<<<<< Upstream, based on origin/master
-@import "../bootstrap/scss/functions"; 
-@import "../bootstrap/scss/variables";
-/* -------begin customization-------- *//* change the primary theme color to red */
-=======
 @import "../../bootstrap/scss/functions"; 
 @import "../../bootstrap/scss/variables";
 
@@ -17,7 +12,6 @@ $body-bg: #1A1B1D;
 $body-color: #111;
 $link-color: $green;
 
->>>>>>> f15f398 Fixes #740 - added styles for the nav-links, body background color.
 $theme-colors: (
   "primary": $green,
   "secondary": $green
@@ -51,4 +45,4 @@ $navbar-light-disabled-color: #d1e0e0;
 
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
-@import "../bootstrap/scss/bootstrap"; 
+@import "../../bootstrap/scss/bootstrap"; 
