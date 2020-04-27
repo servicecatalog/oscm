@@ -7,7 +7,7 @@
 
   <mp:outputStepBootstrap value="#{msg['marketplace.subscription.configuration.nameAndReference']}"/>
 
-  <adm:panelGrid styleClasses="table-responsive" columnClasses="col-auto px-1 text-left,col-sm-6 px-1,col-auto px-1">
+  <adm:panelGrid styleClasses="table-responsive" columnClasses="col-auto p-1 text-left,col-sm-6 p-1,col-auto p-1">
     <adm:labelAndInputText id="subscriptionIdText" label="#{msg['subscription.subscriptionId']}" styleClass="w-100"
                            required="true" backingBean="#{subscriptionWizardConversation}"
                            value="#{subscriptionWizardConversation.model.subscription.subscriptionId}"
@@ -19,7 +19,7 @@
     <adm:labelAndUnitSelectBootstrap id="organizationalUnitSelect" label="#{msg['unit.organizationalUnit']}"
                                      value="#{subscriptionWizardConversation.subscriptionUnitCtrl.model.selectedUnitName}"
                                      showHint="true" disabled="#{not userBean.isOrganizationAdmin and not userBean.isUnitAdmin}"
-                                     buttonStyle="btn-sm btn-secondary"/>
+                                     buttonStyle="btn-sm btn-secondary text-white"/>
   </adm:panelGrid>
 
 

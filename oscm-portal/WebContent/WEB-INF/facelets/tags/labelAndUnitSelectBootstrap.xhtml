@@ -17,15 +17,15 @@
     </a4j:outputPanel>
     <div class="col-auto">
       <c:if test="#{not disabled}">
-        <a4j:commandButton styleClass="#{buttonStyle}" id="selectOrgUnitBtn" immediate="true" role="button"
+        <a4j:commandLink styleClass="#{buttonStyle}" id="selectOrgUnitBtn" immediate="true" role="button"
                            render="organizationUnitPanel organizationUnitPanelForm" value="#{msg['button.select']}"
                            action="#{subscriptionWizardConversation.subscriptionUnitCtrl.initializeUnitListForModifySubscription}"
                            oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('organizationUnitPanel').show();">
-        </a4j:commandButton>
+        </a4j:commandLink>
       </c:if>
       <c:if test="#{disabled}">
-        <a4j:commandButton styleClass="#{buttonStyle} disabled" id="selectOrgUnitBtnDisabled" value="#{msg['button.select']}">
-        </a4j:commandButton>
+        <a4j:commandLink styleClass="#{buttonStyle} disabled" id="selectOrgUnitBtnDisabled" value="#{msg['button.select']}">
+        </a4j:commandLink>
       </c:if>
     </div>
   </a4j:outputPanel>
