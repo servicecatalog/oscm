@@ -1,0 +1,85 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+  <c:if test="#{empty wrapperStyleClass}">
+    <c:set var="wrapperStyleClass" value="buttonWrapper" />
+  </c:if>
+  <c:if test="#{empty immediate}">
+    <c:set var="immediate" value="false" />
+  </c:if>
+  <c:if test="#{empty keepDirty}">
+    <c:set var="keepDirty" value="false" />
+  </c:if>
+  <c:choose>
+    <c:when test="#{keepDirty}">
+      <c:set var="keepDirtyScript" value="#{rich:element('dirty')}.value=getDirty();" />
+    </c:when>
+  </c:choose>
+  <c:if test="#{empty clearDirty}">
+    <c:set var="clearDirty" value="false" />
+  </c:if>
+  <c:choose>
+    <c:when test="#{clearDirty}">
+      <c:set var="clearDirtyScript" value="#{rich:element('dirty')}.value='false';" />
+    </c:when>
+  </c:choose>
+  <c:if test="#{empty progress}">
+    <c:set var="progress" value="true" />
+  </c:if>
+
+  <c:if test="#{empty rendered or rendered}">
+    <c:if test="#{disabled}">
+      <h:outputLink styleClass="#{styleClass}" id="#{id}" value="#" onclick="return false;" disabled="true">
+        #{value}
+      </h:outputLink>
+    </c:if>
+    <c:if test="#{not disabled}">
+      <c:if test="#{empty onclick}">
+        <c:choose>
+          <c:when test="#{empty render and empty oncomplete}">
+            <h:commandButton style="display:none;" id="#{id}" value="#{value}"
+                             action="#{bean[action]}" immediate="#{immediate}">
+              <ui:insert />
+            </h:commandButton>
+          </c:when>
+
+          <c:when test="#{empty render and not empty oncomplete}">
+            <a4j:commandButton style="display:none;" id="#{id}" value="#{value}" action="#{bean[action]}"
+                               oncomplete="#{oncomplete}" immediate="#{immediate}">
+              <ui:insert />
+            </a4j:commandButton>
+          </c:when>
+
+          <c:when test="#{not empty render and not empty oncomplete}">
+            <a4j:commandButton style="display:none;" id="#{id}" value="#{value}" action="#{bean[action]}"
+                               render="#{render}" oncomplete="#{oncomplete}" immediate="#{immediate}">
+              <ui:insert />
+            </a4j:commandButton>
+          </c:when>
+
+          <c:otherwise>
+            <a4j:commandButton style="display:none;" id="#{id}" value="#{value}" action="#{bean[action]}"
+                               render="#{render}" immediate="#{immediate}">
+              <ui:insert />
+            </a4j:commandButton>
+          </c:otherwise>
+        </c:choose>
+
+        <button class="#{styleClass}" id="#{id}Link"
+                      onclick="#{keepDirtyScript}#{clearDirtyScript}setOnSubmit(true);setDirty(false);AdmUtils.showProgress(#{progress});#{rich:element(id)}.click();setOnSubmit(false);return false;">
+          #{value}
+        </button>
+      </c:if>
+
+      <c:if test="#{not empty onclick}">
+        <button class="#{styleClass}" id="#{id}" value="#"
+                      onclick="#{keepDirtyScript}#{clearDirtyScript}#{onclick}">
+          #{value}
+        </button>
+      </c:if>
+    </c:if>
+  </c:if>
+</ui:composition>

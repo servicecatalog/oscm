@@ -230,6 +230,10 @@
     <tag-name>bootsfacesLabelAndSelect</tag-name>
     <source>bootsfacesLabelAndSelect.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>labelAndUnitSelectBootstrap</tag-name>
+    <source>labelAndUnitSelectBootstrap.xhtml</source>
+  </tag>
 
   <function>
     <function-name>matchBegin</function-name>
