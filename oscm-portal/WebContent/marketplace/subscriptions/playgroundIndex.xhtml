@@ -16,7 +16,7 @@
  </ui:define>
 
  <ui:define name="contentstitle">
-  <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
+  <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix text-left">
    <h:outputText value="#{msg['marketplace.subscriptions.title']}"/>
   </a4j:outputPanel>
  </ui:define>
@@ -61,7 +61,7 @@
        </td>
        <td>
         <div class="row">
-         <div class="col-5  ml-5" style="border-right: 3px solid grey; text-align: left;">
+         <div class="col-5" style="border-right: 3px solid grey; text-align: left;">
           <img
             src="/oscm-portal/image?type=SERVICE_IMAGE&amp;serviceKey=#{sub.serviceKey}"
             alt="editSubImage#{sub.subscriptionId}"/>
@@ -94,7 +94,7 @@
          </div>
         </div>
         <div class="row">
-         <div class="col-5 ml-5" style="border-right: 3px solid grey;"></div>
+         <div class="col-5" style="border-right: 3px solid grey;"></div>
          <div class="col-md-7" style="text-align: left;">
           <p>#{sub.serviceAccessInfo}</p>
          </div>
