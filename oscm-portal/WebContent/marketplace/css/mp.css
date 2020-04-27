@@ -169,7 +169,7 @@ body {
   font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif !important;
   margin: 0px;
   position: relative;
-  text-align: center;
+  text-align: left;
   line-height: 1.4;
   background: #EEE;
 }
@@ -3005,22 +3005,43 @@ div.pagingOptions li a {
   .smallDisplay {
     display: inline-block;
   }
+  
+  .btn {
+    padding: .375rem .2rem;
+  }
 }
 
-#listInfoUp, #listInfoDown {
-  font-size: 1rem;
-  padding: .375rem .75rem;
-  line-height: 1.5rem;
-}
+
 
 @media ( min-width : 767px) {
   .bigDisplay {
     display: inline-block;
   }
+  
   .smallDisplay {
     display: none;
   }
+  
+  .fa-arrow-left {  
+    margin-right:0.2rem;
+  }
 }
+
+.pagingPanel {
+  margin-left: 0px;
+  margin-bottom: 5px;
+}
+
+.pagerListInfo {
+  font-size: 1rem;
+  padding: .375rem .75rem;
+  line-height: 1.5rem;
+}
+
+.pagingNofServices {
+    margin-right:0.1rem;  
+}
+
 
 /* chosen selector button */
 ul.pagingElement li strong.current, div.pagingOptions li strong.current {
@@ -4182,6 +4203,10 @@ div#headerrightareaBootstrap, rightarea a {
   vertical-align: bottom !important;
 }
 
+.navbar-nav {
+  text-align: left;
+}
+
 .navbar-nav li {
   margin: 0 !important;
 }
@@ -4208,6 +4233,16 @@ div#headerrightareaBootstrap, rightarea a {
 
 .navbar-brand img {
   vertical-align: baseline;
+}
+
+.inputSearch {
+  width:90%;
+}
+
+@media ( max-width : 768px) {
+  .navbar {
+    padding: 0rem;
+  }
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
@@ -4264,7 +4299,7 @@ div#headerrightareaBootstrap, rightarea a {
   padding-left: 15px;
   padding-right: 15px;
   margin-right: 5px;
-  margin-left: 5px;
+  margin-left: 0px;
 }
 
 @media ( max-width : 767px) {
@@ -4273,6 +4308,7 @@ div#headerrightareaBootstrap, rightarea a {
     padding-left: 0.4em;
     padding-right: 0.4em;
   }
+  
 }
 
 @media ( min-width : 767px) {
