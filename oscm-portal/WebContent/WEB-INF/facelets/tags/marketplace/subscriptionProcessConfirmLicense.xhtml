@@ -1,20 +1,16 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
-  <div class="text-left">
-    <h2>
-      #{msg['subscription.confirm.terms.title']}
-      <h:outputText id="agreeRequired" value=" *" styleClass="mandatory" style="display:inline" />
-    </h2>
-  </div>
+  <mp:outputStepBootstrap value="#{msg['subscription.confirm.terms.title']}" required="true"/>
   <div class="row" >
-    <div class="col-auto">
+    <div class="col-auto ">
       <h:selectBooleanCheckbox id="agreeCheckbox" value="#{subscriptionWizardConversation.model.agreed}"
                                validator="#{booleanValidator.validateTrue}" required="true"
                                requiredMessage="#{msg['error.subscription.license']}" />
-      <h:outputText id="licenseAcceptStart" value="#{msg['subscription.add.license.acceptStart']}" />
+      <h:outputText id="licenseAcceptStart" value=" #{msg['subscription.add.license.acceptStart']}" />
       <mp:serviceLicense linkText="#{msg['subscription.add.license']}"
                          service="#{subscriptionWizardConversation.model.service.VO}" />
       <h:outputText id="pmAccept" value=" #{msg['subscription.add.priceModel.accept']}"
