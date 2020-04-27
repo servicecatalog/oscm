@@ -41,7 +41,7 @@
      </thead>
      <tbody>
      <c:forEach items="#{mySubscriptionsCtrl.model.getSubscriptions()}" var="sub">
-      <tr>
+      <tr class="text-left">
        <td class="text-center"><img
          src="/oscm-portal/image?type=SERVICE_IMAGE&amp;serviceKey=#{sub.serviceKey}"
          alt="editSubImage#{sub.subscriptionId}" width="30"/></td>
