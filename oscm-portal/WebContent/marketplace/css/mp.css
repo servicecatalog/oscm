@@ -196,7 +196,7 @@ textarea{resize: vertical;}
 a{ text-decoration: none; }
 a:hover{ text-decoration: underline; }
 a:link { color: #456; }
-a:visited { color: cyan; }
+a:visited { color: #456; }
 a:active { color: #CCC; }
  
 h1,h2,h3,h4,h5,h6{
