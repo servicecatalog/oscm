@@ -19,7 +19,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
-import org.apache.commons.lang3.StringUtils;
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.subscriptions.OperationModel;
 import org.oscm.internal.subscriptions.POSubscription;
@@ -185,6 +184,21 @@ public class MySubscriptionsLazyDataModel extends RichLazyDataModel<POSubscripti
 
     public List<POSubscription> getMySubscriptions() {
         return getCachedList();
+    }
+
+    public List<POSubscription> getSubscriptions() {
+        try {
+            Response response = subscriptionsService.getMySubscriptions();
+            resultList = response.getResultList(POSubscription.class);
+            for (POSubscription subscription : resultList) {
+                subscription.setAccessUrl(getAccessUrl(subscription));
+                subscription.setTarget(isOpenNewTab(subscription) ? "_blank" : "");
+            }
+            refreshSelectedSubscription();
+        } catch (Exception e) {
+            logger.logError(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR);
+        }
+        return resultList;
     }
 
     public String getPURCHASE_ORDER_NUMBER() {
