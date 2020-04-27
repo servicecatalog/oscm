@@ -2006,13 +2006,11 @@ table.smallPanel {
 /* show for subscription active/ready */
 .subscriptionActive, .serverSubscriptionActive{
 	background: transparent url(../img/mp_icon_sprite.png) no-repeat  0 -655px;
-	color:#999;
 }
 
 /* show for subscription suspended/pending/waiting_for_approval/pending_update */
 .subscriptionPending, .serverSubscriptionSuspended, .subscriptionWaitingForApproval, .subscriptionPendingUpd{
 	background: transparent url(../img/mp_icon_sprite.png) no-repeat scroll 0 -731px;
-	color:#999;
 }
 
 .provisioningProgress{
