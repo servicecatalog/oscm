@@ -27,7 +27,7 @@
    <mp:outputStep id="pageHeader" value="#{msg['subscriptions.table.availableForUsage']}"/>
    <h:link fragment="anchor" styleClass="invisible-jumper"/>
    <h:form id="subListForm">
-    <table id="table" class="table table-striped table-hover table-bordered nowrap" style="width:100%">
+    <table id="table" class="table table-striped table-hover table-bordered" style="width:100%">
      <thead>
      <tr class="text-center">
       <th id="columnHeaderImage" class="all" style="width: 50px"/>
@@ -45,17 +45,17 @@
        <td class="text-center"><img
          src="/oscm-portal/image?type=SERVICE_IMAGE&amp;serviceKey=#{sub.serviceKey}"
          alt="editSubImage#{sub.subscriptionId}" width="30"/></td>
-       <td class="text-center">#{sub.subscriptionId}</td>
-       <td class="text-center">#{sub.purchaseOrderNumber}</td>
-       <td class="text-center">#{sub.serviceName}</td>
-       <td class="text-center">
+       <td>#{sub.subscriptionId}</td>
+       <td>#{sub.purchaseOrderNumber}</td>
+       <td>#{sub.serviceName}</td>
+       <td>
         <h:outputText value="#{sub.activationDate}">
          <f:convertDateTime pattern="#{msg[appBean.dateInputPattern]}"
                             timeZone="#{appBean.timeZoneId}"/>
         </h:outputText>
        </td>
-       <td class="text-center">
-        <ui:include src="playgroundStatus.xhtml">
+       <td>
+        <ui:include src="status.xhtml">
          <ui:param name="subscription" value="#{sub}"/>
         </ui:include>
        </td>
@@ -109,7 +109,7 @@
          alt="editSubImage#{sub.subscriptionId}" width="30"/></td>
        <td>#{sub.serviceKey}</td>
        <td>
-        <ui:include src="playgroundStatus.xhtml">
+        <ui:include src="status.xhtml">
          <ui:param name="subscription" value="#{sub}"/>
         </ui:include>
        </td>
@@ -149,7 +149,13 @@
   color: black;
  }
  a.visited {
- color: #F0FFFF;
+ color: #F0FFFF !important;
+ }
+ table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td:first-child:before {
+  background-color: darkslategray;
+ }
+ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before {
+  background-color: slategrey;
  }
 }
 </style>
