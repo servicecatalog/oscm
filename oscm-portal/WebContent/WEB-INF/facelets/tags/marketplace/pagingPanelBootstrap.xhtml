@@ -16,7 +16,7 @@
 
       <!--  Number of services and filter tag info -->
 
-      <div class="row my-3 align-items-left">
+      <div class="row my-2 align-items-left">
         <span id="listInfo#{prefix}" class="pagerListInfo label"> <h:outputFormat styleClass="bigDisplay"
             value="#{msg['catalog.selectedTag.pageInfo']}" escape="true">
             <f:param value="#{servicePagingBean.firstOnPage}" />
@@ -33,7 +33,7 @@
       </div>
 
       <!-- Select page container -->
-      <div class="row my-3">
+      <div class="row my-2">
         <!--  Previous button -->
         <div class="col-auto px-1">
           <c:if test="#{servicePagingBean.previousAvailable}">
@@ -61,7 +61,8 @@
             </c:if>
             <!-- Other pages -->
             <c:if test="#{selpage ne servicePagingBean.selectedPage}">
-              <h:outputLink id="link#{prefix}Page#{selpage}" value="" class="pagerListInfo btn btn-secondary text-white px-1"
+              <h:outputLink id="link#{prefix}Page#{selpage}" value=""
+                class="pagerListInfo btn btn-secondary text-white px-1"
                 onclick="#{rich:element('selectPage')}.value='#{selpage}';#{rich:element('selectPagingButton')}.click();return false;">
                       #{selpage}
                     </h:outputLink>
@@ -101,13 +102,14 @@
           <div class="col-auto pl-0">
             <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
               <c:if test="#{size eq servicePagingBean.pageSize}">
-                <h:outputLink styleClass="pagingNofServices btn btn-outline-secondary disabled px-1" id="pagingSize#{prefix}#{size}"
-                  value="">
+                <h:outputLink styleClass="pagingNofServices btn btn-outline-secondary disabled px-1"
+                  id="pagingSize#{prefix}#{size}" value="">
                     #{size}
                   </h:outputLink>
               </c:if>
               <c:if test="#{size ne servicePagingBean.pageSize}">
-                <h:outputLink styleClass="pagingNofServices btn btn-secondary text-white px-1" id="pagingSize#{prefix}#{size}" value=""
+                <h:outputLink styleClass="pagingNofServices btn btn-secondary text-white px-1"
+                  id="pagingSize#{prefix}#{size}" value=""
                   onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
                     #{size}
                   </h:outputLink>
@@ -118,54 +120,50 @@
       </div>
 
 
-        <!-- Sorting select menu -->
-        <nav class="navbar navbar-expand-lg bg-light">
-          <div class="col-auto my-1">
-            <ul class="nav navbar-nav ml-auto">
-              <li class="nav-item dropdown "><a class="nav-link  dropdown-toggle waves-effect waves-light" href="#"
-                id="navbarSortToggle#{prefix}" data-toggle="dropdown" data-target="#sortDrop#{prefix}">
-                <h:outputText value="Sorting" styleClass="bigDisplay"/></a>
+      <!-- Sorting select menu -->
+      <nav class="navbar navbar-expand-lg bg-light serviceSorting">
+        <div class="col-auto my-1">
+          <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item dropdown "><a class="nav-link  dropdown-toggle waves-effect waves-light" href="#"
+              id="navbarSortToggle#{prefix}" data-toggle="dropdown" data-target="#sortDrop#{prefix}"> <h:outputText
+                  value="Sorting" styleClass="bigDisplay" /></a>
 
-                <div id="sortDrop#{prefix}" class="dropdown-menu dropdown-menu-right">
-                  <p class="px-4 py-sm-2">
-                    <strong><br>#{msg['catalog.sortorder.'.concat(servicePagingBean.sorting)]}</br></strong>
-                  </p>
-                  <div class="dropdown-divider"></div>
-                  <h:form>
-                    <h:commandLink styleClass="dropdown-item"
-                      onclick="AdmUtils.submitSelectedValue('ACTIVATION_DESCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
-                      value="#{msg['catalog.sortorder.ACTIVATION_DESCENDING']}" />
+              <div id="sortDrop#{prefix}" class="dropdown-menu dropdown-menu-right">
+                <p class="px-4 py-sm-2">
+                  <strong><br>#{msg['catalog.sortorder.'.concat(servicePagingBean.sorting)]}</br></strong>
+                </p>
+                <div class="dropdown-divider"></div>
+                <h:form>
+                  <h:commandLink styleClass="dropdown-item"
+                    onclick="AdmUtils.submitSelectedValue('ACTIVATION_ASCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
+                    value="#{msg['catalog.sortorder.ACTIVATION_ASCENDING']}" />
+                  
+                  <h:commandLink styleClass="dropdown-item"
+                    onclick="AdmUtils.submitSelectedValue('ACTIVATION_DESCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
+                    value="#{msg['catalog.sortorder.ACTIVATION_DESCENDING']}" />
 
-                    <h:commandLink styleClass="dropdown-item"
-                      onclick="AdmUtils.submitSelectedValue('ACTIVATION_ASCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
-                      value="#{msg['catalog.sortorder.ACTIVATION_ASCENDING']}" />
+                  <h:commandLink styleClass="dropdown-item"
+                    onclick="AdmUtils.submitSelectedValue('NAME_ASCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
+                    value="#{msg['catalog.sortorder.NAME_ASCENDING']}" />
 
+                  <h:commandLink styleClass="dropdown-item"
+                    onclick="AdmUtils.submitSelectedValue('NAME_DESCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
+                    value="#{msg['catalog.sortorder.NAME_DESCENDING']}" />
 
-                    <h:commandLink styleClass="dropdown-item"
-                      onclick="AdmUtils.submitSelectedValue('NAME_ASCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
-                      value="#{msg['catalog.sortorder.NAME_ASCENDING']}" />
+                  <h:commandLink styleClass="dropdown-item"
+                    onclick="AdmUtils.submitSelectedValue('RATING_ASCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
+                    value="#{msg['catalog.sortorder.RATING_ASCENDING']}" />
 
-                    <h:commandLink styleClass="dropdown-item"
-                      onclick="AdmUtils.submitSelectedValue('NAME_DESCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
-                      value="#{msg['catalog.sortorder.NAME_DESCENDING']}" />
+                  <h:commandLink styleClass="dropdown-item"
+                    onclick="AdmUtils.submitSelectedValue('RATING_DESCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
+                    value="#{msg['catalog.sortorder.RATING_DESCENDING']}" />
+                </h:form>
+                <div class="dropdown-divider"></div>
 
-                    <h:commandLink styleClass="dropdown-item"
-                      onclick="AdmUtils.submitSelectedValue('RATING_ASCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
-                      value="#{msg['catalog.sortorder.RATING_ASCENDING']}" />
-
-                    <h:commandLink styleClass="dropdown-item"
-                      onclick="AdmUtils.submitSelectedValue('RATING_DESCENDING', 'showListForm', 'sortingOrder', 'listButton');return false;"
-                      value="#{msg['catalog.sortorder.RATING_DESCENDING']}" />
-                  </h:form>
-                  <div class="dropdown-divider"></div>
-
-                </div></li>
-            </ul>
-            </div>
-        </nav>
-      
-
-
+              </div></li>
+          </ul>
+        </div>
+      </nav>
     </div>
   </div>
 

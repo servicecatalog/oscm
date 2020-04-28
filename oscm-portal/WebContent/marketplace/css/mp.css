@@ -3002,6 +3002,7 @@ div.pagingOptions li a {
   .bigDisplay {
     display: none;
   }
+  
   .smallDisplay {
     display: inline-block;
   }
@@ -3011,8 +3012,6 @@ div.pagingOptions li a {
   }
 }
 
-
-
 @media ( min-width : 767px) {
   .bigDisplay {
     display: inline-block;
@@ -3020,11 +3019,7 @@ div.pagingOptions li a {
   
   .smallDisplay {
     display: none;
-  }
-  
-  .fa-arrow-left {  
-    margin-right:0.2rem;
-  }
+  }    
 }
 
 .pagingPanel {
@@ -3038,10 +3033,17 @@ div.pagingOptions li a {
   line-height: 1.5rem;
 }
 
+.serviceSorting {
+  padding: 0rem;  
+}
+
 .pagingNofServices {
     margin-right:0.1rem;  
 }
 
+ .fa-arrow-left {
+    margin-right: 0.2rem;
+ }
 
 /* chosen selector button */
 ul.pagingElement li strong.current, div.pagingOptions li strong.current {
@@ -4236,7 +4238,7 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 .inputSearch {
-  width:90%;
+  width: 90%;
 }
 
 @media ( max-width : 768px) {
@@ -4308,7 +4310,6 @@ div#headerrightareaBootstrap, rightarea a {
     padding-left: 0.4em;
     padding-right: 0.4em;
   }
-  
 }
 
 @media ( min-width : 767px) {
