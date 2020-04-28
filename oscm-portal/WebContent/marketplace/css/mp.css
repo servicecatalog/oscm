@@ -3006,13 +3006,9 @@ div.pagingOptions li a {
   .smallDisplay {
     display: inline-block;
   }
-  
-  .btn {
-    padding: .375rem .2rem;
-  }
 }
 
-@media ( min-width : 767px) {
+@media ( min-width : 768px) {
   .bigDisplay {
     display: inline-block;
   }
@@ -4241,7 +4237,7 @@ div#headerrightareaBootstrap, rightarea a {
   width: 90%;
 }
 
-@media ( max-width : 768px) {
+@media ( max-width : 767px) {
   .navbar {
     padding: 0rem;
   }
@@ -4256,7 +4252,7 @@ div#headerrightareaBootstrap, rightarea a {
   }
 }
 
-@media ( max-width : 768px) {
+@media ( max-width : 767px) {
   .aside {
     float: none;
   }
@@ -4312,7 +4308,7 @@ div#headerrightareaBootstrap, rightarea a {
   }
 }
 
-@media ( min-width : 767px) {
+@media ( min-width : 768px) {
   /* CSS goes here */
   .container-fluid {
     padding-left: 3em;
