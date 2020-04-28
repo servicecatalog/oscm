@@ -43,12 +43,12 @@
                 <h:inputHidden value="all_www" name="restrict" />
                 <h:inputHidden id="searchPhrase" value="#{servicePagingBean.searchPhrase}" />
                 <c:if test="#{empty servicePagingBean.searchPhrase}">
-                  <input class="form-control mr-sm-2" id="inputSearch" placeholder="#{msg['marketplace.search']}" size="30"
+                  <input class="form-control mr-sm-2 inputSearch" id="inputSearch" placeholder="#{msg['marketplace.search']}" size="30"
                     maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
                     onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" onfocus="this.value = '';" />
                 </c:if>
                 <c:if test="#{not empty servicePagingBean.searchPhrase}">
-                  <input class="form-control mr-sm-2" id="inputSearch" value="#{servicePagingBean.searchPhrase}"
+                  <input class="form-control mr-sm-2 inputSearch" id="inputSearch" value="#{servicePagingBean.searchPhrase}"
                     placeholder="#{msg['marketplace.search']}" size="30"
                     maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
                     onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" />
