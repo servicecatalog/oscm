@@ -129,34 +129,6 @@
   </a4j:outputPanel>
   <mp:linkPageTop/>
 
-<style media="all" type="text/css">
- ul {
-  width: 100% !important;
- }
- table.dataTable thead tr {
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
- }
- table.dataTable tbody tr:hover{
-  background: rgba(0, 0, 0, 0.5) !important;
-  color: white;
- }
- table.dataTable tbody tr:nth-of-type(even){
-  background: rgba(0, 0, 0, 0.2);
- }
- table.dataTable.dtr-inline.collapsed>tbody>tr>td.child {
-  background: white;
-  color: black;
- }
- a:visited {
- color: #F0FFFF !important;
- }
- table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before {
-  background-color: darkslategray !important;
- }
-}
-</style>
-
 <script type="text/javascript">
 $(document).ready(function() {
  $('#table').DataTable({
@@ -174,6 +146,7 @@ $(document).ready(function() {
 
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+  <link href="#{facesContext.externalContext.requestContextPath}/css/dataTableDarkStyle.css" rel="stylesheet" type="text/css" media="all" />
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"/>
  </ui:define>

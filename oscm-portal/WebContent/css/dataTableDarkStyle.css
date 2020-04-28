@@ -1,0 +1,25 @@
+ ul {
+  width: 100% !important;
+ }
+ table.dataTable thead tr {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+ }
+ table.dataTable tbody tr:hover{
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: white;
+ }
+ table.dataTable tbody tr:nth-of-type(even){
+  background: rgba(0, 0, 0, 0.2);
+ }
+ table.dataTable.dtr-inline.collapsed>tbody>tr>td.child {
+  background: white;
+  color: black;
+ }
+ a:visited {
+ color: #F0FFFF !important;
+ }
+ table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before {
+  background-color: darkslategray !important;
+ }
+}
