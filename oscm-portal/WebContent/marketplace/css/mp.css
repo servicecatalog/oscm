@@ -3000,13 +3000,9 @@ div.pagingOptions li a {
   .bigDisplay {
     display: none;
   }
-
+  
   .smallDisplay {
     display: inline-block;
-  }
-  
-  .btn {
-    padding: .375rem .2rem;
   }
 }
 
@@ -3018,8 +3014,8 @@ div.pagingOptions li a {
   .smallDisplay {
     display: none;
   }
-  
-  .fa-arrow-left {  
+
+  .fa-arrow-left {
     margin-right:0.2rem;
   }
 }
