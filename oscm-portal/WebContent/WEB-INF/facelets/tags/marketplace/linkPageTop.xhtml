@@ -11,11 +11,11 @@
   
   <a4j:outputPanel layout="block" styleClass="scrolltop">
     <p>
-      <h:outputLink id="linkBrowseAll" value="#" rendered="#{showBrowseAll}"
+      <h:outputLink class="text-primary" id="linkBrowseAll" value="#" rendered="#{showBrowseAll}"
         onclick="if(#{isMplRestricted and empty userBean.loggedInUser and userBean.internalAuthMode}){showLoginPanel('/marketplace/services.jsf');return false;} #{rich:element('tagFilterValue')}.value=''; #{rich:element('applyTagFilter')}.click(); return false;">
         <h:outputText value="#{msg['button.browseAll']}" />
       </h:outputLink>
-      <h:outputLink id="linkPageTop" value="#top">
+      <h:outputLink id="linkPageTop" class="text-primary" value="#top">
         <h:outputText value="#{msg['navigation.pageTop']}" />
       </h:outputLink>
     </p>

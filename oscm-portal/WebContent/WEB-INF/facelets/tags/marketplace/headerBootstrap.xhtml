@@ -7,16 +7,27 @@
 
   </c:if>
   
+
+   <link href="${facesContext.externalContext.requestContextPath}/customBootstrap/css/dark-mode.css" rel="stylesheet"
+    type="text/css" /> 
+    
+    <script src="${facesContext.externalContext.requestContextPath}/customBootstrap/css/dark-mode-switch.min.js" type="text/javascript"></script>
+  
+  <div class="custom-control custom-switch">
+    <h:inputText type="checkbox" class="custom-control-input" id="darkSwitch" />
+    <h:outputLabel class="custom-control-label" for="darkSwitch">Dark Mode</h:outputLabel>
+  </div>
+  
   <c:set var="logoimg" value="#{sessionBean.marketplaceBrandBaseUrl}/img/mp_logo3.png"/>
 
-  <nav class="px-1 navbar navbar-expand-lg bg-dark fixed-top navbar-dark">
+  <nav class="px-1 navbar navbar-expand-lg">
     <div class="container-fluid h6 m-0 px-3">
       <div class="no-gutters row align-items-center">
-        <a class="navbar-brand" href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="${logoimg}"
+        <a class="navbar-brand text-primary" href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="${logoimg}"
             alt="My Logo" />
         </a>
 
-        <button id="navbarToggleButton" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <button id="navbarToggleButton" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
@@ -82,7 +93,7 @@
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
                   <h:form id="formLogin">
-                    <h:outputLink id="loginLink" class="nav-link">
+                    <h:outputLink id="loginLink" class="nav-link text-primary">
                         <h:outputText value=" #{msg['login']}" /><i class="fa fa-fw fa-sign-in"/>
                     	<f:param name="login" value="oidc" />
                     </h:outputLink>
@@ -94,7 +105,7 @@
              <ui:fragment rendered="#{user ne null}">
               <li class="nav-item dropdown"><a class="nav-link dropdown-toggle waves-effect waves-light" href="#" id="navbarUserToggle"
                 data-toggle="dropdown" data-target="#userDrop"><i class="fa fa-user"/>
-                <h:outputText id="welcome"/> #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
+                <h:outputText id="welcome" class=" text-primary"/> #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
                 <div id="userDrop" class="dropdown-menu dropdown-menu-right">
                     <p class="px-4 py-sm-2"> #{msg['marketplace.logging']} <strong><br>#{user.userId}</br></strong></p>
                     <div class="dropdown-divider"></div>

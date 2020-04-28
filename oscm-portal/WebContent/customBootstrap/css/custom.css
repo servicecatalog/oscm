@@ -6,6 +6,9 @@
 .navbar {
   width: 100%;
   background: none !important; }
+  @media (max-width: 34em) {
+    .navbar {
+      background: blue !important; } }
   .navbar .navbar-toggler {
     cursor: pointer;
     outline: 0; }
@@ -14,6 +17,13 @@
     font-weight: bold; }
   .navbar .nav-item {
     padding: 0 1rem; }
+  @media (max-width: 34em) {
+    .navbar {
+      padding: 0; } }
+  @media (max-width: 34em) {
+    .navbar .nav-link {
+      font-weight: normal;
+      color: #fff !important; } }
 
 /* -------end customization-------- */
 /* finally, import Bootstrap to set the changes! */

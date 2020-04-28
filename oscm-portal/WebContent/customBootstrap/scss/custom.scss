@@ -11,6 +11,7 @@ $headings-font-family: Comfortaa;
 $body-bg: #1A1B1D;
 $body-color: #111;
 $link-color: $green;
+$brand-primary: $green;
 
 $theme-colors: (
   "primary": $green,
@@ -19,6 +20,15 @@ $theme-colors: (
 
 $border-radius: 10rem;
 
+/* $spacer */
+$main-color: #1a8c97;
+
+$navbar-default-bg: $main-color;
+
+$navbar-default-hover-color:  $main-color;
+$navbar-default-active-color:  $main-color;
+
+$navbar-height: 70px;
 
 $navbar-light-hover-color: $green;
 $navbar-light-color: #00ffcc;
@@ -28,6 +38,9 @@ $navbar-light-disabled-color: #d1e0e0;
 	width: 100%;
 	background: none !important;
 	
+	@media(max-width:34em) {
+	   background: blue !important;
+	}
 	.navbar-toggler {
 	cursor:pointer;
 	outline: 0;
@@ -41,6 +54,24 @@ $navbar-light-disabled-color: #d1e0e0;
     .nav-item {
        padding: 0 1rem;
     }
+    
+    @media(max-width:34em) {
+       padding: 0;
+    }
+    
+    .nav-link {
+        @media(max-width:34em) {
+          font-weight: normal;
+          color: #fff !important;
+        }
+    
+    }
+    
+}
+
+h1 {
+	font-weight: bold;
+	font-size: 3.5em;
 }
 
 
