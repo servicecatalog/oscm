@@ -59,5 +59,8 @@ public class MarketplacePlaygroundSubscriptionWT {
         tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE);
         tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_CONFIRM);
         assertTrue(tester.getExecutionResult());
+
+// FIXME Remove when new marketplace subscription page is finished
+        tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
     }
 }
