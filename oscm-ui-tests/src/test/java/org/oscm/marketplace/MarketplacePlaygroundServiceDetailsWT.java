@@ -14,6 +14,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.*;
 import org.junit.rules.TestWatcher;
+import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.oscm.portal.JUnitHelper;
@@ -22,6 +23,7 @@ import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.MarketplacePathSegments;
 import org.oscm.webtest.PortalTester;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplacePlaygroundServiceDetailsWT {
 
   private static PortalTester tester;
@@ -31,8 +33,8 @@ public class MarketplacePlaygroundServiceDetailsWT {
   @BeforeClass
   public static void setup() throws Exception {
     tester = new PortalTester();
-    String userid = PlaygroundSuiteTest.supplierOrgAdminId;
-    String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
+    String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
+    String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
     tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
@@ -59,14 +61,13 @@ public class MarketplacePlaygroundServiceDetailsWT {
 
   @Test
   public void test02_deleteReview() {
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SHOW_SERVICE_DETAILS_BUTTON);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_WRITE_REVIEW_BUTTON);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_REVIEW_REMOVE_BUTTON);
     assertFalse(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_REVIEW_BLOCK)));
   }
 
   @Test
-  public void test03_deactivateService() {
+  public void test03_deactivateService() throws InterruptedException {
     tester.clickElement(
         MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_LINK);
     tester.writeValue(
@@ -74,31 +75,19 @@ public class MarketplacePlaygroundServiceDetailsWT {
         "Reason");
     tester.clickElement(
         MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_REASON_BUTTON);
+    Thread.sleep(1000);
 
-    final WebElement indicator =
-        tester
-            .getDriver()
-            .findElement(
-                By.id(
-                    MarketplaceHtmlElements
-                        .MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR));
-    assertTrue(tester.getStyleClass(indicator).contains("serverSubscriptionSuspended"));
+    assertTrue(tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR).contains("serverSubscriptionSuspended"));
   }
 
   @Test
-  public void test04_reactivateService() {
+  public void test04_reactivateService() throws InterruptedException {
     tester.clickElement(
         MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_LINK);
     tester.clickElement(
         MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_REASON_BUTTON);
+    Thread.sleep(1000);
 
-    final WebElement indicator =
-        tester
-            .getDriver()
-            .findElement(
-                By.id(
-                    MarketplaceHtmlElements
-                        .MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR));
-    assertTrue(tester.getStyleClass(indicator).contains("serverSubscriptionActive"));
+    assertTrue(tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR).contains("serverSubscriptionActive"));
   }
 }

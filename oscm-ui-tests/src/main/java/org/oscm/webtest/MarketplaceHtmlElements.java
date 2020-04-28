@@ -26,17 +26,19 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_BUTTON_LOGIN = "loginForm:loginButtonLink";
 
   public static final String MARKETPLACE_LINK_SERVICE_NAME = "showDetails0";
-  public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW = "//a[@id='buyme']/span";
+  public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW = "buyme";
   public static final String MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME =
       "configurationForm:subscriptionIdText";
   public static final String MARKETPLACE_SUBSCRIPTION_INPUT_REFNUMBER =
       "configurationForm:purchaseOrderNumberText";
   public static final String MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT =
       "configurationForm:nextLink";
+  public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_NEXT = "nextLink";
   public static final String MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE =
       "confirmForm:agreeCheckbox";
   public static final String MARKETPLACE_SUBSCRIPTION_BUTTONLINK_CONFIRM =
       "confirmForm:confirmLink";
+  public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_CONFIRM = "confirmLink";
 
   public static final String MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON =
       "//a[@id='editProfileButton']/span";
