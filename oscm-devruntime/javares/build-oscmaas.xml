@@ -27,6 +27,22 @@
     </ant>
   </target>
   
+  <target name="OscmPortalWar.DEPLOY" description="Deploys the OSCM Portal War" >
+      <scp file="${adm.ue.buildscript.dir}/result/package/oscm-portal/oscm-portal.war" todir="root:prt5Vet@estessbesci6:/var/lib/jenkins/workspace/OSCM_Docker_pull_and_start/"
+        trust="true" />
+      <sshexec host="estessbesci6" username="root" password="prt5Vet"
+        command="docker exec oscm-core rm -rf /opt/apache-tomee/webapps/oscm-portal.war" trust="true" />
+      <sshexec host="estessbesci6" username="root" password="prt5Vet"
+        command="docker exec oscm-core rm -rf /opt/apache-tomee/webapps/oscm-portal" trust="true" />  
+      <sshexec host="estessbesci6" username="root" password="prt5Vet"
+        command="docker cp /var/lib/jenkins/workspace/OSCM_Docker_pull_and_start/oscm-portal.war oscm-core:/opt/apache-tomee/webapps/"
+        trust="true" />
+     
+      <sshexec host="estessbesci6" username="root" password="prt5Vet"
+        command="docker restart oscm-core"
+        trust="true" />  
+  </target>
+  
   <target name="checkHook">
     <condition property="ishookdeployed">
       <available file="${custom.build.hook}" property="custom.build.hook" value="${custom.build.hook}"/>

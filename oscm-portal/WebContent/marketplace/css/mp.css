@@ -3714,30 +3714,7 @@ div#headerrightareaBootstrap, rightarea a {
 	padding-top: 32px;
 }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-11.6 Footer
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.bootstrap_footer {
-	background: #B3B7BC;
-	border-bottom:1px solid #4c4c4c;
-	width: 100%;
-	color: #fff;
-}
-
-.bootstrap_footer a{ color: #fff; }
-
-.bootstrap_footer ul { 
-	font-size: 93%; 
-	list-style: none; 
-	padding: 0; 
-	margin: 0;
-}
-
-.bootstrap_footer li {
-	display: inline;
-	margin: 0; 
-	margin-left: 16px;
-}	
+	
 
 #sidebarCollapse {
 	margin-top: 0.5rem !important;
