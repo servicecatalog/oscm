@@ -1,0 +1,22 @@
+ul.dtr-details {
+  width: 100% !important;
+}
+
+table.dataTable thead tr {
+  background: #6e6e6e;
+  color: white;
+}
+
+table.dataTable tbody tr:hover {
+  background: #848484;
+  color: white;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.child {
+  background: #ffffff;
+  color: #000000;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before {
+  background-color: #aeaeae;
+}
