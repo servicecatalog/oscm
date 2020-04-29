@@ -114,7 +114,7 @@
           <mp:ratingStars reviewCount="#{serviceDetailsModel.selectedService.reviewCount}"
             rating="#{serviceDetailsModel.selectedService.rating}" />
 
-          <mp:servicePrice styleClass="servicePriceDetails" service="#{serviceDetailsModel.selectedService}" />
+          <mp:servicePrice styleClass="servicePriceDetails row no-gutters justify-content-center" service="#{serviceDetailsModel.selectedService}" />
           <h:link id="getItForLoggedUser" outcome="addSubscription" />
           <mp:button
             rendered="#{(userBean.loggedInUser eq null) or (userBean.loggedInAndAllowedToSubscribe)}"

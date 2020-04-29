@@ -722,6 +722,11 @@ input#Search:focus, #subListForm\:search:focus {
   margin: 2px 1px;
 }
 
+/* Get it now button */
+#buyme {
+  margin: 2rem 2.5rem 1.5rem 0rem;
+}
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 3.5 Header Navigation
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
@@ -1402,6 +1407,7 @@ h2.servicePrice, h1.servicePrice {
 
 h2.servicePrice {
   font-size: 1.4em;
+  display: inline;
 }
 
 /* price currency */
@@ -1409,6 +1415,7 @@ h2.priceUnit, h1.priceUnit {
   color: #222;
   font-size: 13px;
   font-weight: 400;
+  display: inline;
 }
 
 /* service price on home page and service overview */
@@ -1432,7 +1439,9 @@ h2.priceUnit, h1.priceUnit {
 
 /* wrapper for service price details on service overview page */
 .servicePriceDetails {
-  margin: 8px 0 14px;
+  display: inline;
+  margin-bottom: 0rem;
+  margin-top: 2rem;
 }
 
 /* serviceBox4span represents single column list of boxes. 100% width */
@@ -3034,12 +3043,12 @@ div.pagingOptions li a {
 }
 
 .pagingNofServices {
-    margin-right:0.1rem;  
+  margin-right: 0.1rem;
 }
 
- .fa-arrow-left {
-    margin-right: 0.2rem;
- }
+.fa-arrow-left {
+  margin-right: 0.2rem;
+}
 
 /* chosen selector button */
 ul.pagingElement li strong.current, div.pagingOptions li strong.current {
@@ -3466,6 +3475,13 @@ div.pagenate div.pagingBar .previous {
 
 .footer li.firstchild {
   margin-left: 0;
+}
+
+/* align footer to page bottom by minimal distance to start of content panel 
+   (Note: We set it to page bottom, not to screen bottom. We don't want sticky footers as they reduce the visible content area)
+*/
+#contentPanelDiv {
+  min-height: calc(100vh - 7rem);
 }
 
 /* marketplace copyright information wrapper */
