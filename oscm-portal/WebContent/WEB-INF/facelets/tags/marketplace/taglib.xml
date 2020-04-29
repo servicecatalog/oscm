@@ -270,4 +270,8 @@
     <tag-name>outputStepBootstrap</tag-name>
     <source>outputStepBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>subscriptionProcessPaymentBootstrap</tag-name>
+    <source>subscriptionProcessPaymentBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>

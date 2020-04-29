@@ -11,7 +11,7 @@
       <div class="${item}">
         <i class="fa fa-angle-right"></i>
       </div>
-      <c:if test="#{showPayment}">
+      <c:if test="#{showPayment or active eq 'payment'}">
         <div class="#{active eq 'payment' ? activeItem : item}">
           #{msg['subscription.add.progress.paymentoptions']}
         </div>
