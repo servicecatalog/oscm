@@ -2351,11 +2351,13 @@ table.smallPanel {
 /* show for subscription active/ready */
 .subscriptionActive, .serverSubscriptionActive {
   background: transparent url(../img/mp_icon_sprite.png) no-repeat 0 -655px;
+  color: #999;
 }
 
 /* show for subscription suspended/pending/waiting_for_approval/pending_update */
 .subscriptionPending, .serverSubscriptionSuspended, .subscriptionWaitingForApproval, .subscriptionPendingUpd {
   background: transparent url(../img/mp_icon_sprite.png) no-repeat scroll 0 -731px;
+  color: #999;
 }
 
 .provisioningProgress {
@@ -3013,10 +3015,6 @@ div.pagingOptions li a {
   
   .smallDisplay {
     display: none;
-  }
-
-  .fa-arrow-left {
-    margin-right:0.2rem;
   }
 }
 
@@ -4308,7 +4306,6 @@ div#headerrightareaBootstrap, rightarea a {
     padding-left: 0.4em;
     padding-right: 0.4em;
   }
-  
 }
 
 @media ( min-width : 768px) {

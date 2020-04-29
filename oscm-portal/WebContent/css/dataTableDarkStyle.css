@@ -1,30 +1,22 @@
-ul {
+ul.dtr-details {
   width: 100% !important;
 }
 
 table.dataTable thead tr {
-  background: rgba(0, 0, 0, 0.6);
+  background: #6e6e6e;
   color: white;
 }
 
 table.dataTable tbody tr:hover {
-  background: rgba(0, 0, 0, 0.5) !important;
+  background: #848484;
   color: white;
 }
 
-table.dataTable tbody tr:nth-of-type(even) {
-  background: rgba(0, 0, 0, 0.2);
-}
-
 table.dataTable.dtr-inline.collapsed>tbody>tr>td.child {
-  background: white;
-  color: black;
-}
-
-#location li a {
-  color: aliceblue;
+  background: #ffffff;
+  color: #000000;
 }
 
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before {
-  background-color: darkslategray !important;
+  background-color: #aeaeae;
 }

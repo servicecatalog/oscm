@@ -61,7 +61,7 @@
        </td>
        <td>
         <div class="row">
-         <div class="col-5" style="border-right: 3px solid grey; text-align: left;">
+         <div class="col-5 text-left border-right">
           <img
             src="/oscm-portal/image?type=SERVICE_IMAGE&amp;serviceKey=#{sub.serviceKey}"
             alt="editSubImage#{sub.subscriptionId}"/>
@@ -74,13 +74,13 @@
          </div>
          <div class="col-sm-7">
           <div class="row">
-           <div class="col-5" style="text-align: left;">
+           <div class="col-5 text-left">
             <p>#{msg['subscription.activationDate']}</p>
             <p>#{msg['subscription.users']}</p>
             <p>#{msg['subscription.service']}</p>
             <p>#{msg['subscription.status']}</p>
            </div>
-           <div class="col-7" style="text-align: left;">
+           <div class="col-7 text-left">
             <h:outputText value="#{sub.activationDate}">
              <f:convertDateTime/>
             </h:outputText>
@@ -94,8 +94,8 @@
          </div>
         </div>
         <div class="row">
-         <div class="col-5" style="border-right: 3px solid grey;"></div>
-         <div class="col-md-7" style="text-align: left;">
+         <div class="col-5 border-right"></div>
+         <div class="col-md-7 text-left">
           <p>#{sub.serviceAccessInfo}</p>
          </div>
         </div>
