@@ -1255,9 +1255,17 @@ AdmUtils.selectDropDownOption = function(element, formID, inputElementID,
 		submitButtonID) {
 	var i = element.selectedIndex;
 	var o = element.options[i];
+	var value = o.value;
+	
+	return submitSelectedValue(value, formID, inputElementID,
+			submitButtonID);
+}
+
+
+AdmUtils.submitSelectedValue = function(value, formID, inputElementID, submitButtonID) {
 	var input = document.getElementById(formID + ":" + inputElementID);
 	if (input != null) {
-		input.value = o.value;
+		input.value = value;
 		var submit = document.getElementById(formID + ":" + submitButtonID);
 		if (submit != null) {
 			submit.click();
@@ -1266,6 +1274,7 @@ AdmUtils.selectDropDownOption = function(element, formID, inputElementID,
 	}
 	return false;
 }
+
 
 AdmUtils.setEditorContent = function(value, formID, editorID) {
 	var editor = tinyMCE.getInstanceById(formID + ":" + editorID + "TextArea");

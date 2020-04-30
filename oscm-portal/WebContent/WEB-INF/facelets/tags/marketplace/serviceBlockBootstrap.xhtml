@@ -26,7 +26,7 @@
               <h:graphicImage id="#{fieldId}Image"
                               value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
             </div>
-            <div class="col-8 col-lg pl-1">
+            <div class="col-8 col-lg text-left">
               <ui:fragment rendered="#{service ne null}">
                 <ui:fragment rendered="#{showName}">
                   <h2 id="#{fieldId}Name" class="box_title shortenedText"
@@ -62,7 +62,7 @@
             <mp:ratingStarsBootstrap reviewCount="#{service.reviewCount}" rating="#{service.rating}"/>
           </div>
           <div class="col-sm-auto col-md-auto col-xl-12">
-            <mp:servicePrice styleClass="servicePriceDetails" service="#{service}"/>
+            <mp:servicePrice styleClass="servicePriceDetails  row no-gutters justify-content-center" service="#{service}"/>
           </div>
           <div class="col-sm-12 col-md-auto col-xl-12">
             <ui:insert/>

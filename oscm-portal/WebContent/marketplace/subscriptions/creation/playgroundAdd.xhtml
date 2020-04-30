@@ -1,0 +1,63 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                template="../../templates/mainBootstrap.xhtml">
+
+  <ui:define name="pageId">
+    <c:set var="pageId" value="marketplace.subscriptions.add"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+  </ui:define>
+
+  <ui:define name="breadcrumbs">
+    <!-- calling the fake getter will perform a check if service can be subscribe and redirect otherwise -->
+    <mp:bootstrapBreadcrumbs>
+      <mp:crumb labelPageId="marketplace.services" link="/marketplace/services.jsf"/>
+      <mp:crumb label="#{subscriptionWizardConversation.model.service.nameToDisplay}"/>
+    </mp:bootstrapBreadcrumbs>
+  </ui:define>
+
+  <ui:define name="contents">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-md-10 col-sm-12">
+        <!-- Select organization popup -->
+        <ui:include src="../../organizationUnitPanel.xhtml">
+          <ui:param name="dialogId" value="organizationUnitPanel"/>
+          <ui:param name="title"
+                    value="#{msg['unit.dialog.selectUnitForTheSubscription']}'#{subscriptionWizardConversation.model.subscription.subscriptionId}'"/>
+          <ui:param name="bean" value="#{subscriptionWizardConversation}"/>
+        </ui:include>
+
+        <div class="my-2">
+          <mp:subscriptionProcessProgressBootstrap active="configuration"
+                                                   showPayment="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}"/>
+        </div>
+
+        <div class="bg-light p-2 shadow mb-4">
+          <mp:serviceBlockBootstrap service="#{subscriptionWizardConversation.model.service}" fieldId="serviceDetail"/>
+
+          <h:form id="configurationForm" styleClass="mt-2">
+            <adm:keepDirty value="#{subscriptionWizardConversation.model.dirty}"/>
+
+            <mp:subscriptionProcessConfigurationBootstrap/>
+
+
+            <!-- Control buttons -->
+            <div class="row justify-content-between no-gutters border-top border-bottom mt-2">
+              <mp:buttonBootstrap id="previousSubscribe" value="#{msg['button.previous']}" immediate="true"
+                                  styleClass="btn btn-outline-secondary my-2"
+                                  bean="#{subscriptionWizardConversation}" action="previous" keepDirty="false"/>
+              <mp:buttonBootstrap id="next" value="#{msg['button.next']}" bean="#{subscriptionWizardConversation}"
+                                  action="selectService" keepDirty="true" styleClass="btn btn-outline-secondary my-2"/>
+            </div>
+          </h:form>
+        </div>
+
+      </div>
+    </div>
+
+     </ui:define>
+</ui:composition>
