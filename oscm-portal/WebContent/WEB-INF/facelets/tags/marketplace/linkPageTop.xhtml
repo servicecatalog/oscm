@@ -13,9 +13,9 @@
     <p>
       <h:outputLink id="linkBrowseAll" value="#" rendered="#{showBrowseAll}"
         onclick="if(#{isMplRestricted and empty userBean.loggedInUser and userBean.internalAuthMode}){showLoginPanel('/marketplace/services.jsf');return false;} #{rich:element('tagFilterValue')}.value=''; #{rich:element('applyTagFilter')}.click(); return false;">
-        <h:outputText value="#{msg['button.browseAll']}" />
+        <h:outputText class="text-secondary" value="#{msg['button.browseAll']}" />
       </h:outputLink>
-      <h:outputLink id="linkPageTop" value="#top">
+      <h:outputLink id="linkPageTop" class="text-secondary" value="#top">
         <h:outputText value="#{msg['navigation.pageTop']}" />
       </h:outputLink>
     </p>

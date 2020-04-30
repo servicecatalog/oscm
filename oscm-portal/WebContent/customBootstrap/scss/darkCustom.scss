@@ -3,16 +3,28 @@
 @import "../../bootstrap/scss/variables";
 
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
-$primary: $green;
+/* Just overwrite the custom color which you would like to add */
+$main-color: $green;
+
+$dark: $main-color;
+$secondary: $main-color;
+$primary: $main-color;
+
+/*
+$link-color:            $brand-primary;
+
+$link-hover-color:      darken($link-color, 15%); */
+
 
 $theme-colors: (
    "primary": $primary,
-    "customColor": #de2688
-  
+   "secondary": $secondary,
+   "dark": $dark,
+   "customColor": #de2688 
 );
 
 .bootstrap_footer {
-	background: $primary;
+	background: $secondary;
 	border-bottom:1px solid #4c4c4c;
 	width: 100%;
 	color: $white;
