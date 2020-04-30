@@ -1,15 +1,14 @@
 /* import only the necessary Bootstrap files */
 @import "../../bootstrap/scss/functions"; 
 @import "../../bootstrap/scss/variables";
-@import "../../bootstrap/scss/navbar";
 
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green */
 
 
-$primary: $light;
+$secondary: $light;
 
 $theme-colors: (
-   "primary": $primary
+   "secondary": $secondary
 );
 
 $navbar-dark-color:  $navbar-light-color;
@@ -21,7 +20,7 @@ $navbar-dark-toggler-border-color: $navbar-light-toggler-border-color;
 
 
 .bootstrap_footer {
-	background: $primary;
+	background: $secondary;
 	border-bottom:1px solid #4c4c4c;
 	width: 100%;
 	color: $black;
