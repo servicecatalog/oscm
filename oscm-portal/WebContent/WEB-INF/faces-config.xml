@@ -1197,6 +1197,17 @@
       <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
+  <navigation-rule>
+    <from-view-id>/marketplace/subscriptions/creation/playgroundPaymentAdd.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>serviceSubscribe</from-outcome>
+      <to-view-id>/marketplace/subscriptions/creation/playgroundConfirmAdd.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
 
   <validator>
