@@ -4,7 +4,7 @@
 
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
 /* Just overwrite the custom color which you would like to add */
-$main-color: #de2688;
+$main-color: $green;
 
 $dark: $main-color;
 $secondary: $main-color;
