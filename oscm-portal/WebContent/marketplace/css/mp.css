@@ -4358,3 +4358,11 @@ div#headerrightareaBootstrap, rightarea a {
 #sidebarCollapse {
   margin-top: 0.5rem !important;
 }
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+11.6 Additional background classes
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+.bg-light-secondary {
+    background: #FFFFFF;
+
+}

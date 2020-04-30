@@ -10,7 +10,7 @@
     <!-- billing address -->
     <div class="text-left mb-2">
       <mp:outputStepBootstrap value="#{msg['subscription.confirm.details.title']}"/>
-      <div class="col bg-white rounded">
+      <div class="col bg-light-secondary rounded">
         <a4j:outputPanel layout="block" styleClass="marginBottomDefault"
                          rendered="#{not empty subscriptionWizardConversation.model.selectedBillingContact}">
           <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.id}" id="billingId"/>
@@ -46,7 +46,7 @@
                         id="paymentAccount"/>
         </div>
       </div>
-      <h:outputLink id="editPaymentTypeLink" style="text-decoration: none;"
+      <h:outputLink id="editPaymentTypeLink"
                     onclick="setDirty(false);if(AdmUtils.isNotDirtyOrConfirmed()) {#{rich:element('hiddenPaymentChange')}.click();} return false;">
         <h:outputText value="#{msg['subscription.confirm.paymentOptions.change']}"/>
       </h:outputLink>
