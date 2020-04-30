@@ -13,17 +13,14 @@
     
     <script src="${facesContext.externalContext.requestContextPath}/customBootstrap/css/dark-mode-switch.min.js" type="text/javascript"></script>
   
-  <div class="custom-control custom-switch">
-    <h:inputText type="checkbox" class="custom-control-input" id="darkSwitch" />
-    <h:outputLabel class="custom-control-label" for="darkSwitch">Dark Mode</h:outputLabel>
-  </div>
+ 
   
   <c:set var="logoimg" value="#{sessionBean.marketplaceBrandBaseUrl}/img/mp_logo3.png"/>
 
-  <nav class="px-1 navbar navbar-expand-lg">
+  <nav class="px-1 navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid h6 m-0 px-3">
-      <div class="no-gutters row align-items-center">
-        <a class="navbar-brand text-primary" href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="${logoimg}"
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="${logoimg}"
             alt="My Logo" />
         </a>
 
@@ -34,13 +31,13 @@
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
           <!-- Home -->
-            <li id="homeLink" class="#{pageId eq 'marketplace.home' ? 'nav-item active' : 'nav-item'}"><a class="nav-link text-primary " href="#{mpBaseUrl}/playground.jsf?mId=#{mId}"><i
+            <li id="homeLink" class="#{pageId eq 'marketplace.home' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="#{mpBaseUrl}/playground.jsf?mId=#{mId}"><i
                 class="fa fa-fw fa-home"></i>#{msg['navigation.home']}</a></li>
           <!-- Browse Services -->
-         <li id="servicesLink" class="#{pageId eq 'marketplace.services' ? 'nav-item active' : 'nav-item'}"><a class="nav-link text-primary" href="#{mpBaseUrl}/playgroundServices.jsf">#{msg['button.browse']}</a></li>
+         <li id="servicesLink" class="#{pageId eq 'marketplace.services' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="#{mpBaseUrl}/playgroundServices.jsf">#{msg['button.browse']}</a></li>
           <!-- Help -->
           <ui:fragment rendered="#{user ne null}">
-            <li class="nav-item"><a class="nav-link text-primary" href="#"
+            <li class="nav-item"><a class="nav-link" href="#"
               onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">#{msg['marketplace.help']}</a>
             </li>
           </ui:fragment>
@@ -88,12 +85,12 @@
           <li><ui:fragment rendered="#{user eq null}">
               <!-- login if user is empty -->
               <c:if test="#{userBean.internalAuthMode}">
-                <a href="#" class="nav-link text-primary" onclick="#{loginHandler}"><h:outputText value=" #{msg['login']}" /> <i class="fa fa-fw fa-sign-in"></i></a>
+                <a href="#" class="nav-link" onclick="#{loginHandler}"><h:outputText value=" #{msg['login']}" /> <i class="fa fa-fw fa-sign-in"></i></a>
               </c:if>
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
                   <h:form id="formLogin">
-                    <h:outputLink id="loginLink" class="nav-link text-primary">
+                    <h:outputLink id="loginLink" class="nav-link">
                         <h:outputText value=" #{msg['login']}" /><i class="fa fa-fw fa-sign-in"/>
                     	<f:param name="login" value="oidc" />
                     </h:outputLink>
@@ -105,7 +102,7 @@
              <ui:fragment rendered="#{user ne null}">
               <li class="nav-item dropdown"><a class="nav-link dropdown-toggle waves-effect waves-light" href="#" id="navbarUserToggle"
                 data-toggle="dropdown" data-target="#userDrop"><i class="fa fa-user"/>
-                <h:outputText id="welcome" class=" text-primary"/> #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
+                <h:outputText id="welcome" /> #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
                 <div id="userDrop" class="dropdown-menu dropdown-menu-right">
                     <p class="px-4 py-sm-2"> #{msg['marketplace.logging']} <strong><br>#{user.userId}</br></strong></p>
                     <div class="dropdown-divider"></div>

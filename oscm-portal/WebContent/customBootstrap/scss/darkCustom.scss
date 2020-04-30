@@ -3,54 +3,36 @@
 @import "../../bootstrap/scss/variables";
 
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
-$light: $gray-800;
-/*$body-bg: $green; */
+$primary: $green;
 
 $theme-colors: (
-  "light": $light;
-);
-/*
-$theme-colors: (
-  "custom-color": #900
+   "primary": $primary,
+    "customColor": #de2688
+  
 );
 
-
- Modify $white and $black colors.  */
-
-$navbar-light-color:  $navbar-dark-color;
-$navbar-light-hover-color: $navbar-dark-hover-color;
-$navbar-light-active-color: $navbar-dark-active-color;
-$navbar-light-disabled-color: $navbar-dark-disabled-color;
-$navbar-light-toggler-icon-bg: $navbar-dark-toggler-icon-bg;
-$navbar-light-toggler-border-color: $navbar-dark-toggler-border-color;
-
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
-11.6 Footer
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.footer {
-	background: $light;
+.bootstrap_footer {
+	background: $primary;
 	border-bottom:1px solid #4c4c4c;
 	width: 100%;
-	color: $navbar-light-color;
-	
-	ul { 
+	color: $white;
+}
+
+.bootstrap_footer a{ color: $white; }
+
+.bootstrap_footer ul { 
 	font-size: 93%; 
 	list-style: none; 
 	padding: 0; 
 	margin: 0;
-	
-	li {
+}
+
+.bootstrap_footer li {
 	display: inline;
 	margin: 0; 
 	margin-left: 16px;
+}	
 	
-	a{ color: $navbar-light-color; }
-   }
-	
-	
-   }
-}
-
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "../../bootstrap/scss/bootstrap"; 

@@ -162,17 +162,19 @@
   <c:set var="imprintUrl"
     value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}" />
 
+ <link href="${facesContext.externalContext.requestContextPath}/customBootstrap/css/lightCustom.css" rel="stylesheet"
+    type="text/css" /> 
  <footer class="bootstrap_footer">
 
   <div class="container-fluid text-center py-3">
     <ul>
-          <li class="firstchild"><a class="text-primary" id="imprintLink" href="#{imprintUrl}" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/imprint.jsf');return false;}" target="_blank"><h:outputText
+          <li class="firstchild"><a id="imprintLink" href="#{imprintUrl}" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/imprint.jsf');return false;}" target="_blank"><h:outputText
                 value="#{msg['marketplace.imprint.title']}" /> </a>
           </li>
-          <li><a class="text-primary" href="#{mpBaseUrl}/terms/terms.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/terms.jsf');return false;}"><h:outputText value="#{msg['marketplace.terms.title']}" />
+          <li><a href="#{mpBaseUrl}/terms/terms.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/terms.jsf');return false;}"><h:outputText value="#{msg['marketplace.terms.title']}" />
           </a>
           </li>
-          <li><a class="text-primary" id="privacyPolicyLink" href="#{mpBaseUrl}/terms/privacypolicy.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/privacypolicy.jsf');return false;}"><h:outputText
+          <li><a id="privacyPolicyLink" href="#{mpBaseUrl}/terms/privacypolicy.jsf" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/privacypolicy.jsf');return false;}"><h:outputText
                 value="#{msg['marketplace.privacypolicy.title']}" /> </a>
           </li>
         </ul>
@@ -208,5 +210,6 @@
 
   <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/missingViewState.patch.js"></script>
 
+ <!-- <script src="${facesContext.externalContext.requestContextPath}/customBootstrap/css/dark-mode-switch.min.js" type="text/javascript"></script>-->
 </h:body>
 </html>
