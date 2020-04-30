@@ -156,6 +156,20 @@ public class PortalMarketServiceWT {
     assertTrue(tester.getExecutionResult());
   }
 
+  @Test
+  public void tes05setPaymentTye() throws Exception {
+    tester.visitPortal(PortalPathSegments.MANAGE_PAYMENT);
+    tester.waitForElement(By.id(PortalHtmlElements.MANAGE_PAYMENT_FORM), 5);
+
+    tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_NEW_SERVICES);
+    tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_EXISTING_SERVICES);
+    tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_NEW_USERS);
+    tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_EXISTING_USERS);
+    tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_SAVE_BUTTON);
+
+    assertTrue(tester.getExecutionResult());
+  }
+
   private void setDescriptionValue(String description, String value) {
     String descriptionXpath =
         "//table[@id='"

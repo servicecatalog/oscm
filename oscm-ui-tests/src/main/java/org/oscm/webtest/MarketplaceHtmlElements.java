@@ -177,4 +177,7 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_REVIEW_REMOVE_BUTTON = "commentForm:btnRemove";
   public static final String MARKETPLACE_REVIEW_STARS_5 = "star5";
   public static final String MARKETPLACE_REVIEW_BLOCK = "reviewBlock1";
+
+  public static final String MARKETPLACE_SUBSCRIPTION_PAYMENT_DROPDOWN = "payment:selectPaymentInfo";
+  public static final String MARKETPLACE_SUBSCRIPTION_BILLING_DROPDOWN = "payment:payment:selectBillingContact";
 }

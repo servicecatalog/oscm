@@ -45,7 +45,7 @@ public class MarketplacePlaygroundSubscriptionWT {
   }
 
   @Test
-  public void test01_createSubscriptionWithoutPayment() {
+  public void test01_createSubscription() {
     String referenceNo = WebTester.getCurrentTime();
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);

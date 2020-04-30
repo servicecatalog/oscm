@@ -54,7 +54,9 @@
             <ui:param name="dialogHeight" value="60"/>
           </ui:include>
         </a4j:outputPanel>
-        <mp:subscriptionProcessProgressBootstrap active="payment"/>
+        <div>
+          <mp:subscriptionProcessProgressBootstrap active="payment"/>
+        </div>
         <div class="bg-light mb-4 p-2">
           <c:set var="paymentInfoVisible" value="#{subscriptionWizardConversation.paymentInfoVisible eq true}"
                  scope="request"/>
@@ -88,8 +90,6 @@
             <!-- SELECT PAYMENT INFORMATION -->
             <mp:subscriptionProcessPaymentBootstrap/>
 
-          </h:form>
-
           <div class="row justify-content-between no-gutters border-top border-bottom mt-2">
             <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" bean="#{subscriptionWizardConversation}"
                                 action="previousFromPayment"
@@ -99,10 +99,11 @@
                                 disabled="#{emptyEnabledPaymentTypes}" keepDirty="true" clearDirty="#{clearDirtyForward}"
                                 styleClass="btn btn-outline-secondary my-2"/>
           </div>
+
           <c:set var="availableSubsAndAdmin"
                  value="#{not empty subscriptionWizardConversation.availablePaymentTypesForCreation and userBean.loggedInAndAdmin}"
                  scope="request"/>
-
+          </h:form>
         </div>
       </div>
     </div>
