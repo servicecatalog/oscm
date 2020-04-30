@@ -1439,8 +1439,7 @@ h2.priceUnit, h1.priceUnit {
 
 /* wrapper for service price details on service overview page */
 .servicePriceDetails {
-  display: inline;
-  margin-bottom: 0rem;
+  margin-bottom: 1rem;
   margin-top: 2rem;
 }
 
