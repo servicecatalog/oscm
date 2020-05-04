@@ -38,7 +38,6 @@ public class MarketplaceHtmlElements {
       "confirmForm:agreeCheckbox";
   public static final String MARKETPLACE_SUBSCRIPTION_BUTTONLINK_CONFIRM =
       "confirmForm:confirmLink";
-  public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_CONFIRM = "confirmLink";
 
   public static final String MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON =
       "//a[@id='editProfileButton']/span";
@@ -177,4 +176,16 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_REVIEW_REMOVE_BUTTON = "commentForm:btnRemove";
   public static final String MARKETPLACE_REVIEW_STARS_5 = "star5";
   public static final String MARKETPLACE_REVIEW_BLOCK = "reviewBlock1";
+
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SHOW_ROW_CHILD =
+      "//table[@id='table']/tbody/tr/td";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_MANAGE_SUBSCRIPTIONS =
+      "//span[2]/div/a/button";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_ASSIGN_USER =
+      "usersForm:assignUsers";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SELECT_USER =
+      "assignUsersPanelForm:userTable:0:assignCheckbox";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SAVE_BUTTON =
+      "//a[@id='assignUsersPanelForm:saveButton']/span";
+  public static final String MARKETPLACE_MY_SUBSCRIPTIONS_STATUS_COLUMN = "//td[6]/div/span";
 }

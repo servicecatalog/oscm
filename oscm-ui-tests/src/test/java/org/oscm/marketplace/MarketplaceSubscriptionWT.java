@@ -59,13 +59,24 @@ public class MarketplaceSubscriptionWT {
   public void test02checkHeader() {
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
     tester.visitMarketplace(MarketplacePathSegments.INDEX_MARKETPLACE);
-    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_FIELD, subscriptionName);
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HOME_LINK)));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HELP_LINK)));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_BUTTON)));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK)));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK)));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)));
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_FIELD, subscriptionName);
+    assertTrue(
+        tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HOME_LINK)));
+    assertTrue(
+        tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HELP_LINK)));
+    assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_BUTTON)));
+    assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK)));
+    assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK)));
+    assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)));
   }
 
   @Test

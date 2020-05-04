@@ -21,7 +21,6 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import org.oscm.paginator.Pagination;
 import org.oscm.paginator.PaginationFullTextFilter;
 import org.richfaces.component.SortOrder;
 import org.richfaces.model.FilterField;
@@ -131,6 +130,17 @@ public class SubscriptionListsLazyDataModel extends RichLazyDataModel<POSubscrip
 
     public List<POSubscriptionForList> getSubscriptions() {
         return getCachedList();
+    }
+
+    public List<POSubscriptionForList> getSubscriptionsData() {
+        List<POSubscriptionForList> resultList = Collections.emptyList();
+        try {
+            Response response = subscriptionsService.getSubscriptionsForOrg(null);
+            resultList = response.getResultList(POSubscriptionForList.class);
+        } catch (Exception e) {
+            logger.logError(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR);
+        }
+        return resultList;
     }
 
     public String getPURCHASE_ORDER_NUMBER() {

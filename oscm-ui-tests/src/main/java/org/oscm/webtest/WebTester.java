@@ -9,13 +9,6 @@
  */
 package org.oscm.webtest;
 
-import java.io.FileInputStream;
-import java.net.InetAddress;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +22,14 @@ import org.oscm.webtest.authentication.AuthenticationContext;
 import org.oscm.webtest.authentication.InternalAuthenticationContext;
 import org.oscm.webtest.authentication.OIDCAuthenticationContext;
 import org.oscm.webtest.exception.ConfigurationException;
+
+import java.io.FileInputStream;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
@@ -247,6 +248,18 @@ public class WebTester {
    */
   public String readText(String id) {
     WebElement element = driver.findElement(By.id(id));
+    return element.getText();
+  }
+
+  /**
+   * Reads the text of the element with the given xpath. This is used for text within an element,
+   * e.g. &lt;p xpath="xpath"&gt;text&lt;/p&gt;
+   *
+   * @return the text of the element
+   * @throws NoSuchElementException if element is not present
+   */
+  public String readTextXPath(String xpath) {
+    WebElement element = driver.findElement(By.xpath(xpath));
     return element.getText();
   }
 

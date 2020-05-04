@@ -1,0 +1,50 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+
+ <!-- requires attributes fieldId (String), subscription (SubscriptionDetails) and onClickHandler (String) -->
+ <c:if test="#{empty onClickHandler}">
+
+ </c:if>
+
+  <div class="row">
+    <div class="col-4">
+      <h:graphicImage id="#{fieldId}Image" value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{subscription.serviceKey}"/>
+    </div>
+    <div class="col-8">
+      <h3 id="#{fieldId}Supplier" class="supplier shortenedText" title="#{service.sellerName}">
+        <h:outputFormat value="#{msg['service.by']}">
+          <f:param value="#{service.sellerName}"/>
+        </h:outputFormat>
+      </h3>
+      <div class="row">
+        <div class="col-6">
+          <h:outputText value="#{msg['subscription.activationDate']}"/>
+          <h:outputText value="#{msg['subscription.users']}"/>
+          <h:outputText value="#{msg['subscription.price']}"/>
+          <h:outputText value="#{msg['subscription.service']}"/>
+        </div>
+        <div class="col-6">
+          <h:outputText id="#{fieldId}Activation" value="#{subscription.activationDate}">
+            <f:convertDateTime/>
+          </h:outputText>
+          <h:outputText id="#{fieldId}Users" value="#{fn:length(subscription.usageLicenses)}"/>
+          <a4j:outputPanel layout="block">
+            <h:outputText id="#{fieldId}Price"
+                          value="#{service.priceText} #{service.priceUnitText ? '&#160;' : service.priceUnitText}"/>
+            <h:outputText styleClass="recommendedPriceHint" value=" #{msg['service.recommendedRetailPriceHint']}"
+                          rendered="#{service.reseller and service.priceModel.chargeable}"/>
+          </a4j:outputPanel>
+          <h:outputText id="#{fieldId}Service" value="#{service.nameToDisplay}" styleClass="subscriptionServiceDetailsBlock"/>
+        </div>
+      </div>
+      <h:outputText id="#{fieldId}AccessInfo" value="#{subscription.serviceAccessInfo}"
+                    rendered="#{subscription.accessViaAccessInfo}" escape="false" style="white-space:pre-wrap;"/>
+      <h:outputText id="AccessInfoFormPart" value="#{subscription.serviceAccessInfoFormPart}"
+                    rendered="#{not empty subscription.serviceAccessInfoFormPart}" escape="false"/>
+    </div>
+  </div>
+</ui:composition>
