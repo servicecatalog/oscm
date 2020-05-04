@@ -161,7 +161,7 @@
   <c:set var="imprintUrl"
     value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}" />
 
- <footer>
+ <footer class="bootstrap_footer">
 
   <div class="container-fluid text-center py-3">
     <ul>
@@ -207,6 +207,5 @@
 
   <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/scripts/missingViewState.patch.js"></script>
 
- <!-- <script src="${facesContext.externalContext.requestContextPath}/customBootstrap/css/dark-mode-switch.min.js" type="text/javascript"></script>-->
 </h:body>
 </html>

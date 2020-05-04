@@ -5,10 +5,10 @@
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green */
 
 
-$secondary: $light;
+$dark: $light;
 
 $theme-colors: (
-   "secondary": $secondary
+   "dark": $dark
 );
 
 $navbar-dark-color:  $navbar-light-color;
@@ -20,7 +20,7 @@ $navbar-dark-toggler-border-color: $navbar-light-toggler-border-color;
 
 
 .bootstrap_footer {
-	background: $secondary;
+	background: $dark;
 	border-bottom:1px solid #4c4c4c;
 	width: 100%;
 	color: $black;
