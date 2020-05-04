@@ -100,10 +100,13 @@ public class PortalMarketServiceWT {
     tester.waitForElementVisible(By.id(PortalHtmlElements.DEFINE_PRICEMODEL_BUTTON_SAVE), 10);
     if (!tester
         .getDriver()
-        .findElement(By.id(PortalHtmlElements.DEFINE_PRICEMODEL_CHECKBOX_FREE_OF_CHARGE))
+        .findElement(By.id(PortalHtmlElements.DEFINE_PRICEMODEL_CHECKBOX_TIMEUNIT_CALC))
         .isSelected()) {
-      tester.clickElement(PortalHtmlElements.DEFINE_PRICEMODEL_CHECKBOX_FREE_OF_CHARGE);
+      tester.clickElement(PortalHtmlElements.DEFINE_PRICEMODEL_CHECKBOX_TIMEUNIT_CALC);
     }
+
+    tester.writeValue(PortalHtmlElements.DEFINE_PRICEMODEL_RECURRING_PRICE_INPUT, "5.00");
+
     tester.waitForElementVisible(By.id(PortalHtmlElements.DEFINE_PRICEMODEL_BUTTON_SAVE), 10);
     tester.clickElement(PortalHtmlElements.DEFINE_PRICEMODEL_BUTTON_SAVE);
     tester.waitForElement(By.id(PortalHtmlElements.PORTAL_SPAN_INFOS), 10);
@@ -157,7 +160,7 @@ public class PortalMarketServiceWT {
   }
 
   @Test
-  public void tes05setPaymentTye() throws Exception {
+  public void test05setPaymentType() throws Exception {
     tester.visitPortal(PortalPathSegments.MANAGE_PAYMENT);
     tester.waitForElement(By.id(PortalHtmlElements.MANAGE_PAYMENT_FORM), 5);
 

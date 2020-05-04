@@ -88,6 +88,8 @@ public class PortalHtmlElements {
       "serviceSelectForm:serviceSelectionInner";
   public static final String DEFINE_PRICEMODEL_BUTTON_SAVE = "editForm:saveButton";
   public static final String DEFINE_PRICEMODEL_CHECKBOX_FREE_OF_CHARGE = "editForm:isfree:0";
+  public static final String DEFINE_PRICEMODEL_CHECKBOX_TIMEUNIT_CALC = "editForm:isfree:2";
+  public static final String DEFINE_PRICEMODEL_RECURRING_PRICE_INPUT = "editForm:recChargePerSubs";
 
   public static final String DEFINE_PUBLISH_OPTION_DROPDOWN_SERVICENAME =
       "editForm:selectedServiceIdInner";
@@ -114,5 +116,8 @@ public class PortalHtmlElements {
  public static final String MANAGE_PAYMENT_NEW_USERS = "managePayment:default0";
  public static final String MANAGE_PAYMENT_EXISTING_USERS = "managePayment:customerTable:0:cust0";
  public static final String MANAGE_PAYMENT_SAVE_BUTTON = "managePayment:modifyPaymentEnablementButtonLink";
+
+ public static final String MANAGE_CURRENCY_INPUT = "currencies:currencyToManage";
+ public static final String MANAGE_CURRENCY_ADD_BUTTON = "currencies:addButtonLink";
 
 }

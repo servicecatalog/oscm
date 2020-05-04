@@ -106,7 +106,18 @@ public class PortalMarketplaceWT {
   }
 
   @Test
-  public void test05createPlayground() throws Exception {
+  public void test05addCurrency() throws Exception {
+    tester.visitPortal(PortalPathSegments.MANAGE_CURRENCIES);
+
+    tester.writeValue(PortalHtmlElements.MANAGE_CURRENCY_INPUT, "USD");
+
+    tester.clickElement(PortalHtmlElements.MANAGE_CURRENCY_ADD_BUTTON);
+
+    assertTrue(tester.getExecutionResult());
+  }
+
+  @Test
+  public void test06createPlayground() throws Exception {
     tester.visitPortal(PortalPathSegments.CREATE_MARKETPLACE);
 
     tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_NAME, "PlaygroundMarketplace");
