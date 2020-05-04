@@ -6,7 +6,7 @@
 /* Just overwrite the custom color which you would like to add */
 $main-color: $green;
 
-$dark: $main-color;
+$dark: $gray-800;
 $secondary: $main-color;
 $primary: $main-color;
 
@@ -23,7 +23,7 @@ $theme-colors: (
 );
 
 .bootstrap_footer {
-	background: $secondary;
+	background: $dark;
 	border-bottom:1px solid #4c4c4c;
 	width: 100%;
 	color: $white;
