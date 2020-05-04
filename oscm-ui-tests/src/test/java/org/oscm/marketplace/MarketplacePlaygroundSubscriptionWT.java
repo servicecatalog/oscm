@@ -60,6 +60,21 @@ public class MarketplacePlaygroundSubscriptionWT {
     tester.writeValue(
         MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_REFNUMBER, referenceNo);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_NEXT);
+
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW);
+    tester.waitForElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT),
+            WebTester.IMPLICIT_WAIT);
+    tester
+            .getDriver()
+            .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME))
+            .clear();
+    tester.writeValue(
+            MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_SUBNAME, subscriptionName);
+    tester.writeValue(
+            MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_REFNUMBER, referenceNo);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT);
+
     tester.waitForElementVisible(
         By.id(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE),
         WebTester.IMPLICIT_WAIT);

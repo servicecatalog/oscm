@@ -15,6 +15,7 @@ import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.support.ui.Select;
 import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalPathSegments;
@@ -189,9 +190,16 @@ public class PortalMarketServiceWT {
         .getDriver()
         .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
         .isSelected())
-      tester
-          .getDriver()
-          .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
-          .click();
+      try {
+        tester
+                .getDriver()
+                .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
+                .click();
+      } catch (ElementClickInterceptedException e){
+        tester
+                .getDriver()
+                .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
+                .click();
+      }
   }
 }
