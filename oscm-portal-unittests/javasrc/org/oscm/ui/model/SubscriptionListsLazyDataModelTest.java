@@ -25,7 +25,8 @@ import org.richfaces.model.SortField;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
@@ -164,11 +165,11 @@ public class SubscriptionListsLazyDataModelTest {
     List<POSubscriptionForList> expectedList = prepareList();
     Response resp = new Response(expectedList);
     when(subscriptionsService.getSubscriptionsForOrg(eq(null))).thenReturn(resp);
+    beanUnderTheTest.setSubscriptionsService(subscriptionsService);
     // when
     List<POSubscriptionForList> result = beanUnderTheTest.getSubscriptionsData();
     // then
     assertArrayEquals(expectedList.toArray(), result.toArray());
-    assertNull(beanUnderTheTest.getSelectedSubscription());
   }
 
   private List<POSubscriptionForList> prepareList() {
