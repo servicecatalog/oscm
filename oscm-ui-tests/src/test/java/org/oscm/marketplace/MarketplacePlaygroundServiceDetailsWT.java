@@ -16,7 +16,6 @@ import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.MarketplaceHtmlElements;
@@ -77,7 +76,11 @@ public class MarketplacePlaygroundServiceDetailsWT {
         MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_DEACTIVATE_SERVICE_REASON_BUTTON);
     Thread.sleep(1000);
 
-    assertTrue(tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR).contains("serverSubscriptionSuspended"));
+    assertTrue(
+        tester
+            .getStyleClass(
+                MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR)
+            .contains("serverSubscriptionSuspended"));
   }
 
   @Test
@@ -88,6 +91,10 @@ public class MarketplacePlaygroundServiceDetailsWT {
         MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_REACTIVATE_SERVICE_REASON_BUTTON);
     Thread.sleep(1000);
 
-    assertTrue(tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR).contains("serverSubscriptionActive"));
+    assertTrue(
+        tester
+            .getStyleClass(
+                MarketplaceHtmlElements.MARKETPLACE_SERVICE_DETAILS_SERVICE_ACTIVATION_INDICATOR)
+            .contains("serverSubscriptionActive"));
   }
 }

@@ -206,9 +206,9 @@ public class WebTester {
    * @throws NoSuchElementException if element is not present
    */
   public void clickElement(String id) {
-    try{
+    try {
       driver.findElement(By.id(id)).click();
-    } catch (StaleElementReferenceException e){
+    } catch (StaleElementReferenceException e) {
       driver.findElement(By.id(id)).click();
     }
     log(String.format("Clicked the element with id %s", id));
@@ -258,11 +258,11 @@ public class WebTester {
    * @throws NoSuchElementException if element is not present
    */
   public void writeValue(String id, String value) {
-    try{
+    try {
       WebElement element = driver.findElement(By.id(id));
       element.clear();
       element.sendKeys(value);
-    } catch (StaleElementReferenceException e){
+    } catch (StaleElementReferenceException e) {
       WebElement element = driver.findElement(By.id(id));
       element.clear();
       element.sendKeys(value);
@@ -373,7 +373,7 @@ public class WebTester {
   }
 
   public String getStyleClass(String id) {
-    try{
+    try {
       WebElement element = driver.findElement(By.id(id));
       return element.getAttribute("class");
     } catch (StaleElementReferenceException e) {

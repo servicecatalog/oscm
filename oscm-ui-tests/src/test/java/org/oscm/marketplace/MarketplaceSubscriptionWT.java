@@ -9,6 +9,8 @@
  */
 package org.oscm.marketplace;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -16,8 +18,6 @@ import org.openqa.selenium.By;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.*;
-
-import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplaceSubscriptionWT {
@@ -59,13 +59,24 @@ public class MarketplaceSubscriptionWT {
   public void test02checkHeader() {
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
     tester.visitMarketplace(MarketplacePathSegments.INDEX_MARKETPLACE);
-    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_FIELD, subscriptionName);
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HOME_LINK)));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HELP_LINK)));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_BUTTON)));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK)));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK)));
-    assertTrue(tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)));
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_FIELD, subscriptionName);
+    assertTrue(
+        tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HOME_LINK)));
+    assertTrue(
+        tester.verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_HELP_LINK)));
+    assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_BUTTON)));
+    assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_SUBSCRIPTIONS_LINK)));
+    assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK)));
+    assertTrue(
+        tester.verifyFoundElement(
+            By.id(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_LOGOUT_LINK)));
   }
 
   @Test

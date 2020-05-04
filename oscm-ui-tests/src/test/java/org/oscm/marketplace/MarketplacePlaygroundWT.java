@@ -15,7 +15,6 @@ import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.*;
@@ -44,8 +43,10 @@ public class MarketplacePlaygroundWT {
   @Test
   public void test01_navBarLandingPage() {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
-    final String homeStyle = tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_HOME_LINK);
-    final String browseStyle = tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK);
+    final String homeStyle =
+        tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_HOME_LINK);
+    final String browseStyle =
+        tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK);
 
     assertTrue(homeStyle.contains("active"));
     assertFalse(browseStyle.contains("active"));
@@ -54,8 +55,10 @@ public class MarketplacePlaygroundWT {
   @Test
   public void test02_navBarServicesPage() {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_SERVICES);
-    final String homeStyle = tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_HOME_LINK);
-    final String browseStyle = tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK);
+    final String homeStyle =
+        tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_HOME_LINK);
+    final String browseStyle =
+        tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK);
 
     assertFalse(homeStyle.contains("active"));
     assertTrue(browseStyle.contains("active"));
