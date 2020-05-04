@@ -208,7 +208,7 @@ public class WebTester {
   public void clickElement(String id) {
     try {
       driver.findElement(By.id(id)).click();
-    } catch (StaleElementReferenceException e) {
+    } catch (StaleElementReferenceException | ElementClickInterceptedException e) {
       driver.findElement(By.id(id)).click();
     }
     log(String.format("Clicked the element with id %s", id));
