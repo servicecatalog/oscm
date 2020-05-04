@@ -17,6 +17,12 @@
   <c:if test="#{empty limitedDescription}">
     <c:set var="limitedDescription" value="false"/>
   </c:if>
+  <c:if test="#{empty showPriceLink}">
+    <c:set var="showPriceLink" value="false"/>
+  </c:if>
+  <c:if test="#{empty insert}">
+    <c:set var="insert" value="true"/>
+  </c:if>
     <div class="row">
       <div class="col-xl-9 col-lg-12 pl-0">
         <!-- Image, title, supplier container -->
@@ -62,11 +68,18 @@
             <mp:ratingStarsBootstrap reviewCount="#{service.reviewCount}" rating="#{service.rating}"/>
           </div>
           <div class="col-sm-auto col-md-auto col-xl-12">
+            <c:if test="#{not showPriceLink}">
             <mp:servicePrice styleClass="servicePriceDetails  row no-gutters justify-content-center" service="#{service}"/>
+            </c:if>
+            <c:if test="#{showPriceLink}">
+             <mp:servicePriceLink styleClass="servicePriceDetails" service="#{service}" bean="#{subscriptionBean}"/>
+            </c:if>
           </div>
-          <div class="col-sm-12 col-md-auto col-xl-12">
-            <ui:insert/>
-          </div>
+          <c:if test="#{insert}">
+            <div class="col-sm-12 col-md-auto col-xl-12">
+              <ui:insert/>
+            </div>
+          </c:if>
         </div>
       </div>
     </div>

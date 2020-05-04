@@ -19,10 +19,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -209,8 +206,11 @@ public class WebTester {
    * @throws NoSuchElementException if element is not present
    */
   public void clickElement(String id) {
-    driver.findElement(By.id(id)).click();
-
+    try{
+      driver.findElement(By.id(id)).click();
+    } catch (StaleElementReferenceException e){
+      driver.findElement(By.id(id)).click();
+    }
     log(String.format("Clicked the element with id %s", id));
   }
 
@@ -258,10 +258,15 @@ public class WebTester {
    * @throws NoSuchElementException if element is not present
    */
   public void writeValue(String id, String value) {
-    WebElement element = driver.findElement(By.id(id));
-    element.clear();
-    element.sendKeys(value);
-
+    try{
+      WebElement element = driver.findElement(By.id(id));
+      element.clear();
+      element.sendKeys(value);
+    } catch (StaleElementReferenceException e){
+      WebElement element = driver.findElement(By.id(id));
+      element.clear();
+      element.sendKeys(value);
+    }
     log(String.format("Wrote value: %s to element with id %s", value, id));
   }
 
@@ -367,7 +372,13 @@ public class WebTester {
     return prop.getProperty(AUTH_MODE);
   }
 
-  public String getStyleClass(WebElement element) {
-    return element.getAttribute("class");
+  public String getStyleClass(String id) {
+    try{
+      WebElement element = driver.findElement(By.id(id));
+      return element.getAttribute("class");
+    } catch (StaleElementReferenceException e) {
+      WebElement element = driver.findElement(By.id(id));
+      return element.getAttribute("class");
+    }
   }
 }

@@ -99,6 +99,7 @@ public class PortalMarketplaceWT {
     tester.clickElement(PortalHtmlElements.MANAGE_CATEGORIES_ADD_BUTTON);
     tester.writeValue(PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_ID_INPUT, "CategoryId");
     tester.writeValue(PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_NAME_INPUT, "CategoryName");
+    Thread.sleep(2000);
     tester.clickElement(PortalHtmlElements.MANAGE_CATEGORIES_SAVE_BUTTON);
 
     assertTrue(tester.getExecutionResult());

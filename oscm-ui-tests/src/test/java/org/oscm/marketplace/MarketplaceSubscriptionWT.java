@@ -88,10 +88,10 @@ public class MarketplaceSubscriptionWT {
         By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_SERVICE_NAME), WebTester.IMPLICIT_WAIT);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_LINK_SERVICE_NAME);
     tester.waitForElement(
-        By.xpath(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW),
+        By.id(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW),
         WebTester.IMPLICIT_WAIT);
 
-    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW);
     tester.waitForElement(
         By.id(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT),
         WebTester.IMPLICIT_WAIT);

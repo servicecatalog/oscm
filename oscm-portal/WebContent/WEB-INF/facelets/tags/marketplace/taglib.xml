@@ -243,6 +243,18 @@
     <source>serviceStatusBootstrap.xhtml</source>
   </tag>
   <tag>
+    <tag-name>subscriptionProcessConfirmDetails</tag-name>
+    <source>subscriptionProcessConfirmDetails.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>subscriptionProcessConfirmBilling</tag-name>
+    <source>subscriptionProcessConfirmBilling.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>subscriptionProcessConfirmLicense</tag-name>
+    <source>subscriptionProcessConfirmLicense.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>subscriptionProcessProgressBootstrap</tag-name>
     <source>subscriptionProcessProgressBootstrap.xhtml</source>
   </tag>

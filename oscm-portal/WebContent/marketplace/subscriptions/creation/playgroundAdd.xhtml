@@ -37,7 +37,9 @@
         </div>
 
         <div class="bg-light p-2 shadow mb-4">
-          <mp:serviceBlockBootstrap service="#{subscriptionWizardConversation.model.service}" fieldId="serviceDetail"/>
+          <mp:serviceBlockBootstrap service="#{subscriptionWizardConversation.model.service}" fieldId="serviceDetail" subscriptionBean="#{subscriptionWizardConversation}"
+                                    showPriceLink="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}"
+                                    insert="false"/>
 
           <h:form id="configurationForm" styleClass="mt-2">
             <adm:keepDirty value="#{subscriptionWizardConversation.model.dirty}"/>

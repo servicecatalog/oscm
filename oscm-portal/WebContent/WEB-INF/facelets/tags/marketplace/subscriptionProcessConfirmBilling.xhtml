@@ -1,0 +1,59 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+>
+
+  <ui:fragment
+      rendered="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}">
+    <!-- billing address -->
+    <div class="text-left mb-2">
+      <mp:outputStepBootstrap value="#{msg['subscription.confirm.details.title']}"/>
+      <div class="col bg-light-secondary rounded">
+        <a4j:outputPanel layout="block" styleClass="marginBottomDefault"
+                         rendered="#{not empty subscriptionWizardConversation.model.selectedBillingContact}">
+          <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.id}" id="billingId"/>
+        </a4j:outputPanel>
+        <div>
+          <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.email}"
+                        id="billingEmail"/>
+        </div>
+        <div>
+          <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.companyName}"
+                        id="billingCompanyName"/>
+        </div>
+        <div>
+          <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.address}"
+                        id="billingAddress"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- payment info -->
+    <div class="text-left">
+      <mp:outputStepBootstrap value="#{msg['subscription.confirm.paymentOptions.title']}"/>
+      <div class="col bg-white rounded">
+        <div>
+          <h:outputText value="#{subscriptionWizardConversation.model.selectedPaymentInfo.id}" id="paymentId"/>
+        </div>
+        <div>
+          <h:outputText value="#{subscriptionWizardConversation.model.selectedPaymentInfo.providerName}"
+                        id="paymentProvider"/>
+        </div>
+        <div>
+          <h:outputText value="#{subscriptionWizardConversation.model.selectedPaymentInfo.accountNumber}"
+                        id="paymentAccount"/>
+        </div>
+      </div>
+      <h:outputLink id="editPaymentTypeLink"
+                    onclick="setDirty(false);if(AdmUtils.isNotDirtyOrConfirmed()) {#{rich:element('hiddenPaymentChange')}.click();} return false;">
+        <h:outputText value="#{msg['subscription.confirm.paymentOptions.change']}"/>
+      </h:outputLink>
+      <h:commandButton id="hiddenPaymentChange" action="#{subscriptionWizardConversation.gotoEnterPayment}"
+                       style="display: none;" immediate="true"/>
+    </div>
+  </ui:fragment>
+</ui:composition>
+
+

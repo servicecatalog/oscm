@@ -44,14 +44,8 @@ public class MarketplacePlaygroundWT {
   @Test
   public void test01_navBarLandingPage() {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
-    final WebElement homeLink =
-        tester.getDriver().findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_HOME_LINK));
-    final String homeStyle = tester.getStyleClass(homeLink);
-    final WebElement browseLink =
-        tester
-            .getDriver()
-            .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK));
-    final String browseStyle = tester.getStyleClass(browseLink);
+    final String homeStyle = tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_HOME_LINK);
+    final String browseStyle = tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK);
 
     assertTrue(homeStyle.contains("active"));
     assertFalse(browseStyle.contains("active"));
@@ -60,14 +54,8 @@ public class MarketplacePlaygroundWT {
   @Test
   public void test02_navBarServicesPage() {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_SERVICES);
-    final WebElement homeLink =
-        tester.getDriver().findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_HOME_LINK));
-    final String homeStyle = tester.getStyleClass(homeLink);
-    final WebElement browseLink =
-        tester
-            .getDriver()
-            .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK));
-    final String browseStyle = tester.getStyleClass(browseLink);
+    final String homeStyle = tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_HOME_LINK);
+    final String browseStyle = tester.getStyleClass(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK);
 
     assertFalse(homeStyle.contains("active"));
     assertTrue(browseStyle.contains("active"));
