@@ -163,10 +163,9 @@ public class SubscriptionListsLazyDataModelTest {
     // given
     List<POSubscriptionForList> expectedList = prepareList();
     Response resp = new Response(expectedList);
-    when(subscriptionsService.getMySubscriptions()).thenReturn(resp);
-
+    when(subscriptionsService.getSubscriptionsForOrg(eq(null))).thenReturn(resp);
     // when
-    List<POSubscriptionForList> result = beanUnderTheTest.getSubscriptions();
+    List<POSubscriptionForList> result = beanUnderTheTest.getSubscriptionsData();
     // then
     assertArrayEquals(expectedList.toArray(), result.toArray());
     assertNull(beanUnderTheTest.getSelectedSubscription());

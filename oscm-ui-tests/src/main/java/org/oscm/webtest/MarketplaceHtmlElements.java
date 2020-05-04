@@ -38,6 +38,7 @@ public class MarketplaceHtmlElements {
       "confirmForm:agreeCheckbox";
   public static final String MARKETPLACE_SUBSCRIPTION_BUTTONLINK_CONFIRM =
       "confirmForm:confirmLink";
+  public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_CONFIRM = "confirmLink";
 
   public static final String MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON =
       "//a[@id='editProfileButton']/span";
