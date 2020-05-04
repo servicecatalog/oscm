@@ -3,44 +3,7 @@
 @import "../../bootstrap/scss/variables";
 
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green */
-
-
-$dark: $light;
-
-$theme-colors: (
-   "dark": $dark
-);
-
-$navbar-dark-color:  $navbar-light-color;
-$navbar-dark-hover-color: $navbar-light-hover-color;
-$navbar-dark-active-color: $navbar-light-active-color;
-$navbar-dark-disabled-color: $navbar-light-disabled-color;
-$navbar-dark-toggler-icon-bg: $navbar-light-toggler-icon-bg;
-$navbar-dark-toggler-border-color: $navbar-light-toggler-border-color;
-
-
-.bootstrap_footer {
-	background: $dark;
-	border-bottom:1px solid #4c4c4c;
-	width: 100%;
-	color: $black;
-}
-
-.bootstrap_footer a{ color: $black; }
-
-.bootstrap_footer ul { 
-	font-size: 93%; 
-	list-style: none; 
-	padding: 0; 
-	margin: 0;
-}
-
-.bootstrap_footer li {
-	display: inline;
-	margin: 0; 
-	margin-left: 16px;
-}	
-	
+@import "lightVariables";
 
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
