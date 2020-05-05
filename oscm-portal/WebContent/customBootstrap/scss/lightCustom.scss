@@ -1,0 +1,10 @@
+/* import only the necessary Bootstrap files */
+@import "../../bootstrap/scss/functions"; 
+@import "../../bootstrap/scss/variables";
+
+/* -------begin customization-------- *//* change the fonts, and primary theme color to green */
+@import "lightVariables";
+
+
+/* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
+@import "../../bootstrap/scss/bootstrap"; 

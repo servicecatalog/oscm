@@ -6,17 +6,17 @@
   <c:if test="#{empty loginHandler}">
 
   </c:if>
-  
+   
   <c:set var="logoimg" value="#{sessionBean.marketplaceBrandBaseUrl}/img/mp_logo3.png"/>
 
-  <nav class="px-1 navbar navbar-expand-lg bg-dark fixed-top navbar-dark">
+  <nav class="px-1 navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid h6 m-0 px-3">
-      <div class="no-gutters row align-items-center">
-        <a class="navbar-brand" href="#{mpBaseUrl}/index.jsf"> <h:graphicImage value="${logoimg}"
+       <div class="no-gutters row align-items-center">
+        <a class= "navbar-brand" href="#{mpBaseUrl}/playground.jsf"> <h:graphicImage value="${logoimg}"
             alt="My Logo" />
         </a>
 
-        <button id="navbarToggleButton" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+        <button id="navbarToggleButton" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar">
           <span class="navbar-toggler-icon"></span>
         </button>
       </div>
@@ -94,7 +94,7 @@
              <ui:fragment rendered="#{user ne null}">
               <li class="nav-item dropdown"><a class="nav-link dropdown-toggle waves-effect waves-light" href="#" id="navbarUserToggle"
                 data-toggle="dropdown" data-target="#userDrop"><i class="fa fa-user"/>
-                <h:outputText id="welcome"/> #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
+                <h:outputText id="welcome" /> #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
                 <div id="userDrop" class="dropdown-menu dropdown-menu-right">
                     <p class="px-4 py-sm-2"> #{msg['marketplace.logging']} <strong><br>#{user.userId}</br></strong></p>
                     <div class="dropdown-divider"></div>

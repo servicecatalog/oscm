@@ -161,9 +161,12 @@
   <c:set var="imprintUrl"
     value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}" />
 
+  <link href="${facesContext.externalContext.requestContextPath}/customBootstrap/css/darkFooter.css" rel="stylesheet"
+    type="text/css" /> 
+ 
  <footer class="bootstrap_footer">
 
-  <div class="container-fluid bg-dark text-center py-3">
+  <div class="container-fluid text-center py-3">
     <ul>
           <li class="firstchild"><a id="imprintLink" href="#{imprintUrl}" onclick="if(#{isMplRestricted and empty userBean.loggedInUser}){showLoginPanel('/marketplace/terms/imprint.jsf');return false;}" target="_blank"><h:outputText
                 value="#{msg['marketplace.imprint.title']}" /> </a>

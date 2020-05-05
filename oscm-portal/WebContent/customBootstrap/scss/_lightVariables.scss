@@ -1,0 +1,12 @@
+$dark: $light;
+
+$theme-colors: (
+   "dark": $dark
+);
+
+$navbar-dark-color:  $navbar-light-color;
+$navbar-dark-hover-color: $navbar-light-hover-color;
+$navbar-dark-active-color: $navbar-light-active-color;
+$navbar-dark-disabled-color: $navbar-light-disabled-color;
+$navbar-dark-toggler-icon-bg: $navbar-light-toggler-icon-bg;
+$navbar-dark-toggler-border-color: $navbar-light-toggler-border-color;
