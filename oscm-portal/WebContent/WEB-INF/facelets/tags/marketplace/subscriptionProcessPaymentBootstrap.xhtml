@@ -1,7 +1,9 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:a4j="http://richfaces.org/a4j"  xmlns:t="http://myfaces.apache.org/tomahawk"
-                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
@@ -99,34 +101,24 @@
         </div>
       </div>
     </div>
-
     <div class="col-md-4 col-sm-12">
-        <a4j:outputPanel id="piInformation" layout="block">
-          <mp:message for="selectPaymentInfo"
-                      rendered="#{empty subscriptionWizardConversation.model.selectedPaymentInfo}"/>
-          <ui:fragment
-              rendered="#{not empty subscriptionWizardConversation.model.selectedPaymentInfo}">
-            <a4j:outputPanel layout="block">
-              <h:outputText
-                  value="#{subscriptionWizardConversation.model.selectedPaymentInfo.providerName}"
-                  id="provider"/>
-            </a4j:outputPanel>
-            <a4j:outputPanel layout="block">
-              <h:outputText
-                  value="#{subscriptionWizardConversation.model.selectedPaymentInfo.accountNumber}"
-                  id="account"/>
-            </a4j:outputPanel>
-          </ui:fragment>
-        </a4j:outputPanel>
-      </div>
-
+      <a4j:outputPanel id="piInformation" layout="block">
+        <mp:message for="selectPaymentInfo"
+                    rendered="#{empty subscriptionWizardConversation.model.selectedPaymentInfo}"/>
+        <ui:fragment
+            rendered="#{not empty subscriptionWizardConversation.model.selectedPaymentInfo}">
+          <a4j:outputPanel layout="block">
+            <h:outputText
+                value="#{subscriptionWizardConversation.model.selectedPaymentInfo.providerName}"
+                id="provider"/>
+          </a4j:outputPanel>
+          <a4j:outputPanel layout="block">
+            <h:outputText
+                value="#{subscriptionWizardConversation.model.selectedPaymentInfo.accountNumber}"
+                id="account"/>
+          </a4j:outputPanel>
+        </ui:fragment>
+      </a4j:outputPanel>
+    </div>
   </div>
-
-
-
-
-
-
-
-
 </ui:composition>
