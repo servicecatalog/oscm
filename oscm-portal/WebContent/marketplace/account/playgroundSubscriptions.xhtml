@@ -84,6 +84,18 @@
        </tr>
       </c:forEach>
       </tbody>
+      <tfoot>
+      <tr>
+       <th class="table_column" style="width: 20px"/>
+       <th class="desktop"/>
+       <th class="all">#{msg['subscriptions.table.name']}</th>
+       <th class="desktop">#{msg['subscriptions.table.reference']}</th>
+       <th class="desktop">#{msg['subscription.unit']}</th>
+       <th class="desktop">#{msg['subscription.service']}</th>
+       <th class="min-tablet">#{msg['subscriptions.table.activation']}</th>
+       <th class="all">#{msg['subscription.status']}</th>
+      </tr>
+      </tfoot>
      </table>
     </div>
    </h:form>
@@ -98,7 +110,12 @@
   <script type="text/javascript">
 $(document).ready(function() {
 
- $('#table').DataTable({
+$('#table tfoot th').each( function () {
+        var title = $(this).text();
+        $(this).html( '&lt;input type="text" placeholder="Search '+title+'" />' );
+    } );
+
+ var table = $('#table').DataTable({
  responsive: true,
   columnDefs: [{
    orderable: false,
@@ -108,6 +125,18 @@ $(document).ready(function() {
    targets: 1
   }]
  });
+
+ table.columns().every( function () {
+  var that = this;
+
+  $( 'input', this.footer() ).on( 'keyup change clear', function () {
+   if ( that.search() !== this.value ) {
+     that
+       .search( this.value )
+       .draw();
+     }
+   });
+  });
 });
   </script>
 
