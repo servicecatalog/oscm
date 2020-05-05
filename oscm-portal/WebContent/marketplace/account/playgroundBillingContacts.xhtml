@@ -1,0 +1,75 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
+
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
+        <div class="row">
+          <mp:outputStepBootstrap value="#{msg['marketplace.paymentManageBillingContacts.title']}" />
+
+          <h:form id="selectForm">
+            <a4j:jsFunction name="selectBillingItem"
+              action="#{billingContactEditBean.prepareBillingContactForEdit}"
+              render=":billingContactEditPanel :billingContactEditPanelForm"
+              oncomplete="AdmUtils.initFocus();RichFaces.$('billingContactEditPanel').show();">
+              <a4j:param name="param1" assignTo="#{billingContactEditBean.selectedBillingContactId}" />
+            </a4j:jsFunction>
+          </h:form>
+
+          <c:set var="iconWidth" value="4%" />
+          <c:set var="normalWidth" value="30%" />
+          <c:set var="moreWidth" value="66%" />
+
+          <h:form id="billingContactListForm">
+              <a4j:commandLink styleClass="btn-sm btn-secondary text-white"
+                action="#{billingContactBean.prepareBillingContactForNew}"
+                id="addBillingContact" render=":billingContactPanel :billingContactPanelForm"
+                oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('billingContactPanel').show();">
+                <h:outputText style="white-space: nowrap;" value="#{msg['button.addBillingContact']}" />
+              </a4j:commandLink>
+
+            <a4j:outputPanel layout="block" styleClass="tablePanel table_padding" style="margin-top: 10px;">
+              <rich:dataTable width="100%" height="220px" style="min-width:680px;position:relative; width: 100%;"
+                headerClass="rowTitle" rowClasses="rowOdd,rowEven" id="billingContactListTable"
+                value="#{billingContactBean.billingContacts}" var="billingContact" selectionMode="single"
+                onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
+                enableContextMenu="false" noDataLabel=" " columnClasses="wrapColumns" sortMode="single">
+                <rich:column styleClass="tableColumnCheckBox" width="#{iconWidth}">
+                  <img src="#{imgUrl}/transparentPixel.png" id="editPaymentImage" class="editPen" onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.selectRow(this);selectBillingItem(#{billingContact.key});}"/>
+                </rich:column>
+                <rich:column sortBy="#{billingContact.id}" sortOrder="ascending"
+                  sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                  sortIconDescending="#{sortIconDescending}" width="#{normalWidth}">
+                  <f:facet name="header">
+                    <h:outputText value="#{msg['billingContact.displayName']}" />
+                  </f:facet>
+                  <h:outputText id="displayName" value="#{billingContact.id}" />
+                </rich:column>
+                <rich:column sortBy="#{billingContact.email}" sortIcon="#{sortIcon}"
+                  sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
+                  width="#{moreWidth}">
+                  <f:facet name="header">
+                    <h:outputText value="#{msg['billingContact.contactInformation']}" />
+                  </f:facet>
+                  <a4j:outputPanel layout="block" style="min-height: 50px;">
+                    <a4j:outputPanel layout="block">
+                      <h:outputText value="#{billingContact.email}" id="billingEmail" />
+                    </a4j:outputPanel>
+                    <a4j:outputPanel layout="block">
+                      <h:outputText value="#{billingContact.companyName}" id="billingCompanyName"
+                        styleClass="preWrapping" />
+                    </a4j:outputPanel>
+                    <a4j:outputPanel layout="block">
+                      <h:outputText value="#{billingContact.address}" id="billingAddress" styleClass="preWrapping" />
+                    </a4j:outputPanel>
+                  </a4j:outputPanel>
+                </rich:column>
+              </rich:dataTable>
+            </a4j:outputPanel>
+          </h:form>
+        </div>
+
+</ui:composition>

@@ -1,0 +1,156 @@
+<!-- Copyright FUJITSU LIMITED 2010 -->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:t="http://myfaces.apache.org/tomahawk"
+  template="../templates/modalDialogBootstrap.xhtml">
+
+  <!-- Mandatory parameters: dialogId -->
+
+  <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+
+  <ui:define name="dialogScripts">
+    <c:set var="cancelHandler"
+      value="setDirty(false);#{rich:component(dialogId)}.hide();AdmUtils.deselectRow();" />
+    <c:set var="modalFocusElement" value="#{dialogId}Form:displayName" />
+  </ui:define>
+
+  <ui:define name="dialogTitle">
+    <h2>
+      <h:outputText
+        value="#{msg['payment.new.BillingContact.title']}" />
+    </h2>
+  </ui:define>
+
+  <ui:define name="dialogDescription">
+    <c:set var="dialogDescription"
+      value="#{msg['marketplace.payment.edit.BillingContact.description']}" />
+    <a4j:outputPanel rendered="#{not empty dialogDescription}">
+      <h3>
+        <h:outputText value="#{dialogDescription}" />
+      </h3>
+    </a4j:outputPanel>
+  </ui:define>
+
+  <ui:define name="dialogContent">
+    <a4j:outputPanel id="#{dialogId}Grid" layout="block" styleClass="grid2span clearfix" style="width: 560px;">
+      <ui:fragment>
+      <h:inputHidden id="isConversationMode" value="#{inConversation}" />
+        <h:form id="#{dialogId}Form">
+          <t:panelGrid columns="3" border="0" cellspacing="0" cellpadding="0" styleClass="smallPanel"
+            columnClasses="smallPanelCol1,smallPanelCol2,smallPanelCol3">
+
+            <!-- Note: the "adm:labelAndInputText is not used on this site on purpose. See bug 7843 for details" -->
+
+            <!-- Displayname label and field -->
+            <adm:outputLabel value="#{msg['billingContact.displayName']}" required="true"/>
+            <h:inputText id="displayName" label="#{msg['billingContact.displayName']}"
+              value="#{billingContactBean.billingContact.id}" maxlength="#{appBean.idLen}" onchange="setDirty(true)"
+              styleClass="field" required="true">
+              <f:validator validatorId="idChar" />
+              <f:converter converterId="trimConverter" />
+            </h:inputText>
+            <mp:message id="displayNameErrorMsg" for="displayName" />
+
+            <!-- Company name label and field -->
+            <adm:outputLabel value="#{msg['billingContact.organizationName']}" required="true"/>
+            <h:inputText id="companyName" label="#{msg['billingContact.organizationName']}"
+              value="#{billingContactBean.billingContact.companyName}" maxlength="#{appBean.nameLen}"
+              onchange="setDirty(true)" styleClass="field" required="#{empty param[reqBtnName]}"
+              >
+              <f:validateLength maximum="#{appBean.nameLen}" />
+              <f:converter converterId="trimConverter" />
+            </h:inputText>
+            <mp:message id="companyNameErrorMsg" for="companyName" />
+
+            <!-- Email label and field -->
+            <adm:outputLabel value="#{msg['billingContact.email']}" required="true"/>
+            <h:inputText id="email" label="#{msg['billingContact.email']}"
+              value="#{billingContactBean.billingContact.email}" maxlength="#{appBean.nameLen}"
+              onchange="setDirty(true)" styleClass="field" required="#{empty param[reqBtnName]}"
+              >
+              <f:converter converterId="trimConverter" />
+              <f:validator validatorId="email" />
+            </h:inputText>
+            <mp:message id="emailErrorMsg" for="email" />
+
+            <!-- Address label and input text area -->
+            <adm:outputLabel value="#{msg['billingContact.address']}" required="true"/>
+            <h:inputTextarea id="address" label="#{msg['billingContact.address']}"
+              value="#{billingContactBean.billingContact.address}" maxlength="#{appBean.descriptionLen}"
+              onchange="setDirty(true)" rows="3" styleClass="field nonResizableElement" required="#{empty param[reqBtnName]}"
+              >
+              <f:validateLength maximum="#{appBean.descriptionLen}" />
+              <f:converter converterId="trimConverter" />
+            </h:inputTextarea>
+            <mp:message id="addressErrorMsg" for="address" />
+
+          </t:panelGrid>
+
+          <br />
+
+          <mp:pixelline />
+
+          <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel">
+            <h:commandButton id="saveBillingContactButton"
+                             styleClass="button"
+                             value="#{msg['button.save']}"
+                             onclick="saveLineEndings();AdmUtils.showProgress(true);setDirty(false)"
+                             action="#{billingContactBean.saveBillingContact}">
+              <f:ajax execute="@form"
+                      render=":#{dialogId}RerenderPanel :#{dialogId}modalErrorMasterPanel #{additionalRender} @form"
+                      onevent="#{dialogId}eventHandler"/>
+            </h:commandButton>
+
+            <h:commandButton id="cancelButton" styleClass="button"
+                onclick="
+                    AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
+                    AdmUtils.clearHiddenErrorPanel();
+                    AdmUtils.deselectRow();
+                    #{rich:component(dialogId)}.hide();"
+                value="#{msg['button.cancel']}" >
+                    <f:ajax execute="@this" render="@form" />
+                    <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+            </h:commandButton>
+
+          </a4j:outputPanel>
+          
+          <script type="text/javascript">
+          	var #{dialogId}ErrorFlag = #{facesContext.maximumSeverity.ordinal == 0};
+            function #{dialogId}eventHandler(data) {
+              if (data.status == "success") {
+                  if(#{dialogId}ErrorFlag){
+                    #{rich:component(dialogId)}.hide();
+                  }
+              } else if(data.status == "complete") {
+                  AdmUtils.showProgress(false);
+              }
+            }
+
+            $(document).ready(function() {
+            	var isConversationMode = document.getElementById("isConversationMode").value;
+            	if (isConversationMode == "true") {
+                	var orginalText = document.getElementById("billingContactPanelForm:address").value;
+                	var replacedText = orginalText.replace(/\u200C/g, "\n");
+                	document.getElementById("billingContactPanelForm:address").value = replacedText;
+            	}
+            });
+
+            function saveLineEndings() {
+            	var isConversationMode = document.getElementById("isConversationMode").value;
+            	if (isConversationMode == "true") {
+            		var orginalText = document.getElementById("billingContactPanelForm:address").value;
+            		var replacedText = orginalText.replace(/\n/g, "\u200C\n");
+            		document.getElementById("billingContactPanelForm:address").value = replacedText;
+            	}
+            }
+          </script>
+
+        </h:form>
+      </ui:fragment>
+
+    </a4j:outputPanel>
+  </ui:define>
+</ui:composition>

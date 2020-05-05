@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                template="../templates/mainBootstrap.xhtml">
+
+  <ui:define name="pageId">
+    <c:set var="pageId" value="marketplace.account.payments" />
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+  </ui:define>
+
+  <ui:define name="breadcrumbs">
+    <mp:bootstrapBreadcrumbs>
+      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf" />
+      <mp:crumb labelPageId="marketplace.account.payments" />
+    </mp:bootstrapBreadcrumbs>
+  </ui:define>
+
+  <ui:define name="aside">
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.payments.title" />
+  </ui:define>
+
+  <ui:define name="contentstitle">
+    <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
+      <br />
+    </a4j:outputPanel>
+  </ui:define>
+
+  <ui:define name="contents">
+
+    <a4j:outputPanel id="all" layout="block" >
+
+      <ui:include src="playgroundBillingContacts.xhtml"/>
+      <div class="row mt-4">
+
+
+<!--        <ui:include src="paymentTypes.xhtml"/>-->
+
+      </div>
+    </a4j:outputPanel>
+
+
+  </ui:define>
+</ui:composition>
