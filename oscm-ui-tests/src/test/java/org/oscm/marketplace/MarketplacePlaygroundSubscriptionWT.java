@@ -35,7 +35,7 @@ public class MarketplacePlaygroundSubscriptionWT {
     tester = new PortalTester();
     String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
     String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
-    tester.loginMarketplacePlayground("administrator", "admin123", "8149b7ab");
+    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);;
   }
 
   @AfterClass
