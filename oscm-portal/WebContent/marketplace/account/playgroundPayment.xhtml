@@ -29,6 +29,59 @@
 
   <ui:define name="contents">
 
+    <h:form id="#{dialogId}pspResultForm">
+      <h:inputHidden id="pspResult" value="#{paymentInfoBean.pspResult}" />
+      <h:commandButton style="display:none;" id="handlePspResult" value="handlePspResult"
+                       action="#{paymentInfoBean.handlePspResult}" />
+    </h:form>
+
+    <script type="text/javascript">
+        // this method will be called from the pspRegistrationResult
+        // page from inside the iframe passing the psp result for displaying
+        // it on the main page and switching back to the view without psp frame
+        function handlePspResult(result) {
+            setDirty(false);
+            document.getElementById('pspResultForm:pspResult').value = result;
+            document.getElementById('pspResultForm:handlePspResult').click();
+        }
+    </script>
+
+
+
+    <c:set var="mpImgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+    <c:set var="sortIcon" value="#{mpImgUrl}/transparentPixel.png?id=sort" />
+    <c:set var="sortIconAscending" value="#{mpImgUrl}/transparentPixel.png?id=sortAscending" />
+    <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending" />
+
+    <a4j:outputPanel layout="block">
+      <ui:include src="billingContact.xhtml">
+        <ui:param name="dialogId" value="billingContactPanel" />
+        <ui:param name="additionalRender" value=":billingContactListForm" />
+        <ui:param name="inConversation" value="false" />
+      </ui:include>
+      <ui:include src="billingContactEdit.xhtml">
+        <ui:param name="dialogId" value="billingContactEditPanel" />
+        <ui:param name="additionalRender" value=":billingContactListForm" />
+      </ui:include>
+      <ui:include src="paymentOption.xhtml">
+        <ui:param name="dialogId" value="paymentOptionPanel" />
+        <ui:param name="context" value="account" />
+        <ui:param name="defineFullDialogContent" value="true" />
+        <ui:param name="dialogHeight" value="60" />
+        <ui:param name="additionalRender" value=":paymentOptionListForm" />
+      </ui:include>
+      <ui:include src="paymentOptionEdit.xhtml">
+        <ui:param name="dialogId" value="paymentOptionEditPanel" />
+        <ui:param name="context" value="account" />
+        <ui:param name="defineFullDialogContent" value="true" />
+        <ui:param name="dialogHeight" value="60" />
+        <ui:param name="additionalRender" value=":paymentOptionListForm" />
+      </ui:include>
+    </a4j:outputPanel>
+
+
+
+
     <a4j:outputPanel id="all" layout="block" >
 
       <ui:include src="playgroundBillingContacts.xhtml"/>
