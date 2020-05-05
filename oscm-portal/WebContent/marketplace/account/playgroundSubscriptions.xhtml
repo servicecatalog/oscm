@@ -112,8 +112,10 @@ $(document).ready(function() {
 
 $('#table tfoot th').each( function () {
         var title = $(this).text();
+        if(title !== ""){
         $(this).html( '&lt;input type="text" placeholder="Search '+title+'" />' );
-    } );
+        }
+    });
 
  var table = $('#table').DataTable({
  responsive: true,
@@ -137,6 +139,8 @@ $('#table tfoot th').each( function () {
      }
    });
   });
+
+  $('#table tfoot tr').appendTo('#table thead');
 });
   </script>
 
