@@ -97,7 +97,7 @@ public class PortalMarketplaceWT {
     tester.selectDropdown(
         PortalHtmlElements.MANAGE_CATEGORIES_DROPDOWN, PlaygroundSuiteTest.marketPlaceId);
     tester.clickElement(PortalHtmlElements.MANAGE_CATEGORIES_ADD_BUTTON);
-    tester.writeValue(PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_ID_INPUT, "CategoryId");
+    tester.writeValue(PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_ID_INPUT, "CategoryId" + PlaygroundSuiteTest.currentTimestampe);
     tester.writeValue(PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_NAME_INPUT, "CategoryName");
     Thread.sleep(2000);
     tester.clickElement(PortalHtmlElements.MANAGE_CATEGORIES_SAVE_BUTTON);
@@ -106,7 +106,18 @@ public class PortalMarketplaceWT {
   }
 
   @Test
-  public void test05createPlayground() throws Exception {
+  public void test05addCurrency() throws Exception {
+    tester.visitPortal(PortalPathSegments.MANAGE_CURRENCIES);
+
+    tester.writeValue(PortalHtmlElements.MANAGE_CURRENCY_INPUT, "USD");
+
+    tester.clickElement(PortalHtmlElements.MANAGE_CURRENCY_ADD_BUTTON);
+
+    assertTrue(tester.getExecutionResult());
+  }
+
+  @Test
+  public void test06createPlayground() throws Exception {
     tester.visitPortal(PortalPathSegments.CREATE_MARKETPLACE);
 
     tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_NAME, "PlaygroundMarketplace");

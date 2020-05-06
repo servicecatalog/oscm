@@ -208,7 +208,7 @@ public class WebTester {
   public void clickElement(String id) {
     try {
       driver.findElement(By.id(id)).click();
-    } catch (StaleElementReferenceException e) {
+    } catch (StaleElementReferenceException | ElementClickInterceptedException e) {
       driver.findElement(By.id(id)).click();
     }
     log(String.format("Clicked the element with id %s", id));
@@ -280,8 +280,13 @@ public class WebTester {
   public void selectDropdown(String id, String value) {
     Select select = new Select(driver.findElement(By.id(id)));
     select.selectByValue(value);
-
     log(String.format("Selected value: %s from element with id %s", value, id));
+  }
+
+  public void selectDropdownByIndex(String id, int index) {
+    Select select = new Select(driver.findElement(By.id(id)));
+    select.selectByIndex(index);
+    log(String.format("Selected index: %s from element with id %s", index, id));
   }
 
   /**

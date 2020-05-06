@@ -35,7 +35,7 @@ public class MarketplacePlaygroundSubscriptionWT {
     tester = new PortalTester();
     String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
     String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
-    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);;
   }
 
   @AfterClass
@@ -45,7 +45,7 @@ public class MarketplacePlaygroundSubscriptionWT {
   }
 
   @Test
-  public void test01_createSubscriptionWithoutPayment() {
+  public void test01_createSubscription() {
     String referenceNo = WebTester.getCurrentTime();
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
@@ -60,6 +60,15 @@ public class MarketplacePlaygroundSubscriptionWT {
     tester.writeValue(
         MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_INPUT_REFNUMBER, referenceNo);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_NEXT);
+
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_LINK);
+    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_DISPLAY_NAME, "Test billing");
+    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ORG_NAME, "Test org");
+    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_EMAIL, "email@email.com");
+    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ADDRESS, "Some address, Some country");
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_SAVE);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_NEXT);
+
     tester.waitForElementVisible(
         By.id(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE),
         WebTester.IMPLICIT_WAIT);

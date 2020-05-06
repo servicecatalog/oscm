@@ -15,6 +15,7 @@ import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.support.ui.Select;
 import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalPathSegments;
@@ -100,10 +101,13 @@ public class PortalMarketServiceWT {
     tester.waitForElementVisible(By.id(PortalHtmlElements.DEFINE_PRICEMODEL_BUTTON_SAVE), 10);
     if (!tester
         .getDriver()
-        .findElement(By.id(PortalHtmlElements.DEFINE_PRICEMODEL_CHECKBOX_FREE_OF_CHARGE))
+        .findElement(By.id(PortalHtmlElements.DEFINE_PRICEMODEL_CHECKBOX_TIMEUNIT_CALC))
         .isSelected()) {
-      tester.clickElement(PortalHtmlElements.DEFINE_PRICEMODEL_CHECKBOX_FREE_OF_CHARGE);
+      tester.clickElement(PortalHtmlElements.DEFINE_PRICEMODEL_CHECKBOX_TIMEUNIT_CALC);
     }
+
+    tester.writeValue(PortalHtmlElements.DEFINE_PRICEMODEL_RECURRING_PRICE_INPUT, "5.00");
+
     tester.waitForElementVisible(By.id(PortalHtmlElements.DEFINE_PRICEMODEL_BUTTON_SAVE), 10);
     tester.clickElement(PortalHtmlElements.DEFINE_PRICEMODEL_BUTTON_SAVE);
     tester.waitForElement(By.id(PortalHtmlElements.PORTAL_SPAN_INFOS), 10);
@@ -156,6 +160,20 @@ public class PortalMarketServiceWT {
     assertTrue(tester.getExecutionResult());
   }
 
+  @Test
+  public void test05setPaymentType() throws Exception {
+    tester.visitPortal(PortalPathSegments.MANAGE_PAYMENT);
+    tester.waitForElement(By.id(PortalHtmlElements.MANAGE_PAYMENT_FORM), 5);
+
+    tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_NEW_SERVICES);
+    tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_EXISTING_SERVICES);
+    tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_NEW_USERS);
+    tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_EXISTING_USERS);
+    tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_SAVE_BUTTON);
+
+    assertTrue(tester.getExecutionResult());
+  }
+
   private void setDescriptionValue(String description, String value) {
     String descriptionXpath =
         "//table[@id='"
@@ -172,9 +190,16 @@ public class PortalMarketServiceWT {
         .getDriver()
         .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
         .isSelected())
-      tester
-          .getDriver()
-          .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
-          .click();
+      try {
+        tester
+                .getDriver()
+                .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
+                .click();
+      } catch (ElementClickInterceptedException e){
+        tester
+                .getDriver()
+                .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
+                .click();
+      }
   }
 }
