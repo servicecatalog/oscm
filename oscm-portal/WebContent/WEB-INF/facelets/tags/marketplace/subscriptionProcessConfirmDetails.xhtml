@@ -37,7 +37,7 @@
 
   <!-- configuration summary -->
   <ui:fragment rendered="#{not empty subscriptionWizardConversation.model.serviceParameters}">
-    <h3 class="text-left">#{msg['parameter.table.header']}</h3>
+    <mp:outputStepBootstrap value="#{msg['parameter.table.header']}" />
     <div class="col py-1 bg-white rounded">
       <ui:include src="../../../../marketplace/account/paramtable.xhtml">
         <ui:param name="inputList" value="#{subscriptionWizardConversation.model.serviceParameters}" />
