@@ -896,7 +896,7 @@ form .formHighlight input, form .formHighlight textarea {
 }
 
 .labelAndValuePanelCol2 input {
-  width: 290px;
+  width: 100%;
   padding-left: 4px;
 }
 
@@ -2341,6 +2341,17 @@ table.smallPanel {
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 6.6 Subscriptions
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+.parameterConfigTable, .tableParameter {
+  width: 100%;
+}
+
+.parameterConfigTableDescColumn {
+  width: 40%;
+}
+
+.parameterValueContainer {
+  white-space:nowrap;
+}
 
 /* current subscriptton status wrapper (ready/error/pending)*/
 .subscriptionStatus {
