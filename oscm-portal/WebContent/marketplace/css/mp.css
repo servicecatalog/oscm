@@ -4386,10 +4386,14 @@ div#headerrightareaBootstrap, rightarea a {
   margin-top: 0.5rem !important;
 }
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-11.6 Additional background classes
+11.7 Additional utility classes
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 .bg-light-secondary {
     background: #FFFFFF;
+}
 
+.w-30px {
+ width: 30px;
+ min-width: 30px;
 }

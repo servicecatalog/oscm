@@ -25,7 +25,7 @@
               <mp:outputStepBootstrap value="#{msg['marketplace.paymentManageBillingContacts.title']}" />
             </div>
             <div class="col-12 mb-2">
-              <a4j:commandLink styleClass="btn-sm btn-secondary text-white"
+                <a4j:commandLink styleClass="btn-sm btn-secondary text-white"
                                action="#{billingContactBean.prepareBillingContactForNew}"
                                id="addBillingContact" render=":billingContactPanel :billingContactPanelForm"
                                oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('billingContactPanel').show();">
@@ -33,25 +33,24 @@
               </a4j:commandLink>
             </div>
             <div class="col-12">
-              <rich:dataTable width="100%" height="220px" styleClass="w-100"
+              <rich:dataTable height="220px" styleClass="w-100"
                               rowClasses="rowOdd,rowEven" id="billingContactListTable"
                               value="#{billingContactBean.billingContacts}" var="billingContact" selectionMode="single"
                               onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
                               enableContextMenu="false" noDataLabel=" " columnClasses="wrapColumns" sortMode="single">
-                <rich:column headerClass="tableColumnCheckBox" >
+                <rich:column headerClass="w-30px" >
                   <img src="#{imgUrl}/transparentPixel.png" id="editPaymentImage" class="editPen" onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.selectRow(this);selectBillingItem(#{billingContact.key});}"/>
                 </rich:column>
-                <rich:column sortBy="#{billingContact.id}" sortOrder="ascending"
+                <rich:column sortBy="#{billingContact.id}" sortOrder="ascending" headerClass="w-25"
                              sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
-                             sortIconDescending="#{sortIconDescending}" width="#{normalWidth}">
+                             sortIconDescending="#{sortIconDescending}">
                   <f:facet name="header">
                     <h:outputText value="#{msg['billingContact.displayName']}" />
                   </f:facet>
                   <h:outputText id="displayName" value="#{billingContact.id}" />
                 </rich:column>
-                <rich:column sortBy="#{billingContact.email}" sortIcon="#{sortIcon}"
-                             sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                             width="#{moreWidth}">
+                <rich:column sortBy="#{billingContact.email}" sortIcon="#{sortIcon}" headerClass="w-75"
+                             sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}">
                   <f:facet name="header">
                     <h:outputText value="#{msg['billingContact.contactInformation']}" />
                   </f:facet>
