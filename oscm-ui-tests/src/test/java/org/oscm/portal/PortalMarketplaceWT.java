@@ -97,7 +97,9 @@ public class PortalMarketplaceWT {
     tester.selectDropdown(
         PortalHtmlElements.MANAGE_CATEGORIES_DROPDOWN, PlaygroundSuiteTest.marketPlaceId);
     tester.clickElement(PortalHtmlElements.MANAGE_CATEGORIES_ADD_BUTTON);
-    tester.writeValue(PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_ID_INPUT, "CategoryId" + PlaygroundSuiteTest.currentTimestampe);
+    tester.writeValue(
+        PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_ID_INPUT,
+        "CategoryId" + PlaygroundSuiteTest.currentTimestampe);
     tester.writeValue(PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_NAME_INPUT, "CategoryName");
     Thread.sleep(2000);
     tester.clickElement(PortalHtmlElements.MANAGE_CATEGORIES_SAVE_BUTTON);

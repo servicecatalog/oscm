@@ -192,14 +192,14 @@ public class PortalMarketServiceWT {
         .isSelected())
       try {
         tester
-                .getDriver()
-                .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
-                .click();
-      } catch (ElementClickInterceptedException e){
+            .getDriver()
+            .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
+            .click();
+      } catch (ElementClickInterceptedException e) {
         tester
-                .getDriver()
-                .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
-                .click();
+            .getDriver()
+            .findElement(By.xpath("//*[span='" + label + "']/../../td[2]//input"))
+            .click();
       }
   }
 }

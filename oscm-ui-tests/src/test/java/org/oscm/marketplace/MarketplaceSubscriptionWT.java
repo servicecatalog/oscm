@@ -117,10 +117,17 @@ public class MarketplaceSubscriptionWT {
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT);
 
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_LINK);
-    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_DISPLAY_NAME, "Test billing");
-    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ORG_NAME, "Test org");
-    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_EMAIL, "email@email.com");
-    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ADDRESS, "Some address, Some country");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_DISPLAY_NAME,
+        "Test billing");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ORG_NAME, "Test org");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_EMAIL,
+        "email@email.com");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ADDRESS,
+        "Some address, Some country");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_SAVE);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_PAYMENT_BUTTONLINK_NEXT);
 

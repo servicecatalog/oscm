@@ -35,7 +35,8 @@ public class MarketplacePlaygroundSubscriptionWT {
     tester = new PortalTester();
     String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
     String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
-    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);;
+    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+    ;
   }
 
   @AfterClass
@@ -62,10 +63,17 @@ public class MarketplacePlaygroundSubscriptionWT {
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_NEXT);
 
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_LINK);
-    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_DISPLAY_NAME, "Test billing");
-    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ORG_NAME, "Test org");
-    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_EMAIL, "email@email.com");
-    tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ADDRESS, "Some address, Some country");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_DISPLAY_NAME,
+        "Test billing");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ORG_NAME, "Test org");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_EMAIL,
+        "email@email.com");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ADDRESS,
+        "Some address, Some country");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_SAVE);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_SUBSCRIPTION_BUTTON_NEXT);
 

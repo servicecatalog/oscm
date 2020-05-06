@@ -20,7 +20,6 @@ public class PortalPathSegments {
   public static final String MANAGE_PAYMENT = "organization/managePaymentEnablement.jsf";
   public static final String MANAGE_CURRENCIES = "operator/manageCurrencies.jsf";
 
-
   public static final String IMPORT_TECHNICALSERVICE = "techservice/import.jsf";
   public static final String UPDATE_TECHNICALSERVICE = "techservice/edit.jsf";
 

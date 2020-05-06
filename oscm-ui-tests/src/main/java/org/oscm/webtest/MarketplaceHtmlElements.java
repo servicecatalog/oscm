@@ -33,8 +33,7 @@ public class MarketplaceHtmlElements {
       "configurationForm:purchaseOrderNumberText";
   public static final String MARKETPLACE_SUBSCRIPTION_BUTTONLINK_NEXT =
       "configurationForm:nextLink";
-  public static final String MARKETPLACE_SUBSCRIPTION_PAYMENT_BUTTONLINK_NEXT =
-      "payment:nextLink";
+  public static final String MARKETPLACE_SUBSCRIPTION_PAYMENT_BUTTONLINK_NEXT = "payment:nextLink";
   public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_NEXT = "nextLink";
   public static final String MARKETPLACE_SUBSCRIPTION_CHECKBOX_LICENSEAGREE =
       "confirmForm:agreeCheckbox";
@@ -180,12 +179,20 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_REVIEW_STARS_5 = "star5";
   public static final String MARKETPLACE_REVIEW_BLOCK = "reviewBlock1";
 
-  public static final String MARKETPLACE_SUBSCRIPTION_PAYMENT_DROPDOWN = "payment:selectPaymentInfo";
-  public static final String MARKETPLACE_SUBSCRIPTION_BILLING_DROPDOWN = "payment:payment:selectBillingContact";
-  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_LINK = "payment:newBillingContact";
-  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_DISPLAY_NAME = "billingContactPanelForm:displayName";
-  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ORG_NAME = "billingContactPanelForm:companyName";
-  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_EMAIL = "billingContactPanelForm:email";
-  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ADDRESS = "billingContactPanelForm:address";
-  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_SAVE = "billingContactPanelForm:saveBillingContactButton";
+  public static final String MARKETPLACE_SUBSCRIPTION_PAYMENT_DROPDOWN =
+      "payment:selectPaymentInfo";
+  public static final String MARKETPLACE_SUBSCRIPTION_BILLING_DROPDOWN =
+      "payment:payment:selectBillingContact";
+  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_LINK =
+      "payment:newBillingContact";
+  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_DISPLAY_NAME =
+      "billingContactPanelForm:displayName";
+  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ORG_NAME =
+      "billingContactPanelForm:companyName";
+  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_EMAIL =
+      "billingContactPanelForm:email";
+  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_ADDRESS =
+      "billingContactPanelForm:address";
+  public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_SAVE =
+      "billingContactPanelForm:saveBillingContactButton";
 }

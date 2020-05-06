@@ -110,14 +110,15 @@ public class PortalHtmlElements {
       "categoriesForm:categoriesTable:0:localizedValue";
   public static final String MANAGE_CATEGORIES_SAVE_BUTTON = "categoriesForm:saveButton";
 
- public static final String MANAGE_PAYMENT_FORM = "managePayment";
- public static final String MANAGE_PAYMENT_NEW_SERVICES = "managePayment:serviceDefault0";
- public static final String MANAGE_PAYMENT_EXISTING_SERVICES = "managePayment:serviceTable:0:service0";
- public static final String MANAGE_PAYMENT_NEW_USERS = "managePayment:default0";
- public static final String MANAGE_PAYMENT_EXISTING_USERS = "managePayment:customerTable:0:cust0";
- public static final String MANAGE_PAYMENT_SAVE_BUTTON = "managePayment:modifyPaymentEnablementButtonLink";
+  public static final String MANAGE_PAYMENT_FORM = "managePayment";
+  public static final String MANAGE_PAYMENT_NEW_SERVICES = "managePayment:serviceDefault0";
+  public static final String MANAGE_PAYMENT_EXISTING_SERVICES =
+      "managePayment:serviceTable:0:service0";
+  public static final String MANAGE_PAYMENT_NEW_USERS = "managePayment:default0";
+  public static final String MANAGE_PAYMENT_EXISTING_USERS = "managePayment:customerTable:0:cust0";
+  public static final String MANAGE_PAYMENT_SAVE_BUTTON =
+      "managePayment:modifyPaymentEnablementButtonLink";
 
- public static final String MANAGE_CURRENCY_INPUT = "currencies:currencyToManage";
- public static final String MANAGE_CURRENCY_ADD_BUTTON = "currencies:addButtonLink";
-
+  public static final String MANAGE_CURRENCY_INPUT = "currencies:currencyToManage";
+  public static final String MANAGE_CURRENCY_ADD_BUTTON = "currencies:addButtonLink";
 }
