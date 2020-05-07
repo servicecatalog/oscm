@@ -56,38 +56,41 @@
     <a4j:outputPanel layout="block">
       <ui:include src="billingContact.xhtml">
         <ui:param name="dialogId" value="billingContactPanel" />
-        <ui:param name="additionalRender" value=":billingContactListForm" />
+        <ui:param name="additionalRender" value=":billingContactTableForm" />
         <ui:param name="inConversation" value="false" />
       </ui:include>
       <ui:include src="billingContactEdit.xhtml">
         <ui:param name="dialogId" value="billingContactEditPanel" />
-        <ui:param name="additionalRender" value=":billingContactListForm" />
+        <ui:param name="additionalRender" value=":billingContactTableForm" />
       </ui:include>
       <ui:include src="paymentOption.xhtml">
         <ui:param name="dialogId" value="paymentOptionPanel" />
         <ui:param name="context" value="account" />
         <ui:param name="defineFullDialogContent" value="true" />
         <ui:param name="dialogHeight" value="60" />
-        <ui:param name="additionalRender" value=":paymentOptionListForm" />
+        <ui:param name="additionalRender" value=":paymentOptionTableForm" />
       </ui:include>
       <ui:include src="paymentOptionEdit.xhtml">
         <ui:param name="dialogId" value="paymentOptionEditPanel" />
         <ui:param name="context" value="account" />
         <ui:param name="defineFullDialogContent" value="true" />
         <ui:param name="dialogHeight" value="60" />
-        <ui:param name="additionalRender" value=":paymentOptionListForm" />
+        <ui:param name="additionalRender" value=":paymentOptionTableForm" />
       </ui:include>
     </a4j:outputPanel>
 
 
 
 
-    <a4j:outputPanel id="all" layout="block" >
+    <div class="bg-light p-2" >
+      <div class="pb-4">
+      <ui:include src="playgroundBillingContacts.xhtml"/>
+      </div>
+      <div class="pt-4">
+        <ui:include src="playgroundPaymentTypes.xhtml"/>
+      </div>
 
-       <ui:include src="playgroundBillingContacts.xhtml"/>
-       <ui:include src="playgroundPaymentTypes.xhtml"/>
-
-    </a4j:outputPanel>
+    </div>
 
 
   </ui:define>

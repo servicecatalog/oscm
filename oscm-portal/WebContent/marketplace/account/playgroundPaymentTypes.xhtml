@@ -8,95 +8,91 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
 
-        <ui:fragment rendered="true">
 
-          <h:form id="jsfunctions">
-            <a4j:jsFunction name="editPaymentInfo"
-                            render=":paymentOptionEditPanel :paymentOptionEditPanelForm"
-                            oncomplete="AdmUtils.initFocus();RichFaces.$('paymentOptionEditPanel').show();">
-              <a4j:param name="param1" assignTo="#{paymentInfoEditBean.paymentInfoId}"/>
-            </a4j:jsFunction>
+  <h:form id="jsfunctions">
+    <a4j:jsFunction name="editPaymentInfo"
+                    render=":paymentOptionEditPanel :paymentOptionEditPanelForm"
+                    oncomplete="AdmUtils.initFocus();RichFaces.$('paymentOptionEditPanel').show();">
+      <a4j:param name="param1" assignTo="#{paymentInfoEditBean.paymentInfoId}"/>
+    </a4j:jsFunction>
 
-            <a4j:jsFunction name="editDetailsPaymentInfo"
-                            render=":paymentOptionEditPanel :paymentOptionEditPanelForm"
-                            oncomplete="AdmUtils.initFocus();RichFaces.$('paymentOptionEditPanel').show();">
-              <a4j:param name="param1" assignTo="#{paymentInfoEditBean.paymentInfoId}"/>
-            </a4j:jsFunction>
-          </h:form>
-          <h:form id="paymentOptionListForm" styleClass="row">
-            <c:set var="normalWidth" value="30%" />
-            <c:set var="moreWidth" value="66%" />
-            <div class="col-12">
-              <mp:outputStepBootstrap value="#{msg['marketplace.paymentManagePaymentOptions.title']}"/>
-            </div>
-            <div class="col-12 mb-2">
-              <a4j:commandLink styleClass="btn-sm btn-secondary text-white" id="addPaymentOption"
-                               oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('paymentOptionPanel').show();"
-                               render=":paymentOptionPanel :paymentOptionPanelForm">
-                <f:setPropertyActionListener target="#{paymentInfoBean.creationContext}" value="account" />
-                <h:outputText style="white-space: nowrap;" value="#{msg['button.addPaymentOption']}" />
-              </a4j:commandLink>
-            </div>
-            <div class="col-12">
-              <rich:dataTable height="220px" styleClass="w-100"
-                              onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
-                              headerClass="rowTitle" rowClasses="rowOdd,rowEven" id="paymentOptionListTable"
-                              value="#{paymentInfoBean.paymentInfos}" var="paymentInfo" selectionMode="single"
-                              enableContextMenu="false" noDataLabel=" " columnClasses="alignTop wrapColumns">
+    <a4j:jsFunction name="editDetailsPaymentInfo"
+                    render=":paymentOptionEditPanel :paymentOptionEditPanelForm"
+                    oncomplete="AdmUtils.initFocus();RichFaces.$('paymentOptionEditPanel').show();">
+      <a4j:param name="param1" assignTo="#{paymentInfoEditBean.paymentInfoId}"/>
+    </a4j:jsFunction>
+  </h:form>
+  <div class="">
 
-                <rich:column headerClass="w-30px" >
-                  <img src="#{imgUrl}/transparentPixel.png" id="editPen" class="editPen" onclick="if(AdmUtils.isNotDirtyOrConfirmed()){editPaymentInfo('#{paymentInfo.key}')}"/>
-                </rich:column>
+    <h:form id="paymentOptionTableForm" styleClass="row">
+      <div class="col-12">
+        <mp:outputStepBootstrap value="#{msg['marketplace.paymentManagePaymentOptions.title']}"/>
+      </div>
+      <div class="col-12 mb-2">
+        <a4j:commandLink styleClass="btn-sm btn-secondary text-white" id="addPaymentOption"
+                         oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('paymentOptionPanel').show();"
+                         render=":paymentOptionPanel :paymentOptionPanelForm">
+          <f:setPropertyActionListener target="#{paymentInfoBean.creationContext}" value="account" />
+          <h:outputText style="white-space: nowrap;" value="#{msg['button.addPaymentOption']}" />
+        </a4j:commandLink>
+      </div>
+      <div class="col-12">
+        <rich:dataTable height="220px" styleClass="w-100"
+                        onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
+                        headerClass="rowTitle" rowClasses="rowOdd,rowEven" id="paymentOptionListTable"
+                        value="#{paymentInfoBean.paymentInfos}" var="paymentInfo" selectionMode="single"
+                        enableContextMenu="false" noDataLabel=" " columnClasses="alignTop wrapColumns">
 
-
-                <!--  Display name column -->
-                <rich:column id="displayNameColumn" sortBy="#{paymentInfo.id}" headerClass="w-25"
-                             sortIcon="#{sortIcon}" sortOrder="ascending" sortIconAscending="#{sortIconAscending}"
-                             sortIconDescending="#{sortIconDescending}">
-                  <f:facet name="header">
-                    <h:outputText value="#{msg['payment.displayName']}" />
-                  </f:facet>
-                  <h:outputText onclick="if(AdmUtils.isNotDirtyOrConfirmed()){editPaymentInfo('#{paymentInfo.key}')}" id="displayName" value="#{paymentInfo.id}" />
-                </rich:column>
-
-                <!--  Payment details column -->
-                <rich:column id="detailInfoColumn" sortBy="#{paymentInfo.id}" headerClass="w-75"
-                             sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
-                             sortIconDescending="#{sortIconDescending}">
-                  <f:facet name="header">
-                    <h:outputText value="#{msg['payment.paymentInformation']}" />
-                  </f:facet>
-
-                  <!--  For PSP Type -->
-                  <a4j:outputPanel onmouseover="AdmUtils.mouseOverCell(this);" onmouseout="AdmUtils.mouseOutCell(this)"
-                                   onclick="if(AdmUtils.isNotDirtyOrConfirmed()){editDetailsPaymentInfo('#{paymentInfo.key}'})"
-                                   layout="block"
-                                   rendered="#{paymentInfoBean.collectionTypePSP eq paymentInfo.paymentType.collectionType}">
-                    <img src="#{imgUrl}/transparentPixel.png" class="editPen" />
-                    <a4j:outputPanel layout="block" style="margin-left: 25px; margin-top: -15px;">
-                      <a4j:outputPanel layout="block">
-                        <h:outputText value="#{paymentInfo.providerName}" />
-                      </a4j:outputPanel>
-                      <a4j:outputPanel layout="block">
-                        <h:outputText value="#{paymentInfo.accountNumber}" />
-                      </a4j:outputPanel>
-                    </a4j:outputPanel>
-                  </a4j:outputPanel>
-
-                  <!--  For non-PSP Type maybe remove it completely -->
-                  <a4j:outputPanel layout="block" styleClass="smallCell"
-                                   rendered="#{not(paymentInfoBean.collectionTypePSP eq paymentInfo.paymentType.collectionType)}">
-                    <a4j:outputPanel layout="block">
-                      <h:outputText value="#{paymentInfo.paymentType.name}" />
-                    </a4j:outputPanel>
-                  </a4j:outputPanel>
-
-                </rich:column>
-              </rich:dataTable>
-            </div>
+          <rich:column headerClass="w-30px" >
+            <img src="#{imgUrl}/transparentPixel.png" id="editPen" class="editPen" onclick="if(AdmUtils.isNotDirtyOrConfirmed()){editPaymentInfo('#{paymentInfo.key}')}"/>
+          </rich:column>
 
 
-          </h:form>
+          <!--  Display name column -->
+          <rich:column id="displayNameColumn" sortBy="#{paymentInfo.id}" headerClass="w-25"
+                       sortIcon="#{sortIcon}" sortOrder="ascending" sortIconAscending="#{sortIconAscending}"
+                       sortIconDescending="#{sortIconDescending}">
+            <f:facet name="header">
+              <h:outputText value="#{msg['payment.displayName']}" />
+            </f:facet>
+            <h:outputText onclick="if(AdmUtils.isNotDirtyOrConfirmed()){editPaymentInfo('#{paymentInfo.key}')}" id="displayName" value="#{paymentInfo.id}" />
+          </rich:column>
 
-        </ui:fragment>
+          <!--  Payment details column -->
+          <rich:column id="detailInfoColumn" sortBy="#{paymentInfo.id}" headerClass="w-75"
+                       sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                       sortIconDescending="#{sortIconDescending}">
+            <f:facet name="header">
+              <h:outputText value="#{msg['payment.paymentInformation']}" />
+            </f:facet>
+
+            <!--  For PSP Type -->
+            <a4j:outputPanel onmouseover="AdmUtils.mouseOverCell(this);" onmouseout="AdmUtils.mouseOutCell(this)"
+                             onclick="if(AdmUtils.isNotDirtyOrConfirmed()){editDetailsPaymentInfo('#{paymentInfo.key}'})"
+                             layout="block"
+                             rendered="#{paymentInfoBean.collectionTypePSP eq paymentInfo.paymentType.collectionType}">
+              <img src="#{imgUrl}/transparentPixel.png" class="editPen" />
+              <a4j:outputPanel layout="block" style="margin-left: 25px; margin-top: -15px;">
+                <a4j:outputPanel layout="block">
+                  <h:outputText value="#{paymentInfo.providerName}" />
+                </a4j:outputPanel>
+                <a4j:outputPanel layout="block">
+                  <h:outputText value="#{paymentInfo.accountNumber}" />
+                </a4j:outputPanel>
+              </a4j:outputPanel>
+            </a4j:outputPanel>
+
+            <!--  For non-PSP Type maybe remove it completely -->
+            <a4j:outputPanel layout="block" styleClass="smallCell"
+                             rendered="#{not(paymentInfoBean.collectionTypePSP eq paymentInfo.paymentType.collectionType)}">
+              <a4j:outputPanel layout="block">
+                <h:outputText value="#{paymentInfo.paymentType.name}" />
+              </a4j:outputPanel>
+            </a4j:outputPanel>
+
+          </rich:column>
+        </rich:dataTable>
+      </div>
+    </h:form>
+  </div>
 </ui:composition>
