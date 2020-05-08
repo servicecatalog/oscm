@@ -38,7 +38,7 @@
   <!-- configuration summary -->
   <ui:fragment rendered="#{not empty subscriptionWizardConversation.model.serviceParameters}">
     <mp:outputStepBootstrap value="#{msg['parameter.table.header']}" />
-    <div class="col py-1 bg-white rounded">
+    <div class="col py-0 bg-white rounded">
       <ui:include src="../../../../marketplace/account/paramtable.xhtml">
         <ui:param name="inputList" value="#{subscriptionWizardConversation.model.serviceParameters}" />
         <ui:param name="formName" value="confirmForm" />

@@ -1,7 +1,8 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" 
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:t="http://myfaces.apache.org/tomahawk"
@@ -59,19 +60,19 @@
           onchange="setDirty(true)" value="#{row.booleanParameterValue}" disabled="#{readOnly}"
           rendered="#{row.parameterDefinition.valueTypeBoolean}">
         </h:selectBooleanCheckbox>
-        <h:inputText id="integerValue" styleClass="tableParameter" label="#{row.label}" onchange="setDirty(true)"
+        <h:inputText id="integerValue" styleClass="tableParameter" label="#{row.label}" onchange="setDirty(true)" p:placeholder="#{row.rangeLabel}"
           value="#{row.parameter.value}" maxlength="#{appBean.intLen}" required="#{row.parameterDefinition.mandatory}"
           dataType="integer" minValue="#{row.minValue}" maxValue="#{row.maxValue}" disabled="#{readOnly}"
           rendered="#{row.parameterDefinition.valueTypeInteger and row.emptyOrFirstSteppedPrice}">
           <f:validator validatorId="ParameterValueValidator" />
         </h:inputText>
-        <h:inputText id="longValue" styleClass="tableParameter" label="#{row.label}" onchange="setDirty(true)"
+        <h:inputText id="longValue" styleClass="tableParameter" label="#{row.label}" onchange="setDirty(true)"  p:placeholder="#{row.rangeLabel}"
           value="#{row.parameter.value}" maxlength="#{appBean.longLen}" required="#{row.parameterDefinition.mandatory}"
           dataType="long" minValue="#{row.minValue}" maxValue="#{row.maxValue}" disabled="#{readOnly}"
           rendered="#{row.parameterDefinition.valueTypeLong and row.emptyOrFirstSteppedPrice}">
           <f:validator validatorId="ParameterValueValidator" />
         </h:inputText>
-        <h:inputText id="durationValue" styleClass="tableParameter" label="#{row.label}" onchange="setDirty(true)"
+        <h:inputText id="durationValue" styleClass="tableParameter" label="#{row.label}" onchange="setDirty(true)"  p:placeholder="#{row.rangeLabel}"
           value="#{row.parameter.value}" maxlength="#{appBean.longLen}" required="#{row.parameterDefinition.mandatory}"
           dataType="duration" minValue="#{row.minValue}" maxValue="#{row.maxValue}" disabled="#{readOnly}"
           rendered="#{row.parameterDefinition.valueTypeDuration}">
@@ -135,8 +136,6 @@
           <h:outputText value="#{row.parameterOption.optionDescription}" />
         </ui:fragment>
         <adm:spacer width="10" />
-        <h:outputText styleClass="tableParameter" value="#{row.rangeLabel}"
-          rendered="#{row.rangeRendered and row.emptyOrFirstSteppedPrice}" />
       </div>
       <t:div styleClass="errorPanelTr">
         <adm:message for="booleanValue"
@@ -155,7 +154,7 @@
     </rich:column>
 
     <!--  price per user  -->
-    <rich:column
+    <rich:column styleClass="text-center"
       rendered="#{showParameterPrices and showPrices and not (subscriptionExisting and row.oneTimeParameter)}">
       <f:facet name="header">
         <h:outputText value="#{msg['service.parameter.pricePerUser']}" />
@@ -173,7 +172,7 @@
     </rich:column>
 
     <!--  price per user (special handling to oneTimeParameter) -->
-    <rich:column rendered="#{showParameterPrices and showPrices and subscriptionExisting and row.oneTimeParameter}">
+    <rich:column styleClass="text-center" rendered="#{showParameterPrices and showPrices and subscriptionExisting and row.oneTimeParameter}">
       <f:facet name="header">
         <h:outputText value="#{msg['service.parameter.pricePerUser']}" />
       </f:facet>
@@ -183,7 +182,7 @@
     </rich:column>
 
     <!--  price per subscription -->
-    <rich:column
+    <rich:column styleClass="text-center"
       rendered="#{showParameterPrices and showPrices and not (subscriptionExisting and row.oneTimeParameter)}">
       <f:facet name="header">
         <h:outputText value="#{msg['service.parameter.pricePerSubscription']}" />
@@ -206,7 +205,7 @@
     </rich:column>
 
     <!--  price per subscription (special handling to oneTimeParameter) -->
-    <rich:column rendered="#{showParameterPrices and  showPrices and subscriptionExisting and row.oneTimeParameter}">
+    <rich:column  styleClass="text-center" rendered="#{showParameterPrices and  showPrices and subscriptionExisting and row.oneTimeParameter}">
       <f:facet name="header">
         <h:outputText value="#{msg['service.parameter.pricePerSubscription']}" />
       </f:facet>
@@ -219,7 +218,7 @@
       </h:outputText>
     </rich:column>
 
-    <rich:column rendered="#{showParameterPrices and showSteppedPrices}">
+    <rich:column styleClass="text-center" rendered="#{showParameterPrices and showSteppedPrices}">
       <f:facet name="header">
         <h:outputText value="#{msg['priceModel.steppedPrice.limit']}" />
       </f:facet>

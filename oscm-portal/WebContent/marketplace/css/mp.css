@@ -295,7 +295,8 @@ textarea {
 }
 
 input[type="radio"], input[type="checkbox"] {
-  width: 12px !important;
+  width: 2rem !important;
+  vertical-align: middle;
 }
 
 table {
@@ -1616,7 +1617,7 @@ img[src$="sortDescending"] {
 /* colors for alternating rows in data tables */
 .rowEven {
   padding-left: 10px;
-  background: #E5EBF1;
+  background: #eee;
 }
 
 .rowOdd {
@@ -3693,16 +3694,16 @@ thead .rf-dt-flt {
 }
 
 .rf-dt-r:HOVER {
-  background: #9DBEE9;
+  background:  #f8f9fa;
 }
 
 #editUserForm .rf-dt-r.rowEven:HOVER, #userForm .rf-dt-r.rowEven:HOVER, #paymentOptionListForm .rf-dt-r.rowEven:HOVER,
-  #groupForm .rf-dt-r.rowEven:HOVER {
-  background: #E5EBF1;
+  #groupForm .rf-dt-r.rowEven:HOVER .rowEven:HOVER {
+  background:  #f8f9fa;
 }
 
 #editUserForm .rf-dt-r.rowOdd:HOVER, #userForm .rf-dt-r.rowOdd:HOVER, #paymentOptionListForm .rf-dt-r.rowOdd:HOVER,
-  #groupForm .rf-dt-r.rowOdd:HOVER {
+  #groupForm .rf-dt-r.rowOdd:HOVER .rowOdd:HOVER{
   background: #FFF;
 }
 
@@ -3870,7 +3871,7 @@ thead th.clickable-header {
 }
 
 thead th.clickable-header:HOVER {
-  background: #CBD7F5;
+  background: #f8f9fa;
 }
 
 #triggerSubListForm  .rf-dt-shdr-c {
