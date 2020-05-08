@@ -7,7 +7,7 @@
 
   <mp:outputStepBootstrap value="#{msg['marketplace.subscription.configuration.nameAndReference']}"/>
 
-  <adm:panelGrid styleClasses="table-responsive" columnClasses="col-auto p-1 text-left,col-sm-6 p-1,col-auto p-1">
+  <adm:panelGrid styleClasses="table-responsive" columnClasses="text-nowrap col-auto p-1 text-left,col-sm-6 p-1,col-auto p-1">
     <adm:labelAndInputText id="subscriptionIdText" label="#{msg['subscription.subscriptionId']}" styleClass="w-100"
                            required="true" backingBean="#{subscriptionWizardConversation}"
                            value="#{subscriptionWizardConversation.model.subscription.subscriptionId}"

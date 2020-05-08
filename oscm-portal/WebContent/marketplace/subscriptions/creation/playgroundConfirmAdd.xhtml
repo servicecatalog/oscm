@@ -29,8 +29,8 @@
             <mp:subscriptionProcessProgressBootstrap active="confirmation"
                                                      showPayment="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}"/>
           </div>
-
-          <div class="bg-light mb-4 p-2">
+          
+          <div class="bg-light p-3 shadow mb-4">
             <mp:serviceBlockBootstrap service="#{subscriptionWizardConversation.model.service}" subscriptionBean="#{subscriptionWizardConversation}"
                                       showPriceLink="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}"
                                       insert="false"/>
