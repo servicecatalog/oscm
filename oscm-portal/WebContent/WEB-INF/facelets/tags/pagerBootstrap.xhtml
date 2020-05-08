@@ -1,0 +1,69 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:rich="http://richfaces.org/rich"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+
+ <a4j:outputPanel id="pagerPanel" styleClass="clearfix">
+
+  <c:if test="#{empty pagerExecute}">
+   <c:set var="pagerExecute" value="@region"/>
+  </c:if>
+
+  <rich:dataScroller id="#{pagerId}" renderIfSinglePage="false" render="#{render}" oncomplete="#{oncomplete}"
+                     fastControls="hide" scrollerListener="#{tableState.actionListener}"
+                     page="#{tableState.activePages[rich:clientId(pagerId)]}"
+                     maxPages="5" execute="#{pagerExecute}">
+   <f:facet name="first">
+    <i class="fa fa-fast-backward"/>
+   </f:facet>
+   <f:facet name="first_disabled">
+    <i class="fa fa-fast-backward"/>
+   </f:facet>
+
+   <f:facet name="previous">
+    <i class="fa fa-step-backward"/>
+   </f:facet>
+   <f:facet name="previous_disabled">
+    <i class="fa fa-step-backward"/>
+   </f:facet>
+
+   <f:facet name="next">
+    <i class="fa fa-step-forward"/>
+   </f:facet>
+   <f:facet name="next_disabled">
+    <i class="fa fa-step-forward"/>
+   </f:facet>
+
+   <f:facet name="last">
+    <i class="fa fa-fast-forward"/>
+   </f:facet>
+   <f:facet name="last_disabled">
+    <i class="fa fa-fast-forward"/>
+   </f:facet>
+  </rich:dataScroller>
+
+  <a4j:outputPanel id="#{pagerId}Panel">
+   <c:set var="pageValue" value="#{pagerId}pageValue"/>
+   <div class="input-group px-2 d-inline-flex float-right" style="max-width: 120px;">
+    <h:inputText id="#{pagerId}pageValue" styleClass="form-control form-control-sm" maxlength="9"
+                 placeholder="#{msg['common.pager']}"
+                 onkeypress="if((event.which &lt; 48 || event.which &gt; 57) &amp;&amp; event.which != 8) return false;"/>
+    <div class="input-group-append">
+     <adm:buttonCustomizedOnClickBootstrap id="#{pagerId}pagerButton" value="#{msg['common.go']}"
+                                           buttonType="smallExecute"
+                                           onclick="AdmUtils.pageTo(#{rich:element(pagerId)},#{rich:element(pageValue)});return false;"/>
+    </div>
+   </div>
+  </a4j:outputPanel>
+
+  <a4j:outputPanel id="#{pagerId}Scripts">
+   <script type="text/javascript">
+     var pager = #{rich:element(pagerId)}.id;
+     AdmUtils.managePageSelection(pager);
+   </script>
+  </a4j:outputPanel>
+ </a4j:outputPanel>
+</ui:composition>
