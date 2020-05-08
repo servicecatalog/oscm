@@ -4397,3 +4397,46 @@ div#headerrightareaBootstrap, rightarea a {
  width: 30px;
  min-width: 30px;
 }
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+11.8 Modal dialog
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+@media ( max-width : 767px) {
+  .responsive-dialog-container {
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%);
+        width: 90% !important;
+    }
+
+    .responsive-dialog-container > div {
+            width: 100% !important;
+        }
+
+    .responsive-dialog {
+       width: 100%;
+      }
+
+  /* CSS goes here */
+
+}
+
+@media ( min-width : 768px) {
+  /* CSS goes here */
+  .responsive-dialog-container {
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%);
+        width: 560px
+    }
+
+    .responsive-dialog-container > div {
+            width: 100% !important;
+        }
+
+
+  .responsive-dialog {
+   width: 560px
+  }
+}

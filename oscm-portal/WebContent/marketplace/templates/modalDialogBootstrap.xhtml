@@ -36,7 +36,7 @@
   <ui:insert name="dialogScripts" />
 
     <rich:popupPanel id="#{dialogId}" trimOverlayedElements="false" resizeable="false" autosized="true"
-                     onresize="return false;" zindex="15000"
+                     onresize="return false;" zindex="15000" styleClass="responsive-dialog-container"
     onshow="AdmUtils.adjustMplModalDialogPosition('#{dialogId}');#{dialogId}updateFocusElement();"
     onbeforeshow="AdmUtils.setPageOverflow('hidden');" onhide="AdmUtils.setPageOverflow('auto');">
 
@@ -50,12 +50,10 @@
         <ui:insert name="fullDialogContent" />
       </c:if>
       <c:if test="#{!defineFullDialogContent}">
-
-        <mp:pixelline />
-
-        <a4j:outputPanel id="#{dialogId}modalErrorMasterPanel">
+      <div class="border-top">
+        <a4j:outputPanel id="#{dialogId}modalErrorMasterPanel" >
           <a4j:outputPanel id="#{dialogId}modalErrorPanel" layout="block" styleClass="errorPanel"
-            rendered="#{(not empty errorKey) or (facesContext.maximumSeverity.ordinal > 0)}">
+                           rendered="#{(not empty errorKey) or (facesContext.maximumSeverity.ordinal > 0)}">
             <!-- filter error messages -->
             <c:if test="#{not empty errorKey}">
               <dl class="rich-messages box error">
@@ -70,7 +68,7 @@
                 </dt>
               </dl>
             </c:if>
-          
+
             <!-- JSF error messages -->
             <rich:messages id="#{dialogId}ErrorMessages"
                            globalOnly="true"
@@ -84,6 +82,7 @@
 
         <ui:insert name="dialogContent" />
 
+      </div>
       </c:if>
       
       <script language="JavaScript1.2" type="text/javascript">

@@ -54,28 +54,28 @@
     <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending" />
 
     <a4j:outputPanel layout="block">
-      <ui:include src="billingContact.xhtml">
+      <ui:include src="playgroundBillingContact.xhtml">
         <ui:param name="dialogId" value="billingContactPanel" />
         <ui:param name="additionalRender" value=":billingContactTableForm" />
         <ui:param name="inConversation" value="false" />
       </ui:include>
-      <ui:include src="billingContactEdit.xhtml">
+      <ui:include src="playgroundBillingContactEdit.xhtml">
         <ui:param name="dialogId" value="billingContactEditPanel" />
-        <ui:param name="additionalRender" value=":billingContactTableForm" />
+        <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder" />
       </ui:include>
-      <ui:include src="paymentOption.xhtml">
+      <ui:include src="playgroundPaymentOption.xhtml">
         <ui:param name="dialogId" value="paymentOptionPanel" />
         <ui:param name="context" value="account" />
         <ui:param name="defineFullDialogContent" value="true" />
         <ui:param name="dialogHeight" value="60" />
         <ui:param name="additionalRender" value=":paymentOptionTableForm" />
       </ui:include>
-      <ui:include src="paymentOptionEdit.xhtml">
+      <ui:include src="playgroundPaymentOptionEdit.xhtml">
         <ui:param name="dialogId" value="paymentOptionEditPanel" />
         <ui:param name="context" value="account" />
         <ui:param name="defineFullDialogContent" value="true" />
         <ui:param name="dialogHeight" value="60" />
-        <ui:param name="additionalRender" value=":paymentOptionTableForm" />
+        <ui:param name="additionalRender" value=":paymentOptionTableForm :infoPanelHolder" />
       </ui:include>
     </a4j:outputPanel>
 
