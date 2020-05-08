@@ -187,12 +187,11 @@
    <ui:include src="subscriptionAdministratePanel.xhtml">
     <ui:param name="dialogId" value="subscriptionAdministratePanel"/>
    </ui:include>
-
   </a4j:outputPanel>
 
   <mp:linkPageTop/>
 
-  <a4j:outputPanel id="subscriptionsListScripts" layout="block">
-  </a4j:outputPanel>
+  <link href="#{facesContext.externalContext.requestContextPath}/css/dataTableDarkStyle.css" rel="stylesheet"
+        type="text/css" media="all"/>
  </ui:define>
 </ui:composition>

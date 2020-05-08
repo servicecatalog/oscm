@@ -239,6 +239,18 @@ public class WebTester {
   }
 
   /**
+   * Reads the value of the element with the given xpath. This is used for fields that use the value
+   * attribute, e.g. input fields.
+   *
+   * @return the value of the element
+   * @throws NoSuchElementException if element is not present
+   */
+  public String readValueXPath(String xpath) {
+    WebElement element = driver.findElement(By.xpath(xpath));
+    return element.getAttribute(ATTRIUBTE_VALUE);
+  }
+
+  /**
    * Reads the text of the element with the given id. This is used for text within an element, e.g.
    * &lt;p id="id"&gt;text&lt;/p&gt;
    *
@@ -268,6 +280,26 @@ public class WebTester {
       element.sendKeys(value);
     }
     log(String.format("Wrote value: %s to element with id %s", value, id));
+  }
+
+  /**
+   * Takes the given value as input for the element with the given xpath.
+   *
+   * @param xpath the element xpath
+   * @param value the input value
+   * @throws NoSuchElementException if element is not present
+   */
+  public void writeValueXPath(String xpath, String value) {
+    try {
+      WebElement element = driver.findElement(By.xpath(xpath));
+      element.clear();
+      element.sendKeys(value);
+    } catch (StaleElementReferenceException e) {
+      WebElement element = driver.findElement(By.xpath(xpath));
+      element.clear();
+      element.sendKeys(value);
+    }
+    log(String.format("Wrote value: %s to element with id %s", value, xpath));
   }
 
   /**
