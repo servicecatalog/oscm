@@ -1227,6 +1227,11 @@
       <to-view-id>/marketplace/account/playgroundPayments.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    <navigation-case>
+      <from-outcome>subscriptions</from-outcome>
+      <to-view-id>/marketplace/account/playgroundSubscriptions.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
 
   <validator>
