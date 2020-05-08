@@ -1,16 +1,12 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:h="http://xmlns.jcp.org/jsf/html" template="../templates/modalDialog.xhtml">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" template="../templates/modalDialogBootstrap.xhtml">
 
   <ui:define name="dialogScripts">
     <c:set var="modalFocusElement" value="include:#{dialogId}Form:displayName" />
-
-    <c:set var="cancelHandler"
-      value="setDirty(false);#{rich:component(dialogId)}.hide();" />
-
+    <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();" />
   </ui:define>
 
   <ui:define name="dialogTitle">
