@@ -29,7 +29,7 @@
         <mp:outputStepBootstrap value="#{msg['marketplace.paymentManagePaymentOptions.title']}"/>
       </div>
       <div class="col-12 mb-2">
-        <a4j:commandLink styleClass="btn-sm btn-secondary text-white" id="addPaymentOption"
+        <a4j:commandLink styleClass="btn-sm btn-secondary text-white text-decoration-none" id="addPaymentOption"
                          oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('paymentOptionPanel').show();"
                          render=":paymentOptionPanel :paymentOptionPanelForm">
           <f:setPropertyActionListener target="#{paymentInfoBean.creationContext}" value="account" />

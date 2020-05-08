@@ -8,50 +8,60 @@
   xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:t="http://myfaces.apache.org/tomahawk">
 
-  <mp:pixelline />
   <!-- Dialog description -->
-  <ui:insert name="dialogDescription" />
 
-  <ui:include src="/marketplace/account/errorMessages.xhtml"/>
-
-  <a4j:outputPanel layout="block" styleClass="grid2span clearfix" style="width: 560px;">
+  <a4j:outputPanel layout="block" styleClass="responsive-dialog  border-top">
+    <ui:insert name="dialogDescription" />
+    <ui:include src="/marketplace/account/errorMessages.xhtml"/>
 
         <!--  Edit display name -->
-        <h:form id="#{dialogId}Form">
+        <h:form id="#{dialogId}Form" styleClass="responsive-dialog pt-2">
           <h:commandButton style="display:none;" id="confirmedPaymentDeleteButton" onclick="setDirty(false);"
             value="#{msg['button.delete']}" action="#{paymentInfoEditBean.deletePaymentInfo}" />
+          <c:set var="reqBtnName" value="#{includePrefix}:#{dialogId}Form:confirmedPaymentDeleteButton" />
+          <div class="row mb-2">
+            <div class="col-md-4 col-sm-12">
+              <adm:outputLabel value="#{msg['paymentInfo.displayName']}" required="true"/>
+            </div>
+            <div class="col-md-5 col-sm-12">
+              <h:inputText id="displayName" label="#{msg['billingContact.displayName']}" onchange="setDirty(true)" styleClass="w-100"
+                           value="#{paymentInfoEditBean.paymentInfo.id}" maxlength="#{appBean.idLen}" required="#{empty param[reqBtnName]}">
+                <f:validator validatorId="idChar"/>
+                <f:converter converterId="trimConverter"/>
+              </h:inputText>
+            </div>
+            <div class="col-md-3 col-sm-12">
+              <mp:message id="displayNameErrorMsg" for="displayName"/>
+            </div>
+          </div>
 
-          <t:panelGrid columns="3" border="0" cellspacing="0" cellpadding="0" styleClass="smallPanel"
-            columnClasses="smallPanelCol1,smallPanelCol2,smallPanelCol3">
 
-            <c:set var="reqBtnName" value="#{includePrefix}:#{dialogId}Form:confirmedPaymentDeleteButton" />
-
-            <adm:labelAndInputText id="displayName" label="#{msg['paymentInfo.displayName']}"
-              value="#{paymentInfoEditBean.paymentInfo.id}" maxlength="#{appBean.idLen}" converterId="trimConverter"
-              required="#{empty param[reqBtnName]}" />
-          </t:panelGrid>
-
-          <mp:pixelline marginTop="125" />
-          <a4j:outputPanel styleClass="clearfix">
-            <h:commandButton styleClass="button" id="hiddenSetDisplayName" value="#{msg['button.save']}"
+          <a4j:outputPanel layout="block" styleClass="row no-gutters border-top pt-2">
+            <h:commandButton styleClass="btn-sm btn-secondary" id="hiddenSetDisplayName" value="#{msg['button.save']}"
                              onclick="AdmUtils.showProgress(true);setOnSubmit(true);setDirty(false);"
                              action="#{paymentInfoEditBean.updatePaymentInfo}">
               <f:ajax execute="@form" render=":#{dialogId}modalErrorMasterPanel #{additionalRender} @form" onevent="#{dialogId}eventHandler"/>
+              </h:commandButton>
+
+              <h:commandButton id="deleteButton" value="#{msg['button.delete']}" styleClass="btn-sm btn-secondary mx-1"
+                               onclick="#{rich:component('paymentConfirmPanel')}.show();return false;"
+              rendered="#{'PAYMENT_SERVICE_PROVIDER' == paymentInfoEditBean.paymentInfo.paymentType.collectionType}"/>
+
+            <h:commandButton id="cancelButton" styleClass="btn-sm btn-secondary mx-1"
+                             onclick="
+                    AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
+                    AdmUtils.clearHiddenErrorPanel();
+                    AdmUtils.deselectRow();
+                    setDirty(false);
+                    #{rich:component(dialogId)}.hide();"
+                             value="#{msg['button.cancel']}" >
+              <f:ajax execute="@this" render="@form" />
+              <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
             </h:commandButton>
-
-            <mp:confirmPanel panelId="paymentConfirmPanel"
-              header="#{msg['marketplace.payment.deletePaymentOption.title']}"
-              text1="#{msg['marketplace.payment.paymentOption.deleteMsg']}" text2="#{msg['marketplace.areyousure']}"
-              submitId="confirmedPaymentDeleteButton" isFirstModal="false" />
-            <c:if test="#{'PAYMENT_SERVICE_PROVIDER' == paymentInfoEditBean.paymentInfo.paymentType.collectionType}">
-              <adm:buttonCustomizedOnClick id="deleteButton" value="#{msg['button.delete']}"
-                onclick="#{rich:component('paymentConfirmPanel')}.show();return false;" big="true"
-                style="margin-right: 10px;" />
-            </c:if>
-
-            <mp:button id="cancelButton" onclick="setDirty(false);#{rich:component(dialogId)}.hide();"
-              value="#{msg['button.cancel']}" style="margin-right: 10px;" />
-
+            <mp:confirmPanelBootstrap panelId="paymentConfirmPanel"
+                             header="#{msg['marketplace.payment.deletePaymentOption.title']}"
+                             text1="#{msg['marketplace.payment.paymentOption.deleteMsg']}" text2="#{msg['marketplace.areyousure']}"
+                             submitId="confirmedPaymentDeleteButton" isFirstModal="false" />
           </a4j:outputPanel>
 
           <script type="text/javascript">

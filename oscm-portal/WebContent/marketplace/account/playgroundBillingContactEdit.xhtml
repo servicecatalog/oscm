@@ -1,5 +1,4 @@
 <!-- Copyright FUJITSU LIMITED 2020 -->
-
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
@@ -111,15 +110,12 @@
 
             <c:set var="reqBtnName" value="#{dialogId}Form:confirmedDeleteButton" />
 
-            <!-- Note: the "adm:labelAndInputText is not used on this site on purpose. See bug 7843 for details" -->
 
+            <a4j:outputPanel layout="block" styleClass="row no-gutters border-top pt-2">
+              <h:commandButton style="display:none;" id="confirmedDeleteButton"
+                               onclick="setDirty(false);" value="#{msg['button.delete']}"
+                               action="#{billingContactEditBean.deleteBillingContact}" immediate="true"/>
 
-          <div class="row no-gutters border-top pt-2">
-            <h:commandButton style="display:none;" id="confirmedDeleteButton"
-                             onclick="setDirty(false);" value="#{msg['button.delete']}"
-                             action="#{billingContactEditBean.deleteBillingContact}" immediate="true"/>
-
-            <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel">
               <h:commandButton styleClass="btn-sm btn-secondary" id="hiddenSetDisplayName" value="#{msg['button.save']}"
                                onclick="AdmUtils.showProgress(true);setOnSubmit(true);setDirty(false);"
                                action="#{billingContactEditBean.saveBillingContact}">
@@ -128,8 +124,8 @@
                         onevent="#{dialogId}eventHandler"/>
                 <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
               </h:commandButton>
-              <h:commandButton id="deleteButton" value="#{msg['button.delete']}" styleClass="btn-sm btn-secondary mx-1"
-                               onclick="#{rich:component('confirmPanel')}.show();return false;"/>
+                <h:commandButton id="deleteButton" value="#{msg['button.delete']}" styleClass="btn-sm btn-secondary mx-1"
+                                 onclick="#{rich:component('confirmPanel')}.show();return false;"/>
 
               <h:commandButton id="cancelButton" styleClass="btn-sm btn-secondary mx-1"
                                onclick="
@@ -143,11 +139,11 @@
                 <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
               </h:commandButton>
 
-              <mp:confirmPanel header="#{msg['marketplace.payment.deleteBillingContact.title']}"
+              <mp:confirmPanelBootstrap header="#{msg['marketplace.payment.deleteBillingContact.title']}"
                                text1="#{msg['marketplace.payment.billingContact.deleteMsg']}" text2="#{msg['marketplace.areyousure']}"
                                submitId="confirmedDeleteButton" isFirstModal="false" />
             </a4j:outputPanel>
-          </div>
+
 
 
           <script type="text/javascript">
