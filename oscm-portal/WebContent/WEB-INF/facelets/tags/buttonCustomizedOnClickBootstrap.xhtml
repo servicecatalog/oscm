@@ -1,0 +1,27 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+ <a4j:outputPanel rendered="#{empty rendered or rendered}" ajaxRendered="true">
+  <c:if test="#{empty progress}">
+   <c:set var="progress" value="true"/>
+  </c:if>
+
+  <c:if test="#{empty buttonStyleClass}">
+   <c:set var="buttonStyleClass" value="no-button-style-class"/>
+  </c:if>
+  <a4j:outputPanel rendered="#{disabled}" ajaxRendered="true">
+   <h:commandLink disabled="true" id="#{id}Disabled" styleClass="btn btn-outline-secondary btn-sm disabled"
+                  rendered="#{not empty buttonType}">#{value}
+   </h:commandLink>
+  </a4j:outputPanel>
+
+  <a4j:outputPanel rendered="#{not disabled}" ajaxRendered="true">
+   <h:commandLink id="#{id}" onclick="#{onclick}" styleClass="btn btn-outline-secondary btn-sm"
+                  rendered="#{not empty buttonType}">#{value}
+   </h:commandLink>
+  </a4j:outputPanel>
+ </a4j:outputPanel>
+</ui:composition>

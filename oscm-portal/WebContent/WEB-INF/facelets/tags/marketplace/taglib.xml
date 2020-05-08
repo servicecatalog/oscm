@@ -278,4 +278,8 @@
     <tag-name>confirmPanelBootstrap</tag-name>
     <source>confirmPanelBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>subscriptionFinderBootstrap</tag-name>
+    <source>subscriptionFinderBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>
