@@ -36,6 +36,7 @@ import org.oscm.webtest.WebTester;
   MarketplaceAccountWT.class,
   MarketplacePlaygroundWT.class,
   MarketplacePlaygroundSubscriptionWT.class,
+  MarketplacePlaygroundSubscriptionTableWT.class,
   MarketplacePlaygroundServiceDetailsWT.class,
   MarketplacePlaygroundRoutingWT.class
 })

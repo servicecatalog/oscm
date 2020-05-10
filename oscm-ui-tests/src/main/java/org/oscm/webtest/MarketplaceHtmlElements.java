@@ -196,13 +196,19 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_SUBSCRIPTION_NEW_BILLING_ADDRESS_SAVE =
       "billingContactPanelForm:saveBillingContactButton";
 
-  public static final String MARKETPLACE_ACCOUNT_SHOW_SUBSCRIPTIONS_BUTTON = "showSubscriptionsButton";
-  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_FILTER_FIELD = "//input[@id='subListForm:subscriptionsList:subscriptionId']";
-  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_FIRST_ROW = "//span/table/tbody/tr/td[2]/div/span";
-  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SORT_TABLE = "//a[@id='subListForm:subscriptionsList:j_idt176']";
-  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SECOND_PAGE = "//a[@id='subListForm:subscriptionsList:subListPager_ds_2']";
-  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SEARCH_FIELD = "//input[@id='subListForm:searchField']";
-  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SEARCH_BUTTON = "//a[@id='subListForm:submitLink']/i";
-
-
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_FILTER_FIELD =
+      "//input[@id='subListForm:subscriptionsList:subscriptionId']";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_FIRST_ROW =
+      "//tr[@id='subListForm:subscriptionsList:0']/td[2]";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SECOND_PAGE =
+      "//a[@id='subListForm:subscriptionsList:subListPager_ds_2']";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SEARCH_FIELD =
+      "//input[@id='subListForm:searchField']";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SEARCH_BUTTON =
+      "//a[@id='subListForm:submitLink']/i";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_EXPAND = "//span/span/img";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_MANAGE_SUBSCRIPTIONS =
+      "//button[contains(.,'Manage subscription')]";
+  public static final String MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SERVICE_DETAILS =
+      "//h2[@id='serviceDetailName']";
 }
