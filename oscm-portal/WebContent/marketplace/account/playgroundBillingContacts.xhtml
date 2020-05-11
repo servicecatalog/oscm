@@ -35,11 +35,11 @@
             <div class="col-12">
               <rich:dataTable height="220px" styleClass="w-100"
                               rowClasses="rowOdd,rowEven" id="billingContactListTable"
-                              value="#{billingContactBean.billingContacts}" var="billingContact" selectionMode="single"
+                              value="#{billingContactBean.billingContacts}" var="billingContact" rowKeyVar="index" selectionMode="single"
                               onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
                               enableContextMenu="false" noDataLabel=" " columnClasses="wrapColumns" sortMode="single">
                 <rich:column headerClass="w-30px" >
-                  <img src="#{imgUrl}/transparentPixel.png" id="editPaymentImage" class="editPen" onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.selectRow(this);selectBillingItem(#{billingContact.key});}"/>
+                  <img src="#{imgUrl}/transparentPixel.png" id="editBillingImage#{index}" class="editPen" onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.selectRow(this);selectBillingItem(#{billingContact.key});}"/>
                 </rich:column>
                 <rich:column sortBy="#{billingContact.id}" sortOrder="ascending" headerClass="w-25"
                              sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"

@@ -56,7 +56,7 @@
     <a4j:outputPanel layout="block">
       <ui:include src="playgroundBillingContact.xhtml">
         <ui:param name="dialogId" value="billingContactPanel" />
-        <ui:param name="additionalRender" value=":billingContactTableForm" />
+        <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder" />
         <ui:param name="inConversation" value="false" />
       </ui:include>
       <ui:include src="playgroundBillingContactEdit.xhtml">

@@ -37,14 +37,14 @@
         </a4j:commandLink>
       </div>
       <div class="col-12">
-        <rich:dataTable height="220px" styleClass="w-100"
+        <rich:dataTable height="220px" styleClass="w-100" rowKeyVar="index"
                         onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
                         headerClass="rowTitle" rowClasses="rowOdd,rowEven" id="paymentOptionListTable"
                         value="#{paymentInfoBean.paymentInfos}" var="paymentInfo" selectionMode="single"
                         enableContextMenu="false" noDataLabel=" " columnClasses="alignTop wrapColumns">
 
           <rich:column headerClass="w-30px" >
-            <img src="#{imgUrl}/transparentPixel.png" id="editPen" class="editPen" onclick="if(AdmUtils.isNotDirtyOrConfirmed()){editPaymentInfo('#{paymentInfo.key}')}"/>
+            <img src="#{imgUrl}/transparentPixel.png" id="editPaymentImage#{index}" class="editPen" onclick="if(AdmUtils.isNotDirtyOrConfirmed()){editPaymentInfo('#{paymentInfo.key}')}"/>
           </rich:column>
 
 
