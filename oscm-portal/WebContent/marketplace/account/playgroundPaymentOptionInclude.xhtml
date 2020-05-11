@@ -11,76 +11,79 @@
 
   <a4j:outputPanel id="paymentInfoGrid" layout="block" styleClass="responsive-dialog border-top">
 
-      <!-- Dialog description -->
-      <ui:insert name="dialogDescription" />
-      <ui:include src="/marketplace/account/errorMessages.xhtml"/>
-      <!-- Create new payment option -->
-      <h:form id="#{dialogId}Form" styleClass="responsive-dialog pt-2">
-        <c:set var="paymentTypeList" value="#{paymentInfoBean.paymentTypeChoice}" />
-        <c:set var="noPaymentTypesAvailable" value="#{fn:length(paymentTypeList) eq 0}" />
-        <c:choose>
-          <c:when test="#{noPaymentTypesAvailable}">
-            <h:outputText id="noPaymentTypeOption" value="#{msg['organization.payment.noAvailabePayment']}" />
-          </c:when>
-          <c:otherwise>
-            <h:inputHidden id="selectedPaymentTypeId" value="#{paymentInfoBean.selectedPaymentTypeId}" />
-            <div class="row mb-1">
-              <div class="col-md-4 col-sm-12">
-                <adm:outputLabel value="#{msg['paymentInfo.displayName']}" required="true"/>
-              </div>
-              <div class="col-md-5 col-sm-12">
-                <h:inputText id="displayName" label="#{msg['billingContact.displayName']}" onchange="setDirty(true)" styleClass="w-100"
-                             value="#{paymentInfoBean.paymentInfo.id}" maxlength="#{appBean.idLen}" required="true">
-                  <f:validator validatorId="idChar"/>
-                  <f:converter converterId="trimConverter"/>
-                </h:inputText>
-              </div>
-              <div class="col-md-3 col-sm-12">
-                <mp:message id="displayNameErrorMsg" for="displayName"/>
-              </div>
+    <!-- Dialog description -->
+    <ui:insert name="dialogDescription"/>
+    <ui:include src="/marketplace/account/errorMessages.xhtml"/>
+    <!-- Create new payment option -->
+    <h:form id="#{dialogId}Form" styleClass="responsive-dialog pt-2">
+      <c:set var="paymentTypeList" value="#{paymentInfoBean.paymentTypeChoice}"/>
+      <c:set var="noPaymentTypesAvailable" value="#{fn:length(paymentTypeList) eq 0}"/>
+      <c:choose>
+        <c:when test="#{noPaymentTypesAvailable}">
+          <h:outputText id="noPaymentTypeOption" value="#{msg['organization.payment.noAvailabePayment']}"/>
+        </c:when>
+        <c:otherwise>
+          <h:inputHidden id="selectedPaymentTypeId" value="#{paymentInfoBean.selectedPaymentTypeId}"/>
+          <div class="row mb-1">
+            <div class="col-md-4 col-sm-12">
+              <adm:outputLabel value="#{msg['paymentInfo.displayName']}" required="true"/>
             </div>
-            <div class="row mb-1">
-              <div class="col-md-4 col-sm-12">
-                <adm:outputLabel hideLabelSeparator="true" value="#{msg['payment.selectNewOption']}" renderRequired="true"
-                                 labelStyleClass="label" />
-              </div>
-              <div class="col-md-8 col-sm-12">
-                <c:if test="#{fn:length(paymentTypeList) eq 1}">
-                  <c:set var="paymentTypeText" value="paymentType.#{paymentInfoBean.selectedPaymentTypeId}" />
-                  <a4j:outputPanel layout="block" styleClass="columnSmallPanelBreakWord">
-                    <h:outputLabel id="singlePaymentTypeOption" value="#{paymentTypeList[0].name}"/>
-                  </a4j:outputPanel>
-                </c:if>
-                <c:if test="#{fn:length(paymentTypeList) gt 1}">
-                  <t:selectOneRadio id="paymentTypeSelection" value="#{paymentInfoBean.selectedPaymentTypeId}"
-                                    layout="pageDirection" styleClass="columnSmallPanelBreakWord">
-                    <c:forEach items="#{paymentTypeList}" var="pt">
-                      <c:set var="paymentTypeText" value="paymentType.#{pt.paymentTypeId}" />
-                      <f:selectItem itemLabel="#{pt.name}" itemValue="#{pt.paymentTypeId}" />
-                    </c:forEach>
-                  </t:selectOneRadio>
-                </c:if>
-              </div>
+            <div class="col-md-5 col-sm-12">
+              <h:inputText id="displayName" label="#{msg['billingContact.displayName']}" onchange="setDirty(true)"
+                           styleClass="w-100"
+                           value="#{paymentInfoBean.paymentInfo.id}" maxlength="#{appBean.idLen}" required="true">
+                <f:validator validatorId="idChar"/>
+                <f:converter converterId="trimConverter"/>
+              </h:inputText>
             </div>
-          </c:otherwise>
-        </c:choose>
+            <div class="col-md-3 col-sm-12">
+              <mp:message id="displayNameErrorMsg" for="displayName"/>
+            </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-md-4 col-sm-12">
+              <adm:outputLabel hideLabelSeparator="true" value="#{msg['payment.selectNewOption']}" renderRequired="true"
+                               labelStyleClass="label"/>
+            </div>
+            <div class="col-md-8 col-sm-12">
+              <c:if test="#{fn:length(paymentTypeList) eq 1}">
+                <c:set var="paymentTypeText" value="paymentType.#{paymentInfoBean.selectedPaymentTypeId}"/>
+                <a4j:outputPanel layout="block" styleClass="columnSmallPanelBreakWord">
+                  <h:outputLabel id="singlePaymentTypeOption" value="#{paymentTypeList[0].name}"/>
+                </a4j:outputPanel>
+              </c:if>
+              <c:if test="#{fn:length(paymentTypeList) gt 1}">
+                <t:selectOneRadio id="paymentTypeSelection" value="#{paymentInfoBean.selectedPaymentTypeId}"
+                                  layout="pageDirection" styleClass="columnSmallPanelBreakWord">
+                  <c:forEach items="#{paymentTypeList}" var="pt">
+                    <c:set var="paymentTypeText" value="paymentType.#{pt.paymentTypeId}"/>
+                    <f:selectItem itemLabel="#{pt.name}" itemValue="#{pt.paymentTypeId}"/>
+                  </c:forEach>
+                </t:selectOneRadio>
+              </c:if>
+            </div>
+          </div>
+        </c:otherwise>
+      </c:choose>
 
-    <div class="row no-gutters border-top pt-2">
+      <div class="row no-gutters border-top pt-2">
 
-          <h:commandButton styleClass="btn-sm btn-secondary" id="switchToDetailsAjax" value="#{msg['button.next']}"
-                           rendered="#{not noPaymentTypesAvailable}"
-                           action="#{paymentInfoBean.switchToPaymentDetails}"
-                           onclick="AdmUtils.showProgress(true); setOnSubmit(false);">
-            <f:ajax execute="@form" render=":paymentOptionPanelRerenderPanel :#{dialogId}modalErrorMasterPanel #{additionalRender} @form" onevent="#{dialogId}eventHandler"/>
-          </h:commandButton>
-          <h:commandButton styleClass="btn-sm btn-secondary mx-1" id="cancelButton"
-                           onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
-                           value="#{msg['button.cancel']}">
-          </h:commandButton>
+        <h:commandButton styleClass="btn-sm btn-secondary" id="switchToDetailsAjax" value="#{msg['button.next']}"
+                         rendered="#{not noPaymentTypesAvailable}"
+                         action="#{paymentInfoBean.switchToPaymentDetails}"
+                         onclick="AdmUtils.showProgress(true); setOnSubmit(false);">
+          <f:ajax execute="@form"
+                  render=":paymentOptionPanelRerenderPanel :#{dialogId}modalErrorMasterPanel #{additionalRender} @form"
+                  onevent="#{dialogId}eventHandler"/>
+        </h:commandButton>
+        <h:commandButton styleClass="btn-sm btn-secondary mx-1" id="cancelButton"
+                         onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
+                         value="#{msg['button.cancel']}">
+        </h:commandButton>
 
-        </div>
+      </div>
 
-        <script type="text/javascript">
+      <script type="text/javascript">
           	var #{dialogId}ErrorFlag = #{facesContext.maximumSeverity.ordinal == 0};
             function #{dialogId}eventHandler(data) {
               if (data.status == "success") {
@@ -93,8 +96,10 @@
                   setDirty(false);
               }
             }
-          </script>
-      </h:form>
+
+
+      </script>
+    </h:form>
 
   </a4j:outputPanel>
 

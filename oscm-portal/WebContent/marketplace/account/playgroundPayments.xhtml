@@ -7,33 +7,33 @@
                 template="../templates/mainBootstrap.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.account.payments" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+    <c:set var="pageId" value="marketplace.account.payments"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
     <mp:bootstrapBreadcrumbs>
-      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf" />
-      <mp:crumb labelPageId="marketplace.account.payments" />
+      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.payments"/>
     </mp:bootstrapBreadcrumbs>
   </ui:define>
 
   <ui:define name="aside">
-    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.payments.title" />
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.payments.title"/>
   </ui:define>
 
   <ui:define name="contentstitle">
     <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
-      <br />
+      <br/>
     </a4j:outputPanel>
   </ui:define>
 
   <ui:define name="contents">
 
     <h:form id="#{dialogId}pspResultForm">
-      <h:inputHidden id="pspResult" value="#{paymentInfoBean.pspResult}" />
+      <h:inputHidden id="pspResult" value="#{paymentInfoBean.pspResult}"/>
       <h:commandButton style="display:none;" id="handlePspResult" value="handlePspResult"
-                       action="#{paymentInfoBean.handlePspResult}" />
+                       action="#{paymentInfoBean.handlePspResult}"/>
     </h:form>
 
     <script type="text/javascript">
@@ -45,41 +45,39 @@
             document.getElementById('pspResultForm:pspResult').value = result;
             document.getElementById('pspResultForm:handlePspResult').click();
         }
+
     </script>
 
-
-
-    <c:set var="mpImgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <c:set var="sortIcon" value="#{mpImgUrl}/transparentPixel.png?id=sort" />
-    <c:set var="sortIconAscending" value="#{mpImgUrl}/transparentPixel.png?id=sortAscending" />
-    <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending" />
+    <c:set var="mpImgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+    <c:set var="sortIcon" value="#{mpImgUrl}/transparentPixel.png?id=sort"/>
+    <c:set var="sortIconAscending" value="#{mpImgUrl}/transparentPixel.png?id=sortAscending"/>
+    <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending"/>
 
     <a4j:outputPanel layout="block">
       <ui:include src="playgroundBillingContact.xhtml">
-        <ui:param name="dialogId" value="billingContactPanel" />
-        <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder" />
-        <ui:param name="inConversation" value="false" />
+        <ui:param name="dialogId" value="billingContactPanel"/>
+        <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder"/>
+        <ui:param name="inConversation" value="false"/>
       </ui:include>
       <ui:include src="playgroundBillingContactEdit.xhtml">
-        <ui:param name="dialogId" value="billingContactEditPanel" />
-        <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder" />
+        <ui:param name="dialogId" value="billingContactEditPanel"/>
+        <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder"/>
       </ui:include>
       <ui:include src="playgroundPaymentOption.xhtml">
-        <ui:param name="dialogId" value="paymentOptionPanel" />
-        <ui:param name="context" value="account" />
-        <ui:param name="defineFullDialogContent" value="true" />
-        <ui:param name="dialogHeight" value="60" />
-        <ui:param name="additionalRender" value=":paymentOptionTableForm" />
+        <ui:param name="dialogId" value="paymentOptionPanel"/>
+        <ui:param name="context" value="account"/>
+        <ui:param name="defineFullDialogContent" value="true"/>
+        <ui:param name="dialogHeight" value="60"/>
+        <ui:param name="additionalRender" value=":paymentOptionTableForm"/>
       </ui:include>
       <ui:include src="playgroundPaymentOptionEdit.xhtml">
-        <ui:param name="dialogId" value="paymentOptionEditPanel" />
-        <ui:param name="context" value="account" />
-        <ui:param name="defineFullDialogContent" value="true" />
-        <ui:param name="dialogHeight" value="60" />
-        <ui:param name="additionalRender" value=":paymentOptionTableForm :infoPanelHolder" />
+        <ui:param name="dialogId" value="paymentOptionEditPanel"/>
+        <ui:param name="context" value="account"/>
+        <ui:param name="defineFullDialogContent" value="true"/>
+        <ui:param name="dialogHeight" value="60"/>
+        <ui:param name="additionalRender" value=":paymentOptionTableForm :infoPanelHolder"/>
       </ui:include>
     </a4j:outputPanel>
-
 
 
     <div class="row">
