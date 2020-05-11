@@ -1,11 +1,10 @@
-<!-- Copyright FUJITSU LIMITED 2010 -->
+<!-- Copyright FUJITSU LIMITED 2020 -->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-                xmlns:t="http://myfaces.apache.org/tomahawk"
                 template="../templates/modalDialogBootstrap.xhtml">
 
   <!-- Mandatory parameters: dialogId -->
@@ -47,7 +46,8 @@
               <adm:outputLabel value="#{msg['billingContact.displayName']}" required="true"/>
             </div>
             <div class="col-md-6 col-sm-12">
-              <h:inputText id="displayName" label="#{msg['billingContact.displayName']}" onchange="setDirty(true)" styleClass="w-100"
+              <h:inputText id="displayName" label="#{msg['billingContact.displayName']}" onchange="setDirty(true)"
+                           styleClass="w-100"
                            value="#{billingContactBean.billingContact.id}" maxlength="#{appBean.idLen}" required="true">
                 <f:validator validatorId="idChar"/>
                 <f:converter converterId="trimConverter"/>
@@ -99,7 +99,8 @@
             </div>
             <div class="col-md-6 col-sm-12">
               <h:inputTextarea id="address" label="#{msg['billingContact.address']}"
-                               value="#{billingContactBean.billingContact.address}" maxlength="#{appBean.descriptionLen}"
+                               value="#{billingContactBean.billingContact.address}"
+                               maxlength="#{appBean.descriptionLen}"
                                onchange="setDirty(true)" rows="3" styleClass="w-100 nonResizableElement"
                                required="#{empty param[reqBtnName]}">
                 <f:validateLength maximum="#{appBean.descriptionLen}"/>
@@ -111,8 +112,6 @@
             </div>
           </div>
 
-
-<!--          <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel">-->
           <div class="row no-gutters border-top pt-2">
             <h:commandButton id="saveBillingContactButton"
                              styleClass="btn-sm btn-secondary"
@@ -135,10 +134,6 @@
               <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
             </h:commandButton>
           </div>
-
-
-
-<!--          </a4j:outputPanel>-->
 
           <script type="text/javascript">
           	var #{dialogId}ErrorFlag = #{facesContext.maximumSeverity.ordinal == 0};
@@ -169,6 +164,7 @@
             		document.getElementById("billingContactPanelForm:address").value = replacedText;
             	}
             }
+
 
           </script>
 
