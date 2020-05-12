@@ -4392,6 +4392,7 @@ div#headerrightareaBootstrap, rightarea a {
 
 .bg-light-secondary {
   background: #FFFFFF;
+}
 
 .w-30px {
  width: 30px;
@@ -4463,6 +4464,12 @@ div#headerrightareaBootstrap, rightarea a {
 
 @media (max-width: 600px) {
   .column-unit-hide, .table th:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 601px) {
+  .show-unit-row {
     display: none;
   }
 }
