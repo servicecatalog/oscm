@@ -1,17 +1,25 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: Dirk Bernsau                                                      
- *                                                                              
- *  Creation Date: Nov 14, 2011                                                      
- *                                                                              
- *  Completion Time: Nov 14, 2011                                              
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: Dirk Bernsau
+ *
+ * <p>Creation Date: Nov 14, 2011
+ *
+ * <p>Completion Time: Nov 14, 2011
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ui.beans;
 
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.application.FacesMessage.Severity;
+import javax.servlet.http.HttpServletRequest;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -21,260 +29,255 @@ import org.oscm.internal.vo.VOPaymentInfo;
 import org.oscm.internal.vo.VOPaymentType;
 import org.oscm.test.stubs.AccountServiceStub;
 
-import javax.faces.application.FacesMessage.Severity;
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-
-/**
- * Unit tests for PaymentInfoBean
- * 
- */
+/** Unit tests for PaymentInfoBean */
 public class PaymentInfoBeanTest {
 
-    @Ignore
-    @Test
-    public void dummyTest() {
+  @Ignore
+  @Test
+  public void dummyTest() {}
 
-    }
+  private String addedMessageKey;
+  private PaymentInfoBean bean;
+  private PaymentInfoEditBean beanEdit;
+  private AccountServiceStub accountServiceStub;
+  private boolean concurrentDeletion, deregisterFailure = false;
+  private List<VOPaymentInfo> storedPaymentInfos;
+  private String pspResult = PaymentInfoBean.OUTCOME_PSP_SUCCESS;
 
-    private String addedMessageKey;
-    private PaymentInfoBean bean;
-    private PaymentInfoEditBean beanEdit;
-    private AccountServiceStub accountServiceStub;
-    private boolean concurrentDeletion, deregisterFailure = false;
-    private List<VOPaymentInfo> storedPaymentInfos;
-    private String pspResult = PaymentInfoBean.OUTCOME_PSP_SUCCESS;
+  public PaymentInfoBeanTest() {}
 
-    public PaymentInfoBeanTest() {
-    }
+  @Before
+  public void setup() {
 
-    @Before
-    public void setup() {
+    storedPaymentInfos = new ArrayList<>();
+    accountServiceStub =
+        new AccountServiceStub() {
 
-        storedPaymentInfos = new ArrayList<>();
-        accountServiceStub = new AccountServiceStub() {
-
-            @Override
-            public void deletePaymentInfo(VOPaymentInfo paymentInfo) throws ObjectNotFoundException,
-                    OperationNotPermittedException, ConcurrentModificationException, PaymentDeregistrationException {
-                if (concurrentDeletion) {
-                    // throw exception to simulate concurrent deletion
-                    throw new ObjectNotFoundException();
-                } else if (deregisterFailure) {
-                    throw new PaymentDeregistrationException();
-                }
+          @Override
+          public void deletePaymentInfo(VOPaymentInfo paymentInfo)
+              throws ObjectNotFoundException, OperationNotPermittedException,
+                  ConcurrentModificationException, PaymentDeregistrationException {
+            if (concurrentDeletion) {
+              // throw exception to simulate concurrent deletion
+              throw new ObjectNotFoundException();
+            } else if (deregisterFailure) {
+              throw new PaymentDeregistrationException();
             }
+          }
 
-            @Override
-            public List<VOPaymentInfo> getPaymentInfos() {
-                return storedPaymentInfos;
-            }
+          @Override
+          public List<VOPaymentInfo> getPaymentInfos() {
+            return storedPaymentInfos;
+          }
         };
 
-        bean = spy(new PaymentInfoBean() {
+    bean =
+        spy(
+            new PaymentInfoBean() {
 
-            private static final long serialVersionUID = 2837407376320759286L;
+              private static final long serialVersionUID = 2837407376320759286L;
 
-            @Override
-            protected void addMessage(String clientId, Severity severity, String key, Object[] params) {
+              @Override
+              protected void addMessage(
+                  String clientId, Severity severity, String key, Object[] params) {
                 addedMessageKey = key;
-            }
-        });
+              }
+            });
 
-        bean = spy(new PaymentInfoBean() {
+    bean =
+        spy(
+            new PaymentInfoBean() {
 
-            private static final long serialVersionUID = 2837407376320759286L;
+              private static final long serialVersionUID = 2837407376320759286L;
 
-            @Override
-            protected void addMessage(String clientId, Severity severity, String key, Object[] params) {
+              @Override
+              protected void addMessage(
+                  String clientId, Severity severity, String key, Object[] params) {
                 addedMessageKey = key;
-            }
-        });
+              }
+            });
 
-        doReturn(pspResult).when(bean).getPSPResult();
+    doReturn(pspResult).when(bean).getPSPResult();
 
-        doReturn(accountServiceStub).when(bean).getAccountingService();
+    doReturn(accountServiceStub).when(bean).getAccountingService();
 
-        beanEdit = new PaymentInfoEditBean() {
-            @Override
-            public void addMessage(String key) {
-                addedMessageKey = key;
-            }
+    beanEdit =
+        new PaymentInfoEditBean() {
+          @Override
+          public void addMessage(String key) {
+            addedMessageKey = key;
+          }
         };
-        beanEdit.setPaymentInfoBean(bean);
-        beanEdit.setAccountService(accountServiceStub);
+    beanEdit.setPaymentInfoBean(bean);
+    beanEdit.setAccountService(accountServiceStub);
+  }
+
+  private void addSomePaymentInfos(String[] ids) {
+    long key = 0L;
+    for (String id : ids) {
+      VOPaymentInfo pi = new VOPaymentInfo();
+      pi.setId(id);
+      pi.setKey(key++);
+      storedPaymentInfos.add(pi);
     }
+  }
 
-    private void addSomePaymentInfos(String[] ids) {
-        long key = 0L;
-        for (String id : ids) {
-            VOPaymentInfo pi = new VOPaymentInfo();
-            pi.setId(id);
-            pi.setKey(key++);
-            storedPaymentInfos.add(pi);
-        }
+  private VOPaymentInfo getStoredPaymentInfo(String id) {
+    for (VOPaymentInfo storedPI : storedPaymentInfos) {
+      if (storedPI.getId().equals(id)) return storedPI;
     }
+    return null;
+  }
 
-    private VOPaymentInfo getStoredPaymentInfo(String id) {
-        for (VOPaymentInfo storedPI : storedPaymentInfos) {
-            if (storedPI.getId().equals(id))
-                return storedPI;
-        }
-        return null;
+  @Test
+  public void testDeletePaymentInfo() throws Exception {
+    assertNull(addedMessageKey);
+    concurrentDeletion = false;
+    beanEdit.deletePaymentInfo();
+    assertEquals(addedMessageKey, BaseBean.INFO_PAYMENT_INFO_DELETED);
+  }
+
+  @Test
+  public void testDeletePaymentInfoConcurrrency() throws Exception {
+    assertNull(addedMessageKey);
+    concurrentDeletion = true;
+    beanEdit.deletePaymentInfo();
+    assertEquals(addedMessageKey, BaseBean.INFO_PAYMENT_INFO_DELETED_CONCURRENTLY);
+  }
+
+  @Test
+  public void testSelectCreatedPaymentInfo_Bug8655() throws Exception {
+    addSomePaymentInfos(
+        new String[] {
+          "SimplePay", "Test_Pay", "Test_Pay0", "Test_Pay_1", "Test_Pay_2", "Test_Pay_3"
+        });
+    pspResult = PaymentInfoBean.OUTCOME_PSP_SUCCESS;
+
+    bean.getPaymentInfo().setId("SimplePay");
+    bean.handlePspResult();
+    VOPaymentInfo selectedPI = bean.getSelectedPaymentInfoForSubscription();
+    assertEquals("SimplePay", selectedPI.getId());
+
+    bean.getPaymentInfo().setId("Test_Pay0");
+    bean.handlePspResult();
+    selectedPI = bean.getSelectedPaymentInfoForSubscription();
+    assertEquals("Test_Pay0", selectedPI.getId());
+
+    // For existing ID, PI with highest key must be taken
+    bean.getPaymentInfo().setId("Test_Pay");
+    bean.handlePspResult();
+    selectedPI = bean.getSelectedPaymentInfoForSubscription();
+    assertEquals("Test_Pay_3", selectedPI.getId());
+
+    // Change payment info highest key
+    getStoredPaymentInfo("Test_Pay_2").setKey(2000L);
+
+    // For existing ID, PI with highest key must be taken
+    bean.getPaymentInfo().setId("Test_Pay");
+    bean.handlePspResult();
+    selectedPI = bean.getSelectedPaymentInfoForSubscription();
+    assertEquals("Test_Pay_2", selectedPI.getId());
+
+    // But, only version 0 considered!
+    getStoredPaymentInfo("Test_Pay_2").setVersion(1);
+    bean.getPaymentInfo().setId("Test_Pay");
+    bean.handlePspResult();
+    selectedPI = bean.getSelectedPaymentInfoForSubscription();
+    assertEquals("Test_Pay_3", selectedPI.getId());
+
+    // Test non existing ID (not saved, should not occur in practice)
+    bean.getPaymentInfo().setId("Test");
+    bean.handlePspResult();
+    selectedPI = bean.getSelectedPaymentInfoForSubscription();
+    assertNull(selectedPI);
+  }
+
+  @Test
+  public void testInvalidateCacheOnDeletion_Bug8621() throws Exception {
+    deregisterFailure = false;
+    beanEdit.deletePaymentInfo();
+    assertEquals(addedMessageKey, BaseBean.INFO_PAYMENT_INFO_DELETED);
+    Mockito.verify(bean, Mockito.times(1)).resetCachedPaymentInfo();
+  }
+
+  @Test
+  public void testInvalidateCacheOnDeletionFailure_Bug8621() throws Exception {
+    deregisterFailure = true;
+    try {
+      beanEdit.deletePaymentInfo();
+    } catch (PaymentDeregistrationException ex) {
+      Mockito.verify(bean, Mockito.times(1)).resetCachedPaymentInfo();
     }
+  }
 
-    @Test
-    public void testDeletePaymentInfo() throws Exception {
-        assertNull(addedMessageKey);
-        concurrentDeletion = false;
-        beanEdit.deletePaymentInfo();
-        assertEquals(addedMessageKey, BaseBean.INFO_PAYMENT_INFO_DELETED);
-    }
+  @Test
+  public void testIsPlaygroundRequestTrue() {
+    final HttpServletRequest request = mock(HttpServletRequest.class);
+    doReturn(request).when(bean).getRequest();
+    doReturn("http://page/marketplace/playground/page.jsf").when(request).getServletPath();
 
-    @Test
-    public void testDeletePaymentInfoConcurrrency() throws Exception {
-        assertNull(addedMessageKey);
-        concurrentDeletion = true;
-        beanEdit.deletePaymentInfo();
-        assertEquals(addedMessageKey, BaseBean.INFO_PAYMENT_INFO_DELETED_CONCURRENTLY);
-    }
+    final boolean result = bean.isPlaygroundRequest();
 
-    @Test
-    public void testSelectCreatedPaymentInfo_Bug8655() throws Exception {
-        addSomePaymentInfos(new String[] { "SimplePay", "Test_Pay", "Test_Pay0", "Test_Pay_1", "Test_Pay_2",
-                "Test_Pay_3" });
-        pspResult = PaymentInfoBean.OUTCOME_PSP_SUCCESS;
+    assertTrue(result);
+  }
 
-        bean.getPaymentInfo().setId("SimplePay");
-        bean.handlePspResult();
-        VOPaymentInfo selectedPI = bean.getSelectedPaymentInfoForSubscription();
-        assertEquals("SimplePay", selectedPI.getId());
+  @Test
+  public void testIsPlaygroundRequestFalse() {
+    final HttpServletRequest request = mock(HttpServletRequest.class);
+    doReturn(request).when(bean).getRequest();
+    doReturn("http://page/marketplace/page.jsf").when(request).getServletPath();
 
-        bean.getPaymentInfo().setId("Test_Pay0");
-        bean.handlePspResult();
-        selectedPI = bean.getSelectedPaymentInfoForSubscription();
-        assertEquals("Test_Pay0", selectedPI.getId());
+    final boolean result = bean.isPlaygroundRequest();
 
-        // For existing ID, PI with highest key must be taken
-        bean.getPaymentInfo().setId("Test_Pay");
-        bean.handlePspResult();
-        selectedPI = bean.getSelectedPaymentInfoForSubscription();
-        assertEquals("Test_Pay_3", selectedPI.getId());
+    assertFalse(result);
+  }
 
-        // Change payment info highest key
-        getStoredPaymentInfo("Test_Pay_2").setKey(2000L);
+  @Test
+  public void testPaymentTypeRegisterPage() {
+    doReturn(false).when(bean).isPlaygroundRequest();
 
-        // For existing ID, PI with highest key must be taken
-        bean.getPaymentInfo().setId("Test_Pay");
-        bean.handlePspResult();
-        selectedPI = bean.getSelectedPaymentInfoForSubscription();
-        assertEquals("Test_Pay_2", selectedPI.getId());
+    final String result = bean.getPaymentTypeRegisterPage();
 
-        // But, only version 0 considered!
-        getStoredPaymentInfo("Test_Pay_2").setVersion(1);
-        bean.getPaymentInfo().setId("Test_Pay");
-        bean.handlePspResult();
-        selectedPI = bean.getSelectedPaymentInfoForSubscription();
-        assertEquals("Test_Pay_3", selectedPI.getId());
+    assertEquals("paymentOptionInclude", result);
+  }
 
-        // Test non existing ID (not saved, should not occur in practice)
-        bean.getPaymentInfo().setId("Test");
-        bean.handlePspResult();
-        selectedPI = bean.getSelectedPaymentInfoForSubscription();
-        assertNull(selectedPI);
-    }
+  @Test
+  public void testPaymentTypeRegisterPagePlayground() {
+    doReturn(true).when(bean).isPlaygroundRequest();
 
-    @Test
-    public void testInvalidateCacheOnDeletion_Bug8621() throws Exception {
-        deregisterFailure = false;
-        beanEdit.deletePaymentInfo();
-        assertEquals(addedMessageKey, BaseBean.INFO_PAYMENT_INFO_DELETED);
-        Mockito.verify(bean, Mockito.times(1)).resetCachedPaymentInfo();
-    }
+    final String result = bean.getPaymentTypeRegisterPage();
 
-    @Test
-    public void testInvalidateCacheOnDeletionFailure_Bug8621() throws Exception {
-        deregisterFailure = true;
-        try {
-            beanEdit.deletePaymentInfo();
-        } catch (PaymentDeregistrationException ex) {
-            Mockito.verify(bean, Mockito.times(1)).resetCachedPaymentInfo();
-        }
-    }
+    assertEquals("playgroundPaymentOptionInclude", result);
+  }
 
-    @Test
-    public void testIsPlaygroundRequestTrue(){
-        final HttpServletRequest request = mock(HttpServletRequest.class);
-        doReturn(request).when(bean).getRequest();
-        doReturn("http://page/marketplace/playground/page.jsf").when(request).getServletPath();
+  @Test
+  public void testSwitchToPaymentDetails() throws SaaSApplicationException {
+    final VOPaymentInfo info = mock(VOPaymentInfo.class);
+    final VOPaymentType paymentType = mock(VOPaymentType.class);
 
-        final boolean result = bean.isPlaygroundRequest();
+    doReturn(info).when(bean).getPaymentInfo();
+    doReturn(paymentType).when(info).getPaymentType();
+    doReturn(false).when(bean).isPlaygroundRequest();
+    doReturn("").when(bean).getPaymentRegistrationLink();
 
-        assertTrue(result);
-    }
+    bean.switchToPaymentDetails();
 
-    @Test
-    public void testIsPlaygroundRequestFalse(){
-        final HttpServletRequest request = mock(HttpServletRequest.class);
-        doReturn(request).when(bean).getRequest();
-        doReturn("http://page/marketplace/page.jsf").when(request).getServletPath();
+    assertEquals("paymentTypeInclude", bean.getPaymentTypeRegisterPage());
+  }
 
-        final boolean result = bean.isPlaygroundRequest();
+  @Test
+  public void testSwitchToPaymentDetailsPlayground() throws SaaSApplicationException {
+    final VOPaymentInfo info = mock(VOPaymentInfo.class);
+    final VOPaymentType paymentType = mock(VOPaymentType.class);
+    doReturn(info).when(bean).getPaymentInfo();
+    doReturn(paymentType).when(info).getPaymentType();
+    doReturn(true).when(bean).isPlaygroundRequest();
+    doReturn("").when(bean).getPaymentRegistrationLink();
 
-        assertFalse(result);
-    }
+    bean.switchToPaymentDetails();
 
-    @Test
-    public void testPaymentTypeRegisterPage(){
-        doReturn(false).when(bean).isPlaygroundRequest();
+    String result = bean.getPaymentTypeRegisterPage();
 
-        final String result = bean.getPaymentTypeRegisterPage();
-
-        assertEquals("paymentOptionInclude", result);
-    }
-
-    @Test
-    public void testPaymentTypeRegisterPagePlayground(){
-        doReturn(true).when(bean).isPlaygroundRequest();
-
-        final String result = bean.getPaymentTypeRegisterPage();
-
-        assertEquals("playgroundPaymentOptionInclude", result);
-    }
-
-    @Test
-    public void testSwitchToPaymentDetails() throws SaaSApplicationException {
-        final VOPaymentInfo info = mock(VOPaymentInfo.class);
-        final VOPaymentType paymentType = mock(VOPaymentType.class);
-
-        doReturn(info).when(bean).getPaymentInfo();
-        doReturn(paymentType).when(info).getPaymentType();
-        doReturn(false).when(bean).isPlaygroundRequest();
-        doReturn("").when(bean).getPaymentRegistrationLink();
-
-        bean.switchToPaymentDetails();
-
-        assertEquals("paymentTypeInclude", bean.getPaymentTypeRegisterPage());
-    }
-
-    @Test
-    public void testSwitchToPaymentDetailsPlayground() throws SaaSApplicationException {
-        final VOPaymentInfo info = mock(VOPaymentInfo.class);
-        final VOPaymentType paymentType = mock(VOPaymentType.class);
-        doReturn(info).when(bean).getPaymentInfo();
-        doReturn(paymentType).when(info).getPaymentType();
-        doReturn(true).when(bean).isPlaygroundRequest();
-        doReturn("").when(bean).getPaymentRegistrationLink();
-
-        bean.switchToPaymentDetails();
-
-        String result = bean.getPaymentTypeRegisterPage();
-
-        assertEquals("playgroundPaymentTypeInclude", result);
-    }
-
+    assertEquals("playgroundPaymentTypeInclude", result);
+  }
 }

@@ -197,13 +197,21 @@ public class MarketplaceHtmlElements {
       "billingContactPanelForm:saveBillingContactButton";
 
   public static final String MARKETPLACE_ACCOUNT_SHOW_PAYMENTS_BUTTON = "showPaymentsButton";
-  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_ADD_BILLING_ADDRESS = "billingContactTableForm:addBillingContact";
-  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_EDIT_BILLING_ADDRESS = "editBillingImage0";
-  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_DELETE_BILLING_ADDRESS = "billingContactEditPanelForm:deleteButton";
-  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_DELETE_BILLING_CONFIRM = "confirmPanelOkButton";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_ADD_BILLING_ADDRESS =
+      "billingContactTableForm:addBillingContact";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_EDIT_BILLING_ADDRESS =
+      "editBillingImage0";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_DELETE_BILLING_ADDRESS =
+      "billingContactEditPanelForm:deleteButton";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_DELETE_BILLING_CONFIRM =
+      "confirmPanelOkButton";
   public static final String MARKETPLACE_ACCOUNT_PAYMENTS_EDIT_PAYMENT = "editPaymentImage0";
-  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_BILLING_MODAL_ERROR = "billingContactPanelmodalErrorPanel";
-  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_ADD_PAYMENT_TYPE = "paymentOptionTableForm:addPaymentOption";
-  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_ADD_PAYMENT_TYPE_NEXT = "paymentOptionPanelForm:switchToDetailsAjax";
-  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_PAYMENT_MODAL_ERROR = "paymentOptionPanelmodalErrorPanel";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_BILLING_MODAL_ERROR =
+      "billingContactPanelmodalErrorPanel";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_ADD_PAYMENT_TYPE =
+      "paymentOptionTableForm:addPaymentOption";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_ADD_PAYMENT_TYPE_NEXT =
+      "paymentOptionPanelForm:switchToDetailsAjax";
+  public static final String MARKETPLACE_ACCOUNT_PAYMENTS_PAYMENT_MODAL_ERROR =
+      "paymentOptionPanelmodalErrorPanel";
 }
