@@ -202,7 +202,7 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>marketplace/playgroundLogout</from-outcome>
-      <to-view-id>/marketplace/playground.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     <navigation-case>
@@ -903,7 +903,7 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>successPlayground</from-outcome>
-      <to-view-id>/marketplace/playground.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/index.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>
@@ -1117,60 +1117,60 @@
 
 <!--  PLAYGROUND ROUTING -->
   <navigation-rule>
-    <from-view-id>/marketplace/playgroundServices.xhtml</from-view-id>
+    <from-view-id>/marketplace/playground/services.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>showServiceList</from-outcome>
-      <to-view-id>/marketplace/playgroundServices.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/services.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     <navigation-case>
       <from-outcome>serviceDetails</from-outcome>
-      <to-view-id>/marketplace/playgroundServiceDetails.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/serviceDetails.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
-    <from-view-id>/marketplace/playground.xhtml</from-view-id>
+    <from-view-id>/marketplace/playground/index.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>showServiceList</from-outcome>
-      <to-view-id>/marketplace/playgroundServices.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/services.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     <navigation-case>
       <from-outcome>serviceDetails</from-outcome>
-      <to-view-id>/marketplace/playgroundServiceDetails.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/serviceDetails.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
-    <from-view-id>/marketplace/playgroundServiceDetails.xhtml</from-view-id>
+    <from-view-id>/marketplace/playground/serviceDetails.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>addSubscription</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/subscriptions/creation/add.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
-    <from-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</from-view-id>
+    <from-view-id>/marketplace/playground/subscriptions/creation/add.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/playgroundConfirmAdd.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/subscriptions/creation/confirmAdd.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>enterPayment</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/playgroundPaymentAdd.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/subscriptions/creation/paymentAdd.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>error</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/subscriptions/creation/add.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>previous</from-outcome>
-      <to-view-id>/marketplace/playgroundServiceDetails.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/serviceDetails.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
-    <from-view-id>/marketplace/subscriptions/creation/playgroundConfirmAdd.xhtml</from-view-id>
+    <from-view-id>/marketplace/playground/subscriptions/creation/confirmAdd.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>success</from-outcome>
       <to-view-id>/marketplace/account/subscriptionDetails.xhtml</to-view-id>
@@ -1182,30 +1182,30 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>subscription.page2</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/subscriptions/creation/add.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>enterPayment</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/playgroundPaymentAdd.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/subscriptions/creation/paymentAdd.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>previous</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/subscriptions/creation/add.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>enterServiceConfiguration</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/subscriptions/creation/add.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
-    <from-view-id>/marketplace/subscriptions/creation/playgroundPaymentAdd.xhtml</from-view-id>
+    <from-view-id>/marketplace/playground/subscriptions/creation/paymentAdd.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>serviceSubscribe</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/playgroundConfirmAdd.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/subscriptions/creation/confirmAdd.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>previous</from-outcome>
-      <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/subscriptions/creation/add.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
@@ -1221,10 +1221,10 @@
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
-    <from-view-id>/marketplace/account/playgroundIndex.xhtml</from-view-id>
+    <from-view-id>/marketplace/account/playground/index.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>payments</from-outcome>
-      <to-view-id>/marketplace/account/playgroundPayments.xhtml</to-view-id>
+      <to-view-id>/marketplace/account/playground/payments.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     <navigation-case>

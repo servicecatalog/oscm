@@ -12,7 +12,7 @@
   <nav class="px-1 navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid h6 m-0 px-3">
        <div class="no-gutters row align-items-center">
-        <a class= "navbar-brand" href="#{mpBaseUrl}/playground.jsf"> <h:graphicImage value="${logoimg}"
+        <a class= "navbar-brand" href="#{mpBaseUrl}/playground/index.jsf"> <h:graphicImage value="${logoimg}"
             alt="My Logo" />
         </a>
 
@@ -23,10 +23,10 @@
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="nav navbar-nav">
           <!-- Home -->
-            <li id="homeLink" class="#{pageId eq 'marketplace.home' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="#{mpBaseUrl}/playground.jsf?mId=#{mId}"><i
+            <li id="homeLink" class="#{pageId eq 'marketplace.home' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="#{mpBaseUrl}/playground/index.jsf?mId=#{mId}"><i
                 class="fa fa-fw fa-home"></i>#{msg['navigation.home']}</a></li>
           <!-- Browse Services -->
-         <li id="servicesLink" class="#{pageId eq 'marketplace.services' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="#{mpBaseUrl}/playgroundServices.jsf">#{msg['button.browse']}</a></li>
+         <li id="servicesLink" class="#{pageId eq 'marketplace.services' ? 'nav-item active' : 'nav-item'}"><a class="nav-link" href="#{mpBaseUrl}/playground/services.jsf">#{msg['button.browse']}</a></li>
           <!-- Help -->
           <ui:fragment rendered="#{user ne null}">
             <li class="nav-item"><a class="nav-link" href="#"
@@ -98,8 +98,8 @@
                 <div id="userDrop" class="dropdown-menu dropdown-menu-right">
                     <p class="px-4 py-sm-2"> #{msg['marketplace.logging']} <strong><br>#{user.userId}</br></strong></p>
                     <div class="dropdown-divider"></div>
-                   <a class="dropdown-item" href="#{mpBaseUrl}/account/playgroundIndex.jsf">#{msg['navigation.myAccount']}</a>
-                  <a class="dropdown-item" href="#{mpBaseUrl}/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a>
+                   <a class="dropdown-item" href="#{mpBaseUrl}/playground/account/index.jsf">#{msg['navigation.myAccount']}</a>
+                   <a class="dropdown-item" href="#{mpBaseUrl}/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a>
                   <div class="dropdown-divider"></div>
                   <h:form id="formLogout">
                     <c:if test="#{userBean.internalAuthMode}">

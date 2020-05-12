@@ -15,7 +15,7 @@
   <ui:define name="breadcrumbs">
     <!-- calling the fake getter will perform a check if service can be subscribe and redirect otherwise -->
     <mp:bootstrapBreadcrumbs>
-      <mp:crumb labelPageId="marketplace.services" link="/marketplace/playgroundServices.jsf"/>
+      <mp:crumb labelPageId="marketplace.services" link="/marketplace/playground/services.jsf"/>
       <mp:crumb label="#{subscriptionWizardConversation.model.service.nameToDisplay}"/>
     </mp:bootstrapBreadcrumbs>
   </ui:define>
@@ -24,7 +24,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-9 col-md-10 col-sm-12">
         <!-- Select organization popup -->
-        <ui:include src="../../organizationUnitPanel.xhtml">
+        <ui:include src="../../../organizationUnitPanel.xhtml">
           <ui:param name="dialogId" value="organizationUnitPanel"/>
           <ui:param name="title"
                     value="#{msg['unit.dialog.selectUnitForTheSubscription']}'#{subscriptionWizardConversation.model.subscription.subscriptionId}'"/>

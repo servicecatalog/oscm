@@ -475,7 +475,7 @@ public class ServiceDetailsCtrl {
 
   public String getTargetUrl() {
     return ui.getMarketplaceId().startsWith("pg_")
-        ? Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf"
+        ? Marketplace.MARKETPLACE_ROOT + "/playground/serviceDetails.jsf"
         : Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf";
   }
 }
