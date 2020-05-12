@@ -1,0 +1,33 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" template="../templates/modalDialogBootstrap.xhtml">
+
+  <ui:define name="dialogScripts">
+    <c:set var="modalFocusElement" value="include:#{dialogId}Form:displayName"/>
+    <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();"/>
+  </ui:define>
+
+  <ui:define name="dialogTitle">
+    <h2>
+      <h:outputText id="dialogTitle" value="#{paymentInfoBean.dialogTitle}"/>
+    </h2>
+  </ui:define>
+
+  <ui:define name="dialogDescription">
+    <a4j:outputPanel rendered="#{not empty paymentInfoBean.dialogDescription}">
+      <h3>
+        <h:outputText id="dialogDescription" value="#{paymentInfoBean.dialogDescription}"/>
+      </h3>
+    </a4j:outputPanel>
+  </ui:define>
+
+  <!-- Defines the entire content of the modal dialog -->
+  <ui:define name="fullDialogContent">
+    <c:set var="includePrefix" value="include"/>
+    <!-- The content of the include will be switched by a navigation rule to paymentTypeInclude.xhtml -->
+    <ui:include src="/marketplace/account/#{paymentInfoBean.paymentTypeRegisterPage}.xhtml"/>
+  </ui:define>
+
+</ui:composition>

@@ -1208,7 +1208,14 @@
       <to-view-id>/marketplace/subscriptions/creation/playgroundAdd.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
-
+  <navigation-rule>
+    <from-view-id>/marketplace/account/playgroundIndex.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>payments</from-outcome>
+      <to-view-id>/marketplace/account/playgroundPayments.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>
 
   <validator>
     <validator-id>ldapUser</validator-id>

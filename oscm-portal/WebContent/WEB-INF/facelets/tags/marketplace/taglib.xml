@@ -274,4 +274,8 @@
     <tag-name>subscriptionProcessPaymentBootstrap</tag-name>
     <source>subscriptionProcessPaymentBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>confirmPanelBootstrap</tag-name>
+    <source>confirmPanelBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>

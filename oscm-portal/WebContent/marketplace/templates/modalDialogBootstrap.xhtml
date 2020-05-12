@@ -1,0 +1,98 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+  <!-- General template for modal dialogs -->
+
+  <!-- UI defines -->
+  <!-- use either dialogTitle/dialogContent or fullDialogContent -->
+  <!-- dialogTitle: defines the title area of the dialog -->
+  <!-- dialogContent: defines the content area of the dialog -->
+  <!-- fullDialogContent: defines the entire content of the modal panel  -->
+
+  <!-- Parameters: -->
+  <!-- dialogId (mandatory): Defines the id of the modal panel. -->
+  <!-- dialogHeight: height of the modal panel, -->
+  <!-- dialogWidth: width of the modal panel, -->
+  <!-- defineFullDialogContent: is set to "true" the ui element "fullDialogContent" will be included. It defines the entire content inside of the modal panel -->
+
+  <!-- Focus -->
+  <!-- To set the focus the the time the dialog is shown, defined the variable -->
+  <!-- "modalFocusElement" with c:set in the "dialogScripts" definition -->
+
+  <c:if test="#{empty dialogHeight}">
+    <c:set var="dialogHeight" value="168"/>
+  </c:if>
+  <c:if test="#{empty dialogWidth}">
+    <c:set var="dialogWidth" value="560"/>
+  </c:if>
+  <c:if test="#{empty cancelHandler}">
+    <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();"/>
+  </c:if>
+
+  <ui:insert name="dialogScripts"/>
+
+  <rich:popupPanel id="#{dialogId}" trimOverlayedElements="false" resizeable="false" autosized="true"
+                   onresize="return false;" zindex="15000" styleClass="responsive-dialog-container"
+                   onshow="AdmUtils.adjustMplModalDialogPosition('#{dialogId}');#{dialogId}updateFocusElement();"
+                   onbeforeshow="AdmUtils.setPageOverflow('hidden');" onhide="AdmUtils.setPageOverflow('auto');">
+
+    <a4j:outputPanel layout="block" id="#{dialogId}RerenderPanel">
+
+      <mp:closeModalDialogButton id="#{dialogId}CancelButton" onclick="#{cancelHandler}"/>
+
+      <ui:insert name="dialogTitle"/>
+
+      <c:if test="#{defineFullDialogContent}">
+        <ui:insert name="fullDialogContent"/>
+      </c:if>
+      <c:if test="#{!defineFullDialogContent}">
+        <div class="border-top">
+          <a4j:outputPanel id="#{dialogId}modalErrorMasterPanel">
+            <a4j:outputPanel id="#{dialogId}modalErrorPanel" layout="block" styleClass="errorPanel"
+                             rendered="#{(not empty errorKey) or (facesContext.maximumSeverity.ordinal > 0)}">
+              <!-- filter error messages -->
+              <c:if test="#{not empty errorKey}">
+                <dl class="rich-messages box error">
+                  <dt>
+                    <h:outputFormat value="#{msg[errorKey]}">
+                      <f:param value="#{errorParam0}"/>
+                      <f:param value="#{errorParam1}"/>
+                      <f:param value="#{errorParam2}"/>
+                      <f:param value="#{errorParam3}"/>
+                      <f:param value="#{errorParam4}"/>
+                    </h:outputFormat>
+                  </dt>
+                </dl>
+              </c:if>
+
+              <!-- JSF error messages -->
+              <rich:messages id="#{dialogId}ErrorMessages"
+                             globalOnly="true"
+                             ajaxRendered="false"
+                             styleClass="box error"
+                             rendered="#{facesContext.maximumSeverity.ordinal > 1 or facesContext.validationFailed}"/>
+            </a4j:outputPanel>
+          </a4j:outputPanel>
+
+          <ui:insert name="dialogDescription"/>
+
+          <ui:insert name="dialogContent"/>
+
+        </div>
+      </c:if>
+
+      <script language="JavaScript1.2" type="text/javascript">
+        function #{dialogId}updateFocusElement() {
+           AdmUtils.focusElementById('#{firstErrorElement}'?'#{firstErrorElement}':'#{modalFocusElement}');
+        }
+        // Make sure the focused element will be updated after the rerender planel was rerendered 
+        #{dialogId}updateFocusElement();
+
+      </script>
+    </a4j:outputPanel>
+  </rich:popupPanel>
+</ui:composition>

@@ -1,0 +1,95 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                template="../templates/mainBootstrap.xhtml">
+
+  <ui:define name="pageId">
+    <c:set var="pageId" value="marketplace.account.payments"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+  </ui:define>
+
+  <ui:define name="breadcrumbs">
+    <mp:bootstrapBreadcrumbs>
+      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/playgroundIndex.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.payments"/>
+    </mp:bootstrapBreadcrumbs>
+  </ui:define>
+
+  <ui:define name="aside">
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.payments.title"/>
+  </ui:define>
+
+  <ui:define name="contentstitle">
+    <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
+      <br/>
+    </a4j:outputPanel>
+  </ui:define>
+
+  <ui:define name="contents">
+
+    <h:form id="#{dialogId}pspResultForm">
+      <h:inputHidden id="pspResult" value="#{paymentInfoBean.pspResult}"/>
+      <h:commandButton style="display:none;" id="handlePspResult" value="handlePspResult"
+                       action="#{paymentInfoBean.handlePspResult}"/>
+    </h:form>
+
+    <script type="text/javascript">
+        // this method will be called from the pspRegistrationResult
+        // page from inside the iframe passing the psp result for displaying
+        // it on the main page and switching back to the view without psp frame
+        function handlePspResult(result) {
+            setDirty(false);
+            document.getElementById('pspResultForm:pspResult').value = result;
+            document.getElementById('pspResultForm:handlePspResult').click();
+        }
+
+    </script>
+
+    <c:set var="mpImgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+    <c:set var="sortIcon" value="#{mpImgUrl}/transparentPixel.png?id=sort"/>
+    <c:set var="sortIconAscending" value="#{mpImgUrl}/transparentPixel.png?id=sortAscending"/>
+    <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending"/>
+
+    <a4j:outputPanel layout="block">
+      <ui:include src="playgroundBillingContact.xhtml">
+        <ui:param name="dialogId" value="billingContactPanel"/>
+        <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder"/>
+        <ui:param name="inConversation" value="false"/>
+      </ui:include>
+      <ui:include src="playgroundBillingContactEdit.xhtml">
+        <ui:param name="dialogId" value="billingContactEditPanel"/>
+        <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder"/>
+      </ui:include>
+      <ui:include src="playgroundPaymentOption.xhtml">
+        <ui:param name="dialogId" value="paymentOptionPanel"/>
+        <ui:param name="context" value="account"/>
+        <ui:param name="defineFullDialogContent" value="true"/>
+        <ui:param name="dialogHeight" value="60"/>
+        <ui:param name="additionalRender" value=":paymentOptionTableForm"/>
+      </ui:include>
+      <ui:include src="playgroundPaymentOptionEdit.xhtml">
+        <ui:param name="dialogId" value="paymentOptionEditPanel"/>
+        <ui:param name="context" value="account"/>
+        <ui:param name="defineFullDialogContent" value="true"/>
+        <ui:param name="dialogHeight" value="60"/>
+        <ui:param name="additionalRender" value=":paymentOptionTableForm :infoPanelHolder"/>
+      </ui:include>
+    </a4j:outputPanel>
+
+
+    <div class="row">
+      <div class="mx-4 mt-2 p-2 bg-light col">
+        <div class="pb-4">
+          <ui:include src="playgroundBillingContacts.xhtml"/>
+        </div>
+        <div class="pt-4">
+          <ui:include src="playgroundPaymentTypes.xhtml"/>
+        </div>
+      </div>
+    </div>
+
+  </ui:define>
+</ui:composition>

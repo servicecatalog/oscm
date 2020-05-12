@@ -79,6 +79,7 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
 
     // TODO: refactor it. Redirects to next page for registering payment type.
     private String paymentTypeRegisterPage = "paymentOptionInclude";
+    private String playgroundTypeRegisterPage = "playgroundPaymentOptionInclude";
 
     // Contains all payment types a costumer can create in the context of
     // subscribing to a service.
@@ -223,7 +224,11 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
         if (paymentInfo.getPaymentType() != null) {
             try {
                 getPaymentRegistrationLink();
-                paymentTypeRegisterPage = "paymentTypeInclude";
+                if(isPlaygroundRequest()){
+                    playgroundTypeRegisterPage = "playgroundPaymentTypeInclude";
+                } else {
+                    paymentTypeRegisterPage = "paymentTypeInclude";
+                }
             } catch (Exception ex) {
                 PSPCommunicationException exc = new PSPCommunicationException();
                 exc.setMessageKey("ex.PSPProcessingException");
@@ -628,7 +633,7 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
     }
 
     public String getPaymentTypeRegisterPage() {
-        return paymentTypeRegisterPage;
+        return isPlaygroundRequest() ? playgroundTypeRegisterPage : paymentTypeRegisterPage;
     }
 
     public PaymentAndBillingVisibleBean getPaymentAndBillingVisibleBean() {
@@ -638,4 +643,10 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
     public void setPaymentAndBillingVisibleBean(PaymentAndBillingVisibleBean paymentAndBillingVisibleBean) {
         this.paymentAndBillingVisibleBean = paymentAndBillingVisibleBean;
     }
+
+    public boolean isPlaygroundRequest(){
+        return getRequest().getServletPath().contains("playground");
+    }
+
+
 }
