@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-5 col-sm-12">
               <h:inputText id="displayName" label="#{msg['billingContact.displayName']}" onchange="setDirty(true)"
-                           styleClass="w-100"
+                           styleClass="field w-100"
                            value="#{paymentInfoBean.paymentInfo.id}" maxlength="#{appBean.idLen}" required="true">
                 <f:validator validatorId="idChar"/>
                 <f:converter converterId="trimConverter"/>

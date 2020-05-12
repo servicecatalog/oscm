@@ -47,7 +47,7 @@
               <h:inputText id="displayName" label="#{msg['billingContact.displayName']}"
                            value="#{billingContactEditBean.billingContact.id}" maxlength="#{appBean.idLen}"
                            onchange="setDirty(true)"
-                           styleClass="w-100" required="#{empty param[reqBtnName]}">
+                           styleClass="field w-100" required="#{empty param[reqBtnName]}">
                 <f:validator validatorId="idChar"/>
                 <f:converter converterId="trimConverter"/>
               </h:inputText>
@@ -64,7 +64,7 @@
             <div class="col-md-6 col-sm-12">
               <h:inputText id="companyName" label="#{msg['billingContact.organizationName']}"
                            value="#{billingContactEditBean.billingContact.companyName}" maxlength="#{appBean.nameLen}"
-                           onchange="setDirty(true)" styleClass="w-100" required="#{empty param[reqBtnName]}">
+                           onchange="setDirty(true)" styleClass="field w-100" required="#{empty param[reqBtnName]}">
                 <f:validateLength maximum="#{appBean.nameLen}"/>
                 <f:converter converterId="trimConverter"/>
               </h:inputText>
@@ -82,7 +82,7 @@
             <div class="col-md-6 col-sm-12">
               <h:inputText id="email" label="#{msg['billingContact.email']}"
                            value="#{billingContactEditBean.billingContact.email}" maxlength="#{appBean.nameLen}"
-                           onchange="setDirty(true)" styleClass="w-100" required="#{empty param[reqBtnName]}">
+                           onchange="setDirty(true)" styleClass="field w-100" required="#{empty param[reqBtnName]}">
                 <f:converter converterId="trimConverter"/>
                 <f:validator validatorId="email"/>
               </h:inputText>
@@ -100,7 +100,7 @@
               <h:inputTextarea id="address" label="#{msg['billingContact.address']}"
                                value="#{billingContactEditBean.billingContact.address}"
                                maxlength="#{appBean.descriptionLen}"
-                               onchange="setDirty(true)" rows="3" styleClass="w-100 nonResizableElement"
+                               onchange="setDirty(true)" rows="3" styleClass="field w-100 nonResizableElement"
                                required="#{empty param[reqBtnName]}">
                 <f:validateLength maximum="#{appBean.descriptionLen}"/>
                 <f:converter converterId="trimConverter"/>

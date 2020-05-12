@@ -27,7 +27,7 @@
         <mp:outputStepBootstrap value="#{msg['marketplace.paymentManagePaymentOptions.title']}"/>
       </div>
       <div class="col-12 mb-2">
-        <a4j:commandLink styleClass="btn-sm btn-secondary text-white text-decoration-none" id="addPaymentOption"
+        <a4j:commandLink styleClass="btn-sm btn-secondary text-light text-decoration-none" id="addPaymentOption"
                          oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('paymentOptionPanel').show();"
                          render=":paymentOptionPanel :paymentOptionPanelForm">
           <f:setPropertyActionListener target="#{paymentInfoBean.creationContext}" value="account"/>
@@ -72,7 +72,7 @@
                              layout="block"
                              rendered="#{paymentInfoBean.collectionTypePSP eq paymentInfo.paymentType.collectionType}">
               <img src="#{imgUrl}/transparentPixel.png" class="editPen"/>
-              <a4j:outputPanel layout="block" style="margin-left: 25px; margin-top: -15px;">
+              <a4j:outputPanel layout="block">
                 <a4j:outputPanel layout="block">
                   <h:outputText value="#{paymentInfo.providerName}"/>
                 </a4j:outputPanel>

@@ -12,26 +12,22 @@
 
 package org.oscm.ui.beans;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.faces.application.FacesMessage.Severity;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.oscm.internal.types.exception.ConcurrentModificationException;
-import org.oscm.internal.types.exception.ObjectNotFoundException;
-import org.oscm.internal.types.exception.OperationNotPermittedException;
-import org.oscm.internal.types.exception.PaymentDeregistrationException;
+import org.oscm.internal.types.exception.*;
 import org.oscm.internal.vo.VOPaymentInfo;
+import org.oscm.internal.vo.VOPaymentType;
 import org.oscm.test.stubs.AccountServiceStub;
+
+import javax.faces.application.FacesMessage.Severity;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Unit tests for PaymentInfoBean
@@ -209,4 +205,76 @@ public class PaymentInfoBeanTest {
             Mockito.verify(bean, Mockito.times(1)).resetCachedPaymentInfo();
         }
     }
+
+    @Test
+    public void testIsPlaygroundRequestTrue(){
+        final HttpServletRequest request = mock(HttpServletRequest.class);
+        doReturn(request).when(bean).getRequest();
+        doReturn("http://page/marketplace/playground/page.jsf").when(request).getServletPath();
+
+        final boolean result = bean.isPlaygroundRequest();
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testIsPlaygroundRequestFalse(){
+        final HttpServletRequest request = mock(HttpServletRequest.class);
+        doReturn(request).when(bean).getRequest();
+        doReturn("http://page/marketplace/page.jsf").when(request).getServletPath();
+
+        final boolean result = bean.isPlaygroundRequest();
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void testPaymentTypeRegisterPage(){
+        doReturn(false).when(bean).isPlaygroundRequest();
+
+        final String result = bean.getPaymentTypeRegisterPage();
+
+        assertEquals("paymentOptionInclude", result);
+    }
+
+    @Test
+    public void testPaymentTypeRegisterPagePlayground(){
+        doReturn(true).when(bean).isPlaygroundRequest();
+
+        final String result = bean.getPaymentTypeRegisterPage();
+
+        assertEquals("playgroundPaymentOptionInclude", result);
+    }
+
+    @Test
+    public void testSwitchToPaymentDetails() throws SaaSApplicationException {
+        final VOPaymentInfo info = mock(VOPaymentInfo.class);
+        final VOPaymentType paymentType = mock(VOPaymentType.class);
+
+        doReturn(info).when(bean).getPaymentInfo();
+        doReturn(paymentType).when(info).getPaymentType();
+        doReturn(false).when(bean).isPlaygroundRequest();
+        doReturn("").when(bean).getPaymentRegistrationLink();
+
+        bean.switchToPaymentDetails();
+
+        assertEquals("paymentTypeInclude", bean.getPaymentTypeRegisterPage());
+    }
+
+    @Test
+    public void testSwitchToPaymentDetailsPlayground() throws SaaSApplicationException {
+        final VOPaymentInfo info = mock(VOPaymentInfo.class);
+        final VOPaymentType paymentType = mock(VOPaymentType.class);
+        doReturn(info).when(bean).getPaymentInfo();
+        doReturn(paymentType).when(info).getPaymentType();
+        doReturn(true).when(bean).isPlaygroundRequest();
+        doReturn("").when(bean).getPaymentRegistrationLink();
+
+        bean.switchToPaymentDetails();
+
+        String result = bean.getPaymentTypeRegisterPage();
+
+        assertEquals("playgroundPaymentTypeInclude", result);
+    }
+
 }

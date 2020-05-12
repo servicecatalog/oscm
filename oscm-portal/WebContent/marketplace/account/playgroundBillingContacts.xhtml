@@ -21,7 +21,7 @@
         <mp:outputStepBootstrap value="#{msg['marketplace.paymentManageBillingContacts.title']}"/>
       </div>
       <div class="col-12 mb-2">
-        <a4j:commandLink styleClass="btn-sm btn-secondary text-white text-decoration-none"
+        <a4j:commandLink styleClass="btn-sm btn-secondary text-light text-decoration-none"
                          action="#{billingContactBean.prepareBillingContactForNew}"
                          id="addBillingContact" render=":billingContactPanel :billingContactPanelForm"
                          oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('billingContactPanel').show();">

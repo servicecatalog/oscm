@@ -27,7 +27,7 @@
   <ui:define name="fullDialogContent">
     <c:set var="includePrefix" value="include"/>
     <!-- The content of the include will be switched by a navigation rule to paymentTypeInclude.xhtml -->
-    <ui:include src="/marketplace/account/playgroundPaymentOptionInclude.xhtml"/>
+    <ui:include src="/marketplace/account/#{paymentInfoBean.paymentTypeRegisterPage}.xhtml"/>
   </ui:define>
 
 </ui:composition>
