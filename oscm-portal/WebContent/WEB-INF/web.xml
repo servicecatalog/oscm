@@ -181,7 +181,7 @@
     <filter-class>org.oscm.ui.filter.AuthorizationFilter</filter-class>
     <init-param>
       <param-name>public-url-pattern</param-name>
-      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*</param-value>
+      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*|^/marketplace/playground/.*</param-value>
     </init-param>
   </filter>
   <filter>

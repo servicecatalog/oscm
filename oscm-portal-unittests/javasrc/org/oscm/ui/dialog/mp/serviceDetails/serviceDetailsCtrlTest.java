@@ -173,7 +173,7 @@ public class serviceDetailsCtrlTest {
 
     final String url = ctrl.getTargetUrl();
 
-    assertTrue(url.endsWith("/playgroundServiceDetails.jsf"));
+    assertTrue(url.endsWith("/playground/serviceDetails.jsf"));
   }
 
   private void initServiceInServer() throws Exception {

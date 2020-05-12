@@ -227,7 +227,7 @@ public class BaseBeanTest {
     final HttpServletRequest request = mock(HttpServletRequest.class);
     final SessionBean sessionBean = mock(SessionBean.class);
     when(request.getServletPath())
-        .thenReturn(Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf");
+        .thenReturn(Marketplace.MARKETPLACE_ROOT + "/playground/serviceDetails.jsf");
     doReturn("Service").when(ctrl).getSelectedServiceQueryPart(eq(sessionBean));
     doReturn("Marketplace").when(ctrl).getMarketplaceIdQueryPart();
 
