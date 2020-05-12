@@ -9,13 +9,6 @@
  */
 package org.oscm.webtest;
 
-import java.io.FileInputStream;
-import java.net.InetAddress;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +22,14 @@ import org.oscm.webtest.authentication.AuthenticationContext;
 import org.oscm.webtest.authentication.InternalAuthenticationContext;
 import org.oscm.webtest.authentication.OIDCAuthenticationContext;
 import org.oscm.webtest.exception.ConfigurationException;
+
+import java.io.FileInputStream;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
@@ -239,6 +240,18 @@ public class WebTester {
   }
 
   /**
+   * Reads the value of the element with the given xpath. This is used for fields that use the value
+   * attribute, e.g. input fields.
+   *
+   * @return the value of the element
+   * @throws NoSuchElementException if element is not present
+   */
+  public String readTextXPath(String xpath) {
+    WebElement element = driver.findElement(By.xpath(xpath));
+    return element.getText();
+  }
+
+  /**
    * Reads the text of the element with the given id. This is used for text within an element, e.g.
    * &lt;p id="id"&gt;text&lt;/p&gt;
    *
@@ -268,6 +281,38 @@ public class WebTester {
       element.sendKeys(value);
     }
     log(String.format("Wrote value: %s to element with id %s", value, id));
+  }
+
+  /**
+   * Takes the given value as input for the element with the given xpath.
+   *
+   * @param xpath the element xpath
+   * @param value the input value
+   * @throws NoSuchElementException if element is not present
+   */
+  public void writeValueXPath(String xpath, String value) {
+    try {
+      WebElement element = driver.findElement(By.xpath(xpath));
+      element.clear();
+      element.sendKeys(value);
+    } catch (StaleElementReferenceException e) {
+      WebElement element = driver.findElement(By.xpath(xpath));
+      element.clear();
+      element.sendKeys(value);
+    }
+    log(String.format("Wrote value: %s to element with id %s", value, xpath));
+  }
+
+  /**
+   * Clear input for the element with the given xpath.
+   *
+   * @param xpath the element xpath
+   * @throws NoSuchElementException if element is not present
+   */
+  public void clearInput(String xpath) {
+    WebElement element = driver.findElement(By.xpath(xpath));
+    element.sendKeys(Keys.BACK_SPACE);
+    log(String.format("Clear input element with id %s", xpath));
   }
 
   /**

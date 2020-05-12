@@ -20,3 +20,12 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>td.child {
 table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before {
   background-color: #aeaeae;
 }
+
+*.rf-ds-btn{
+  background-image: none;
+  background-color: transparent;
+}
+
+*.rf-ds-btn:hover{
+  background-color: grey;
+}

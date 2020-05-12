@@ -234,6 +234,18 @@
     <tag-name>labelAndUnitSelectBootstrap</tag-name>
     <source>labelAndUnitSelectBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>buttonCustomizedOnClickBootstrap</tag-name>
+    <source>buttonCustomizedOnClickBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>pagerBootstrap</tag-name>
+    <source>pagerBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>filterInputBootstrap</tag-name>
+    <source>filterInputBootstrap.xhtml</source>
+  </tag>
 
   <function>
     <function-name>matchBegin</function-name>
