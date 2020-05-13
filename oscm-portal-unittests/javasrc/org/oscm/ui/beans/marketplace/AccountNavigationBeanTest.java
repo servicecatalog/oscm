@@ -44,7 +44,6 @@ public class AccountNavigationBeanTest {
     private boolean isLoggedInAndSubscriptionManager;
     private boolean isAdministrationAvailable;
     private boolean isLoggedInAndUnitAdmin;
-    private boolean isPlaygroundPage;
     
     @Before
     public void setup() {
@@ -68,11 +67,7 @@ public class AccountNavigationBeanTest {
             public boolean isAdministrationAvailable() {
                 return isAdministrationAvailable;
             }
-            
-            @Override
-            public boolean isPlaygroundPage() {
-                return isAdministrationAvailable;
-            }
+
 
         });
         
@@ -80,7 +75,6 @@ public class AccountNavigationBeanTest {
         isLoggedInAndUnitAdmin = true;
         isLoggedInAndSubscriptionManager = true;
         isAdministrationAvailable = true;
-        isPlaygroundPage = false;
         
         appBean = mock(ApplicationBean.class);
         userBean = mock(UserBean.class);
@@ -172,16 +166,6 @@ public class AccountNavigationBeanTest {
         for (String key : linkKeys) {
             assertTrue(linkMap.containsKey(key));
         }
-    }
-    
-    @Test
-    public void getPlaygroundLinks(){
-    	isPlaygroundPage = true;
-    	
-    	final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
-    	
-    	assertTrue(linkMap.containsValue("/playground/account/payments.jsf"));
-    	assertTrue(linkMap.containsValue("/playground/account/subscriptions.jsf"));
     }
 
 

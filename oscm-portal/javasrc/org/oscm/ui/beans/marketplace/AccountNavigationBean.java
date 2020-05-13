@@ -83,19 +83,17 @@ public class AccountNavigationBean extends BaseBean implements Serializable {
     }
 
     private void addPaymentLink(boolean isLoggedInAndAdmin) {
-        final String link = isPlaygroundPage() ? PAYMENT_PLAYGROUND_LINK : PAYMENT_LINK;
         if (isLoggedInAndAdmin) {
-            setLinkVisible(MARKETPLACE_ACCOUNT_PAYMENTS_TITLE, link,
+            setLinkVisible(MARKETPLACE_ACCOUNT_PAYMENTS_TITLE, PAYMENT_LINK,
                     HiddenUIConstants.MARKETPLACE_MENU_ITEM_ACCOUNT_PAYMENT);
         }
     }
 
     private void addSubscriptionsLink(boolean isLoggedInAndAdmin) {
-        final String link = isPlaygroundPage() ? SUBSCRIPTIONS_PLAYGROUND_LINK : SUBSCRIPTIONS_LINK;
         if (isLoggedInAndAdmin || isLoggedInAndSubscriptionManager()) {
             setLinkVisible(
                     MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_TITLE,
-                    link,
+                    SUBSCRIPTIONS_LINK,
                     HiddenUIConstants.MARKETPLACE_MENU_ITEM_ACCOUNT_SUBSCRIPTIONS);
         }
     }
