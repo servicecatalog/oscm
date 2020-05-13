@@ -1209,7 +1209,7 @@
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
-    <from-view-id>/marketplace/account/playgroundSubscriptions.xhtml</from-view-id>
+    <from-view-id>/marketplace/playground/account/subscriptions.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>showDetails</from-outcome>
       <to-view-id>/marketplace/account/subscriptionDetails.xhtml</to-view-id>
@@ -1217,19 +1217,19 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>error</from-outcome>
-      <to-view-id>/marketplace/account/playgroundSubscriptions.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/account/subscriptions.xhtml</to-view-id>
     </navigation-case>
   </navigation-rule>
   <navigation-rule>
-    <from-view-id>/marketplace/account/playground/index.xhtml</from-view-id>
+    <from-view-id>/marketplace/playground/account/index.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>payments</from-outcome>
-      <to-view-id>/marketplace/account/playground/payments.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/account/payments.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     <navigation-case>
       <from-outcome>subscriptions</from-outcome>
-      <to-view-id>/marketplace/account/playgroundSubscriptions.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/account/subscriptions.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>
