@@ -1149,6 +1149,11 @@
       <to-view-id>/marketplace/playground/subscriptions/creation/add.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    <navigation-case>
+      <from-outcome>showServiceList</from-outcome>
+      <to-view-id>/marketplace/playground/services.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
   <navigation-rule>
     <from-view-id>/marketplace/playground/subscriptions/creation/add.xhtml</from-view-id>
@@ -1233,6 +1238,13 @@
       <redirect />
     </navigation-case>
   </navigation-rule>
+  <navigation-rule>
+    <navigation-case>
+      <from-outcome>showServiceListPlayground</from-outcome>
+      <to-view-id>/marketplace/playground/services.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+
 
   <validator>
     <validator-id>ldapUser</validator-id>
