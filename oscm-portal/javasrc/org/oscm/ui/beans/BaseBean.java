@@ -1156,10 +1156,6 @@ public class BaseBean {
     return path.contains(Marketplace.MARKETPLACE_ROOT) && path.contains( "playground");
   }
 
-  protected boolean isPlaygroundPage() {
-    return isPlaygroundPage(getRequest());
-  }
-
   public boolean isLoggedInAndAdmin() {
     VOUserDetails user = getUserFromSessionWithoutException(FacesContext.getCurrentInstance());
     return user != null && user.hasAdminRole();
