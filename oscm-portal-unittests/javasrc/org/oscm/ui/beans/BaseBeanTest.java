@@ -235,4 +235,25 @@ public class BaseBeanTest {
 
     assertEquals("ServiceMarketplace", queryPart);
   }
+
+  public void isPlaygroundPage(){
+    final HttpServletRequest request = mock(HttpServletRequest.class);
+    doReturn(request).when(ctrl).getRequest();
+    doReturn("http://page/marketplace/playground/page.jsf").when(request).getServletPath();
+
+    final boolean result = ctrl.isPlaygroundPage();
+
+    assertTrue(result);
+  }
+
+  public void isNotPlaygroundPage(){
+    final HttpServletRequest request = mock(HttpServletRequest.class);
+    doReturn(request).when(ctrl).getRequest();
+    doReturn("http://page/marketplace/page.jsf").when(request).getServletPath();
+
+    final boolean result = ctrl.isPlaygroundPage();
+
+    assertFalse(result);
+  }
+
 }

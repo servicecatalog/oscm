@@ -1152,9 +1152,12 @@ public class BaseBean {
   }
 
   protected boolean isPlaygroundPage(HttpServletRequest httpRequest) {
-    return httpRequest
-        .getServletPath()
-        .startsWith(Marketplace.MARKETPLACE_ROOT + "/playground.jsf");
+    final String path = httpRequest.getServletPath();
+    return path.contains(Marketplace.MARKETPLACE_ROOT) && path.contains( "playground");
+  }
+
+  protected boolean isPlaygroundPage() {
+    return isPlaygroundPage(getRequest());
   }
 
   public boolean isLoggedInAndAdmin() {
