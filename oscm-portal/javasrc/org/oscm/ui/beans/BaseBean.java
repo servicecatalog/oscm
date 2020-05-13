@@ -470,6 +470,7 @@ public class BaseBean {
   public static final String OUTCOME_REVIEW_ENABLEMENT_CHANGED = "reviewEnablementChanged";
   public static final String OUTCOME_SHOW_REGISTRATION = "showRegistration";
   public static final String OUTCOME_SHOW_SERVICE_LIST = "showServiceList";
+  public static final String OUTCOME_SHOW_SERVICE_LIST_PLAYGROUND = "showServiceListPlayground";
   public static final String OUTCOME_MARKETPLACE_CONFIRMSTARTPWDRECOVERY =
       "marketplace/confirmStartPwdRecovery";
   public static final String OUTCOME_SUBSCRIPTION_LIST = "showSubscription";

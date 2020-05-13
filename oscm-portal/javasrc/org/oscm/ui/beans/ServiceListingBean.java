@@ -328,7 +328,8 @@ public class ServiceListingBean extends BaseBean implements Serializable {
         }
         getRequest().setAttribute(Constants.REQ_ATTR_SEARCH_REQUEST, phrase);
         getServicePagingBean().setFilterTag(null);
-        return OUTCOME_SHOW_SERVICE_LIST;
+        final boolean isPlayground = isPlaygroundPage(getRequest());
+        return  isPlayground ? OUTCOME_SHOW_SERVICE_LIST_PLAYGROUND :OUTCOME_SHOW_SERVICE_LIST;
     }
 
     protected String getLanguage() {
@@ -354,8 +355,9 @@ public class ServiceListingBean extends BaseBean implements Serializable {
      * @return OUTCOME_SHOW_SERVICE_LIST
      */
     public String showServiceList() {
+        final boolean isPlayground = isPlaygroundPage(getRequest());
         services = null;
-        return OUTCOME_SHOW_SERVICE_LIST;
+        return isPlayground ? OUTCOME_SHOW_SERVICE_LIST_PLAYGROUND   : OUTCOME_SHOW_SERVICE_LIST;
     }
 
     /**
