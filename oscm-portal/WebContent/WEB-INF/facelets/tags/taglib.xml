@@ -59,6 +59,11 @@
     <source>labelAndSelect.xhtml</source>
   </tag>
   <tag>
+    <tag-name>labelAndSelectBootstrap</tag-name>
+    <source>labelAndSelectBootstrap.xhtml</source>
+  </tag>
+  
+  <tag>
     <tag-name>localeItems</tag-name>
     <source>localeItems.xhtml</source>
   </tag>

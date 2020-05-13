@@ -1,0 +1,73 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:rich="http://richfaces.org/rich" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+  xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:a4j="http://richfaces.org/a4j">
+  <c:if test="#{empty styleClass}">
+    <c:set var="styleClass" value="select" />
+  </c:if>
+  <c:if test="#{empty renderPrefix or renderPrefix}">
+    <c:set var="renderPrefix" value="true" />
+  </c:if>
+
+ <div class="col-md-3 col-sm-12"> 
+  <adm:outputLabel value="#{label}" rendered="#{empty rendered or rendered}" required="#{required}" />
+</div>
+
+   <div class="col-md-6 col-sm-12">
+  <a4j:outputPanel styleClass="jqSelect" layout="block" rendered="#{empty rendered or rendered}">
+    <a4j:outputPanel  styleClass="select" rendered="#{renderPrefix}" >
+      <a4j:outputPanel id="#{id}Selected" styleClass="option" />
+    </a4j:outputPanel>
+    <c:if test="#{empty required}">
+      <c:if test="#{empty listenerBean}">
+        <h:selectOneMenu id="#{id}" value="#{value}" onchange="setDirty(true);" styleClass="#{styleClass}"
+          required="#{required}" disabled="#{disabled}">
+          <ui:insert />
+        </h:selectOneMenu>
+      </c:if>
+      <c:if test="#{not empty listenerBean}">
+        <h:selectOneMenu id="#{id}" value="#{value}" styleClass="#{styleClass}" required="#{required}"
+          disabled="#{disabled}" valueChangeListener="#{listenerBean['processValueChange']}">
+          <a4j:ajax event="change" render="#{render}" oncomplete="setDirty(true); #{oncomplete}" />
+          <ui:insert />
+        </h:selectOneMenu>
+      </c:if>
+    </c:if>
+
+    <c:if test="#{not empty required}">
+      <!-- Here a tomahawk component is used to prevent the menu to get its value -->
+      <!-- via the value-binding in case a validation error occurred (see #8313). -->
+      <c:if test="#{empty listenerBean}">
+        <t:selectOneMenu id="#{id}" value="#{value}" onchange="setDirty(true);" styleClass="#{styleClass}"
+          required="#{required}" disabled="#{disabled}">
+          <ui:insert />
+        </t:selectOneMenu>
+      </c:if>
+      <c:if test="#{not empty listenerBean}">
+        <t:selectOneMenu id="#{id}" value="#{value}" styleClass="#{styleClass}" required="#{required}"
+          disabled="#{disabled}" valueChangeListener="#{listenerBean['processValueChange']}">
+          <a4j:ajax event="change" render="#{render}" oncomplete="setDirty(true); #{oncomplete}" />
+          <ui:insert />
+        </t:selectOneMenu>
+      </c:if>
+    </c:if>
+  </a4j:outputPanel>
+  </div>
+
+  <c:choose>
+    <c:when test="#{(not empty showHint)}">
+      <div class="col-md-3 col-sm-12">
+        <adm:messageAndHint id="#{id}ErrorMsg" for="#{id}" />
+      </div>
+    </c:when>
+    <c:otherwise>
+      <div class="col-md-3 col-sm-12">
+        <adm:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}" />
+      </div>
+    </c:otherwise>
+  </c:choose>
+</ui:composition>

@@ -1,0 +1,288 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="../templates/mainBootstrap.xhtml">
+
+  <ui:define name="pageId">
+    <c:set var="pageId" value="marketplace.account.processes" />
+    <c:set var="dirty" value="false" />
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+  </ui:define>
+
+  <ui:define name="breadcrumbs">
+    <mp:bootstrapBreadcrumbs>
+      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/playgroundIndex.jsf" />
+      <mp:crumb labelPageId="marketplace.account.processes" />
+    </mp:bootstrapBreadcrumbs>
+  </ui:define>
+
+    <ui:define name="aside">
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.processes.title" />
+  </ui:define>
+  
+  <ui:define name="contentstitle">
+    <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
+      <br />
+    </a4j:outputPanel>
+  </ui:define>
+
+
+  <ui:define name="contents">
+    <!-- include popup -->
+    <a4j:outputPanel>
+      <ui:include src="/marketplace/account/playgroundManageTrigger.xhtml">
+        <ui:param name="dialogId" value="triggerDefinitionPanel" />
+        <ui:param name="dialogTitle" value="#{triggerDefinitionBean.modalTitle}" />
+      </ui:include>
+    </a4j:outputPanel>
+
+    <c:set var="mpImgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+    <c:set var="sortIcon" value="#{mpImgUrl}/transparentPixel.png?id=sort" />
+    <c:set var="sortIconAscending" value="#{mpImgUrl}/transparentPixel.png?id=sortAscending" />
+    <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending" />
+
+           <div class="row">
+      <div class="mx-4 mt-2 p-2 bg-light col">
+  
+        <!-- ######################################################################################## -->
+   
+        <div class="pb-2">
+        <a4j:outputPanel id="triggersArea" layout="block" rendered="#{triggerDefinitionBean.administrator}">
+       
+
+         <div class="col-12">
+          <mp:outputStepBootstrap value="#{msg['organization.manageTriggers.title']}" />
+         </div>
+          <h:form id="selectForm">
+            <a4j:jsFunction name="selectProcessItem"
+              render=":triggerDefinitionPanel,triggerProcessTablePanel,:triggerDefinitionPanelForm"
+              oncomplete="AdmUtils.initFocus();RichFaces.component('triggerDefinitionPanel').show();AdmUtils.focusElementById('triggerDefinitionPanelForm:triggerName');setDirty(false);">
+              <a4j:param name="param1" assignTo="#{triggerDefinitionBean.selectedTriggerDefinitionId}" />
+            </a4j:jsFunction>
+          </h:form>
+
+          <c:set var="iconWidth" value="6%" />
+          <c:set var="normalWidth" value="30%" />
+          <c:set var="moreWidth" value="64%" />
+
+
+      
+          <h:form id="triggerDefinitionListForm" styleClass="row">
+
+           <div class="col-12 mb-2">
+              <a4j:commandLink styleClass="btn btn-sm btn-secondary text-light text-decoration-none" action="#{triggerDefinitionBean.addTriggerDefinition}"
+                id="addTriggerDefinition" render=":triggerDefinitionPanel :triggerDefinitionPanelForm"
+                oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.component('triggerDefinitionPanel').show();AdmUtils.focusElementById('triggerDefinitionPanelForm:triggerName');">
+                <h:outputText style="white-space: nowrap;"
+                  value="#{msg['marketplace.account.processes.processTriggers.button.add']}" />
+              </a4j:commandLink>
+           </div>
+
+            <h:panelGroup id="notice1Panel" layout="block" styleClass="col-12"
+              rendered="#{(empty triggerDefinitionBean.triggerDefinitionList)}">
+  
+              <mp:notice rendered="#{(empty triggerDefinitionBean.triggerDefinitionList)}"
+                noticeText="#{msg['info.triggerDefinition.noTriggerDefinitions']}" />
+
+                
+            </h:panelGroup>
+            <h:panelGroup rendered="#{(not empty triggerDefinitionBean.triggerDefinitionList)}">
+           
+            
+            <div class="col-12">
+                <rich:dataTable height="220px"
+                  headerClass="rowTitle"  styleClass="w-100" rowClasses="rowOdd,rowEven" id="triggerDefinitionListTable"
+                  value="#{triggerDefinitionBean.triggerDefinitionList}" var="triggerDefinition" selectionMode="single"
+                  onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
+                  enableContextMenu="false" noDataLabel=" " columnClasses="wrapColumns"
+                  sortMode="single">
+
+                  <rich:column headerClass="w-30px">
+                    <img src="#{imgUrl}/transparentPixel.png" id="editProcessTriggerImage" class="editPen"
+                      onclick="if(AdmUtils.isNotDirtyOrConfirmed()){selectProcessItem(#{triggerDefinition.key});}" />
+                  </rich:column>
+
+                  <rich:column headerClass="w-50" sortBy="#{triggerDefinition.name}" sortOrder="ascending"
+                    sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                    sortIconDescending="#{sortIconDescending}">
+                    <f:facet name="header">
+                      <h:outputText value="#{msg['triggerDefinition.triggerName']}" />
+                    </f:facet>
+                    <h:outputText id="name" value="#{triggerDefinition.name}" />
+                  </rich:column>
+
+                  <rich:column headerClass="w-50" sortBy="#{triggerDefinition.type}" sortIcon="#{sortIcon}"
+                    sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}">
+                    <f:facet name="header">
+                      <h:outputText value="#{msg['triggerDefinition.type']}" />
+                    </f:facet>
+                    <c:set var="key" value="TriggerType.#{triggerDefinition.type}.enum" />
+                    <h:outputText id="type" value="#{msg[key]}" />
+                  </rich:column>
+                </rich:dataTable>
+                </div>
+            </h:panelGroup>
+          </h:form>
+          <br />
+          <br />
+        </a4j:outputPanel>
+        </div>
+        <!-- ######################################################################################## -->
+
+       
+         
+          <c:set var="iconWidth" value="6%" />
+          <c:set var="smallWidth" value="20%" />
+          <c:set var="mediumWidth" value="20%" />
+          <c:set var="restWidth" value="24%" />
+          
+          <div class="pt-2">  
+          <h:form id="processListForm" styleClass="row">
+  
+       <div class="col-12">
+        <mp:outputStepBootstrap value="#{msg['marketplace.account.processes.processTriggers.title']}" />
+      </div>
+      <div class="col-12 mb-2" id="manageProcessButtonPanel">
+
+              <mp:buttonBootstrap styleClass="btn-sm btn-secondary" id="abortProcess" customizedStyleClass="rightSpace" value="#{msg['button.abort']}"
+                bean="#{triggerProcessBean}" action="cancelTriggerProcesses"
+                disabled="#{triggerProcessBean.buttonDisable}"
+                oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();" />
+
+              <mp:buttonBootstrap id="deleteProcess" customizedStyleClass="rightSpace" value="#{msg['button.delete']}"
+                bean="#{triggerProcessBean}" action="deleteTriggerProcesses"
+                disabled="#{triggerProcessBean.buttonDisable}" 
+                oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();" />
+
+              <h:selectBooleanCheckbox id="filterProcessesChooser" styleClass="space" value="#{triggerProcessBean.myProcessesOnly}"
+                valueChangeListener="#{triggerProcessBean.filteringChanged}" immediate="true" onclick="this.blur();"
+                rendered="#{triggerDefinitionBean.administrator}">
+                <a4j:ajax render="triggerProcessTablePanel,manageProcessButtonPanel,scriptPanel" event="change"/>
+              </h:selectBooleanCheckbox>
+              <h:outputText value="#{msg['triggerProcess.myProcessesOnly']}"
+                rendered="#{triggerDefinitionBean.administrator}" style="vertical-align: center;" />
+            </div>
+      
+               <a4j:outputPanel id="triggerProcessTablePanel" layout="block">
+           <div class="row mb-1">     
+            <div class="col-12">
+              <mp:notice rendered="#{(empty triggerProcessBean.triggerProcessList)}"
+                noticeText="#{msg['info.triggerProcess.noProcesses']}" />
+            </div>    
+           </div>
+              <c:set var="sortIcon" value="/marketplace/img/transparentPixel.png?id=sort" />
+              <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending" />
+              <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending" />
+
+             <div class="col-12">
+              <rich:dataTable styleClass="w-100" headerClass="rowTitle" rowClasses="rowOdd,rowEven" id="triggerProcessTable"
+                value="#{triggerProcessBean.triggerProcessList}" var="triggerProcess" selectionMode="single"
+                enableContextMenu="false" noDataLabel=" " columnClasses="alignTop wrapColumns preWrapping"
+                rendered="#{(not empty triggerProcessBean.triggerProcessList)}" sortMode="single">
+
+                <rich:column width="#{iconWidth}"
+                             styleClass="tableColumnCheckBox"
+                             sortIcon="#{sortIcon}"
+                             sortIconAscending="#{sortIconAscending}"
+                             sortIconDescending="#{sortIconDescending}">
+
+                  <f:facet name="header">
+                    <h:selectBooleanCheckbox id="allCheckboxes"
+                                             value="#{triggerProcessBean.selectAll}"
+                                             onclick="AdmUtils.dataTableSelectCheckboxes('processListForm:triggerProcessTable', 'selected', this.checked, '#{fn:length(triggerProcessBean.triggerProcessList)}');this.blur();">
+                      <a4j:ajax event="change" render=":manageProcessButtonPanel" onbegin="AdmUtils.showProgress(true)" oncomplete="AdmUtils.showProgress(false)"/>
+                    </h:selectBooleanCheckbox>
+                  </f:facet>
+                  <h:selectBooleanCheckbox id="selected#{triggerProcess.key}"
+                                           value="#{triggerProcess.selected}"
+                                           onclick="AdmUtils.setAllServiceCheckbox('processListForm:triggerProcessTable', 'selected', '#{fn:length(triggerProcessBean.triggerProcessList)}', 'allCheckboxes');this.blur();">
+                    <a4j:ajax event="change" render=":manageProcessButtonPanel" onbegin="AdmUtils.showProgress(true)" oncomplete="AdmUtils.showProgress(false)"/>
+                  </h:selectBooleanCheckbox>
+
+                </rich:column>
+
+                <rich:column width="#{smallWidth}" sortBy="#{triggerProcess.key}" sortOrder="descending"
+                  sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                  sortIconDescending="#{sortIconDescending}" styleClass="column-break-process">
+                  <f:facet name="header">
+                    <h:outputText value="#{msg['triggerProcess.key']}" />
+                  </f:facet>
+                  <h:outputText id="key" value="#{triggerProcess.key}" />
+                </rich:column>
+
+                <c:set var="descriptionKey" value="#{triggerProcess.messageKey}" />
+                <rich:column width="#{mediumWidth}" sortBy="#{msg[descriptionKey]} #{triggerProcess.targetNames[0]}"
+                  styleClass="column-break-desc stringInMultiLine" sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                  sortIconDescending="#{sortIconDescending}">
+                  <f:facet name="header">
+                    <h:outputText value="#{msg['triggerProcess.description']}" />
+                  </f:facet>
+                  <h:outputFormat id="description" value="#{msg[descriptionKey]}">
+                    <f:param value="#{triggerProcess.targetNames[0]}" />
+                    <f:param value="#{triggerProcess.targetNames[1]}" />
+                    <f:param value="#{triggerProcess.targetNames[2]}" />
+                    <f:param value="#{triggerProcess.targetNames[3]}" />
+                  </h:outputFormat>
+                </rich:column>
+
+                <rich:column width="#{mediumWidth}" sortBy="#{triggerProcess.activationDate}"
+                  styleClass="column-break-creationDate" sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                  sortIconDescending="#{sortIconDescending}">
+                  <f:facet name="header">
+                    <h:outputText value="#{msg['triggerProcess.activationDate']}" />
+                  </f:facet>
+                  <h:outputText id="creationTime" value="#{triggerProcess.activationDate}">
+                    <f:convertDateTime pattern="#{msg[appBean.dateTimePattern]}" timeZone="#{appBean.timeZoneId}" />
+                  </h:outputText>
+                </rich:column>
+
+                <rich:column width="#{smallWidth}" sortBy="#{triggerProcess.user.userId}"
+                  styleClass="column-break-userId stringInMultiLine" sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                  sortIconDescending="#{sortIconDescending}">
+                  <f:facet name="header">
+                    <h:outputText value="#{msg['user.userId']}" />
+                  </f:facet>
+                  <h:outputText id="userId" value="#{triggerProcess.user.userId}" />
+                </rich:column>
+
+                <c:set var="statusKey" value="TriggerProcessStatus.#{triggerProcess.status}" />
+                <rich:column width="#{smallWidth}" sortBy="#{msg[statusKey]}" styleClass="column-break-status"
+                  sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                  sortIconDescending="#{sortIconDescending}">
+                  <f:facet name="header">
+                    <h:outputText value="#{msg['triggerProcess.status']}" />
+                  </f:facet>
+                  <h:outputText id="status" value="#{msg[statusKey]}" />
+                </rich:column>
+
+                <rich:column width="#{restWidth}" sortBy="#{triggerProcess.reason}" styleClass="column-break-reason"
+                  sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                  sortIconDescending="#{sortIconDescending}">
+                  <f:facet name="header">
+                    <h:outputText value="#{msg['triggerProcess.reason']}" />
+                  </f:facet>
+                  <h:outputText id="reason" value="#{triggerProcess.reason}" />
+                </rich:column>
+              </rich:dataTable>
+              </div>          
+            </a4j:outputPanel>
+            <a4j:jsFunction name="executeOperation" oncomplete="AdmUtils.showProgress(false);"/>
+          </h:form>
+
+
+      <a4j:outputPanel id="scriptPanel">
+        <script type="text/javascript">
+         AdmUtils.setAllServiceCheckbox('processListForm:triggerProcessTable', 'selected', '#{fn:length(triggerProcessBean.triggerProcessList)}', 'allCheckboxes');
+      </script>
+      </a4j:outputPanel>
+      
+      </div>
+     
+     </div>
+     </div> 
+
+  </ui:define>
+</ui:composition>
