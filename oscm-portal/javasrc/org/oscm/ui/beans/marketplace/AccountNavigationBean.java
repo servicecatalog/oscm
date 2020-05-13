@@ -44,7 +44,9 @@ public class AccountNavigationBean extends BaseBean implements Serializable {
     private static final String ACCOUNT_LINK = "account/index.jsf";
     private static final String PROFILE_LINK = "account/profile.jsf";
     private static final String PAYMENT_LINK = "account/payments.jsf";
+    private static final String PAYMENT_PLAYGROUND_LINK = "/playground/account/payments.jsf";
     private static final String SUBSCRIPTIONS_LINK = "account/subscriptions.jsf";
+    private static final String SUBSCRIPTIONS_PLAYGROUND_LINK = "/playground/account/subscriptions.jsf";
     private static final String USERS_LINK = "account/users.jsf";
     private static final String UNITS_LINK = "account/units.jsf";
     private static final String REPORTS_LINK = "account/reports.jsf";
@@ -81,17 +83,19 @@ public class AccountNavigationBean extends BaseBean implements Serializable {
     }
 
     private void addPaymentLink(boolean isLoggedInAndAdmin) {
+        final String link = isPlaygroundPage() ? PAYMENT_PLAYGROUND_LINK : PAYMENT_LINK;
         if (isLoggedInAndAdmin) {
-            setLinkVisible(MARKETPLACE_ACCOUNT_PAYMENTS_TITLE, PAYMENT_LINK,
+            setLinkVisible(MARKETPLACE_ACCOUNT_PAYMENTS_TITLE, link,
                     HiddenUIConstants.MARKETPLACE_MENU_ITEM_ACCOUNT_PAYMENT);
         }
     }
 
     private void addSubscriptionsLink(boolean isLoggedInAndAdmin) {
+        final String link = isPlaygroundPage() ? SUBSCRIPTIONS_PLAYGROUND_LINK : SUBSCRIPTIONS_LINK;
         if (isLoggedInAndAdmin || isLoggedInAndSubscriptionManager()) {
             setLinkVisible(
                     MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_TITLE,
-                    SUBSCRIPTIONS_LINK,
+                    link,
                     HiddenUIConstants.MARKETPLACE_MENU_ITEM_ACCOUNT_SUBSCRIPTIONS);
         }
     }
