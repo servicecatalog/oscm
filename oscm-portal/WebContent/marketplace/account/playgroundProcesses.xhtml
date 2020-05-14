@@ -19,7 +19,7 @@
     </mp:bootstrapBreadcrumbs>
   </ui:define>
 
-    <ui:define name="aside">
+  <ui:define name="aside">
     <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.processes.title" />
   </ui:define>
   
@@ -51,11 +51,7 @@
    
         <div class="pb-2">
         <a4j:outputPanel id="triggersArea" layout="block" rendered="#{triggerDefinitionBean.administrator}">
-       
-
-         <div class="col-12">
-          <mp:outputStepBootstrap value="#{msg['organization.manageTriggers.title']}" />
-         </div>
+             
           <h:form id="selectForm">
             <a4j:jsFunction name="selectProcessItem"
               render=":triggerDefinitionPanel,triggerProcessTablePanel,:triggerDefinitionPanelForm"
@@ -71,6 +67,9 @@
 
       
           <h:form id="triggerDefinitionListForm" styleClass="row">
+           <div class="col-12">
+          <mp:outputStepBootstrap value="#{msg['organization.manageTriggers.title']}" />
+         </div>
 
            <div class="col-12 mb-2">
               <a4j:commandLink styleClass="btn btn-sm btn-secondary text-light text-decoration-none" action="#{triggerDefinitionBean.addTriggerDefinition}"
@@ -147,12 +146,12 @@
       </div>
       <div class="col-12 mb-2" id="manageProcessButtonPanel">
 
-              <mp:buttonBootstrap styleClass="btn-sm btn-secondary" id="abortProcess" customizedStyleClass="rightSpace" value="#{msg['button.abort']}"
+              <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary" id="abortProcess" customizedStyleClass="rightSpace" value="#{msg['button.abort']}"
                 bean="#{triggerProcessBean}" action="cancelTriggerProcesses"
                 disabled="#{triggerProcessBean.buttonDisable}"
                 oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();" />
 
-              <mp:buttonBootstrap id="deleteProcess" customizedStyleClass="rightSpace" value="#{msg['button.delete']}"
+              <mp:buttonBootstrap id="deleteProcess" styleClass="btn btn-sm btn-secondary ml-1" customizedStyleClass="rightSpace" value="#{msg['button.delete']}"
                 bean="#{triggerProcessBean}" action="deleteTriggerProcesses"
                 disabled="#{triggerProcessBean.buttonDisable}" 
                 oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();" />

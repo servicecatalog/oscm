@@ -30,53 +30,56 @@
     <c:set var="progress" value="true" />
   </c:if>
 
-  <c:if test="#{disabled}">
-    <h:outputLink styleClass="disabled #{styleClass}" style="text-decoration: none;" id="#{id}" value="#"
-      onclick="return false;" disabled="true">
-      <h:outputText style="white-space: nowrap;" value="#{value}" />
-    </h:outputLink>
-  </c:if>
-  <c:if test="#{not disabled}">
-    <c:if test="#{empty onclick}">
-      <c:choose>
-        <c:when test="#{empty render and empty oncomplete}">
-          <h:commandButton style="display:none;" id="#{id}" value="#{value}" action="#{bean[action]}"
-            immediate="#{immediate}">
-            <ui:insert />
-          </h:commandButton>
-        </c:when>
-
-        <c:when test="#{empty render and not empty oncomplete}">
-          <a4j:commandButton style="display:none;" id="#{id}" value="#{value}" action="#{bean[action]}"
-            oncomplete="#{oncomplete}" immediate="#{immediate}">
-            <ui:insert />
-          </a4j:commandButton>
-        </c:when>
-
-        <c:when test="#{not empty render and not empty oncomplete}">
-          <a4j:commandButton style="display:none;" id="#{id}" value="#{value}" action="#{bean[action]}"
-            render="#{render}" oncomplete="#{oncomplete}" immediate="#{immediate}">
-            <ui:insert />
-          </a4j:commandButton>
-        </c:when>
-
-        <c:otherwise>
-          <a4j:commandButton style="display:none;" id="#{id}" value="#{value}" action="#{bean[action]}"
-            render="#{render}" immediate="#{immediate}">
-            <ui:insert />
-          </a4j:commandButton>
-        </c:otherwise>
-      </c:choose>
-
-      <button class="#{styleClass}" id="#{id}Link"
-        onclick="#{keepDirtyScript}#{clearDirtyScript}setOnSubmit(true);setDirty(false);AdmUtils.showProgress(#{progress});#{rich:element(id)}.click();setOnSubmit(false);return false;">
-        #{value}</button>
+  <c:if test="#{empty rendered or rendered}">
+    <c:if test="#{disabled}">
+      <h:outputLink styleClass="disabled #{styleClass}" id="#{id}" value="#" onclick="return false;" disabled="true">
+        #{value}
+      </h:outputLink>
     </c:if>
+    <c:if test="#{not disabled}">
+      <c:if test="#{empty onclick}">
+        <c:choose>
+          <c:when test="#{empty render and empty oncomplete}">
+            <h:commandButton style="display:none;" id="#{id}" value="#{value}"
+                             action="#{bean[action]}" immediate="#{immediate}">
+              <ui:insert />
+            </h:commandButton>
+          </c:when>
 
-    <c:if test="#{not empty onclick}">
-      <button class="#{styleClass}" id="#{id}" value="#" onclick="#{keepDirtyScript}#{clearDirtyScript}#{onclick}">
-        #{value}</button>
+          <c:when test="#{empty render and not empty oncomplete}">
+            <a4j:commandButton style="display:none;" id="#{id}" value="#{value}" action="#{bean[action]}"
+                               oncomplete="#{oncomplete}" immediate="#{immediate}">
+              <ui:insert />
+            </a4j:commandButton>
+          </c:when>
+
+          <c:when test="#{not empty render and not empty oncomplete}">
+            <a4j:commandButton style="display:none;" id="#{id}" value="#{value}" action="#{bean[action]}"
+                               render="#{render}" oncomplete="#{oncomplete}" immediate="#{immediate}">
+              <ui:insert />
+            </a4j:commandButton>
+          </c:when>
+
+          <c:otherwise>
+            <a4j:commandButton style="display:none;" id="#{id}" value="#{value}" action="#{bean[action]}"
+                               render="#{render}" immediate="#{immediate}">
+              <ui:insert />
+            </a4j:commandButton>
+          </c:otherwise>
+        </c:choose>
+
+        <button class="#{styleClass}" id="#{id}Link"
+                      onclick="#{keepDirtyScript}#{clearDirtyScript}setOnSubmit(true);setDirty(false);AdmUtils.showProgress(#{progress});#{rich:element(id)}.click();setOnSubmit(false);return false;">
+          #{value}
+        </button>
+      </c:if>
+
+      <c:if test="#{not empty onclick}">
+        <button class="#{styleClass}" id="#{id}" value="#"
+                      onclick="#{keepDirtyScript}#{clearDirtyScript}#{onclick}">
+          #{value}
+        </button>
+      </c:if>
     </c:if>
-  </c:if>
   </c:if>
 </ui:composition>
