@@ -8,7 +8,7 @@
 
  <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" styleClass="#{styleClass}"
               filterValue="#{bean.filterValues[property]}" style="max-width:100px"
-              headerClass="rowTitle sortable clickable-header" id="#{columnHeaderName}"
+              headerClass="rowTitle sortable clickable-header #{headerClass}" id="#{columnHeaderName}"
               filterExpression="#{property}" filterType="custom" sortType="custom">
   <f:facet name="header">
    <h:outputText value="#{columnHeaderName}"/>

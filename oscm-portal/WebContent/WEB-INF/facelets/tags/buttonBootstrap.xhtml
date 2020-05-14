@@ -1,41 +1,34 @@
-<!-- Copyright FUJITSU LIMITED 2020 -->
-<!DOCTYPE html>
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE composition>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-  <a4j:outputPanel style="text-align: right;" rendered="#{empty rendered or rendered}" ajaxRendered="true">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <c:if test="#{empty progress}">
-      <c:set var="progress" value="true" />
-    </c:if>
+ <a4j:outputPanel style="text-align: right;" rendered="#{empty rendered or rendered}" ajaxRendered="true">
 
-    <!-- disabled version of button -->
-    <a4j:outputPanel rendered="#{disabled}" ajaxRendered="true">
-      <h:outputLink rendered="#{disabled}" styleClass="disabled #{styleClass}" style="#{style}" disabled="true"
-        id="#{id}Disabled">
-        <a4j:outputPanel rendered="#{disabled}">
-          <h:graphicImage url="/img/transparentPixel.png" styleClass="buttonImg #{buttonType}"
-            rendered="#{not empty buttonType}" />
-          <h:outputText value="#{value}" />
-        </a4j:outputPanel>
-      </h:outputLink>
-    </a4j:outputPanel>
+  <c:if test="#{empty progress}">
+   <c:set var="progress" value="true"/>
+  </c:if>
 
-    <!-- enabled version of button -->
-    <a4j:outputPanel rendered="#{not disabled}" ajaxRendered="true">
-      <h:commandButton rendered="#{not disabled}" style="display:none;" id="#{id}" value="#{value}"
-        action="#{bean[action]}" immediate="#{immediate}" oncomplete="#{oncomplete}"/>
-
-      <!-- No on click event provided, use default -->
-      <h:outputLink rendered="#{not disabled}" styleClass="#{styleClass}" style="#{style}" id="#{id}Link"
-        onclick="setOnSubmit(true);setDirty(false);AdmUtils.showProgress(#{progress});#{rich:element(id)}.click();setOnSubmit(false);return false;">
-        <a4j:outputPanel>
-          <h:graphicImage url="/img/transparentPixel.png" styleClass="buttonImg #{buttonType}"
-            rendered="#{not empty buttonType}" />
-          <h:outputText value="#{value}" />
-        </a4j:outputPanel>
-      </h:outputLink>
-    </a4j:outputPanel>
-
+  <!-- disabled version of button -->
+  <a4j:outputPanel rendered="#{disabled}" ajaxRendered="true">
+   <h:outputLink rendered="#{disabled}" styleClass="#{styleClass}" style="#{style}" disabled="true"
+                 id="#{id}Disabled">
+     <h:outputText value="#{value}" />
+   </h:outputLink>
   </a4j:outputPanel>
+
+  <!-- enabled version of button -->
+  <a4j:outputPanel rendered="#{not disabled}" ajaxRendered="true">
+   <h:commandButton rendered="#{not disabled}" style="display:none;" id="#{id}" value="#{value}"
+                    action="#{bean[action]}" immediate="#{immediate}" oncomplete="#{oncomplete}"/>
+
+   <!-- No on click event provided, use default -->
+   <h:outputLink rendered="#{not disabled}" styleClass="#{styleClass}" style="#{style}" id="#{id}Link"
+                 onclick="setOnSubmit(true);setDirty(false);AdmUtils.showProgress(#{progress});#{rich:element(id)}.click();setOnSubmit(false);return false;">
+    <h:outputText value="#{value}"/>
+   </h:outputLink>
+  </a4j:outputPanel>
+
+ </a4j:outputPanel>
 </ui:composition>

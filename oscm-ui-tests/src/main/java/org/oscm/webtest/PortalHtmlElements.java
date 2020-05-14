@@ -121,4 +121,24 @@ public class PortalHtmlElements {
 
   public static final String MANAGE_CURRENCY_INPUT = "currencies:currencyToManage";
   public static final String MANAGE_CURRENCY_ADD_BUTTON = "currencies:addButtonLink";
+
+  public static final String MANAGE_ATTRIBUTES_CUSTOMER_ADD_BUTTON =
+      "//a[@id='udaDefinitionsCustomerForm:createDefinition']/span";
+  public static final String MANAGE_ATTRIBUTES_CUSTOMER_ATTRIBUTE_FIELD =
+      "createForm:createUdaIdInput";
+  public static final String MANAGE_ATTRIBUTES_CUSTOMER_LANGUAGE_SELECT = "createForm:language";
+  public static final String MANAGE_ATTRIBUTES_CUSTOMER_NAME_FIELD =
+      "createForm:createUdaNameInput";
+  public static final String MANAGE_ATTRIBUTES_CUSTOMER_VALUE_FIELD =
+      "createForm:createUdaDefaultValueInput";
+  public static final String MANAGE_ATTRIBUTES_CUSTOMER_CONTROLLER_FIELD =
+      "createForm:createUdaControllerIdInput";
+  public static final String MANAGE_ATTRIBUTES_CUSTOMER_USER_CHECKBOX =
+      "createForm:createUdaUserOptionCheckBox";
+  public static final String MANAGE_ATTRIBUTES_CUSTOMER_MANDATORY_CHECKBOX =
+      "createForm:createUdaMandatoryCheckBox";
+  public static final String MANAGE_ATTRIBUTES_CUSTOMER_ENCRYPTED_CHECKBOX =
+      "createForm:createUdaEncryptedCheckBox";
+  public static final String MANAGE_ATTRIBUTES_CUSTOMER_SAVE_BUTTON =
+      "createForm:createPanelSaveButton";
 }
