@@ -9,8 +9,6 @@
  */
 package org.oscm.marketplace;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -24,6 +22,8 @@ import org.oscm.webtest.MarketplacePathSegments;
 import org.oscm.webtest.PortalTester;
 import org.oscm.webtest.WebTester;
 
+import static org.junit.Assert.assertEquals;
+
 public class MarketplacePlaygroundSubscriptionTableWT {
 
   private static PortalTester tester;
@@ -36,7 +36,6 @@ public class MarketplacePlaygroundSubscriptionTableWT {
     String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
     String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
     tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
-    ;
   }
 
   @AfterClass
@@ -47,7 +46,8 @@ public class MarketplacePlaygroundSubscriptionTableWT {
 
   @Test
   public void test01checkSubscriptionTableInAccountPage() throws InterruptedException {
-    tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_ACCOUNT_SUBSCRIPTIONS);
+    tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_ACCOUNT);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_SHOW_SUBSCRIPTIONS_BUTTON);
     tester.waitForElement(
         By.xpath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_FILTER_FIELD),
         WebTester.IMPLICIT_WAIT);

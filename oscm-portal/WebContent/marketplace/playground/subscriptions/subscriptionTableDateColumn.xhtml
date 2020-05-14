@@ -7,8 +7,8 @@
                 xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
 
  <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" styleClass="#{styleClass}"
-              filterValue="#{bean.filterValues[property]}" headerClass="rowTitle sortable clickable-header"
-              filterExpression="#{property}" filterType="custom" sortType="custom">
+              filterExpression="#{property}" headerClass="rowTitle sortable clickable-header #{headerClass}"
+              filterValue="#{bean.filterValues[property]}" filterType="custom" sortType="custom">
   <f:facet name="header">
    <h:outputText value="#{columnHeaderName}"/>
    <h:commandLink action="#{bean.toggleSort}" styleClass="sort-command-link">
