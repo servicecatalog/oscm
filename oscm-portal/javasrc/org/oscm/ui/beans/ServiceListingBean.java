@@ -357,7 +357,7 @@ public class ServiceListingBean extends BaseBean implements Serializable {
     public String showServiceList() {
         final boolean isPlayground = isPlaygroundPage(getRequest());
         services = null;
-        return isPlayground ? OUTCOME_SHOW_SERVICE_LIST_PLAYGROUND   : OUTCOME_SHOW_SERVICE_LIST;
+        return isPlayground ? OUTCOME_SHOW_SERVICE_LIST_PLAYGROUND : OUTCOME_SHOW_SERVICE_LIST;
     }
 
     /**

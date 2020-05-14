@@ -44,9 +44,7 @@ public class AccountNavigationBean extends BaseBean implements Serializable {
     private static final String ACCOUNT_LINK = "account/index.jsf";
     private static final String PROFILE_LINK = "account/profile.jsf";
     private static final String PAYMENT_LINK = "account/payments.jsf";
-    private static final String PAYMENT_PLAYGROUND_LINK = "/playground/account/payments.jsf";
     private static final String SUBSCRIPTIONS_LINK = "account/subscriptions.jsf";
-    private static final String SUBSCRIPTIONS_PLAYGROUND_LINK = "/playground/account/subscriptions.jsf";
     private static final String USERS_LINK = "account/users.jsf";
     private static final String UNITS_LINK = "account/units.jsf";
     private static final String REPORTS_LINK = "account/reports.jsf";

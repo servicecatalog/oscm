@@ -48,7 +48,7 @@
 
     <!-- header -->
     <mp:headerBootstrap user="#{userBean.loggedInUser}" loginHandler="showLoginPanel('#{defaultLoginRedirect}');return false;" />
-    <ui:include src="../../login.xhtml">
+    <ui:include src="../login.xhtml">
       <ui:param name="canCloseLogin" value="#{not isMplRestricted}" />
     </ui:include>
 
