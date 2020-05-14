@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.faces.component.UIViewRoot;
-import javax.servlet.http.HttpServletRequest;
 
 import org.hamcrest.Matcher;
 import org.junit.Before;
@@ -71,8 +70,6 @@ public class ServiceListingBeanTest {
         servicePagingBean = spy(new ServicePagingBean());
         serviceListingBean.setServicePagingBean(servicePagingBean);
 
-//        HttpServletRequest request = mock(HttpServletRequest.class);
-//        doReturn(request).when(serviceListingBean).getRequest();
 
         // init CategorySelectionBean
         categorySelectionBean = mock(CategorySelectionBean.class);
