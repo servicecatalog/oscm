@@ -19,10 +19,7 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage.Severity;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.client.methods.HttpOptions;
-import org.apache.tools.ant.taskdefs.condition.Http;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
