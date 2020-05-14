@@ -36,7 +36,6 @@ import org.oscm.ui.beans.UserBean;
  */
 public class AccountNavigationBeanTest {
 
-	
     private AccountNavigationBean accountNavigationBean;
     private ApplicationBean appBean;
     private UserBean userBean;
@@ -44,10 +43,10 @@ public class AccountNavigationBeanTest {
     private boolean isLoggedInAndSubscriptionManager;
     private boolean isAdministrationAvailable;
     private boolean isLoggedInAndUnitAdmin;
-    
+
     @Before
     public void setup() {
-        accountNavigationBean = spy(new AccountNavigationBean(){
+        accountNavigationBean = new AccountNavigationBean(){
             @Override
             public boolean isLoggedInAndAdmin() {
                 return isLoggedInAndAdmin;
@@ -68,14 +67,13 @@ public class AccountNavigationBeanTest {
                 return isAdministrationAvailable;
             }
 
+        };
 
-        });
-        
         isLoggedInAndAdmin = true;
         isLoggedInAndUnitAdmin = true;
         isLoggedInAndSubscriptionManager = true;
         isAdministrationAvailable = true;
-        
+
         appBean = mock(ApplicationBean.class);
         userBean = mock(UserBean.class);
 

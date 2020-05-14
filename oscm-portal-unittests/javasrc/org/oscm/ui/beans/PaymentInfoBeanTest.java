@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage.Severity;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.http.client.methods.HttpOptions;
+import org.apache.tools.ant.taskdefs.condition.Http;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -208,6 +211,20 @@ public class PaymentInfoBeanTest {
     } catch (PaymentDeregistrationException ex) {
       Mockito.verify(bean, Mockito.times(1)).resetCachedPaymentInfo();
     }
+  }
+
+  @Test
+  public void testSwitchToPaymentDetails() throws SaaSApplicationException {
+    final VOPaymentInfo info = mock(VOPaymentInfo.class);
+    final VOPaymentType paymentType = mock(VOPaymentType.class);
+
+    doReturn(info).when(bean).getPaymentInfo();
+    doReturn(paymentType).when(info).getPaymentType();
+    doReturn("").when(bean).getPaymentRegistrationLink();
+
+    bean.switchToPaymentDetails();
+
+    assertEquals("paymentTypeInclude", bean.getPaymentTypeRegisterPage());
   }
 
 }
