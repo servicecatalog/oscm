@@ -214,6 +214,13 @@ public class PaymentInfoBeanTest {
   }
 
   @Test
+  public void testPaymentTypeRegisterPage() {
+    final String result = bean.getPaymentTypeRegisterPage();
+
+    assertEquals("paymentOptionInclude", result);
+  }
+
+  @Test
   public void testSwitchToPaymentDetails() throws SaaSApplicationException {
     final VOPaymentInfo info = mock(VOPaymentInfo.class);
     final VOPaymentType paymentType = mock(VOPaymentType.class);
