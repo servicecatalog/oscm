@@ -231,4 +231,22 @@ public class PaymentInfoBeanTest {
     assertEquals("paymentTypeInclude", bean.getPaymentTypeRegisterPage());
   }
 
+  @Test
+  public void getSelectedPaymentInfoForSubscriptionKeyWhenSubscriptionIsNull(){
+    bean.setSelectedPaymentInfoForSubscription(null);
+
+    final Long result = bean.getSelectedPaymentInfoForSubscriptionKey();
+
+    assertNull(result);
+  }
+
+  @Test
+  public void getSelectedPaymentInfoForSubscriptionKeyWhenSubscriptionKeyIsNull(){
+    bean.setSelectedPaymentInfoForSubscriptionKey(null);
+
+    final Long result = bean.getSelectedPaymentInfoForSubscriptionKey();
+
+    assertNull(result);
+  }
+
 }
