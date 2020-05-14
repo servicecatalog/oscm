@@ -246,6 +246,10 @@
     <tag-name>filterInputBootstrap</tag-name>
     <source>filterInputBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>buttonBootstrap</tag-name>
+    <source>buttonBootstrap.xhtml</source>
+  </tag>
 
   <function>
     <function-name>matchBegin</function-name>
