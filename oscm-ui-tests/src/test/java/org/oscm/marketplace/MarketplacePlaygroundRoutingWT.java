@@ -12,6 +12,7 @@ package org.oscm.marketplace;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestWatcher;
@@ -35,6 +36,8 @@ public class MarketplacePlaygroundRoutingWT {
     tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
+  // FIXME test ignored due #787
+  @Ignore
   @Test
   public void test01_routing() {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
