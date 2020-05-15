@@ -141,7 +141,7 @@
        <div class="col-12">
         <mp:outputStepBootstrap value="#{msg['marketplace.account.processes.processTriggers.title']}" />
       </div>
-      <div class="col-12 mb-2" id="manageProcessButtonPanel">
+      <a4j:outputPanel layout="block" styleClass="col-12 mb-2" id="manageProcessButtonPanel">
 
               <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary" id="abortProcess" customizedStyleClass="rightSpace" value="#{msg['button.abort']}"
                 bean="#{triggerProcessBean}" action="cancelTriggerProcesses"
@@ -160,7 +160,7 @@
               </h:selectBooleanCheckbox>
               <h:outputText value="#{msg['triggerProcess.myProcessesOnly']}"
                 rendered="#{triggerDefinitionBean.administrator}" style="vertical-align: center;" />
-            </div>
+       </a4j:outputPanel>
             
              <h:panelGroup id="notice2Panel" layout="block" styleClass="col-12"
               rendered="#{(empty triggerDefinitionBean.triggerDefinitionList)}">
