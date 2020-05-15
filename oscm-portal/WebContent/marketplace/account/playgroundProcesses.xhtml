@@ -44,28 +44,27 @@
     <c:set var="sortIconAscending" value="#{mpImgUrl}/transparentPixel.png?id=sortAscending" />
     <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending" />
 
+
+           <h:form id="selectForm">
+            <a4j:jsFunction name="selectProcessItem"
+              render=":triggerDefinitionPanel,triggerProcessTablePanel,:triggerDefinitionPanelForm"
+              oncomplete="AdmUtils.initFocus();RichFaces.component('triggerDefinitionPanel').show();AdmUtils.focusElementById('triggerDefinitionPanelForm:triggerName');setDirty(false);">
+              <a4j:param name="param1" assignTo="#{triggerDefinitionBean.selectedTriggerDefinitionId}" />
+            </a4j:jsFunction>
+          </h:form> 
+           
            <div class="row">
       <div class="mx-4 mt-2 p-2 bg-light col">
   
         <!-- ######################################################################################## -->
    
         <div class="pb-2">
-        <a4j:outputPanel id="triggersArea" layout="block" rendered="#{triggerDefinitionBean.administrator}">
-             
-          <h:form id="selectForm">
-            <a4j:jsFunction name="selectProcessItem"
-              render=":triggerDefinitionPanel,triggerProcessTablePanel,:triggerDefinitionPanelForm"
-              oncomplete="AdmUtils.initFocus();RichFaces.component('triggerDefinitionPanel').show();AdmUtils.focusElementById('triggerDefinitionPanelForm:triggerName');setDirty(false);">
-              <a4j:param name="param1" assignTo="#{triggerDefinitionBean.selectedTriggerDefinitionId}" />
-            </a4j:jsFunction>
-          </h:form>
-
+       <a4j:outputPanel id="triggersArea" layout="block" rendered="#{triggerDefinitionBean.administrator}">         
           <c:set var="iconWidth" value="6%" />
           <c:set var="normalWidth" value="30%" />
           <c:set var="moreWidth" value="64%" />
 
 
-      
           <h:form id="triggerDefinitionListForm" styleClass="row">
            <div class="col-12">
           <mp:outputStepBootstrap value="#{msg['organization.manageTriggers.title']}" />
@@ -125,9 +124,7 @@
                 </div>
             </h:panelGroup>
           </h:form>
-          <br />
-          <br />
-        </a4j:outputPanel>
+            </a4j:outputPanel>
         </div>
         <!-- ######################################################################################## -->
 
@@ -164,9 +161,8 @@
               <h:outputText value="#{msg['triggerProcess.myProcessesOnly']}"
                 rendered="#{triggerDefinitionBean.administrator}" style="vertical-align: center;" />
             </div>
-      
-               <a4j:outputPanel id="triggerProcessTablePanel" layout="block">
-               <h:panelGroup id="notice2Panel" layout="block" styleClass="col-12"
+            
+             <h:panelGroup id="notice2Panel" layout="block" styleClass="col-12"
               rendered="#{(empty triggerDefinitionBean.triggerDefinitionList)}">
   
               <mp:notice rendered="#{(empty triggerProcessBean.triggerProcessList)}"
@@ -174,6 +170,9 @@
 
                 
             </h:panelGroup>
+      
+               <a4j:outputPanel id="triggerProcessTablePanel" layout="block">
+              
 
               <c:set var="sortIcon" value="/marketplace/img/transparentPixel.png?id=sort" />
               <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending" />
