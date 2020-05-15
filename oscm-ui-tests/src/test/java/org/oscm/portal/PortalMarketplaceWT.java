@@ -91,6 +91,8 @@ public class PortalMarketplaceWT {
     assertTrue(tester.getExecutionResult());
   }
 
+  // FIXME test ignored due #787
+  @Ignore
   @Test
   public void test04addCategory() throws Exception {
     tester.visitPortal(PortalPathSegments.MANAGE_CATEGORIES);
