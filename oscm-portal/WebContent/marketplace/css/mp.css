@@ -4279,7 +4279,7 @@ div#headerrightareaBootstrap, rightarea a {
   }
 }
 
-@media ( max-width : 767px) {
+@media (max-width: 767px) {
   .aside {
     float: none;
   }
@@ -4473,3 +4473,7 @@ div#headerrightareaBootstrap, rightarea a {
     display: none;
   }
 }
+
+
+
+
