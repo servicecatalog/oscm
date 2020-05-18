@@ -4,7 +4,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
- <a4j:outputPanel style="text-align: right;" rendered="#{empty rendered or rendered}" ajaxRendered="true">
+ <a4j:outputPanel styleClass="text-right" rendered="#{empty rendered or rendered}" ajaxRendered="true">
 
   <c:if test="#{empty progress}">
    <c:set var="progress" value="true"/>
@@ -20,7 +20,7 @@
 
   <!-- enabled version of button -->
   <a4j:outputPanel rendered="#{not disabled}" ajaxRendered="true">
-   <h:commandButton rendered="#{not disabled}" style="display:none;" id="#{id}" value="#{value}"
+   <h:commandButton rendered="#{not disabled}" styleClass="toast.hide" id="#{id}" value="#{value}"
                     action="#{bean[action]}" immediate="#{immediate}" oncomplete="#{oncomplete}"/>
 
    <!-- No on click event provided, use default -->
