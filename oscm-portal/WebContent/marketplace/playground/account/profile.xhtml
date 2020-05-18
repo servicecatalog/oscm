@@ -362,8 +362,9 @@
         type="text/css" media="all"/>
 
   <script>
-   $(document).ready(function(){
-    $('[data-toggle="popover"]').popover({container: 'body'});
+   var $j = jQuery.noConflict();
+   $j(document).ready(function(){
+    $j('[data-toggle="popover"]').popover({container: 'body'});
    });
   </script>
 
