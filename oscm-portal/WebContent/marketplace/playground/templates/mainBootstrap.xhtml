@@ -17,6 +17,9 @@
 <ui:include src="headBootstrap.xhtml">
   <ui:param name="dirty" value="#{dirty}" />
 </ui:include>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="#{facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js"></script>
 </h:head>
 
 <c:if test="#{empty bodyClass}">
