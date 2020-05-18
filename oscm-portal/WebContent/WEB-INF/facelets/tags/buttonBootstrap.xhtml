@@ -20,7 +20,7 @@
 
   <!-- enabled version of button -->
   <a4j:outputPanel rendered="#{not disabled}" ajaxRendered="true">
-   <h:commandButton rendered="#{not disabled}" styleClass="toast.hide" id="#{id}" value="#{value}"
+   <h:commandButton rendered="#{not disabled}" style="display:none;" id="#{id}" value="#{value}"
                     action="#{bean[action]}" immediate="#{immediate}" oncomplete="#{oncomplete}"/>
 
    <!-- No on click event provided, use default -->
