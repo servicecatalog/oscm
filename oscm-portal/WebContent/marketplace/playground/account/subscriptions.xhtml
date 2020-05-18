@@ -14,7 +14,7 @@
 
  <ui:define name="breadcrumbs">
   <mp:bootstrapBreadcrumbs>
-   <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/playgroundIndex.jsf"/>
+   <mp:crumb labelPageId="marketplace.account" link="/marketplace/playground/account/index.jsf"/>
    <mp:crumb labelPageId="#{pageId}"/>
   </mp:bootstrapBreadcrumbs>
  </ui:define>
@@ -32,7 +32,7 @@
 
    <h:form id="triggerSubListForm"
            rendered="#{not empty subscriptionsCtrl.triggerProcessesModel.waitingForApprovalSubs}">
-    <ui:include src="../subscriptions/triggerProcessesTableBootstrap.xhtml">
+    <ui:include src="../subscriptions/triggerProcessesTable.xhtml">
      <ui:param name="data" value="#{subscriptionsCtrl.triggerProcessesModel.waitingForApprovalSubs}"/>
     </ui:include>
    </h:form>
@@ -61,7 +61,7 @@
        </div>
       </rich:column>
 
-      <ui:include src="../subscriptions/subscriptionTableColumnBootstrap.xhtml">
+      <ui:include src="../subscriptions/subscriptionTableColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
        <ui:param name="property" value="#{subscriptionsCtrl.model.SUBSCRIPTION_ID}"/>
        <ui:param name="tableName" value="subscriptionsList"/>
@@ -72,7 +72,7 @@
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
       </ui:include>
-      <ui:include src="../subscriptions/subscriptionTableColumnBootstrap.xhtml">
+      <ui:include src="../subscriptions/subscriptionTableColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
        <ui:param name="property" value="#{subscriptionsCtrl.model.PURCHASE_ORDER_NUMBER}"/>
        <ui:param name="tableName" value="subscriptionsList"/>
@@ -84,7 +84,7 @@
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
        <ui:param name="styleClass" value="column-reference-hide"/>
       </ui:include>
-      <ui:include src="../subscriptions/subscriptionTableColumnBootstrap.xhtml">
+      <ui:include src="../subscriptions/subscriptionTableColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
        <ui:param name="property" value="#{subscriptionsCtrl.model.UNIT}"/>
        <ui:param name="tableName" value="subscriptionsList"/>
@@ -96,7 +96,7 @@
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
        <ui:param name="styleClass" value="column-unit-hide"/>
       </ui:include>
-      <ui:include src="../subscriptions/subscriptionTableColumnBootstrap.xhtml">
+      <ui:include src="../subscriptions/subscriptionTableColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
        <ui:param name="property" value="#{subscriptionsCtrl.model.SERVICE_NAME}"/>
        <ui:param name="tableName" value="subscriptionsList"/>
@@ -108,7 +108,7 @@
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
        <ui:param name="styleClass" value="column-service-hide"/>
       </ui:include>
-      <ui:include src="../subscriptions/subscriptionTableDateColumnBootstrap.xhtml">
+      <ui:include src="../subscriptions/subscriptionTableDateColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
        <ui:param name="property" value="#{subscriptionsCtrl.model.ACTIVATION}"/>
        <ui:param name="tableName" value="subscriptionsList"/>
@@ -120,7 +120,7 @@
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
        <ui:param name="styleClass" value="column-activation-hide"/>
       </ui:include>
-      <ui:include src="../subscriptions/subscriptionTableStatusColumnBootstrap.xhtml">
+      <ui:include src="../subscriptions/subscriptionTableStatusColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
        <ui:param name="property" value="#{subscriptionsCtrl.model.STATUS}"/>
        <ui:param name="tableName" value="subscriptionsList"/>

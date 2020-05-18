@@ -4,20 +4,6 @@
  */
 package org.oscm.ui.beans;
 
-import static org.junit.Assert.*;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
-import javax.faces.context.ExternalContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.intf.IdentityService;
@@ -32,6 +18,22 @@ import org.oscm.ui.stubs.ExternalContextStub;
 import org.oscm.ui.stubs.FacesContextStub;
 import org.oscm.ui.stubs.HttpServletRequestStub;
 import org.oscm.ui.stubs.HttpSessionStub;
+
+import javax.faces.context.ExternalContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.*;
 
 public class BaseBeanTest {
   BaseBean ctrl;
@@ -227,7 +229,7 @@ public class BaseBeanTest {
     final HttpServletRequest request = mock(HttpServletRequest.class);
     final SessionBean sessionBean = mock(SessionBean.class);
     when(request.getServletPath())
-        .thenReturn(Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf");
+        .thenReturn(Marketplace.MARKETPLACE_ROOT + "/playground/serviceDetails.jsf");
     doReturn("Service").when(ctrl).getSelectedServiceQueryPart(eq(sessionBean));
     doReturn("Marketplace").when(ctrl).getMarketplaceIdQueryPart();
 

@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage.Severity;
-import javax.servlet.http.HttpServletRequest;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -211,43 +211,10 @@ public class PaymentInfoBeanTest {
   }
 
   @Test
-  public void testIsPlaygroundRequestTrue() {
-    final HttpServletRequest request = mock(HttpServletRequest.class);
-    doReturn(request).when(bean).getRequest();
-    doReturn("http://page/marketplace/playground/page.jsf").when(request).getServletPath();
-
-    final boolean result = bean.isPlaygroundRequest();
-
-    assertTrue(result);
-  }
-
-  @Test
-  public void testIsPlaygroundRequestFalse() {
-    final HttpServletRequest request = mock(HttpServletRequest.class);
-    doReturn(request).when(bean).getRequest();
-    doReturn("http://page/marketplace/page.jsf").when(request).getServletPath();
-
-    final boolean result = bean.isPlaygroundRequest();
-
-    assertFalse(result);
-  }
-
-  @Test
   public void testPaymentTypeRegisterPage() {
-    doReturn(false).when(bean).isPlaygroundRequest();
-
     final String result = bean.getPaymentTypeRegisterPage();
 
     assertEquals("paymentOptionInclude", result);
-  }
-
-  @Test
-  public void testPaymentTypeRegisterPagePlayground() {
-    doReturn(true).when(bean).isPlaygroundRequest();
-
-    final String result = bean.getPaymentTypeRegisterPage();
-
-    assertEquals("playgroundPaymentOptionInclude", result);
   }
 
   @Test
@@ -257,7 +224,6 @@ public class PaymentInfoBeanTest {
 
     doReturn(info).when(bean).getPaymentInfo();
     doReturn(paymentType).when(info).getPaymentType();
-    doReturn(false).when(bean).isPlaygroundRequest();
     doReturn("").when(bean).getPaymentRegistrationLink();
 
     bean.switchToPaymentDetails();
@@ -266,18 +232,21 @@ public class PaymentInfoBeanTest {
   }
 
   @Test
-  public void testSwitchToPaymentDetailsPlayground() throws SaaSApplicationException {
-    final VOPaymentInfo info = mock(VOPaymentInfo.class);
-    final VOPaymentType paymentType = mock(VOPaymentType.class);
-    doReturn(info).when(bean).getPaymentInfo();
-    doReturn(paymentType).when(info).getPaymentType();
-    doReturn(true).when(bean).isPlaygroundRequest();
-    doReturn("").when(bean).getPaymentRegistrationLink();
+  public void getSelectedPaymentInfoForSubscriptionKeyWhenSubscriptionIsNull(){
+    bean.setSelectedPaymentInfoForSubscription(null);
 
-    bean.switchToPaymentDetails();
+    final Long result = bean.getSelectedPaymentInfoForSubscriptionKey();
 
-    String result = bean.getPaymentTypeRegisterPage();
-
-    assertEquals("playgroundPaymentTypeInclude", result);
+    assertNull(result);
   }
+
+  @Test
+  public void getSelectedPaymentInfoForSubscriptionKeyWhenSubscriptionKeyIsNull(){
+    bean.setSelectedPaymentInfoForSubscriptionKey(null);
+
+    final Long result = bean.getSelectedPaymentInfoForSubscriptionKey();
+
+    assertNull(result);
+  }
+
 }

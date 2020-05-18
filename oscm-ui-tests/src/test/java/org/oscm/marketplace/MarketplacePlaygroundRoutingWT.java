@@ -38,9 +38,11 @@ public class MarketplacePlaygroundRoutingWT {
   @Test
   public void test01_routing() {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_BROWSE_ALL_SERVICES_BUTTON);
-    assertTrue(tester.getCurrentUrl().endsWith(MarketplacePathSegments.MARKETPLACE_SERVICES));
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_LANDING_PAGE_CATEGORY_LINK);
-    assertTrue(tester.getCurrentUrl().endsWith(MarketplacePathSegments.MARKETPLACE_SERVICES));
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK);
+    assertTrue(tester.getCurrentUrl().contains(MarketplacePathSegments.MARKETPLACE_SERVICES));
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_HOME_LINK);
+    assertTrue(tester.getCurrentUrl().contains(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE));
   }
 }

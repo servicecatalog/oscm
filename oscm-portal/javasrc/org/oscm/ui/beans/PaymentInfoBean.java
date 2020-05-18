@@ -73,9 +73,8 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
   private Set<VOPaymentType> enabledPaymentTypes;
   private List<VOPaymentType> availablePaymentTypes;
 
-  // TODO: refactor it. Redirects to next page for registering payment type.
-  private String paymentTypeRegisterPage = "paymentOptionInclude";
-  private String playgroundTypeRegisterPage = "playgroundPaymentOptionInclude";
+    // TODO: refactor it. Redirects to next page for registering payment type.
+    private String paymentTypeRegisterPage = "paymentOptionInclude";
 
   // Contains all payment types a costumer can create in the context of
   // subscribing to a service.
@@ -191,33 +190,30 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
     return paymentInfo;
   }
 
-  /**
-   * Call Payment Service to determine the registration link for displaying the registration dialog
-   * of the selected payment type and switch to the payment details page.
-   *
-   * @return the outcome
-   * @throws SaaSApplicationException
-   */
-  public String switchToPaymentDetails() throws SaaSApplicationException {
-    paymentInfo = getPaymentInfo();
-    if (paymentInfo.getPaymentType() != null) {
-      try {
-        getPaymentRegistrationLink();
-        if (isPlaygroundRequest()) {
-          playgroundTypeRegisterPage = "playgroundPaymentTypeInclude";
-        } else {
-          paymentTypeRegisterPage = "paymentTypeInclude";
+    /**
+     * Call Payment Service to determine the registration link for displaying
+     * the registration dialog of the selected payment type and switch to the
+     * payment details page.
+     * 
+     * @return the outcome
+     * @throws SaaSApplicationException
+     */
+    public String switchToPaymentDetails() throws SaaSApplicationException {
+        paymentInfo = getPaymentInfo();
+        if (paymentInfo.getPaymentType() != null) {
+            try {
+                getPaymentRegistrationLink();
+                    paymentTypeRegisterPage = "paymentTypeInclude";
+            } catch (Exception ex) {
+                PSPCommunicationException exc = new PSPCommunicationException();
+                exc.setMessageKey("ex.PSPProcessingException");
+                ExceptionHandler.execute(exc);
+            } finally {
+                resetCachedPaymentInfo();
+            }
         }
-      } catch (Exception ex) {
-        PSPCommunicationException exc = new PSPCommunicationException();
-        exc.setMessageKey("ex.PSPProcessingException");
-        ExceptionHandler.execute(exc);
-      } finally {
-        resetCachedPaymentInfo();
-      }
+        return OUTCOME_NEXT;
     }
-    return OUTCOME_NEXT;
-  }
 
   public Long getSubscribeToServiceKey() {
     // we store the service key in the this bean, if the user navigates to
@@ -596,9 +592,9 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
     this.paymentService = paymentService;
   }
 
-  public String getPaymentTypeRegisterPage() {
-    return isPlaygroundRequest() ? playgroundTypeRegisterPage : paymentTypeRegisterPage;
-  }
+    public String getPaymentTypeRegisterPage() {
+        return paymentTypeRegisterPage;
+    }
 
   public PaymentAndBillingVisibleBean getPaymentAndBillingVisibleBean() {
     return paymentAndBillingVisibleBean;
@@ -609,7 +605,7 @@ public class PaymentInfoBean extends BaseBean implements Serializable {
     this.paymentAndBillingVisibleBean = paymentAndBillingVisibleBean;
   }
 
-  public boolean isPlaygroundRequest() {
-    return getRequest().getServletPath().contains("playground");
-  }
+
+
+
 }

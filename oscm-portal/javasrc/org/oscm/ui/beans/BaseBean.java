@@ -470,6 +470,7 @@ public class BaseBean {
   public static final String OUTCOME_REVIEW_ENABLEMENT_CHANGED = "reviewEnablementChanged";
   public static final String OUTCOME_SHOW_REGISTRATION = "showRegistration";
   public static final String OUTCOME_SHOW_SERVICE_LIST = "showServiceList";
+  public static final String OUTCOME_SHOW_SERVICE_LIST_PLAYGROUND = "showServiceListPlayground";
   public static final String OUTCOME_MARKETPLACE_CONFIRMSTARTPWDRECOVERY =
       "marketplace/confirmStartPwdRecovery";
   public static final String OUTCOME_SUBSCRIPTION_LIST = "showSubscription";
@@ -1152,9 +1153,8 @@ public class BaseBean {
   }
 
   protected boolean isPlaygroundPage(HttpServletRequest httpRequest) {
-    return httpRequest
-        .getServletPath()
-        .startsWith(Marketplace.MARKETPLACE_ROOT + "/playground.jsf");
+    final String path = httpRequest.getServletPath();
+    return path.contains(Marketplace.MARKETPLACE_ROOT) && path.contains( "playground");
   }
 
   public boolean isLoggedInAndAdmin() {
@@ -1216,7 +1216,7 @@ public class BaseBean {
     if (request.getServletPath().startsWith(Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf")
         || request
             .getServletPath()
-            .startsWith(Marketplace.MARKETPLACE_ROOT + "/playgroundServiceDetails.jsf")) {
+            .startsWith(Marketplace.MARKETPLACE_ROOT + "/playground/serviceDetails.jsf")) {
       queryPart = getSelectedServiceQueryPart(sessionBean) + getMarketplaceIdQueryPart();
     }
     return queryPart;

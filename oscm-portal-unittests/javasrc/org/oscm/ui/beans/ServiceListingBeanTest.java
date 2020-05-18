@@ -13,12 +13,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,9 +66,10 @@ public class ServiceListingBeanTest {
 
     private void initBeans() {
         // init ServiceListingBean
-        serviceListingBean = new ServiceListingBean();
+        serviceListingBean = spy(new ServiceListingBean());
         servicePagingBean = spy(new ServicePagingBean());
         serviceListingBean.setServicePagingBean(servicePagingBean);
+
 
         // init CategorySelectionBean
         categorySelectionBean = mock(CategorySelectionBean.class);
@@ -210,6 +206,7 @@ public class ServiceListingBeanTest {
     @Test
     public void showServiceListSearch_nullPhrase() {
         // given
+        doReturn(false).when(serviceListingBean).isPlaygroundPage(any());
         doReturn(null).when(servicePagingBean).getSearchPhrase();
         // when
         String result = serviceListingBean.showServiceListSearch();
@@ -220,6 +217,7 @@ public class ServiceListingBeanTest {
     @Test
     public void showServiceListSearch_emptyPhrase() {
         // given
+        doReturn(false).when(serviceListingBean).isPlaygroundPage(any());
         doReturn("").when(servicePagingBean).getSearchPhrase();
         // when
         String result = serviceListingBean.showServiceListSearch();
@@ -336,6 +334,29 @@ public class ServiceListingBeanTest {
 
         // expected
         assertFalse(result);
+    }
+
+    @Test
+    public void showServiceListSearchPlayground_nullPhrase() {
+        // given
+        doReturn(true).when(serviceListingBean).isPlaygroundPage(any());
+        doReturn(null).when(servicePagingBean).getSearchPhrase();
+        // when
+        String result = serviceListingBean.showServiceListSearch();
+        // then
+        assertEquals("showServiceListPlayground", result);
+    }
+
+    @Test
+    public void showServiceListSearchPlayground_emptyPhrase() {
+        // given
+        doReturn(true).when(serviceListingBean).isPlaygroundPage(any());
+        doReturn("").when(servicePagingBean).getSearchPhrase();
+        // when
+        String result = serviceListingBean.showServiceListSearch();
+        // then
+        assertEquals("showServiceListPlayground", result);
+
     }
 
 }
