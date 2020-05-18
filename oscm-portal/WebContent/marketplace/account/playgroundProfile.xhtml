@@ -41,7 +41,7 @@
   </h:form>
 
   <a4j:outputPanel id="all" layout="block">
-   <div class="px-sm-4 pt-sm-4" style="display: flow-root">
+   <div class="con-flow-root">
     <mp:outputStep value="#{msg['marketplace.account.profile.title']}"/>
 
     <rich:tabPanel id="profileTablePanel" switchType="client" activeItem="#{sessionBean.selectedTab}">
@@ -63,7 +63,7 @@
        </a4j:outputPanel>
        <mp:pixelline rendered="#{not organizationBean.currentUser.remoteLdapActive and userBean.internalAuthMode}"/>
 
-       <div style="max-width:700px">
+       <div class="con-width">
         <div class="form-row pb-2">
          <div class="col-md-3">
           <adm:outputLabel class="col-form-label" value="#{msg['user.userId']}"/>
@@ -158,7 +158,7 @@
        </h2>
        <hr/>
 
-       <div style="max-width:700px">
+       <div class="con-width">
         <div class="form-row pb-2">
          <label for="orgID" class="col-md-3 col-form-label">#{msg['organization.organizationId']}:</label>
          <label id="orgID"
@@ -238,7 +238,7 @@
                         styleClass="table table-striped table-hover table-bordered sortable" render="pagerPanel"
                         rendered="#{(not empty manageAttributesCtrl.model.attributes)}" sortMode="single">
 
-         <rich:column width="20px" styleClass="show-service-row text-center" headerClass="show-service-row">
+         <rich:column styleClass="show-service-row col-icon" headerClass="show-service-row">
           <rich:collapsibleSubTableToggler for="sbtbl"/>
          </rich:column>
 
@@ -297,14 +297,13 @@
                                      render="attributesTable@body pagerPanel"
                                      onkeyup="AdmUtils.setFirstPage(#{rich:element('attributePager')});"/>
           </f:facet>
-          <h:inputText id="udaValueClear" onchange="setDirty(true)" value="#{item.udaValue}" styleCLass="form-control"
-                       maxlength="#{appBean.descriptionLen}" required="#{item.inputMandatory}"
-                       label="#{item.udaId}" rendered="#{not item.inputEncrypted}" style="width:100%">
+          <h:inputText id="udaValueClear" onchange="setDirty(true)"  styleCLass="form-control form-check"
+                       maxlength="#{appBean.descriptionLen}" required="#{item.inputMandatory}" value="#{item.udaValue}"
+                       label="#{item.udaId}" rendered="#{not item.inputEncrypted}">
           </h:inputText>
           <h:inputSecret id="udaValuePassword" onchange="setDirty(true)" value="#{item.passwordValueToStore}"
                          maxlength="#{appBean.descriptionLen}" required="#{item.inputMandatory}" redisplay="true"
-                         label="#{item.udaId}" rendered="#{item.inputEncrypted}" styleCLass="form-control"
-                         style="width:100%">
+                         label="#{item.udaId}" rendered="#{item.inputEncrypted}" styleCLass="form-control form-check">
           </h:inputSecret>
 
          </rich:column>
@@ -366,9 +365,9 @@
         type="text/css" media="all"/>
 
   <script>
-$(document).ready(function(){
-  $('[data-toggle="popover"]').popover({container: 'body'});
-});
+   $(document).ready(function(){
+    $('[data-toggle="popover"]').popover({container: 'body'});
+   });
   </script>
 
  </ui:define>
