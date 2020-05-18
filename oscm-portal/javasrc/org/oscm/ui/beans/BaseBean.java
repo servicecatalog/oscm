@@ -1154,7 +1154,7 @@ public class BaseBean {
 
   protected boolean isPlaygroundPage(HttpServletRequest httpRequest) {
     final String path = httpRequest.getServletPath();
-    return path.contains(Marketplace.MARKETPLACE_ROOT) && path.contains( "playground");
+    return path.contains(Marketplace.MARKETPLACE_ROOT) && path.contains("playground");
   }
 
   public boolean isLoggedInAndAdmin() {

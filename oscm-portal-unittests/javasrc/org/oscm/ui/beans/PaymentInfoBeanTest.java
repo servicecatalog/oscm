@@ -19,7 +19,6 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.application.FacesMessage.Severity;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -232,7 +231,7 @@ public class PaymentInfoBeanTest {
   }
 
   @Test
-  public void getSelectedPaymentInfoForSubscriptionKeyWhenSubscriptionIsNull(){
+  public void getSelectedPaymentInfoForSubscriptionKeyWhenSubscriptionIsNull() {
     bean.setSelectedPaymentInfoForSubscription(null);
 
     final Long result = bean.getSelectedPaymentInfoForSubscriptionKey();
@@ -241,12 +240,11 @@ public class PaymentInfoBeanTest {
   }
 
   @Test
-  public void getSelectedPaymentInfoForSubscriptionKeyWhenSubscriptionKeyIsNull(){
+  public void getSelectedPaymentInfoForSubscriptionKeyWhenSubscriptionKeyIsNull() {
     bean.setSelectedPaymentInfoForSubscriptionKey(null);
 
     final Long result = bean.getSelectedPaymentInfoForSubscriptionKey();
 
     assertNull(result);
   }
-
 }
