@@ -4474,27 +4474,6 @@ div#headerrightareaBootstrap, rightarea a {
   }
 }
 
-
-/*.RespTable th {
- background: #f5f8fd;
-} 
-
-.RespTable table { 
-  width: 100% !important; 
-  height: 100% !important;
-}
-
-table { 
-  width: 100% !important; 
-  table-layout: fixed;
-  border: 3px green !impotant; 
-} */
-
-.RespTable table {
-  width: 100% !important;
-  table-layout: fixed;
-}
-
 @media all and (max-width: 575px) {
 
 .RespTable, .RespTable thead, .RespTable tbody, .RespTable tr, .RespTable th, .RespTable td {
@@ -4519,14 +4498,6 @@ content: attr(data-label)  ":";
 font-weight: bold;
 } 
 
-
- /*.RespTable td:nth-of-type(2):before { content: attr(data-label) ":"; }
- .RespTable td:nth-of-type(3):before { content: "Description"; }
- .RespTable td:nth-of-type(4):before { content: "Creation date"; }
- .RespTable td:nth-of-type(5):before { content: attr(sortBy) ;}
- .RespTable td:nth-of-type(6):before { content: "Status";}
- .RespTable td:nth-of-type(7):before { content: "Reason";} */
-
 .RespTable td:nth-child(1) {
 font-weight: bold;
 }
@@ -4536,30 +4507,3 @@ border-bottom: 2px #1d4d33 solid;
 }
 
 } 
-
-
-
-/*@media (max-width: 767px) {
-    
- 
-
-.responsive_table tr { border: 1px solid #ccc; }
- .responsive_table td {
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 200px;
-    margin-left: 150px;
-  }
-#processListForm .responsive_table td:before {
-    position: absolute;
-    top: 12px;
-    left: 6px;
-    width: 200px;
-    padding-right: 40px;
-    white-space: nowrap;
-    margin-left: -150px;
-  } 
-
- 
-} */
