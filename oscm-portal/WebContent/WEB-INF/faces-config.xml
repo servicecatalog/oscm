@@ -1235,6 +1235,11 @@
       <redirect />
     </navigation-case>
     <navigation-case>
+      <from-outcome>profile</from-outcome>
+      <to-view-id>/marketplace/playground/account/profile.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    <navigation-case>
       <from-outcome>subscriptions</from-outcome>
       <to-view-id>/marketplace/playground/account/subscriptions.xhtml</to-view-id>
       <redirect />
