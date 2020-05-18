@@ -19,6 +19,10 @@
     <source>button.xhtml</source>
   </tag>
   <tag>
+    <tag-name>buttonBootstrap</tag-name>
+    <source>buttonBootstrap.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>buttonCustomizedOnClick</tag-name>
     <source>buttonCustomizedOnClick.xhtml</source>
   </tag>

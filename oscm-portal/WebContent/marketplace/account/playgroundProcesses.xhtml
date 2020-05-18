@@ -3,6 +3,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
   xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
   xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="../templates/mainBootstrap.xhtml">
 
@@ -143,12 +144,12 @@
       </div>
       <a4j:outputPanel layout="block" styleClass="col-12 mb-2" id="manageProcessButtonPanel">
 
-              <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary" id="abortProcess" customizedStyleClass="rightSpace" value="#{msg['button.abort']}"
+              <adm:buttonBootstrap styleClass="btn btn-sm btn-secondary" id="abortProcess" customizedStyleClass="rightSpace" value="#{msg['button.abort']}"
                 bean="#{triggerProcessBean}" action="cancelTriggerProcesses"
                 disabled="#{triggerProcessBean.buttonDisable}"
                 oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();" />
 
-              <mp:buttonBootstrap id="deleteProcess" styleClass="btn btn-sm btn-secondary ml-1" customizedStyleClass="rightSpace" value="#{msg['button.delete']}"
+              <adm:buttonBootstrap id="deleteProcess" styleClass="btn btn-sm btn-secondary ml-1" customizedStyleClass="rightSpace" value="#{msg['button.delete']}"
                 bean="#{triggerProcessBean}" action="deleteTriggerProcesses"
                 disabled="#{triggerProcessBean.buttonDisable}" 
                 oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();" />
@@ -179,9 +180,9 @@
               <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending" />
 
              <div class="col-12">
-              <rich:dataTable styleClass="w-100" headerClass="rowTitle" rowClasses="rowOdd,rowEven" id="triggerProcessTable"
+              <rich:dataTable styleClass="RespTable w-100" id="triggerProcessTable"
                 value="#{triggerProcessBean.triggerProcessList}" var="triggerProcess" selectionMode="single"
-                enableContextMenu="false" noDataLabel=" " columnClasses="alignTop wrapColumns preWrapping"
+                enableContextMenu="false" noDataLabel=" "
                 rendered="#{(not empty triggerProcessBean.triggerProcessList)}" sortMode="single">
 
                 <rich:column width="#{iconWidth}"
@@ -205,18 +206,20 @@
 
                 </rich:column>
 
-                <rich:column width="#{smallWidth}" sortBy="#{triggerProcess.key}" sortOrder="descending"
+                <rich:column p:data-label="#{msg['triggerProcess.key']}" width="#{smallWidth}" sortBy="#{triggerProcess.key}" sortOrder="descending"
                   sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
-                  sortIconDescending="#{sortIconDescending}" styleClass="column-break-process">
+                  sortIconDescending="#{sortIconDescending}" >
                   <f:facet name="header">
                     <h:outputText value="#{msg['triggerProcess.key']}" />
                   </f:facet>
                   <h:outputText id="key" value="#{triggerProcess.key}" />
+   
+                  
                 </rich:column>
 
                 <c:set var="descriptionKey" value="#{triggerProcess.messageKey}" />
-                <rich:column width="#{mediumWidth}" sortBy="#{msg[descriptionKey]} #{triggerProcess.targetNames[0]}"
-                  styleClass="column-break-desc stringInMultiLine" sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                <rich:column p:data-label="#{msg['triggerProcess.description']}" width="#{mediumWidth}" sortBy="#{msg[descriptionKey]} #{triggerProcess.targetNames[0]}"
+                  sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
                   sortIconDescending="#{sortIconDescending}">
                   <f:facet name="header">
                     <h:outputText value="#{msg['triggerProcess.description']}" />
@@ -229,8 +232,8 @@
                   </h:outputFormat>
                 </rich:column>
 
-                <rich:column width="#{mediumWidth}" sortBy="#{triggerProcess.activationDate}"
-                  styleClass="column-break-creationDate" sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                <rich:column p:data-label="#{msg['triggerProcess.activationDate']}" width="#{mediumWidth}" sortBy="#{triggerProcess.activationDate}"
+                  sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
                   sortIconDescending="#{sortIconDescending}">
                   <f:facet name="header">
                     <h:outputText value="#{msg['triggerProcess.activationDate']}" />
@@ -240,8 +243,8 @@
                   </h:outputText>
                 </rich:column>
 
-                <rich:column width="#{smallWidth}" sortBy="#{triggerProcess.user.userId}"
-                  styleClass="column-break-userId stringInMultiLine" sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                <rich:column p:data-label="#{msg['user.userId']}" width="#{smallWidth}" sortBy="#{triggerProcess.user.userId}"
+                   sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
                   sortIconDescending="#{sortIconDescending}">
                   <f:facet name="header">
                     <h:outputText value="#{msg['user.userId']}" />
@@ -250,7 +253,7 @@
                 </rich:column>
 
                 <c:set var="statusKey" value="TriggerProcessStatus.#{triggerProcess.status}" />
-                <rich:column width="#{smallWidth}" sortBy="#{msg[statusKey]}" styleClass="column-break-status"
+                <rich:column p:data-label="#{msg['triggerProcess.status']}" width="#{smallWidth}" sortBy="#{msg[statusKey]}" 
                   sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
                   sortIconDescending="#{sortIconDescending}">
                   <f:facet name="header">
@@ -259,7 +262,7 @@
                   <h:outputText id="status" value="#{msg[statusKey]}" />
                 </rich:column>
 
-                <rich:column width="#{restWidth}" sortBy="#{triggerProcess.reason}" styleClass="column-break-reason"
+                <rich:column p:data-label="#{msg['triggerProcess.reason']}" width="#{restWidth}" sortBy="#{triggerProcess.reason}" 
                   sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
                   sortIconDescending="#{sortIconDescending}">
                   <f:facet name="header">
