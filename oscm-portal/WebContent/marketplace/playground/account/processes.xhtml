@@ -15,7 +15,7 @@
 
   <ui:define name="breadcrumbs">
     <mp:bootstrapBreadcrumbs>
-      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/playgroundIndex.jsf" />
+      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf" />
       <mp:crumb labelPageId="marketplace.account.processes" />
     </mp:bootstrapBreadcrumbs>
   </ui:define>
@@ -34,7 +34,7 @@
   <ui:define name="contents">
     <!-- include popup -->
     <a4j:outputPanel>
-      <ui:include src="/marketplace/account/playgroundManageTrigger.xhtml">
+      <ui:include src="/marketplace/account/manageTrigger.xhtml">
         <ui:param name="dialogId" value="triggerDefinitionPanel" />
         <ui:param name="dialogTitle" value="#{triggerDefinitionBean.modalTitle}" />
       </ui:include>
