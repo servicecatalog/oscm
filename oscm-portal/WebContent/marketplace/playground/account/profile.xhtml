@@ -45,326 +45,317 @@
     <mp:outputStep value="#{msg['marketplace.account.profile.title']}"/>
 
     <h:inputHidden value="#{sessionBean.selectedTab}"/>
-    <h:outputScript>
-     function afterLoad(tab) {
-      if(#{sessionBean.selectedTab}===tab)
-       return true;
-     }
-    </h:outputScript>
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-     <li class="nav-item" role="presentation">
-      <a class="nav-link active" id="tabUser" data-toggle="tab" href="#userForm" role="tab" aria-controls="userForm"
-         aria-selected="afterLoad('tabUser')" onclick="setSelectedTab('tabUser');">#{msg['marketplace.account.profile.userTab']}</a>
-     </li>
+    <div class="list-group list-group-horizontal-sm text-center" id="list-tab" role="tablist">
+     <a class="list-group-item list-group-item-secondary list-group-item-action active" id="tabUser" data-toggle="tab"
+        href="#userForm" role="tab" aria-controls="userForm"
+        aria-selected="false" onclick="setSelectedTab('tabUser');">#{msg['marketplace.account.profile.userTab']}</a>
      <c:if
        test="#{userBean.isOrganizationAdmin and empty appBean.hiddenUIElements['organization.edit.organizationData']}">
-      <li class="nav-item" role="presentation">
-       <a class="nav-link" id="tabOrg" data-toggle="tab" href="#profile" aria-controls="profile" aria-selected="afterLoad('tabOrg')"
-          role="tab" onclick="setSelectedTab('tabOrg');">#{msg['marketplace.account.profile.organizationTab']}</a>
-      </li>
+      <a class="list-group-item list-group-item-secondary list-group-item-action active" id="tabOrg" data-toggle="tab"
+         href="#profile" aria-controls="profile" aria-selected="false"
+         role="tab" onclick="setSelectedTab('tabOrg');">#{msg['marketplace.account.profile.organizationTab']}</a>
      </c:if>
      <c:if test="#{userBean.isOrganizationAdmin}">
-      <li class="nav-item" role="presentation">
-       <a class="nav-link" id="tabAttr" data-toggle="tab" role="tab" aria-controls="contact" aria-selected="afterLoad('tabAttr')"
-          href="#contact" onclick="setSelectedTab('tabAttr');">#{msg['marketplace.account.profile.attributeTab']}</a>
-      </li>
+      <a class="list-group-item list-group-item-secondary list-group-item-action active" id="tabAttr" data-toggle="tab"
+         role="tab" aria-controls="contact" aria-selected="false"
+         href="#contact" onclick="setSelectedTab('tabAttr');">#{msg['marketplace.account.profile.attributeTab']}</a>
      </c:if>
-    </ul>
+    </div>
 
-    <h:form id="userForm">
+    <div class="tab-content" id="myTabContent">
+     <h:form id="userForm" class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="descriptionLink">
 
-     <h2>
-      <adm:outputStep value="#{msg['organization.edit.userProfile']}"/>
-     </h2>
+      <h2>
+       <adm:outputStep value="#{msg['organization.edit.userProfile']}"/>
+      </h2>
 
-     <a4j:outputPanel layout="block" styleClass="d-inline-block my-3"
-                      rendered="#{not organizationBean.currentUser.remoteLdapActive and userBean.internalAuthMode}">
-      <adm:buttonCustomizedOnClickBootstrap id="changePwdButton" value="#{msg['button.changePassword']}"
-                                            onclick="showLoginPanel('');return false;"
-                                            styleClass="btn btn-secondary"/>
-     </a4j:outputPanel>
-     <mp:pixelline rendered="#{not organizationBean.currentUser.remoteLdapActive and userBean.internalAuthMode}"/>
+      <a4j:outputPanel layout="block" styleClass="d-inline-block my-3"
+                       rendered="#{not organizationBean.currentUser.remoteLdapActive and userBean.internalAuthMode}">
+       <adm:buttonCustomizedOnClickBootstrap id="changePwdButton" value="#{msg['button.changePassword']}"
+                                             onclick="showLoginPanel('');return false;"
+                                             styleClass="btn btn-secondary"/>
+      </a4j:outputPanel>
+      <mp:pixelline rendered="#{not organizationBean.currentUser.remoteLdapActive and userBean.internalAuthMode}"/>
 
-     <div class="con-width">
-      <div class="form-row pb-2">
-       <div class="col-md-3">
-        <adm:outputLabel class="col-form-label" value="#{msg['user.userId']}"/>
+      <div class="con-width">
+       <div class="form-row pb-2">
+        <div class="col-md-3">
+         <adm:outputLabel class="col-form-label" value="#{msg['user.userId']}"/>
+        </div>
+        <label id="userID"
+               class="col-md-9 col-form-label"><strong>#{organizationBean.currentUser.userId}</strong></label>
        </div>
-       <label id="userID"
-              class="col-md-9 col-form-label"><strong>#{organizationBean.currentUser.userId}</strong></label>
-      </div>
-      <div class="form-row pb-2">
-       <div class="col-md-3">
-        <adm:outputLabel class="col-form-label" value="#{msg['user.userGroup']}"/>
+       <div class="form-row pb-2">
+        <div class="col-md-3">
+         <adm:outputLabel class="col-form-label" value="#{msg['user.userGroup']}"/>
+        </div>
+        <label id="userGroup"
+               class="col-md-9 col-form-label"><strong>#{organizationBean.currentUser.groupsToDisplay}</strong></label>
        </div>
-       <label id="userGroup"
-              class="col-md-9 col-form-label"><strong>#{organizationBean.currentUser.groupsToDisplay}</strong></label>
-      </div>
-      <div class="form-row pb-2">
-       <div class="col-md-3">
-        <adm:outputLabel class="col-form-label" value="#{msg['user.salutation']}"/>
-       </div>
-       <div class="col-md-9">
-        <h:selectOneMenu id="salutation" value="#{organizationBean.currentUser.salutation}"
-                         styleClass="custom-select" onchange="setDirty(true)"
-                         rendered="#{empty rendered or rendered}">
-         <adm:salutationItems/>
-        </h:selectOneMenu>
-       </div>
-      </div>
-      <div class="form-row pb-2">
-       <div class="col-md-3">
-        <adm:outputLabel class="col-form-label" value="#{msg['user.firstName']}"/>
-       </div>
-       <div class="col-md-9">
-        <h:inputText id="firstName" value="#{organizationBean.currentUser.firstName}"
-                     disabled="#{organizationBean.currentUser.firstNameDisabled}" styleClass="form-control"
-                     rendered="#{not sessionBean.nameSequenceReversed}" maxlength="#{appBean.nameLen}"/>
-       </div>
-      </div>
-      <div class="form-row pb-2">
-       <label class="col-md-3 col-form-label">#{msg['user.lastName']}:</label>
-       <div class="col-md-9">
-        <h:inputText id="lastName" value="#{organizationBean.currentUser.lastName}"
-                     disabled="#{organizationBean.currentUser.lastNameDisabled}" maxlength="#{appBean.nameLen}"
-                     styleClass="form-control" rendered="#{not sessionBean.nameSequenceReversed}"/>
-       </div>
-      </div>
-      <div class="form-row pb-2">
-       <div class="col-md-3">
-        <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['user.email']}"/>
-       </div>
-       <div class="col-md-9">
-        <h:inputText id="email" label="#{msg['user.email']}" required="#{true}" styleClass="form-control"
-                     value="#{organizationBean.currentUser.email}" maxlength="#{appBean.nameLen}"
-                     disabled="#{organizationBean.currentUser.emailDisabled}" validatorId="email"/>
-       </div>
-      </div>
-      <div class="form-row pb-2">
-       <label class="col-md-3 col-form-label">#{msg['user.locale']}:</label>
-       <div class="col-md-9">
-        <div class="input-group mb-3">
-         <h:selectOneMenu id="locale" styleClass="custom-select" value="#{organizationBean.currentUser.locale}"
-                          onchange="setDirty(true)" rendered="#{empty rendered or rendered}">
-          <adm:localeItems/>
-          <f:validator validatorId="SupportedLanguageValidator"/>
+       <div class="form-row pb-2">
+        <div class="col-md-3">
+         <adm:outputLabel class="col-form-label" value="#{msg['user.salutation']}"/>
+        </div>
+        <div class="col-md-9">
+         <h:selectOneMenu id="salutation" value="#{organizationBean.currentUser.salutation}"
+                          styleClass="custom-select" onchange="setDirty(true)"
+                          rendered="#{empty rendered or rendered}">
+          <adm:salutationItems/>
          </h:selectOneMenu>
-         <div class="input-group-append">
-          <a href="#" class="btn btn-secondary" title="#{msg['user.locale']}" data-toggle="popover"
-             data-trigger="hover" data-content="#{msg['marketplace.account.editUser.hint.locale']}"
-             data-container="body">
-           <i class="fa fa-info-circle"/></a>
+        </div>
+       </div>
+       <div class="form-row pb-2">
+        <div class="col-md-3">
+         <adm:outputLabel class="col-form-label" value="#{msg['user.firstName']}"/>
+        </div>
+        <div class="col-md-9">
+         <h:inputText id="firstName" value="#{organizationBean.currentUser.firstName}"
+                      disabled="#{organizationBean.currentUser.firstNameDisabled}" styleClass="form-control"
+                      rendered="#{not sessionBean.nameSequenceReversed}" maxlength="#{appBean.nameLen}"/>
+        </div>
+       </div>
+       <div class="form-row pb-2">
+        <label class="col-md-3 col-form-label">#{msg['user.lastName']}:</label>
+        <div class="col-md-9">
+         <h:inputText id="lastName" value="#{organizationBean.currentUser.lastName}"
+                      disabled="#{organizationBean.currentUser.lastNameDisabled}" maxlength="#{appBean.nameLen}"
+                      styleClass="form-control" rendered="#{not sessionBean.nameSequenceReversed}"/>
+        </div>
+       </div>
+       <div class="form-row pb-2">
+        <div class="col-md-3">
+         <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['user.email']}"/>
+        </div>
+        <div class="col-md-9">
+         <h:inputText id="email" label="#{msg['user.email']}" required="#{true}" styleClass="form-control"
+                      value="#{organizationBean.currentUser.email}" maxlength="#{appBean.nameLen}"
+                      disabled="#{organizationBean.currentUser.emailDisabled}" validatorId="email"/>
+        </div>
+       </div>
+       <div class="form-row pb-2">
+        <label class="col-md-3 col-form-label">#{msg['user.locale']}:</label>
+        <div class="col-md-9">
+         <div class="input-group mb-3">
+          <h:selectOneMenu id="locale" styleClass="custom-select" value="#{organizationBean.currentUser.locale}"
+                           onchange="setDirty(true)" rendered="#{empty rendered or rendered}">
+           <adm:localeItems/>
+           <f:validator validatorId="SupportedLanguageValidator"/>
+          </h:selectOneMenu>
+          <div class="input-group-append">
+           <a href="#" class="btn btn-secondary" title="#{msg['user.locale']}" data-toggle="popover"
+              data-trigger="hover" data-content="#{msg['marketplace.account.editUser.hint.locale']}"
+              data-container="body">
+            <i class="fa fa-info-circle"/></a>
+          </div>
          </div>
         </div>
        </div>
       </div>
-     </div>
 
-     <hr/>
-     <adm:buttonPanel layout="block" styleClass="clearfix">
-      <adm:buttonBootstrap id="saveUserButton" value="#{msg['button.save']}" bean="#{organizationBean}" action="save"
-                           onclick="validateCurrentUserRoles();return false;"
-                           styleClass="btn btn-secondary float-right"/>
-     </adm:buttonPanel>
-    </h:form>
+      <hr/>
+      <adm:buttonPanel layout="block" styleClass="clearfix">
+       <adm:buttonBootstrap id="saveUserButton" value="#{msg['button.save']}" bean="#{organizationBean}" action="save"
+                            onclick="validateCurrentUserRoles();return false;"
+                            styleClass="btn btn-secondary float-right"/>
+      </adm:buttonPanel>
+     </h:form>
 
-    <h:form id="orgForm">
+     <h:form id="orgForm" class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="descriptionLink">
 
-     <h2>
-      <adm:outputStep value="#{msg['organization.edit.organizationData']}"/>
-     </h2>
-     <hr/>
+      <h2>
+       <adm:outputStep value="#{msg['organization.edit.organizationData']}"/>
+      </h2>
+      <hr/>
 
-     <div class="con-width">
-      <div class="form-row pb-2">
-       <label for="orgID" class="col-md-3 col-form-label">#{msg['organization.organizationId']}:</label>
-       <label id="orgID"
-              class="col-md-9 col-form-label"><strong>#{organizationBean.organization.organizationId}</strong></label>
+      <div class="con-width">
+       <div class="form-row pb-2">
+        <label for="orgID" class="col-md-3 col-form-label">#{msg['organization.organizationId']}:</label>
+        <label id="orgID"
+               class="col-md-9 col-form-label"><strong>#{organizationBean.organization.organizationId}</strong></label>
+       </div>
+       <div class="form-row pb-2">
+        <div class="col-md-3">
+         <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['organization.name']}"/>
+        </div>
+        <div class="col-md-9">
+         <h:inputText id="organizationName" converterId="trimConverter" maxlength="#{appBean.nameLen}"
+                      required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
+                      value="#{organizationBean.organization.name}" styleClass="form-control"/>
+        </div>
+       </div>
+       <div class="form-row pb-2">
+        <div class="col-md-3">
+         <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['organization.email']}"/>
+        </div>
+        <div class="col-md-9">
+         <h:inputText id="organizationEmail" maxlength="#{appBean.nameLen}" validatorId="email"
+                      required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
+                      onchange="setDirty(true)" value="#{organizationBean.organization.email}"
+                      styleClass="form-control" converterId="trimConverter"/>
+        </div>
+       </div>
+       <div class="form-row pb-2">
+        <div class="col-md-3">
+         <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['organization.address']}"/>
+        </div>
+        <div class="col-md-9">
+         <h:inputTextarea id="organizationAddress" converterId="trimConverter" maxlength="#{appBean.descriptionLen}"
+                          required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
+                          value="#{organizationBean.organization.address}" styleClass="form-control"
+                          onchange="setDirty(true)" rows="5"/>
+        </div>
+       </div>
+       <div class="form-row pb-2">
+        <div class="col-md-3">
+         <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['common.country']}"/>
+        </div>
+        <div class="col-md-9">
+         <h:selectOneMenu id="country" value="#{organizationBean.organization.domicileCountry}"
+                          styleClass="custom-select" required="true">
+          <adm:countryItems supportedCountries="#{countryBean.supportedCountryCodesForEditProfilePage}"/>
+         </h:selectOneMenu>
+        </div>
+       </div>
       </div>
-      <div class="form-row pb-2">
-       <div class="col-md-3">
-        <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['organization.name']}"/>
-       </div>
-       <div class="col-md-9">
-        <h:inputText id="organizationName" converterId="trimConverter" maxlength="#{appBean.nameLen}"
-                     required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
-                     value="#{organizationBean.organization.name}" styleClass="form-control"/>
-       </div>
-      </div>
-      <div class="form-row pb-2">
-       <div class="col-md-3">
-        <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['organization.email']}"/>
-       </div>
-       <div class="col-md-9">
-        <h:inputText id="organizationEmail" maxlength="#{appBean.nameLen}" validatorId="email"
-                     required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
-                     onchange="setDirty(true)" value="#{organizationBean.organization.email}"
-                     styleClass="form-control" converterId="trimConverter"/>
-       </div>
-      </div>
-      <div class="form-row pb-2">
-       <div class="col-md-3">
-        <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['organization.address']}"/>
-       </div>
-       <div class="col-md-9">
-        <h:inputTextarea id="organizationAddress" converterId="trimConverter" maxlength="#{appBean.descriptionLen}"
-                         required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
-                         value="#{organizationBean.organization.address}" styleClass="form-control"
-                         onchange="setDirty(true)" rows="5"/>
-       </div>
-      </div>
-      <div class="form-row pb-2">
-       <div class="col-md-3">
-        <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['common.country']}"/>
-       </div>
-       <div class="col-md-9">
-        <h:selectOneMenu id="country" value="#{organizationBean.organization.domicileCountry}"
-                         styleClass="custom-select" required="true">
-         <adm:countryItems supportedCountries="#{countryBean.supportedCountryCodesForEditProfilePage}"/>
-        </h:selectOneMenu>
-       </div>
-      </div>
-     </div>
-     <hr/>
-     <adm:buttonPanel layout="block" styleClass="clearfix">
-      <adm:buttonBootstrap id="saveOrgButton" value="#{msg['button.save']}" bean="#{organizationBean}" action="save"
-                           onclick="validateCurrentUserRoles();return false;"
-                           styleClass="btn btn-secondary float-right"/>
-     </adm:buttonPanel>
-    </h:form>
+      <hr/>
+      <adm:buttonPanel layout="block" styleClass="clearfix">
+       <adm:buttonBootstrap id="saveOrgButton" value="#{msg['button.save']}" bean="#{organizationBean}" action="save"
+                            onclick="validateCurrentUserRoles();return false;"
+                            styleClass="btn btn-secondary float-right"/>
+      </adm:buttonPanel>
+     </h:form>
 
-    <h:form id="attrForm">
+     <h:form id="attrForm" class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="descriptionLink">
 
-     <h2>
-      <adm:outputStep value="#{msg['marketplace.account.profile.attributes.title']}"/>
-     </h2>
+      <h2>
+       <adm:outputStep value="#{msg['marketplace.account.profile.attributes.title']}"/>
+      </h2>
 
-     <a4j:outputPanel id="attributesTablePanel" layout="block"
-                      styleClass="tablePanel table_padding minimumSizeTable">
+      <a4j:outputPanel id="attributesTablePanel" layout="block"
+                       styleClass="tablePanel table_padding minimumSizeTable">
 
-      <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
-      <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
+       <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
+       <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
 
-      <rich:dataTable headerClass="rowTitle" rowClasses="rowOdd,rowEven" id="attributesTable" width="100%"
-                      rows="10" value="#{manageAttributesCtrl.model.attributes}" var="item" selectionMode="single"
-                      enableContextMenu="false" noDataLabel=" " columnClasses="alignTop wrapColumns preWrapping"
-                      styleClass="table table-striped table-hover table-bordered sortable" render="pagerPanel"
-                      rendered="#{(not empty manageAttributesCtrl.model.attributes)}" sortMode="single">
+       <rich:dataTable headerClass="rowTitle" rowClasses="rowOdd,rowEven" id="attributesTable" width="100%"
+                       rows="10" value="#{manageAttributesCtrl.model.attributes}" var="item" selectionMode="single"
+                       enableContextMenu="false" noDataLabel=" " columnClasses="alignTop wrapColumns preWrapping"
+                       styleClass="table table-striped table-hover table-bordered sortable" render="pagerPanel"
+                       rendered="#{(not empty manageAttributesCtrl.model.attributes)}" sortMode="single">
 
-       <rich:column styleClass="show-service-row col-icon" headerClass="show-service-row">
-        <rich:collapsibleSubTableToggler for="sbtbl"/>
-       </rich:column>
-
-       <rich:column id="colUdaName" width="#{mediumWidth}" sortBy="#{item.udaNameToShow}" sortIcon="#{sortIcon}"
-                    sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                    sortOrder="#{tableState.sortOrders['mpColUdaName']}"
-                    filterType="custom" filterValue="#{tableState.filterValues['colUdaName']}"
-                    filterExpression="#{adm:matchBegin(item.udaNameToShow, tableState.filterValues['colUdaName'], false)}">
-        <f:facet name="header">
-         <h:outputText value="#{msg['marketplace.account.profile.attributes.udaName']}"/>
-         <hr class="my-1"/>
-         <adm:filterInputBootstrap inputId="filterUdaName" inputValue="#{tableState.filterValues['colUdaName']}"
-                                   render="attributesTable@body pagerPanel"
-                                   onkeyup="AdmUtils.setFirstPage(#{rich:element('attributePager')});"/>
-        </f:facet>
-        <h:outputText value="#{item.udaNameToShow}"/>
-       </rich:column>
-
-       <rich:column id="colVendor" width="#{mediumWidth}" sortBy="#{item.vendor.name}" sortIcon="#{sortIcon}"
-                    sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                    sortOrder="#{tableState.sortOrders['mpColVendor']}" styleClass="column-service-hide"
-                    filterType="custom" filterValue="#{tableState.filterValues['colVendor']}"
-                    filterExpression="#{adm:matchBegin(item.vendor.name, tableState.filterValues['colVendor'], false)}"
-                    headerClass="column-service-hide">
-        <f:facet name="header">
-         <h:outputText value="#{msg['marketplace.account.profile.attributes.vendor']}"/>
-         <hr class="my-1"/>
-         <adm:filterInputBootstrap inputId="filterVendor" inputValue="#{tableState.filterValues['colVendor']}"
-                                   render="attributesTable@body pagerPanel"
-                                   onkeyup="AdmUtils.setFirstPage(#{rich:element('attributePager')});"/>
-        </f:facet>
-        <h:outputText value="#{item.vendor.name}"/>
-       </rich:column>
-
-       <c:set var="scopeKey" value="UdaConfigurationType.#{item.udaDefinition.configurationType}"/>
-
-       <rich:column width="#{smallWidth}" sortBy="#{item.udaDefinition.configurationType}" sortIcon="#{sortIcon}"
-                    sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                    styleClass="column-unit-hide" headerClass="align-top column-unit-hide">
-        <f:facet name="header">
-         <h:outputText value="#{msg['marketplace.account.profile.attributes.scope']}"/>
-         <hr class="my-1"/>
-        </f:facet>
-        <h:outputText value="#{msg[scopeKey]}"/>
-       </rich:column>
-
-       <rich:column id="colUdaValue" width="#{restWidth}" sortBy="#{item.udaValue}" sortIcon="#{sortIcon}"
-                    sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                    sortOrder="#{tableState.sortOrders['mpColUdaValue']}"
-                    filterType="custom" filterValue="#{tableState.filterValues['colUdaValue']}"
-                    filterExpression="#{adm:matchBegin(item.udaValueToShow, tableState.filterValues['colUdaValue'], false)}">
-        <f:facet name="header">
-         <h:outputText value="#{msg['marketplace.account.profile.attributes.value']}"/>
-         <hr class="my-1"/>
-         <adm:filterInputBootstrap inputId="filterUdaValue" inputValue="#{tableState.filterValues['colUdaValue']}"
-                                   render="attributesTable@body pagerPanel"
-                                   onkeyup="AdmUtils.setFirstPage(#{rich:element('attributePager')});"/>
-        </f:facet>
-        <h:inputText id="udaValueClear" onchange="setDirty(true)" styleCLass="form-control form-check"
-                     maxlength="#{appBean.descriptionLen}" required="#{item.inputMandatory}" value="#{item.udaValue}"
-                     label="#{item.udaId}" rendered="#{not item.inputEncrypted}">
-        </h:inputText>
-        <h:inputSecret id="udaValuePassword" onchange="setDirty(true)" value="#{item.passwordValueToStore}"
-                       maxlength="#{appBean.descriptionLen}" required="#{item.inputMandatory}" redisplay="true"
-                       label="#{item.udaId}" rendered="#{item.inputEncrypted}" styleCLass="form-control form-check">
-        </h:inputSecret>
-
-       </rich:column>
-       <f:facet name="footer">
-        <a4j:outputPanel>
-         <adm:pagerBootstrap pagerId="attributePager"/>
-        </a4j:outputPanel>
-       </f:facet>
-
-       <rich:collapsibleSubTable id="sbtbl" value="#{manageAttributesCtrl.model.attributes}" var="item"
-                                 expandMode="client" expanded="#{false}" rows="1">
-        <rich:column colspan="4">
-         <div class="container">
-          <div class="row show-service-row py-1">
-           <div class="col-4">#{msg['marketplace.account.profile.attributes.vendor']}:</div>
-           <div class="col-8">
-            <h:outputText value="#{item.vendor.name}" styleClass="font-weight-bold"/>
-           </div>
-          </div>
-          <div class="row show-unit-row py-1">
-           <div class="col-4">#{msg['marketplace.account.profile.attributes.scope']}:</div>
-           <div class="col-8">
-            <h:outputText value="#{msg[scopeKey]}" styleClass="font-weight-bold"/>
-           </div>
-          </div>
-         </div>
+        <rich:column styleClass="show-service-row col-icon" headerClass="show-service-row">
+         <rich:collapsibleSubTableToggler for="sbtbl"/>
         </rich:column>
-       </rich:collapsibleSubTable>
 
-      </rich:dataTable>
-     </a4j:outputPanel>
+        <rich:column id="colUdaName" width="#{mediumWidth}" sortBy="#{item.udaNameToShow}" sortIcon="#{sortIcon}"
+                     sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
+                     sortOrder="#{tableState.sortOrders['mpColUdaName']}"
+                     filterType="custom" filterValue="#{tableState.filterValues['colUdaName']}"
+                     filterExpression="#{adm:matchBegin(item.udaNameToShow, tableState.filterValues['colUdaName'], false)}">
+         <f:facet name="header">
+          <h:outputText value="#{msg['marketplace.account.profile.attributes.udaName']}"/>
+          <hr class="my-1"/>
+          <adm:filterInputBootstrap inputId="filterUdaName" inputValue="#{tableState.filterValues['colUdaName']}"
+                                    render="attributesTable@body pagerPanel"
+                                    onkeyup="AdmUtils.setFirstPage(#{rich:element('attributePager')});"/>
+         </f:facet>
+         <h:outputText value="#{item.udaNameToShow}"/>
+        </rich:column>
 
-     <br/>
-     <hr/>
-     <adm:buttonPanel layout="block" styleClass="clearfix">
-      <adm:buttonBootstrap id="saveAttrButton" value="#{msg['button.save']}" bean="#{manageAttributesCtrl}"
-                           action="saveAttributes" rendered="#{(not empty manageAttributesCtrl.model.attributes)}"
-                           styleClass="btn btn-secondary float-right"/>
-     </adm:buttonPanel>
-    </h:form>
+        <rich:column id="colVendor" width="#{mediumWidth}" sortBy="#{item.vendor.name}" sortIcon="#{sortIcon}"
+                     sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
+                     sortOrder="#{tableState.sortOrders['mpColVendor']}" styleClass="column-service-hide"
+                     filterType="custom" filterValue="#{tableState.filterValues['colVendor']}"
+                     filterExpression="#{adm:matchBegin(item.vendor.name, tableState.filterValues['colVendor'], false)}"
+                     headerClass="column-service-hide">
+         <f:facet name="header">
+          <h:outputText value="#{msg['marketplace.account.profile.attributes.vendor']}"/>
+          <hr class="my-1"/>
+          <adm:filterInputBootstrap inputId="filterVendor" inputValue="#{tableState.filterValues['colVendor']}"
+                                    render="attributesTable@body pagerPanel"
+                                    onkeyup="AdmUtils.setFirstPage(#{rich:element('attributePager')});"/>
+         </f:facet>
+         <h:outputText value="#{item.vendor.name}"/>
+        </rich:column>
 
+        <c:set var="scopeKey" value="UdaConfigurationType.#{item.udaDefinition.configurationType}"/>
+
+        <rich:column width="#{smallWidth}" sortBy="#{item.udaDefinition.configurationType}" sortIcon="#{sortIcon}"
+                     sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
+                     styleClass="column-unit-hide" headerClass="align-top column-unit-hide">
+         <f:facet name="header">
+          <h:outputText value="#{msg['marketplace.account.profile.attributes.scope']}"/>
+          <hr class="my-1"/>
+         </f:facet>
+         <h:outputText value="#{msg[scopeKey]}"/>
+        </rich:column>
+
+        <rich:column id="colUdaValue" width="#{restWidth}" sortBy="#{item.udaValue}" sortIcon="#{sortIcon}"
+                     sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
+                     sortOrder="#{tableState.sortOrders['mpColUdaValue']}"
+                     filterType="custom" filterValue="#{tableState.filterValues['colUdaValue']}"
+                     filterExpression="#{adm:matchBegin(item.udaValueToShow, tableState.filterValues['colUdaValue'], false)}">
+         <f:facet name="header">
+          <h:outputText value="#{msg['marketplace.account.profile.attributes.value']}"/>
+          <hr class="my-1"/>
+          <adm:filterInputBootstrap inputId="filterUdaValue" inputValue="#{tableState.filterValues['colUdaValue']}"
+                                    render="attributesTable@body pagerPanel"
+                                    onkeyup="AdmUtils.setFirstPage(#{rich:element('attributePager')});"/>
+         </f:facet>
+         <h:inputText id="udaValueClear" onchange="setDirty(true)" styleCLass="form-control form-check"
+                      maxlength="#{appBean.descriptionLen}" required="#{item.inputMandatory}" value="#{item.udaValue}"
+                      label="#{item.udaId}" rendered="#{not item.inputEncrypted}">
+         </h:inputText>
+         <h:inputSecret id="udaValuePassword" onchange="setDirty(true)" value="#{item.passwordValueToStore}"
+                        maxlength="#{appBean.descriptionLen}" required="#{item.inputMandatory}" redisplay="true"
+                        label="#{item.udaId}" rendered="#{item.inputEncrypted}" styleCLass="form-control form-check">
+         </h:inputSecret>
+
+        </rich:column>
+        <f:facet name="footer">
+         <a4j:outputPanel>
+          <adm:pagerBootstrap pagerId="attributePager"/>
+         </a4j:outputPanel>
+        </f:facet>
+
+        <rich:collapsibleSubTable id="sbtbl" value="#{manageAttributesCtrl.model.attributes}" var="item"
+                                  expandMode="client" expanded="#{false}" rows="1">
+         <rich:column colspan="4">
+          <div class="container">
+           <div class="row show-service-row py-1">
+            <div class="col-4">#{msg['marketplace.account.profile.attributes.vendor']}:</div>
+            <div class="col-8">
+             <h:outputText value="#{item.vendor.name}" styleClass="font-weight-bold"/>
+            </div>
+           </div>
+           <div class="row show-unit-row py-1">
+            <div class="col-4">#{msg['marketplace.account.profile.attributes.scope']}:</div>
+            <div class="col-8">
+             <h:outputText value="#{msg[scopeKey]}" styleClass="font-weight-bold"/>
+            </div>
+           </div>
+          </div>
+         </rich:column>
+        </rich:collapsibleSubTable>
+
+       </rich:dataTable>
+      </a4j:outputPanel>
+
+      <br/>
+      <hr/>
+      <adm:buttonPanel layout="block" styleClass="clearfix">
+       <adm:buttonBootstrap id="saveAttrButton" value="#{msg['button.save']}" bean="#{manageAttributesCtrl}"
+                            action="saveAttributes" rendered="#{(not empty manageAttributesCtrl.model.attributes)}"
+                            styleClass="btn btn-secondary float-right"/>
+      </adm:buttonPanel>
+     </h:form>
+    </div>
     <h:form>
      <a4j:jsFunction name="setSelectedTab">
       <a4j:param name="param1" assignTo="#{sessionBean.selectedTab}"/>
      </a4j:jsFunction>
     </h:form>
-
    </div>
    <mp:reloginConfirmPanel/>
   </a4j:outputPanel>
@@ -377,7 +368,8 @@
    $j(document).ready(function(){
     $j('[data-toggle="popover"]').popover({container: 'body'});
 
-   if(#{sessionBean.selectedTab}==="tabOrg")
+   var tab = #{sessionBean.selectedTab};
+   if(tab === "tabOrg")
        document.getElementById("tabOrg").setAttribute("aria-selected", "true");
    } else if(#{sessionBean.selectedTab}==="tabAttr")
      document.getElementById("tabAttr").setAttribute("aria-selected", "true");
@@ -385,6 +377,8 @@
      document.getElementById("tabUser").setAttribute("aria-selected", "true");
    }
    });
+
+
   </script>
 
  </ui:define>
