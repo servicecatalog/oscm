@@ -1,5 +1,5 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
@@ -19,6 +19,11 @@
   <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/javax.faces.resource/jsf.js.jsf?ln=javax.faces"></script>
   <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces/richfaces.js"></script>
   <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces/richfaces-queue.js"></script>
+
+  <c:if test="${not pageContext.request.requestURI.contains('/marketplace')}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js"></script>
+  </c:if>
 </h:head>
 
 <h:body class="mainBg">
