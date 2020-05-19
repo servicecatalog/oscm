@@ -4279,7 +4279,7 @@ div#headerrightareaBootstrap, rightarea a {
   }
 }
 
-@media ( max-width : 767px) {
+@media (max-width: 767px) {
   .aside {
     float: none;
   }
@@ -4473,3 +4473,37 @@ div#headerrightareaBootstrap, rightarea a {
     display: none;
   }
 }
+
+@media all and (max-width: 575px) {
+
+.RespTable, .RespTable thead, .RespTable tbody, .RespTable tr, .RespTable th, .RespTable td {
+display: block;
+
+}
+
+.RespTable {
+text-align: right;
+}
+
+.RespTable thead {
+position: absolute;
+top: -1111px;
+left: -1111px;
+}
+
+.RespTable td:before {
+float: left;
+padding: 0 10px 0 0;
+content: attr(data-label)  ":";
+font-weight: bold;
+} 
+
+.RespTable td:nth-child(1) {
+font-weight: bold;
+}
+
+.RespTable td:last-child {
+border-bottom: 2px #1d4d33 solid;
+}
+
+} 

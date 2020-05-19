@@ -19,6 +19,10 @@
     <source>button.xhtml</source>
   </tag>
   <tag>
+    <tag-name>buttonBootstrap</tag-name>
+    <source>buttonBootstrap.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>buttonCustomizedOnClick</tag-name>
     <source>buttonCustomizedOnClick.xhtml</source>
   </tag>
@@ -58,6 +62,11 @@
     <tag-name>labelAndSelect</tag-name>
     <source>labelAndSelect.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>labelAndSelectBootstrap</tag-name>
+    <source>labelAndSelectBootstrap.xhtml</source>
+  </tag>
+  
   <tag>
     <tag-name>localeItems</tag-name>
     <source>localeItems.xhtml</source>

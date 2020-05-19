@@ -168,6 +168,8 @@
       <redirect />
     </navigation-case>
   </navigation-rule>
+   
+  
   <navigation-rule>
     <from-view-id>/marketplace/account/operations.xhtml</from-view-id>
     <navigation-case>
@@ -1182,7 +1184,7 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>process</from-outcome>
-      <to-view-id>/marketplace/account/processes.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/account/processes.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     <navigation-case>
@@ -1242,6 +1244,19 @@
     <navigation-case>
       <from-outcome>showServiceListPlayground</from-outcome>
       <to-view-id>/marketplace/playground/services.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>  
+  <navigation-rule>
+    <from-view-id>/marketplace/playground/account/manageTrigger.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>concurrentModificationError</from-outcome>
+      <to-view-id>/marketplace/playground/account/processes.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>refresh</from-outcome>
+      <to-view-id>/marketplace/playground/account/processes.xhtml</to-view-id>
+      <redirect />
     </navigation-case>
   </navigation-rule>
 
