@@ -139,7 +139,6 @@ import org.oscm.validator.OrganizationRoleValidator;
  */
 @Remote(OperatorService.class)
 @Stateless
-@RolesAllowed("ORGANIZATION_ADMIN")
 @Interceptors({InvocationDateContainer.class, ExceptionMapper.class})
 public class OperatorServiceBean implements OperatorService {
 
