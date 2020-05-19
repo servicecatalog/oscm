@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j" xmlns:b="http://bootsfaces.net/ui"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
 
 <h:head>
   <ui:insert name="pageId" />
@@ -20,7 +20,7 @@
   <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces/richfaces.js"></script>
   <script type="text/javascript" src="#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces/richfaces-queue.js"></script>
 
-  <c:if test="${not pageContext.request.requestURI.contains('/marketplace')}">
+  <c:if test="${not fn:contains(pageContext.request.requestURI, '/marketplace')}">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js"></script>
   </c:if>
