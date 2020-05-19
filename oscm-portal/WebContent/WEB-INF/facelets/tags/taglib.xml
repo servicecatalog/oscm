@@ -259,6 +259,10 @@
     <tag-name>buttonBootstrap</tag-name>
     <source>buttonBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>passwordBootstrap</tag-name>
+    <source>passwordBootstrap.xhtml</source>
+  </tag>
 
   <function>
     <function-name>matchBegin</function-name>

@@ -282,4 +282,20 @@
     <tag-name>subscriptionFinderBootstrap</tag-name>
     <source>subscriptionFinderBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>labelAndInputTextBootstrap</tag-name>
+    <source>labelAndInputTextBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>labelAndInputSecretBootstrap</tag-name>
+    <source>labelAndInputSecretBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>labelAndInputSecretWithStrengthBootstrap</tag-name>
+    <source>labelAndInputSecretWithStrengthBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>messageAndHintBootstrap</tag-name>
+    <source>messageAndHintBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>
