@@ -71,7 +71,9 @@ public class MarketplacePlaygroundWT {
     assertTrue(tester.verifyFoundElement(By.linkText("cloud tag")));
   }
 
+  // FIXME test ignored due #787
   @Test
+  @Ignore
   public void test04_landingPageCategories() {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
 
