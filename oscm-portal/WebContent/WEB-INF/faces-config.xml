@@ -1184,7 +1184,7 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>process</from-outcome>
-      <to-view-id>/marketplace/account/playgroundProcesses.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/account/processes.xhtml</to-view-id>
       <redirect />
     </navigation-case>
     <navigation-case>
