@@ -9,8 +9,6 @@
  */
 package org.oscm.portal;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -20,6 +18,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalPathSegments;
 import org.oscm.webtest.PortalTester;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Integration web test to create a marketable service.
@@ -172,6 +172,32 @@ public class PortalMarketServiceWT {
     tester.clickElement(PortalHtmlElements.MANAGE_PAYMENT_SAVE_BUTTON);
 
     assertTrue(tester.getExecutionResult());
+  }
+
+  @Test
+  public void test06defineCustomAttributes() throws Exception {
+    tester.visitPortal(PortalPathSegments.MANAGE_CUSTOM_ATTRIBUTES);
+    tester.waitForElement(By.xpath(PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_ADD_BUTTON), 5);
+
+    tester.clickElementXPath(PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_ADD_BUTTON);
+    Thread.sleep(1000);
+    tester.writeValue(PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_ATTRIBUTE_FIELD, "AttributeID");
+    tester.selectDropdown(PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_LANGUAGE_SELECT, "en");
+    tester.writeValue(PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_NAME_FIELD, "AttributeName");
+    tester.writeValue(PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_VALUE_FIELD, "AttributeValue");
+    tester.writeValue(
+        PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_CONTROLLER_FIELD, "AttributeController");
+    tester.clickElement(PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_USER_CHECKBOX);
+    Thread.sleep(2000);
+    tester.clickElement(PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_MANDATORY_CHECKBOX);
+    tester.clickElement(PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_ENCRYPTED_CHECKBOX);
+    tester.clickElement(PortalHtmlElements.MANAGE_ATTRIBUTES_CUSTOMER_SAVE_BUTTON);
+    Thread.sleep(2000);
+
+    assertTrue(
+        tester
+            .readInfoMessage()
+            .contains("The custom attribute definitions have been successfully saved"));
   }
 
   private void setDescriptionValue(String description, String value) {

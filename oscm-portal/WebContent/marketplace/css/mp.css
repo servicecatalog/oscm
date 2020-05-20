@@ -83,7 +83,7 @@ Copyright 2010-2012 FUJITSU LIMITED
 	   11.4 Cards
 	   11.5 Bootstrap grid
 	   11.6 Footer
-	   
+
  12 Table
 
 */
@@ -4355,6 +4355,15 @@ div#headerrightareaBootstrap, rightarea a {
   padding-top: 32px;
 }
 
+.con-flow-root {
+  padding-right: 1.5rem;
+  padding-top: 1.5rem;
+  display: flow-root;
+}
+
+.con-width {
+  max-width:700px
+}
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.6 Footer
@@ -4427,7 +4436,7 @@ div#headerrightareaBootstrap, rightarea a {
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 */
 @media (max-width: 1100px) {
-  .column-reference-hide, .table th:nth-child(3) {
+  .column-reference-hide {
     display: none;
   }
 }
@@ -4439,7 +4448,7 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 @media (max-width: 1024px) {
-  .column-activation-hide, .table th:nth-child(6) {
+  .column-activation-hide {
     display: none;
   }
 }
@@ -4451,7 +4460,7 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 @media (max-width: 900px) {
-  .column-service-hide, .table th:nth-child(5) {
+  .column-service-hide {
     display: none;
   }
 }
@@ -4463,17 +4472,21 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 @media (max-width: 600px) {
-  .column-unit-hide, .table th:nth-child(4) {
+  .column-unit-hide {
     display: none;
   }
 }
 
-@media (max-width: 601px) {
+@media (min-width: 601px) {
   .show-unit-row {
     display: none;
   }
 }
 
+.col-icon {
+  width: 20px;
+  text-align: center;
+}
 @media all and (max-width: 575px) {
 
 .RespTable, .RespTable thead, .RespTable tbody, .RespTable tr, .RespTable th, .RespTable td {
