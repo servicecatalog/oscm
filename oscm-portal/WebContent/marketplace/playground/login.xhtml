@@ -74,7 +74,7 @@
 
       <a4j:outputPanel id="loginGrid" layout="block">
         <ui:fragment rendered="#{userBean.passwordChangeRequired or not empty userBean.loggedInUser}">
-          <h3>
+          <h3 class="mt-4">
             <h:outputText value="#{userBean.passwordChangeRequired ? msg['public.pwd.title'] : msg['user.pwd.step1']}"/>
           </h3>
 
