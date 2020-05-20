@@ -263,6 +263,10 @@
     <tag-name>passwordBootstrap</tag-name>
     <source>passwordBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>labelAndInputSecretBootstrap</tag-name>
+    <source>labelAndInputSecretBootstrap.xhtml</source>
+  </tag>
 
   <function>
     <function-name>matchBegin</function-name>
