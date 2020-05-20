@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
+<!-- Copyright FUJITSU LIMITED 2020 -->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
@@ -93,7 +93,8 @@
               </div>
               <div class="col-md-5 col-sm-12">
                 <h:inputSecret id="currentPassword" label="#{msg['user.currentPassword']}" required="true"
-                               value="#{userBean.currentPassword}" styleClass="fieldS w-100" maxlength="#{appBean.nameLen}"
+                               value="#{userBean.currentPassword}" styleClass="fieldS w-100"
+                               maxlength="#{appBean.nameLen}"
                                autocomplete="off"/>
               </div>
               <div class="col-md-4 col-sm-12">
@@ -105,15 +106,16 @@
                 <adm:outputLabel for="password" value="#{msg['user.newPassword']}" required="true"/>
               </div>
               <div class="col-md-5 col-sm-12">
-                <adm:passwordBootstrap required="true" strengthDemRequired="true" passwordStrengthId="passwordStrengthLogin"
-                              length="#{appBean.nameLen}" label="#{msg['user.newPassword']}"
-                              beanValue="#{userBean.password}"
-                              styleClass="fieldS w-100" validatorId="password"/>
+                <adm:passwordBootstrap required="true" strengthDemRequired="true"
+                                       passwordStrengthId="passwordStrengthLogin"
+                                       length="#{appBean.nameLen}" label="#{msg['user.newPassword']}"
+                                       beanValue="#{userBean.password}"
+                                       styleClass="fieldS w-100" validatorId="password"/>
 
               </div>
               <div class="col-md-4 col-sm-12">
                 <mp:messageAndHintBootstrap id="passwordErrorMsg" for="password"
-                                   hintText="#{msg['login.changePassword.hint.password']}"/>
+                                            hintText="#{msg['login.changePassword.hint.password']}"/>
               </div>
             </div>
 
@@ -135,8 +137,10 @@
               </div>
             </div>
 
-            <mp:buttonBootstrap styleClass="btn-sm btn-secondary mt-2" id="changeButton" value="#{msg['button.change']}" bean="#{userBean}"
-                       action="change" render="rerenderPanel" oncomplete="AdmUtils.setLoginPanelDirty();AdmUtils.showProgress(false);"/>
+            <mp:buttonBootstrap styleClass="btn-sm btn-secondary mt-2" id="changeButton" value="#{msg['button.change']}"
+                                bean="#{userBean}"
+                                action="change" render="rerenderPanel"
+                                oncomplete="AdmUtils.setLoginPanelDirty();AdmUtils.showProgress(false);"/>
           </h:form>
         </ui:fragment>
         <ui:fragment rendered="#{not userBean.passwordChangeRequired and empty userBean.loggedInUser}">
@@ -167,8 +171,8 @@
               </h:form>
 
               <mp:buttonBootstrap id="register" styleClass="btn-sm btn-secondary"
-                         onclick="AdmUtils.showProgress(true);#{rich:element('registerRedirectTarget')}.value=#{rich:element('loginForm:loginRedirectTarget')}.value;#{rich:element('showRegistration')}.click();return false;"
-                         value="#{msg['button.register']}"/>
+                                  onclick="AdmUtils.showProgress(true);#{rich:element('registerRedirectTarget')}.value=#{rich:element('loginForm:loginRedirectTarget')}.value;#{rich:element('showRegistration')}.click();return false;"
+                                  value="#{msg['button.register']}"/>
             </a4j:outputPanel>
           </c:if>
         </ui:fragment>
@@ -179,5 +183,7 @@
     function showLoginPanel(redirectTarget) {
         AdmUtils.showMplLoginPanel(redirectTarget, #{not empty userBean.loggedInUser}, '#{facesContext.externalContext.requestContextPath}');
     }
+
+
   </script>
 </ui:composition>

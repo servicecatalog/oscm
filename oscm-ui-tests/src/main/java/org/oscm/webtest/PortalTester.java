@@ -149,7 +149,7 @@ public class PortalTester extends WebTester {
         .findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK_TEXT))
         .click();
 
-    authenticationCtx.loginMarketplace(user, password);
+    authenticationCtx.loginMarketplacePlayground(user, password);
   }
 
   /**

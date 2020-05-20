@@ -24,6 +24,7 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_INPUT_USERID = "loginForm:loginUserId";
   public static final String MARKETPLACE_INPUT_PASSWORD = "loginForm:loginPassword";
   public static final String MARKETPLACE_BUTTON_LOGIN = "loginForm:loginButtonLink";
+  public static final String MARKETPLACE_PLAYGROUND_BUTTON_LOGIN = "loginButtonLink";
 
   public static final String MARKETPLACE_LINK_SERVICE_NAME = "showDetails0";
   public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW = "buyme";
