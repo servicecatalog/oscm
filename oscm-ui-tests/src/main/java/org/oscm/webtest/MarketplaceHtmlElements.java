@@ -46,7 +46,7 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON_ID = "editProfileButton";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_PERSONAL_BUTTON =
       "//span[contains(.,'Personal Data')]";
-  public static final String MARKETPLACE_ACCOUNT_PROFILE_PERSONAL_NAV = "tabUser:header";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_PERSONAL_NAV = "tabUser";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_TITLE_DROPDOWN = "userForm:salutation";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_FIRST_NAME_FIELD = "userForm:firstName";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_LAST_NAME_FIELD = "userForm:lastName";
@@ -57,7 +57,7 @@ public class MarketplaceHtmlElements {
 
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_BUTTON =
       "//span[contains(.,'Organization Data')]";
-  public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_NAV = "tabOrg:header";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_NAV = "tabOrg";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_FIELD =
       "orgForm:organizationName";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_EMAIL_FIELD =
@@ -70,7 +70,7 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_PROFILE_SAVE_BUTTON_ID =
       "orgForm:saveOrgButtonLink";
 
-  public static final String MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_NAV = "tabAttr:header";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_NAV = "tabAttr";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_VALUE_FIELD =
       "attrForm:attributesTable:0:udaValuePassword";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_SAVE_BUTTON =
