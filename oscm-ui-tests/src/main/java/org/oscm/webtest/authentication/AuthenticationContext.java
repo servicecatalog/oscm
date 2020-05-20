@@ -25,4 +25,6 @@ public interface AuthenticationContext {
   void loginPortal(String userId, String userPwd) throws LoginException, InterruptedException;
 
   void loginMarketplace(String userId, String userPwd) throws LoginException, InterruptedException;
+
+  void loginMarketplacePlayground(String userId, String userPwd) throws LoginException, InterruptedException;
 }

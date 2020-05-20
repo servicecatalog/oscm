@@ -1,0 +1,103 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
+  <c:if test="#{empty labelStyle}">
+    <c:set var="labelStyle" value="" />
+  </c:if>
+  <c:if test="#{empty inputStyle}">
+    <c:set var="inputStyle" value="field" />
+  </c:if>
+  <c:if test="#{empty labelWidth}">
+    <c:set var="labelWidth" value="3" />
+  </c:if>
+  <c:if test="#{empty inputWidth}">
+    <c:set var="inputWidth" value="5" />
+  </c:if>
+  <c:if test="#{empty messageWidth}">
+    <c:set var="messageWidth" value="4" />
+  </c:if>
+
+  <c:if test="#{empty isDirtySet}">
+    <c:set var="isDirtySet" value="true" />
+  </c:if>
+  <c:if test="#{empty readonly}">
+    <c:set var="readonly" value="false" />
+  </c:if>
+  <c:choose>
+    <c:when test="#{isDirtySet}">
+      <c:set var="setDirtyScript" value="setDirty(true)" />
+    </c:when>
+    <c:otherwise>
+      <c:set var="setDirtyScript" value="" />
+    </c:otherwise>
+  </c:choose>
+
+
+  <div class="row align-items-center">
+    <div class="col-md-#{labelWidth} col-sm-12">
+      <c:choose>
+        <c:when test="#{labelEllipsisRequired == 'true'}">
+          <adm:outputLabelEllipsized textId="label#{id}" value="#{label}" rendered="#{empty rendered or rendered}"
+            required="#{required}" renderRequired="#{renderRequired}" displayRequired="#{displayRequired}"
+            requiredId="#{requiredId}" />
+        </c:when>
+        <c:otherwise>
+          <adm:outputLabel textId="label#{id}" value="#{label}" rendered="#{empty rendered or rendered}"
+            required="#{required}" renderRequired="#{renderRequired}" displayRequired="#{displayRequired}"
+            requiredId="#{requiredId}" />
+        </c:otherwise>
+      </c:choose>
+    </div>
+    <div class="col-md-#{inputWidth} col-sm-12 my-1">
+      <c:if test="#{(not empty validationMethod)}">
+        <h:inputText id="#{id}" label="#{label}" value="#{value}" maxlength="#{maxlength}" onchange="#{setDirtyScript}"
+          styleClass="#{labelStyle}" rendered="#{empty rendered or rendered}" disabled="#{disabled}"
+          required="#{not empty required and required}" onkeyup="#{onkeyup}"
+          validator="#{backingBean[validationMethod]}" readonly="#{readonly}">
+          <c:if test="#{(not empty maxlength)}">
+            <f:validateLength maximum="#{maxlength}" />
+          </c:if>
+          <c:if test="#{(not empty validatorId)}">
+            <f:validator validatorId="#{validatorId}" />
+          </c:if>
+          <c:if test="#{(not empty converterId)}">
+            <f:converter converterId="#{converterId}" />
+          </c:if>
+          <ui:insert />
+        </h:inputText>
+      </c:if>
+      <c:if test="#{(empty validationMethod)}">
+        <h:inputText id="#{id}" label="#{label}" value="#{value}" maxlength="#{maxlength}" onchange="#{setDirtyScript}"
+          styleClass="#{inputStyle}" rendered="#{empty rendered or rendered}" disabled="#{disabled}"
+          required="#{not empty required and required}" onkeyup="#{onkeyup}" readonly="#{readonly}">
+          <c:if test="#{(not empty maxlength)}">
+            <f:validateLength maximum="#{maxlength}" />
+          </c:if>
+          <c:if test="#{(not empty validatorId)}">
+            <f:validator validatorId="#{validatorId}" />
+          </c:if>
+          <c:if test="#{(not empty converterId)}">
+            <f:converter converterId="#{converterId}" />
+          </c:if>
+          <ui:insert />
+        </h:inputText>
+      </c:if>
+    </div>
+    <div class="col-md-#{messageWidth} col-sm-12">
+      <c:choose>
+        <c:when test="#{(not empty showHint and showHint)}">
+          <mp:messageAndHint id="#{id}ErrorMsg" for="#{id}" />
+        </c:when>
+        <c:otherwise>
+          <mp:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}" />
+        </c:otherwise>
+      </c:choose>
+    </div>
+  </div>
+
+
+</ui:composition>

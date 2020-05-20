@@ -1,51 +1,49 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!-- TODO Remake with bootstrap -->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
   xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:t="http://myfaces.apache.org/tomahawk">
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
   <c:set var="action" value="#{facesContext.externalContext.requestContextPath}" />
   <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
   <c:set var="serviceLogin" value="#{(userBean.serviceLoginType eq 'global')? true : false}" />
 
-  <rich:popupPanel id="loginPanel" trimOverlayedElements="false" resizeable="false" autosized="true" width="560"
-    onresize="return false;" zindex="10000" onshow="AdmUtils.adjustMplModalDialogPosition('loginPanel');"
-    onbeforeshow="AdmUtils.setPageOverflow('hidden');" onhide="AdmUtils.setPageOverflow('auto');"
-    showWhenRendered="#{sessionBean.autoOpenMpLogonDialog}">
+  <rich:popupPanel id="loginPanel" trimOverlayedElements="false" resizeable="false" autosized="true"
+    styleClass="responsive-dialog-container" onresize="return false;" zindex="10000"
+    onshow="AdmUtils.adjustMplModalDialogPosition('loginPanel');" onbeforeshow="AdmUtils.setPageOverflow('hidden');"
+    onhide="AdmUtils.setPageOverflow('auto');" showWhenRendered="#{sessionBean.autoOpenMpLogonDialog}">
 
     <a4j:outputPanel layout="block" id="rerenderPanel">
-      <c:if test="#{not serviceLogin}">
-        <h:form id="cancelModelPanelForm">
-        <a4j:jsFunction name="cancelDialog" action="#{userBean.cancel}"/>
-          <mp:closeModalDialogButton id="cancelButton"
-            rendered="#{(empty canCloseLogin or canCloseLogin) and not userBean.passwordChangeRequired}"
-            onclick="setDirty(false);cancelDialog();#{rich:component('loginPanel')}.hide();return false;" />
-        </h:form>
-      </c:if>
 
-      <h1>
-        <c:choose>
-          <c:when test="#{serviceLogin}">
-            <h:outputText
-              value="#{empty userBean.loggedInUser or userBean.passwordChangeRequired ? 
+      <div class="row border-bottom no-gutters justify-content-between">
+        <h1>
+          <c:choose>
+            <c:when test="#{serviceLogin}">
+              <h:outputText
+                value="#{empty userBean.loggedInUser or userBean.passwordChangeRequired ?
                msg['login.loginServiceHeaderText'] : msg['user.pwdTemporary.title']}" />
-          </c:when>
-          <c:otherwise>
-            <h:outputText
-              value="#{empty userBean.loggedInUser or userBean.passwordChangeRequired ? 
+            </c:when>
+            <c:otherwise>
+              <h:outputText
+                value="#{empty userBean.loggedInUser or userBean.passwordChangeRequired ?
                msg['login.loginHeaderText'] : msg['user.pwd.title']}" />
-          </c:otherwise>
-        </c:choose>
-      </h1>
-      <mp:pixelline />
+            </c:otherwise>
+          </c:choose>
+        </h1>
+
+        <c:if test="#{not serviceLogin}">
+          <h:form id="cancelModelPanelForm">
+            <a4j:jsFunction name="cancelDialog" action="#{userBean.cancel}" />
+            <mp:closeModalDialogButton id="cancelButton"
+              rendered="#{(empty canCloseLogin or canCloseLogin) and not userBean.passwordChangeRequired}"
+              onclick="setDirty(false);cancelDialog();#{rich:component('loginPanel')}.hide();return false;" />
+          </h:form>
+        </c:if>
+      </div>
 
       <a4j:outputPanel id="modalErrorPanel" layout="block" styleClass="errorPanel"
-        style="display: block; margin-top: -5px; margin-bottom: 10px;"
         rendered="#{(not empty errorKey) or (facesContext.maximumSeverity.ordinal > 0)}">
         <!-- filter error messages -->
         <c:if test="#{not empty errorKey and not sessionBean.errorMessageDuplicate}">
@@ -62,18 +60,13 @@
           </dl>
         </c:if>
         <!-- JSF error messages -->
-        <rich:messages globalOnly="true"
-                       passedLabel=""
-                       layout="list"
-                       id="errorMessages22"
-                       styleClass="box error"
-                       rendered="#{facesContext.maximumSeverity.ordinal == 2}"
-                       ajaxRendered="false"/>
+        <rich:messages globalOnly="true" passedLabel="" layout="list" id="errorMessages22" styleClass="box error"
+          rendered="#{facesContext.maximumSeverity.ordinal == 2}" ajaxRendered="false" />
       </a4j:outputPanel>
-        
-      <a4j:outputPanel id="loginGrid" layout="block" styleClass="grid2span clearfix" style="width: 560px;">
+
+      <a4j:outputPanel id="loginGrid" layout="block">
         <ui:fragment rendered="#{userBean.passwordChangeRequired or not empty userBean.loggedInUser}">
-          <h3>
+          <h3 class="mt-4">
             <h:outputText value="#{userBean.passwordChangeRequired ? msg['public.pwd.title'] : msg['user.pwd.step1']}" />
           </h3>
 
@@ -86,33 +79,55 @@
             <h:inputHidden id="passwordChangeToken" value="#{userBean.token}" />
             <h:inputHidden name="userId" value="#{userId}" />
 
-            <t:panelGrid columns="3" border="0" cellspacing="0" cellpadding="0" styleClass="smallPanel"
-              columnClasses="smallPanelCol1 labelOnTop,smallPanelCol2,smallPanelCol3">
-              <adm:outputLabel for="currentPassword" value="#{msg['user.currentPassword']}" required="true" />
-              <h:inputSecret id="currentPassword" label="#{msg['user.currentPassword']}" required="true"
-                value="#{userBean.currentPassword}" styleClass="fieldS" maxlength="#{appBean.nameLen}"
-                autocomplete="off" />
-              <mp:message for="currentPassword" />
+            <div class="row">
+              <div class="col-md-3 col-sm-12">
+                <adm:outputLabel value="#{msg['user.currentPassword']}" required="true" />
+              </div>
+              <div class="col-md-5 col-sm-12">
+                <h:inputSecret id="currentPassword" label="#{msg['user.currentPassword']}" required="true"
+                  value="#{userBean.currentPassword}" styleClass="fieldS w-100" maxlength="#{appBean.nameLen}"
+                  autocomplete="off" />
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <mp:message for="currentPassword" />
+              </div>
+            </div>
+            <div class="row my-1">
+              <div class="col-md-3 col-sm-12">
+                <adm:outputLabel for="password" value="#{msg['user.newPassword']}" required="true" />
+              </div>
+              <div class="col-md-5 col-sm-12">
+                <adm:passwordBootstrap required="true" strengthDemRequired="true"
+                  passwordStrengthId="passwordStrengthLogin" length="#{appBean.nameLen}"
+                  label="#{msg['user.newPassword']}" beanValue="#{userBean.password}" styleClass="fieldS w-100"
+                  validatorId="password" />
 
-              <adm:outputLabel for="password" value="#{msg['user.newPassword']}" required="true" />
-              <adm:password required="true" strengthDemRequired="true" passwordStrengthId="passwordStrengthLogin"
-                length="#{appBean.nameLen}" label="#{msg['user.newPassword']}" beanValue="#{userBean.password}"
-                styleClass="fieldS" validatorId="password" />
-              <mp:messageAndHint id="passwordErrorMsg" for="password"
-                hintText="#{msg['login.changePassword.hint.password']}" />
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <mp:messageAndHintBootstrap id="passwordErrorMsg" for="password"
+                  hintText="#{msg['login.changePassword.hint.password']}" />
+              </div>
+            </div>
 
-              <adm:outputLabel for="password2" value="#{msg['user.password2']}" required="true" />
-              <h:inputSecret id="password2" label="#{msg['user.password2']}" required="true"
-                value="#{userBean.password2}" styleClass="fieldS" maxlength="#{appBean.nameLen}"
-                onkeydown="AdmUtils.clickOnReturn(event,'passwordForm:changeButtonLink')" autocomplete="off"
-                connectedTo="passwordForm:password">
-                <f:validator validatorId="password" />
-              </h:inputSecret>
-              <mp:message id="password2ErrorMsg" for="password2" />
-            </t:panelGrid>
-            <br />
-            <mp:button class="login_button_class" id="changeButton" value="#{msg['button.change']}" bean="#{userBean}"
-              action="change" render="rerenderPanel"
+            <div class="row">
+              <div class="col-md-3 col-sm-12">
+                <adm:outputLabel required="true" value="#{msg['user.password2']}" />
+              </div>
+              <div class="col-md-5 col-sm-12">
+                <h:inputSecret id="password2" label="#{msg['user.password2']}" required="true"
+                  value="#{userBean.password2}" styleClass="fieldS w-100" maxlength="#{appBean.nameLen}"
+                  onkeydown="AdmUtils.clickOnReturn(event,'passwordForm:changeButtonLink')" autocomplete="off"
+                  connectedTo="passwordForm:password">
+                  <f:validator validatorId="password" />
+                </h:inputSecret>
+              </div>
+              <div class="col-md-4 col-sm-12">
+                <mp:message id="password2ErrorMsg" for="password2" />
+              </div>
+            </div>
+
+            <mp:buttonBootstrap styleClass="btn-sm btn-secondary mt-2" id="changeButton" value="#{msg['button.change']}"
+              bean="#{userBean}" action="change" render="rerenderPanel"
               oncomplete="AdmUtils.setLoginPanelDirty();AdmUtils.showProgress(false);" />
           </h:form>
         </ui:fragment>
@@ -124,7 +139,7 @@
             </a4j:region>
             <h:inputHidden id="loginRedirectTarget" name="loginRedirectTarget" value="#{userBean.requestedRedirect}" />
             <h:inputHidden id="serviceLoginType" name="serviceLoginType" value="#{userBean.serviceLoginType}" />
-            <ui:include  layout="block" src="/marketplace/loginUserAndPasswordInclude.xhtml">
+            <ui:include layout="block" src="/marketplace/playground/loginUserAndPasswordInclude.xhtml">
               <ui:param name="serviceLogin" value="#{serviceLogin}" />
               <ui:param name="selfRegistrationAllowed" value="#{userBean.selfRegistrationAllowed}" />
             </ui:include>
@@ -143,7 +158,7 @@
                 <h:commandButton id="showRegistration" action="#{userBean.showRegistration}" style="display: none;" />
               </h:form>
 
-              <mp:button id="register"
+              <mp:buttonBootstrap id="register" styleClass="btn-sm btn-secondary"
                 onclick="AdmUtils.showProgress(true);#{rich:element('registerRedirectTarget')}.value=#{rich:element('loginForm:loginRedirectTarget')}.value;#{rich:element('showRegistration')}.click();return false;"
                 value="#{msg['button.register']}" />
             </a4j:outputPanel>
@@ -156,5 +171,7 @@
     function showLoginPanel(redirectTarget) {
         AdmUtils.showMplLoginPanel(redirectTarget, #{not empty userBean.loggedInUser}, '#{facesContext.externalContext.requestContextPath}');
     }
+
+
   </script>
 </ui:composition>

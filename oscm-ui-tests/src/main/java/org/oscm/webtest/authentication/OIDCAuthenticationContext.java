@@ -66,4 +66,10 @@ public class OIDCAuthenticationContext implements AuthenticationContext {
       throws LoginException, InterruptedException {
     loginPortal(user, password);
   }
+
+  @Override
+  public void loginMarketplacePlayground(String user, String password)
+          throws LoginException, InterruptedException {
+    loginPortal(user, password);
+  }
 }
