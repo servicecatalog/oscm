@@ -1,0 +1,79 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!-- TODO #851 -->
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+  xmlns:t="http://myfaces.apache.org/tomahawk">
+
+  <c:if test="#{shortVersionOnly}">
+    <div class="box_tab_content">
+      <h:outputText id="#{prefix}ContactInfo" value="#{supplier.name}, " styleClass="preWrapping" />
+      <h:outputLink id="#{prefix}ContactUrl" value="#{supplier.url}" target="_blank">
+        <h:outputText value="#{supplier.url}" />
+      </h:outputLink>
+    </div>
+  </c:if>
+  <c:if test="#{not shortVersionOnly}">
+    <a4j:outputPanel layout="block" styleClass="lastcol">
+      <h:graphicImage id="#{prefix}Image" style="float: right;"
+        value="/image?type=ORGANIZATION_IMAGE&amp;sId=#{supplier.key}" />
+      <h1 id="#{prefix}Name" title="#{supplier.name}" class="shortenedText" >#{supplier.name}</h1>
+    </a4j:outputPanel>
+    <br />
+    <a4j:outputPanel layout="block" styleClass="lastcol rowspacer">
+      <h2>#{msg['supplier.contactInfo']}</h2>
+      <mp:pixelline />
+      <h:outputText id="#{prefix}Address" value="#{supplier.address}" layout="block"
+        styleClass="box_tab_content preWrapping shortenedText" title="#{supplier.address}" />
+      <h:outputText id="#{prefix}DomicileCountryDisplay" value="#{supplier.domicileCountryDisplay}" layout="block"
+        styleClass="box_tab_content" />
+
+      <a4j:outputPanel layout="block" styleClass="labelValuePairInsideOfTab">
+        <br />
+        <h:outputText value="#{msg['organization.phone']}" styleClass="labelInsideOfTab" />
+        <h:outputText id="#{prefix}Phone" value="#{supplier.phone}" />
+      </a4j:outputPanel>
+      <a4j:outputPanel layout="block" styleClass="labelValuePairInsideOfTab">
+        <h:outputText value="#{msg['marketplace.supplierTab.email']}:" styleClass="labelInsideOfTab" />
+        <h:outputLink id="#{prefix}Email" value="mailto:#{supplier.email}" target="_blank">
+          <h:outputText value="#{supplier.email}" />
+        </h:outputLink>
+      </a4j:outputPanel>
+      <a4j:outputPanel layout="block" styleClass="labelValuePairInsideOfTab">
+        <h:outputText value="#{msg['organization.url']}:" styleClass="labelInsideOfTab" />
+        <h:outputLink id="#{prefix}URL" value="#{supplier.url}" target="_blank">
+          <h:outputText value="#{supplier.url}" />
+        </h:outputLink>
+      </a4j:outputPanel>
+    </a4j:outputPanel>
+
+    <a4j:outputPanel layout="block" styleClass="lastcol rowspacer">
+      <c:if test="#{reportIssueSectionVisible}">
+        <c:set var="reportPanelId" value="#{reportPrefix}reportIssuePanel" />
+        <a4j:outputPanel layout="block" styleClass="labelValuePairInsideOfTab">
+          <h2>#{msg['supplier.support']}</h2>
+
+          <mp:pixelline />
+
+          <ui:include id="#{reportPrefix}reportIssueInclude" src="./subscriptions/supplierFeedback.xhtml">
+            <ui:param name="dialogId" value="#{reportPanelId}" />
+          </ui:include>
+
+          <mp:button id="#{reportPrefix}reportIssue" value="#{msg['supplier.support.report']}"
+            onclick="#{rich:component(reportPanelId)}.show(); return false;" />
+        </a4j:outputPanel>
+      </c:if>
+    </a4j:outputPanel>
+    <a4j:outputPanel layout="block" styleClass="lastcol rowspacer">
+      <h2>#{msg['supplier.about']}</h2>
+      <mp:pixelline />
+      <h:outputText id="#{prefix}Description" value="#{supplier.description}" escape="false" layout="block"
+        styleClass="preWrapping" />
+    </a4j:outputPanel>
+  </c:if>
+
+</ui:composition>
