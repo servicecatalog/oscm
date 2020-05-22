@@ -67,12 +67,15 @@
       </div>
     </div>
   </div>
-  <a4j:outputPanel layout="block">
-    <h:outputText id="#{fieldId}AccessInfo" value="#{subscription.serviceAccessInfo}"
-      rendered="#{subscription.accessViaAccessInfo}" escape="false" />
-    <h:outputText id="AccessInfoFormPart" value="#{subscription.serviceAccessInfoFormPart}"
-      rendered="#{not empty subscription.serviceAccessInfoFormPart}" escape="false" />
-    <br />
-    <mp:serviceLicense service="#{service}" />
-  </a4j:outputPanel>
+  <div class="col">
+  <div class="mb-2">
+      <h:outputText id="#{fieldId}AccessInfo" styleClass="mb-2" value="#{subscription.serviceAccessInfo}"
+                    rendered="#{subscription.accessViaAccessInfo}" escape="false" />
+      <h:outputText id="AccessInfoFormPart" value="#{subscription.serviceAccessInfoFormPart}"
+                    rendered="#{not empty subscription.serviceAccessInfoFormPart}" escape="false" />
+    </div>
+    <div class="my-2">
+      <mp:serviceLicense service="#{service}" />
+    </div>
+  </div>
 </ui:composition>
