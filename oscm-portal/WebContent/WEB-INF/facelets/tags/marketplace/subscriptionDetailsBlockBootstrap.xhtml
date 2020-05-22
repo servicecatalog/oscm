@@ -25,28 +25,28 @@
       </div>
       <div class="col">
         <div class="row">
-          <div class="col-lg-2 col-md-3 col-12">
+          <div class="col-lg-2 col-md-3 col-6">
             <h:outputText value="#{msg['subscription.activationDate']}" />
           </div>
-          <div class="col-lg-10 col-md-9 col-12">
+          <div class="col-lg-10 col-md-9 col-6">
             <h:outputText id="#{fieldId}Activation" value="#{subscription.activationDate}">
               <f:convertDateTime />
             </h:outputText>
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-2 col-md-3 col-12">
+          <div class="col-lg-2 col-md-3 col-6">
             <h:outputText value="#{msg['subscription.users']}" />
           </div>
-          <div class="col-lg-10 col-md-9 col-12">
+          <div class="col-lg-10 col-md-9 col-6">
             <h:outputText id="#{fieldId}Users" value="#{fn:length(subscription.usageLicenses)}" />
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-2 col-md-3 col-12">
+          <div class="col-lg-2 col-md-3 col-6">
             <h:outputText value="#{msg['subscription.price']}" />
           </div>
-          <div class="col-lg-10 col-md-9 col-12">
+          <div class="col-lg-10 col-md-9 col-6">
             <a4j:outputPanel layout="block">
               <h:outputText id="#{fieldId}Price"
                 value="#{service.priceText} #{service.priceUnitText ? '&#160;' : service.priceUnitText}" />
@@ -56,10 +56,10 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-2 col-md-3 col-12">
+          <div class="col-lg-2 col-md-3 col-6">
             <h:outputText value="#{msg['subscription.service']}" />
           </div>
-          <div class="col-lg-10 col-md-9 col-12">
+          <div class="col-lg-10 col-md-9 col-6">
             <h:outputText id="#{fieldId}Service" value="#{service.nameToDisplay}"
               styleClass="subscriptionServiceDetailsBlock" />
           </div>
