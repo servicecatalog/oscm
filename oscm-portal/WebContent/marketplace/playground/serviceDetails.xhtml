@@ -56,9 +56,9 @@
                         document.getElementById('getItForLoggedUser').click();
                         return false;
                      } else if (#{userBean.internalAuthMode}) {
-                        showLoginPanel('/marketplace/subscriptions/creation/playgroundAdd.jsf');
+                        showLoginPanel('/marketplace/playground/subscriptions/creation/add.jsf');
                      } else {
-                        setRelayStateAndRedirectToIdp('/marketplace/subscriptions/creation/playgroundAdd.jsf');
+                        setRelayStateAndRedirectToIdp('/marketplace/playground/subscriptions/creation/add.jsf');
                         return false;
                       }">
                   #{msg['button.getItNow']}</button>
