@@ -290,4 +290,8 @@
     <tag-name>messageAndHintBootstrap</tag-name>
     <source>messageAndHintBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>subscriptionDetailsBlockBootstrap</tag-name>
+    <source>subscriptionDetailsBlockBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>

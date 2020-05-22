@@ -1,0 +1,157 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!-- TODO #851 -->
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+        >
+
+  <c:set var="mpImgUrl" value="/marketplace/img" />
+  <c:set var="sortIcon" value="#{mpImgUrl}/transparentPixel.png?id=sort" />
+  <c:set var="sortIconAscending" value="#{mpImgUrl}/transparentPixel.png?id=sortAscending" />
+  <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending" />
+
+  <c:set var="colAssign" value="#{statePrefix}ColAssign"/>
+  <c:set var="colUserId" value="#{statePrefix}ColUserId"/>
+  <c:set var="colFirstName" value="#{statePrefix}ColFirstName"/>
+  <c:set var="colLastName" value="#{statePrefix}ColLastName"/>
+  <c:set var="colFirstName1" value="#{statePrefix}ColFirstName1"/>
+  <c:set var="colRole" value="#{statePrefix}ColRole"/>
+
+  <a4j:outputPanel id="userTablePanel"  layout="block" styleClass="tablePanel table_padding" rendered="#{empty rendered or rendered}">
+
+    <rich:dataTable id="userTable" value="#{data}" var="user" selectionMode="none" enableContextMenu="false"
+      noDataLabel=" " rowKeyVar="rowKey" headerClass="rowTitle" rowClasses="rowOdd,rowEven" columnClasses="wrapColumns"
+      width="100%" style="min-width:680px;position:relative;width:100%;" rows="10" render="pagerPanel" sortMode="single">
+
+      <f:facet name="header">
+        <adm:pager pagerId="#{statePrefix}UserListPager" render="userTable@body userTableScripts" pagerExecute="@form"/>
+      </f:facet>
+
+      <rich:column
+        id="#{colAssign}"
+        width="#{iconWidth}"
+        styleClass="tableColumnCheckBox"
+        style="padding-left: 0;" rendered="#{(showCheckBox eq 'true') }"
+        sortBy="#{user.selected}"
+        sortOrder="#{tableState.sortOrders[colAssign]}">
+        <h:selectBooleanCheckbox id="assignCheckbox" value="#{user.selected}" onclick="setDirty(true);">
+          <f:ajax event="change"/>
+        </h:selectBooleanCheckbox>
+      </rich:column>
+
+      <rich:column
+        id="#{colUserId}"
+        width="#{userIdWidth}"
+        sortBy="#{user.userId}"
+        sortOrder="#{tableState.sortOrders[colUserId]}"
+        filterType="custom"
+        filterValue="#{tableState.filterValues[colUserId]}"
+        filterExpression="#{adm:matchBegin(user.userId, tableState.filterValues[colUserId], false)}">
+        <f:facet name="header">
+          <h:outputText value="#{msg['user.userId']}" />
+          <adm:filterInput inputId="filterUserId" inputValue="#{tableState.filterValues[colUserId]}"
+            onkeyup="AdmUtils.setFirstPage(#{rich:element('#{statePrefix}UserListPager')});"
+            render="userTable@body, pagerPanel"/>
+        </f:facet>
+        <a4j:outputPanel layout="block" id="userIdText" styleClass="stringInMultiLine preserveWhitespaces">
+           <h:outputText id="userId" value="#{user.userId}" />
+        </a4j:outputPanel>
+      </rich:column>
+
+      <rich:column
+        id="#{colFirstName}"
+        sortBy="#{user.firstName}"
+        sortOrder="#{tableState.sortOrders[colFirstName]}"
+        width="#{nameWidth}"
+        rendered="#{not sessionBean.nameSequenceReversed}"
+        filterType="custom"
+        filterValue="#{tableState.filterValues[colFirstName]}"
+        filterExpression="#{adm:matchBegin(user.firstName, tableState.filterValues[colFirstName], false)}">
+        <f:facet name="header">
+          <h:outputText value="#{msg['user.firstName']}" />
+          <adm:filterInput inputId="filterFirstName" inputValue="#{tableState.filterValues[colFirstName]}"
+            onkeyup="AdmUtils.setFirstPage(#{rich:element('#{statePrefix}UserListPager')});"
+            render="userTable@body, pagerPanel"/>
+        </f:facet>
+        <a4j:outputPanel layout="block" id="firstNameText" styleClass="stringInMultiLine preserveWhitespaces">
+           <h:outputText id="firstName" value="#{user.firstName}"/>
+        </a4j:outputPanel>
+      </rich:column>
+
+      <rich:column
+        id="#{colLastName}"
+        sortBy="#{user.lastName}"
+        sortOrder="#{tableState.sortOrders[colLastName]}"
+        width="#{nameWidth}"
+        filterType="custom"
+        filterValue="#{tableState.filterValues[colLastName]}"
+        filterExpression="#{adm:matchBegin(user.lastName, tableState.filterValues[colLastName], false)}">
+        <f:facet name="header">
+          <h:outputText value="#{msg['user.lastName']}" />
+          <adm:filterInput inputId="filterLastName" inputValue="#{tableState.filterValues[colLastName]}"
+            onkeyup="AdmUtils.setFirstPage(#{rich:element('#{statePrefix}UserListPager')});"
+            render="userTable@body, pagerPanel"/>
+        </f:facet>
+        <a4j:outputPanel layout="block" id="lastNameText" styleClass="stringInMultiLine preserveWhitespaces">
+           <h:outputText id="lastName" value="#{user.lastName}" />
+        </a4j:outputPanel>
+      </rich:column>
+
+      <rich:column
+        id="#{colFirstName1}"
+        sortBy="#{user.firstName}"
+        sortOrder="#{tableState.sortOrders[colFirstName1]}"
+        width="#{nameWidth}"
+        rendered="#{sessionBean.nameSequenceReversed}"
+        filterType="custom"
+        filterValue="#{tableState.filterValues[colFirstName1]}"
+        filterExpression="#{adm:matchBegin(user.firstName, tableState.filterValues[colFirstName1], false)}">
+        <f:facet name="header">
+          <h:outputText value="#{msg['user.firstName']}" />
+          <adm:filterInput inputId="filterFirstName1" inputValue="#{tableState.filterValues[colFirstName1]}"
+            onkeyup="AdmUtils.setFirstPage(#{rich:element('#{statePrefix}UserListPager')});"
+            render="userTable@body, pagerPanel"/>
+        </f:facet>
+        <a4j:outputPanel layout="block" id="firstName1Text" styleClass="stringInMultiLine preserveWhitespaces">
+           <h:outputText id="firstName1" value="#{user.firstName}" />
+        </a4j:outputPanel>
+      </rich:column>
+
+      <rich:column
+        id="#{colRole}"
+        sortBy="#{user.roleKey}"
+        sortOrder="#{tableState.sortOrders[colRole]}"
+        rendered="#{rolesReadOnly or not empty serviceRoles}"
+        width="#{userRoleWidth}">
+        <f:facet name="header">
+          <h:outputText value="#{msg['user.subscriptionRole']}" />
+        </f:facet>
+        <h:outputText rendered="#{rolesReadOnly}" value="#{user.voUsageLicense.roleDefinition.name}" />
+        <h:selectOneMenu rendered="#{not empty serviceRoles}" id="role" value="#{user.roleKey}"
+          style="width: 100%;white-space: nowrap;" valueChangeListener="#{user.roleKeyChanged}" immediate="true" >
+          <t:selectItems value="#{serviceRoles}" var="role" itemLabel="#{role.name}" itemValue="#{role.key}" />
+          <f:ajax event="change"/>
+        </h:selectOneMenu>
+      </rich:column>
+
+      <rich:column width="40" rendered="#{(showDeleteIcon eq 'true') }">
+        <a4j:commandButton styleClass="deassignButton" id="deassignBt" action="#{controller.determineUserToDeassign}"
+          image="/marketplace/img/transparentPixel.png" title="#{msg['subscription.users.deassign.title']}"
+          render="deassignConfirmPl" oncomplete="#{rich:component('deassignConfirmPl')}.show();return false;"
+          onclick="AdmUtils.showProgress(true);">
+          <a4j:param name="userToDeassign" value="#{user.userId}" />
+        </a4j:commandButton>
+      </rich:column>
+    </rich:dataTable>
+  	<a4j:jsFunction name="saveSelectUser" render="userTablePanel"/>
+
+  </a4j:outputPanel>
+</ui:composition>

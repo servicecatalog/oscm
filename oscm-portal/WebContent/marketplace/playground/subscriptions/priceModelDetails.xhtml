@@ -1,0 +1,171 @@
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!-- TODO #851 -->
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:a4j="http://richfaces.org/a4j"
+  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+  
+  <!-- Input parameter: priceModel (the price model that should be displayed) -->
+
+  <a4j:outputPanel layout="block" styleClass="step" rendered="#{empty rendered or rendered}">
+    <h1>
+      <h:outputText style="float:left;" value="#{msg['marketplace.services.overview']}" />
+    </h1>
+    <h:outputText styleClass="priceSubtext" value="#{msg['priceModel.noVat']}" />
+  </a4j:outputPanel>
+  <mp:pixelline />
+
+  <a4j:outputPanel layout="block" styleClass="priceModelDescription">
+    <h:outputText value="#{priceModel.description}" escape="false" />
+  </a4j:outputPanel>
+
+  <!-- Base prices section -->
+  <h2>
+    <adm:outputStep value="#{msg['subscription.priceModel.basePrices.label']}" />
+    <h:outputText styleClass="recommendedPriceHint" value=" #{msg['service.recommendedRetailPriceHint']}"
+      rendered="#{model.service.reseller and model.service.priceModel.chargeable}" />
+  </h2>
+  <mp:pixelline />
+
+  <c:if test="#{not empty model.discount}">
+    <a4j:outputPanel id="discount" layout="block" styleClass="discount" rendered="#{empty rendered or rendered}">
+      <h:outputText value="#{model.discount.discountToDisplay}" />
+    </a4j:outputPanel>
+  </c:if>
+
+  <adm:panelGrid panelId="basePricesPanel">
+
+    <adm:outputLabel value="#{msg['priceModel.label.freePeriod']}"
+      rendered="#{priceModel.chargeable and priceModel.freePeriod > 0}" />
+    <h:outputText value="#{priceModel.freePeriod}" rendered="#{priceModel.chargeable and priceModel.freePeriod > 0}" />
+    <h:outputText value="" rendered="#{priceModel.chargeable and priceModel.freePeriod > 0}" />
+
+    <!-- CURRENCY -->
+    <adm:outputLabel value="#{msg['priceModel.text.currency.label']}" />
+    <h:outputText value="#{priceModel.currencyISOCode}" />
+    <h:outputText value="" />
+
+    <!-- PERIOD -->
+    <adm:outputLabel value="#{msg['priceModel.pricingPeriod']}" rendered="#{priceModel.chargeable}" />
+    <c:set var="key" value="PricingPeriod.#{priceModel.period}" />
+    <h:outputText value="#{msg[key]}" rendered="#{priceModel.chargeable}" />
+    <h:outputText value="" rendered="#{priceModel.chargeable}" />
+    
+    <!-- PERIOD CALCULATION MODE -->
+    <adm:outputLabel value="#{msg['priceModel.period.calculation.label']}" rendered="#{priceModel.type=='PER_UNIT'}" />
+    <h:outputFormat id="timezone" value="#{msg['priceModel.period.timezone']}" rendered="#{priceModel.type=='PER_UNIT'}">
+      <f:param value="#{priceModel.timezone}" />
+    </h:outputFormat>
+    <h:outputText value="" rendered="#{priceModel.type=='PER_UNIT'}" />
+
+    <!-- ONE TIME FEE -->
+    <adm:outputLabel value="#{msg['priceModel.edit.oneTimeFee.label']}" />
+    <h:outputText id="oneTimeFee" value="#{priceModel.oneTimeFee}">
+      <f:converter converterId="currency.converter" />
+    </h:outputText>
+    <h:outputText value="" />
+
+    <!-- RECURRING CHARGE PER SUBSCRIPTION -->
+    <adm:outputLabel value="#{msg['priceModel.combobox.chargePerSubscription.label']}" />
+    <h:outputText id="recChargePerSubs" value="#{priceModel.pricePerPeriod}">
+      <f:converter converterId="currency.converter" />
+    </h:outputText>
+    <h:outputText value="" />
+
+    <!-- RECURRING CHARGE PER USER -->
+    <adm:outputLabel value="#{msg['priceModel.combobox.chargePerUser.label']}" rendered="#{not model.directAccess}" />
+    <h:outputText id="recChargePerUser" rendered="#{empty priceModel.steppedPrices and not model.directAccess}"
+      value="#{priceModel.pricePerUserAssignment}">
+      <f:converter converterId="currency.converter" />
+    </h:outputText>
+
+    <rich:dataTable id="steppedPriceTable" rendered="#{not empty priceModel.steppedPrices}"
+      value="#{priceModel.steppedPrices}" var="row" rowKeyVar="rowKey">
+      <rich:column>
+        <f:facet name="header">
+          <h:outputText value="#{msg['priceModel.steppedPrice.price']}" />
+        </f:facet>
+        <h:outputText id="steppedPricePrice" value="#{row.price}">
+          <f:converter converterId="currency.converter" />
+        </h:outputText>
+      </rich:column>
+      <rich:column>
+        <f:facet name="header">
+          <h:outputText value="#{msg['priceModel.steppedPrice.limit']}" />
+        </f:facet>
+        <h:outputText id="steppedPriceLimit" value="#{row.limit}"
+          rendered="#{fn:length(priceModel.steppedPrices) - 1 != rowKey}" />
+        <h:outputText id="steppedPriceNoLimit" value="#{msg['priceModel.steppedPrice.noLimit']}"
+          rendered="#{fn:length(priceModel.steppedPrices) - 1 == rowKey}" />
+      </rich:column>
+    </rich:dataTable>
+    <!-- Bug 8479: Empty panelGroup avoids warning message in log files, since three columns are expected. -->
+    <h:panelGroup rendered="#{not model.directAccess}" />
+  </adm:panelGrid>
+
+  <!-- EVENT PRICES SECTION -->
+  <ui:fragment rendered="#{not empty priceModel.consideredEvents}">
+    <mp:outputStep value="#{msg['subscription.priceModel.eventPrices.label']}" />
+    <adm:dataTable tableId="eventTable" value="#{model.serviceEvents}"
+      label="#{msg['subscription.priceModel.event.table.header']}" collapsible="false">
+      <rich:column>
+        <f:facet name="header">
+          <h:outputLabel value="#{msg['eventTable.description']}" />
+        </f:facet>
+        <h:outputLabel id="eventDescription" value="#{rowItem.eventDescription}" />
+      </rich:column>
+      <rich:column>
+        <f:facet name="header">
+          <h:outputLabel value="#{msg['eventTable.price']}" />
+        </f:facet>
+        <h:outputText id="price" value="#{rowItem.eventPrice}" label="#{rowItem.id}"
+          rendered="#{empty rowItem.steppedPrice}">
+          <f:converter converterId="currency.converter" />
+        </h:outputText>
+        <h:outputText id="eventSteppedPricePrice" value="#{rowItem.price}" rendered="#{not empty rowItem.steppedPrice}">
+          <f:converter converterId="currency.converter" />
+        </h:outputText>
+      </rich:column>
+      <rich:column rendered="#{model.pricedEventsWithSteppedPrices}">
+        <f:facet name="header">
+          <h:outputText value="#{msg['priceModel.steppedPrice.limit']}" />
+        </f:facet>
+        <h:outputText id="eventSteppedPriceLimit" value="#{rowItem.steppedPrice.limit}"
+          rendered="#{not rowItem.lastSteppedPrice and not empty rowItem.steppedPrice}" />
+        <h:outputText id="eventSteppedPriceNoLimit" value="#{msg['priceModel.steppedPrice.noLimit']}"
+          rendered="#{rowItem.lastSteppedPrice}" />
+      </rich:column>
+    </adm:dataTable>
+  </ui:fragment>
+
+  <!-- PARAMETERS TABLE -->
+  <ui:fragment rendered="#{not empty model.serviceParameters}">
+    <a4j:outputPanel style="padding: 5px;">
+      <mp:outputStep value="#{msg['subscription.priceModel.parameterPrices.label']}" />
+      <ui:include src="../../../subscription/paramtable.xhtml">
+        <ui:param name="inputList" value="#{model.serviceParameters}" />
+        <ui:param name="formName" value="#{idPrefix}#{empty formName2 ? 'priceModelDetail' : formName2}" />
+        <ui:param name="readOnly" value="true" />
+        <ui:param name="showConfigurable" value="false" />
+        <ui:param name="showPrices" value="true" />
+        <ui:param name="showSteppedPrices" value="#{model.parametersWithSteppedPrices}" />
+        <ui:param name="hideUserPrices" value="#{model.directAccess}" />
+        <ui:param name="isCollapsible" value="false" />
+        <ui:param name="isOneTimeMarked" value="false" />
+      </ui:include>
+    </a4j:outputPanel>
+  </ui:fragment>
+
+  <!-- ROLES TABLE -->
+  <ui:fragment rendered="#{not empty model.roleSpecificPrices}">
+    <mp:outputStep value="#{msg['subscription.priceModel.rolePrices.label']}" />
+    <ui:include src="../../../subscription/rolepricetable.xhtml">
+      <ui:param name="inputList" value="#{model.roleSpecificPrices}" />
+      <ui:param name="isCollapsible" value="false" />
+    </ui:include>
+  </ui:fragment>
+</ui:composition>
