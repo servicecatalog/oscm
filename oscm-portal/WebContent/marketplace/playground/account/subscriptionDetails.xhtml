@@ -74,30 +74,31 @@
 
 
         <!-- TABS -->
-      <div class="col px-1">
-      <div class="list-group list-group-horizontal-sm text-center" id="list-tab" role="tablist">
-          <a class="tabControl list-group-item list-group-item-secondary list-group-item-action active" id="userTabLink"
+
+        <div class="list-group list-group-horizontal-sm text-center" id="list-tab" role="tablist">
+          <a class="list-group-item list-group-item-secondary list-group-item-action active" id="userTabLink"
              data-toggle="list" href="#userTab" role="tab" aria-controls="userTab">#{msg['subscription.users']}</a>
-          <a
-              class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="configurationTabLink"
-              data-toggle="list" href="#configurationTab" role="tab" aria-controls="configurationTab">#{msg['subscription.configuration']}</a>
+          <a class="list-group-item list-group-item-secondary list-group-item-action" id="configurationTabLink"
+             data-toggle="list" href="#configurationTab" role="tab" aria-controls="configurationTab">#{msg['subscription.configuration']}</a>
           <ui:fragment
               rendered="#{manageSubscriptionModel.subscription.priceModel.chargeable and empty appBean.hiddenUIElements['marketplace.navigation.Payment'] and manageSubscriptionModel.paymentTabAvailable}">
-            <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="paymentTabLink"
+            <a class="list-group-item list-group-item-secondary list-group-item-action" id="paymentTabLink"
                data-toggle="list" href="#paymentTab" role="tab" aria-controls="paymentTab">#{msg['subscription.payment']}</a>
           </ui:fragment>
-          <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="upgradeTabLink"
-             data-toggle="list" href="#upgradeTab" role="tab" aria-controls="upgradeTab">#{msg['subscription.upgrade']}</a>
+          <a class="list-group-item list-group-item-secondary list-group-item-action" id="upgradeTabLink"
+             data-toggle="list" href="#upgradeTab" role="tab"
+             aria-controls="upgradeTab">#{msg['subscription.upgrade']}</a>
           <ui:fragment rendered="#{manageSubscriptionModel.priceModel.chargeable}">
-            <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="priceModelTabLink"
+            <a class="list-group-item list-group-item-secondary list-group-item-action" id="priceModelTabLink"
                data-toggle="list" href="#priceModelTab" role="tab" aria-controls="priceModelTab">#{msg['service.priceModel']}</a>
           </ui:fragment>
           <ui:fragment rendered="#{manageSubscriptionModel.priceModel.external}">
-            <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="priceModelExternalTabLink"
+            <a class="list-group-item list-group-item-secondary list-group-item-action" id="priceModelExternalTabLink"
                data-toggle="list" href="#priceModelExternalTab" role="tab" aria-controls="priceModelExternalTab">#{msg['service.priceModel']}</a>
           </ui:fragment>
-          <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="supplierTabLink"
-             data-toggle="list" href="#supplierTab" role="tab" aria-controls="supplierTab">#{msg['service.supplier']}</a>
+          <a class="list-group-item list-group-item-secondary list-group-item-action" id="supplierTabLink"
+             data-toggle="list" href="#supplierTab" role="tab"
+             aria-controls="supplierTab">#{msg['service.supplier']}</a>
         </div>
         <div class="mt-1 px-2 text-justify">
           <div class="tab-content" id="subscriptionTablePanel">
@@ -529,7 +530,6 @@
             </div>
           </div>
         </div>
-      </div>
 
 
         <h:form>
