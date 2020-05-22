@@ -41,8 +41,7 @@ public class UserRolesInterceptor {
 
   private String getPrincipalName() {
     final Principal p = ejbCtx.getCallerPrincipal();
-    String pName = (p != null) ? p.getName() : "Unknown";
-    return pName;
+    return (p != null) ? p.getName() : "Unknown";
   }
 
   private boolean hasAccess(InvocationContext context) {
