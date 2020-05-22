@@ -9,8 +9,6 @@
  */
 package org.oscm.marketplace;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -23,6 +21,8 @@ import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.MarketplacePathSegments;
 import org.oscm.webtest.PortalTester;
+
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplacePlaygroundAccountWT {
@@ -138,7 +138,7 @@ public class MarketplacePlaygroundAccountWT {
         "Smiths organization");
     tester.writeValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_EMAIL_FIELD,
-        "smiths.organization@email.com");
+        "smiths.organization@playground.com");
     tester.writeValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ORGANIZATION_ADDRESS_FIELD,
         "Australia\nSmall Village 10");
@@ -146,6 +146,7 @@ public class MarketplacePlaygroundAccountWT {
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_COUNTRY_DROPDOWN, "AU");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SAVE_BUTTON_ID);
 
+    tester.readContentOfMessage();
     assertTrue(tester.readInfoMessage().contains("Your profile has been successfully saved"));
   }
 
@@ -161,11 +162,12 @@ public class MarketplacePlaygroundAccountWT {
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_FIRST_NAME_FIELD, "Jacob");
     tester.writeValue(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_LAST_NAME_FIELD, "Smith");
     tester.writeValue(
-        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_EMAIL_FIELD, "jacob.smith@email.com");
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_EMAIL_FIELD, "jacob.smith@playground.com");
     tester.selectDropdown(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_LANGUAGE_DROPDOWN, "en");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON);
 
+    tester.readContentOfMessage();
     assertTrue(tester.readInfoMessage().contains("Your profile has been successfully saved"));
   }
 
@@ -179,6 +181,7 @@ public class MarketplacePlaygroundAccountWT {
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_VALUE_FIELD, "value");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_SAVE_BUTTON);
 
+    tester.readContentOfMessage();
     assertTrue(tester.readInfoMessage().contains("The attributes have been successfully saved"));
   }
 }

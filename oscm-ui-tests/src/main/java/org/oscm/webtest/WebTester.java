@@ -9,13 +9,6 @@
  */
 package org.oscm.webtest;
 
-import java.io.FileInputStream;
-import java.net.InetAddress;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +22,14 @@ import org.oscm.webtest.authentication.AuthenticationContext;
 import org.oscm.webtest.authentication.InternalAuthenticationContext;
 import org.oscm.webtest.authentication.OIDCAuthenticationContext;
 import org.oscm.webtest.exception.ConfigurationException;
+
+import java.io.FileInputStream;
+import java.net.InetAddress;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
@@ -428,6 +429,19 @@ public class WebTester {
     } catch (StaleElementReferenceException e) {
       WebElement element = driver.findElement(By.id(id));
       return element.getAttribute("class");
+    }
+  }
+
+  /**
+   * Reads the info/error message from the page notification.
+   *
+   * @return the content of message
+   */
+  public void readContentOfMessage() {
+    if (driver.findElements(By.id(PortalHtmlElements.PORTAL_SPAN_INFOS)).size()!= 0) {
+      log(readText(PortalHtmlElements.PORTAL_SPAN_INFOS));
+    } else if (driver.findElements(By.id(PortalHtmlElements.PORTAL_SPAN_ERRORS)).size()!= 0) {
+      log(readText(PortalHtmlElements.PORTAL_SPAN_ERRORS));
     }
   }
 }
