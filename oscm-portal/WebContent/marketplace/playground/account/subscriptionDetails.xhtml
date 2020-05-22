@@ -74,30 +74,30 @@
 
 
         <!-- TABS -->
-
-        <div class="list-group list-group-horizontal-sm text-center" id="list-tab" role="tablist">
+      <div class="col px-1">
+      <div class="list-group list-group-horizontal-sm text-center" id="list-tab" role="tablist">
           <a class="tabControl list-group-item list-group-item-secondary list-group-item-action active" id="userTabLink"
-            data-toggle="list" href="#userTab" role="tab" aria-controls="userTab">#{msg['subscription.users']}</a>
+             data-toggle="list" href="#userTab" role="tab" aria-controls="userTab">#{msg['subscription.users']}</a>
           <a
-            class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="configurationTabLink"
-            data-toggle="list" href="#configurationTab" role="tab" aria-controls="configurationTab">#{msg['subscription.configuration']}</a>
+              class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="configurationTabLink"
+              data-toggle="list" href="#configurationTab" role="tab" aria-controls="configurationTab">#{msg['subscription.configuration']}</a>
           <ui:fragment
-            rendered="#{manageSubscriptionModel.subscription.priceModel.chargeable and empty appBean.hiddenUIElements['marketplace.navigation.Payment'] and manageSubscriptionModel.paymentTabAvailable}">
+              rendered="#{manageSubscriptionModel.subscription.priceModel.chargeable and empty appBean.hiddenUIElements['marketplace.navigation.Payment'] and manageSubscriptionModel.paymentTabAvailable}">
             <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="paymentTabLink"
-              data-toggle="list" href="#paymentTab" role="tab" aria-controls="paymentTab">#{msg['subscription.payment']}</a>
+               data-toggle="list" href="#paymentTab" role="tab" aria-controls="paymentTab">#{msg['subscription.payment']}</a>
           </ui:fragment>
           <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="upgradeTabLink"
-            data-toggle="list" href="#upgradeTab" role="tab" aria-controls="upgradeTab">#{msg['subscription.upgrade']}</a>
+             data-toggle="list" href="#upgradeTab" role="tab" aria-controls="upgradeTab">#{msg['subscription.upgrade']}</a>
           <ui:fragment rendered="#{manageSubscriptionModel.priceModel.chargeable}">
             <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="priceModelTabLink"
-              data-toggle="list" href="#priceModelTab" role="tab" aria-controls="priceModelTab">#{msg['service.priceModel']}</a>
+               data-toggle="list" href="#priceModelTab" role="tab" aria-controls="priceModelTab">#{msg['service.priceModel']}</a>
           </ui:fragment>
           <ui:fragment rendered="#{manageSubscriptionModel.priceModel.external}">
             <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="priceModelExternalTabLink"
-              data-toggle="list" href="#priceModelExternalTab" role="tab" aria-controls="priceModelExternalTab">#{msg['service.priceModel']}</a>
+               data-toggle="list" href="#priceModelExternalTab" role="tab" aria-controls="priceModelExternalTab">#{msg['service.priceModel']}</a>
           </ui:fragment>
           <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="supplierTabLink"
-            data-toggle="list" href="#supplierTab" role="tab" aria-controls="supplierTab">#{msg['service.supplier']}</a>
+             data-toggle="list" href="#supplierTab" role="tab" aria-controls="supplierTab">#{msg['service.supplier']}</a>
         </div>
         <div class="mt-1 px-2 text-justify">
           <div class="tab-content" id="subscriptionTablePanel">
@@ -115,7 +115,7 @@
 
               <!-- include popup -->
               <a4j:outputPanel
-                rendered="#{not empty manageSubscriptionModel.serviceRoles and not empty manageSubscriptionModel.assignedUsers}">
+                  rendered="#{not empty manageSubscriptionModel.serviceRoles and not empty manageSubscriptionModel.assignedUsers}">
                 <c:set var="dialogId" value="editRolesPanel" />
                 <c:set var="dialogWidth" value="750" />
                 <c:set var="dialogHelpId" value="subscription_assignUsers" />
@@ -128,7 +128,7 @@
               <h:form id="usersForm">
 
                 <a4j:outputPanel layout="block" styleClass="box error"
-                  rendered="#{manageSubscriptionModel.showProvisioningError}">
+                                 rendered="#{manageSubscriptionModel.showProvisioningError}">
                   <dl>
                     <dt>
                       <h:outputText value="#{manageSubscriptionModel.provisioningError}" />
@@ -137,10 +137,10 @@
                 </a4j:outputPanel>
 
                 <mp:notice rendered="#{manageSubscriptionModel.showProvisioningWarning}"
-                  noticeText="#{manageSubscriptionModel.provisioningWarning}" />
+                           noticeText="#{manageSubscriptionModel.provisioningWarning}" />
 
                 <a4j:outputPanel layout="block" styleClass="box suspendedNotMessage suspended"
-                  rendered="#{manageSubscriptionModel.showStateWarning}">
+                                 rendered="#{manageSubscriptionModel.showStateWarning}">
                   <dl>
                     <dt>
                       <h:outputText value="#{manageSubscriptionModel.stateWarning}" />
@@ -150,32 +150,32 @@
                 <div class="bottomButtonPanel assignUserButton">
 
                   <mp:button id="editRoles" value="#{msg['button.editRoles']}" render="editRolesPanelTitle"
-                    bean="#{manageSubscriptionCtrl}" action="setPopupTargetEditRoles"
-                    rendered="#{not empty manageSubscriptionModel.serviceRoles and not empty manageSubscriptionModel.assignedUsers}"
-                    disabled="#{manageSubscriptionCtrl.model.usersTabDisabled}"
-                    oncomplete="AdmUtils.showProgress(false);RichFaces.$('editRolesPanel').show();" />
+                             bean="#{manageSubscriptionCtrl}" action="setPopupTargetEditRoles"
+                             rendered="#{not empty manageSubscriptionModel.serviceRoles and not empty manageSubscriptionModel.assignedUsers}"
+                             disabled="#{manageSubscriptionCtrl.model.usersTabDisabled}"
+                             oncomplete="AdmUtils.showProgress(false);RichFaces.$('editRolesPanel').show();" />
                   <h:commandButton id="assignUsers" value="#{msg['button.assignUsers']}" type="button"
-                    onclick="AdmUtils.showProgress(true);updateUnassignedUsersContent();" styleClass="button"
-                    disabled="#{manageSubscriptionCtrl.model.usersTabDisabled}" />
+                                   onclick="AdmUtils.showProgress(true);updateUnassignedUsersContent();" styleClass="button"
+                                   disabled="#{manageSubscriptionCtrl.model.usersTabDisabled}" />
                   <a4j:jsFunction name="updateUnassignedUsersContent"
-                    action="#{manageSubscriptionCtrl.setPopupTargetAssignUsers}"
-                    oncomplete="AdmUtils.showProgress(false);if(#{manageSubscriptionModel.assignAllowed}) RichFaces.$('assignUsersPanel').show();"
-                    render="assignUsersPanelTitle, assignUsersPanelForm" />
+                                  action="#{manageSubscriptionCtrl.setPopupTargetAssignUsers}"
+                                  oncomplete="AdmUtils.showProgress(false);if(#{manageSubscriptionModel.assignAllowed}) RichFaces.$('assignUsersPanel').show();"
+                                  render="assignUsersPanelTitle, assignUsersPanelForm" />
                 </div>
                 <mp:outputStep id="outputStep" value="#{msg['subscription.users.assigned.users.title']}"
-                  style="width: 65%" />
+                               style="width: 65%" />
               </h:form>
 
               <h:form id="userListForm">
                 <a4j:queue requestDelay="500" ignoreDupResponses="true"
-                  oncomplete="jQuery('body').removeClass('hourglass');" onsubmit="jQuery('body').addClass('hourglass');" />
+                           oncomplete="jQuery('body').removeClass('hourglass');" onsubmit="jQuery('body').addClass('hourglass');" />
                 <mp:confirmPanel panelId="deassignConfirmPl" header="#{msg['subscription.users.deassign.title']}"
-                  bean="#{manageSubscriptionCtrl}" text1="#{manageSubscriptionModel.deassignMessage}"
-                  text2="#{msg['marketplace.areyousure']}" submitId="confirmedDeassignBt" />
+                                 bean="#{manageSubscriptionCtrl}" text1="#{manageSubscriptionModel.deassignMessage}"
+                                 text2="#{msg['marketplace.areyousure']}" submitId="confirmedDeassignBt" />
 
                 <a4j:commandButton style="display:none;" id="confirmedDeassignBt"
-                  action="#{manageSubscriptionCtrl.deassignUser}" onclick="setDirty(false);AdmUtils.showProgress(true);"
-                  oncomplete="#{rich:component('deassignConfirmPl')}.hide(); AdmUtils.showProgress(false);">
+                                   action="#{manageSubscriptionCtrl.deassignUser}" onclick="setDirty(false);AdmUtils.showProgress(true);"
+                                   oncomplete="#{rich:component('deassignConfirmPl')}.hide(); AdmUtils.showProgress(false);">
                 </a4j:commandButton>
 
                 <c:set var="showRoles" value="#{not empty manageSubscriptionModel.serviceRoles}" />
@@ -194,7 +194,7 @@
                 </ui:include>
 
                 <mp:notice rendered="#{(empty manageSubscriptionModel.assignedUsers)}"
-                  noticeText="#{msg['info.subscriptions.noUsers']}" />
+                           noticeText="#{msg['info.subscriptions.noUsers']}" />
               </h:form>
 
             </div>
@@ -212,9 +212,9 @@
 
               <h:form id="configurationForm">
                 <a4j:jsFunction name="jsLeaveTabFunction" action="#{manageSubscriptionCtrl.reload}"
-                  render="basicInfo, udaInfo, parameterConfigTable" />
+                                render="basicInfo, udaInfo, parameterConfigTable" />
                 <a4j:outputPanel layout="block" styleClass="box error"
-                  rendered="#{manageSubscriptionModel.showProvisioningError}">
+                                 rendered="#{manageSubscriptionModel.showProvisioningError}">
                   <dl>
                     <dt>
                       <h:outputText value="#{manageSubscriptionModel.provisioningError}" />
@@ -222,9 +222,9 @@
                   </dl>
                 </a4j:outputPanel>
                 <mp:notice rendered="#{manageSubscriptionModel.showProvisioningWarning}"
-                  noticeText="#{manageSubscriptionModel.provisioningWarning}" />
+                           noticeText="#{manageSubscriptionModel.provisioningWarning}" />
                 <a4j:outputPanel layout="block" styleClass="box suspendedNotMessage suspended"
-                  rendered="#{manageSubscriptionModel.showStateWarning}">
+                                 rendered="#{manageSubscriptionModel.showStateWarning}">
                   <dl>
                     <dt>
                       <h:outputText value="#{manageSubscriptionModel.stateWarning}" />
@@ -234,45 +234,45 @@
                 <mp:outputStep value="#{msg['marketplace.subscription.configuration.nameAndReference']}" />
                 <adm:panelGrid panelId="basicInfo">
                   <adm:labelAndInputText id="subscriptionIdText" label="#{msg['subscription.newSubscriptionId']}"
-                    required="true" value="#{manageSubscriptionModel.subscription.subscriptionId}"
-                    maxlength="#{appBean.idLen}" validatorId="idChar" converterId="trimConverter" showHint="true"
-                    disabled="#{manageSubscriptionModel.cfgTabDisabled}" />
+                                         required="true" value="#{manageSubscriptionModel.subscription.subscriptionId}"
+                                         maxlength="#{appBean.idLen}" validatorId="idChar" converterId="trimConverter" showHint="true"
+                                         disabled="#{manageSubscriptionModel.cfgTabDisabled}" />
                   <adm:labelAndInputText id="purchaseOrderNumberText" label="#{msg['subscription.purchaseOrderNumber']}"
-                    value="#{manageSubscriptionModel.subscription.purchaseOrderNumber}"
-                    maxlength="#{appBean.descriptionLen}" showHint="true" converterId="trimConverter"
-                    disabled="#{manageSubscriptionModel.cfgTabDisabled}" />
+                                         value="#{manageSubscriptionModel.subscription.purchaseOrderNumber}"
+                                         maxlength="#{appBean.descriptionLen}" showHint="true" converterId="trimConverter"
+                                         disabled="#{manageSubscriptionModel.cfgTabDisabled}" />
                   <t:panelGrid columns="2" styleClass="label-with-pencil"
-                    rendered="#{userBean.isOrganizationAdmin or userBean.isUnitAdmin}">
+                               rendered="#{userBean.isOrganizationAdmin or userBean.isUnitAdmin}">
                     <adm:outputLabel textId="subscriptionOwnerId" value="#{msg['subscription.owner']}" />
                     <h:commandButton id="assignSubOwner" rendered="#{not manageSubscriptionModel.cfgTabDisabled}"
-                      type="button" styleClass="editPen" disabled="#{manageSubscriptionModel.cfgTabDisabled}"
-                      render="configurationForm"
-                      onclick="if(getDirty()==true){setPageDirty();};initializeSubscriptionOwners();">
+                                     type="button" styleClass="editPen" disabled="#{manageSubscriptionModel.cfgTabDisabled}"
+                                     render="configurationForm"
+                                     onclick="if(getDirty()==true){setPageDirty();};initializeSubscriptionOwners();">
                     </h:commandButton>
                   </t:panelGrid>
 
                   <a4j:outputPanel layout="block" id="selectedOwnerText" styleClass="subscrOwnerName clipped"
-                    rendered="#{userBean.isOrganizationAdmin or userBean.isUnitAdmin}">
+                                   rendered="#{userBean.isOrganizationAdmin or userBean.isUnitAdmin}">
                     <h:outputText value="#{manageSubscriptionModel.selectedOwnerName}"
-                      title="#{manageSubscriptionModel.selectedOwnerName}" />
+                                  title="#{manageSubscriptionModel.selectedOwnerName}" />
                   </a4j:outputPanel>
 
                   <a4j:outputPanel id="selectOwnerHint"
-                    rendered="#{userBean.isOrganizationAdmin or userBean.isUnitAdmin}">
+                                   rendered="#{userBean.isOrganizationAdmin or userBean.isUnitAdmin}">
                     <mp:messageAndHint id="subscriptionOwnerSelectionErrorMsg" for="subscriptionOwnerSelection" />
                   </a4j:outputPanel>
 
                   <t:panelGrid columns="2" styleClass="label-with-pencil">
                     <adm:outputLabel textId="subscriptionUnitName" value="#{msg['unit.organizationalUnit']}" />
                     <h:commandButton render="configurationForm" type="button" styleClass="editPen" id="editUnit"
-                      rendered="#{not manageSubscriptionModel.cfgTabDisabled and (userBean.isOrganizationAdmin or userBean.isUnitAdmin)}"
-                      onclick="if(getDirty()==true){setPageDirty();};setPopupTargetSelectUnits(); return false;">
+                                     rendered="#{not manageSubscriptionModel.cfgTabDisabled and (userBean.isOrganizationAdmin or userBean.isUnitAdmin)}"
+                                     onclick="if(getDirty()==true){setPageDirty();};setPopupTargetSelectUnits(); return false;">
                     </h:commandButton>
                   </t:panelGrid>
 
                   <a4j:outputPanel layout="block" id="selectedUnitName" styleClass="subscrOwnerName clipped">
                     <h:outputText value="#{manageSubscriptionCtrl.model.unitNameToDisplay}"
-                      title="#{manageSubscriptionCtrl.model.unitNameToDisplay}" />
+                                  title="#{manageSubscriptionCtrl.model.unitNameToDisplay}" />
                   </a4j:outputPanel>
 
                   <a4j:outputPanel id="selectUnitHint">
@@ -298,25 +298,25 @@
                     <ui:param name="dialogHeight" value="115" />
                     <ui:param name="bean" value="#{manageSubscriptionCtrl}" />
                     <ui:param name="cancelHandler"
-                      value="AdmUtils.blurButton('configurationForm:btnConfigureLabel');setDirty(false);#{rich:component(dialogId)}.hide();setSelectedTab('tabConfiguration');" />
+                              value="AdmUtils.blurButton('configurationForm:btnConfigureLabel');setDirty(false);#{rich:component(dialogId)}.hide();setSelectedTab('tabConfiguration');" />
                   </ui:include>
 
                   <a4j:outputPanel styleClass="buttonWrapper">
                     <a4j:commandLink id="btnConfigure" styleClass="button" style="text-decoration: none;"
-                      onclick="if(getDirty()==true){setPageDirty();};setOnSubmit(true);"
-                      oncomplete="if(#{manageSubscriptionModel.showExternalConfigurator}){AdmUtils.removeChildren(document.getElementById('hiddenErrorPanel'));#{rich:component('configurator')}.show();configurator.activateFallbackTimer();window.scrollTo(0,document.body.scrollHeight);}
+                                     onclick="if(getDirty()==true){setPageDirty();};setOnSubmit(true);"
+                                     oncomplete="if(#{manageSubscriptionModel.showExternalConfigurator}){AdmUtils.removeChildren(document.getElementById('hiddenErrorPanel'));#{rich:component('configurator')}.show();configurator.activateFallbackTimer();window.scrollTo(0,document.body.scrollHeight);}
                       else{AdmUtils.removeChildren(document.getElementById('infoPanel'));};"
-                      action="#{manageSubscriptionCtrl.actionLoadIframe}"
-                      disabled="#{manageSubscriptionModel.cfgTabDisabled}"
-                      render="modify_configurationWarning,hiddenErrorPanel,:externalToolDialog, :configRqScript">
+                                     action="#{manageSubscriptionCtrl.actionLoadIframe}"
+                                     disabled="#{manageSubscriptionModel.cfgTabDisabled}"
+                                     render="modify_configurationWarning,hiddenErrorPanel,:externalToolDialog, :configRqScript">
                       <h:outputText id="btnConfigureLabel" style="white-space: nowrap;"
-                        value="#{msg['button.configure']}" />
+                                    value="#{msg['button.configure']}" />
                     </a4j:commandLink>
                   </a4j:outputPanel>
                   <adm:spacer height="35" />
                   <a4j:outputPanel id="modify_configurationWarning" styleClass="configurationWarning">
                     <mp:notice rendered="#{manageSubscriptionModel.configurationChanged}"
-                      noticeText="#{msg['info.subscriptions.configuration.unsaved']}" />
+                               noticeText="#{msg['info.subscriptions.configuration.unsaved']}" />
                   </a4j:outputPanel>
 
                 </ui:fragment>
@@ -336,21 +336,21 @@
                 <mp:pixelline marginTop="10" />
                 <a4j:outputPanel layout="block" styleClass="clearfix" id="saveConfigurationPanel">
                   <mp:button id="saveConfigurationButton" value="#{msg['button.save']}" bean="#{manageSubscriptionCtrl}"
-                    rendered="#{not manageSubscriptionModel.showOwnerWarning}" action="modify"
-                    disabled="#{manageSubscriptionModel.cfgTabDisabled}" />
+                             rendered="#{not manageSubscriptionModel.showOwnerWarning}" action="modify"
+                             disabled="#{manageSubscriptionModel.cfgTabDisabled}" />
 
                   <mp:button id="saveConfigurationButtonWithWarning" value="#{msg['button.save']}"
-                    onclick="#{rich:component('confirmOwnerPanel')}.show();return false;"
-                    rendered="#{manageSubscriptionModel.showOwnerWarning}"
-                    disabled="#{manageSubscriptionModel.cfgTabDisabled}" />
+                             onclick="#{rich:component('confirmOwnerPanel')}.show();return false;"
+                             rendered="#{manageSubscriptionModel.showOwnerWarning}"
+                             disabled="#{manageSubscriptionModel.cfgTabDisabled}" />
 
                   <h:commandButton style="display:none;" id="confirmedOwnerButton" onclick="setDirty(false);"
-                    value="#{msg['button.delete']}" action="#{manageSubscriptionCtrl.modify}" immediate="true" />
+                                   value="#{msg['button.delete']}" action="#{manageSubscriptionCtrl.modify}" immediate="true" />
 
                   <mp:confirmPanel header="#{msg['marketplace.save.subscription.details']}"
-                    text1="#{manageSubscriptionModel.ownerWarningText}"
-                    text2="#{msg['warning.doYouWantToConfirmTheseChanges']}" submitId="confirmedOwnerButton"
-                    isFirstModal="false" panelId="confirmOwnerPanel" />
+                                   text1="#{manageSubscriptionModel.ownerWarningText}"
+                                   text2="#{msg['warning.doYouWantToConfirmTheseChanges']}" submitId="confirmedOwnerButton"
+                                   isFirstModal="false" panelId="confirmOwnerPanel" />
                 </a4j:outputPanel>
               </h:form>
 
@@ -373,14 +373,14 @@
               </script>
             </div>
             <ui:fragment
-              rendered="#{manageSubscriptionModel.subscription.priceModel.chargeable and empty appBean.hiddenUIElements['marketplace.navigation.Payment'] and manageSubscriptionModel.paymentTabAvailable}">
+                rendered="#{manageSubscriptionModel.subscription.priceModel.chargeable and empty appBean.hiddenUIElements['marketplace.navigation.Payment'] and manageSubscriptionModel.paymentTabAvailable}">
               <div class="tab-pane fade " id="paymentTab" role="tabpanel" aria-labelledby="paymentTabLink">
                 <h:form id="resetForm">
                   <a4j:jsFunction name="restorePaymentTab" action="#{manageSubscriptionCtrl.leavePaymentTab}"
-                    render="payment" />
+                                  render="payment" />
                 </h:form>
                 <a4j:outputPanel layout="block" styleClass="box error"
-                  rendered="#{manageSubscriptionModel.showProvisioningError}">
+                                 rendered="#{manageSubscriptionModel.showProvisioningError}">
                   <dl>
                     <dt>
                       <h:outputText value="#{manageSubscriptionModel.provisioningError}" />
@@ -388,9 +388,9 @@
                   </dl>
                 </a4j:outputPanel>
                 <mp:notice rendered="#{manageSubscriptionModel.showProvisioningWarning}"
-                  noticeText="#{manageSubscriptionModel.provisioningWarning}" />
+                           noticeText="#{manageSubscriptionModel.provisioningWarning}" />
                 <a4j:outputPanel layout="block" styleClass="box suspendedNotMessage suspended"
-                  rendered="#{manageSubscriptionModel.showStateWarning}">
+                                 rendered="#{manageSubscriptionModel.showStateWarning}">
                   <dl>
                     <dt>
                       <h:outputText value="#{manageSubscriptionModel.stateWarning}" />
@@ -409,7 +409,7 @@
             </ui:fragment>
             <div class="tab-pane fade " id="upgradeTab" role="tabpanel" aria-labelledby="upgradeTabLink">
               <a4j:outputPanel layout="block" styleClass="box error"
-                rendered="#{manageSubscriptionModel.showProvisioningError}">
+                               rendered="#{manageSubscriptionModel.showProvisioningError}">
                 <dl>
                   <dt>
                     <h:outputText value="#{manageSubscriptionModel.provisioningError}" />
@@ -417,9 +417,9 @@
                 </dl>
               </a4j:outputPanel>
               <mp:notice rendered="#{manageSubscriptionModel.showProvisioningWarning}"
-                noticeText="#{manageSubscriptionModel.provisioningWarning}" />
+                         noticeText="#{manageSubscriptionModel.provisioningWarning}" />
               <a4j:outputPanel layout="block" styleClass="box suspendedNotMessage suspended"
-                rendered="#{manageSubscriptionModel.showStateWarning}">
+                               rendered="#{manageSubscriptionModel.showStateWarning}">
                 <dl>
                   <dt>
                     <h:outputText value="#{manageSubscriptionModel.stateWarning}" />
@@ -433,9 +433,9 @@
                 <h:form id="upgradeForm">
                   <h:inputHidden id="selectedServiceKey" value="#{upgradeWizardConversation.model.selectedServiceKey}" />
                   <h:inputHidden id="selectedSubscriptionId"
-                    value="#{upgradeWizardConversation.model.selectedSubscriptionId}" />
+                                 value="#{upgradeWizardConversation.model.selectedSubscriptionId}" />
                   <h:commandButton id="upgrade" action="#{upgradeWizardConversation.upgradeSubscription}"
-                    style="display: none;" />
+                                   style="display: none;" />
                 </h:form>
 
                 <mp:outputStep value="#{msg['subscription.selectEdition']}" />
@@ -455,8 +455,8 @@
                       <mp:ratingStars reviewCount="#{service.reviewCount}" rating="#{service.rating}" />
                       <mp:servicePrice styleClass="servicePriceDetails" service="#{service}" />
                       <mp:button id="serviceButton#{service.key}" value="#{msg['button.select']}"
-                        disabled="#{manageSubscriptionModel.upgTabDisabled}"
-                        onclick="#{rich:element('selectedServiceKey')}.value=#{service.key};
+                                 disabled="#{manageSubscriptionModel.upgTabDisabled}"
+                                 onclick="#{rich:element('selectedServiceKey')}.value=#{service.key};
                                  #{rich:element('selectedSubscriptionId')}.value='#{manageSubscriptionModel.subscription.subscriptionId}';
                                  #{rich:element('upgrade')}.click();
                                  return false;" />
@@ -468,7 +468,7 @@
             <ui:fragment rendered="#{manageSubscriptionModel.priceModel.chargeable}">
               <div class="tab-pane fade " id="priceModelTab" role="tabpanel" aria-labelledby="priceModelTabLink">
                 <a4j:outputPanel layout="block" styleClass="box error"
-                  rendered="#{manageSubscriptionModel.showProvisioningError}">
+                                 rendered="#{manageSubscriptionModel.showProvisioningError}">
                   <dl>
                     <dt>
                       <h:outputText value="#{manageSubscriptionModel.provisioningError}" />
@@ -476,9 +476,9 @@
                   </dl>
                 </a4j:outputPanel>
                 <mp:notice rendered="#{manageSubscriptionModel.showProvisioningWarning}"
-                  noticeText="#{manageSubscriptionModel.provisioningWarning}" />
+                           noticeText="#{manageSubscriptionModel.provisioningWarning}" />
                 <a4j:outputPanel layout="block" styleClass="box suspendedNotMessage suspended"
-                  rendered="#{manageSubscriptionModel.showStateWarning}">
+                                 rendered="#{manageSubscriptionModel.showStateWarning}">
                   <dl>
                     <dt>
                       <h:outputText value="#{manageSubscriptionModel.stateWarning}" />
@@ -493,7 +493,7 @@
             </ui:fragment>
             <ui:fragment rendered="#{manageSubscriptionModel.priceModel.external}">
               <div class="tab-pane fade " id="priceModelExternalTab" role="tabpanel"
-                aria-labelledby="priceModelExternalTabLink">
+                   aria-labelledby="priceModelExternalTabLink">
                 <h:form>
                   <ui:include src="../../../priceModel/showExternalPriceModel.xhtml">
                     <ui:param name="controller" value="#{manageSubscriptionCtrl}" />
@@ -504,7 +504,7 @@
             </ui:fragment>
             <div class="tab-pane fade " id="supplierTab" role="tabpanel" aria-labelledby="supplierTabLink">
               <a4j:outputPanel layout="block" styleClass="box error"
-                rendered="#{manageSubscriptionModel.showProvisioningError}">
+                               rendered="#{manageSubscriptionModel.showProvisioningError}">
                 <dl>
                   <dt>
                     <h:outputText value="#{manageSubscriptionModel.provisioningError}" />
@@ -512,9 +512,9 @@
                 </dl>
               </a4j:outputPanel>
               <mp:notice rendered="#{manageSubscriptionModel.showProvisioningWarning}"
-                noticeText="#{manageSubscriptionModel.provisioningWarning}" />
+                         noticeText="#{manageSubscriptionModel.provisioningWarning}" />
               <a4j:outputPanel layout="block" styleClass="box suspendedNotMessage suspended"
-                rendered="#{manageSubscriptionModel.showStateWarning}">
+                               rendered="#{manageSubscriptionModel.showStateWarning}">
                 <dl>
                   <dt>
                     <h:outputText value="#{manageSubscriptionModel.stateWarning}" />
@@ -529,6 +529,7 @@
             </div>
           </div>
         </div>
+      </div>
 
 
         <h:form>
