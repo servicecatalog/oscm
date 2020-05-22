@@ -21,7 +21,7 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
 /** @author goebel */
-class UserRolesInterceptor {
+public class UserRolesInterceptor {
 
   @Resource SessionContext ejbCtx;
 
