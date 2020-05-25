@@ -45,7 +45,7 @@
                                      renderElementList="subscriptionsList subListPager subListPagerScripts :pagerPanel :subscriptionsListScripts"/>
      <rich:dataTable rows="10" id="subscriptionsList" value="#{subscriptionsCtrl.model}" var="sub"
                      headerClass="rowTitle sortable" rowClasses="rowOdd,rowEven" columnHeaderClass="rowTitle sortable" noDataLabel=" "
-                     styleClass="sortable table table-striped table-hover table-bordered"
+                     styleClass="sortable table table-hover table-bordered"
                      headerCellClass="rowTitle sortable" columnClasses="wrapColumns" style="width:100%">
 
       <rich:column width="#{iconWidth}" styleClass="tableColumnCheckBox">
@@ -95,6 +95,8 @@
        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
+       <ui:param name="headerClass" value="d-none d-md-table-cell" />
+       <ui:param name="styleClass" value="d-none d-md-table-cell" />
        
       </ui:include>
       <ui:include src="../subscriptions/subscriptionTableColumn.xhtml">
@@ -108,6 +110,7 @@
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
        <ui:param name="headerClass" value="d-none d-sm-table-cell" />
+       <ui:param name="styleClass" value="d-none d-sm-table-cell" />
       </ui:include>
       <ui:include src="../subscriptions/subscriptionTableDateColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
@@ -119,7 +122,8 @@
        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
-        <ui:param name="headerClass" value="d-none d-sm-table-cell" />
+       <ui:param name="headerClass" value="d-none d-sm-table-cell" />
+       <ui:param name="styleClass" value="d-none d-sm-table-cell" />
        
       </ui:include>
       <ui:include src="../subscriptions/subscriptionTableStatusColumn.xhtml">
@@ -132,7 +136,6 @@
        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
-        <ui:param name="headerClass" value="d-none d-sm-table-cell" /> 
       </ui:include>
       <f:facet name="footer">
        <a4j:outputPanel>
