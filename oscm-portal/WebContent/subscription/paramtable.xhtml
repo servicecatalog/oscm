@@ -68,7 +68,7 @@
           value="#{rowItem.booleanParameterValue}" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeBoolean}">
         </h:selectBooleanCheckbox>
-        <h:inputText id="integerValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true) p:placeholder="#{row.rangeLabel}"
+        <h:inputText id="integerValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true) p:placeholder="#{rowItem.rangeLabel}"
           value="#{rowItem.parameter.value}" maxlength="#{appBean.intLen}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="integer" minValue="#{rowItem.minValue}"
           maxValue="#{rowItem.maxValue}" disabled="#{readOnly}"
@@ -81,7 +81,7 @@
           rendered="#{rowItem.parameterDefinition.valueTypeLong and rowItem.emptyOrFirstSteppedPrice}">
           <f:validator validatorId="ParameterValueValidator" />
         </h:inputText>
-        <h:inputText id="durationValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{row.rangeLabel}
+        <h:inputText id="durationValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{rowItem.rangeLabel}
           value="#{rowItem.parameter.value}" maxlength="#{appBean.longLen}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="duration" minValue="#{rowItem.minValue}"
           maxValue="#{rowItem.maxValue}" disabled="#{readOnly}"
@@ -102,7 +102,7 @@
           <f:validator validatorId="ParameterValueValidator" />
           <f:converter converterId="trimConverter" />
         </h:inputSecret>
-        <h:outputText  class="tableParameter" id ="pwdValueRO" label="#{row.label}" value="*****"
+        <h:outputText  class="tableParameter" id ="pwdValueRO" label="#{rowItem.label}" value="*****"
                       rendered="#{rowItem.parameterDefinition.valueTypeString and rowItem.passwordType and readOnly}"/>
         <h:inputSecret  class="tableParameter" id="pwdTypeValue" label="#{rowItem.label}" onchange="setDirty(true)"
           value="#{rowItem.passwordValueToStore}" maxlength="#{appBean.descriptionLen}"
@@ -111,7 +111,7 @@
           <f:validator validatorId="ParameterValueValidator" />
           <f:converter converterId="trimConverter" />
         </h:inputSecret>
-        <h:outputText id ="pwdTypeValueRO" label="#{row.label}" value="*****"
+        <h:outputText id ="pwdTypeValueRO" label="#{rowItem.label}" value="*****"
                       rendered="#{rowItem.parameterDefinition.valueTypePWD and readOnly}"/>
         <!-- enumeration value-->
         <t:inputHidden id="enumValue" value="#{rowItem.parameter.value}" 
