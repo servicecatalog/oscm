@@ -26,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-
 import javax.annotation.Resource;
 import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
@@ -36,7 +35,6 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 import javax.persistence.Query;
-
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.accountservice.assembler.PaymentTypeAssembler;
 import org.oscm.accountservice.local.AccountServiceLocal;
@@ -140,7 +138,6 @@ import org.oscm.validator.OrganizationRoleValidator;
  *
  * @author Mike J&auml;ger
  */
-
 @DeclareRoles({
   "PLATFORM_OPERATOR",
   "ORGANIZATION_ADMIN",
@@ -216,7 +213,7 @@ public class OperatorServiceBean implements OperatorService {
           IncompatibleRolesException, MailOperationException, OrganizationAuthoritiesException,
           ObjectNotFoundException, ImageException {
     try {
-   
+
       if (rolesToGrant == null) {
         rolesToGrant = new OrganizationRoleType[0];
       }

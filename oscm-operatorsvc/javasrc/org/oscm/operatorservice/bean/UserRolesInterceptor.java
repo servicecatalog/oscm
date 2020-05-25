@@ -12,7 +12,6 @@ package org.oscm.operatorservice.bean;
 import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
-
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJBAccessException;
