@@ -107,19 +107,18 @@
           <adm:outputLabel class="col-form-label" value="#{msg['user.firstName']}"/>
          </div>
          <div class="col-md-9">
-          <h:inputText id="firstName" value="#{organizationBean.currentUser.firstName}"
-                       disabled="#{organizationBean.currentUser.firstNameDisabled}" styleClass="form-control"
-                       rendered="#{not sessionBean.nameSequenceReversed}" maxlength="#{appBean.nameLen}"/>
+          <mp:inputText id="firstName" value="#{organizationBean.currentUser.firstName}"
+                        disabled="#{organizationBean.currentUser.firstNameDisabled}" styleClass="form-control"
+                        rendered="#{not sessionBean.nameSequenceReversed}" maxlength="#{appBean.nameLen}"/>
          </div>
         </div>
         <div class="form-row pb-2">
          <label class="col-md-3 col-form-label">#{msg['user.lastName']}:</label>
          <div class="col-md-9">
-          <h:inputText id="lastName" value="#{organizationBean.currentUser.lastName}"
-                       disabled="#{organizationBean.currentUser.lastNameDisabled}"
-                       styleClass="form-control" rendered="#{not sessionBean.nameSequenceReversed}">
-           <f:validateLength maximum="#{appBean.nameLen}" />
-          </h:inputText>
+          <mp:inputText id="lastName" value="#{organizationBean.currentUser.lastName}"
+                        disabled="#{organizationBean.currentUser.lastNameDisabled}" maxlength="#{appBean.nameLen}"
+                        styleClass="form-control" rendered="#{not sessionBean.nameSequenceReversed}">
+          </mp:inputText>
          </div>
         </div>
         <div class="form-row pb-2">
@@ -127,12 +126,10 @@
           <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['user.email']}"/>
          </div>
          <div class="col-md-9">
-          <h:inputText id="email" styleClass="form-control" value="#{organizationBean.currentUser.email}"
-                       required="#{true}" disabled="#{organizationBean.currentUser.emailDisabled}">
-           <f:validateLength maximum="#{appBean.nameLen}" />
-           <f:validator validatorId="email"/>
-           <f:converter converterId="trimConverter"/>
-          </h:inputText>
+          <mp:inputText id="email" styleClass="form-control" value="#{organizationBean.currentUser.email}"
+                        required="#{true}" disabled="#{organizationBean.currentUser.emailDisabled}"
+                        converterId="trimConverter" maxlength="#{appBean.nameLen}" validatorId="email">
+          </mp:inputText>
          </div>
         </div>
         <div class="form-row pb-2">
@@ -182,11 +179,10 @@
           <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['organization.name']}"/>
          </div>
          <div class="col-md-9">
-          <h:inputText id="organizationName" value="#{organizationBean.organization.name}" styleClass="form-control"
-                       required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}">
-           <f:converter converterId="trimConverter"/>
-           <f:validateLength maximum="#{appBean.nameLen}" />
-          </h:inputText>
+          <mp:inputText id="organizationName" value="#{organizationBean.organization.name}"
+                        styleClass="form-control" converterId="trimConverter" maximum="#{appBean.nameLen}"
+                        required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}">
+          </mp:inputText>
          </div>
         </div>
         <div class="form-row pb-2">
@@ -194,13 +190,11 @@
           <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['organization.email']}"/>
          </div>
          <div class="col-md-9">
-          <h:inputText id="organizationEmail" styleClass="form-control"
-                       required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
-                       onchange="setDirty(true)" value="#{organizationBean.organization.email}">
-           <f:validateLength maximum="#{appBean.nameLen}" />
-           <f:validator validatorId="email"/>
-           <f:converter converterId="trimConverter"/>
-          </h:inputText>
+          <mp:inputText id="organizationEmail" styleClass="form-control" converterId="trimConverter"
+                        maxlength="#{appBean.nameLen}" validatorId="email" onchange="setDirty(true)"
+                        required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
+                        value="#{organizationBean.organization.email}">
+          </mp:inputText>
          </div>
         </div>
         <div class="form-row pb-2">
@@ -208,12 +202,11 @@
           <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['organization.address']}"/>
          </div>
          <div class="col-md-9">
-          <h:inputTextarea id="organizationAddress" onchange="setDirty(true)" rows="5"
-                           required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
-                           value="#{organizationBean.organization.address}" styleClass="form-control">
-           <f:converter converterId="trimConverter"/>
-           <f:validateLength maximum="#{appBean.descriptionLen}" />
-          </h:inputTextarea>
+          <mp:inputTextarea id="organizationAddress" onchange="setDirty(true)" rows="5" converterId="trimConverter"
+                            required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
+                            value="#{organizationBean.organization.address}" styleClass="form-control"
+                            maxlength="#{appBean.descriptionLen}" validatorId="email">
+          </mp:inputTextarea>
          </div>
         </div>
         <div class="form-row pb-2">

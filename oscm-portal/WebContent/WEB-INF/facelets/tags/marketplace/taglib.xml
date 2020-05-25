@@ -291,6 +291,14 @@
     <source>messageAndHintBootstrap.xhtml</source>
   </tag>
   <tag>
+    <tag-name>inputText</tag-name>
+    <source>inputText.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>inputTextArea</tag-name>
+    <source>inputTextArea.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>subscriptionDetailsBlockBootstrap</tag-name>
     <source>subscriptionDetailsBlockBootstrap.xhtml</source>
   </tag>

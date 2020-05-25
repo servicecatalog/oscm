@@ -1,0 +1,32 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+ <c:if test="#{empty styleClass}">
+  <c:set var="styleClass" value="field"/>
+ </c:if>
+
+ <h:inputTextarea id="#{id}" label="#{label}" value="#{value}" maxlength="#{maxlength}" onchange="setDirty(true)"
+                  rows="5" styleClass="#{styleClass}" rendered="#{empty rendered or rendered}" disabled="#{disabled}"
+                  required="#{not empty required and required}" onkeyup="#{onkeyup}">
+
+  <c:if test="#{(not empty validatorId) and (empty rendered or rendered)}">
+   <f:validator validatorId="#{validatorId}"/>
+  </c:if>
+
+  <c:if test="#{(not empty maxlength) and (empty rendered or rendered)}">
+   <f:validateLength maximum="#{maxlength}"/>
+  </c:if>
+
+  <c:if test="#{(not empty converterId)}">
+   <f:converter converterId="#{converterId}"/>
+  </c:if>
+
+  <ui:insert/>
+ </h:inputTextarea>
+
+ <adm:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}"/>
+</ui:composition>
