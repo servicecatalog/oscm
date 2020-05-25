@@ -68,20 +68,20 @@
           value="#{rowItem.booleanParameterValue}" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeBoolean}">
         </h:selectBooleanCheckbox>
-        <h:inputText id="integerValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true) p:placeholder="#{rowItem.rangeLabel}"
+        <h:inputText id="integerValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{rowItem.rangeLabel}"
           value="#{rowItem.parameter.value}" maxlength="#{appBean.intLen}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="integer" minValue="#{rowItem.minValue}"
           maxValue="#{rowItem.maxValue}" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeInteger and rowItem.emptyOrFirstSteppedPrice}">
           <f:validator validatorId="ParameterValueValidator" />
         </h:inputText>
-        <h:inputText id="longValue" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{row.rangeLabel}
+        <h:inputText id="longValue" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{row.rangeLabel}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="long" minValue="#{rowItem.minValue}"
           maxValue="#{rowItem.maxValue}" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeLong and rowItem.emptyOrFirstSteppedPrice}">
           <f:validator validatorId="ParameterValueValidator" />
         </h:inputText>
-        <h:inputText id="durationValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{rowItem.rangeLabel}
+        <h:inputText id="durationValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{rowItem.rangeLabel}"
           value="#{rowItem.parameter.value}" maxlength="#{appBean.longLen}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="duration" minValue="#{rowItem.minValue}"
           maxValue="#{rowItem.maxValue}" disabled="#{readOnly}"
@@ -128,7 +128,7 @@
               onclick="#{onclick}" style="#{style}" />
           </ui:fragment>
           <ui:fragment rendered="#{rowItem.parameterOption.optionId == rowItem.parameter.value and not readOnly}">
-            <input  class="tableParameter" class="tableParameter" type="radio" id="#{radioId}" name="#{rowItem.parameterOption.paramDefId}" checked="checked" onclick="#{onclick}"
+            <input  class="tableParameter" type="radio" id="#{radioId}" name="#{rowItem.parameterOption.paramDefId}" checked="checked" onclick="#{onclick}"
               style="#{style}" />
           </ui:fragment>
           <ui:fragment rendered="#{rowItem.parameterOption.optionId != rowItem.parameter.value and readOnly}">
