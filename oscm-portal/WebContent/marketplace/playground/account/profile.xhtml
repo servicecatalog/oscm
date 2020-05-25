@@ -180,7 +180,7 @@
          </div>
          <div class="col-md-9">
           <mp:inputText id="organizationName" value="#{organizationBean.organization.name}"
-                        styleClass="form-control" converterId="trimConverter" maximum="#{appBean.nameLen}"
+                        styleClass="form-control" converterId="trimConverter" maxlength="#{appBean.nameLen}"
                         required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}">
           </mp:inputText>
          </div>
