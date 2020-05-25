@@ -72,20 +72,6 @@ div#subscriptionTablePanel div.suspended dt:before{
     background-position: -8px -205px;
 }
 
-div#subscriptionTablePanel div.suspended-bs{
-	display:block;
-}
-
-div#subscriptionTablePanel div.suspended-bs dt:before{
-    content: "";
-    float: left;
-    width: 29px;
-    height: 25px;
-    margin: 0 20px 0 0;
-    background: url(../marketplace/img/mp_icon_sprite.png);
-    background-position: -8px -205px;
-}
-
 div#subscriptionTablePanel div.error dt:before,
 div#subscriptionDetailsPanel div.error dt:before{
     content: "";
@@ -159,4 +145,22 @@ div#subDetails .labelAndValuePanelCol1{
 select.operationElement{
 	float:left;
 	margin: 2px 20px 0px 0px;
+}
+
+/*
+Bootstrap related styling
+*/
+
+div#subscriptionTablePanel div.suspended-bs{
+	display:block;
+}
+
+div#subscriptionTablePanel div.suspended-bs dt:before{
+    content: "";
+    float: left;
+    width: 29px;
+    height: 25px;
+    margin: 0 20px 0 0;
+    background: url(../marketplace/img/mp_icon_sprite.png);
+    background-position: -8px -205px;
 }
