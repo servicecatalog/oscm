@@ -202,11 +202,11 @@
           <adm:outputLabel class="col-form-label" required="#{true}" value="#{msg['organization.address']}"/>
          </div>
          <div class="col-md-9">
-          <mp:inputTextarea id="organizationAddress" onchange="setDirty(true)" rows="5" converterId="trimConverter"
+          <mp:inputTextArea id="organizationAddress" onchange="setDirty(true)" rows="5" converterId="trimConverter"
                             required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
                             value="#{organizationBean.organization.address}" styleClass="form-control"
                             maxlength="#{appBean.descriptionLen}" validatorId="email">
-          </mp:inputTextarea>
+          </mp:inputTextArea>
          </div>
         </div>
         <div class="form-row pb-2">
