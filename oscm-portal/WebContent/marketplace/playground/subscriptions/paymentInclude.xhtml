@@ -1,7 +1,5 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!-- TODO #851 -->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
@@ -47,111 +45,97 @@
     </a4j:jsFunction>
 
     <!-- SELECT PAYMENT INFORMATION -->
-    <h2 class="box_title">#{msg['payment.select.label']}</h2>
-    <mp:pixelline />
+    <mp:outputStepBootstrap value="#{msg['payment.select.label']}"/>
 
-    <a4j:outputPanel layout="block" styleClass="labelAndValuePanel" style="margin-bottom:5px;">
-
-      <t:panelGrid width="100%" columns="2" columnClasses="gridCol1,gridCol2" border="0" cellspacing="0" cellpadding="0">
-        <!-- PANEL 1 -->
-        <a4j:outputPanel layout="block">
-          <t:panelGrid width="100%" columns="2" border="0" cellspacing="0" cellpadding="0">
-            <a4j:outputPanel layout="block">
-
-              <a4j:outputPanel layout="inline" styleClass="labelAsSpan">
-                <h:outputText id="label1" value="#{msg['payment.billingContact']}:" />
-                <h:outputText value=" *" styleClass="mandatory" />
-              </a4j:outputPanel>
-
-              <h:selectOneMenu id="selectBillingContact" styleClass="select" required="#{!empty param['payment:next']}"
-                value="#{billingContactBean.selectedBillingContactKeyReadOnly}" disabled="#{isDisabled}"
-                valueChangeListener="#{billingContactBean.selectedBillingContactChanged}"
-                rendered="#{manageSubscriptionCtrl.billingContactVisible}">
-                <adm:selectItemPleaseSelect itemValue="" />
-                <c:forEach items="#{billingContactBean.billingContacts}" var="bc">
-                  <f:selectItem itemLabel="#{bc.id}" itemValue="#{bc.key}" />
-                </c:forEach>
-                <a4j:ajax render="bcInformation" event="change" onbeforesubmit="setDirty(true);"/>
-              </h:selectOneMenu>
-            </a4j:outputPanel>
-
-            <a4j:outputPanel layout="block">
-              <h:outputText id="noBillingContact" value="#{msg['organization.payment.noBillingContact']}"
-                rendered="#{not userBean.loggedInAndAdmin and not manageSubscriptionCtrl.billingContactVisible}" />
-            </a4j:outputPanel>
-
-            <a4j:outputPanel layout="block" style="margin-bottom: 8px;" rendered="#{previousRendered}">
+    <div class="row">
+      <div class="col-md-8 col-sm-12">
+        <div class="no-gutters row p-1">
+          <div class="col-md-3 col-sm-12">
+            <h:outputText id="label1"
+                          value="#{msg['payment.billingContact']}:"/>
+            <h:outputText value=" *" styleClass="mandatory"/>
+          </div>
+          <div class="col-md-9 col-sm-12">
+            <h:selectOneMenu id="selectBillingContact" styleClass="select w-100" required="#{!empty param['payment:next']}"
+                             value="#{billingContactBean.selectedBillingContactKeyReadOnly}" disabled="#{isDisabled}"
+                             valueChangeListener="#{billingContactBean.selectedBillingContactChanged}"
+                             rendered="#{manageSubscriptionCtrl.billingContactVisible}">
+              <adm:selectItemPleaseSelect itemValue="" />
+              <c:forEach items="#{billingContactBean.billingContacts}" var="bc">
+                <f:selectItem itemLabel="#{bc.id}" itemValue="#{bc.key}" />
+              </c:forEach>
+              <a4j:ajax render="bcInformation" event="change" onbeforesubmit="setDirty(true);"/>
+            </h:selectOneMenu>
+            <h:outputText id="noBillingContact" value="#{msg['organization.payment.noBillingContact']}"
+                          rendered="#{not userBean.loggedInAndAdmin and not manageSubscriptionCtrl.billingContactVisible}" />
+          </div>
+        </div>
+        <c:if test="#{previousRendered}">
+          <div class="no-gutters row p-1">
+            <div class="col-12">
               <h:outputLink value="" id="newBillingContact" onclick="newBillingContact(-1); return false;"
-                rendered="#{userBean.loggedInAndAdmin}">
+                            rendered="#{userBean.loggedInAndAdmin}">
                 <h:outputText value="#{msg['payment.new.BillingContact.title']}" />
               </h:outputLink>
-            </a4j:outputPanel>
-            <h:panelGroup rendered="#{previousRendered}" layout="block" />
-          </t:panelGrid>
-        </a4j:outputPanel>
+            </div>
+          </div>
+        </c:if>
+      </div>
 
-        <!-- PANEL 2 -->
-        <!-- address & email right of it -->
-        <a4j:outputPanel id="bcInformation" layout="block">
-          <mp:message for="selectBillingContact" rendered="#{empty billingContactBean.selectedBillingContact}" />
-          <ui:fragment rendered="#{not empty billingContactBean.selectedBillingContact}">
-            <a4j:outputPanel layout="block" styleClass="marginBottom10">
-              <h:outputText value="#{billingContactBean.selectedBillingContact.email}" id="email" />
-            </a4j:outputPanel>
-            <a4j:outputPanel layout="block">
-              <h:outputText value="#{billingContactBean.selectedBillingContact.companyName}" styleClass="preWrapping stringInMultiLine"
-                id="companyName" />
-            </a4j:outputPanel>
-            <a4j:outputPanel layout="block">
-              <h:outputText value="#{billingContactBean.selectedBillingContact.address}" styleClass="preWrapping stringInMultiLine"
-                id="address" />
-            </a4j:outputPanel>
-          </ui:fragment>
-        </a4j:outputPanel>
 
-        <!-- PANEL 3 -->
-        <!-- There are payment types available, show them and optionally a link to create new one -->
-        <t:panelGrid width="100%" columns="2" border="0" cellspacing="0" cellpadding="0">
-
+    <div class="col-md-4 col-sm-12">
+      <a4j:outputPanel id="bcInformation" layout="block" styleClass="p-1">
+        <mp:message for="selectBillingContact" rendered="#{empty billingContactBean.selectedBillingContact}" />
+        <ui:fragment rendered="#{not empty billingContactBean.selectedBillingContact}">
+          <a4j:outputPanel layout="block" styleClass="marginBottom10">
+            <h:outputText value="#{billingContactBean.selectedBillingContact.email}" id="email" />
+          </a4j:outputPanel>
           <a4j:outputPanel layout="block">
-            <a4j:outputPanel layout="inline" styleClass="labelAsSpan">
-              <h:outputText id="label2" value="#{msg['payment.paymentOption']}:" />
-              <h:outputText value=" *" styleClass="mandatory" />
-            </a4j:outputPanel>
-
-            <h:selectOneMenu id="selectPaymentInfo" styleClass="select" required="#{!empty param['payment:next']}"
-              value="#{paymentInfoBean.selectedPaymentInfoForSubscriptionKeyReadOnly}" disabled="#{isDisabled}"
-              valueChangeListener="#{paymentInfoBean.selectedPaymentInfoChanged}"
-              rendered="#{paymentInfoVisible}">
+            <h:outputText value="#{billingContactBean.selectedBillingContact.companyName}" styleClass="preWrapping stringInMultiLine"
+                          id="companyName" />
+          </a4j:outputPanel>
+          <a4j:outputPanel layout="block">
+            <h:outputText value="#{billingContactBean.selectedBillingContact.address}" styleClass="preWrapping stringInMultiLine"
+                          id="address" />
+          </a4j:outputPanel>
+        </ui:fragment>
+      </a4j:outputPanel>
+    </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-sm-12">
+        <div class="no-gutters row p-1">
+          <div class="col-md-3 col-sm-12">
+            <h:outputText id="label2" value="#{msg['payment.paymentOption']}:"/>
+            <h:outputText value=" *" styleClass="mandatory"/>
+          </div>
+          <div class="col-md-9 col-sm-12">
+            <h:selectOneMenu id="selectPaymentInfo" styleClass="select w-100" required="#{!empty param['payment:next']}"
+                             value="#{paymentInfoBean.selectedPaymentInfoForSubscriptionKeyReadOnly}" disabled="#{isDisabled}"
+                             valueChangeListener="#{paymentInfoBean.selectedPaymentInfoChanged}"
+                             rendered="#{paymentInfoVisible}">
               <adm:selectItemPleaseSelect itemValue="" />
               <c:forEach items="#{paymentInfoBean.paymentInfosForSubscription}" var="pi">
                 <f:selectItem itemLabel="#{pi.id}" itemValue="#{pi.key}" />
               </c:forEach>
               <a4j:ajax render="piInformation" event="change" onbeforesubmit="setDirty(true);"/>
             </h:selectOneMenu>
-          </a4j:outputPanel>
-
-          <!-- No payment types available for this organization -->
-          <a4j:outputPanel layout="block">
             <h:outputText
-              value="#{msg[manageSubscriptionCtrl.noPaymentTypeAvailableMSG]}"
-              id="noPaymenttypesAvailable" rendered="#{not paymentInfoVisible}" />
-          </a4j:outputPanel>
-
-
-          <a4j:outputPanel layout="block" style="margin-bottom: 8px;"
-            rendered="#{availableSubsAndAdmin}">
-            <h:outputLink value="" id="newPaymentInfo" onclick="newPaymentItem(-1); return false;">
-              <h:outputText value="#{msg['payment.new.PaymentOption.title']}" />
-            </h:outputLink>
-          </a4j:outputPanel>
-          <h:panelGroup
-            rendered="#{availableSubsAndAdmin}"
-            layout="block" />
-        </t:panelGrid>
-
-        <!-- PANEL 4 -->
-        <!-- provider and account right of it -->
+                value="#{msg[manageSubscriptionCtrl.noPaymentTypeAvailableMSG]}"
+                id="noPaymenttypesAvailable" rendered="#{not paymentInfoVisible}" />
+          </div>
+          <c:if test="#{availableSubsAndAdmin}">
+            <div class="no-gutters row p-1">
+              <div class="col-12">
+                <h:outputLink value="" id="newPaymentInfo" onclick="newPaymentItem(-1); return false;">
+                  <h:outputText value="#{msg['payment.new.PaymentOption.title']}" />
+                </h:outputLink>
+              </div>
+            </div>
+          </c:if>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12">
         <a4j:outputPanel id="piInformation" layout="block">
           <mp:message for="selectPaymentInfo" rendered="#{empty selectedPaymentInfoForSubscription}" />
           <ui:fragment rendered="#{not empty selectedPaymentInfoForSubscription}">
@@ -163,18 +147,17 @@
             </a4j:outputPanel>
           </ui:fragment>
         </a4j:outputPanel>
+      </div>
+    </div>
 
-      </t:panelGrid>
-    </a4j:outputPanel>
-
-    <mp:pixelline marginTop="10" />
-    <a4j:outputPanel layout="block">
-      <mp:button id="previous" value="#{msg['button.previous']}" bean="#{paymentInfoBean}" action="previous"
-        rendered="#{previousRendered}" keepDirty="#{keepDirtyBack}" clearDirty="#{clearDirtyBack}" />
-      <mp:button id="next" value="#{buttonLabel}" bean="#{bean}" action="#{action}"
-        style="float: #{previousRendered ? 'right' : 'left'};"
-        disabled="#{isDisabled or emptyEnabledPaymentTypes}" keepDirty="#{keepDirtyForward}"
-        clearDirty="#{clearDirtyForward}" />
-    </a4j:outputPanel>
+    <div class="no-gutters my-2 row justify-content-between">
+      <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" bean="#{paymentInfoBean}" action="previous"
+                 rendered="#{previousRendered}" keepDirty="#{keepDirtyBack}" clearDirty="#{clearDirtyBack}"
+                          styleClass="btn-sm btn-secondary"/>
+      <mp:buttonBootstrap id="next" value="#{buttonLabel}" bean="#{bean}" action="#{action}"
+                 styleClass="btn-sm btn-secondary"
+                 disabled="#{isDisabled or emptyEnabledPaymentTypes}" keepDirty="#{keepDirtyForward}"
+                 clearDirty="#{clearDirtyForward}" />
+    </div>
   </h:form>
 </ui:composition>
