@@ -1,35 +1,31 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!-- TODO #851 -->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
   xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:a4j="http://richfaces.org/a4j"
   xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
-  
+
   <!-- Input parameter: priceModel (the price model that should be displayed) -->
 
-  <a4j:outputPanel layout="block" styleClass="step" rendered="#{empty rendered or rendered}">
-    <h1>
-      <h:outputText style="float:left;" value="#{msg['marketplace.services.overview']}" />
-    </h1>
-    <h:outputText styleClass="priceSubtext" value="#{msg['priceModel.noVat']}" />
-  </a4j:outputPanel>
-  <mp:pixelline />
+  <c:if test="#{empty rendered or rendered}">
+    <div class="row no-gutters border-bottom">
+      <h1>
+        <h:outputText value="#{msg['marketplace.services.overview']}" />
+      </h1>
+      <h:outputText styleClass="priceSubtext" value="#{msg['priceModel.noVat']}" />
+    </div>
+  </c:if>
 
   <a4j:outputPanel layout="block" styleClass="priceModelDescription">
     <h:outputText value="#{priceModel.description}" escape="false" />
   </a4j:outputPanel>
 
   <!-- Base prices section -->
-  <h2>
-    <adm:outputStep value="#{msg['subscription.priceModel.basePrices.label']}" />
-    <h:outputText styleClass="recommendedPriceHint" value=" #{msg['service.recommendedRetailPriceHint']}"
-      rendered="#{model.service.reseller and model.service.priceModel.chargeable}" />
-  </h2>
-  <mp:pixelline />
+  <mp:outputStepBootstrap value="#{msg['subscription.priceModel.basePrices.label']}" />
+  <h:outputText styleClass="recommendedPriceHint" value=" #{msg['service.recommendedRetailPriceHint']}"
+    rendered="#{model.service.reseller and model.service.priceModel.chargeable}" />
 
   <c:if test="#{not empty model.discount}">
     <a4j:outputPanel id="discount" layout="block" styleClass="discount" rendered="#{empty rendered or rendered}">
@@ -37,7 +33,8 @@
     </a4j:outputPanel>
   </c:if>
 
-  <adm:panelGrid panelId="basePricesPanel">
+  <adm:panelGrid panelId="basePricesPanel" styleClasses="table-responsive"
+    columnClasses="text-nowrap col-auto p-1 text-left,col-sm-6 p-1,col-auto p-1">
 
     <adm:outputLabel value="#{msg['priceModel.label.freePeriod']}"
       rendered="#{priceModel.chargeable and priceModel.freePeriod > 0}" />
@@ -54,7 +51,7 @@
     <c:set var="key" value="PricingPeriod.#{priceModel.period}" />
     <h:outputText value="#{msg[key]}" rendered="#{priceModel.chargeable}" />
     <h:outputText value="" rendered="#{priceModel.chargeable}" />
-    
+
     <!-- PERIOD CALCULATION MODE -->
     <adm:outputLabel value="#{msg['priceModel.period.calculation.label']}" rendered="#{priceModel.type=='PER_UNIT'}" />
     <h:outputFormat id="timezone" value="#{msg['priceModel.period.timezone']}" rendered="#{priceModel.type=='PER_UNIT'}">
@@ -109,8 +106,8 @@
 
   <!-- EVENT PRICES SECTION -->
   <ui:fragment rendered="#{not empty priceModel.consideredEvents}">
-    <mp:outputStep value="#{msg['subscription.priceModel.eventPrices.label']}" />
-    <adm:dataTable tableId="eventTable" value="#{model.serviceEvents}"
+    <mp:outputStepBootstrap value="#{msg['subscription.priceModel.eventPrices.label']}" />
+    <adm:dataTable tableId="eventTable" value="#{model.serviceEvents}" styleClass="w-100"
       label="#{msg['subscription.priceModel.event.table.header']}" collapsible="false">
       <rich:column>
         <f:facet name="header">
@@ -144,9 +141,10 @@
 
   <!-- PARAMETERS TABLE -->
   <ui:fragment rendered="#{not empty model.serviceParameters}">
-    <a4j:outputPanel style="padding: 5px;">
-      <mp:outputStep value="#{msg['subscription.priceModel.parameterPrices.label']}" />
+    <a4j:outputPanel>
+      <mp:outputStepBootstrap value="#{msg['subscription.priceModel.parameterPrices.label']}" />
       <ui:include src="../../../subscription/paramtable.xhtml">
+        <ui:param name="tableStyle" value="w-100" />
         <ui:param name="inputList" value="#{model.serviceParameters}" />
         <ui:param name="formName" value="#{idPrefix}#{empty formName2 ? 'priceModelDetail' : formName2}" />
         <ui:param name="readOnly" value="true" />
@@ -162,8 +160,9 @@
 
   <!-- ROLES TABLE -->
   <ui:fragment rendered="#{not empty model.roleSpecificPrices}">
-    <mp:outputStep value="#{msg['subscription.priceModel.rolePrices.label']}" />
+    <mp:outputStepBootstrap value="#{msg['subscription.priceModel.rolePrices.label']}" />
     <ui:include src="../../../subscription/rolepricetable.xhtml">
+      <ui:param name="tableStyle" value="w-100" />
       <ui:param name="inputList" value="#{model.roleSpecificPrices}" />
       <ui:param name="isCollapsible" value="false" />
     </ui:include>

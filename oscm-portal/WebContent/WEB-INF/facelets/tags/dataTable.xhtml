@@ -1,8 +1,8 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition 
-  xmlns="http://www.w3.org/1999/xhtml" 
+<ui:composition
+  xmlns="http://www.w3.org/1999/xhtml"
   xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:h="http://xmlns.jcp.org/jsf/html"
   xmlns:f="http://xmlns.jcp.org/jsf/core"
@@ -11,10 +11,14 @@
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
   >
-  
+
+  <c:if test="${empty tableStyle}">
+      <c:set var="tableStyle" value=""/>
+  </c:if>
+
   <c:if test="#{collapsible==true}">
   <adm:collapsibleSection sectionId="#{tableId}Section" label="#{label}" >
-    <adm:baseTable 
+    <adm:baseTable
       tableId="#{tableId}"
       emptyText="#{emptyText}"
       value="#{value}"
@@ -23,6 +27,7 @@
       onRowMouseOut="#{onRowMouseOut}"
       columnClasses="#{columnClasses}"
       columnsWidth="#{columnsWidth}"
+      tableStyle="#{tableStyle}"
       styleClass="table_default"
       width="#{width}"
       render = "#{render}">
@@ -31,7 +36,7 @@
   </adm:collapsibleSection>
   </c:if>
   <c:if test="#{collapsible ne true}">
-    <adm:baseTable 
+    <adm:baseTable
       tableId="#{tableId}"
       emptyText="#{emptyText}"
       value="#{value}"
@@ -40,6 +45,7 @@
       onRowMouseOut="#{onRowMouseOut}"
       columnClasses="#{columnClasses}"
       columnsWidth="#{columnsWidth}"
+      tableStyle="#{tableStyle}"
       styleClass="table_padding"
       width="#{width}"
       render = "#{render}">

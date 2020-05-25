@@ -27,9 +27,12 @@
   <c:if test="#{empty subscriptionExisting}">
     <c:set var="subscriptionExisting" value="false" />
   </c:if>
+  <c:if test="#{empty tableStyle}">
+    <c:set var="tableStyle" value=""/>
+  </c:if>
 
   <adm:dataTable tableId="parameterTable" value="#{inputList}" label="#{msg['parameter.table.header']}"
-    collapsible="#{isCollapsible}">
+    collapsible="#{isCollapsible}" tableStyle="#{tableStyle}">
 
     <!-- parameter description -->
     <rich:column styleClass="column-break-word" style="max-width:150px">
