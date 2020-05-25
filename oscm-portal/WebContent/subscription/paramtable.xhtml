@@ -32,8 +32,8 @@
     <c:set var="tableStyle" value=""/>
   </c:if>
 
-  <adm:dataTable styleClass="parameterConfigTable" tableId="parameterTable" value="#{inputList}" label="#{msg['parameter.table.header']}"
-    collapsible="#{isCollapsible}" tableStyle="#{tableStyle}">
+  <adm:dataTable tableId="parameterTable" value="#{inputList}" label="#{msg['parameter.table.header']}"
+    collapsible="#{isCollapsible}" tableStyle="#{tableStyle} parameterConfigTable">
     
     <!-- parameter description -->
 
