@@ -10,81 +10,83 @@ Copyright 2010-2012 FUJITSU LIMITED
 -------------------------------------------------------------------- */
 
 /*
-	Contents
+  Contents
 	
-	1. Font Definitions
+  1. Font Definitions
 	
-	2. Standard Elements
+  2. Standard Elements
 	
-	3. Header
-		3.1 Header Layout Definitions
-		3.2 Corporate Logo
-		3.3 Login
-		3.4 Main Search Box
-		3.5 Header Navigation
+  3. Header
+    3.1 Header Layout Definitions
+    3.2 Corporate Logo
+    3.3 Login
+    3.4 Main Search Box
+    3.5 Header Navigation
 		
-	4. Forms
-		4.1 Form Grids
-		4.2 Form Hints
-		4.3 Registration form
-
-	5. Page Layout
-		5.1 Main Layout
-		5.2 Content Boxes
-		5.3 Page Title
-		5.4 Service Content Boxes
-		5.4.1 Service Section
-		5.4.2 Service Header
-		5.5 Table  Elements
-		5.6 Modal Panels	
-		5.7 Pager
-		5.8 Table Filter
-		5.9  Browse Buttons
+  4. Forms
+    4.1 Form Grids
+    4.2 Form Hints
+    4.3 Registration form
+ 
+  5. Page Layout
+    5.1 Main Layout
+    5.2 Content Boxes
+    5.3 Page Title
+    5.4 Service Content Boxes
+    5.4.1 Service Section
+    5.4.2 Service Header
+    5.5 Table  Elements
+    5.6 Modal Panels	
+    5.7 Pager
+    5.8 Table Filter
+    5.9  Browse Buttons
 		
-	6 Content Details
-		6.1 Popup Panels
-		6.2 Product Review
-		6.3 Star Ratings
-		6.4 Price Model
-		6.5 Supplier
-		6.6 Subscriptions
-		6.7 Subscription Confirmation Information Box
-		6.8  Recommended Price Information Box
+  6 Content Details
+    6.1 Popup Panels
+    6.2 Product Review
+    6.3 Star Ratings
+    6.4 Price Model
+    6.5 Supplier
+    6.6 Subscriptions
+    6.7 Subscription Confirmation Information Box
+    6.8  Recommended Price Information Box
 	
-	7 Navigation
-		7.1 Breadcrumbs
-		7.2 Tag Cloud Navigation 
-		7.3 Left Sidebar Navigation 
-			7.3.1 Category Sidebar
-			7.3.2 Related Services Sidebar
-		7.4 Service Overview Navigation
-		7.5 Page Jump Navigation 
-		7.6 Pagina Navigation 
-			7.6.1 Pagina & Services Per Page Buttons  
-			7.6.2 Pagina Next / Previous Buttons 
-		7.7 Tab Panel
+  7 Navigation
+    7.1 Breadcrumbs
+    7.2 Tag Cloud Navigation 
+    7.3 Left Sidebar Navigation 
+        7.3.1 Category Sidebar
+        7.3.2 Related Services Sidebar
+    7.4 Service Overview Navigation
+    7.5 Page Jump Navigation 
+    7.6 Pagina Navigation 
+        7.6.1 Pagina & Services Per Page Buttons  
+        7.6.2 Pagina Next / Previous Buttons 
+    7.7 Tab Panel
 		
-	8 UI Elements
-		8.1 Regular Navigation Buttons 
-		8.2 Big Buttons
-		8.3 Progress Bar
-		8.4 Process Progress Status
-		8.5 UI Graphics
-		8.6 Miscellaneous Graphics
+  8 UI Elements
+    8.1 Regular Navigation Buttons 
+    8.2 Big Buttons
+    8.3 Progress Bar
+    8.4 Process Progress Status
+    8.5 UI Graphics
+    8.6 Miscellaneous Graphics
 		
-	9 Footer
+  9 Footer
 	
-	10 Responsive iframes, embeds and images
+  10 Responsive iframes, embeds and images
 	
-	11 Bootstrap Elements
-	   11.1 Header section
-	   11.2 Navigation bar
-	   11.3 Aside Menu
-	   11.4 Cards
-	   11.5 Bootstrap grid
-	   11.6 Footer
-
- 12 Table
+  11 Bootstrap Elements       
+    11.1 Header section
+    11.2 Navigation bar
+    11.3 Aside Menu
+    11.4 Cards
+    11.5 Bootstrap grid
+    11.6 Footer
+    11.7 Additional utility classes
+    11.8 Modal dialog
+ 
+  12 Table
 
 */
 
@@ -2352,7 +2354,7 @@ table.smallPanel {
 }
 
 .parameterValueContainer {
-  white-space:nowrap;
+  white-space: nowrap;
 }
 
 /* current subscriptton status wrapper (ready/error/pending)*/
@@ -3022,7 +3024,6 @@ div.pagingOptions li a {
   .bigDisplay {
     display: none;
   }
-  
   .smallDisplay {
     display: inline-block;
   }
@@ -3032,7 +3033,6 @@ div.pagingOptions li a {
   .bigDisplay {
     display: inline-block;
   }
-  
   .smallDisplay {
     display: none;
   }
@@ -3695,16 +3695,16 @@ thead .rf-dt-flt {
 }
 
 .rf-dt-r:HOVER {
-  background:  #f8f9fa;
+  background: #f8f9fa;
 }
 
 #editUserForm .rf-dt-r.rowEven:HOVER, #userForm .rf-dt-r.rowEven:HOVER, #paymentOptionListForm .rf-dt-r.rowEven:HOVER,
   #groupForm .rf-dt-r.rowEven:HOVER .rowEven:HOVER {
-  background:  #f8f9fa;
+  background: #f8f9fa;
 }
 
 #editUserForm .rf-dt-r.rowOdd:HOVER, #userForm .rf-dt-r.rowOdd:HOVER, #paymentOptionListForm .rf-dt-r.rowOdd:HOVER,
-  #groupForm .rf-dt-r.rowOdd:HOVER .rowOdd:HOVER{
+  #groupForm .rf-dt-r.rowOdd:HOVER .rowOdd:HOVER {
   background: #FFF;
 }
 
@@ -4279,7 +4279,7 @@ div#headerrightareaBootstrap, rightarea a {
   }
 }
 
-@media (max-width: 767px) {
+@media ( max-width : 767px) {
   .aside {
     float: none;
   }
@@ -4362,7 +4362,7 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 .con-width {
-  max-width:700px
+  max-width: 700px
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -4395,23 +4395,22 @@ div#headerrightareaBootstrap, rightarea a {
 #sidebarCollapse {
   margin-top: 0.5rem !important;
 }
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.7 Additional utility classes
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-
 .bg-light-secondary {
   background: #FFFFFF;
 }
 
 .w-30px {
- width: 30px;
- min-width: 30px;
+  width: 30px;
+  min-width: 30px;
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.8 Modal dialog
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-
 .responsive-dialog-container {
   left: 50% !important;
   top: 50% !important;
@@ -4420,7 +4419,7 @@ div#headerrightareaBootstrap, rightarea a {
   max-width: 560px;
 }
 
-.responsive-dialog-container > div {
+.responsive-dialog-container>div {
   width: 100% !important;
 }
 
@@ -4435,49 +4434,49 @@ div#headerrightareaBootstrap, rightarea a {
 12. Table
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 */
-@media (max-width: 1100px) {
+@media ( max-width : 1100px) {
   .column-reference-hide {
     display: none;
   }
 }
 
-@media (min-width: 1101px) {
+@media ( min-width : 1101px) {
   .show-expand-button {
     display: none;
   }
 }
 
-@media (max-width: 1024px) {
+@media ( max-width : 1024px) {
   .column-activation-hide {
     display: none;
   }
 }
 
-@media (min-width: 1025px) {
+@media ( min-width : 1025px) {
   .show-activation-row {
     display: none;
   }
 }
 
-@media (max-width: 900px) {
+@media ( max-width : 900px) {
   .column-service-hide {
     display: none;
   }
 }
 
-@media (min-width: 901px) {
+@media ( min-width : 901px) {
   .show-service-row {
     display: none;
   }
 }
 
-@media (max-width: 600px) {
+@media ( max-width : 600px) {
   .column-unit-hide {
     display: none;
   }
 }
 
-@media (min-width: 601px) {
+@media ( min-width : 601px) {
   .show-unit-row {
     display: none;
   }
@@ -4487,36 +4486,29 @@ div#headerrightareaBootstrap, rightarea a {
   width: 20px;
   text-align: center;
 }
+
 @media all and (max-width: 575px) {
-
-.RespTable, .RespTable thead, .RespTable tbody, .RespTable tr, .RespTable th, .RespTable td {
-display: block;
-
+  .RespTable, .RespTable thead, .RespTable tbody, .RespTable tr, .RespTable th, .RespTable td {
+    display: block;
+  }
+  .RespTable {
+    text-align: right;
+  }
+  .RespTable thead {
+    position: absolute;
+    top: -1111px;
+    left: -1111px;
+  }
+  .RespTable td:before {
+    float: left;
+    padding: 0 10px 0 0;
+    content: attr(data-label) ":";
+    font-weight: bold;
+  }
+  .RespTable td:nth-child(1) {
+    font-weight: bold;
+  }
+  .RespTable td:last-child {
+    border-bottom: 2px #1d4d33 solid;
+  }
 }
-
-.RespTable {
-text-align: right;
-}
-
-.RespTable thead {
-position: absolute;
-top: -1111px;
-left: -1111px;
-}
-
-.RespTable td:before {
-float: left;
-padding: 0 10px 0 0;
-content: attr(data-label)  ":";
-font-weight: bold;
-} 
-
-.RespTable td:nth-child(1) {
-font-weight: bold;
-}
-
-.RespTable td:last-child {
-border-bottom: 2px #1d4d33 solid;
-}
-
-} 

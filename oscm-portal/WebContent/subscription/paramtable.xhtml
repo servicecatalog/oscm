@@ -2,6 +2,7 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
                              "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
@@ -28,11 +29,13 @@
     <c:set var="subscriptionExisting" value="false" />
   </c:if>
 
-  <adm:dataTable tableId="parameterTable" value="#{inputList}" label="#{msg['parameter.table.header']}"
+  <adm:dataTable  styleClass="parameterConfigTable" tableId="parameterTable" value="#{inputList}" label="#{msg['parameter.table.header']}"
     collapsible="#{isCollapsible}">
 
-    <!-- parameter description -->
-    <rich:column styleClass="column-break-word" style="max-width:150px">
+    <!-- parameter description 
+    styleClass="column-break-word" style="max-width:150px"
+    -->
+    <rich:column headerClass="parameterConfigTableDescColumn" >
       <f:facet name="header">
         <h:outputText value="#{msg['service.parameter.description']}" />
       </f:facet>
@@ -57,49 +60,48 @@
       <f:facet name="header">
         <h:outputText value="#{msg['service.parameter.value']}" />
       </f:facet>
-      <t:div style="white-space:nowrap;">
-        <h:selectBooleanCheckbox id="booleanValue" label="#{rowItem.label}" onchange="setDirty(true)"
+      <div class="parameterValueContainer">
+        <h:selectBooleanCheckbox styleClass="tableParameter" id="booleanValue" label="#{rowItem.label}" onchange="setDirty(true)"
           value="#{rowItem.booleanParameterValue}" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeBoolean}">
         </h:selectBooleanCheckbox>
-        <h:inputText id="integerValue" label="#{rowItem.label}" onchange="setDirty(true)"
+        <h:inputText id="integerValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true) p:placeholder="#{row.rangeLabel}"
           value="#{rowItem.parameter.value}" maxlength="#{appBean.intLen}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="integer" minValue="#{rowItem.minValue}"
           maxValue="#{rowItem.maxValue}" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeInteger and rowItem.emptyOrFirstSteppedPrice}">
           <f:validator validatorId="ParameterValueValidator" />
         </h:inputText>
-        <h:inputText id="longValue" label="#{rowItem.label}" onchange="setDirty(true)"
-          value="#{rowItem.parameter.value}" maxlength="#{appBean.longLen}"
+        <h:inputText id="longValue" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{row.rangeLabel}
           required="#{rowItem.parameterDefinition.mandatory}" dataType="long" minValue="#{rowItem.minValue}"
           maxValue="#{rowItem.maxValue}" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeLong and rowItem.emptyOrFirstSteppedPrice}">
           <f:validator validatorId="ParameterValueValidator" />
         </h:inputText>
-        <h:inputText id="durationValue" label="#{rowItem.label}" onchange="setDirty(true)"
+        <h:inputText id="durationValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{row.rangeLabel}
           value="#{rowItem.parameter.value}" maxlength="#{appBean.longLen}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="duration" minValue="#{rowItem.minValue}"
           maxValue="#{rowItem.maxValue}" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeDuration}">
           <f:converter converterId="duration.converter" />
         </h:inputText>
-        <h:inputText id="stringValue" label="#{rowItem.label}" onchange="setDirty(true)"
+        <h:inputText id="stringValue" class="tableParameter" label="#{rowItem.label}" onchange="setDirty(true)"
           value="#{rowItem.parameter.value}" maxlength="#{appBean.descriptionLen}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="string" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeString and not rowItem.passwordType}">
           <f:validator validatorId="ParameterValueValidator" />
           <f:converter converterId="trimConverter" />
         </h:inputText>
-        <h:inputSecret id="pwdValue" label="#{rowItem.label}" onchange="setDirty(true)"
+        <h:inputSecret  class="tableParameter" id="pwdValue" label="#{rowItem.label}" onchange="setDirty(true)"
           value="#{rowItem.passwordValueToStore}" maxlength="#{appBean.descriptionLen}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="string" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeString and rowItem.passwordType and not readOnly}" redisplay="true">
           <f:validator validatorId="ParameterValueValidator" />
           <f:converter converterId="trimConverter" />
         </h:inputSecret>
-        <h:outputText id ="pwdValueRO" label="#{row.label}" value="*****"
+        <h:outputText  class="tableParameter" id ="pwdValueRO" label="#{row.label}" value="*****"
                       rendered="#{rowItem.parameterDefinition.valueTypeString and rowItem.passwordType and readOnly}"/>
-        <h:inputSecret id="pwdTypeValue" label="#{rowItem.label}" onchange="setDirty(true)"
+        <h:inputSecret  class="tableParameter" id="pwdTypeValue" label="#{rowItem.label}" onchange="setDirty(true)"
           value="#{rowItem.passwordValueToStore}" maxlength="#{appBean.descriptionLen}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="string" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypePWD and not readOnly}" redisplay="true">
@@ -119,26 +121,24 @@
             value="#{formName}:parameterTable:#{rowKey}:radioOption" />
           <c:set var="style" value="margin-right:4px; " />
           <ui:fragment rendered="#{rowItem.parameterOption.optionId == rowItem.parameter.value and readOnly}">
-            <input type="radio" id="#{radioId}" name="#{rowItem.parameterOption.paramDefId}" checked="checked" disabled="disabled"
+            <input  class="tableParameter" type="radio" id="#{radioId}" name="#{rowItem.parameterOption.paramDefId}" checked="checked" disabled="disabled"
               onclick="#{onclick}" style="#{style}" />
           </ui:fragment>
           <ui:fragment rendered="#{rowItem.parameterOption.optionId == rowItem.parameter.value and not readOnly}">
-            <input type="radio" id="#{radioId}" name="#{rowItem.parameterOption.paramDefId}" checked="checked" onclick="#{onclick}"
+            <input  class="tableParameter" class="tableParameter" type="radio" id="#{radioId}" name="#{rowItem.parameterOption.paramDefId}" checked="checked" onclick="#{onclick}"
               style="#{style}" />
           </ui:fragment>
           <ui:fragment rendered="#{rowItem.parameterOption.optionId != rowItem.parameter.value and readOnly}">
-            <input type="radio" id="#{radioId}" name="#{rowItem.parameterOption.paramDefId}" disabled="disabled" onclick="#{onclick}"
+            <input  class="tableParameter" type="radio" id="#{radioId}" name="#{rowItem.parameterOption.paramDefId}" disabled="disabled" onclick="#{onclick}"
               style="#{style}" />
           </ui:fragment>
           <ui:fragment rendered="#{rowItem.parameterOption.optionId != rowItem.parameter.value and not readOnly}">
-            <input type="radio" id="#{radioId}" name="#{rowItem.parameterOption.paramDefId}" onclick="#{onclick}" style="#{style}" />
+            <input  class="tableParameter" type="radio" id="#{radioId}" name="#{rowItem.parameterOption.paramDefId}" onclick="#{onclick}" style="#{style}" />
           </ui:fragment>
           <h:outputText value="#{rowItem.parameterOption.optionDescription}" style="white-space:normal;" />
         </ui:fragment>
         <adm:spacer width="10" />
-        <h:outputText value="#{rowItem.rangeLabel}"
-          rendered="#{rowItem.rangeRendered and rowItem.emptyOrFirstSteppedPrice}" />
-      </t:div>
+      </div>
 
       <t:div styleClass="errorPanelTr">
         <adm:message for="booleanValue" rendered="#{rowItem.parameterDefinition.valueTypeBoolean}" />
