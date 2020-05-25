@@ -10,8 +10,11 @@
   <c:if test="#{empty isCollapsible}">
     <c:set var="isCollapsible" value="true" />
   </c:if>
+  <c:if test="#{empty tableStyle}">
+    <c:set var="tableStyle" value=""/>
+  </c:if>
 
-  <adm:dataTable tableId="#{idPrefix}roleTable" value="#{inputList}"
+  <adm:dataTable tableId="#{idPrefix}roleTable" value="#{inputList}" tableStyle="#{tableStyle}"
     label="#{msg['subscription.role.table.header']}" collapsible="#{isCollapsible}">
     <rich:column styleClass="column-break-word" style="max-width:80px">
       <f:facet name="header">

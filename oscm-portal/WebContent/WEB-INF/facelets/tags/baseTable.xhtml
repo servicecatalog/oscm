@@ -36,7 +36,8 @@
     <div style="#{style}" class="#{styleClass}">
 
       <c:if test="#{empty columnsWidth}">
-      <rich:dataTable 
+      <rich:dataTable
+        styleClass="#{tableStyle}"
         rendered="#{not empty value or not empty showAddButton}"
         width="#{width}" 
         headerClass="#{headerClass}" 
@@ -61,7 +62,8 @@
 
     <!-- table if columns/columnsWidth attribute is set and data is provided -->
     <c:if test="#{not empty columnsWidth}">
-      <rich:dataTable 
+      <rich:dataTable
+        styleClass="#{tableStyle}"
         rendered="#{not empty value or not empty showAddButton}"
         width="#{width}" 
         columnsWidth="#{columnsWidth}"

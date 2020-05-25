@@ -146,3 +146,21 @@ select.operationElement{
 	float:left;
 	margin: 2px 20px 0px 0px;
 }
+
+/*
+Bootstrap related suspended styling
+*/
+
+div#subscriptionTablePanel div.suspended-bs{
+	display:block;
+}
+
+div#subscriptionTablePanel div.suspended-bs dt:before{
+    content: "";
+    float: left;
+    width: 29px;
+    height: 25px;
+    margin: 0 20px 0 0;
+    background: url(../marketplace/img/mp_icon_sprite.png);
+    background-position: -8px -205px;
+}
