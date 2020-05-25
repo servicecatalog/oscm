@@ -205,7 +205,7 @@
           <mp:inputTextArea id="organizationAddress" onchange="setDirty(true)" rows="5" converterId="trimConverter"
                             required="#{organizationBean.currentUser.supplier or organizationBean.currentUser.technologyProvider}"
                             value="#{organizationBean.organization.address}" styleClass="form-control"
-                            maxlength="#{appBean.descriptionLen}" validatorId="email">
+                            maxlength="#{appBean.descriptionLen}">
           </mp:inputTextArea>
          </div>
         </div>
