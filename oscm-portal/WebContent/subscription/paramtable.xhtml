@@ -32,11 +32,12 @@
     <c:set var="tableStyle" value=""/>
   </c:if>
 
-
   <adm:dataTable styleClass="parameterConfigTable" tableId="parameterTable" value="#{inputList}" label="#{msg['parameter.table.header']}"
     collapsible="#{isCollapsible}" tableStyle="#{tableStyle}">
     
     <!-- parameter description -->
+
+
     <rich:column headerClass="parameterConfigTableDescColumn" >
       <f:facet name="header">
         <h:outputText value="#{msg['service.parameter.description']}" />
