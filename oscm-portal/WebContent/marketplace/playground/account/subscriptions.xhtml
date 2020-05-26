@@ -45,8 +45,8 @@
                                      renderElementList="subscriptionsList subListPager subListPagerScripts :pagerPanel :subscriptionsListScripts"/>
      <rich:dataTable rows="10" id="subscriptionsList" value="#{subscriptionsCtrl.model}" var="sub"
                      headerClass="rowTitle sortable" rowClasses="rowOdd, rowEven" columnHeaderClass="rowTitle sortable" noDataLabel=" "
-                     styleClass="sortable table-hover table-bordered"
-                     headerCellClass="rowTitle sortable" columnClasses="wrapColumns" style="width:100%">
+                     styleClass="sortable table-hover table-bordered w-100"
+                     headerCellClass="rowTitle sortable" columnClasses="wrapColumns">
  
       <rich:column width="#{iconWidth}" styleClass="tableColumnCheckBox">
        <a4j:outputPanel styleClass="d-lg-none text-center">
