@@ -60,10 +60,10 @@
            <!-- input fields for parameters -->
            <c:forEach items="#{subscription.operationParameters}" var="op" varStatus="opStatus">
             <h:panelGroup class="row p-2" rendered="#{op.renderInput}">
-             <div class="col-3">
+             <div class="col-lg-3">
               <adm:outputLabel class="col-form-label" required="#{op.mandatory}" value="#{op.name}" title="#{op.name}"/>
              </div>
-             <div class="col-9">
+             <div class="col-lg-9">
               <adm:labelAndInputText id="input#{op.id}" value="#{op.value}" styleClass="form-control" hideLabel="true"
                                      required="#{op.mandatory}" maxlength="#{appBean.nameLen}" converterId="trimConverter">
                <f:ajax event="change"/>
@@ -71,10 +71,10 @@
              </div>
             </h:panelGroup>
             <h:panelGroup class="row p-2" rendered="#{op.renderSelect}">
-             <div class="col-3">
+             <div class="col-lg-3">
               <adm:outputLabel class="col-form-label" required="#{op.mandatory}" value="#{op.name}" title="#{op.name}"/>
              </div>
-             <div class="col-9">
+             <div class="col-lg-9">
               <h:selectOneMenu id="select#{op.id}" value="#{op.value}" required="#{op.mandatory}"
                                styleClass="custom-select">
                <f:selectItems value="#{op.values}"/>
