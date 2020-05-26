@@ -16,20 +16,32 @@
     </div>
   </c:if>
   <c:if test="#{not shortVersionOnly}">
-    <div class="no-gutters row justify-content-between mt-2">
-      <h1 id="#{prefix}Name" title="#{supplier.name}" class="shortenedText p-0" >#{supplier.name}</h1>
-      <h:graphicImage id="#{prefix}Image" value="/image?type=ORGANIZATION_IMAGE&amp;sId=#{supplier.key}" />
+    <div class="no-gutters row mt-2">
+      <div class="col-12 col-lg-3">
+        <h1 id="#{prefix}Name" title="#{supplier.name}" class="shortenedText p-0" >#{supplier.name}</h1>
+      </div>
+      <div class="col-12 col-lg-9">
+        <h:graphicImage id="#{prefix}Image" value="/image?type=ORGANIZATION_IMAGE&amp;sId=#{supplier.key}" />
+      </div>
     </div>
     <div>
       <mp:outputStepBootstrap value="#{msg['supplier.contactInfo']}"/>
-      <div class="row">
-      <div class="col-12 mb-2">
-          <h:outputText id="#{prefix}Address" value="#{supplier.address}" title="#{supplier.address}"
-            styleClass="preWrapping" />
+      <div class="row mb-2">
+      <div class="col-3">
+        <h:outputText value="#{msg['organization.address']}:"/>
+      </div>
+      <div class="col-9">
+        <div class="row no-gutters">
+          <div class="col-12">
+            <h:outputText id="#{prefix}Address" value="#{supplier.address}" title="#{supplier.address}"
+                          styleClass="preWrapping" />
+          </div>
+          <div class="col-12">
+            <h:outputText id="#{prefix}DomicileCountryDisplay" value="#{supplier.domicileCountryDisplay}"/>
+          </div>
         </div>
-        <div class="col-12">
-          <h:outputText id="#{prefix}DomicileCountryDisplay" value="#{supplier.domicileCountryDisplay}"/>
-        </div>
+      </div>
+
       </div>
       <div class="row">
         <div class="col-3">
