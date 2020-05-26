@@ -17,15 +17,19 @@
   </c:if>
   <c:if test="#{not shortVersionOnly}">
     <div class="no-gutters row justify-content-between">
-      <h1 id="#{prefix}Name" title="#{supplier.name}" class="shortenedText" >#{supplier.name}</h1>
-      <h:graphicImage id="#{prefix}Image" style="float: right;"
-                      value="/image?type=ORGANIZATION_IMAGE&amp;sId=#{supplier.key}" />
+      <h1 id="#{prefix}Name" title="#{supplier.name}" class="shortenedText p-0" >#{supplier.name}</h1>
+      <h:graphicImage id="#{prefix}Image" value="/image?type=ORGANIZATION_IMAGE&amp;sId=#{supplier.key}" />
     </div>
     <div>
       <mp:outputStepBootstrap value="#{msg['supplier.contactInfo']}"/>
-      <h:outputText id="#{prefix}Address" value="#{supplier.address}" title="#{supplier.address}" />
-      <h:outputText id="#{prefix}DomicileCountryDisplay" value="#{supplier.domicileCountryDisplay}"/>
-
+      <div class="row">
+      <div class="col-12">
+          <h:outputText id="#{prefix}Address" value="#{supplier.address}" title="#{supplier.address}" />
+        </div>
+        <div class="col-12">
+          <h:outputText id="#{prefix}DomicileCountryDisplay" value="#{supplier.domicileCountryDisplay}"/>
+        </div>
+      </div>
       <div class="row">
         <div class="col-3">
         <h:outputText value="#{msg['organization.phone']}:"/>
