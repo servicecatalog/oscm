@@ -9,9 +9,6 @@
  */
 package org.oscm.marketplace;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -21,6 +18,9 @@ import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.MarketplacePathSegments;
 import org.oscm.webtest.PortalTester;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplacePlaygroundServiceDetailsWT {

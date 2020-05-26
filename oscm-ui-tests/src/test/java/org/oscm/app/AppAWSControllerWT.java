@@ -9,15 +9,15 @@
  */
 package org.oscm.app;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.webtest.app.AppControllerTester;
 import org.oscm.webtest.app.AppPathSegments;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppAWSControllerWT {

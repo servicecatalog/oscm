@@ -9,10 +9,6 @@
  */
 package org.oscm.portal;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import javax.security.auth.login.LoginException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.*;
@@ -20,6 +16,10 @@ import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.oscm.webtest.*;
+
+import javax.security.auth.login.LoginException;
+
+import static org.junit.Assert.*;
 
 /** Integration web test to create an organization. */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -146,7 +146,7 @@ public class PortalOrganizationWT {
   }
 
   @Test
-  public void test04readEmailForUserkey() throws Exception {
+  public void test04readEmailForUserKey() throws Exception {
 
     String body =
         tester.readLatestEmailWithSubject(EmailMessageElements.EMAIL_CREATE_ACCOUNT_TOPIC);
@@ -158,7 +158,7 @@ public class PortalOrganizationWT {
     String userKey =
         body.substring(
             index + phraseUserKey.length(), index + phraseUserKey.length() + USERKEY_LENGTH);
-    assertTrue(userKey != "");
+    assertNotEquals("", userKey);
     tester.log("userKey from " + PlaygroundSuiteTest.supplierOrgAdminId + " is: " + userKey);
     PlaygroundSuiteTest.supplierOrgAdminUserkey = userKey;
   }

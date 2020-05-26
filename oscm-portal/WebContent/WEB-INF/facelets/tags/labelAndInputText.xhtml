@@ -30,7 +30,7 @@
     </c:when>
   </c:choose>
 
-
+ <c:if test="#{(empty hideLabel)}">
   <adm:outputLabel
     textId="label#{id}"
     value="#{label}" 
@@ -38,7 +38,8 @@
     required="#{required}"
     renderRequired="#{renderRequired}" 
     displayRequired="#{displayRequired}"
-    requiredId="#{requiredId}" />
+    requiredId="#{requiredId}"/>
+ </c:if>
 
   <c:if test="#{(not empty validationMethod)}">
   <h:inputText 

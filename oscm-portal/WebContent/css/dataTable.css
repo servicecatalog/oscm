@@ -1,0 +1,8 @@
+*.rf-ds-btn{
+  background-image: none;
+  background-color: transparent;
+}
+
+*.rf-ds-btn:hover{
+  background-color: grey;
+}

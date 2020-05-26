@@ -9,10 +9,6 @@
  */
 package org.oscm.app;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.junit.rules.TemporaryFolder;
@@ -21,6 +17,11 @@ import org.junit.runners.MethodSorters;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.webtest.app.AppControllerTester;
 import org.oscm.webtest.app.AppPathSegments;
+
+import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppOpenstackControllerWT {
