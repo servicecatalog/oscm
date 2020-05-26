@@ -4443,11 +4443,11 @@ div#headerrightareaBootstrap, rightarea a {
 
 /* Styles for Bootstrap Table Classes */
 
-.table-striped tbody tr td:nth-of-type(odd) {
+.table-striped tbody tr:nth-of-type(odd) td{
   padding-left: 10px;
   background: #FFF;
 }
-.table-striped tbody tr td:nth-of-type(even) {
+.table-striped tbody tr:nth-of-type(even) td{
   padding-left: 10px;
   background: #eee;
 }
