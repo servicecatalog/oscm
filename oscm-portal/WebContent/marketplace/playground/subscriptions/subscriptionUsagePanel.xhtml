@@ -40,7 +40,7 @@
           <!-- buttons and operations -->
           <h:form id="executeForm">
            <div class="row p-2">
-            <div class="input-group">
+            <div class="input-group pl-2">
              <h:selectOneMenu styleClass="custom-select pl-2" id="execute" value="#{subscription.selectedOperationId}"
                               onchange="AdmUtils.showProgress(true);AdmUtils.hideMessages(); selectOperation('#{subscription.subscriptionId}', this.value, 'execute');">
               <f:selectItem itemLabel="#{msg['common.pleaseSelect']}" itemValue=""/>
@@ -59,7 +59,7 @@
            </a4j:outputPanel>
            <!-- input fields for parameters -->
            <c:forEach items="#{subscription.operationParameters}" var="op" varStatus="opStatus">
-            <h:panelGroup class="row p-2" rendered="#{op.renderInput}">
+            <h:panelGroup class="row pt-2" rendered="#{op.renderInput}">
              <div class="col-lg-3">
               <adm:outputLabel class="col-form-label" required="#{op.mandatory}" value="#{op.name}" title="#{op.name}"/>
              </div>
@@ -70,7 +70,7 @@
               </adm:labelAndInputText>
              </div>
             </h:panelGroup>
-            <h:panelGroup class="row p-2" rendered="#{op.renderSelect}">
+            <h:panelGroup class="row pt-2" rendered="#{op.renderSelect}">
              <div class="col-lg-3">
               <adm:outputLabel class="col-form-label" required="#{op.mandatory}" value="#{op.name}" title="#{op.name}"/>
              </div>
