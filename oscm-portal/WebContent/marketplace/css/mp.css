@@ -4467,6 +4467,14 @@ div#headerrightareaBootstrap, rightarea a {
   text-align: center;
 }
 
+.editIconStyle {
+    margin: 2px 2px 0px;  
+    border: 0;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+}
+
 @media all and (max-width: 575px) {
   .RespTable, .RespTable thead, .RespTable tbody, .RespTable tr, .RespTable th, .RespTable td {
     display: block;
