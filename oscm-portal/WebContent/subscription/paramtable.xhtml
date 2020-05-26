@@ -75,7 +75,7 @@
           rendered="#{rowItem.parameterDefinition.valueTypeInteger and rowItem.emptyOrFirstSteppedPrice}">
           <f:validator validatorId="ParameterValueValidator" />
         </h:inputText>
-        <h:inputText id="longValue" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{row.rangeLabel}"
+        <h:inputText id="longValue" label="#{rowItem.label}" onchange="setDirty(true)" p:placeholder="#{rowItem.rangeLabel}"
           required="#{rowItem.parameterDefinition.mandatory}" dataType="long" minValue="#{rowItem.minValue}"
           maxValue="#{rowItem.maxValue}" disabled="#{readOnly}"
           rendered="#{rowItem.parameterDefinition.valueTypeLong and rowItem.emptyOrFirstSteppedPrice}">
