@@ -16,15 +16,16 @@
     </div>
   </c:if>
   <c:if test="#{not shortVersionOnly}">
-    <div class="no-gutters row justify-content-between">
+    <div class="no-gutters row justify-content-between mt-2">
       <h1 id="#{prefix}Name" title="#{supplier.name}" class="shortenedText p-0" >#{supplier.name}</h1>
       <h:graphicImage id="#{prefix}Image" value="/image?type=ORGANIZATION_IMAGE&amp;sId=#{supplier.key}" />
     </div>
     <div>
       <mp:outputStepBootstrap value="#{msg['supplier.contactInfo']}"/>
       <div class="row">
-      <div class="col-12">
-          <h:outputText id="#{prefix}Address" value="#{supplier.address}" title="#{supplier.address}" />
+      <div class="col-12 mb-2">
+          <h:outputText id="#{prefix}Address" value="#{supplier.address}" title="#{supplier.address}"
+            styleClass="preWrapping" />
         </div>
         <div class="col-12">
           <h:outputText id="#{prefix}DomicileCountryDisplay" value="#{supplier.domicileCountryDisplay}"/>
