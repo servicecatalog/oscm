@@ -79,7 +79,7 @@
     </ant>
   </target>
 
-  <target name="BES.PackageAndRedeploy" description="Deploys the portal webcontent" depends="bootstrap">
+  <target name="BES.PackageAndRedeploy" description="Deploys the portal webcontent">
     <antcall target="All.CLEAN" />
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package">
       <property name="projects" value="oscm-ear, oscm-portal, oscm-security, oscm-portal-help, oscm-devruntime,oscm-reports" />
@@ -89,12 +89,12 @@
     <antcall target="restartContainer" />
   </target>
 
-  <target name="Portal.RedeployWarFile" description="Deploys the portal webcontent" depends="bootstrap">
+  <target name="Portal.RedeployWarFile" description="Deploys the portal webcontent">
     <antcall target="redeployPortal" />
     <antcall target="restartContainer" />
   </target>
 
-  <target name="redeployPortal" depends="bootstrap">
+  <target name="redeployPortal">
     <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="mkdir --parents /tmp/oscm-portal"
       trust="true" />
     <scp file="${build.result.package.dir}/oscm-portal/oscm-portal.war" todir="${env.SCP_USER}:${env.SCP_PASS}@${env.SCP_TARGETHOST}:/tmp/oscm-portal"
@@ -107,7 +107,7 @@
       command="docker cp /tmp/oscm-portal/oscm-portal.war oscm-core:/opt/apache-tomee/webapps/oscm-portal.war" trust="true" />
   </target>
 
-  <target name="Portal.RedeployWebContents" description="Deploys the portal webcontent" depends="bootstrap">
+  <target name="Portal.RedeployWebContents" description="Deploys the portal webcontent">
     <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="mkdir --parents /tmp/WebContents"
       trust="true" />
     <scp todir="${env.SCP_USER}:${env.SCP_PASS}@${env.SCP_TARGETHOST}:/tmp/WebContents" trust="true">
@@ -120,7 +120,7 @@
     <antcall target="restartContainer" />
   </target>
 
-  <target name="redeployBesEar" depends="bootstrap">
+  <target name="redeployBesEar">
     <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="mkdir --parents /tmp/oscm-ear"
       trust="true" />
     <scp file="${build.result.package.dir}/oscm-ear/oscm.ear" todir="${env.SCP_USER}:${env.SCP_PASS}@${env.SCP_TARGETHOST}:/tmp/oscm-ear"
@@ -133,7 +133,7 @@
       command="docker cp /tmp/oscm-ear/oscm.ear oscm-core:/opt/apache-tomee/apps/oscm.ear" trust="true" />
   </target>
 
-  <target name="restartContainer" depends="bootstrap">
+  <target name="restartContainer">
     <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="docker restart oscm-core"
       trust="true" />
   </target>
