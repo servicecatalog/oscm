@@ -39,6 +39,7 @@
 
    <h:form id="subListForm">
     <a4j:outputPanel class="px-sm-4 pt-sm-4 table_container" >
+
      <mp:outputStep id="pageHeader" value="#{msg['subscriptions.table.availableToAdministrate']}"/>
      <mp:subscriptionFinderBootstrap formId="subListForm" styleClass="mb-3"
                                      searchPhraseProperty="#{subscriptionsCtrl.model.fullTextSearchFilterValue}"
@@ -47,7 +48,7 @@
                      headerClass="rowTitle sortable" rowClasses="rowOdd, rowEven" columnHeaderClass="rowTitle sortable" noDataLabel=" "
                      styleClass="sortable table-hover table-bordered w-100"
                      headerCellClass="rowTitle sortable" columnClasses="wrapColumns">
- 
+
       <rich:column width="#{iconWidth}" styleClass="tableColumnCheckBox">
        <a4j:outputPanel styleClass="d-lg-none text-center">
         <rich:collapsibleSubTableToggler for="sbtbl"/>
@@ -197,14 +198,5 @@
 
   <mp:linkPageTop/>
 
-<!--   <link href="#{facesContext.externalContext.requestContextPath}/css/dataTableDarkStyle.css" rel="stylesheet"
-        type="text/css" media="all"/> -->
-
-<script>
-   $('tbody').parents('.table-container').find('tr:even').addClass( 'even' );
- </script>
-
-  
-        
  </ui:define>
 </ui:composition>

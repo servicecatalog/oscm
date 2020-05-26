@@ -1,0 +1,91 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+ <div class="text-left pl-3">
+  <div class="row pt-2">
+   <a4j:outputPanel layout="block" styleClass="m-1" onclick="#{onClickHandler}">
+    <h:graphicImage id="#{fieldId}Image" value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{subscription.serviceKey}"/>
+   </a4j:outputPanel>
+
+   <div class="text-left p-2">
+    <a4j:outputPanel layout="block" styleClass="center">
+     <!-- subscription id -->
+     <h2 id="#{fieldId}SubscriptionId" class="box_title">#{subscription.subscriptionId}</h2>
+     <h3 id="#{fieldId}Supplier" class="supplier shortenedText" title="#{subscription.supplierName}">
+      <h:outputFormat value="#{msg['service.by']}">
+       <f:param value="#{subscription.supplierName}"/>
+      </h:outputFormat>
+     </h3>
+     <!-- usage link -->
+     <h:outputLink styleClass="btn btn-secondary float-right" target="#{subscription.target}"
+                   id="#{fieldId}ServiceUrl" value="#{subscription.accessUrl}"
+                   rendered="#{not subscription.accessViaAccessInfo and (subscription.statusActive or subscription.statusPendingUpd)}">
+      <h:outputText value="#{subscription.accessUrl}"/>
+     </h:outputLink>
+     <!-- access info -->
+     <h:outputText id="#{fieldId}AccessInfo" value="#{subscription.serviceAccessInfo}"
+                   rendered="#{subscription.accessViaAccessInfo}" escape="false"/>
+
+     <a4j:outputPanel layout="block" styleClass="provisioningProgress"
+                      rendered="#{subscription.provisioningProgressRendered}">
+      <h:outputText id="#{fieldId}Progress" value="#{subscription.provisioningProgress}" styleClass="mx-3"/>
+     </a4j:outputPanel>
+    </a4j:outputPanel>
+   </div>
+  </div>
+  <!-- number of assigned users -->
+  <div class="row pt-2 pl-1">
+   <div class="col-5 pl-0">
+    <adm:outputLabel value="#{msg['subscription.users']}" styleClass="mx-3"/>
+   </div>
+   <div class="col-7">
+    <h:outputText id="#{fieldId}Users" value="#{subscription.numberOfAssignedUsers}"/>
+   </div>
+  </div>
+  <!-- status info -->
+  <div class="row pt-2 pl-1">
+   <div class="col-5 pl-0">
+    <adm:outputLabel value="#{msg['subscription.status']}" styleClass="mx-3"/>
+   </div>
+   <div class="col-7 pl-o">
+    <ui:include src="../../../../marketplace/playground/subscriptions/status.xhtml">
+     <ui:param name="sub" value="#{subscription}"/>
+    </ui:include>
+   </div>
+  </div>
+  <!-- reference -->
+  <div class="row pt-2 pl-1">
+   <div class="col-5 p-0">
+    <adm:outputLabel value="#{msg['subscriptions.table.reference']}" styleClass="mx-3"/>
+   </div>
+   <div class="col-7 p-0">
+    <h:outputText value="#{subscription.purchaseOrderNumber}"/>
+   </div>
+  </div>
+  <!-- activation -->
+  <div class="row pt-2 pl-1">
+   <div class="col-5 p-0">
+    <adm:outputLabel value="#{msg['subscription.activationDate']}" styleClass="mx-3"/>
+   </div>
+   <div class="col-7 p-0">
+    <h:outputText value="#{subscription.activationDate}">
+     <f:convertDateTime/>
+    </h:outputText>
+   </div>
+  </div>
+  <!-- service -->
+  <div class="row pt-2 pl-1">
+   <div class="col-5 p-0">
+    <adm:outputLabel value="#{msg['subscription.service']}" styleClass="mx-3"/>
+   </div>
+   <div class="col-7 p-0">
+    <h:outputText value="#{subscription.serviceName}"/>
+   </div>
+  </div>
+ </div>
+
+</ui:composition>

@@ -86,7 +86,11 @@ Copyright 2010-2012 FUJITSU LIMITED
     11.7 Additional utility classes
     11.8 Modal dialog
 
+<<<<<<< HEAD
   12 Bootstrap Table
+=======
+  12 Table
+>>>>>>> refs/remotes/origin/master
 
 */
 
@@ -4459,11 +4463,6 @@ div#headerrightareaBootstrap, rightarea a {
 
 .table-hover tbody tr:hover td {
    background:  #f8f9fa;
-}
-
-.col-icon {
-  width: 20px;
-  text-align: center;
 }
 
 .col-icon {

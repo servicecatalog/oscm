@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import javax.annotation.Resource;
+import javax.annotation.security.DeclareRoles;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -137,10 +138,15 @@ import org.oscm.validator.OrganizationRoleValidator;
  *
  * @author Mike J&auml;ger
  */
+@DeclareRoles({
+  "PLATFORM_OPERATOR",
+  "ORGANIZATION_ADMIN",
+  "SUBSCRIPTION_MANAGER",
+  "UNIT_ADMINISTRATOR"
+})
 @Remote(OperatorService.class)
 @Stateless
-@RolesAllowed("ORGANIZATION_ADMIN")
-@Interceptors({InvocationDateContainer.class, ExceptionMapper.class})
+@Interceptors({InvocationDateContainer.class, ExceptionMapper.class, UserRolesInterceptor.class})
 public class OperatorServiceBean implements OperatorService {
 
   private static final int DB_SEARCH_LIMIT = 100;
