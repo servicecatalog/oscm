@@ -9,8 +9,6 @@
  */
 package org.oscm.marketplace;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -23,6 +21,8 @@ import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.MarketplacePathSegments;
 import org.oscm.webtest.PortalTester;
 import org.oscm.webtest.WebTester;
+
+import static org.junit.Assert.assertEquals;
 
 public class MarketplacePlaygroundSubscriptionTableWT {
 

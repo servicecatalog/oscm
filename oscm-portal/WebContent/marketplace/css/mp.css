@@ -10,19 +10,19 @@ Copyright 2010-2012 FUJITSU LIMITED
 -------------------------------------------------------------------- */
 
 /*
-	Contents	
+	Contents
 
   1. Font Definitions
-  
+
   2. Standard Elements
-  
+
   3. Header
     3.1 Header Layout Definitions
     3.2 Corporate Logo
     3.3 Login
     3.4 Main Search Box
     3.5 Header Navigation
-    
+
   4. Forms
     4.1 Form Grids
     4.2 Form Hints
@@ -36,11 +36,11 @@ Copyright 2010-2012 FUJITSU LIMITED
     5.4.1 Service Section
     5.4.2 Service Header
     5.5 Table  Elements
-    5.6 Modal Panels  
+    5.6 Modal Panels
     5.7 Pager
     5.8 Table Filter
     5.9  Browse Buttons
-    
+
   6 Content Details
     6.1 Popup Panels
     6.2 Product Review
@@ -50,32 +50,32 @@ Copyright 2010-2012 FUJITSU LIMITED
     6.6 Subscriptions
     6.7 Subscription Confirmation Information Box
     6.8  Recommended Price Information Box
-  
+
   7 Navigation
     7.1 Breadcrumbs
-    7.2 Tag Cloud Navigation 
-    7.3 Left Sidebar Navigation 
+    7.2 Tag Cloud Navigation
+    7.3 Left Sidebar Navigation
       7.3.1 Category Sidebar
       7.3.2 Related Services Sidebar
     7.4 Service Overview Navigation
-    7.5 Page Jump Navigation 
-    7.6 Pagina Navigation 
-      7.6.1 Pagina & Services Per Page Buttons  
-      7.6.2 Pagina Next / Previous Buttons 
+    7.5 Page Jump Navigation
+    7.6 Pagina Navigation
+      7.6.1 Pagina & Services Per Page Buttons
+      7.6.2 Pagina Next / Previous Buttons
     7.7 Tab Panel
-    
+
   8 UI Elements
-    8.1 Regular Navigation Buttons 
+    8.1 Regular Navigation Buttons
     8.2 Big Buttons
     8.3 Progress Bar
     8.4 Process Progress Status
     8.5 UI Graphics
     8.6 Miscellaneous Graphics
-    
+
   9 Footer
-  
+
   10 Responsive iframes, embeds and images
-  
+
   11 Bootstrap Elements
     11.1 Header section
     11.2 Navigation bar
@@ -85,7 +85,7 @@ Copyright 2010-2012 FUJITSU LIMITED
     11.6 Footer
     11.7 Additional utility classes
     11.8 Modal dialog
-  
+
   12 Table
 
 */
@@ -4160,6 +4160,14 @@ div.responsive-table-panel {
 
 .responsive-spacer {
   margin-top: 5.5em;
+}
+
+.responsive-iframe {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 500px;
+  border: none;
 }
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

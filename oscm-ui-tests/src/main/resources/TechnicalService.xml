@@ -1,41 +1,70 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!-- Copyright FUJITSU LIMITED 2018 -->
+<!-- Copyright FUJITSU LIMITED 2020 -->
 
 <tns:TechnicalServices xmlns:tns="oscm.serviceprovisioning/1.9/TechnicalService.xsd"
                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                        xsi:schemaLocation="oscm.serviceprovisioning/1.9/TechnicalService.xsd ../../../../oscm-serviceprovisioning/javares/TechnicalServices.xsd">
 
-    <tns:TechnicalService id="AppSampleService" build="2018.07.20" provisioningType="ASYNCHRONOUS"
-                          provisioningUrl="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl"
-                          provisioningVersion="1.0"
-                          accessType="DIRECT" loginPath="Dynamically provided." baseUrl="">
+  <tns:TechnicalService id="AppSampleServiceTest" build="2020.05.26" provisioningType="ASYNCHRONOUS"
+                        provisioningUrl="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl"
+                        provisioningVersion="1.0" accessType="DIRECT" loginPath="Dynamically provided." baseUrl="">
 
-        <AccessInfo locale="en">Description of how to access the application.</AccessInfo>
+    <AccessInfo locale="en">Description of how to access the application.</AccessInfo>
 
-        <LocalizedDescription locale="en">Sample APP implementation.</LocalizedDescription>
-        <LocalizedDescription locale="de">Sample APP Implementierung.</LocalizedDescription>
-        <LocalizedLicense locale="en"/>
+    <LocalizedDescription locale="en">Sample APP implementation.</LocalizedDescription>
+    <LocalizedDescription locale="de">Sample APP Implementierung.</LocalizedDescription>
+    <LocalizedLicense locale="en"/>
 
-        <ParameterDefinition id="APP_CONTROLLER_ID" configurable="false" mandatory="true" valueType="STRING"
-                             default="ess.sample">
-            <LocalizedDescription locale="en">The ID of the sample controller implementation.</LocalizedDescription>
-        </ParameterDefinition>
-        <ParameterDefinition id="PARAM_MESSAGETEXT" configurable="true" mandatory="true" valueType="STRING"
-                             default="Some message.">
-            <LocalizedDescription locale="en">The message text for emails.</LocalizedDescription>
-        </ParameterDefinition>
-        <ParameterDefinition id="PARAM_EMAIL" configurable="true" mandatory="true" valueType="STRING"
-                             default="user@myorg.com">
-            <LocalizedDescription locale="en">The receiver of emails.</LocalizedDescription>
-        </ParameterDefinition>
-        <ParameterDefinition id="PARAM_USER" configurable="true" mandatory="true" valueType="STRING"
-                             default="defaultuser">
-            <LocalizedDescription locale="en">IAAS user</LocalizedDescription>
-        </ParameterDefinition>
-        <ParameterDefinition id="PARAM_PWD" configurable="true" mandatory="true" valueType="PWD"
-                             default="">
-            <LocalizedDescription locale="en">IAAS password</LocalizedDescription>
-        </ParameterDefinition>
-    </tns:TechnicalService>
+    <ParameterDefinition id="APP_CONTROLLER_ID" configurable="false" mandatory="true" valueType="STRING"
+                         default="ess.sample">
+      <LocalizedDescription locale="en">The ID of the sample controller implementation.</LocalizedDescription>
+    </ParameterDefinition>
+    <ParameterDefinition id="PARAM_MESSAGETEXT" configurable="true" mandatory="true" valueType="STRING"
+                         default="Some message.">
+      <LocalizedDescription locale="en">The message text for emails.</LocalizedDescription>
+    </ParameterDefinition>
+    <ParameterDefinition id="PARAM_EMAIL" configurable="true" mandatory="true" valueType="STRING"
+                         default="user@myorg.com">
+      <LocalizedDescription locale="en">The receiver of emails.</LocalizedDescription>
+    </ParameterDefinition>
+    <ParameterDefinition id="PARAM_USER" configurable="true" mandatory="true" valueType="STRING"
+                         default="defaultuser">
+      <LocalizedDescription locale="en">IAAS user</LocalizedDescription>
+    </ParameterDefinition>
+    <ParameterDefinition id="PARAM_PWD" configurable="true" mandatory="true" valueType="PWD"
+                         default="">
+      <LocalizedDescription locale="en">IAAS password</LocalizedDescription>
+    </ParameterDefinition>
+    <Operation id="HELP"
+               actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl">
+      <LocalizedName locale="en">Help</LocalizedName>
+      <LocalizedName locale="de">Hilfe</LocalizedName>
+      <LocalizedDescription locale="en">Help activation.</LocalizedDescription>
+      <LocalizedDescription locale="de">Hilfe Aktivierung.</LocalizedDescription>
+    </Operation>
+    <Operation id="CAUSE_ERROR"
+               actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl">
+      <LocalizedName locale="en">Error</LocalizedName>
+      <LocalizedName locale="de">Fehler</LocalizedName>
+      <LocalizedDescription locale="en">Cause an error.</LocalizedDescription>
+      <LocalizedDescription locale="de">Einen Fehler verursachen.</LocalizedDescription>
+      <OperationParameter id="APP_CONTROLLER_ID" mandatory="true" type="INPUT_STRING">
+        <LocalizedName locale="en">Controller</LocalizedName>
+      </OperationParameter>
+      <OperationParameter id="PARAM_MESSAGETEXT" mandatory="true" type="INPUT_STRING">
+        <LocalizedName locale="en">Message</LocalizedName>
+      </OperationParameter>
+    </Operation>
+    <Operation id="SNAPSHOT"
+               actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl">
+      <LocalizedName locale="en">Create snapshot</LocalizedName>
+      <LocalizedName locale="de">Snapshot anlegen</LocalizedName>
+      <LocalizedDescription locale="en">Creates a snapshot.</LocalizedDescription>
+      <LocalizedDescription locale="de">Legt einen snapshot an.</LocalizedDescription>
+      <OperationParameter id="SERVER" mandatory="true" type="REQUEST_SELECT">
+        <LocalizedName locale="en">SNAPSHOT parameter</LocalizedName>
+      </OperationParameter>
+    </Operation>
+  </tns:TechnicalService>
 
 </tns:TechnicalServices>

@@ -38,15 +38,15 @@
    </h:form>
 
    <h:form id="subListForm">
-    <a4j:outputPanel class="px-sm-4 pt-sm-4 table_container" style="display: flow-root">
+    <a4j:outputPanel class="px-sm-4 pt-sm-4 con-flow-root">
      <mp:outputStep id="pageHeader" value="#{msg['subscriptions.table.availableToAdministrate']}"/>
      <mp:subscriptionFinderBootstrap formId="subListForm" styleClass="mb-3"
                                      searchPhraseProperty="#{subscriptionsCtrl.model.fullTextSearchFilterValue}"
                                      renderElementList="subscriptionsList subListPager subListPagerScripts :pagerPanel :subscriptionsListScripts"/>
      <rich:dataTable rows="10" id="subscriptionsList" value="#{subscriptionsCtrl.model}" var="sub"
                      headerClass="rowTitle sortable" columnHeaderClass="rowTitle sortable" noDataLabel=" "
-                     styleClass="table table-striped table-hover table-bordered sortable"
-                     headerCellClass="rowTitle sortable" columnClasses="wrapColumns" style="width:100%">
+                     styleClass="table table-striped table-hover table-bordered sortable w-100"
+                     headerCellClass="rowTitle sortable" columnClasses="wrapColumns">
 
       <rich:column width="#{iconWidth}" styleClass="tableColumnCheckBox">
        <a4j:outputPanel styleClass="show-expand-button text-center">
@@ -195,7 +195,7 @@
 
   <mp:linkPageTop/>
 
-  <link href="#{facesContext.externalContext.requestContextPath}/css/dataTableDarkStyle.css" rel="stylesheet"
+  <link href="#{facesContext.externalContext.requestContextPath}/css/dataTable.css" rel="stylesheet"
         type="text/css" media="all"/>
  </ui:define>
 </ui:composition>

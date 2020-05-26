@@ -515,20 +515,6 @@ public class MySubscriptionsLazyDataModelTest {
     assertNull(model.getSelectedSubscriptionId());
   }
 
-  @Test
-  public void testGetSubscriptions() throws Exception {
-    // given
-    List<POSubscription> expectedList = prepareList();
-    Response resp = new Response(expectedList);
-    when(subscriptionsService.getMySubscriptions()).thenReturn(resp);
-
-    // when
-    List<POSubscription> result = model.getSubscriptions();
-    // then
-    assertArrayEquals(expectedList.toArray(), result.toArray());
-    assertNull(model.getSelectedSubscription());
-  }
-
   private List<POSubscription> prepareList() {
     List<POSubscription> cachedList = new ArrayList<>();
     POSubscription subAndCust = new POSubscription(new VOSubscription());

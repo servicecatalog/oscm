@@ -9,8 +9,6 @@
  */
 package org.oscm.marketplace;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -19,6 +17,8 @@ import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.PortalTester;
+
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplaceAccountWT {
@@ -42,7 +42,7 @@ public class MarketplaceAccountWT {
   }
 
   @Test
-  public void test01fillOrganizationData() throws InterruptedException {
+  public void test01fillOrganizationData() {
 
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_HEADER_USER_ACCOUNT_LINK);
     tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON);
