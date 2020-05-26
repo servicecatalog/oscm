@@ -44,8 +44,8 @@
                                      searchPhraseProperty="#{subscriptionsCtrl.model.fullTextSearchFilterValue}"
                                      renderElementList="subscriptionsList subListPager subListPagerScripts :pagerPanel :subscriptionsListScripts"/>
      <rich:dataTable rows="10" id="subscriptionsList" value="#{subscriptionsCtrl.model}" var="sub"
-                     headerClass="rowTitle sortable" columnHeaderClass="rowTitle sortable" noDataLabel=" "
-                     styleClass="sortable table table-striped table-hover table-bordered "
+                     headerClass="rowTitle sortable" rowClasses="rowOdd, rowEven" columnHeaderClass="rowTitle sortable" noDataLabel=" "
+                     styleClass="sortable table-hover table-striped table-bordered"
                      headerCellClass="rowTitle sortable" columnClasses="wrapColumns" style="width:100%">
  
       <rich:column width="#{iconWidth}" styleClass="tableColumnCheckBox">
@@ -200,6 +200,9 @@
 <!--   <link href="#{facesContext.externalContext.requestContextPath}/css/dataTableDarkStyle.css" rel="stylesheet"
         type="text/css" media="all"/> -->
 
+<script>
+   $('tbody').parents('.table-container').find('tr:even').addClass( 'even' );
+ </script>
 
   
         
