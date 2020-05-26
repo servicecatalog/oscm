@@ -40,7 +40,7 @@ public class MarketplacePlaygroundSubscriptionTableWT {
 
   @AfterClass
   public static void cleanUp() {
-    tester.logoutMarketplace();
+    tester.logoutMarketplacePlayground();
     tester.close();
   }
 

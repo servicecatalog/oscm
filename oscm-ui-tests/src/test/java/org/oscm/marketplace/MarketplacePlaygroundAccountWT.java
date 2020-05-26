@@ -34,8 +34,8 @@ public class MarketplacePlaygroundAccountWT {
   @BeforeClass
   public static void setup() throws Exception {
     tester = new PortalTester();
-    String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
-    String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
+    String userid = PlaygroundSuiteTest.supplierOrgAdminId;
+    String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
     tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
@@ -62,7 +62,8 @@ public class MarketplacePlaygroundAccountWT {
         "Australia\nSmall Village 10");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_SAVE_BUTTON);
 
-    assertTrue(tester.getExecutionResult());
+    tester.readContentOfMessage();
+    assertTrue(tester.readInfoMessage().contains("The billing address has been successfully saved"));
   }
 
   @Test
@@ -146,6 +147,7 @@ public class MarketplacePlaygroundAccountWT {
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_COUNTRY_DROPDOWN, "AU");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SAVE_BUTTON_ID);
 
+    tester.readContentOfMessage();
     assertTrue(tester.readInfoMessage().contains("Your profile has been successfully saved"));
   }
 
@@ -166,6 +168,7 @@ public class MarketplacePlaygroundAccountWT {
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_LANGUAGE_DROPDOWN, "en");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON);
 
+    tester.readContentOfMessage();
     assertTrue(tester.readInfoMessage().contains("Your profile has been successfully saved"));
   }
 
@@ -179,6 +182,7 @@ public class MarketplacePlaygroundAccountWT {
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_VALUE_FIELD, "value");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_SAVE_BUTTON);
 
+    tester.readContentOfMessage();
     assertTrue(tester.readInfoMessage().contains("The attributes have been successfully saved"));
   }
 }

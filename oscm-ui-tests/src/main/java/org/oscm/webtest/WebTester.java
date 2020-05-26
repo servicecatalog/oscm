@@ -431,4 +431,17 @@ public class WebTester {
       return element.getAttribute("class");
     }
   }
+
+  /**
+   * Reads the info/error message from the page notification.
+   *
+   * @return the content of message
+   */
+  public void readContentOfMessage() {
+    if (driver.findElements(By.id(PortalHtmlElements.PORTAL_SPAN_INFOS)).size()!= 0) {
+      log(readText(PortalHtmlElements.PORTAL_SPAN_INFOS));
+    } else if (driver.findElements(By.id(PortalHtmlElements.PORTAL_SPAN_ERRORS)).size()!= 0) {
+      log(readText(PortalHtmlElements.PORTAL_SPAN_ERRORS));
+    }
+  }
 }
