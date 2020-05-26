@@ -370,7 +370,7 @@
   <link href="#{facesContext.externalContext.requestContextPath}/css/dataTable.css" rel="stylesheet"
         type="text/css" media="all"/>
 
-  <script>MPUtils.sessionTab();</script>
+  <script>AdmUtils.sessionTab(#{sessionBean.selectedTab});</script>
 
  </ui:define>
 </ui:composition>

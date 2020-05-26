@@ -65,7 +65,8 @@
              </div>
              <div class="col-lg-9">
               <adm:labelAndInputText id="input#{op.id}" value="#{op.value}" styleClass="form-control" hideLabel="true"
-                                     required="#{op.mandatory}" maxlength="#{appBean.nameLen}" converterId="trimConverter">
+                                     required="#{op.mandatory}" maxlength="#{appBean.nameLen}"
+                                     converterId="trimConverter">
                <f:ajax event="change"/>
               </adm:labelAndInputText>
              </div>
@@ -155,13 +156,13 @@
       <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
       Loading...
      </button>
-      <script>
-            var dots = window.setInterval( function() {
-                var wait = document.getElementById("wait");
-                if ( wait.innerHTML.length > 2 ) {
-                    wait.style.display = 'none';
-                } }, 350);
-          </script>
+     <script>
+       var dots = window.setInterval( function() {
+         var wait = document.getElementById("wait");
+         if ( wait.innerHTML.length > 2 ) {
+           wait.style.display = 'none';
+        } }, 350);
+     </script>
      <iframe id="customData" src="#{mySubscriptionsCtrl.customTabUrlWithParameters}"
              class="responsive-iframe" onload="$('#loading').hide();clearInterval(dots);"/>
     </div>
@@ -169,6 +170,6 @@
   </c:if>
  </a4j:outputPanel>
 
- <script>MPUtils.sessionTab(#{sessionBean.selectedTab});</script>
+ <script>AdmUtils.sessionTab(#{sessionBean.selectedTab});</script>
 
 </ui:composition>
