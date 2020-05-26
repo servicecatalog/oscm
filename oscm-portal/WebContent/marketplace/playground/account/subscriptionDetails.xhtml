@@ -471,7 +471,7 @@
                 </c:if>
               </div>
               <ui:fragment rendered="#{manageSubscriptionModel.priceModel.chargeable}">
-                <div class="tab-pane fade " id="priceModelTab" role="tabpanel" aria-labelledby="priceModelTabLink">
+                <div class="tab-pane fade" id="priceModelTab" role="tabpanel" aria-labelledby="priceModelTabLink">
                   <a4j:outputPanel layout="block" styleClass="box error"
                     rendered="#{manageSubscriptionModel.showProvisioningError}">
                     <dl>
@@ -518,9 +518,9 @@
                 </a4j:outputPanel>
                 <mp:notice rendered="#{manageSubscriptionModel.showProvisioningWarning}"
                   noticeText="#{manageSubscriptionModel.provisioningWarning}" />
-                <a4j:outputPanel layout="block" styleClass="box suspendedNotMessage suspended"
+                <a4j:outputPanel layout="block" styleClass="box suspendedNotMessage suspended suspended-bs"
                   rendered="#{manageSubscriptionModel.showStateWarning}">
-                  <dl>
+                  <dl class="m-0 p-2">
                     <dt>
                       <h:outputText value="#{manageSubscriptionModel.stateWarning}" />
                     </dt>
