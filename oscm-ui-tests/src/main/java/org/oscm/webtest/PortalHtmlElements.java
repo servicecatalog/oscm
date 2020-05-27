@@ -21,7 +21,6 @@ public class PortalHtmlElements {
   public static final String PORTAL_SPAN_ERRORS = "errorMessages:";
   public static final String PORTAL_ERRORCLASS = "rf-msgs-sum";
   public static final String PORTAL_SPAN_INFOS = "infoMessages:";
-  public static final String PORTAL_SPAN_INFOS_XPATH = "//*[@id=\"infoMessages:\"]";
   public static final String PORTAL_INFOCLASS = "rf-msgs-sum";
 
   public static final String PORTAL_DIV_SHOWMESSAGE = "mainTmplMessagesPanel";
