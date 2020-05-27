@@ -3,26 +3,6 @@
 /* change the fonts, and primary theme color to green  */
 /* -------begin customization-------- */
 /* change the fonts, and primary theme color to green  */
-.bootstrap_footer {
-  background: #343a40;
-  border-bottom: 1px solid #4c4c4c;
-  width: 100%;
-  color: #fff; }
-
-.bootstrap_footer a {
-  color: #fff; }
-
-.bootstrap_footer ul {
-  font-size: 93%;
-  list-style: none;
-  padding: 0;
-  margin: 0; }
-
-.bootstrap_footer li {
-  display: inline;
-  margin: 0;
-  margin-left: 16px; }
-
 /* -------end customization-------- */
 /* finally, import Bootstrap to set the changes! */
 /*!
