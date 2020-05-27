@@ -56,12 +56,8 @@ public class PortalMarketServiceWT {
 
     tester.visitPortal(PortalPathSegments.DEFINE_MARKETSERVICE);
     tester.waitForElement(By.id(PortalHtmlElements.DEFINE_MARKETSERVICE_DROPDOWN_SERVICENAME), 5);
-    Select dropdownServiceName =
-        new Select(
-            tester
-                .getDriver()
-                .findElement(By.id(PortalHtmlElements.DEFINE_MARKETSERVICE_DROPDOWN_SERVICENAME)));
-    dropdownServiceName.selectByVisibleText(IMPORT_TECHSERV_NAME);
+    tester.selectDropdown(PortalHtmlElements.UPDATE_TECHSERVICE_DROPDOWN_SERVICENAME, IMPORT_TECHSERV_NAME);
+
     tester.waitForElementVisible(By.id(PortalHtmlElements.DEFINE_MARKETSERVICE_BUTTONLINK_SAVE), 5);
     tester.writeValue(PortalHtmlElements.DEFINE_MARKETSERVICE_INPUT_SERVICEID, marketServiceName);
     tester

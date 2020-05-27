@@ -9,16 +9,15 @@
  */
 package org.oscm.portal;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
 import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalPathSegments;
 import org.oscm.webtest.PortalTester;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Integration web test to create a technical service.
@@ -74,12 +73,8 @@ public class PortalTechServiceWT {
 
     String importTechSerName = tester.getProperty(IMPORT_TECHSERV_NAME);
     tester.visitPortal(PortalPathSegments.UPDATE_TECHNICALSERVICE);
-    Select dropdownServiceName =
-        new Select(
-            tester
-                .getDriver()
-                .findElement(By.id(PortalHtmlElements.UPDATE_TECHSERVICE_DROPDOWN_SERVICENAME)));
-    dropdownServiceName.selectByVisibleText(importTechSerName);
+    tester.selectDropdown(
+        PortalHtmlElements.UPDATE_TECHSERVICE_DROPDOWN_SERVICENAME, importTechSerName);
 
     tester.waitForElementVisible(By.id(PortalHtmlElements.UPDATE_TECHSERVICE_BUTTONLINK_SAVE), 10);
     setParamDescription("APP_CONTROLLER_ID", PlaygroundSuiteTest.controllerId);
