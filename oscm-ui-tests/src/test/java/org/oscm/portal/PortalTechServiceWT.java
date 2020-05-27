@@ -29,7 +29,6 @@ public class PortalTechServiceWT {
 
   private static final String FILE_PATH_IMPORT_TECHSERVICE = "technicalservice.xml.path";
   private static final String IMPORT_TECHSERV_NAME = "technicalservice.name";
-
   private static PortalTester tester;
 
   @Rule public TestWatcher testWatcher = new JUnitHelper();
@@ -74,7 +73,7 @@ public class PortalTechServiceWT {
     String importTechSerName = tester.getProperty(IMPORT_TECHSERV_NAME);
     tester.visitPortal(PortalPathSegments.UPDATE_TECHNICALSERVICE);
     tester.selectDropdown(
-        PortalHtmlElements.UPDATE_TECHSERVICE_DROPDOWN_SERVICENAME, importTechSerName);
+        PortalHtmlElements.UPDATE_TECHSERVICE_DROPDOWN_SERVICENAME, "10000");
 
     tester.waitForElementVisible(By.id(PortalHtmlElements.UPDATE_TECHSERVICE_BUTTONLINK_SAVE), 10);
     setParamDescription("APP_CONTROLLER_ID", PlaygroundSuiteTest.controllerId);

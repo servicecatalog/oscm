@@ -20,7 +20,6 @@ import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.MarketplacePathSegments;
-import org.oscm.webtest.PortalHtmlElements;
 import org.oscm.webtest.PortalTester;
 
 import static org.junit.Assert.assertTrue;
@@ -63,10 +62,9 @@ public class MarketplacePlaygroundAccountWT {
         "Australia\nSmall Village 10");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENT_SAVE_BUTTON);
 
-    assertTrue(
-        tester
-            .readTextXPath(PortalHtmlElements.PORTAL_SPAN_INFOS_XPATH)
-            .contains("The billing address has been successfully saved"));
+    Thread.sleep(1000);
+    tester.readContentOfMessage();
+    assertTrue(tester.readInfoMessage().contains("The billing address has been successfully save"));
   }
 
   @Test
