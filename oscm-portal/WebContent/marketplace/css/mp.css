@@ -4475,6 +4475,10 @@ div#headerrightareaBootstrap, rightarea a {
     width: 16px;
 }
 
+/*.fa {
+    color: red !important;
+} */
+
 @media all and (max-width: 575px) {
   .RespTable, .RespTable thead, .RespTable tbody, .RespTable tr, .RespTable th, .RespTable td {
     display: block;
