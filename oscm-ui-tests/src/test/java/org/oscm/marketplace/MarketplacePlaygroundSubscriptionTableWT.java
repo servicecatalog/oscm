@@ -40,7 +40,7 @@ public class MarketplacePlaygroundSubscriptionTableWT {
 
   @AfterClass
   public static void cleanUp() {
-    tester.logoutMarketplace();
+    tester.logoutMarketplacePlayground();
     tester.close();
   }
 
@@ -69,7 +69,7 @@ public class MarketplacePlaygroundSubscriptionTableWT {
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SEARCH_FIELD, "GSubscri");
     tester.clickElementXPath(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_SEARCH_BUTTON);
-    Thread.sleep(2000);
+    Thread.sleep(3000);
     assertEquals(
         "GSubscriptionName810",
         tester.readTextXPath(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_SUBSCRIPTIONS_FIRST_ROW));

@@ -32,6 +32,7 @@ public class PortalMarketServiceWT {
   private static final String TECHSERVICE_IAAS_USER_ID = "DummyUser";
   private static final String TECHSERVICE_IAAS_USER_PWD = "DummyPwd123";
   private static final String marketServiceName = "ms_" + PlaygroundSuiteTest.currentTimestampe;
+  private static final String IMPORT_TECHSERV_NAME = "technicalservice.name";
   private static PortalTester tester;
 
   @Rule public TestWatcher testWatcher = new JUnitHelper();
@@ -55,12 +56,8 @@ public class PortalMarketServiceWT {
 
     tester.visitPortal(PortalPathSegments.DEFINE_MARKETSERVICE);
     tester.waitForElement(By.id(PortalHtmlElements.DEFINE_MARKETSERVICE_DROPDOWN_SERVICENAME), 5);
-    Select dropdownServiceName =
-        new Select(
-            tester
-                .getDriver()
-                .findElement(By.id(PortalHtmlElements.DEFINE_MARKETSERVICE_DROPDOWN_SERVICENAME)));
-    dropdownServiceName.selectByVisibleText("AppSampleService");
+    tester.selectDropdown(PortalHtmlElements.DEFINE_MARKETSERVICE_DROPDOWN_SERVICENAME, "10000");
+
     tester.waitForElementVisible(By.id(PortalHtmlElements.DEFINE_MARKETSERVICE_BUTTONLINK_SAVE), 5);
     tester.writeValue(PortalHtmlElements.DEFINE_MARKETSERVICE_INPUT_SERVICEID, marketServiceName);
     tester
