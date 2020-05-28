@@ -69,7 +69,7 @@
           </div>
           <div class="col-sm-auto col-md-auto col-xl-12">
             <c:if test="#{not showPriceLink}">
-            <mp:servicePrice styleClass="servicePriceDetails  row no-gutters justify-content-center" service="#{service}"/>
+            <mp:servicePrice styleClass="servicePriceDetails m-3 row no-gutters justify-content-center" service="#{service}"/>
             </c:if>
             <c:if test="#{showPriceLink}">
              <mp:servicePriceLink styleClass="servicePriceDetails" service="#{service}" bean="#{subscriptionBean}"/>

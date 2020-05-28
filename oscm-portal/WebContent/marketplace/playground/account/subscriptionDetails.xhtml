@@ -443,30 +443,20 @@
                       style="display: none;" />
                   </h:form>
 
-                  <mp:outputStep value="#{msg['subscription.selectEdition']}" />
+                  <mp:outputStepBootstrap value="#{msg['subscription.selectEdition']}" />
 
                   <c:forEach items="#{manageSubscriptionModel.compatibleServices}" var="service" varStatus="status">
-                    <c:set var="marginBottom" value="#{status.last ? '' : 'margin-bottom:10px;'}" />
                     <c:if test="#{not status.first}">
                       <mp:pixelline />
                     </c:if>
-                    <a4j:outputPanel layout="block" styleClass="serviceBox4span clearfix" style="#{marginBottom}">
-                      <a4j:outputPanel layout="block" styleClass="leftCenterBorder clearfix">
-                        <!-- don't show supplier info - it is always the same -->
-                        <mp:serviceBlock fieldId="service#{status.index}" service="#{service}" showSupplier="false" />
-                      </a4j:outputPanel>
-
-                      <a4j:outputPanel layout="block" styleClass="right clearfix">
-                        <mp:ratingStars reviewCount="#{service.reviewCount}" rating="#{service.rating}" />
-                        <mp:servicePrice styleClass="servicePriceDetails" service="#{service}" />
-                        <mp:button id="serviceButton#{service.key}" value="#{msg['button.select']}"
-                          disabled="#{manageSubscriptionModel.upgTabDisabled}"
-                          onclick="#{rich:element('selectedServiceKey')}.value=#{service.key};
+                    <mp:serviceBlockBootstrap fieldId="service#{status.index}" service="#{service}" showSupplier="false">
+                      <mp:buttonBootstrap id="serviceButton#{service.key}" value="#{msg['button.select']}"
+                                 disabled="#{manageSubscriptionModel.upgTabDisabled}" styleClass="btn btn-outline-secondary btn-block"
+                                 onclick="#{rich:element('selectedServiceKey')}.value=#{service.key};
                                  #{rich:element('selectedSubscriptionId')}.value='#{manageSubscriptionModel.subscription.subscriptionId}';
                                  #{rich:element('upgrade')}.click();
                                  return false;" />
-                      </a4j:outputPanel>
-                    </a4j:outputPanel>
+                    </mp:serviceBlockBootstrap>
                   </c:forEach>
                 </c:if>
               </div>
