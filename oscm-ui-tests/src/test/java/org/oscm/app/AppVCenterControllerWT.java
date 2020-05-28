@@ -13,7 +13,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
@@ -70,10 +69,11 @@ public class AppVCenterControllerWT {
           vcenter,
           "TKey,Name,Identifier,URL,UserId,Password,/n1,TestVCenter,TestVCenter,www.testurl.com,TestUser,TestPwd",
           "UTF-8");
-    } catch (IOException e) { // TODO Auto-generated catch block
+      controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", vcenter);
+      controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
+    } catch (Exception e) { // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", vcenter);
   }
 
   @Test
