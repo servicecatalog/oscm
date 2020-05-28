@@ -15,7 +15,8 @@
       var="styleClass"
       value="field" />
   </c:if>
-  
+
+  <c:if test="#{(empty hideLabel)}">
   <adm:outputLabel
     textId="label#{id}"
     value="#{label}"
@@ -24,6 +25,7 @@
     renderRequired="#{renderRequired}" 
     displayRequired="#{displayRequired}"
     requiredId="#{requiredId}" />
+  </c:if>
     
   <h:inputTextarea
     id="#{id}"
