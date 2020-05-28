@@ -40,8 +40,8 @@
    </a4j:jsFunction>
   </h:form>
 
-  <a4j:outputPanel id="all" layout="block">
-   <div class="con-flow-root">
+  <a4j:outputPanel id="all" styleClass="row" layout="block">
+   <div class="mx-4 mt-2 p-3 bg-light col">
     <mp:outputStep value="#{msg['marketplace.account.profile.title']}"/>
 
     <h:inputHidden value="#{sessionBean.selectedTab}"/>
@@ -83,13 +83,13 @@
          <label id="userID"
                 class="col-md-9 col-form-label"><strong>#{organizationBean.currentUser.userId}</strong></label>
         </div>
-        <div class="form-row pb-2">
+        <h:panelGroup styleClass="form-row pb-2"  rendered="#{not(empty organizationBean.currentUser.groupsToDisplay)}">
          <div class="col-md-3">
-          <adm:outputLabel class="col-form-label" value="#{msg['user.userGroup']}"/>
+          <adm:outputLabel class="col-form-label" value="#{msg['user.userGroup']}"  rendered="#{not(empty organizationBean.currentUser.groupsToDisplay)}"/>
          </div>
-         <label id="userGroup"
-                class="col-md-9 col-form-label"><strong>#{organizationBean.currentUser.groupsToDisplay}</strong></label>
-        </div>
+         <h:outputLabel  rendered="#{not(empty organizationBean.currentUser.groupsToDisplay)}" id="userGroup"
+                styleClass="col-md-9 col-form-label"><strong>#{organizationBean.currentUser.groupsToDisplay}</strong></h:outputLabel>
+        </h:panelGroup>
         <div class="form-row pb-2">
          <div class="col-md-3">
           <adm:outputLabel class="col-form-label" value="#{msg['user.salutation']}"/>
