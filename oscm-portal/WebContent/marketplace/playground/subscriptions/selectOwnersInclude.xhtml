@@ -1,0 +1,61 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <h:form id="#{dialogId}Form" method="post" action="">
+      <a4j:queue requestDelay="500" ignoreDupResponses="true"
+                 oncomplete="jQuery('body').removeClass('hourglass');"
+                 onsubmit="jQuery('body').addClass('hourglass');" />
+
+      <div>
+        <h:outputText value="#{msg['marketplace.subscription.owners.select.description']}" />
+      </div>
+
+
+      <c:set var="userIdWidth" value="25%" />
+
+      <div>
+        <ui:include src="../account/ownerTableInclude.xhtml">
+          <ui:param name="data" value="#{manageSubscriptionModel.subscriptionOwners}" />
+          <ui:param name="controller" value="#{manageSubscriptionCtrl}" />
+          <ui:param name="showDeleteIcon" value="false" />
+          <ui:param name="showRadio" value="true" />
+          <ui:param name="nameWidth" value="#{nameWidth}" />
+          <ui:param name="userIdWidth" value="#{userIdWidth}" />
+          <ui:param name="iconWidth" value="5%" />
+          <ui:param name="statePrefix" value="select" />
+          <ui:param name="dialogId" value="#{dialogId}" />
+        </ui:include>
+      </div>
+
+      <a4j:outputPanel layout="block" styleClass="clearfix">
+
+        <a4j:commandButton style="display: none" id="hiddenModalSelectOwnerSaveAndHide" value="#{msg['button.save']}"
+                           render="@form,#{dialogId}modalErrorMasterPanel,selectedOwnerText,:saveConfigurationPanel"
+                           action="#{manageSubscriptionCtrl.updateSelectedOwner}"
+                           oncomplete="
+                AdmUtils.showProgress(false);
+                if(!#{facesContext.maximumSeverity.ordinal > 0}){
+                  #{rich:component(dialogId)}.hide();
+                }" />
+
+        <div class="row mt-2 no-gutters">
+          <mp:buttonBootstrap id="saveButton" styleClass="btn-sm btn-secondary"
+                              onclick="if(getDirty()==true){setPageDirty();}setOnSubmit(true);AdmUtils.showProgress(true);
+        #{rich:element('hiddenModalSelectOwnerSaveAndHide')}.click();return false;"
+                              value="#{msg['button.ok']}" />
+          <mp:buttonBootstrap id="cancelButton" styleClass="btn-sm btn-secondary mx-2"
+                              onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
+                              value="#{msg['button.cancel']}"/>
+        </div>
+
+
+      </a4j:outputPanel>
+    </h:form>
+
+</ui:composition>
