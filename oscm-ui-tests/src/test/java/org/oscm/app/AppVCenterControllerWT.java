@@ -13,8 +13,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+
 import org.apache.commons.io.FileUtils;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -23,7 +28,6 @@ import org.oscm.webtest.app.AppControllerTester;
 import org.oscm.webtest.app.AppHtmlElements;
 import org.oscm.webtest.app.AppPathSegments;
 
-@Ignore
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppVCenterControllerWT {
 
