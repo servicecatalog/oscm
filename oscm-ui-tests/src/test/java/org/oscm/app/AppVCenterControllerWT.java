@@ -13,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
@@ -61,8 +62,23 @@ public class AppVCenterControllerWT {
     controllerTester.close();
   }
 
+  private void importVCenter() {
+    File vcenter = null;
+    try {
+      vcenter = folder.newFile("vcenterForTesting.csv");
+      FileUtils.writeStringToFile(
+          vcenter,
+          "TKey,Name,Identifier,URL,UserId,Password,/n1,TestVCenter,TestVCenter,www.testurl.com,TestUser,TestPwd",
+          "UTF-8");
+    } catch (IOException e) { // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", vcenter);
+  }
+
   @Test
   public void test01setSettingsAPIvSphere() throws Exception {
+    importVCenter();
     controllerTester.changeValueInputInBalancerField("url", "https://webiste.com");
     controllerTester.changeValueInputInBalancerField("user", userID);
     controllerTester.changeValueInputInBalancerField("pwd", userPassword);
@@ -78,7 +94,7 @@ public class AppVCenterControllerWT {
 
   @Test
   public void test02importServiceTemplate() throws Exception {
-
+    importVCenter();
     createdFile = folder.newFile("vcenter.csv");
     FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
     controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
