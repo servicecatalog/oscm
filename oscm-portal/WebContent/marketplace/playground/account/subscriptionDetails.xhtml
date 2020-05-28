@@ -207,9 +207,9 @@
 
                   <c:set var="dialogHelpId" value="subscription_selectOwners" />
                   <c:set var="dialogTitle" value="#{manageSubscriptionModel.modalTitle}" />
-                  <c:set var="targetCtrl" value="/marketplace/subscriptions/selectOwnersInclude.xhtml" />
+                  <c:set var="targetCtrl" value="/marketplace/playground/subscriptions/selectOwnersInclude.xhtml" />
                   <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();" />
-                  <ui:include src="/marketplace/popup.xhtml" />
+                  <ui:include src="../popup.xhtml" />
                 </a4j:outputPanel>
 
 
@@ -279,18 +279,18 @@
                         <div class="col-auto">
                           <adm:outputLabel textId="subscriptionUnitName" value="#{msg['unit.organizationalUnit']}" />
                         </div>
-                      </div>
-                      <div class="col-auto">
-                        <h:commandButton render="configurationForm" type="button" styleClass="editPen" id="editUnit"
-                                         rendered="#{not manageSubscriptionModel.cfgTabDisabled and (userBean.isOrganizationAdmin or userBean.isUnitAdmin)}"
-                                         onclick="if(getDirty()==true){setPageDirty();};setPopupTargetSelectUnits(); return false;">
-                        </h:commandButton>
+                        <div class="col-auto">
+                          <h:commandButton render="configurationForm" type="button" styleClass="editPen" id="editUnit"
+                                           rendered="#{not manageSubscriptionModel.cfgTabDisabled and (userBean.isOrganizationAdmin or userBean.isUnitAdmin)}"
+                                           onclick="if(getDirty()==true){setPageDirty();};setPopupTargetSelectUnits(); return false;">
+                          </h:commandButton>
+                        </div>
                       </div>
                     </div>
-                    <div class="col-md-5 col-sm-12 my-1">
+                    <a4j:outputPanel id="selectedUnitName" styleClass="col-md-5 col-sm-12 my-1">
                       <h:outputText value="#{manageSubscriptionCtrl.model.unitNameToDisplay}"
                                     title="#{manageSubscriptionCtrl.model.unitNameToDisplay}" />
-                    </div>
+                    </a4j:outputPanel>
                     <div class="col-md-4 col-sm-12">
                       <mp:messageAndHintBootstrap id="subscriptionUnitSelectionMsg" for="organizationalUnitSelect" />
                     </div>
@@ -348,13 +348,13 @@
                     </ui:include>
                   </ui:fragment>
 
-                  <div class="row border-top">
-                    <mp:buttonBootstrap id="saveConfigurationButton" value="#{msg['button.save']}"
+                  <div class="no-gutters row border-top my-2">
+                    <mp:buttonBootstrap id="saveConfigurationButton" value="#{msg['button.save']}" styleClass="btn-sm btn-secondary my-2"
                       bean="#{manageSubscriptionCtrl}" rendered="#{not manageSubscriptionModel.showOwnerWarning}"
                       action="modify" disabled="#{manageSubscriptionModel.cfgTabDisabled}" />
 
                     <mp:buttonBootstrap id="saveConfigurationButtonWithWarning" value="#{msg['button.save']}"
-                      onclick="#{rich:component('confirmOwnerPanel')}.show();return false;"
+                      onclick="#{rich:component('confirmOwnerPanel')}.show();return false;" styleClass="btn-sm btn-secondary my-2"
                       rendered="#{manageSubscriptionModel.showOwnerWarning}"
                       disabled="#{manageSubscriptionModel.cfgTabDisabled}" />
 
@@ -367,24 +367,24 @@
                       isFirstModal="false" panelId="confirmOwnerPanel" />
                   </div>
                 </h:form>
+                <!--              function focusSubscriptionId(){-->
+                <!--                var element = document.getElementById('configurationForm:subscriptionIdText');-->
+                <!--                if (element) {-->
+                <!--                  try {-->
+                <!--                    AdmUtils.setFocus(element, true);-->
+                <!--                    element.focus();-->
+                <!--                  } catch (e) {-->
+                <!--                  }-->
+                <!--                }-->
 
-<!--                <script type="text/javascript">-->
-<!--              function focusSubscriptionId(){-->
-<!--                var element = document.getElementById('configurationForm:subscriptionIdText');-->
-<!--                if (element) {-->
-<!--                  try {-->
-<!--                    AdmUtils.setFocus(element, true);-->
-<!--                    element.focus();-->
-<!--                  } catch (e) {-->
-<!--                  }-->
-<!--                }-->
+                <!--              }-->
+                <!--              setTimeout(focusSubscriptionId, 10);-->
+                <script type="text/javascript">
 
-<!--              }-->
-<!--              setTimeout(focusSubscriptionId, 10);-->
-<!--              function setPageDirty(){-->
-<!--                #{rich:element('configDirty')}.value = 'true';-->
-<!--              }-->
-<!--              </script>-->
+              function setPageDirty(){
+                #{rich:element('configDirty')}.value = 'true';
+              }
+              </script>
               </div>
               <ui:fragment
                 rendered="#{manageSubscriptionModel.subscription.priceModel.chargeable and empty appBean.hiddenUIElements['marketplace.navigation.Payment'] and manageSubscriptionModel.paymentTabAvailable}">
