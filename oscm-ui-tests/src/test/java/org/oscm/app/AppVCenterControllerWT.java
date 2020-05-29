@@ -98,7 +98,7 @@ public class AppVCenterControllerWT {
     createdFile = folder.newFile("vcenter.csv");
     FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
     controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
-    controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt91']");
+    controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt145']");
 
     assertTrue(
         controllerTester
