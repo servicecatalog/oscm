@@ -1264,6 +1264,14 @@
       <redirect />
     </navigation-case>
   </navigation-rule>
+  <navigation-rule>
+    <from-view-id>/marketplace/playground/account/subscriptionDetails.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>serviceUpgrade</from-outcome>
+      <to-view-id>/marketplace/subscriptions/upgrade/upgrade.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>
 
 
   <validator>
