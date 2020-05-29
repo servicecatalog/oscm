@@ -5,6 +5,10 @@
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
 @import "myvariables";
 	
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+} 
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "../../bootstrap/scss/bootstrap"; 
