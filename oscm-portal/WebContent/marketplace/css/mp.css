@@ -963,16 +963,17 @@ form .formHighlight input, form .formHighlight textarea {
   right: 5px;
 }
 
+
 /* question mark icon indicating hint available */
 .hint {
   background: none repeat-x scroll left top #FFFFDD;
   border: 1px solid #CCCCCC;
   border-radius: 3px;
-  -moz-border-radius: 3px;
-  padding: 14px 10px;
+  -moz-border-radius: 4px;
+  padding: 14px 12px;
   position: absolute !important;
-  top: -13px;
-  left: 6px;
+  top: -10px;
+  left: -6px;
   z-index: 1100;
   width: 260px;
   min-height: 21px;
@@ -4026,7 +4027,7 @@ form .formHighlight div.div-for-input {
 }
 
 #configurationForm div.hint, #configurationForm .hint-panel, #configurationForm .hintAndMessageTable div {
-  margin-left: 30px !important;
+  margin-left: 20px !important;
 }
 
 #configurationForm .subscrOwnerName.clipped {
@@ -4501,9 +4502,14 @@ div#headerrightareaBootstrap, rightarea a {
   }
 }
 
-
 @media ( min-width : 901px) {
   .show-service-row {
+    display: none;
+  }
+}
+
+@media ( max-width : 900px) {
+  .column-service-hide {
     display: none;
   }
 }
@@ -4513,3 +4519,10 @@ div#headerrightareaBootstrap, rightarea a {
     display: none;
   }
 }
+
+@media ( max-width : 600px) {
+  .column-unit-hide {
+    display: none;
+  }
+}
+
