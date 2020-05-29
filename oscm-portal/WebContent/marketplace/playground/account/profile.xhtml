@@ -46,16 +46,16 @@
 
     <h:inputHidden value="#{sessionBean.selectedTab}"/>
 
-    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-     <a class="nav-item nav-link active" id="tabUser" data-toggle="tab" href="#user" role="tab" aria-controls="user"
+    <div class="list-group list-group-horizontal-sm text-center" id="nav-tab" role="tablist">
+     <a class="list-group-item list-group-item-secondary list-group-item-action active" id="tabUser" data-toggle="tab" href="#user" role="tab" aria-controls="user"
         onclick="setSelectedTab('tabUser');">#{msg['marketplace.account.profile.userTab']}</a>
      <c:if
        test="#{userBean.isOrganizationAdmin and empty appBean.hiddenUIElements['organization.edit.organizationData']}">
-      <a class="nav-item nav-link" id="tabOrg" data-toggle="tab" href="#org" aria-controls="org" aria-selected="false"
+      <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabOrg" data-toggle="tab" href="#org" aria-controls="org" aria-selected="false"
          role="tab" onclick="setSelectedTab('tabOrg');">#{msg['marketplace.account.profile.organizationTab']}</a>
      </c:if>
      <c:if test="#{userBean.isOrganizationAdmin}">
-      <a class="nav-item nav-link" id="tabAttr" data-toggle="tab" aria-selected="false" role="tab" aria-controls="attr"
+      <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabAttr" data-toggle="tab" aria-selected="false" role="tab" aria-controls="attr"
          href="#attr" onclick="setSelectedTab('tabAttr');">#{msg['marketplace.account.profile.attributeTab']}</a>
      </c:if>
     </div>
