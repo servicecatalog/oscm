@@ -83,7 +83,7 @@ public class AppVCenterControllerWT {
     controllerTester.changeValueInputInBalancerField("user", userID);
     controllerTester.changeValueInputInBalancerField("pwd", userPassword);
 
-    controllerTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt120']");
+    controllerTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt145']");
     controllerTester.readDefaultInfoMessage(
         AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND);
 
@@ -98,7 +98,7 @@ public class AppVCenterControllerWT {
     createdFile = folder.newFile("vcenter.csv");
     FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
     controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
-    controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt145']");
+    controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
 
     assertTrue(
         controllerTester
