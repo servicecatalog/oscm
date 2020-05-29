@@ -9,21 +9,17 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 template="templates/modalDialogBootstrap.xhtml">
-
   <ui:define name="dialogTitle">
     <h2>
       <h:outputText value="#{title}" />
     </h2>
   </ui:define>
-
   <ui:define name="dialogContent">
     <a4j:outputPanel id="#{dialogId}Grid" layout="block">
       <ui:fragment>
         <h:form id="#{dialogId}Form">
-
           <!-- Header -->
           <h:outputText value="#{msg['unit.dialog.selectOrganizationalUnit']}" />
-
           <!-- Radio Button -->
           <h:panelGroup styleClass="radio-outside-table">
             <h:selectOneRadio id="selectOneRadio" onclick="AdmUtils.dataTableSelectOneRadio(this);"
@@ -34,7 +30,6 @@
               <h:inputHidden value="0" converter="javax.faces.Long" />
             </h:selectOneRadio>
           </h:panelGroup>
-
           <!-- Table -->
           <a4j:outputPanel layout="block" styleClass="tablePanel table_padding responsive-table-panel">
             <a4j:queue requestDelay="500" ignoreDupResponses="true"
@@ -47,14 +42,13 @@
               render="pagerPanel" sortMode="single">
 
               <rich:column id="colGroupRadioBtn" styleClass="w-30px">
-                  <h:selectOneRadio id="selectOneRadio" value="#{group.unitChecked}" styleClass="table-radio"
+                  <h:selectOneRadio id="selectOneRadio" value="#{group.unitChecked}" styleClass="table-radio-btn"
                                     onchange="setDirty(true);AdmUtils.dataTableSelectOneRadio(this);"
                                     valueChangeListener="#{bean.subscriptionUnitCtrl.changeSelectedUnit}">
                     <f:selectItem itemValue="true" />
                     <h:inputHidden value="#{group.key}" />
                   </h:selectOneRadio>
                </rich:column>
-
 
               <rich:column id="colGroupName" sortBy="#{group.groupName}" sortIcon="#{sortIcon}"
                 headerClass="rowTitle sortable clickable-header"
@@ -97,7 +91,6 @@
               </f:facet>
             </rich:dataTable>
           </a4j:outputPanel>
-
           <!-- Ok/Cancel button -->
          <div class="row no-gutters mt-2">
            <mp:buttonBootstrap id="#{dialogId}okButton" render=":unitNameDisplay :saveConfigurationPanel :selectedUnitName"
@@ -113,5 +106,4 @@
       </ui:fragment>
     </a4j:outputPanel>
   </ui:define>
-
 </ui:composition>
