@@ -21,12 +21,15 @@
   <!-- enabled version of button -->
   <a4j:outputPanel rendered="#{not disabled}" ajaxRendered="true">
    <h:commandButton rendered="#{not disabled}" style="display:none;" id="#{id}" value="#{value}"
-                    action="#{bean[action]}" immediate="#{immediate}" oncomplete="#{oncomplete}"/>
+                    action="#{bean[action]}" immediate="#{immediate}" oncomplete="#{oncomplete}">
+    <ui:insert />
+   </h:commandButton>
 
    <!-- No on click event provided, use default -->
    <h:outputLink rendered="#{not disabled}" styleClass="#{styleClass}" style="#{style}" id="#{id}Link"
                  onclick="setOnSubmit(true);setDirty(false);AdmUtils.showProgress(#{progress});#{rich:element(id)}.click();setOnSubmit(false);return false;">
     <h:outputText value="#{value}"/>
+    <ui:insert />
    </h:outputLink>
   </a4j:outputPanel>
 

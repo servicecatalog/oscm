@@ -1244,6 +1244,11 @@
       <to-view-id>/marketplace/playground/account/subscriptions.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    <navigation-case>
+      <from-outcome>operations</from-outcome>
+      <to-view-id>/marketplace/playground/account/operations.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
   <navigation-rule>
     <navigation-case>

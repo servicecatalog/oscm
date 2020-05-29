@@ -132,10 +132,10 @@
      <h:outputText id="AccessInfoFormPart" value="#{subscription.serviceAccessInfoFormPart}"
                    rendered="#{not empty subscription.serviceAccessInfoFormPart}" escape="false"/>
 
-     <form id="subscriptionForm#{subscription.subscriptionId}"></form>
+     <form id="subscriptionForm"></form>
      <script>
        startService = function(subscriptionKey, accessUrl) {
-         var f = document.getElementById('subscriptionForm' + #{subscription.subscriptionId});
+         var f = document.getElementById('subscriptionForm');
          f.target = subscriptionKey;
          f.action = accessUrl;
          f.submit();

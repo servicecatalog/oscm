@@ -81,8 +81,8 @@
        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="subscriptionsQueue"/>
-       <ui:param name="styleClass" value="column-activation-hide"/>
-       <ui:param name="headerClass" value="column-activation-hide"/>
+       <ui:param name="styleClass" value="d-none d-lg-table-cell"/>
+       <ui:param name="headerClass" value="d-none d-lg-table-cell"/>
       </ui:include>
       <ui:include src="subscriptionTableColumn.xhtml">
        <ui:param name="bean" value="#{mySubscriptionsCtrl.model}"/>
@@ -94,8 +94,8 @@
        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="subscriptionsQueue"/>
-       <ui:param name="styleClass" value="column-service-hide"/>
-       <ui:param name="headerClass" value="column-service-hide"/>
+       <ui:param name="styleClass" value="d-none d-sc-table-cell"/>
+       <ui:param name="headerClass" value="d-none d-sc-table-cell"/>
       </ui:include>
       <ui:include src="subscriptionTableDateColumn.xhtml">
        <ui:param name="bean" value="#{mySubscriptionsCtrl.model}"/>
@@ -107,8 +107,8 @@
        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="subscriptionsQueue"/>
-       <ui:param name="styleClass" value="column-unit-hide"/>
-       <ui:param name="headerClass" value="column-unit-hide"/>
+       <ui:param name="styleClass" value="d-none d-md-table-cell"/>
+       <ui:param name="headerClass" value="d-none d-md-table-cell"/>
       </ui:include>
       <ui:include src="subscriptionTableStatusColumn.xhtml">
        <ui:param name="bean" value="#{mySubscriptionsCtrl.model}"/>
