@@ -70,7 +70,7 @@ public class AppVCenterControllerWT {
           "TKey,Name,Identifier,URL,UserId,Password,/n1,TestVCenter,TestVCenter,www.testurl.com,TestUser,TestPwd",
           "UTF-8");
       controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", vcenter);
-      controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
+      controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt91']");
     } catch (Exception e) { // TODO Auto-generated catch block
       e.printStackTrace();
     }
