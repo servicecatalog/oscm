@@ -132,10 +132,6 @@ Copyright 2010-2012 FUJITSU LIMITED
   color: #C6C6C6;
 }
 
-.output-bold {
-  font-weight: bold;
-}
-
 @font-face {
   font-family: 'OpenSansRegular';
   src: url('../fonts/OpenSans-Regular-webfont.eot');
