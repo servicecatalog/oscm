@@ -367,11 +367,23 @@
                       isFirstModal="false" panelId="confirmOwnerPanel" />
                   </div>
                 </h:form>
+
                 <script type="text/javascript">
-              function setPageDirty(){
-                #{rich:element('configDirty')}.value = 'true';
-              }
-              </script>
+                function focusSubscriptionId() {
+                    var element = document.getElementById('configurationForm:subscriptionIdText');
+                    if (element) {
+                        try {
+                            AdmUtils.setFocus(element, true);
+                            element.focus();
+                        } catch (e) {}
+                    }
+
+                }
+                setTimeout(focusSubscriptionId, 10);
+                function setPageDirty(){
+                  #{rich:element('configDirty')}.value = 'true';
+                }
+                </script>
               </div>
               <ui:fragment
                 rendered="#{manageSubscriptionModel.subscription.priceModel.chargeable and empty appBean.hiddenUIElements['marketplace.navigation.Payment'] and manageSubscriptionModel.paymentTabAvailable}">

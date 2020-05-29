@@ -4436,17 +4436,7 @@ div#headerrightareaBootstrap, rightarea a {
   width: 100%;
 }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-11.8 Table radio button
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
-.table-radio tbody tr {
-    background: transparent !important;
-}
-
-.table-radio tbody tr td {
-    border: none;
-}
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -4523,4 +4513,16 @@ div#headerrightareaBootstrap, rightarea a {
   .show-unit-row {
     display: none;
   }
+}
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+12.1 Table radio button
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+.table-radio-btn tbody tr {
+    background: transparent !important;
+}
+
+.table-radio-btn tbody tr td {
+    border: none;
 }

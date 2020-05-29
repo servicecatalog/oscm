@@ -46,7 +46,7 @@
                    headerClass="rowTitle sortable clickable-header"
         rendered="#{(showRadio eq 'true') }" sortBy="#{user.selected}" sortOrder="#{tableState.sortOrders[colSelect]}">
         <h:selectOneRadio id="selectOneRadio" value="#{user.ownerChecked}" onchange="setDirty(true);
-           AdmUtils.dataTableSelectOneRadio(this);" styleClass="table-radio"
+           AdmUtils.dataTableSelectOneRadio(this);" styleClass="table-radio-btn"
           valueChangeListener="#{manageSubscriptionCtrl.selectedOwnerChanged}">
           <f:selectItem itemValue="true" />
           <h:inputHidden value="#{user.userId}" />
