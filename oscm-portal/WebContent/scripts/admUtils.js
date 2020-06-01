@@ -2302,12 +2302,15 @@ AdmUtils.sortSelect = function() {
 
 AdmUtils.showTooltips = function() {
  $(document).ready(function(){
-    $('[data-toggle="popover"]').popover({container: 'body'});
+   $('all').popover({
+     selector: '[data-toggle="popover"]'
+   });
  });
 }
 
 AdmUtils.sessionTab = function(tab) {
  var session = tab ?? "";
+ alert(session);
   $("#nav-tab").ready(function(){
     if(session.length > 2)
      $(session).tab('show');
