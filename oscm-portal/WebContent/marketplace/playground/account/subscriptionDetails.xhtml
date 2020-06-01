@@ -106,7 +106,6 @@
                 <!-- include popup -->
                 <a4j:outputPanel>
                   <c:set var="dialogId" value="assignUsersPanel" />
-                  <c:set var="dialogWidth" value="750" />
                   <c:set var="dialogHelpId" value="subscription_assignUsers" />
                   <c:set var="dialogTitle" value="#{manageSubscriptionModel.modalTitle}" />
                   <c:set var="targetCtrl" value="./subscriptions/assignUsersInclude.xhtml" />
@@ -118,7 +117,6 @@
                 <a4j:outputPanel
                   rendered="#{not empty manageSubscriptionModel.serviceRoles and not empty manageSubscriptionModel.assignedUsers}">
                   <c:set var="dialogId" value="editRolesPanel" />
-                  <c:set var="dialogWidth" value="750" />
                   <c:set var="dialogHelpId" value="subscription_assignUsers" />
                   <c:set var="dialogTitle" value="#{manageSubscriptionModel.modalTitle}" />
                   <c:set var="targetCtrl" value="./subscriptions/editRolesInclude.xhtml" />
@@ -156,13 +154,14 @@
                     </div>
                     <div class="col-auto">
                       <div class="row no-gutters">
-                        <mp:buttonBootstrap id="editRoles" value="#{msg['button.editRoles']}" render="editRolesPanelTitle"
-                                   bean="#{manageSubscriptionCtrl}" action="setPopupTargetEditRoles" styleClass="btn-sm btn-secondary"
-                                   rendered="#{not empty manageSubscriptionModel.serviceRoles and not empty manageSubscriptionModel.assignedUsers}"
-                                   disabled="#{manageSubscriptionCtrl.model.usersTabDisabled}"
-                                   oncomplete="AdmUtils.showProgress(false);RichFaces.$('editRolesPanel').show();" />
+                        <ui:fragment rendered="#{not empty manageSubscriptionModel.serviceRoles and not empty manageSubscriptionModel.assignedUsers}">
+                          <mp:buttonBootstrap id="editRoles" value="#{msg['button.editRoles']}" render="editRolesPanelTitle"
+                                              bean="#{manageSubscriptionCtrl}" action="setPopupTargetEditRoles" styleClass="btn-sm btn-secondary my-1"
+                                              disabled="#{manageSubscriptionCtrl.model.usersTabDisabled}"
+                                              oncomplete="AdmUtils.showProgress(false);RichFaces.$('editRolesPanel').show();" />
+                        </ui:fragment>
                         <h:commandButton id="assignUsers" value="#{msg['button.assignUsers']}" type="button"
-                                         onclick="AdmUtils.showProgress(true);updateUnassignedUsersContent();" styleClass="btn-sm btn-secondary my-1"
+                                         onclick="AdmUtils.showProgress(true);updateUnassignedUsersContent();" styleClass="btn-sm btn-secondary m-1"
                                          disabled="#{manageSubscriptionCtrl.model.usersTabDisabled}" />
                         <a4j:jsFunction name="updateUnassignedUsersContent"
                                         action="#{manageSubscriptionCtrl.setPopupTargetAssignUsers}"
@@ -564,5 +563,4 @@
       rendered="#{manageSubscriptionModel.service.reseller and manageSubscriptionModel.service.priceModel.chargeable}" />
 
   </ui:define>
-
 </ui:composition>

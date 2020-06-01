@@ -41,16 +41,16 @@
                    onbeforeshow="AdmUtils.setPageOverflow('hidden');" onhide="AdmUtils.setPageOverflow('auto');">
 
     <a4j:outputPanel layout="block" id="#{dialogId}RerenderPanel">
-
-      <mp:closeModalDialogButton id="#{dialogId}CancelButton" onclick="#{cancelHandler}"/>
-
-      <ui:insert name="dialogTitle"/>
+      <div class="row mb-1 no-gutters justify-content-between">
+        <ui:insert name="dialogTitle"/>
+        <mp:closeModalDialogButtonBootstrap id="#{dialogId}CancelButton" onclick="#{cancelHandler}"/>
+      </div>
 
       <c:if test="#{defineFullDialogContent}">
         <ui:insert name="fullDialogContent"/>
       </c:if>
       <c:if test="#{!defineFullDialogContent}">
-        <div class="border-top">
+        <div class="border-top pt-1">
           <a4j:outputPanel id="#{dialogId}modalErrorMasterPanel">
             <a4j:outputPanel id="#{dialogId}modalErrorPanel" layout="block" styleClass="errorPanel"
                              rendered="#{(not empty errorKey) or (facesContext.maximumSeverity.ordinal > 0)}">

@@ -6,14 +6,12 @@
   xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
   xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
   xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:t="http://myfaces.apache.org/tomahawk">
-  <div>
 
-  </div>
   <h:form id="#{dialogId}Form" method="post" action="">
       <h:outputText value="#{msg['marketplace.subscription.users.assign.description']}" />
       <h:outputLink value="#{facesContext.externalContext.requestContextPath}/marketplace/account/addUser.jsf" styleClass="mx-1 text-underline"
         id="addUser" rendered="#{not userBean.loggedInUser.remoteLdapActive and userBean.loggedInAndAdmin}">
-        <h:outputText value=" #{msg['marketplace.subscription.users.register.additional']}" />
+        <h:outputText value="#{msg['marketplace.subscription.users.register.additional']}" />
       </h:outputLink>
 
     <c:set var="showRoles" value="#{not empty manageSubscriptionModel.serviceRoles}" />
