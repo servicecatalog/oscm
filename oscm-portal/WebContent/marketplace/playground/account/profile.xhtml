@@ -142,8 +142,8 @@
            </h:selectOneMenu>
            <div class="input-group-append">
             <a href="#" class="btn btn-secondary" title="#{msg['user.locale']}" data-toggle="popover"
-               data-trigger="hover" data-content="#{msg['marketplace.account.editUser.hint.locale']}"
-               data-container="body">
+               data-content="#{msg['marketplace.account.editUser.hint.locale']}"
+               data-container="#popover-button" id="popover-button">
              <i class="fa fa-info-circle"/></a>
            </div>
           </div>
@@ -369,7 +369,7 @@
   <link href="#{facesContext.externalContext.requestContextPath}/css/dataTable.css" rel="stylesheet"
         type="text/css" media="all"/>
 
-  <script>AdmUtils.sessionTab(#{sessionBean.selectedTab});</script>
+  <script>AdmUtils.sessionTab('#{sessionBean.selectedTab}', 'nav-tab');</script>
 
  </ui:define>
 </ui:composition>
