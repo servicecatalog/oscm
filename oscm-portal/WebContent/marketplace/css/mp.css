@@ -4417,6 +4417,10 @@ div#headerrightareaBootstrap, rightarea a {
   min-width: 30px;
 }
 
+.text-underline {
+  text-decoration: underline !important;
+}
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.8 Modal dialog
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
