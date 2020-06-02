@@ -353,7 +353,7 @@ public class AccountNavigationCtrlTest {
     links.forEach(
         r -> {
           if (r != null) {
-            assertFalse("Got " + r, r.matches(regEx));
+            assertTrue("Got " + r, r.matches(".*" + regEx + ".*"));
             mpLinks.add(r);
           }
         });
