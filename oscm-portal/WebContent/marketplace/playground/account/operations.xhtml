@@ -28,13 +28,13 @@
   </a4j:outputPanel>
  </ui:define>
 
- <ui:define name="aside" class="pr-2">
+ <ui:define name="aside">
   <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.operations.title"/>
  </ui:define>
 
  <ui:define name="contents">
-  <a4j:outputPanel id="all" class="pt-2" layout="block">
-   <div class="con-flow-root bg-light pl-4">
+  <a4j:outputPanel id="all" styleClass="row" layout="block">
+   <div class="p-3 ml-3 mt-2 bg-light col">
     <h:panelGroup id="operationsArea" rendered="true" layout="block">
      <mp:outputStep value="#{msg['marketplace.account.operations.manageOperations.title']}"/>
 
@@ -144,6 +144,7 @@
            'operationCheckbox',
            '#{fn:length(operationRecordModel.operationRecords)}',
            'allOperationCheckbox');
+
      </script>
 
      <script>
@@ -158,6 +159,7 @@
          })
         });
        });
+
      </script>
     </a4j:outputPanel>
 
