@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 
 import org.oscm.internal.types.constants.HiddenUIConstants;
 import org.oscm.ui.beans.ApplicationBean;
@@ -25,7 +24,6 @@ import org.oscm.ui.common.JSFUtils;
  * 
  */
 @ManagedBean
-@SessionScoped
 public class AccountNavigationModel implements Serializable {
     static final String MARKETPLACE_ACCOUNT_OPERATIONS_TITLE = "marketplace.account.operations.title";
     static final String MARKETPLACE_ACCOUNT_PROCESSES_TITLE = "marketplace.account.processes.title";
@@ -49,6 +47,7 @@ public class AccountNavigationModel implements Serializable {
     private static final String OPERATIONS_LINK = "account/operations.jsf";
     private static final long serialVersionUID = 5299680432886964724L;
     private String baseUrl;
+    private String contextUrl;
 
     private final List<String> link;
     private final List<String> title;
@@ -102,20 +101,27 @@ public class AccountNavigationModel implements Serializable {
 
     void initLink() {
         link.clear();
-        final String baseURL = getBaseUrl();
-        final String mpBase = baseURL + "/marketplace/";
-        getLink().add(mpBase + ACCOUNT_LINK);
-        getLink().add(mpBase + PROFILE_LINK);
-        getLink().add(mpBase + PAYMENT_LINK);
-        getLink().add(mpBase + SUBSCRIPTIONS_LINK);
-        getLink().add(mpBase + USERS_LINK);
-        getLink().add(mpBase + UNITS_LINK);
-        getLink().add(mpBase + REPORTS_LINK);
-        getLink().add(mpBase + PROCESSES_LINK);
-        getLink().add(mpBase + OPERATIONS_LINK);
+        String contextUrl = getContextUrl();
+        getLink().add(contextUrl + ACCOUNT_LINK);
+        getLink().add(contextUrl + PROFILE_LINK);
+        getLink().add(contextUrl + PAYMENT_LINK);
+        getLink().add(contextUrl + SUBSCRIPTIONS_LINK);
+        getLink().add(contextUrl + USERS_LINK);
+        getLink().add(contextUrl + UNITS_LINK);
+        getLink().add(contextUrl + REPORTS_LINK);
+        getLink().add(contextUrl + PROCESSES_LINK);
+        getLink().add(contextUrl + OPERATIONS_LINK);
         getLink().add(getUserBean().getAdminPortalAddress());
     }
+ 
 
+    public String getContextUrl() {
+        return contextUrl;        
+    }
+    
+    public void setContextUrl(String url) {
+        contextUrl = url;        
+    }
     public List<String> getHiddenElement() {
         return hiddenElement;
     }
