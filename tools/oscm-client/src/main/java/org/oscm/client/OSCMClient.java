@@ -17,7 +17,7 @@ public class OSCMClient {
 
     String baseUrl = configuration.getBaseUrl();
     String userKey = "user key";
-    String userPwd = "uer password";
+    String userPwd = "user password";
     String authMode = "INTERNAL or OIDC";
 
     // example of accessing WS
