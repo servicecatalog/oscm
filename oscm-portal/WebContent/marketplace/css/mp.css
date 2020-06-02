@@ -4468,6 +4468,10 @@ div#headerrightareaBootstrap, rightarea a {
   text-align: center;
 }
 
+.col-max-width {
+  width: 120px;
+}
+
 .editIconStyle {
     margin: 2px 2px 0px;  
     border: 0;
