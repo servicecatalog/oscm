@@ -1,170 +1,201 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.ui.beans.marketplace;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertNull;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyZeroInteractions;
-import static org.mockito.Mockito.when;
+import javax.servlet.http.HttpServletRequest;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import org.oscm.internal.types.enumtypes.UserRoleType;
-import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.UserBean;
+import org.oscm.ui.stubs.HttpServletRequestStub;
 
-/**
- * Created by PLGrubskiM on 2016-09-14.
- */
+/** Created by PLGrubskiM on 2016-09-14. */
 public class AccountNavigationBeanTest {
 
-    private AccountNavigationBean accountNavigationBean;
-    private ApplicationBean appBean;
-    private UserBean userBean;
-    private boolean isLoggedInAndAdmin;
-    private boolean isLoggedInAndSubscriptionManager;
-    private boolean isAdministrationAvailable;
-    private boolean isLoggedInAndUnitAdmin;
+  private AccountNavigationBean accountNavigationBean;
+  private ApplicationBean appBean;
+  private UserBean userBean;
+  private boolean isLoggedInAndAdmin;
+  private boolean isLoggedInAndSubscriptionManager;
+  private boolean isAdministrationAvailable;
+  private boolean isLoggedInAndUnitAdmin;
+  private boolean isPlayground = false;
 
-    @Before
-    public void setup() {
-        accountNavigationBean = new AccountNavigationBean(){
-            @Override
-            public boolean isLoggedInAndAdmin() {
-                return isLoggedInAndAdmin;
-            }
+  @SuppressWarnings("serial")
+  @Before
+  public void setup() {
+    accountNavigationBean =
+        new AccountNavigationBean() {
+          @Override
+          public boolean isLoggedInAndAdmin() {
+            return isLoggedInAndAdmin;
+          }
 
-            @Override
-            public boolean isLoggedInAndUnitAdmin() {
-                return isLoggedInAndUnitAdmin;
-            }
+          @Override
+          public boolean isLoggedInAndUnitAdmin() {
+            return isLoggedInAndUnitAdmin;
+          }
 
-            @Override
-            public boolean isLoggedInAndSubscriptionManager() {
-                return isLoggedInAndSubscriptionManager;
-            }
+          @Override
+          public boolean isLoggedInAndSubscriptionManager() {
+            return isLoggedInAndSubscriptionManager;
+          }
 
-            @Override
-            public boolean isAdministrationAvailable() {
-                return isAdministrationAvailable;
-            }
+          @Override
+          public boolean isAdministrationAvailable() {
+            return isAdministrationAvailable;
+          }
 
+          @Override
+          public HttpServletRequest getRequest() {
+            return new HttpServletRequestStub();
+          }
+
+          @Override
+          protected boolean isPlaygroundPage(HttpServletRequest req) {
+            return isPlayground;
+          }
         };
 
-        isLoggedInAndAdmin = true;
-        isLoggedInAndUnitAdmin = true;
-        isLoggedInAndSubscriptionManager = true;
-        isAdministrationAvailable = true;
+    isLoggedInAndAdmin = true;
+    isLoggedInAndUnitAdmin = true;
+    isLoggedInAndSubscriptionManager = true;
+    isAdministrationAvailable = true;
 
-        appBean = mock(ApplicationBean.class);
-        userBean = mock(UserBean.class);
+    appBean = mock(ApplicationBean.class);
+    userBean = mock(UserBean.class);
 
-        doReturn("adminPortalAddress").when(userBean).getAdminPortalAddress();
+    doReturn("adminPortalAddress").when(userBean).getAdminPortalAddress();
 
-        accountNavigationBean.setApplicationBean(appBean);
-        accountNavigationBean.setUserBean(userBean);
+    accountNavigationBean.setApplicationBean(appBean);
+    accountNavigationBean.setUserBean(userBean);
+  }
 
+  @Test
+  public void getLinkMapFull() {
+    // when
+    final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
+    // then
+    // assert all links included
+    assertTrue(linkMap.size() == 8);
+    assertTrue(linkMap.containsKey("marketplace.account.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.profile.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.payments.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.subscriptions.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.users.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.processes.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.operations.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.administration"));
+  }
+
+  @Test
+  public void getLinkMap_NotAdmin() {
+    // given
+    isLoggedInAndAdmin = false;
+    // when
+    final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
+    // then
+    // only "payment" link not added to the list
+    assertTrue(linkMap.size() == 7);
+    assertTrue(linkMap.containsKey("marketplace.account.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.profile.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.subscriptions.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.units.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.processes.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.operations.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.administration"));
+  }
+
+  @Test
+  public void getLinkMap_NotAdmin_NotUnitAdmin() {
+    // given
+    isLoggedInAndAdmin = false;
+    isLoggedInAndUnitAdmin = false;
+    // when
+    final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
+    // then
+    // no units and no users page
+    assertTrue(linkMap.size() == 6);
+    assertTrue(linkMap.containsKey("marketplace.account.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.profile.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.subscriptions.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.processes.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.operations.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.administration"));
+  }
+
+  @Test
+  public void getLinkMap_Basic() {
+    // given
+    isLoggedInAndAdmin = false;
+    isLoggedInAndUnitAdmin = false;
+    isLoggedInAndSubscriptionManager = false;
+    isAdministrationAvailable = false;
+    // when
+    final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
+    // then
+    // only four basic pages
+    assertTrue(linkMap.size() == 4);
+    assertTrue(linkMap.containsKey("marketplace.account.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.profile.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.processes.title"));
+    assertTrue(linkMap.containsKey("marketplace.account.operations.title"));
+  }
+
+  @Test
+  public void getLinkKeys() {
+    // when
+    final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
+    final List<String> linkKeys = accountNavigationBean.getLinkKeys();
+    // then
+    for (String key : linkKeys) {
+      assertTrue(linkMap.containsKey(key));
     }
+  }
 
-    @Test
-    public void getLinkMapFull() {
-        //when
-        final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
-        //then
-        // assert all links included
-        assertTrue(linkMap.size() == 8);
-        assertTrue(linkMap.containsKey("marketplace.account.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.profile.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.payments.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.subscriptions.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.users.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.processes.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.operations.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.administration"));
-    }
+  @Test
+  public void getLinks_playground() {
+    // given
+    givenMarketplacePlaygroundRequest();
 
-    @Test
-    public void getLinkMap_NotAdmin() {
-        //given
-        isLoggedInAndAdmin = false;
-        //when
-        final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
-        //then
-        // only "payment" link not added to the list
-        assertTrue(linkMap.size() == 7);
-        assertTrue(linkMap.containsKey("marketplace.account.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.profile.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.subscriptions.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.units.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.processes.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.operations.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.administration"));
-    }
+    // when
+    final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
 
-    @Test
-    public void getLinkMap_NotAdmin_NotUnitAdmin() {
-        //given
-        isLoggedInAndAdmin = false;
-        isLoggedInAndUnitAdmin = false;
-        //when
-        final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
-        //then
-        // no units and no users page
-        assertTrue(linkMap.size() == 6);
-        assertTrue(linkMap.containsKey("marketplace.account.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.profile.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.subscriptions.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.processes.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.operations.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.administration"));
-    }
+    // then
+    linkMap.values().forEach(s -> assertTrue("Got " + s, s.startsWith("playground/")));
+  }
 
-    @Test
-    public void getLinkMap_Basic() {
-        //given
-        isLoggedInAndAdmin = false;
-        isLoggedInAndUnitAdmin = false;
-        isLoggedInAndSubscriptionManager = false;
-        isAdministrationAvailable = false;
-        //when
-        final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
-        //then
-        // only four basic pages
-        assertTrue(linkMap.size() == 4);
-        assertTrue(linkMap.containsKey("marketplace.account.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.profile.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.processes.title"));
-        assertTrue(linkMap.containsKey("marketplace.account.operations.title"));
-    }
+  @Test
+  public void getLinks_standard() {
+    // given
+      givenMarketplaceStandardRequest();
 
-    @Test
-    public void getLinkKeys() {
-        //when
-        final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
-        final List<String> linkKeys = accountNavigationBean.getLinkKeys();
-        //then
-        for (String key : linkKeys) {
-            assertTrue(linkMap.containsKey(key));
-        }
-    }
+    // when
+    final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
 
+    // then
+    linkMap.values().forEach(s -> assertFalse("Got " + s, s.startsWith("playground/")));
+  }
 
+  void givenMarketplacePlaygroundRequest() {
+    isPlayground = true;
+  }
+
+  void givenMarketplaceStandardRequest() {
+    isPlayground = false;
+  }
 }
