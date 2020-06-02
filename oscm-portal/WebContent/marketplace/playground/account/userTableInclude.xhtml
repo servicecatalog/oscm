@@ -29,8 +29,8 @@
       noDataLabel=" " rowKeyVar="rowKey" headerClass="rowTitle" rowClasses="rowOdd,rowEven" columnClasses="wrapColumns"
       rows="10" render="pagerPanel" sortMode="single" styleClass="table-sm table-striped table-hover table-bordered sortable w-100">
 
-      <f:facet name="header">
-        <adm:pager pagerId="#{statePrefix}UserListPager" render="userTable@body userTableScripts" pagerExecute="@form"/>
+      <f:facet name="footer">
+        <adm:pagerBootstrap pagerId="#{statePrefix}UserListPager" render="userTable@body userTableScripts" pagerExecute="@form"/>
       </f:facet>
 
       <rich:column
@@ -139,8 +139,8 @@
           <h:outputText value="#{msg['user.subscriptionRole']}" />
         </f:facet>
         <h:outputText rendered="#{rolesReadOnly}" value="#{user.voUsageLicense.roleDefinition.name}" />
-        <h:selectOneMenu rendered="#{not empty serviceRoles}" id="role" value="#{user.roleKey}"
-          style="width: 100%;white-space: nowrap;" valueChangeListener="#{user.roleKeyChanged}" immediate="true" >
+        <h:selectOneMenu rendered="#{not empty serviceRoles}" id="role" value="#{user.roleKey}" styleClass="w-100"
+         valueChangeListener="#{user.roleKeyChanged}" immediate="true" >
           <t:selectItems value="#{serviceRoles}" var="role" itemLabel="#{role.name}" itemValue="#{role.key}" />
           <f:ajax event="change"/>
         </h:selectOneMenu>
