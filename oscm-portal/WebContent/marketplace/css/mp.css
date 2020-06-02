@@ -4436,7 +4436,7 @@ div#headerrightareaBootstrap, rightarea a {
   width: 100% !important;
 }
 .responsive-dialog-container>.rf-pp-shdw {
-  width: 100% !important;
+  display: none;
 }
 
 .responsive-dialog {
