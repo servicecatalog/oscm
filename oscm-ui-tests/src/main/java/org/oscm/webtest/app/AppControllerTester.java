@@ -10,7 +10,9 @@
 package org.oscm.webtest.app;
 
 import java.io.File;
+
 import javax.security.auth.login.LoginException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -102,6 +104,10 @@ public class AppControllerTester extends WebTester {
         throw new Exception("other error");
       }
     }
+  }
+
+  public void refreshPage() {
+    driver.navigate().refresh();
   }
 
   public void buttonDefaultClickEvent(String idKey) throws Exception {
