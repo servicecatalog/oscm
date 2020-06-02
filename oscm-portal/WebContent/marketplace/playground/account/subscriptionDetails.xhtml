@@ -26,7 +26,60 @@
   </ui:define>
 
   <ui:define name="contents">
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $('#list-tab a[href="##{sessionBean.selectedTab}"]').tab('show')
 
+          $('#list-tab a[href="#userTab"]').on('click', function(e) {
+              e.preventDefault();
+              setSelectedTab('userTab')
+          })
+
+
+          $('#list-tab a[href="#configurationTab"]').on('click', function(e) {
+              e.preventDefault();
+              setSelectedTab('configurationTab')
+          })
+
+          $('#list-tab a[href="#paymentTab"]').on('click', function(e) {
+              e.preventDefault();
+              setSelectedTab('paymentTab')
+          })
+
+          $('#list-tab a[href="#upgradeTab"]').on('click', function(e) {
+              e.preventDefault();
+              setSelectedTab('upgradeTab')
+          })
+
+          $('#list-tab a[href="#priceModelTab"]').on('click', function(e) {
+              e.preventDefault();
+              setSelectedTab('priceModelTab')
+          })
+
+          $('#list-tab a[href="#priceModelExternalTab"]').on('click', function(e) {
+              e.preventDefault();
+              setSelectedTab('priceModelExternalTab')
+          })
+
+          $('#list-tab a[href="#supplierTab"]').on('click', function(e) {
+              e.preventDefault();
+              setSelectedTab('supplierTab')
+          })
+
+          $('#list-tab a').on('click', function(e) {
+              e.preventDefault();
+              if (AdmUtils.isNotDirtyOrConfirmed()) {
+                  restorePaymentTab();
+                  jsLeaveTabFunction();
+                  $(this).tab('show');
+                  return true;
+              } else {
+                  return false;
+              }
+          })
+
+      });
+    </script>
     <a4j:outputPanel>
       <ui:include src="../organizationUnitPanel.xhtml">
         <ui:param name="dialogId" value="organizationUnitPanel" />
