@@ -313,7 +313,7 @@ public class AccountNavigationCtrlTest {
     List<String> links = ctrl.getModel().getLink();
 
     // then
-    assertLinksMatch(links, "/marketplace/playground/account/*");
+    assertLinksMatch(links, "/marketplace/playground/account/.*");
   }
 
   @Test
@@ -327,7 +327,7 @@ public class AccountNavigationCtrlTest {
     List<String> links = ctrl.getModel().getLink();
 
     // then
-    assertLinksMatch(links, "/marketplace/account/*");
+    assertLinksMatch(links, "/marketplace/account/.*");
   }
 
   private VOConfigurationSetting getDefaultHidePaymentConfigurationSetting() {
@@ -353,7 +353,7 @@ public class AccountNavigationCtrlTest {
     links.forEach(
         r -> {
           if (r != null) {
-            assertTrue("Got " + r, r.matches(".*" + regEx + ".*"));
+            assertTrue("Got " + r, r.matches(".*" + regEx));
             mpLinks.add(r);
           }
         });
