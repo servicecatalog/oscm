@@ -38,8 +38,8 @@
       rows="10" render="pagerPanel" styleClass="table-sm table-striped table-hover table-bordered sortable w-100"
       sortMode="single">
 
-      <f:facet name="header">
-        <adm:pager pagerId="#{statePrefix}UserListPager" pagerExecute="@form" />
+      <f:facet name="footer">
+        <adm:pagerBootstrap pagerId="#{statePrefix}UserListPager" pagerExecute="@form" />
       </f:facet>
 
       <rich:column id="#{colSelect}" width="#{iconWidth}" styleClass="tableColumnCheckBox"

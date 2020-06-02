@@ -207,7 +207,7 @@
 
                   <c:set var="dialogHelpId" value="subscription_selectOwners" />
                   <c:set var="dialogTitle" value="#{manageSubscriptionModel.modalTitle}" />
-                  <c:set var="targetCtrl" value="/marketplace/playground/subscriptions/selectOwnersInclude.xhtml" />
+                  <c:set var="targetCtrl" value="../subscriptions/selectOwnersInclude.xhtml" />
                   <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();" />
                   <ui:include src="../popup.xhtml" />
                 </a4j:outputPanel>
