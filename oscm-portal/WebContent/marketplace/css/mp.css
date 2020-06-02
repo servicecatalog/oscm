@@ -1704,7 +1704,7 @@ img[src$="sortDescending"] {
 /* fixed minimum height table */
 .minimumSizeTable {
   margin-top: 10px;
-  min-height: 500px;
+  min-height: 220px;
 }
 
 .organitionNameColumn {
@@ -4466,6 +4466,10 @@ div#headerrightareaBootstrap, rightarea a {
 .col-icon {
   width: 20px;
   text-align: center;
+}
+
+.col-max-width {
+  width: 120px;
 }
 
 .editIconStyle {
