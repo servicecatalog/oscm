@@ -182,7 +182,7 @@ public class AccountNavigationBeanTest {
   @Test
   public void getLinks_standard() {
     // given
-      givenMarketplaceStandardRequest();
+    givenMarketplaceStandardRequest();
 
     // when
     final Map<String, String> linkMap = accountNavigationBean.getLinkMap();
