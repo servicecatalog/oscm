@@ -2301,15 +2301,19 @@ AdmUtils.sortSelect = function() {
 }
 
 AdmUtils.showTooltips = function() {
+ var is_touch_device = ("ontouchstart" in window) || window.DocumentTouch && document instanceof DocumentTouch;
  $(document).ready(function(){
-    $('[data-toggle="popover"]').popover({container: 'body'});
+   $('[data-toggle="popover"]').popover({
+     trigger: is_touch_device ? "click" : "hover"
+   });
  });
 }
 
-AdmUtils.sessionTab = function(tab) {
- var session = tab ?? "";
-  $("#nav-tab").ready(function(){
-    if(session.length > 2)
-     $(session).tab('show');
+AdmUtils.sessionTab = function(tabId, navId) {
+ tabSession = document.getElementById(tabId);
+ nav = document.getElementById(navId);
+ $(nav).ready(function(){
+   if(tabSession != null)
+     $(tabSession).tab('show');
   });
 }
