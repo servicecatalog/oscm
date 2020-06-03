@@ -3022,6 +3022,24 @@ div.pagingOptions li a {
   color: #999;
 }
 
+@media ( max-width : 767px) {
+  .bigDisplay {
+    display: none;
+  }
+  .smallDisplay {
+    display: inline-block;
+  }
+}
+
+@media ( min-width : 768px) {
+  .bigDisplay {
+    display: inline-block;
+  }
+  .smallDisplay {
+    display: none;
+  }
+}
+
 .pagingPanel {
   margin-left: 0px;
   margin-bottom: 5px;
@@ -4256,11 +4274,26 @@ div#headerrightareaBootstrap, rightarea a {
   width: 90%;
 }
 
+@media ( max-width : 767px) {
+  .navbar {
+    padding: 0rem;
+  }
+}
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 11.3 Aside Menu
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+@media screen and (min-width: 768px) {
+  .custom-collapse .collapse {
+    display: block;
+  }
+}
 
+@media ( max-width : 767px) {
+  .aside {
+    float: none;
+  }
+}
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
 11.4 Cards
@@ -4302,6 +4335,24 @@ div#headerrightareaBootstrap, rightarea a {
   padding-right: 15px;
   margin-right: 5px;
   margin-left: 0px;
+}
+
+@media ( max-width : 767px) {
+  /* CSS goes here */
+  .container-fluid {
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+  }
+}
+
+@media ( min-width : 768px) {
+  /* CSS goes here */
+  .container-fluid {
+    padding-left: 3em;
+    padding-right: 3em;
+    margin-right: 0.3em;
+    margin-left: 0.3em;
+  }
 }
 
 .col-lg-4.col-md-6.col-sm-12.mb-4 {
