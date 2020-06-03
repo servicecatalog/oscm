@@ -47,8 +47,11 @@ public class UserRolesInterceptor {
     RolesAllowed ra = context.getMethod().getDeclaredAnnotation(RolesAllowed.class);
     if (ra != null) {
       List<String> roles = Arrays.asList(ra.value());
-      for (String role : roles) {
-        if (!ejbCtx.isCallerInRole(role)) return false;
+      if (!roles.isEmpty()) {
+        for (String role : roles) {
+          if (ejbCtx.isCallerInRole(role)) return true;
+        }
+        return false;
       }
     }
     return true;
