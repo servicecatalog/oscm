@@ -11,11 +11,9 @@ package org.oscm.ui.dialog.mp.accountNavigation;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-
 import org.oscm.internal.types.constants.HiddenUIConstants;
 import org.oscm.ui.beans.ApplicationBean;
 import org.oscm.ui.beans.BaseBean;
@@ -96,7 +94,7 @@ public class AccountNavigationCtrl extends BaseBean implements Serializable {
             HiddenUIConstants.MARKETPLACE_MENU_ITEM_ACCOUNT_PAYMENT)
         && applicationBean.isPaymentInfoAvailable());
   }
-  
+
   public void setModel(AccountNavigationModel model) {
     this.model = model;
   }
