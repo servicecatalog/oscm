@@ -27,9 +27,13 @@ import org.oscm.portal.JUnitHelper;
 import org.oscm.webtest.app.AppControllerTester;
 import org.oscm.webtest.app.AppHtmlElements;
 import org.oscm.webtest.app.AppPathSegments;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppVCenterControllerWT {
+
+  private static final Logger logger = LoggerFactory.getLogger(AppVCenterControllerWT.class);
 
   private static AppControllerTester controllerTester;
   private static String userKey;
@@ -69,13 +73,21 @@ public class AppVCenterControllerWT {
           vcenter,
           "TKey,Name,Identifier,URL,UserId,Password,/n1,TestVCenter,TestVCenter,www.testurl.com,TestUser,TestPwd",
           "UTF-8");
-      System.out.println(vcenter);
       controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", vcenter);
       controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt91']");
-      System.out.println("Imported file");
+      logger.info("Test Vcenter imported");
     } catch (Exception e) { // TODO Auto-generated catch block
       e.printStackTrace();
     }
+  }
+
+  @Test
+  public void test00defaultEmptyVCenterMessage() {
+    assertTrue(
+        controllerTester
+            .readDefaultInfoMessage(
+                AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND)
+            .contains("vCenter"));
   }
 
   @Test
