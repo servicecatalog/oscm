@@ -47,15 +47,18 @@
     <h:inputHidden value="#{sessionBean.selectedTab}"/>
 
     <div class="list-group list-group-horizontal-sm text-center" id="nav-tab" role="tablist">
-     <a class="list-group-item list-group-item-secondary list-group-item-action active" id="tabUser" data-toggle="tab" href="#user" role="tab" aria-controls="user"
+     <a class="list-group-item list-group-item-secondary list-group-item-action active" id="tabUser" data-toggle="tab"
+        href="#user" role="tab" aria-controls="user"
         onclick="setSelectedTab('tabUser');">#{msg['marketplace.account.profile.userTab']}</a>
      <c:if
        test="#{userBean.isOrganizationAdmin and empty appBean.hiddenUIElements['organization.edit.organizationData']}">
-      <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabOrg" data-toggle="tab" href="#org" aria-controls="org" aria-selected="false"
+      <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabOrg" data-toggle="tab"
+         href="#org" aria-controls="org" aria-selected="false"
          role="tab" onclick="setSelectedTab('tabOrg');">#{msg['marketplace.account.profile.organizationTab']}</a>
      </c:if>
      <c:if test="#{userBean.isOrganizationAdmin}">
-      <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabAttr" data-toggle="tab" aria-selected="false" role="tab" aria-controls="attr"
+      <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabAttr" data-toggle="tab"
+         aria-selected="false" role="tab" aria-controls="attr"
          href="#attr" onclick="setSelectedTab('tabAttr');">#{msg['marketplace.account.profile.attributeTab']}</a>
      </c:if>
     </div>
@@ -83,12 +86,14 @@
          <label id="userID"
                 class="col-md-9 col-form-label"><strong>#{organizationBean.currentUser.userId}</strong></label>
         </div>
-        <h:panelGroup styleClass="form-row pb-2"  rendered="#{not(empty organizationBean.currentUser.groupsToDisplay)}">
+        <h:panelGroup styleClass="form-row pb-2" rendered="#{not(empty organizationBean.currentUser.groupsToDisplay)}">
          <div class="col-md-3">
-          <adm:outputLabel class="col-form-label" value="#{msg['user.userGroup']}"  rendered="#{not(empty organizationBean.currentUser.groupsToDisplay)}"/>
+          <adm:outputLabel class="col-form-label" value="#{msg['user.userGroup']}"
+                           rendered="#{not(empty organizationBean.currentUser.groupsToDisplay)}"/>
          </div>
-         <h:outputLabel  rendered="#{not(empty organizationBean.currentUser.groupsToDisplay)}" id="userGroup"
-                styleClass="col-md-9 col-form-label"><strong>#{organizationBean.currentUser.groupsToDisplay}</strong></h:outputLabel>
+         <h:outputLabel rendered="#{not(empty organizationBean.currentUser.groupsToDisplay)}" id="userGroup"
+                        styleClass="col-md-9 col-form-label">
+          <strong>#{organizationBean.currentUser.groupsToDisplay}</strong></h:outputLabel>
         </h:panelGroup>
         <div class="form-row pb-2">
          <div class="col-md-3">
@@ -149,6 +154,22 @@
           </div>
          </div>
         </div>
+
+        <div class="form-row pb-2">
+         <label class="col-md-3 col-form-label">#{msg['user.locale']}:</label>
+         <div class="col-md-9">
+          <div class="input-group mb-3">
+           <h:selectOneMenu id="locale" styleClass="custom-select" value="#{organizationBean.currentUser.locale}"
+                            onchange="setDirty(true)" rendered="#{empty rendered or rendered}">
+            <adm:localeItems/>
+            <f:validator validatorId="SupportedLanguageValidator"/>
+           </h:selectOneMenu>
+           <adm:hintBootstrap styleClassForDiv="input-group-append" styleClassForButton="btn btn-secondary"
+                              for="locale" title="msg['user.locale']"/>
+          </div>
+         </div>
+        </div>
+
        </div>
 
        <hr/>
