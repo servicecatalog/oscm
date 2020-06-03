@@ -56,9 +56,9 @@
        <div class="d-none d-lg-block text-center">
         <h:commandLink styleClass="editPenStyle" action="#{subscriptionsCtrl.showSubscriptionDetails(sub.subscriptionId, sub.subscriptionKey)}"
                        render=":hiddenErrorPanel subListForm">
-         <i class="fa fa-pencil-square-o fa-2x"/>
+         <img src="/oscm-portal/marketplace/img/transparentPixel.png" class="editPen"/>
          <f:setPropertyActionListener target="#{subscriptionsCtrl.model.selectedSubscription}" value="#{sub}"/>
-        </h:commandLink>
+         </h:commandLink>
        </div>
       </rich:column>
 
@@ -198,5 +198,7 @@
 
   <mp:linkPageTop/>
 
+  <link href="#{facesContext.externalContext.requestContextPath}/css/dataTable.css" rel="stylesheet"
+        type="text/css" media="all"/>
  </ui:define>
 </ui:composition>
