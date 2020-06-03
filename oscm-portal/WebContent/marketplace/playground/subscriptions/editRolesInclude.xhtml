@@ -1,0 +1,47 @@
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+>
+
+
+  <h:form id="#{dialogId}Form" method="post" action="">
+    <a4j:queue requestDelay="500" ignoreDupResponses="true"
+               oncomplete="jQuery('body').removeClass('hourglass');"
+               name="#{queueName}"
+               onsubmit="jQuery('body').addClass('hourglass');" />
+      <ui:include src="../account/userTableInclude.xhtml">
+        <ui:param name="data" value="#{manageSubscriptionModel.assignedUsers}" />
+        <ui:param name="serviceRoles" value="#{manageSubscriptionModel.serviceRoles}" />
+        <ui:param name="controller" value="#{manageSubscriptionCtrl}" />
+        <ui:param name="showDeleteIcon" value="false" />
+        <ui:param name="showCheckBox" value="false" />
+        <ui:param name="userRoleWidth" value="24%" />
+        <ui:param name="nameWidth" value="25%" />
+        <ui:param name="userIdWidth" value="24%" />
+        <ui:param name="iconWidth" value="4%" />
+        <ui:param name="statePrefix" value="editRoles" />
+        <ui:param name="queueName" value="#{queueName}"/>
+      </ui:include>
+
+    <div class="row no-gutters my-2">
+      <a4j:commandButton style="display: none" id="hiddenModalEditRolesSaveAndHide" value="#{msg['button.save']}"
+        action="#{manageSubscriptionCtrl.updateRoles}"
+        render="@form,#{dialogId}modalErrorMasterPanel"
+        oncomplete="AdmUtils.showProgress(false);
+                if(!#{facesContext.maximumSeverity.ordinal > 0}){
+                    #{rich:component(dialogId)}.hide();
+                }" />
+      <mp:buttonBootstrap id="saveButton"
+        onclick="setOnSubmit(true);setDirty(false);AdmUtils.showProgress(true);
+        #{rich:element('hiddenModalEditRolesSaveAndHide')}.click();return false;"
+        value="#{msg['button.save']}" styleClass="btn-sm btn-secondary"/>
+      <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
+        value="#{msg['button.cancel']}" styleClass="btn-sm btn-secondary mx-2"/>
+    </div>
+
+  </h:form>
+
+</ui:composition>

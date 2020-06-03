@@ -298,4 +298,8 @@
     <tag-name>subscriptionDetailsBlockBootstrap</tag-name>
     <source>subscriptionDetailsBlockBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>closeModalDialogButtonBootstrap</tag-name>
+    <source>closeModalDialogButtonBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>

@@ -4076,7 +4076,6 @@ form .formHighlight div.div-for-input {
 }
 
 div.responsive-table-panel {
-  overflow-y: auto;
   margin-top: 10px;
 }
 
@@ -4366,6 +4365,10 @@ div#headerrightareaBootstrap, rightarea a {
   min-width: 30px;
 }
 
+.text-underline {
+  text-decoration: underline !important;
+}
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.8 Modal dialog
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
@@ -4380,12 +4383,22 @@ div#headerrightareaBootstrap, rightarea a {
 .responsive-dialog-container>div {
   width: 100% !important;
 }
+.responsive-dialog-container>.rf-pp-shdw {
+  display: none;
+}
 
 .responsive-dialog {
   max-width: 560px;
   width: 100%;
 }
 
+.close-dialog-btn {
+  background: transparent url(../img/mp_icon_sprite.png) -29px -330px no-repeat;
+  border: 0;
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+}
 
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
