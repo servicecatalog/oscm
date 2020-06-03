@@ -2,7 +2,7 @@
  *                                                                              
  *  Copyright FUJITSU LIMITED 2018
  *                                                                                                                                 
- *  Creation Date: 2015年3月30日                                                      
+ *  Creation Date: 2015ĺą´3ćś�30ć—Ą                                                      
  *                                                                              
  *******************************************************************************/
 
@@ -138,18 +138,19 @@ public class ADMRealmImplTest {
     }
     
     @Test
-    public void handleOIDCLogin_OC() throws Exception {
+    public void handleOIDCLogin_default() throws Exception {
         // Given
         ADMRealmImpl realm = spy(realmImpl);
         ApiIdentityClient idc = mock(ApiIdentityClient.class);
         UserQuery uq = mockOidcUser(realm, idc);
+        doReturn("admin").when(idc).validateToken(anyString(), eq(TokenType.ID_TOKEN));
         
         // When
         realm.handleOIDCLogin("1000", "admin123", uq);
         
         // Then
-        verify(realm, times(1)).handleLoginAttempt(eq("1000"),eq("admin123"), any());
-        verify(idc,never()).validateToken(anyString(), eq(TokenType.ID_TOKEN));
+        verify(idc,times(1)).getIdToken(eq("admin"), eq("admin123"));
+        verify(idc,times(1)).validateToken(anyString(), eq(TokenType.ID_TOKEN));
         
     }
 
