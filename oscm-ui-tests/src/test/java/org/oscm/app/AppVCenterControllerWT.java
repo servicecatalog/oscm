@@ -62,34 +62,9 @@ public class AppVCenterControllerWT {
     controllerTester.close();
   }
 
-  private void importVCenter() {
-    File vcenter = null;
-    try {
-      vcenter = folder.newFile("vcenterForTesting.csv");
-      FileUtils.writeStringToFile(
-          vcenter,
-          "TKey,Name,Identifier,URL,UserId,Password,/n1,TestVCenter,TestVCenter,www.testurl.com,TestUser,TestPwd",
-          "UTF-8");
-      controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", vcenter);
-      controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt91']");
-    } catch (Exception e) { // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
-
-  @Test
-  public void test00defaultEmptyVCenterMessage() {
-    assertTrue(
-        controllerTester
-            .readDefaultInfoMessage(
-                AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND)
-            .contains("vCenter"));
-  }
-
   @Ignore
   @Test
   public void test01setSettingsAPIvSphere() throws Exception {
-    importVCenter();
     controllerTester.refreshPage();
     controllerTester.changeValueInputInBalancerField("url", "https://webiste.com");
     controllerTester.changeValueInputInBalancerField("user", userID);
@@ -106,7 +81,6 @@ public class AppVCenterControllerWT {
 
   @Test
   public void test02importServiceTemplate() throws Exception {
-    importVCenter();
     createdFile = folder.newFile("vcenter.csv");
     FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
     controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
