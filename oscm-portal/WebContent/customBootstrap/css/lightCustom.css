@@ -15,26 +15,6 @@
   .container-fluid {
     padding-left: 0.4em;
     padding-right: 0.4em; } }
-/* Aside Menu */
-@media (max-width: 767.98px) {
-  .aside {
-    float: none; } }
-@media (min-width: 768px) {
-  .custom-collapse .collapse {
-    display: block; } }
-/* Big display small display */
-@media (max-width: 767.98px) {
-  .bigDisplay {
-    display: none; }
-
-  .smallDisplay {
-    display: inline-block; } }
-@media (min-width: 768px) {
-  .bigDisplay {
-    display: inline-block; }
-
-  .smallDisplay {
-    display: none; } }
 /* -------end customization-------- */
 /* finally, import Bootstrap to set the changes! */
 /*!

@@ -1,0 +1,39 @@
+@import "../../bootstrap/scss/mixins/breakpoints";
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1280px
+);
+
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1220px
+);
+
+@include media-breakpoint-down(sm) { 
+   .navbar {
+    padding: 0rem;
+  }
+}
+  
+/* Container-fluid */
+@include media-breakpoint-up(md) { 
+  .container-fluid {
+    padding-left: 3em;
+    padding-right: 3em;
+    margin-right: 0.3em;
+    margin-left: 0.3em;
+  }  
+}
+
+@include media-breakpoint-down(sm) { 
+  .container-fluid {
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+  }
+}  
