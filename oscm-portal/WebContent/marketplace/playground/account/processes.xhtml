@@ -185,7 +185,7 @@
                 enableContextMenu="false" noDataLabel=" "
                 rendered="#{(not empty triggerProcessBean.triggerProcessList)}" sortMode="single">
 
-                <rich:column width="#{iconWidth}"
+                <rich:column p:data-label="#{msg['triggerProcess.select']}" width="#{iconWidth}"
                              styleClass="tableColumnCheckBox"
                              sortIcon="#{sortIcon}"
                              sortIconAscending="#{sortIconAscending}"

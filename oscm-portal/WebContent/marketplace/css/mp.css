@@ -4498,8 +4498,14 @@ div#headerrightareaBootstrap, rightarea a {
   .RespTable, .RespTable thead, .RespTable tbody, .RespTable tr, .RespTable th, .RespTable td {
     display: block;
   }
-  .RespTable {
-    text-align: right;
+  .RespTable td {
+    border-right: none;
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #D2D2D2;
   }
   .RespTable thead {
     position: absolute;
@@ -4507,16 +4513,23 @@ div#headerrightareaBootstrap, rightarea a {
     left: -1111px;
   }
   .RespTable td:before {
-    float: left;
-    padding: 0 10px 0 0;
-    content: attr(data-label) ":";
+    position: absolute;
+    text-aligh: left;
+    top: 6px;
+    left: 6px;
+    padding-right: 10px;
     font-weight: bold;
+    width: 45%;
+    vertical-align: middle;
+  }
+  .RespTable td:before {
+    content: attr(data-label) ;
   }
   .RespTable td:nth-child(1) {
     font-weight: bold;
   }
   .RespTable td:last-child {
-    border-bottom: 2px #1d4d33 solid;
+    border-bottom: 1px #1d4d33 solid;
   }
 }
 
