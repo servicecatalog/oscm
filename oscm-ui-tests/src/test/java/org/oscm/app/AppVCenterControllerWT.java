@@ -65,7 +65,6 @@ public class AppVCenterControllerWT {
   @Ignore
   @Test
   public void test01setSettingsAPIvSphere() throws Exception {
-    controllerTester.refreshPage();
     controllerTester.changeValueInputInBalancerField("url", "https://webiste.com");
     controllerTester.changeValueInputInBalancerField("user", userID);
     controllerTester.changeValueInputInBalancerField("pwd", userPassword);
