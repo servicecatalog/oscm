@@ -18,6 +18,7 @@ import org.apache.commons.io.FileUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -27,13 +28,9 @@ import org.oscm.portal.JUnitHelper;
 import org.oscm.webtest.app.AppControllerTester;
 import org.oscm.webtest.app.AppHtmlElements;
 import org.oscm.webtest.app.AppPathSegments;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppVCenterControllerWT {
-
-  private static final Logger logger = LoggerFactory.getLogger(AppVCenterControllerWT.class);
 
   private static AppControllerTester controllerTester;
   private static String userKey;
@@ -75,7 +72,6 @@ public class AppVCenterControllerWT {
           "UTF-8");
       controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", vcenter);
       controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt91']");
-      logger.info("Test Vcenter imported");
     } catch (Exception e) { // TODO Auto-generated catch block
       e.printStackTrace();
     }
@@ -90,6 +86,7 @@ public class AppVCenterControllerWT {
             .contains("vCenter"));
   }
 
+  @Ignore
   @Test
   public void test01setSettingsAPIvSphere() throws Exception {
     importVCenter();
