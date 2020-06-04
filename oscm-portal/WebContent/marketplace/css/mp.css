@@ -4374,6 +4374,11 @@ div#headerrightareaBootstrap, rightarea a {
   max-width: 700px
 }
 
+.con-tooltip-icon {
+  position: relative;
+  font-size: 1rem;
+  min-width: 0px
+}
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.6 Footer
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */

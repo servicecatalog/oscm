@@ -58,6 +58,9 @@
     <c:when test="#{(not empty showHint)}">
       <adm:messageAndHint id="#{id}ErrorMsg" for="#{id}" />
     </c:when>
+    <c:when test="#{(not empty bootstrapHint)}">
+      <adm:messageAndHintBootstrap id="#{id}ErrorMsg" for="#{id}" title="#{title}"/>
+    </c:when>
     <c:otherwise>
       <adm:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}" />
     </c:otherwise>

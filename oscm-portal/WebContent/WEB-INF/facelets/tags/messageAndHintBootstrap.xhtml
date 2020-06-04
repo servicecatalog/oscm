@@ -1,0 +1,11 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+ <t:panelGrid columns="2" styleClass="hintAndMessageTable">
+  <adm:hintBootstrap for="#{for}" title="#{title}"/>
+  <adm:message id="#{id}" for="#{for}"/>
+ </t:panelGrid>
+</ui:composition>
