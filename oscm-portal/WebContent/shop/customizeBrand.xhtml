@@ -49,6 +49,11 @@
         <adm:labelAndInputText id="brandUrl" label="#{msg['marketplace.brandUrl']}" value="#{brandBean.brandingUrl}"
           maxlength="#{appBean.descriptionLen}" validatorId="absOrRelUrl" styleClass="field" converterId="trimConverter"
           disabled="#{not brandBean.marketplaceSelected}" />
+         <!-- Custom Bootstrap URL -->
+        <adm:labelAndInputText id="customBootstrapUrl" label="#{msg['marketplace.customBootstrapUrl']}" value="#{brandBean.customBootstrapUrl}"
+          maxlength="#{appBean.descriptionLen}" validatorId="absOrRelUrl" styleClass="field" converterId="trimConverter"
+          disabled="#{not brandBean.marketplaceSelected}" />
+          
       </adm:panelGrid>
 
       <adm:buttonPanel>
