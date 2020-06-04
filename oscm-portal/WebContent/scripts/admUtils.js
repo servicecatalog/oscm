@@ -2301,10 +2301,9 @@ AdmUtils.sortSelect = function() {
 }
 
 AdmUtils.showTooltips = function() {
- var is_touch_device = ("ontouchstart" in window) || window.DocumentTouch && document instanceof DocumentTouch;
  $(document).ready(function(){
    $('[data-toggle="popover"]').popover({
-     trigger: is_touch_device ? "click" : "hover"
+     html : true, container: 'body',
    });
  });
 }

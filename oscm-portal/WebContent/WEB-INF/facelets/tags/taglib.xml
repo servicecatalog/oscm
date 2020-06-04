@@ -271,6 +271,10 @@
     <tag-name>hintBootstrap</tag-name>
     <source>hintBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>messageAndHintBootstrap</tag-name>
+    <source>messageAndHintBootstrap.xhtml</source>
+  </tag>
 
   <function>
     <function-name>matchBegin</function-name>

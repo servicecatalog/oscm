@@ -11,11 +11,11 @@
     <adm:labelAndInputText id="subscriptionIdText" label="#{msg['subscription.subscriptionId']}" styleClass="w-100"
                            required="true" backingBean="#{subscriptionWizardConversation}"
                            value="#{subscriptionWizardConversation.model.subscription.subscriptionId}"
-                           maxlength="#{appBean.idLen}" validatorId="idChar" showHint="true"
+                           maxlength="#{appBean.idLen}" validatorId="idChar" bootstrapHint="true"
                            validationMethod="validateSubscriptionId" converterId="trimConverter"/>
     <adm:labelAndInputText id="purchaseOrderNumberText" label="#{msg['subscription.purchaseOrderNumber']}" styleClass="w-100"
                            value="#{subscriptionWizardConversation.model.subscription.purchaseOrderNumber}"
-                           maxlength="#{appBean.descriptionLen}" converterId="trimConverter" showHint="true"/>
+                           maxlength="#{appBean.descriptionLen}" converterId="trimConverter" bootstrapHint="true"/>
     <adm:labelAndUnitSelectBootstrap id="organizationalUnitSelect" label="#{msg['unit.organizationalUnit']}"
                                      value="#{subscriptionWizardConversation.subscriptionUnitCtrl.model.selectedUnitName}"
                                      showHint="true" disabled="#{not userBean.isOrganizationAdmin and not userBean.isUnitAdmin}"

@@ -154,22 +154,6 @@
           </div>
          </div>
         </div>
-
-        <div class="form-row pb-2">
-         <label class="col-md-3 col-form-label">#{msg['user.locale']}:</label>
-         <div class="col-md-9">
-          <div class="input-group mb-3">
-           <h:selectOneMenu id="locale" styleClass="custom-select" value="#{organizationBean.currentUser.locale}"
-                            onchange="setDirty(true)" rendered="#{empty rendered or rendered}">
-            <adm:localeItems/>
-            <f:validator validatorId="SupportedLanguageValidator"/>
-           </h:selectOneMenu>
-           <adm:hintBootstrap styleClassForDiv="input-group-append" styleClassForButton="btn btn-secondary"
-                              for="locale" title="msg['user.locale']"/>
-          </div>
-         </div>
-        </div>
-
        </div>
 
        <hr/>
