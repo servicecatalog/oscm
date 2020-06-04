@@ -17,21 +17,26 @@
     <div id="sidebar-wrapper">
 
       <div class="list-group collapse navbar-collapse" id="sidebarCollapse">
+        <!--  Header Row -->
+        <h:outputLink id="link0" value="#" styleClass="list-group-item list-group-item-action bg-light sidebar-header"
+          onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][0]}';return true;}else{return false;}">
+          <h4 id="menu0">
+            <h:outputText value="#{msg[first]}" />
+          </h4>
+        </h:outputLink>
 
         <!--  Menu Rows -->
         <c:forEach items="#{bean['title']}" var="key" varStatus="index">
           <c:if test="#{not(first eq key)}">
             <c:if test="#{selected eq key}">
+            
               <h:outputLink id="link#{index.index}" value="#"
                 styleClass="list-group-item list-group-item-action bg-light"
                 onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][index.index]}';return true;}else{return false;}">
-
                 <h4 id="menu#{index.index}">
                   <h:outputText value="#{msg[key]}" />
                 </h4>
-
               </h:outputLink>
-
             </c:if>
             <c:if test="#{not(selected eq key)}">
               <h:outputLink id="link#{index.index}" value="#"
@@ -41,7 +46,6 @@
                 <h4 id="menu#{index.index}">
                   <h:outputText value="#{msg[key]}" />
                 </h4>
-
               </h:outputLink>
             </c:if>
           </c:if>
