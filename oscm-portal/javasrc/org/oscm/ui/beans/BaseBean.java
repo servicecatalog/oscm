@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Set;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIInput;
 import javax.faces.context.ExternalContext;
@@ -27,6 +28,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.oscm.internal.accountmgmt.AccountServiceManagement;
 import org.oscm.internal.intf.AccountService;
@@ -378,6 +380,7 @@ public class BaseBean {
   public static final String INFO_UDADEFINITIONS_SAVED = "info.udaDefinitions.saved";
   public static final String INFO_UDA_SAVED = "info.uda.saved";
   public static final String INFO_BRANDING_URL_SET = "info.brandingUrl.set";
+  public static final String INFO_CUSTOM_BOOTSTRAP_URL_SET = "info.customBootstrapUrl.set";
   public static final String INFO_CATEGORIES_SAVED = "info.categories.saved";
   public static final String INFO_VAT_SAVED = "info.vat.saved";
   public static final String INFO_COUNTRIES_SAVED = "info.countries.saved";

@@ -7,12 +7,14 @@ package org.oscm.ui.beans;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+
 import org.apache.poi.util.IOUtils;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
@@ -46,6 +48,8 @@ public class BrandBean extends BaseBean implements Serializable {
 
   private String brandingUrl;
 
+  private String customBootstrapUrl;
+
   private byte[] brandingPackage;
 
   public MarketplaceBean getMarketplaceBean() {
@@ -78,6 +82,24 @@ public class BrandBean extends BaseBean implements Serializable {
     this.brandingUrl = brandingUrl;
   }
 
+  public String getCustomBootstrapUrl() {
+    if (customBootstrapUrl == null) {
+      final String marketplaceId = marketplaceBean.getMarketplaceId();
+      if (marketplaceId != null) {
+        try {
+          this.customBootstrapUrl = getMarketplaceService().getBrandingUrl(marketplaceId);
+        } catch (ObjectNotFoundException e) {
+          customBootstrapUrl = null;
+        }
+      }
+    }
+    return customBootstrapUrl;
+  }
+
+  public void setCustomBootstrapUrl(String customBootstrapUrl) {
+    this.customBootstrapUrl = customBootstrapUrl;
+  }
+
   protected String getWhiteLabelBrandingUrl() {
     return getFacesContext().getExternalContext().getRequestContextPath()
         + "/marketplace/css/mp.css";
@@ -94,6 +116,7 @@ public class BrandBean extends BaseBean implements Serializable {
     if (selectedMarketplaceId.equals("0")) {
       getMarketplaceBean().setMarketplaceId(null);
       setBrandingUrl(null);
+      setCustomBootstrapUrl(null);
     } else {
       try {
         getMarketplaceBean().setMarketplaceId(selectedMarketplaceId);
@@ -102,6 +125,7 @@ public class BrandBean extends BaseBean implements Serializable {
         getMarketplaceBean().checkMarketplaceDropdownAndMenuVisibility(null);
         getMarketplaceBean().setMarketplaceId(null);
         setBrandingUrl(null);
+        setCustomBootstrapUrl(null);
       }
     }
   }
@@ -188,6 +212,7 @@ public class BrandBean extends BaseBean implements Serializable {
     } catch (ObjectNotFoundException e) {
       getMarketplaceBean().checkMarketplaceDropdownAndMenuVisibility(null);
       setBrandingUrl(null);
+      setCustomBootstrapUrl(null);
       ExceptionHandler.execute(e, true);
       return;
     } catch (SaaSApplicationException e) {
