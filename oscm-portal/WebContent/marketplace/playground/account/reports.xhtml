@@ -1,0 +1,81 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:rich="http://richfaces.org/rich" template="../templates/mainBootstrap.xhtml">
+
+ <ui:define name="pageId">
+  <c:set var="pageId" value="marketplace.account.reports"/>
+  <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+ </ui:define>
+
+ <ui:define name="breadcrumbs">
+  <mp:bootstrapBreadcrumbs>
+   <mp:crumb labelPageId="marketplace.account" link="/marketplace/playground/account/index.jsf"/>
+   <mp:crumb labelPageId="marketplace.account.reports"/>
+  </mp:bootstrapBreadcrumbs>
+ </ui:define>
+
+ <ui:define name="contentstitle">
+  <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
+   <br/>
+  </a4j:outputPanel>
+ </ui:define>
+
+ <ui:define name="aside">
+  <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.reports.title"/>
+ </ui:define>
+
+ <ui:define name="contents">
+  <a4j:outputPanel id="all" layout="block">
+   <div class="con-flow-root pl-4">
+    <a4j:outputPanel layout="block" styleClass="clearfix">
+     <mp:outputStep value="#{msg['marketplace.account.reports.title']}"/>
+    </a4j:outputPanel>
+
+    <a4j:outputPanel layout="block" styleClass="tablePanel">
+     <h:selectOneMenu styleClass="custom-select" value="#{reportBean.selectedReportUrl}"
+                      onchange="startService(this)">
+      <f:selectItem id="reportSelectBox" itemLabel="#{msg['marketplace.account.reports.noSelection']}"
+                    itemValue=""/>
+      <c:forEach items="#{reportBean.reportsForOrgAdmin}" var="report">
+       <f:selectItem itemLabel="#{report.localizedReportName}" itemValue="#{report.externalReportURL}"/>
+      </c:forEach>
+     </h:selectOneMenu>
+    </a4j:outputPanel>
+    <hr class="pt-1 pb-2"/>
+
+    <a4j:outputPanel layout="block" styleClass="tablePanel">
+     <c:if test="#{empty reportBean.selectedReportUrl}">
+      <script>
+        var f = document.getElementById("reportFrame");
+          if (f){f.style.display = "none";}
+      </script>
+     </c:if>
+     <c:if test="#{not empty reportBean.selectedReportUrl}">
+      <iframe id="reportFrame" src="#{reportBean.selectedReportUrl}" class="responsive-iframe"/>
+     </c:if>
+    </a4j:outputPanel>
+
+    <h:form id="selectReportUrlForm">
+     <h:inputHidden id="selectedReportUrl" value="#{reportBean.selectedReportUrl}"/>
+     <h:commandButton class="d-none" id="initReportUrl" value="initReportUrl"
+                      action="#{reportBean.initReportUrl}"/>
+    </h:form>
+
+   </div>
+  </a4j:outputPanel>
+
+  <script>
+   startService = function(e) {
+     var i = e.selectedIndex;
+ 		  var o = e.options[i];
+ 		  #{rich:element('selectedReportUrl')}.value=o.value;
+ 	   #{rich:element('initReportUrl')}.click();
+   }
+  </script>
+
+ </ui:define>
+</ui:composition>
