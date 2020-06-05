@@ -287,8 +287,8 @@
     <source>subscriptionBlockBootstrap.xhtml</source>
   </tag>
   <tag>
-    <tag-name>labelAndInputTextBootstrap</tag-name>
-    <source>labelAndInputTextBootstrap.xhtml</source>
+    <tag-name>formInput</tag-name>
+    <source>formInput.xhtml</source>
   </tag>
   <tag>
     <tag-name>messageAndHintBootstrap</tag-name>
@@ -301,5 +301,9 @@
   <tag>
     <tag-name>closeModalDialogButtonBootstrap</tag-name>
     <source>closeModalDialogButtonBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>hintBootstrap</tag-name>
+    <source>hintBootstrap.xhtml</source>
   </tag>
 </facelet-taglib>
