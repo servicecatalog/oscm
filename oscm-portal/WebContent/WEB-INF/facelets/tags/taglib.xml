@@ -240,8 +240,8 @@
     <source>bootsfacesLabelAndSelect.xhtml</source>
   </tag>
   <tag>
-    <tag-name>labelAndUnitSelectBootstrap</tag-name>
-    <source>labelAndUnitSelectBootstrap.xhtml</source>
+    <tag-name>formUnitSelect</tag-name>
+    <source>formUnitSelect.xhtml</source>
   </tag>
   <tag>
     <tag-name>buttonCustomizedOnClickBootstrap</tag-name>
@@ -266,14 +266,6 @@
   <tag>
     <tag-name>labelAndInputSecretBootstrap</tag-name>
     <source>labelAndInputSecretBootstrap.xhtml</source>
-  </tag>
-  <tag>
-    <tag-name>hintBootstrap</tag-name>
-    <source>hintBootstrap.xhtml</source>
-  </tag>
-  <tag>
-    <tag-name>messageAndHintBootstrap</tag-name>
-    <source>messageAndHintBootstrap.xhtml</source>
   </tag>
 
   <function>
