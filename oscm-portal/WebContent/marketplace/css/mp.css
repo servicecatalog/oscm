@@ -4269,10 +4269,6 @@ div#headerrightareaBootstrap, rightarea a {
   vertical-align: baseline;
 }
 
-.inputSearch {
-  width: 90%;
-}
-
 @media ( max-width : 767px) {
   .navbar {
     padding: 0rem;
