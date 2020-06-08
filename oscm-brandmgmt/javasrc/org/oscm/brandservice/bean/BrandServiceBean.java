@@ -361,15 +361,11 @@ public class BrandServiceBean implements BrandService {
   public List<VOLocalizedText> getMarketplaceMobileStageLocalization(String marketplaceId)
       throws ObjectNotFoundException, OperationNotPermittedException {
 
-    List<VOLocalizedText> result = new ArrayList<VOLocalizedText>();
     Marketplace mp = new Marketplace();
     mp.setMarketplaceId(marketplaceId);
     mp = (Marketplace) dm.getReferenceByBusinessKey(mp);
     PermissionCheck.owns(mp, dm.getCurrentUser().getOrganization(), logger, null);
-    result =
-        localizer.getLocalizedValues(mp.getKey(), LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
-
-    return result;
+    return localizer.getLocalizedValues(mp.getKey(), LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
   }
 
   @Override
