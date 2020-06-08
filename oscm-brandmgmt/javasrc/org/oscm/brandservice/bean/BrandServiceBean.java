@@ -19,11 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
+
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.ImageResource;
 import org.oscm.domobjects.Marketplace;
@@ -339,6 +341,21 @@ public class BrandServiceBean implements BrandService {
     mp = (Marketplace) dm.getReferenceByBusinessKey(mp);
     PermissionCheck.owns(mp, dm.getCurrentUser().getOrganization(), logger, null);
     result = localizer.getLocalizedValues(mp.getKey(), LocalizedObjectTypes.MARKETPLACE_STAGE);
+
+    return result;
+  }
+
+  @RolesAllowed("MARKETPLACE_OWNER")
+  public List<VOLocalizedText> getMarketplaceMobileStageLocalization(String marketplaceId)
+      throws ObjectNotFoundException, OperationNotPermittedException {
+
+    List<VOLocalizedText> result = new ArrayList<VOLocalizedText>();
+    Marketplace mp = new Marketplace();
+    mp.setMarketplaceId(marketplaceId);
+    mp = (Marketplace) dm.getReferenceByBusinessKey(mp);
+    PermissionCheck.owns(mp, dm.getCurrentUser().getOrganization(), logger, null);
+    result =
+        localizer.getLocalizedValues(mp.getKey(), LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
 
     return result;
   }
