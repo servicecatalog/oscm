@@ -861,6 +861,38 @@ public class BrandServiceBeanIT extends EJBTestBase {
     brandMgmt.getMarketplaceStageLocalization(globalMplId);
   }
 
+  @Test
+  public void testGetMarketplaceMobileStageLocalization() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.setMarketplaceMobileStage("stage_en", globalMplId, "en");
+    brandMgmt.setMarketplaceMobileStage("stage_de", globalMplId, "de");
+    brandMgmt.setMarketplaceMobileStage("stage_ja", globalMplId, "ja");
+
+    List<VOLocalizedText> localization =
+        brandMgmt.getMarketplaceMobileStageLocalization(globalMplId);
+    Assert.assertNotNull(localization);
+    Assert.assertEquals(3, localization.size());
+    Map<String, String> map = map(localization);
+    Assert.assertTrue(map.containsKey("en"));
+    Assert.assertEquals("stage_en", map.get("en"));
+    Assert.assertTrue(map.containsKey("de"));
+    Assert.assertEquals("stage_de", map.get("de"));
+    Assert.assertTrue(map.containsKey("ja"));
+    Assert.assertEquals("stage_ja", map.get("ja"));
+  }
+
+  @Test(expected = ObjectNotFoundException.class)
+  public void testGetMarketplaceMobileStageLocalization_NotFound() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.getMarketplaceMobileStageLocalization("invalid");
+  }
+
+  @Test(expected = OperationNotPermittedException.class)
+  public void testGetMarketplaceMobileStageLocalization_CallerNotOwner() throws Exception {
+    container.login(supplierUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.getMarketplaceMobileStageLocalization(globalMplId);
+  }
+
   /**
    * Asserts the content of the marketplace stage in the localized resource table equals the passed
    * value for a specific locale.
