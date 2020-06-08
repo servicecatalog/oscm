@@ -106,14 +106,6 @@ public class AppControllerTester extends WebTester {
     }
   }
 
-  public void refreshPage() {
-    driver.navigate().refresh();
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-    }
-  }
-
   public void buttonDefaultClickEvent(String idKey) throws Exception {
     Thread.sleep(1000);
     WebElement element = driver.findElement(By.xpath(idKey));
