@@ -833,6 +833,7 @@ public class BrandServiceBeanIT extends EJBTestBase {
   @Test
   public void testGetMarketplaceStageLocalization() throws Exception {
     container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+
     brandMgmt.setMarketplaceStage("stage_en", globalMplId, "en");
     brandMgmt.setMarketplaceStage("stage_de", globalMplId, "de");
     brandMgmt.setMarketplaceStage("stage_ja", globalMplId, "ja");
