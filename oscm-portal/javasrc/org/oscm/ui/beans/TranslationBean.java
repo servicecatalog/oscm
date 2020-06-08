@@ -176,6 +176,7 @@ public class TranslationBean extends BaseBean implements Serializable {
     resetMembers();
     setShowConfirm(false);
     setDirtyStage(false);
+    setDirtyMobileStage(false);
   }
 
   public String getPrivacypolicy() {
@@ -766,6 +767,7 @@ public class TranslationBean extends BaseBean implements Serializable {
     imprint = null;
     imprintDescription = null;
     stageContent = null;
+    mobileStageContent = null;
     messageProperties = null;
     defaultMessageBundle = null;
   }

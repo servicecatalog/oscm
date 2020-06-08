@@ -86,7 +86,7 @@
         <adm:collapsibleSection sectionId="mobileStageSection" label="#{msg['marketplace.mobileStage']}">
         <table width="100%">
           <tr>
-            <td><h:inputTextarea id="mobileStage" value="#{translationBean.stage}"
+            <td><h:inputTextarea id="mobileStage" value="#{translationBean.mobileStage}"
                 onchange="setDirty(true); #{rich:element('dirty')}.value=getDirty();" rows="5"
                 style="width: 99.6%; height: 100px;" disabled="#{marketplaceBean.disabledForEdit}" />
             </td>
