@@ -690,9 +690,9 @@ public class TranslationBean extends BaseBean implements Serializable {
     try {
       getBrandManagementService()
           .setMarketplaceMobileStage(stageContent, getMarketplaceBean().getMarketplaceId(), locale);
-    } catch (SaaSApplicationException e) {
-      marketplaceBean.checkMarketplaceDropdownAndMenuVisibility(e);
-      throw e;
+    } catch (SaaSApplicationException ex) {
+      marketplaceBean.checkMarketplaceDropdownAndMenuVisibility(ex);
+      throw ex;
     } finally {
       setDirtyMobileStage(false);
       mobileStages = null;
