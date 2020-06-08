@@ -558,10 +558,10 @@ public class TranslationBean extends BaseBean implements Serializable {
   public String getMobileStage() {
     if (mobileStages == null) {
       initMobileStage();
-      mobileStageContent = getStageForLocale(locale, stages);
+      mobileStageContent = getStageForLocale(locale, mobileStages);
     } else {
       if (mobileStageContent == null) {
-        mobileStageContent = getStageForLocale(locale, stages);
+        mobileStageContent = getStageForLocale(locale, mobileStages);
       }
     }
     return mobileStageContent;
@@ -689,7 +689,8 @@ public class TranslationBean extends BaseBean implements Serializable {
   public String saveMobileStage() throws SaaSApplicationException {
     try {
       getBrandManagementService()
-          .setMarketplaceMobileStage(stageContent, getMarketplaceBean().getMarketplaceId(), locale);
+          .setMarketplaceMobileStage(
+              mobileStageContent, getMarketplaceBean().getMarketplaceId(), locale);
     } catch (SaaSApplicationException ex) {
       marketplaceBean.checkMarketplaceDropdownAndMenuVisibility(ex);
       throw ex;
