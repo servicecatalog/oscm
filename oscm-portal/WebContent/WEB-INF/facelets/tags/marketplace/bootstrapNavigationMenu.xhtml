@@ -5,6 +5,8 @@
   xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
   <c:set var="first" value="#{bean['title'][0]}" />
+  <c:set var="menuItemStyle" value="list-group-item list-group-item-action card-header" />
+  <c:set var="menuHeaderStyle" value="list-group-item list-group-item-action card-header bg-dark" />
 
   <!-- Div which collapses vertically when screen is small. Hamburger icon displaying only for small screens. -->
   <div class="custom-collapse mt-4 mt-md-2">
@@ -13,42 +15,30 @@
       <span class="hamburger_icon"><i class="fa fa-navicon"></i></span>
     </button>
 
-    <!-- Sidebar. -->
     <div id="sidebar-wrapper">
-
       <div class="list-group collapse navbar-collapse" id="sidebarCollapse">
+        <!--  Header Row -->
+        <h:outputLink id="link0" value="#"
+          styleClass="#{menuHeaderStyle} #{selected eq first? 'text-primary' : 'text-light'}"
+          onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][0]}';return true;}else{return false;}">
+          <h3 id="menu0">
+            <h:outputText value="#{msg[first]}" />
+          </h3>
+        </h:outputLink>
 
         <!--  Menu Rows -->
         <c:forEach items="#{bean['title']}" var="key" varStatus="index">
           <c:if test="#{not(first eq key)}">
-            <c:if test="#{selected eq key}">
-              <h:outputLink id="link#{index.index}" value="#"
-                styleClass="list-group-item list-group-item-action bg-light"
-                onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][index.index]}';return true;}else{return false;}">
-
-                <h4 id="menu#{index.index}">
-                  <h:outputText value="#{msg[key]}" />
-                </h4>
-
-              </h:outputLink>
-
-            </c:if>
-            <c:if test="#{not(selected eq key)}">
-              <h:outputLink id="link#{index.index}" value="#"
-                styleClass="list-group-item list-group-item-action bg-light"
-                rendered="#{bean.isLinkVisible(index.index)}"
-                onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][index.index]}';return true;}else{return false;}">
-                <h4 id="menu#{index.index}">
-                  <h:outputText value="#{msg[key]}" />
-                </h4>
-
-              </h:outputLink>
-            </c:if>
+            <h:outputLink id="link#{index.index}" value="#"
+              styleClass="#{menuItemStyle} #{selected eq key? 'text-primary' : ''}"
+              onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][index.index]}';return true;}else{return false;}">
+              <h4 id="menu#{index.index}">
+                <h:outputText value="#{msg[key]}" />
+              </h4>
+            </h:outputLink>
           </c:if>
         </c:forEach>
-
       </div>
-
     </div>
   </div>
 

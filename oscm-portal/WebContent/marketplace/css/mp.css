@@ -4269,10 +4269,6 @@ div#headerrightareaBootstrap, rightarea a {
   vertical-align: baseline;
 }
 
-.inputSearch {
-  width: 90%;
-}
-
 @media ( max-width : 767px) {
   .navbar {
     padding: 0rem;
@@ -4409,6 +4405,7 @@ div#headerrightareaBootstrap, rightarea a {
 #sidebarCollapse {
   margin-top: 0.5rem !important;
 }
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.7 Additional utility classes
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
