@@ -72,7 +72,7 @@
         </table>
       </adm:collapsibleSection>
       <h:outputText styleClass="stepDescription" value="#{msg['marketplace.stage.example']}" />
-
+      
       <h:commandButton style="display:none;" id="changeLocaleButton" value="" action="#{translationBean.changeLocale}" />
       <h:commandButton style="display:none;" id="cancelPreview" value="" action="#{translationBean.cancelPreview}" />
       
@@ -82,6 +82,29 @@
         <adm:button id="preview" value="#{msg['button.preview']}" bean="#{translationBean}" action="preview"
           disabled="#{marketplaceBean.disabledForEdit}" buttonType="preview" />
       </adm:buttonPanel>
+      
+        <adm:collapsibleSection sectionId="mobileStageSection" label="#{msg['marketplace.mobileStage']}">
+        <table width="100%">
+          <tr>
+            <td><h:inputTextarea id="mobileStage" value="#{translationBean.stage}"
+                onchange="setDirty(true); #{rich:element('dirty')}.value=getDirty();" rows="5"
+                style="width: 99.6%; height: 100px;" disabled="#{marketplaceBean.disabledForEdit}" />
+            </td>
+          </tr>
+        </table>
+      </adm:collapsibleSection>
+      <h:outputText styleClass="stepDescription" value="#{msg['marketplace.stage.example']}" />
+      
+      <h:commandButton style="display:none;" id="changeLocaleButton2" value="" action="#{translationBean.changeLocale}" />
+      <h:commandButton style="display:none;" id="cancelPreview2" value="" action="#{translationBean.cancelPreview}" />
+      
+      <adm:buttonPanel columns="1">
+        <adm:button id="saveButton2" value="#{msg['button.save']}" bean="#{translationBean}" action="saveMobileStage"
+                    disabled="#{marketplaceBean.disabledForEdit}" buttonType="save" />
+        <adm:button id="preview2" value="#{msg['button.preview']}" bean="#{translationBean}" action="preview"
+          disabled="#{marketplaceBean.disabledForEdit}" buttonType="preview" />
+      </adm:buttonPanel>
+      
 
     </h:form>
 
