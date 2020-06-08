@@ -2,7 +2,7 @@
  *                                                                              
  *  Copyright FUJITSU LIMITED 2018
  *                                                                                                                                 
- *  Creation Date: 2015ĺą´3ćś�30ć—Ą                                                      
+ *  Creation Date: 2015-03-30                                                   
  *                                                                              
  *******************************************************************************/
 
@@ -15,7 +15,6 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
