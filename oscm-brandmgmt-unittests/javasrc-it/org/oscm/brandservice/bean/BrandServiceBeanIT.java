@@ -1,13 +1,14 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: pock                                                      
- *                                                                              
- *  Creation Date: 18.11.2009                                                      
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: pock
+ *
+ * <p>Creation Date: 18.11.2009
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.brandservice.bean;
 
 import java.awt.Graphics2D;
@@ -54,760 +55,969 @@ import org.oscm.test.data.SupportedCountries;
 import org.oscm.test.ejb.TestContainer;
 import org.oscm.test.stubs.ConfigurationServiceStub;
 
-/**
- * @author pock
- */
+/** @author pock */
 public class BrandServiceBeanIT extends EJBTestBase {
 
-    private final static byte[] TRANSPARENT_PIXEL = new byte[] { 'G', 'I', 'F',
-            '8', '9', 'a', 0x01, 0x00, 0x01, 0x00, (byte) 0x80, 0x01, 0x00,
-            0x10, 0x3C, 0x63, (byte) 0xff, (byte) 0xff, (byte) 0xff, 0x21,
-            (byte) 0xf9, 0x04, 0x01, 0x14, 0x00, 0x01, 0x00, 0x2c, 0x00, 0x00,
-            0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00, 0x02, 0x02, 0x4c, 0x01,
-            0x00, 0x3b };
+  private static final byte[] TRANSPARENT_PIXEL =
+      new byte[] {
+        'G',
+        'I',
+        'F',
+        '8',
+        '9',
+        'a',
+        0x01,
+        0x00,
+        0x01,
+        0x00,
+        (byte) 0x80,
+        0x01,
+        0x00,
+        0x10,
+        0x3C,
+        0x63,
+        (byte) 0xff,
+        (byte) 0xff,
+        (byte) 0xff,
+        0x21,
+        (byte) 0xf9,
+        0x04,
+        0x01,
+        0x14,
+        0x00,
+        0x01,
+        0x00,
+        0x2c,
+        0x00,
+        0x00,
+        0x00,
+        0x00,
+        0x01,
+        0x00,
+        0x01,
+        0x00,
+        0x00,
+        0x02,
+        0x02,
+        0x4c,
+        0x01,
+        0x00,
+        0x3b
+      };
 
-    private String globalMplId = "FUJITSU";
-    private String globalMplStage = "STAGE_CONTENT";
-    private String globalMplLocale = "en";
+  private String globalMplId = "FUJITSU";
+  private String globalMplStage = "STAGE_CONTENT";
+  private String globalMplMobileStage = "MOBILE_STAGE_CONTENT";
+  private String globalMplLocale = "en";
 
-    private String globalMpl2Id = "anotherGlobalMpl";
+  private String globalMpl2Id = "anotherGlobalMpl";
 
-    private String customStageContent = "<b>CUSTOM_CONTENT</b>";
+  private String customStageContent = "<b>CUSTOM_CONTENT</b>";
+  private String customMobileStageContent = "<b>MOBILE_CUSTOM_CONTENT</b>";
 
-    private LocalizedResource lrDefault;
+  private LocalizedResource lrDefault;
+  private LocalizedResource lrMobile;
 
-    private DataService mgr;
-    private BrandService brandMgmt;
-    private LocalizerServiceLocal localizer;
+  private DataService mgr;
+  private BrandService brandMgmt;
+  private LocalizerServiceLocal localizer;
 
-    private String mId;
-    private long supplierUserKey;
-    private long supplierUserKeyNoMP;
-    private long customerUserKey;
-    private long operatorUserKey;
-    private long operatorUserKeyNoMP;
+  private String mId;
+  private long supplierUserKey;
+  private long supplierUserKeyNoMP;
+  private long customerUserKey;
+  private long operatorUserKey;
+  private long operatorUserKeyNoMP;
 
-    @Override
-    public void setup(TestContainer container) throws Exception {
-        container.addBean(new ConfigurationServiceStub());
-        container.addBean(new DataServiceBean());
-        container.addBean(new ImageResourceServiceBean());
-        container.addBean(new LocalizerServiceBean());
-        container.addBean(new BrandServiceBean());
+  @Override
+  public void setup(TestContainer container) throws Exception {
+    container.addBean(new ConfigurationServiceStub());
+    container.addBean(new DataServiceBean());
+    container.addBean(new ImageResourceServiceBean());
+    container.addBean(new LocalizerServiceBean());
+    container.addBean(new BrandServiceBean());
 
-        // lookup bean references
-        mgr = container.get(DataService.class);
-        brandMgmt = container.get(BrandService.class);
-        localizer = container.get(LocalizerServiceLocal.class);
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
+    // lookup bean references
+    mgr = container.get(DataService.class);
+    brandMgmt = container.get(BrandService.class);
+    localizer = container.get(LocalizerServiceLocal.class);
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
 
-                createPaymentTypes(mgr);
-                createOrganizationRoles(mgr);
-                SupportedCountries.createSomeSupportedCountries(mgr);
+            createPaymentTypes(mgr);
+            createOrganizationRoles(mgr);
+            SupportedCountries.createSomeSupportedCountries(mgr);
 
-                Organization supplierNoMP = Organizations
-                        .createOrganization(mgr, OrganizationRoleType.SUPPLIER);
+            Organization supplierNoMP =
+                Organizations.createOrganization(mgr, OrganizationRoleType.SUPPLIER);
 
-                PlatformUser createUserForOrgNoMP = Organizations
-                        .createUserForOrg(mgr, supplierNoMP, true, "admin");
-                PlatformUsers.grantRoles(mgr, createUserForOrgNoMP,
-                        UserRoleType.SERVICE_MANAGER);
-                supplierUserKeyNoMP = createUserForOrgNoMP.getKey();
+            PlatformUser createUserForOrgNoMP =
+                Organizations.createUserForOrg(mgr, supplierNoMP, true, "admin");
+            PlatformUsers.grantRoles(mgr, createUserForOrgNoMP, UserRoleType.SERVICE_MANAGER);
+            supplierUserKeyNoMP = createUserForOrgNoMP.getKey();
 
-                Organization platformOperatorNoMP = Organizations
-                        .createOrganization(mgr,
-                                OrganizationRoleType.PLATFORM_OPERATOR);
-                createUserForOrgNoMP = Organizations.createUserForOrg(mgr,
-                        platformOperatorNoMP, true, "admin");
-                operatorUserKeyNoMP = createUserForOrgNoMP.getKey();
+            Organization platformOperatorNoMP =
+                Organizations.createOrganization(mgr, OrganizationRoleType.PLATFORM_OPERATOR);
+            createUserForOrgNoMP =
+                Organizations.createUserForOrg(mgr, platformOperatorNoMP, true, "admin");
+            operatorUserKeyNoMP = createUserForOrgNoMP.getKey();
 
-                Organization supplier = Organizations.createOrganization(mgr,
-                        OrganizationRoleType.SUPPLIER);
-                mId = Marketplaces.ensureMarketplace(supplier, null, mgr)
-                        .getMarketplaceId();
+            Organization supplier =
+                Organizations.createOrganization(mgr, OrganizationRoleType.SUPPLIER);
+            mId = Marketplaces.ensureMarketplace(supplier, null, mgr).getMarketplaceId();
 
-                PlatformUser createUserForOrg = Organizations
-                        .createUserForOrg(mgr, supplier, true, "admin");
-                PlatformUsers.grantRoles(mgr, createUserForOrg,
-                        UserRoleType.SERVICE_MANAGER);
-                supplierUserKey = createUserForOrg.getKey();
+            PlatformUser createUserForOrg =
+                Organizations.createUserForOrg(mgr, supplier, true, "admin");
+            PlatformUsers.grantRoles(mgr, createUserForOrg, UserRoleType.SERVICE_MANAGER);
+            supplierUserKey = createUserForOrg.getKey();
 
-                mgr.flush();
+            mgr.flush();
 
-                Organization customer = Organizations.createCustomer(mgr,
-                        supplier);
+            Organization customer = Organizations.createCustomer(mgr, supplier);
 
-                createUserForOrg = Organizations.createUserForOrg(mgr, customer,
-                        true, "admin");
-                customerUserKey = createUserForOrg.getKey();
+            createUserForOrg = Organizations.createUserForOrg(mgr, customer, true, "admin");
+            customerUserKey = createUserForOrg.getKey();
 
-                Organization provider = Organizations.createOrganization(mgr,
-                        OrganizationRoleType.PLATFORM_OPERATOR);
-                createUserForOrg = Organizations.createUserForOrg(mgr, provider,
-                        true, "admin");
-                PlatformUsers.grantRoles(mgr, createUserForOrg,
-                        UserRoleType.PLATFORM_OPERATOR);
-                operatorUserKey = createUserForOrg.getKey();
+            Organization provider =
+                Organizations.createOrganization(mgr, OrganizationRoleType.PLATFORM_OPERATOR);
+            createUserForOrg = Organizations.createUserForOrg(mgr, provider, true, "admin");
+            PlatformUsers.grantRoles(mgr, createUserForOrg, UserRoleType.PLATFORM_OPERATOR);
+            operatorUserKey = createUserForOrg.getKey();
 
-                Marketplace mp = Marketplaces.createMarketplace(provider,
-                        globalMplId, false, mgr);
-                mp.setCatalogEntries(new ArrayList<CatalogEntry>());
-                mgr.flush();
+            Marketplace mp = Marketplaces.createMarketplace(provider, globalMplId, false, mgr);
+            mp.setCatalogEntries(new ArrayList<CatalogEntry>());
+            mgr.flush();
 
-                // Create another global marketplace which is assigned to
-                // another Org
-                Organization mplOwner2 = Organizations.createOrganization(mgr,
-                        OrganizationRoleType.PLATFORM_OPERATOR);
-                createUserForOrg = Organizations.createUserForOrg(mgr,
-                        mplOwner2, true, "admin");
-                Marketplace mp2 = Marketplaces.createMarketplace(mplOwner2,
-                        globalMpl2Id, false, mgr);
-                mp2.setCatalogEntries(new ArrayList<CatalogEntry>());
-                mgr.flush();
+            // Create another global marketplace which is assigned to
+            // another Org
+            Organization mplOwner2 =
+                Organizations.createOrganization(mgr, OrganizationRoleType.PLATFORM_OPERATOR);
+            createUserForOrg = Organizations.createUserForOrg(mgr, mplOwner2, true, "admin");
+            Marketplace mp2 = Marketplaces.createMarketplace(mplOwner2, globalMpl2Id, false, mgr);
+            mp2.setCatalogEntries(new ArrayList<CatalogEntry>());
+            mgr.flush();
 
-                lrDefault = new LocalizedResource();
-                lrDefault.setLocale(globalMplLocale);
-                lrDefault.setObjectType(LocalizedObjectTypes.MARKETPLACE_STAGE);
-                lrDefault.setObjectKey(mp.getKey());
-                lrDefault.setValue(globalMplStage);
-                mgr.persist(lrDefault);
+            lrDefault = new LocalizedResource();
+            lrDefault.setLocale(globalMplLocale);
+            lrDefault.setObjectType(LocalizedObjectTypes.MARKETPLACE_STAGE);
+            lrDefault.setObjectKey(mp.getKey());
+            lrDefault.setValue(globalMplStage);
+            mgr.persist(lrDefault);
 
-                LocalizedResource lr_ja = new LocalizedResource();
-                lr_ja.setLocale("ja");
-                lr_ja.setObjectType(LocalizedObjectTypes.MARKETPLACE_STAGE);
-                lr_ja.setObjectKey(mp.getKey());
-                lr_ja.setValue(globalMplStage + "ja");
-                mgr.persist(lr_ja);
+            lrMobile = new LocalizedResource();
+            lrMobile.setLocale(globalMplLocale);
+            lrMobile.setObjectKey(mp.getKey());
+            lrMobile.setObjectType(LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
+            lrMobile.setValue(globalMplMobileStage);
+            mgr.persist(lrMobile);
 
-                return null;
-            }
+            LocalizedResource lr_ja = new LocalizedResource();
+            lr_ja.setLocale("ja");
+            lr_ja.setObjectType(LocalizedObjectTypes.MARKETPLACE_STAGE);
+            lr_ja.setObjectKey(mp.getKey());
+            lr_ja.setValue(globalMplStage + "ja");
+            mgr.persist(lr_ja);
+
+            LocalizedResource lrmobile_ja = new LocalizedResource();
+            lrmobile_ja.setLocale("ja");
+            lrmobile_ja.setObjectType(LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
+            lrmobile_ja.setObjectKey(mp.getKey());
+            lrmobile_ja.setValue(globalMplMobileStage + "ja");
+            mgr.persist(lrmobile_ja);
+
+            return null;
+          }
         });
 
-        container.login(supplierUserKey, new String[] { ROLE_ORGANIZATION_ADMIN,
-                ROLE_SERVICE_MANAGER, ROLE_MARKETPLACE_OWNER });
+    container.login(
+        supplierUserKey,
+        new String[] {ROLE_ORGANIZATION_ADMIN, ROLE_SERVICE_MANAGER, ROLE_MARKETPLACE_OWNER});
+  }
 
-    }
+  @Test
+  public void testLoad() throws Exception {
+    Properties properties;
 
-    @Test
-    public void testLoad() throws Exception {
-        Properties properties;
+    properties = brandMgmt.loadMessageProperties(mId, Locale.ENGLISH.toString());
+    Assert.assertTrue(
+        "The message properties consist of the mail proeprties.", properties.size() > 0);
 
-        properties = brandMgmt.loadMessageProperties(mId,
-                Locale.ENGLISH.toString());
-        Assert.assertTrue(
-                "The message properties consist of the mail proeprties.",
-                properties.size() > 0);
+    properties = brandMgmt.loadMessageProperties(mId, Locale.GERMAN.toString());
+    Assert.assertTrue(
+        "The message properties consist of the mail proeprties.", properties.size() > 0);
 
-        properties = brandMgmt.loadMessageProperties(mId,
-                Locale.GERMAN.toString());
-        Assert.assertTrue(
-                "The message properties consist of the mail proeprties.",
-                properties.size() > 0);
+    VOImageResource img = brandMgmt.loadImage(mId, ImageType.SHOP_LOGO_LEFT);
+    Assert.assertNull("Initially there is no image", img);
+  }
 
-        VOImageResource img = brandMgmt.loadImage(mId,
-                ImageType.SHOP_LOGO_LEFT);
-        Assert.assertNull("Initially there is no image", img);
-    }
+  @Test
+  public void testLoadImageWrongType() throws Exception {
+    Assert.assertNull(brandMgmt.loadImage(mId, ImageType.SERVICE_IMAGE));
+  }
 
-    @Test
-    public void testLoadImageWrongType() throws Exception {
-        Assert.assertNull(brandMgmt.loadImage(mId, ImageType.SERVICE_IMAGE));
-    }
+  @Test
+  public void testLoadImageWrongOrganizationId() throws Exception {
+    Assert.assertNull(brandMgmt.loadImage("wrong", ImageType.SHOP_LOGO_LEFT));
+  }
 
-    @Test
-    public void testLoadImageWrongOrganizationId() throws Exception {
-        Assert.assertNull(
-                brandMgmt.loadImage("wrong", ImageType.SHOP_LOGO_LEFT));
-    }
+  @Test
+  public void testSaveMessageProperties() throws Exception {
+    final String key = "USER_CREATED.subject";
+    final String en = "en";
+    final String de = "de";
+    final String de_DE = "de_DE";
 
-    @Test
-    public void testSaveMessageProperties() throws Exception {
-        final String key = "USER_CREATED.subject";
-        final String en = "en";
-        final String de = "de";
-        final String de_DE = "de_DE";
+    Map<String, Properties> propertiesMap = prepareProps(key, en, de, de_DE);
+    brandMgmt.saveMessageProperties(propertiesMap, mId);
+    verifySavedProps(mId, key, en, de, de_DE);
+  }
 
-        Map<String, Properties> propertiesMap = prepareProps(key, en, de,
-                de_DE);
-        brandMgmt.saveMessageProperties(propertiesMap, mId);
-        verifySavedProps(mId, key, en, de, de_DE);
-    }
+  @Test
+  public void testSaveMessageProperties_GlobalMaretplace() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    final String key = "USER_CREATED.subject";
+    final String en = "en";
+    final String de = "de";
+    final String de_DE = "de_DE";
 
-    @Test
-    public void testSaveMessageProperties_GlobalMaretplace() throws Exception {
-        container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
-        final String key = "USER_CREATED.subject";
-        final String en = "en";
-        final String de = "de";
-        final String de_DE = "de_DE";
+    Map<String, Properties> propertiesMap = prepareProps(key, en, de, de_DE);
+    brandMgmt.saveMessageProperties(propertiesMap, globalMplId);
+    verifySavedProps(globalMplId, key, en, de, de_DE);
+  }
 
-        Map<String, Properties> propertiesMap = prepareProps(key, en, de,
-                de_DE);
-        brandMgmt.saveMessageProperties(propertiesMap, globalMplId);
-        verifySavedProps(globalMplId, key, en, de, de_DE);
-    }
+  @Test(expected = ObjectNotFoundException.class)
+  public void testSaveMessageProperties_marketplaceNotFound() throws Exception {
+    final String key = "USER_CREATED.subject";
+    final String en = "en";
+    final String de = "de";
+    final String de_DE = "de_DE";
 
-    @Test(expected = ObjectNotFoundException.class)
-    public void testSaveMessageProperties_marketplaceNotFound()
-            throws Exception {
-        final String key = "USER_CREATED.subject";
-        final String en = "en";
-        final String de = "de";
-        final String de_DE = "de_DE";
+    Map<String, Properties> propertiesMap = prepareProps(key, en, de, de_DE);
+    brandMgmt.saveMessageProperties(propertiesMap, "INVALID_ID");
+  }
 
-        Map<String, Properties> propertiesMap = prepareProps(key, en, de,
-                de_DE);
-        brandMgmt.saveMessageProperties(propertiesMap, "INVALID_ID");
-    }
+  @Test(expected = OperationNotPermittedException.class)
+  public void testSaveMessageProperties_callerNotOwner() throws Exception {
+    final String key = "USER_CREATED.subject";
+    final String en = "en";
+    final String de = "de";
+    final String de_DE = "de_DE";
 
-    @Test(expected = OperationNotPermittedException.class)
-    public void testSaveMessageProperties_callerNotOwner() throws Exception {
-        final String key = "USER_CREATED.subject";
-        final String en = "en";
-        final String de = "de";
-        final String de_DE = "de_DE";
+    Map<String, Properties> propertiesMap = prepareProps(key, en, de, de_DE);
+    brandMgmt.saveMessageProperties(propertiesMap, globalMpl2Id);
+  }
 
-        Map<String, Properties> propertiesMap = prepareProps(key, en, de,
-                de_DE);
-        brandMgmt.saveMessageProperties(propertiesMap, globalMpl2Id);
-    }
+  @Test
+  public void testSaveImage() throws Exception {
+    // Create a buffered image that supports transparency
+    BufferedImage img = new BufferedImage(1, 34, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D g = (Graphics2D) img.getGraphics();
+    g.drawLine(0, 1, 0, 32);
 
-    @Test
-    public void testSaveImage() throws Exception {
-        // Create a buffered image that supports transparency
-        BufferedImage img = new BufferedImage(1, 34,
-                BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = (Graphics2D) img.getGraphics();
-        g.drawLine(0, 1, 0, 32);
+    ByteArrayOutputStream bos;
 
-        ByteArrayOutputStream bos;
+    bos = new ByteArrayOutputStream();
+    ImageIO.write(img, "jpg", bos);
+    bos.close();
+    byte[] bg = bos.toByteArray();
 
-        bos = new ByteArrayOutputStream();
-        ImageIO.write(img, "jpg", bos);
-        bos.close();
-        byte[] bg = bos.toByteArray();
+    bos = new ByteArrayOutputStream();
+    ImageIO.write(img, "png", bos);
+    bos.close();
+    byte[] left = bos.toByteArray();
 
-        bos = new ByteArrayOutputStream();
-        ImageIO.write(img, "png", bos);
-        bos.close();
-        byte[] left = bos.toByteArray();
+    List<VOImageResource> list = new ArrayList<>();
+    VOImageResource vo;
 
-        List<VOImageResource> list = new ArrayList<>();
-        VOImageResource vo;
+    vo = new VOImageResource();
+    vo.setImageType(ImageType.SHOP_LOGO_BACKGROUND);
+    vo.setBuffer(bg);
+    list.add(vo);
 
-        vo = new VOImageResource();
-        vo.setImageType(ImageType.SHOP_LOGO_BACKGROUND);
-        vo.setBuffer(bg);
-        list.add(vo);
+    vo = new VOImageResource();
+    vo.setImageType(ImageType.SHOP_LOGO_LEFT);
+    vo.setBuffer(left);
+    list.add(vo);
 
-        vo = new VOImageResource();
-        vo.setImageType(ImageType.SHOP_LOGO_LEFT);
-        vo.setBuffer(left);
-        list.add(vo);
+    vo = new VOImageResource();
+    vo.setImageType(ImageType.SHOP_LOGO_RIGHT);
+    vo.setBuffer(TRANSPARENT_PIXEL);
+    list.add(vo);
 
-        vo = new VOImageResource();
-        vo.setImageType(ImageType.SHOP_LOGO_RIGHT);
-        vo.setBuffer(TRANSPARENT_PIXEL);
-        list.add(vo);
+    brandMgmt.saveImages(list, mId);
 
-        brandMgmt.saveImages(list, mId);
+    vo = brandMgmt.loadImage(mId, ImageType.SHOP_LOGO_BACKGROUND);
+    Assert.assertEquals("image/jpeg", vo.getContentType());
+    Assert.assertEquals(ImageType.SHOP_LOGO_BACKGROUND, vo.getImageType());
+    Assert.assertTrue(Arrays.equals(bg, vo.getBuffer()));
 
-        vo = brandMgmt.loadImage(mId, ImageType.SHOP_LOGO_BACKGROUND);
-        Assert.assertEquals("image/jpeg", vo.getContentType());
-        Assert.assertEquals(ImageType.SHOP_LOGO_BACKGROUND, vo.getImageType());
-        Assert.assertTrue(Arrays.equals(bg, vo.getBuffer()));
+    vo = brandMgmt.loadImage(mId, ImageType.SHOP_LOGO_LEFT);
+    Assert.assertEquals("image/png", vo.getContentType());
+    Assert.assertEquals(ImageType.SHOP_LOGO_LEFT, vo.getImageType());
+    Assert.assertTrue(Arrays.equals(left, vo.getBuffer()));
 
-        vo = brandMgmt.loadImage(mId, ImageType.SHOP_LOGO_LEFT);
-        Assert.assertEquals("image/png", vo.getContentType());
-        Assert.assertEquals(ImageType.SHOP_LOGO_LEFT, vo.getImageType());
-        Assert.assertTrue(Arrays.equals(left, vo.getBuffer()));
+    vo = brandMgmt.loadImage(mId, ImageType.SHOP_LOGO_RIGHT);
+    Assert.assertEquals("image/gif", vo.getContentType());
+    Assert.assertEquals(ImageType.SHOP_LOGO_RIGHT, vo.getImageType());
+    Assert.assertTrue(Arrays.equals(TRANSPARENT_PIXEL, vo.getBuffer()));
+  }
 
-        vo = brandMgmt.loadImage(mId, ImageType.SHOP_LOGO_RIGHT);
-        Assert.assertEquals("image/gif", vo.getContentType());
-        Assert.assertEquals(ImageType.SHOP_LOGO_RIGHT, vo.getImageType());
-        Assert.assertTrue(Arrays.equals(TRANSPARENT_PIXEL, vo.getBuffer()));
-    }
+  @Test
+  public void testSaveImageMissingImageTypes() throws Exception {
+    brandMgmt.saveImages(null, null);
+  }
 
-    @Test
-    public void testSaveImageMissingImageTypes() throws Exception {
-        brandMgmt.saveImages(null, null);
-    }
+  @Test
+  public void testSaveImageWrongType() throws Exception {
+    List<VOImageResource> list = new ArrayList<>();
+    VOImageResource vo;
 
-    @Test
-    public void testSaveImageWrongType() throws Exception {
-        List<VOImageResource> list = new ArrayList<>();
-        VOImageResource vo;
+    vo = new VOImageResource();
+    vo.setImageType(ImageType.SERVICE_IMAGE);
+    vo.setBuffer(TRANSPARENT_PIXEL);
+    list.add(vo);
 
-        vo = new VOImageResource();
-        vo.setImageType(ImageType.SERVICE_IMAGE);
-        vo.setBuffer(TRANSPARENT_PIXEL);
-        list.add(vo);
+    brandMgmt.saveImages(list, mId);
+  }
 
-        brandMgmt.saveImages(list, mId);
-    }
+  @Test
+  public void testDelete() throws Exception {
 
-    @Test
-    public void testDelete() throws Exception {
+    Properties properties;
 
-        Properties properties;
+    // delete messages properties
+    brandMgmt.deleteAllMessageProperties(mId);
+    properties = brandMgmt.loadMessageProperties(mId, Locale.ENGLISH.toString());
+    Assert.assertTrue("The mail properties must still exist.", properties.size() > 0);
 
-        // delete messages properties
-        brandMgmt.deleteAllMessageProperties(mId);
-        properties = brandMgmt.loadMessageProperties(mId,
-                Locale.ENGLISH.toString());
-        Assert.assertTrue("The mail properties must still exist.",
-                properties.size() > 0);
+    // delete images
+    List<ImageType> list = new ArrayList<>();
+    list.add(ImageType.SHOP_LOGO_LEFT);
+    list.add(ImageType.SHOP_LOGO_RIGHT);
+    brandMgmt.deleteImages(list);
 
-        // delete images
-        List<ImageType> list = new ArrayList<>();
-        list.add(ImageType.SHOP_LOGO_LEFT);
-        list.add(ImageType.SHOP_LOGO_RIGHT);
-        brandMgmt.deleteImages(list);
+    VOImageResource img = brandMgmt.loadImage(mId, ImageType.SHOP_LOGO_LEFT);
+    Assert.assertNull("The image must have been deleted", img);
+  }
 
-        VOImageResource img = brandMgmt.loadImage(mId,
-                ImageType.SHOP_LOGO_LEFT);
-        Assert.assertNull("The image must have been deleted", img);
-    }
+  @Test
+  public void testDeleteImagesAsPlatformOperator() throws Exception {
+    container.login(operatorUserKey, new String[] {ROLE_PLATFORM_OPERATOR, ROLE_MARKETPLACE_OWNER});
 
-    @Test
-    public void testDeleteImagesAsPlatformOperator() throws Exception {
-        container.login(operatorUserKey, new String[] { ROLE_PLATFORM_OPERATOR,
-                ROLE_MARKETPLACE_OWNER });
+    // delete images
+    List<ImageType> list = new ArrayList<>();
+    list.add(ImageType.SHOP_LOGO_LEFT);
+    list.add(ImageType.SHOP_LOGO_RIGHT);
+    brandMgmt.deleteImages(list);
 
-        // delete images
-        List<ImageType> list = new ArrayList<>();
-        list.add(ImageType.SHOP_LOGO_LEFT);
-        list.add(ImageType.SHOP_LOGO_RIGHT);
-        brandMgmt.deleteImages(list);
+    VOImageResource img = brandMgmt.loadImage(mId, ImageType.SHOP_LOGO_LEFT);
+    Assert.assertNull("The image must have been deleted", img);
+  }
 
-        VOImageResource img = brandMgmt.loadImage(mId,
-                ImageType.SHOP_LOGO_LEFT);
-        Assert.assertNull("The image must have been deleted", img);
-    }
+  @Test
+  public void testDeleteImagesWithoutMarketplace() throws Exception {
+    container.login(
+        supplierUserKeyNoMP,
+        new String[] {ROLE_ORGANIZATION_ADMIN, ROLE_SERVICE_MANAGER, ROLE_MARKETPLACE_OWNER});
 
-    @Test
-    public void testDeleteImagesWithoutMarketplace() throws Exception {
-        container.login(supplierUserKeyNoMP,
-                new String[] { ROLE_ORGANIZATION_ADMIN, ROLE_SERVICE_MANAGER,
-                        ROLE_MARKETPLACE_OWNER });
+    // delete images
+    List<ImageType> list = new ArrayList<>();
+    list.add(ImageType.SHOP_LOGO_LEFT);
+    list.add(ImageType.SHOP_LOGO_RIGHT);
+    brandMgmt.deleteImages(list);
 
-        // delete images
-        List<ImageType> list = new ArrayList<>();
-        list.add(ImageType.SHOP_LOGO_LEFT);
-        list.add(ImageType.SHOP_LOGO_RIGHT);
-        brandMgmt.deleteImages(list);
+    container.login(
+        operatorUserKeyNoMP, new String[] {ROLE_PLATFORM_OPERATOR, ROLE_MARKETPLACE_OWNER});
+    brandMgmt.deleteImages(list);
+  }
 
-        container.login(operatorUserKeyNoMP, new String[] {
-                ROLE_PLATFORM_OPERATOR, ROLE_MARKETPLACE_OWNER });
-        brandMgmt.deleteImages(list);
+  @Test
+  public void testDeleteImagesWithoutShop() throws Exception {
+    List<ImageType> list = new ArrayList<>();
+    list.add(ImageType.SHOP_LOGO_LEFT);
+    list.add(ImageType.SHOP_LOGO_RIGHT);
+    brandMgmt.deleteImages(list);
+  }
 
-    }
+  @Test
+  public void testDeleteImageWrongType() throws Exception {
+    List<VOImageResource> voList = new ArrayList<>();
+    VOImageResource vo = new VOImageResource();
+    vo.setImageType(ImageType.SHOP_LOGO_LEFT);
+    vo.setBuffer(TRANSPARENT_PIXEL);
+    voList.add(vo);
 
-    @Test
-    public void testDeleteImagesWithoutShop() throws Exception {
-        List<ImageType> list = new ArrayList<>();
-        list.add(ImageType.SHOP_LOGO_LEFT);
-        list.add(ImageType.SHOP_LOGO_RIGHT);
-        brandMgmt.deleteImages(list);
-    }
+    brandMgmt.saveImages(voList, mId);
 
-    @Test
-    public void testDeleteImageWrongType() throws Exception {
-        List<VOImageResource> voList = new ArrayList<>();
-        VOImageResource vo = new VOImageResource();
-        vo.setImageType(ImageType.SHOP_LOGO_LEFT);
-        vo.setBuffer(TRANSPARENT_PIXEL);
-        voList.add(vo);
+    List<ImageType> list = new ArrayList<>();
+    list.add(ImageType.SERVICE_IMAGE);
 
-        brandMgmt.saveImages(voList, mId);
+    brandMgmt.deleteImages(list);
 
-        List<ImageType> list = new ArrayList<>();
-        list.add(ImageType.SERVICE_IMAGE);
+    VOImageResource img = brandMgmt.loadImage(mId, ImageType.SHOP_LOGO_LEFT);
+    Assert.assertNotNull("The image must still exist", img);
+  }
 
-        brandMgmt.deleteImages(list);
+  @Test
+  public void testDeleteAllMessageProperties() throws Exception {
+    brandMgmt.deleteAllMessageProperties(mId);
+  }
 
-        VOImageResource img = brandMgmt.loadImage(mId,
-                ImageType.SHOP_LOGO_LEFT);
-        Assert.assertNotNull("The image must still exist", img);
-    }
+  @Test
+  public void testDeleteAllMessageProperties_GlobalMarketplace() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.deleteAllMessageProperties(globalMplId);
+  }
 
-    @Test
-    public void testDeleteAllMessageProperties() throws Exception {
-        brandMgmt.deleteAllMessageProperties(mId);
-    }
+  @Test(expected = ObjectNotFoundException.class)
+  public void testDeleteAllMessageProperties_marketplaceNotFound() throws Exception {
+    brandMgmt.deleteAllMessageProperties("INVALID_ID");
+  }
 
-    @Test
-    public void testDeleteAllMessageProperties_GlobalMarketplace()
-            throws Exception {
-        container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
-        brandMgmt.deleteAllMessageProperties(globalMplId);
-    }
+  @Test(expected = OperationNotPermittedException.class)
+  public void testDeleteAllMessageProperties_callerNotOwner() throws Exception {
+    brandMgmt.deleteAllMessageProperties(globalMpl2Id);
+  }
 
-    @Test(expected = ObjectNotFoundException.class)
-    public void testDeleteAllMessageProperties_marketplaceNotFound()
-            throws Exception {
-        brandMgmt.deleteAllMessageProperties("INVALID_ID");
-    }
+  @Test
+  public void testDeleteMissingImageTypes() throws Exception {
+    brandMgmt.deleteImages(null);
+  }
 
-    @Test(expected = OperationNotPermittedException.class)
-    public void testDeleteAllMessageProperties_callerNotOwner()
-            throws Exception {
-        brandMgmt.deleteAllMessageProperties(globalMpl2Id);
-    }
+  /** Test all good \o/ (reads the localized resource from the db) */
+  @Test
+  public void testGetMarketplaceStage_OK() throws Exception {
+    Assert.assertEquals(
+        globalMplStage, brandMgmt.getMarketplaceStage(globalMplId, globalMplLocale));
+  }
 
-    @Test
-    public void testDeleteMissingImageTypes() throws Exception {
-        brandMgmt.deleteImages(null);
-    }
+  /** Test for invalid marketplace id. */
+  @Test
+  public void testGetMarketplaceStage_invMplId() throws Exception {
+    Assert.assertEquals("", brandMgmt.getMarketplaceStage("invid", globalMplLocale));
+  }
 
-    /**
-     * Test all good \o/ (reads the localized resource from the db)
-     */
-    @Test
-    public void testGetMarketplaceStage_OK() throws Exception {
-        Assert.assertEquals(globalMplStage,
-                brandMgmt.getMarketplaceStage(globalMplId, globalMplLocale));
-    }
+  /**
+   * A localized resource does not exists so the resource will be returned in the default language.
+   */
+  @Test
+  public void testGetMarketplaceStage_Default() throws Exception {
+    Assert.assertEquals(globalMplStage, brandMgmt.getMarketplaceStage(globalMplId, "de"));
+  }
 
-    /**
-     * Test for invalid marketplace id.
-     */
-    @Test
-    public void testGetMarketplaceStage_invMplId() throws Exception {
-        Assert.assertEquals("",
-                brandMgmt.getMarketplaceStage("invid", globalMplLocale));
-    }
+  /** Test for a different locale. */
+  @Test
+  public void testGetMarketplaceStage_diffMplLocale() throws Exception {
+    Assert.assertEquals(globalMplStage + "ja", brandMgmt.getMarketplaceStage(globalMplId, "ja"));
+  }
 
-    /**
-     * A localized resource does not exists so the resource will be returned in
-     * the default language.
-     */
-    @Test
-    public void testGetMarketplaceStage_Default() throws Exception {
-        Assert.assertEquals(globalMplStage,
-                brandMgmt.getMarketplaceStage(globalMplId, "de"));
-    }
+  /** Test if no resource exists at all. */
+  @Test
+  public void testGetMarketplaceStage_noResource() throws Exception {
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
+            LocalizedResource template =
+                new LocalizedResource(
+                    globalMplLocale,
+                    lrDefault.getObjectKey(),
+                    LocalizedObjectTypes.MARKETPLACE_STAGE);
+            LocalizedResource storedResource = (LocalizedResource) mgr.find(template);
+            mgr.remove(storedResource);
+            mgr.flush();
+            return null;
+          }
+        });
+    Assert.assertEquals("", brandMgmt.getMarketplaceStage(globalMplId, globalMplLocale));
+  }
 
-    /**
-     * Test for a different locale.
-     */
-    @Test
-    public void testGetMarketplaceStage_diffMplLocale() throws Exception {
-        Assert.assertEquals(globalMplStage + "ja",
-                brandMgmt.getMarketplaceStage(globalMplId, "ja"));
-    }
+  /** mpl id is null */
+  @Test
+  public void testGetMarketplaceStage_null1() throws Exception {
+    Assert.assertEquals("", brandMgmt.getMarketplaceStage(null, globalMplLocale));
+  }
 
-    /**
-     * Test if no resource exists at all.
-     */
-    @Test
-    public void testGetMarketplaceStage_noResource() throws Exception {
-        runTX(new Callable<Void>() {
+  /** Test if the default locale will be used. */
+  @Test
+  public void testGetMarketplaceStage_null2() throws Exception {
+    Assert.assertEquals(globalMplStage, brandMgmt.getMarketplaceStage(globalMplId, null));
+  }
+
+  /** all paraem are null. */
+  @Test
+  public void testGetMarketplaceStage_null3() throws Exception {
+    Assert.assertEquals("", brandMgmt.getMarketplaceStage(null, null));
+  }
+
+  /** locale is null => use default locale + no resource exsits at all */
+  @Test
+  public void testGetMarketplaceStage_null4() throws Exception {
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
+            LocalizedResource template =
+                new LocalizedResource(
+                    globalMplLocale,
+                    lrDefault.getObjectKey(),
+                    LocalizedObjectTypes.MARKETPLACE_STAGE);
+            LocalizedResource storedResource = (LocalizedResource) mgr.find(template);
+            mgr.remove(storedResource);
+            mgr.flush();
+            return null;
+          }
+        });
+    Assert.assertEquals("", brandMgmt.getMarketplaceStage(globalMplId, null));
+  }
+
+  /** good case test for storing the stage content. */
+  @Test
+  public void testSetMarketplaceStage_ok() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.setMarketplaceStage(customStageContent, globalMplId, globalMplLocale);
+    assertStoredStage(globalMplLocale, customStageContent);
+  }
+
+  /** pass "" and delete the localized entry from the DB */
+  @Test
+  public void testSetMarketplaceStage_delete() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.setMarketplaceStage(customStageContent, globalMplId, globalMplLocale);
+    assertStoredStage(globalMplLocale, customStageContent);
+
+    brandMgmt.setMarketplaceStage("", globalMplId, globalMplLocale);
+
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
+            LocalizedResource template =
+                new LocalizedResource(
+                    globalMplLocale,
+                    lrDefault.getObjectKey(),
+                    LocalizedObjectTypes.MARKETPLACE_STAGE);
+            LocalizedResource storedResource = (LocalizedResource) mgr.find(template);
+            Assert.assertNull(storedResource);
+            return null;
+          }
+        });
+  }
+
+  /** test the service call with a invalid market place id */
+  @Test(expected = ObjectNotFoundException.class)
+  public void testSetMarketplaceStage_invMpl() throws Exception {
+    brandMgmt.setMarketplaceStage(customStageContent, "INVALID", globalMplLocale);
+  }
+
+  /** save for another locale should not effect anything */
+  @Test(expected = AssertionError.class)
+  public void testSetMarketplaceStage_diffLocale() throws Exception {
+    container.login(operatorUserKey, new String[] {ROLE_MARKETPLACE_OWNER});
+    brandMgmt.setMarketplaceStage(customStageContent, globalMplId, "DE");
+    assertStoredStage(globalMplLocale, customStageContent);
+  }
+
+  /** Test the anonymous access */
+  @Test(expected = EJBException.class)
+  public void testSetMarketplaceStage_notAuthorized_anonymous() throws Exception {
+    container.logout();
+    brandMgmt.setMarketplaceStage(customStageContent, globalMplId, "DE");
+  }
+
+  /** caller is service manager but not provider of the mpl */
+  @Test(expected = OperationNotPermittedException.class)
+  public void testSetMarketplaceStage_callerNotOwner() throws Exception {
+    container.login(
+        supplierUserKey,
+        new String[] {ROLE_ORGANIZATION_ADMIN, ROLE_SERVICE_MANAGER, ROLE_MARKETPLACE_OWNER});
+    brandMgmt.setMarketplaceStage(customStageContent, globalMplId, "EN");
+  }
+
+  /** Test the customer access (noneservice manager) */
+  @Test(expected = EJBException.class)
+  public void testSetMarketplaceStage_notAuthorized_cust() throws Exception {
+    container.logout();
+    container.login(customerUserKey, new String[] {ROLE_ORGANIZATION_ADMIN});
+    brandMgmt.setMarketplaceStage(customStageContent, globalMplId, "DE");
+  }
+
+  @Test(expected = EJBException.class)
+  public void testSetMarketplaceStage_null1() throws Exception {
+    brandMgmt.setMarketplaceStage(customStageContent, globalMplId, null);
+  }
+
+  @Test(expected = EJBException.class)
+  public void testSetMarketplaceStage_null2() throws Exception {
+    brandMgmt.setMarketplaceStage(customStageContent, null, "EN");
+  }
+
+  @Test(expected = EJBException.class)
+  public void testSetMarketplaceStage_null3() throws Exception {
+    brandMgmt.setMarketplaceStage(null, globalMplId, "EN");
+  }
+
+  @Test
+  public void testGetMarketplaceMobileStage_OK() throws Exception {
+    Assert.assertEquals(
+        globalMplMobileStage, brandMgmt.getMarketplaceMobileStage(globalMplId, globalMplLocale));
+  }
+
+  @Test
+  public void testGetMarketplaceMobileStage_invMplId() throws Exception {
+    Assert.assertEquals("", brandMgmt.getMarketplaceMobileStage("invid", globalMplLocale));
+  }
+
+  @Test
+  public void testGetMarketplaceMobileStage_Default() throws Exception {
+    Assert.assertEquals(
+        globalMplMobileStage, brandMgmt.getMarketplaceMobileStage(globalMplId, "de"));
+  }
+
+  /** Test for a different locale. */
+  @Test
+  public void testGetMarketplaceMobileStage_diffMplLocale() throws Exception {
+    Assert.assertEquals(
+        globalMplMobileStage + "ja", brandMgmt.getMarketplaceMobileStage(globalMplId, "ja"));
+  }
+
+  /** Test if no resource exists at all. */
+  @Test
+  public void testGetMarketplaceMobileStage_noResource() throws Exception {
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
+            LocalizedResource template =
+                new LocalizedResource(
+                    globalMplLocale,
+                    lrMobile.getObjectKey(),
+                    LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
+            LocalizedResource storedResource = (LocalizedResource) mgr.find(template);
+            mgr.remove(storedResource);
+            mgr.flush();
+            return null;
+          }
+        });
+    Assert.assertEquals("", brandMgmt.getMarketplaceMobileStage(globalMplId, globalMplLocale));
+  }
+
+  /** mpl id is null */
+  @Test
+  public void testGetMarketplaceMobileStage_null1() throws Exception {
+    Assert.assertEquals("", brandMgmt.getMarketplaceMobileStage(null, globalMplLocale));
+  }
+
+  /** Test if the default locale will be used. */
+  @Test
+  public void testGetMarketplaceMobileStage_null2() throws Exception {
+    Assert.assertEquals(
+        globalMplMobileStage, brandMgmt.getMarketplaceMobileStage(globalMplId, null));
+  }
+
+  /** all paraem are null. */
+  @Test
+  public void testGetMarketplaceMobileStage_null3() throws Exception {
+    Assert.assertEquals("", brandMgmt.getMarketplaceMobileStage(null, null));
+  }
+
+  /** locale is null => use default locale + no resource exsits at all */
+  @Test
+  public void testGetMarketplaceMobileStage_null4() throws Exception {
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
+            LocalizedResource template =
+                new LocalizedResource(
+                    globalMplLocale,
+                    lrMobile.getObjectKey(),
+                    LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
+            LocalizedResource storedResource = (LocalizedResource) mgr.find(template);
+            mgr.remove(storedResource);
+            mgr.flush();
+            return null;
+          }
+        });
+    Assert.assertEquals("", brandMgmt.getMarketplaceMobileStage(globalMplId, null));
+  }
+
+  /** good case test for storing the stage content. */
+  @Test
+  public void testSetMarketplaceMobileStage_ok() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.setMarketplaceMobileStage(customMobileStageContent, globalMplId, globalMplLocale);
+    assertStoredMobileStage(globalMplLocale, customMobileStageContent);
+  }
+
+  /** pass "" and delete the localized entry from the DB */
+  @Test
+  public void testSetMarketplaceMobileStage_delete() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.setMarketplaceMobileStage(customMobileStageContent, globalMplId, globalMplLocale);
+    assertStoredMobileStage(globalMplLocale, customMobileStageContent);
+
+    brandMgmt.setMarketplaceMobileStage("", globalMplId, globalMplLocale);
+
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
+            LocalizedResource template =
+                new LocalizedResource(
+                    globalMplLocale,
+                    lrMobile.getObjectKey(),
+                    LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
+            LocalizedResource storedResource = (LocalizedResource) mgr.find(template);
+            Assert.assertNull(storedResource);
+            return null;
+          }
+        });
+  }
+
+  /** test the service call with a invalid market place id */
+  @Test(expected = ObjectNotFoundException.class)
+  public void testSetMarketplaceMobileStage_invMpl() throws Exception {
+    brandMgmt.setMarketplaceMobileStage(customMobileStageContent, "INVALID", globalMplLocale);
+  }
+
+  /** save for another locale should not effect anything */
+  @Test(expected = AssertionError.class)
+  public void testSetMarketplaceMobileStage_diffLocale() throws Exception {
+    container.login(operatorUserKey, new String[] {ROLE_MARKETPLACE_OWNER});
+    brandMgmt.setMarketplaceMobileStage(customMobileStageContent, globalMplId, "DE");
+    assertStoredMobileStage(globalMplLocale, customMobileStageContent);
+  }
+
+  /** Test the anonymous access */
+  @Test(expected = EJBException.class)
+  public void testSetMarketplaceMobileStage_notAuthorized_anonymous() throws Exception {
+    container.logout();
+    brandMgmt.setMarketplaceMobileStage(customMobileStageContent, globalMplId, "DE");
+  }
+
+  /** caller is service manager but not provider of the mpl */
+  @Test(expected = OperationNotPermittedException.class)
+  public void testSetMarketplaceMobileStage_callerNotOwner() throws Exception {
+    container.login(
+        supplierUserKey,
+        new String[] {ROLE_ORGANIZATION_ADMIN, ROLE_SERVICE_MANAGER, ROLE_MARKETPLACE_OWNER});
+    brandMgmt.setMarketplaceMobileStage(customMobileStageContent, globalMplId, "EN");
+  }
+
+  /** Test the customer access (noneservice manager) */
+  @Test(expected = OperationNotPermittedException.class)
+  public void testSetMarketplaceMobileStage_notAuthorized_cust() throws Exception {
+    container.logout();
+    container.login(customerUserKey, new String[] {ROLE_ORGANIZATION_ADMIN});
+    brandMgmt.setMarketplaceMobileStage(customMobileStageContent, globalMplId, "DE");
+  }
+
+  @Test(expected = EJBException.class)
+  public void testSetMarketplaceMobileStage_null1() throws Exception {
+    brandMgmt.setMarketplaceMobileStage(customMobileStageContent, globalMplId, null);
+  }
+
+  @Test(expected = EJBException.class)
+  public void testSetMarketplaceMobileStage_null2() throws Exception {
+    brandMgmt.setMarketplaceMobileStage(customMobileStageContent, null, "EN");
+  }
+
+  @Test(expected = EJBException.class)
+  public void testSetMarketplaceMobileStage_null3() throws Exception {
+    brandMgmt.setMarketplaceMobileStage(null, globalMplId, "EN");
+  }
+
+  @Test
+  public void testGetMarketplaceStageLocalization() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.setMarketplaceStage("stage_en", globalMplId, "en");
+    brandMgmt.setMarketplaceStage("stage_de", globalMplId, "de");
+    brandMgmt.setMarketplaceStage("stage_ja", globalMplId, "ja");
+
+    List<VOLocalizedText> localization = brandMgmt.getMarketplaceStageLocalization(globalMplId);
+    Assert.assertNotNull(localization);
+    Assert.assertEquals(3, localization.size());
+    Map<String, String> map = map(localization);
+    Assert.assertTrue(map.containsKey("en"));
+    Assert.assertEquals("stage_en", map.get("en"));
+    Assert.assertTrue(map.containsKey("de"));
+    Assert.assertEquals("stage_de", map.get("de"));
+    Assert.assertTrue(map.containsKey("ja"));
+    Assert.assertEquals("stage_ja", map.get("ja"));
+  }
+
+  @Test(expected = ObjectNotFoundException.class)
+  public void testGetMarketplaceStageLocalization_NotFound() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.getMarketplaceStageLocalization("invalid");
+  }
+
+  @Test(expected = OperationNotPermittedException.class)
+  public void testGetMarketplaceStageLocalization_CallerNotOwner() throws Exception {
+    container.login(supplierUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.getMarketplaceStageLocalization(globalMplId);
+  }
+
+  @Test
+  public void testGetMarketplaceMobileStageLocalization() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.setMarketplaceMobileStage("stage_en", globalMplId, "en");
+    brandMgmt.setMarketplaceMobileStage("stage_de", globalMplId, "de");
+    brandMgmt.setMarketplaceMobileStage("stage_ja", globalMplId, "ja");
+
+    List<VOLocalizedText> localization =
+        brandMgmt.getMarketplaceMobileStageLocalization(globalMplId);
+    Assert.assertNotNull(localization);
+    Assert.assertEquals(3, localization.size());
+    Map<String, String> map = map(localization);
+    Assert.assertTrue(map.containsKey("en"));
+    Assert.assertEquals("stage_en", map.get("en"));
+    Assert.assertTrue(map.containsKey("de"));
+    Assert.assertEquals("stage_de", map.get("de"));
+    Assert.assertTrue(map.containsKey("ja"));
+    Assert.assertEquals("stage_ja", map.get("ja"));
+  }
+
+  @Test(expected = ObjectNotFoundException.class)
+  public void testGetMarketplaceMobileStageLocalization_NotFound() throws Exception {
+    container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.getMarketplaceMobileStageLocalization("invalid");
+  }
+
+  @Test(expected = OperationNotPermittedException.class)
+  public void testGetMarketplaceMobileStageLocalization_CallerNotOwner() throws Exception {
+    container.login(supplierUserKey, ROLE_MARKETPLACE_OWNER);
+    brandMgmt.getMarketplaceMobileStageLocalization(globalMplId);
+  }
+
+  /**
+   * Asserts the content of the marketplace stage in the localized resource table equals the passed
+   * value for a specific locale.
+   */
+  private void assertStoredStage(final String locale, final String exceptedStageContent)
+      throws Exception {
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
+            LocalizedResource template =
+                new LocalizedResource(
+                    locale, lrDefault.getObjectKey(), LocalizedObjectTypes.MARKETPLACE_STAGE);
+            LocalizedResource storedResource = (LocalizedResource) mgr.find(template);
+            Assert.assertEquals(exceptedStageContent, storedResource.getValue());
+            return null;
+          }
+        });
+  }
+
+  /**
+   * Asserts the content of the marketplace stage in the localized resource table equals the passed
+   * value for a specific locale.
+   */
+  private void assertStoredMobileStage(final String locale, final String exceptedStageContent)
+      throws Exception {
+    runTX(
+        new Callable<Void>() {
+          @Override
+          public Void call() throws Exception {
+            LocalizedResource template =
+                new LocalizedResource(
+                    locale, lrMobile.getObjectKey(), LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
+            LocalizedResource storedResource = (LocalizedResource) mgr.find(template);
+            Assert.assertEquals(exceptedStageContent, storedResource.getValue());
+            return null;
+          }
+        });
+  }
+
+  private void verifySavedProps(
+      final String marketplaceId,
+      final String key,
+      final String en,
+      final String de,
+      final String de_DE)
+      throws Exception {
+    // direct verification
+    try {
+      runTX(
+          new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-                LocalizedResource template = new LocalizedResource(
-                        globalMplLocale, lrDefault.getObjectKey(),
-                        LocalizedObjectTypes.MARKETPLACE_STAGE);
-                LocalizedResource storedResource = (LocalizedResource) mgr
-                        .find(template);
-                mgr.remove(storedResource);
-                mgr.flush();
-                return null;
+              String text;
+              Marketplace mp = new Marketplace();
+              mp.setMarketplaceId(marketplaceId);
+              mp = (Marketplace) mgr.getReferenceByBusinessKey(mp);
+              text =
+                  localizer.getLocalizedTextFromBundle(
+                      LocalizedObjectTypes.MAIL_CONTENT, mp, Locale.ENGLISH.toString(), key);
+              Assert.assertEquals(en, text);
+
+              text =
+                  localizer.getLocalizedTextFromBundle(
+                      LocalizedObjectTypes.MAIL_CONTENT, mp, Locale.GERMAN.toString(), key);
+              Assert.assertEquals(de, text);
+
+              text =
+                  localizer.getLocalizedTextFromBundle(
+                      LocalizedObjectTypes.MAIL_CONTENT, mp, Locale.GERMANY.toString(), key);
+              Assert.assertEquals(de_DE, text);
+
+              text =
+                  localizer.getLocalizedTextFromBundle(
+                      LocalizedObjectTypes.MAIL_CONTENT, mp, "de_CH_123456", key);
+              Assert.assertEquals(de, text);
+
+              text =
+                  localizer.getLocalizedTextFromBundle(
+                      LocalizedObjectTypes.MAIL_CONTENT, mp, "de__123456", key);
+              Assert.assertEquals(de, text);
+
+              text =
+                  localizer.getLocalizedTextFromBundle(
+                      LocalizedObjectTypes.MAIL_CONTENT, mp, "de_DE_123456", key);
+              Assert.assertEquals(de_DE, text);
+
+              text =
+                  localizer.getLocalizedTextFromBundle(
+                      LocalizedObjectTypes.MAIL_CONTENT, mp, Locale.FRENCH.toString(), key);
+              Assert.assertEquals(en, text);
+
+              return null;
             }
-        });
-        Assert.assertEquals("",
-                brandMgmt.getMarketplaceStage(globalMplId, globalMplLocale));
+          });
+    } catch (EJBException e) {
+      throw e.getCausedByException();
     }
+  }
 
-    /**
-     * mpl id is null
-     */
-    @Test
-    public void testGetMarketplaceStage_null1() throws Exception {
-        Assert.assertEquals("",
-                brandMgmt.getMarketplaceStage(null, globalMplLocale));
+  private static Map<String, Properties> prepareProps(
+      final String key, final String en, final String de, final String de_DE) {
+    Map<String, Properties> propertiesMap = new HashMap<>();
+
+    Properties properties;
+
+    properties = new Properties();
+    properties.put(key, en);
+    propertiesMap.put(Locale.ENGLISH.toString(), properties);
+
+    properties = new Properties();
+    properties.put(key, de);
+    propertiesMap.put(Locale.GERMAN.toString(), properties);
+
+    properties = new Properties();
+    properties.put(key, de_DE);
+    propertiesMap.put(Locale.GERMANY.toString(), properties);
+    return propertiesMap;
+  }
+
+  private static Map<String, String> map(List<VOLocalizedText> localization) {
+    HashMap<String, String> map = new HashMap<>();
+    for (VOLocalizedText text : localization) {
+      map.put(text.getLocale(), text.getText());
     }
-
-    /**
-     * Test if the default locale will be used.
-     */
-    @Test
-    public void testGetMarketplaceStage_null2() throws Exception {
-        Assert.assertEquals(globalMplStage,
-                brandMgmt.getMarketplaceStage(globalMplId, null));
-    }
-
-    /**
-     * all paraem are null.
-     */
-    @Test
-    public void testGetMarketplaceStage_null3() throws Exception {
-        Assert.assertEquals("", brandMgmt.getMarketplaceStage(null, null));
-    }
-
-    /**
-     * locale is null => use default locale + no resource exsits at all
-     */
-    @Test
-    public void testGetMarketplaceStage_null4() throws Exception {
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                LocalizedResource template = new LocalizedResource(
-                        globalMplLocale, lrDefault.getObjectKey(),
-                        LocalizedObjectTypes.MARKETPLACE_STAGE);
-                LocalizedResource storedResource = (LocalizedResource) mgr
-                        .find(template);
-                mgr.remove(storedResource);
-                mgr.flush();
-                return null;
-            }
-        });
-        Assert.assertEquals("",
-                brandMgmt.getMarketplaceStage(globalMplId, null));
-    }
-
-    /**
-     * good case test for storing the stage content.
-     */
-    @Test
-    public void testSetMarketplaceStage_ok() throws Exception {
-        container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
-        brandMgmt.setMarketplaceStage(customStageContent, globalMplId,
-                globalMplLocale);
-        assertStoredStage(globalMplLocale, customStageContent);
-    }
-
-    /**
-     * pass "" and delete the localized entry from the DB
-     */
-    @Test
-    public void testSetMarketplaceStage_delete() throws Exception {
-        container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
-        brandMgmt.setMarketplaceStage(customStageContent, globalMplId,
-                globalMplLocale);
-        assertStoredStage(globalMplLocale, customStageContent);
-
-        brandMgmt.setMarketplaceStage("", globalMplId, globalMplLocale);
-
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                LocalizedResource template = new LocalizedResource(
-                        globalMplLocale, lrDefault.getObjectKey(),
-                        LocalizedObjectTypes.MARKETPLACE_STAGE);
-                LocalizedResource storedResource = (LocalizedResource) mgr
-                        .find(template);
-                Assert.assertNull(storedResource);
-                return null;
-            }
-        });
-    }
-
-    /**
-     * test the service call with a invalid market place id
-     */
-    @Test(expected = ObjectNotFoundException.class)
-    public void testSetMarketplaceStage_invMpl() throws Exception {
-        brandMgmt.setMarketplaceStage(customStageContent, "INVALID",
-                globalMplLocale);
-    }
-
-    /**
-     * save for another locale should not effect anything
-     */
-    @Test(expected = AssertionError.class)
-    public void testSetMarketplaceStage_diffLocale() throws Exception {
-        container.login(operatorUserKey,
-                new String[] { ROLE_MARKETPLACE_OWNER });
-        brandMgmt.setMarketplaceStage(customStageContent, globalMplId, "DE");
-        assertStoredStage(globalMplLocale, customStageContent);
-    }
-
-    /**
-     * Test the anonymous access
-     */
-    @Test(expected = EJBException.class)
-    public void testSetMarketplaceStage_notAuthorized_anonymous()
-            throws Exception {
-        container.logout();
-        brandMgmt.setMarketplaceStage(customStageContent, globalMplId, "DE");
-    }
-
-    /**
-     * caller is service manager but not provider of the mpl
-     */
-    @Test(expected = OperationNotPermittedException.class)
-    public void testSetMarketplaceStage_callerNotOwner() throws Exception {
-        container.login(supplierUserKey, new String[] { ROLE_ORGANIZATION_ADMIN,
-                ROLE_SERVICE_MANAGER, ROLE_MARKETPLACE_OWNER });
-        brandMgmt.setMarketplaceStage(customStageContent, globalMplId, "EN");
-    }
-
-    /**
-     * Test the customer access (noneservice manager)
-     */
-    @Test(expected = EJBException.class)
-    public void testSetMarketplaceStage_notAuthorized_cust() throws Exception {
-        container.logout();
-        container.login(customerUserKey,
-                new String[] { ROLE_ORGANIZATION_ADMIN });
-        brandMgmt.setMarketplaceStage(customStageContent, globalMplId, "DE");
-    }
-
-    @Test(expected = EJBException.class)
-    public void testSetMarketplaceStage_null1() throws Exception {
-        brandMgmt.setMarketplaceStage(customStageContent, globalMplId, null);
-    }
-
-    @Test(expected = EJBException.class)
-    public void testSetMarketplaceStage_null2() throws Exception {
-        brandMgmt.setMarketplaceStage(customStageContent, null, "EN");
-    }
-
-    @Test(expected = EJBException.class)
-    public void testSetMarketplaceStage_null3() throws Exception {
-        brandMgmt.setMarketplaceStage(null, globalMplId, "EN");
-    }
-
-    @Test
-    public void testGetMarketplaceStageLocalization() throws Exception {
-        container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
-        brandMgmt.setMarketplaceStage("stage_en", globalMplId, "en");
-        brandMgmt.setMarketplaceStage("stage_de", globalMplId, "de");
-        brandMgmt.setMarketplaceStage("stage_ja", globalMplId, "ja");
-
-        List<VOLocalizedText> localization = brandMgmt
-                .getMarketplaceStageLocalization(globalMplId);
-        Assert.assertNotNull(localization);
-        Assert.assertEquals(3, localization.size());
-        Map<String, String> map = map(localization);
-        Assert.assertTrue(map.containsKey("en"));
-        Assert.assertEquals("stage_en", map.get("en"));
-        Assert.assertTrue(map.containsKey("de"));
-        Assert.assertEquals("stage_de", map.get("de"));
-        Assert.assertTrue(map.containsKey("ja"));
-        Assert.assertEquals("stage_ja", map.get("ja"));
-    }
-
-    @Test(expected = ObjectNotFoundException.class)
-    public void testGetMarketplaceStageLocalization_NotFound()
-            throws Exception {
-        container.login(operatorUserKey, ROLE_MARKETPLACE_OWNER);
-        brandMgmt.getMarketplaceStageLocalization("invalid");
-    }
-
-    @Test(expected = OperationNotPermittedException.class)
-    public void testGetMarketplaceStageLocalization_CallerNotOwner()
-            throws Exception {
-        container.login(supplierUserKey, ROLE_MARKETPLACE_OWNER);
-        brandMgmt.getMarketplaceStageLocalization(globalMplId);
-    }
-
-    /**
-     * Asserts the content of the marketplace stage in the localized resource
-     * table equals the passed value for a specific locale.
-     */
-    private void assertStoredStage(final String locale,
-            final String exceptedStageContent) throws Exception {
-        runTX(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                LocalizedResource template = new LocalizedResource(locale,
-                        lrDefault.getObjectKey(),
-                        LocalizedObjectTypes.MARKETPLACE_STAGE);
-                LocalizedResource storedResource = (LocalizedResource) mgr
-                        .find(template);
-                Assert.assertEquals(exceptedStageContent,
-                        storedResource.getValue());
-                return null;
-            }
-        });
-    }
-
-    private void verifySavedProps(final String marketplaceId, final String key,
-            final String en, final String de, final String de_DE)
-            throws Exception {
-        // direct verification
-        try {
-            runTX(new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                    String text;
-                    Marketplace mp = new Marketplace();
-                    mp.setMarketplaceId(marketplaceId);
-                    mp = (Marketplace) mgr.getReferenceByBusinessKey(mp);
-                    text = localizer.getLocalizedTextFromBundle(
-                            LocalizedObjectTypes.MAIL_CONTENT, mp,
-                            Locale.ENGLISH.toString(), key);
-                    Assert.assertEquals(en, text);
-
-                    text = localizer.getLocalizedTextFromBundle(
-                            LocalizedObjectTypes.MAIL_CONTENT, mp,
-                            Locale.GERMAN.toString(), key);
-                    Assert.assertEquals(de, text);
-
-                    text = localizer.getLocalizedTextFromBundle(
-                            LocalizedObjectTypes.MAIL_CONTENT, mp,
-                            Locale.GERMANY.toString(), key);
-                    Assert.assertEquals(de_DE, text);
-
-                    text = localizer.getLocalizedTextFromBundle(
-                            LocalizedObjectTypes.MAIL_CONTENT, mp,
-                            "de_CH_123456", key);
-                    Assert.assertEquals(de, text);
-
-                    text = localizer.getLocalizedTextFromBundle(
-                            LocalizedObjectTypes.MAIL_CONTENT, mp, "de__123456",
-                            key);
-                    Assert.assertEquals(de, text);
-
-                    text = localizer.getLocalizedTextFromBundle(
-                            LocalizedObjectTypes.MAIL_CONTENT, mp,
-                            "de_DE_123456", key);
-                    Assert.assertEquals(de_DE, text);
-
-                    text = localizer.getLocalizedTextFromBundle(
-                            LocalizedObjectTypes.MAIL_CONTENT, mp,
-                            Locale.FRENCH.toString(), key);
-                    Assert.assertEquals(en, text);
-
-                    return null;
-                }
-            });
-        } catch (EJBException e) {
-            throw e.getCausedByException();
-        }
-    }
-
-    private static Map<String, Properties> prepareProps(final String key,
-            final String en, final String de, final String de_DE) {
-        Map<String, Properties> propertiesMap = new HashMap<>();
-
-        Properties properties;
-
-        properties = new Properties();
-        properties.put(key, en);
-        propertiesMap.put(Locale.ENGLISH.toString(), properties);
-
-        properties = new Properties();
-        properties.put(key, de);
-        propertiesMap.put(Locale.GERMAN.toString(), properties);
-
-        properties = new Properties();
-        properties.put(key, de_DE);
-        propertiesMap.put(Locale.GERMANY.toString(), properties);
-        return propertiesMap;
-    }
-
-    private static Map<String, String> map(List<VOLocalizedText> localization) {
-        HashMap<String, String> map = new HashMap<>();
-        for (VOLocalizedText text : localization) {
-            map.put(text.getLocale(), text.getText());
-        }
-        return map;
-    }
-
+    return map;
+  }
 }
