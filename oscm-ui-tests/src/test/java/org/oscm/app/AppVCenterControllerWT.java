@@ -13,8 +13,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+
 import org.apache.commons.io.FileUtils;
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
+import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -23,7 +29,6 @@ import org.oscm.webtest.app.AppControllerTester;
 import org.oscm.webtest.app.AppHtmlElements;
 import org.oscm.webtest.app.AppPathSegments;
 
-@Ignore
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppVCenterControllerWT {
 
@@ -57,13 +62,14 @@ public class AppVCenterControllerWT {
     controllerTester.close();
   }
 
+  @Ignore
   @Test
   public void test01setSettingsAPIvSphere() throws Exception {
     controllerTester.changeValueInputInBalancerField("url", "https://webiste.com");
     controllerTester.changeValueInputInBalancerField("user", userID);
     controllerTester.changeValueInputInBalancerField("pwd", userPassword);
 
-    controllerTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt120']");
+    controllerTester.buttonDefaultClickEvent("//input[@name='balancer_form:j_idt145']");
     controllerTester.readDefaultInfoMessage(
         AppHtmlElements.APP_CONFIG_LICLASS_STATUS_MSG_OK_AT_CONTROLLER_SECOND);
 
@@ -74,11 +80,10 @@ public class AppVCenterControllerWT {
 
   @Test
   public void test02importServiceTemplate() throws Exception {
-
     createdFile = folder.newFile("vcenter.csv");
     FileUtils.writeStringToFile(createdFile, "TKey,Name,Identifier,URL,UserId,Password,", "UTF-8");
     controllerTester.uploadFileEvent("//input[@id='csv_form:csvFile']", createdFile);
-    controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt138']");
+    controllerTester.buttonDefaultClickEvent("//input[@name='csv_form:j_idt91']");
 
     assertTrue(
         controllerTester
