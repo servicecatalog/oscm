@@ -171,7 +171,7 @@
 
           <rich:collapsibleSubTable id="sbtbl" value="#{userBean.users}" var="item"
                                     expandMode="client" expanded="#{false}" rows="1">
-           <rich:column colspan="4" class="d-sm-none">
+           <rich:column colspan="4" class="d-sm-none p-2">
             <h:commandLink action="#{userBean.showDetails(user.userId)}">
              <button id="editUser#{user.userId}" type="button" class="btn btn-secondary">
               #{msg['button.manageUser']}
@@ -181,7 +181,7 @@
             <tr class="d-none"/>
             <tr class="d-sm-none">
              <th colspan="4">
-              <div class="row">
+              <div class="row p-2">
                <div class="col-5">
                 <h:outputText value="#{msg['user.firstName']}"/>
                </div>
@@ -193,7 +193,7 @@
             </tr>
             <tr class="d-sm-none">
              <th colspan="4">
-              <div class="row">
+              <div class="row p-2">
                <div class="col-5">
                 <h:outputText value="#{msg['user.lastName']}"/>
                </div>
