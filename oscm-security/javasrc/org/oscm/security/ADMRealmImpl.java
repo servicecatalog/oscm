@@ -66,12 +66,11 @@ public class ADMRealmImpl {
 
   protected static final String GROUP_USER = "PlatformUsers";
   protected static final String GROUP_ADMIN = UserRoleType.ORGANIZATION_ADMIN.name();
-  protected static final List<String> GROUPLIST_USER =
-          new ArrayList<>(Arrays.asList(GROUP_USER));
+  protected static final List<String> GROUPLIST_USER = new ArrayList<>(Arrays.asList(GROUP_USER));
 
   private static final int SSO_CALLER_SPEC_LEN = 2;
 
-    private final Logger logger;
+  private final Logger logger;
 
   ADMRealmImpl(Logger logger) {
     this.logger = logger;
@@ -134,7 +133,7 @@ public class ADMRealmImpl {
         handleInternalLogin(userKey, password, userQuery);
       }
 
-        return loadRoleNames(userKey);
+      return loadRoleNames(userKey);
     } catch (SQLException e) {
       throw new LoginException(ERR_DB_ACCESS + e.toString());
     } catch (NamingException e) {
@@ -162,13 +161,14 @@ public class ADMRealmImpl {
 
     switch (callerType) {
       case "WS":
-        handleWebServiceCaller(userId, password, tenantId);
+        password = password.substring(SSO_CALLER_SPEC_LEN);
+        handleServiceCaller(userId, password, tenantId);
         break;
       case "UI":
         handleUICaller(userId, password, tenantId);
         break;
       default:
-        handleOperatorClientCaller(userKey, password, user);
+        handleServiceCaller(userId, password, tenantId);
         break;
     }
 
@@ -183,12 +183,10 @@ public class ADMRealmImpl {
     validateIdToken(idc, userId, idToken);
   }
 
-  private void handleWebServiceCaller(String userId, String password, String tenantId)
+  private void handleServiceCaller(String userId, String password, String tenantId)
       throws LoginException {
 
     ApiIdentityClient idc = getIdentityClient(tenantId);
-    password = password.substring(SSO_CALLER_SPEC_LEN);
-
     try {
       String token = idc.getIdToken(userId, password);
       validateIdToken(idc, userId, token);
@@ -200,8 +198,7 @@ public class ADMRealmImpl {
     }
   }
 
-  void handleOperatorClientCaller(
-      final String userKey, String password, UserQuery userQuery)
+  void handleOperatorClientCaller(final String userKey, String password, UserQuery userQuery)
       throws LoginException, SQLException, NamingException {
     if (userKey.equals("1000")) {
       handleLoginAttempt(userKey, password, userQuery);
