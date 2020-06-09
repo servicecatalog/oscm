@@ -22,10 +22,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Callable;
-
 import javax.ejb.EJBException;
 import javax.imageio.ImageIO;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.oscm.dataservice.bean.DataServiceBean;
