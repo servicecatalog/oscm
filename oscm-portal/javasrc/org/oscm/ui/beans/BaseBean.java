@@ -387,6 +387,7 @@ public class BaseBean {
   public static final String INFO_CONFIGURATION_SAVED = "info.configuration.saved";
   public static final String INFO_CURRENCIES_ADDED = "info.currencies.added";
   public static final String INFO_WHITE_LABEL_BRANDING_URL_SET = "info.whiteLabelBrandingUrl.set";
+  public static final String INFO_DEFAULT_BOOTSTRAP_URL_SET = "info.defaultBootstrapUrl.set";
   public static final String INFO_RECOVERPASSWORD_START = "info.recoverpassword.start";
   public static final String INFO_RECOVERPASSWORD_SUCCESS = "info.recoverpassword.success";
   public static final String INFO_CSS_CONNECTION_SUCCESS = "info.cssConnection.success";

@@ -220,4 +220,31 @@ public class BrandBean extends BaseBean implements Serializable {
       return;
     }
   }
+
+  public void saveCustomBootstrapUrl() {
+
+    try {
+      final VOMarketplace marketplace =
+          getMarketplaceService().getMarketplaceById(getMarketplaceBean().getMarketplaceId());
+      // Call the marketplace service method for saving the URL.
+      // TODO Add Call to method when included in internal interface.
+      // getMarketplaceService().saveCustomBootstrapUrl(marketplace, customBootstrapUrl);
+      // refresh the marketplace, to avoid concurrency exception
+      getMarketplaceService().getMarketplaceById(marketplace.getMarketplaceId());
+      // add success message
+      String message =
+          (customBootstrapUrl != null && customBootstrapUrl.trim().length() > 0)
+              ? INFO_CUSTOM_BOOTSTRAP_URL_SET
+              : INFO_DEFAULT_BOOTSTRAP_URL_SET;
+      addMessage(null, FacesMessage.SEVERITY_INFO, message);
+    } catch (ObjectNotFoundException e) {
+      getMarketplaceBean().checkMarketplaceDropdownAndMenuVisibility(null);
+      setCustomBootstrapUrl(null);
+      ExceptionHandler.execute(e, true);
+      return;
+    } catch (SaaSApplicationException e) {
+      ExceptionHandler.execute(e);
+      return;
+    }
+  }
 }
