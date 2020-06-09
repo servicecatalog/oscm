@@ -57,9 +57,9 @@
       </adm:panelGrid>
 
       <adm:buttonPanel>
-        <h:commandButton style="display:none;" id="validateUrlButton" action="#{brandBean.validateCurrentUrl}" />
+        <h:commandButton style="display:none;" id="validateUrlButton" action="#{brandBean.validateUrls}" />
         <adm:button id="saveButton" disabled="#{not brandBean.marketplaceSelected}" value="#{msg['button.save']}"
-          bean="#{brandBean}" action="saveBrandingUrl" buttonType="save" />
+          bean="#{brandBean}" action="saveUrls" buttonType="save" />
         <adm:buttonCustomizedOnClick id="testButton" disabled="#{not brandBean.marketplaceSelected}"
           value="#{msg['button.testConnection']}" buttonType="execute"
           onclick="setDirty(false);#{rich:element('validateUrlButton')}.click();return false;" />

@@ -265,6 +265,70 @@ public class BrandBeanTest {
     assertNull(brandBean.getBrandingUrl());
   }
 
+  @Test
+  public void testSaveUrls() throws Exception {
+    // mock the service method
+    doNothing().when(marketplaceServiceMock).saveBrandingUrl(any(VOMarketplace.class), anyString());
+    // ensure a marketplace is selected
+    ensureSelectedMarketplace();
+
+    brandBean.setBrandingUrl(VALID_BRANDING_URL);
+    brandBean.setCustomBootstrapUrl(DEFAULT_BOOTSTRAP_URL);
+    brandBean.saveUrls();
+
+    assertEquals(1, facesMessages.size());
+    assertEquals(FacesMessage.SEVERITY_INFO, facesMessages.get(0).getSeverity());
+  }
+
+  @Test
+  public void testSaveUrls_InvalidUrl() throws Exception {
+    doThrow(new ValidationException())
+        .when(marketplaceServiceMock)
+        .saveBrandingUrl(any(VOMarketplace.class), anyString());
+
+    brandBean.saveUrls();
+
+    assertEquals(1, facesMessages.size());
+    assertEquals(FacesMessage.SEVERITY_ERROR, facesMessages.get(0).getSeverity());
+  }
+
+  @Test
+  public void testSaveUrls_EmptyBrandingUrl() throws Exception {
+    ensureSelectedMarketplace();
+
+    brandBean.setBrandingUrl("");
+    brandBean.saveUrls();
+
+    assertEquals(1, facesMessages.size());
+    assertEquals(FacesMessage.SEVERITY_INFO, facesMessages.get(0).getSeverity());
+  }
+
+  @Test
+  public void testSaveUrls_EmptyBootstrapUrl() throws Exception {
+    ensureSelectedMarketplace();
+
+    brandBean.setCustomBootstrapUrl("");
+    brandBean.saveUrls();
+
+    assertEquals(1, facesMessages.size());
+    assertEquals(FacesMessage.SEVERITY_INFO, facesMessages.get(0).getSeverity());
+  }
+
+  @Test
+  public void testSaveUrls_MPLNotFound() throws Exception {
+    brandBean.setBrandingUrl(VALID_BRANDING_URL);
+    brandBean.setCustomBootstrapUrl(DEFAULT_BOOTSTRAP_URL);
+    doThrow(new ObjectNotFoundException())
+        .when(marketplaceServiceMock)
+        .saveBrandingUrl(any(VOMarketplace.class), anyString());
+
+    brandBean.saveUrls();
+
+    assertEquals(1, facesMessages.size());
+    assertEquals(FacesMessage.SEVERITY_ERROR, facesMessages.get(0).getSeverity());
+    assertNull(brandBean.getBrandingUrl());
+  }
+
   @Ignore
   // FIXME : No!! This attempts a real connection! Furthermore the URL with
   // port is
