@@ -19,11 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
+
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.ImageResource;
 import org.oscm.domobjects.Marketplace;
@@ -343,19 +345,15 @@ public class BrandServiceBean implements BrandService {
     return result;
   }
 
+  @Override
   @RolesAllowed("MARKETPLACE_OWNER")
   public List<VOLocalizedText> getMarketplaceMobileStageLocalization(String marketplaceId)
       throws ObjectNotFoundException, OperationNotPermittedException {
-
-    List<VOLocalizedText> result = new ArrayList<VOLocalizedText>();
     Marketplace mp = new Marketplace();
     mp.setMarketplaceId(marketplaceId);
     mp = (Marketplace) dm.getReferenceByBusinessKey(mp);
     PermissionCheck.owns(mp, dm.getCurrentUser().getOrganization(), logger, null);
-    result =
-        localizer.getLocalizedValues(mp.getKey(), LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
-
-    return result;
+    return localizer.getLocalizedValues(mp.getKey(), LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
   }
 
   @Override
@@ -383,14 +381,38 @@ public class BrandServiceBean implements BrandService {
 
   @Override
   public String getMarketplaceMobileStage(String marketplaceId, String localeString) {
-    return null;
+    Marketplace mp = getMarketplace(marketplaceId);
+    if (mp == null) {
+      // Return a empty string like the localizer does if there is no
+      // localized resource available.
+      return "";
+    }
+    return localizer.getLocalizedTextFromDatabase(
+        localeString, mp.getKey(), LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE);
   }
 
   @Override
   public void setMarketplaceMobileStage(
       String mobileStageContent, String marketplaceId, String localeString)
       throws ObjectNotFoundException, OperationNotPermittedException {
-    // TODO Auto-generated method stub
+    ArgumentValidator.notNull("mobileStageContent", mobileStageContent);
+    ArgumentValidator.notNull("marketplaceId", marketplaceId);
+    ArgumentValidator.notNull("localeString", localeString);
 
+    Marketplace mp = new Marketplace();
+    mp.setMarketplaceId(marketplaceId);
+
+    mp = (Marketplace) dm.getReferenceByBusinessKey(mp);
+    PermissionCheck.owns(mp, dm.getCurrentUser().getOrganization(), logger, null);
+    if (mobileStageContent.trim().length() == 0) {
+      localizer.removeLocalizedValue(
+          mp.getKey(), LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE, localeString);
+    } else {
+      localizer.storeLocalizedResource(
+          localeString,
+          mp.getKey(),
+          LocalizedObjectTypes.MARKETPLACE_MOBILE_STAGE,
+          mobileStageContent);
+    }
   }
 }
