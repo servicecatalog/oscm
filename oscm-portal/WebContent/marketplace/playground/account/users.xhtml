@@ -83,11 +83,11 @@
                     oncomplete="jQuery('body').removeClass('hourglass');"
                     onsubmit="jQuery('body').addClass('hourglass');"/>
 
-         <rich:dataTable id="userListTable" value="#{userBean.users}" var="user" rows="10" render="pagerPanel"
-                         styleClass="table table-striped table-hover table-bordered sortable w-100" sortMode="single"
-                         rowClasses="rowOdd,rowEven" columnClasses="wrapColumns" selectionMode="single" noDataLabel=" "
-                         onRowMouseOver="AdmUtils.mouseOverRowCell(this);" enableContextMenu="false"
-                         onRowMouseOut="AdmUtils.mouseOutRowCell(this)" headerClass="rowTitle">
+         <rich:dataTable rows="10" id="userListTable" value="#{userBean.users}" var="user" render="pagerPanel"
+                         styleClass="sortable table-hover table-bordered w-100" sortMode="single"
+                         rowClasses="rowOdd, rowEven" columnClasses="wrapColumns" selectionMode="single" noDataLabel=" "
+                         columnHeaderClass="rowTitle sortable" noDataLabel=" " enableContextMenu="false"
+                         headerClass="rowTitle sortable" headerCellClass="rowTitle sortable">
 
           <rich:column styleClass="text-center p-1 align-middle">
            <a4j:outputPanel styleClass="d-sm-none">
