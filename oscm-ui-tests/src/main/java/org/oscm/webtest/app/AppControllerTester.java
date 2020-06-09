@@ -10,9 +10,7 @@
 package org.oscm.webtest.app;
 
 import java.io.File;
-
 import javax.security.auth.login.LoginException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
