@@ -941,10 +941,6 @@ form .formHighlight input, form .formHighlight textarea {
 .rich-tabpanel-content-position .hintAndMessageTable td {
   padding: 0 !important;
 }
-
-input#file-upload-button {
-  display: none;
-}
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 4.1 Form Hints
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
@@ -2046,14 +2042,14 @@ span.upload .option {
 }
 
 .custom-file-label:after {
-   content: "\f093";
-   font-family: FontAwesome;
-   cursor: pointer;
-   color: #28a745;
-   border-color: #28a745;
-   border: 1px solid;
-   background-color: #fff;
-  }
+  content: "\f093";
+  font-family: FontAwesome;
+  cursor: pointer;
+  color: #28a745;
+  border-color: #28a745;
+  border: 1px solid;
+  background-color: #fff;
+}
 /*
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
