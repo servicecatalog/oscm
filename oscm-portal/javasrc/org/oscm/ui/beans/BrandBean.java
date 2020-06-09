@@ -87,6 +87,7 @@ public class BrandBean extends BaseBean implements Serializable {
       final String marketplaceId = marketplaceBean.getMarketplaceId();
       if (marketplaceId != null) {
         try {
+          // TODO replace with getMarketplaceService().getCustomBootstrapUrl(marketplaceId);
           this.customBootstrapUrl = getMarketplaceService().getBrandingUrl(marketplaceId);
         } catch (ObjectNotFoundException e) {
           customBootstrapUrl = null;
@@ -185,6 +186,21 @@ public class BrandBean extends BaseBean implements Serializable {
     return "";
   }
 
+  public String validateUrls() {
+    boolean isUrlAccessible = false;
+    try {
+      isUrlAccessible = RequestUrlHandler.isUrlAccessible(getBrandingUrl()) && RequestUrlHandler.isUrlAccessible(getCustomBootstrapUrl());
+
+      addMessage(
+          null,
+          isUrlAccessible ? FacesMessage.SEVERITY_INFO : FacesMessage.SEVERITY_ERROR,
+          isUrlAccessible ? INFO_CSS_CONNECTION_SUCCESS : ERROR_CSS_CONNECTION);
+    } catch (IOException e) {
+      addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_CSS_CONNECTION);
+    }
+    return "";
+  }
+
   /**
    * Checks if branding package data is available.
    *
@@ -221,24 +237,29 @@ public class BrandBean extends BaseBean implements Serializable {
     }
   }
 
-  public void saveCustomBootstrapUrl() {
-
+  public void saveUrls() {
     try {
       final VOMarketplace marketplace =
           getMarketplaceService().getMarketplaceById(getMarketplaceBean().getMarketplaceId());
       // Call the marketplace service method for saving the URL.
-      // TODO Add Call to method when included in internal interface.
+
+      getMarketplaceService().saveBrandingUrl(marketplace, brandingUrl);
+
       // getMarketplaceService().saveCustomBootstrapUrl(marketplace, customBootstrapUrl);
+
       // refresh the marketplace, to avoid concurrency exception
       getMarketplaceService().getMarketplaceById(marketplace.getMarketplaceId());
+
+      // TODO add only one message??
       // add success message
       String message =
-          (customBootstrapUrl != null && customBootstrapUrl.trim().length() > 0)
-              ? INFO_CUSTOM_BOOTSTRAP_URL_SET
-              : INFO_DEFAULT_BOOTSTRAP_URL_SET;
+          (brandingUrl != null && brandingUrl.trim().length() > 0)
+              ? INFO_BRANDING_URL_SET
+              : INFO_WHITE_LABEL_BRANDING_URL_SET;
       addMessage(null, FacesMessage.SEVERITY_INFO, message);
     } catch (ObjectNotFoundException e) {
       getMarketplaceBean().checkMarketplaceDropdownAndMenuVisibility(null);
+      setBrandingUrl(null);
       setCustomBootstrapUrl(null);
       ExceptionHandler.execute(e, true);
       return;
