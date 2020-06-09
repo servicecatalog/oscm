@@ -189,7 +189,11 @@ public class BrandBean extends BaseBean implements Serializable {
   public String validateUrls() {
     boolean isUrlAccessible = false;
     try {
-      isUrlAccessible = RequestUrlHandler.isUrlAccessible(getBrandingUrl()) && RequestUrlHandler.isUrlAccessible(getCustomBootstrapUrl());
+      boolean isBrandingAccessible = RequestUrlHandler.isUrlAccessible(getBrandingUrl());
+      boolean isCustomBootstrapAccessible =
+          RequestUrlHandler.isUrlAccessible(getCustomBootstrapUrl());
+
+      isUrlAccessible = (isBrandingAccessible && isCustomBootstrapAccessible);
 
       addMessage(
           null,
