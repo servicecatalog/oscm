@@ -13,11 +13,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import java.util.Locale;
+
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.intf.MarketplaceService;
@@ -32,6 +34,9 @@ public class SessionBeanTest {
   private static final String WHITE_LABEL_PATH = "/oscm-portal";
   private static final String WHITE_LABEL_URL =
       "http://localhost:8180/oscm-portal/marketplace/css/mp.css";
+
+  private static final String DEFAULT_BOOTSTRAP_URL =
+      "http://localhost:8180/oscm-portal/bootstrap/css/bootstrap.min.css";
 
   private static final String WHITE_LABEL_URI = "/oscm-portal/marketplace/css/mp.css";
   private static final String WHITE_LABEL_BASE_URI = "/marketplace";
@@ -218,6 +223,20 @@ public class SessionBeanTest {
 
     // then
     assertEquals(WHITE_LABEL_BASE_URI, result);
+  }
+
+  @Test
+  public void geCustomBootstrapUrl_defaultBootstrap() throws Exception {
+    // given
+    // TODO replace method with MarketplaceService mock.
+    // doReturn(DEFAULT_BOOTSTRAP_URL).when(marketplaceServiceMock).getCustomBootstrapUrl(MARKETPLACE_ID);
+    sessionBean.setCustomBootstrapUrl(DEFAULT_BOOTSTRAP_URL);
+
+    // when
+    String result = sessionBean.getCustomBootstrapUrl();
+
+    // then
+    assertEquals(DEFAULT_BOOTSTRAP_URL, result);
   }
 
   @Test
