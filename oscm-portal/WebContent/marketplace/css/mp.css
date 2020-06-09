@@ -4375,6 +4375,10 @@ div#headerrightareaBootstrap, rightarea a {
   font-size: 1rem;
   min-width: 0px
 }
+
+.row-justify-space {
+  justify-content: space-between;
+}
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.6 Footer
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */

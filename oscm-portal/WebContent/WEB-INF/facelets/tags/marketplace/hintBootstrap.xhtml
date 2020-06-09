@@ -1,16 +1,16 @@
 <!-- Copyright FUJITSU LIMITED 2020-->
 <!DOCTYPE html [<!ENTITY num "&#35;">]>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
  <c:set var="hintId" value="#{for}Hint"/>
  <c:set var="hintMsgId" value="#{pageId}.hint.#{for}"/>
  <c:set var="hintMsg" value="#{(not empty hintText)?hintText:(msg[hintMsgId])}"/>
 
- <a4j:outputPanel layout="block" class="con-tooltip-icon">
-  <a href="javascript:void(0);" class="mt-1" data-toggle="popover"
-     data-content="#{hintMsg}" id="#{hintId}"><i class="fa fa-question-circle"/></a>
- </a4j:outputPanel>
+ <div class="input-group-append">
+  <a href="javascript:void(0);" class="btn pl-4" data-toggle="popover"
+     data-content="#{hintMsg}" data-container="&num;#{hintId}" id="#{hintId}"><i class="fa fa-question-circle"/></a>
+ </div>
 </ui:composition>
 
 
