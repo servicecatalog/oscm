@@ -75,8 +75,7 @@
          </div>
         </a4j:outputPanel>
 
-        <c:set var="iconWidth" value="2%"/>
-        <c:set var="normalWidth" value="25%"/>
+        <c:set var="normalWidth" value="26%"/>
         <c:set var="moreWidth" value="48%"/>
 
         <a4j:outputPanel layout="block" styleClass="tablePanel table_padding" style="margin-top: 10px;">
@@ -90,7 +89,7 @@
                          onRowMouseOver="AdmUtils.mouseOverRowCell(this);" enableContextMenu="false"
                          onRowMouseOut="AdmUtils.mouseOutRowCell(this)" headerClass="rowTitle">
 
-          <rich:column width="#{iconWidth}" styleClass="editPenStyle text-center">
+          <rich:column styleClass="text-center p-1 align-middle">
            <a4j:outputPanel styleClass="d-sm-none">
             <rich:collapsibleSubTableToggler for="sbtbl"/>
            </a4j:outputPanel>
