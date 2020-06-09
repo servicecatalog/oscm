@@ -382,7 +382,6 @@ public class SessionBean implements Serializable {
 
       // TODO replace with method from MarketplaceService.
       customBootstrapUrl = null;
-      // "https://estessbesci6:8081/oscm-portal/customBootstrap/css/darkCustom.css";
       if (customBootstrapUrl == null) {
         getMarketplaceId();
         customBootstrapUrl = getDefaultBootstrapUrl();
