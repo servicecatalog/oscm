@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -32,7 +31,6 @@ import javax.interceptor.Interceptors;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.security.auth.login.LoginException;
-
 import org.oscm.accountservice.assembler.OrganizationAssembler;
 import org.oscm.accountservice.local.AccountServiceLocal;
 import org.oscm.applicationservice.local.ApplicationServiceLocal;

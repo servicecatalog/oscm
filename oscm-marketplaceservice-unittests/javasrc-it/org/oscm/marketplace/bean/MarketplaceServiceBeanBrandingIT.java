@@ -17,9 +17,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import java.util.concurrent.Callable;
-
 import javax.ejb.EJBException;
-
 import org.junit.Test;
 import org.oscm.applicationservice.local.ApplicationServiceLocal;
 import org.oscm.dataservice.bean.DataServiceBean;
