@@ -1,13 +1,14 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: pock                                                      
- *                                                                              
- *  Creation Date: 03.11.2009                                                      
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: pock
+ *
+ * <p>Creation Date: 03.11.2009
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.domobjects;
 
 import java.io.Serializable;
@@ -17,137 +18,127 @@ import javax.persistence.Embeddable;
 
 /**
  * JPA managed entity representing the marketplace data.
- * 
+ *
  * @author pock
- * 
  */
 @Embeddable
-public class MarketplaceData extends DomainDataContainer implements
-        Serializable {
+public class MarketplaceData extends DomainDataContainer implements Serializable {
 
-    private static final long serialVersionUID = 226658413689731229L;
+  private static final long serialVersionUID = 226658413689731229L;
 
-    /**
-     * Date of marketplace creation
-     */
-    private long creationDate;
+  /** Date of marketplace creation */
+  private long creationDate;
 
-    /**
-     * For purpose of tracking the access to a catalog managed by OSCM
-     */
-    private String trackingCode;
+  /** For purpose of tracking the access to a catalog managed by OSCM */
+  private String trackingCode;
 
-    /**
-     * The marketplace id
-     */
-    @Column(nullable = false)
-    private String marketplaceId;
+  /** The marketplace id */
+  @Column(nullable = false)
+  private String marketplaceId;
 
-    /**
-     * Flag indicating if this is an open marketplace.
-     */
-    @Column(nullable = false)
-    private boolean open;
+  /** Flag indicating if this is an open marketplace. */
+  @Column(nullable = false)
+  private boolean open;
 
-    /**
-     * Flag indicating if the tag cloud is shown.
-     */
-    @Column(nullable = false)
-    private boolean taggingEnabled;
+  /** Flag indicating if the tag cloud is shown. */
+  @Column(nullable = false)
+  private boolean taggingEnabled;
 
-    /**
-     * Flag indicating if the tag review/rating is shown.
-     */
-    @Column(nullable = false)
-    private boolean reviewEnabled;
+  /** Flag indicating if the tag review/rating is shown. */
+  @Column(nullable = false)
+  private boolean reviewEnabled;
 
-    /**
-     * Flag indicating if the categories are shown.
-     */
-    @Column(nullable = false)
-    private boolean categoriesEnabled;
-    
-    /**
-     * Flag indicating if the marketplace has restricted access.
-     */
-    @Column(nullable = false)
-    private boolean restricted;
-    
-    /**
-     * The URL to the CSS file for branding this marketplace.
-     */
-    private String brandingUrl;
+  /** Flag indicating if the categories are shown. */
+  @Column(nullable = false)
+  private boolean categoriesEnabled;
 
-    public long getCreationDate() {
-        return creationDate;
-    }
+  /** Flag indicating if the marketplace has restricted access. */
+  @Column(nullable = false)
+  private boolean restricted;
 
-    public void setCreationDate(long creationDate) {
-        this.creationDate = creationDate;
-    }
+  /** The URL to the CSS file for branding this marketplace. */
+  private String brandingUrl;
 
-    public void setMarketplaceId(String marketplaceId) {
-        this.marketplaceId = marketplaceId;
-    }
+  /** The URL to the CSS file for the custom bootstrap of this marketplace. */
+  private String customBootstrapUrl;
 
-    public String getMarketplaceId() {
-        return marketplaceId;
-    }
+  public long getCreationDate() {
+    return creationDate;
+  }
 
-    public void setOpen(boolean open) {
-        this.open = open;
-    }
+  public void setCreationDate(long creationDate) {
+    this.creationDate = creationDate;
+  }
 
-    public boolean isOpen() {
-        return open;
-    }
+  public void setMarketplaceId(String marketplaceId) {
+    this.marketplaceId = marketplaceId;
+  }
 
-    public void setTaggingEnabled(boolean taggingEnabled) {
-        this.taggingEnabled = taggingEnabled;
-    }
+  public String getMarketplaceId() {
+    return marketplaceId;
+  }
 
-    public boolean isTaggingEnabled() {
-        return taggingEnabled;
-    }
+  public void setOpen(boolean open) {
+    this.open = open;
+  }
 
-    public void setReviewEnabled(boolean reviewEnabled) {
-        this.reviewEnabled = reviewEnabled;
-    }
+  public boolean isOpen() {
+    return open;
+  }
 
-    public boolean isReviewEnabled() {
-        return reviewEnabled;
-    }
+  public void setTaggingEnabled(boolean taggingEnabled) {
+    this.taggingEnabled = taggingEnabled;
+  }
 
-    public String getBrandingUrl() {
-        return brandingUrl;
-    }
+  public boolean isTaggingEnabled() {
+    return taggingEnabled;
+  }
 
-    public void setBrandingUrl(String brandingUrl) {
-        this.brandingUrl = brandingUrl;
-    }
+  public void setReviewEnabled(boolean reviewEnabled) {
+    this.reviewEnabled = reviewEnabled;
+  }
 
-    public boolean isCategoriesEnabled() {
-        return categoriesEnabled;
-    }
+  public boolean isReviewEnabled() {
+    return reviewEnabled;
+  }
 
-    public void setCategoriesEnabled(boolean categoriesEnabled) {
-        this.categoriesEnabled = categoriesEnabled;
-    }
+  public String getBrandingUrl() {
+    return brandingUrl;
+  }
 
-    public void setTrackingCode(String trackingCode) {
-        this.trackingCode = trackingCode;
-    }
+  public void setBrandingUrl(String brandingUrl) {
+    this.brandingUrl = brandingUrl;
+  }
 
-    public String getTrackingCode() {
-        return trackingCode;
-    }
+  public String getCustomBootstrapUrl() {
+    return customBootstrapUrl;
+  }
 
-    public boolean isRestricted() {
-        return restricted;
-    }
+  public void setCustomBootstrapUrl(String customBootstrapUrl) {
+    this.customBootstrapUrl = customBootstrapUrl;
+  }
 
-    public void setRestricted(boolean restricted) {
-        this.restricted = restricted;
-    }
+  public boolean isCategoriesEnabled() {
+    return categoriesEnabled;
+  }
 
+  public void setCategoriesEnabled(boolean categoriesEnabled) {
+    this.categoriesEnabled = categoriesEnabled;
+  }
+
+  public void setTrackingCode(String trackingCode) {
+    this.trackingCode = trackingCode;
+  }
+
+  public String getTrackingCode() {
+    return trackingCode;
+  }
+
+  public boolean isRestricted() {
+    return restricted;
+  }
+
+  public void setRestricted(boolean restricted) {
+    this.restricted = restricted;
+  }
 }

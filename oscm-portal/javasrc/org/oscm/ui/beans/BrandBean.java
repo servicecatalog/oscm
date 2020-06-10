@@ -7,12 +7,14 @@ package org.oscm.ui.beans;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+
 import org.apache.poi.util.IOUtils;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
@@ -46,6 +48,8 @@ public class BrandBean extends BaseBean implements Serializable {
 
   private String brandingUrl;
 
+  private String customBootstrapUrl;
+
   private byte[] brandingPackage;
 
   public MarketplaceBean getMarketplaceBean() {
@@ -78,6 +82,25 @@ public class BrandBean extends BaseBean implements Serializable {
     this.brandingUrl = brandingUrl;
   }
 
+  public String getCustomBootstrapUrl() {
+    if (customBootstrapUrl == null) {
+      final String marketplaceId = marketplaceBean.getMarketplaceId();
+      if (marketplaceId != null) {
+        try {
+          // TODO replace with getMarketplaceService().getCustomBootstrapUrl(marketplaceId);
+          this.customBootstrapUrl = getMarketplaceService().getBrandingUrl(marketplaceId);
+        } catch (ObjectNotFoundException e) {
+          customBootstrapUrl = null;
+        }
+      }
+    }
+    return customBootstrapUrl;
+  }
+
+  public void setCustomBootstrapUrl(String customBootstrapUrl) {
+    this.customBootstrapUrl = customBootstrapUrl;
+  }
+
   protected String getWhiteLabelBrandingUrl() {
     return getFacesContext().getExternalContext().getRequestContextPath()
         + "/marketplace/css/mp.css";
@@ -94,6 +117,7 @@ public class BrandBean extends BaseBean implements Serializable {
     if (selectedMarketplaceId.equals("0")) {
       getMarketplaceBean().setMarketplaceId(null);
       setBrandingUrl(null);
+      setCustomBootstrapUrl(null);
     } else {
       try {
         getMarketplaceBean().setMarketplaceId(selectedMarketplaceId);
@@ -102,6 +126,7 @@ public class BrandBean extends BaseBean implements Serializable {
         getMarketplaceBean().checkMarketplaceDropdownAndMenuVisibility(null);
         getMarketplaceBean().setMarketplaceId(null);
         setBrandingUrl(null);
+        setCustomBootstrapUrl(null);
       }
     }
   }
@@ -161,6 +186,25 @@ public class BrandBean extends BaseBean implements Serializable {
     return "";
   }
 
+  public String validateUrls() {
+    boolean isUrlAccessible = false;
+    try {
+      boolean isBrandingAccessible = RequestUrlHandler.isUrlAccessible(getBrandingUrl());
+      boolean isCustomBootstrapAccessible =
+          RequestUrlHandler.isUrlAccessible(getCustomBootstrapUrl());
+
+      isUrlAccessible = (isBrandingAccessible && isCustomBootstrapAccessible);
+
+      addMessage(
+          null,
+          isUrlAccessible ? FacesMessage.SEVERITY_INFO : FacesMessage.SEVERITY_ERROR,
+          isUrlAccessible ? INFO_CSS_CONNECTION_SUCCESS : ERROR_CSS_CONNECTION);
+    } catch (IOException e) {
+      addMessage(null, FacesMessage.SEVERITY_ERROR, ERROR_CSS_CONNECTION);
+    }
+    return "";
+  }
+
   /**
    * Checks if branding package data is available.
    *
@@ -188,6 +232,39 @@ public class BrandBean extends BaseBean implements Serializable {
     } catch (ObjectNotFoundException e) {
       getMarketplaceBean().checkMarketplaceDropdownAndMenuVisibility(null);
       setBrandingUrl(null);
+      setCustomBootstrapUrl(null);
+      ExceptionHandler.execute(e, true);
+      return;
+    } catch (SaaSApplicationException e) {
+      ExceptionHandler.execute(e);
+      return;
+    }
+  }
+
+  public void saveUrls() {
+    try {
+      final VOMarketplace marketplace =
+          getMarketplaceService().getMarketplaceById(getMarketplaceBean().getMarketplaceId());
+      // Call the marketplace service method for saving the URL.
+
+      getMarketplaceService().saveBrandingUrl(marketplace, brandingUrl);
+
+      // getMarketplaceService().saveCustomBootstrapUrl(marketplace, customBootstrapUrl);
+
+      // refresh the marketplace, to avoid concurrency exception
+      getMarketplaceService().getMarketplaceById(marketplace.getMarketplaceId());
+
+      // TODO add only one message??
+      // add success message
+      String message =
+          (brandingUrl != null && brandingUrl.trim().length() > 0)
+              ? INFO_BRANDING_URL_SET
+              : INFO_WHITE_LABEL_BRANDING_URL_SET;
+      addMessage(null, FacesMessage.SEVERITY_INFO, message);
+    } catch (ObjectNotFoundException e) {
+      getMarketplaceBean().checkMarketplaceDropdownAndMenuVisibility(null);
+      setBrandingUrl(null);
+      setCustomBootstrapUrl(null);
       ExceptionHandler.execute(e, true);
       return;
     } catch (SaaSApplicationException e) {
