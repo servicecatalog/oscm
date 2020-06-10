@@ -378,17 +378,9 @@ public class SessionBean implements Serializable {
   public String getCustomBootstrapUrl() {
     String customBootstrapUrl = customBootstrapUrlMidMapping.get(getMarketplaceId());
     if (customBootstrapUrl == null) {
-      //     try {
+      // TODO replace with new method from MarketplaceService.
+      customBootstrapUrl = getDefaultBootstrapUrl();
 
-      // TODO replace with method from MarketplaceService.
-      customBootstrapUrl = null;
-      if (customBootstrapUrl == null) {
-        getMarketplaceId();
-        customBootstrapUrl = getDefaultBootstrapUrl();
-      }
-      //      } catch (ObjectNotFoundException e) {
-      //        customBootstrapUrl = getDefaultBootstrapUrl();
-      //      }
       setCustomBootstrapUrl(customBootstrapUrl);
     }
     return customBootstrapUrl;
