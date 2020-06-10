@@ -156,7 +156,7 @@ public class MarketplaceServiceBeanBrandingIT extends EJBTestBase {
     MarketplaceServiceBean brandMgmtBean = setupWithMock(mp);
 
     brandMgmtBean.saveCustomBootstrapUrl(voMarketplace, BOOTSTRAP_URL);
-    assertEquals(BOOTSTRAP_URL, mp.getBrandingUrl());
+    assertEquals(BOOTSTRAP_URL, mp.getCustomBootstrapUrl());
   }
 
   @Test(expected = ConcurrentModificationException.class)
