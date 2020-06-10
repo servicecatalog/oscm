@@ -104,6 +104,8 @@ public class TranslationBean extends BaseBean implements Serializable {
   private String mobileStageContent;
 
   private boolean showConfirm;
+  private boolean showConfirmMobile;
+
   protected List<VOLocalizedText> stages = null;
   protected List<VOLocalizedText> mobileStages = null;
 
@@ -115,9 +117,6 @@ public class TranslationBean extends BaseBean implements Serializable {
 
   /** Indicates if the content of the stage field was changed */
   private boolean dirtyStage = false;
-
-  /** Indicates if the content of the mobile stage field was changed */
-  private boolean dirtyMobileStage = false;
 
   /**
    * Indicates if the default was used for the imprint (i.e. no imprint defined for given locale)
@@ -176,7 +175,6 @@ public class TranslationBean extends BaseBean implements Serializable {
     resetMembers();
     setShowConfirm(false);
     setDirtyStage(false);
-    setDirtyMobileStage(false);
   }
 
   public String getPrivacypolicy() {
@@ -622,14 +620,6 @@ public class TranslationBean extends BaseBean implements Serializable {
     return dirtyStage;
   }
 
-  public void setDirtyMobileStage(boolean dirty) {
-    this.dirtyMobileStage = dirty;
-  }
-
-  public boolean isDirtyMobileStage() {
-    return dirtyMobileStage;
-  }
-
   public void setStage(String stage) {
     stageContent = stage;
   }
@@ -655,6 +645,26 @@ public class TranslationBean extends BaseBean implements Serializable {
    */
   public String cancelPreview() {
     setShowConfirm(false);
+    return null;
+  }
+
+  /**
+   * Action to enable the mobile preview panel.
+   *
+   * @return the logical outcome
+   */
+  public String previewMobile() {
+    setShowConfirmMobile(true);
+    return null;
+  }
+
+  /**
+   * Action to enable the mobile preview panel.
+   *
+   * @return the logical outcome
+   */
+  public String cancelPreviewMobile() {
+    setShowConfirmMobile(false);
     return null;
   }
 
@@ -695,9 +705,9 @@ public class TranslationBean extends BaseBean implements Serializable {
       marketplaceBean.checkMarketplaceDropdownAndMenuVisibility(ex);
       throw ex;
     } finally {
-      setDirtyMobileStage(false);
+      setDirtyStage(false);
       mobileStages = null;
-      setShowConfirm(false);
+      setShowConfirmMobile(false);
     }
     addMessage(null, FacesMessage.SEVERITY_INFO, INFO_MARKETPLACE_STAGE_SAVED);
     return null;
@@ -709,6 +719,14 @@ public class TranslationBean extends BaseBean implements Serializable {
 
   public boolean isShowConfirm() {
     return showConfirm;
+  }
+
+  public void setShowConfirmMobile(boolean showConfirm) {
+    this.showConfirmMobile = showConfirm;
+  }
+
+  public boolean isShowConfirmMobile() {
+    return showConfirmMobile;
   }
 
   /**
@@ -729,6 +747,31 @@ public class TranslationBean extends BaseBean implements Serializable {
       if (isBlank(stage)) {
         // if it is still empty, use the default image
         stage = MessageFormat.format(SkinBean.MARKETPLACE_STAGE_DEFAULT, getRequestContextPath());
+      }
+    }
+    return stage;
+  }
+
+  /**
+   * Returns the mobile stage for the preview - handling is done lime for the real mobile stage - if
+   * the current locale's stage is empty, try to get the english one. If this is also empty, return
+   * the default image.
+   *
+   * @return the stage for the preview
+   */
+  public String getMobileStagePreview() {
+    String stage = mobileStageContent;
+    if (isBlank(stage)) {
+      if (!DEFAULT_LOCALE.equals(locale)) {
+        // get the stage in the default locale if the current locale is
+        // a different one
+        stage = getStageForLocale(DEFAULT_LOCALE, stages);
+      }
+      if (isBlank(stage)) {
+        // if it is still empty, use the default image
+        stage =
+            MessageFormat.format(
+                SkinBean.MARKETPLACE_MOBILE_STAGE_DEFAULT, getRequestContextPath());
       }
     }
     return stage;

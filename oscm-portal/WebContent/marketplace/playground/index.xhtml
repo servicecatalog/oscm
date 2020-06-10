@@ -13,8 +13,11 @@
 
    <ui:define name="feature">
    <div class="row">
-      <div class="col-12">
-        <h:outputText escape="false" id="stageResponsive" value="#{skinBean.marketplaceStage}" />
+      <div class="col-12 bigDisplay" >
+        <h:outputText escape="false" id="stageResponsive" value="#{skinBean.marketplaceStage}"/>
+      </div>
+       <div class="col-12 smallDisplay">
+        <h:outputText escape="false" id="mobileStageResponsive" value="#{skinBean.marketplaceMobileStage}" />
       </div>
    </div>
 

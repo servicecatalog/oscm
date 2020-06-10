@@ -96,12 +96,12 @@
       <h:outputText styleClass="stepDescription" value="#{msg['marketplace.stage.example']}" />
       
       <h:commandButton style="display:none;" id="changeLocaleButton2" value="" action="#{translationBean.changeLocale}" />
-      <h:commandButton style="display:none;" id="cancelPreview2" value="" action="#{translationBean.cancelPreview}" />
+      <h:commandButton style="display:none;" id="cancelPreviewMobile" value="" action="#{translationBean.cancelPreviewMobile}" />
       
       <adm:buttonPanel columns="1">
         <adm:button id="saveButton2" value="#{msg['button.save']}" bean="#{translationBean}" action="saveMobileStage"
                     disabled="#{marketplaceBean.disabledForEdit}" buttonType="save" />
-        <adm:button id="preview2" value="#{msg['button.preview']}" bean="#{translationBean}" action="preview"
+        <adm:button id="preview2" value="#{msg['button.preview']}" bean="#{translationBean}" action="previewMobile"
           disabled="#{marketplaceBean.disabledForEdit}" buttonType="preview" />
       </adm:buttonPanel>
       
@@ -138,6 +138,40 @@
             onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('saveButton')}.click();return false;" />
           <adm:buttonCustomizedOnClick id="cancelButton" value="#{msg['button.no']}" buttonType="cancel"
             onclick="setDirty(false);#{rich:element('cancelPreview')}.click();return false;" />
+        </adm:buttonPanel>
+      </h:form>
+    </rich:popupPanel>
+    
+     <rich:popupPanel id="previewPanelMobile" show="#{translationBean.showConfirmMobile}" style="max-height:700px;" width="980" autosized="true"
+      resizeable="false" onresize="return false;" trimOverlayedElements="false">
+      <f:facet name="header">
+        <h:outputText value="#{msg['marketplace.stage.preview']}" />
+      </f:facet>
+      <f:facet name="controls">
+        <h:panelGroup>
+          <span class="headerIcon" id="previewClose"
+            onclick="setDirty(false);#{rich:element('cancelPreviewMobile')}.click();return false;">
+           	<h:graphicImage value="/img/transparentPixel.png" styleClass="close" />
+           </span>
+        </h:panelGroup>
+      </f:facet>
+
+      <!-- non functional header -->
+      <h:graphicImage value="/img/mpheader.JPG" />
+
+      <h:form id="previewFormMobile">
+        <!-- and now the stage -->
+        <a4j:outputPanel layout="block" id="featurestory" style="margin-bottom:16px; width:980px; max-height:485px;"
+          styleClass="scrollAuto">
+          <h:outputText id="stagePreview" value="#{translationBean.mobileStagePreview}" escape="false" />
+        </a4j:outputPanel>
+        <hr />
+        <b><h:outputText styleClass="stepDescription" value="#{msg['marketplace.stage.publish']}" /> </b>
+        <adm:buttonPanel columns="2">
+          <adm:buttonCustomizedOnClick id="okButton" value="#{msg['button.yes']}" buttonType="confirm"
+            onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('saveButton2')}.click();return false;" />
+          <adm:buttonCustomizedOnClick id="cancelButton" value="#{msg['button.no']}" buttonType="cancel"
+            onclick="setDirty(false);#{rich:element('cancelPreviewMobile')}.click();return false;" />
         </adm:buttonPanel>
       </h:form>
     </rich:popupPanel>
