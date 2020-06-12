@@ -163,7 +163,7 @@ public class SkinBean extends BaseBean implements Serializable {
     marketplaceMobileStage =
         getBrandManagementService().getMarketplaceMobileStage(getMarketplaceId(), localeString);
 
-    if (isEmpty(marketplaceStage)) {
+    if (isEmpty(marketplaceMobileStage)) {
       // No localized resource found for the mpl mobile stage
       marketplaceMobileStage =
           MessageFormat.format(MARKETPLACE_MOBILE_STAGE_DEFAULT, getRequestContextPath());
