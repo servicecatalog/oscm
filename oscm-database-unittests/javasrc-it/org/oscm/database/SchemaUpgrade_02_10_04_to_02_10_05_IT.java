@@ -10,7 +10,6 @@
 package org.oscm.database;
 
 import java.net.URL;
-
 import org.oscm.setup.DatabaseVersionInfo;
 
 public class SchemaUpgrade_02_10_04_to_02_10_05_IT extends SchemaUpgradeTestBase {
