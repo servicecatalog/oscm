@@ -1,15 +1,16 @@
-/*******************************************************************************
- *                                                                              
- *  Copyright FUJITSU LIMITED 2018
- *                                                                              
- *  Author: schmid                                 
- *                                                                              
- *  Creation Date: 21.01.2009                                                      
- *                                                                              
- *  Completion Time:                                   
- *                                                                              
- *******************************************************************************/
-
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2018
+ *
+ * <p>Author: schmid
+ *
+ * <p>Creation Date: 21.01.2009
+ *
+ * <p>Completion Time:
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.domobjects;
 
 import javax.persistence.Column;
@@ -19,116 +20,128 @@ import javax.persistence.NamedQuery;
 
 /**
  * History object for marketplace
- * 
+ *
  * @author pock
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "MarketplaceHistory.findByObject", query = "select c from MarketplaceHistory c where c.objKey=:objKey order by objversion"),
-        @NamedQuery(name = "MarketplaceHistory.findBySubscriptionKey", query = "SELECT mp FROM SubscriptionHistory sub, MarketplaceHistory mp WHERE sub.objKey = :subscriptionKey AND sub.marketplaceObjKey = mp.objKey AND mp.modDate < :modDate ORDER BY mp.modDate DESC"),
-        @NamedQuery(name = "MarketplaceHistory.findMarketplaceKeys", query = "SELECT mp.objKey FROM MarketplaceHistory mp  WHERE mp.modDate < :modDate AND mp.organizationObjKey = :mpOwnerKey GROUP BY mp.objKey"),
-        @NamedQuery(name = "MarketplaceHistory.findWithinPeriod", query = "SELECT mp FROM MarketplaceHistory mp WHERE mp.objKey=:mpKey AND mp.modDate<:modDate ORDER BY mp.objVersion DESC") })
+  @NamedQuery(
+      name = "MarketplaceHistory.findByObject",
+      query = "select c from MarketplaceHistory c where c.objKey=:objKey order by objversion"),
+  @NamedQuery(
+      name = "MarketplaceHistory.findBySubscriptionKey",
+      query =
+          "SELECT mp FROM SubscriptionHistory sub, MarketplaceHistory mp WHERE sub.objKey = :subscriptionKey AND sub.marketplaceObjKey = mp.objKey AND mp.modDate < :modDate ORDER BY mp.modDate DESC"),
+  @NamedQuery(
+      name = "MarketplaceHistory.findMarketplaceKeys",
+      query =
+          "SELECT mp.objKey FROM MarketplaceHistory mp  WHERE mp.modDate < :modDate AND mp.organizationObjKey = :mpOwnerKey GROUP BY mp.objKey"),
+  @NamedQuery(
+      name = "MarketplaceHistory.findWithinPeriod",
+      query =
+          "SELECT mp FROM MarketplaceHistory mp WHERE mp.objKey=:mpKey AND mp.modDate<:modDate ORDER BY mp.objVersion DESC")
+})
 public class MarketplaceHistory extends DomainHistoryObject<MarketplaceData> {
 
-    @Column(nullable = false)
-    private long organizationObjKey;
+  @Column(nullable = false)
+  private long organizationObjKey;
 
-    @Column(nullable = false)
-    private long priceModelObjKey;
+  @Column(nullable = false)
+  private long priceModelObjKey;
 
-    @Column(nullable = false)
-    private long brokerPriceModelObjKey;
+  @Column(nullable = false)
+  private long brokerPriceModelObjKey;
 
-    @Column(nullable = false)
-    private long resellerPriceModelObjKey;
+  @Column(nullable = false)
+  private long resellerPriceModelObjKey;
 
-    private static final long serialVersionUID = 7047108191422227284L;
+  private static final long serialVersionUID = 7047108191422227284L;
 
-    public MarketplaceHistory() {
-        dataContainer = new MarketplaceData();
+  public MarketplaceHistory() {
+    dataContainer = new MarketplaceData();
+  }
+
+  public MarketplaceHistory(Marketplace domObj) {
+    super(domObj);
+    if (domObj.getOrganization() != null) {
+      setOrganizationObjKey(domObj.getOrganization().getKey());
     }
 
-    public MarketplaceHistory(Marketplace domObj) {
-        super(domObj);
-        if (domObj.getOrganization() != null) {
-            setOrganizationObjKey(domObj.getOrganization().getKey());
-        }
-
-        // Set the price models tkeys.
-        if (domObj.getPriceModel() != null) {
-            setPriceModelObjKey(domObj.getPriceModel().getKey());
-        }
-
-        if (domObj.getBrokerPriceModel() != null) {
-            setBrokerPriceModelObjKey(domObj.getBrokerPriceModel().getKey());
-        }
-
-        if (domObj.getResellerPriceModel() != null) {
-            setResellerPriceModelObjKey(domObj.getResellerPriceModel().getKey());
-        }
+    // Set the price models tkeys.
+    if (domObj.getPriceModel() != null) {
+      setPriceModelObjKey(domObj.getPriceModel().getKey());
     }
 
-    public long getPriceModelObjKey() {
-        return priceModelObjKey;
+    if (domObj.getBrokerPriceModel() != null) {
+      setBrokerPriceModelObjKey(domObj.getBrokerPriceModel().getKey());
     }
 
-    public void setPriceModelObjKey(long priceModelObjKey) {
-        this.priceModelObjKey = priceModelObjKey;
+    if (domObj.getResellerPriceModel() != null) {
+      setResellerPriceModelObjKey(domObj.getResellerPriceModel().getKey());
     }
+  }
 
-    public long getBrokerPriceModelObjKey() {
-        return brokerPriceModelObjKey;
-    }
+  public long getPriceModelObjKey() {
+    return priceModelObjKey;
+  }
 
-    public void setBrokerPriceModelObjKey(long brokerPriceModelObjKey) {
-        this.brokerPriceModelObjKey = brokerPriceModelObjKey;
-    }
+  public void setPriceModelObjKey(long priceModelObjKey) {
+    this.priceModelObjKey = priceModelObjKey;
+  }
 
-    public long getResellerPriceModelObjKey() {
-        return resellerPriceModelObjKey;
-    }
+  public long getBrokerPriceModelObjKey() {
+    return brokerPriceModelObjKey;
+  }
 
-    public void setResellerPriceModelObjKey(long resellerPriceModelObjKey) {
-        this.resellerPriceModelObjKey = resellerPriceModelObjKey;
-    }
+  public void setBrokerPriceModelObjKey(long brokerPriceModelObjKey) {
+    this.brokerPriceModelObjKey = brokerPriceModelObjKey;
+  }
 
-    public void setOrganizationObjKey(long organizationObjKey) {
-        this.organizationObjKey = organizationObjKey;
-    }
+  public long getResellerPriceModelObjKey() {
+    return resellerPriceModelObjKey;
+  }
 
-    public long getOrganizationObjKey() {
-        return organizationObjKey;
-    }
+  public void setResellerPriceModelObjKey(long resellerPriceModelObjKey) {
+    this.resellerPriceModelObjKey = resellerPriceModelObjKey;
+  }
 
-    public boolean isTaggingEnabled() {
-        return dataContainer.isTaggingEnabled();
-    }
+  public void setOrganizationObjKey(long organizationObjKey) {
+    this.organizationObjKey = organizationObjKey;
+  }
 
-    public boolean isReviewEnabled() {
-        return dataContainer.isReviewEnabled();
-    }
+  public long getOrganizationObjKey() {
+    return organizationObjKey;
+  }
 
-    public boolean isCategoriesEnabled() {
-        return dataContainer.isCategoriesEnabled();
-    }
+  public boolean isTaggingEnabled() {
+    return dataContainer.isTaggingEnabled();
+  }
 
-    public void setCategoriesEnabled(boolean categoriesEnabled) {
-        dataContainer.setCategoriesEnabled(categoriesEnabled);
-    }
+  public boolean isReviewEnabled() {
+    return dataContainer.isReviewEnabled();
+  }
 
-    public String getBrandingUrl() {
-        return dataContainer.getBrandingUrl();
-    }
+  public boolean isCategoriesEnabled() {
+    return dataContainer.isCategoriesEnabled();
+  }
 
-    public void setBrandingUrl(String brandingUrl) {
-        dataContainer.setBrandingUrl(brandingUrl);
-    }
+  public void setCategoriesEnabled(boolean categoriesEnabled) {
+    dataContainer.setCategoriesEnabled(categoriesEnabled);
+  }
 
-    public void setTrackingCode(String trackingCode) {
-        dataContainer.setTrackingCode(trackingCode);
-    }
+  public String getBrandingUrl() {
+    return dataContainer.getBrandingUrl();
+  }
 
-    public String getTrackingCode() {
-        return dataContainer.getTrackingCode();
-    }
+  public void setBrandingUrl(String brandingUrl) {
+    dataContainer.setBrandingUrl(brandingUrl);
+  }
+
+  public void setTrackingCode(String trackingCode) {
+    dataContainer.setTrackingCode(trackingCode);
+  }
+
+  public String getTrackingCode() {
+    return dataContainer.getTrackingCode();
+  }
 }
