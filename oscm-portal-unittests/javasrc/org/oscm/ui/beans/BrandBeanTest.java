@@ -11,15 +11,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -55,9 +47,6 @@ public class BrandBeanTest {
 
   private static final String WHITE_LABEL_URL = WHITE_LABEL_PATH + "/marketplace/css/mp.css";
   private static final String VALID_BRANDING_URL = WHITE_LABEL_URL;
-
-  private static final String DEFAULT_BOOTSTRAP_URL =
-      WHITE_LABEL_PATH + "/customBootstrap/css/darkCustom.css";
 
   private List<FacesMessage> facesMessages = new ArrayList<FacesMessage>();
 
@@ -263,70 +252,6 @@ public class BrandBeanTest {
     assertNull(brandBean.getBrandingUrl());
   }
 
-  @Test
-  public void testSaveUrls() throws Exception {
-    // mock the service method
-    doNothing().when(marketplaceServiceMock).saveBrandingUrl(any(VOMarketplace.class), anyString());
-    // ensure a marketplace is selected
-    ensureSelectedMarketplace();
-
-    brandBean.setBrandingUrl(VALID_BRANDING_URL);
-    brandBean.setCustomBootstrapUrl(DEFAULT_BOOTSTRAP_URL);
-    brandBean.saveUrls();
-
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_INFO, facesMessages.get(0).getSeverity());
-  }
-
-  @Test
-  public void testSaveUrls_InvalidUrl() throws Exception {
-    doThrow(new ValidationException())
-        .when(marketplaceServiceMock)
-        .saveBrandingUrl(any(VOMarketplace.class), anyString());
-
-    brandBean.saveUrls();
-
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_ERROR, facesMessages.get(0).getSeverity());
-  }
-
-  @Test
-  public void testSaveUrls_EmptyBrandingUrl() throws Exception {
-    ensureSelectedMarketplace();
-
-    brandBean.setBrandingUrl("");
-    brandBean.saveUrls();
-
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_INFO, facesMessages.get(0).getSeverity());
-  }
-
-  @Test
-  public void testSaveUrls_EmptyBootstrapUrl() throws Exception {
-    ensureSelectedMarketplace();
-
-    brandBean.setCustomBootstrapUrl("");
-    brandBean.saveUrls();
-
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_INFO, facesMessages.get(0).getSeverity());
-  }
-
-  @Test
-  public void testSaveUrls_MPLNotFound() throws Exception {
-    brandBean.setBrandingUrl(VALID_BRANDING_URL);
-    brandBean.setCustomBootstrapUrl(DEFAULT_BOOTSTRAP_URL);
-    doThrow(new ObjectNotFoundException())
-        .when(marketplaceServiceMock)
-        .saveBrandingUrl(any(VOMarketplace.class), anyString());
-
-    brandBean.saveUrls();
-
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_ERROR, facesMessages.get(0).getSeverity());
-    assertNull(brandBean.getBrandingUrl());
-  }
-
   @Ignore
   // FIXME : No!! This attempts a real connection! Furthermore the URL with
   // port is
@@ -372,86 +297,6 @@ public class BrandBeanTest {
     assertEquals(FacesMessage.SEVERITY_ERROR, facesMessages.get(0).getSeverity());
   }
 
-  @Ignore
-  @Test
-  public void validateUrls_BothValidUrls() {
-    // given
-    brandBean.setBrandingUrl(WHITE_LABEL_PATH);
-    brandBean.setCustomBootstrapUrl(DEFAULT_BOOTSTRAP_URL);
-
-    // when
-    brandBean.validateUrls();
-
-    // then
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_INFO, facesMessages.get(0).getSeverity());
-  }
-
-  @Test
-  public void validateUrls_InValidCustomBootstrapUrl() {
-    // given branding url set, but not custom bootstrap.
-    brandBean.setBrandingUrl(WHITE_LABEL_PATH);
-
-    // when
-    brandBean.validateUrls();
-
-    // then
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_ERROR, facesMessages.get(0).getSeverity());
-  }
-
-  @Test
-  public void validateUrls_InValidBrandingUrl() {
-    // given custom bootstrap url set, but not branding url.
-    brandBean.setCustomBootstrapUrl(DEFAULT_BOOTSTRAP_URL);
-
-    // when
-    brandBean.validateUrls();
-
-    // then
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_ERROR, facesMessages.get(0).getSeverity());
-  }
-
-  @Test
-  public void validateUrls_NullBrandingUrl() {
-    // given
-    brandBean.setBrandingUrl(null);
-
-    // when
-    brandBean.validateUrls();
-
-    // then
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_ERROR, facesMessages.get(0).getSeverity());
-  }
-
-  @Test
-  public void validateUrls_NullCustomBootstrapUrl() {
-    // given
-    brandBean.setCustomBootstrapUrl(null);
-
-    // when
-    brandBean.validateUrls();
-
-    // then
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_ERROR, facesMessages.get(0).getSeverity());
-  }
-
-  @Test
-  public void validateUrls_InvalidCustomBootstrapUrl() {
-    // given
-    brandBean.setCustomBootstrapUrl(INVALID_URL);
-
-    // when
-    brandBean.validateUrls();
-
-    // then
-    assertEquals(1, facesMessages.size());
-    assertEquals(FacesMessage.SEVERITY_ERROR, facesMessages.get(0).getSeverity());
-  }
-
   @Test
   public void getBrandingUrlObjectNotFoundException() throws ObjectNotFoundException {
     doThrow(mock(ObjectNotFoundException.class))
@@ -459,18 +304,6 @@ public class BrandBeanTest {
         .getBrandingUrl(anyString());
 
     final String url = brandBean.getBrandingUrl();
-
-    assertNull(url);
-  }
-
-  @Test
-  public void getCustomBootstrapUrlObjectNotFoundException() throws ObjectNotFoundException {
-    // TODO replace when Interface Method is added.
-    doThrow(mock(ObjectNotFoundException.class))
-        .when(marketplaceServiceMock)
-        .getBrandingUrl(anyString());
-
-    final String url = brandBean.getCustomBootstrapUrl();
 
     assertNull(url);
   }

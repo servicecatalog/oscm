@@ -38,12 +38,7 @@ import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
-import org.oscm.ui.common.ADMStringUtils;
-import org.oscm.ui.common.Constants;
-import org.oscm.ui.common.JSFUtils;
-import org.oscm.ui.common.ServiceAccess;
-import org.oscm.ui.common.TableHeightMap;
-import org.oscm.ui.common.UiDelegate;
+import org.oscm.ui.common.*;
 
 /** Managed bean to store session specific values which are not persisted in the database. */
 @SessionScoped
@@ -111,9 +106,6 @@ public class SessionBean implements Serializable {
 
   /** The marketplace brand URL which is currently used as a String. */
   private Map<String, String> brandUrlMidMapping = new HashMap<>();
-
-  /** The custom Bootstrap URL which is currently used as a String. */
-  private Map<String, String> customBootstrapUrlMidMapping = new HashMap<>();
 
   /** Caching marketplace trackingCodes */
   private Map<String, String> trackingCodeMapping = new HashMap<>();
@@ -373,17 +365,6 @@ public class SessionBean implements Serializable {
     return "/marketplace";
   }
 
-  public String getCustomBootstrapUrl() {
-    String customBootstrapUrl = customBootstrapUrlMidMapping.get(getMarketplaceId());
-    if (customBootstrapUrl == null) {
-      // TODO replace with new method from MarketplaceService.
-      customBootstrapUrl = getDefaultBootstrapUrl();
-
-      setCustomBootstrapUrl(customBootstrapUrl);
-    }
-    return customBootstrapUrl;
-  }
-
   private String removeCSSPath(final String brandUrl) {
     Matcher matcher = CSS_PATH_PATTERN.matcher(brandUrl);
     return matcher.replaceAll("$1");
@@ -397,10 +378,6 @@ public class SessionBean implements Serializable {
 
   public void setMarketplaceBrandUrl(String marketplaceBrandUrl) {
     brandUrlMidMapping.put(getMarketplaceId(), marketplaceBrandUrl);
-  }
-
-  public void setCustomBootstrapUrl(String customBootstrapUrl) {
-    customBootstrapUrlMidMapping.put(getMarketplaceId(), customBootstrapUrl);
   }
 
   public String getMarketplaceTrackingCode() {
@@ -424,11 +401,12 @@ public class SessionBean implements Serializable {
         + "/marketplace/css/mp.css";
   }
 
-  public String getDefaultBootstrapUrl() {
-    return getFacesContext().getExternalContext().getRequestContextPath()
-        + "/customBootstrap/css/darkCustom.css";
-  }
-
+  /**
+   * Checks if the error in the request header was also added to the faces context. This method is
+   * used to avoid that the same error is rendered twice.
+   *
+   * @return boolean
+   */
   public boolean isErrorMessageDuplicate() {
     FacesContext fc = FacesContext.getCurrentInstance();
     String errorKey = (String) getRequest().getAttribute(Constants.REQ_ATTR_ERROR_KEY);

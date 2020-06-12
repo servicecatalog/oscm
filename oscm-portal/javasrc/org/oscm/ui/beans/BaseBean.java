@@ -378,14 +378,12 @@ public class BaseBean {
   public static final String INFO_UDADEFINITIONS_SAVED = "info.udaDefinitions.saved";
   public static final String INFO_UDA_SAVED = "info.uda.saved";
   public static final String INFO_BRANDING_URL_SET = "info.brandingUrl.set";
-  public static final String INFO_CUSTOM_BOOTSTRAP_URL_SET = "info.customBootstrapUrl.set";
   public static final String INFO_CATEGORIES_SAVED = "info.categories.saved";
   public static final String INFO_VAT_SAVED = "info.vat.saved";
   public static final String INFO_COUNTRIES_SAVED = "info.countries.saved";
   public static final String INFO_CONFIGURATION_SAVED = "info.configuration.saved";
   public static final String INFO_CURRENCIES_ADDED = "info.currencies.added";
   public static final String INFO_WHITE_LABEL_BRANDING_URL_SET = "info.whiteLabelBrandingUrl.set";
-  public static final String INFO_DEFAULT_BOOTSTRAP_URL_SET = "info.defaultBootstrapUrl.set";
   public static final String INFO_RECOVERPASSWORD_START = "info.recoverpassword.start";
   public static final String INFO_RECOVERPASSWORD_SUCCESS = "info.recoverpassword.success";
   public static final String INFO_CSS_CONNECTION_SUCCESS = "info.cssConnection.success";

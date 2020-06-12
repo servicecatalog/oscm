@@ -49,17 +49,12 @@
         <adm:labelAndInputText id="brandUrl" label="#{msg['marketplace.brandUrl']}" value="#{brandBean.brandingUrl}"
           maxlength="#{appBean.descriptionLen}" validatorId="absOrRelUrl" styleClass="field" converterId="trimConverter"
           disabled="#{not brandBean.marketplaceSelected}" />
-         <!-- Custom Bootstrap URL -->
-        <adm:labelAndInputText id="customBootstrapUrl" label="#{msg['marketplace.customBootstrapUrl']}" value="#{brandBean.customBootstrapUrl}"
-          maxlength="#{appBean.descriptionLen}" validatorId="absOrRelUrl" styleClass="field" converterId="trimConverter"
-          disabled="#{not brandBean.marketplaceSelected}" />
-          
       </adm:panelGrid>
 
       <adm:buttonPanel>
-        <h:commandButton style="display:none;" id="validateUrlButton" action="#{brandBean.validateUrls}" />
+        <h:commandButton style="display:none;" id="validateUrlButton" action="#{brandBean.validateCurrentUrl}" />
         <adm:button id="saveButton" disabled="#{not brandBean.marketplaceSelected}" value="#{msg['button.save']}"
-          bean="#{brandBean}" action="saveUrls" buttonType="save" />
+          bean="#{brandBean}" action="saveBrandingUrl" buttonType="save" />
         <adm:buttonCustomizedOnClick id="testButton" disabled="#{not brandBean.marketplaceSelected}"
           value="#{msg['button.testConnection']}" buttonType="execute"
           onclick="setDirty(false);#{rich:element('validateUrlButton')}.click();return false;" />
