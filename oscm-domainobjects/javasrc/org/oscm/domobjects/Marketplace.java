@@ -231,7 +231,7 @@ public class Marketplace extends DomainObjectWithHistory<MarketplaceData> {
   }
 
   public void setCustomBootstrapUrl(String customBootstrapUrl) {
-    dataContainer.setBrandingUrl(customBootstrapUrl);
+    dataContainer.setCustomBootstrapUrl(customBootstrapUrl);
   }
 
   public void setCatalogEntries(List<CatalogEntry> catalogEntries) {
