@@ -678,6 +678,9 @@ public class TranslationBean extends BaseBean implements Serializable {
     try {
       getBrandManagementService()
           .setMarketplaceStage(stageContent, getMarketplaceBean().getMarketplaceId(), locale);
+      getBrandManagementService()
+          .setMarketplaceMobileStage(
+              mobileStageContent, getMarketplaceBean().getMarketplaceId(), locale);
     } catch (SaaSApplicationException e) {
       marketplaceBean.checkMarketplaceDropdownAndMenuVisibility(e);
       throw e;
@@ -685,33 +688,34 @@ public class TranslationBean extends BaseBean implements Serializable {
       setDirtyStage(false);
       stages = null;
       setShowConfirm(false);
-    }
-    addMessage(null, FacesMessage.SEVERITY_INFO, INFO_MARKETPLACE_STAGE_SAVED);
-    return null;
-  }
-
-  /**
-   * Saves the mobile stage for the selected locale.
-   *
-   * @return the logical outcome
-   * @throws SaaSApplicationException
-   */
-  public String saveMobileStage() throws SaaSApplicationException {
-    try {
-      getBrandManagementService()
-          .setMarketplaceMobileStage(
-              mobileStageContent, getMarketplaceBean().getMarketplaceId(), locale);
-    } catch (SaaSApplicationException ex) {
-      marketplaceBean.checkMarketplaceDropdownAndMenuVisibility(ex);
-      throw ex;
-    } finally {
-      setDirtyStage(false);
-      mobileStages = null;
       setShowConfirmMobile(false);
     }
     addMessage(null, FacesMessage.SEVERITY_INFO, INFO_MARKETPLACE_STAGE_SAVED);
     return null;
   }
+
+  //  /**
+  //   * Saves the mobile stage for the selected locale.
+  //   *
+  //   * @return the logical outcome
+  //   * @throws SaaSApplicationException
+  //   */
+  //  public String saveMobileStage() throws SaaSApplicationException {
+  //    try {
+  //      getBrandManagementService()
+  //          .setMarketplaceMobileStage(
+  //              mobileStageContent, getMarketplaceBean().getMarketplaceId(), locale);
+  //    } catch (SaaSApplicationException ex) {
+  //      marketplaceBean.checkMarketplaceDropdownAndMenuVisibility(ex);
+  //      throw ex;
+  //    } finally {
+  //      setDirtyStage(false);
+  //      mobileStages = null;
+  //      setShowConfirmMobile(false);
+  //    }
+  //    addMessage(null, FacesMessage.SEVERITY_INFO, INFO_MARKETPLACE_STAGE_SAVED);
+  //    return null;
+  //  }
 
   public void setShowConfirm(boolean showConfirm) {
     this.showConfirm = showConfirm;

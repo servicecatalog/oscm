@@ -77,8 +77,6 @@
       <h:commandButton style="display:none;" id="cancelPreview" value="" action="#{translationBean.cancelPreview}" />
       
       <adm:buttonPanel columns="1">
-        <adm:button id="saveButton" value="#{msg['button.save']}" bean="#{translationBean}" action="saveStage"
-                    disabled="#{marketplaceBean.disabledForEdit}" buttonType="save" />
         <adm:button id="preview" value="#{msg['button.preview']}" bean="#{translationBean}" action="preview"
           disabled="#{marketplaceBean.disabledForEdit}" buttonType="preview" />
       </adm:buttonPanel>
@@ -99,13 +97,14 @@
       <h:commandButton style="display:none;" id="cancelPreviewMobile" value="" action="#{translationBean.cancelPreviewMobile}" />
       
       <adm:buttonPanel columns="1">
-        <adm:button id="saveButton2" value="#{msg['button.save']}" bean="#{translationBean}" action="saveMobileStage"
-                    disabled="#{marketplaceBean.disabledForEdit}" buttonType="save" />
         <adm:button id="preview2" value="#{msg['button.preview']}" bean="#{translationBean}" action="previewMobile"
           disabled="#{marketplaceBean.disabledForEdit}" buttonType="preview" />
       </adm:buttonPanel>
       
-
+      <adm:buttonPanel columns="1">
+         <adm:button id="saveButton" value="#{msg['button.save']}" bean="#{translationBean}" action="saveStage"
+         disabled="#{marketplaceBean.disabledForEdit}" buttonType="save" />
+      </adm:buttonPanel>
     </h:form>
 
     <rich:popupPanel id="previewPanel" show="#{translationBean.showConfirm}" style="max-height:700px;" width="980" autosized="true"
@@ -169,7 +168,7 @@
         <b><h:outputText styleClass="stepDescription" value="#{msg['marketplace.stage.publish']}" /> </b>
         <adm:buttonPanel columns="2">
           <adm:buttonCustomizedOnClick id="okButton" value="#{msg['button.yes']}" buttonType="confirm"
-            onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('saveButton2')}.click();return false;" />
+            onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('saveButton')}.click();return false;" />
           <adm:buttonCustomizedOnClick id="cancelButton" value="#{msg['button.no']}" buttonType="cancel"
             onclick="setDirty(false);#{rich:element('cancelPreviewMobile')}.click();return false;" />
         </adm:buttonPanel>
