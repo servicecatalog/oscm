@@ -1,0 +1,83 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                template="../templates/mainBootstrap.xhtml">
+
+ <ui:define name="pageId">
+  <c:set var="pageId" value="marketplace.account.addUser"/>
+  <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+ </ui:define>
+
+ <ui:define name="breadcrumbs">
+  <mp:breadcrumbs>
+   <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/playground/account/index.jsf"/>
+   <mp:crumb labelPageId="marketplace.account.users" link="/marketplace/playground/account/users.jsf"/>
+   <mp:crumb labelPageId="marketplace.account.users.addUser"/>
+  </mp:breadcrumbs>
+ </ui:define>
+
+ <ui:define name="contentstitle">
+  <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
+   <br/>
+  </a4j:outputPanel>
+ </ui:define>
+
+ <ui:define name="aside">
+  <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.users.title"/>
+ </ui:define>
+
+ <ui:define name="contents">
+  <a4j:outputPanel id="all" styleClass="row" layout="block">
+   <div class="ml-4 mt-2 p-3 bg-light col">
+
+    <h:form id="userForm">
+     <mp:outputStep value="#{msg['marketplace.account.adduser.title']}"/>
+
+      <mp:formSelect id="salutation" label="#{msg['user.salutation']}"
+                     value="#{createUserCtrl.model.salutation.value}" selectStyle="custom-select">
+       <adm:salutationItems/>
+      </mp:formSelect>
+
+      <mp:formUserName firstNameId="firstName" firstNameValue="#{createUserCtrl.model.firstName.value}"
+                       lastNameId="lastName" lastNameValue="#{createUserCtrl.model.lastName.value}"
+                       inputStyle="form-control"/>
+
+      <mp:formInput id="email" label="#{msg['user.email']}" required="#{createUserCtrl.model.email.required}"
+                    value="#{createUserCtrl.model.email.value}" maxlength="#{appBean.nameLen}"
+                    validatorId="email" converterId="trimConverter" inputStyle="form-control"/>
+
+      <mp:formInput id="userId" label="#{msg['user.userId']}" required="#{createUserCtrl.model.userId.required}"
+                    value="#{createUserCtrl.model.userId.value}" maxlength="#{appBean.userIdLen}"
+                    validatorId="userId" converterId="trimConverter" inputStyle="form-control"/>
+
+      <mp:formSelect id="locale" label="#{msg['user.locale']}" value="#{createUserCtrl.model.locale.value}"
+                     selectStyle="custom-select" showHint="true">
+       <adm:localeItems/>
+       <f:validator validatorId="SupportedLanguageValidator"/>
+      </mp:formSelect>
+
+      <mp:message for="asAdmin"/>
+
+     <hr class="pt-2"/>
+
+     <a4j:outputPanel layout="block" styleClass="clearfix">
+      <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);location.href='users.jsf';return false;"
+                          value="#{msg['button.cancel']}" styleClass="btn btn-secondary"/>
+      <adm:buttonBootstrap id="createButton" value="#{msg['button.save']}" bean="#{createUserCtrl}" action="create"
+                           big="true" styleClass="btn btn-secondary float-right"/>
+     </a4j:outputPanel>
+
+     <script type="application/javascript">
+            AdmUtils.initRoleFieldSetup('unitRole', 'groupsCheckbox');
+            AdmUtils.initRoleFieldSetup('role', 'subscriptionCheckbox');
+     </script>
+    </h:form>
+
+   </div>
+  </a4j:outputPanel>
+ </ui:define>
+</ui:composition>
