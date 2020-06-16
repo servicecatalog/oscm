@@ -291,6 +291,14 @@
     <source>formInput.xhtml</source>
   </tag>
   <tag>
+    <tag-name>formSelect</tag-name>
+    <source>formSelect.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>formUserName</tag-name>
+    <source>formUserName.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>messageAndHintBootstrap</tag-name>
     <source>messageAndHintBootstrap.xhtml</source>
   </tag>

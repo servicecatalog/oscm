@@ -49,9 +49,9 @@
                         value="#{msg['button.select']}">
        </a4j:commandLink>
       </c:if>
-      <c:when test="#{(not empty showHint)}">
+      <c:if test="#{(not empty showHint)}">
        <mp:hintBootstrap for="#{id}"/>
-      </c:when>
+      </c:if>
      </div>
     </div>
    </div>
