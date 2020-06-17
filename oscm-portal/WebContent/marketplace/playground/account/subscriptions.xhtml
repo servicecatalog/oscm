@@ -20,7 +20,7 @@
  </ui:define>
 
  <ui:define name="aside">
-  <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}"  selected="marketplace.account.subscriptions.title" />
+  <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.subscriptions.title"/>
  </ui:define>
 
  <ui:define name="contents">
@@ -28,7 +28,7 @@
   <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
   <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
 
-  <a4j:outputPanel id="all" layout="block">
+  <a4j:outputPanel id="all" styleClass="row" layout="block">
 
    <h:form id="triggerSubListForm"
            rendered="#{not empty subscriptionsCtrl.triggerProcessesModel.waitingForApprovalSubs}">
@@ -37,15 +37,15 @@
     </ui:include>
    </h:form>
 
-   <h:form id="subListForm">
-    <a4j:outputPanel class="px-sm-4 pt-sm-4 table_container" >
-
+   <div class="mt-2 p-3 bg-light col">
+    <h:form id="subListForm">
      <mp:outputStep id="pageHeader" value="#{msg['subscriptions.table.availableToAdministrate']}"/>
      <mp:subscriptionFinderBootstrap formId="subListForm" styleClass="mb-3"
                                      searchPhraseProperty="#{subscriptionsCtrl.model.fullTextSearchFilterValue}"
                                      renderElementList="subscriptionsList subListPager subListPagerScripts :pagerPanel :subscriptionsListScripts"/>
      <rich:dataTable rows="10" id="subscriptionsList" value="#{subscriptionsCtrl.model}" var="sub"
-                     headerClass="rowTitle sortable" rowClasses="rowOdd, rowEven" columnHeaderClass="rowTitle sortable" noDataLabel=" "
+                     headerClass="rowTitle sortable" rowClasses="rowOdd, rowEven" columnHeaderClass="rowTitle sortable"
+                     noDataLabel=" "
                      styleClass="sortable table-hover table-bordered w-100"
                      headerCellClass="rowTitle sortable" columnClasses="wrapColumns">
 
@@ -54,11 +54,12 @@
         <rich:collapsibleSubTableToggler for="sbtbl"/>
        </a4j:outputPanel>
        <div class="d-none d-lg-block text-center">
-        <h:commandLink styleClass="editPenStyle" action="#{subscriptionsCtrl.showSubscriptionDetails(sub.subscriptionId, sub.subscriptionKey)}"
+        <h:commandLink styleClass="editPenStyle"
+                       action="#{subscriptionsCtrl.showSubscriptionDetails(sub.subscriptionId, sub.subscriptionKey)}"
                        render=":hiddenErrorPanel subListForm">
          <img src="/oscm-portal/marketplace/img/transparentPixel.png" class="editPen"/>
          <f:setPropertyActionListener target="#{subscriptionsCtrl.model.selectedSubscription}" value="#{sub}"/>
-         </h:commandLink>
+        </h:commandLink>
        </div>
       </rich:column>
 
@@ -83,8 +84,8 @@
        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
-       <ui:param name="headerClass" value="d-none d-lg-table-cell" />
-       <ui:param name="styleClass" value="d-none d-lg-table-cell" />
+       <ui:param name="headerClass" value="d-none d-lg-table-cell"/>
+       <ui:param name="styleClass" value="d-none d-lg-table-cell"/>
       </ui:include>
       <ui:include src="../subscriptions/subscriptionTableColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
@@ -96,9 +97,9 @@
        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
-       <ui:param name="headerClass" value="d-none d-xs-table-cell" />
-       <ui:param name="styleClass" value="d-none d-xs-table-cell" />
-       
+       <ui:param name="headerClass" value="d-none d-xs-table-cell"/>
+       <ui:param name="styleClass" value="d-none d-xs-table-cell"/>
+
       </ui:include>
       <ui:include src="../subscriptions/subscriptionTableColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
@@ -110,8 +111,8 @@
        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
-       <ui:param name="headerClass" value="d-none d-sm-table-cell" />
-       <ui:param name="styleClass" value="d-none d-sm-table-cell" />
+       <ui:param name="headerClass" value="d-none d-sm-table-cell"/>
+       <ui:param name="styleClass" value="d-none d-sm-table-cell"/>
       </ui:include>
       <ui:include src="../subscriptions/subscriptionTableDateColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
@@ -123,9 +124,9 @@
        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
        <ui:param name="queueName" value="accountSubscriptionsQueue"/>
-       <ui:param name="headerClass" value="d-none d-sm-table-cell" />
-       <ui:param name="styleClass" value="d-none d-sm-table-cell" />
-       
+       <ui:param name="headerClass" value="d-none d-sm-table-cell"/>
+       <ui:param name="styleClass" value="d-none d-sm-table-cell"/>
+
       </ui:include>
       <ui:include src="../subscriptions/subscriptionTableStatusColumn.xhtml">
        <ui:param name="bean" value="#{subscriptionsCtrl.model}"/>
@@ -188,8 +189,8 @@
        </rich:column>
       </rich:collapsibleSubTable>
      </rich:dataTable>
-    </a4j:outputPanel>
-   </h:form>
+    </h:form>
+   </div>
 
    <ui:include src="subscriptionAdministratePanel.xhtml">
     <ui:param name="dialogId" value="subscriptionAdministratePanel"/>

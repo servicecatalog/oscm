@@ -4361,8 +4361,6 @@ div#headerrightareaBootstrap, rightarea a {
 }
 
 .con-flow-root {
-  padding-right: 1.5rem;
-  padding-top: 1.5rem;
   display: flow-root;
 }
 

@@ -59,7 +59,7 @@
        <ui:insert name="feature" />
        <ui:insert name="breadcrumbs" />
 
-       <div class="aside">
+       <div class="aside pr-3">
         <ui:insert name="aside" />
       </div> 
       
@@ -84,7 +84,7 @@
         </a4j:outputPanel>
               
         <!-- error message container -->
-        <a4j:outputPanel id="globalMessagesHolder" class="con-flow-root pl-3" rendered="#{facesContext.maximumSeverity.ordinal >= 0}">
+        <a4j:outputPanel id="globalMessagesHolder" class="con-flow-root">
           <a4j:outputPanel id="errorPanel" layout="block" styleClass="errorPanel">
           </a4j:outputPanel>
 
