@@ -31,7 +31,7 @@
   <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
 
   <a4j:outputPanel id="all" styleClass="row" layout="block">
-   <div class="ml-4 mt-2 p-3 bg-light col">
+   <div class="mt-2 p-3 bg-light col">
 
     <h:form id="validateCurrentUserRolesForm">
      <a4j:jsFunction name="validateCurrentUserRoles"
@@ -229,15 +229,14 @@
                           onclick="if(getDirty()){#{rich:component('leaveConfirmPl')}.show();return false;}else{#{rich:element('confirmedBackBt')}.click(); return false;};"/>
       <mp:buttonBootstrap id="resetButton" value="#{msg['button.resetPwd']}" bean="#{updateUserCtrl}" action="resetPwd"
                           disabled="#{updateUserCtrl.resetPwdDisabled}" rendered="#{updateUserCtrl.resetPwdRendered}"
-                          styleClass="btn btn-warning ml-2"/>
+                          styleClass="btn btn-outline-secondary ml-2"/>
       <mp:buttonBootstrap id="deleteButton" value="#{msg['button.delete']}"
                           onclick="#{rich:component('confirmPanel')}.show();return false;"
-                          disabled="#{updateUserCtrl.deleteDisabled}" styleClass="btn btn-danger ml-2"/>
+                          disabled="#{updateUserCtrl.deleteDisabled}" styleClass="btn btn-outline-secondary ml-2"/>
       <h:commandButton id="saveButton" value="#{msg['button.save']}" action="#{updateUserCtrl.save}" class="d-none"/>
       <adm:buttonCustomizedOnClickBootstrap id="saveButtonLink" onclick="validateCurrentUserRoles();return false;"
                                             value="#{msg['button.save']}" disabled="#{updateUserCtrl.saveDisabled}"
-                                            buttonStyleClass="btn btn-outline-secondary float-right m-2"
-                                            buttonType="execute"/>
+                                            buttonStyleClass="btn btn-secondary float-right m-2" buttonType="execute"/>
      </a4j:outputPanel>
      <h:inputHidden value="#{updateUserModel.token}"/>
 
