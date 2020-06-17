@@ -74,7 +74,7 @@
                         rendered="#{not organizationBean.currentUser.remoteLdapActive and userBean.internalAuthMode}">
         <adm:buttonCustomizedOnClickBootstrap id="changePwdButton" value="#{msg['button.changePassword']}"
                                               onclick="showLoginPanel('');return false;"
-                                              styleClass="btn btn-secondary"/>
+                                              buttonStyleClass="btn btn-outline-secondary" buttonType="execute"/>
        </a4j:outputPanel>
        <mp:pixelline rendered="#{not organizationBean.currentUser.remoteLdapActive and userBean.internalAuthMode}"/>
 

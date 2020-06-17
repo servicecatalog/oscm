@@ -1265,7 +1265,7 @@
       <from-outcome>showServiceListPlayground</from-outcome>
       <to-view-id>/marketplace/playground/services.xhtml</to-view-id>
     </navigation-case>
-  </navigation-rule>  
+  </navigation-rule>
   <navigation-rule>
     <from-view-id>/marketplace/playground/account/manageTrigger.xhtml</from-view-id>
     <navigation-case>
@@ -1291,11 +1291,11 @@
     <from-view-id>/marketplace/playground/account/users.xhtml</from-view-id>
     <navigation-case>
       <from-outcome>showDetails</from-outcome>
-      <to-view-id>/marketplace/account/editUser.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/account/editUser.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>addUser</from-outcome>
-      <to-view-id>/marketplace/account/addUser.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/account/addUser.xhtml</to-view-id>
     </navigation-case>
     <navigation-case>
       <from-outcome>importUsers</from-outcome>
@@ -1316,7 +1316,7 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>refresh</from-outcome>
-      <to-view-id>/marketplace/account/users.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/account/users.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>

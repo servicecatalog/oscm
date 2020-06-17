@@ -53,7 +53,7 @@
                  onkeypress="if((event.which &lt; 48 || event.which &gt; 57) &amp;&amp; event.which != 8) return false;"/>
     <div class="input-group-append">
      <adm:buttonCustomizedOnClickBootstrap id="#{pagerId}pagerButton" value="#{msg['common.go']}"
-                                           buttonType="smallExecute"
+                                           buttonType="smallExecute" buttonStyleClass="btn btn-outline-secondary btn-sm"
                                            onclick="AdmUtils.pageTo(#{rich:element(pagerId)},#{rich:element(pageValue)});return false;"/>
     </div>
    </div>

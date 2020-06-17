@@ -32,7 +32,7 @@
 
   <c:if test="#{empty rendered or rendered}">
     <c:if test="#{disabled}">
-      <h:outputLink styleClass="disabled #{styleClass}" id="#{id}" value="#" onclick="return false;" disabled="true">
+      <h:outputLink styleClass="#{styleClass} disabled" id="#{id}" value="#" onclick="return false;" disabled="true">
         #{value}
       </h:outputLink>
     </c:if>
