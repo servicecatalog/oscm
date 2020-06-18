@@ -9,7 +9,7 @@
     <div class="cat-browseAll-btn">
       <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}"
         value="#{msg['button.browseAll']}"
-        class="btn-sm btn-secondary btn-lg text-lg-left text-center btn-block text-wrap">
+        class="btn-sm btn-secondary btn-lg text-center btn-block text-wrap">
         <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value="" />
         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value="" />
         <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />
@@ -17,12 +17,13 @@
     </div>
     <!-- Service categories list container-->
     <c:if test="#{categorySelectionBean.hasCategories}">
-      <div class="cat-list list-group shadow mb-2">
-        <c:set var="listItem" value="list-group-item list-group-item-secondary list-group-item-action p-1 cat-item" />
+      <div class="cat-list list-group mb-2">
+        <c:set var="listItem" value="list-group-item list-group-item-action list-group-item-primary cat-item" />
         <c:set var="activeListItem"
-          value="list-group-item list-group-item-action  list-group-item-primary text-center w-100 p-1 cat-item" />
+          value="list-group-item list-group-item-action btn-primary active text-center w-100 cat-item" />
 
-        <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
+
+      <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
           <!-- Selected category -->
           <h:commandLink id="categoryLink#{count.index}" value="#{cat.displayName}"
             styleClass="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? activeListItem : listItem}"
