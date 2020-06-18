@@ -34,14 +34,14 @@
 
  <ui:define name="contents">
   <a4j:outputPanel id="all" styleClass="row" layout="block">
-   <div class="p-3 ml-3 mt-2 bg-light col">
+   <div class="p-3 mt-2 bg-light col">
     <h:panelGroup id="operationsArea" rendered="true" layout="block">
      <mp:outputStep value="#{msg['marketplace.account.operations.manageOperations.title']}"/>
 
      <h:form id="operationsListForm">
       <a4j:outputPanel id="manageOperationsButtonPanel" layout="block" styleClass="clearfix">
 
-       <adm:buttonBootstrap id="deleteOperations" value="#{msg['button.delete']}" styleClass="btn btn-secondary pr-4"
+       <adm:buttonBootstrap id="deleteOperations" value="#{msg['button.delete']}" styleClass="btn btn-secondary mr-4"
                             disabled="#{operationRecordModel.buttonDisabled}">
         <a4j:ajax event="click" listener="#{operationRecordCtrl.deleteOperations}"
                   render=":operationsTablePanel,:manageOperationsButtonPanel,:scriptPanel"
@@ -144,7 +144,6 @@
            'operationCheckbox',
            '#{fn:length(operationRecordModel.operationRecords)}',
            'allOperationCheckbox');
-
      </script>
 
      <script>
@@ -159,7 +158,6 @@
          })
         });
        });
-
      </script>
     </a4j:outputPanel>
 

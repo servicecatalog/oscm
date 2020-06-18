@@ -29,41 +29,41 @@
  </ui:define>
 
  <ui:define name="contents">
-  <a4j:outputPanel id="all" layout="block">
-   <div class="con-flow-root pl-4">
-    <a4j:outputPanel layout="block" styleClass="clearfix">
-     <mp:outputStep value="#{msg['marketplace.account.reports.title']}"/>
-    </a4j:outputPanel>
+  <a4j:outputPanel id="all" styleClass="row" layout="block">
+    <div class="mt-2 p-3 bg-light col">
+     <a4j:outputPanel layout="block" styleClass="clearfix">
+      <mp:outputStep value="#{msg['marketplace.account.reports.title']}"/>
+     </a4j:outputPanel>
 
-    <a4j:outputPanel layout="block" styleClass="tablePanel">
-     <h:selectOneMenu styleClass="custom-select" value="#{reportBean.selectedReportUrl}"
-                      onchange="startService(this)">
-      <f:selectItem id="reportSelectBox" itemLabel="#{msg['marketplace.account.reports.noSelection']}"
-                    itemValue=""/>
-      <c:forEach items="#{reportBean.reportsForOrgAdmin}" var="report">
-       <f:selectItem itemLabel="#{report.localizedReportName}" itemValue="#{report.externalReportURL}"/>
-      </c:forEach>
-     </h:selectOneMenu>
-    </a4j:outputPanel>
-    <hr class="pt-1 pb-2"/>
+     <a4j:outputPanel layout="block" styleClass="tablePanel">
+      <h:selectOneMenu styleClass="custom-select" value="#{reportBean.selectedReportUrl}"
+                       onchange="startService(this)">
+       <f:selectItem id="reportSelectBox" itemLabel="#{msg['marketplace.account.reports.noSelection']}"
+                     itemValue=""/>
+       <c:forEach items="#{reportBean.reportsForOrgAdmin}" var="report">
+        <f:selectItem itemLabel="#{report.localizedReportName}" itemValue="#{report.externalReportURL}"/>
+       </c:forEach>
+      </h:selectOneMenu>
+     </a4j:outputPanel>
+     <hr class="pt-1 pb-2"/>
 
-    <a4j:outputPanel layout="block" styleClass="tablePanel">
-     <c:if test="#{empty reportBean.selectedReportUrl}">
-      <script>
+     <a4j:outputPanel layout="block" styleClass="tablePanel">
+      <c:if test="#{empty reportBean.selectedReportUrl}">
+       <script>
         var f = document.getElementById("reportFrame");
           if (f){f.style.display = "none";}
-      </script>
-     </c:if>
-     <c:if test="#{not empty reportBean.selectedReportUrl}">
-      <iframe id="reportFrame" src="#{reportBean.selectedReportUrl}" class="responsive-iframe"/>
-     </c:if>
-    </a4j:outputPanel>
+       </script>
+      </c:if>
+      <c:if test="#{not empty reportBean.selectedReportUrl}">
+       <iframe id="reportFrame" src="#{reportBean.selectedReportUrl}" class="responsive-iframe"/>
+      </c:if>
+     </a4j:outputPanel>
 
-    <h:form id="selectReportUrlForm">
-     <h:inputHidden id="selectedReportUrl" value="#{reportBean.selectedReportUrl}"/>
-     <h:commandButton class="d-none" id="initReportUrl" value="initReportUrl"
-                      action="#{reportBean.initReportUrl}"/>
-    </h:form>
+     <h:form id="selectReportUrlForm">
+      <h:inputHidden id="selectedReportUrl" value="#{reportBean.selectedReportUrl}"/>
+      <h:commandButton class="d-none" id="initReportUrl" value="initReportUrl"
+                       action="#{reportBean.initReportUrl}"/>
+     </h:form>
 
    </div>
   </a4j:outputPanel>
