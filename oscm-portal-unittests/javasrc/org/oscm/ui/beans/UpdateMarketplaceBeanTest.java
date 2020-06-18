@@ -46,6 +46,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.intf.MarketplaceService;
+import org.oscm.internal.intf.OperatorService;
 import org.oscm.internal.marketplace.MarketplaceServiceManagePartner;
 import org.oscm.internal.pricing.POMarketplacePriceModel;
 import org.oscm.internal.pricing.POMarketplacePricing;
@@ -56,10 +57,14 @@ import org.oscm.internal.tenant.ManageTenantService;
 import org.oscm.internal.types.exception.DomainObjectException.ClassEnum;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.OperationNotPermittedException;
+import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.internal.vo.VOOperatorOrganization;
 import org.oscm.internal.vo.VOUserDetails;
+import org.oscm.ui.beans.operator.OperatorSelectOrgCtrl;
+import org.oscm.ui.beans.operator.OperatorSelectOrgModel;
+import org.oscm.ui.common.UiDelegate;
 import org.oscm.ui.model.Marketplace;
 import org.oscm.ui.model.User;
 import org.oscm.ui.stubs.FacesContextStub;
@@ -607,6 +612,38 @@ public class UpdateMarketplaceBeanTest {
     umpb.applyOrgChange(null);
     // new model will be generated with blank fields
     assertEquals(umpb.getModel().getVersion(), 0);
+  }
+
+  @Test
+  public void applyOrgChange_valueSet()
+      throws ObjectNotFoundException, OrganizationAuthoritiesException {
+
+    // given
+    OperatorService operatorService = mock(OperatorService.class);
+    OperatorSelectOrgCtrl orgCtrl =
+        new OperatorSelectOrgCtrl() {
+          private static final long serialVersionUID = 1L;
+
+          @Override
+          protected OperatorService getOperatorService() {
+            return operatorService;
+          }
+        };
+    orgCtrl = spy(orgCtrl);
+    orgCtrl.ui = mock(UiDelegate.class);
+    OperatorSelectOrgModel operatorSelectOrgModel = new OperatorSelectOrgModel();
+    orgCtrl.setModel(operatorSelectOrgModel);
+    VOOperatorOrganization org = new VOOperatorOrganization();
+    org.setOrganizationId(mp.getOwningOrganizationId());
+
+    when(umpb.ui.findBean("operatorSelectOrgCtrl")).thenReturn(orgCtrl);
+    when(operatorService.getOrganization(anyString())).thenReturn(org);
+
+    // when
+    umpb.applyOrgChange(vMp2.getMarketplaceId());
+
+    // then
+    assertSame(vMp2.getOwningOrganizationId(), orgCtrl.getOrganizationId());
   }
 
   @Test
