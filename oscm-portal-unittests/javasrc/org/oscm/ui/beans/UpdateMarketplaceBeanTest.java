@@ -34,11 +34,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -328,11 +330,17 @@ public class UpdateMarketplaceBeanTest {
 
   @Test
   public void selectedMarketplaceChanged() {
+
+    // given
+    doNothing().when(umpb).initialize();
+
+    // when
     umpb.getModel().setMarketplaceId(vMp1.getMarketplaceId());
     umpb.marketplaceChanged();
 
     Marketplace model = umpb.getModel();
 
+    // then
     assertNotNull(model);
     assertEquals(vMp1.getMarketplaceId(), model.getMarketplaceId());
     assertEquals(vMp1.getName(), model.getName());
@@ -604,6 +612,7 @@ public class UpdateMarketplaceBeanTest {
   @Test
   public void applyOrgChange() {
     // given
+    doNothing().when(umpb).initialize();
     String mp2Id = vMp2.getMarketplaceId();
     mpPricing.getMarketplacePriceModel().getRevenueShare().setRevenueShare(BigDecimal.TEN);
     mpPricing.getPartnerPriceModel().getRevenueShareResellerModel().setRevenueShare(BigDecimal.ONE);

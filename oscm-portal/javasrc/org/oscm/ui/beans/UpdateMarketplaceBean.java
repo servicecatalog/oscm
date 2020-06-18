@@ -194,12 +194,16 @@ public class UpdateMarketplaceBean extends BaseBean {
 
     if (null != mp) {
       getRequest().getSession().setAttribute("organizationId", mp.getOwningOrganizationId());
-      OperatorSelectOrgCtrl c = ui.findBean("operatorSelectOrgCtrl");
-      c.getModel().setInitialized(false);
-      c.init();
+      initialize();
     }
 
     return OUTCOME_SUCCESS;
+  }
+
+  protected void initialize() {
+    OperatorSelectOrgCtrl c = ui.findBean("operatorSelectOrgCtrl");
+    c.getModel().setInitialized(false);
+    c.init();
   }
 
   public List<SelectItem> getSelectableMarketplaces() {
