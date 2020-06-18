@@ -41,7 +41,7 @@
   </h:form>
 
   <a4j:outputPanel id="all" styleClass="row" layout="block">
-   <div class="mx-4 mt-2 p-3 bg-light col">
+   <div class="ml-4 mt-2 p-3 bg-light col">
     <mp:outputStep value="#{msg['marketplace.account.profile.title']}"/>
 
     <h:inputHidden value="#{sessionBean.selectedTab}"/>
@@ -251,7 +251,7 @@
                         styleClass="table table-striped table-hover table-bordered sortable" render="pagerPanel"
                         rendered="#{(not empty manageAttributesCtrl.model.attributes)}" sortMode="single">
 
-         <rich:column styleClass="show-service-row col-icon" headerClass="show-service-row">
+         <rich:column styleClass="d-lg-none col-icon" headerClass="d-lg-none">
           <rich:collapsibleSubTableToggler for="sbtbl"/>
          </rich:column>
 
@@ -272,10 +272,10 @@
 
          <rich:column id="colVendor" width="#{mediumWidth}" sortBy="#{item.vendor.name}" sortIcon="#{sortIcon}"
                       sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                      sortOrder="#{tableState.sortOrders['mpColVendor']}" styleClass="column-service-hide"
+                      sortOrder="#{tableState.sortOrders['mpColVendor']}" styleClass="d-none d-lg-table-cell"
                       filterType="custom" filterValue="#{tableState.filterValues['colVendor']}"
                       filterExpression="#{adm:matchBegin(item.vendor.name, tableState.filterValues['colVendor'], false)}"
-                      headerClass="column-service-hide">
+                      headerClass="d-none d-lg-table-cell">
           <f:facet name="header">
            <h:outputText value="#{msg['marketplace.account.profile.attributes.vendor']}"/>
            <hr class="my-1"/>
@@ -290,7 +290,7 @@
 
          <rich:column width="#{smallWidth}" sortBy="#{item.udaDefinition.configurationType}" sortIcon="#{sortIcon}"
                       sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                      styleClass="column-unit-hide" headerClass="align-top column-unit-hide">
+                      styleClass="d-none d-sm-table-cell" headerClass="align-top d-none d-sm-table-cell">
           <f:facet name="header">
            <h:outputText value="#{msg['marketplace.account.profile.attributes.scope']}"/>
            <hr class="my-1"/>
@@ -319,8 +319,8 @@
                          maxlength="#{appBean.descriptionLen}" required="#{item.inputMandatory}" redisplay="true"
                          label="#{item.udaId}" rendered="#{item.inputEncrypted}" styleCLass="form-control form-check">
           </h:inputSecret>
-
          </rich:column>
+
          <f:facet name="footer">
           <a4j:outputPanel>
            <adm:pagerBootstrap pagerId="attributePager"/>
@@ -331,13 +331,13 @@
                                    expandMode="client" expanded="#{false}" rows="1">
           <rich:column colspan="4">
            <div class="container">
-            <div class="row show-service-row py-1">
+            <div class="row d-lg-none py-1">
              <div class="col-4">#{msg['marketplace.account.profile.attributes.vendor']}:</div>
              <div class="col-8">
               <h:outputText value="#{item.vendor.name}" styleClass="font-weight-bold"/>
              </div>
             </div>
-            <div class="row show-unit-row py-1">
+            <div class="row d-sm-none py-1">
              <div class="col-4">#{msg['marketplace.account.profile.attributes.scope']}:</div>
              <div class="col-8">
               <h:outputText value="#{msg[scopeKey]}" styleClass="font-weight-bold"/>

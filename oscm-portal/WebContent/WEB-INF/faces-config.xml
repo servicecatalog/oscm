@@ -1249,6 +1249,16 @@
       <to-view-id>/marketplace/playground/account/operations.xhtml</to-view-id>
       <redirect />
     </navigation-case>
+    <navigation-case>
+      <from-outcome>operations</from-outcome>
+      <to-view-id>/marketplace/playground/account/users.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>operations</from-outcome>
+      <to-view-id>/marketplace/playground/account/reports.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
   </navigation-rule>
   <navigation-rule>
     <navigation-case>
@@ -1274,6 +1284,39 @@
     <navigation-case>
       <from-outcome>serviceUpgrade</from-outcome>
       <to-view-id>/marketplace/subscriptions/upgrade/upgrade.xhtml</to-view-id>
+      <redirect />
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <from-view-id>/marketplace/playground/account/users.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>showDetails</from-outcome>
+      <to-view-id>/marketplace/account/editUser.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>addUser</from-outcome>
+      <to-view-id>/marketplace/account/addUser.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>importUsers</from-outcome>
+      <to-view-id>/marketplace/account/importUsers.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>ldapSettings</from-outcome>
+      <to-view-id>/marketplace/account/ldapSettings.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>addNewGroup</from-outcome>
+      <to-view-id>/marketplace/account/addGroup.xhtml</to-view-id>
+      <redirect/>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>editGroup</from-outcome>
+      <to-view-id>/marketplace/account/editGroup.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>refresh</from-outcome>
+      <to-view-id>/marketplace/account/users.xhtml</to-view-id>
       <redirect />
     </navigation-case>
   </navigation-rule>
