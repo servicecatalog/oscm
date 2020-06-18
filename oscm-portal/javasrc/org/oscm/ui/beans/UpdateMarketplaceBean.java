@@ -12,11 +12,13 @@ package org.oscm.ui.beans;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
+
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.marketplace.MarketplaceServiceManagePartner;
 import org.oscm.internal.pricing.POMarketplacePriceModel;
@@ -29,6 +31,7 @@ import org.oscm.internal.types.exception.OperationNotPermittedException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.VOMarketplace;
 import org.oscm.string.Strings;
+import org.oscm.ui.beans.operator.OperatorSelectOrgCtrl;
 import org.oscm.ui.common.MarketplacesComparator;
 import org.oscm.ui.model.Marketplace;
 import org.oscm.ui.model.User;
@@ -191,6 +194,9 @@ public class UpdateMarketplaceBean extends BaseBean {
 
     if (null != mp) {
       getRequest().getSession().setAttribute("organizationId", mp.getOwningOrganizationId());
+      OperatorSelectOrgCtrl c = ui.findBean("operatorSelectOrgCtrl");
+      c.getModel().setInitialized(false);
+      c.init();
     }
 
     return OUTCOME_SUCCESS;
