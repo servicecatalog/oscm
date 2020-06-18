@@ -1,0 +1,153 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!-- TODO Update with bootstrap -->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+ <c:set var="imgUrl"
+        value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+ <c:set var="sortIcon"
+        value="/marketplace/img/transparentPixel.png?id=sort"/>
+ <c:set var="sortIconAscending"
+        value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
+ <c:set var="sortIconDescending"
+        value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
+ <c:set var="iconWidth" value="4%"/>
+ <c:set var="normalWidth" value="24%"/>
+ <c:set var="moreWidth" value="48%"/>
+
+ <a4j:outputPanel layout="block" styleClass="tablePanel table_padding"
+                  style="margin-top: 10px;">
+  <a4j:queue requestDelay="500" ignoreDupResponses="true"
+             oncomplete="jQuery('body').removeClass('hourglass');"
+             onsubmit="jQuery('body').addClass('hourglass');"/>
+  <rich:dataTable width="100%"
+                  style="min-width:680px;position:relative;"
+                  rows="10"
+                  headerClass="rowTitle" rowClasses="rowOdd,rowEven"
+                  id="groupListTable"
+                  value="#{userGroupListCtrl.model.groups}" var="group"
+                  columnClasses="wrapColumns" selectionMode="single"
+                  onRowMouseOver="AdmUtils.mouseOverRowCell(this);"
+                  onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
+                  enableContextMenu="false" noDataLabel=" "
+                  render="pagerPanel" sortMode="single">
+
+   <rich:column id="colEditGroup" width="#{iconWidth}"
+                styleClass="tableColumnCheckBox">
+    <h:commandLink action="#{manageGroupCtrl.confirmIfUnitExists()}">
+     <img src="#{imgUrl}/transparentPixel.png" class="editPen" alt=""/>
+     <f:param name="groupId" value="#{group.key}"/>
+    </h:commandLink>
+   </rich:column>
+
+   <rich:column id="colGroupName" width="#{moreWidth}"
+                sortBy="#{group.groupName}"
+                sortIcon="#{sortIcon}"
+                sortIconAscending="#{sortIconAscending}"
+                sortIconDescending="#{sortIconDescending}"
+                style="min-width: 200px;"
+                filterType="custom"
+                filterValue="#{tableState.filterValues['colGroupName']}"
+                filterExpression="#{adm:matchBegin(group.groupName, tableState.filterValues['colGroupName'], false)}">
+    <f:facet name="header">
+     <h:outputText value="#{msg['group.groupName']}"/>
+     <adm:filterInput inputId="filterGroupName"
+                      inputValue="#{tableState.filterValues['colGroupName']}"
+                      render="groupListTable@body, pagerPanel"/>
+    </f:facet>
+    <a4j:outputPanel layout="block" id="groupNameText"
+                     styleClass="stringInMultiLine preserveWhitespaces">
+     <h:outputText id="groupName" value="#{group.groupName}"/>
+    </a4j:outputPanel>
+   </rich:column>
+
+   <rich:column id="colGroupReferenceId" width="#{moreWidth}"
+                sortBy="#{group.groupReferenceId}"
+                sortIcon="#{sortIcon}"
+                sortIconAscending="#{sortIconAscending}"
+                sortIconDescending="#{sortIconDescending}"
+                style="min-width: 100px;"
+                filterType="custom"
+                filterValue="#{tableState.filterValues['colGroupReferenceId']}"
+                filterExpression="#{adm:matchBegin(group.groupReferenceId, tableState.filterValues['colGroupReferenceId'], false)}">
+    <f:facet name="header">
+     <h:outputText value="#{msg['group.referenceId']}"/>
+     <adm:filterInput inputId="filterGroupReferenceId"
+                      inputValue="#{tableState.filterValues['colGroupReferenceId']}"
+                      render="groupListTable@body, pagerPanel"/>
+    </f:facet>
+    <a4j:outputPanel layout="block" id="groupReferenceIdText"
+                     styleClass="stringInMultiLine preserveWhitespaces">
+     <h:outputText id="groupReferenceId"
+                   value="#{group.groupReferenceId}"
+                   title="#{group.groupReferenceId}"/>
+    </a4j:outputPanel>
+   </rich:column>
+
+   <rich:column id="colGroupDescription" width="#{normalWidth}"
+                sortBy="#{group.groupDescription}"
+                sortIcon="#{sortIcon}"
+                sortIconAscending="#{sortIconAscending}"
+                sortIconDescending="#{sortIconDescending}"
+                filterType="custom"
+                filterValue="#{tableState.filterValues['colGroupDescription']}"
+                filterExpression="#{adm:matchBegin(group.groupDescription, tableState.filterValues['colGroupDescription'], false)}">
+    <f:facet name="header">
+     <h:outputText value="#{msg['group.groupDescription']}"/>
+     <adm:filterInput inputId="filterGroupDescription"
+                      inputValue="#{tableState.filterValues['colGroupDescription']}"
+                      render="groupListTable@body, pagerPanel"/>
+    </f:facet>
+    <a4j:outputPanel layout="block" id="groupDescriptionText"
+                     styleClass="clippedOutputLabel shortenedText preserveWhitespaces">
+     <h:outputText id="groupDescription"
+                   value="#{group.groupDescription}"
+                   title="#{group.groupDescription}"/>
+    </a4j:outputPanel>
+   </rich:column>
+
+   <rich:column id="colNumberOfUsers"
+                sortBy="#{group.userNum}"
+                sortIcon="#{sortIcon}"
+                sortIconAscending="#{sortIconAscending}"
+                sortIconDescending="#{sortIconDescending}"
+                filterType="custom"
+                filterValue="#{tableState.filterValues['colNumberOfUsers']}"
+                style="min-width: 120px;"
+                filterExpression="#{adm:matchBegin(group.userNum, tableState.filterValues['colNumberOfUsers'], false)}">
+    <f:facet name="header">
+     <h:outputText value="#{msg['group.numberOfUsers']}"/>
+     <adm:filterInput inputId="filterUserNum"
+                      inputValue="#{tableState.filterValues['colNumberOfUsers']}"
+                      render="groupListTable@body, pagerPanel"/>
+    </f:facet>
+    <a4j:outputPanel layout="block" id="groupUserNumber">
+     <h:outputText id="numberOfUsers" value="#{group.userNum}"/>
+    </a4j:outputPanel>
+   </rich:column>
+
+   <rich:column id="colDeleteGroup" width="#{iconWidth}" rendered="#{showDeleteButtons}">
+    <a4j:commandButton styleClass="deleteButton" id="deleteBt"
+                       action="#{userGroupListCtrl.determineDeleteGroup}"
+                       image="/marketplace/img/transparentPixel.png"
+                       title="#{msg['group.delete.title']}"
+                       rendered="#{not group.default}"
+                       render="deleteConfirmPl"
+                       oncomplete="#{rich:component('deleteConfirmPl')}.show();return false;">
+     <a4j:param name="groupKeyToDelete" value="#{group.key}"/>
+     <a4j:param name="groupNameToDelete"
+                value="#{group.groupName}"/>
+    </a4j:commandButton>
+   </rich:column>
+
+   <f:facet name="header">
+    <adm:pager pagerId="groupListPager"/>
+   </f:facet>
+  </rich:dataTable>
+ </a4j:outputPanel>
+
+</ui:composition>

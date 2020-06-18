@@ -1,0 +1,19 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+
+ <ui:param name="key" value="#{empty label ? 'common.filename' : label}"/>
+ <adm:outputLabel value="#{msg[key]}" rendered="#{(empty rendered or rendered) and (empty labels)}" required="true"/>
+
+ <div class="custom-file mr-1">
+  <h:inputFile id="file" label="#{msg['common.filename']}" disabled="#{disabled}"
+               onchange="jQuery('.custom-file-label').text(this.value);setDirty(true)"
+               value="#{value}" size="48" styleClass="fileChooser d-none"
+               required="#{(empty required or required) and (empty rendered or rendered)}"
+               rendered="#{empty rendered or rendered}" requiredMessage="#{msg['error.upload.fileNotNullNorEmpty']}"/>
+  <h:outputLabel id="inputFile" class="custom-file-label btn text-left" for="file"/>
+ </div>
+ <adm:message for="file" rendered="#{(empty rendered or rendered) and (empty labels)}"/>
+</ui:composition>

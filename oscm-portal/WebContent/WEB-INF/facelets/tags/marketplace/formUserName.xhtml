@@ -1,0 +1,20 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+ <mp:formInput id="#{firstNameId}" label="#{msg['user.firstName']}" value="#{firstNameValue}"
+               maxlength="#{appBean.nameLen}" disabled="#{firstNameDisabled}" converterId="trimConverter"
+               inputStyle="#{inputStyle}" rendered="#{not sessionBean.nameSequenceReversed}"
+               labelStyle="#{labelStyle}"/>
+ <mp:formInput id="#{lastNameId}" label="#{msg['user.lastName']}" value="#{lastNameValue}"
+               maxlength="#{appBean.nameLen}" disabled="#{lastNameDisabled}" converterId="trimConverter"
+               inputStyle="#{inputStyle}" labelStyle="#{labelStyle}"/>
+ <c:if test="#{sessionBean.nameSequenceReversed}">
+  <mp:formInput id="#{firstNameId}2" label="#{msg['user.firstName']}" value="#{firstNameValue}"
+                maxlength="#{appBean.nameLen}" disabled="#{firstNameDisabled}" converterId="trimConverter"
+                inputStyle="#{inputStyle}" rendered="#{sessionBean.nameSequenceReversed}"
+                labelStyle="#{labelStyle}"/>
+ </c:if>
+</ui:composition>

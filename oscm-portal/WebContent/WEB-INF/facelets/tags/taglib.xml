@@ -264,8 +264,12 @@
     <source>passwordBootstrap.xhtml</source>
   </tag>
   <tag>
-    <tag-name>labelAndInputSecretBootstrap</tag-name>
-    <source>labelAndInputSecretBootstrap.xhtml</source>
+    <tag-name>formSecret</tag-name>
+    <source>formSecret.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>fileUploadBootstrap</tag-name>
+    <source>fileUploadBootstrap.xhtml</source>
   </tag>
 
   <function>
