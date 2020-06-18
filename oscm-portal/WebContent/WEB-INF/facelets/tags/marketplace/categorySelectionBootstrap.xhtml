@@ -1,38 +1,37 @@
 <!-- Copyright FUJITSU LIMITED 2020-->
 <!DOCTYPE html >
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
->
-  <h:form id="categorySelectionForm"
-          rendered="#{marketplaceConfigurationBean.currentConfiguration.categoriesEnabled}">
-    <f:phaseListener binding="#{categorySelectionBean.listener}"/>
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+  xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:form id="categorySelectionForm" rendered="#{marketplaceConfigurationBean.currentConfiguration.categoriesEnabled}">
+    <f:phaseListener binding="#{categorySelectionBean.listener}" />
     <!-- Browse all services button container-->
-    <div>
+    <div class="cat-browseAll-btn">
       <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}"
-                       value="#{msg['button.browseAll']}"
-                       class="btn-sm btn-secondary btn-lg text-lg-left text-center btn-block text-wrap">
-        <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value=""/>
-        <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
-        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
+        value="#{msg['button.browseAll']}"
+        class="btn-sm btn-secondary btn-lg text-center btn-block text-wrap">
+        <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value="" />
+        <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value="" />
+        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />
       </h:commandButton>
     </div>
     <!-- Service categories list container-->
     <c:if test="#{categorySelectionBean.hasCategories}">
-      <div class="list-group shadow mb-2">
-        <c:set var="listItem" value="list-group-item list-group-item-action text-center text-lg-left"/>
-        <c:set var="activeListItem" value="list-group-item list-group-item-action list-group-item-secondary active text-center text-lg-left"/>
-        <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
+      <div class="cat-list list-group mb-2">
+        <c:set var="listItem" value="list-group-item list-group-item-action list-group-item-primary cat-item" />
+        <c:set var="activeListItem"
+          value="list-group-item list-group-item-action btn-primary active text-center w-100 cat-item" />
+
+
+      <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
           <!-- Selected category -->
-            <h:commandLink id="categoryLink#{count.index}" value="#{cat.displayName}"
-                           styleClass="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? activeListItem : listItem}"
-                           action="#{categorySelectionBean.selectByCategory}"
-                           actionListener="#{serviceListingBean.reloadData}">
-              <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
-                                           value="#{cat.categoryId}"/>
-              <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
-                                           value="#{cat.displayName}"/>
-            </h:commandLink>
+          <h:commandLink id="categoryLink#{count.index}" value="#{cat.displayName}"
+            styleClass="#{cat.categoryId eq categorySelectionBean.selectedCategoryId ? activeListItem : listItem}"
+            action="#{categorySelectionBean.selectByCategory}" actionListener="#{serviceListingBean.reloadData}">
+            <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value="#{cat.categoryId}" />
+            <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}"
+              value="#{cat.displayName}" />
+          </h:commandLink>
         </c:forEach>
       </div>
     </c:if>
