@@ -42,8 +42,8 @@
 
      <div class="list-group list-group-horizontal-sm text-center" id="userAndGroupTablePanel" role="tablist">
       <a class="list-group-item list-group-item-secondary list-group-item-action active" id="tabUser" data-toggle="tab"
-         href="#user" role="tab" aria-controls="user"
-         onclick="setSelectedTab('tabUser');">#{msg['subscription.users']}</a>
+         href="#user" role="tab" aria-controls="user" onclick="setSelectedTab('tabUser');">
+       #{msg['subscription.users']}</a>
       <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabGroups" data-toggle="tab"
          href="#units" aria-controls="units" aria-selected="false"
          role="tab" onclick="setSelectedTab('tabGroups');">#{msg['subscription.users.Groups']}</a>
@@ -87,7 +87,7 @@
                          styleClass="sortable table-hover table-bordered w-100" sortMode="single"
                          rowClasses="rowOdd, rowEven" columnClasses="wrapColumns" selectionMode="single" noDataLabel=" "
                          columnHeaderClass="rowTitle sortable" enableContextMenu="false"
-                         headerClass="rowTitle sortable" headerCellClass="rowTitle sortable" >
+                         headerClass="rowTitle sortable" headerCellClass="rowTitle sortable">
 
           <rich:column width="#{iconWidth}" styleClass="tableColumnCheckBox text-center align-middle">
            <a4j:outputPanel styleClass="d-sm-none">
@@ -217,17 +217,13 @@
        </h:form>
       </div>
 
-      <div id="groups" class="tab-pane fade py-4" role="tabpanel" aria-labelledby="nav-org-tab">
+      <div id="units" class="tab-pane fade py-4" role="tabpanel" aria-labelledby="nav-org-tab">
        <h:form id="groupsListForm">
         <a4j:outputPanel layout="block" styleClass="clearfix">
-         <h:link styleClass="button" id="addGroupButton" outcome="addNewGroup">
-          <span style="white-space: nowrap;">#{msg['button.addGroup']}</span>
+         <h:link styleClass="btn btn-secondary" id="addGroupButton" outcome="addNewGroup">
+          <span class="text-truncate">#{msg['button.addGroup']}</span>
          </h:link>
         </a4j:outputPanel>
-
-        <c:set var="iconWidth" value="4%"/>
-        <c:set var="normalWidth" value="24%"/>
-        <c:set var="moreWidth" value="48%"/>
 
         <div class="userTablePanel">
          <ui:include src="unitsTable.xhtml">
@@ -242,12 +238,11 @@
     </ui:fragment>
 
     <h:form id="deleteGroupForm">
-     <mp:confirmPanel panelId="deleteConfirmPl" header="#{msg['group.delete.title']}" bean="#{userGroupListCtrl}"
+     <mp:modalDialog panelId="deleteConfirmPl" header="#{msg['group.delete.title']}" bean="#{userGroupListCtrl}"
                       text1="#{userGroupListCtrl.model.deleteMessage}" text2="#{msg['marketplace.areyousure']}"
                       submitId="confirmedDeleteBt"/>
-     <a4j:commandButton style="display:none;" id="confirmedDeleteBt" action="#{userGroupListCtrl.deleteUserGroup}"
-                        onclick="setDirty(false);AdmUtils.showProgress(true);"
-                        oncomplete="#{rich:component('deleteConfirmPl')}.hide(); AdmUtils.showProgress(false);">
+     <a4j:commandButton styleClass="d-none" id="confirmedDeleteBt" action="#{userGroupListCtrl.deleteUserGroup}"
+                        onclick="setDirty(false);AdmUtils.showProgress(true);">
      </a4j:commandButton>
     </h:form>
     <h:form>
