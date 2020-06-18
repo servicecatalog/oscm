@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*
+/* 
  *  Copyright FUJITSU LIMITED 2020
  */
 /* --------------------------------------------------------------------
@@ -3609,8 +3609,6 @@ div#headerrightareaBootstrap, rightarea a {
   padding-top: 32px; }
 
 .con-flow-root {
-  display: flow-root;
-}
   display: flow-root; }
 
 .con-width {

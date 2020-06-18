@@ -41,7 +41,7 @@
      <h:form id="operationsListForm">
       <a4j:outputPanel id="manageOperationsButtonPanel" layout="block" styleClass="clearfix">
 
-       <adm:buttonBootstrap id="deleteOperations" value="#{msg['button.delete']}" styleClass="btn btn-secondary pr-4"
+       <adm:buttonBootstrap id="deleteOperations" value="#{msg['button.delete']}" styleClass="btn btn-secondary mr-4"
                             disabled="#{operationRecordModel.buttonDisabled}">
         <a4j:ajax event="click" listener="#{operationRecordCtrl.deleteOperations}"
                   render=":operationsTablePanel,:manageOperationsButtonPanel,:scriptPanel"
