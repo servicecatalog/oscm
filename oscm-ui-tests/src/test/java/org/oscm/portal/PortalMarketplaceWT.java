@@ -11,7 +11,11 @@ package org.oscm.portal;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
@@ -92,7 +96,6 @@ public class PortalMarketplaceWT {
   }
 
   // FIXME test ignored due #787
-  @Ignore
   @Test
   public void test04addCategory() throws Exception {
     tester.visitPortal(PortalPathSegments.MANAGE_CATEGORIES);
