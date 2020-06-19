@@ -271,10 +271,6 @@
     <tag-name>fileUploadBootstrap</tag-name>
     <source>fileUploadBootstrap.xhtml</source>
   </tag>
-  <tag>
-    <tag-name>fileUploadBootstrap</tag-name>
-    <source>fileUploadBootstrap.xhtml</source>
-  </tag>
 
   <function>
     <function-name>matchBegin</function-name>
