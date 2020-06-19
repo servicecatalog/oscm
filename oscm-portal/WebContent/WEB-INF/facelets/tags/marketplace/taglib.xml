@@ -314,8 +314,4 @@
     <tag-name>hintBootstrap</tag-name>
     <source>hintBootstrap.xhtml</source>
   </tag>
-  <tag>
-    <tag-name>modalDialog</tag-name>
-    <source>modalDialog.xhtml</source>
-  </tag>
 </facelet-taglib>
