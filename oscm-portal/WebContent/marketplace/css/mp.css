@@ -3539,21 +3539,16 @@ div#headerrightareaBootstrap, rightarea a {
     display: block; } }
 @media (max-width: 767px) {
   .aside {
-
-    float: none;
-  }
-}
-
+    float: none; } }
 .cat-item {
   border-radius: 0px !important;
   margin: -2px 0px 0px 0px;
   max-height: 30px;
   font-size: 0.8rem;
   vertical-align: middle !important;
-  text-align: center;
-}
+  text-align: center; }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.4 Cards
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .card-header {

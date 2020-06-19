@@ -13,13 +13,13 @@
    <c:set var="buttonStyleClass" value="no-button-style-class"/>
   </c:if>
   <a4j:outputPanel rendered="#{disabled}" ajaxRendered="true">
-   <h:commandLink disabled="true" id="#{id}Disabled" styleClass="btn btn-outline-secondary btn-sm disabled"
-                  rendered="#{not empty buttonType}">#{value}
+   <h:commandLink disabled="true" id="#{id}Disabled" rendered="#{not empty buttonType}"
+                  styleClass="#{buttonStyleClass} disabled">#{value}
    </h:commandLink>
   </a4j:outputPanel>
 
   <a4j:outputPanel rendered="#{not disabled}" ajaxRendered="true">
-   <h:commandLink id="#{id}" onclick="#{onclick}" styleClass="btn btn-outline-secondary btn-sm"
+   <h:commandLink id="#{id}" onclick="#{onclick}" styleClass="#{buttonStyleClass}"
                   rendered="#{not empty buttonType}">#{value}
    </h:commandLink>
   </a4j:outputPanel>

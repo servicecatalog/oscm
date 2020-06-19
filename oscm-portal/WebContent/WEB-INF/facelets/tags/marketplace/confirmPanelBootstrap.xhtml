@@ -2,9 +2,8 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
-                xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
 
   <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
 
@@ -20,26 +19,23 @@
   </c:if>
 
   <rich:popupPanel id="${modalId}" trimOverlayedElements="false" resizeable="false" autosized="true"
-                   styleClass="responsive-dialog-container"
-                   onresize="return false;" zindex="16000"
+                   styleClass="responsive-dialog-container" onresize="return false;" zindex="16000"
                    onshow="AdmUtils.adjustMplModalDialogPosition('${modalId}');AdmUtils.showProgress(false);"
                    onbeforeshow="AdmUtils.setPageOverflow('hidden');" onhide="#{handleOnHideConfirmModal}">
 
     <img onclick="#{rich:component(modalId)}.hide();" src="#{imgUrl}/transparentPixel.png" class="closeButton"/>
-    <h2>
+    <h1>
       <h:outputText value="#{header}"/>
-    </h2>
-    <div class="border-top">
+    </h1>
+    <div class="border-top py-2">
       <h3 class="my-2">
-        <h:outputText value="#{text1}"/>
+        <strong><h:outputText value="#{text1}"/></strong>
       </h3>
       <h2>
         <h:outputText value="#{text2}"/>
       </h2>
     </div>
-    <a4j:outputPanel layout="block" styleClass="row no-gutters border-top pt-2">
-      <mp:buttonBootstrap id="${modalId}OkButton" value="#{msg['button.yes']}" styleClass="btn-sm btn-secondary"
-                          onclick="AdmUtils.showProgress(true);#{rich:element(submitId)}.click(); return false;"/>
+    <a4j:outputPanel layout="block" styleClass="row no-gutters border-top pt-2 row-justify-space">
       <c:choose>
         <c:when test="#{empty cancelAction}">
           <mp:buttonBootstrap id="${modalId}CancelButton" value="#{msg['button.no']}"
@@ -52,6 +48,8 @@
                               oncomplete="AdmUtils.showProgress(false);#{rich:component(modalId)}.hide();return false;"/>
         </c:otherwise>
       </c:choose>
+      <mp:buttonBootstrap id="${modalId}OkButton" value="#{msg['button.yes']}" styleClass="btn-sm btn-secondary"
+                          onclick="AdmUtils.showProgress(true);#{rich:element(submitId)}.click(); return false;"/>
     </a4j:outputPanel>
   </rich:popupPanel>
 </ui:composition>
