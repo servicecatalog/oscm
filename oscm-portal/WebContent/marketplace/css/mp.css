@@ -2832,9 +2832,6 @@ div.pagenate div.pagingBar .previous {
   -webkit-transform: scale(1.5, 1.5);
   -o-transform: scale(1.5, 1.5); }
 
-.trash-button {
-  color: red; }
-
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 8.6 Miscellaneous Graphics
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
@@ -3542,21 +3539,8 @@ div#headerrightareaBootstrap, rightarea a {
     display: block; } }
 @media (max-width: 767px) {
   .aside {
-
-    float: none;
-  }
-}
-
-.cat-item {
-  border-radius: 0px !important;
-  margin: -2px 0px 0px 0px;
-  max-height: 30px;
-  font-size: 0.8rem;
-  vertical-align: middle !important;
-  text-align: center;
-}
-
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- 
+    float: none; } }
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.4 Cards
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .card-header {
