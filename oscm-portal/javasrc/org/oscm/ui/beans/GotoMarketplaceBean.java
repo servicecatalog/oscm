@@ -72,14 +72,18 @@ public class GotoMarketplaceBean extends BaseBean implements Serializable {
       Set<VOMarketplace> marketplacesToDisplay, List<VOMarketplace> marketplaces, String tenantId) {
 
     for (VOMarketplace marketplace : marketplaces) {
-      if (!validateMarketplaceTenant(marketplace, tenantId)) {
+      if (!validateMarketplaceAccess(marketplace, tenantId)) {
         continue;
       }
+
       marketplacesToDisplay.add(marketplace);
     }
   }
 
-  boolean validateMarketplaceTenant(VOMarketplace marketplace, String tenantId) {
+  boolean validateMarketplaceAccess(VOMarketplace marketplace, String tenantId) {
+    if (marketplace.isRestricted()) {
+      return false;
+    }
     return StringUtils.equals(marketplace.getTenantId(), tenantId);
   }
 

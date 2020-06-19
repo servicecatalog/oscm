@@ -95,10 +95,7 @@ public class GotoMarketplaceBeanTest {
     // when
     int size = marketplaceGotoBean.getMarketplaces().size();
     // then
-    assertEquals(1, size);
-    SelectItem i = marketplaceGotoBean.getMarketplaces().get(0);
-    assertTrue(i.getValue() instanceof String);
-    assertEquals("restrictedMp", (String) i.getValue());
+    assertEquals(0, size);
   }
 
   @Test
@@ -234,7 +231,7 @@ public class GotoMarketplaceBeanTest {
 
     // when
     boolean validationResult =
-        marketplaceGotoBean.validateMarketplaceTenant(mpl, currentUserTenantId);
+        marketplaceGotoBean.validateMarketplaceAccess(mpl, currentUserTenantId);
 
     // then
     assertTrue(validationResult);
@@ -250,7 +247,7 @@ public class GotoMarketplaceBeanTest {
 
     // when
     boolean validationResult =
-        marketplaceGotoBean.validateMarketplaceTenant(mpl, currentUserTenantId);
+        marketplaceGotoBean.validateMarketplaceAccess(mpl, currentUserTenantId);
 
     // then
     assertFalse(validationResult);
@@ -266,7 +263,7 @@ public class GotoMarketplaceBeanTest {
 
     // when
     boolean validationResult =
-        marketplaceGotoBean.validateMarketplaceTenant(mpl, currentUserTenantId);
+        marketplaceGotoBean.validateMarketplaceAccess(mpl, currentUserTenantId);
 
     // then
     assertFalse(validationResult);
@@ -282,7 +279,7 @@ public class GotoMarketplaceBeanTest {
 
     // when
     boolean validationResult =
-        marketplaceGotoBean.validateMarketplaceTenant(mpl, currentUserTenantId);
+        marketplaceGotoBean.validateMarketplaceAccess(mpl, currentUserTenantId);
 
     // then
     assertFalse(validationResult);
@@ -298,7 +295,7 @@ public class GotoMarketplaceBeanTest {
 
     // when
     boolean validationResult =
-        marketplaceGotoBean.validateMarketplaceTenant(mpl, currentUserTenantId);
+        marketplaceGotoBean.validateMarketplaceAccess(mpl, currentUserTenantId);
 
     // then
     assertFalse(validationResult);
@@ -314,7 +311,7 @@ public class GotoMarketplaceBeanTest {
 
     // when
     boolean validationResult =
-        marketplaceGotoBean.validateMarketplaceTenant(mpl, currentUserTenantId);
+        marketplaceGotoBean.validateMarketplaceAccess(mpl, currentUserTenantId);
 
     // then
     assertTrue(validationResult);
@@ -330,7 +327,7 @@ public class GotoMarketplaceBeanTest {
 
     // when
     boolean validationResult =
-        marketplaceGotoBean.validateMarketplaceTenant(mpl, currentUserTenantId);
+        marketplaceGotoBean.validateMarketplaceAccess(mpl, currentUserTenantId);
 
     // then
     assertTrue(validationResult);
