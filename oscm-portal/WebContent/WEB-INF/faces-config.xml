@@ -1307,7 +1307,7 @@
     </navigation-case>
     <navigation-case>
       <from-outcome>addNewGroup</from-outcome>
-      <to-view-id>/marketplace/account/addGroup.xhtml</to-view-id>
+      <to-view-id>/marketplace/playground/account/addGroup.xhtml</to-view-id>
       <redirect/>
     </navigation-case>
     <navigation-case>
