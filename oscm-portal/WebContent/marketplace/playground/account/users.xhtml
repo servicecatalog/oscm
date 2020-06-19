@@ -259,14 +259,14 @@
             </div>
           </div>
         </ui:fragment>
-
         <h:form id="deleteGroupForm">
-          <mp:modalDialog panelId="deleteConfirmPl" header="#{msg['group.delete.title']}" bean="#{userGroupListCtrl}"
-                          text1="#{userGroupListCtrl.model.deleteMessage}" text2="#{msg['marketplace.areyousure']}"
-                          submitId="confirmedDeleteBt"/>
-         <a4j:commandButton styleClass="d-none" id="confirmedDeleteBt" action="#{userGroupListCtrl.deleteUserGroup}"
-                            onclick="setDirty(false);AdmUtils.showProgress(true);" render="deleteConfirmPl">
-         </a4j:commandButton>
+          <mp:confirmPanelBootstrap panelId="deleteConfirmPl" header="#{msg['group.delete.title']}"
+                                    bean="#{userGroupListCtrl}" text1="#{userGroupListCtrl.model.deleteMessage}"
+                                    text2="#{msg['marketplace.areyousure']}" submitId="confirmedDeleteBt"/>
+          <a4j:commandButton styleClass="d-none" id="confirmedDeleteBt" action="#{userGroupListCtrl.deleteUserGroup}"
+                             onclick="setDirty(false);AdmUtils.showProgress(true);"
+                             oncomplete="#{rich:component('deleteConfirmPl')}.hide(); AdmUtils.showProgress(false);">
+          </a4j:commandButton>
         </h:form>
         <h:form>
           <a4j:jsFunction name="setSelectedTab">
