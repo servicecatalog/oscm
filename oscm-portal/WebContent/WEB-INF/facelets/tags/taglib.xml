@@ -271,6 +271,18 @@
     <tag-name>fileUploadBootstrap</tag-name>
     <source>fileUploadBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>formInput</tag-name>
+    <source>formInput.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>formTextarea</tag-name>
+    <source>formTextarea.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>hintBootstrap</tag-name>
+    <source>hintBootstrap.xhtml</source>
+  </tag>
 
   <function>
     <function-name>matchBegin</function-name>
