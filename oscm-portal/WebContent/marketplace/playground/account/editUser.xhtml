@@ -120,6 +120,7 @@
                       filterExpression="#{adm:matchBegin(rowItem.name, tableState.filterValues['colUserGroupName'], false)}">
           <f:facet name="header">
            <h:outputText value="#{msg['group.groupName']}"/>
+           <hr class="my-1"/>
            <adm:filterInputBootstrap inputId="filterUserGroupName"
                                      inputValue="#{tableState.filterValues['colUserGroupName']}"
                                      render="userGroupsTable@body :userGroupsPager :userGroupsPagerScripts :rolesInUserGroupScript "
@@ -137,6 +138,7 @@
                       filterExpression="#{empty tableState.filterValues['colUserGroupRole'] or (rowItem.selected and adm:matchBegin(rowItem.selectedRole, tableState.filterValues['colUserGroupRole'], false))}">
           <f:facet name="header">
            <h:outputText value="#{msg['marketplace.account.adduser.units.role']}"/>
+           <hr class="my-1"/>
            <adm:filterInputBootstrap inputId="filterUserGroupRole"
                                      inputValue="#{tableState.filterValues['colUserGroupRole']}"
                                      render="userGroupsTable@body :userGroupsPager :userGroupsPagerScripts :rolesInUserGroupScript"
