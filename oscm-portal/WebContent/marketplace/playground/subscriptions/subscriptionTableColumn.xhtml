@@ -24,7 +24,7 @@
    <hr class="my-1"/>
    <adm:filterInputBootstrap inputId="#{property}" inputValue="#{bean.filterValues[property]}"
                              queueName="#{queueName}" styleClass="form-control"
-                             render="#{tableName} #{scroller} #{scroller}Scripts :pagerPanel :#{tableName}Scripts subscriptionDetailsPanel"/>
+                             render="#{tableName}@body #{scroller} #{scroller}Scripts :pagerPanel :#{tableName}Scripts subscriptionDetailsPanel"/>
   </f:facet>
   <a4j:outputPanel layout="block" styleClass="tablePanel table_padding stringInMultiLine preserveWhitespaces">
    <h:outputText value="#{record[property]}" styleClass="wrapColumns"/>

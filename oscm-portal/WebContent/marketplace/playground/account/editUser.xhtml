@@ -7,259 +7,269 @@
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 xmlns:rich="http://richfaces.org/rich" template="../templates/mainBootstrap.xhtml">
 
- <ui:define name="pageId">
-  <c:set var="pageId" value="marketplace.account.editUser"/>
-  <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
-  <c:set var="dirty" value="false"/>
- </ui:define>
+  <ui:define name="pageId">
+    <c:set var="pageId" value="marketplace.account.editUser"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+    <c:set var="dirty" value="false"/>
+  </ui:define>
 
- <ui:define name="breadcrumbs">
-  <mp:bootstrapBreadcrumbs>
-   <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/playground/account/index.jsf"/>
-   <mp:crumb label="#{msg['marketplace.account.users.title']}" link="/marketplace/playground/account/users.jsf"/>
-   <mp:crumb label="#{updateUserModel.userName}"/>
-  </mp:bootstrapBreadcrumbs>
- </ui:define>
+  <ui:define name="breadcrumbs">
+    <mp:bootstrapBreadcrumbs>
+      <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/playground/account/index.jsf"/>
+      <mp:crumb label="#{msg['marketplace.account.users.title']}" link="/marketplace/playground/account/users.jsf"/>
+      <mp:crumb label="#{updateUserModel.userName}"/>
+    </mp:bootstrapBreadcrumbs>
+  </ui:define>
 
- <ui:define name="aside">
-  <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.users.title"/>
- </ui:define>
+  <ui:define name="aside">
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.users.title"/>
+  </ui:define>
 
- <ui:define name="contents">
-  <c:set var="sortIcon" value="/marketplace/img/transparentPixel.png?id=sort"/>
-  <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
-  <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
+  <ui:define name="contents">
+    <c:set var="sortIcon" value="/marketplace/img/transparentPixel.png?id=sort"/>
+    <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
+    <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
 
-  <a4j:outputPanel id="all" styleClass="row" layout="block">
-   <div class="mt-2 p-3 bg-light col">
+    <a4j:outputPanel id="all" styleClass="row" layout="block">
+      <div class="mt-2 p-3 bg-light col">
 
-    <h:form id="validateCurrentUserRolesForm">
-     <a4j:jsFunction name="validateCurrentUserRoles"
-                     data="#{updateUserCtrl.currentUserRolesChanged}"
-                     oncomplete="if(event.data==true){#{rich:component('reLogining')}.show();}
+        <h:form id="validateCurrentUserRolesForm">
+          <a4j:jsFunction name="validateCurrentUserRoles"
+                          data="#{updateUserCtrl.currentUserRolesChanged}"
+                          oncomplete="if(event.data==true){#{rich:component('reLogining')}.show();}
                                  else{setOnSubmit(true);setDirty(false);
                                  #{rich:element('saveButton')}.click();setOnSubmit(false);} return false;">
-     </a4j:jsFunction>
-    </h:form>
+          </a4j:jsFunction>
+        </h:form>
 
-    <h:form id="editUserForm">
-     <h2 style="word-wrap: break-word;">
-      <h:outputFormat value="#{msg['marketplace.account.edituser.title']}">
-       <f:param value="#{updateUserModel.userName}"/>
-      </h:outputFormat>
-     </h2>
-     <hr/>
+        <h:form id="editUserForm">
+          <h2 style="word-wrap: break-word;">
+            <h:outputFormat value="#{msg['marketplace.account.edituser.title']}">
+              <f:param value="#{updateUserModel.userName}"/>
+            </h:outputFormat>
+          </h2>
+          <hr/>
 
-     <mp:formSelect id="salutation" label="#{msg['user.salutation']}" value="#{updateUserModel.salutation.value}"
-                    selectStyle="custom-select" disabled="#{updateUserModel.salutation.readOnly}">
-      <adm:salutationItems/>
-     </mp:formSelect>
+          <mp:formSelect id="salutation" label="#{msg['user.salutation']}" value="#{updateUserModel.salutation.value}"
+                         selectStyle="custom-select" disabled="#{updateUserModel.salutation.readOnly}">
+            <adm:salutationItems/>
+          </mp:formSelect>
 
-     <mp:formUserName firstNameId="firstName" firstNameValue="#{updateUserModel.firstName.value}"
-                      lastNameId="lastName" lastNameValue="#{updateUserModel.lastName.value}"
-                      firstNameDisabled="#{updateUserModel.firstName.readOnly}" inputStyle="form-control"
-                      lastNameDisabled="#{updateUserModel.lastName.readOnly}"/>
+          <mp:formUserName firstNameId="firstName" firstNameValue="#{updateUserModel.firstName.value}"
+                           lastNameId="lastName" lastNameValue="#{updateUserModel.lastName.value}"
+                           firstNameDisabled="#{updateUserModel.firstName.readOnly}" inputStyle="form-control"
+                           lastNameDisabled="#{updateUserModel.lastName.readOnly}"/>
 
-     <mp:formInput id="email" label="#{msg['user.email']}" required="#{updateUserModel.email.required}"
-                   value="#{updateUserModel.email.value}" maxlength="#{appBean.nameLen}"
-                   disabled="#{updateUserModel.email.readOnly}" validatorId="email"
-                   converterId="trimConverter" inputStyle="form-control"/>
+          <mp:formInput id="email" label="#{msg['user.email']}" required="#{updateUserModel.email.required}"
+                        value="#{updateUserModel.email.value}" maxlength="#{appBean.nameLen}"
+                        disabled="#{updateUserModel.email.readOnly}" validatorId="email"
+                        converterId="trimConverter" inputStyle="form-control"/>
 
-     <mp:formInput id="userId" label="#{msg['user.userId']}" converterId="trimConverter" inputStyle="form-control"
-                   maxlength="#{appBean.userIdLen}" disabled="#{updateUserModel.userId.readOnly}" validatorId="userId"
-                   required="#{updateUserModel.userId.required}" value="#{updateUserModel.userId.value}"/>
+          <mp:formInput id="userId" label="#{msg['user.userId']}" converterId="trimConverter" inputStyle="form-control"
+                        maxlength="#{appBean.userIdLen}" disabled="#{updateUserModel.userId.readOnly}"
+                        validatorId="userId"
+                        required="#{updateUserModel.userId.required}" value="#{updateUserModel.userId.value}"/>
 
-     <mp:formSelect id="locale" label="#{msg['user.locale']}" value="#{updateUserModel.locale.value}"
-                    selectStyle="custom-select" disabled="#{updateUserModel.locale.readOnly}" showHint="true">
-      <adm:localeItems/>
-      <f:validator validatorId="SupportedLanguageValidator"/>
-     </mp:formSelect>
+          <mp:formSelect id="locale" label="#{msg['user.locale']}" value="#{updateUserModel.locale.value}"
+                         selectStyle="custom-select" disabled="#{updateUserModel.locale.readOnly}" showHint="true">
+            <adm:localeItems/>
+            <f:validator validatorId="SupportedLanguageValidator"/>
+          </mp:formSelect>
 
-     <div class="row align-items-center pb-2">
-      <div class="col-md-2 col-sm-12">
-       <adm:outputLabel value="#{msg['user.role']}"/>
-      </div>
-      <div class="col-md-7 col-sm-12 my-1">
-       <rich:dataTable rowClasses="rowEven" value="#{updateUserModel.roles}" var="userRole" id="userRolesTable"
-                       styleClass="table table-hover table-bordered w-100">
-        <rich:column styleClass="text-center col-icon">
-         <h:selectBooleanCheckbox id="rolesCheckbox" value="#{userRole.selected}"
-                                  disabled="#{updateUserCtrl.rolesDisabled}" onchange="setDirty(true)"/>
-        </rich:column>
-        <rich:column>
-         <h:outputText value="#{userRole.name}"/>
-        </rich:column>
-       </rich:dataTable>
-      </div>
-      <div class="col-md-3 col-sm-12">
-       <mp:message for="asAdmin"/>
-      </div>
-     </div>
+          <div class="row align-items-center pb-2">
+            <div class="col-md-2 col-sm-12">
+              <adm:outputLabel value="#{msg['user.role']}"/>
+            </div>
+            <div class="col-md-7 col-sm-12 my-1">
+              <rich:dataTable rowClasses="rowEven" value="#{updateUserModel.roles}" var="userRole" id="userRolesTable"
+                              styleClass="table table-hover table-bordered w-100">
+                <rich:column styleClass="text-center col-icon">
+                  <h:selectBooleanCheckbox id="rolesCheckbox" value="#{userRole.selected}"
+                                           disabled="#{updateUserCtrl.rolesDisabled}" onchange="setDirty(true)"/>
+                </rich:column>
+                <rich:column>
+                  <h:outputText value="#{userRole.name}"/>
+                </rich:column>
+              </rich:dataTable>
+            </div>
+            <div class="col-md-3 col-sm-12">
+              <mp:message for="asAdmin"/>
+            </div>
+          </div>
 
-     <ui:fragment rendered="#{not empty updateUserModel.userGroups}">
-      <mp:outputStep value="#{msg['user.groups']}"/>
-      <a4j:outputPanel layout="block" styleClass="tablePanel user-groups-table-panel">
-       <a4j:region>
-        <a4j:queue requestDelay="500" ignoreDupResponses="true"/>
+          <ui:fragment rendered="#{not empty updateUserModel.userGroups}">
+            <mp:outputStep value="#{msg['user.groups']}"/>
+            <a4j:outputPanel layout="block" styleClass="tablePanel user-groups-table-panel">
+              <a4j:region>
+                <a4j:queue requestDelay="500" ignoreDupResponses="true"/>
 
-        <rich:dataTable value="#{updateUserModel.userGroups}" id="userGroupsTable" var="rowItem"
-                        headerClass="rowTitle groupTableTitle" rowClasses="rowOdd,rowEven" columnsWidth="4%,50%,46%"
-                        styleClass="table table-striped table-hover table-bordered sortable" sortMode="single"
-                        rows="10">
+                <rich:dataTable value="#{updateUserModel.userGroups}" id="userGroupsTable" var="rowItem"
+                                headerClass="rowTitle groupTableTitle" rowClasses="rowOdd,rowEven"
+                                columnsWidth="4%,50%,46%"
+                                styleClass="table table-striped table-hover table-bordered sortable" sortMode="single"
+                                rows="10">
 
-         <rich:column sortBy="#{rowItem.selected}" sortIcon="#{sortIcon}"
-                      sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                      styleClass="tableColumnCheckBox">
-          <h:selectBooleanCheckbox id="groupsCheckbox" value="#{rowItem.selected}"
-                                   onchange="setDirty(true);AdmUtils.updateRoleComboBox(event, 'unitRole');"/>
-         </rich:column>
+                  <rich:column sortBy="#{rowItem.selected}" sortIcon="#{sortIcon}"
+                               sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
+                               styleClass="tableColumnCheckBox align-middle">
+                    <h:selectBooleanCheckbox id="groupsCheckbox" value="#{rowItem.selected}"
+                                             onchange="setDirty(true);AdmUtils.updateRoleComboBox(event, 'unitRole');"/>
+                  </rich:column>
 
-         <rich:column id="colUserGroupName" sortBy="#{rowItem.name}" sortIcon="#{sortIcon}" filterType="custom"
-                      sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                      filterValue="#{tableState.filterValues['colUserGroupName']}"
-                      filterExpression="#{adm:matchBegin(rowItem.name, tableState.filterValues['colUserGroupName'], false)}">
-          <f:facet name="header">
-           <h:outputText value="#{msg['group.groupName']}"/>
-           <hr class="my-1"/>
-           <adm:filterInputBootstrap inputId="filterUserGroupName"
-                                     inputValue="#{tableState.filterValues['colUserGroupName']}"
-                                     render="userGroupsTable@body :userGroupsPager :userGroupsPagerScripts :rolesInUserGroupScript "
-                                     onkeyup="AdmUtils.setFirstPage(#{rich:element('userGroupsPager')});"/>
-          </f:facet>
+                  <rich:column id="colUserGroupName" sortBy="#{rowItem.name}" sortIcon="#{sortIcon}" filterType="custom"
+                               sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
+                               filterValue="#{tableState.filterValues['colUserGroupName']}"
+                               filterExpression="#{adm:matchBegin(rowItem.name, tableState.filterValues['colUserGroupName'], false)}">
+                    <f:facet name="header">
+                      <h:outputText value="#{msg['group.groupName']}"/>
+                      <hr class="my-1"/>
+                      <adm:filterInputBootstrap inputId="filterUserGroupName"
+                                                inputValue="#{tableState.filterValues['colUserGroupName']}"
+                                                render="userGroupsTable@body :userGroupsPager :userGroupsPagerScripts :rolesInUserGroupScript "
+                                                onkeyup="AdmUtils.setFirstPage(#{rich:element('userGroupsPager')});"/>
+                    </f:facet>
 
-          <a4j:outputPanel layout="block" styleClass="stringInMultiLine">
-           <h:outputText value="#{rowItem.name}" title="#{rowItem.name}"/>
+                    <a4j:outputPanel layout="block" styleClass="stringInMultiLine">
+                      <h:outputText value="#{rowItem.name}" title="#{rowItem.name}"/>
+                    </a4j:outputPanel>
+                  </rich:column>
+
+                  <rich:column id="colUserGroupRole" sortBy="#{rowItem.selectedRole}" sortIcon="#{sortIcon}"
+                               filterType="custom" styleClass="p-1"
+                               sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
+                               filterValue="#{tableState.filterValues['colUserGroupRole']}"
+                               filterExpression="#{empty tableState.filterValues['colUserGroupRole'] or (rowItem.selected and adm:matchBegin(rowItem.selectedRole, tableState.filterValues['colUserGroupRole'], false))}">
+                    <f:facet name="header">
+                      <h:outputText value="#{msg['marketplace.account.adduser.units.role']}"/>
+                      <hr class="my-1"/>
+                      <adm:filterInputBootstrap inputId="filterUserGroupRole"
+                                                inputValue="#{tableState.filterValues['colUserGroupRole']}"
+                                                render="userGroupsTable@body :userGroupsPager :userGroupsPagerScripts :rolesInUserGroupScript"
+                                                onkeyup="AdmUtils.setFirstPage(#{rich:element('userGroupsPager')});"/>
+                    </f:facet>
+                    <h:selectOneMenu id="unitRole" onchange="setDirty(true)" value="#{rowItem.selectedRole}"
+                                     styleClass="roles-list custom-select custom-select-sm">
+                      <f:selectItems value="#{rowItem.roles}"/>
+                    </h:selectOneMenu>
+                  </rich:column>
+
+                  <f:facet name="footer">
+                    <adm:pagerBootstrap pagerId="userGroupsPager" render="rolesInUserGroupScript"/>
+                  </f:facet>
+                </rich:dataTable>
+              </a4j:region>
+            </a4j:outputPanel>
+          </ui:fragment>
+
+          <a4j:outputPanel id="userAssignableSubscriptions" styleClass="assign-panel"
+                           rendered="#{updateUserCtrl.subTableRendered and not triggerProcessBean.suspendAddRevokeUsers}">
+            <mp:outputStepBootstrap id="assignUserTitle"
+                                    value="#{msg['marketplace.account.edituser.assignUser.title']}"/>
+
+            <rich:dataTable rows="10" id="subscriptionTable" value="#{updateUserCtrl.userSubscriptionsLazyDataModel}"
+                            var="subscription" headerClass="rowTitle sortable" columnHeaderClass="rowTitle sortable"
+                            styleClass="table table-striped table-hover table-bordered sortable table-with-selectable-row w-100"
+                            headerCellClass="rowTitle sortable" columnClasses="wrapColumns" rowClasses="rowOdd,rowEven"
+                            onRowMouseOver="AdmUtils.mouseOverRowCell(this);" columnsWidth="4%,50%,46%"
+                            onRowMouseOut="AdmUtils.mouseOutRowCell(this)" noDataLabel=" ">
+
+              <rich:column styleClass="tableColumnCheckBox">
+                <h:selectBooleanCheckbox id="assignCheckbox" value="#{subscription.selected}"
+                                         onchange="setDirty(true);AdmUtils.updateSubRoleComboBox(event, 'role');showConfirm=true;">
+                  <a4j:ajax event="change" listener="#{updateUserCtrl.selectSubscription}" execute="subscriptionTable"/>
+                  <f:attribute name="subscriptionId" value="#{subscription.id}"/>
+                  <f:attribute name="selected" value="#{subscription.selected}"/>
+                  <f:attribute name="items" value="#{subscription.roles}"/>
+                </h:selectBooleanCheckbox>
+              </rich:column>
+
+              <ui:include src="../subscriptions/subscriptionTableColumn.xhtml">
+                <ui:param name="bean" value="#{updateUserCtrl.userSubscriptionsLazyDataModel}"/>
+                <ui:param name="property" value="#{updateUserCtrl.userSubscriptionsLazyDataModel.SUBSCRIPTION_ID}"/>
+                <ui:param name="tableName" value="subscriptionTable"/>
+                <ui:param name="record" value="#{subscription}"/>
+                <ui:param name="columnHeaderName" value="#{msg['subscription.subscriptionId']}"/>
+                <ui:param name="scroller" value="userSubscriptions"/>
+                <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
+                <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
+                <ui:param name="queueName" value="userSubscriptionsQueue"/>
+              </ui:include>
+
+              <ui:include src="../subscriptions/subscriptionTableRoleColumn.xhtml">
+                <ui:param name="bean" value="#{updateUserCtrl.userSubscriptionsLazyDataModel}"/>
+                <ui:param name="property" value="#{updateUserCtrl.userSubscriptionsLazyDataModel.ROLE_IN_SUB}"/>
+                <ui:param name="tableName" value="subscriptionTable"/>
+                <ui:param name="record" value="#{subscription}"/>
+                <ui:param name="columnHeaderName" value="#{msg['user.subscriptionRole']}"/>
+                <ui:param name="scroller" value="userSubscriptions"/>
+                <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
+                <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
+                <ui:param name="queueName" value="userSubscriptionsQueue"/>
+                <ui:param name="items" value="#{subscription.roles}"/>
+                <ui:param name="itemsRendered" value="#{subscription.rolesRendered}"/>
+                <ui:param name="selectorId" value="role"/>
+                <ui:param name="onchange" value="setDirty(true);showConfirm=true;"/>
+              </ui:include>
+
+              <f:facet name="footer">
+                <a4j:outputPanel>
+                  <adm:pagerBootstrap pagerId="userSubscriptions" render="subscriptionTableScripts"/>
+                </a4j:outputPanel>
+              </f:facet>
+            </rich:dataTable>
+
+            <a4j:outputPanel id="subscriptionTableScripts">
+              <script type="text/javascript">AdmUtils.initSubRoleFieldSetup('role', 'assignCheckbox');</script>
+            </a4j:outputPanel>
           </a4j:outputPanel>
-         </rich:column>
 
-         <rich:column id="colUserGroupRole" sortBy="#{rowItem.selectedRole}" sortIcon="#{sortIcon}" filterType="custom"
-                      sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                      filterValue="#{tableState.filterValues['colUserGroupRole']}"
-                      filterExpression="#{empty tableState.filterValues['colUserGroupRole'] or (rowItem.selected and adm:matchBegin(rowItem.selectedRole, tableState.filterValues['colUserGroupRole'], false))}">
-          <f:facet name="header">
-           <h:outputText value="#{msg['marketplace.account.adduser.units.role']}"/>
-           <hr class="my-1"/>
-           <adm:filterInputBootstrap inputId="filterUserGroupRole"
-                                     inputValue="#{tableState.filterValues['colUserGroupRole']}"
-                                     render="userGroupsTable@body :userGroupsPager :userGroupsPagerScripts :rolesInUserGroupScript"
-                                     onkeyup="AdmUtils.setFirstPage(#{rich:element('userGroupsPager')});"/>
-          </f:facet>
-          <h:selectOneMenu id="unitRole" onchange="setDirty(true)" styleClass="custom-select"
-                           value="#{rowItem.selectedRole}">
-           <f:selectItems value="#{rowItem.roles}"/>
-          </h:selectOneMenu>
-         </rich:column>
+          <hr class="py-2"/>
 
-         <f:facet name="footer">
-          <adm:pagerBootstrap pagerId="userGroupsPager" render="rolesInUserGroupScript"/>
-         </f:facet>
-        </rich:dataTable>
-       </a4j:region>
-      </a4j:outputPanel>
-     </ui:fragment>
+          <h:commandButton styleClass="d-none" id="confirmedDeleteButton" onclick="setDirty(false);"
+                           value="#{msg['button.delete']}" action="#{updateUserCtrl.delete}"/>
+          <a4j:commandButton styleClass="d-none" id="confirmedBackBt"
+                             onclick="setDirty(false);location.href='users.jsf';return false;"/>
 
-     <a4j:outputPanel id="userAssignableSubscriptions" styleClass="assign-panel"
-                      rendered="#{updateUserCtrl.subTableRendered and not triggerProcessBean.suspendAddRevokeUsers}">
-      <mp:outputStepBootstrap id="assignUserTitle" value="#{msg['marketplace.account.edituser.assignUser.title']}"/>
+          <a4j:outputPanel layout="block" styleClass="clearfix">
+            <mp:buttonBootstrap id="cancelButton" value="#{msg['button.cancel']}" styleClass="btn btn-secondary"
+                                onclick="if(getDirty()){#{rich:component('leaveConfirmPl')}.show();return false;}else{#{rich:element('confirmedBackBt')}.click(); return false;};"/>
+            <mp:buttonBootstrap id="resetButton" value="#{msg['button.resetPwd']}" bean="#{updateUserCtrl}"
+                                action="resetPwd"
+                                disabled="#{updateUserCtrl.resetPwdDisabled}"
+                                rendered="#{updateUserCtrl.resetPwdRendered}"
+                                styleClass="btn btn-outline-secondary ml-2"/>
+            <mp:buttonBootstrap id="deleteButton" value="#{msg['button.delete']}"
+                                onclick="#{rich:component('confirmPanel')}.show();return false;"
+                                disabled="#{updateUserCtrl.deleteDisabled}"
+                                styleClass="btn btn-outline-secondary ml-2"/>
+            <h:commandButton id="saveButton" value="#{msg['button.save']}" action="#{updateUserCtrl.save}"
+                             class="d-none"/>
+            <adm:buttonCustomizedOnClickBootstrap id="saveButtonLink" onclick="validateCurrentUserRoles();return false;"
+                                                  value="#{msg['button.save']}"
+                                                  disabled="#{updateUserCtrl.saveDisabled}"
+                                                  buttonStyleClass="btn btn-secondary float-right m-2"
+                                                  buttonType="execute"/>
+          </a4j:outputPanel>
+          <h:inputHidden value="#{updateUserModel.token}"/>
 
-      <rich:dataTable rows="10" id="subscriptionTable" value="#{updateUserCtrl.userSubscriptionsLazyDataModel}"
-                      var="subscription" headerClass="rowTitle sortable" columnHeaderClass="rowTitle sortable"
-                      styleClass="table table-striped table-hover table-bordered sortable table-with-selectable-row w-100"
-                      headerCellClass="rowTitle sortable" columnClasses="wrapColumns" rowClasses="rowOdd,rowEven"
-                      onRowMouseOver="AdmUtils.mouseOverRowCell(this);" columnsWidth="4%,50%,46%"
-                      onRowMouseOut="AdmUtils.mouseOutRowCell(this)" noDataLabel=" ">
+          <mp:confirmPanelBootstrap header="#{msg['marketplace.account.delete.title']}"
+                                    text1="#{updateUserCtrl.deleteMsgForUser}" text2="#{msg['marketplace.areyousure']}"
+                                    submitId="confirmedDeleteButton"/>
+          <mp:confirmPanelBootstrap panelId="leaveConfirmPl" header="#{msg['marketplace.account.leavePage.title']}"
+                                    text1="#{msg['marketplace.account.leavePage.content']}"
+                                    submitId="confirmedBackBt"/>
 
-       <rich:column styleClass="tableColumnCheckBox">
-        <h:selectBooleanCheckbox id="assignCheckbox" value="#{subscription.selected}"
-                                 onchange="setDirty(true);AdmUtils.updateSubRoleComboBox(event, 'role');showConfirm=true;">
-         <a4j:ajax event="change" listener="#{updateUserCtrl.selectSubscription}" execute="subscriptionTable"/>
-         <f:attribute name="subscriptionId" value="#{subscription.id}"/>
-         <f:attribute name="selected" value="#{subscription.selected}"/>
-         <f:attribute name="items" value="#{subscription.roles}"/>
-        </h:selectBooleanCheckbox>
-       </rich:column>
+          <a4j:outputPanel id="rolesInUserGroupScript">
+            <script type="text/javascript">AdmUtils.initRoleFieldSetup('unitRole', 'groupsCheckbox');</script>
+          </a4j:outputPanel>
 
-       <ui:include src="../subscriptions/subscriptionTableColumn.xhtml">
-        <ui:param name="bean" value="#{updateUserCtrl.userSubscriptionsLazyDataModel}"/>
-        <ui:param name="property" value="#{updateUserCtrl.userSubscriptionsLazyDataModel.SUBSCRIPTION_ID}"/>
-        <ui:param name="tableName" value="subscriptionTable"/>
-        <ui:param name="record" value="#{subscription}"/>
-        <ui:param name="columnHeaderName" value="#{msg['subscription.subscriptionId']}"/>
-        <ui:param name="scroller" value="userSubscriptions"/>
-        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
-        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
-        <ui:param name="queueName" value="userSubscriptionsQueue"/>
-       </ui:include>
+        </h:form>
+      </div>
+      <mp:reloginConfirmPanel/>
+    </a4j:outputPanel>
 
-       <ui:include src="../subscriptions/subscriptionTableRoleColumn.xhtml">
-        <ui:param name="bean" value="#{updateUserCtrl.userSubscriptionsLazyDataModel}"/>
-        <ui:param name="property" value="#{updateUserCtrl.userSubscriptionsLazyDataModel.ROLE_IN_SUB}"/>
-        <ui:param name="tableName" value="subscriptionTable"/>
-        <ui:param name="record" value="#{subscription}"/>
-        <ui:param name="columnHeaderName" value="#{msg['user.subscriptionRole']}"/>
-        <ui:param name="scroller" value="userSubscriptions"/>
-        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
-        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
-        <ui:param name="queueName" value="userSubscriptionsQueue"/>
-        <ui:param name="items" value="#{subscription.roles}"/>
-        <ui:param name="itemsRendered" value="#{subscription.rolesRendered}"/>
-        <ui:param name="selectorId" value="role"/>
-        <ui:param name="onchange" value="setDirty(true);showConfirm=true;"/>
-       </ui:include>
-
-       <f:facet name="footer">
-        <a4j:outputPanel>
-         <adm:pagerBootstrap pagerId="userSubscriptions" render="subscriptionTableScripts"/>
-        </a4j:outputPanel>
-       </f:facet>
-      </rich:dataTable>
-
-      <a4j:outputPanel id="subscriptionTableScripts">
-       <script type="text/javascript">AdmUtils.initSubRoleFieldSetup('role', 'assignCheckbox');</script>
-      </a4j:outputPanel>
-     </a4j:outputPanel>
-
-     <hr class="py-2"/>
-
-     <h:commandButton styleClass="d-none" id="confirmedDeleteButton" onclick="setDirty(false);"
-                      value="#{msg['button.delete']}" action="#{updateUserCtrl.delete}"/>
-     <a4j:commandButton styleClass="d-none" id="confirmedBackBt"
-                        onclick="setDirty(false);location.href='users.jsf';return false;"/>
-
-     <a4j:outputPanel layout="block" styleClass="clearfix">
-      <mp:buttonBootstrap id="cancelButton" value="#{msg['button.cancel']}" styleClass="btn btn-secondary"
-                          onclick="if(getDirty()){#{rich:component('leaveConfirmPl')}.show();return false;}else{#{rich:element('confirmedBackBt')}.click(); return false;};"/>
-      <mp:buttonBootstrap id="resetButton" value="#{msg['button.resetPwd']}" bean="#{updateUserCtrl}" action="resetPwd"
-                          disabled="#{updateUserCtrl.resetPwdDisabled}" rendered="#{updateUserCtrl.resetPwdRendered}"
-                          styleClass="btn btn-outline-secondary ml-2"/>
-      <mp:buttonBootstrap id="deleteButton" value="#{msg['button.delete']}"
-                          onclick="#{rich:component('confirmPanel')}.show();return false;"
-                          disabled="#{updateUserCtrl.deleteDisabled}" styleClass="btn btn-outline-secondary ml-2"/>
-      <h:commandButton id="saveButton" value="#{msg['button.save']}" action="#{updateUserCtrl.save}" class="d-none"/>
-      <adm:buttonCustomizedOnClickBootstrap id="saveButtonLink" onclick="validateCurrentUserRoles();return false;"
-                                            value="#{msg['button.save']}" disabled="#{updateUserCtrl.saveDisabled}"
-                                            buttonStyleClass="btn btn-secondary float-right m-2" buttonType="execute"/>
-     </a4j:outputPanel>
-     <h:inputHidden value="#{updateUserModel.token}"/>
-
-     <mp:confirmPanelBootstrap header="#{msg['marketplace.account.delete.title']}"
-                               text1="#{updateUserCtrl.deleteMsgForUser}" text2="#{msg['marketplace.areyousure']}"
-                               submitId="confirmedDeleteButton"/>
-     <mp:confirmPanelBootstrap panelId="leaveConfirmPl" header="#{msg['marketplace.account.leavePage.title']}"
-                               text1="#{msg['marketplace.account.leavePage.content']}"
-                               submitId="confirmedBackBt"/>
-
-     <a4j:outputPanel id="rolesInUserGroupScript">
-      <script type="text/javascript">AdmUtils.initRoleFieldSetup('unitRole', 'groupsCheckbox');</script>
-     </a4j:outputPanel>
-
-    </h:form>
-   </div>
-   <mp:reloginConfirmPanel/>
-  </a4j:outputPanel>
-
-  <link href="#{facesContext.externalContext.requestContextPath}/css/dataTable.css" rel="stylesheet"
-        type="text/css" media="all"/>
- </ui:define>
+    <link href="#{facesContext.externalContext.requestContextPath}/css/dataTable.css" rel="stylesheet"
+          type="text/css" media="all"/>
+  </ui:define>
 
 </ui:composition>

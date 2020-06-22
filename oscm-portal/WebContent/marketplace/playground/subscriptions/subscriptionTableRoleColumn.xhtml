@@ -5,8 +5,8 @@
                 xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
- <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" styleClass="#{styleClass}" sortType="custom"
-              filterValue="#{bean.filterValues[property]}" style="max-width:100px" filterType="custom"
+ <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" styleClass="#{styleClass} p-1"
+              filterValue="#{bean.filterValues[property]}" style="max-width:100px" filterType="custom" sortType="custom"
               headerClass="rowTitle sortable clickable-header #{headerClass}" filterExpression="#{property}">
   <f:facet name="header">
    <h:outputText value="#{columnHeaderName}"/>
