@@ -1,0 +1,65 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" template="../templates/modalDialogBootstrap.xhtml">
+
+  <ui:define name="dialogScripts">
+    <c:set var="cancelHandler"
+           value="AdmUtils.showProgress(true);setDirty(false);#{rich:element('hiddenCancelButton')}.click();"/>
+    <c:set var="modalFocusElement" value="removeReviewPanelForm:deletionReason"/>
+  </ui:define>
+
+  <ui:define name="dialogTitle">
+    <h2>
+      <h:outputText value="#{msg['service.reviews.delete.title']}"/>
+    </h2>
+  </ui:define>
+
+  <ui:define name="dialogContent">
+
+    <a4j:outputPanel id="#{dialogId}Grid" layout="block" styleClass="container px-0">
+      <ui:fragment>
+
+        <h:form id="#{dialogId}Form">
+
+          <!-- This hidden field will be filled automatically by the template with the parameter passed to the dialog -->
+          <h:inputHidden id="param1" value="#{manageReviewCtrl.reviewKeyForDeletion}"/>
+
+          <h:outputText value="#{msg['service.reviews.delete.description']}"/>
+
+          <h2 class="mt-3">
+            <adm:outputLabel value="#{msg['service.reviews.delete.label']}" required="true" renderRequired="true"
+                             hideLabelSeparator="true"/>
+          </h2>
+
+          <a4j:outputPanel layout="block" styleClass="clearfix mb-1">
+            <h:inputTextarea id="deletionReason" value="#{manageReviewCtrl.manageReviewModel.deletionReason}" rows="5"
+                             required="true" styleClass="review_comments form-control form-control-sm pl-1 ml-1"
+                             onchange="setDirty(true);" converter="trimConverter"/>
+            <mp:message id="deletionReasonErrorMsg" for="deletionReason"/>
+          </a4j:outputPanel>
+
+          <hr class="m-2"/>
+
+          <h:commandButton id="hiddenCancelButton" styleClass="d-none" value="#{msg['button.cancel']}"
+                           action="#{manageReviewCtrl.cancelReview}" immediate="true"/>
+
+          <a4j:outputPanel styleClass="row row-justify-space">
+            <mp:buttonBootstrap id="cancelButton" onclick="#{cancelHandler}" value="#{msg['button.cancel']}"
+                                styleClass="btn btn-outline-secondary ml-3"/>
+
+            <mp:buttonBootstrap id="deleteButton" value="#{msg['button.delete']}"
+                                styleClass="btn btn-outline-secondary mr-3" bean="#{manageReviewCtrl}"
+                                action="removeReviewByMarketplaceAdmin" render="#{dialogId}RerenderPanel"
+                                oncomplete="AdmUtils.showProgress(false);"/>
+          </a4j:outputPanel>
+        </h:form>
+
+      </ui:fragment>
+    </a4j:outputPanel>
+  </ui:define>
+
+</ui:composition>
