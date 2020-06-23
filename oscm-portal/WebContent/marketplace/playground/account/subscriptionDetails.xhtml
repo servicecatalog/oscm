@@ -83,7 +83,7 @@
    <ui:include src="../organizationUnitPanel.xhtml">
     <ui:param name="dialogId" value="organizationUnitPanel"/>
     <ui:param name="title"
-              value="#{msg['unit.dialog.selectUnitForTheSubscription']}&apos;#{manageSubscriptionModel.subscription.subscriptionId}&apos;"/>
+              value="#{manageSubscriptionModel.subscription.subscriptionId}"/>
     <ui:param name="bean" value="#{manageSubscriptionCtrl}"/>
     <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();"/>
    </ui:include>
