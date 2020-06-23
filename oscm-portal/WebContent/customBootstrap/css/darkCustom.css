@@ -3,10 +3,6 @@
 /* change the fonts, and primary theme color to green  */
 /* -------begin customization-------- */
 /* change the fonts, and primary theme color to green  */
-/*$list-group-active-bg: $darkened-color;
-$list-group-action-active-bg: $darkened-color;
-$list-group-bg: $hover-color;
-$list-group-bg: $lightened-color; */
 @media (max-width: 767.98px) {
   .navbar {
     padding: 0rem; } }
