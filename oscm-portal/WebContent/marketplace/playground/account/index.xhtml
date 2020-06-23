@@ -9,15 +9,20 @@
   <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
  </ui:define>
 
- <ui:define name="breadcrumbs">
-  <mp:bootstrapBreadcrumbs>
-   <mp:crumb labelPageId="marketplace.account"/>
-  </mp:bootstrapBreadcrumbs>
- </ui:define>
-
- <ui:define name="aside">
-  <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.title"/>
- </ui:define>
+ <div id="flexContainer">
+  <div class="w-100">
+   <ui:define name="breadcrumbs">
+    <mp:bootstrapBreadcrumbs>
+     <mp:crumb labelPageId="marketplace.account"/>
+    </mp:bootstrapBreadcrumbs>
+   </ui:define>
+  </div>
+  <div class="flex-shrink-1">
+   <ui:define name="aside">
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.title"/>
+   </ui:define>
+  </div>
+ </div>
 
  <ui:define name="contentstitle">
   <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
