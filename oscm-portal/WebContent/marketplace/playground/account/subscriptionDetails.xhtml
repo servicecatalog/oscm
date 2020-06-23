@@ -318,7 +318,7 @@
              <div class="col-6">
               <div class="input-group justify-content-end">
                <h:commandButton id="assignSubOwner" rendered="#{not manageSubscriptionModel.cfgTabDisabled}"
-                                type="button" styleClass="btn btn-secondary" render="configurationForm"
+                                type="button" styleClass="btn-sm btn-secondary" render="configurationForm"
                                 disabled="#{manageSubscriptionModel.cfgTabDisabled}" value="#{msg['button.change']}"
                                 onclick="if(getDirty()==true){setPageDirty();};initializeSubscriptionOwners();"/>
                <mp:hintBootstrap for="organizationalUnitSelect"/>
@@ -344,7 +344,7 @@
             </div>
             <div class="col-6">
              <div class="input-group justify-content-end">
-              <h:commandButton render="configurationForm" type="button" styleClass="btn btn-secondary" id="editUnit"
+              <h:commandButton render="configurationForm" type="button" styleClass="btn-sm btn-secondary" id="editUnit"
                                rendered="#{not manageSubscriptionModel.cfgTabDisabled and (userBean.isOrganizationAdmin or userBean.isUnitAdmin)}"
                                onclick="if(getDirty()==true){setPageDirty();};setPopupTargetSelectUnits(); return false;"
                                value="#{msg['button.assign']}"/>
