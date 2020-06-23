@@ -72,7 +72,7 @@ public class GotoMarketplaceBeanTest {
   @Test
   public void getMarketplaces() {
     // given
-    given(mpServiceMock.getMarketplacesForOrganization())
+    given(mpServiceMock.getAccessibleMarketplaces())
         .willReturn(marketplace(1L, "publishedMp"));
     given(mpServiceMock.getMarketplacesOwned()).willReturn(marketplace(2L, "ownedMp"));
 
@@ -85,23 +85,11 @@ public class GotoMarketplaceBeanTest {
       assertTrue(m.getValue().equals("publishedMp") || m.getValue().equals("ownedMp"));
     }
   }
-
-  @Test
-  public void getMarketplaces_restricted() {
-    // given
-    given(mpServiceMock.getMarketplacesForOrganization())
-        .willReturn(restrictedMarketplace(1L, "restrictedMp"));
-
-    // when
-    int size = marketplaceGotoBean.getMarketplaces().size();
-    // then
-    assertEquals(0, size);
-  }
-
+ 
   @Test
   public void getMarketplaces_Cached() {
     // given some marketplaces
-    given(mpServiceMock.getMarketplacesForOrganization())
+    given(mpServiceMock.getAccessibleMarketplaces())
         .willReturn(marketplace(1L, "publishedMp"));
     given(mpServiceMock.getMarketplacesOwned()).willReturn(marketplace(2L, "ownedMp"));
 
@@ -110,7 +98,7 @@ public class GotoMarketplaceBeanTest {
     marketplaceGotoBean.getMarketplaces();
 
     // then loaded only once
-    verify(mpServiceMock, times(1)).getMarketplacesForOrganization();
+    verify(mpServiceMock, times(1)).getAccessibleMarketplaces();
     verify(mpServiceMock, times(1)).getMarketplacesOwned();
   }
 
@@ -189,7 +177,7 @@ public class GotoMarketplaceBeanTest {
   public void loadMarketplaces_NoServiceManager() {
     // given two marketplaces
     doReturn(Boolean.FALSE).when(marketplaceGotoBean).isLoggedInAndVendorManager();
-    given(mpServiceMock.getMarketplacesForOrganization())
+    given(mpServiceMock.getAccessibleMarketplaces())
         .willReturn(marketplace(1L, "publishedMp"));
     given(mpServiceMock.getMarketplacesOwned()).willReturn(marketplace(2L, "ownedMp"));
 
@@ -209,7 +197,7 @@ public class GotoMarketplaceBeanTest {
   public void loadMarketplaces_NoMarketplaceOwner() {
     // given two marketplaces
     doReturn(Boolean.FALSE).when(marketplaceGotoBean).isLoggedInAndMarketplaceOwner();
-    given(mpServiceMock.getMarketplacesForOrganization())
+    given(mpServiceMock.getAccessibleMarketplaces())
         .willReturn(marketplace(1L, "publishedMp"));
     given(mpServiceMock.getMarketplacesOwned()).willReturn(marketplace(2L, "ownedMp"));
 
