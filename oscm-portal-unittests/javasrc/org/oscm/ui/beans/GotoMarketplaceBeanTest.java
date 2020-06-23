@@ -72,8 +72,7 @@ public class GotoMarketplaceBeanTest {
   @Test
   public void getMarketplaces() {
     // given
-    given(mpServiceMock.getAccessibleMarketplaces())
-        .willReturn(marketplace(1L, "publishedMp"));
+    given(mpServiceMock.getAccessibleMarketplaces()).willReturn(marketplace(1L, "publishedMp"));
     given(mpServiceMock.getMarketplacesOwned()).willReturn(marketplace(2L, "ownedMp"));
 
     // when
@@ -85,12 +84,11 @@ public class GotoMarketplaceBeanTest {
       assertTrue(m.getValue().equals("publishedMp") || m.getValue().equals("ownedMp"));
     }
   }
- 
+
   @Test
   public void getMarketplaces_Cached() {
     // given some marketplaces
-    given(mpServiceMock.getAccessibleMarketplaces())
-        .willReturn(marketplace(1L, "publishedMp"));
+    given(mpServiceMock.getAccessibleMarketplaces()).willReturn(marketplace(1L, "publishedMp"));
     given(mpServiceMock.getMarketplacesOwned()).willReturn(marketplace(2L, "ownedMp"));
 
     // when calling twice
@@ -177,8 +175,7 @@ public class GotoMarketplaceBeanTest {
   public void loadMarketplaces_NoServiceManager() {
     // given two marketplaces
     doReturn(Boolean.FALSE).when(marketplaceGotoBean).isLoggedInAndVendorManager();
-    given(mpServiceMock.getAccessibleMarketplaces())
-        .willReturn(marketplace(1L, "publishedMp"));
+    given(mpServiceMock.getAccessibleMarketplaces()).willReturn(marketplace(1L, "publishedMp"));
     given(mpServiceMock.getMarketplacesOwned()).willReturn(marketplace(2L, "ownedMp"));
 
     // when
@@ -197,8 +194,7 @@ public class GotoMarketplaceBeanTest {
   public void loadMarketplaces_NoMarketplaceOwner() {
     // given two marketplaces
     doReturn(Boolean.FALSE).when(marketplaceGotoBean).isLoggedInAndMarketplaceOwner();
-    given(mpServiceMock.getAccessibleMarketplaces())
-        .willReturn(marketplace(1L, "publishedMp"));
+    given(mpServiceMock.getAccessibleMarketplaces()).willReturn(marketplace(1L, "publishedMp"));
     given(mpServiceMock.getMarketplacesOwned()).willReturn(marketplace(2L, "ownedMp"));
 
     // when
