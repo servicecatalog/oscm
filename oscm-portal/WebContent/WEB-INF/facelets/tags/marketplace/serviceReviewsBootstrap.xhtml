@@ -1,39 +1,40 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
 <!DOCTYPE html>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
 
   <div class="bg-light border shadow px-3 mb-3">
-    <c:set var="allowedToWriteReview" value="#{serviceDetailsModel.selectedServiceFeedback.allowedToWriteReview}" />
-    <c:set var="allowedToDeleteReviews" value="#{manageReviewCtrl.marketplaceOwner}" />
+    <c:set var="allowedToWriteReview" value="#{serviceDetailsModel.selectedServiceFeedback.allowedToWriteReview}"/>
+    <c:set var="allowedToDeleteReviews" value="#{manageReviewCtrl.marketplaceOwner}"/>
     <c:if test="#{allowedToDeleteReviews}">
-      <ui:include src="../../../../marketplace/subscriptions/removeReview.xhtml">
-        <ui:param name="dialogId" value="removeReviewPanel" />
+      <ui:include src="../../../../marketplace/playground/subscriptions/removeReview.xhtml">
+        <ui:param name="dialogId" value="removeReviewPanel"/>
       </ui:include>
     </c:if>
 
     <div class="row align-items-center justify-content-between my-1">
       <div class="col-auto">
-        <h2 id="reviews" class="m-0">#{msg['service.reviews']} ( #{serviceDetailsModel.countSelectedServiceReviews} )</h2>
+        <h2 id="reviews" class="m-0">#{msg['service.reviews']} ( #{serviceDetailsModel.countSelectedServiceReviews})
+        </h2>
       </div>
       <div class="col-auto">
         <c:if test="#{allowedToWriteReview}">
-          <ui:include src="../../../../marketplace/subscriptions/reviewDetails.xhtml">
-            <ui:param name="dialogId" value="writeReviewPanel" />
+          <ui:include src="../../../../marketplace/playground/subscriptions/reviewDetails.xhtml">
+            <ui:param name="dialogId" value="writeReviewPanel"/>
           </ui:include>
-          <button id="btnWriteFeedback" type="button" onclick="#{rich:component('writeReviewPanel')}.show();" class="btn-sm btn-secondary">
+          <button id="btnWriteFeedback" type="button" onclick="#{rich:component('writeReviewPanel')}.show();"
+                  class="btn-sm btn-secondary">
             #{serviceDetailsCtrl.hasReviewForLoggedInUser ? msg['service.reviews.manage'] : msg['service.reviews.write']}
           </button>
         </c:if>
       </div>
     </div>
 
-
     <c:forEach items="#{serviceDetailsModel.selectedServiceReviews}" var="review" varStatus="status">
       <div class="border-top">
-        <mp:reviewBootstrap rating="#{review.ratingCss}" review="#{review}" reviewNumber="#{(status.index + 1)}" />
+        <mp:reviewBootstrap rating="#{review.ratingCss}" review="#{review}" reviewNumber="#{(status.index + 1)}"/>
       </div>
     </c:forEach>
   </div>

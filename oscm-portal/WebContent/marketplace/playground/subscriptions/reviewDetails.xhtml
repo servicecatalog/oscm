@@ -1,0 +1,127 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:rich="http://richfaces.org/rich" template="../templates/modalDialogBootstrap.xhtml">
+
+  <ui:define name="dialogScripts">
+    <script language="JavaScript1.2" type="text/javascript"
+            src="#{facesContext.externalContext.requestContextPath}/scripts/textareaMaxlength.js"/>
+    <script language="JavaScript1.2" type="text/javascript">
+      function updateCharacterCounter(element, maxLength) {
+        var counterElement = #{rich:element('counterText')};
+        var currentLength = element.value.length;
+        var charsLeft = maxLength - currentLength;
+        var counterMessage; 
+        if (charsLeft >= 0){
+          counterMessage = "#{msg['service.reviews.message.charsLeft']}";
+          counterMessage = counterMessage.replace("{0}",currentLength);
+          counterMessage = counterMessage.replace("{1}",maxLength);              
+          counterElement.className='ratingTextNormal';
+        }else{
+          counterMessage = "#{msg['service.reviews.message.maxCharsExceeded']}";
+          counterMessage = counterMessage.replace("{0}",(charsLeft*-1));
+          counterElement.className='ratingTextWarning';
+        }
+        counterElement.innerHTML = counterMessage;
+      }
+      
+      function resetCommentForm() {
+          document.commentForm.reset(); 
+      }
+    </script>
+
+    <c:set var="cancelHandler"
+           value="AdmUtils.showProgress(true);setDirty(false);#{rich:element('btnHiddenCancel')}.click();resetCommentForm();"/>
+    <c:set var="modalFocusElement" value="commentForm:title"/>
+  </ui:define>
+
+  <ui:define name="dialogTitle">
+    <h1>
+      <h:outputText
+          value="#{serviceDetailsCtrl.hasReviewForLoggedInUser ? msg['service.reviews.manage'] : msg['service.reviews.write']}"/>
+    </h1>
+  </ui:define>
+
+  <ui:define name="dialogContent">
+
+    <!-- form holding the rating, title and comment -->
+    <h:form id="commentForm" styleClass="ndh">
+
+      <!-- ratings -->
+      <h2 class="pt-3">
+        <adm:outputLabel value="#{msg['service.reviews.rating.header']}" renderRequired="true"
+                         hideLabelSeparator="true"/>
+      </h2>
+      <mp:editableRatingStars/>
+
+      <!-- title  -->
+      <h2 class="pt-3">
+        <adm:outputLabel value="#{msg['service.reviews.title.header']}" renderRequired="true"
+                         hideLabelSeparator="true"/>
+      </h2>
+
+      <h:inputText id="title" value="#{manageReviewCtrl.serviceReview.title}" maxlength="#{appBean.nameLen}"
+                   onchange="setDirty(true)" styleClass="review_title form-control form-control-sm" required="true">
+        <f:validateLength maximum="#{appBean.nameLen}"/>
+        <f:converter converterId="trimConverter"/>
+      </h:inputText>
+
+      <!-- comment box -->
+      <h2 class="pt-3">
+        <adm:outputLabel value="#{msg['service.reviews.comment.header']}" required="true" renderRequired="true"
+                         hideLabelSeparator="true"/>
+      </h2>
+      <h:inputTextarea id="comment" value="#{manageReviewCtrl.serviceReview.comment}" required="true" rows="5"
+                       title="#{msg['service.reviews.comment.tooltip']}" onchange="setDirty(true);"
+                       onkeydown="updateCharacterCounter(this,#{manageReviewCtrl.commentLength});"
+                       onkeyup="updateCharacterCounter(this,#{manageReviewCtrl.commentLength});"
+                       onblur="updateCharacterCounter(this,#{manageReviewCtrl.commentLength});"
+                       styleClass="review_comments form-control form-control-sm">
+        <f:validateLength maximum="#{manageReviewCtrl.commentLength}"/>
+      </h:inputTextarea>
+
+      <h:outputText id="counterText"/>
+      <hr class="m-2"/>
+
+      <!-- buttons -->
+      <h:commandButton id="btnHiddenCancel" styleClass="d-none" value="#{msg['service.reviews.button.publish']}"
+                       action="#{manageReviewCtrl.cancelReview}" immediate="true"/>
+
+      <a4j:outputPanel layout="block" styleClass="clearfix">
+        <a4j:commandButton styleClass="d-none" id="hiddenSaveBtn" value="#{msg['button.save']}"
+                           action="#{manageReviewCtrl.publishReview}" render="#{dialogId}RerenderPanel"
+                           onclick="setDirty(false);"
+                           oncomplete="AdmUtils.showProgress(false); if(!#{facesContext.maximumSeverity.ordinal > 0})
+                                      {#{rich:component(dialogId)}.hide();}"/>
+
+        <!-- visible buttons -->
+        <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel">
+          <mp:buttonBootstrap id="btnCancel" value="#{msg['service.reviews.button.cancel']}"
+                              styleClass="btn btn-outline-secondary"
+                              onclick="AdmUtils.showProgress(true);setDirty(false);#{rich:element('btnHiddenCancel')}.click();resetCommentForm();"/>
+          <c:if test="#{not manageReviewCtrl.isNewReview}">
+            <adm:buttonBootstrap id="btnRemove" value="#{msg['service.reviews.button.remove']}" action="removeReview"
+                                 styleClass="btn btn-outline-secondary ml-2" bean="#{manageReviewCtrl}"
+                                 oncomplete="AdmUtils.showProgress(false);setDirty(false);resetCommentForm();"/>
+          </c:if>
+
+          <mp:buttonBootstrap id="btnPublishLink" styleClass="btn btn-secondary mr-2 float-right"
+                              onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('hiddenSaveBtn')}.click(); return false;"
+                              value="#{msg['button.save']}"/>
+        </a4j:outputPanel>
+      </a4j:outputPanel>
+    </h:form>
+
+    <script>
+      AdmUtils.showProgress(false);
+	    jQuery(document).ready(function(){
+        jQuery().maxlength("commentForm:comment", #{manageReviewCtrl.commentLength});
+	    });
+      updateCharacterCounter(#{rich:element('comment')}, #{manageReviewCtrl.commentLength});
+    </script>
+  </ui:define>
+</ui:composition>
