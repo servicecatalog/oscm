@@ -5,8 +5,8 @@
                 xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
- <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" styleClass="#{styleClass}" sortType="custom"
-              filterValue="#{bean.filterValues[property]}" style="max-width:100px" filterType="custom"
+ <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" styleClass="#{styleClass} p-1"
+              filterValue="#{bean.filterValues[property]}" style="max-width:100px" filterType="custom" sortType="custom"
               headerClass="rowTitle sortable clickable-header #{headerClass}" filterExpression="#{property}">
   <f:facet name="header">
    <h:outputText value="#{columnHeaderName}"/>
@@ -25,8 +25,8 @@
   </f:facet>
 
   <a4j:outputPanel layout="block" styleClass="tablePanel table_padding stringInMultiLine preserveWhitespaces">
-   <h:selectOneMenu id="#{selectorId}" inputId="#{property}" onchange="#{onchange}" styleClass="custom-select"
-                    value="#{record[property]}" rendered="#{itemsRendered}">
+   <h:selectOneMenu id="#{selectorId}" inputId="#{property}" styleClass="roles-list custom-select custom-select-sm"
+                    value="#{record[property]}" rendered="#{itemsRendered}" onchange="#{onchange}">
     <a4j:ajax event="change" listener="#{updateUserCtrl.selectSubscriptionRole}" execute="@this"/>
     <f:selectItems value="#{items}"/>
     <f:attribute name="subscriptionId" value="#{record.id}"/>

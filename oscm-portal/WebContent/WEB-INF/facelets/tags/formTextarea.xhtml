@@ -29,7 +29,7 @@
     </div>
     <div class="col-md-#{areaWidth} col-sm-12 my-1">
       <h:inputTextarea id="#{id}" label="#{label}" value="#{value}" maxlength="#{maxlength}" onchange="setDirty(true)"
-                       rows="5" styleClass="#{areaStyle}" rendered="#{empty rendered or rendered}"
+                       rows="5" styleClass="#{areaStyle} mb-0" rendered="#{empty rendered or rendered}"
                        disabled="#{disabled}" required="#{not empty required and required}" onkeyup="#{onkeyup}">
 
         <c:if test="#{(not empty validatorId) and (empty rendered or rendered)}">

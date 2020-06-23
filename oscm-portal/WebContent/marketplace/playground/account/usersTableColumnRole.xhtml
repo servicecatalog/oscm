@@ -1,0 +1,40 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE composition>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+
+  <rich:column sortBy="#{property}" sortOrder="#{bean.sortOrders[property]}" filterType="custom"
+               filterValue="#{bean.filterValues[property]}" sortType="custom" filterExpression="#{property}"
+               styleClass="table-column-with-max-width p-1 #{styleClass}"
+               headerClass="rowTitle sortable clickable-header #{headerClass}">
+    <f:facet name="header">
+      <h:outputText value="#{columnHeaderName}"/>
+      <h:commandLink action="#{bean.toggleSort}" styleClass="sort-command-link">
+        <a4j:ajax render="#{tableName} :#{tableName}Scripts"/>
+        <f:setPropertyActionListener target="#{bean.sortProperty}" value="#{property}"/>
+      </h:commandLink>
+      <a4j:outputPanel id="#{property}sortIcons" styleClass="sort-icons non-clickable-element">
+        <h:graphicImage value="#{sortIconAscending}" rendered="#{bean.sortOrders[property] == 'ascending'}"/>
+        <h:graphicImage value="#{sortIconDescending}" rendered="#{bean.sortOrders[property] == 'descending'}"/>
+      </a4j:outputPanel>
+      <hr class="my-1"/>
+      <adm:filterInputBootstrap inputId="#{property}" inputValue="#{bean.filterValues[property]}"
+                                queueName="#{queueName}"
+                                render="#{tableName}@body #{scroller} :pagerPanel :#{tableName}Scripts #{scroller}Scripts"/>
+    </f:facet>
+    <a4j:outputPanel layout="block" styleClass="tablePanel table_padding stringInMultiLine preserveWhitespaces"
+                     id="rolePanel">
+      <h:selectOneMenu id="unitRole" onchange="saveChangedRole('#{user.userId}', $(this).val());setDirty(true);"
+                       styleClass="roles-list custom-select custom-select-sm" value="#{user.roleInUnit}">
+        <f:selectItems value="#{manageGroupCtrl.manageGroupModel.roles}"/>
+      </h:selectOneMenu>
+
+      <a4j:jsFunction name="saveChangedRole" action="#{manageGroupCtrl.saveInMap}">
+        <a4j:param name="param1" assignTo="#{manageGroupCtrl.manageGroupModel.changedUserId}"/>
+        <a4j:param name="param2" assignTo="#{manageGroupCtrl.manageGroupModel.changedRoleName}"/>
+      </a4j:jsFunction>
+    </a4j:outputPanel>
+  </rich:column>
+</ui:composition>
