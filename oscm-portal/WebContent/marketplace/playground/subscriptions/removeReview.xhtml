@@ -20,7 +20,7 @@
 
   <ui:define name="dialogContent">
 
-    <a4j:outputPanel id="#{dialogId}Grid" layout="block" styleClass="grid2span clearfix ndh" style="width: 560px;">
+    <a4j:outputPanel id="#{dialogId}Grid" layout="block" styleClass="container px-0">
       <ui:fragment>
 
         <h:form id="#{dialogId}Form">
@@ -36,23 +36,23 @@
           </h2>
 
           <a4j:outputPanel layout="block" styleClass="clearfix mb-1">
-            <h:inputTextarea id="deletionReason" value="#{manageReviewCtrl.manageReviewModel.deletionReason}"
-                             required="true"
-                             onchange="setDirty(true);" styleClass="review_comments" converter="trimConverter"/>
+            <h:inputTextarea id="deletionReason" value="#{manageReviewCtrl.manageReviewModel.deletionReason}" rows="5"
+                             required="true" styleClass="review_comments form-control form-control-sm pl-1 ml-1"
+                             onchange="setDirty(true);" converter="trimConverter"/>
             <mp:message id="deletionReasonErrorMsg" for="deletionReason"/>
           </a4j:outputPanel>
 
-          <mp:pixelline/>
+          <hr class="m-2"/>
 
           <h:commandButton id="hiddenCancelButton" styleClass="d-none" value="#{msg['button.cancel']}"
                            action="#{manageReviewCtrl.cancelReview}" immediate="true"/>
 
-          <a4j:outputPanel styleClass="justify-content-between">
+          <a4j:outputPanel styleClass="row row-justify-space">
             <mp:buttonBootstrap id="cancelButton" onclick="#{cancelHandler}" value="#{msg['button.cancel']}"
-                                styleClass="btn btn-outline-secondary ml-2"/>
+                                styleClass="btn btn-outline-secondary ml-3"/>
 
             <mp:buttonBootstrap id="deleteButton" value="#{msg['button.delete']}"
-                                styleClass="btn btn-outline-secondary mr-2" bean="#{manageReviewCtrl}"
+                                styleClass="btn btn-outline-secondary mr-3" bean="#{manageReviewCtrl}"
                                 action="removeReviewByMarketplaceAdmin" render="#{dialogId}RerenderPanel"
                                 oncomplete="AdmUtils.showProgress(false);"/>
           </a4j:outputPanel>

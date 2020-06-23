@@ -30,7 +30,7 @@
       <!-- Review controls -->
       <c:if test="#{allowedToWriteReview and review.belongsToLoggedInUser}">
         <div class="col-auto">
-          <h:outputLink styleClass="d-none" onclick="#{rich:component('writeReviewPanel')}.show();return false;">
+          <h:outputLink onclick="#{rich:component('writeReviewPanel')}.show();return false;">
             <h:outputText style="white-space: nowrap;" value="#{msg['service.reviews.manage']}"/>
           </h:outputLink>
         </div>
