@@ -1,6 +1,6 @@
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
 
-$main-color: $green;
+$main-color: $yellow;
 
 $dark: $gray-800;
 $secondary: $main-color;
@@ -17,3 +17,12 @@ $body-bg: #fff;
 $dropdown-link-active-bg: $primary;
 $input-focus-border-color: $primary;
 $input-group-addon-border-color: $primary;
+
+$lightened-color: lighten($secondary, 40%);
+$hover-color: darken($secondary, 2%);
+$darkened-color: darken($secondary, 6.5%);
+
+/*$list-group-active-bg: $darkened-color;
+$list-group-action-active-bg: $darkened-color;
+$list-group-bg: $hover-color;
+$list-group-bg: $lightened-color; */

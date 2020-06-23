@@ -11,5 +11,31 @@ html, body {
   overflow-x: hidden;
 } 
 
+
+.list-group-item-custom {
+    @extend .list-group-item-secondary;
+    background-color: $lightened-color !important;
+} 
+
+.list-group-item-custom:hover {
+   background-color: $hover-color !important;
+   color: #fff !important;
+}
+
+.list-group-item-custom.active {
+   background-color: $darkened-color !important;
+   color: #fff !important;
+}  
+  
+
+
+/*.list-group-item-secondary {
+    @include list-group-item-variant(secondary, darken($red, 7.5%), lighten($red, 10%));
+
+} @each $color, $value in $theme-colors {
+  @include list-group-item-variant(secondary, darken($blue, 7.5%), lighten($blue, 10%));
+} */
+
+
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
-@import "../../bootstrap/scss/bootstrap"; 
+@import "../../bootstrap/scss/bootstrap";
