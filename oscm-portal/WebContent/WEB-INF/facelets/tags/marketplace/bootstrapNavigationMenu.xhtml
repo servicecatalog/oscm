@@ -1,28 +1,22 @@
 <!-- Copyright FUJITSU LIMITED 2020-->
 <!DOCTYPE html>
-
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-  <c:set var="first" value="#{bean['title'][0]}" />
-  <c:set var="menuItemStyle" value="list-group-item list-group-item-action card-header" />
-  <c:set var="menuHeaderStyle" value="list-group-item list-group-item-action card-header bg-dark" />
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+  <c:set var="first" value="#{bean['title'][0]}"/>
+  <c:set var="menuItemStyle" value="list-group-item list-group-item-action card-header"/>
+  <c:set var="menuHeaderStyle" value="list-group-item list-group-item-action card-header bg-dark"/>
 
   <!-- Div which collapses vertically when screen is small. Hamburger icon displaying only for small screens. -->
-  <div class="custom-collapse mt-4 mt-md-2">
-    <button class="btn-toggler btn-secondary btn d-block d-md-none" aria-label="Toggle Navigation" type="button"
-      data-toggle="collapse" data-target="#sidebarCollapse" aria-expanded="true" aria-controls="sidebarCollapse">
-      <span class="hamburger_icon"><i class="fa fa-navicon"></i></span>
-    </button>
-
+  <div class="custom-collapse mt-0">
     <div id="sidebar-wrapper">
       <div class="list-group collapse navbar-collapse" id="sidebarCollapse">
         <!--  Header Row -->
         <h:outputLink id="link0" value="#"
-          styleClass="#{menuHeaderStyle} #{selected eq first? 'text-primary' : 'text-light'}"
-          onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][0]}';return true;}else{return false;}">
+                      styleClass="#{menuHeaderStyle} #{selected eq first? 'text-primary' : 'text-light'}"
+                      onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][0]}';return true;}else{return false;}">
           <h3 id="menu0">
-            <h:outputText value="#{msg[first]}" />
+            <h:outputText value="#{msg[first]}"/>
           </h3>
         </h:outputLink>
 
@@ -30,10 +24,11 @@
         <c:forEach items="#{bean['title']}" var="key" varStatus="index">
           <c:if test="#{not(first eq key)}">
             <h:outputLink id="link#{index.index}" value="#"
-              styleClass="#{menuItemStyle} #{selected eq key? 'text-primary' : ''}"  rendered="#{bean.isLinkVisible(index.index)}"
-              onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][index.index]}';return true;}else{return false;}">
+                          styleClass="#{menuItemStyle} #{selected eq key? 'text-primary' : ''}"
+                          rendered="#{bean.isLinkVisible(index.index)}"
+                          onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][index.index]}';return true;}else{return false;}">
               <h4 id="menu#{index.index}">
-                <h:outputText value="#{msg[key]}" />
+                <h:outputText value="#{msg[key]}"/>
               </h4>
             </h:outputLink>
           </c:if>

@@ -7,7 +7,7 @@
                 template="../templates/mainBootstrap.xhtml">
 
   <ui:define name="breadcrumbs">
-    <mp:bootstrapBreadcrumbs>
+    <mp:bootstrapBreadcrumbs menu="#{true}">
       <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/playground/account/index.jsf"/>
       <mp:crumb labelPageId="marketplace.account.users" link="/marketplace/playground/account/users.jsf"/>
       <mp:crumb labelPageId="marketplace.account.users.addGroup"/>

@@ -14,7 +14,7 @@
   </ui:define>
 
   <ui:define name="breadcrumbs">
-    <mp:bootstrapBreadcrumbs>
+    <mp:bootstrapBreadcrumbs menu="#{true}">
       <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/playground/account/index.jsf"/>
       <mp:crumb label="#{msg['marketplace.account.users.title']}" link="/marketplace/playground/account/users.jsf"/>
       <mp:crumb label="#{updateUserModel.userName}"/>
