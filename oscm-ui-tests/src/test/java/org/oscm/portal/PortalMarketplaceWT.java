@@ -107,6 +107,7 @@ public class PortalMarketplaceWT {
         "CategoryId" + PlaygroundSuiteTest.currentTimestampe);
     tester.writeValue(PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_NAME_INPUT, "CategoryName");
     tester.waitForElement(By.id(PortalHtmlElements.MANAGE_CATEGORIES_ADD_BUTTON), 10);
+    Thread.sleep(1000);
     tester.clickElement(PortalHtmlElements.MANAGE_CATEGORIES_SAVE_BUTTON);
 
     assertTrue(tester.getExecutionResult());
