@@ -21,6 +21,17 @@ html, body {
   max-width: 100%;
   overflow-x: hidden; }
 
+.list-group-item-secondary {
+  background-color: #6bdb84 !important; }
+
+.list-group-item-secondary:hover {
+  background-color: #269f42 !important;
+  color: #fff !important; }
+
+.list-group-item-secondary.active {
+  background-color: #228c3a !important;
+  color: #fff !important; }
+
 /* -------end customization-------- */
 /* finally, import Bootstrap to set the changes! */
 /*!

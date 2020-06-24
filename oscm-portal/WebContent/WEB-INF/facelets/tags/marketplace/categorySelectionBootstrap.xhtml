@@ -18,9 +18,9 @@
     <!-- Service categories list container-->
     <c:if test="#{categorySelectionBean.hasCategories}">
       <div class="cat-list list-group mb-2">
-        <c:set var="listItem" value="list-group-item list-group-item-action list-group-item-primary cat-item" />
+        <c:set var="listItem" value="list-group-item list-group-item-action list-group-item-secondary cat-item" />
         <c:set var="activeListItem"
-          value="list-group-item list-group-item-action btn-primary active text-center w-100 cat-item" />
+          value="list-group-item list-group-item-action list-group-item-secondary btn-primary active text-center w-100 cat-item" />
 
 
       <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">

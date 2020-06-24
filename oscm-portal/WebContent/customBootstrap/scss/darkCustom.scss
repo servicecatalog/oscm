@@ -11,5 +11,21 @@ html, body {
   overflow-x: hidden;
 } 
 
+
+.list-group-item-secondary {
+    @extend .list-group-item-secondary;
+    background-color: $lightened-color !important;
+} 
+
+.list-group-item-secondary:hover {
+   background-color: $hover-color !important;
+   color: #fff !important;
+}
+
+.list-group-item-secondary.active {
+   background-color: $darkened-color !important;
+   color: #fff !important;
+}  
+  
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
-@import "../../bootstrap/scss/bootstrap"; 
+@import "../../bootstrap/scss/bootstrap";
