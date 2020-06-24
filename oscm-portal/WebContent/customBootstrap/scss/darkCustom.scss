@@ -12,17 +12,17 @@ html, body {
 } 
 
 
-.list-group-item-custom {
+.list-group-item-secondary {
     @extend .list-group-item-secondary;
     background-color: $lightened-color !important;
 } 
 
-.list-group-item-custom:hover {
+.list-group-item-secondary:hover {
    background-color: $hover-color !important;
    color: #fff !important;
 }
 
-.list-group-item-custom.active {
+.list-group-item-secondary.active {
    background-color: $darkened-color !important;
    color: #fff !important;
 }  
