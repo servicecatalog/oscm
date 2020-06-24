@@ -299,6 +299,10 @@
     <source>formUserName.xhtml</source>
   </tag>
   <tag>
+    <tag-name>formLabel</tag-name>
+    <source>formLabel.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>messageAndHintBootstrap</tag-name>
     <source>messageAndHintBootstrap.xhtml</source>
   </tag>
