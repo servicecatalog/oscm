@@ -11,7 +11,11 @@ package org.oscm.portal;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.*;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
@@ -91,8 +95,6 @@ public class PortalMarketplaceWT {
     assertTrue(tester.getExecutionResult());
   }
 
-  // FIXME test ignored due #787
-  @Ignore
   @Test
   public void test04addCategory() throws Exception {
     tester.visitPortal(PortalPathSegments.MANAGE_CATEGORIES);
@@ -103,7 +105,8 @@ public class PortalMarketplaceWT {
         PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_ID_INPUT,
         "CategoryId" + PlaygroundSuiteTest.currentTimestampe);
     tester.writeValue(PortalHtmlElements.MANAGE_CATEGORIES_CATEGORY_NAME_INPUT, "CategoryName");
-    Thread.sleep(2000);
+    tester.waitForElement(By.id(PortalHtmlElements.MANAGE_CATEGORIES_ADD_BUTTON), 10);
+    Thread.sleep(1000);
     tester.clickElement(PortalHtmlElements.MANAGE_CATEGORIES_SAVE_BUTTON);
 
     assertTrue(tester.getExecutionResult());
