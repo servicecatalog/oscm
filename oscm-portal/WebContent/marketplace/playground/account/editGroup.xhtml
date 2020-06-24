@@ -15,7 +15,7 @@
   </ui:define>
 
   <ui:define name="breadcrumbs">
-    <mp:bootstrapBreadcrumbs>
+    <mp:bootstrapBreadcrumbs menu="#{true}">
       <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/playground/account/index.jsf"/>
       <c:choose>
         <c:when test="#{manageGroupCtrl.isLoggedAndUnitAdmin}">

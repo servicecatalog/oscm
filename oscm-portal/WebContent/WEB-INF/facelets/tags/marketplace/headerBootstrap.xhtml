@@ -1,24 +1,21 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
+<!-- Copyright FUJITSU LIMITED 2020-->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-  <c:if test="#{empty loginHandler}">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-  </c:if>
-
-  <c:set var="logoimg" value="#{sessionBean.marketplaceBrandBaseUrl}/img/mp_logo3.png" />
+  <c:set var="logoimg" value="#{sessionBean.marketplaceBrandBaseUrl}/img/mp_logo3.png"/>
 
   <nav class="px-1 navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid h6 m-0 px-3">
       <div class="no-gutters row align-items-center">
-        <a class="navbar-brand" href="#{mpBaseUrl}/playground/index.jsf"> <h:graphicImage value="${logoimg}"
-            alt="My Logo" />
+        <a class="navbar-brand" href="#{mpBaseUrl}/playground/index.jsf">
+          <h:graphicImage value="${logoimg}" alt="My Logo"/>
         </a>
 
         <button id="navbarToggleButton" class="navbar-toggler" type="button" data-toggle="collapse"
-          data-target="#navbar" aria-controls="navbar">
-          <span class="navbar-toggler-icon"></span>
+                data-target="#navbar" aria-controls="navbar">
+          <span class="navbar-toggler-icon"/>
         </button>
       </div>
       <div class="collapse navbar-collapse" id="navbar">
@@ -27,37 +24,37 @@
             <!-- search  -->
             <h:form id="searchForm" class=" form-inline my-2 my-lg-0">
 
-              <h:inputHidden value="all_www" name="restrict" />
-              <h:inputHidden id="searchPhrase" value="#{servicePagingBean.searchPhrase}" />
+              <h:inputHidden value="all_www" name="restrict"/>
+              <h:inputHidden id="searchPhrase" value="#{servicePagingBean.searchPhrase}"/>
               <c:if test="#{empty servicePagingBean.searchPhrase}">
                 <input class="form-control w-75 mr-1 inputSearch" id="inputSearch"
-                  placeholder="#{msg['marketplace.search']}" size="30"
-                  maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
-                  onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" onfocus="this.value = '';" />
+                       placeholder="#{msg['marketplace.search']}" size="30"
+                       maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
+                       onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" onfocus="this.value = '';"/>
               </c:if>
               <c:if test="#{not empty servicePagingBean.searchPhrase}">
                 <input class="form-control w-sm-75 mr-1 inputSearch" id="inputSearch"
-                  value="#{servicePagingBean.searchPhrase}" placeholder="#{msg['marketplace.search']}" size="30"
-                  maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
-                  onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" />
+                       value="#{servicePagingBean.searchPhrase}" placeholder="#{msg['marketplace.search']}" size="30"
+                       maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
+                       onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');"/>
               </c:if>
               <h:commandLink id="hiddenLink" style="display:none; visibility: hidden;"
-                onclick="AdmUtils.copyElementValues('inputSearch','searchForm:searchPhrase');AdmUtils.IE9AfterClick('inputSearch');return true;"
-                action="#{serviceListingBean.showServiceListSearch}" />
-              <h:inputHidden value="UTF-8" name="ie" />
+                             onclick="AdmUtils.copyElementValues('inputSearch','searchForm:searchPhrase');AdmUtils.IE9AfterClick('inputSearch');return true;"
+                             action="#{serviceListingBean.showServiceListSearch}"/>
+              <h:inputHidden value="UTF-8" name="ie"/>
 
               <c:if test="#{servicePagingBean.searchAvailable}">
                 <h:commandLink name="btnG" id="submit" action="#{serviceListingBean.showServiceListSearch}"
-                  onclick="AdmUtils.IE9OnClick('inputSearch');AdmUtils.showProgress(true);AdmUtils.copyElementValues('inputSearch','searchForm:searchPhrase');AdmUtils.IE9AfterClick('inputSearch');return true;"
-                  styleClass="btn btn-outline-secondary my-2 my-sm-0">
-                  <i class="fa fa-search" />
+                               onclick="AdmUtils.IE9OnClick('inputSearch');AdmUtils.showProgress(true);AdmUtils.copyElementValues('inputSearch','searchForm:searchPhrase');AdmUtils.IE9AfterClick('inputSearch');return true;"
+                               styleClass="btn btn-outline-secondary my-2 my-sm-0">
+                  <i class="fa fa-search"/>
                 </h:commandLink>
               </c:if>
 
               <c:if test="#{not servicePagingBean.searchAvailable and userBean.internalAuthMode}">
                 <h:commandLink name="btnG" id="submit" onclick="showLoginPanel('/marketplace/index.jsf');"
-                  styleClass="btn btn-outline-secondary my-2 my-sm-0">
-                  <i class="fa fa-search" />
+                               styleClass="btn btn-outline-secondary my-2 my-sm-0">
+                  <i class="fa fa-search"/>
                 </h:commandLink>
               </c:if>
 
@@ -69,42 +66,50 @@
         <ul class="order-lg-first nav navbar-nav">
           <!-- Home -->
           <li id="homeLink" class="#{pageId eq 'marketplace.home' ? 'nav-item active' : 'nav-item'}"><a
-            class="order-lg-first nav-link" href="#{mpBaseUrl}/playground/index.jsf?mId=#{mId}"><i
-              class=" fa fa-fw fa-home"></i>#{msg['navigation.home']}</a></li>
+              class="order-lg-first nav-link" href="#{mpBaseUrl}/playground/index.jsf?mId=#{mId}">
+            <i class="fa fa-fw fa-home"/>#{msg['navigation.home']}</a></li>
           <!-- Browse Services -->
           <li id="servicesLink" class="#{pageId eq 'marketplace.services' ? 'nav-item active' : 'nav-item'}"><a
-            class="order-lg-2 nav-link" href="#{mpBaseUrl}/playground/services.jsf">#{msg['button.browse']}</a></li>
+              class="order-lg-2 nav-link" href="#{mpBaseUrl}/playground/services.jsf">#{msg['button.browse']}</a></li>
           <!-- Help -->
           <ui:fragment rendered="#{user ne null}">
-            <li class="nav-item"><a class="nav-link" href="#"
-              onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">#{msg['marketplace.help']}</a>
+            <li class="nav-item">
+              <a class="nav-link" href="#"
+                 onclick="AdmUtils.showFaq('#{facesContext.externalContext.requestContextPath}', '#{facesContext.viewRoot.locale}');">
+                #{msg['marketplace.help']}
+              </a>
             </li>
           </ui:fragment>
         </ul>
         <ul class="order-lg-last nav navbar-nav">
-          <li><ui:fragment rendered="#{user eq null}">
+          <li>
+            <ui:fragment rendered="#{user eq null}">
               <!-- login if user is empty -->
               <c:if test="#{userBean.internalAuthMode}">
-                <a href="#" class="order-lg-4 nav-link" onclick="#{loginHandler}"><h:outputText
-                    value=" #{msg['login']}" /> <i class=" fa fa-fw fa-sign-in"></i></a>
+                <a href="#" class="order-lg-4 nav-link" onclick="#{loginHandler}">
+                  <h:outputText value=" #{msg['login']}"/>
+                  <i class=" fa fa-fw fa-sign-in"/></a>
               </c:if>
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
                   <h:form id="formLogin">
                     <h:outputLink id="loginLink" class=" order-lg-4 nav-link">
-                      <h:outputText value=" #{msg['login']}" />
-                      <i class="fa fa-fw fa-sign-in" />
-                      <f:param name="login" value="oidc" />
+                      <h:outputText value=" #{msg['login']}"/>
+                      <i class="fa fa-fw fa-sign-in"/>
+                      <f:param name="login" value="oidc"/>
                     </h:outputLink>
                   </h:form>
                 </a4j:region>
               </c:if>
-            </ui:fragment> <ui:fragment rendered="#{user ne null}">
+            </ui:fragment>
+            <ui:fragment rendered="#{user ne null}">
               <li class="nav-item dropdown"><a class="order-lg-4 nav-link dropdown-toggle waves-effect waves-light"
-                href="#" id="navbarUserToggle" data-toggle="dropdown" data-target="#userDrop"><i class="fa fa-user" />
-                  <h:outputText id="welcome" /> #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
+                                               href="#" id="navbarUserToggle" data-toggle="dropdown"
+                                               data-target="#userDrop"><i class="fa fa-user"/>
+                <h:outputText id="welcome"/>
+                #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
                 <div id="userDrop" class="dropdown-menu dropdown-menu-right">
-                  <p class="px-4 py-sm-2">
+                  <p class="px-4 py-sm-2 mb-1">
                     #{msg['marketplace.logging']} <strong><br>#{user.userId}</br></strong>
                   </p>
                   <div class="dropdown-divider"></div>
@@ -114,23 +119,26 @@
                   <h:form id="formLogout">
                     <c:if test="#{userBean.internalAuthMode}">
                       <h:commandLink class="dropdown-item" id="logout" action="#{userBean.logoff}">
-                        <i class="fa fa-fw fa-sign-out" />#{msg['logout']}</h:commandLink>
+                        <i class="fa fa-fw fa-sign-out"/>#{msg['logout']}
+                      </h:commandLink>
                     </c:if>
                     <c:if test="#{not userBean.internalAuthMode}">
                       <h:outputLink id="logout" class="dropdown-item">
-                        <i class="fa fa-fw fa-sign-out" />
-                        <h:outputText class="px-1" value="#{msg['logout']}" />
-                        <f:param name="logout" value="oidc" />
+                        <i class="fa fa-fw fa-sign-out"/>
+                        <h:outputText class="px-1" value="#{msg['logout']}"/>
+                        <f:param name="logout" value="oidc"/>
                       </h:outputLink>
                     </c:if>
                   </h:form>
-                </div></li>
-            </ui:fragment></li>
+                </div>
+              </li>
+            </ui:fragment>
+          </li>
         </ul>
       </div>
     </div>
   </nav>
 
   <script type="text/javascript">AdmUtils.IE9PlaceHolderFix('#{servicePagingBean.searchPhrase}', 'inputSearch');
-</script>
+  </script>
 </ui:composition>

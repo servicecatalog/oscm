@@ -9,12 +9,7 @@
   <c:set var="menuHeaderStyle" value="list-group-item list-group-item-action card-header bg-dark"/>
 
   <!-- Div which collapses vertically when screen is small. Hamburger icon displaying only for small screens. -->
-  <div class="custom-collapse">
-    <button class="btn-toggler btn-secondary btn d-block d-md-none" aria-label="Toggle Navigation" type="button"
-            data-toggle="collapse" data-target="#sidebarCollapse" aria-expanded="true" aria-controls="sidebarCollapse">
-      <span class="hamburger_icon"><i class="fa fa-navicon"/></span>
-    </button>
-
+  <div class="custom-collapse mt-0">
     <div id="sidebar-wrapper">
       <div class="list-group collapse navbar-collapse" id="sidebarCollapse">
         <!--  Header Row -->
@@ -42,26 +37,5 @@
       </div>
     </div>
   </div>
-
-  <script type="text/javascript">
-    function checkWidth(init) {
-      if ($(window).width() &lt; 514) {
-        $('flexContainer').addClass('d-flex');
-      }
-      else {
-        if (!init) {
-          $('flexContainer').removeClass('d-flex');
-        }
-      }
-    }
-
-    $(document).ready(function() {
-      checkWidth(true);
-
-      $(window).resize(function() {
-        checkWidth(false);
-      });
-    });
-  </script>
 
 </ui:composition>
