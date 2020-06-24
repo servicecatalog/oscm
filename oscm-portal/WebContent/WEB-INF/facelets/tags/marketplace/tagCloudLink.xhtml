@@ -9,16 +9,16 @@
   <c:choose>
     <c:when test="#{empty preview}">
       <h:commandLink style="font-size:#{tag.weight}px;" disabled="false" id="cloudlink#{status.index}"
-        styleClass="tagCloud tag #{tag.name eq servicePagingBean.filterTagForDisplay ? 'list-group-item-primary' : ''}"   value="" action="#{serviceListingBean.showServiceList}">
+        styleClass="tagCloud tag #{tag.name eq servicePagingBean.filterTagForDisplay ? 'list-group-item-secondary' : ''}"   value="" action="#{serviceListingBean.showServiceList}">
         <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value="#{tag.language},#{tag.name}" />
         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value="" />
         <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />
-        <h:outputText styleClass="#{tag.name eq servicePagingBean.filterTagForDisplay ? 'list-group-item-primary' : ''}" value="#{tag.name}" escape="true" />
+        <h:outputText styleClass="#{tag.name eq servicePagingBean.filterTagForDisplay ? 'list-group-item-secondary' : ''}" value="#{tag.name}" escape="true" />
       </h:commandLink>
     </c:when>
     <c:otherwise>
       <h:outputLink style="font-size:#{tag.weight}px;" disabled="true" id="cloudlink#{status.index}"
-        styleClass="tagCloud tag preview #{tag.name eq servicePagingBean.filterTagForDisplay ? 'list-group-item-primary' : ''}" value="">
+        styleClass="tagCloud tag preview #{tag.name eq servicePagingBean.filterTagForDisplay ? 'list-group-item-secondary' : ''}" value="">
         <h:outputText value="#{tag.name}" escape="true" />
       </h:outputLink>
     </c:otherwise>
