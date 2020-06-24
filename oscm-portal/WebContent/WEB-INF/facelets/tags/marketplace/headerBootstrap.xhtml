@@ -12,12 +12,12 @@
         <a class="navbar-brand" href="#{mpBaseUrl}/playground/index.jsf">
           <h:graphicImage value="${logoimg}" alt="My Logo"/>
         </a>
-
-        <button id="navbarToggleButton" class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbar" aria-controls="navbar">
-          <span class="navbar-toggler-icon"/>
-        </button>
       </div>
+      <button id="navbarToggleButton" class="navbar-toggler" type="button" data-toggle="collapse"
+              data-target="#navbar" aria-controls="navbar">
+        <span class="navbar-toggler-icon"/>
+      </button>
+
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="order-sm-first order-lg-3 nav navbar-nav ml-auto">
           <ui:fragment rendered="true">
@@ -81,7 +81,7 @@
             </li>
           </ui:fragment>
         </ul>
-        <ul class="order-lg-last nav navbar-nav">
+        <ul class="order-lg-last nav navbar-nav mb-2">
           <li>
             <ui:fragment rendered="#{user eq null}">
               <!-- login if user is empty -->
@@ -139,6 +139,7 @@
     </div>
   </nav>
 
-  <script type="text/javascript">AdmUtils.IE9PlaceHolderFix('#{servicePagingBean.searchPhrase}', 'inputSearch');
+  <script type="text/javascript">
+    AdmUtils.IE9PlaceHolderFix('#{servicePagingBean.searchPhrase}', 'inputSearch');
   </script>
 </ui:composition>
