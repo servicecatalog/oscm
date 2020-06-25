@@ -20,6 +20,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Matchers;
 import org.oscm.internal.intf.MarketplaceService;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.ui.common.Constants;
@@ -36,7 +37,7 @@ public class SessionBeanTest {
   private static final String WHITE_LABEL_URI = "/oscm-portal/marketplace/css/mp.css";
   private static final String WHITE_LABEL_BASE_URI = "/marketplace";
 
-  private static final String BRANDING_BASE_URL = "http://localhost:8180/oscm-portal/marketplace";
+  private static final String BRANDING_BASE_URL = "https://localhost:8443/branding";
 
   private static final String BRANDING_URL = BRANDING_BASE_URL + "/css/mp_custom.css";
 
@@ -46,6 +47,7 @@ public class SessionBeanTest {
   private Cookie[] cookies;
 
   private FacesContext fcContextMock;
+  protected boolean hasCustomBootstrap = false;
 
   @Before
   public void setUp() throws Exception {
@@ -69,6 +71,7 @@ public class SessionBeanTest {
     doReturn(marketplaceServiceMock).when(sessionBean).getMarketplaceService();
     cookies = new Cookie[1];
     doReturn(cookies).when(req).getCookies();
+    doReturn(new Boolean(hasCustomBootstrap)).when(sessionBean).testUrl(Matchers.anyString());
   }
 
   @Test
@@ -280,11 +283,55 @@ public class SessionBeanTest {
     assertFalse(SessionBean.isValidServiceKey(SessionBean.SERIVE_KEY_NOT_SET));
     assertTrue(SessionBean.isValidServiceKey(123L));
   }
+  
+  @Test
+  public void getCustomBootstrap() {
+      sessionBean.customBootstrapUrl = null;
+      String url = sessionBean.getCustomBootstrapUrl();
+      assertEquals(url, "/customBootstrap", url);
+  }
+
+  @Test
+  public void getCustomBootstrap_brandedWithBootstrap() throws ObjectNotFoundException {
+      // given
+      givenCustomBootstrapAvailable();
+      
+      doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+      sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
+      //when
+      String url = sessionBean.getCustomBootstrapUrl();
+      
+      assertEquals(url, BRANDING_BASE_URL + "/customBootstrap", url);
+  }
+  
+  @Test
+  public void getCustomBootstrap_brandedWitoutBootstrap() throws ObjectNotFoundException {
+      // given
+      givenCustomBootstrapNotAvailable();
+      
+      doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+      sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
+      
+      //when
+      String url = sessionBean.getCustomBootstrapUrl();
+      
+      assertEquals(url, BRANDING_BASE_URL + "/customBootstrap", url);
+  }
 
   private void setCurrentLocale(Locale locale) {
     fcContextMock = new FacesContextStub(locale);
     UIViewRoot root = mock(UIViewRoot.class);
     doReturn(locale).when(root).getLocale();
     fcContextMock.setViewRoot(root);
+  }
+  
+  private void givenCustomBootstrapAvailable() {
+      hasCustomBootstrap = true;
+      sessionBean.customBootstrapUrl = null;
+  }
+  
+  private void givenCustomBootstrapNotAvailable() {
+      hasCustomBootstrap = true;
+      sessionBean.customBootstrapUrl = null;
   }
 }

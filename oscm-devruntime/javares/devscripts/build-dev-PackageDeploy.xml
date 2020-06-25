@@ -113,13 +113,25 @@
     <scp todir="${env.SCP_USER}:${env.SCP_PASS}@${env.SCP_TARGETHOST}:/tmp/WebContents" trust="true">
       <fileset dir="${dev.dir}/oscm-portal/WebContent">
         <include name="**/*.xhtml" />
+        <include name="**/*.css" />
       </fileset>
     </scp>
     <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}"
       command="docker cp /tmp/WebContents/. oscm-core:/opt/apache-tomee/webapps/oscm-portal/" trust="true" />
-    <antcall target="restartContainer" />
+  <!--   <antcall target="restartContainer" />  -->
   </target>
-
+  
+  <target name="Portal.RedeployCustomBootstrap" description="Deploys the customized bootstrap files">
+    <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="mkdir --parents /tmp/CustomBootsrap"
+      trust="true" />
+    <scp todir="${env.SCP_USER}:${env.SCP_PASS}@${env.SCP_TARGETHOST}:${env.SCP_BRANDINGDIR}/customBootstrap" trust="true">
+      <fileset dir="${dev.dir}/oscm-portal/WebContent/customBootstrap">
+        <include name="**/*" />
+      </fileset>
+    </scp>
+    <antcall target="restartContainer" /> 
+  </target>
+ 
   <target name="redeployBesEar">
     <sshexec host="${env.SCP_TARGETHOST}" username="${env.SCP_USER}" password="${env.SCP_PASS}" command="mkdir --parents /tmp/oscm-ear"
       trust="true" />
