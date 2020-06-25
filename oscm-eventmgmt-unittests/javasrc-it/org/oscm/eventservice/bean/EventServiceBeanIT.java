@@ -41,6 +41,7 @@ import org.oscm.internal.types.enumtypes.ServiceAccessType;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
 import org.oscm.internal.types.exception.DuplicateEventException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.vo.VOGatheredEvent;
 import org.oscm.test.EJBTestBase;
@@ -255,9 +256,9 @@ public class EventServiceBeanIT extends EJBTestBase {
         });
     try {
       evMgmt.recordEventForInstance(technicalProductId, instanceId, event);
-      Assert.fail("recordEvent() must faile!");
-    } catch (EJBException e) {
-      Assert.assertEquals(NonUniqueResultException.class, e.getCause().getCause().getClass());
+      Assert.fail("recordEvent failed!");
+    } catch (SaaSSystemException e) {
+      Assert.assertEquals(NonUniqueResultException.class, e.getCause().getClass());
     }
   }
 
