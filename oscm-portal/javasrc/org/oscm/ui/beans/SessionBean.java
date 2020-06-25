@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -29,6 +30,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.billing.external.pricemodel.service.PriceModel;
 import org.oscm.internal.intf.MarketplaceCacheService;
@@ -39,7 +41,13 @@ import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
-import org.oscm.ui.common.*;
+import org.oscm.ui.common.ADMStringUtils;
+import org.oscm.ui.common.Constants;
+import org.oscm.ui.common.JSFUtils;
+import org.oscm.ui.common.RequestUrlHandler;
+import org.oscm.ui.common.ServiceAccess;
+import org.oscm.ui.common.TableHeightMap;
+import org.oscm.ui.common.UiDelegate;
 
 /** Managed bean to store session specific values which are not persisted in the database. */
 @SessionScoped
@@ -407,6 +415,12 @@ public class SessionBean implements Serializable {
     } catch (IOException e) {
       return false;
     }
+  }
+
+  public String getMarketplaceCustomBootstrapUrl() {
+    String brandBaseUrl = getMarketplaceBrandBaseUrl();
+    String customBootstrapUrl = brandBaseUrl + "/customBootstrap/css/darkCustom.css";
+    return customBootstrapUrl;
   }
 
   private String removeCSSPath(final String brandUrl) {
