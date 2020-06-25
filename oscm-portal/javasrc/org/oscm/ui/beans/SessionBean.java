@@ -365,6 +365,12 @@ public class SessionBean implements Serializable {
     return "/marketplace";
   }
 
+  public String getMarketplaceCustomBootstrapUrl() {
+    String brandBaseUrl = getMarketplaceBrandBaseUrl();
+    String customBootstrapUrl = brandBaseUrl + "/customBootstrap/css/darkCustom.css";
+    return customBootstrapUrl;
+  }
+
   private String removeCSSPath(final String brandUrl) {
     Matcher matcher = CSS_PATH_PATTERN.matcher(brandUrl);
     return matcher.replaceAll("$1");
