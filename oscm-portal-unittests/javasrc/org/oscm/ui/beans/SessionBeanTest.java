@@ -7,17 +7,21 @@ package org.oscm.ui.beans;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 import java.util.Locale;
+
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.internal.intf.MarketplaceService;
@@ -34,9 +38,14 @@ public class SessionBeanTest {
       "http://localhost:8180/oscm-portal/marketplace/css/mp.css";
 
   private static final String WHITE_LABEL_URI = "/oscm-portal/marketplace/css/mp.css";
+  private static final String DEFAULT_BOOTSTRAP_URI =
+      "/oscm-portal/bootstrap/css/bootstrap.min.css";
   private static final String WHITE_LABEL_BASE_URI = "/marketplace";
 
   private static final String BRANDING_BASE_URL = "http://localhost:8180/oscm-portal/marketplace";
+  private static final String CUSTOM_BOOTSTRAP_URL_SUFFIX = "/customBootstrap/css/darkCustom.css";
+  private static final String CUSTOM_BOOTSTRAP_URL =
+      BRANDING_BASE_URL + CUSTOM_BOOTSTRAP_URL_SUFFIX;
 
   private static final String BRANDING_URL = BRANDING_BASE_URL + "/css/mp_custom.css";
 
@@ -149,6 +158,41 @@ public class SessionBeanTest {
         .getBrandingUrl(MARKETPLACE_ID);
     String result = sessionBean.getMarketplaceBrandUrl();
     assertEquals(WHITE_LABEL_URI, result);
+  }
+
+  @Test
+  public void getMarketplaceCustomBootstrapUrl_defaultBootstrap() throws Exception {
+    // given
+    doReturn(WHITE_LABEL_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+
+    // when
+    String result = sessionBean.getMarketplaceCustomBootstrapUrl();
+
+    // then
+    assertEquals(DEFAULT_BOOTSTRAP_URI, result);
+  }
+
+  @Test
+  public void getMarketplaceCustomBootstrapUrl_branded() throws Exception {
+    // given
+    doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+    sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
+
+    // Mock the HttpUrlConnection for the URL of custom bootstrap.
+    // URL url = mock(URL.class);
+
+    // doReturn(url).when(new URL(anyString()));
+
+    // HttpURLConnection huc = mock(HttpURLConnection.class);
+    // doReturn(huc).when(url.openConnection());
+    // when(huc.getResponseCode()).thenReturn(200);
+
+    when(sessionBean.isUrlAccessible(anyString())).thenReturn(true);
+    // when
+    String result = sessionBean.getMarketplaceCustomBootstrapUrl();
+
+    // then
+    assertEquals(CUSTOM_BOOTSTRAP_URL, result);
   }
 
   @Test
