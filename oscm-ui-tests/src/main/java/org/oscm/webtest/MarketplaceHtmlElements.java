@@ -186,8 +186,8 @@ public class MarketplaceHtmlElements {
 
   public static final String MARKETPLACE_REVIEW_TITLE_INPUT = "commentForm:title";
   public static final String MARKETPLACE_REVIEW_COMMENT_INPUT = "commentForm:comment";
-  public static final String MARKETPLACE_REVIEW_SAVE_BUTTON = "commentForm:btnPublishLink";
-  public static final String MARKETPLACE_REVIEW_REMOVE_BUTTON = "commentForm:btnRemove";
+  public static final String MARKETPLACE_REVIEW_SAVE_BUTTON ="btnPublishLink";
+  public static final String MARKETPLACE_REVIEW_REMOVE_BUTTON = "commentForm:btnRemoveLink";
   public static final String MARKETPLACE_REVIEW_STARS_5 = "star5";
   public static final String MARKETPLACE_REVIEW_BLOCK = "reviewBlock1";
 
