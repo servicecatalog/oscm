@@ -1,0 +1,181 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" template="../../templates/mainBootstrap.xhtml">
+
+  <ui:define name="breadcrumbs">
+    <mp:bootstrapBreadcrumbs>
+      <mp:crumb labelPageId="marketplace.account" link="/marketplace/playground/account/index.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.subscriptions"
+                link="/marketplace/playground/account/subscriptions.jsf"/>
+      <mp:crumb label="#{upgradeWizardConversation.model.selectedSubscriptionId}"/>
+    </mp:bootstrapBreadcrumbs>
+  </ui:define>
+
+  <ui:define name="contents">
+
+    <a4j:outputPanel class="row justify-content-center">
+
+      <mp:subscriptionProcessProgressBootstrap active="confirmation" bean="#{upgradeWizardConversation}"
+                                               showPayment="#{upgradeWizardConversation.model.service.priceModel.chargeable and not upgradeWizardConversation.paymentConfigurationHidden}"
+                                               service="#{upgradeWizardConversation.model.service}">
+        <a4j:outputPanel class="col-lg-9 col-md-10 col-sm-12">
+
+          <h:form id="confirmForm">
+            <div class="bg-light p-3 shadow mb-4">
+              <c:if test="true">
+                <adm:keepDirty value="#{upgradeWizardConversation.model.dirty}"/>
+              </c:if>
+
+              <h2 class="box_title">#{msg['subscription.confirm.configuration.title']}</h2>
+
+              <h3 class="box_title">#{msg['marketplace.subscription.configuration.nameAndReference']}</h3>
+
+              <a4j:outputPanel layout="block" styleClass="infoArea mb-2">
+                <h:outputText value="#{msg['subscription.subscriptionId']}" id="subscriptionIdLabel"
+                              styleClass="label"/>
+                <h:outputText value="#{upgradeWizardConversation.model.subscription.subscriptionId}"
+                    id="subscriptionIdValue"/>
+
+                <h:outputText value="#{msg['subscription.purchaseOrderNumber']}"
+                              id="purchaseOrderNumberLabel"
+                              styleClass="label"/>
+                <h:outputText
+                    value="#{upgradeWizardConversation.model.subscription.purchaseOrderNumber}"
+                    id="purchaseOrderNumberValue"/>
+
+                <c:forEach items="#{upgradeWizardConversation.model.subscriptionUdaRows}"
+                           var="subUda" varStatus="v">
+                  <h:outputText value="#{subUda.udaNameToShow}" id="subUda#{v.index}Label"
+                                styleClass="label"/>
+                  <h:outputText value="#{subUda.udaValue}" id="subUda#{v.index}Value"
+                                rendered="#{not subUda.inputEncrypted}"/>
+                  <h:outputText value="*****" id="secretSubUda#{v.index}Value"
+                                styleClass="output-password" rendered="#{subUda.inputEncrypted}"/>
+                </c:forEach>
+              </a4j:outputPanel>
+
+              <!-- configuration summary -->
+              <ui:fragment rendered="#{not empty upgradeWizardConversation.model.serviceParameters}">
+                <h3 class="box_title">#{msg['parameter.table.header']}</h3>
+                <a4j:outputPanel layout="block" styleClass="mb-1">
+                  <ui:include src="../../account/paramtable.xhtml">
+                    <ui:param name="inputList"
+                              value="#{upgradeWizardConversation.model.serviceParameters}"/>
+                    <ui:param name="formName" value="confirmForm"/>
+                    <ui:param name="showPrices"
+                              value="#{upgradeWizardConversation.model.showServicePrices}"/>
+                  </ui:include>
+                </a4j:outputPanel>
+              </ui:fragment>
+
+              <h:outputLink id="editConfigurationLink" style="text-decoration: none;"
+                            onclick="setDirty(false);if(AdmUtils.isNotDirtyOrConfirmed()) {#{rich:element('hiddenConfigurationChange')}.click();} return false;">
+                <h:outputText value="#{msg['subscription.confirm.serviceConfiguration.change']}"/>
+              </h:outputLink>
+              <h:commandButton id="hiddenConfigurationChange" styleClass="d-none" immediate="true"
+                               action="#{upgradeWizardConversation.gotoConfiguration}"/>
+
+              <ui:fragment
+                  rendered="#{upgradeWizardConversation.model.service.priceModel.chargeable and not upgradeWizardConversation.paymentConfigurationHidden}">
+                <!-- billing address -->
+                <h2 class="box_title mt-3">
+                  #{msg['subscription.confirm.details.title']}</h2>
+                <a4j:outputPanel layout="block" styleClass="infoArea mb-1">
+                  <a4j:outputPanel layout="block" styleClass="marginBottomDefault"
+                                   rendered="#{not empty upgradeWizardConversation.model.selectedBillingContact}">
+                    <h:outputText
+                        value="#{upgradeWizardConversation.model.selectedBillingContact.id}"
+                        id="billingId"/>
+                  </a4j:outputPanel>
+                  <a4j:outputPanel layout="block">
+                    <h:outputText
+                        value="#{upgradeWizardConversation.model.selectedBillingContact.email}"
+                        id="billingEmail"/>
+                  </a4j:outputPanel>
+                  <a4j:outputPanel layout="block">
+                    <h:outputText
+                        value="#{upgradeWizardConversation.model.selectedBillingContact.companyName}"
+                        id="billingCompanyName"
+                        styleClass="preWrapping"/>
+                  </a4j:outputPanel>
+                  <a4j:outputPanel layout="block">
+                    <h:outputText
+                        value="#{upgradeWizardConversation.model.selectedBillingContact.address}"
+                        id="billingAddress"
+                        styleClass="preWrapping"/>
+                  </a4j:outputPanel>
+                </a4j:outputPanel>
+
+                <!-- payment info -->
+                <h2 class="box_title mt-3">
+                  #{msg['subscription.confirm.paymentOptions.title']}</h2>
+                <a4j:outputPanel layout="block" styleClass="infoArea mb-1">
+                  <a4j:outputPanel layout="block" styleClass="marginBottomDefault">
+                    <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.id}"
+                                  id="paymentId"/>
+                  </a4j:outputPanel>
+                  <a4j:outputPanel layout="block">
+                    <h:outputText
+                        value="#{upgradeWizardConversation.model.selectedPaymentInfo.providerName}"
+                        id="paymentProvider"/>
+                  </a4j:outputPanel>
+                  <a4j:outputPanel layout="block">
+                    <h:outputText
+                        value="#{upgradeWizardConversation.model.selectedPaymentInfo.accountNumber}"
+                        id="paymentAccount"/>
+                  </a4j:outputPanel>
+                </a4j:outputPanel>
+
+                <h:outputLink id="editPaymentTypeLink" style="text-decoration: none;"
+                              onclick="setDirty(false);if(AdmUtils.isNotDirtyOrConfirmed()) {#{rich:element('hiddenPaymentChange')}.click();} return false;">
+                  <h:outputText value="#{msg['subscription.confirm.paymentOptions.change']}"/>
+                </h:outputLink>
+                <h:commandButton id="hiddenPaymentChange" class="d-none" immediate="true"
+                                 action="#{upgradeWizardConversation.gotoEnterPayment}"/>
+              </ui:fragment>
+
+              <!-- terms and conditions -->
+              <h2 class="box_title mt-3">#{msg['subscription.confirm.terms.title']}
+                <h:outputText id="agreeRequired" value=" *" styleClass="mandatory d-inline-block"/>
+              </h2>
+              <a4j:outputPanel layout="block" styleClass="infoArea mb-3">
+                <a4j:outputPanel layout="block" styleClass="container">
+                  <h:selectBooleanCheckbox id="agreeCheckbox"
+                                           value="#{upgradeWizardConversation.model.agreed}"
+                                           validator="#{booleanValidator.validateTrue}"
+                                           required="true"
+                                           requiredMessage="#{msg['error.subscription.license']}"/>
+                  <h:outputText id="licenseAcceptStart"
+                                value="#{msg['subscription.add.license.acceptStart']}"/>
+                  <mp:serviceLicense linkText="#{msg['subscription.add.license']}"
+                                     service="#{upgradeWizardConversation.model.service.VO}"/>
+                  <h:outputText id="licenseAcceptEnd"
+                                value="#{msg['subscription.add.license.acceptEnd']}"/>
+                </a4j:outputPanel>
+                <a4j:outputPanel layout="block" styleClass="w-100 mt-3">
+                  <mp:message for="agreeCheckbox"/>
+                </a4j:outputPanel>
+              </a4j:outputPanel>
+
+              <hr class="my-2"/>
+
+              <a4j:outputPanel styleClass="row row-justify-space">
+                <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" immediate="true" keepDirty="true"
+                                    bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ml-3"
+                                    action="previousFromConfirmPage"/>
+
+                <mp:buttonBootstrap id="confirm" value="#{msg['button.confirm']}" styleClass="btn btn-secondary mr-3"
+                                    bean="#{upgradeWizardConversation}" action="upgrade" big="true"/>
+              </a4j:outputPanel>
+            </div>
+          </h:form>
+        </a4j:outputPanel>
+      </mp:subscriptionProcessProgressBootstrap>
+    </a4j:outputPanel>
+
+  </ui:define>
+</ui:composition>
