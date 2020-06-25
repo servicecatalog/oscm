@@ -1,81 +1,90 @@
 <!-- Copyright FUJITSU LIMITED 2020 -->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
   <!-- requires attributes fieldId (String), subscription (SubscriptionDetails) and onClickHandler (String) -->
   <c:if test="#{empty onClickHandler}">
 
   </c:if>
-  <div class="row m-0 align-items-center">
-    <a4j:outputPanel layout="block" styleClass="box_logo col-auto">
+  <div class="row m-0 justify-content-center">
+    <a4j:outputPanel layout="block" styleClass="box-logo col-auto">
       <a4j:outputPanel layout="block" styleClass="box_image" onclick="#{onClickHandler}">
-        <h:graphicImage id="#{fieldId}Image" value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{subscription.serviceKey}" />
+        <h:graphicImage id="#{fieldId}Image"
+                        value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{subscription.serviceKey}"/>
       </a4j:outputPanel>
     </a4j:outputPanel>
-    <div class="col">
-      <div class="col">
-        <h3 id="#{fieldId}Supplier" class="supplier shortenedText" title="#{service.sellerName}">
-          <h:outputFormat value="#{msg['service.by']}">
-            <f:param value="#{service.sellerName}" />
-          </h:outputFormat>
-        </h3>
-      </div>
-      <div class="col">
-        <div class="row">
-          <div class="col-lg-2 col-md-3 col-6">
-            <h:outputText value="#{msg['subscription.activationDate']}" />
-          </div>
-          <div class="col-lg-10 col-md-9 col-6">
+    <div class="col-sm">
+      <h3 id="#{fieldId}Supplier" class="supplier shortenedText mt-2" title="#{service.sellerName}">
+        <h:outputFormat value="#{msg['service.by']}">
+          <f:param value="#{service.sellerName}"/>
+        </h:outputFormat>
+      </h3>
+      <div class="row mt-1">
+        <div class="col-lg-3 col-md-4 col-xs-5">
+          <h:outputText value="#{msg['subscription.activationDate']}:"/>
+        </div>
+        <div class="col-lg-9 col-md-8 col-xs-7">
+          <strong>
             <h:outputText id="#{fieldId}Activation" value="#{subscription.activationDate}">
-              <f:convertDateTime />
+              <f:convertDateTime/>
             </h:outputText>
-          </div>
+          </strong>
         </div>
-        <div class="row">
-          <div class="col-lg-2 col-md-3 col-6">
-            <h:outputText value="#{msg['subscription.users']}" />
-          </div>
-          <div class="col-lg-10 col-md-9 col-6">
-            <h:outputText id="#{fieldId}Users" value="#{fn:length(subscription.usageLicenses)}" />
-          </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-lg-3 col-md-4 col-xs-5">
+          <h:outputText value="#{msg['subscription.users']}:"/>
         </div>
-        <div class="row">
-          <div class="col-lg-2 col-md-3 col-6">
-            <h:outputText value="#{msg['subscription.price']}" />
-          </div>
-          <div class="col-lg-10 col-md-9 col-6">
-            <a4j:outputPanel layout="block">
+        <div class="col-lg-9 col-md-8 col-xs-7">
+          <strong>
+            <h:outputText id="#{fieldId}Users" value="#{fn:length(subscription.usageLicenses)}"/>
+          </strong>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-lg-3 col-md-4 col-xs-5">
+          <h:outputText value="#{msg['subscription.price']}:"/>
+        </div>
+        <div class="col-lg-9 col-md-8 col-xs-7">
+          <a4j:outputPanel layout="block">
+            <strong>
               <h:outputText id="#{fieldId}Price"
-                value="#{service.priceText} #{service.priceUnitText ? '&#160;' : service.priceUnitText}" />
+                            value="#{service.priceText} #{service.priceUnitText ? '&#160;' : service.priceUnitText}"/>
+            </strong>
+            <strong>
               <h:outputText styleClass="recommendedPriceHint" value=" #{msg['service.recommendedRetailPriceHint']}"
-                rendered="#{service.reseller and service.priceModel.chargeable}" />
-            </a4j:outputPanel>
-          </div>
+                            rendered="#{service.reseller and service.priceModel.chargeable}"/>
+            </strong>
+          </a4j:outputPanel>
         </div>
-        <div class="row">
-          <div class="col-lg-2 col-md-3 col-6">
-            <h:outputText value="#{msg['subscription.service']}" />
-          </div>
-          <div class="col-lg-10 col-md-9 col-6">
+      </div>
+      <div class="row mt-1">
+        <div class="col-lg-3 col-md-4 col-xs-5">
+          <h:outputText value="#{msg['subscription.service']}:"/>
+        </div>
+        <div class="col-lg-9 col-md-8 col-xs-7">
+          <strong>
             <h:outputText id="#{fieldId}Service" value="#{service.nameToDisplay}"
-              styleClass="subscriptionServiceDetailsBlock" />
-          </div>
+                          styleClass="subscriptionServiceDetailsBlock"/>
+          </strong>
         </div>
       </div>
     </div>
   </div>
-  <div class="col">
-  <div class="mb-2">
+  <div class="col mt-1">
+    <div class="mb-2">
       <h:outputText id="#{fieldId}AccessInfo" styleClass="mb-2" value="#{subscription.serviceAccessInfo}"
-                    rendered="#{subscription.accessViaAccessInfo}" escape="false" />
-      <h:outputText id="AccessInfoFormPart" value="#{subscription.serviceAccessInfoFormPart}"
-                    rendered="#{not empty subscription.serviceAccessInfoFormPart}" escape="false" />
+                    rendered="#{subscription.accessViaAccessInfo}" escape="false"/>
+      <strong>
+        <h:outputText id="AccessInfoFormPart" value="#{subscription.serviceAccessInfoFormPart}"
+                      rendered="#{not empty subscription.serviceAccessInfoFormPart}" escape="false"/>
+      </strong>
     </div>
     <div class="my-2">
-      <mp:serviceLicense service="#{service}" />
+      <mp:serviceLicense service="#{service}"/>
     </div>
   </div>
 </ui:composition>

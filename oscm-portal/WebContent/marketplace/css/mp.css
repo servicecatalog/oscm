@@ -1051,6 +1051,11 @@ div.col4span {
   width: 174px;
   text-align: center; }
 
+/* service icon / logo background bootstrap */
+.box-logo {
+  background: url(../img/service_icon_default.png) no-repeat center 0;
+  text-align: center; }
+
 .serviceBox2span .box_logo {
   margin: 30px 0 25px;
   /*was a problem o nother pages than homepage*/ }
@@ -2046,7 +2051,8 @@ table.smallPanel {
   padding: 7px 10px 7px;
   margin: 0;
   list-style: none;
-  font-size: 93%; }
+  font-size: 93%;
+  width: 85%; }
 
 /*  breadcrumbs link button items */
 #location li {
