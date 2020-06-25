@@ -4383,8 +4383,10 @@ div#headerrightareaBootstrap, rightarea a {
   display: flow-root;
 }
 
-.con-width {
-  max-width: 700px
+.con-tab {
+  background: $interior-color;
+  border-radius: 0px 5px 10px 10px;
+  padding: 1rem;
 }
 
 .con-tooltip-icon {
