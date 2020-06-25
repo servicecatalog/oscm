@@ -176,16 +176,6 @@ public class SessionBeanTest {
   public void getMarketplaceCustomBootstrapUrl_branded() throws Exception {
     // given
     doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-    sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
-
-    // Mock the HttpUrlConnection for the URL of custom bootstrap.
-    // URL url = mock(URL.class);
-
-    // doReturn(url).when(new URL(anyString()));
-
-    // HttpURLConnection huc = mock(HttpURLConnection.class);
-    // doReturn(huc).when(url.openConnection());
-    // when(huc.getResponseCode()).thenReturn(200);
 
     when(sessionBean.isUrlAccessible(anyString())).thenReturn(true);
     // when
@@ -193,6 +183,19 @@ public class SessionBeanTest {
 
     // then
     assertEquals(CUSTOM_BOOTSTRAP_URL, result);
+  }
+
+  @Test
+  public void getMarketplaceCustomBootstrapUrl_branded_URLInvalid() throws Exception {
+    // given
+    doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+
+    when(sessionBean.isUrlAccessible(anyString())).thenReturn(false);
+    // when
+    String result = sessionBean.getMarketplaceCustomBootstrapUrl();
+
+    // then
+    assertEquals(DEFAULT_BOOTSTRAP_URI, result);
   }
 
   @Test
