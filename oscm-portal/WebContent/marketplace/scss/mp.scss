@@ -4398,6 +4398,10 @@ div#headerrightareaBootstrap, rightarea a {
 .row-justify-space {
   justify-content: space-between;
 }
+
+.text-align-center {
+  text-align: -webkit-center;
+}
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.6 Footer
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
@@ -4454,6 +4458,7 @@ div#headerrightareaBootstrap, rightarea a {
   transform: translate(-50%, -50%);
   width: 90% !important;
   max-width: 560px;
+  max-height: 580px;
 }
 
 .responsive-dialog-container>div {

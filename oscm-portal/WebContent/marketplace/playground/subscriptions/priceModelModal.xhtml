@@ -1,0 +1,27 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
+  <rich:popupPanel id="pricePanel" trimOverlayedElements="false" resizeable="false" autosized="true"
+                   onresize="return false;" zindex="10000" styleClass="responsive-dialog-container"
+                   onshow="AdmUtils.adjustMplModalDialogPosition('pricePanel');"
+                   onbeforeshow="AdmUtils.setPageOverflow('hidden');" onhide="AdmUtils.setPageOverflow('auto');">
+
+    <mp:closeModalDialogButton id="closePriceModelButton"
+                               onclick="#{rich:component('pricePanel')}.hide(); return false;"/>
+
+    <h2><h:outputText id="priceModelPanelTitle" value="#{msg['service.priceModel']}"/></h2>
+    <hr class="mt-1 mb-3"/>
+
+    <h:form id="configurationForm2">
+      <ui:include src="priceModelDetails.xhtml">
+        <ui:param name="formName2" value="configurationForm2"/>
+      </ui:include>
+      <h:outputText styleClass="recommendedPrice right"
+                    value="#{msg['service.recommendedRetailPrice']}"
+                    rendered="#{model.service.reseller and model.service.priceModel.chargeable}"/>
+    </h:form>
+  </rich:popupPanel>
+</ui:composition>

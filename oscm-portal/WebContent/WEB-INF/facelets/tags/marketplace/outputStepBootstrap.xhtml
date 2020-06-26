@@ -4,7 +4,7 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
   <div class="text-left">
-    <h2 class="m-0">#{value}</h2>
+    <h2 class="#{class} m-0">#{value}</h2>
     <c:if test="#{required}">
       <h:outputText value="*" styleClass="mandatory"/>
     </c:if>

@@ -1,0 +1,23 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE hhtml>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
+  <rich:popupPanel id="licenseAgreement" trimOverlayedElements="false" resizeable="false" autosized="true"
+                   onshow="AdmUtils.adjustMplModalDialogPosition('licenseAgreement');"
+                   styleClass="responsive-dialog-container" onresize="return false;" zindex="10000"
+                   onbeforeshow="AdmUtils.setPageOverflow('hidden');" onhide="AdmUtils.setPageOverflow('auto');">
+
+    <mp:closeModalDialogButton id="closeLicenseButton"
+                               onclick="#{rich:component('licenseAgreement')}.hide(); return false;"/>
+
+    <h2><h:outputText id="licensePanelTitle" value="#{msg['priceModel.service.license']}"/></h2>
+    <hr class="mt-1 mb-3"/>
+
+    <div class="container p-3">
+      <h:outputText value="#{service.priceModel.license}" escape="false"/>
+    </div>
+
+  </rich:popupPanel>
+</ui:composition>

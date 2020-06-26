@@ -1,0 +1,39 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+  <a4j:outputPanel layout="block" styleClass="#{styleClass}" style="#{style}">
+    <c:choose>
+      <c:when test="#{service.priceModel.external}">
+        <h2 class="servicePrice">
+          <h:form>
+            <h:commandLink id="externalPriceModelLink" action="#{bean.display}" target="_blank"
+                           styleClass="text-decoration-none" value="#{msg['subscription.priceModel.information.link']}">
+            </h:commandLink>
+          </h:form>
+        </h2>
+      </c:when>
+      <c:when test="#{service.priceModel.free}">
+        <h2 class="servicePrice">#{service.priceText}</h2>
+      </c:when>
+      <c:when test="#{empty service.priceText}">
+        <h2 class="servicePrice">'&#160;'</h2>
+      </c:when>
+      <c:otherwise>
+        <h:outputLink id="priceModelModalLink" value="#" styleClass="text-decoration-none"
+                      onclick="AdmUtils.copyFormContent('configurationForm:parameterConfigTable','configurationForm2:parameterTable');#{rich:component('pricePanel')}.show(); setDirty(false); return false;">
+          <h:outputText value="#{msg['subscription.priceModel.information.link']}"/>
+        </h:outputLink>
+        <ui:include src="../../../../marketplace/playground/subscriptions/priceModelModal.xhtml">
+          <ui:param name="priceModel" value="#{bean.model.service.priceModel}"/>
+          <ui:param name="model" value="#{bean.model}"/>
+        </ui:include>
+      </c:otherwise>
+    </c:choose>
+    <c:if test="#{empty service.priceUnitText}">
+      <h2 class="priceUnit">#{'&#160;'}</h2>
+    </c:if>
+  </a4j:outputPanel>
+</ui:composition>
