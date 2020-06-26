@@ -12,6 +12,7 @@ package org.oscm.ui.beans;
 import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
 import static org.oscm.ui.common.Constants.SESSION_PARAM_SAML_LOGOUT_REQUEST;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -56,6 +57,8 @@ public class SessionBean implements Serializable {
   private Boolean selfRegistrationEnabled = null;
   @EJB private MarketplaceCacheService mkpCache;
   @EJB private MarketplaceService mkpService;
+
+  protected String customBootstrapUrl = null;
 
   static final Pattern CSS_PATH_PATTERN = Pattern.compile("(.*)/css/[^/]*\\.css$");
 
@@ -350,6 +353,7 @@ public class SessionBean implements Serializable {
         marketplaceBrandUrl = getWhiteLabelBrandingUrl();
       }
       setMarketplaceBrandUrl(marketplaceBrandUrl);
+      checkCustomBootstrapAvailable();
     }
     return marketplaceBrandUrl;
   }
@@ -363,6 +367,46 @@ public class SessionBean implements Serializable {
       }
     }
     return "/marketplace";
+  }
+
+  public String getCustomBootstrapUrl() {
+    String baseUrl = getMarketplaceBrandBaseUrl();
+    if ("/marketplace".equals(baseUrl)) {
+      return "/customBootstrap";
+    }
+    return getUrl(baseUrl, "customBootstrap");
+  }
+  
+  private String getUrl(String baseUrl, String uri) {
+    final StringBuffer url = new StringBuffer(baseUrl);
+    if (!baseUrl.endsWith("/")) {
+      url.append("/");
+    }
+    url.append(uri);
+    return url.toString();
+  }
+
+  private void checkCustomBootstrapAvailable() {
+    if (customBootstrapUrl == null) {
+      String boostrapUrl = getCustomBootstrapUrl();
+      if (!"/customBootstrap".equals(boostrapUrl)) {
+        boolean isAvailable = testUrl(boostrapUrl + "/css/darkFooter.css");
+        if (isAvailable) {
+          customBootstrapUrl = boostrapUrl;
+          return;
+        }
+      }
+      customBootstrapUrl = "/customBootstrap";
+    }
+  }
+
+  protected boolean testUrl(String url) {
+    try {
+      RequestUrlHandler.isUrlAccessible(url);
+      return true;
+    } catch (IOException e) {
+      return false;
+    }
   }
 
   private String removeCSSPath(final String brandUrl) {

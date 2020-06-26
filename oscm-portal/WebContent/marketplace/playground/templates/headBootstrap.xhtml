@@ -27,19 +27,24 @@
   AdmUtils.preventDefaultSubmitOnEnter();
   AdmUtils.setFocusBackgroundColor('#FDECB2');
   AdmUtils.showTooltips();
+  
   <c:if
     test="#{(not empty firstErrorElement or facesContext.maximumSeverity.ordinal > 0) and (empty dirty or dirty == 'true')}">
    setDirty(true);
   </c:if>
  </h:outputScript>
+ 
+ <!-- IMPORTANT: Keep order -> 1. sessionBean.marketplaceBrandUrl 2. sessionBean.customBootstrapUrl  -->
+ <c:set var="brandUrl" value="#{sessionBean.marketplaceBrandUrl}" />
+ <c:set var="bootstrapUrl" value="#{sessionBean.customBootstrapUrl}" />
+ 
  <!-- Bootstrap libraries -->
  <link href="${facesContext.externalContext.requestContextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet"
     type="text/css" />
- <link href="${facesContext.externalContext.requestContextPath}/customBootstrap/css/darkCustom.css" rel="stylesheet"
-       type="text/css"/>
+ <link href="${bootstrapUrl}/css/darkCustom.css" rel="stylesheet" type="text/css"/>
  <link type="text/css" rel="stylesheet"
        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
- <link href="#{sessionBean.marketplaceBrandUrl}" rel="stylesheet" type="text/css" media="screen,projection,print"/>
+ <link href="${brandUrl}" rel="stylesheet" type="text/css" media="screen,projection,print"/>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </ui:composition>
 
