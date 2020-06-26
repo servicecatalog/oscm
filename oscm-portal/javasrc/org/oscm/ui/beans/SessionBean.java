@@ -429,12 +429,16 @@ public class SessionBean implements Serializable {
     customBootstrapUrl = brandBaseUrl + "/customBootstrap/css/darkCustom.css";
 
     try {
-      RequestUrlHandler.isUrlAccessible(customBootstrapUrl);
+      isUrlAccessible(customBootstrapUrl);
     } catch (IOException e) {
       customBootstrapUrl = getDefaultBootstrapUrl();
     }
 
     return customBootstrapUrl;
+  }
+
+  public boolean isUrlAccessible(String url) throws IOException {
+    return RequestUrlHandler.isUrlAccessible(url);
   }
 
   private String removeCSSPath(final String brandUrl) {
