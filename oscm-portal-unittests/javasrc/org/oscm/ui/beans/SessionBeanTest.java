@@ -7,12 +7,10 @@ package org.oscm.ui.beans;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 import java.util.Locale;
 
@@ -165,44 +163,6 @@ public class SessionBeanTest {
   }
 
   @Test
-  public void getMarketplaceCustomBootstrapUrl_defaultBootstrap() throws Exception {
-    // given
-    doReturn(WHITE_LABEL_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-
-    // when
-    String result = sessionBean.getMarketplaceCustomBootstrapUrl();
-
-    // then
-    assertEquals(DEFAULT_BOOTSTRAP_URI, result);
-  }
-
-  @Test
-  public void getMarketplaceCustomBootstrapUrl_branded() throws Exception {
-    // given
-    doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-
-    when(sessionBean.isUrlAccessible(anyString())).thenReturn(true);
-    // when
-    String result = sessionBean.getMarketplaceCustomBootstrapUrl();
-
-    // then
-    assertEquals(CUSTOM_BOOTSTRAP_URL, result);
-  }
-
-  @Test
-  public void getMarketplaceCustomBootstrapUrl_branded_URLInvalid() throws Exception {
-    // given
-    doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-
-    when(sessionBean.isUrlAccessible(anyString())).thenReturn(false);
-    // when
-    String result = sessionBean.getMarketplaceCustomBootstrapUrl();
-
-    // then
-    assertEquals(DEFAULT_BOOTSTRAP_URI, result);
-  }
-
-  @Test
   public void getMarketplaceBrandBaseUrl_whitelabel() throws Exception {
     // given
     doReturn(WHITE_LABEL_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
@@ -336,7 +296,7 @@ public class SessionBeanTest {
   public void getCustomBootstrap() {
     sessionBean.customBootstrapUrl = null;
     String url = sessionBean.getCustomBootstrapUrl();
-    assertEquals(url, "/customBootstrap", url);
+    assertEquals(url, "/marketplace/customBootstrap", url);
   }
 
   @Test

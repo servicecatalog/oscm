@@ -1,7 +1,7 @@
 {
 "version": 3,
 "mappings": "AAAA,+CAA+C;ACA/C,wCAAwC;AAAA,yDAAyD;ADOjG,iBAAkB;EACjB,UAAU,ECJJ,OAAS;EDKf,aAAa,EAAC,iBAAiB;EAC/B,KAAK,EAAE,IAAI;EACX,KAAK,EEskC8B,IAAM;;AFnkC1C,mBAAmB;EAAE,KAAK,EEmkCU,IAAM;;AFjkC1C,oBAAqB;EACpB,SAAS,EAAE,GAAG;EACd,UAAU,EAAE,IAAI;EAChB,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;;AAGV,oBAAqB;EACpB,OAAO,EAAE,MAAM;EACf,MAAM,EAAE,CAAC;EACT,WAAW,EAAE,IAAI",
-"sources": ["../scss/darkFooter.scss","../scss/_myvariables.scss","../../bootstrap/scss/_variables.scss"],
+"sources": ["../scss/darkFooter.scss","../scss/_myvariables.scss","../../../bootstrap/scss/_variables.scss"],
 "names": [],
 "file": "darkFooter.css"
 }

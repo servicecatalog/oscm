@@ -136,7 +136,6 @@ public class SessionBean implements Serializable {
   private PriceModel selectedExternalPriceModel;
   private String samlLogoutRequest;
   private String tenantID;
-  private String marketplaceId;
 
   public boolean isMyOperationsOnly() {
     return myOperationsOnly;
@@ -380,9 +379,14 @@ public class SessionBean implements Serializable {
   public String getCustomBootstrapUrl() {
     String baseUrl = getMarketplaceBrandBaseUrl();
     if ("/marketplace".equals(baseUrl)) {
-      return "/customBootstrap";
+      return getDefaultBootstrapUrl();
     }
+
     return getUrl(baseUrl, "customBootstrap");
+  }
+
+  public void setCustomBootstrapUrl(String customBootstrapUrl) {
+    this.customBootstrapUrl = customBootstrapUrl;
   }
 
   private String getUrl(String baseUrl, String uri) {
@@ -397,14 +401,14 @@ public class SessionBean implements Serializable {
   private void checkCustomBootstrapAvailable() {
     if (customBootstrapUrl == null) {
       String boostrapUrl = getCustomBootstrapUrl();
-      if (!"/customBootstrap".equals(boostrapUrl)) {
-        boolean isAvailable = testUrl(boostrapUrl + "/css/darkFooter.css");
+      if (!"/marketplace/customBootstrap".equals(boostrapUrl)) {
+        boolean isAvailable = testUrl(boostrapUrl + "/css/darkCustom.css");
         if (isAvailable) {
-          customBootstrapUrl = boostrapUrl;
+          setCustomBootstrapUrl(boostrapUrl);
           return;
         }
       }
-      customBootstrapUrl = "/customBootstrap";
+      setCustomBootstrapUrl("/customBootstrap");
     }
   }
 
@@ -415,30 +419,6 @@ public class SessionBean implements Serializable {
     } catch (IOException e) {
       return false;
     }
-  }
-
-  public String getMarketplaceCustomBootstrapUrl() {
-    String customBootstrapUrl;
-    String mId = getMarketplaceId();
-    if (!isCustomBranded(mId)) {
-      customBootstrapUrl = getDefaultBootstrapUrl();
-      return customBootstrapUrl;
-    }
-
-    String brandBaseUrl = getMarketplaceBrandBaseUrl();
-    customBootstrapUrl = brandBaseUrl + "/customBootstrap/css/darkCustom.css";
-
-    try {
-      isUrlAccessible(customBootstrapUrl);
-    } catch (IOException e) {
-      customBootstrapUrl = getDefaultBootstrapUrl();
-    }
-
-    return customBootstrapUrl;
-  }
-
-  public boolean isUrlAccessible(String url) throws IOException {
-    return RequestUrlHandler.isUrlAccessible(url);
   }
 
   private String removeCSSPath(final String brandUrl) {
@@ -479,7 +459,7 @@ public class SessionBean implements Serializable {
 
   public String getDefaultBootstrapUrl() {
     return getFacesContext().getExternalContext().getRequestContextPath()
-        + "/bootstrap/css/bootstrap.min.css";
+        + "/marketplace/customBootstrap";
   }
 
   /**
