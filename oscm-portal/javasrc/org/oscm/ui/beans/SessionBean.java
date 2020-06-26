@@ -376,7 +376,7 @@ public class SessionBean implements Serializable {
     }
     return getUrl(baseUrl, "customBootstrap");
   }
-  
+
   private String getUrl(String baseUrl, String uri) {
     final StringBuffer url = new StringBuffer(baseUrl);
     if (!baseUrl.endsWith("/")) {

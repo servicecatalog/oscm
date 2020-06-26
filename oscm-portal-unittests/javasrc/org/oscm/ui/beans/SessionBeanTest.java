@@ -283,39 +283,39 @@ public class SessionBeanTest {
     assertFalse(SessionBean.isValidServiceKey(SessionBean.SERIVE_KEY_NOT_SET));
     assertTrue(SessionBean.isValidServiceKey(123L));
   }
-  
+
   @Test
   public void getCustomBootstrap() {
-      sessionBean.customBootstrapUrl = null;
-      String url = sessionBean.getCustomBootstrapUrl();
-      assertEquals(url, "/customBootstrap", url);
+    sessionBean.customBootstrapUrl = null;
+    String url = sessionBean.getCustomBootstrapUrl();
+    assertEquals(url, "/customBootstrap", url);
   }
 
   @Test
   public void getCustomBootstrap_brandedWithBootstrap() throws ObjectNotFoundException {
-      // given
-      givenCustomBootstrapAvailable();
-      
-      doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-      sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
-      //when
-      String url = sessionBean.getCustomBootstrapUrl();
-      
-      assertEquals(url, BRANDING_BASE_URL + "/customBootstrap", url);
+    // given
+    givenCustomBootstrapAvailable();
+
+    doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+    sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
+    // when
+    String url = sessionBean.getCustomBootstrapUrl();
+
+    assertEquals(url, BRANDING_BASE_URL + "/customBootstrap", url);
   }
-  
+
   @Test
   public void getCustomBootstrap_brandedWitoutBootstrap() throws ObjectNotFoundException {
-      // given
-      givenCustomBootstrapNotAvailable();
-      
-      doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-      sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
-      
-      //when
-      String url = sessionBean.getCustomBootstrapUrl();
-      
-      assertEquals(url, BRANDING_BASE_URL + "/customBootstrap", url);
+    // given
+    givenCustomBootstrapNotAvailable();
+
+    doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+    sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
+
+    // when
+    String url = sessionBean.getCustomBootstrapUrl();
+
+    assertEquals(url, BRANDING_BASE_URL + "/customBootstrap", url);
   }
 
   private void setCurrentLocale(Locale locale) {
@@ -324,14 +324,14 @@ public class SessionBeanTest {
     doReturn(locale).when(root).getLocale();
     fcContextMock.setViewRoot(root);
   }
-  
+
   private void givenCustomBootstrapAvailable() {
-      hasCustomBootstrap = true;
-      sessionBean.customBootstrapUrl = null;
+    hasCustomBootstrap = true;
+    sessionBean.customBootstrapUrl = null;
   }
-  
+
   private void givenCustomBootstrapNotAvailable() {
-      hasCustomBootstrap = true;
-      sessionBean.customBootstrapUrl = null;
+    hasCustomBootstrap = true;
+    sessionBean.customBootstrapUrl = null;
   }
 }
