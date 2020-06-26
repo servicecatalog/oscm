@@ -418,8 +418,22 @@ public class SessionBean implements Serializable {
   }
 
   public String getMarketplaceCustomBootstrapUrl() {
+    String customBootstrapUrl;
+    String mId = getMarketplaceId();
+    if (!isCustomBranded(mId)) {
+      customBootstrapUrl = getDefaultBootstrapUrl();
+      return customBootstrapUrl;
+    }
+
     String brandBaseUrl = getMarketplaceBrandBaseUrl();
-    String customBootstrapUrl = brandBaseUrl + "/customBootstrap/css/darkCustom.css";
+    customBootstrapUrl = brandBaseUrl + "/customBootstrap/css/darkCustom.css";
+
+    try {
+      RequestUrlHandler.isUrlAccessible(customBootstrapUrl);
+    } catch (IOException e) {
+      customBootstrapUrl = getDefaultBootstrapUrl();
+    }
+
     return customBootstrapUrl;
   }
 
@@ -457,6 +471,11 @@ public class SessionBean implements Serializable {
   public String getWhiteLabelBrandingUrl() {
     return getFacesContext().getExternalContext().getRequestContextPath()
         + "/marketplace/css/mp.css";
+  }
+
+  public String getDefaultBootstrapUrl() {
+    return getFacesContext().getExternalContext().getRequestContextPath()
+        + "/bootstrap/css/bootstrap.min.css";
   }
 
   /**
