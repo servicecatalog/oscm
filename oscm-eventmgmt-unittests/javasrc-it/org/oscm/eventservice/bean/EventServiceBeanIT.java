@@ -16,12 +16,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Callable;
-
 import javax.ejb.EJBAccessException;
 import javax.ejb.EJBException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.oscm.converter.ParameterizedTypes;
