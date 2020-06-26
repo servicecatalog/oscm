@@ -28,24 +28,30 @@
                        requiredId="#{requiredId}" styleClass="#{labelStyle}"/>
     </div>
     <div class="col-md-#{areaWidth} col-sm-12 my-1">
-      <h:inputTextarea id="#{id}" label="#{label}" value="#{value}" maxlength="#{maxlength}" onchange="setDirty(true)"
-                       rows="5" styleClass="#{areaStyle} mb-0" rendered="#{empty rendered or rendered}"
-                       disabled="#{disabled}" required="#{not empty required and required}" onkeyup="#{onkeyup}">
+      <div class="row">
+        <div class="col-md-11 col-10 pr-0">
+          <h:inputTextarea id="#{id}" label="#{label}" value="#{value}" maxlength="#{maxlength}"
+                           onchange="setDirty(true)"
+                           rows="5" styleClass="#{areaStyle} mb-0" rendered="#{empty rendered or rendered}"
+                           disabled="#{disabled}" required="#{not empty required and required}" onkeyup="#{onkeyup}">
 
-        <c:if test="#{(not empty validatorId) and (empty rendered or rendered)}">
-          <f:validator validatorId="#{validatorId}"/>
-        </c:if>
+            <c:if test="#{(not empty validatorId) and (empty rendered or rendered)}">
+              <f:validator validatorId="#{validatorId}"/>
+            </c:if>
 
-        <c:if test="#{(not empty maxlength) and (empty rendered or rendered)}">
-          <f:validateLength maximum="#{maxlength}"/>
-        </c:if>
+            <c:if test="#{(not empty maxlength) and (empty rendered or rendered)}">
+              <f:validateLength maximum="#{maxlength}"/>
+            </c:if>
 
-        <c:if test="#{(not empty converterId)}">
-          <f:converter converterId="#{converterId}"/>
-        </c:if>
+            <c:if test="#{(not empty converterId)}">
+              <f:converter converterId="#{converterId}"/>
+            </c:if>
 
-        <ui:insert/>
-      </h:inputTextarea>
+            <ui:insert/>
+          </h:inputTextarea>
+        </div>
+        <div class="col-md-1 col-2 pl-0"></div>
+      </div>
     </div>
     <div class="col-md-#{messageWidth} col-sm-12">
       <adm:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}"/>

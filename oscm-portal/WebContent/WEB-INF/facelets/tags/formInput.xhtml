@@ -37,58 +37,62 @@
   </c:choose>
 
   <div class="row align-items-center pb-2">
-    <div class="col-md-#{labelWidth} col-sm-12">
+    <div class="col-md-#{labelWidth} col-sm-11">
       <adm:outputLabel textId="label#{id}" value="#{label}" rendered="#{empty rendered or rendered}"
                        required="#{required}" renderRequired="#{renderRequired}" displayRequired="#{displayRequired}"
                        requiredId="#{requiredId}" styleClass="#{labelStyle}"/>
     </div>
     <div class="col-md-#{inputWidth} col-sm-12 my-1">
-      <div class="input-group">
-        <c:if test="#{(not empty validationMethod)}">
-          <h:inputText id="#{id}" label="#{label}" value="#{value}" maxlength="#{maxlength}"
-                       required="#{not empty required and required}" styleClass="#{inputStyle}" disabled="#{disabled}"
-                       onkeyup="#{onkeyup}" validator="#{backingBean[validationMethod]}" onchange="#{setDirtyScript}"
-                       rendered="#{empty rendered or rendered}">
+      <div class="row">
+        <div class="col-md-11 col-10 pr-0">
+          <c:if test="#{(not empty validationMethod)}">
+            <h:inputText id="#{id}" label="#{label}" value="#{value}" maxlength="#{maxlength}"
+                         required="#{not empty required and required}" styleClass="#{inputStyle}" disabled="#{disabled}"
+                         onkeyup="#{onkeyup}" validator="#{backingBean[validationMethod]}" onchange="#{setDirtyScript}"
+                         rendered="#{empty rendered or rendered}">
 
-            <c:if test="#{(not empty maxlength)}">
-              <f:validateLength maximum="#{maxlength}"/>
-            </c:if>
+              <c:if test="#{(not empty maxlength)}">
+                <f:validateLength maximum="#{maxlength}"/>
+              </c:if>
 
-            <c:if test="#{(not empty validatorId)}">
-              <f:validator validatorId="#{validatorId}"/>
-            </c:if>
+              <c:if test="#{(not empty validatorId)}">
+                <f:validator validatorId="#{validatorId}"/>
+              </c:if>
 
-            <c:if test="#{(not empty converterId)}">
-              <f:converter converterId="#{converterId}"/>
-            </c:if>
+              <c:if test="#{(not empty converterId)}">
+                <f:converter converterId="#{converterId}"/>
+              </c:if>
 
-            <ui:insert/>
-          </h:inputText>
-        </c:if>
+              <ui:insert/>
+            </h:inputText>
+          </c:if>
 
-        <c:if test="#{(empty validationMethod)}">
-          <h:inputText id="#{id}" label="#{label}" value="#{value}" maxlength="#{maxlength}" onkeyup="#{onkeyup}"
-                       styleClass="#{inputStyle}" rendered="#{empty rendered or rendered}" disabled="#{disabled}"
-                       required="#{not empty required and required}" onchange="#{setDirtyScript}">
+          <c:if test="#{(empty validationMethod)}">
+            <h:inputText id="#{id}" label="#{label}" value="#{value}" maxlength="#{maxlength}" onkeyup="#{onkeyup}"
+                         styleClass="#{inputStyle}" rendered="#{empty rendered or rendered}" disabled="#{disabled}"
+                         required="#{not empty required and required}" onchange="#{setDirtyScript}">
 
-            <c:if test="#{(not empty maxlength)}">
-              <f:validateLength maximum="#{maxlength}"/>
-            </c:if>
+              <c:if test="#{(not empty maxlength)}">
+                <f:validateLength maximum="#{maxlength}"/>
+              </c:if>
 
-            <c:if test="#{(not empty validatorId)}">
-              <f:validator validatorId="#{validatorId}"/>
-            </c:if>
+              <c:if test="#{(not empty validatorId)}">
+                <f:validator validatorId="#{validatorId}"/>
+              </c:if>
 
-            <c:if test="#{(not empty converterId)}">
-              <f:converter converterId="#{converterId}"/>
-            </c:if>
+              <c:if test="#{(not empty converterId)}">
+                <f:converter converterId="#{converterId}"/>
+              </c:if>
 
-            <ui:insert/>
-          </h:inputText>
-        </c:if>
-        <c:if test="#{(not empty showHint)}">
-          <adm:hintBootstrap for="#{id}"/>
-        </c:if>
+              <ui:insert/>
+            </h:inputText>
+          </c:if>
+        </div>
+        <div class="col-md-1 col-2 pl-0">
+          <c:if test="#{(not empty showHint)}">
+            <adm:hintBootstrap for="#{id}"/>
+          </c:if>
+        </div>
       </div>
     </div>
     <div class="col-md-#{messageWidth} col-sm-12">

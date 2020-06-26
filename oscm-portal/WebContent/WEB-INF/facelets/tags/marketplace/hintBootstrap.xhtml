@@ -7,8 +7,8 @@
  <c:set var="hintMsgId" value="#{pageId}.hint.#{for}"/>
  <c:set var="hintMsg" value="#{(not empty hintText)?hintText:(msg[hintMsgId])}"/>
 
- <div class="input-group-append">
-  <a href="javascript:void(0);" class="btn input-group-text" data-toggle="popover"
+ <div>
+  <a href="javascript:void(0);" class="btn" data-toggle="popover"
      data-content="#{hintMsg}" data-container="&num;#{hintId}" id="#{hintId}"><i class="fa fa-question-circle"/></a>
  </div>
 </ui:composition>
