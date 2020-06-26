@@ -23,10 +23,10 @@
         </h:outputFormat>
       </h3>
       <div class="row mt-1">
-        <div class="col-lg-3 col-md-4 col-xs-5">
+        <div class="col-lg-3 col-md-4 col-5">
           <h:outputText value="#{msg['subscription.activationDate']}:"/>
         </div>
-        <div class="col-lg-9 col-md-8 col-xs-7">
+        <div class="col-lg-9 col-md-8 col-7">
           <strong>
             <h:outputText id="#{fieldId}Activation" value="#{subscription.activationDate}">
               <f:convertDateTime/>
@@ -35,20 +35,20 @@
         </div>
       </div>
       <div class="row mt-1">
-        <div class="col-lg-3 col-md-4 col-xs-5">
+        <div class="col-lg-3 col-md-4 col-5">
           <h:outputText value="#{msg['subscription.users']}:"/>
         </div>
-        <div class="col-lg-9 col-md-8 col-xs-7">
+        <div class="col-lg-9 col-md-8 col-7">
           <strong>
             <h:outputText id="#{fieldId}Users" value="#{fn:length(subscription.usageLicenses)}"/>
           </strong>
         </div>
       </div>
       <div class="row mt-1">
-        <div class="col-lg-3 col-md-4 col-xs-5">
+        <div class="col-lg-3 col-md-4 col-5">
           <h:outputText value="#{msg['subscription.price']}:"/>
         </div>
-        <div class="col-lg-9 col-md-8 col-xs-7">
+        <div class="col-lg-9 col-md-8 col-7">
           <a4j:outputPanel layout="block">
             <strong>
               <h:outputText id="#{fieldId}Price"
@@ -62,10 +62,10 @@
         </div>
       </div>
       <div class="row mt-1">
-        <div class="col-lg-3 col-md-4 col-xs-5">
+        <div class="col-lg-3 col-md-4 col-5">
           <h:outputText value="#{msg['subscription.service']}:"/>
         </div>
-        <div class="col-lg-9 col-md-8 col-xs-7">
+        <div class="col-lg-9 col-md-8 col-7">
           <strong>
             <h:outputText id="#{fieldId}Service" value="#{service.nameToDisplay}"
                           styleClass="subscriptionServiceDetailsBlock"/>
