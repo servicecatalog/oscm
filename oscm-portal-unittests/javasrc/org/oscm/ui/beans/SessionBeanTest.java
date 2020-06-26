@@ -118,9 +118,9 @@ public class SessionBeanTest {
   }
 
   @Test
-  public void isAutoOpenMpLogonDialog_someBullshit() {
+  public void isAutoOpenMpLogonDialog_someParam() {
     // given
-    doReturn("bullshit").when(req).getParameter(Constants.REQ_PARAM_AUTO_OPEN_MP_LOGIN_DIALOG);
+    doReturn("param").when(req).getParameter(Constants.REQ_PARAM_AUTO_OPEN_MP_LOGIN_DIALOG);
 
     // when
     boolean value = sessionBean.isAutoOpenMpLogonDialog();
