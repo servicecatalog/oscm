@@ -37,15 +37,10 @@ public class SessionBeanTest {
       "http://localhost:8180/oscm-portal/marketplace/css/mp.css";
 
   private static final String WHITE_LABEL_URI = "/oscm-portal/marketplace/css/mp.css";
-  private static final String DEFAULT_BOOTSTRAP_URI =
-      "/oscm-portal/bootstrap/css/bootstrap.min.css";
+
   private static final String WHITE_LABEL_BASE_URI = "/marketplace";
 
   private static final String BRANDING_BASE_URL = "https://localhost:8443/branding";
-
-  private static final String CUSTOM_BOOTSTRAP_URL_SUFFIX = "/customBootstrap/css/darkCustom.css";
-  private static final String CUSTOM_BOOTSTRAP_URL =
-      BRANDING_BASE_URL + CUSTOM_BOOTSTRAP_URL_SUFFIX;
 
   private static final String BRANDING_URL = BRANDING_BASE_URL + "/css/mp_custom.css";
 
@@ -296,7 +291,7 @@ public class SessionBeanTest {
   public void getCustomBootstrap() {
     sessionBean.customBootstrapUrl = null;
     String url = sessionBean.getCustomBootstrapUrl();
-    assertEquals(url, "/marketplace/customBootstrap", url);
+    assertEquals(url, "/oscm-portal/marketplace/customBootstrap", url);
   }
 
   @Test
