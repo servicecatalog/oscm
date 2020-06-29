@@ -13,11 +13,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 import java.util.Locale;
+
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -35,6 +37,7 @@ public class SessionBeanTest {
       "http://localhost:8180/oscm-portal/marketplace/css/mp.css";
 
   private static final String WHITE_LABEL_URI = "/oscm-portal/marketplace/css/mp.css";
+
   private static final String WHITE_LABEL_BASE_URI = "/marketplace";
 
   private static final String BRANDING_BASE_URL = "https://localhost:8443/branding";
@@ -115,9 +118,9 @@ public class SessionBeanTest {
   }
 
   @Test
-  public void isAutoOpenMpLogonDialog_someBullshit() {
+  public void isAutoOpenMpLogonDialog_someParam() {
     // given
-    doReturn("bullshit").when(req).getParameter(Constants.REQ_PARAM_AUTO_OPEN_MP_LOGIN_DIALOG);
+    doReturn("param").when(req).getParameter(Constants.REQ_PARAM_AUTO_OPEN_MP_LOGIN_DIALOG);
 
     // when
     boolean value = sessionBean.isAutoOpenMpLogonDialog();
@@ -288,7 +291,7 @@ public class SessionBeanTest {
   public void getCustomBootstrap() {
     sessionBean.customBootstrapUrl = null;
     String url = sessionBean.getCustomBootstrapUrl();
-    assertEquals(url, "/customBootstrap", url);
+    assertEquals(url, "/oscm-portal/marketplace/customBootstrap", url);
   }
 
   @Test

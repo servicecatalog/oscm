@@ -1,18 +1,18 @@
 /* import only the necessary Bootstrap files */
-@import "../../bootstrap/scss/functions"; 
-@import "../../bootstrap/scss/variables";
+@import "../../../bootstrap/scss/functions"; 
+@import "../../../bootstrap/scss/variables";
 
 
-@import "lightVariables";
+@import "myvariables";
 
-bootstrap_footer {
+.bootstrap_footer {
 	background: $dark;
 	border-bottom:1px solid #4c4c4c;
 	width: 100%;
-	color: $black;
+	color: $white;
 }
 
-.bootstrap_footer a{ color: $black; }
+.bootstrap_footer a{ color: $white; }
 
 .bootstrap_footer ul { 
 	font-size: 93%; 
@@ -26,3 +26,5 @@ bootstrap_footer {
 	margin: 0; 
 	margin-left: 16px;
 }	
+	
+

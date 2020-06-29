@@ -153,7 +153,10 @@
   <c:set var="imprintUrl"
          value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}"/>
 
-  <link href="${facesContext.externalContext.requestContextPath}/customBootstrap/css/darkFooter.css" rel="stylesheet"
+
+ <c:set var="bootstrapUrl" value="#{sessionBean.customBootstrapUrl}" />
+ 
+ <link href="${bootstrapUrl}/css/darkFooter.css" rel="stylesheet"
         type="text/css"/>
 
   <footer class="bootstrap_footer">
