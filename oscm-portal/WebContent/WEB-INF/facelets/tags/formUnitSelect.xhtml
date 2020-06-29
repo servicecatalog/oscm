@@ -6,67 +6,72 @@
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
- <c:if test="#{empty labelWidth}">
-  <c:set var="labelWidth" value="2"/>
- </c:if>
- <c:if test="#{empty togetherWidth}">
-  <c:set var="togetherWidth" value="7"/>
- </c:if>
- <c:if test="#{empty outputWidth}">
-  <c:set var="outputWidth" value="7"/>
- </c:if>
- <c:if test="#{empty buttonWidth}">
-  <c:set var="buttonWidth" value="5"/>
- </c:if>
- <c:if test="#{empty messageWidth}">
-  <c:set var="messageWidth" value="3"/>
- </c:if>
+  <c:if test="#{empty labelWidth}">
+    <c:set var="labelWidth" value="2"/>
+  </c:if>
+  <c:if test="#{empty togetherWidth}">
+    <c:set var="togetherWidth" value="7"/>
+  </c:if>
+  <c:if test="#{empty outputWidth}">
+    <c:set var="outputWidth" value="7"/>
+  </c:if>
+  <c:if test="#{empty buttonWidth}">
+    <c:set var="buttonWidth" value="5"/>
+  </c:if>
+  <c:if test="#{empty messageWidth}">
+    <c:set var="messageWidth" value="3"/>
+  </c:if>
 
- <!-- Label -->
- <div class="row align-items-center pb-2">
-  <div class="col-md-#{labelWidth} col-sm-12">
-   <adm:outputLabel value="#{label}" rendered="#{empty rendered or rendered}"/>
-  </div>
-
-  <div class="col-md-#{togetherWidth} col-sm-12 my-1">
-   <div class="row align-items-center">
-    <!-- Panel with unit name and select button -->
-    <div class="col-#{outputWidth}">
-     <h:outputText value="#{value}"/>
+  <!-- Label -->
+  <div class="row align-items-center pb-2">
+    <div class="col-md-#{labelWidth} col-sm-12">
+      <adm:outputLabel value="#{label}" rendered="#{empty rendered or rendered}"/>
     </div>
 
-    <div class="col-#{buttonWidth}">
-     <div class="input-group justify-content-end">
-      <c:if test="#{not disabled}">
-       <a4j:commandLink styleClass="#{buttonStyle}" id="selectOrgUnitBtn" immediate="true" role="button"
-                        render="organizationUnitPanel organizationUnitPanelForm" value="#{msg['button.select']}"
-                        action="#{subscriptionWizardConversation.subscriptionUnitCtrl.initializeUnitListForModifySubscription}"
-                        oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('organizationUnitPanel').show();">
-       </a4j:commandLink>
-      </c:if>
-      <c:if test="#{disabled}">
-       <a4j:commandLink styleClass="#{buttonStyle} disabled" id="selectOrgUnitBtnDisabled"
-                        value="#{msg['button.select']}">
-       </a4j:commandLink>
-      </c:if>
-      <c:if test="#{(not empty showHint)}">
-       <mp:hintBootstrap for="#{id}"/>
-      </c:if>
-     </div>
+    <div class="col-md-#{togetherWidth} col-sm-12 my-1">
+      <div class="row">
+        <div class="col-md-11 col-10 pr-0">
+          <div class="row align-items-center">
+            <!-- Panel with unit name and select button -->
+            <div class="col-#{outputWidth}">
+              <h:outputText value="#{value}" styleClass="font-weight-bolder"/>
+            </div>
+
+            <div class="col-#{buttonWidth}">
+              <c:if test="#{not disabled}">
+                <a4j:commandLink styleClass="w-100 #{buttonStyle}" id="selectOrgUnitBtn" immediate="true" role="button"
+                                 render="organizationUnitPanel organizationUnitPanelForm"
+                                 value="#{msg['button.select']}"
+                                 action="#{subscriptionWizardConversation.subscriptionUnitCtrl.initializeUnitListForModifySubscription}"
+                                 oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('organizationUnitPanel').show();">
+                </a4j:commandLink>
+              </c:if>
+              <c:if test="#{disabled}">
+                <a4j:commandLink styleClass="w-100 #{buttonStyle} disabled" id="selectOrgUnitBtnDisabled"
+                                 value="#{msg['button.select']}">
+                </a4j:commandLink>
+              </c:if>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-1 col-2 pl-0">
+          <c:if test="#{(not empty showHint)}">
+            <mp:hintBootstrap for="#{id}"/>
+          </c:if>
+        </div>
+      </div>
     </div>
-   </div>
+    <div class="col-md-#{messageWidth} col-sm-12">
+      <c:choose>
+        <c:when test="#{(not empty showHint)}">
+          <div class="row pl-3">
+            <mp:message id="#{id}ErrorMsg" for="#{id}"/>
+          </div>
+        </c:when>
+        <a4j:outputPanel styleClass="row pl-3">
+          <mp:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}"/>
+        </a4j:outputPanel>
+      </c:choose>
+    </div>
   </div>
-  <div class="col-md-#{messageWidth} col-sm-12">
-   <c:choose>
-    <c:when test="#{(not empty showHint)}">
-     <div class="row pl-3">
-      <mp:message id="#{id}ErrorMsg" for="#{id}"/>
-     </div>
-    </c:when>
-    <a4j:outputPanel styleClass="row pl-3">
-     <mp:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}"/>
-    </a4j:outputPanel>
-   </c:choose>
-  </div>
- </div>
 </ui:composition>

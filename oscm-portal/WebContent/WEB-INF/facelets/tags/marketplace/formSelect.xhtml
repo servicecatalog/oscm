@@ -6,100 +6,104 @@
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j">
 
- <c:if test="#{empty labelStyle}">
-  <c:set var="labelStyle" value=""/>
- </c:if>
- <c:if test="#{empty selectStyle}">
-  <c:set var="selectStyle" value="field"/>
- </c:if>
- <c:if test="#{empty labelWidth}">
-  <c:set var="labelWidth" value="2"/>
- </c:if>
- <c:if test="#{empty selectWidth}">
-  <c:set var="selectWidth" value="7"/>
- </c:if>
- <c:if test="#{empty messageWidth}">
-  <c:set var="messageWidth" value="3"/>
- </c:if>
+  <c:if test="#{empty labelStyle}">
+    <c:set var="labelStyle" value=""/>
+  </c:if>
+  <c:if test="#{empty selectStyle}">
+    <c:set var="selectStyle" value="field"/>
+  </c:if>
+  <c:if test="#{empty labelWidth}">
+    <c:set var="labelWidth" value="2"/>
+  </c:if>
+  <c:if test="#{empty selectWidth}">
+    <c:set var="selectWidth" value="7"/>
+  </c:if>
+  <c:if test="#{empty messageWidth}">
+    <c:set var="messageWidth" value="3"/>
+  </c:if>
 
- <c:if test="#{empty isDirtySet}">
-  <c:set var="isDirtySet" value="true"/>
- </c:if>
- <c:if test="#{empty readonly}">
-  <c:set var="readonly" value="false"/>
- </c:if>
- <c:choose>
-  <c:when test="#{isDirtySet}">
-   <c:set var="setDirtyScript" value="setDirty(true)"/>
-  </c:when>
-  <c:otherwise>
-   <c:set var="setDirtyScript" value=""/>
-  </c:otherwise>
- </c:choose>
-
- <div class="row align-items-center pb-2">
-  <div class="col-md-#{labelWidth} col-sm-12">
-   <c:choose>
-    <c:when test="#{labelEllipsisRequired == 'true'}">
-     <adm:outputLabelEllipsized
-       value="#{label}"
-       rendered="#{empty rendered or rendered}"
-       required="#{required}"/>
+  <c:if test="#{empty isDirtySet}">
+    <c:set var="isDirtySet" value="true"/>
+  </c:if>
+  <c:if test="#{empty readonly}">
+    <c:set var="readonly" value="false"/>
+  </c:if>
+  <c:choose>
+    <c:when test="#{isDirtySet}">
+      <c:set var="setDirtyScript" value="setDirty(true)"/>
     </c:when>
     <c:otherwise>
-     <adm:outputLabel
-       value="#{label}"
-       rendered="#{empty rendered or rendered}"
-       required="#{required}"/>
+      <c:set var="setDirtyScript" value=""/>
     </c:otherwise>
-   </c:choose>
+  </c:choose>
+
+  <div class="row align-items-center pb-2">
+    <div class="col-md-#{labelWidth} col-sm-12">
+      <c:choose>
+        <c:when test="#{labelEllipsisRequired == 'true'}">
+          <adm:outputLabelEllipsized
+              value="#{label}"
+              rendered="#{empty rendered or rendered}"
+              required="#{required}"/>
+        </c:when>
+        <c:otherwise>
+          <adm:outputLabel
+              value="#{label}"
+              rendered="#{empty rendered or rendered}"
+              required="#{required}"/>
+        </c:otherwise>
+      </c:choose>
+    </div>
+    <div class="col-md-#{selectWidth} col-sm-12 my-1">
+      <div class="row">
+        <div class="col-md-11 col-10 pr-0">
+          <c:if test="#{empty required}">
+            <h:selectOneMenu
+                id="#{id}"
+                value="#{value}"
+                onchange="setDirty(true)"
+                styleClass="#{selectStyle}"
+                rendered="#{empty rendered or rendered}"
+                disabled="#{disabled}"
+                required="#{required}">
+              <ui:insert/>
+            </h:selectOneMenu>
+          </c:if>
+          <c:if test="#{not empty required}">
+            <!-- Here a tomahawk component is used to prevent the menu to get its value -->
+            <!-- via the value-binding in case a validation error occurred (see #8313). -->
+            <t:selectOneMenu
+                id="#{id}"
+                value="#{value}"
+                onchange="setDirty(true)"
+                styleClass="#{selectStyle}"
+                rendered="#{empty rendered or rendered}"
+                disabled="#{disabled}"
+                required="#{required}">
+              <ui:insert/>
+            </t:selectOneMenu>
+          </c:if>
+        </div>
+        <div class="col-md-1 col-2 pl-0">
+          <c:if test="#{(not empty showHint)}">
+            <mp:hintBootstrap for="#{id}"/>
+          </c:if>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-#{messageWidth} col-sm-12">
+      <c:choose>
+        <c:when test="#{(not empty showHint)}">
+          <div class="row pl-3">
+            <mp:message id="#{id}ErrorMsg" for="#{id}"/>
+          </div>
+        </c:when>
+        <c:otherwise>
+          <a4j:outputPanel styleClass="row pl-3">
+            <mp:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}"/>
+          </a4j:outputPanel>
+        </c:otherwise>
+      </c:choose>
+    </div>
   </div>
-  <div class="col-md-#{selectWidth} col-sm-12 my-1">
-   <div class="input-group">
-    <c:if test="#{empty required}">
-     <h:selectOneMenu
-       id="#{id}"
-       value="#{value}"
-       onchange="setDirty(true)"
-       styleClass="#{selectStyle}"
-       rendered="#{empty rendered or rendered}"
-       disabled="#{disabled}"
-       required="#{required}">
-      <ui:insert/>
-     </h:selectOneMenu>
-    </c:if>
-    <c:if test="#{not empty required}">
-     <!-- Here a tomahawk component is used to prevent the menu to get its value -->
-     <!-- via the value-binding in case a validation error occurred (see #8313). -->
-     <t:selectOneMenu
-       id="#{id}"
-       value="#{value}"
-       onchange="setDirty(true)"
-       styleClass="#{selectStyle}"
-       rendered="#{empty rendered or rendered}"
-       disabled="#{disabled}"
-       required="#{required}">
-      <ui:insert/>
-     </t:selectOneMenu>
-    </c:if>
-    <c:if test="#{(not empty showHint)}">
-     <mp:hintBootstrap for="#{id}"/>
-    </c:if>
-   </div>
-  </div>
-  <div class="col-md-#{messageWidth} col-sm-12">
-   <c:choose>
-    <c:when test="#{(not empty showHint)}">
-     <div class="row pl-3">
-      <mp:message id="#{id}ErrorMsg" for="#{id}"/>
-     </div>
-    </c:when>
-    <c:otherwise>
-     <a4j:outputPanel styleClass="row pl-3">
-      <mp:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}"/>
-     </a4j:outputPanel>
-    </c:otherwise>
-   </c:choose>
-  </div>
- </div>
 </ui:composition>
