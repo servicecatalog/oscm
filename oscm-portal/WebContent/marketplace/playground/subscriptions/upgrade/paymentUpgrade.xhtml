@@ -1,4 +1,4 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
+<!-- Copyright FUJITSU LIMITED 2020-->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
@@ -13,8 +13,8 @@
 
   <ui:define name="breadcrumbs">
     <mp:breadcrumbs>
-      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf"/>
-      <mp:crumb labelPageId="marketplace.account.subscriptions" link="/marketplace/account/subscriptions.jsf"/>
+      <mp:crumb labelPageId="marketplace.account" link="/marketplace/playground/account/index.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.subscriptions" link="/marketplace/playground/account/subscriptions.jsf"/>
       <mp:crumb label="#{upgradeWizardConversation.model.selectedSubscriptionId}"/>
     </mp:breadcrumbs>
   </ui:define>
@@ -23,7 +23,7 @@
 
     <h:form id="paymentUpgradePspResultForm">
       <h:inputHidden id="pspResult" value="#{paymentInfoBean.pspResult}"/>
-      <h:commandButton style="display:none;" id="handlePspResult" value="handlePspResult"
+      <h:commandButton styleClass="d-none" id="handlePspResult" value="handlePspResult"
                        action="#{paymentInfoBean.handlePspResult}"/>
     </h:form>
 
@@ -37,6 +37,7 @@
             document.getElementById('paymentUpgradePspResultForm:handlePspResult').click();
         }
     </script>
+
     <a4j:outputPanel layout="block">
       <ui:include src="../../account/billingContact.xhtml">
         <ui:param name="dialogId" value="billingContactPanel"/>
@@ -51,7 +52,7 @@
       </ui:include>
     </a4j:outputPanel>
 
-    <a4j:outputPanel layout="block" styleClass="grid5span clearfix">
+    <a4j:outputPanel layout="block">
       <ui:include src="payment.xhtml">
         <ui:param name="subscription" value="#{upgradeWizardConversation.model.subscription}"/>
       </ui:include>
