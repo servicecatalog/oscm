@@ -112,26 +112,21 @@
             </div>
           </div>
 
-          <div class="row no-gutters border-top pt-2">
-            <h:commandButton id="saveBillingContactButton"
-                             styleClass="btn-sm btn-secondary"
-                             value="#{msg['button.save']}"
-                             onclick="saveLineEndings();AdmUtils.showProgress(true);setDirty(false)"
-                             action="#{billingContactBean.saveBillingContact}">
-              <f:ajax execute="@form"
-                      render=":#{dialogId}RerenderPanel :#{dialogId}modalErrorMasterPanel #{additionalRender} @form"
-                      onevent="#{dialogId}eventHandler"/>
-            </h:commandButton>
-
-            <h:commandButton id="cancelButton" styleClass="btn-sm btn-secondary mx-1"
-                             onclick="
-                    AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
-                    AdmUtils.clearHiddenErrorPanel();
-                    AdmUtils.deselectRow();
-                    #{rich:component(dialogId)}.hide();"
-                             value="#{msg['button.cancel']}">
+          <div class="row row-justify-space">
+            <h:commandButton id="cancelButton" styleClass="btn-sm btn-outline-secondary ml-4"
+                             onclick="AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
+                                      AdmUtils.clearHiddenErrorPanel();
+                                      AdmUtils.deselectRow();
+                                      #{rich:component(dialogId)}.hide();" value="#{msg['button.cancel']}">
               <f:ajax execute="@this" render="@form"/>
               <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+            </h:commandButton>
+
+            <h:commandButton id="saveBillingContactButton" styleClass="btn-sm btn-secondary mr-4"
+                             onclick="saveLineEndings();AdmUtils.showProgress(true);setDirty(false)"
+                             value="#{msg['button.save']}" action="#{billingContactBean.saveBillingContact}">
+              <f:ajax execute="@form"  onevent="#{dialogId}eventHandler"
+                      render=":#{dialogId}RerenderPanel :#{dialogId}modalErrorMasterPanel #{additionalRender} @form"/>
             </h:commandButton>
           </div>
 
