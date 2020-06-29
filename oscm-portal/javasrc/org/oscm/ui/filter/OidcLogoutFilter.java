@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Optional;
+
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
@@ -21,6 +22,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.SessionService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
@@ -67,10 +69,8 @@ public class OidcLogoutFilter extends BaseBesFilter {
       getSessionService().deletePlatformSession(currentSession.getId());
       currentSession.invalidate();
 
-      String requestedUrl = httpRequest.getRequestURL().toString();
-
       try {
-        String logoutUrl = buildLogoutUrl(requestedUrl, path);
+        String logoutUrl = buildLogoutUrl(httpRequest, path);
 
         JSFUtils.sendRedirect(httpResponse, logoutUrl);
       } catch (URISyntaxException excp) {
@@ -90,11 +90,19 @@ public class OidcLogoutFilter extends BaseBesFilter {
     chain.doFilter(request, response);
   }
 
-  protected String buildLogoutUrl(String requestedUrl, String path) throws URISyntaxException {
+  protected String buildLogoutUrl(HttpServletRequest request, String path)
+      throws URISyntaxException {
+
+    String requestedUrl = request.getRequestURL().toString();
+    ConfigurationService cs = getConfigurationService(request);
+    String ru =
+        cs.getVOConfigurationSetting(
+                ConfigurationKey.OIDC_REDIRECT_URL, Configuration.GLOBAL_CONTEXT)
+            .getValue();
+
     URI uri = new URI(requestedUrl);
     String redirectionUrl = buildRedirectionUrl(uri, path);
-    String hostname = uri.getHost();
-    String logoutUrl = "https://" + hostname + ":9091/oscm-identity/logout?state=" + redirectionUrl;
+    String logoutUrl = ru + "/logout?state=" + redirectionUrl;
     return logoutUrl;
   }
 
