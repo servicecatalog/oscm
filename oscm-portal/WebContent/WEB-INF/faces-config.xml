@@ -1380,6 +1380,36 @@
       <redirect />
     </navigation-case>
   </navigation-rule>
+  <navigation-rule>
+    <from-view-id>/marketplace/playground/subscriptions/upgrade/upgrade.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>success</from-outcome>
+      <to-view-id>/marketplace/playground/subscriptions/upgrade/confirmUpgrade.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>enterPayment</from-outcome>
+      <to-view-id>/marketplace/playground/subscriptions/upgrade/paymentUpgrade.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>error</from-outcome>
+      <to-view-id>/marketplace/playground/subscriptions/upgrade/upgrade.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/marketplace/playground/account/subscriptionDetails.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
+  <navigation-rule>
+    <from-view-id>/marketplace/playground/subscriptions/upgrade/paymentUpgrade.xhtml</from-view-id>
+    <navigation-case>
+      <from-outcome>serviceSubscribe</from-outcome>
+      <to-view-id>/marketplace/playground/subscriptions/upgrade/confirmUpgrade.xhtml</to-view-id>
+    </navigation-case>
+    <navigation-case>
+      <from-outcome>previous</from-outcome>
+      <to-view-id>/marketplace/playground/subscriptions/upgrade/upgrade.xhtml</to-view-id>
+    </navigation-case>
+  </navigation-rule>
 
 
   <validator>

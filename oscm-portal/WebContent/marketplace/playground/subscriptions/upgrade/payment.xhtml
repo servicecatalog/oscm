@@ -1,0 +1,215 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:t="http://myfaces.apache.org/tomahawk"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
+  <ui:fragment rendered="true">
+    <c:set var="paymentInfoVisible" value="#{upgradeWizardConversation.paymentInfoVisible eq true}" scope="request"/>
+    <c:set var="emptyEnabledPaymentTypes" value="#{empty upgradeWizardConversation.enabledPaymentTypes}"
+           scope="request"/>
+    <c:set var="availableSubsAndAdmin"
+           value="#{not empty upgradeWizardConversation.availablePaymentTypesForCreation and userBean.loggedInAndAdmin}"
+           scope="request"/>
+
+    <mp:subscriptionProcess active="payment" service="#{upgradeWizardConversation.model.service}"
+                            bean="#{upgradeWizardConversation}">
+      <h:form id="payment">
+        <adm:keepDirty value="#{upgradeWizardConversation.model.dirty}"/>
+        <a4j:jsFunction name="newBillingContact"
+                        action="#{billingContactBean.prepareBillingContactForNew}"
+                        render=":billingContactPanel :billingContactPanelForm"
+                        oncomplete="AdmUtils.initFocus();RichFaces.$('billingContactPanel').show();">
+        </a4j:jsFunction>
+
+        <a4j:jsFunction name="newPaymentItem" render="paymentOptionPanel"
+                        oncomplete="AdmUtils.initFocus();RichFaces.$('paymentOptionPanel').show();">
+          <a4j:param name="param1"
+                     assignTo="#{sessionBean.serviceKeyForPayment}"/>
+          <a4j:param name="param2" value="subscription"
+                     assignTo="#{paymentInfoBean.creationContext}"/>
+        </a4j:jsFunction>
+
+        <a4j:jsFunction name="setDirtyOnManageSubscriptionModelAddress" render="bcInformation"
+                        execute="selectBillingContact bcInformation"
+                        oncomplete="AdmUtils.showProgress(false);"
+                        onbegin="setDirty(true);AdmUtils.showProgress(true);">
+          <a4j:param name="param1" assignTo="#{upgradeWizardConversation.model.dirty}"/>
+        </a4j:jsFunction>
+
+        <a4j:jsFunction name="setDirtyOnManageSubscriptionModelPayment" render="piInformation"
+                        execute="piInformation selectPaymentInfo" oncomplete="AdmUtils.showProgress(false);"
+                        onbegin="setDirty(true);AdmUtils.showProgress(true);">
+          <a4j:param name="param1" assignTo="#{upgradeWizardConversation.model.dirty}"/>
+        </a4j:jsFunction>
+
+        <!-- SELECT PAYMENT INFORMATION -->
+        <h2 class="box_title">#{msg['payment.select.label']}</h2>
+        <mp:pixelline/>
+
+        <a4j:outputPanel layout="block" styleClass="labelAndValuePanel"
+                         style="margin-bottom:5px;">
+
+          <t:panelGrid width="100%" columns="2"
+                       columnClasses="gridCol1,gridCol2" border="0" cellspacing="0"
+                       cellpadding="0">
+            <!-- PANEL 1 -->
+            <a4j:outputPanel layout="block">
+              <t:panelGrid width="100%" columns="2" border="0" cellspacing="0"
+                           cellpadding="0">
+                <a4j:outputPanel layout="block">
+
+                  <a4j:outputPanel layout="inline" styleClass="labelAsSpan">
+                    <h:outputText id="label1"
+                                  value="#{msg['payment.billingContact']}:"/>
+                    <h:outputText value=" *" styleClass="mandatory"/>
+                  </a4j:outputPanel>
+
+                  <h:selectOneMenu id="selectBillingContact" styleClass="select"
+                                   required="#{!empty param['payment:next']}"
+                                   value="#{upgradeWizardConversation.selectedBillingContact}"
+                                   disabled="false"
+                                   rendered="#{upgradeWizardConversation.billingContactVisible}"
+                                   onchange="setDirtyOnManageSubscriptionModelAddress(true);"
+                                   converter="#{billingContactConverter}">
+                    <adm:selectItemPleaseSelect itemValue=""/>
+                    <f:selectItems value="#{billingContactBean.billingContacts}"
+                                   var="bc" itemLabel="#{bc.id}" itemValue="#{bc}"/>
+                  </h:selectOneMenu>
+
+                </a4j:outputPanel>
+
+                <a4j:outputPanel layout="block">
+                  <h:outputText id="noBillingContact"
+                                value="#{msg['organization.payment.noBillingContact']}"
+                                rendered="#{not userBean.loggedInAndAdmin and empty billingContactBean.billingContacts}"/>
+                </a4j:outputPanel>
+
+                <a4j:outputPanel layout="block" style="margin-bottom: 8px;"
+                                 rendered="true">
+                  <h:outputLink value="#" id="newBillingContact"
+                                onclick="newBillingContact(); return false;"
+                                rendered="#{userBean.loggedInAndAdmin}">
+                    <h:outputText
+                        value="#{msg['payment.new.BillingContact.title']}"/>
+                  </h:outputLink>
+                </a4j:outputPanel>
+                <h:panelGroup rendered="true" layout="block"/>
+              </t:panelGrid>
+            </a4j:outputPanel>
+
+            <!-- PANEL 2 -->
+            <!-- address & email right of it -->
+            <a4j:outputPanel id="bcInformation" layout="block">
+              <mp:message for="selectBillingContact"
+                          rendered="#{empty upgradeWizardConversation.model.selectedBillingContact}"/>
+              <ui:fragment
+                  rendered="#{not empty upgradeWizardConversation.model.selectedBillingContact}">
+                <a4j:outputPanel layout="block" styleClass="marginBottom10">
+                  <h:outputText
+                      value="#{upgradeWizardConversation.model.selectedBillingContact.email}"
+                      id="email"/>
+                </a4j:outputPanel>
+                <a4j:outputPanel layout="block">
+                  <h:outputText
+                      value="#{upgradeWizardConversation.model.selectedBillingContact.companyName}"
+                      styleClass="preWrapping" id="companyName"/>
+                </a4j:outputPanel>
+                <a4j:outputPanel layout="block">
+                  <h:outputText
+                      value="#{upgradeWizardConversation.model.selectedBillingContact.address}"
+                      styleClass="preWrapping" id="address"/>
+                </a4j:outputPanel>
+              </ui:fragment>
+            </a4j:outputPanel>
+
+            <!-- PANEL 3 -->
+            <!-- There are payment types available, show them and optionally a link to create new one -->
+            <t:panelGrid width="100%" columns="2" border="0" cellspacing="0"
+                         cellpadding="0">
+
+              <a4j:outputPanel layout="block">
+                <a4j:outputPanel layout="inline" styleClass="labelAsSpan">
+                  <h:outputText id="label2"
+                                value="#{msg['payment.paymentOption']}:"/>
+                  <h:outputText value=" *" styleClass="mandatory"/>
+                </a4j:outputPanel>
+
+                <h:selectOneMenu id="selectPaymentInfo" styleClass="select"
+                                 required="#{!empty param['payment:next']}"
+                                 value="#{upgradeWizardConversation.selectedPaymentInfo}"
+                                 disabled="false"
+                                 rendered="#{paymentInfoVisible}"
+                                 onchange="setDirtyOnManageSubscriptionModelPayment(true);"
+                                 converter="#{paymentTypeConverter}">
+                  <adm:selectItemPleaseSelect itemValue=""/>
+                  <f:selectItems
+                      value="#{upgradeWizardConversation.paymentInfosForSubscription}"
+                      var="pi" itemLabel="#{pi.id}" itemValue="#{pi}"/>
+                </h:selectOneMenu>
+              </a4j:outputPanel>
+
+              <!-- No payment types available for this organization -->
+              <a4j:outputPanel layout="block">
+                <h:outputText
+                    value="#{upgradeWizardConversation.paymentMissingText}"
+                    id="noPaymenttypesAvailableForAdmin"
+                    rendered="#{not paymentInfoVisible}"/>
+              </a4j:outputPanel>
+
+
+              <a4j:outputPanel layout="block" style="margin-bottom: 8px;"
+                               rendered="#{availableSubsAndAdmin}">
+                <h:outputLink value="" id="newPaymentInfo"
+                              onclick="newPaymentItem('#{upgradeWizardConversation.model.service.key}'); return false;">
+                  <h:outputText value="#{msg['payment.new.PaymentOption.title']}"/>
+                </h:outputLink>
+              </a4j:outputPanel>
+              <h:panelGroup
+                  rendered="#{availableSubsAndAdmin}"
+                  layout="block"/>
+            </t:panelGrid>
+
+            <!-- PANEL 4 -->
+            <!-- provider and account right of it -->
+            <a4j:outputPanel id="piInformation" layout="block">
+              <mp:message for="selectPaymentInfo"
+                          rendered="#{empty upgradeWizardConversation.model.selectedPaymentInfo}"/>
+              <ui:fragment
+                  rendered="#{not empty upgradeWizardConversation.model.selectedPaymentInfo}">
+                <a4j:outputPanel layout="block">
+                  <h:outputText
+                      value="#{upgradeWizardConversation.model.selectedPaymentInfo.providerName}"
+                      id="provider"/>
+                </a4j:outputPanel>
+                <a4j:outputPanel layout="block">
+                  <h:outputText
+                      value="#{upgradeWizardConversation.model.selectedPaymentInfo.accountNumber}"
+                      id="account"/>
+                </a4j:outputPanel>
+              </ui:fragment>
+            </a4j:outputPanel>
+
+          </t:panelGrid>
+        </a4j:outputPanel>
+
+        <mp:pixelline marginTop="10"/>
+        <a4j:outputPanel layout="block">
+          <mp:button id="previous" value="#{msg['button.previous']}"
+                     bean="#{upgradeWizardConversation}" action="previous"
+                     rendered="true" keepDirty="true" clearDirty="#{clearDirtyBack}"/>
+
+          <mp:button id="next" value="#{msg['button.next']}"
+                     bean="#{upgradeWizardConversation}" action="next"
+                     style="float: right;"
+                     disabled="#{emptyEnabledPaymentTypes}"
+                     keepDirty="true" clearDirty="#{clearDirtyForward}"/>
+        </a4j:outputPanel>
+      </h:form>
+
+    </mp:subscriptionProcess>
+  </ui:fragment>
+</ui:composition>

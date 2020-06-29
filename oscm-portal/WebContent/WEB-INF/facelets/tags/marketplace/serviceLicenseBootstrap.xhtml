@@ -1,0 +1,16 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+  <!-- Input parameter: service (VOService for which the license should be displayed),
+   linkText (the text of the link which opens the license overlay) -->
+  <c:if test="#{empty linkText}">
+    <c:set var="linkText" value="#{msg['priceModel.service.license']}"/>
+  </c:if>
+  <h:outputLink id="openLicenseLink" value="#" class="#{styleClass} text-decoration-none"
+                onclick="#{rich:component('licenseAgreement')}.show(); setDirty(false); return false;">
+    <h:outputText value="#{linkText}"/>
+  </h:outputLink>
+  <ui:include src="licensePopup.xhtml"/>
+</ui:composition>

@@ -318,4 +318,16 @@
     <tag-name>hintBootstrap</tag-name>
     <source>hintBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>licensePopup</tag-name>
+    <source>licensePopup.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>serviceLicenseBootstrap</tag-name>
+    <source>serviceLicenseBootstrap.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>servicePriceLinkBootstrap</tag-name>
+    <source>servicePriceLinkBootstrap.xhtml</source>
+  </tag>
 </facelet-taglib>
