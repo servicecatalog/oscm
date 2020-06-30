@@ -13,11 +13,11 @@
  </ui:define>
 
  <ui:define name="breadcrumbs">
-  <mp:breadcrumbs menu="#{true}">
+  <mp:bootstrapBreadcrumbs menu="#{true}">
    <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/playground/account/index.jsf"/>
    <mp:crumb labelPageId="marketplace.account.users" link="/marketplace/playground/account/users.jsf"/>
    <mp:crumb labelPageId="marketplace.account.users.addUser"/>
-  </mp:breadcrumbs>
+  </mp:bootstrapBreadcrumbs>
  </ui:define>
 
  <ui:define name="contentstitle">
@@ -64,11 +64,11 @@
 
      <hr class="pt-2"/>
 
-     <a4j:outputPanel layout="block" styleClass="clearfix">
+     <a4j:outputPanel layout="block" styleClass="bottomButtonPanel row row-justify-space">
       <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);location.href='users.jsf';return false;"
-                          value="#{msg['button.cancel']}" styleClass="btn btn-secondary"/>
+                          value="#{msg['button.cancel']}" styleClass="btn btn-outline-secondary ml-3"/>
       <adm:buttonBootstrap id="createButton" value="#{msg['button.save']}" bean="#{createUserCtrl}" action="create"
-                           big="true" styleClass="btn btn-secondary float-right"/>
+                           big="true" styleClass="btn btn-secondary mr-3"/>
      </a4j:outputPanel>
 
      <script type="application/javascript">

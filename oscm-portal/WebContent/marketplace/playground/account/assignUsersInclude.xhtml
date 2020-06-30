@@ -1,0 +1,98 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+
+  <h:form id="#{dialogId}Form" method="post" action="">
+    <a4j:queue requestDelay="500" ignoreDupResponses="true" oncomplete="jQuery('body').removeClass('hourglass');"
+               onsubmit="jQuery('body').addClass('hourglass');"/>
+    <c:set var="userIdWidth" value="25%"/>
+    <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
+    <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
+
+    <rich:dataTable rows="10" id="unassignedUsers" value="#{controller.usersLazyDataModel}" var="user"
+                    headerClass="rowTitle sortable" columnHeaderClass="rowTitle sortable"
+                    styleClass="sortable table-hover table-bordered w-100 table-with-selectable-rows"
+                    headerCellClass="rowTitle sortable" columnClasses="wrapColumns"
+                    rowClasses="rowOdd,rowEven" onRowMouseOver="AdmUtils.mouseOverRowCell(this);"
+                    onRowMouseOut="AdmUtils.mouseOutRowCell(this)" noDataLabel=" ">
+
+      <rich:column id="assignCol" styleClass="tableColumnCheckBox pl-0">
+        <h:selectBooleanCheckbox id="assignCheckbox" value="#{user.selected}">
+          <f:ajax event="change"/>
+        </h:selectBooleanCheckbox>
+      </rich:column>
+
+      <ui:include src="usersTableColumn.xhtml">
+        <ui:param name="bean" value="#{controller.usersLazyDataModel}"/>
+        <ui:param name="property" value="#{controller.usersLazyDataModel.USER_ID}"/>
+        <ui:param name="tableName" value="unassignedUsers"/>
+        <ui:param name="record" value="#{user}"/>
+        <ui:param name="columnHeaderName" value="#{msg['user.userId']}"/>
+        <ui:param name="scroller" value="unassignedUsersPager"/>
+        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
+        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
+        <ui:param name="queueName" value="unassignedUsersQueue"/>
+      </ui:include>
+
+      <ui:include src="usersTableColumn.xhtml">
+        <ui:param name="bean" value="#{controller.usersLazyDataModel}"/>
+        <ui:param name="property" value="#{controller.usersLazyDataModel.FIRST_NAME}"/>
+        <ui:param name="tableName" value="unassignedUsers"/>
+        <ui:param name="record" value="#{user}"/>
+        <ui:param name="columnHeaderName" value="#{msg['user.firstName']}"/>
+        <ui:param name="scroller" value="unassignedUsersPager"/>
+        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
+        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
+        <ui:param name="queueName" value="unassignedUsersQueue"/>
+      </ui:include>
+
+      <ui:include src="usersTableColumn.xhtml">
+        <ui:param name="bean" value="#{controller.usersLazyDataModel}"/>
+        <ui:param name="property" value="#{controller.usersLazyDataModel.LAST_NAME}"/>
+        <ui:param name="tableName" value="unassignedUsers"/>
+        <ui:param name="record" value="#{user}"/>
+        <ui:param name="columnHeaderName" value="#{msg['user.lastName']}"/>
+        <ui:param name="scroller" value="unassignedUsersPager"/>
+        <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
+        <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
+        <ui:param name="queueName" value="unassignedUsersQueue"/>
+      </ui:include>
+
+      <f:facet name="footer">
+        <a4j:outputPanel>
+          <adm:pagerBootstrap pagerId="unassignedUsersPager"/>
+        </a4j:outputPanel>
+      </f:facet>
+
+    </rich:dataTable>
+
+    <a4j:outputPanel layout="block" styleClass="row row-justify-space bottomButtonPanel">
+
+      <a4j:commandButton styleClass="d-none" id="hiddenModalSaveAndHide" value="#{msg['button.save']}" execute="@form"
+                         action="#{controller.assignUsers}" render="#{dialogId}RerenderPanel,assignedUsersPanel"
+                         oncomplete="AdmUtils.showProgress(false);
+                                      if(!#{facesContext.maximumSeverity.ordinal > 0})
+                                        {#{rich:component(dialogId)}.hide();}"/>
+      <a4j:commandButton styleClass="d-none" id="hiddenModalCancelAndHide" value="#{msg['button.save']}"
+                         action="#{controller.assignUsersCancel}"/>
+
+      <mp:buttonBootstrap id="cancelUpdateButton" styleClass="btn btn-outline-secondary ml-3"
+                          onclick="setDirty(#{rich:element('configDirty')}.value=='true');#{rich:component(dialogId)}.hide();#{rich:element('hiddenModalCancelAndHide')}.click();return false;"
+                          value="#{msg['button.cancel']}"/>
+
+      <mp:buttonBootstrap id="updateButton" rendered="#{not addGroup}" styleClass="btn btn-outline-secondary"
+                          onclick="setOnSubmit(true);AdmUtils.showProgress(true);#{rich:element('hiddenModalSaveAndHide')}.click();return false;"
+                          value="#{msg['button.assign']}"/>
+
+      <mp:buttonBootstrap id="saveButton" rendered="#{addGroup}" styleClass="btn btn-secondary mr-3 float-right"
+                          onclick="if(#{rich:element('configDirty')}.value=='true')setDirty(true);AdmUtils.showProgress(true);#{rich:element('hiddenModalSaveAndHide')}.click();return false;"
+                          value="#{msg['button.assign']}"/>
+    </a4j:outputPanel>
+  </h:form>
+
+</ui:composition>

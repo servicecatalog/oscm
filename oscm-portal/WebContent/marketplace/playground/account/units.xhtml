@@ -1,0 +1,57 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:a4j="http://richfaces.org/a4j"  template="../templates/mainBootstrap.xhtml"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
+  <ui:define name="pageId">
+    <c:set var="pageId" value="marketplace.account.units"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+    <c:set var="dirty" value="false"/>
+  </ui:define>
+
+  <ui:define name="breadcrumbs">
+    <mp:bootstrapBreadcrumbs menu="#{true}">
+      <mp:crumb labelPageId="marketplace.account" link="/marketplace/playground/account/index.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.units"/>
+    </mp:bootstrapBreadcrumbs>
+  </ui:define>
+
+  <ui:define name="contentstitle">
+    <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
+      <br/>
+    </a4j:outputPanel>
+  </ui:define>
+
+  <ui:define name="aside">
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.units.title"/>
+  </ui:define>
+
+  <ui:define name="contents">
+    <c:set var="sortIcon"
+           value="/marketplace/img/transparentPixel.png?id=sort"/>
+    <c:set var="sortIconAscending"
+           value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
+    <c:set var="sortIconDescending"
+           value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
+
+    <a4j:outputPanel id="all" styleClass="row" layout="block">
+      <div class="my-2 p-3 bg-light col">
+        <ui:fragment
+            rendered="#{empty appBean.hiddenUIElements['organization.edit.userProfile']}">
+          <mp:outputStep value="#{msg['marketplace.account.units.title.management']}"/>
+
+          <h:form id="groupsListForm">
+            <div class="userTablePanel">
+              <ui:include src="unitsTable.xhtml">
+                <ui:param name="showDeleteButtons" value="false"/>
+              </ui:include>
+            </div>
+          </h:form>
+
+        </ui:fragment>
+      </div>
+    </a4j:outputPanel>
+  </ui:define>
+</ui:composition>

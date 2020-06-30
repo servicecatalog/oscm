@@ -1,0 +1,126 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:rich="http://richfaces.org/rich" template="../templates/mainBootstrap.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:t="http://myfaces.apache.org/tomahawk">
+
+  <ui:define name="pageId">
+    <c:set var="pageId" value="marketplace.account.addUser"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+  </ui:define>
+
+  <ui:define name="breadcrumbs">
+    <mp:bootstrapBreadcrumbs menu="#{true}">
+      <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/playground/account/index.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.users"/>
+    </mp:bootstrapBreadcrumbs>
+  </ui:define>
+
+  <ui:define name="contentstitle">
+    <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
+      <br/>
+    </a4j:outputPanel>
+  </ui:define>
+
+  <ui:define name="aside">
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.users.title"/>
+  </ui:define>
+
+  <ui:define name="contents">
+
+    <adm:initialize initializingMethod="#{ldapConfigurationCtrl.initialize}"/>
+
+    <a4j:outputPanel id="all" styleClass="row" layout="block">
+      <div class="my-2 p-3 bg-light col">
+
+        <mp:outputStep value="#{msg['marketplace.account.ldapSettings.title']}"/>
+
+        <a4j:outputPanel layout="block" styleClass="clearfix">
+          <div class="row">
+            <div class="col-lg-5 pb-3">
+              <h:form id="ldapForm" enctype="multipart/form-data">
+                <a4j:outputPanel layout="block" styleClass="bottomButtonPanel row row-justify-space">
+                  <adm:buttonBootstrap id="exportButton" value="#{msg['button.export']}" bean="#{ldapConfigurationCtrl}"
+                                       action="exportSettings" progress="false" styleClass="btn btn-secondary ml-3"
+                                       disabled="#{ldapConfigurationCtrl.noSettingsDefined}"/>
+
+                  <adm:buttonBootstrap id="resetConfirmButton" value="#{msg['button.reset']}" action="reset"
+                                       bean="#{ldapConfigurationCtrl}" buttonType="reset" styleClass="d-none"/>
+                  <adm:buttonCustomizedOnClickBootstrap id="resetButton" value="#{msg['button.reset']}"
+                                                        onclick="#{rich:component('resetConfirmPanel')}.show()"
+                                                        buttonStyleClass="btn btn-outline-secondary"
+                                                        buttonType="reset"/>
+
+                  <adm:buttonBootstrap id="testButton" value="#{msg['button.testConnection']}"
+                                       bean="#{ldapConfigurationCtrl}"
+                                       action="testConnection" styleClass="btn btn-secondary mr-3"/>
+                </a4j:outputPanel>
+              </h:form>
+            </div>
+            <div class="col-lg-7 pb-3">
+              <h:form id="importForm" enctype="multipart/form-data">
+                <adm:button id="importConfirmButton" value="#{msg['button.import']}" bean="#{ldapConfigurationCtrl}"
+                            action="importSettings" buttonType="fileUpload" style="display:none;"/>
+                <a4j:outputPanel styleClass="d-flex float-right input-group mb-3">
+                  <t:div class="custom-file mr-1">
+                    <t:inputFileUpload id="file" label="#{msg['common.filename']}"
+                                       onchange="jQuery('.custom-file-label').text(this.value);"
+                                       value="#{ldapConfigurationModel.file}" size="21" styleClass="fileChooser d-none"
+                                       requiredMessage="#{msg['error.upload.fileNotNullNorEmpty']}"/>
+                    <h:outputLabel id="inputFile" class="custom-file-label btn text-left" for="file"/>
+                  </t:div>
+                  <div class="input-group-append">
+                    <h:outputLink id="importButton" styleClass="btn btn-secondary" value="#"
+                                  onclick="#{rich:component('importConfirmPanel')}.show();setDirty(false);">
+                      #{msg['button.import']}
+                    </h:outputLink>
+                  </div>
+                </a4j:outputPanel>
+              </h:form>
+            </div>
+          </div>
+        </a4j:outputPanel>
+
+        <a4j:outputPanel layout="block" styleClass="mt-2">
+          <adm:dataTable tableId="ldapTable" value="#{ldapConfigurationModel.settings}"
+                         emptyText="#{msg['organization.ldapSettings.noData']}" height="#{height}"
+                         collapsible="#{collapsible}" label="#{msg['organization.manageLdapSettings.table.header']}">
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="#{msg['organization.ldapSettings.platformDefault']}"/>
+              </f:facet>
+              <h:graphicImage value="../../img/transparentPixel.png" styleClass="tick"
+                              rendered="#{rowItem.platformDefault}"/>
+            </rich:column>
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="#{msg['organization.ldapSettings.key']}"/>
+              </f:facet>
+              <h:outputText id="settingKey" value="#{rowItem.settingKey}"/>
+            </rich:column>
+            <rich:column>
+              <f:facet name="header">
+                <h:outputText value="#{msg['organization.ldapSettings.value']}"/>
+              </f:facet>
+              <h:outputText id="settingValue" value="#{rowItem.settingValue}"/>
+            </rich:column>
+          </adm:dataTable>
+        </a4j:outputPanel>
+
+        <mp:confirmPanelBootstrap text1="#{msg['organization.ldapSettings.confirmReset.main']}"
+                                  submitId="resetConfirmButton" formId="resetConfirmationForm"
+                                  header="#{msg['organization.ldapSettings.confirmReset.title']}"
+                                  text2="#{msg['marketplace.areyousure']}" panelId="resetConfirmPanel"/>
+
+        <mp:confirmPanelBootstrap text1="#{msg['organization.ldapSettings.confirmImport.main']}"
+                                  submitId="importConfirmButton" formId="importConfirmationForm"
+                                  header="#{msg['organization.ldapSettings.confirmImport.title']}"
+                                  text2="#{msg['marketplace.areyousure']}" panelId="importConfirmPanel"/>
+      </div>
+    </a4j:outputPanel>
+  </ui:define>
+</ui:composition>
