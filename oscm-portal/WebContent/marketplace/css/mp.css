@@ -572,6 +572,9 @@ input#Search, #subListForm\:search {
 input#Search:focus, #subListForm\:search:focus {
   color: #333333; }
 
+input#inputSearch {
+  width: 86%; }
+
 /* search field wrapper*/
 #headsearch, #subListForm\:subscriptionSearch {
   float: right;
