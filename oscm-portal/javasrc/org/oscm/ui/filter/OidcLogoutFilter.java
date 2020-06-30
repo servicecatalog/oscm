@@ -94,15 +94,16 @@ public class OidcLogoutFilter extends BaseBesFilter {
       throws URISyntaxException {
 
     String requestedUrl = request.getRequestURL().toString();
-    ConfigurationService cs = getConfigurationService(request);
-    String ru =
-        cs.getVOConfigurationSetting(
-                ConfigurationKey.OIDC_REDIRECT_URL, Configuration.GLOBAL_CONTEXT)
+
+    String isu =
+        getConfigurationService(request)
+            .getVOConfigurationSetting(
+                ConfigurationKey.OSCM_IDENTITY_SERVICE_URL, Configuration.GLOBAL_CONTEXT)
             .getValue();
 
     URI uri = new URI(requestedUrl);
     String redirectionUrl = buildRedirectionUrl(uri, path);
-    String logoutUrl = ru + "/logout?state=" + redirectionUrl;
+    String logoutUrl = isu + "/logout?state=" + redirectionUrl;
     return logoutUrl;
   }
 
