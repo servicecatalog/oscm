@@ -682,6 +682,10 @@ input#Search:focus, #subListForm\:search:focus {
   color: #333333;
 }
 
+input#inputSearch {
+    width: 86%;
+}
+
 /* search field wrapper*/
 #headsearch, #subListForm\:subscriptionSearch {
   float: right;
@@ -2463,7 +2467,7 @@ table.smallPanel {
   border: 1px solid #eeeeee;
   padding: 0;
   margin-bottom: 15px;
-  margin-top: 15px;
+  margin-top: 75px;
   text-align: left;
   -moz-border-radius: 4px;
   border-radius: 4px;

@@ -27,7 +27,7 @@
               <h:inputHidden value="all_www" name="restrict"/>
               <h:inputHidden id="searchPhrase" value="#{servicePagingBean.searchPhrase}"/>
               <c:if test="#{empty servicePagingBean.searchPhrase}">
-                <input class="form-control w-75 mr-1 inputSearch" id="inputSearch"
+                <input class="form-control mr-1 inputSearch" id="inputSearch"
                        placeholder="#{msg['marketplace.search']}" size="30"
                        maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
                        onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" onfocus="this.value = '';"/>
