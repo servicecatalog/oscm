@@ -28,7 +28,6 @@ import org.oscm.identity.IdentityConfiguration;
 import org.oscm.identity.WebIdentityClient;
 import org.oscm.identity.exception.IdentityClientException;
 import org.oscm.identity.model.TokenType;
-import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.exception.MarketplaceRemovedException;
 import org.oscm.logging.Log4jLogger;
@@ -203,12 +202,13 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     String buildUrl() throws URISyntaxException, MarketplaceRemovedException {
       StringBuffer bf = new StringBuffer();
 
-      ConfigurationService cs = getConfigurationService(request);
-      String ru =
-          cs.getVOConfigurationSetting(
-                  ConfigurationKey.OIDC_REDIRECT_URL, Configuration.GLOBAL_CONTEXT)
+      String isu =
+          getConfigurationService(request)
+              .getVOConfigurationSetting(
+                  ConfigurationKey.OSCM_IDENTITY_SERVICE_URL, Configuration.GLOBAL_CONTEXT)
               .getValue();
-      bf.append(String.format(ru));
+
+      bf.append(String.format(isu));
       bf.append("/login?state=");
       bf.append(getRequestedURL());
 
