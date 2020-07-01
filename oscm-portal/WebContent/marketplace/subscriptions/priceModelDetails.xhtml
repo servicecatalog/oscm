@@ -195,7 +195,7 @@
   <ui:fragment rendered="#{not empty model.serviceParameters}">
     <a4j:outputPanel>
       <mp:outputStepBootstrap value="#{msg['subscription.priceModel.parameterPrices.label']}"/>
-      <ui:include src="../../../subscription/paramtable.xhtml">
+      <ui:include src="../../subscription/paramtable.xhtml">
         <ui:param name="tableStyle" value="w-100"/>
         <ui:param name="inputList" value="#{model.serviceParameters}"/>
         <ui:param name="formName" value="#{idPrefix}#{empty formName2 ? 'priceModelDetail' : formName2}"/>
@@ -213,7 +213,7 @@
   <!-- ROLES TABLE -->
   <ui:fragment rendered="#{not empty model.roleSpecificPrices}">
     <mp:outputStepBootstrap value="#{msg['subscription.priceModel.rolePrices.label']}"/>
-    <ui:include src="../../../subscription/rolepricetable.xhtml">
+    <ui:include src="../../subscription/rolepricetable.xhtml">
       <ui:param name="tableStyle" value="w-100"/>
       <ui:param name="inputList" value="#{model.roleSpecificPrices}"/>
       <ui:param name="isCollapsible" value="false"/>

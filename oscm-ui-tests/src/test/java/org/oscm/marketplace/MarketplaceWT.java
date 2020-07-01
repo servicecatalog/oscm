@@ -84,13 +84,13 @@ public class MarketplaceWT {
   }
 
   @Test
-  public void test05_gotoMarketplacePlayground() throws Exception {
+  public void test05_gotoMarketplace() throws Exception {
     tester.visitPortal(PortalPathSegments.GOTO_MARKETPLACE);
     tester.waitForElement(
         By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE),
         WebTester.IMPLICIT_WAIT);
     tester.selectDropdown(
-        MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE, "pg_marketplace");
+        MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE, PlaygroundSuiteTest.marketPlaceId);
     tester.waitForElementVisible(
         By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
     tester.clickElement(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);

@@ -468,7 +468,6 @@ public class BaseBean {
   public static final String OUTCOME_REVIEW_ENABLEMENT_CHANGED = "reviewEnablementChanged";
   public static final String OUTCOME_SHOW_REGISTRATION = "showRegistration";
   public static final String OUTCOME_SHOW_SERVICE_LIST = "showServiceList";
-  public static final String OUTCOME_SHOW_SERVICE_LIST_PLAYGROUND = "showServiceListPlayground";
   public static final String OUTCOME_MARKETPLACE_CONFIRMSTARTPWDRECOVERY =
       "marketplace/confirmStartPwdRecovery";
   public static final String OUTCOME_SUBSCRIPTION_LIST = "showSubscription";
@@ -1150,11 +1149,6 @@ public class BaseBean {
     return httpRequest.getServletPath().startsWith(Marketplace.MARKETPLACE_ROOT);
   }
 
-  protected boolean isPlaygroundPage(HttpServletRequest httpRequest) {
-    final String path = httpRequest.getServletPath();
-    return path.contains(Marketplace.MARKETPLACE_ROOT) && path.contains("playground");
-  }
-
   public boolean isLoggedInAndAdmin() {
     VOUserDetails user = getUserFromSessionWithoutException(FacesContext.getCurrentInstance());
     return user != null && user.hasAdminRole();
@@ -1211,10 +1205,7 @@ public class BaseBean {
 
   protected String getServiceDetailsQueryPart(HttpServletRequest request, SessionBean sessionBean) {
     String queryPart = "";
-    if (request.getServletPath().startsWith(Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf")
-        || request
-            .getServletPath()
-            .startsWith(Marketplace.MARKETPLACE_ROOT + "/playground/serviceDetails.jsf")) {
+    if (request.getServletPath().startsWith(Marketplace.MARKETPLACE_ROOT + "/serviceDetails.jsf")) {
       queryPart = getSelectedServiceQueryPart(sessionBean) + getMarketplaceIdQueryPart();
     }
     return queryPart;

@@ -1,36 +1,85 @@
-<!-- Copyright FUJITSU LIMITED 2020-->
-<!DOCTYPE html>
+<!-- Copyright FUJITSU LIMITED 2018-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <adm:initialize initializingMethod="#{enterpriseLandingpageCtrl.initializeLandingpage}" />
 
-  <h:form id="tagFilterForm" rendered="#{!isMplRestricted or empty userBean.loggedInUser}">
-    <h:inputHidden id="tagFilterValue" value="#{servicePagingBean.filterTag}"/>
-    <h:commandButton id="applyTagFilter" action="#{serviceListingBean.showServiceList}" style="display: none;">
-      <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
-    </h:commandButton>
-  </h:form>
+  <a4j:outputPanel id="listServicesForEnterpriseLandingpage">
+    <h:form id="tagFilterForm">
+      <h:inputHidden id="tagFilterValue" value="#{servicePagingBean.filterTag}" />
+      <h:commandButton id="applyTagFilter" action="#{serviceListingBean.showServiceList}" style="display: none;">
+        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />
+      </h:commandButton>
+    </h:form>
+    <div class="grid4span clearfix">
+      <!-- first category -->
+      <c:if test="#{enterpriseLandingpageCtrl.showFirstCategory}">
+        <div class="serviceSection marginBottomDefault">
+          <div class="serviceHeader">
+            <h:outputText value="#{enterpriseLandingpageCtrl.nameFirstCategoryShow}" />
+          </div>
+          <c:forEach items="#{enterpriseLandingpageModel.servicesFirstCategory}" var="service" varStatus="status">
+            <div class="marginBottomDefault">
+              <mp:landingpageEntryBlock fieldId="serviceFirst#{status.index}" service="#{service}"
+                                        limitedDescription="true" />
+            </div>
+          </c:forEach>
+        </div>
+      </c:if>
+      <!-- end first category -->
+      <!-- second category -->
+      <c:if test="#{enterpriseLandingpageCtrl.showSecondCategory}">
+        <div class="serviceSection marginBottomDefault">
+          <div class="serviceHeader">
+            <h:outputText value="#{enterpriseLandingpageCtrl.nameSecondCategoryShow}" />
+          </div>
+          <c:forEach items="#{enterpriseLandingpageModel.servicesSecondCategory}" var="service" varStatus="status">
+            <div class="marginBottomDefault">
 
-  <mp:categorySelectionLandingBootstrap/>
-  <div class="row mt-2">
-    <c:forEach items="#{serviceListingBean.servicesForLandingPage}" var="service" varStatus="status">
-      <mp:serviceCard fieldId="service#{status.index}" service="#{service}" limitedDescription="true"/>
-    </c:forEach>
-  </div>
+              <mp:landingpageEntryBlock fieldId="serviceSecond#{status.index}" service="#{service}"
+                                        limitedDescription="true" />
 
-  <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
-                id="recommendedRetailPrice"
-                rendered="#{serviceListingBean.serviceListContainsChargeableResellerService}"/>
-  <mp:linkPageTop showBrowseAll="true"/>
-  <rich:jQuery selector="document"
-               query="ready(function() {var tagDivs = jQuery('div.serviceTags').get();AdmUtils.cutServiceTags(tagDivs);})"/>
-  <script>
-    	jQuery().ready(function(){
-        	AdmUtils.highlightNavigation("navigation1");
-    	});
-  </script>
+            </div>
+          </c:forEach>
+        </div>
+      </c:if>
+      <!-- end second category -->
+      <!-- third category -->
+      <c:if test="#{enterpriseLandingpageCtrl.showThirdCategory}">
+        <div class="serviceSection marginBottomDefault">
+          <div class="serviceHeader">
+            <h:outputText value="#{enterpriseLandingpageCtrl.nameThirdCategoryShow}" />
+          </div>
+          <c:forEach items="#{enterpriseLandingpageModel.servicesThirdCategory}" var="service" varStatus="status">
+            <div class="marginBottomDefault">
+
+              <mp:landingpageEntryBlock fieldId="serviceThird#{status.index}" service="#{service}"
+                                        limitedDescription="true" />
+
+            </div>
+          </c:forEach>
+        </div>
+      </c:if>
+      <!-- end third category -->
+    </div>
+    <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
+                  id="recommendedRetailPrice" rendered="#{serviceListingBean.serviceListContainsChargeableResellerService}" />
+    <mp:linkPageTop showBrowseAll="true" />
+    <rich:jQuery selector="document"
+                 query="ready(function() {
+        var tagDivs = jQuery('div.serviceTags').get();
+        AdmUtils.cutServiceTags(tagDivs);
+      })" />
+
+    <script>
+					jQuery().ready(function() {
+						AdmUtils.highlightNavigation("navigation1");
+					});
+				</script>
+  </a4j:outputPanel>
 </ui:composition>

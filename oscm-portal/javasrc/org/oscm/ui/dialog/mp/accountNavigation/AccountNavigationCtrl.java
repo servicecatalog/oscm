@@ -44,11 +44,7 @@ public class AccountNavigationCtrl extends BaseBean implements Serializable {
   }
 
   private void setContextUrl(String baseUrl) {
-    if (!isPlaygroundPage(getRequest())) {
       getModel().setContextUrl(baseUrl + "/marketplace/");
-    } else {
-      getModel().setContextUrl(baseUrl + "/marketplace/playground/");
-    }
   }
 
   public ApplicationBean getApplicationBean() {

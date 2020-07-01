@@ -26,7 +26,7 @@
                       onclick="AdmUtils.copyFormContent('configurationForm:parameterConfigTable','configurationForm2:parameterTable');#{rich:component('pricePanel')}.show(); setDirty(false); return false;">
           <h:outputText value="#{msg['subscription.priceModel.information.link']}"/>
         </h:outputLink>
-        <ui:include src="../../../../marketplace/playground/subscriptions/priceModelModal.xhtml">
+        <ui:include src="../../../../marketplace/subscriptions/priceModelModal.xhtml">
           <ui:param name="priceModel" value="#{bean.model.service.priceModel}"/>
           <ui:param name="model" value="#{bean.model}"/>
         </ui:include>

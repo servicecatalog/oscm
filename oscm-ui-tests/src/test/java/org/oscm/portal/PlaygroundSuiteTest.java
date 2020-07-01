@@ -42,14 +42,14 @@ import org.oscm.webtest.WebTester;
 })
 public class PlaygroundSuiteTest {
 
-  public static String supplierOrgId = "";
-  public static String supplierOrgName = "";
-  public static String supplierOrgAdminId = "supplier";
+  public static String supplierOrgId = "959c9bf7";
+  public static String supplierOrgName = "supplierorg";
+  public static String supplierOrgAdminId = "supplier@adfs.com";
   public static String supplierOrgAdminPwd = "qwerty12";
   public static String supplierOrgAdminMail = "";
   public static String supplierOrgAdminUserkey = "";
   public static String marketPlaceName = "";
-  public static String marketPlaceId = "pg_marketplace";
+  public static String marketPlaceId = "8cfccf38";
 
   public static String controllerId = "";
   public static String techServiceName = "";
