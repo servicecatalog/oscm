@@ -572,6 +572,9 @@ input#Search, #subListForm\:search {
 input#Search:focus, #subListForm\:search:focus {
   color: #333333; }
 
+input#inputSearch {
+  width: 86%; }
+
 /* search field wrapper*/
 #headsearch, #subListForm\:subscriptionSearch {
   float: right;
@@ -2052,8 +2055,20 @@ table.smallPanel {
   margin: 0;
   list-style: none;
   font-size: 93%;
-  width: 85%; }
+  width: 88%; }
 
+@media (min-width: 768px) {
+  #location {
+    margin-top: 75px !important; }
+
+  #location ol {
+    width: 100%; } }
+@media (max-width: 767px) {
+  #location {
+    margin-top: 15px !important; }
+
+  #location ol {
+    width: 88%; } }
 /*  breadcrumbs link button items */
 #location li {
   display: inline;
