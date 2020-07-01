@@ -9,7 +9,7 @@
   <nav class="px-1 navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid h6 m-0 px-3">
       <div class="no-gutters row align-items-center">
-        <a class="navbar-brand" href="#{mpBaseUrl}/playground/index.jsf">
+        <a class="navbar-brand" href="#{mpBaseUrl}/index.jsf">
           <h:graphicImage value="${logoimg}" alt="My Logo"/>
         </a>
       </div>
@@ -66,11 +66,11 @@
         <ul class="order-lg-first nav navbar-nav">
           <!-- Home -->
           <li id="homeLink" class="#{pageId eq 'marketplace.home' ? 'nav-item active' : 'nav-item'}"><a
-              class="order-lg-first nav-link" href="#{mpBaseUrl}/playground/index.jsf?mId=#{mId}">
+              class="order-lg-first nav-link" href="#{mpBaseUrl}/index.jsf?mId=#{mId}">
             <i class="fa fa-fw fa-home"/>#{msg['navigation.home']}</a></li>
           <!-- Browse Services -->
           <li id="servicesLink" class="#{pageId eq 'marketplace.services' ? 'nav-item active' : 'nav-item'}"><a
-              class="order-lg-2 nav-link" href="#{mpBaseUrl}/playground/services.jsf">#{msg['button.browse']}</a></li>
+              class="order-lg-2 nav-link" href="#{mpBaseUrl}/services.jsf">#{msg['button.browse']}</a></li>
           <!-- Help -->
           <ui:fragment rendered="#{user ne null}">
             <li class="nav-item">
@@ -113,8 +113,8 @@
                     #{msg['marketplace.logging']} <strong><br>#{user.userId}</br></strong>
                   </p>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#{mpBaseUrl}/playground/account/index.jsf">#{msg['navigation.myAccount']}</a>
-                  <a class="dropdown-item" href="#{mpBaseUrl}/playground/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a>
+                  <a class="dropdown-item" href="#{mpBaseUrl}/account/index.jsf">#{msg['navigation.myAccount']}</a>
+                  <a class="dropdown-item" href="#{mpBaseUrl}/subscriptions/index.jsf">#{msg['navigation.subscriptions']}</a>
                   <div class="dropdown-divider"></div>
                   <h:form id="formLogout">
                     <c:if test="#{userBean.internalAuthMode}">

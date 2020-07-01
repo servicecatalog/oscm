@@ -149,7 +149,7 @@
     <filter-class>org.oscm.ui.filter.MarketplaceContextFilter</filter-class>
     <init-param>
       <param-name>public-url-pattern</param-name>
-      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/playground/[^/\?#]*([\?#].*)?|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
+      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
     </init-param>
   </filter>
   <filter>
@@ -162,7 +162,7 @@
     </init-param>
     <init-param>
       <param-name>public-mpl-url-pattern</param-name>
-      <param-value>(^/marketplace/terms/.*|^/marketplace/playground/[^/\?#]*([\?#].*)?|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
+      <param-value>(^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
     </init-param>
   </filter>
   <filter>
@@ -181,7 +181,7 @@
     <filter-class>org.oscm.ui.filter.AuthorizationFilter</filter-class>
     <init-param>
       <param-name>public-url-pattern</param-name>
-      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/playground/[^/\?#]*([\?#].*)?|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*</param-value>
+      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*</param-value>
     </init-param>
   </filter>
   <filter>
@@ -225,7 +225,7 @@
     <filter-class>org.oscm.ui.filter.RoleBasedFilter</filter-class>
     <init-param>
       <param-name>public-url-pattern</param-name>
-      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/playground/[^/\?#]*([\?#].*)?|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*
+      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*
       </param-value>
     </init-param>
   </filter>

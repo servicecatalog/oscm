@@ -58,7 +58,7 @@ public class MarketplaceSubscriptionWT {
   @Test
   public void test02checkHeader() {
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
-    tester.visitMarketplace(MarketplacePathSegments.INDEX_MARKETPLACE);
+    tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
     tester.writeValue(
         MarketplaceHtmlElements.MARKETPLACE_HEADER_SEARCH_SERVICE_FIELD, subscriptionName);
     assertTrue(
@@ -94,7 +94,7 @@ public class MarketplaceSubscriptionWT {
 
     String referenceNo = WebTester.getCurrentTime();
     String subscriptionName = "sub_" + PlaygroundSuiteTest.currentTimestampe;
-    tester.visitMarketplace(MarketplacePathSegments.INDEX_MARKETPLACE);
+    tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE);
     tester.waitForElement(
         By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_SERVICE_NAME), WebTester.IMPLICIT_WAIT);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_LINK_SERVICE_NAME);

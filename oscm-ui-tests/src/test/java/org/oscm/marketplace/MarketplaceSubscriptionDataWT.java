@@ -30,7 +30,7 @@ import java.util.Collection;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
-public class MarketplacePlaygroundSubscriptionWT {
+public class MarketplaceSubscriptionDataWT {
 
   private static PortalTester tester;
 
@@ -69,13 +69,13 @@ public class MarketplacePlaygroundSubscriptionWT {
     tester = new PortalTester();
     String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
     String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
-    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+    tester.loginMarketplace(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
     ;
   }
 
   @AfterClass
   public static void cleanUp() {
-    tester.logoutMarketplacePlayground();
+    tester.logoutMarketplace();
     tester.close();
   }
 

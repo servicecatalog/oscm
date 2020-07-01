@@ -125,23 +125,6 @@ public class PortalTester extends WebTester {
    */
   public void loginMarketplace(String user, String password, String supplierOrgId)
       throws Exception {
-    visitMarketplace(MarketplacePathSegments.URL_MARKETPLACE_ID + supplierOrgId);
-
-    if (verifyFoundElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT))) {
-      driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
-      waitForElement(
-          By.id(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN), WebTester.IMPLICIT_WAIT);
-    }
-
-    if (verifyFoundElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN))) {
-      driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_LINKTEXT_LOGIN)).click();
-    }
-
-    authenticationCtx.loginMarketplace(user, password);
-  }
-
-  public void loginMarketplacePlayground(String user, String password, String supplierOrgId)
-      throws Exception {
     visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
 
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
@@ -149,7 +132,7 @@ public class PortalTester extends WebTester {
         .findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK_TEXT))
         .click();
 
-    authenticationCtx.loginMarketplacePlayground(user, password);
+    authenticationCtx.loginMarketplace(user, password);
   }
 
   /**
@@ -170,11 +153,6 @@ public class PortalTester extends WebTester {
    * is a logged in user and that the driverApp is at a marketplace page.
    */
   public void logoutMarketplace() {
-    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_LINK_LOGOUT)).click();
-    log("Logout OSCM Marketplace");
-  }
-
-  public void logoutMarketplacePlayground() {
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
     driver
         .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_USER_TOGGLE_BUTTON))

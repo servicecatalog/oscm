@@ -33,24 +33,23 @@ import org.oscm.webtest.WebTester;
   AppVCenterControllerWT.class,
   PortalMarketServiceWT.class,
   MarketplaceSubscriptionWT.class,
-  MarketplaceAccountWT.class,
-  MarketplacePlaygroundWT.class,
-  MarketplacePlaygroundAccountPersonalWT.class,
-  MarketplacePlaygroundAccountPaymentWT.class,
-  MarketplacePlaygroundSubscriptionWT.class,
-  MarketplacePlaygroundSubscriptionTableWT.class,
-  MarketplacePlaygroundServiceDetailsWT.class,
+  MarketplaceWT.class,
+  MarketplaceAccountPersonalWT.class,
+  MarketplaceAccountPaymentWT.class,
+  MarketplaceSubscriptionDataWT.class,
+  MarketplaceSubscriptionTableWT.class,
+  MarketplaceServiceDetailsWT.class,
 })
 public class PlaygroundSuiteTest {
 
   public static String supplierOrgId = "";
   public static String supplierOrgName = "";
-  public static String supplierOrgAdminId = "";
-  public static String supplierOrgAdminPwd = "";
+  public static String supplierOrgAdminId = "supplier";
+  public static String supplierOrgAdminPwd = "qwerty12";
   public static String supplierOrgAdminMail = "";
   public static String supplierOrgAdminUserkey = "";
   public static String marketPlaceName = "";
-  public static String marketPlaceId = "";
+  public static String marketPlaceId = "pg_marketplace";
 
   public static String controllerId = "";
   public static String techServiceName = "";

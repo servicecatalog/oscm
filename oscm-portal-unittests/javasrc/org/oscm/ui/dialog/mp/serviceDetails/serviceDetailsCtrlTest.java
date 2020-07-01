@@ -167,15 +167,6 @@ public class serviceDetailsCtrlTest {
     assertTrue(url.endsWith("/serviceDetails.jsf"));
   }
 
-  @Test
-  public void getTargetUrlPlayground() {
-    when(ctrl.ui.getMarketplaceId()).thenReturn("pg_mpl");
-
-    final String url = ctrl.getTargetUrl();
-
-    assertTrue(url.endsWith("/playground/serviceDetails.jsf"));
-  }
-
   private void initServiceInServer() throws Exception {
     response = new Response();
     model.selectedServiceKey = "10001";

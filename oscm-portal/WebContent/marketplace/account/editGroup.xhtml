@@ -1,179 +1,183 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:rich="http://richfaces.org/rich" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="../templates/main.xhtml">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:rich="http://richfaces.org/rich" template="../templates/mainBootstrap.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.account.addGroup" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <c:set var="pageCount" value="10" />
-    <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending" />
-    <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending" />
+    <c:set var="pageId" value="marketplace.account.addGroup"/>
+    <c:set var="pageCount" value="10"/>
+    <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
+    <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
-    <mp:breadcrumbs>
-      <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/account/index.jsf" />
+    <mp:bootstrapBreadcrumbs menu="#{true}">
+      <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/account/index.jsf"/>
       <c:choose>
         <c:when test="#{manageGroupCtrl.isLoggedAndUnitAdmin}">
-          <mp:crumb labelPageId="marketplace.account.units" link="/marketplace/account/units.jsf" />
+          <mp:crumb labelPageId="marketplace.account.units" link="/marketplace/account/units.jsf"/>
         </c:when>
         <c:otherwise>
-          <mp:crumb labelPageId="marketplace.account.users" link="/marketplace/account/users.jsf" />
+          <mp:crumb labelPageId="marketplace.account.users" link="/marketplace/account/users.jsf"/>
         </c:otherwise>
       </c:choose>
-      <mp:crumb labelPageId="marketplace.account.users.manageGroup" />
-    </mp:breadcrumbs>
+      <mp:crumb labelPageId="marketplace.account.users.manageGroup"/>
+    </mp:bootstrapBreadcrumbs>
   </ui:define>
 
   <ui:define name="contentstitle">
     <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
-      <br />
+      <br/>
     </a4j:outputPanel>
   </ui:define>
 
   <ui:define name="aside">
     <c:choose>
       <c:when test="#{manageGroupCtrl.isLoggedAndUnitAdmin}">
-        <mp:navigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.units.title" />
+        <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.units.title"/>
       </c:when>
       <c:otherwise>
-        <mp:navigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.users.title" />
+        <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.users.title"/>
       </c:otherwise>
     </c:choose>
   </ui:define>
 
   <ui:define name="contents">
 
-    <a4j:outputPanel layout="block" styleClass="grid4span clearfix">
-      <a4j:outputPanel layout="block" styleClass="box">
+    <a4j:outputPanel styleClass="row" layout="block">
+      <div class="mt-2 p-3 bg-light col">
 
         <h:form id="editGroupForm">
           <a4j:queue oncomplete="jQuery('body').removeClass('hourglass');" size="4"
-            onsubmit="jQuery('body').addClass('hourglass');" name="unassignedUsersQueue" />
-          <h2 style="word-wrap: break-word;">
+                     onsubmit="jQuery('body').addClass('hourglass');" name="unassignedUsersQueue"/>
+          <h2>
             <h:outputFormat value="#{msg['marketplace.account.editGroup.title']}">
-              <f:param value="#{manageGroupCtrl.manageGroupModel.selectedGroup.groupName}" />
+              <f:param value="#{manageGroupCtrl.manageGroupModel.selectedGroup.groupName}"/>
             </h:outputFormat>
           </h2>
+          <hr class="my-3"/>
 
-          <adm:panelGrid>
-            <mp:labelAndInputText id="groupId" label="#{msg['group.groupId']}" required="true"
-              value="#{manageGroupCtrl.manageGroupModel.selectedGroup.groupName}" maxlength="#{appBean.groupNameLen}"
-              validatorId="groupId" converterId="trimConverter" disabled="#{not userBean.loggedInAndAdmin}" />
-            <adm:labelAndInputText id="groupReferenceId" label="#{msg['group.referenceId']}"
-              value="#{manageGroupCtrl.manageGroupModel.selectedGroup.groupReferenceId}" styleClass="field"
-              maxlength="#{appBean.referenceIdLen}" disabled="#{not userBean.loggedInAndAdmin}" />
-            <adm:labelAndInputTextarea id="groupDescription" label="#{msg['group.groupDescription']}"
-              value="#{manageGroupCtrl.manageGroupModel.selectedGroup.groupDescription}" styleClass="field"
-              maxlength="#{appBean.descriptionLen}" />
-          </adm:panelGrid>
+          <mp:formInput id="groupId" label="#{msg['group.groupId']}" required="true" inputStyle="form-control"
+                        value="#{manageGroupCtrl.manageGroupModel.selectedGroup.groupName}" validatorId="groupId"
+                        disabled="#{not userBean.loggedInAndAdmin}" maxlength="#{appBean.groupNameLen}"
+                        converterId="trimConverter"/>
+          <adm:formInput id="groupReferenceId" label="#{msg['group.referenceId']}" inputStyle="form-control"
+                         value="#{manageGroupCtrl.manageGroupModel.selectedGroup.groupReferenceId}"
+                         maxlength="#{appBean.referenceIdLen}" disabled="#{not userBean.loggedInAndAdmin}"/>
+          <adm:formTextarea id="groupDescription" label="#{msg['group.groupDescription']}" areaStyle="form-control"
+                            value="#{manageGroupCtrl.manageGroupModel.selectedGroup.groupDescription}"
+                            maxlength="#{appBean.descriptionLen}"/>
 
           <a4j:outputPanel layout="block" styleClass="tableBottomMargin">
-            <mp:outputStep value="#{msg['group.authorizedService']}" />
-              <ui:include src="visibleServiceTableInclude.xhtml">
-               <ui:param name="controller" value="#{manageGroupCtrl}" />
-               <ui:param name="pagerId" value="editGroupServiceListPager" />
-                <ui:param name="size" value="#{manageGroupCtrl.manageGroupModel.servicesNumber}" />
-                <ui:param name="pageCount" value="#{pageCount}" />
-                <ui:param name="formName" value="editGroupForm" />
-             </ui:include>
+            <mp:outputStep value="#{msg['group.authorizedService']}"/>
+            <ui:include src="visibleServiceTableInclude.xhtml">
+              <ui:param name="controller" value="#{manageGroupCtrl}"/>
+              <ui:param name="pagerId" value="editGroupServiceListPager"/>
+              <ui:param name="size" value="#{manageGroupCtrl.manageGroupModel.servicesNumber}"/>
+              <ui:param name="pageCount" value="#{pageCount}"/>
+              <ui:param name="formName" value="editGroupForm"/>
+            </ui:include>
           </a4j:outputPanel>
-          <a4j:outputPanel id="assignedUsersPanel" rendered="#{not manageGroupModel.selectedGroup.default}"
-            styleClass="assign-panel">
 
-            <h:inputHidden id="configDirty" value="#{manageGroupCtrl.manageGroupModel.dirty}" />
-            <mp:outputStep id="outputStep" value="#{msg['group.users.assigned.users.title']}" />
+          <a4j:outputPanel id="assignedUsersPanel" rendered="#{not manageGroupModel.selectedGroup.default}"
+                           styleClass="assign-panel">
+
+            <h:inputHidden id="configDirty" value="#{manageGroupCtrl.manageGroupModel.dirty}"/>
+            <mp:outputStep id="outputStep" value="#{msg['group.users.assigned.users.title']}"/>
 
             <rich:dataTable rows="10" id="usersInGroup" value="#{manageGroupCtrl.usersLazyDataModel}" var="user"
-              headerClass="rowTitle sortable serviceTableTitle" columnHeaderClass="rowTitle sortable"
-              rowClasses="rowOdd,rowEven"
-              columnHeaderCellClass="column-header-cell"
-              styleClass="sortable" headerCellClass="rowTitle sortable" columnClasses="wrapColumns"
-              onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
-              noDataLabel=" " style="width:100%" >
-
-              <f:facet name="header">
-                <a4j:outputPanel>
-                  <adm:pager pagerId="usersInGroupPager" render="usersInGroup@body usersInGroupScripts"
-                    oncomplete="AdmUtils.handleSelectAllWithPaging('assign-panel');" />
-                </a4j:outputPanel>
-              </f:facet>
+                            headerClass="rowTitle sortable serviceTableTitle" columnHeaderClass="rowTitle sortable"
+                            rowClasses="rowOdd,rowEven" onRowMouseOut="AdmUtils.mouseOutRowCell(this)" noDataLabel=" "
+                            styleClass="table table-hover table-bordered sortable w-100" columnClasses="wrapColumns"
+                            onRowMouseOver="AdmUtils.mouseOverRowCell(this);" headerCellClass="rowTitle sortable"
+                            columnHeaderCellClass="column-header-cell">
 
               <rich:column id="assignCol" styleClass="serviceTableColumnCheckBox" sortType="custom">
                 <f:facet name="header">
                   <a4j:outputPanel styleClass="serviceTableSelectAllCheckBox">
-                    <h:selectBooleanCheckbox id="assignAllCheckbox" value="#{manageGroupCtrl.manageGroupModel.selectAll}"
-                      onclick="handleSelectAll($(this));" styleClass="select-all-checkbox" >
-                      <a4j:ajax event="change" listener="#{manageGroupCtrl.selectDeselectAllUsers}" >
+                    <h:selectBooleanCheckbox id="assignAllCheckbox"
+                                             value="#{manageGroupCtrl.manageGroupModel.selectAll}"
+                                             onclick="handleSelectAll($(this));" styleClass="select-all-checkbox">
+                      <a4j:ajax event="change" listener="#{manageGroupCtrl.selectDeselectAllUsers}">
                       </a4j:ajax>
                     </h:selectBooleanCheckbox>
                   </a4j:outputPanel>
                 </f:facet>
                 <h:selectBooleanCheckbox id="assignCheckbox" value="#{user.selected}"
-                  styleClass="user-group-select-user"
-                  onchange="setDirty(true);AdmUtils.handleSelectAllWithPaging('assign-panel');manageRolesListVisibility($(this));saveSelection('#{user.userId}', $(this)[0].checked);">
+                                         styleClass="user-group-select-user"
+                                         onchange="setDirty(true);AdmUtils.handleSelectAllWithPaging('assign-panel');manageRolesListVisibility($(this));saveSelection('#{user.userId}', $(this)[0].checked);">
                 </h:selectBooleanCheckbox>
 
                 <a4j:jsFunction name="saveSelection" action="#{manageGroupCtrl.selectUser}">
-                  <a4j:param name="param1" assignTo="#{manageGroupCtrl.manageGroupModel.changedUserId}" />
-                  <a4j:param name="param2" assignTo="#{manageGroupCtrl.manageGroupModel.selection}" />
+                  <a4j:param name="param1" assignTo="#{manageGroupCtrl.manageGroupModel.changedUserId}"/>
+                  <a4j:param name="param2" assignTo="#{manageGroupCtrl.manageGroupModel.selection}"/>
                 </a4j:jsFunction>
 
               </rich:column>
 
               <ui:include src="usersTableColumn.xhtml">
-                <ui:param name="bean" value="#{manageGroupCtrl.usersLazyDataModel}" />
-                <ui:param name="property" value="#{manageGroupCtrl.usersLazyDataModel.USER_ID}" />
-                <ui:param name="tableName" value="usersInGroup" />
-                <ui:param name="record" value="#{user}" />
-                <ui:param name="columnHeaderName" value="#{msg['user.userId']}" />
-                <ui:param name="scroller" value="usersInGroupPager" />
-                <ui:param name="sortIconDescending" value="#{sortIconDescending}" />
-                <ui:param name="sortIconAscending" value="#{sortIconAscending}" />
-                <ui:param name="queueName" value="unassignedUsersQueue" />
-                <ui:param name="outputStyleClass" value="user-id-class" />
+                <ui:param name="bean" value="#{manageGroupCtrl.usersLazyDataModel}"/>
+                <ui:param name="property" value="#{manageGroupCtrl.usersLazyDataModel.USER_ID}"/>
+                <ui:param name="tableName" value="usersInGroup"/>
+                <ui:param name="record" value="#{user}"/>
+                <ui:param name="columnHeaderName" value="#{msg['user.userId']}"/>
+                <ui:param name="scroller" value="usersInGroupPager"/>
+                <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
+                <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
+                <ui:param name="queueName" value="unassignedUsersQueue"/>
+                <ui:param name="outputStyleClass" value="user-id-class"/>
               </ui:include>
 
               <ui:include src="usersTableColumn.xhtml">
-                <ui:param name="bean" value="#{manageGroupCtrl.usersLazyDataModel}" />
-                <ui:param name="property" value="#{manageGroupCtrl.usersLazyDataModel.FIRST_NAME}" />
-                <ui:param name="tableName" value="usersInGroup" />
-                <ui:param name="record" value="#{user}" />
-                <ui:param name="columnHeaderName" value="#{msg['user.firstName']}" />
-                <ui:param name="scroller" value="usersInGroupPager" />
-                <ui:param name="sortIconDescending" value="#{sortIconDescending}" />
-                <ui:param name="sortIconAscending" value="#{sortIconAscending}" />
-                <ui:param name="queueName" value="unassignedUsersQueue" />
+                <ui:param name="bean" value="#{manageGroupCtrl.usersLazyDataModel}"/>
+                <ui:param name="property" value="#{manageGroupCtrl.usersLazyDataModel.FIRST_NAME}"/>
+                <ui:param name="tableName" value="usersInGroup"/>
+                <ui:param name="record" value="#{user}"/>
+                <ui:param name="columnHeaderName" value="#{msg['user.firstName']}"/>
+                <ui:param name="scroller" value="usersInGroupPager"/>
+                <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
+                <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
+                <ui:param name="queueName" value="unassignedUsersQueue"/>
+                <ui:param name="headerClass" value="d-none d-sm-table-cell"/>
+                <ui:param name="styleClass" value="d-none d-sm-table-cell"/>
               </ui:include>
 
               <ui:include src="usersTableColumn.xhtml">
-                <ui:param name="bean" value="#{manageGroupCtrl.usersLazyDataModel}" />
-                <ui:param name="property" value="#{manageGroupCtrl.usersLazyDataModel.LAST_NAME}" />
-                <ui:param name="tableName" value="usersInGroup" />
-                <ui:param name="record" value="#{user}" />
-                <ui:param name="columnHeaderName" value="#{msg['user.lastName']}" />
-                <ui:param name="scroller" value="usersInGroupPager" />
-                <ui:param name="sortIconDescending" value="#{sortIconDescending}" />
-                <ui:param name="sortIconAscending" value="#{sortIconAscending}" />
-                <ui:param name="queueName" value="unassignedUsersQueue" />
+                <ui:param name="bean" value="#{manageGroupCtrl.usersLazyDataModel}"/>
+                <ui:param name="property" value="#{manageGroupCtrl.usersLazyDataModel.LAST_NAME}"/>
+                <ui:param name="tableName" value="usersInGroup"/>
+                <ui:param name="record" value="#{user}"/>
+                <ui:param name="columnHeaderName" value="#{msg['user.lastName']}"/>
+                <ui:param name="scroller" value="usersInGroupPager"/>
+                <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
+                <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
+                <ui:param name="queueName" value="unassignedUsersQueue"/>
+                <ui:param name="headerClass" value="d-none d-sm-table-cell"/>
+                <ui:param name="styleClass" value="d-none d-sm-table-cell"/>
               </ui:include>
 
               <ui:include src="usersTableColumnRole.xhtml">
-                <ui:param name="bean" value="#{manageGroupCtrl.usersLazyDataModel}" />
-                <ui:param name="property" value="#{manageGroupCtrl.usersLazyDataModel.ROLE_IN_UNIT}" />
-                <ui:param name="tableName" value="usersInGroup" />
-                <ui:param name="record" value="#{user}" />
-                <ui:param name="columnHeaderName" value="#{msg['user.roleInUnit']}" />
-                <ui:param name="scroller" value="usersInGroupPager" />
-                <ui:param name="sortIconDescending" value="#{sortIconDescending}" />
-                <ui:param name="sortIconAscending" value="#{sortIconAscending}" />
-                <ui:param name="queueName" value="unassignedUsersQueue" />
+                <ui:param name="bean" value="#{manageGroupCtrl.usersLazyDataModel}"/>
+                <ui:param name="property" value="#{manageGroupCtrl.usersLazyDataModel.ROLE_IN_UNIT}"/>
+                <ui:param name="tableName" value="usersInGroup"/>
+                <ui:param name="record" value="#{user}"/>
+                <ui:param name="columnHeaderName" value="#{msg['user.roleInUnit']}"/>
+                <ui:param name="scroller" value="usersInGroupPager"/>
+                <ui:param name="sortIconDescending" value="#{sortIconDescending}"/>
+                <ui:param name="sortIconAscending" value="#{sortIconAscending}"/>
+                <ui:param name="queueName" value="unassignedUsersQueue"/>
               </ui:include>
+
+              <f:facet name="footer">
+                <a4j:outputPanel>
+                  <adm:pagerBootstrap pagerId="usersInGroupPager" render="usersInGroup@body usersInGroupScripts"
+                                      oncomplete="AdmUtils.handleSelectAllWithPaging('assign-panel');"/>
+                </a4j:outputPanel>
+              </f:facet>
 
             </rich:dataTable>
 
@@ -216,39 +220,43 @@
               </script>
             </a4j:outputPanel>
           </a4j:outputPanel>
-          <br />
 
-          <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel">
-            <mp:button id="createButton" value="#{msg['button.save']}" bean="#{manageGroupCtrl}" action="save" />
-            <mp:button id="cancelButton"
-              onclick="if(getDirty()) {#{rich:component('confirmPanel')}.show();} else {cancelAction();} return false;"
-              value="#{msg['button.cancel']}" />
+          <a4j:outputPanel styleClass="row row-justify-space">
+            <mp:buttonBootstrap id="cancelButton" value="#{msg['button.cancel']}" styleClass="btn btn-secondary ml-3"
+                                onclick="if(getDirty()) {#{rich:component('confirmPanel')}.show();} else {cancelAction();} return false;"/>
+            <mp:buttonBootstrap id="createButton" value="#{msg['button.save']}" bean="#{manageGroupCtrl}"
+                                action="save" styleClass="btn btn-secondary mr-3"/>
           </a4j:outputPanel>
 
           <a4j:jsFunction name="cancelAction" action="#{manageGroupCtrl.cancel}"></a4j:jsFunction>
 
-          <mp:confirmPanel header="#{msg['group.leavePage.title']}" text1="#{msg['group.leavePage.content']}"
-            submitId="confirmedBackBt" />
-          <a4j:commandButton style="display:none;" id="confirmedBackBt"
-            onclick="setDirty(false);cancelAction();return false;" />
+          <mp:confirmPanelBootstrap header="#{msg['group.leavePage.title']}" text1="#{msg['group.leavePage.content']}"
+                                    submitId="confirmedBackBt"/>
+          <a4j:commandButton styleClass="d-none" id="confirmedBackBt"
+                             onclick="setDirty(false);cancelAction();return false;"/>
         </h:form>
 
         <h:form id="deleteForm">
           <a4j:jsFunction name="selectItem" action="#{manageGroupCtrl.determineUserToDeassign}"
-            render="deassignConfirmPl" oncomplete="#{rich:component('deassignConfirmPl')}.show();return false;">
-            <a4j:param name="userToDeassign" value="#{user.userId}" />
+                          render="deassignConfirmPl"
+                          oncomplete="#{rich:component('deassignConfirmPl')}.show();return false;">
+            <a4j:param name="userToDeassign" value="#{user.userId}"/>
           </a4j:jsFunction>
-          <mp:confirmPanel panelId="deassignConfirmPl" header="#{msg['group.users.deassign.title']}"
-            bean="#{manageGroupCtrl}" text1="#{manageGroupCtrl.manageGroupModel.deassignMessage}"
-            text2="#{msg['marketplace.areyousure']}" submitId="confirmedDeassignBt" />
-          <a4j:commandButton style="display:none;" id="confirmedDeassignBt" action="#{manageGroupCtrl.deassignUser}"
-            onclick=" if(#{rich:element('configDirty')}.value=='true'){setDirty(true);}AdmUtils.showProgress(true);"
-            render="assignedUsersPanel"
-            oncomplete="setDirty(true);#{rich:component('deassignConfirmPl')}.hide();AdmUtils.showProgress(false);">
+          <mp:confirmPanelBootstrap panelId="deassignConfirmPl" header="#{msg['group.users.deassign.title']}"
+                                    bean="#{manageGroupCtrl}"
+                                    text1="#{manageGroupCtrl.manageGroupModel.deassignMessage}"
+                                    text2="#{msg['marketplace.areyousure']}" submitId="confirmedDeassignBt"/>
+          <a4j:commandButton styleClass="d-none" id="confirmedDeassignBt" action="#{manageGroupCtrl.deassignUser}"
+                             onclick=" if(#{rich:element('configDirty')}.value=='true'){setDirty(true);}AdmUtils.showProgress(true);"
+                             render="assignedUsersPanel"
+                             oncomplete="setDirty(true);#{rich:component('deassignConfirmPl')}.hide();AdmUtils.showProgress(false);">
           </a4j:commandButton>
         </h:form>
 
-      </a4j:outputPanel>
+      </div>
     </a4j:outputPanel>
+
+    <link href="#{facesContext.externalContext.requestContextPath}/css/dataTable.css" rel="stylesheet"
+          type="text/css" media="all"/>
   </ui:define>
 </ui:composition>

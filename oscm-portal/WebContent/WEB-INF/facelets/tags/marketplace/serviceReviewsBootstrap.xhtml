@@ -9,7 +9,7 @@
     <c:set var="allowedToWriteReview" value="#{serviceDetailsModel.selectedServiceFeedback.allowedToWriteReview}"/>
     <c:set var="allowedToDeleteReviews" value="#{manageReviewCtrl.marketplaceOwner}"/>
     <c:if test="#{allowedToDeleteReviews}">
-      <ui:include src="../../../../marketplace/playground/subscriptions/removeReview.xhtml">
+      <ui:include src="../../../../marketplace/subscriptions/removeReview.xhtml">
         <ui:param name="dialogId" value="removeReviewPanel"/>
       </ui:include>
     </c:if>
@@ -21,7 +21,7 @@
       </div>
       <div class="col-auto">
         <c:if test="#{allowedToWriteReview}">
-          <ui:include src="../../../../marketplace/playground/subscriptions/reviewDetails.xhtml">
+          <ui:include src="../../../../marketplace/subscriptions/reviewDetails.xhtml">
             <ui:param name="dialogId" value="writeReviewPanel"/>
           </ui:include>
           <button id="btnWriteFeedback" type="button" onclick="#{rich:component('writeReviewPanel')}.show();"

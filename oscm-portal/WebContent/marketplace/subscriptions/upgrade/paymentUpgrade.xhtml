@@ -1,31 +1,20 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!--
-  ~ *******************************************************************************
-  ~ *
-  ~ *  COPYRIGHT (C) 2012 FUJITSU Limited - ALL RIGHTS RESERVED.
-  ~ *
-  ~ *  Creation Date: 22.01.15 16:50
-  ~ *
-  ~ *******************************************************************************
-  -->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="../../templates/main.xhtml">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" template="../../templates/mainBootstrap.xhtml"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.subscriptions.payment" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <c:set var="bodyClass" value="body5span" />
+    <c:set var="pageId" value="marketplace.subscriptions.payment"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+    <c:set var="bodyClass" value="body5span"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
     <mp:breadcrumbs>
-      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf" />
-      <mp:crumb labelPageId="marketplace.account.subscriptions" link="/marketplace/account/subscriptions.jsf" />
+      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.subscriptions" link="/marketplace/account/subscriptions.jsf"/>
       <mp:crumb label="#{upgradeWizardConversation.model.selectedSubscriptionId}"/>
     </mp:breadcrumbs>
   </ui:define>
@@ -33,9 +22,9 @@
   <ui:define name="contents">
 
     <h:form id="paymentUpgradePspResultForm">
-      <h:inputHidden id="pspResult" value="#{paymentInfoBean.pspResult}" />
-      <h:commandButton style="display:none;" id="handlePspResult" value="handlePspResult"
-                       action="#{paymentInfoBean.handlePspResult}" />
+      <h:inputHidden id="pspResult" value="#{paymentInfoBean.pspResult}"/>
+      <h:commandButton styleClass="d-none" id="handlePspResult" value="handlePspResult"
+                       action="#{paymentInfoBean.handlePspResult}"/>
     </h:form>
 
     <script type="text/javascript">
@@ -48,11 +37,12 @@
             document.getElementById('paymentUpgradePspResultForm:handlePspResult').click();
         }
     </script>
+
     <a4j:outputPanel layout="block">
       <ui:include src="../../account/billingContact.xhtml">
         <ui:param name="dialogId" value="billingContactPanel"/>
-        <ui:param name="additionalRender" value=":payment" />
-        <ui:param name="inConversation" value="true" />
+        <ui:param name="additionalRender" value=":payment"/>
+        <ui:param name="inConversation" value="true"/>
       </ui:include>
       <ui:include src="../../account/paymentOption.xhtml">
         <ui:param name="dialogId" value="paymentOptionPanel"/>
@@ -62,10 +52,10 @@
       </ui:include>
     </a4j:outputPanel>
 
-    <a4j:outputPanel layout="block" styleClass="grid5span clearfix">
-        <ui:include src="payment.xhtml">
-          <ui:param name="subscription" value="#{upgradeWizardConversation.model.subscription}" />
-        </ui:include>
+    <a4j:outputPanel layout="block">
+      <ui:include src="payment.xhtml">
+        <ui:param name="subscription" value="#{upgradeWizardConversation.model.subscription}"/>
+      </ui:include>
     </a4j:outputPanel>
 
   </ui:define>

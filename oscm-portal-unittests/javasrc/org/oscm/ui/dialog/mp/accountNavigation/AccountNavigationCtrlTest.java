@@ -274,51 +274,24 @@ public class AccountNavigationCtrlTest {
   }
 
   @Test
-  public void getContextUrl_Playground() {
+  public void getContextUrl() {
 
     // given
-    givenPlaygroundMarketplace();
-
-    // when
-    ctrl.getInitialize();
-    String context = ctrl.getModel().getContextUrl();
-    // then
-    assertTrue("Got " + context, context.contains("/marketplace/playground/"));
-  }
-
-  @Test
-  public void getContextUrl_Standard() {
-
-    // given
-    givenStandardMarketplace();
+    givenMarketplace();
 
     // when
     ctrl.getInitialize();
     String context = ctrl.getModel().getContextUrl();
 
     // then
-    assertFalse("Got " + context, context.contains("/marketplace/playground/"));
-  }
-
-  @Test
-  public void getLinks_Playground() {
-
-    // given
-    givenPlaygroundMarketplace();
-
-    // when
-    ctrl.getInitialize();
-    List<String> links = ctrl.getModel().getLink();
-
-    // then
-    assertLinksMatch(links, "/marketplace/playground/account/.*");
+    assertFalse("Got " + context, context.contains("/marketplace/"));
   }
 
   @Test
   public void getLinks() {
 
     // given
-    givenStandardMarketplace();
+    givenMarketplace();
 
     // when
     ctrl.getInitialize();
@@ -333,14 +306,7 @@ public class AccountNavigationCtrlTest {
         ConfigurationKey.HIDE_PAYMENT_INFORMATION, Configuration.GLOBAL_CONTEXT, "FALSE");
   }
 
-  private void givenPlaygroundMarketplace() {
-    String pgUrl =
-        "https://myserver:8180/oscm-portal/marketplace/playground/index?mId=\"e1d423ce\"";
-    doReturn(pgUrl).when(requestMock).getServletPath();
-    doReturn(new StringBuffer(pgUrl)).when(requestMock).getRequestURL();
-  }
-
-  private void givenStandardMarketplace() {
+  private void givenMarketplace() {
     String stUrl = "https://myserver:8180/oscm-portal/marketplace/index?mId=\"e1d423ce\"";
     doReturn(stUrl).when(requestMock).getServletPath();
     doReturn(new StringBuffer(stUrl)).when(requestMock).getRequestURL();

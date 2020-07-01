@@ -1,78 +1,71 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="../templates/main.xhtml">
-  <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.account.addGroup" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <c:set var="pageCount" value="10" />
-  </ui:define>
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                template="../templates/mainBootstrap.xhtml">
 
   <ui:define name="breadcrumbs">
-    <mp:breadcrumbs>
-      <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/account/index.jsf" />
-      <mp:crumb labelPageId="marketplace.account.users" link="/marketplace/account/users.jsf" />
-      <mp:crumb labelPageId="marketplace.account.users.addGroup" />
-    </mp:breadcrumbs>
+    <mp:bootstrapBreadcrumbs menu="#{true}">
+      <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/account/index.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.users" link="/marketplace/account/users.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.users.addGroup"/>
+    </mp:bootstrapBreadcrumbs>
   </ui:define>
 
   <ui:define name="contentstitle">
     <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
-      <br />
+      <br/>
     </a4j:outputPanel>
   </ui:define>
 
   <ui:define name="aside">
-    <mp:navigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.users.title" />
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.users.title"/>
   </ui:define>
 
   <ui:define name="contents">
-
-    <a4j:outputPanel layout="block" styleClass="grid4span clearfix">
-      <a4j:outputPanel layout="block" styleClass="box">
+    <a4j:outputPanel id="all" styleClass="row" layout="block">
+      <div class="mt-2 p-3 bg-light col">
         <h:form id="groupForm">
           <a4j:queue requestDelay="500" ignoreDupResponses="true" oncomplete="jQuery('body').removeClass('hourglass');"
-            onsubmit="jQuery('body').addClass('hourglass');" />
-          <mp:outputStep value="#{msg['marketplace.account.addGroup.title']}" />
+                     onsubmit="jQuery('body').addClass('hourglass');"/>
+          <mp:outputStep value="#{msg['marketplace.account.addGroup.title']}"/>
 
-          <adm:panelGrid>
-            <mp:labelAndInputText id="groupId" label="#{msg['group.groupId']}" required="true"
-              value="#{addGroupCtrl.manageGroupModel.selectedGroup.groupName}" maxlength="#{appBean.groupNameLen}"
-              validatorId="groupId" converterId="trimConverter" />
-            <adm:labelAndInputText id="groupReferenceId" label="#{msg['group.referenceId']}"
-              value="#{addGroupCtrl.manageGroupModel.selectedGroup.groupReferenceId}" styleClass="field"
-              maxlength="#{appBean.referenceIdLen}" />
-            <adm:labelAndInputTextarea id="groupDescription" label="#{msg['group.groupDescription']}"
-              value="#{addGroupCtrl.manageGroupModel.selectedGroup.groupDescription}" styleClass="field"
-              maxlength="#{appBean.descriptionLen}" />
-          </adm:panelGrid>
+          <mp:formInput id="groupId" label="#{msg['group.groupId']}" required="true" converterId="trimConverter"
+                        value="#{addGroupCtrl.manageGroupModel.selectedGroup.groupName}" validatorId="groupId"
+                        maxlength="#{appBean.groupNameLen}" inputStyle="form-control"/>
+          <adm:formInput id="groupReferenceId" label="#{msg['group.referenceId']}" maxlength="#{appBean.referenceIdLen}"
+                         value="#{addGroupCtrl.manageGroupModel.selectedGroup.groupReferenceId}"
+                         inputStyle="form-control"/>
+          <adm:formTextarea id="groupDescription" label="#{msg['group.groupDescription']}" areaStyle="form-control"
+                            value="#{addGroupCtrl.manageGroupModel.selectedGroup.groupDescription}"
+                            maxlength="#{appBean.descriptionLen}"/>
 
-          <mp:pixelline marginTop="20" />
+          <hr class="mt-3"/>
 
-          <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel">
-            <mp:button id="createButton" value="#{msg['button.save']}" bean="#{addGroupCtrl}" action="create" />
-            <mp:button id="cancelButton" onclick="setDirty(false);location.href='users.jsf';return false;"
-              value="#{msg['button.cancel']}" />
+          <a4j:outputPanel styleClass="row row-justify-space">
+            <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);location.href='users.jsf';return false;"
+                                value="#{msg['button.cancel']}" styleClass="btn btn-secondary ml-3"/>
+            <mp:buttonBootstrap id="createButton" value="#{msg['button.save']}" bean="#{addGroupCtrl}" action="create"
+                                styleClass="btn btn-secondary mr-3"/>
           </a4j:outputPanel>
         </h:form>
 
         <h:form id="deleteForm">
           <a4j:jsFunction name="selectItem" action="#{addGroupCtrl.determineUserToDeassign}" render="deassignConfirmPl"
-            oncomplete="#{rich:component('deassignConfirmPl')}.show();return false;">
-            <a4j:param name="userToDeassign" value="#{user.userId}" />
+                          oncomplete="#{rich:component('deassignConfirmPl')}.show();return false;">
+            <a4j:param name="userToDeassign" value="#{user.userId}"/>
           </a4j:jsFunction>
-          <mp:confirmPanel panelId="deassignConfirmPl" header="#{msg['group.users.deassign.title']}"
-            bean="#{addGroupCtrl}" text1="#{addGroupCtrl.manageGroupModel.deassignMessage}"
-            text2="#{msg['marketplace.areyousure']}" submitId="confirmedDeassignBt" />
-          <a4j:commandButton style="display:none;" id="confirmedDeassignBt" action="#{addGroupCtrl.deassignUser}"
-            onclick="AdmUtils.showProgress(true);"
-            oncomplete="#{rich:component('deassignConfirmPl')}.hide();AdmUtils.showProgress(false);">
+          <mp:confirmPanelBootstrap panelId="deassignConfirmPl" header="#{msg['group.users.deassign.title']}"
+                                    bean="#{addGroupCtrl}" text1="#{addGroupCtrl.manageGroupModel.deassignMessage}"
+                                    text2="#{msg['marketplace.areyousure']}" submitId="confirmedDeassignBt"/>
+          <a4j:commandButton class="d-none" id="confirmedDeassignBt" action="#{addGroupCtrl.deassignUser}"
+                             oncomplete="#{rich:component('deassignConfirmPl')}.hide();AdmUtils.showProgress(false);"
+                             onclick="AdmUtils.showProgress(true);">
           </a4j:commandButton>
         </h:form>
-      </a4j:outputPanel>
+      </div>
     </a4j:outputPanel>
   </ui:define>
 </ui:composition>

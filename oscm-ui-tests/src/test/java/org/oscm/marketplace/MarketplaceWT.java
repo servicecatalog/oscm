@@ -21,7 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MarketplacePlaygroundWT {
+public class MarketplaceWT {
 
   private static PortalTester tester;
 
@@ -32,12 +32,12 @@ public class MarketplacePlaygroundWT {
     tester = new PortalTester();
     String userid = PlaygroundSuiteTest.supplierOrgAdminId;
     String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
-    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+    tester.loginMarketplace(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
   @AfterClass
   public static void cleanUp() {
-    tester.logoutMarketplacePlayground();
+    tester.logoutMarketplace();
     tester.close();
   }
 

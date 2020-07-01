@@ -1,167 +1,167 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="../templates/main.xhtml">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions" template="../templates/mainBootstrap.xhtml">
 
-  <a4j:queue name="marketplaceAccountOperations" ignoreDupResponses="true"/>
+ <a4j:queue name="marketplaceAccountOperations" ignoreDupResponses="true"/>
 
-  <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.account.operations" />
-    <c:set var="dirty" value="false" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-  </ui:define>
+ <ui:define name="pageId">
+  <c:set var="pageId" value="marketplace.account.operations"/>
+  <c:set var="dirty" value="false"/>
+  <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+ </ui:define>
 
-  <ui:define name="breadcrumbs">
-    <mp:breadcrumbs>
-      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf" />
-      <mp:crumb labelPageId="marketplace.account.operations" />
-    </mp:breadcrumbs>
-  </ui:define>
+ <ui:define name="breadcrumbs">
+  <mp:bootstrapBreadcrumbs menu="#{true}">
+   <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf"/>
+   <mp:crumb labelPageId="#{pageId}"/>
+  </mp:bootstrapBreadcrumbs>
+ </ui:define>
 
-  <ui:define name="contentstitle">
-    <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
-      <br />
-    </a4j:outputPanel>
-  </ui:define>
+ <ui:define name="contentstitle">
+  <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
+   <br/>
+  </a4j:outputPanel>
+ </ui:define>
 
-  <ui:define name="aside">
-    <mp:navigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.operations.title" />
-  </ui:define>
+ <ui:define name="aside">
+  <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.operations.title"/>
+ </ui:define>
 
-  <ui:define name="contents">
-    <a4j:outputPanel layout="block" styleClass="grid4span clearfix">
-      <a4j:outputPanel layout="block" styleClass="box">
-        <h:panelGroup id="operationsArea" rendered="true" layout="block">
-          <mp:outputStep value="#{msg['marketplace.account.operations.manageOperations.title']}" />
-          <c:set var="iconWidth" value="6%" />
-          <c:set var="smallWidth" value="12%" />
-          <c:set var="mediumWidth" value="20%" />
-          <c:set var="restWidth" value="22%" />
+ <ui:define name="contents">
+  <a4j:outputPanel id="all" styleClass="row" layout="block">
+   <div class="p-3 mt-2 bg-light col">
+    <h:panelGroup id="operationsArea" rendered="true" layout="block">
+     <mp:outputStep value="#{msg['marketplace.account.operations.manageOperations.title']}"/>
 
-          <h:form id="operationsListForm">
-            <a4j:outputPanel id="manageOperationsButtonPanel" layout="block" styleClass="clearfix">
+     <h:form id="operationsListForm">
+      <a4j:outputPanel id="manageOperationsButtonPanel" layout="block" styleClass="clearfix">
 
-              <adm:button id="deleteOperations" customizedStyleClass="rightSpace" value="#{msg['button.delete']}"
-                bean="#{operationRecordCtrl}" action="deleteOperations"
-                disabled="#{operationRecordModel.buttonDisabled}"
-                oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();" />
+       <adm:buttonBootstrap id="deleteOperations" value="#{msg['button.delete']}" styleClass="btn btn-secondary mr-4"
+                            disabled="#{operationRecordModel.buttonDisabled}">
+        <a4j:ajax event="click" listener="#{operationRecordCtrl.deleteOperations}"
+                  render=":operationsTablePanel,:manageOperationsButtonPanel,:scriptPanel"
+                  oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus(); setTimeout(function() {window.location.reload(true)}, 1000);"/>
+       </adm:buttonBootstrap>
 
-              <h:selectBooleanCheckbox id="filterOperations" styleClass="space" immediate="true" onclick="this.blur();"
-                value="#{sessionBean.myOperationsOnly}" rendered="#{operationRecordCtrl.filterRenderRequired}">
-                <a4j:ajax render=":operationsTablePanel,:manageOperationsButtonPanel,:scriptPanel"
-                          event="change"
-                          listener="#{operationRecordCtrl.onFilterOperationsChange}"
-                          queueId="marketplaceAccountOperations"/>
-              </h:selectBooleanCheckbox>
-              <h:outputText value="#{msg['marketplace.account.operations.myOperationsOnly']}"
-                rendered="#{operationRecordCtrl.filterRenderRequired}" style="vertical-align: center;" />
-            </a4j:outputPanel>
-
-            <a4j:outputPanel id="operationsTablePanel" layout="block"
-              styleClass="tablePanel table_padding minimumSizeTable">
-              <mp:notice rendered="#{empty operationRecordModel.operationRecords}"
-                noticeText="#{msg['marketplace.account.operations.noOperations']}" />
-
-              <c:set var="sortIcon" value="/marketplace/img/transparentPixel.png?id=sort" />
-              <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending" />
-              <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending" />
-
-              <rich:dataTable headerClass="rowTitle" rowClasses="rowOdd,rowEven" id="operationsTable" width="100%"
-                value="#{operationRecordModel.operationRecords}" var="item" selectionMode="single"
-                enableContextMenu="false" noDataLabel=" " columnClasses="alignTop wrapColumns preWrapping"
-                rendered="#{(not empty operationRecordModel.operationRecords)}" sortMode="single">
-
-                <rich:column width="#{iconWidth}" styleClass="tableColumnCheckBox" sortIcon="#{sortIcon}"
-                  sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}">
-                  <f:facet name="header">
-                    <h:selectBooleanCheckbox id="allOperationCheckbox" value="#{operationRecordModel.selectAll}"
-                      onclick="setDirty(true);AdmUtils.showProgress(true);AdmUtils.dataTableSelectCheckboxes('operationsListForm:operationsTable','operationCheckbox',this.checked,'#{fn:length(operationRecordModel.operationRecords)}');">
-                      <a4j:ajax event="change" oncomplete="setDirty(false);AdmUtils.showProgress(false)" />
-                    </h:selectBooleanCheckbox>
-                  </f:facet>
-                  <h:selectBooleanCheckbox id="operationCheckbox" value="#{item.selected}"
-                    onclick="setDirty(true);AdmUtils.showProgress(true);AdmUtils.setAllServiceCheckbox('operationsListForm:operationsTable','operationCheckbox','#{fn:length(operationRecordModel.operationRecords)}','allOperationCheckbox');">
-                    <a4j:ajax event="change" oncomplete="setDirty(false); AdmUtils.showProgress(false);" render=":deleteOperations" />
-                  </h:selectBooleanCheckbox>
-                </rich:column>
-
-                <rich:column width="#{smallWidth}" sortBy="#{item.operation.operationId}" sortIcon="#{sortIcon}" 
-                  sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                  styleClass="column-break-operation" >
-                  <f:facet name="header">
-                    <h:outputText value="#{msg['marketplace.account.operations.operationId']}" />
-                  </f:facet>
-                  <h:outputText value="#{item.operation.operationId}" />
-                </rich:column>
-
-                <rich:column width="#{mediumWidth}" sortBy="#{item.operation.subscriptionId}" sortIcon="#{sortIcon}" 
-                  sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                  styleClass="column-break-subscription stringInMultiLine" >
-                  <f:facet name="header">
-                    <h:outputText value="#{msg['marketplace.account.operations.subscriptionId']}" />
-                  </f:facet>
-                  <h:outputText value="#{item.operation.subscriptionId}" />
-                </rich:column>
-
-                <rich:column width="#{mediumWidth}" sortBy="#{item.operation.executionDate}" sortIcon="#{sortIcon}" 
-                  sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}" 
-                  styleClass="column-break-executionDate" >
-                  <f:facet name="header">
-                    <h:outputText value="#{msg['marketplace.account.operations.executionDate']}" />
-                  </f:facet>
-                  <h:outputText id="creationTime" value="#{item.operation.executionDate}">
-                    <f:convertDateTime pattern="#{msg[appBean.dateTimePattern]}" timeZone="#{appBean.timeZoneId}" />
-                  </h:outputText>
-                </rich:column>
-
-                <rich:column width="#{smallWidth}" sortBy="#{item.operation.userId}" sortIcon="#{sortIcon}" 
-                  sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                  styleClass="column-break-userId stringInMultiLine" >
-                  <f:facet name="header">
-                    <h:outputText value="#{msg['marketplace.account.operations.userId']}" />
-                  </f:facet>
-                  <h:outputText id="userId" value="#{item.operation.userId}" />
-                </rich:column>
-
-                <c:set var="statusKey" value="OperationStatus.#{item.operation.status}" />
-                <rich:column width="#{smallWidth}" sortBy="#{item.operation.status}" sortIcon="#{sortIcon}"
-                  sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                  styleClass="column-break-status">
-                  <f:facet name="header">
-                    <h:outputText value="#{msg['marketplace.account.operations.status']}" />
-                  </f:facet>
-                  <h:outputText id="status" value="#{msg[statusKey]}" />
-                </rich:column>
-
-                <rich:column width="#{restWidth}" sortBy="#{item.operation.statusDesc}" sortIcon="#{sortIcon}" 
-                  sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}"
-                  styleClass="column-break-statusDesc">
-                  <f:facet name="header">
-                    <h:outputText value="#{msg['marketplace.account.operations.statusDesc']}" />
-                  </f:facet>
-                  <h:outputText id="description" value="#{item.operation.statusDesc}" />
-                </rich:column>
-              </rich:dataTable>
-            </a4j:outputPanel>
-
-          </h:form>
-        </h:panelGroup>
-
-        <a4j:outputPanel id="scriptPanel">
-          <script type="text/javascript">
-            AdmUtils
-                .setAllServiceCheckbox(
-                    'operationsListForm:operationsTable',
-                    'operationCheckbox',
-                    '#{fn:length(operationRecordModel.operationRecords)}',
-                    'allOperationCheckbox');
-          </script>
-        </a4j:outputPanel>
+       <h:selectBooleanCheckbox id="filterOperations" styleClass="space" immediate="true" onclick="this.blur();"
+                                value="#{sessionBean.myOperationsOnly}"
+                                rendered="#{operationRecordCtrl.filterRenderRequired}">
+        <a4j:ajax render=":operationsTablePanel,:manageOperationsButtonPanel,:scriptPanel"
+                  event="change" listener="#{operationRecordCtrl.onFilterOperationsChange}"
+                  queueId="marketplaceAccountOperations"/>
+       </h:selectBooleanCheckbox>
+       <h:outputText value="#{msg['marketplace.account.operations.myOperationsOnly']}"
+                     rendered="#{operationRecordCtrl.filterRenderRequired}" class="align-middle"/>
       </a4j:outputPanel>
+
+      <a4j:outputPanel id="operationsTablePanel" class="pt-4 pb-4" layout="block">
+       <mp:notice rendered="#{empty operationRecordModel.operationRecords}"
+                  noticeText="#{msg['marketplace.account.operations.noOperations']}"/>
+
+       <table id="operationsTable" class="table table-striped table-hover table-bordered w-100">
+        <thead>
+        <tr class="text-center">
+         <th id="columnHeaderCollapsible" class="max-tablet col-icon"></th>
+         <th id="columnHeaderCheckbox" class="all col-icon">
+          <h:selectBooleanCheckbox id="allOperationCheckbox" value="#{operationRecordModel.selectAll}"
+                                   onclick="setDirty(true);AdmUtils.showProgress(true);AdmUtils.dataTableSelectCheckboxes('operationsTable','operationCheckbox',this.checked,'#{fn:length(operationRecordModel.operationRecords)}');">
+           <a4j:ajax render=":operationsTablePanel,:manageOperationsButtonPanel,:scriptPanel"
+                     event="change" listener="#{operationRecordCtrl.onFilterOperationsChange}"
+                     queueId="marketplaceAccountOperations" oncomplete="setDirty(false);AdmUtils.showProgress(false)"/>
+          </h:selectBooleanCheckbox>
+         </th>
+         <th id="columnHeaderOperationID" class="all col-max-width">
+          <h:outputText value="#{msg['marketplace.account.operations.operationId']}"/>
+         </th>
+         <th id="columnHeaderSubscriptionID" class="min-tablet-p col-max-width">
+          <h:outputText value="#{msg['marketplace.account.operations.subscriptionId']}"/>
+         </th>
+         <th id="columnHeaderExecutionDate" class="min-desktop col-max-width">
+          <h:outputText value="#{msg['marketplace.account.operations.executionDate']}"/>
+         </th>
+         <th id="columnHeaderUserID" class="min-tablet-l col-max-width">
+          <h:outputText value="#{msg['marketplace.account.operations.userId']}"/>
+         </th>
+         <th id="columnHeaderStatus" class="all col-max-width">
+          <h:outputText value="#{msg['marketplace.account.operations.status']}"/>
+         </th>
+         <th id="columnHeaderStatusDesc" class="min-desktop col-max-width">
+          <h:outputText value="#{msg['marketplace.account.operations.statusDesc']}"/>
+         </th>
+        </tr>
+        </thead>
+        <tbody>
+        <a4j:repeat value="${operationRecordModel.operationRecords}" var="item"
+                    rendered="#{(not empty operationRecordModel.operationRecords)}">
+         <tr class="text-left">
+          <td class="text-center"></td>
+          <td class="text-center">
+           <h:selectBooleanCheckbox id="operationCheckbox" value="#{item.selected}"
+                                    onclick="setDirty(true);AdmUtils.showProgress(true);AdmUtils.setAllServiceCheckbox('operationsTable','operationCheckbox','#{fn:length(operationRecordModel.operationRecords)}','allOperationCheckbox');">
+            <a4j:ajax event="change" oncomplete="setDirty(false); AdmUtils.showProgress(false);"
+                      render=":deleteOperations"/>
+           </h:selectBooleanCheckbox>
+          </td>
+          <td>
+           <h:outputText value="#{item.operation.operationId}"/>
+          </td>
+          <td>
+           <h:outputText value="#{item.operation.subscriptionId}"/>
+          </td>
+          <td>
+           <h:outputText id="creationTime" value="#{item.operation.executionDate}">
+            <f:convertDateTime pattern="#{msg[appBean.dateTimePattern]}" timeZone="#{appBean.timeZoneId}"/>
+           </h:outputText>
+          </td>
+          <td>
+           <h:outputText id="userId" value="#{item.operation.userId}"/>
+          </td>
+          <td>
+           <c:set var="statusKey" value="OperationStatus.#{item.operation.status}"/>
+           <h:outputText id="status" value="#{msg[statusKey]}"/>
+          </td>
+          <td>
+           <h:outputText id="description" value="#{item.operation.statusDesc}"/>
+          </td>
+         </tr>
+        </a4j:repeat>
+        </tbody>
+       </table>
+      </a4j:outputPanel>
+     </h:form>
+    </h:panelGroup>
+
+    <a4j:outputPanel id="scriptPanel">
+     <script>
+       AdmUtils
+         .setAllServiceCheckbox(
+           'operationsTable',
+           'operationCheckbox',
+           '#{fn:length(operationRecordModel.operationRecords)}',
+           'allOperationCheckbox');
+     </script>
+
+     <script>
+       $(document).ready(function() {
+        $('#operationsTable').DataTable({
+         responsive: true,
+         "aaSorting": [],
+         columnDefs: [{orderable: false, targets: 0}],
+         columnDefs: [{orderable: false, targets: 1}],
+         renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+          tableClass: 'table'
+         })
+        });
+       });
+     </script>
     </a4j:outputPanel>
-  </ui:define>
+
+   </div>
+  </a4j:outputPanel>
+ </ui:define>
 </ui:composition>

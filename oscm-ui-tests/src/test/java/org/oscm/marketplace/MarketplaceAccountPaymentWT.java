@@ -25,7 +25,7 @@ import org.oscm.webtest.MarketplacePathSegments;
 import org.oscm.webtest.PortalTester;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MarketplacePlaygroundAccountPaymentWT {
+public class MarketplaceAccountPaymentWT {
 
   private static PortalTester tester;
 
@@ -36,7 +36,7 @@ public class MarketplacePlaygroundAccountPaymentWT {
     tester = new PortalTester();
     String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
     String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
-    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+    tester.loginMarketplace(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
   @Test
