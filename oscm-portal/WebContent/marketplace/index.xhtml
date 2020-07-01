@@ -23,11 +23,6 @@
   </ui:define>
 
   <ui:define name="contents">
-    <c:if test="#{serviceListingBean.publicLandingpage}">
-      <ui:include id="listServicesForPublicLandingpage" src="landingpage.xhtml"/>
-    </c:if>
-    <c:if test="#{not serviceListingBean.publicLandingpage}">
       <ui:include id="listServicesForEnterpriseLandingpage" src="enterpriseLandingpage.xhtml"/>
-    </c:if>
   </ui:define>
 </ui:composition>
