@@ -284,7 +284,7 @@ public class AccountNavigationCtrlTest {
     String context = ctrl.getModel().getContextUrl();
 
     // then
-    assertFalse("Got " + context, context.contains("/marketplace/"));
+    assertTrue("Got " + context, context.contains("/marketplace/"));
   }
 
   @Test
