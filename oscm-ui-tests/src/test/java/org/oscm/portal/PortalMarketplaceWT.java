@@ -49,13 +49,14 @@ public class PortalMarketplaceWT {
 
   @Test
   public void test01create() throws Exception {
-    marketplaceId = "";
+    marketplaceId = "marketplaceId";
 
     tester.visitPortal(PortalPathSegments.CREATE_MARKETPLACE);
+    tester.selectDropdown(
+            PortalHtmlElements.CREATE_MARKETPLACE_INPUT_ORG_ID, PlaygroundSuiteTest.supplierOrgId);
 
     tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_NAME, MARKETPLACE);
-    tester.selectDropdown(
-        PortalHtmlElements.CREATE_MARKETPLACE_INPUT_ORG_ID, PlaygroundSuiteTest.supplierOrgId);
+    tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_ID, marketplaceId);
 
     tester.clickElement(PortalHtmlElements.CREATE_MARKETPLACE__BUTTON_SAVE);
 

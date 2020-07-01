@@ -163,7 +163,7 @@ public class MarketplaceHtmlElements {
 
   public static final String MARKETPLACE_BROWSE_ALL_SERVICES_BUTTON =
       "categorySelectionForm:browseAllBtn";
-  public static final String MARKETPLACE_SPAN_WELCOME = "formLogout:welcome";
+  public static final String MARKETPLACE_SPAN_WELCOME = "navbarToggleButton";
   public static final String MARKETPLACE_LINK_LOGOUT = "formLogout:logout";
   public static final String MARKETPLACE_LINKTEXT_LOGIN = "Login";
 
