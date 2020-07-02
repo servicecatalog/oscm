@@ -32,7 +32,6 @@ import org.oscm.webtest.WebTester;
   AppOpenstackControllerWT.class,
   AppVCenterControllerWT.class,
   PortalMarketServiceWT.class,
-  MarketplaceSubscriptionWT.class,
   MarketplaceWT.class,
   MarketplaceAccountPersonalWT.class,
   MarketplaceAccountPaymentWT.class,
