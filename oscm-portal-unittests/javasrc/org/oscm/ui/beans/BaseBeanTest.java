@@ -222,18 +222,4 @@ public class BaseBeanTest {
 
     assertEquals("ServiceMarketplace", queryPart);
   }
-
-  @Test
-  public void getServiceDetailQueryPartPlaygroundServiceDetailsPage() {
-    final HttpServletRequest request = mock(HttpServletRequest.class);
-    final SessionBean sessionBean = mock(SessionBean.class);
-    when(request.getServletPath())
-        .thenReturn(Marketplace.MARKETPLACE_ROOT + "/playground/serviceDetails.jsf");
-    doReturn("Service").when(ctrl).getSelectedServiceQueryPart(eq(sessionBean));
-    doReturn("Marketplace").when(ctrl).getMarketplaceIdQueryPart();
-
-    final String queryPart = ctrl.getServiceDetailsQueryPart(request, sessionBean);
-
-    assertEquals("ServiceMarketplace", queryPart);
-  }
 }

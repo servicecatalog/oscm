@@ -1,138 +1,63 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:rich="http://richfaces.org/rich"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-  template="../../templates/main.xhtml">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                template="../../templates/mainBootstrap.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.subscriptions.add" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <c:set var="bodyClass" value="body5span" />
+    <c:set var="pageId" value="marketplace.subscriptions.add"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
     <!-- calling the fake getter will perform a check if service can be subscribe and redirect otherwise -->
-    <mp:breadcrumbs>
-      <mp:crumb labelPageId="marketplace.services" link="/marketplace/services.jsf" />
-      <mp:crumb label="#{subscriptionWizardConversation.model.service.nameToDisplay}" />
-    </mp:breadcrumbs>
+    <mp:bootstrapBreadcrumbs>
+      <mp:crumb labelPageId="marketplace.services" link="/marketplace/services.jsf"/>
+      <mp:crumb label="#{subscriptionWizardConversation.model.service.nameToDisplay}"/>
+    </mp:bootstrapBreadcrumbs>
   </ui:define>
 
   <ui:define name="contents">
-    <ui:include src="../../organizationUnitPanel.xhtml">
-      <ui:param name="dialogId" value="organizationUnitPanel" />
-      <ui:param name="title"
-        value="#{msg['unit.dialog.selectUnitForTheSubscription']}&apos;#{subscriptionWizardConversation.model.subscription.subscriptionId}&apos;" />
-      <ui:param name="bean" value="#{subscriptionWizardConversation}" />
-    </ui:include>
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-md-10 col-sm-12">
+        <!-- Select organization popup -->
+        <ui:include src="../../organizationUnitPanel.xhtml">
+          <ui:param name="dialogId" value="organizationUnitPanel"/>
+          <ui:param name="title"
+                    value="#{msg['unit.dialog.selectUnitForTheSubscription']}'#{subscriptionWizardConversation.model.subscription.subscriptionId}'"/>
+          <ui:param name="bean" value="#{subscriptionWizardConversation}"/>
+        </ui:include>
 
-    <a4j:outputPanel layout="block" styleClass="grid5span clearfix">
+        <div class="my-2">
+          <mp:subscriptionProcessProgressBootstrap active="configuration"
+                                                   showPayment="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}"/>
+        </div>
 
-      <mp:subscriptionProcess active="configuration"
-        showPayment="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}"
-        service="#{subscriptionWizardConversation.model.service}" bean="#{subscriptionWizardConversation}">
+        <div class="bg-light p-3 shadow mb-4">
+          <mp:serviceBlockBootstrap service="#{subscriptionWizardConversation.model.service}" fieldId="serviceDetail" subscriptionBean="#{subscriptionWizardConversation}"
+                                    showPriceLink="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}"
+                                    insert="false"/>
 
-        <!-- TABS -->
-        <rich:tabPanel headerAlignment="left" switchType="client">
+          <h:form id="configurationForm" styleClass="mt-2">
+            <adm:keepDirty value="#{subscriptionWizardConversation.model.dirty}"/>
 
-          <!-- TAB: CONFIGURATION -->
-          <rich:tab header="#{msg['subscription.configuration']}">
+            <mp:subscriptionProcessConfigurationBootstrap/>
 
-            <h:form id="configurationForm" style="margin-bottom: 10px;">
-              <adm:keepDirty value="#{subscriptionWizardConversation.model.dirty}" />
+            <!-- Control buttons -->
+            <div class="row justify-content-between no-gutters border-top border-bottom mt-2">
+              <mp:buttonBootstrap id="previousSubscribe" value="#{msg['button.previous']}" immediate="true"
+                                  styleClass="btn btn-outline-secondary my-2"
+                                  bean="#{subscriptionWizardConversation}" action="previous" keepDirty="false"/>
+              <mp:buttonBootstrap id="next" value="#{msg['button.next']}" bean="#{subscriptionWizardConversation}"
+                                  action="selectService" keepDirty="true" styleClass="btn btn-outline-secondary my-2"/>
+            </div>
+          </h:form>
+        </div>
 
-              <mp:outputStep value="#{msg['marketplace.subscription.configuration.nameAndReference']}" />
-              <adm:panelGrid>
-                <adm:labelAndInputText id="subscriptionIdText" label="#{msg['subscription.subscriptionId']}"
-                  required="true" value="#{subscriptionWizardConversation.model.subscription.subscriptionId}"
-                  maxlength="#{appBean.idLen}" validatorId="idChar" backingBean="#{subscriptionWizardConversation}"
-                  validationMethod="validateSubscriptionId" converterId="trimConverter" showHint="true" />
-                <adm:labelAndInputText id="purchaseOrderNumberText" label="#{msg['subscription.purchaseOrderNumber']}"
-                  value="#{subscriptionWizardConversation.model.subscription.purchaseOrderNumber}"
-                  maxlength="#{appBean.descriptionLen}" converterId="trimConverter" showHint="true" />
-                <adm:labelAndUnitSelect id="organizationalUnitSelect" label="#{msg['unit.organizationalUnit']}"
-                  value="#{subscriptionWizardConversation.subscriptionUnitCtrl.model.selectedUnitName}" showHint="true"
-                  disabled="#{not userBean.isOrganizationAdmin and not userBean.isUnitAdmin}" />
-              </adm:panelGrid>
+      </div>
+    </div>
 
-              <ui:include src="../../account/subscriptionUdaDetails.xhtml">
-                <ui:param name="inputList" value="#{subscriptionWizardConversation.model.subscriptionUdaRows}" />
-                <ui:param name="udasReadOnly" value="false" />
-              </ui:include>
-
-              <ui:fragment rendered="#{subscriptionWizardConversation.model.useExternalConfigurator}">
-                <mp:outputStep value="#{msg['parameter.table.header']}" />
-                <ui:include src="../parameterConfiguration.xhtml">
-                  <ui:param name="formId" value="configurationForm" />
-                  <ui:param name="dialogId" value="configurator" />
-                  <ui:param name="dialogHeight" value="115" />
-                  <ui:param name="bean" value="#{subscriptionWizardConversation}" />
-                  <ui:param name="conversationTimeout" value="#{subscriptionWizardConversation.timeout}" />
-                  <ui:param name="cancelHandler"
-                    value="AdmUtils.blurButton('configurationForm:btnConfigureLabel');setDirty(false);#{rich:component(dialogId)}.hide();" />
-                </ui:include>
-                <a4j:outputPanel styleClass="buttonWrapper">
-                  <a4j:commandLink id="btnConfigure" styleClass="button" style="text-decoration: none;"
-                    oncomplete="if(#{subscriptionWizardConversation.model.showExternalConfigurator}){#{rich:component('configurator')}.show();configurator.activateFallbackTimer();window.scrollTo(0,document.body.scrollHeight);};"
-                    action="#{subscriptionWizardConversation.actionLoadIframe}"
-                    render="configurationForm:externalToolDialog,subcribe_configurationWarning,configurationForm:configRqScript,hiddenErrorPanel">
-                    <h:outputText id="btnConfigureLabel" style="white-space: nowrap;" value="#{msg['button.configure']}" />
-                  </a4j:commandLink>
-                </a4j:outputPanel>
-                <adm:spacer height="35" />
-                <a4j:outputPanel id="subcribe_configurationWarning" styleClass="configurationWarning">
-                  <mp:notice rendered="#{subscriptionWizardConversation.model.configurationChanged}"
-                    noticeText="#{msg['info.subscriptions.configuration.unsaved']}" />
-                </a4j:outputPanel>
-              </ui:fragment>
-
-              <ui:fragment rendered="#{subscriptionWizardConversation.model.useInternalConfigurator}">
-                <mp:outputStep value="#{msg['parameter.table.header']}" />
-                <ui:include src="../../account/paramtable.xhtml">
-                  <ui:param name="inputList" value="#{subscriptionWizardConversation.model.serviceParameters}" />
-                  <ui:param name="formName" value="configurationForm" />
-                  <ui:param name="showPrices" value="#{subscriptionWizardConversation.model.showServicePrices}" />
-                  <ui:param name="bean" value="#{subscriptionWizardConversation}" />
-                </ui:include>
-              </ui:fragment>
-
-              <br />
-              <mp:pixelline />
-
-              <mp:button id="previousSubscribe" value="#{msg['button.previous']}" immediate="true"
-                bean="#{subscriptionWizardConversation}" action="previous" style="float: left;" keepDirty="false" />
-              <mp:button id="next" value="#{msg['button.next']}" bean="#{subscriptionWizardConversation}"
-                action="selectService" style="float: right;" keepDirty="true" />
-              <br />
-              <br />
-            </h:form>
-          </rich:tab>
-
-        </rich:tabPanel>
-      </mp:subscriptionProcess>
-    </a4j:outputPanel>
-    <script type="text/javascript">
-					if (document
-							.getElementById('configurationForm:btnConfigure') != null) {
-						if (sessionStorage.alreadyClicked) {
-							$(document)
-									.ready(
-											function() {
-												document
-														.getElementById(
-																'configurationForm:btnConfigure')
-														.click();
-												delete sessionStorage.alreadyClicked;
-											});
-						}
-						;
-					} else if (sessionStorage.alreadyClicked) {
-						delete sessionStorage.alreadyClicked;
-					};
-				</script>
-  </ui:define>
+     </ui:define>
 </ui:composition>

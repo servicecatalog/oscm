@@ -1,40 +1,39 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020 -->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-                template="../templates/main.xhtml">
+                template="../templates/mainBootstrap.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.account.payments" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+    <c:set var="pageId" value="marketplace.account.payments"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
-    <mp:breadcrumbs>
-      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf" />
-      <mp:crumb labelPageId="marketplace.account.payments" />
-    </mp:breadcrumbs>
+    <mp:bootstrapBreadcrumbs menu="#{true}">
+      <mp:crumb labelPageId="marketplace.account" link="/marketplace/account/index.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.payments"/>
+    </mp:bootstrapBreadcrumbs>
+  </ui:define>
+
+  <ui:define name="aside">
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.payments.title"/>
   </ui:define>
 
   <ui:define name="contentstitle">
     <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
-      <br />
+      <br/>
     </a4j:outputPanel>
-  </ui:define>
-
-  <ui:define name="aside">
-    <mp:navigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.payments.title" />
   </ui:define>
 
   <ui:define name="contents">
 
     <h:form id="#{dialogId}pspResultForm">
-      <h:inputHidden id="pspResult" value="#{paymentInfoBean.pspResult}" />
+      <h:inputHidden id="pspResult" value="#{paymentInfoBean.pspResult}"/>
       <h:commandButton style="display:none;" id="handlePspResult" value="handlePspResult"
-                       action="#{paymentInfoBean.handlePspResult}" />
+                       action="#{paymentInfoBean.handlePspResult}"/>
     </h:form>
 
     <script type="text/javascript">
@@ -48,60 +47,48 @@
         }
     </script>
 
-
-
-    <c:set var="mpImgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <c:set var="sortIcon" value="#{mpImgUrl}/transparentPixel.png?id=sort" />
-    <c:set var="sortIconAscending" value="#{mpImgUrl}/transparentPixel.png?id=sortAscending" />
-    <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending" />
+    <c:set var="mpImgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+    <c:set var="sortIcon" value="#{mpImgUrl}/transparentPixel.png?id=sort"/>
+    <c:set var="sortIconAscending" value="#{mpImgUrl}/transparentPixel.png?id=sortAscending"/>
+    <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending"/>
 
     <a4j:outputPanel layout="block">
       <ui:include src="billingContact.xhtml">
-        <ui:param name="dialogId" value="billingContactPanel" />
-        <ui:param name="additionalRender" value=":billingContactListForm" />
-        <ui:param name="inConversation" value="false" />
+        <ui:param name="dialogId" value="billingContactPanel"/>
+        <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder"/>
+        <ui:param name="inConversation" value="false"/>
       </ui:include>
       <ui:include src="billingContactEdit.xhtml">
-        <ui:param name="dialogId" value="billingContactEditPanel" />
-        <ui:param name="additionalRender" value=":billingContactListForm" />
+        <ui:param name="dialogId" value="billingContactEditPanel"/>
+        <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder"/>
       </ui:include>
       <ui:include src="paymentOption.xhtml">
-        <ui:param name="dialogId" value="paymentOptionPanel" />
-        <ui:param name="context" value="account" />
-        <ui:param name="defineFullDialogContent" value="true" />
-        <ui:param name="dialogHeight" value="60" />
-        <ui:param name="additionalRender" value=":paymentOptionListForm" />
+        <ui:param name="dialogId" value="paymentOptionPanel"/>
+        <ui:param name="context" value="account"/>
+        <ui:param name="defineFullDialogContent" value="true"/>
+        <ui:param name="dialogHeight" value="60"/>
+        <ui:param name="additionalRender" value=":paymentOptionTableForm"/>
       </ui:include>
       <ui:include src="paymentOptionEdit.xhtml">
-        <ui:param name="dialogId" value="paymentOptionEditPanel" />
-        <ui:param name="context" value="account" />
-        <ui:param name="defineFullDialogContent" value="true" />
-        <ui:param name="dialogHeight" value="60" />
-        <ui:param name="additionalRender" value=":paymentOptionListForm" />
+        <ui:param name="dialogId" value="paymentOptionEditPanel"/>
+        <ui:param name="context" value="account"/>
+        <ui:param name="defineFullDialogContent" value="true"/>
+        <ui:param name="dialogHeight" value="60"/>
+        <ui:param name="additionalRender" value=":paymentOptionTableForm :infoPanelHolder"/>
       </ui:include>
     </a4j:outputPanel>
 
 
+    <div class="row">
+      <div class="mt-2 p-3 bg-light col">
+        <div class="pb-4">
+          <ui:include src="billingContacts.xhtml"/>
+        </div>
+        <div class="pt-4">
+          <ui:include src="paymentTypes.xhtml"/>
+        </div>
+      </div>
+    </div>
 
-    <a4j:outputPanel layout="block" styleClass="grid4span clearfix">
-      <a4j:outputPanel layout="block" styleClass="box">
-
-        <ui:include src="billingContacts.xhtml"/>
-
-        <br />
-        <br />
-
-        <ui:include src="paymentTypes.xhtml"/>
-
-      </a4j:outputPanel>
-    </a4j:outputPanel>
-    <script type="text/javascript">
-    //<![CDATA[
-        // Required for the case after handling PSP results.
-        $(document).ready(function () {
-            setDirty(false);
-        });
-    //]]>
-    </script>
   </ui:define>
 </ui:composition>

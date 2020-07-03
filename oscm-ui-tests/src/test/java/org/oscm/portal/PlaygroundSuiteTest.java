@@ -32,14 +32,12 @@ import org.oscm.webtest.WebTester;
   AppOpenstackControllerWT.class,
   AppVCenterControllerWT.class,
   PortalMarketServiceWT.class,
-  MarketplaceSubscriptionWT.class,
-  MarketplaceAccountWT.class,
-  MarketplacePlaygroundWT.class,
-  MarketplacePlaygroundAccountPersonalWT.class,
-  MarketplacePlaygroundAccountPaymentWT.class,
-  MarketplacePlaygroundSubscriptionWT.class,
-  MarketplacePlaygroundSubscriptionTableWT.class,
-  MarketplacePlaygroundServiceDetailsWT.class,
+  MarketplaceWT.class,
+  MarketplaceAccountPersonalWT.class,
+  MarketplaceAccountPaymentWT.class,
+  MarketplaceSubscriptionDataWT.class,
+  MarketplaceSubscriptionTableWT.class,
+  MarketplaceServiceDetailsWT.class,
 })
 public class PlaygroundSuiteTest {
 

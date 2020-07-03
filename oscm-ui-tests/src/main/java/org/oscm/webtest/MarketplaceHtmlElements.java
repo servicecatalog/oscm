@@ -23,8 +23,7 @@ public class MarketplaceHtmlElements {
   public static final String GOTO_MARKETPLACE_BUTTONLINK_GOTO = "goForm:gotoBtnLink";
   public static final String MARKETPLACE_INPUT_USERID = "loginForm:loginUserId";
   public static final String MARKETPLACE_INPUT_PASSWORD = "loginForm:loginPassword";
-  public static final String MARKETPLACE_BUTTON_LOGIN = "loginForm:loginButtonLink";
-  public static final String MARKETPLACE_PLAYGROUND_BUTTON_LOGIN = "loginButtonLink";
+  public static final String MARKETPLACE_BUTTON_LOGIN = "loginButtonLink";
 
   public static final String MARKETPLACE_LINK_SERVICE_NAME = "showDetails0";
   public static final String MARKETPLACE_SUBSCRIPTION_BUTTON_GETITNOW = "buyme";
@@ -164,7 +163,7 @@ public class MarketplaceHtmlElements {
 
   public static final String MARKETPLACE_BROWSE_ALL_SERVICES_BUTTON =
       "categorySelectionForm:browseAllBtn";
-  public static final String MARKETPLACE_SPAN_WELCOME = "formLogout:welcome";
+  public static final String MARKETPLACE_SPAN_WELCOME = "navbarToggleButton";
   public static final String MARKETPLACE_LINK_LOGOUT = "formLogout:logout";
   public static final String MARKETPLACE_LINKTEXT_LOGIN = "Login";
 

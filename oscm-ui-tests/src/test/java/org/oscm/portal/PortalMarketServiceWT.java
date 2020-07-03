@@ -70,6 +70,12 @@ public class PortalMarketServiceWT {
     setDescriptionValue(PortalTester.TECHSERVICE_PARAM_MESSAGETEXT, "You are welcome!");
     setDescriptionValue(PortalTester.TECHSERVICE_PARAM_USER, TECHSERVICE_IAAS_USER_ID);
     setDescriptionValue(PortalTester.TECHSERVICE_PARAM_PWD, TECHSERVICE_IAAS_USER_PWD);
+    String autoAssign = "//*[@id=\"editForm:checkboxAutoAssignUser\"]";
+    if (tester.getDriver().findElements(By.xpath(autoAssign)).size() != 0) {
+      if (!tester.getDriver().findElement(By.xpath(autoAssign)).isSelected()) {
+        tester.getDriver().findElement(By.xpath(autoAssign)).click();
+      }
+    }
     checkCheckBox(PortalTester.TECHSERVICE_PARAM_EMAIL);
     checkCheckBox(PortalTester.TECHSERVICE_PARAM_MESSAGETEXT);
     checkCheckBox(PortalTester.TECHSERVICE_PARAM_USER);
@@ -151,6 +157,13 @@ public class PortalMarketServiceWT {
         tester.getDriver().findElement(By.xpath(serviceOIDCXpath)).click();
       }
     }
+    serviceXpath = "//input[@id='input_serviceDeActivationForm:j_idt491:1:active']";
+    if (tester.getDriver().findElements(By.xpath(serviceXpath)).size() != 0) {
+      if (!tester.getDriver().findElement(By.xpath(serviceXpath)).isSelected()) {
+        tester.getDriver().findElement(By.xpath(serviceXpath)).click();
+      }
+    }
+    Thread.sleep(1000);
     tester.clickElement(PortalHtmlElements.DEACTIVATION_SERVICE_BUTTON_SAVE);
     tester.waitForElement(By.id(PortalHtmlElements.PORTAL_SPAN_INFOS), 10);
 

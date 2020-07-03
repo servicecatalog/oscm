@@ -1,17 +1,15 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-  template="../templates/modalDialog.xhtml">
-
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:rich="http://richfaces.org/rich" template="../templates/modalDialogBootstrap.xhtml">
 
   <ui:define name="dialogScripts">
     <script language="JavaScript1.2" type="text/javascript"
-      src="#{facesContext.externalContext.requestContextPath}/scripts/textareaMaxlength.js" />
+            src="#{facesContext.externalContext.requestContextPath}/scripts/textareaMaxlength.js"/>
     <script language="JavaScript1.2" type="text/javascript">
       function updateCharacterCounter(element, maxLength) {
         var counterElement = #{rich:element('counterText')};
@@ -37,103 +35,93 @@
     </script>
 
     <c:set var="cancelHandler"
-      value="AdmUtils.showProgress(true);setDirty(false);#{rich:element('btnHiddenCancel')}.click();resetCommentForm();" />
-    <c:set var="modalFocusElement" value="commentForm:title" />
+           value="AdmUtils.showProgress(true);setDirty(false);#{rich:element('btnHiddenCancel')}.click();resetCommentForm();"/>
+    <c:set var="modalFocusElement" value="commentForm:title"/>
   </ui:define>
 
   <ui:define name="dialogTitle">
-    <h2>
-      <h:outputText style="white-space: nowrap;"
-        value="#{serviceDetailsCtrl.hasReviewForLoggedInUser ? msg['service.reviews.manage'] : msg['service.reviews.write']}" />
-    </h2>
+    <h1>
+      <h:outputText
+          value="#{serviceDetailsCtrl.hasReviewForLoggedInUser ? msg['service.reviews.manage'] : msg['service.reviews.write']}"/>
+    </h1>
   </ui:define>
 
   <ui:define name="dialogContent">
 
-    <!-- formular holding the rating, title and comment -->
+    <!-- form holding the rating, title and comment -->
     <h:form id="commentForm" styleClass="ndh">
 
       <!-- ratings -->
-      <h2>
-        <adm:outputLabel value="#{msg['service.reviews.rating.header']}" renderRequired="true" hideLabelSeparator="true" />
+      <h2 class="pt-3">
+        <adm:outputLabel value="#{msg['service.reviews.rating.header']}" renderRequired="true"
+                         hideLabelSeparator="true"/>
       </h2>
-      <mp:editableRatingStars />
-      <adm:spacer height="10" />
+      <mp:editableRatingStars/>
 
       <!-- title  -->
-      <h2 style="margin-top: 5px;">
-        <adm:outputLabel value="#{msg['service.reviews.title.header']}" renderRequired="true" hideLabelSeparator="true" />
+      <h2 class="pt-3">
+        <adm:outputLabel value="#{msg['service.reviews.title.header']}" renderRequired="true"
+                         hideLabelSeparator="true"/>
       </h2>
 
       <h:inputText id="title" value="#{manageReviewCtrl.serviceReview.title}" maxlength="#{appBean.nameLen}"
-        onchange="setDirty(true)" styleClass="review_title" required="true">
-        <f:validateLength maximum="#{appBean.nameLen}" />
-        <f:converter converterId="trimConverter" />
+                   onchange="setDirty(true)" styleClass="review_title form-control form-control-sm" required="true">
+        <f:validateLength maximum="#{appBean.nameLen}"/>
+        <f:converter converterId="trimConverter"/>
       </h:inputText>
-      <br />
-      <adm:spacer height="10" />
 
       <!-- comment box -->
-      <h2>
+      <h2 class="pt-3">
         <adm:outputLabel value="#{msg['service.reviews.comment.header']}" required="true" renderRequired="true"
-          hideLabelSeparator="true" />
+                         hideLabelSeparator="true"/>
       </h2>
-      <h:inputTextarea id="comment" value="#{manageReviewCtrl.serviceReview.comment}" required="true"
-        title="#{msg['service.reviews.comment.tooltip']}"
-        onkeydown="updateCharacterCounter(this,#{manageReviewCtrl.commentLength});"
-        onkeyup="updateCharacterCounter(this,#{manageReviewCtrl.commentLength});"
-        onblur="updateCharacterCounter(this,#{manageReviewCtrl.commentLength});" onchange="setDirty(true);"
-        styleClass="review_comments">
-        <f:validateLength maximum="#{manageReviewCtrl.commentLength}" />
+      <h:inputTextarea id="comment" value="#{manageReviewCtrl.serviceReview.comment}" required="true" rows="5"
+                       title="#{msg['service.reviews.comment.tooltip']}" onchange="setDirty(true);"
+                       onkeydown="updateCharacterCounter(this,#{manageReviewCtrl.commentLength});"
+                       onkeyup="updateCharacterCounter(this,#{manageReviewCtrl.commentLength});"
+                       onblur="updateCharacterCounter(this,#{manageReviewCtrl.commentLength});"
+                       styleClass="review_comments form-control form-control-sm">
+        <f:validateLength maximum="#{manageReviewCtrl.commentLength}"/>
       </h:inputTextarea>
 
-      <br />
-
-      <h:outputText id="counterText" />
-
-      <br />
-      <adm:spacer height="10" />
-      <mp:pixelline />
+      <h:outputText id="counterText"/>
+      <hr class="m-2"/>
 
       <!-- buttons -->
-      <h:commandButton id="btnHiddenCancel" style="display:none;" value="#{msg['service.reviews.button.publish']}"
-        action="#{manageReviewCtrl.cancelReview}" immediate="true" />
-
-      <h:commandButton id="btnHiddenRemove" style="display:none;" value="#{msg['service.reviews.button.publish']}"
-        action="#{manageReviewCtrl.removeReview}" immediate="true" />
+      <h:commandButton id="btnHiddenCancel" styleClass="d-none" value="#{msg['service.reviews.button.publish']}"
+                       action="#{manageReviewCtrl.cancelReview}" immediate="true"/>
 
       <a4j:outputPanel layout="block" styleClass="clearfix">
-        <a4j:commandButton style="display:none;" id="hiddenSaveBtn" value="#{msg['button.save']}"
-          action="#{manageReviewCtrl.publishReview}" render="#{dialogId}RerenderPanel" onclick="setDirty(false);"
-          oncomplete="
-                AdmUtils.showProgress(false);
-                if(!#{facesContext.maximumSeverity.ordinal > 0})
-                {
-                  #{rich:component(dialogId)}.hide();
-                }" />
+        <a4j:commandButton styleClass="d-none" id="hiddenSaveBtn" value="#{msg['button.save']}"
+                           action="#{manageReviewCtrl.publishReview}" render="#{dialogId}RerenderPanel"
+                           onclick="setDirty(false);"
+                           oncomplete="AdmUtils.showProgress(false); if(!#{facesContext.maximumSeverity.ordinal > 0})
+                                      {#{rich:component(dialogId)}.hide();}"/>
 
         <!-- visible buttons -->
-        <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel">
-          <mp:button id="btnPublishLink"
-            onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('hiddenSaveBtn')}.click(); return false;"
-            value="#{msg['button.save']}" />
-          <mp:button id="btnCancel" value="#{msg['service.reviews.button.cancel']}"
-            style="margin-right: 10px; text-decoration:none;"
-            onclick="AdmUtils.showProgress(true);setDirty(false);#{rich:element('btnHiddenCancel')}.click();resetCommentForm();" />
+        <a4j:outputPanel styleClass="bottomButtonPanel row row-justify-space">
+          <mp:buttonBootstrap id="btnCancel" value="#{msg['service.reviews.button.cancel']}"
+                              styleClass="btn btn-outline-secondary ml-3"
+                              onclick="AdmUtils.showProgress(true);setDirty(false);#{rich:element('btnHiddenCancel')}.click();resetCommentForm();"/>
           <c:if test="#{not manageReviewCtrl.isNewReview}">
-            <mp:button id="btnRemove" value="#{msg['service.reviews.button.remove']}" style="text-decoration:none;"
-              onclick="AdmUtils.showProgress(true);setDirty(false);#{rich:element('btnHiddenRemove')}.click();resetCommentForm();" />
+            <adm:buttonBootstrap id="btnRemove" value="#{msg['service.reviews.button.remove']}" action="removeReview"
+                                 styleClass="btn btn-outline-secondary" bean="#{manageReviewCtrl}"
+                                 oncomplete="AdmUtils.showProgress(false);setDirty(false);resetCommentForm();"/>
           </c:if>
+
+          <mp:buttonBootstrap id="btnPublishLink" styleClass="btn btn-secondary mr-3 float-right"
+                              onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('hiddenSaveBtn')}.click(); return false;"
+                              value="#{msg['button.save']}"/>
         </a4j:outputPanel>
       </a4j:outputPanel>
     </h:form>
 
-    <script language="JavaScript1.2" type="text/javascript">
+    <script>
       AdmUtils.showProgress(false);
-	  jQuery(document).ready(function(){
+	    jQuery(document).ready(function(){
         jQuery().maxlength("commentForm:comment", #{manageReviewCtrl.commentLength});
-	  });
+	    });
       updateCharacterCounter(#{rich:element('comment')}, #{manageReviewCtrl.commentLength});
-	</script>
+    </script>
   </ui:define>
 </ui:composition>

@@ -1,27 +1,27 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:rich="http://richfaces.org/rich"
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-                template="templates/main.xhtml">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" template="templates/mainBootstrap.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.details" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <adm:initialize initializingMethod="#{serviceDetailsCtrl.initialize}" />
-    <c:set var="bodyClass" value="body4span"/>
+    <c:set var="pageId" value="marketplace.details"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+    <adm:initialize initializingMethod="#{serviceDetailsCtrl.initialize}"/>
+  </ui:define>
+
+  <ui:define name="feature">
+
   </ui:define>
 
   <ui:define name="breadcrumbs">
     <!-- This form controls the redirect in case the this site was accessed with non or an invalid serviceKey -->
     <h:form id="redirectForm">
       <!-- Save the errorKey as request attribute to display the error on the service list page -->
-      <h:inputHidden value="#{errorKey}" />
-      <h:commandButton id="btnRedirect" action="#{serviceDetailsCtrl.redirectToServiceList}" style="display: none;" />
+      <h:inputHidden value="#{errorKey}"/>
+      <h:commandButton id="btnRedirect" action="#{serviceDetailsCtrl.redirectToServiceList}" style="display: none;"/>
     </h:form>
     <!-- The selectedServiceForDetails is empty if the passed serviceKey is not set, invalid or the service is not active -->
     <c:if test="#{serviceDetailsCtrl.serviceNotAvailable}">
@@ -29,97 +29,27 @@
         #{rich:element('btnRedirect')}.click();
       </script>
     </c:if>
-    <mp:breadcrumbs>
-      <mp:crumb labelPageId="marketplace.services" link="/marketplace/services.jsf" />
-      <mp:crumb label="#{serviceDetailsModel.selectedService.nameToDisplay}" />
-    </mp:breadcrumbs>
   </ui:define>
-
-  <ui:define name="contentstitle">
-    <div class="contentstitle indent1col clearfix">
-      <br />
-    </div>
-  </ui:define>
-
-  <ui:define name="aside">
-    <mp:relatedServices bean="#{serviceDetailsModel}" selectedService="#{serviceDetailsModel.selectedService}" />
-  </ui:define>
-
 
   <ui:define name="contents">
-    <h:form>
-      <a4j:jsFunction name="setRelayStateAndRedirectToIdp" oncomplete="document.getElementById('formLogin:loginLink').click();">
-        <a4j:param name="relayState" assignTo="#{userBean.requestedRedirect}" />
-      </a4j:jsFunction>
-    </h:form>
-
-    <h:form id="tagFilterForm">
-      <h:inputHidden id="tagFilterValue" value="#{servicePagingBean.filterTag}" />
-      <h:commandButton id="applyTagFilter" action="#{serviceListingBean.showServiceList}" style="display: none;" />
-    </h:form>
-
-    <div class="col4span lastcol">
-      <div class="box clearfix marginBottomDefault">
-
-        <div class="col3span">
-          <h2 id="serviceDetailName" class="box_title shortenedText" title="#{serviceDetailsModel.selectedService.nameToDisplay}">#{serviceDetailsModel.selectedService.nameToDisplay}</h2>
-        </div>
-
-        <mp:pixelline />
-        <div class="col3span serviceBox4span marginBottomDefault">
-          <mp:serviceBlock service="#{serviceDetailsModel.selectedService}" fieldId="serviceDetail" showTags="true"
-            showName="false" />
-        </div>
-
-        <a4j:outputPanel id="serviceStatus" layout="block" styleClass="col1span lastcol">
-          <ui:fragment rendered="#{serviceActivationBean.serviceStatusChangeAllowed}">
-            <ui:include src="/marketplace/service/deactivateService.xhtml">
-              <ui:param name="dialogId" value="deactivateServicePanel"/>
-              <ui:param name="dialogHeight" value="130"/>
-              <ui:param name="additionalRender" value=":serviceStatusDisplay :infoPanelHolder"/>
-            </ui:include>
-
-            <ui:include src="/marketplace/service/reactivateService.xhtml">
-              <ui:param name="dialogId" value="reactivateServicePanel"/>
-              <ui:param name="dialogHeight" value="100"/>
-              <ui:param name="additionalRender" value=":serviceStatusDisplay :infoPanelHolder"/>
-            </ui:include>
-
-            <a4j:outputPanel id="serviceStatusDisplay">
-              <c:if test="#{serviceActivationBean.reactivationLinkVisible}">
-                <h:form id="reactivateSelectForm">
-                  <a4j:commandLink id="reactivateService"
-                                   render="reactivateServicePanel :reactivateServicePanelForm"
-                                   oncomplete="RichFaces.$('reactivateServicePanel').show();return false;">
-                    <h:outputText value="#{msg['button.service.reactivateLink']}"/>
-                  </a4j:commandLink>
-                </h:form>
-              </c:if>
-
-              <c:if test="#{serviceActivationBean.deactivationLinkVisible}">
-                <h:form id="deactivateServiceForm">
-                  <a4j:commandLink id="deactivateService"
-                                   render="deactivateServicePanel :deactivateServicePanelForm"
-                                   oncomplete="RichFaces.$('deactivateServicePanel').show();return false;">
-                    <h:outputText value="#{msg['button.service.deactivateLink']}"/>
-                  </a4j:commandLink>
-                </h:form>
-              </c:if>
-
-              <mp:serviceStatus service="#{serviceActivationBean.serviceWrapper}"/>
-              <br/>
-            </a4j:outputPanel>
-          </ui:fragment>
-
-          <mp:ratingStars reviewCount="#{serviceDetailsModel.selectedService.reviewCount}"
-            rating="#{serviceDetailsModel.selectedService.rating}" />
-
-          <mp:servicePrice styleClass="servicePriceDetails row no-gutters justify-content-center" service="#{serviceDetailsModel.selectedService}" />
-          <h:link id="getItForLoggedUser" outcome="addSubscription" />
-          <mp:button
-            rendered="#{(userBean.loggedInUser eq null) or (userBean.loggedInAndAllowedToSubscribe)}"
-            id="buyme" value="#{msg['button.getItNow']}"
-            onclick="if (#{serviceDetailsModel.selectedService.external}) {
+    <div class="row mt-2">
+      <div class="col-lg-3">
+        <mp:relatedServicesBootstrap bean="#{serviceDetailsModel}"
+                                     selectedService="#{serviceDetailsModel.selectedService}"/>
+      </div>
+      <div class="col-lg-9">
+        <div class="bg-light px-3 py-1 shadow mb-3">
+          <div class="row justify-content-between no-gutters border-bottom mb-2">
+            <h1 class="m-2">#{serviceDetailsModel.selectedService.nameToDisplay}</h1>
+            <mp:serviceStatusBootstrap serviceActivationBean="#{serviceActivationBean}"/>
+          </div>
+          <div class="px-2">
+            <mp:serviceBlockBootstrap bean="#{serviceDetailsModel}" service="#{serviceDetailsModel.selectedService}"
+                                      fieldId="serviceDetail" showTags="true" showName="false">
+              <c:if test="#{(userBean.loggedInUser eq null) or (userBean.loggedInAndAllowedToSubscribe)}">
+                <h:link id="getItForLoggedUser" outcome="addSubscription"/>
+                <button id="buyme" type="button" class="btn btn-outline-secondary btn-block"
+                        onclick="if (#{serviceDetailsModel.selectedService.external}) {
                         window.open('#{serviceDetailsCtrl.serviceUrl}', 'Service');
                      } else if (#{userBean.loggedInAndAllowedToSubscribe}) {
                         AdmUtils.showProgress(true);
@@ -130,115 +60,21 @@
                      } else {
                         setRelayStateAndRedirectToIdp('/marketplace/subscriptions/creation/add.jsf');
                         return false;
-                      }"
-            disabled="#{not serviceDetailsModel.selectedService.subscribable}" big="true" />
-        </a4j:outputPanel>
-
-        <!-- tabs -->
-        <div class="box_horizontalScroll horizontalScrollAuto">
-          <rich:tabPanel headerAlignment="left" switchType="client">
-
-            <!-- description tab -->
-            <rich:tab id="tabDescription" header="#{msg['service.description']}" styleClass="stringInMultiLine">
-              <h:outputText value="#{serviceDetailsModel.selectedService.description}" escape="false" />
-            </rich:tab>
-
-            <!-- price model tab -->
-            <rich:tab id="tabPriceModel" header="#{msg['service.priceModel']}"
-              rendered="#{serviceDetailsModel.selectedService.priceModel.chargeable}">
-              <ui:include src="subscriptions/priceModelDetails.xhtml">
-                <ui:param name="priceModel" value="#{serviceDetailsModel.selectedService.priceModel}" />
-                <ui:param name="model" value="#{serviceDetailsModel}" />
-              </ui:include>
-            </rich:tab>
-
-            <!-- external price model tab -->
-            <rich:tab id="tabExternalPriceModel" header="#{msg['service.priceModel']}"
-              rendered="#{serviceDetailsModel.selectedService.priceModel.external}">
-              <h:form>
-                <ui:include src="../priceModel/showExternalPriceModel.xhtml">
-                  <ui:param name="controller" value="#{serviceDetailsCtrl}" />
-                  <ui:param name="disabled" value="#{empty serviceDetailsCtrl.model.priceModelContent}" />
-                </ui:include>
-              </h:form>
-            </rich:tab>
-
-            <!-- supplier detail tab -->
-            <rich:tab id="tabSupplier" header="#{msg['service.supplier']}">
-              <ui:include src="serviceDetailsAddress.xhtml">
-                <ui:param name="reportIssueVisible" value="false" />
-                <ui:param name="service" value="#{serviceDetailsModel.selectedService}" />
-                <ui:param name="model" value="#{serviceDetailsModel}" />
-              </ui:include>
-            </rich:tab>
-
-          </rich:tabPanel>
-
+                      }">
+                  #{msg['button.getItNow']}
+                </button>
+              </c:if>
+            </mp:serviceBlockBootstrap>
+          </div>
+          <div class="my-1">
+            <mp:serviceInfoTable/>
+          </div>
         </div>
 
+        <c:if test="#{marketplaceConfigurationBean.currentConfiguration.reviewEnabled}">
+          <mp:serviceReviewsBootstrap/>
+        </c:if>
       </div>
     </div>
-
-    <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
-      rendered="#{serviceDetailsModel.selectedService.reseller and serviceDetailsModel.selectedService.priceModel.chargeable}" />
-
-    <!-- reviews -->
-    <a4j:outputPanel layout="block" styleClass="col4span lastcol"
-      rendered="#{marketplaceConfigurationBean.currentConfiguration.reviewEnabled}">
-      <c:set var="allowedToWriteReview" value="#{serviceDetailsModel.selectedServiceFeedback.allowedToWriteReview}" />
-      <c:set var="allowedToDeleteReviews" value="#{manageReviewCtrl.marketplaceOwner}" />
-
-      <div class="box clearfix">
-
-        <c:if test="#{allowedToDeleteReviews}">
-          <ui:include src="./subscriptions/removeReview.xhtml">
-            <ui:param name="dialogId" value="removeReviewPanel" />
-          </ui:include>
-        </c:if>
-
-        <h2 id="reviews">#{msg['service.reviews']} ( #{serviceDetailsModel.countSelectedServiceReviews} )</h2>
-        <c:if test="#{allowedToWriteReview}">
-          <ui:include src="./subscriptions/reviewDetails.xhtml">
-            <ui:param name="dialogId" value="writeReviewPanel" />
-          </ui:include>
-
-          <mp:pixelline />
-          <mp:button id="btnWriteFeedback"
-            value="#{serviceDetailsCtrl.hasReviewForLoggedInUser ? msg['service.reviews.manage'] : msg['service.reviews.write']}"
-            onclick="#{rich:component('writeReviewPanel')}.show();" style="margin-bottom: 5px; text-decoration:none;" />
-        </c:if>
-
-        <c:forEach items="#{serviceDetailsModel.selectedServiceReviews}" var="review" varStatus="status">
-          <div class="col4span lastcol">
-            <mp:pixelline />
-            <c:if test="#{allowedToWriteReview and review.belongsToLoggedInUser}">
-              <div style="float: right">
-                <h:outputLink onclick="#{rich:component('writeReviewPanel')}.show();return false;">
-                  <h:outputText style="white-space: nowrap;" value="#{msg['service.reviews.manage']}" />
-                </h:outputLink>
-              </div>
-            </c:if>
-            <c:if test="#{allowedToDeleteReviews and !review.belongsToLoggedInUser}">
-              <div style="float: right">
-                <h:form>
-                  <a4j:commandLink
-                    id="deleteReview#{(status.index + 1)}" 
-                    action="#{manageReviewCtrl.setupForDeletion}"
-                    render=":removeReviewPanel :removeReviewPanelForm"
-                    oncomplete="RichFaces.$('removeReviewPanel', {param1:'#{review.po.key}'}).show();return false;">
-                    <a4j:param value="#{review.po.key}" assignTo="#{manageReviewCtrl.keyForDeletion}" />
-                    <h:outputText value="#{msg['button.delete']}" />
-                  </a4j:commandLink>
-                </h:form>
-              </div>
-            </c:if>
-            <mp:ratingStars rating="#{review.ratingCss}" />
-            <mp:review review="#{review}" style="font-family:Arial,sans-serif;" reviewNumber="#{(status.index + 1)}" />
-          </div>
-        </c:forEach>
-      </div>
-    </a4j:outputPanel>
-
-    <mp:linkPageTop />
   </ui:define>
 </ui:composition>

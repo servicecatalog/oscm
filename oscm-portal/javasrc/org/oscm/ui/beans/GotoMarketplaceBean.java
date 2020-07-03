@@ -101,7 +101,7 @@ public class GotoMarketplaceBean extends BaseBean implements Serializable {
   /** updates the session's mid attribute and forwards to the selected marketplace */
   public String gotoMarketplace() {
     setMarketplaceId(selectedMarketplace);
-    return selectedMarketplace.startsWith("pg_") ? OUTCOME_SUCCESS_PLAYGROUND : OUTCOME_SUCCESS;
+    return OUTCOME_SUCCESS;
   }
 
   /*

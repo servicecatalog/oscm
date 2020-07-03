@@ -54,7 +54,7 @@ public class PortalOrganizationWT {
     } else {
       logger.info("Running INTERNAL mode");
       org = PlaygroundSuiteTest.currentTimestampe;
-      orgAdmin = "mp_admin_" + org;
+      orgAdmin = "mp_service";
     }
     orgAdminEmail = "mp_email_" + org + "@test.com";
   }

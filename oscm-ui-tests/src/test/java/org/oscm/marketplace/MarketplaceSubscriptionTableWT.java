@@ -24,7 +24,7 @@ import org.oscm.webtest.MarketplacePathSegments;
 import org.oscm.webtest.PortalTester;
 import org.oscm.webtest.WebTester;
 
-public class MarketplacePlaygroundSubscriptionTableWT {
+public class MarketplaceSubscriptionTableWT {
 
   private static PortalTester tester;
 
@@ -35,12 +35,12 @@ public class MarketplacePlaygroundSubscriptionTableWT {
     tester = new PortalTester();
     String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
     String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
-    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+    tester.loginMarketplace(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
   @AfterClass
   public static void cleanUp() {
-    tester.logoutMarketplacePlayground();
+    tester.logoutMarketplace();
     tester.close();
   }
 

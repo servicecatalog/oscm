@@ -21,7 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MarketplacePlaygroundWT {
+public class MarketplaceWT {
 
   private static PortalTester tester;
 
@@ -32,12 +32,12 @@ public class MarketplacePlaygroundWT {
     tester = new PortalTester();
     String userid = PlaygroundSuiteTest.supplierOrgAdminId;
     String userpassword = PlaygroundSuiteTest.supplierOrgAdminPwd;
-    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+    tester.loginMarketplace(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
   @AfterClass
   public static void cleanUp() {
-    tester.logoutMarketplacePlayground();
+    tester.logoutMarketplace();
     tester.close();
   }
 
@@ -84,13 +84,13 @@ public class MarketplacePlaygroundWT {
   }
 
   @Test
-  public void test05_gotoMarketplacePlayground() throws Exception {
+  public void test05_gotoMarketplace() throws Exception {
     tester.visitPortal(PortalPathSegments.GOTO_MARKETPLACE);
     tester.waitForElement(
         By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE),
         WebTester.IMPLICIT_WAIT);
     tester.selectDropdown(
-        MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE, "pg_marketplace");
+        MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE, PlaygroundSuiteTest.marketPlaceId);
     tester.waitForElementVisible(
         By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
     tester.clickElement(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);

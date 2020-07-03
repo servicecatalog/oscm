@@ -728,9 +728,6 @@ public class UserBean extends BaseBean implements Serializable {
     HttpServletRequest request = invalidateSession();
 
     if (isMarketplaceSet(request)) {
-      if (isPlaygroundPage(request)) {
-        return OUTCOME_PLAYGROUND_LOGOUT;
-      }
       return OUTCOME_MARKETPLACE_LOGOUT;
     }
 

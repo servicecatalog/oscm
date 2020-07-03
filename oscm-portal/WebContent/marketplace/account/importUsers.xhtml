@@ -1,164 +1,164 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="../templates/main.xhtml">
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:a4j="http://richfaces.org/a4j" template="../templates/mainBootstrap.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.account.importUsers" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <c:set var="focusElement" value="userId" />
+    <c:set var="pageId" value="marketplace.account.importUsers"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+    <c:set var="focusElement" value="userId"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
-    <mp:breadcrumbs>
-      <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/account/index.jsf" />
-      <mp:crumb labelPageId="marketplace.account.users" />
-    </mp:breadcrumbs>
+    <mp:bootstrapBreadcrumbs menu="#{true}">
+      <mp:crumb label="#{msg['marketplace.account.title']}" link="/marketplace/account/index.jsf"/>
+      <mp:crumb labelPageId="marketplace.account.users"/>
+    </mp:bootstrapBreadcrumbs>
   </ui:define>
 
   <ui:define name="contentstitle">
     <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
-      <br />
+      <br/>
     </a4j:outputPanel>
   </ui:define>
 
   <ui:define name="aside">
-    <mp:navigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.users.title" />
+    <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.users.title"/>
   </ui:define>
 
   <ui:define name="contents">
-
-
-    <a4j:outputPanel layout="block" styleClass="grid4span clearfix">
-      <a4j:outputPanel layout="block" styleClass="box">
+    <a4j:outputPanel id="all" styleClass="row" layout="block">
+      <div class="my-2 p-3 bg-light col">
 
         <h:form id="searchLdapForm">
-          <mp:outputStep value="#{msg['user.import.step1']}" />
-          <h:panelGrid columns="3" border="0" cellspacing="0" cellpadding="0" styleClass="smallPanel"
-            columnClasses="smallPanelCol1,smallPanelCol2,smallPanelCol3">
-            <adm:labelAndInputText id="userId" label="#{msg['user.userId']}" required="true"
-              value="#{userImportBean.userIdPattern}" maxlength="#{appBean.userIdLen}" converterId="trimConverter"/>
-          </h:panelGrid>
-          <adm:buttonPanelSub>
-            <mp:button id="searchButton" value="#{msg['button.search']}" bean="#{userImportBean}" action="searchUsers"
-              buttonType="search" />
-          </adm:buttonPanelSub>
+          <mp:outputStep value="#{msg['user.import.step1']}"/>
+
+          <adm:formInput id="userId" label="#{msg['user.userId']}" required="true"
+                         value="#{userImportBean.userIdPattern}" maxlength="#{appBean.userIdLen}"
+                         converterId="trimConverter" inputStyle="form-control"/>
+
+          <a4j:outputPanel layout="block" styleClass="row justify-content-end bottomButtonPanel">
+            <mp:buttonBootstrap id="searchButton" value="#{msg['button.search']}" bean="#{userImportBean}"
+                                action="searchUsers" buttonType="search" styleClass="btn btn-secondary mr-3"/>
+          </a4j:outputPanel>
         </h:form>
 
         <h:outputText id="#{tableId}EmptyText" styleClass="block #{styleClass} preWrapping"
-          value="#{msg['user.import.noUsersFound']}"
-          rendered="#{not empty userImportBean.userIdPattern and empty userImportBean.users}" />
+                      value="#{msg['user.import.noUsersFound']}"
+                      rendered="#{not empty userImportBean.userIdPattern and empty userImportBean.users}"/>
 
         <ui:fragment rendered="#{not empty userImportBean.users}">
           <h:form id="importLdapForm">
-            <mp:outputStep value="#{msg['user.import.step2']}" />
+            <mp:outputStep value="#{msg['user.import.step2']}"/>
             <a4j:outputPanel id="rolePanel">
               <rich:dataTable rowClasses="rowOdd" value="#{userImportBean.userRolesForNewUser}" var="userRole"
-                id="userRolesTable" rendered="#{not empty userImportBean.users}" styleClass="checkBoxList">
+                              id="userRolesTable" rendered="#{not empty userImportBean.users}"
+                              styleClass="checkBoxList">
                 <rich:column width="100%">
                   <h:selectBooleanCheckbox id="rolesCheckbox" value="#{userRole.selected}" disabled="false"
-                    onComplete="setDirty(true)">
+                                           onComplete="setDirty(true)">
                   </h:selectBooleanCheckbox>
-                  <h:outputText styleClass="" value="#{userRole.displayName}" />
+                  <h:outputText styleClass="" value="#{userRole.displayName}"/>
                 </rich:column>
               </rich:dataTable>
             </a4j:outputPanel>
 
-            <mp:outputStep value="#{msg['user.import.step3']}" />
+            <mp:outputStep value="#{msg['user.import.step3']}"/>
             <a4j:outputPanel id="tablePanel" layout="block" styleClass="tablePanel table_padding minimumSizeTable">
               <rich:dataTable height="320px" headerClass="rowTitle" rowClasses="rowOdd,rowEven" width="100%"
-                columnClasses="wrapColumns" id="userListTable" value="#{userImportBean.users}" var="user"
-                selectionMode="none" enableContextMenu="false" noDataLabel=" ">
+                              columnClasses="wrapColumns" id="userListTable" value="#{userImportBean.users}" var="user"
+                              selectionMode="none" enableContextMenu="false" noDataLabel=" ">
                 <rich:column width="4%" styleClass="tableColumnCheckBox">
                   <h:selectBooleanCheckbox id="import" value="#{user.selected}" rendered="#{user.checkBoxRendered}">
                     <a4j:ajax event="click" render="buttonPanel,emailPanel,import"
-                      oncomplete="setDirty(true);#{rich:element('import')}.focus();">
+                              oncomplete="setDirty(true);#{rich:element('import')}.focus();">
                     </a4j:ajax>
                   </h:selectBooleanCheckbox>
-                  <h:graphicImage url="../img/transparentPixel.png" styleClass="tick" rendered="#{user.imageRendered}" />
+                  <h:graphicImage url="../img/transparentPixel.png" styleClass="tick" rendered="#{user.imageRendered}"/>
                 </rich:column>
                 <rich:column width="#{userImportBean.columnWidth}">
                   <f:facet name="header">
-                    <h:outputText value="#{msg['user.userIdRealm']}" />
+                    <h:outputText value="#{msg['user.userIdRealm']}"/>
                   </f:facet>
-                  <h:outputText sid="userId" value="#{user.realmUserId}" />
+                  <h:outputText sid="userId" value="#{user.realmUserId}"/>
                 </rich:column>
                 <rich:column width="#{userImportBean.columnWidth}">
                   <f:facet name="header">
-                    <h:outputText value="#{msg['user.userId']}" />
+                    <h:outputText value="#{msg['user.userId']}"/>
                   </f:facet>
-                  <h:outputText sid="userId" value="#{user.userId}" />
+                  <h:outputText sid="userId" value="#{user.userId}"/>
                 </rich:column>
                 <rich:column width="#{userImportBean.columnWidth}">
                   <f:facet name="header">
-                    <h:outputText value="#{msg['user.email']}" />
+                    <h:outputText value="#{msg['user.email']}"/>
                   </f:facet>
                   <a4j:outputPanel id="emailPanel" layout="block">
-                    <h:outputText id="emailOut" value="#{user.email}" rendered="#{user.emailLabelRendered}" />
+                    <h:outputText id="emailOut" value="#{user.email}" rendered="#{user.emailLabelRendered}"/>
                     <h:inputText id="emailIn" label="#{msg['user.email']}" onchange="setDirty(true);"
-                      value="#{user.email}" required="#{user.selected}" maxlength="#{appBean.nameLen}"
-                      rendered="#{user.emailInputRendered}">
-                      <f:converter converterId="trimConverter" />
-                      <f:validator validatorId="email" />
+                                 value="#{user.email}" required="#{user.selected}" maxlength="#{appBean.nameLen}"
+                                 rendered="#{user.emailInputRendered}">
+                      <f:converter converterId="trimConverter"/>
+                      <f:validator validatorId="email"/>
                     </h:inputText>
-                    <adm:message for="emailIn" rendered="#{user.emailInputRendered}" />
+                    <adm:message for="emailIn" rendered="#{user.emailInputRendered}"/>
                   </a4j:outputPanel>
                 </rich:column>
                 <rich:column id="colFirstName" width="#{userImportBean.columnWidth}"
-                  rendered="#{not sessionBean.nameSequenceReversed and userBean.userFromSession.firstNameDisabled}">
+                             rendered="#{not sessionBean.nameSequenceReversed and userBean.userFromSession.firstNameDisabled}">
                   <f:facet name="header">
-                    <h:outputText value="#{msg['user.firstName']}" />
+                    <h:outputText value="#{msg['user.firstName']}"/>
                   </f:facet>
-                  <h:outputText id="firstName" value="#{user.firstName}" />
+                  <h:outputText id="firstName" value="#{user.firstName}"/>
                 </rich:column>
                 <rich:column id="colLastName" width="#{userImportBean.columnWidth}"
-                  rendered="#{userBean.userFromSession.lastNameDisabled}">
+                             rendered="#{userBean.userFromSession.lastNameDisabled}">
                   <f:facet name="header">
-                    <h:outputText value="#{msg['user.lastName']}" />
+                    <h:outputText value="#{msg['user.lastName']}"/>
                   </f:facet>
-                  <h:outputText id="lastName" value="#{user.lastName}" />
+                  <h:outputText id="lastName" value="#{user.lastName}"/>
                 </rich:column>
                 <rich:column id="colFirstName1" width="#{userImportBean.columnWidth}"
-                  rendered="#{sessionBean.nameSequenceReversed and userBean.userFromSession.firstNameDisabled}">
+                             rendered="#{sessionBean.nameSequenceReversed and userBean.userFromSession.firstNameDisabled}">
                   <f:facet name="header">
-                    <h:outputText value="#{msg['user.firstName']}" />
+                    <h:outputText value="#{msg['user.firstName']}"/>
                   </f:facet>
-                  <h:outputText id="firstName1" value="#{user.firstName}" />
-                </rich:column>
-                <rich:column width="#{userImportBean.columnWidth}" rendered="#{userBean.userFromSession.localeDisabled}">
-                  <f:facet name="header">
-                    <h:outputText value="#{msg['user.locale']}" />
-                  </f:facet>
-                  <h:outputText id="locale" value="#{user.locale}" />
+                  <h:outputText id="firstName1" value="#{user.firstName}"/>
                 </rich:column>
                 <rich:column width="#{userImportBean.columnWidth}"
-                  rendered="#{userBean.userFromSession.additionalNameDisabled}">
+                             rendered="#{userBean.userFromSession.localeDisabled}">
                   <f:facet name="header">
-                    <h:outputText value="#{msg['user.additionalName']}" />
+                    <h:outputText value="#{msg['user.locale']}"/>
                   </f:facet>
-                  <h:outputText id="additionalName" value="#{user.additionalName}" />
+                  <h:outputText id="locale" value="#{user.locale}"/>
+                </rich:column>
+                <rich:column width="#{userImportBean.columnWidth}"
+                             rendered="#{userBean.userFromSession.additionalNameDisabled}">
+                  <f:facet name="header">
+                    <h:outputText value="#{msg['user.additionalName']}"/>
+                  </f:facet>
+                  <h:outputText id="additionalName" value="#{user.additionalName}"/>
                 </rich:column>
               </rich:dataTable>
             </a4j:outputPanel>
 
-            <br />
-            <mp:pixelline />
+            <hr class="m-2"/>
 
-            <a4j:outputPanel id="buttonPanel" layout="block" styleClass="clearfix bottomButtonPanel">
-              <mp:button id="importButton" value="#{msg['button.import']}" bean="#{userImportBean}" action="importUsers"
-                disabled="#{userImportBean.importDisabled}" style="margin-right: 10px;" />
-              <mp:button id="cancelButton" onclick="setDirty(false);location.href='users.jsf';return false;"
-                value="#{msg['button.cancel']}" />
+            <a4j:outputPanel id="buttonPanel" layout="block" styleClass="row row-justify-space bottomButtonPanel">
+              <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);location.href='users.jsf';return false;"
+                                  value="#{msg['button.cancel']}" styleClass="btn btn-outline-secondary ml-3"/>
+              <mp:buttonBootstrap id="importButton" value="#{msg['button.import']}" bean="#{userImportBean}"
+                                  disabled="#{userImportBean.importDisabled}" styleClass="btn btn-secondary mr-3"
+                                  action="importUsers"/>
             </a4j:outputPanel>
           </h:form>
 
         </ui:fragment>
 
-      </a4j:outputPanel>
+      </div>
     </a4j:outputPanel>
   </ui:define>
 </ui:composition>

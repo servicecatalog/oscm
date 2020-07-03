@@ -65,40 +65,18 @@ public class InternalAuthenticationContext implements AuthenticationContext {
         driver.findElement(By.name(MarketplaceHtmlElements.MARKETPLACE_INPUT_PASSWORD));
     pwdInput.sendKeys(password);
 
+    Thread.sleep(1000);
+
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_BUTTON_LOGIN)).click();
     driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
 
     try {
       driver.findElement(By.id(PortalHtmlElements.PORTAL_DIV_LOGIN_FAILED));
-      String info = String.format("Login to OSCM Portal failed with userId:%s", user);
+      String info = String.format("Login to OSCM Marketplace failed with userId:%s", user);
       logger.error(info);
       throw new LoginException(info);
     } catch (NoSuchElementException exc) {
-      logger.info(String.format("Login to OSCM Portal successfully with userId: %s", user));
-    }
-  }
-
-  @Override
-  public void loginMarketplacePlayground(String user, String password)
-      throws LoginException, InterruptedException {
-    WebElement userInput =
-        driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_INPUT_USERID));
-    userInput.sendKeys(user);
-
-    WebElement pwdInput =
-        driver.findElement(By.name(MarketplaceHtmlElements.MARKETPLACE_INPUT_PASSWORD));
-    pwdInput.sendKeys(password);
-
-    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_PLAYGROUND_BUTTON_LOGIN)).click();
-    driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
-
-    try {
-      driver.findElement(By.id(PortalHtmlElements.PORTAL_DIV_LOGIN_FAILED));
-      String info = String.format("Login to OSCM Portal failed with userId:%s", user);
-      logger.error(info);
-      throw new LoginException(info);
-    } catch (NoSuchElementException exc) {
-      logger.info(String.format("Login to OSCM Portal successfully with userId: %s", user));
+      logger.info(String.format("Login to OSCM Marketplace successfully with userId: %s", user));
     }
   }
 }

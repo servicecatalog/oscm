@@ -23,7 +23,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MarketplacePlaygroundServiceDetailsWT {
+public class MarketplaceServiceDetailsWT {
 
   private static PortalTester tester;
 
@@ -34,12 +34,12 @@ public class MarketplacePlaygroundServiceDetailsWT {
     tester = new PortalTester();
     String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
     String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
-    tester.loginMarketplacePlayground(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
+    tester.loginMarketplace(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
   }
 
   @AfterClass
   public static void cleanUp() {
-    tester.logoutMarketplacePlayground();
+    tester.logoutMarketplace();
     tester.close();
   }
 

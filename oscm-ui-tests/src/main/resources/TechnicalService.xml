@@ -1,40 +1,99 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright FUJITSU LIMITED 2020 -->
 
-<tns:TechnicalServices xmlns:tns="oscm.serviceprovisioning/1.9/TechnicalService.xsd"
-                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                       xsi:schemaLocation="oscm.serviceprovisioning/1.9/TechnicalService.xsd ../../../../oscm-serviceprovisioning/javares/TechnicalServices.xsd">
-
-  <tns:TechnicalService id="AppSampleServiceTest" build="2020.05.26" provisioningType="ASYNCHRONOUS"
+<tns:TechnicalServices
+    xsi:schemaLocation="oscm.serviceprovisioning/1.9/TechnicalService.xsd ../../../../oscm-serviceprovisioning/javares/TechnicalServices.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tns="oscm.serviceprovisioning/1.9/TechnicalService.xsd">
+  <tns:TechnicalService baseUrl="" loginPath="Dynamically provided." accessType="USER" provisioningVersion="1.0"
                         provisioningUrl="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousProvisioningProxy?wsdl"
-                        provisioningVersion="1.0" accessType="DIRECT" loginPath="Dynamically provided." baseUrl="">
-
+                        provisioningType="ASYNCHRONOUS" build="2020.05.26" id="AppSampleServiceTest">
     <AccessInfo locale="en">Description of how to access the application.</AccessInfo>
-
-    <LocalizedDescription locale="en">Sample APP implementation.</LocalizedDescription>
-    <LocalizedDescription locale="de">Sample APP Implementierung.</LocalizedDescription>
-    <LocalizedLicense locale="en"/>
-
-    <ParameterDefinition id="APP_CONTROLLER_ID" configurable="false" mandatory="true" valueType="STRING"
-                         default="ess.sample">
+    <LocalizedDescription locale="en">Sample APP implementation. Lorem ipsum dolor sit amet,consectetur adipiscing elit.
+      Fusce elementum leo ut justo lacinia, a viverra sem luctus. Sed efficitur blandit porttitor.Sed finibus, turpis
+      sed consequat ullamcorper, sem sem ultrices orci, a bibendum ipsum nisi et ipsum. Maecenas velit mi,maximus et
+      nibh at, tempor pharetra magna. Curabitur magna justo, sollicitudin eget est sed, pharetra convallis orci.Proin et
+      diam aliquet, scelerisque nisi at, blandit urna. Vivamus dignissim, orci eu scelerisque condimentum, ex
+      loremvestibulum justo, placerat volutpat enim nunc eu felis. Vestibulum euismod tempus egestas. Curabitur maximus
+      cursus malesuada.Nunc non leo vitae ipsum hendrerit luctus. Vivamus posuere, ipsum sit amet vehicula maximus, quam
+      tortor lobortis ipsum, in tristique est quam eu dolor. Cras fringilla rhoncus leo nec aliquam. Praesent commodo
+      ipsum id enim luctus, et tincidunt tortor condimentum. Suspendisse potenti. Phasellus urna risus, condimentum at
+      scelerisque ut, sollicitudin a turpis.
+    </LocalizedDescription>
+    <LocalizedDescription locale="de">Sample APP Implementierung. Vivamus posuere,ipsum sit amet vehicula maximus, quam
+      tortor lobortis ipsum, in tristique est quam eu dolor. Cras fringilla rhoncus leo nec aliquam.Praesent commodo
+      ipsum id enim luctus, et tincidunt tortor condimentum. Suspendisse potenti. Phasellus urna risus, condimentum
+      atscelerisque ut, sollicitudin a turpis.
+    </LocalizedDescription>
+    <LocalizedLicense locale="en">
+      &lt;b&gt;License Agreement&lt;b&gt;&lt;br/&gt;&lt;br/&gt;
+      The licenseterms of (hereinafter called "licensor") are applied for the concession of the rights of use for the
+      entire orpartly use of the object code of the software SmartSVN (hereinafter called "SOFTWARE") to contractors,
+      juristicpersons under public law or official fund assets in terms of §310 in conjunction with §14 BGB [Civil
+      Code](hereinafter called "licensee"). Herewith the inclusion of the licensee's own terms and conditions
+      iscontradicted, unless their validity has explicitly been agreed to.&lt;br/&gt;&lt;br/&gt;
+      2 Scope of the Rights ofUse&lt;br/&gt;&lt;br/&gt;
+      2.1 The following terms are valid for the assignment and use of the SOFTWARE for anunlimited period of time
+      including any documentation and the license file (a file that is custom-made for eachindividual granting of a
+      license, the file being necessary for the operation of theSOFTWARE).&lt;br/&gt;&lt;br/&gt;
+      2.2 They are not valid for additional services such as installation, integration,parameterization and
+      customization of the SOFTWARE to the licensee's requirements.
+    </LocalizedLicense>
+    <ParameterDefinition id="APP_CONTROLLER_ID" default="ess.sample" valueType="STRING" mandatory="true"
+                         configurable="false">
       <LocalizedDescription locale="en">The ID of the sample controller implementation.</LocalizedDescription>
     </ParameterDefinition>
-    <ParameterDefinition id="PARAM_MESSAGETEXT" configurable="true" mandatory="true" valueType="STRING"
-                         default="Some message.">
+    <ParameterDefinition id="PARAM_MESSAGETEXT" default="Some message." valueType="STRING" mandatory="true"
+                         configurable="true">
       <LocalizedDescription locale="en">The message text for emails.</LocalizedDescription>
     </ParameterDefinition>
-    <ParameterDefinition id="PARAM_EMAIL" configurable="true" mandatory="true" valueType="STRING"
-                         default="user@myorg.com">
+    <ParameterDefinition id="PARAM_EMAIL" default="user@myorg.com" valueType="STRING" mandatory="true"
+                         configurable="true">
       <LocalizedDescription locale="en">The receiver of emails.</LocalizedDescription>
     </ParameterDefinition>
-    <ParameterDefinition id="PARAM_USER" configurable="true" mandatory="true" valueType="STRING"
-                         default="defaultuser">
+    <ParameterDefinition id="PARAM_USER" default="defaultuser" valueType="STRING" mandatory="true" configurable="true">
       <LocalizedDescription locale="en">IAAS user</LocalizedDescription>
     </ParameterDefinition>
-    <ParameterDefinition id="PARAM_PWD" configurable="true" mandatory="true" valueType="PWD"
-                         default="">
+    <ParameterDefinition id="PARAM_PWD" default="" valueType="PWD" mandatory="true" configurable="true">
       <LocalizedDescription locale="en">IAAS password</LocalizedDescription>
     </ParameterDefinition>
+
+    <Event id="FILE_DOWNLOAD">
+      <LocalizedDescription locale="en">File Download</LocalizedDescription>
+    </Event>
+    <Event id="FILE_UPLOAD">
+      <LocalizedDescription locale="en">File Upload</LocalizedDescription>
+    </Event>
+    <Event id="FOLDER_NEW">
+      <LocalizedDescription locale="en">New Folder</LocalizedDescription>
+    </Event>
+
+    <Role id="ADMIN">
+      <LocalizedName locale="en">Administrator</LocalizedName>
+      <LocalizedName locale="de">Administrator</LocalizedName>
+      <LocalizedDescription locale="en">Administrators have full access to all data entities and canexecute
+        administartive tasks such as role assignments and user creation.
+      </LocalizedDescription>
+      <LocalizedDescription locale="de">Administratoren haben vollen Datenzugriff und könnenadministartive Aufgaben
+        erledigen wie Rollen zuweisen oder Benutzer anlegen.
+      </LocalizedDescription>
+    </Role>
+    <Role id="USER">
+      <LocalizedName locale="en">User</LocalizedName>
+      <LocalizedName locale="de">Benutzer</LocalizedName>
+      <LocalizedDescription locale="en">Users have full access to all data entities but cannot executeadminstartive
+        tasks.
+      </LocalizedDescription>
+      <LocalizedDescription locale="de">Benutzer haben vollen Datenzugriff aber können keineadministrativen Aufgaben
+        erledigen.
+      </LocalizedDescription>
+    </Role>
+    <Role id="GUEST">
+      <LocalizedName locale="en">Guest</LocalizedName>
+      <LocalizedName locale="de">Gast</LocalizedName>
+      <LocalizedDescription locale="en">Gustes only have limited read access.</LocalizedDescription>
+      <LocalizedDescription locale="de">Gäste haben nur eingeschränkten Lesezugriff.</LocalizedDescription>
+    </Role>
+
     <Operation id="HELP"
                actionURL="http://oscm-app:8880/oscm-app/webservices/oscm-app/oscm-app/org.oscm.app.v2_0.service.AsynchronousOperationProxy?wsdl">
       <LocalizedName locale="en">Help</LocalizedName>
@@ -66,5 +125,4 @@
       </OperationParameter>
     </Operation>
   </tns:TechnicalService>
-
 </tns:TechnicalServices>
