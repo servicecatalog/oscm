@@ -42,7 +42,7 @@
    <div class="col-5 pl-0">
     <adm:outputLabel value="#{msg['subscription.users']}" styleClass="mx-3"/>
    </div>
-   <div class="col-7">
+   <div class="col-7 pl-0">
     <h:outputText id="#{fieldId}Users" value="#{subscription.numberOfAssignedUsers}"/>
    </div>
   </div>
@@ -51,7 +51,7 @@
    <div class="col-5 pl-0">
     <adm:outputLabel value="#{msg['subscription.status']}" styleClass="mx-3"/>
    </div>
-   <div class="col-7 pl-o">
+   <div class="col-7 pl-0">
     <ui:include src="../../../../marketplace/subscriptions/status.xhtml">
      <ui:param name="sub" value="#{subscription}"/>
     </ui:include>

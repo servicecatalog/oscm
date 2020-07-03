@@ -3069,7 +3069,8 @@ div.pagenate div.pagingBar .previous {
   text-align: left;
   color: #333;
   border-bottom-width: 0px;
-  position: relative; }
+  position: relative;
+  width: auto; }
 
 .rf-dt-flt .rf-dt-flt-c .rf-dt-flt-cnt {
   text-align: left; }

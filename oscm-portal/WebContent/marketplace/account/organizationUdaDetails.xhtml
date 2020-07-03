@@ -1,12 +1,10 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!--TODO EPIC#990-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:rich="http://richfaces.org/rich"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:t="http://myfaces.apache.org/tomahawk"
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
   <c:if test="#{empty readOnly}">
     <c:set var="readOnly" value="false"/>
   </c:if>
@@ -16,21 +14,17 @@
   <adm:spacer height="10"/>
   <!-- add "Your organization details": Customer UDAs  -->
   <ui:repeat id="organizationUdaRepeat" value="#{inputList}" var="organizationUda" varStatus="v">
-    <adm:panelGrid columns="3" styleClasses="specialPanelGridforUda">
-      <adm:labelAndInputText id="organizationUda#{v.index}" label="#{organizationUda.udaNameToShow}"
-                             rendered="#{not organizationUda.inputEncrypted}"
-                             value="#{organizationUda.udaValue}" maxlength="#{appBean.descriptionLen}"
-                             converterId="trimToNotNullConverter"
-                             required="#{organizationUda.inputMandatory}"
-                             disabled="#{not (organizationUda.labelRendered) or (readOnly)}"/>
+    <adm:formInput id="organizationUda#{v.index}" label="#{organizationUda.udaNameToShow}"
+                   rendered="#{not organizationUda.inputEncrypted}" inputStyle="form-control"
+                   value="#{organizationUda.udaValue}" maxlength="#{appBean.descriptionLen}"
+                   converterId="trimToNotNullConverter" required="#{organizationUda.inputMandatory}"
+                   disabled="#{not (organizationUda.labelRendered) or (readOnly)}"/>
 
-      <adm:labelAndInputSecret id="secretOrganizationUda#{v.index}" label="#{organizationUda.udaNameToShow}"
-                               required="#{organizationUda.inputMandatory}" value="#{organizationUda.udaValue}"
-                               converterId="trimToNotNullConverter"
-                               maxlength="#{appBean.descriptionLen}"
-                               rendered="#{organizationUda.inputEncrypted}"
-                               disabled="#{not (organizationUda.labelRendered) or (readOnly)}"/>
-    </adm:panelGrid>
+    <adm:formSecret id="secretOrganizationUda#{v.index}" label="#{organizationUda.udaNameToShow}"
+                    required="#{organizationUda.inputMandatory}" value="#{organizationUda.udaValue}"
+                    converterId="trimToNotNullConverter" inputStyle="form-control"
+                    maxlength="#{appBean.descriptionLen}" rendered="#{organizationUda.inputEncrypted}"
+                    disabled="#{not (organizationUda.labelRendered) or (readOnly)}"/>
   </ui:repeat>
   <adm:spacer height="20"/>
 </ui:composition>

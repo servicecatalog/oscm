@@ -1,70 +1,65 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!--TODO EPIC#990-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:a4j="http://richfaces.org/a4j"
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:rich="http://richfaces.org/rich"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:rich="http://richfaces.org/rich"
                 template="../templates/modalDialogBootstrap.xhtml">
 
-  
-    
   <ui:define name="dialogScripts">
-    <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();" />
+    <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();"/>
   </ui:define>
 
   <ui:define name="dialogContent">
-    
-    <c:set var="subscriptionKey" value="#{subscriptionsCtrl.model.selectedSubscription.subscriptionKey}" />
-    <c:set var="subscriptionId" value="#{subscriptionsCtrl.model.selectedSubscription.subscriptionId}" />
-    <c:set var="sub" value="#{subscriptionsCtrl.model.selectedSubscription}" />
-    
-    <a4j:outputPanel id="#{dialogId}Grid" layout="block" styleClass="grid2span clearfix">
+
+    <c:set var="subscriptionKey" value="#{subscriptionsCtrl.model.selectedSubscription.subscriptionKey}"/>
+    <c:set var="subscriptionId" value="#{subscriptionsCtrl.model.selectedSubscription.subscriptionId}"/>
+    <c:set var="sub" value="#{subscriptionsCtrl.model.selectedSubscription}"/>
+
+    <a4j:outputPanel id="#{dialogId}Grid" layout="block" styleClass="container">
       <ui:fragment>
         <h:form id="#{dialogId}Form">
-            <a4j:outputPanel id="#{dialogId}Pane">
-            
-                <!-- subscription details -->
-              <a4j:outputPanel layout="block" styleClass="leftCenterBorder clearfix">
-                <mp:subscriptionBlock fieldId="subscriptionBlock" subscription="#{subscriptionsCtrl.model.selectedSubscription}" />
-              </a4j:outputPanel>
+          <a4j:outputPanel id="#{dialogId}Pane">
 
-              <!-- subscription status / administer -->
-              <a4j:outputPanel layout="block" styleClass="right clearfix">
-                
-                <ui:include src="../subscriptions/status.xhtml">
-                    <ui:param name="sub" value="#{sub}" />
-                </ui:include>
-
-                <a4j:outputPanel layout="block" style="margin-top:75px;">
-
-                  <mp:button id="administrateSubscription" value="#{msg['button.administrate']}"
-                    onclick="setSelectedSubscription();return false;" rendered="#{not sub.statusWaitingForApproval}">
-                  </mp:button>
-
-                  <a4j:jsFunction name="setSelectedSubscription" action="#{subscriptionsCtrl.showSubscriptionDetails}"
-                    limitRender="true" render="#{dialogId}modalErrorMasterPanel"
-                    oncomplete="if(!#{facesContext.maximumSeverity.ordinal > 0})
-	                {
-	                  #{rich:component(dialogId)}.hide();
-	                }">
-                    <a4j:param name="selectSubscriptionId" value="#{subscriptionId}" 
-                               assignTo="#{sessionBean.selectedSubscriptionId}" />
-                    <a4j:param name="selectSubscriptionKey" value="#{subscriptionKey}"
-                               assignTo="#{sessionBean.selectedSubscriptionKey}" />
-                  </a4j:jsFunction>
-
-                  <mp:button id="hiddenAdministrateSubscription" style="display:none;"
-                    action="showSubscriptionDetails" bean="#{subscriptionsCtrl}" />
-
-                </a4j:outputPanel>
-              </a4j:outputPanel>
-
+            <!-- subscription details -->
+            <a4j:outputPanel layout="block" styleClass="leftCenterBorder clearfix">
+              <mp:subscriptionBlockBootstrap fieldId="subscriptionBlock"
+                                             subscription="#{subscriptionsCtrl.model.selectedSubscription}"/>
             </a4j:outputPanel>
+
+            <!-- subscription status / administer -->
+            <a4j:outputPanel layout="block" styleClass="container p-0 my-2">
+
+              <ui:include src="../subscriptions/status.xhtml">
+                <ui:param name="sub" value="#{sub}"/>
+              </ui:include>
+
+              <a4j:outputPanel layout="block" styleClass="my-3">
+
+                <a4j:jsFunction name="setSelectedSubscription" action="#{subscriptionsCtrl.showSubscriptionDetails}"
+                                limitRender="true" render="#{dialogId}modalErrorMasterPanel"
+                                oncomplete="if(!#{facesContext.maximumSeverity.ordinal > 0})
+	                              {#{rich:component(dialogId)}.hide();}">
+                  <a4j:param name="selectSubscriptionId" value="#{subscriptionId}"
+                             assignTo="#{sessionBean.selectedSubscriptionId}"/>
+                  <a4j:param name="selectSubscriptionKey" value="#{subscriptionKey}"
+                             assignTo="#{sessionBean.selectedSubscriptionKey}"/>
+                </a4j:jsFunction>
+
+                <a4j:outputPanel styleClass="row justify-content-end">
+                  <mp:buttonBootstrap id="administrateSubscription" value="#{msg['button.administrate']}"
+                                      onclick="setSelectedSubscription();return false;" styleClass="btn btn-secondary"
+                                      rendered="#{not sub.statusWaitingForApproval}">
+                  </mp:buttonBootstrap>
+                </a4j:outputPanel>
+
+                <mp:buttonBootstrap id="hiddenAdministrateSubscription" styleClass="d-none"
+                                    action="showSubscriptionDetails" bean="#{subscriptionsCtrl}"/>
+
+              </a4j:outputPanel>
+            </a4j:outputPanel>
+
+          </a4j:outputPanel>
         </h:form>
       </ui:fragment>
 
