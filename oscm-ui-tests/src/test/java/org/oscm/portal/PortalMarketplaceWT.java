@@ -53,7 +53,7 @@ public class PortalMarketplaceWT {
 
     tester.visitPortal(PortalPathSegments.CREATE_MARKETPLACE);
     tester.selectDropdown(
-            PortalHtmlElements.CREATE_MARKETPLACE_INPUT_ORG_ID, PlaygroundSuiteTest.supplierOrgId);
+        PortalHtmlElements.CREATE_MARKETPLACE_INPUT_ORG_ID, PlaygroundSuiteTest.supplierOrgId);
     Thread.sleep(1000);
 
     tester.writeValue(PortalHtmlElements.CREATE_MARKETPLACE_INPUT_NAME, MARKETPLACE);

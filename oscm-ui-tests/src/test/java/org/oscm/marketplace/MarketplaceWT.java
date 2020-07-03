@@ -9,6 +9,9 @@
  */
 package org.oscm.marketplace;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -16,9 +19,6 @@ import org.openqa.selenium.By;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.*;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplaceWT {
@@ -90,7 +90,8 @@ public class MarketplaceWT {
         By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE),
         WebTester.IMPLICIT_WAIT);
     tester.selectDropdown(
-        MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE, PlaygroundSuiteTest.marketPlaceId);
+        MarketplaceHtmlElements.GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE,
+        PlaygroundSuiteTest.marketPlaceId);
     tester.waitForElementVisible(
         By.id(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO), WebTester.IMPLICIT_WAIT);
     tester.clickElement(MarketplaceHtmlElements.GOTO_MARKETPLACE_BUTTONLINK_GOTO);
