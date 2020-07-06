@@ -9,6 +9,20 @@
  */
 package org.oscm.ui.filter;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.Optional;
+
+import javax.inject.Inject;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.identity.IdentityConfiguration;
 import org.oscm.identity.WebIdentityClient;
@@ -22,15 +36,6 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.beans.BaseBean;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.JSFUtils;
-
-import javax.inject.Inject;
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.Optional;
 
 public class OidcFilter extends BaseBesFilter implements Filter {
 
@@ -68,7 +73,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     boolean isIdProvider = authSettings.isServiceProvider();
     boolean isUrlExcluded = httpRequest.getServletPath().matches(excludeUrlPattern);
     boolean isUrlPublicMpl = httpRequest.getServletPath().matches(publicMplUrlPattern);
-    
+
     if (isIdProvider && !isUrlExcluded) {
 
       Optional<String> requestedIdToken = Optional.ofNullable(httpRequest.getParameter("id_token"));
@@ -193,12 +198,10 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     }
 
     String buildUrl() throws URISyntaxException, MarketplaceRemovedException {
-      String hostname = new URI(getRequestedURL()).getHost();
       StringBuffer bf = new StringBuffer();
 
-      // TODO adapt for HTTPS protocol and port
-      bf.append(String.format("https://%s:9091/oscm-identity/login?", hostname));
-      bf.append("state=");
+      bf.append(String.format(getOscmIdentityServiceUrl()));
+      bf.append("/login?state=");
       bf.append(getRequestedURL());
 
       String tenantId = res.getTenantID(rdo, request);

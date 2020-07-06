@@ -21,10 +21,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.net.URISyntaxException;
+
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -103,10 +105,13 @@ public class OidcLogoutFilterTest {
   @Test
   public void buildLogoutUrl() throws Exception {
     // given
-    final String uri = "https://oscmhost:8081/oscm-portal/marketplace/logout.jsf";
+    StringBuffer uri = new StringBuffer();
+    uri.append("https://oscmhost:8081/oscm-portal/marketplace/logout.jsf");
+    doReturn(uri).when(requestMock).getRequestURL();
+    filter.setOscmIdentityServiceUrl("https://oscmhost:9091/oscm-identity");
 
     // when
-    String url = filter.buildLogoutUrl(uri, "/oscm-portal");
+    String url = filter.buildLogoutUrl(requestMock, "/oscm-portal");
 
     // then
     assertEquals(
@@ -128,7 +133,7 @@ public class OidcLogoutFilterTest {
 
   protected String givenLogoutUrl() throws URISyntaxException {
     String logoutUrl = "https://oscmserver.intern.org:9091/oscm-identity/logout?state=redirectUrl";
-    doReturn(logoutUrl).when(filter).buildLogoutUrl(anyString(), anyString());
+    doReturn(logoutUrl).when(filter).buildLogoutUrl(any(), anyString());
     return logoutUrl;
   }
 

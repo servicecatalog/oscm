@@ -12,6 +12,7 @@ package org.oscm.ui.filter;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -21,6 +22,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.oscm.internal.intf.ConfigurationService;
 import org.oscm.internal.intf.MarketplaceCacheService;
 import org.oscm.internal.intf.MarketplaceService;
@@ -65,6 +67,7 @@ public abstract class BaseBesFilter implements Filter {
   protected AuthenticationSettings authSettings;
 
   private FilterConfig filterConfig;
+  private String oscmIdentityServiceUrl;
 
   private static final Log4jLogger logger = LoggerFactory.getLogger(BaseBesFilter.class);
   private MarketplaceService mkpService;
@@ -98,6 +101,13 @@ public abstract class BaseBesFilter implements Filter {
 
     ServiceAccess serviceAccess = new EJBServiceAccess();
     ConfigurationService cfgService = serviceAccess.getService(ConfigurationService.class);
+
+    oscmIdentityServiceUrl =
+        cfgService
+            .getVOConfigurationSetting(
+                ConfigurationKey.OSCM_IDENTITY_SERVICE_URL, Configuration.GLOBAL_CONTEXT)
+            .getValue();
+
     TenantService tenantService = serviceAccess.getService(TenantService.class);
     authSettings = new AuthenticationSettings(tenantService, cfgService);
     try {
@@ -474,5 +484,13 @@ public abstract class BaseBesFilter implements Filter {
                 ConfigurationKey.MP_ERROR_REDIRECT_HTTPS, Configuration.GLOBAL_CONTEXT)
             .getValue();
     return mpRedirect;
+  }
+
+  public String getOscmIdentityServiceUrl() {
+    return oscmIdentityServiceUrl;
+  }
+
+  public void setOscmIdentityServiceUrl(String oscmIdentityServiceUrl) {
+    this.oscmIdentityServiceUrl = oscmIdentityServiceUrl;
   }
 }
