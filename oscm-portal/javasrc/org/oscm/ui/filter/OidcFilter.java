@@ -12,7 +12,6 @@ package org.oscm.ui.filter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Optional;
-
 import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -22,7 +21,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.oscm.identity.IdentityConfiguration;
 import org.oscm.identity.WebIdentityClient;
