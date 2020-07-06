@@ -9,6 +9,34 @@
  */
 package org.oscm.ui.filter;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -18,22 +46,6 @@ import org.oscm.identity.WebIdentityClient;
 import org.oscm.identity.exception.IdentityClientException;
 import org.oscm.internal.types.exception.MarketplaceRemovedException;
 import org.oscm.ui.common.Constants;
-
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
 
 /** @author goebel */
 public class OidcFilterTest {
@@ -69,10 +81,11 @@ public class OidcFilterTest {
     doReturn(identityClientMock).when(filter).setUpIdentityClient(any(), any());
     doNothing().when(chainMock).doFilter(any(), any());
     doReturn(null).when(identityClientMock).validateToken(any(), any());
+    doReturn("https://oscmhost:9091/oscm-identity").when(filter).getConfigKeyValue(any());
 
     filter.excludeUrlPattern = "(.*/a4j/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";
     filter.publicMplUrlPattern = "(^/marketplace/terms/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";
-    
+
     filter.authSettings = as = mock(AuthenticationSettings.class);
     doNothing().when(as).init(anyString());
     when(as.isServiceProvider()).thenReturn(true);
@@ -151,11 +164,10 @@ public class OidcFilterTest {
     givenTokenFromRequest();
     givenTokenFromSession();
 
-    
     doThrow(new IdentityClientException("message"))
         .when(identityClientMock)
         .validateToken(any(), any());
-      
+
     doNothing().when(filter).forward(any(), any(), any());
 
     // WHEN
@@ -405,7 +417,7 @@ public class OidcFilterTest {
               @Override
               public String answer(InvocationOnMock invocation) {
                 Object[] args = invocation.getArguments();
-                  return token;
+                return token;
               }
             }))
         .when(httpSessionMock)

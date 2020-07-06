@@ -202,11 +202,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     String buildUrl() throws URISyntaxException, MarketplaceRemovedException {
       StringBuffer bf = new StringBuffer();
 
-      String isu =
-          getConfigurationService(request)
-              .getVOConfigurationSetting(
-                  ConfigurationKey.OSCM_IDENTITY_SERVICE_URL, Configuration.GLOBAL_CONTEXT)
-              .getValue();
+      String isu = getConfigKeyValue(request);
 
       bf.append(String.format(isu));
       bf.append("/login?state=");
@@ -226,6 +222,13 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     String getRequestedURL() {
       return request.getRequestURL().toString();
     }
+  }
+
+  protected String getConfigKeyValue(HttpServletRequest request) {
+    return getConfigurationService(request)
+        .getVOConfigurationSetting(
+            ConfigurationKey.OSCM_IDENTITY_SERVICE_URL, Configuration.GLOBAL_CONTEXT)
+        .getValue();
   }
 
   @Override
