@@ -18,7 +18,7 @@ Copyright 2010-2012 FUJITSU LIMITED
     3.1 Header Layout Definitions
     3.2 Corporate Logo
     3.3 Login
-    3.4 Main Search Box
+    3.4 Main Search Box.parameterConfigTableDescColumn
     3.5 Header Navigation
 
   4. Forms
@@ -901,7 +901,7 @@ form .formHighlight input, form .formHighlight textarea {
   min-width: 980px; }
 
 #stageResponsive {
-  width: 100%; }
+  /* width: 100%; */ }
 
 #marketplaceStageDefault {
   background: url(../img/transparentPixel.png) no-repeat;
@@ -3069,8 +3069,7 @@ div.pagenate div.pagingBar .previous {
   text-align: left;
   color: #333;
   border-bottom-width: 0px;
-  position: relative;
-  width: auto; }
+  position: relative; }
 
 .rf-dt-flt .rf-dt-flt-c .rf-dt-flt-cnt {
   text-align: left; }
@@ -3533,7 +3532,7 @@ div#headerrightareaBootstrap, rightarea a {
   margin: 0 !important; }
 
 .navbar-margin {
-  margin-top: 3.65rem; }
+  margin-top: 2.7rem; }
 
 .btn-toggler > .close-nav {
   display: inline; }
