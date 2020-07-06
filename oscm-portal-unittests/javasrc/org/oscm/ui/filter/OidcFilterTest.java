@@ -81,7 +81,7 @@ public class OidcFilterTest {
     doReturn(identityClientMock).when(filter).setUpIdentityClient(any(), any());
     doNothing().when(chainMock).doFilter(any(), any());
     doReturn(null).when(identityClientMock).validateToken(any(), any());
-    doReturn("https://oscmhost:9091/oscm-identity").when(filter).getConfigKeyValue(any());
+    filter.setOscmIdentityServiceUrl("https://oscmhost:9091/oscm-identity");
 
     filter.excludeUrlPattern = "(.*/a4j/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";
     filter.publicMplUrlPattern = "(^/marketplace/terms/.*|^/marketplace/[^/\\?#]*([\\?#].*)?)";

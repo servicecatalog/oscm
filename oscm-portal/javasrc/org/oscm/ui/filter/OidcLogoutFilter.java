@@ -95,19 +95,10 @@ public class OidcLogoutFilter extends BaseBesFilter {
 
     String requestedUrl = request.getRequestURL().toString();
 
-    String isu = getConfigKeyValue(request);
-
     URI uri = new URI(requestedUrl);
     String redirectionUrl = buildRedirectionUrl(uri, path);
-    String logoutUrl = isu + "/logout?state=" + redirectionUrl;
+    String logoutUrl = getOscmIdentityServiceUrl() + "/logout?state=" + redirectionUrl;
     return logoutUrl;
-  }
-
-  protected String getConfigKeyValue(HttpServletRequest request) {
-    return getConfigurationService(request)
-        .getVOConfigurationSetting(
-            ConfigurationKey.OSCM_IDENTITY_SERVICE_URL, Configuration.GLOBAL_CONTEXT)
-        .getValue();
   }
 
   private boolean isLogoutRequested(HttpServletRequest request) {

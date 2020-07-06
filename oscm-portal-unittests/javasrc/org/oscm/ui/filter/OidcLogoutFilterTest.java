@@ -108,7 +108,7 @@ public class OidcLogoutFilterTest {
     StringBuffer uri = new StringBuffer();
     uri.append("https://oscmhost:8081/oscm-portal/marketplace/logout.jsf");
     doReturn(uri).when(requestMock).getRequestURL();
-    doReturn("https://oscmhost:9091/oscm-identity").when(filter).getConfigKeyValue(any());
+    filter.setOscmIdentityServiceUrl("https://oscmhost:9091/oscm-identity");
 
     // when
     String url = filter.buildLogoutUrl(requestMock, "/oscm-portal");

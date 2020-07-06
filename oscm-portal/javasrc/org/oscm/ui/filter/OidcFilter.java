@@ -28,11 +28,9 @@ import org.oscm.identity.IdentityConfiguration;
 import org.oscm.identity.WebIdentityClient;
 import org.oscm.identity.exception.IdentityClientException;
 import org.oscm.identity.model.TokenType;
-import org.oscm.internal.types.enumtypes.ConfigurationKey;
 import org.oscm.internal.types.exception.MarketplaceRemovedException;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
-import org.oscm.types.constants.Configuration;
 import org.oscm.types.constants.marketplace.Marketplace;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.beans.BaseBean;
@@ -202,9 +200,7 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     String buildUrl() throws URISyntaxException, MarketplaceRemovedException {
       StringBuffer bf = new StringBuffer();
 
-      String isu = getConfigKeyValue(request);
-
-      bf.append(String.format(isu));
+      bf.append(String.format(getOscmIdentityServiceUrl()));
       bf.append("/login?state=");
       bf.append(getRequestedURL());
 
@@ -222,13 +218,6 @@ public class OidcFilter extends BaseBesFilter implements Filter {
     String getRequestedURL() {
       return request.getRequestURL().toString();
     }
-  }
-
-  protected String getConfigKeyValue(HttpServletRequest request) {
-    return getConfigurationService(request)
-        .getVOConfigurationSetting(
-            ConfigurationKey.OSCM_IDENTITY_SERVICE_URL, Configuration.GLOBAL_CONTEXT)
-        .getValue();
   }
 
   @Override
