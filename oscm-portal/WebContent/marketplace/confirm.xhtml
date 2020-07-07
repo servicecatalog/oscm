@@ -1,65 +1,64 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!--TODO EPIC#990-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="templates/main.xhtml">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                template="templates/mainBootstrap.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.account.editUser" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <c:set var="novspace" value="true" />
-    <c:set var="width" value="640" />
-    <c:set var="focusElement" value="userEmail" />
-    <c:set var="bodyClass" value="body5span" />
+    <c:set var="pageId" value="marketplace.account.editUser"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+    <c:set var="novspace" value="true"/>
+    <c:set var="width" value="640"/>
+    <c:set var="focusElement" value="userEmail"/>
+    <c:set var="bodyClass" value="body5span"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
-    <mp:breadcrumbs>
-      <mp:crumb label="#{msg['user.registration']}" />
-    </mp:breadcrumbs>
+    <mp:ootstrapBreadcrumbs>
+      <mp:crumb label="#{msg['user.registration']}"/>
+    </mp:ootstrapBreadcrumbs>
   </ui:define>
 
   <ui:define name="contents">
-    <a4j:outputPanel layout="block" styleClass="grid5span clearfix">
+    <a4j:outputPanel styleClass="row justify-content-center mt-3">
+    <a4j:outputPanel styleClass="col-lg-10 col-md-11 col-sm-12 bg-light p-3 shadow mb-4">
       <h:form id="confirmForm">
 
         <c:if test="#{not confirmationBean.showContent}">
           <h:outputFormat value="#{msg[errorKey]}" rendered="#{confirmationBean.showError}">
-            <f:param value="#{errorParam0}" />
+            <f:param value="#{errorParam0}"/>
           </h:outputFormat>
         </c:if>
 
         <c:if test="#{confirmationBean.showContent}">
           <a4j:outputPanel layout="block" styleClass="box">
 
-            <h2><h:outputText value="#{msg['user.registration']}" /></h2>
+            <h2>
+              <h:outputText value="#{msg['user.registration']}"/>
+            </h2>
 
             <h:outputFormat value="#{msg[errorKey]}" rendered="#{confirmationBean.showError}">
-              <f:param value="#{errorParam0}" />
+              <f:param value="#{errorParam0}"/>
             </h:outputFormat>
 
-            <mp:pixelline />
-            
+            <hr class="mt-1 mb-3"/>
+
             <c:if test="#{not confirmationBean.showError}">
-              <br />
-              <h:outputText value="#{msg['public.registration.confirm']}" />
+              <br/>
+              <h:outputText value="#{msg['public.registration.confirm']}"/>
             </c:if>
 
-            <a4j:outputPanel layout="block" styleClass="clearfix" rendered="#{confirmationBean.showButton}"
-              style="margin-top:10px;">
+            <a4j:outputPanel layout="block" styleClass="clearfix mt-3" rendered="#{confirmationBean.showButton}">
 
               <c:if test="#{not confirmationBean.showError}">
-                <mp:pixelline />
+                <mp:pixelline/>
               </c:if>
-              
+
               <h:outputLink id="continueLink" styleClass="button"
-                value="#{facesContext.externalContext.requestContextPath}/marketplace/redirect.jsf">
-                <span> <h:outputText value="#{msg['button.continue']}" /> </span>
+                            value="#{facesContext.externalContext.requestContextPath}/marketplace/redirect.jsf">
+                <span> <h:outputText value="#{msg['button.continue']}"/> </span>
               </h:outputLink>
             </a4j:outputPanel>
 
@@ -67,6 +66,7 @@
         </c:if>
 
       </h:form>
+    </a4j:outputPanel>
     </a4j:outputPanel>
   </ui:define>
 </ui:composition>
