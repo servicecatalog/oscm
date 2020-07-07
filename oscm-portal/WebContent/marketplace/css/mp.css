@@ -2,6 +2,7 @@
 /* 
  *  Copyright FUJITSU LIMITED 2020
  */
+@import url(https://fonts.googleapis.com/css?family=Quicksand:200,300,400,700);
 /* --------------------------------------------------------------------
 
 Copyright 2010-2012 FUJITSU LIMITED
@@ -18,7 +19,7 @@ Copyright 2010-2012 FUJITSU LIMITED
     3.1 Header Layout Definitions
     3.2 Corporate Logo
     3.3 Login
-    3.4 Main Search Box.parameterConfigTableDescColumn
+    3.4 Main Search Box
     3.5 Header Navigation
 
   4. Forms
@@ -149,16 +150,15 @@ Copyright 2010-2012 FUJITSU LIMITED
 body {
   font-size: 81.25% !important;
   /* 13px */
-  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif !important;
+  font-family: Quicksand;
   margin: 0px;
   position: relative;
   text-align: left;
-  line-height: 1.4;
-  background: #EEE; }
+  line-height: 1.4; }
 
 textarea, input, option, select, .rich-tabpanel-content {
   font-size: 100%;
-  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; }
+  font-family: Quicksand; }
 
 input, select, textarea {
   border: 1px solid #CCC; }
@@ -167,7 +167,7 @@ textarea {
   resize: vertical; }
 
 .rich-tab-header {
-  font: normal 14px/100% "OpenSansSemiBold", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif !important; }
+  font: normal 14px/100% "OpenSansSemiBold", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif !important; }
 
 * html table {
   font-size: 100%; }
@@ -192,23 +192,20 @@ a:active {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; }
+  /* font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif; */
+  line-height: 1.5; }
 
 h1 {
-  font-size: 163% !important;
-  line-height: 1.5; }
+  font-size: 163%; }
 
 h2 {
-  font-size: 133% !important;
-  line-height: 1.5; }
+  font-size: 133%; }
 
 h3 {
-  font-size: 108% !important;
-  line-height: 1.5; }
+  font-size: 108%; }
 
 h4, h5, h6 {
-  font-size: 100% !important;
-  line-height: 1.5; }
+  font-size: 100%; }
 
 p {
   margin-top: 0;
@@ -650,7 +647,7 @@ input#inputSearch {
   float: left;
   padding: 6px 0;
   color: #FFF;
-  font: 400 14px "OpenSansCondensedBold", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+  font: 400 14px "OpenSansCondensedBold", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif;
   cursor: pointer; }
 
 /* highlight for selected navigation item */
@@ -2673,7 +2670,7 @@ div.pagenate div.pagingBar .previous {
   float: left;
   border: 0;
   font-size: 12px;
-  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif;
   white-space: nowrap; }
 
 .button {
@@ -2735,7 +2732,7 @@ div.pagenate div.pagingBar .previous {
   float: left;
   border: 0;
   white-space: nowrap;
-  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; }
+  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif; }
 
 .bigbutton {
   background-position: left 0;
@@ -3572,12 +3569,6 @@ div#headerrightareaBootstrap, rightarea a {
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.4 Cards
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.card-header {
-  font-size: 1rem; }
-
-.card {
-  box-shadow: 4px 4px 10px 0px rgba(3, 3, 3, 0.24); }
-
 .topPadding {
   padding-top: 32px; }
 
