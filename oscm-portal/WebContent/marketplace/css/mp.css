@@ -855,8 +855,7 @@ form .formHighlight input, form .formHighlight textarea {
   margin: 0 0 0 10px; }
 
 .popover {
-  z-index: 20000;
-  position: fixed !important; }
+  z-index: 20000; }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 4.3 Registration form
