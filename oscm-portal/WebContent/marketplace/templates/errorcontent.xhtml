@@ -24,11 +24,8 @@
       <h:outputText id="mpErrorPageOops" value="#{msg['error.page.oops']}"/>
     </h1>
     <h2>
-      <h:outputText id="mpErrorPageNotFound" value="#{msg['error.page.error']}"/>
+      <h:outputText id="mpErrorPageNotFound" value="#{msg['error.page.occured']}"/>
     </h2>
-    <h3>
-      <h:outputText id="mpErrorPageDesc" value="#{msg['error.page.not.found']}"/>
-    </h3>
   </a4j:outputPanel>
 
   <rich:panel style="border:none;">
@@ -51,7 +48,8 @@
   <a4j:outputPanel layout="block" styleClass="row row-justify-space my-3">
     <div class="col-md-1"></div>
     <div class="col-md-3 col-sm-4 col-5">
-      <h:outputLink styleClass="btn btn-secondary w-100" value="/oscm-portal/marketplace/index.jsf">
+      <h:outputLink styleClass="btn btn-secondary w-100"
+                    value="/oscm-portal/marketplace/index.jsf?mId=#{appBean.marketplaceId}">
         <i class="fa fa-home"/> #{msg['navigation.home']}
       </h:outputLink>
     </div>
