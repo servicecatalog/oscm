@@ -75,7 +75,7 @@
 
     <a4j:outputPanel styleClass="row justify-content-center my-3">
       <mp:notice rendered="#{not userBean.selfRegistrationAllowed}"
-          noticeText="#{msg['ex.RegistrationException.SELFREGISTRATION_NOT_ALLOWED']}"/>
+                 noticeText="#{msg['ex.RegistrationException.SELFREGISTRATION_NOT_ALLOWED']}"/>
       <a4j:outputPanel layout="block" styleClass="col-lg-10 col-md-11 col-sm-12 bg-light p-4 shadow mb-4"
                        rendered="#{userBean.selfRegistrationAllowed}">
 
@@ -140,9 +140,10 @@
                 <div class="row">
                   <div class="col-md-11 col-10 pr-0">
                     <adm:passwordBootstrap id="regPassword" required="true" strengthDemRequired="true"
-                                  passwordStrengthId="passwordStrengthRegistration" styleClass="form-control"
-                                  label="#{msg['public.registration.password']}" formName="registrationForm"
-                                  length="#{appBean.nameLen}" beanValue="#{registrationBean.password}" validatorId="password"/>
+                                           passwordStrengthId="passwordStrengthRegistration" styleClass="form-control"
+                                           label="#{msg['public.registration.password']}" formName="registrationForm"
+                                           length="#{appBean.nameLen}" beanValue="#{registrationBean.password}"
+                                           validatorId="password"/>
                   </div>
                   <div class="col-md-1 col-2 pl-0">
                     <mp:hintBootstrap for="regPassword"/>
