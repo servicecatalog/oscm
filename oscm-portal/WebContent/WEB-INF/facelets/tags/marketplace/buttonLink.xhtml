@@ -1,0 +1,42 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+  <a4j:outputPanel rendered="#{empty rendered or rendered}">
+    <c:if test="#{empty keepDirty}">
+      <c:set var="keepDirty" value="false"/>
+    </c:if>
+
+    <c:choose>
+      <c:when test="#{keepDirty}">
+        <c:set var="keepDirtyScript" value="#{rich:element('dirty')}.value=getDirty();"/>
+      </c:when>
+    </c:choose>
+
+    <c:if test="#{empty clearDirty}">
+      <c:set var="clearDirty" value="false"/>
+    </c:if>
+
+    <c:choose>
+      <c:when test="#{clearDirty}">
+        <c:set var="clearDirtyScript" value="#{rich:element('dirty')}.value='false';"/>
+      </c:when>
+    </c:choose>
+
+    <c:if test="#{disabled}">
+      <h:outputLink styleClass="#{styleClass}" id="#{id}" value="#"
+                    onclick="return false;" disabled="true">
+        <h:outputText value="#{value}"/>
+      </h:outputLink>
+    </c:if>
+
+    <c:if test="#{not disabled}">
+        <h:outputLink styleClass="#{styleClass}" id="#{id}" value="#"
+                      onclick="#{keepDirtyScript}#{clearDirtyScript}#{onclick}">
+          <h:outputText value="#{value}"/>
+        </h:outputLink>
+    </c:if>
+  </a4j:outputPanel>
+</ui:composition>
