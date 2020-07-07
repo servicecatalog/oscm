@@ -172,17 +172,16 @@ Copyright 2010-2012 FUJITSU LIMITED
  */
 body {
   font-size: 81.25% !important; /* 13px */
-  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif !important;
+  font-family: $font-family-sans-serif;
   margin: 0px;
   position: relative;
   text-align: left;
   line-height: 1.4;
-  background: #EEE;
 }
 
 textarea, input, option, select, .rich-tabpanel-content {
   font-size: 100%;
-  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+  font-family: $font-family-sans-serif;
 }
 
 input, select, textarea {
@@ -228,27 +227,24 @@ a:active {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+ /* font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; */
+  line-height: $line-height-base; 
 }
 
 h1 {
-  font-size: 163% !important;
-  line-height: 1.5;
+  font-size: $h1-font-size;
 }
 
 h2 {
-  font-size: 133% !important;
-  line-height: 1.5;
+  font-size: $h2-font-size;
 }
 
 h3 {
-  font-size: 108% !important;
-  line-height: 1.5;
+  font-size: $h3-font-size;
 }
 
 h4, h5, h6 {
-  font-size: 100% !important;
-  line-height: 1.5;
+  font-size: $h4-font-size;
 }
 
 p {
@@ -4343,13 +4339,6 @@ div#headerrightareaBootstrap, rightarea a {
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.4 Cards
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.card-header {
-  font-size: 1rem;
-}
-
-.card {
-  box-shadow: 4px 4px 10px 0px rgba(3, 3, 3, 0.24);
-}
 
 .topPadding {
   padding-top: 32px;
