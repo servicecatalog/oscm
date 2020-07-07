@@ -46,16 +46,23 @@ h1, h2, h3, h4, h5, h6 {
 } */
 
 // Breadcrumbs
-/*.breadcrumb {
+.breadcrumb {
+  .breadcrumb-item {
   a {
     color: $navbar-dark-color;
   }
 
   a:hover {
-    color: $white;
+    color: $secondary;
     text-decoration: none;
   }
-} */
+  
+  a:visited {
+    color: darken($secondary, 5%);
+    text-decoration: none;
+  }
+}
+} 
 
 // Typography 
 //$font-family-sans-serif:      'Neucha', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;

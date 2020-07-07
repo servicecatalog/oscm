@@ -35,12 +35,10 @@ $btn-font-family: $font-family-base;
 $navbar-padding-x: 1.25rem;    
 $navbar-padding-y: 0.6rem;
 
-// Links
-//$link-color: $secondary;
-
 // Dropdowns
 $dropdown-link-active-bg: $primary;
 $dropdown-link-hover-bg: lighten($primary, 10%);
+$dropdown-link-hover-color: $light;
 $dropdown-border-radius: 1.5rem;
 $dropdown-spacer: 0.8rem;
 
@@ -78,7 +76,7 @@ $card-cap-color: $light;
 // $list-group-bg:                     $white !default;
 // $list-group-border-color:           rgba($black, .125) !default;
 // $list-group-border-width:           $border-width !default;
-// $list-group-border-radius:          $border-radius !default;
+$list-group-border-radius:          1.5rem;
 
 // $list-group-item-padding-y:         .75rem !default;
 // $list-group-item-padding-x:         1.25rem !default;
