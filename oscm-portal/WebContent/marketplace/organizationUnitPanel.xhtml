@@ -93,7 +93,7 @@
           </a4j:outputPanel>
           <!-- Ok/Cancel button -->
          <div class="row no-gutters mt-2 row-justify-space">
-           <mp:buttonBootstrap id="#{dialogId}cancelButton" styleClass="btn-sm btn-secondary mx-2"
+           <mp:buttonBootstrap id="#{dialogId}cancelButton" styleClass="btn btn-sm btn-secondary mx-2"
                                onclick="setDirty(false); #{rich:component(dialogId)}.hide(); return false;"
                                value="#{msg['button.cancel']}" />
            <mp:buttonBootstrap id="#{dialogId}okButton" render=":unitNameDisplay :saveConfigurationPanel :selectedUnitName"
