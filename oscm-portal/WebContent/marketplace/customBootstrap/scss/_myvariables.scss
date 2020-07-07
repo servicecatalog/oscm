@@ -31,17 +31,9 @@ $font-size-base: 1rem;
 $headings-font-family: $font-family-base;
 $btn-font-family: $font-family-base;
 
-
-
-//$font-family-sans-serif:      'Neucha', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-//$font-weight-base:            700 !default;
-//$headings-font-family:   'Cabin Sketch', cursive !default;
-
-
 // Navbar
 $navbar-padding-x: 1.25rem;    
 $navbar-padding-y: 0.6rem;
-//$navbar-toggler-border-radius: $border-radius;
 
 // Links
 //$link-color: $secondary;
@@ -76,7 +68,6 @@ $card-border-width: 2px;
 //$card-border-color: $gray-600;
 
 $card-cap-color: $light;
-//$card-color: $green;
 
 // List group
 
@@ -116,6 +107,10 @@ $thumbnail-border-color: rgba(0, 0, 0, 0.1);
 // Tooltips
 $tooltip-bg: $secondary;
 $tooltip-opacity: 1;
+
+// Popovers
+$popover-bg: $secondary;
+$popover-body-color: $light;
 
 // Inputs
 //$input-bg: lighten($secondary, 15%);
