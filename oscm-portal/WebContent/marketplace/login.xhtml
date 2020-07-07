@@ -126,7 +126,7 @@
               </div>
             </div>
 
-            <mp:buttonBootstrap styleClass="btn-sm btn-secondary mt-2" id="changeButton" value="#{msg['button.change']}"
+            <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary mt-2" id="changeButton" value="#{msg['button.change']}"
               bean="#{userBean}" action="change" render="rerenderPanel"
               oncomplete="AdmUtils.setLoginPanelDirty();AdmUtils.showProgress(false);" />
           </h:form>
@@ -158,7 +158,7 @@
                 <h:commandButton id="showRegistration" action="#{userBean.showRegistration}" style="display: none;" />
               </h:form>
 
-              <mp:buttonBootstrap id="register" styleClass="btn-sm btn-secondary"
+              <mp:buttonBootstrap id="register" styleClass="btn btn-sm btn-secondary"
                 onclick="AdmUtils.showProgress(true);#{rich:element('registerRedirectTarget')}.value=#{rich:element('loginForm:loginRedirectTarget')}.value;#{rich:element('showRegistration')}.click();return false;"
                 value="#{msg['button.register']}" />
             </a4j:outputPanel>

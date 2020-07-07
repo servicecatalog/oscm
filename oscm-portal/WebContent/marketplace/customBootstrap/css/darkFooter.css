@@ -1,11 +1,13 @@
 /* import only the necessary Bootstrap files */
 /* -------begin customization-------- */
 /* change the fonts, and primary theme color to green  */
+@import url(https://fonts.googleapis.com/css?family=Quicksand:200,300,400,700);
 .bootstrap_footer {
   background: #343a40;
   border-bottom: 1px solid #4c4c4c;
   width: 100%;
-  color: #fff; }
+  color: #fff;
+  font-family: Quicksand; }
 
 .bootstrap_footer a {
   color: #fff; }

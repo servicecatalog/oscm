@@ -1,6 +1,7 @@
 /* import only the necessary Bootstrap files */
 @import "../../../bootstrap/scss/functions"; 
 @import "../../../bootstrap/scss/variables";
+@import "../../../bootstrap/scss/mixins/grid";
 
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
 @import "myvariables";
@@ -11,7 +12,68 @@ html, body {
   overflow-x: hidden;
 } 
 
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headings-font-family !important;
+}
 
+// Navbar ======================================================================
+
+/*.navbar {
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 25px 25px 55px 5px/5px 55px 25px 25px !important;
+
+  &.bg-light {
+    border-color: $gray-800;
+  }
+
+  &.fixed-top {
+    border-radius: 0 25px 225px 0/25px 0 25px 255px;
+    border-width: 0 0 2px 0;
+  }
+
+  &.fixed-bottom {
+    border-radius: 255px 25px 0 25px/25px 225px 25px 0;
+    border-width: 2px 0 0 0;
+  }
+
+  &-brand {
+    font-family: $headings-font-family;
+    font-weight: normal;
+    text-decoration: none;
+  }
+} */
+
+// Breadcrumbs
+/*.breadcrumb {
+  a {
+    color: $navbar-dark-color;
+  }
+
+  a:hover {
+    color: $white;
+    text-decoration: none;
+  }
+} */
+
+// Typography 
+//$font-family-sans-serif:      'Neucha', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
+
+button, input, optgroup, textarea {
+  font-family: $headings-font-family;
+}
+// Cards ==================================================================
+
+.card-header {
+  font-size: 1rem;
+}
+
+.card {
+  box-shadow: 4px 4px 10px 0px rgba(3, 3, 3, 0.24);
+} 
+
+// List groups ==================================================================
 .list-group-item-secondary {
     @extend .list-group-item-secondary;
     background-color: $lightened-color !important;
@@ -26,6 +88,24 @@ html, body {
    background-color: $darkened-color !important;
    color: #fff !important;
 }  
+
+// Grid layout for service card.
+.gridLayoutForCard {
+  @include make-col-ready;
+  @include media-breakpoint-up(sm) {
+    @include make-col(12);
+  }
+  @include media-breakpoint-up(md) {
+    @include make-col(6);
+  }
   
+  @include media-breakpoint-up(lg) {
+    @include make-col(4);
+  }
+  @include media-breakpoint-up(xl) {
+    @include make-col(3);
+  }
+}
+
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "../../../bootstrap/scss/bootstrap";
