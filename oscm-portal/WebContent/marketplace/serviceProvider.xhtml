@@ -1,20 +1,17 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!--TODO EPIC#990-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <h:form id="samlSPForm">
-      <h:inputHidden id="userId" value="#{userId}" />
-      <h:inputHidden id="password" value="#{password}" />
-      <h:inputHidden id="redirectURL" value="#{redirectURL}" />
-      <h:commandButton id="login" style="display:none;" value="submitbutton" action="#{userBean.login}" />
-    </h:form>
+  <h:form id="samlSPForm">
+    <h:inputHidden id="userId" value="#{userId}"/>
+    <h:inputHidden id="password" value="#{password}"/>
+    <h:inputHidden id="redirectURL" value="#{redirectURL}"/>
+    <h:commandButton id="login" styleClass="d-none" value="submitbutton" action="#{userBean.login}"/>
+  </h:form>
 
-    <script type="text/javascript">
+  <script type="text/javascript">
        window.onload=document.getElementById('samlSPForm:login').click();
-	</script>
-
+  </script>
 
 </ui:composition>

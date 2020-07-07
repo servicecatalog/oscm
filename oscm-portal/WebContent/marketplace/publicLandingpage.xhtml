@@ -1,45 +1,43 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!--TODO EPIC#990-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:rich="http://richfaces.org/rich"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
 
   <a4j:outputPanel id="listServicesForPublicLandingpage">
     <h:form id="tagFilterForm" rendered="#{!isMplRestricted or empty userBean.loggedInUser}">
-      <h:inputHidden id="tagFilterValue" value="#{servicePagingBean.filterTag}" />
+      <h:inputHidden id="tagFilterValue" value="#{servicePagingBean.filterTag}"/>
       <h:commandButton id="applyTagFilter" action="#{serviceListingBean.showServiceList}" style="display: none;">
-        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />
+        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
       </h:commandButton>
     </h:form>
     <div class="grid4span clearfix">
       <a4j:outputPanel rendered="#{!isMplRestricted or not empty userBean.loggedInUser}">
         <c:forEach items="#{serviceListingBean.servicesForLandingPage}" var="service" varStatus="status">
-          <c:set var="isLastCol" value="#{(status.index mod 2) > 0}" />
-          <c:set var="lastCol" value="#{isLastCol ? 'lastcol' : ''}" />
+          <c:set var="isLastCol" value="#{(status.index mod 2) > 0}"/>
+          <c:set var="lastCol" value="#{isLastCol ? 'lastcol' : ''}"/>
 
           <div class="col2span #{lastCol} marginBottomDefault">
             <a4j:outputPanel id="servicePanel#{status.index}" layout="block" styleClass="box selectable serviceBox2span"
-              onclick="#{rich:element('showDetails'.concat(status.index))}.click();">
+                             onclick="#{rich:element('showDetails'.concat(status.index))}.click();">
 
               <div class="clearfix">
-                <mp:serviceBlock fieldId="service#{status.index}" service="#{service}" limitedDescription="true" />
+                <mp:serviceBlock fieldId="service#{status.index}" service="#{service}" limitedDescription="true"/>
               </div>
               <div class="clearfix block">
-                <mp:ratingStars styleClass="left listingStarBox" rating="#{service.rating}" />
+                <mp:ratingStars styleClass="left listingStarBox" rating="#{service.rating}"/>
                 <mp:serviceTags fieldId="service#{status.index}ServiceTags" service="#{service}"
-                  styleClass="center nowrap_hidden" />
+                                styleClass="center nowrap_hidden"/>
               </div>
-              <mp:pixelline />
+              <mp:pixelline/>
               <div class="clearfix">
-                <mp:servicePrice service="#{service}" styleClass="servicePriceHome" showUnit="false" />
+                <mp:servicePrice service="#{service}" styleClass="servicePriceHome" showUnit="false"/>
                 <div class="serviceShowDetailsButton">
                   <h:link id="showDetails#{status.index}" outcome="serviceDetails" class="button linkBtn"
-                    value="#{msg['button.showDetails']}">
-                    <f:param name="selectedServiceKey" value="#{service.key}" />
+                          value="#{msg['button.showDetails']}">
+                    <f:param name="selectedServiceKey" value="#{service.key}"/>
                   </h:link>
                 </div>
               </div>
@@ -53,14 +51,15 @@
       </a4j:outputPanel>
     </div>
     <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
-      id="recommendedRetailPrice" rendered="#{serviceListingBean.serviceListContainsChargeableResellerService}" />
-    <mp:linkPageTop showBrowseAll="true" />
+                  id="recommendedRetailPrice"
+                  rendered="#{serviceListingBean.serviceListContainsChargeableResellerService}"/>
+    <mp:linkPageTop showBrowseAll="true"/>
     <rich:jQuery selector="document"
-      query="ready(function() {var tagDivs = jQuery('div.serviceTags').get();AdmUtils.cutServiceTags(tagDivs);})" />
+                 query="ready(function() {var tagDivs = jQuery('div.serviceTags').get();AdmUtils.cutServiceTags(tagDivs);})"/>
     <script>
       jQuery().ready(function(){
           AdmUtils.highlightNavigation("navigation1");
       });
-      </script>
+    </script>
   </a4j:outputPanel>
 </ui:composition>
