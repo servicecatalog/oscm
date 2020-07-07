@@ -40,6 +40,9 @@ $navbar-padding-y: 0.6rem;
 
 // Dropdowns
 $dropdown-link-active-bg: $primary;
+$dropdown-link-hover-bg: lighten($primary, 10%);
+$dropdown-border-radius: 1.5rem;
+$dropdown-spacer: 0.8rem;
 
 // Breadcrumbs
 
