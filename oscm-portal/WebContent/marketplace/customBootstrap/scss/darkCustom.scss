@@ -47,7 +47,9 @@ h1, h2, h3, h4, h5, h6 {
 
 // Breadcrumbs
 .breadcrumb {
+  padding: $breadcrumb-padding-y $breadcrumb-padding-x !important; 
   .breadcrumb-item {
+  padding-left: $breadcrumb-item-padding !important;
   a {
     color: $navbar-dark-color;
   }
@@ -64,10 +66,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 } 
 
-// Typography 
-//$font-family-sans-serif:      'Neucha', -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !default;
-
-button, input, optgroup, textarea {
+button, input,textarea {
   font-family: $headings-font-family;
 }
 // Cards ==================================================================
