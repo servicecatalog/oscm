@@ -18,7 +18,7 @@
     </h:form>
 
     <div class="container-flex pl-0 mt-3">
-      <div class="list-group list-group-horizontal-sm text-center" id="nav-tab" role="tablist">
+      <div class="list-group list-group-horizontal-sm text-center" id="service-tab" role="tablist">
         <c:if test="#{enterpriseLandingpageCtrl.showFirstCategory}">
           <a class="list-group-item list-group-item-secondary list-group-item-action active" id="firstCategory"
              data-toggle="tab" href="#first" role="tab" aria-controls="first"
@@ -82,7 +82,7 @@
 			jQuery().ready(function() {
 				AdmUtils.highlightNavigation("navigation1");
 			});
-			AdmUtils.sessionTab('#{sessionBean.selectedTab}', 'nav-tab');
+			AdmUtils.sessionTab('#{sessionBean.selectedTab}', 'service-tab');
     </script>
   </a4j:outputPanel>
 </ui:composition>
