@@ -1,0 +1,101 @@
+/* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
+@import "myvariables";
+
+// Global options.
+$enable-shadows: true;
+$enable-gradients: true;
+//$border-radius: 1.5rem;
+
+// Typography
+
+@import url(https://fonts.googleapis.com/css?family=Quicksand:200,300,400,700);
+$font-family-base:Quicksand;
+$font-size-base: 1rem;
+
+$headings-font-family: $font-family-base;
+$btn-font-family: $font-family-base;
+
+// Navbar
+$navbar-padding-x: 1.25rem;    
+$navbar-padding-y: 0.6rem;
+
+// Dropdowns
+$dropdown-link-hover-bg: lighten($primary, 10%);
+$dropdown-link-hover-color: $light;
+$dropdown-border-radius: 1.5rem;
+$dropdown-spacer: 0.8rem;
+
+// Breadcrumbs
+$breadcrumb-padding-y:            1rem;
+$breadcrumb-padding-x:             1.25rem;    
+//$breadcrumb-item-padding:           0.7rem;
+
+$breadcrumb-bg: $gray-100;
+$breadcrumb-active-color:  $gray-600;
+$breadcrumb-divider:                quote(">");
+$breadcrumb-divider-color:           $gray-700;
+$breadcrumb-active-color:           $breadcrumb-divider-color !default;
+//$breadcrumb-border-radius:         1.25rem;
+
+
+// Cards
+
+$card-spacer-x:  1.5rem;
+$card-spacer-y:  1.25rem;
+
+$card-border-radius: 8px 8px 8px 8px;
+$card-cap-bg: $secondary;
+
+$card-bg: $gray-100;
+$card-border-width: 2px;
+//$card-border-color: $gray-600;
+
+$card-cap-color: $light;
+
+// List group
+
+// $list-group-color:                  null !default;
+// $list-group-bg:                     $white !default;
+// $list-group-border-color:           rgba($black, .125) !default;
+// $list-group-border-width:           $border-width !default;
+$list-group-border-radius:          1.5rem;
+
+// $list-group-item-padding-y:         .75rem !default;
+// $list-group-item-padding-x:         1.25rem !default;
+
+// $list-group-hover-bg:               $gray-100 !default;
+// $list-group-active-color:           $component-active-color !default;
+// $list-group-active-bg:              $component-active-bg !default;
+// $list-group-active-border-color:    $list-group-active-bg !default;
+
+// $list-group-disabled-color:         $gray-600 !default;
+// $list-group-disabled-bg:            $list-group-bg !default;
+
+// $list-group-action-color:           $gray-700 !default;
+//$list-group-action-hover-color:     $green;
+
+// $list-group-action-active-color:    $body-color !default;
+// $list-group-action-active-bg:       $gray-200 !default;
+
+
+
+
+// Buttons
+$btn-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+
+// Image thumbnails
+$thumbnail-border-radius: 50%; 
+$thumbnail-border-color: rgba(0, 0, 0, 0.1);
+
+// Tooltips
+$tooltip-bg: $secondary;
+$tooltip-opacity: 1;
+
+// Popovers
+$popover-bg: $secondary;
+$popover-body-color: $light;
+
+// Inputs
+//$input-bg: lighten($secondary, 15%);
+$input-focus-border-color: $primary;
+$input-group-addon-border-color: $primary;
