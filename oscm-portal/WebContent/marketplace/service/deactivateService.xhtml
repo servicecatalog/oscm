@@ -1,59 +1,58 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:f="http://xmlns.jcp.org/jsf/core" template="../templates/modalDialog.xhtml">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="../templates/modalDialogBootstrap.xhtml">
 
-  <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+  <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
 
   <ui:define name="dialogScripts">
-    <c:set var="modalFocusElement" value="#{dialogId}Form:reasonTextArea" />
+    <c:set var="modalFocusElement" value="#{dialogId}Form:reasonTextArea"/>
   </ui:define>
 
   <ui:define name="dialogTitle">
     <h2>
-      <h:outputText id="#{dialogId}DialogTitle" value="#{msg['service.deactivate.title']}" />
+      <h:outputText id="#{dialogId}DialogTitle" value="#{msg['service.deactivate.title']}"/>
     </h2>
   </ui:define>
 
   <ui:define name="dialogContent">
 
-    <a4j:outputPanel id="#{dialogId}Grid" layout="block" styleClass="grid2span clearfix ndh" style="width: 560px;">
+    <a4j:outputPanel id="#{dialogId}Grid" layout="block" styleClass="container">
       <ui:fragment>
-        <h:outputText value="#{msg['service.deactivate.label']}" />
+        <h:outputText value="#{msg['service.deactivate.label']}" styleClass="mt-3"/>
 
-        <h2 style="margin-top: 13px">
+        <h2 class="mt-3">
           <adm:outputLabel value="#{msg['service.deactivate.reason.header']}" required="true" renderRequired="true"
-            hideLabelSeparator="true" />
+                           hideLabelSeparator="true"/>
         </h2>
 
         <h:form id="#{dialogId}Form">
 
           <h:inputTextarea id="reasonTextArea" value="#{serviceActivationBean.suspensionReason}" required="true"
-            title="#{msg['service.deactivate.text.tooltip']}" styleClass="review_comments">
-            <f:converter converterId="trimConverter" />
+                           title="#{msg['service.deactivate.text.tooltip']}" styleClass="form-control form-control-sm">
+            <f:converter converterId="trimConverter"/>
           </h:inputTextarea>
-          <mp:message id="reasonTextAreaErrorMsg" for="reasonTextArea" />
+          <mp:message id="reasonTextAreaErrorMsg" for="reasonTextArea"/>
 
-          <mp:pixelline marginTop="10" />
+          <hr class="mt-3 mb-2"/>
 
-          <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel">
-              <h:commandButton id="hiddenDeactivateBtn"
-                               style="display:none;"
-                               action="#{serviceActivationBean.suspendService}">
-                  <a4j:ajax execute="@form"
-                          render=":#{dialogId}RerenderPanel #{serviceActivationBean.errorPanel} #{additionalRender} @form @parent"/>
-              </h:commandButton>
+          <a4j:outputPanel layout="block" styleClass="row row-justify-space">
+            <h:commandButton id="hiddenDeactivateBtn" styleClass="d-none"
+                             action="#{serviceActivationBean.suspendService}">
+              <a4j:ajax execute="@form"
+                        render=":#{dialogId}RerenderPanel #{serviceActivationBean.errorPanel} #{additionalRender} @form @parent"/>
+            </h:commandButton>
 
-            <mp:button id="#{dialogId}Deactivate"
-              onclick="#{rich:element('hiddenDeactivateBtn')}.click();"
-              value="#{msg['button.service.deactivate']}" />
+            <mp:buttonLink id="#{dialogId}cancelButton" onclick="#{rich:component(dialogId)}.hide();"
+                           value="#{msg['button.cancel']}" styleClass="btn btn-sm btn-outline-secondary ml-3"/>
 
-            <mp:button id="#{dialogId}cancelButton" onclick="#{rich:component(dialogId)}.hide();"
-              value="#{msg['button.cancel']}" />
+            <mp:buttonLink id="#{dialogId}Deactivate" styleClass="btn btn-sm btn-secondary mr-3"
+                           onclick="#{rich:element('hiddenDeactivateBtn')}.click();"
+                           value="#{msg['button.service.deactivate']}"/>
           </a4j:outputPanel>
 
           <script type="text/javascript">

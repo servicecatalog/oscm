@@ -401,7 +401,7 @@
                     </ui:include>
 
                     <a4j:outputPanel styleClass="buttonWrapper">
-                      <a4j:commandLink id="btnConfigure" styleClass="button" style="text-decoration: none;"
+                      <a4j:commandLink id="btnConfigure" styleClass="btn btn-outline-secondary"
                                        onclick="if(getDirty()==true){setPageDirty();};setOnSubmit(true);"
                                        oncomplete="if(#{manageSubscriptionModel.showExternalConfigurator}){AdmUtils.removeChildren(document.getElementById('hiddenErrorPanel'));#{rich:component('configurator')}.show();configurator.activateFallbackTimer();window.scrollTo(0,document.body.scrollHeight);}
                       else{AdmUtils.removeChildren(document.getElementById('infoPanel'));};"

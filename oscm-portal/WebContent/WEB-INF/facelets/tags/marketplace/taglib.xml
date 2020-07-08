@@ -263,6 +263,10 @@
     <source>buttonBootstrap.xhtml</source>
   </tag>
   <tag>
+    <tag-name>buttonLink</tag-name>
+    <source>buttonLink.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>subscriptionProcessConfigurationBootstrap</tag-name>
     <source>subscriptionProcessConfigurationBootstrap.xhtml</source>
   </tag>
