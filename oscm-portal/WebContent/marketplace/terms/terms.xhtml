@@ -1,32 +1,32 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="../templates/main.xhtml">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" template="../templates/mainBootstrap.xhtml">
 
-  <c:set var="sc" value="true" />
+  <c:set var="sc" value="true"/>
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.terms" />
-    <c:set var="isSingleContentPage" value="true" />
+    <c:set var="pageId" value="marketplace.terms"/>
+    <c:set var="isSingleContentPage" value="true"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
-    <mp:breadcrumbs>
-      <mp:crumb label="#{msg['marketplace.terms.title']}" />
-    </mp:breadcrumbs>
+    <mp:bootstrapBreadcrumbs>
+      <mp:crumb label="#{msg['marketplace.terms.title']}"/>
+    </mp:bootstrapBreadcrumbs>
   </ui:define>
 
   <ui:define name="singlecontent">
-    <c:set var="termsDescription" value="#{msg['public.terms.description']}" />
+    <c:set var="termsDescription" value="#{msg['public.terms.description']}"/>
     <c:choose>
       <c:when test="#{not empty termsDescription}">
-        <h:outputText id="termDescription" value="${termsDescription}" escape="false" />
+        <h:outputText id="termDescription" value="${termsDescription}" escape="false"/>
       </c:when>
       <c:otherwise>
-        <f:loadBundle var="msgDef" basename="org.oscm.ui.resources.DbMessages_en" />
-        <h:outputText id="termDescription" value="#{msgDef['public.terms.description']}" escape="false" />
+        <f:loadBundle var="msgDef" basename="org.oscm.ui.resources.DbMessages_en"/>
+        <h:outputText id="termDescription" value="#{msgDef['public.terms.description']}" escape="false"/>
       </c:otherwise>
     </c:choose>
   </ui:define>
