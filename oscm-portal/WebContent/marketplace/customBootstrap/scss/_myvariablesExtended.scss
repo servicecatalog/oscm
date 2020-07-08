@@ -4,7 +4,7 @@
 // Global options.
 $enable-shadows: true;
 $enable-gradients: true;
-$enable-rounded: false;
+$enable-rounded: true;
 
 // Typography
 
@@ -31,11 +31,11 @@ $breadcrumb-padding-x:             1.25rem;
 $breadcrumb-item-padding:           0.7rem;
 
 $breadcrumb-bg: $gray-100;
-$breadcrumb-active-color:  $gray-600;
+$breadcrumb-active-color: $secondary;
 $breadcrumb-divider:                quote(">");
-$breadcrumb-divider-color:           $gray-700;
+$breadcrumb-divider-color:           $secondary;
 $breadcrumb-active-color:           $breadcrumb-divider-color !default;
-//$breadcrumb-border-radius:         1.25rem;
+$breadcrumb-border-radius:         1.25rem;
 
 
 // Cards
@@ -43,13 +43,13 @@ $card-spacer-x:  1.5rem;
 $card-spacer-y:  1.25rem;
 
 $card-border-radius: 8px 8px 8px 8px;
-$card-cap-bg: $secondary;
+//$card-cap-bg: $secondary;
 
 $card-bg: $gray-100;
-$card-border-width: 2px;
+$card-border-width: 1.5px;
 //$card-border-color: $gray-600;
 
-$card-cap-color: $light;
+$card-cap-color: $secondary;
 
 // List groups
 // $list-group-color:                  null !default;
@@ -86,8 +86,7 @@ $thumbnail-border-radius: 50%;
 $thumbnail-border-color: rgba(0, 0, 0, 0.1);
 
 // Tooltips
-$tooltip-bg: $secondary;
-$tooltip-opacity: 1;
+$tooltip-opacity: 2;
 
 // Popovers
 $popover-bg: $secondary;
