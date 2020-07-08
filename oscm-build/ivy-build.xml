@@ -405,7 +405,7 @@
 
     <copy file="${ivy.lib.dir}/commons-lang-2.6.jar" todir="${root.dir}/libraries/apache-lang/javalib" overwrite="true" />
   	
-  	<copy file="${ivy.lib.dir}/java-jwt-3.8.1.jar" todir="${root.dir}/libraries/oidc/javalib" overwrite="true" />
+    <copy file="${ivy.lib.dir}/java-jwt-3.8.1.jar" todir="${root.dir}/libraries/oidc/javalib" overwrite="true" />
   	
   	<unzip src="${ivy.lib.dir}/bootstrap-4.3.1.jar" dest="${root.dir}/libraries/bootstrap/javalib/work" />
   	<copy todir="${root.dir}/libraries/bootstrap/javalib">
