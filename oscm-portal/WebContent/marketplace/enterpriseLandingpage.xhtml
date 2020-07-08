@@ -40,30 +40,24 @@
         <div id="first" class="tab-pane fade show active pt-4" role="tabpanel" aria-labelledby="nav-first-tab">
           <a4j:outputPanel styleClass="row">
             <c:forEach items="#{enterpriseLandingpageModel.servicesFirstCategory}" var="service" varStatus="status">
-              <div class="marginBottomDefault">
                 <mp:landingpageEntryBlock fieldId="serviceFirst#{status.index}" service="#{service}"
                                           limitedDescription="true"/>
-              </div>
             </c:forEach>
           </a4j:outputPanel>
         </div>
         <div id="second" class="tab-pane fade pt-4" role="tabpanel" aria-labelledby="nav-second-tab">
           <a4j:outputPanel styleClass="row">
             <c:forEach items="#{enterpriseLandingpageModel.servicesSecondCategory}" var="service" varStatus="status">
-              <div class="marginBottomDefault">
                 <mp:landingpageEntryBlock fieldId="serviceSecond#{status.index}" service="#{service}"
                                           limitedDescription="true"/>
-              </div>
             </c:forEach>
           </a4j:outputPanel>
         </div>
         <div id="third" class="tab-pane fade pt-4" role="tabpanel" aria-labelledby="nav-third-tab">
           <a4j:outputPanel styleClass="row">
             <c:forEach items="#{enterpriseLandingpageModel.servicesThirdCategory}" var="service" varStatus="status">
-              <div class="marginBottomDefault">
                 <mp:landingpageEntryBlock fieldId="serviceThird#{status.index}" service="#{service}"
                                           limitedDescription="true"/>
-              </div>
             </c:forEach>
           </a4j:outputPanel>
         </div>

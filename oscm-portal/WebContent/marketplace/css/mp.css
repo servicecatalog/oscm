@@ -1060,7 +1060,8 @@ div.col4span {
 /* service icon / logo background bootstrap */
 .box-logo {
   background: url(../img/service_icon_default.png) no-repeat center 0;
-  text-align: center; }
+  text-align: center;
+  height: 80px; }
 
 .serviceBox2span .box_logo {
   margin: 30px 0 25px;
