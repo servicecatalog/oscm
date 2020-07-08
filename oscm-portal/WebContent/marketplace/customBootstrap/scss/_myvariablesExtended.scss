@@ -4,7 +4,7 @@
 // Global options.
 $enable-shadows: true;
 $enable-gradients: true;
-//$border-radius: 1.5rem;
+$enable-rounded: false;
 
 // Typography
 
@@ -39,7 +39,6 @@ $breadcrumb-active-color:           $breadcrumb-divider-color !default;
 
 
 // Cards
-
 $card-spacer-x:  1.5rem;
 $card-spacer-y:  1.25rem;
 
@@ -52,8 +51,7 @@ $card-border-width: 2px;
 
 $card-cap-color: $light;
 
-// List group
-
+// List groups
 // $list-group-color:                  null !default;
 // $list-group-bg:                     $white !default;
 // $list-group-border-color:           rgba($black, .125) !default;
