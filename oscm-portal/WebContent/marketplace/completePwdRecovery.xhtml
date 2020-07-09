@@ -1,25 +1,24 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!--TODO EPIC#990-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j">
+
 <h:head>
-<c:set var="mpBaseUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace" />
-<ui:include src="templates/head.xhtml">
-  <ui:param name="dirty" value="#{dirty}" />
-</ui:include>
+  <c:set var="mpBaseUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace"/>
+  <ui:include src="templates/headBootstrap.xhtml">
+    <ui:param name="dirty" value="#{dirty}"/>
+  </ui:include>
 </h:head>
 
 <h:body class="body4span">
   <a4j:outputPanel layout="block">
     <ui:include src="login.xhtml">
-      <ui:param name="canCloseLogin" value="false" />
+      <ui:param name="canCloseLogin" value="false"/>
     </ui:include>
   </a4j:outputPanel>
   <script type="text/javascript">
   RichFaces.$('loginPanel').show();
-</script>
+  </script>
 </h:body>
 </html>

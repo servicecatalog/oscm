@@ -1,62 +1,55 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!--TODO EPIC#990-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
+
 <h:head>
-<c:set var="mpBaseUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace" />
-<ui:include src="templates/head.xhtml">
-  <ui:param name="dirty" value="#{dirty}" />
-</ui:include>
+  <c:set var="mpBaseUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace"/>
+  <ui:include src="templates/headBootstrap.xhtml">
+    <ui:param name="dirty" value="#{dirty}"/>
+  </ui:include>
 </h:head>
 
 <h:body class="body4span">
   <a4j:outputPanel layout="block">
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
 
-    <rich:popupPanel id="logoutPanel" trimOverlayedElements="false" resizeable="false" autosized="true" height="100"
-      width="450" onresize="return false;" zindex="10000" onshow="AdmUtils.adjustMplModalDialogPosition('logoutPanel');"
-      onbeforeshow="AdmUtils.setPageOverflow('hidden');" onhide="AdmUtils.setPageOverflow('auto');">
+    <rich:popupPanel id="logoutPanel" trimOverlayedElements="false" resizeable="false" autosized="true"
+                     onresize="return false;" zindex="10000" styleClass="responsive-login-container"
+                     onshow="AdmUtils.adjustMplModalDialogPosition('logoutPanel');"
+                     onbeforeshow="AdmUtils.setPageOverflow('hidden');" onhide="AdmUtils.setPageOverflow('auto');">
 
       <h2>
-        <h:outputText value="#{msg['logout.serviceLogout.title']}" />
+        <h:outputText value="#{msg['logout.serviceLogout.title']}"/>
       </h2>
-      <mp:pixelline />
+      <hr class="mt-1 mb-3"/>
 
-      <a4j:outputPanel id="modalErrorPanel" layout="block" styleClass="errorPanel"
-        style="display: block; margin-top: -5px; margin-bottom: 10px;"
-        rendered="#{(not empty errorKey) or (facesContext.maximumSeverity.ordinal > 0)}">
+      <a4j:outputPanel id="modalErrorPanel" layout="block" styleClass="errorPanel errorPanel mt-0 mb-2 d-block"
+                       rendered="#{(not empty errorKey) or (facesContext.maximumSeverity.ordinal > 0)}">
         <!-- filter error messages -->
         <c:if test="#{not empty errorKey}">
           <dl class="rich-messages box error">
             <dt>
               <h:outputFormat value="#{msg[errorKey]}">
-                <f:param value="#{errorParam0}" />
-                <f:param value="#{errorParam1}" />
-                <f:param value="#{errorParam2}" />
-                <f:param value="#{errorParam3}" />
-                <f:param value="#{errorParam4}" />
+                <f:param value="#{errorParam0}"/>
+                <f:param value="#{errorParam1}"/>
+                <f:param value="#{errorParam2}"/>
+                <f:param value="#{errorParam3}"/>
+                <f:param value="#{errorParam4}"/>
               </h:outputFormat>
             </dt>
           </dl>
         </c:if>
         <!-- JSF error messages -->
-        <rich:messages globalOnly="true" passedLabel="" layout="list" id="errorMessages22" styleClass="box error" ajaxRendered="false" />
+        <rich:messages globalOnly="true" passedLabel="" layout="list" id="errorMessages22" styleClass="box error"
+                       ajaxRendered="false"/>
       </a4j:outputPanel>
 
-      <a4j:outputPanel id="logoutGrid" styleCass="grid2span clearfix" style="width: 560px;">
-        <a4j:outputPanel layout="block">
-          <br />
-          <h:outputText value="#{msg['logout.serviceLogout.description']}" />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+      <a4j:outputPanel id="logoutGrid" styleCass="grid2span clearfix">
+        <a4j:outputPanel layout="block" styleClass="mt-2 mb-5">
+          <h:outputText value="#{msg['logout.serviceLogout.description']}"/>
         </a4j:outputPanel>
       </a4j:outputPanel>
     </rich:popupPanel>
@@ -66,6 +59,5 @@
     </script>
 
   </a4j:outputPanel>
-
 </h:body>
 </html>

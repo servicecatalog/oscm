@@ -1,0 +1,96 @@
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j">
+
+  <c:if test="#{empty labelStyle}">
+    <c:set var="labelStyle" value=""/>
+  </c:if>
+  <c:if test="#{empty selectStyle}">
+    <c:set var="selectStyle" value="field"/>
+  </c:if>
+  <c:if test="#{empty labelWidth}">
+    <c:set var="labelWidth" value="2"/>
+  </c:if>
+  <c:if test="#{empty selectWidth}">
+    <c:set var="selectWidth" value="7"/>
+  </c:if>
+  <c:if test="#{empty messageWidth}">
+    <c:set var="messageWidth" value="3"/>
+  </c:if>
+  <c:if test="#{empty renderPrefix or renderPrefix}">
+    <c:set var="renderPrefix" value="true"/>
+  </c:if>
+
+  <div class="row align-items-center pb-2">
+    <div class="col-md-#{labelWidth} col-sm-12">
+      <adm:outputLabel value="#{label}" rendered="#{empty rendered or rendered}" required="#{required}"
+                       styleClass="labelStyle"/>
+    </div>
+    <div class="col-md-#{selectWidth} col-sm-12 my-1">
+      <div class="row">
+        <div class="col-md-11 col-10 pr-0">
+          <a4j:outputPanel styleClass="jqSelect" layout="block" rendered="#{empty rendered or rendered}">
+            <a4j:outputPanel styleClass="select" rendered="#{renderPrefix}">
+              <a4j:outputPanel id="#{id}Selected" styleClass="option"/>
+            </a4j:outputPanel>
+            <c:if test="#{empty required}">
+              <c:if test="#{empty listenerBean}">
+                <h:selectOneMenu id="#{id}" value="#{value}" onchange="setDirty(true);" styleClass="#{selectStyle}"
+                                 required="#{required}" disabled="#{disabled}">
+                  <ui:insert/>
+                </h:selectOneMenu>
+              </c:if>
+              <c:if test="#{not empty listenerBean}">
+                <h:selectOneMenu id="#{id}" value="#{value}" styleClass="#{selectStyle}" required="#{required}"
+                                 disabled="#{disabled}" valueChangeListener="#{listenerBean['processValueChange']}">
+                  <a4j:ajax event="change" render="#{render}" oncomplete="setDirty(true); #{oncomplete}"/>
+                  <ui:insert/>
+                </h:selectOneMenu>
+              </c:if>
+            </c:if>
+
+            <c:if test="#{not empty required}">
+              <!-- Here a tomahawk component is used to prevent the menu to get its value -->
+              <!-- via the value-binding in case a validation error occurred (see #8313). -->
+              <c:if test="#{empty listenerBean}">
+                <t:selectOneMenu id="#{id}" value="#{value}" onchange="setDirty(true);" styleClass="#{selectStyle}"
+                                 required="#{required}" disabled="#{disabled}">
+                  <ui:insert/>
+                </t:selectOneMenu>
+              </c:if>
+              <c:if test="#{not empty listenerBean}">
+                <t:selectOneMenu id="#{id}" value="#{value}" styleClass="#{selectStyle}" required="#{required}"
+                                 disabled="#{disabled}" valueChangeListener="#{listenerBean['processValueChange']}">
+                  <a4j:ajax event="change" render="#{render}" oncomplete="setDirty(true); #{oncomplete}"/>
+                  <ui:insert/>
+                </t:selectOneMenu>
+              </c:if>
+            </c:if>
+          </a4j:outputPanel>
+        </div>
+        <div class="col-md-1 col-2 pl-0">
+          <c:if test="#{(not empty showHint)}">
+            <adm:hintBootstrap for="#{id}"/>
+          </c:if>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-#{messageWidth} col-sm-12">
+      <c:choose>
+        <c:when test="#{(not empty showHint)}">
+          <div class="row pl-3">
+            <adm:message id="#{id}ErrorMsg" for="#{id}"/>
+          </div>
+        </c:when>
+        <c:otherwise>
+          <a4j:outputPanel styleClass="row pl-3">
+            <adm:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}"/>
+          </a4j:outputPanel>
+        </c:otherwise>
+      </c:choose>
+    </div>
+  </div>
+</ui:composition>

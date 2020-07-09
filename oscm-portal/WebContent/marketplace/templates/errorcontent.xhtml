@@ -1,41 +1,66 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
-  
-  <h:head>
-    <ui:insert name="pageId" />
-  </h:head>
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j">
 
-  <h:body style="width:100%; margin:0;">
-  
-    <a4j:outputPanel id="mpErrorPageHeader" layout="block" styleClass="rich-panel-header">
-      <c:set var="msgKey" value="#{pageId}.title" />
-      <h2 style="padding-left:10px;">
-        <h:graphicImage value="/img/error.png" style="vertical-align:middle;"/>
-        <h:outputText id="mpErrorPageLabel" value=" #{msg[msgKey]}" style="vertical-align:top;" />
-      </h2>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+<h:head>
+  <ui:insert name="pageId"/>
+
+  <link href="${facesContext.externalContext.requestContextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+        type="text/css"/>
+  <link type="text/css" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+</h:head>
+
+<h:body styleClass="mt-5 container border rounded">
+
+  <a4j:outputPanel id="mpErrorPageHeader" layout="block" styleClass="text-center">
+    <c:set var="msgKey" value="#{pageId}.title"/>
+    <h1>
+      <h:outputText id="mpErrorPageOops" value="#{msg['error.page.oops']}"/>
+    </h1>
+    <h2>
+      <h:outputText id="mpErrorPageNotFound" value="#{msg['error.page.occured']}"/>
+    </h2>
+  </a4j:outputPanel>
+
+  <rich:panel style="border:none;">
+    <a4j:outputPanel id="mpErrorPage" layout="block"
+                     rendered="#{(not empty errorKey) or (facesContext.maximumSeverity.ordinal > 0)}">
+      <c:if test="#{not empty errorKey}">
+        <h2 id="mpErrorPageMsg">
+          <h:outputFormat value="#{msg[errorKey]}">
+            <f:param value="#{errorParam0}"/>
+            <f:param value="#{errorParam1}"/>
+            <f:param value="#{errorParam2}"/>
+            <f:param value="#{errorParam3}"/>
+            <f:param value="#{errorParam4}"/>
+          </h:outputFormat>
+        </h2>
+      </c:if>
     </a4j:outputPanel>
+  </rich:panel>
 
-    <rich:panel style="border:none;" >
-      <a4j:outputPanel id="mpErrorPage" layout="block"
-        rendered="#{(not empty errorKey) or (facesContext.maximumSeverity.ordinal > 0)}">
-        <c:if test="#{not empty errorKey}">
-          <h2 id="mpErrorPageMsg">
-            <h:outputFormat value="#{msg[errorKey]}">
-              <f:param value="#{errorParam0}" />
-              <f:param value="#{errorParam1}" />
-              <f:param value="#{errorParam2}" />
-              <f:param value="#{errorParam3}" />
-              <f:param value="#{errorParam4}" />
-            </h:outputFormat>
-          </h2>
-        </c:if>
-      </a4j:outputPanel>
-    </rich:panel>
+  <a4j:outputPanel layout="block" styleClass="row row-justify-space my-3">
+    <div class="col-md-1"></div>
+    <div class="col-md-3 col-sm-4 col-5">
+      <h:outputLink styleClass="btn btn-secondary w-100"
+                    value="/oscm-portal/marketplace/index.jsf?mId=#{appBean.marketplaceId}">
+        <i class="fa fa-home"/> #{msg['navigation.home']}
+      </h:outputLink>
+    </div>
+    <div class="col-md-4 col-sm-4 col-2"></div>
+    <div class="col-md-3 col-sm-4 col-5">
+      <h:outputLink styleClass="btn btn-secondary w-100" value="https://github.com/servicecatalog/oscm/issues">
+        <i class="fa fa-envelope-o"/> #{msg['error.page.contact']}
+      </h:outputLink>
+    </div>
+    <div class="col-md-1"></div>
+  </a4j:outputPanel>
 
-  </h:body>
+</h:body>
 </html>

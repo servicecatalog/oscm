@@ -1,207 +1,269 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!--TODO EPIC#990-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="templates/main.xhtml">
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                template="templates/mainBootstrap.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.registration" />
-    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
-    <c:set var="novspace" value="true" />
-    <c:set var="width" value="640" />
-    <c:set var="focusElement" value="userEmail" />
-    <c:set var="bodyClass" value="body5span" />
-    <c:set var="defaultLoginRedirect" value="/marketplace" />
-    <c:set var="internalAuthMode" value="#{(registrationBean.internalMode)? true : false}" />
+    <c:set var="pageId" value="marketplace.registration"/>
+    <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
+    <c:set var="novspace" value="true"/>
+    <c:set var="width" value="640"/>
+    <c:set var="focusElement" value="userEmail"/>
+    <c:set var="bodyClass" value="body5span"/>
+    <c:set var="defaultLoginRedirect" value="/marketplace"/>
+    <c:set var="internalAuthMode" value="#{(registrationBean.internalMode)? true : false}"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
-    <mp:breadcrumbs>
-      <mp:crumb label="#{msg['user.registration']}" />
-    </mp:breadcrumbs>
+    <mp:bootstrapBreadcrumbs>
+      <mp:crumb label="#{msg['user.registration']}"/>
+    </mp:bootstrapBreadcrumbs>
   </ui:define>
 
   <ui:define name="contents">
     <rich:jQuery selector="document"
-      query="ready(function() {
+                 query="ready(function() {
         jQuery('input#registrationForm\\:verificationCode').focus(
           function() {
             jQuery(this).parents('tr:eq(0)').next().addClass('formHighlight');
           });
-      })" />
+      })"/>
     <rich:jQuery selector="document"
-      query="ready(function() {
+                 query="ready(function() {
         jQuery('input#registrationForm\\:verificationCode').blur(
           function() {
             jQuery(this).parents('tr:eq(0)').next().removeClass('formHighlight')
           });
-      })" />
+      })"/>
 
     <rich:jQuery selector="document"
-      query="ready(function() {
+                 query="ready(function() {
         jQuery('*#registrationForm\\:terms').focus(
           function() {
             jQuery(this).parents('tr:eq(0)').addClass('formHighlight');
             jQuery(this).parents('tr:eq(0)').find('.current').addClass('formHighlight');
           });
-      })" />
+      })"/>
     <rich:jQuery selector="document"
-      query="ready(function() {
+                 query="ready(function() {
         jQuery('*#registrationForm\\:terms').blur(
           function() {
             jQuery(this).parents('tr:eq(0)').removeClass('formHighlight')
           });
-      })" />
+      })"/>
 
     <rich:jQuery selector="document"
-      query="ready(function() {
+                 query="ready(function() {
         jQuery('a#registrationForm\\:policy').focus(
           function() {
             jQuery(this).parents('tr:eq(0)').addClass('formHighlight');
             jQuery(this).parents('tr:eq(0)').find('.current').addClass('formHighlight');
           });
-      })" />
+      })"/>
     <rich:jQuery selector="document"
-      query="ready(function() {
+                 query="ready(function() {
         jQuery('a#registrationForm\\:policy').blur(
           function() {
             jQuery(this).parents('tr:eq(0)').removeClass('formHighlight')
           });
-      })" />
+      })"/>
 
-    <a4j:outputPanel layout="block" styleClass="grid5span clearfix">
+    <a4j:outputPanel styleClass="row justify-content-center my-3">
       <mp:notice rendered="#{not userBean.selfRegistrationAllowed}"
-        noticeText="#{msg['ex.RegistrationException.SELFREGISTRATION_NOT_ALLOWED']}" />
-      <a4j:outputPanel layout="block" styleClass="box" rendered="#{userBean.selfRegistrationAllowed}">
+                 noticeText="#{msg['ex.RegistrationException.SELFREGISTRATION_NOT_ALLOWED']}"/>
+      <a4j:outputPanel layout="block" styleClass="col-lg-10 col-md-11 col-sm-12 bg-light p-4 shadow mb-4"
+                       rendered="#{userBean.selfRegistrationAllowed}">
 
         <h2>
-          <h:outputText value="#{msg['user.registration']}" />
+          <h:outputText value="#{msg['user.registration']}"/>
         </h2>
-        <mp:pixelline />
+        <hr class="mt-1 mb-4"/>
 
         <h:outputText
-          value="#{internalAuthMode ? msg['public.registration.description']:msg['public.registration.sso.description']}"
-          styleClass="preWrapping" />
-
-
-        <br />
+            value="#{internalAuthMode ? msg['public.registration.description']:msg['public.registration.sso.description']}"
+            styleClass="preWrapping mb-2"/>
 
         <h:form id="registrationForm">
-          <input type="hidden" name="sId" id="sId" value="#{registrationBean.supplierId}" />
-          <h:inputHidden id="supplierId" value="#{registrationBean.supplierId}" />
-          <input type="hidden" name="serviceKey" id="serviceKey" value="#{param['serviceKey']}" />
-          <input type="hidden" name="mId" id="mId" value="#{param['mId']}" />
+          <input type="hidden" name="sId" id="sId" value="#{registrationBean.supplierId}"/>
+          <h:inputHidden id="supplierId" value="#{registrationBean.supplierId}"/>
+          <input type="hidden" name="serviceKey" id="serviceKey" value="#{param['serviceKey']}"/>
+          <input type="hidden" name="mId" id="mId" value="#{param['mId']}" class="mb-2"/>
 
-          <adm:panelGrid minColWidth="false">
+          <adm:formSelect id="salutation" label="#{msg['user.salutation']}"
+                          value="#{registrationBean.user.salutation}" selectStyle="custom-select" renderPrefix="false">
+            <adm:salutationItems/>
+          </adm:formSelect>
 
-            <adm:labelAndSelect id="salutation" label="#{msg['user.salutation']}"
-              value="#{registrationBean.user.salutation}" styleClass="selectXS" renderPrefix="false">
-              <adm:salutationItems />
-            </adm:labelAndSelect>
+          <mp:formUserName firstNameId="firstName" firstNameValue="#{registrationBean.user.firstName}"
+                           lastNameId="lastName" lastNameValue="#{registrationBean.user.lastName}"
+                           inputStyle="form-control"/>
 
-            <mp:userName firstNameId="firstName" firstNameValue="#{registrationBean.user.firstName}"
-              lastNameId="lastName" lastNameValue="#{registrationBean.user.lastName}" styleClass="fieldS" />
+          <div class="row align-items-center pb-2">
+            <div class="col-md-2 col-sm-12">
+              <adm:outputLabel value="#{msg['user.email']}" required="true"/>
+            </div>
+            <div class="col-md-7 col-sm-12 my-1">
+              <div class="row">
+                <div class="col-md-11 col-10 pr-0">
+                  <h:inputText id="userEmail" label="#{msg['user.email']}" required="true" styleClass="custom-select"
+                               value="#{registrationBean.user.email}" maxlength="#{appBean.nameLen}"
+                               onblur="if(#{registrationBean.internalMode}){AdmUtils.suggestUserId(this,#{rich:element('userId')});}">
+                    <f:converter converterId="trimConverter"/>
+                    <f:validator validatorId="email"/>
+                  </h:inputText>
+                </div>
+                <div class="col-md-1 col-2 pl-0"></div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+              <mp:message for="userEmail"/>
+            </div>
+          </div>
 
-            <adm:outputLabel value="#{msg['user.email']}" required="true" />
-            <h:inputText id="userEmail" label="#{msg['user.email']}" required="true"
-              value="#{registrationBean.user.email}" styleClass="fieldS" maxlength="#{appBean.nameLen}"
-              onblur="if(#{registrationBean.internalMode}){AdmUtils.suggestUserId(this,#{rich:element('userId')});}">
-              <f:converter converterId="trimConverter" />
-              <f:validator validatorId="email" />
-            </h:inputText>
-            <mp:message for="userEmail" />
+          <mp:formInput id="userId" label="#{msg['public.registration.userId']}" required="true"
+                        value="#{registrationBean.user.userId}" validatorId="userId" inputStyle="form-control"
+                        maxlength="#{appBean.userIdLen}" converterId="trimConverter" showHint="#{internalAuthMode}"
+                        readonly="#{!internalAuthMode}" displayRequired="#{internalAuthMode}"/>
 
-            <mp:labelAndInputText id="userId" label="#{msg['public.registration.userId']}" required="true"
-              value="#{registrationBean.user.userId}" styleClass="fieldS" maxlength="#{appBean.userIdLen}"
-              validatorId="userId" converterId="trimConverter" displayRequired="#{internalAuthMode}"
-              showHint="#{internalAuthMode}" readonly="#{!internalAuthMode}" />
+          <c:if test="#{internalAuthMode}">
 
-            <c:if test="#{internalAuthMode}">
-              <adm:outputLabel value="#{msg['public.registration.password']}" required="true" />
-              <adm:password id="regPassword" required="true" strengthDemRequired="true"
-                passwordStrengthId="passwordStrengthRegistration" label="#{msg['public.registration.password']}"
-                styleClass="fieldS" length="#{appBean.nameLen}" beanValue="#{registrationBean.password}"
-                formName="registrationForm" validatorId="password" />
-              <mp:messageAndHint id="regPasswordErrorMsg" for="regPassword" />
+            <div class="row align-items-center pb-2">
+              <div class="col-md-2 col-sm-12">
+                <adm:outputLabel value="#{msg['public.registration.password']}" required="true"/>
+              </div>
+              <div class="col-md-7 col-sm-12 my-1">
+                <div class="row">
+                  <div class="col-md-11 col-10 pr-0">
+                    <adm:passwordBootstrap id="regPassword" required="true" strengthDemRequired="true"
+                                           passwordStrengthId="passwordStrengthRegistration" styleClass="form-control"
+                                           label="#{msg['public.registration.password']}" formName="registrationForm"
+                                           length="#{appBean.nameLen}" beanValue="#{registrationBean.password}"
+                                           validatorId="password"/>
+                  </div>
+                  <div class="col-md-1 col-2 pl-0">
+                    <mp:hintBootstrap for="regPassword"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-12">
+                <mp:message id="regPasswordErrorMsg" for="regPassword"/>
+              </div>
+            </div>
 
-              <adm:outputLabel value="#{msg['public.registration.password2']}" required="true" />
-              <h:inputSecret id="regPassword2" label="#{msg['public.registration.password2']}" required="true"
-                styleClass="fieldS" maxlength="#{appBean.nameLen}" autocomplete="off"
-                connectedTo="registrationForm:regPassword">
-                <f:validator validatorId="password" />
-              </h:inputSecret>
-              <mp:message id="regPassword2ErrorMsg" for="regPassword2" />
-            </c:if>
+            <div class="row align-items-center pb-2">
+              <div class="col-md-2 col-sm-12">
+                <adm:outputLabel value="#{msg['public.registration.password2']}" required="true"/>
+              </div>
+              <div class="col-md-7 col-sm-12 my-1">
+                <div class="row">
+                  <div class="col-md-11 col-10 pr-0">
+                    <h:inputSecret id="regPassword2" label="#{msg['public.registration.password2']}" required="true"
+                                   styleClass="form-control" maxlength="#{appBean.nameLen}" autocomplete="off"
+                                   connectedTo="registrationForm:regPassword">
+                      <f:validator validatorId="password"/>
+                    </h:inputSecret>
+                  </div>
+                  <div class="col-md-1 col-2 pl-0"></div>
+                </div>
+              </div>
+              <div class="col-md-3 col-sm-12">
+                <mp:message id="regPassword2ErrorMsg" for="regPassword2"/>
+              </div>
+            </div>
+          </c:if>
 
-            <mp:labelAndInputText id="organizationName" label="#{msg['organization.name']}"
-              value="#{registrationBean.organization.name}" styleClass="fieldS" maxlength="#{appBean.nameLen}"
-              showHint="true" converterId="trimConverter" required="true"/>
+          <mp:formInput id="organizationName" label="#{msg['organization.name']}" maxlength="#{appBean.nameLen}"
+                        value="#{registrationBean.organization.name}" inputStyle="form-control"
+                        showHint="true" converterId="trimConverter" required="true"/>
 
-            <adm:labelAndInputTextarea id="organizationAddress" label="#{msg['organization.address']}"
-              value="#{registrationBean.organization.address}" styleClass="fieldS" maxlength="#{appBean.descriptionLen}"
-              converterId="trimConverter" />
+          <adm:formTextarea id="organizationAddress" label="#{msg['organization.address']}"
+                            value="#{registrationBean.organization.address}" areaStyle="form-control"
+                            maxlength="#{appBean.descriptionLen}" converterId="trimConverter"/>
 
-            <mp:labelAndSelect id="country" label="#{msg['common.country']}"
-              value="#{registrationBean.organization.domicileCountry}" styleClass="select" required="true">
-              <adm:countryItems supportedCountries="#{countryBean.supportedCountryCodesForPublicRegistrationPage}" />
-            </mp:labelAndSelect>
+          <mp:formSelect id="country" label="#{msg['common.country']}" required="true"
+                         value="#{registrationBean.organization.domicileCountry}" selectStyle="custom-select">
+            <adm:countryItems supportedCountries="#{countryBean.supportedCountryCodesForPublicRegistrationPage}"/>
+          </mp:formSelect>
 
-            <adm:outputLabel value="#{msg['public.registration.verification']}" required="true" />
-            <h:inputText id="verificationCode" label="#{msg['public.registration.verification']}" required="true"
-              value="#{registrationBean.verificationCode}" styleClass="fieldXS" maxlength="#{appBean.idLen}">
-              <f:validator validatorId="captcha" />
-            </h:inputText>
-            <mp:messageAndHint for="verificationCode" />
+          <div class="row align-items-center pb-2">
+            <div class="col-md-2 col-sm-12">
+              <adm:outputLabel value="#{msg['public.registration.verification']}" required="true"/>
+            </div>
+            <div class="col-md-7 col-sm-12 my-1">
+              <div class="row">
+                <div class="col-md-11 col-10 pr-0">
+                  <h:inputText id="verificationCode" label="#{msg['public.registration.verification']}" required="true"
+                               value="#{registrationBean.verificationCode}" styleClass="form-control"
+                               maxlength="#{appBean.idLen}">
+                    <f:validator validatorId="captcha"/>
+                  </h:inputText>
+                </div>
+                <div class="col-md-1 col-2 pl-0">
+                  <mp:hintBootstrap for="verificationCode"/>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-12">
+              <mp:message id="verificationCodeErrorMsg" for="verificationCode"/>
+            </div>
+          </div>
 
-            <h:outputText value="" />
-            <t:panelGroup colspan="2">
+          <div class="row align-items-center pb-2">
+            <div class="col-md-2 col-sm-12"></div>
+            <div class="col-md-7 col-sm-12 my-1">
               <h:graphicImage id="verificationImage" alt="#{msg['public.registration.verificationCode']}" url="/image">
               </h:graphicImage>
-            </t:panelGroup>
-            <adm:spacer width="100" />
-            <adm:spacer width="100" />
-            <adm:spacer width="100" />
+            </div>
+            <div class="col-md-3 col-sm-12"></div>
+          </div>
 
-            <adm:outputLabel value="#{msg['public.registration.terms']}" required="true" />
-            <t:panelGroup colspan="2" style="width:100%">
-              <h:selectBooleanCheckbox id="acceptTerms" value="#{registrationBean.acceptTerms}"
-                validator="#{registrationBean.validateAcceptTerm}" />
-                <h:outputText value="#{msg['public.registration.acceptStart']}" />
+          <div class="row align-items-center pb-2">
+            <div class="col-md-2 col-sm-12">
+              <adm:outputLabel value="#{msg['public.registration.terms']}" required="true"/>
+            </div>
+            <div class="col-md-7 col-sm-12 my-1">
+              <t:panelGroup colspan="2" style="width:100%">
+                <h:selectBooleanCheckbox id="acceptTerms" value="#{registrationBean.acceptTerms}"
+                                         validator="#{registrationBean.validateAcceptTerm}"/>
+                <h:outputText value="#{msg['public.registration.acceptStart']}"/>
                 <a4j:region>
                   <a4j:commandLink id="terms" value="#{msg['public.registration.acceptTermsLinkName']}"
-                    onclick="window.open('#{facesContext.externalContext.requestContextPath}/marketplace/terms/terms.jsf','_blank','')" 
-                    rendered="#{not empty msg['public.registration.acceptTermsLinkName']}" />
-                  <h:outputText value="#{msg['public.registration.acceptMiddle']}" />
+                                   onclick="window.open('#{facesContext.externalContext.requestContextPath}/marketplace/terms/terms.jsf','_blank','')"
+                                   rendered="#{not empty msg['public.registration.acceptTermsLinkName']}"/>
+                  <h:outputText value="#{msg['public.registration.acceptMiddle']}"/>
                   <a4j:commandLink id="policy" value="#{msg['public.registration.acceptPrivacyPolicyLinkName']}"
-                    onclick="window.open('#{facesContext.externalContext.requestContextPath}/marketplace/terms/privacypolicy.jsf','_blank','')" 
-                    rendered="#{not empty msg['public.registration.acceptPrivacyPolicyLinkName']}" />
+                                   onclick="window.open('#{facesContext.externalContext.requestContextPath}/marketplace/terms/privacypolicy.jsf','_blank','')"
+                                   rendered="#{not empty msg['public.registration.acceptPrivacyPolicyLinkName']}"/>
                 </a4j:region>
-                <h:outputText value="#{msg['public.registration.acceptEnd']}" />
-            </t:panelGroup>
-            <h:outputText value=""></h:outputText>
-            <t:panelGroup colspan="2" style="width:100%">
-              <mp:message for="acceptTerms" />
-            </t:panelGroup>
-          </adm:panelGrid>
+                <h:outputText value="#{msg['public.registration.acceptEnd']}"/>
+              </t:panelGroup>
+            </div>
+            <div class="col-md-3 col-sm-12">
+              <t:panelGroup colspan="2" style="width:100%">
+                <mp:message for="acceptTerms"/>
+              </t:panelGroup>
+            </div>
+          </div>
 
           <a4j:outputPanel layout="block" styleClass="label footnote">
-            <h:outputText value="* " class="mandatory" />
-            <h:outputText value="#{msg['public.registration.mandatory']}" />
+            <h:outputText value="* " class="mandatory"/>
+            <h:outputText value="#{msg['public.registration.mandatory']}"/>
           </a4j:outputPanel>
 
-          <adm:spacer height="7" />
+          <adm:spacer height="7"/>
 
-          <mp:pixelline />
-          <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel">
-            <mp:button id="registerButton" value="#{msg['button.register']}" bean="#{registrationBean}"
-              action="register" />
-            <mp:button id="cancelButton" value="#{msg['button.cancel']}"
-              onclick="AdmUtils.showProgress(true);setDirty(false); location.href='#{facesContext.externalContext.requestContextPath}#{registrationBean.getValueOf('MARKETPLACE_START_SITE')}';return false;" />
+          <hr class="mt-3 mb-2"/>
+          <a4j:outputPanel styleClass="row row-justify-space">
+            <mp:buttonBootstrap id="cancelButton" value="#{msg['button.cancel']}"
+                                styleClass="btn btn-outline-secondary ml-3"
+                                onclick="AdmUtils.showProgress(true);setDirty(false); location.href='#{facesContext.externalContext.requestContextPath}#{registrationBean.getValueOf('MARKETPLACE_START_SITE')}';return false;"/>
+            <mp:buttonBootstrap id="registerButton" value="#{msg['button.register']}" bean="#{registrationBean}"
+                                action="register" styleClass="btn btn-secondary mr-3"/>
           </a4j:outputPanel>
         </h:form>
       </a4j:outputPanel>

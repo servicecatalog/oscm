@@ -1,63 +1,79 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
-  <!-- requires attributes fieldId (String), service (Service) and onClickHandler (String) -->
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
   <c:if test="#{empty showName}">
-    <c:set var="showName" value="true" />
+    <c:set var="showName" value="true"/>
   </c:if>
   <c:if test="#{empty showSupplier}">
-    <c:set var="showSupplier" value="true" />
+    <c:set var="showSupplier" value="true"/>
   </c:if>
   <c:if test="#{empty limitedDescription}">
-    <c:set var="limitedDescription" value="false" />
+    <c:set var="limitedDescription" value="false"/>
   </c:if>
+
   <h:form id="#{fieldId}onClickForm" target="#{service.target}">
-    <h:commandButton id="entrySelected" action="#{enterpriseLandingpageCtrl.entrySelected}" style="display: none;">
-      <f:setPropertyActionListener target="#{enterpriseLandingpageModel.selectedEntryKey}" value="#{service.key}" />
+    <h:commandButton id="entrySelected" action="#{enterpriseLandingpageCtrl.entrySelected}" styleClass="d-none">
+      <f:setPropertyActionListener target="#{enterpriseLandingpageModel.selectedEntryKey}" value="#{service.key}"/>
     </h:commandButton>
   </h:form>
-  <c:set var="unsubscribedClass" value="#{service.subscribed ? '' : 'unsubscribed'}" />
-  <a4j:outputPanel id="#{fieldId}Panel" layout="block" styleClass="box selectable serviceBox2span"
-    onclick="document.getElementById('#{fieldId}onClickForm:entrySelected').click();return false;"
-    >
-    <div class="clearfix">
-      <a4j:outputPanel layout="block" styleClass="left box_logo #{unsubscribedClass}">
-        <a4j:outputPanel layout="block" styleClass="box_image">
-          <h:graphicImage id="#{fieldId}Image" value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}" />
-        </a4j:outputPanel>
-      </a4j:outputPanel>
-      <a4j:outputPanel layout="block" styleClass="center">
-        <ui:fragment rendered="#{service ne null}">
+
+  <c:set var="unsubscribedClass" value="#{service.subscribed ? '' : 'unsubscribed'}"/>
+  <div class="col-xl-4 col-md-6 col-sm-12 mb-3">
+    <a4j:outputPanel id="#{fieldId}Panel" styleClass="card border-secondary h-100 selectable"
+                     onclick="document.getElementById('#{fieldId}onClickForm:entrySelected').click();return false;">
+      <div class="card-header py-2">
+        <ui:fragment rendered="#{showSupplier}">
           <ui:fragment rendered="#{showName}">
-            <h2 id="#{fieldId}Name" class="box_title services_in_categories_width_limit shortenedText" title="#{service.nameToDisplay}">#{service.nameToDisplay}</h2>
+            <h3 id="#{fieldId}Name" class="box_title services_in_categories_width_limit shortenedText"
+                title="#{service.nameToDisplay}">#{service.nameToDisplay}</h3>
           </ui:fragment>
-          <ui:fragment rendered="#{showSupplier}">
-            <h3 id="#{fieldId}Supplier" class="supplier shortenedText" title="#{service.sellerName}">
-              <h:outputFormat value="#{msg['service.by']}">
-                <f:param value="#{service.sellerName}" />
-              </h:outputFormat>
-            </h3>
-          </ui:fragment>
-          <a4j:outputPanel id="#{fieldId}ShortDescLimited" layout="block" rendered="#{limitedDescription}" styleClass="services_in_categories_width_limit"
-            style="word-wrap: break-word;" title="#{service.shortDescription}">
-        #{service.shortDescriptionLimited}
-      </a4j:outputPanel>
-          <a4j:outputPanel id="#{fieldId}ShortDesc" layout="block" rendered="#{not limitedDescription}"
-            style="word-wrap: break-word;">
-        #{service.shortDescription}
-      </a4j:outputPanel>
-          <a4j:outputPanel layout="block" styleClass="right clearfix subscribe" style="padding-top:10px;">
-            <mp:button rendered="#{service.showSubscribeButton}" id="#{fieldId}subscribeButton"
-              value="#{msg['button.subscribe']}"/>
-            <mp:button rendered="#{!service.showSubscribeButton}" id="#{fieldId}useButton"
-              value="#{msg['button.useService']}" progress="false"/>
-          </a4j:outputPanel>
         </ui:fragment>
-      </a4j:outputPanel>
-    </div>
-  </a4j:outputPanel>
+      </div>
+
+      <div class="card-body d-flex flex-column">
+        <div class="row">
+          <div class="col-lg-3 col-4">
+            <div class="box-logo">
+              <h:graphicImage id="#{fieldId}Image" value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
+            </div>
+          </div>
+          <div class="col-lg-9 col-8 pl-1">
+            <ui:fragment rendered="#{service ne null}">
+              <ui:fragment rendered="#{showSupplier}">
+                <h3 id="#{fieldId}Supplier" class="supplier shortenedText" title="#{service.sellerName}">
+                  <h:outputFormat value="#{msg['service.by']}">
+                    <f:param value="#{service.sellerName}"/>
+                  </h:outputFormat>
+                </h3>
+              </ui:fragment>
+              <a4j:outputPanel id="#{fieldId}ShortDescLimited" layout="block" rendered="#{limitedDescription}"
+                               styleClass="services_in_categories_width_limit pt-2"
+                               style="word-wrap: break-word;" title="#{service.shortDescription}">
+                #{service.shortDescriptionLimited}
+              </a4j:outputPanel>
+              <a4j:outputPanel id="#{fieldId}ShortDesc" layout="block" rendered="#{not limitedDescription}"
+                               style="word-wrap: break-word;" styleClass="pt-2">
+                #{service.shortDescription}
+              </a4j:outputPanel>
+            </ui:fragment>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer p-0">
+        <ui:fragment rendered="#{showSupplier}">
+          <mp:buttonLink rendered="#{service.showSubscribeButton}" id="#{fieldId}subscribeButton"
+                         value="#{msg['button.subscribe']}"
+                         styleClass="btn btn-outline-secondary w-100 stretched-link"/>
+          <mp:buttonLink rendered="#{!service.showSubscribeButton}" id="#{fieldId}useButton" progress="false"
+                         value="#{msg['button.useService']}"
+                         styleClass="btn btn-outline-secondary w-100 stretched-link"/>
+        </ui:fragment>
+      </div>
+    </a4j:outputPanel>
+  </div>
 </ui:composition>

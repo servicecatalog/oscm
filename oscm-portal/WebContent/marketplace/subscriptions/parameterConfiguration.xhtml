@@ -1,31 +1,26 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!--TODO EPIC#990-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-                template="../templates/modalDialogBootstrap.xhtml">
-
-  <!-- DESCRIPTION: -->
-  <!-- Input parameters: formId -->
+                xmlns:a4j="http://richfaces.org/a4j" template="../templates/modalDialogBootstrap.xhtml">
 
   <ui:define name="dialogScripts">
     <c:if test="${conversationTimeout != null}">
       <mp:conversationKeepAlive/>
     </c:if>
-    
-    <script src="#{facesContext.externalContext.requestContextPath}/scripts/configurationApi.js" type="text/javascript"></script>
+
+    <script src="#{facesContext.externalContext.requestContextPath}/scripts/configurationApi.js"
+            type="text/javascript"></script>
     <script src="#{facesContext.externalContext.requestContextPath}/scripts/json2.js" type="text/javascript"></script>
     <script src="#{facesContext.externalContext.requestContextPath}/scripts/parameterConfiguration.js"
-      type="text/javascript"></script>
+            type="text/javascript"></script>
 
     <script type="text/javascript">
       var configurator = new Parconf("#{bean.model.service.configuratorUrl}", "#{dialogId}");
     </script>
-    
+
     <a4j:outputPanel id="configRqScript">
       <script language="javascript" type="text/javascript">
         function sendConfigRequest() {
@@ -35,59 +30,58 @@
     </a4j:outputPanel>
   </ui:define>
 
-  <ui:define name="dialogTitle">    
+  <ui:define name="dialogTitle">
     <a4j:outputPanel id="errorTitle">
-      <h2 class="dialogTitleWidth">
-      
-        <h:outputText rendered="#{bean.model.showTitle}" style="display:block;"
-          value="#{msg['warning.title']}" />
+      <h2 class="dialogTitleWidth mb-3">
+        <h:outputText rendered="#{bean.model.showTitle}" styleClass="d-block" value="#{msg['warning.title']}"/>
       </h2>
     </a4j:outputPanel>
   </ui:define>
 
-  <ui:define name="dialogContent">    
-    <a4j:jsFunction name="rerenderWarningPanel" render="configurationForm:modify_configurationWarning,configurationForm:subcribe_configurationWarning" 
+  <ui:define name="dialogContent">
+    <a4j:jsFunction name="rerenderWarningPanel"
+                    render="configurationForm:modify_configurationWarning,configurationForm:subcribe_configurationWarning"
                     oncomplete="if(#{bean.model.configurationChanged}){setOnSubmit(false);setDirty(true);}"/>
-    <a4j:jsFunction name="setFallback" action="#{bean.actionFallback}" 
-      render="configurationForm:externalToolDialog,configurationForm:errorTitle"/>  
-      
+    <a4j:jsFunction name="setFallback" action="#{bean.actionFallback}"
+                    render="configurationForm:externalToolDialog,configurationForm:errorTitle"/>
+
     <!-- This function is called if the external tool finished the parameter configuration. -->
     <!-- The reRender-action and the oncomplete-Function cannot be executed if the   -->
-    <!-- parent page is rerendered by the server because an internal error occurred! --> 
+    <!-- parent page is rerendered by the server because an internal error occurred! -->
     <a4j:jsFunction name="validateConfiguredParameters" action="#{bean.validateConfiguredParameters}"
-      render="#{dialogId}modalErrorMasterPanel,configurationForm2:parameterTable" data="#{bean.model.parameterValidationResult}"
-      oncomplete="configurator.validationFinished(event.data);">
-      <a4j:param name="config_response" assignTo="#{bean.model.parameterConfigResponse}" />
+                    render="#{dialogId}modalErrorMasterPanel,configurationForm2:parameterTable"
+                    data="#{bean.model.parameterValidationResult}"
+                    oncomplete="configurator.validationFinished(event.data);">
+      <a4j:param name="config_response" assignTo="#{bean.model.parameterConfigResponse}"/>
     </a4j:jsFunction>
 
-    <h:panelGroup layout="block" id="loadingPanel" style="display: block;">
-      <h:outputText style="display:block;" value="#{msg['info.loadingExternalTool']}" />
-      <adm:spacer height="5" />
+    <h:panelGroup layout="block" id="loadingPanel" styleClass="d-block">
+      <h:outputText styleClass="d-block" value="#{msg['info.loadingExternalTool']}"/>
+      <adm:spacer height="5"/>
     </h:panelGroup>
 
-    <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel configuration-dialog" id="externalToolDialog">
+    <a4j:outputPanel layout="block" styleClass="clearfix bottomButtonPanel" id="externalToolDialog">
       <a4j:outputPanel id="extconf" rendered="#{bean.model.loadIframe}">
         <script type="text/javascript">
-      	var iFrame = document.getElementById('configuratorFrame');
-      	if(iFrame!=null)
-      	{iFrame.src = iFrame.src +"?timestamp="+ new Date().getTime();} 
-    	</script>
+      	  var iFrame = document.getElementById('configuratorFrame');
+      	  if(iFrame!=null){iFrame.src = iFrame.src +"?timestamp="+ new Date().getTime();}
+        </script>
         <iframe id="configuratorFrame" src="#{bean.model.service.configuratorUrl}"
-          style="width: 100%; height: 100%; display: none;" />
+                style="width: 100%; height: 100%; display: none;"/>
       </a4j:outputPanel>
-      
+
       <a4j:outputPanel id="paramtable" rendered="#{bean.model.useFallback}">
-        <a4j:jsFunction name="setHideExternalConfigurator"
-                        action="#{bean.actionHideExternalConfigurator}" />
-        <h:outputText style="display:block;" value="#{msg['error.loadExternalTool']}" />
-        <adm:spacer height="5" />
-        <mp:pixelline />
-        <mp:button id="btnCancel" value="#{msg['button.close']}" style="margin-right: 10px; text-decoration:none;"
-          onclick="AdmUtils.showProgress(true);setHideExternalConfigurator();setDirty(false);#{rich:element('btnHiddenCancel')}.click();" />
+        <a4j:jsFunction name="setHideExternalConfigurator" action="#{bean.actionHideExternalConfigurator}"/>
+        <h:outputText styleClass="d-block" value="#{msg['error.loadExternalTool']}"/>
+        <hr class="mt-3 mb-2"/>
+        <a4j:outputPanel styleClass="row justify-content-end">
+          <mp:buttonBootstrap id="btnCancel" value="#{msg['button.close']}" styleClass="btn btn-secondary mr-3"
+                              onclick="AdmUtils.showProgress(true);setHideExternalConfigurator();setDirty(false);#{rich:element('btnHiddenCancel')}.click();"/>
+        </a4j:outputPanel>
       </a4j:outputPanel>
 
     </a4j:outputPanel>
-    <h:commandButton id="btnHiddenCancel" style="display:none;" onclick="#{cancelHandler}" />
+    <h:commandButton id="btnHiddenCancel" styleClass="d-none" onclick="#{cancelHandler}"/>
 
   </ui:define>
 

@@ -3,34 +3,86 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:a4j="http://richfaces.org/a4j">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <adm:initialize initializingMethod="#{enterpriseLandingpageCtrl.initializeLandingpage}"/>
 
-  <h:form id="tagFilterForm" rendered="#{!isMplRestricted or empty userBean.loggedInUser}">
-    <h:inputHidden id="tagFilterValue" value="#{servicePagingBean.filterTag}"/>
-    <h:commandButton id="applyTagFilter" action="#{serviceListingBean.showServiceList}" style="display: none;">
-      <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
-    </h:commandButton>
-  </h:form>
+  <a4j:outputPanel id="listServicesForEnterpriseLandingpage">
+    <h:form id="tagFilterForm">
+      <h:inputHidden id="tagFilterValue" value="#{servicePagingBean.filterTag}"/>
+      <h:commandButton id="applyTagFilter" action="#{serviceListingBean.showServiceList}" styleClass="d-none">
+        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
+      </h:commandButton>
+    </h:form>
 
-  <mp:categorySelectionLandingBootstrap/>
-  <div class="row mt-2">
-    <c:forEach items="#{serviceListingBean.servicesForLandingPage}" var="service" varStatus="status">
-      <mp:serviceCard fieldId="service#{status.index}" service="#{service}" limitedDescription="true"/>
-    </c:forEach>
-  </div>
+    <div class="container-flex pl-0 mt-3">
+      <div class="list-group list-group-horizontal-sm text-center" id="service-tab" role="tablist">
+        <c:if test="#{enterpriseLandingpageCtrl.showFirstCategory}">
+          <a class="list-group-item list-group-item-secondary list-group-item-action active" id="firstCategory"
+             data-toggle="tab" href="#first" role="tab" aria-controls="first"
+             onclick="setSelectedTab('firstCategory');">#{enterpriseLandingpageCtrl.nameFirstCategoryShow}</a>
+        </c:if>
+        <c:if test="#{enterpriseLandingpageCtrl.showSecondCategory}">
+          <a class="list-group-item list-group-item-secondary list-group-item-action" id="secondCategory"
+             data-toggle="tab" href="#second" role="tab" aria-controls="second"
+             onclick="setSelectedTab('secondCategory');">#{enterpriseLandingpageCtrl.nameSecondCategoryShow}</a>
+        </c:if>
+        <c:if test="#{enterpriseLandingpageCtrl.showThirdCategory}">
+          <a class="list-group-item list-group-item-secondary list-group-item-action" id="thirdCategory"
+             data-toggle="tab" href="#third" role="tab" aria-controls="third"
+             onclick="setSelectedTab('thirdCategory');">#{enterpriseLandingpageCtrl.nameThirdCategoryShow}</a>
+        </c:if>
+      </div>
 
-  <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
-                id="recommendedRetailPrice"
-                rendered="#{serviceListingBean.serviceListContainsChargeableResellerService}"/>
-  <mp:linkPageTop showBrowseAll="true"/>
-  <rich:jQuery selector="document"
-               query="ready(function() {var tagDivs = jQuery('div.serviceTags').get();AdmUtils.cutServiceTags(tagDivs);})"/>
-  <script>
-    	jQuery().ready(function(){
-        	AdmUtils.highlightNavigation("navigation1");
-    	});
-  </script>
+      <div class="tab-content" id="myTabContent">
+        <div id="first" class="tab-pane fade show active pt-4" role="tabpanel" aria-labelledby="nav-first-tab">
+          <a4j:outputPanel styleClass="row">
+            <c:forEach items="#{enterpriseLandingpageModel.servicesFirstCategory}" var="service" varStatus="status">
+                <mp:landingpageEntryBlock fieldId="serviceFirst#{status.index}" service="#{service}"
+                                          limitedDescription="true"/>
+            </c:forEach>
+          </a4j:outputPanel>
+        </div>
+        <div id="second" class="tab-pane fade pt-4" role="tabpanel" aria-labelledby="nav-second-tab">
+          <a4j:outputPanel styleClass="row">
+            <c:forEach items="#{enterpriseLandingpageModel.servicesSecondCategory}" var="service" varStatus="status">
+                <mp:landingpageEntryBlock fieldId="serviceSecond#{status.index}" service="#{service}"
+                                          limitedDescription="true"/>
+            </c:forEach>
+          </a4j:outputPanel>
+        </div>
+        <div id="third" class="tab-pane fade pt-4" role="tabpanel" aria-labelledby="nav-third-tab">
+          <a4j:outputPanel styleClass="row">
+            <c:forEach items="#{enterpriseLandingpageModel.servicesThirdCategory}" var="service" varStatus="status">
+                <mp:landingpageEntryBlock fieldId="serviceThird#{status.index}" service="#{service}"
+                                          limitedDescription="true"/>
+            </c:forEach>
+          </a4j:outputPanel>
+        </div>
+      </div>
+    </div>
+    <h:form>
+      <a4j:jsFunction name="setSelectedTab">
+        <a4j:param name="param1" assignTo="#{sessionBean.selectedTab}"/>
+      </a4j:jsFunction>
+    </h:form>
+
+    <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
+                  id="recommendedRetailPrice"
+                  rendered="#{serviceListingBean.serviceListContainsChargeableResellerService}"/>
+    <mp:linkPageTop showBrowseAll="true"/>
+    <rich:jQuery selector="document"
+                 query="ready(function() {
+                         var tagDivs = jQuery('div.serviceTags').get();
+                         AdmUtils.cutServiceTags(tagDivs);})"/>
+
+    <script>
+			jQuery().ready(function() {
+				AdmUtils.highlightNavigation("navigation1");
+			});
+			AdmUtils.sessionTab('#{sessionBean.selectedTab}', 'service-tab');
+    </script>
+  </a4j:outputPanel>
 </ui:composition>

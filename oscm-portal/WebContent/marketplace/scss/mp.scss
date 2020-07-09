@@ -1022,6 +1022,10 @@ form .formHighlight input, form .formHighlight textarea {
   margin: 0 0 0 10px;
 }
 
+.popover {
+  z-index: 20000;
+}
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 4.3 Registration form
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
@@ -1272,6 +1276,7 @@ div.col4span {
 .box-logo {
   background: url(../img/service_icon_default.png) no-repeat center 0;
   text-align: center;
+  height: 80px;
 }
 
 .serviceBox2span .box_logo {
@@ -4485,6 +4490,23 @@ div#headerrightareaBootstrap, rightarea a {
   width: 100% !important;
 }
 .responsive-dialog-container>.rf-pp-shdw {
+  display: none;
+}
+
+.responsive-login-container {
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%);
+  width: 90% !important;
+  max-width: 350px;
+  min-width: 330px;
+  max-height: 580px;
+}
+
+.responsive-login-container>div {
+  width: 100% !important;
+}
+.responsive-login-container>.rf-pp-shdw {
   display: none;
 }
 

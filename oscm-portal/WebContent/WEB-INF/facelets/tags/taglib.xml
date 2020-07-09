@@ -280,6 +280,10 @@
     <source>formTextarea.xhtml</source>
   </tag>
   <tag>
+    <tag-name>formSelect</tag-name>
+    <source>formSelect.xhtml</source>
+  </tag>
+  <tag>
     <tag-name>hintBootstrap</tag-name>
     <source>hintBootstrap.xhtml</source>
   </tag>
