@@ -25,31 +25,6 @@ html, body {
 h1, h2, h3, h4, h5, h6 {
   font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif !important; }
 
-/*.navbar {
-  border-width: 2px;
-  border-style: solid;
-  border-radius: 25px 25px 55px 5px/5px 55px 25px 25px !important;
-
-  &.bg-light {
-    border-color: $gray-800;
-  }
-
-  &.fixed-top {
-    border-radius: 0 25px 225px 0/25px 0 25px 255px;
-    border-width: 0 0 2px 0;
-  }
-
-  &.fixed-bottom {
-    border-radius: 255px 25px 0 25px/25px 225px 25px 0;
-    border-width: 2px 0 0 0;
-  }
-
-  &-brand {
-    font-family: $headings-font-family;
-    font-weight: normal;
-    text-decoration: none;
-  }
-} */
 .breadcrumb {
   padding: 0.75rem 1rem !important; }
   .breadcrumb .breadcrumb-item {
@@ -72,17 +47,6 @@ button, input, textarea {
 .card {
   box-shadow: 4px 4px 10px 0px rgba(3, 3, 3, 0.24); }
 
-.list-group-item-secondary {
-  background-color: #6bdb84 !important; }
-
-.list-group-item-secondary:hover {
-  background-color: #269f42 !important;
-  color: #fff !important; }
-
-.list-group-item-secondary.active {
-  background-color: #228c3a !important;
-  color: #fff !important; }
-
 .gridLayoutForCard {
   position: relative;
   width: 100%;
@@ -104,6 +68,17 @@ button, input, textarea {
     .gridLayoutForCard {
       flex: 0 0 25%;
       max-width: 25%; } }
+
+.list-group-item-secondary {
+  background-color: #6bdb84 !important; }
+
+.list-group-item-secondary:hover {
+  background-color: #269f42 !important;
+  color: #fff !important; }
+
+.list-group-item-secondary.active {
+  background-color: #228c3a !important;
+  color: #fff !important; }
 
 /* -------end customization-------- */
 /* finally, import Bootstrap to set the changes! */
