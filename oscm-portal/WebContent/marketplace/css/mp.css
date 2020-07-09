@@ -149,7 +149,7 @@ Copyright 2010-2012 FUJITSU LIMITED
 body {
   font-size: 81.25% !important;
   /* 13px */
-  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "┬┤ÔòØ┬í┬┤ÔòØÔöé ┬┤ÔòØÔûæ├Æ├®Ôöñ├Æ├®├Ç├Æ├ó├ó├Æ├®┬╗", "├Æ├ó├å├Æ├ó┬«├Æ├®┬½├Æ├ó├ä├×┬║├å├Æ├®Ôöñ Pro W3", sans-serif;
+  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif;
   margin: 0px;
   position: relative;
   text-align: left;
@@ -157,7 +157,7 @@ body {
 
 textarea, input, option, select, .rich-tabpanel-content {
   font-size: 100%;
-  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "┬┤ÔòØ┬í┬┤ÔòØÔöé ┬┤ÔòØÔûæ├Æ├®Ôöñ├Æ├®├Ç├Æ├ó├ó├Æ├®┬╗", "├Æ├ó├å├Æ├ó┬«├Æ├®┬½├Æ├ó├ä├×┬║├å├Æ├®Ôöñ Pro W3", sans-serif; }
+  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif; }
 
 input, select, textarea {
   border: 1px solid #CCC; }
@@ -166,7 +166,7 @@ textarea {
   resize: vertical; }
 
 .rich-tab-header {
-  font: normal 14px/100% "OpenSansSemiBold", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif !important; }
+  font: normal 14px/100% "OpenSansSemiBold", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif !important; }
 
 * html table {
   font-size: 100%; }
@@ -191,7 +191,7 @@ a:active {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  /* font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif; */
+  /* font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; */
   line-height: 1.5; }
 
 h1 {
