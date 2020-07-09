@@ -34,7 +34,7 @@ $breadcrumb-bg: $gray-100;
 $breadcrumb-active-color: $secondary;
 $breadcrumb-divider:                quote(">");
 $breadcrumb-divider-color:           $secondary;
-$breadcrumb-active-color:           $breadcrumb-divider-color !default;
+$breadcrumb-active-color:           $breadcrumb-divider-color;
 $breadcrumb-border-radius:         1.25rem;
 
 
@@ -48,35 +48,13 @@ $card-border-radius: 8px 8px 8px 8px;
 $card-bg: $gray-100;
 $card-border-width: 1.5px;
 //$card-border-color: $gray-600;
-
 $card-cap-color: $secondary;
 
 // List groups
-// $list-group-color:                  null !default;
-// $list-group-bg:                     $white !default;
-// $list-group-border-color:           rgba($black, .125) !default;
-// $list-group-border-width:           $border-width !default;
 $list-group-border-radius:          1.5rem;
 
-// $list-group-item-padding-y:         .75rem !default;
-// $list-group-item-padding-x:         1.25rem !default;
-
-// $list-group-hover-bg:               $gray-100 !default;
-// $list-group-active-color:           $component-active-color !default;
-// $list-group-active-bg:              $component-active-bg !default;
-// $list-group-active-border-color:    $list-group-active-bg !default;
-
-// $list-group-disabled-color:         $gray-600 !default;
-// $list-group-disabled-bg:            $list-group-bg !default;
-
-// $list-group-action-color:           $gray-700 !default;
-//$list-group-action-hover-color:     $green;
-
-// $list-group-action-active-color:    $body-color !default;
-// $list-group-action-active-bg:       $gray-200 !default;
-
-
-
+$list-group-item-padding-y:         .75rem;
+$list-group-item-padding-x:         1.25rem;
 
 // Buttons
 $btn-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
@@ -85,14 +63,10 @@ $btn-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
 $thumbnail-border-radius: 50%; 
 $thumbnail-border-color: rgba(0, 0, 0, 0.1);
 
-// Tooltips
-$tooltip-opacity: 2;
-
 // Popovers
 $popover-bg: $secondary;
 $popover-body-color: $light;
 
 // Inputs
-//$input-bg: lighten($secondary, 15%);
 $input-focus-border-color: $primary;
 $input-group-addon-border-color: $primary;
