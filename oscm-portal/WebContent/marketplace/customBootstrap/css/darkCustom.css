@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* import only the necessary Bootstrap files */
 /* -------begin customization-------- */
 /* change the fonts, and primary theme color to green  */
@@ -22,7 +23,7 @@ html, body {
   overflow-x: hidden; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: !important; }
+  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif !important; }
 
 /*.navbar {
   border-width: 2px;
@@ -61,6 +62,9 @@ h1, h2, h3, h4, h5, h6 {
     .breadcrumb .breadcrumb-item a:visited {
       color: #23923d;
       text-decoration: none; }
+
+button, input, textarea {
+  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif; }
 
 .card-header {
   font-size: 1rem; }
@@ -155,7 +159,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -404,6 +408,7 @@ template {
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
+  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif;
   font-weight: 500;
   line-height: 1.2; }
 
@@ -1900,6 +1905,7 @@ textarea.form-control {
 
 .btn {
   display: inline-block;
+  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif;
   font-weight: 400;
   color: #212529;
   text-align: center;
@@ -4287,7 +4293,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;
@@ -4372,7 +4378,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.5;

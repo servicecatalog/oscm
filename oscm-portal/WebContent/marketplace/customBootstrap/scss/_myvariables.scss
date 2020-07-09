@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
 
 $main-color: $green;
@@ -15,6 +16,11 @@ $theme-colors: (
 
 // Body
 $body-bg: #fff;
+
+// Fonts
+$font-family-base: "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+$headings-font-family: $font-family-base;
+$btn-font-family: $font-family-base;
 
 // Dropdowns
 $dropdown-link-active-bg: $primary;
