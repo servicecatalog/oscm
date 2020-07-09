@@ -5,7 +5,7 @@
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 xmlns:a4j="http://richfaces.org/a4j">
 
-  <div class="col-xl-4 col-md-6 col-sm-12 mb-3">
+  <div class="gridLayoutForCard mb-3">
     <a4j:outputPanel class="card border-secondary h-100 selectable"
                      onclick="#{rich:element('showDetails'.concat(status.index))}.click();">
       <div class="card-header">
@@ -39,7 +39,6 @@
                             styleClass="pt-3"/>
           </div>
         </div>
-
         <div id="#{fieldId}ShortDescLimited" title="#{service.shortDescription}" class="mt-3">
           <h5>#{service.shortDescriptionLimited}</h5>
         </div>

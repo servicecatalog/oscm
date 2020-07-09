@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
 
 $main-color: $green;
@@ -13,11 +14,22 @@ $theme-colors: (
    "dark": $dark
 );
 
+// Body
 $body-bg: #fff;
+
+// Fonts
+$font-family-base: "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+$headings-font-family: $font-family-base;
+$btn-font-family: $font-family-base;
+
+// Dropdowns
 $dropdown-link-active-bg: $primary;
+
+// Inputs
 $input-focus-border-color: $primary;
 $input-group-addon-border-color: $primary;
 
+// Custom colors for list-groups.
 $lightened-color: lighten(desaturate($secondary, 0.03), 23.33);
 
 $hover-color: darken($secondary, 2%);

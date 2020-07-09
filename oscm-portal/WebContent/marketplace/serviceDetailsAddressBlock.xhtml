@@ -80,7 +80,7 @@
           <ui:param name="dialogId" value="#{reportPanelId}"/>
         </ui:include>
 
-        <mp:buttonBootstrap id="#{reportPrefix}reportIssue" styleClass="btn-sm btn-secondary"
+        <mp:buttonBootstrap id="#{reportPrefix}reportIssue" styleClass="btn btn-sm btn-secondary"
                             value="#{msg['supplier.support.report']}"
                             onclick="#{rich:component(reportPanelId)}.show(); return false;"/>
       </c:if>

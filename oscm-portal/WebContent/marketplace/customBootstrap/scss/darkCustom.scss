@@ -1,6 +1,8 @@
+@charset "UTF-8";
 /* import only the necessary Bootstrap files */
 @import "../../../bootstrap/scss/functions"; 
 @import "../../../bootstrap/scss/variables";
+@import "../../../bootstrap/scss/mixins/grid";
 
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
 @import "myvariables";
@@ -11,7 +13,64 @@ html, body {
   overflow-x: hidden;
 } 
 
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-family: $headings-font-family !important;
+}
 
+// Breadcrumbs
+.breadcrumb {
+  padding: $breadcrumb-padding-y $breadcrumb-padding-x !important; 
+  .breadcrumb-item {
+  padding-left: $breadcrumb-item-padding !important;
+  a {
+    color: $navbar-dark-color;
+  }
+
+  a:hover {
+    color: $secondary;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: darken($secondary, 5%);
+    text-decoration: none;
+  }
+}
+} 
+
+button, input,textarea {
+  font-family: $headings-font-family;
+}
+// Cards ==================================================================
+
+.card-header {
+  font-size: 1rem;
+}
+
+.card {
+  box-shadow: 4px 4px 10px 0px rgba(3, 3, 3, 0.24);
+} 
+
+// Grid layout for service card.
+.gridLayoutForCard {
+  @include make-col-ready;
+  @include media-breakpoint-up(sm) {
+    @include make-col(12);
+  }
+  @include media-breakpoint-up(md) {
+    @include make-col(6);
+  }
+  
+  @include media-breakpoint-up(lg) {
+    @include make-col(4);
+  }
+  @include media-breakpoint-up(xl) {
+    @include make-col(3);
+  }
+}
+
+// List groups ==================================================================
 .list-group-item-secondary {
     @extend .list-group-item-secondary;
     background-color: $lightened-color !important;
@@ -26,6 +85,6 @@ html, body {
    background-color: $darkened-color !important;
    color: #fff !important;
 }  
-  
+
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "../../../bootstrap/scss/bootstrap";

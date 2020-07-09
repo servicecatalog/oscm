@@ -122,7 +122,7 @@
             </div>
             <mp:message id="password2ErrorMsg" for="password2"/>
 
-            <mp:buttonBootstrap styleClass="btn-sm btn-secondary mt-3 mb-2 w-100" id="changeButton" action="change"
+            <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary mt-3 mb-2 w-100" id="changeButton" action="change"
                                 value="#{msg['button.change']}" bean="#{userBean}" render="rerenderPanel"
                                 oncomplete="AdmUtils.setLoginPanelDirty();AdmUtils.showProgress(false);"/>
           </h:form>
@@ -155,7 +155,7 @@
                 <h:commandButton id="showRegistration" action="#{userBean.showRegistration}" styleClass="d-none"/>
               </h:form>
 
-              <mp:buttonBootstrap id="register" styleClass="btn-sm btn-secondary w-100 mt-3 mb-2"
+              <mp:buttonBootstrap id="register" styleClass="btn btn-sm btn-secondary w-100 mt-3 mb-2"
                                   onclick="AdmUtils.showProgress(true);#{rich:element('registerRedirectTarget')}.value=#{rich:element('loginForm:loginRedirectTarget')}.value;#{rich:element('showRegistration')}.click();return false;"
                                   value="#{msg['button.register']}"/>
             </a4j:outputPanel>
