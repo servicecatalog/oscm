@@ -1,24 +1,24 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace" template="../templates/main.xhtml">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                template="../templates/mainBootstrap.xhtml">
 
-  <c:set var="sc" value="true" />
+  <c:set var="sc" value="true"/>
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.imprint" />
-    <c:set var="isSingleContentPage" value="true" />
+    <c:set var="pageId" value="marketplace.imprint"/>
+    <c:set var="isSingleContentPage" value="true"/>
   </ui:define>
 
   <ui:define name="breadcrumbs">
-    <mp:breadcrumbs>
-      <mp:crumb label="#{msg['marketplace.imprint.title']}" />
-    </mp:breadcrumbs>
+    <mp:bootstrapBreadcrumbs>
+      <mp:crumb label="#{msg['marketplace.imprint.title']}"/>
+    </mp:bootstrapBreadcrumbs>
   </ui:define>
 
   <ui:define name="singlecontent">
-    <h:outputText id="imprintUrl" value="#{msg['public.imprint.url.description']}" />
+    <h:outputText id="imprintUrl" value="#{msg['public.imprint.url.description']}"/>
   </ui:define>
 </ui:composition>
