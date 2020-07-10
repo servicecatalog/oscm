@@ -44,7 +44,7 @@ You can simply modify the color theme, by changing the variable $main-color in _
 Similarly, you can modify the $font-family-base variable to modify the font-family, or use a Google font instead. (Please note that you have to modify also the $font-family-base-sans-serif variable in the _variables.scss which is imported in mp.scss).
 If you need to adjust or add specific Boostrap styles, you can do so after importing “myVariables” directly in darkCustom.scss (but before importing bootstrap), by either writing normal css or Scss code syntax. Remember to re-compile your source files for the changes to take effect.
 
-####Specific Case: Cards Customization:
+#### Specific Case: Cards Customization:
 A specific customization case (useful for the customer) is the .gridLayoutForCard which allows you to customize the grid layout for the service cards that appear in the custom landing page, by using Sass mixins for the columns. The example illustrates the div with class: col-xl-4 col-md-6 col-sm-12 mb-3
 If you wish to have another grid layout, you can modify the numbers in the mixins appropriately.
 (For more information about the Grid layout of Bootstrap, please see: https://getbootstrap.com/docs/4.0/layout/grid/)
@@ -53,6 +53,28 @@ If you wish to have another grid layout, you can modify the numbers in the mixin
 
 An extended variables file that serves as an example of custom Bootstrap UI components is here available for download: _myVariablesExtended.scss
 The variables are structured per UI component and the explanation is below:
+
+#### Global options.
+This section defines the enablement or disablement of general options like shadows, gradients, or border-radius for UI components such as buttons and list groups.
+
+
+#### Fonts
+The template includes a commented-out option if you wish to use a Google Font. $font-family-base is the variable used for fonts, and $font-size-base defines a variable for font sizes.
+
+#### Navbar 
+You can modify the padding of navbars.
+
+####Dropdowns, 
+Variables that affect Dropdown menus, such as the Dropdown appearing in the Navigation bar, or in the “Sorting” Dropdown of  the pagination.
+For example, you can override the link-hover color or background hover color of a Dropdown, increase the border radius or increase the spaces between items.
+
+#### Breadcrumbs
+Similarly, this section defines parameters that affect the marketplace breadcrumb.
+
+In darkCustom.scss there is also a section with styles about the breadcrumb. The reason for this is that mp.css also includes some styles for breadcrumbs and you can override these with the !important rule.
+
+Similarly, the following sections about “Cards”, “List Groups”, “Buttons”, “Image Thumbnails”, “Popovers” and “Inputs” showcase some configurable variables for all these Bootstrap UI components.
+
 
 ### File mp.scss for adjusting theming of mp.css.
 A minimum set of variables for the easier customization of mp.css has also been included via the Sass Variables importing mechanism. The variables that can be customized are: 1) colors such as $primary color, $warning, etc. 2) the $font-family-sans-serif and 3)the font sizes and line-heights of headings. 
