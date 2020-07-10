@@ -63,10 +63,10 @@ button, input,textarea {
   }
   
   @include media-breakpoint-up(lg) {
-    @include make-col(6);
+    @include make-col(4);
   }
   @include media-breakpoint-up(xl) {
-    @include make-col(4);
+    @include make-col(3);
   }
 }
 

@@ -62,12 +62,12 @@ button, input, textarea {
       max-width: 50%; } }
   @media (min-width: 992px) {
     .gridLayoutForCard {
-      flex: 0 0 50%;
-      max-width: 50%; } }
-  @media (min-width: 1280px) {
-    .gridLayoutForCard {
       flex: 0 0 33.3333333333%;
       max-width: 33.3333333333%; } }
+  @media (min-width: 1280px) {
+    .gridLayoutForCard {
+      flex: 0 0 25%;
+      max-width: 25%; } }
 
 .list-group-item-secondary {
   background-color: #6bdb84 !important; }
