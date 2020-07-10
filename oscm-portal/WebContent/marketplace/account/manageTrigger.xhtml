@@ -75,7 +75,7 @@
           </adm:formSelect>
 
           <!-- target type      Note: required does not work with tomahawk -->
-          <adm:formSelect selectStyle="custom-select form-select-xs" id="targetType"
+          <adm:formSelect selectStyle="custom-select custom-select-xs" id="targetType"
                           value="#{triggerDefinitionBean.selectedTriggerDefinition.targetType}"
                           label="#{msg['triggerDefinition.targetType']}"
                           disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}">
@@ -138,7 +138,7 @@
 
           <div class="row row-justify-space">
 
-            <h:commandButton id="cancelButton" styleClass="btn-sm btn-outline-secondary ml-3"
+            <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ml-3"
                              onclick="
                     AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
                     AdmUtils.clearHiddenErrorPanel();
@@ -151,10 +151,9 @@
             </h:commandButton>
 
             <mp:buttonBootstrap styleClass="btn btn-sm btn-outline-secondary" id="#{dialogId}DeleteButton"
-                                value="#{msg['button.delete']}"
-                                rendered="#{!triggerDefinitionBean.newTriggerDefinition}"
+                                value="#{msg['button.delete']}" rendered="#{!triggerDefinitionBean.newTriggerDefinition}"
                                 disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}"
-                                onclick="#{rich:component('confirmPanel')}.show();return false;"/>
+                                onclick="#{rich:component('confirmPanel')}.show();return false;" />
 
             <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary mr-3" id="#{dialogId}Save"
                                 onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('hiddenSaveBtn')}.click(); return false;"
