@@ -94,8 +94,8 @@ public class SkinBeanTest {
     when(brandServiceMock.getMarketplaceStage(anyString(), eq(Locale.ENGLISH.getLanguage())))
         .thenReturn(stageContent);
 
-    String resultDiv = MessageFormat.format(SkinBean.MARKETPLACE_STAGE_BRANDED, stageContent);
-    Assert.assertEquals(resultDiv, skinBean.getMarketplaceStage());
+    String expectedDiv = MessageFormat.format(SkinBean.MARKETPLACE_STAGE_BRANDED, stageContent);
+    Assert.assertEquals(expectedDiv, skinBean.getMarketplaceStage());
   }
 
   /** vouser in session. */
@@ -109,11 +109,11 @@ public class SkinBeanTest {
     // when
     when(brandServiceMock.getMarketplaceStage(anyString(), eq(Locale.CHINA.getLanguage())))
         .thenReturn(stageContentBranded);
-    String resultDiv =
+    String expectedDiv =
         MessageFormat.format(SkinBean.MARKETPLACE_STAGE_BRANDED, stageContentBranded);
 
     // then
-    Assert.assertEquals(resultDiv, skinBean.getMarketplaceStage());
+    Assert.assertEquals(expectedDiv, skinBean.getMarketplaceStage());
   }
 
   /** session available but no vo => browser locale */
@@ -124,8 +124,8 @@ public class SkinBeanTest {
         .thenReturn(stageContent);
 
     // then
-    String resultDiv = MessageFormat.format(SkinBean.MARKETPLACE_STAGE_BRANDED, stageContent);
-    Assert.assertEquals(resultDiv, skinBean.getMarketplaceStage());
+    String expectedDiv = MessageFormat.format(SkinBean.MARKETPLACE_STAGE_BRANDED, stageContent);
+    Assert.assertEquals(expectedDiv, skinBean.getMarketplaceStage());
   }
 
   @Test
@@ -147,12 +147,12 @@ public class SkinBeanTest {
         .thenReturn(stageContentBranded);
 
     // then
-    String resultDiv =
+    String expectedDiv =
         MessageFormat.format(SkinBean.MARKETPLACE_STAGE_BRANDED, stageContentBranded);
 
     // then
-    Assert.assertEquals(resultDiv, skinBean.getMarketplaceStage());
-    Assert.assertEquals(resultDiv, skinBean.getMarketplaceStage());
-    Assert.assertEquals(resultDiv, skinBean.getMarketplaceStage());
+    Assert.assertEquals(expectedDiv, skinBean.getMarketplaceStage());
+    Assert.assertEquals(expectedDiv, skinBean.getMarketplaceStage());
+    Assert.assertEquals(expectedDiv, skinBean.getMarketplaceStage());
   }
 }
