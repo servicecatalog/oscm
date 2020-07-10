@@ -22,13 +22,11 @@ import static org.mockito.Mockito.when;
 
 import java.text.MessageFormat;
 import java.util.Locale;
-
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
