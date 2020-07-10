@@ -142,10 +142,19 @@ public class SkinBean extends BaseBean implements Serializable {
     if (isEmpty(marketplaceStage)) {
       // No localized resource found for the mpl stage
       marketplaceStage = MessageFormat.format(MARKETPLACE_STAGE_DEFAULT, getRequestContextPath());
+    } else {
+      marketplaceStage = appendResponsiveDiv(marketplaceStage);
     }
     return marketplaceStage;
   }
 
+  private String appendResponsiveDiv(String mpStage) {
+    StringBuilder brandedStageBuilder = new StringBuilder();
+    brandedStageBuilder.append("<div class=\"responsive-container\">");
+    brandedStageBuilder.append(mpStage);
+    brandedStageBuilder.append("</div>");
+    return brandedStageBuilder.toString();
+  }
   /**
    * Retrieves the content of the mpl mobile stage from the brand service. If there was no localized
    * resource defined for the mobile stage content, a default will be returned. The locale used to
