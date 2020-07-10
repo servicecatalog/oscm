@@ -646,7 +646,7 @@ input#inputSearch {
   float: left;
   padding: 6px 0;
   color: #FFF;
-  font: 400 14px "OpenSansCondensedBold", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif;
+  font: 400 14px "OpenSansCondensedBold", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
   cursor: pointer; }
 
 /* highlight for selected navigation item */
@@ -1190,7 +1190,9 @@ h2.priceUnit, h1.priceUnit {
   color: #222;
   font-size: 13px;
   font-weight: 400;
-  display: inline; }
+  display: inline;
+  padding-left: 0.30rem;
+  padding-top: 0.30rem; }
 
 /* service price on home page and service overview */
 .servicePriceHome {
@@ -2674,7 +2676,7 @@ div.pagenate div.pagingBar .previous {
   float: left;
   border: 0;
   font-size: 12px;
-  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif;
+  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
   white-space: nowrap; }
 
 .button {
@@ -2736,7 +2738,7 @@ div.pagenate div.pagingBar .previous {
   float: left;
   border: 0;
   white-space: nowrap;
-  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif; }
+  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; }
 
 .bigbutton {
   background-position: left 0;

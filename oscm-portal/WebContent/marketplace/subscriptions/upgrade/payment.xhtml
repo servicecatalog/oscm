@@ -60,7 +60,7 @@
               <div class="col-md-9"></div>
               <a4j:outputPanel layout="block" styleClass="col-md-3" rendered="true">
                 <h:outputLink value="#" id="newBillingContact" onclick="newBillingContact(); return false;"
-                              rendered="#{userBean.loggedInAndAdmin}" styleClass="w-100 btn btn-outline-secondary">
+                              rendered="#{userBean.loggedInAndAdmin}" styleClass="w-100 btn btn-sm btn-outline-secondary">
                   <h:outputText value="#{msg['payment.new.BillingContact.title']}"/>
                 </h:outputLink>
               </a4j:outputPanel>
@@ -84,7 +84,7 @@
                 </h:selectOneMenu>
               </div>
               <div class="col-md-3">
-                <a4j:outputPanel id="bcInformation" layout="block">
+                <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-light-secondary rounded">
                   <mp:message for="selectBillingContact"
                               rendered="#{empty upgradeWizardConversation.model.selectedBillingContact}"/>
                   <ui:fragment
@@ -140,7 +140,7 @@
                 </h:selectOneMenu>
               </div>
               <div class="col-md-3">
-                <a4j:outputPanel id="piInformation" layout="block">
+                <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-light-secondary rounded">
                   <mp:message for="selectPaymentInfo"
                               rendered="#{empty upgradeWizardConversation.model.selectedPaymentInfo}"/>
                   <ui:fragment
