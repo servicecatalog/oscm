@@ -64,7 +64,7 @@ The template includes a commented-out option if you wish to use a Google Font. $
 #### Navbar 
 You can modify the padding of navbars.
 
-####Dropdowns, 
+#### Dropdowns 
 Variables that affect Dropdown menus, such as the Dropdown appearing in the Navigation bar, or in the “Sorting” Dropdown of  the pagination.
 For example, you can override the link-hover color or background hover color of a Dropdown, increase the border radius or increase the spaces between items.
 
