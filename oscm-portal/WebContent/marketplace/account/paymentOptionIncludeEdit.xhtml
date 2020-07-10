@@ -8,23 +8,22 @@
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
   <!-- Dialog description -->
-
   <a4j:outputPanel layout="block" styleClass="responsive-dialog  border-top">
     <ui:insert name="dialogDescription"/>
     <ui:include src="/marketplace/account/errorMessages.xhtml"/>
 
     <!--  Edit display name -->
-    <h:form id="#{dialogId}Form" styleClass="responsive-dialog pt-2">
-      <h:commandButton style="display:none;" id="confirmedPaymentDeleteButton" onclick="setDirty(false);"
+    <h:form id="#{dialogId}Form" styleClass="responsive-dialog pt-2 mt-3">
+      <h:commandButton styleClass="d-none" id="confirmedPaymentDeleteButton" onclick="setDirty(false);"
                        value="#{msg['button.delete']}" action="#{paymentInfoEditBean.deletePaymentInfo}"/>
       <c:set var="reqBtnName" value="#{includePrefix}:#{dialogId}Form:confirmedPaymentDeleteButton"/>
-      <div class="row mb-2">
+      <div class="row mb-1 mt-3">
         <div class="col-md-4 col-sm-12">
           <adm:outputLabel value="#{msg['paymentInfo.displayName']}" required="true"/>
         </div>
         <div class="col-md-5 col-sm-12">
           <h:inputText id="displayName" label="#{msg['billingContact.displayName']}" onchange="setDirty(true)"
-                       styleClass="field w-100"
+                       styleClass="form-control form-control-xs"
                        value="#{paymentInfoEditBean.paymentInfo.id}" maxlength="#{appBean.idLen}"
                        required="#{empty param[reqBtnName]}">
             <f:validator validatorId="idChar"/>
@@ -35,20 +34,10 @@
           <mp:message id="displayNameErrorMsg" for="displayName"/>
         </div>
       </div>
+      <hr class="mt-5 mb-2"/>
+      <a4j:outputPanel layout="block" styleClass="row row-justify-space">
 
-      <a4j:outputPanel layout="block" styleClass="row no-gutters border-top pt-2">
-        <h:commandButton styleClass="btn-sm btn-secondary" id="hiddenSetDisplayName" value="#{msg['button.save']}"
-                         onclick="AdmUtils.showProgress(true);setOnSubmit(true);setDirty(false);"
-                         action="#{paymentInfoEditBean.updatePaymentInfo}">
-          <f:ajax execute="@form" render=":#{dialogId}modalErrorMasterPanel #{additionalRender} @form"
-                  onevent="#{dialogId}eventHandler"/>
-        </h:commandButton>
-
-        <h:commandButton id="deleteButton" value="#{msg['button.delete']}" styleClass="btn-sm btn-secondary mx-1"
-                         onclick="#{rich:component('paymentConfirmPanel')}.show();return false;"
-                         rendered="#{'PAYMENT_SERVICE_PROVIDER' == paymentInfoEditBean.paymentInfo.paymentType.collectionType}"/>
-
-        <h:commandButton id="cancelButton" styleClass="btn-sm btn-secondary mx-1"
+        <h:commandButton id="cancelButton" styleClass="btn-sm btn-outline-secondary ml-3"
                          onclick="
                     AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
                     AdmUtils.clearHiddenErrorPanel();
@@ -59,11 +48,23 @@
           <f:ajax execute="@this" render="@form"/>
           <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
         </h:commandButton>
+
+        <h:commandButton id="deleteButton" value="#{msg['button.delete']}" styleClass="btn-sm btn-outline-secondary"
+                         onclick="#{rich:component('paymentConfirmPanel')}.show();return false;"
+                         rendered="#{'PAYMENT_SERVICE_PROVIDER' == paymentInfoEditBean.paymentInfo.paymentType.collectionType}"/>
+
         <mp:confirmPanelBootstrap panelId="paymentConfirmPanel"
                                   header="#{msg['marketplace.payment.deletePaymentOption.title']}"
                                   text1="#{msg['marketplace.payment.paymentOption.deleteMsg']}"
                                   text2="#{msg['marketplace.areyousure']}"
                                   submitId="confirmedPaymentDeleteButton" isFirstModal="false"/>
+
+        <h:commandButton styleClass="btn-sm btn-secondary mr-3" id="hiddenSetDisplayName" value="#{msg['button.save']}"
+                         onclick="AdmUtils.showProgress(true);setOnSubmit(true);setDirty(false);"
+                         action="#{paymentInfoEditBean.updatePaymentInfo}">
+          <f:ajax execute="@form" render=":#{dialogId}modalErrorMasterPanel #{additionalRender} @form"
+                  onevent="#{dialogId}eventHandler"/>
+        </h:commandButton>
       </a4j:outputPanel>
 
       <script type="text/javascript">
@@ -78,7 +79,6 @@
                   }
               }
             }
-
       </script>
     </h:form>
 

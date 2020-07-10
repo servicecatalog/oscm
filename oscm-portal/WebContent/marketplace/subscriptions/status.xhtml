@@ -7,21 +7,21 @@
                    rendered="#{not sub.statusActive and not sub.statusPending and not sub.statusPendingUpd}">
     <a4j:outputPanel layout="block" rendered="true" styleClass="subscriptionStatus subscriptionError position-absolute"
                      style="height:17px;"/>
-    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="ml-3 position-relative"/>
+    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{texStyle} ml-3 position-relative"/>
   </a4j:outputPanel>
   <a4j:outputPanel layout="block" styleClass="subscriptionStatus subscriptionPending" rendered="#{sub.statusPending}">
-    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="ml-3"/>
+    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3"/>
   </a4j:outputPanel>
   <a4j:outputPanel layout="block" styleClass="subscriptionStatus subscriptionActive" rendered="#{sub.statusActive}">
-    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="ml-3"/>
+    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3"/>
   </a4j:outputPanel>
   <a4j:outputPanel layout="block" styleClass="subscriptionStatus subscriptionPendingUpd"
                    rendered="#{sub.statusPendingUpd}">
-    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="ml-3"/>
+    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3"/>
   </a4j:outputPanel>
   <a4j:outputPanel layout="block" styleClass="subscriptionStatus subscriptionWaitingForApproval"
                    rendered="#{sub.statusWaitingForApproval}">
-    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="ml-3"/>
+    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3"/>
   </a4j:outputPanel>
 
 </ui:composition>

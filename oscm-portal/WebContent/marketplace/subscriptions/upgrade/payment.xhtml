@@ -56,7 +56,7 @@
             <h2 class="box_title mt-4">#{msg['payment.select.label']}</h2>
             <hr class="mt-1 mb-3"/>
 
-            <div class="row row align-items-center pb-2">
+            <div class="row align-items-center pb-2">
               <div class="col-md-9"></div>
               <a4j:outputPanel layout="block" styleClass="col-md-3" rendered="true">
                 <h:outputLink value="#" id="newBillingContact" onclick="newBillingContact(); return false;"
@@ -66,10 +66,9 @@
               </a4j:outputPanel>
             </div>
 
-            <div class="row row align-items-center pb-2">
+            <div class="row align-items-center pb-2">
               <div class="col-md-2">
-                <h:outputText id="label1"
-                              value="#{msg['payment.billingContact']}:"/>
+                <h:outputText id="label1" value="#{msg['payment.billingContact']}:"/>
                 <h:outputText value=" *" styleClass="mandatory"/>
               </div>
               <div class="col-md-7">
@@ -108,14 +107,14 @@
               </div>
             </div>
 
-            <div class="row row align-items-center pb-2">
+            <div class="row align-items-center pb-2">
               <div class="col-12">
                 <h:outputText id="noBillingContact" value="#{msg['organization.payment.noBillingContact']}"
                               rendered="#{not userBean.loggedInAndAdmin and empty billingContactBean.billingContacts}"/>
               </div>
             </div>
 
-            <div class="row row align-items-center pb-2">
+            <div class="row align-items-center pb-2">
               <div class="col-md-9"></div>
               <a4j:outputPanel layout="block" rendered="#{availableSubsAndAdmin}" class="col-md-3">
                 <h:outputLink value="" id="newPaymentInfo"
@@ -124,7 +123,7 @@
                 </h:outputLink>
               </a4j:outputPanel>
             </div>
-            <div class="row row align-items-center pb-2">
+            <div class="row align-items-center pb-2">
               <div class="col-md-2">
                 <h:outputText id="label2" value="#{msg['payment.paymentOption']}:"/>
                 <h:outputText value=" *" styleClass="mandatory"/>
@@ -158,14 +157,14 @@
                 </a4j:outputPanel>
               </div>
             </div>
-            <div class="row row align-items-center pb-2">
+            <div class="row align-items-center pb-2">
               <div class="col-12">
                 <h:outputText value="#{upgradeWizardConversation.paymentMissingText}"
                               id="noPaymenttypesAvailableForAdmin" rendered="#{not paymentInfoVisible}"/>
               </div>
             </div>
 
-            <hr class="my-2"/>
+            <hr class="mt-3 mb-1"/>
 
             <a4j:outputPanel styleClass="row row-justify-space">
               <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" action="previous"

@@ -22,7 +22,6 @@
         <c:set var="activeListItem"
           value="list-group-item list-group-item-action list-group-item-secondary btn-primary active text-center w-100 cat-item" />
 
-
       <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
           <!-- Selected category -->
           <h:commandLink id="categoryLink#{count.index}" value="#{cat.displayName}"

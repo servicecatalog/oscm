@@ -20,7 +20,7 @@
   </ui:define>
 
   <ui:define name="dialogContent">
-    <a4j:outputPanel id="#{dialogId}Grid" layout="block">
+    <a4j:outputPanel id="#{dialogId}Grid" layout="block" styleClass="mt-3">
       <h:form id="#{dialogId}Form">
         <!-- Service Name -->
         <div class="row my-2">
@@ -61,7 +61,8 @@
           </div>
           <div class="col-md-6 col-sm-12">
             <h:inputTextarea id="content" value="#{reportIssueBean.supportEmailContent}" required="true"
-                             title="#{msg['supplier.support.details.tooltips']}" styleClass="w-100">
+                             title="#{msg['supplier.support.details.tooltips']}"
+                             styleClass="form-control form-control-xs mb-0">
               <f:converter converterId="trimConverter"/>
               <f:validateLength maximum="#{reportIssueBean.contentLen}"/>
             </h:inputTextarea>
@@ -71,11 +72,16 @@
           </div>
         </div>
 
-        <div class="row no-gutters">
+        <hr class="mt-3 mb-1"/>
+        <div class="row row-justify-space">
+          <h:outputLink styleClass="btn-sm btn-outline-secondary ml-3 text-light text-decoration-none"
+                        id="#{dialogId}CancelButton" onclick="#{cancelHandler}">
+            <h:outputText value="#{msg['button.cancel']}"/>
+          </h:outputLink>
           <a4j:commandLink id="#{dialogId}SendButton"
                            action="#{reportIssueBean.reportIssue (manageSubscriptionModel.subscription.subscriptionId)}"
                            render="@form,#{dialogId}modalErrorMasterPanel"
-                           styleClass="btn-sm btn-secondary text-light text-decoration-none"
+                           styleClass="btn-sm btn-secondary text-light text-decoration-none mr-3"
                            onclick="setDirty(false);AdmUtils.showProgress(true);"
                            oncomplete="AdmUtils.showProgress(false);
                 if(!#{facesContext.maximumSeverity.ordinal > 0})
@@ -85,10 +91,6 @@
                 }">
             <h:outputText value="#{msg['button.send']}"/>
           </a4j:commandLink>
-          <h:outputLink styleClass="btn-sm btn-secondary mx-2 text-light text-decoration-none"
-                        id="#{dialogId}CancelButton" onclick="#{cancelHandler}">
-            <h:outputText value="#{msg['button.cancel']}"/>
-          </h:outputLink>
         </div>
       </h:form>
       <h:form>

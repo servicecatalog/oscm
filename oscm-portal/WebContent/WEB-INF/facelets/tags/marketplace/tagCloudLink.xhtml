@@ -1,29 +1,31 @@
-<!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- Copyright FUJITSU LIMITED 2020-->
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:f="http://xmlns.jcp.org/jsf/core">
 
   <c:choose>
     <c:when test="#{empty preview}">
       <h:commandLink style="font-size:#{tag.weight}px;" disabled="false" id="cloudlink#{status.index}"
-        styleClass="tagCloud tag #{tag.name eq servicePagingBean.filterTagForDisplay ? 'list-group-item-secondary' : ''}"   value="" action="#{serviceListingBean.showServiceList}">
-        <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value="#{tag.language},#{tag.name}" />
-        <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value="" />
-        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />
-        <h:outputText styleClass="#{tag.name eq servicePagingBean.filterTagForDisplay ? 'list-group-item-secondary' : ''}" value="#{tag.name}" escape="true" />
+                     styleClass="tagCloud tag #{tag.name eq servicePagingBean.filterTagForDisplay ? 'bg-secondary text-white p-1 rounded-pill' : ''}"
+                     value="" action="#{serviceListingBean.showServiceList}">
+        <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value="#{tag.language},#{tag.name}"/>
+        <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
+        <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
+        <h:outputText
+            styleClass="#{tag.name eq servicePagingBean.filterTagForDisplay ? 'bg-secondary text-white p-1 rounded-pill' : ''}"
+            value="#{tag.name}" escape="true"/>
       </h:commandLink>
     </c:when>
     <c:otherwise>
       <h:outputLink style="font-size:#{tag.weight}px;" disabled="true" id="cloudlink#{status.index}"
-        styleClass="tagCloud tag preview #{tag.name eq servicePagingBean.filterTagForDisplay ? 'list-group-item-secondary' : ''}" value="">
-        <h:outputText value="#{tag.name}" escape="true" />
+                    styleClass="tagCloud tag preview #{tag.name eq servicePagingBean.filterTagForDisplay ? 'bg-secondary text-white p-1 rounded-pill' : ''}"
+                    value="">
+        <h:outputText value="#{tag.name}" escape="true"/>
       </h:outputLink>
     </c:otherwise>
   </c:choose>
 
-  <h:outputText value=" " />
+  <h:outputText value=" "/>
 
 </ui:composition>

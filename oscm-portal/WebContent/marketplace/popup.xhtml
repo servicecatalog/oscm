@@ -1,9 +1,8 @@
 <!-- Copyright FUJITSU LIMITED 2020 -->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" template="templates/modalDialogBootstrap.xhtml">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+                template="templates/modalDialogBootstrap.xhtml">
 
   <ui:define name="dialogTitle">
     <h3>
@@ -12,9 +11,9 @@
   </ui:define>
 
   <ui:define name="dialogContent">
-    <a4j:outputPanel id="#{dialogId}DialogContentGrid" layout="block">
+    <a4j:outputPanel id="#{dialogId}DialogContentGrid" layout="block" styleClass="mt-3">
       <ui:fragment>
-        <ui:include src="#{ (targetCtrl eq null) ?  '/marketplace/empty.xhtml' : targetCtrl }" />
+        <ui:include src="#{ (targetCtrl eq null) ?  '/marketplace/empty.xhtml' : targetCtrl }"/>
       </ui:fragment>
     </a4j:outputPanel>
   </ui:define>

@@ -13,16 +13,16 @@
                  columnClasses="labelAndValuePanelCol1,labelAndValuePanelCol2">
       <h:outputText value="#{msg['subscription.subscriptionId']}" id="subscriptionIdLabel" styleClass="label" />
       <h:outputText value="#{subscriptionWizardConversation.model.subscription.subscriptionId}"
-                    id="subscriptionIdValue" styleClass="stringInMultiLine" />
+                    id="subscriptionIdValue" styleClass="stringInMultiLine font-weight-bold" />
 
       <h:outputText value="#{msg['subscription.purchaseOrderNumber']}" id="purchaseOrderNumberLabel"
                     styleClass="label" />
       <h:outputText value="#{subscriptionWizardConversation.model.subscription.purchaseOrderNumber}"
-                    id="purchaseOrderNumberValue" styleClass="stringInMultiLine" />
+                    id="purchaseOrderNumberValue" styleClass="stringInMultiLine font-weight-bold" />
 
       <h:outputText value="#{msg['unit.organizationalUnit']}" id="unitIdLabel" styleClass="label" />
       <h:outputText value="#{subscriptionWizardConversation.subscriptionUnitCtrl.model.selectedUnitName}"
-                    id="unitIdValue" styleClass="stringInMultiLine" />
+                    id="unitIdValue" styleClass="stringInMultiLine font-weight-bold" />
 
       <c:forEach items="#{subscriptionWizardConversation.model.subscriptionUdaRows}" var="subUda"
                  varStatus="v">
@@ -30,15 +30,27 @@
         <h:outputText value="#{subUda.udaValue}" id="subUda#{v.index}Value"
                       rendered="#{not subUda.inputEncrypted}"/>
         <h:outputText value="*****" id="secretSubUda#{v.index}Value"
-                      styleClass="output-password" rendered="#{subUda.inputEncrypted}"/>
+                      styleClass="output-password font-weight-bold" rendered="#{subUda.inputEncrypted}"/>
       </c:forEach>
     </t:panelGrid>
   </div>
 
   <!-- configuration summary -->
   <ui:fragment rendered="#{not empty subscriptionWizardConversation.model.serviceParameters}">
-    <mp:outputStepBootstrap value="#{msg['parameter.table.header']}" />
-    <div class="col py-0 bg-white rounded">
+    <div class="row">
+      <div class="col-md-9 col-sm-8 mt-2">
+        <mp:outputStepBootstrap value="#{msg['parameter.table.header']}" />
+      </div>
+      <div class="col-md-3 col-sm-4 mt-2">
+        <h:outputLink id="editConfigurationLink" styleClass="btn btn-outline-secondary w-100"
+                      onclick="setDirty(false);if(AdmUtils.isNotDirtyOrConfirmed()) {#{rich:element('hiddenConfigurationChange')}.click();} return false;">
+          <h:outputText value="#{msg['subscription.confirm.serviceConfiguration.change']}" />
+        </h:outputLink>
+        <h:commandButton id="hiddenConfigurationChange" onclick="showExternalConfigurator();" immediate="true"
+                         action="#{subscriptionWizardConversation.gotoConfiguration}" styleClass="d-none"/>
+      </div>
+    </div>
+    <div class="col py-2 bg-white rounded mb-2">
       <ui:include src="../../../../marketplace/account/paramtable.xhtml">
         <ui:param name="inputList" value="#{subscriptionWizardConversation.model.serviceParameters}" />
         <ui:param name="formName" value="confirmForm" />
@@ -48,13 +60,5 @@
       </ui:include>
     </div>
   </ui:fragment>
-  <div class="text-left">
-    <h:outputLink id="editConfigurationLink" class="text-left"
-                  onclick="setDirty(false);if(AdmUtils.isNotDirtyOrConfirmed()) {#{rich:element('hiddenConfigurationChange')}.click();} return false;">
-      <h:outputText value="#{msg['subscription.confirm.serviceConfiguration.change']}" />
-    </h:outputLink>
-    <h:commandButton id="hiddenConfigurationChange" onclick="showExternalConfigurator();"
-                     action="#{subscriptionWizardConversation.gotoConfiguration}" style="display: none;" immediate="true" />
-  </div>
 </ui:composition>
 

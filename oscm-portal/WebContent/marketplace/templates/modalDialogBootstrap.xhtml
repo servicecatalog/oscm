@@ -15,20 +15,12 @@
 
   <!-- Parameters: -->
   <!-- dialogId (mandatory): Defines the id of the modal panel. -->
-  <!-- dialogHeight: height of the modal panel, -->
-  <!-- dialogWidth: width of the modal panel, -->
   <!-- defineFullDialogContent: is set to "true" the ui element "fullDialogContent" will be included. It defines the entire content inside of the modal panel -->
 
   <!-- Focus -->
   <!-- To set the focus the the time the dialog is shown, defined the variable -->
   <!-- "modalFocusElement" with c:set in the "dialogScripts" definition -->
 
-  <c:if test="#{empty dialogHeight}">
-    <c:set var="dialogHeight" value="168"/>
-  </c:if>
-  <c:if test="#{empty dialogWidth}">
-    <c:set var="dialogWidth" value="560"/>
-  </c:if>
   <c:if test="#{empty cancelHandler}">
     <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();"/>
   </c:if>

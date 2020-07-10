@@ -8,9 +8,8 @@
   <div class="gridLayoutForCard mb-3">
     <a4j:outputPanel class="card border-secondary h-100 selectable"
                      onclick="#{rich:element('showDetails'.concat(status.index))}.click();">
-      <div class="card-header">
-        <h2 id="#{fieldId}Name" class="box_title shortenedText" title="#{service.nameToDisplay}"
-            onclick="#{onClickHandler}">#{service.nameToDisplay}</h2>
+      <div class="card-header" id="#{fieldId}Name" title="#{service.nameToDisplay}">
+        #{service.nameToDisplay}
       </div>
 
       <div class="card-body d-flex flex-column">
@@ -31,7 +30,7 @@
                   </h:outputFormat>
                 </h3>
               </div>
-              <div class="col-6">
+              <div class="col-6 pl-0">
                 <mp:ratingStarsBootstrap rating="#{service.rating}"/>
               </div>
             </div>

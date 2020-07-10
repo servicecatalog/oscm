@@ -2,16 +2,15 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
->
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
 
   <ui:fragment
       rendered="#{subscriptionWizardConversation.model.service.priceModel.chargeable and not subscriptionWizardConversation.paymentConfigurationHidden}">
     <!-- billing address -->
     <div class="text-left mb-2">
       <mp:outputStepBootstrap value="#{msg['subscription.confirm.details.title']}"/>
-      <div class="col bg-light-secondary rounded">
-        <a4j:outputPanel layout="block" styleClass="marginBottomDefault"
+      <div class="col bg-light-secondary rounded p-3">
+        <a4j:outputPanel layout="block" styleClass="font-weight-bold mb-2"
                          rendered="#{not empty subscriptionWizardConversation.model.selectedBillingContact}">
           <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.id}" id="billingId"/>
         </a4j:outputPanel>
@@ -31,11 +30,24 @@
     </div>
 
     <!-- payment info -->
-    <div class="text-left">
-      <mp:outputStepBootstrap value="#{msg['subscription.confirm.paymentOptions.title']}"/>
-      <div class="col p-0 bg-white rounded">
+    <div class="row">
+      <div class="col-md-9 col-sm-8 mt-2">
+        <h2 class="box_title mt-3">#{msg['subscription.confirm.paymentOptions.title']}</h2>
+        <hr class="mt-1 mb-2"/>
+      </div>
+      <div class="col-md-3 col-sm-4 mt-2">
+        <h:outputLink id="editPaymentTypeLink" styleClass="btn btn-outline-secondary w-100"
+                      onclick="setDirty(false);if(AdmUtils.isNotDirtyOrConfirmed()) {#{rich:element('hiddenPaymentChange')}.click();} return false;">
+          <h:outputText value="#{msg['subscription.confirm.paymentOptions.change']}"/>
+        </h:outputLink>
+        <h:commandButton id="hiddenPaymentChange" action="#{subscriptionWizardConversation.gotoEnterPayment}"
+                         styleClass="d-none" immediate="true"/>
+      </div>
+    </div>
+    <div class="bg-light-secondary rounded p-3">
         <div>
-          <h:outputText value="#{subscriptionWizardConversation.model.selectedPaymentInfo.id}" id="paymentId"/>
+          <h:outputText value="#{subscriptionWizardConversation.model.selectedPaymentInfo.id}" id="paymentId"
+                        styleClass="font-weight-bold"/>
         </div>
         <div>
           <h:outputText value="#{subscriptionWizardConversation.model.selectedPaymentInfo.providerName}"
@@ -46,13 +58,6 @@
                         id="paymentAccount"/>
         </div>
       </div>
-      <h:outputLink id="editPaymentTypeLink"
-                    onclick="setDirty(false);if(AdmUtils.isNotDirtyOrConfirmed()) {#{rich:element('hiddenPaymentChange')}.click();} return false;">
-        <h:outputText value="#{msg['subscription.confirm.paymentOptions.change']}"/>
-      </h:outputLink>
-      <h:commandButton id="hiddenPaymentChange" action="#{subscriptionWizardConversation.gotoEnterPayment}"
-                       style="display: none;" immediate="true"/>
-    </div>
   </ui:fragment>
 </ui:composition>
 

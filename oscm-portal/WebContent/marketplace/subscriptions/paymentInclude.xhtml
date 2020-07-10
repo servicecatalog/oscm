@@ -52,14 +52,14 @@
 
     <div class="row">
       <div class="col-md-8 col-sm-12">
-        <div class="no-gutters row p-1">
+        <div class="row p-1 align-items-center">
           <div class="col-md-3 col-sm-12">
             <h:outputText id="label1"
                           value="#{msg['payment.billingContact']}:"/>
             <h:outputText value=" *" styleClass="mandatory"/>
           </div>
           <div class="col-md-9 col-sm-12">
-            <h:selectOneMenu id="selectBillingContact" styleClass="select w-100"
+            <h:selectOneMenu id="selectBillingContact" styleClass="custom-select"
                              required="#{!empty param['payment:next']}"
                              value="#{billingContactBean.selectedBillingContactKeyReadOnly}" disabled="#{isDisabled}"
                              valueChangeListener="#{billingContactBean.selectedBillingContactChanged}"
@@ -75,10 +75,10 @@
           </div>
         </div>
         <c:if test="#{previousRendered}">
-          <div class="no-gutters row p-1">
+          <div class="row p-1">
             <div class="col-12">
               <h:outputLink value="" id="newBillingContact" onclick="newBillingContact(-1); return false;"
-                            rendered="#{userBean.loggedInAndAdmin}">
+                            rendered="#{userBean.loggedInAndAdmin}" styleClass="btn btn-sm btn-outline-secondary">
                 <h:outputText value="#{msg['payment.new.BillingContact.title']}"/>
               </h:outputLink>
             </div>
@@ -86,20 +86,18 @@
         </c:if>
       </div>
 
-
       <div class="col-md-4 col-sm-12">
-        <a4j:outputPanel id="bcInformation" layout="block" styleClass="p-1">
+        <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-light-secondary rounded">
           <mp:message for="selectBillingContact" rendered="#{empty billingContactBean.selectedBillingContact}"/>
           <ui:fragment rendered="#{not empty billingContactBean.selectedBillingContact}">
-            <a4j:outputPanel layout="block" styleClass="marginBottom10">
+            <a4j:outputPanel layout="block" styleClass="m-1">
               <h:outputText value="#{billingContactBean.selectedBillingContact.email}" id="email"/>
             </a4j:outputPanel>
-            <a4j:outputPanel layout="block">
+            <a4j:outputPanel layout="block" styleClass="m-1">
               <h:outputText value="#{billingContactBean.selectedBillingContact.companyName}"
-                            styleClass="preWrapping stringInMultiLine"
-                            id="companyName"/>
+                            styleClass="preWrapping stringInMultiLine" id="companyName"/>
             </a4j:outputPanel>
-            <a4j:outputPanel layout="block">
+            <a4j:outputPanel layout="block" styleClass="m-1">
               <h:outputText value="#{billingContactBean.selectedBillingContact.address}"
                             styleClass="preWrapping stringInMultiLine"
                             id="address"/>
@@ -110,15 +108,15 @@
     </div>
     <div class="row">
       <div class="col-md-8 col-sm-12">
-        <div class="no-gutters row p-1">
+        <div class="row p-1 align-items-center">
           <div class="col-md-3 col-sm-12">
             <h:outputText id="label2" value="#{msg['payment.paymentOption']}:"/>
             <h:outputText value=" *" styleClass="mandatory"/>
           </div>
           <div class="col-md-9 col-sm-12">
-            <h:selectOneMenu id="selectPaymentInfo" styleClass="select w-100" required="#{!empty param['payment:next']}"
+            <h:selectOneMenu id="selectPaymentInfo" styleClass="custom-select"
                              value="#{paymentInfoBean.selectedPaymentInfoForSubscriptionKeyReadOnly}"
-                             disabled="#{isDisabled}"
+                             disabled="#{isDisabled}" required="#{!empty param['payment:next']}"
                              valueChangeListener="#{paymentInfoBean.selectedPaymentInfoChanged}"
                              rendered="#{paymentInfoVisible}">
               <adm:selectItemPleaseSelect itemValue=""/>
@@ -132,9 +130,10 @@
                 id="noPaymenttypesAvailable" rendered="#{not paymentInfoVisible}"/>
           </div>
           <c:if test="#{availableSubsAndAdmin}">
-            <div class="no-gutters row p-1">
+            <div class="row p-1">
               <div class="col-12">
-                <h:outputLink value="" id="newPaymentInfo" onclick="newPaymentItem(-1); return false;">
+                <h:outputLink value="" id="newPaymentInfo" onclick="newPaymentItem(-1); return false;"
+                              styleClass="btn btn-sm btn-outline-secondary">
                   <h:outputText value="#{msg['payment.new.PaymentOption.title']}"/>
                 </h:outputLink>
               </div>
@@ -143,13 +142,13 @@
         </div>
       </div>
       <div class="col-md-4 col-sm-12">
-        <a4j:outputPanel id="piInformation" layout="block">
+        <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-light-secondary rounded">
           <mp:message for="selectPaymentInfo" rendered="#{empty selectedPaymentInfoForSubscription}"/>
           <ui:fragment rendered="#{not empty selectedPaymentInfoForSubscription}">
-            <a4j:outputPanel layout="block">
+            <a4j:outputPanel layout="block" styleClass="m-1">
               <h:outputText value="#{selectedPaymentInfoForSubscription.providerName}" id="provider"/>
             </a4j:outputPanel>
-            <a4j:outputPanel layout="block">
+            <a4j:outputPanel layout="block" styleClass="m-1">
               <h:outputText value="#{selectedPaymentInfoForSubscription.accountNumber}" id="account"/>
             </a4j:outputPanel>
           </ui:fragment>
@@ -157,12 +156,13 @@
       </div>
     </div>
 
-    <div class="no-gutters my-2 row justify-content-between">
+    <hr class="mt-3 mb-1"/>
+    <div>
       <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" bean="#{paymentInfoBean}" action="previous"
                           rendered="#{previousRendered}" keepDirty="#{keepDirtyBack}" clearDirty="#{clearDirtyBack}"
-                          styleClass="btn-sm btn-secondary"/>
+                          styleClass="btn-sm btn-outline-secondary"/>
       <mp:buttonBootstrap id="next" value="#{buttonLabel}" bean="#{bean}" action="#{action}"
-                          styleClass="btn-sm btn-secondary"
+                          styleClass="btn-sm btn-secondary float-right"
                           disabled="#{isDisabled or emptyEnabledPaymentTypes}" keepDirty="#{keepDirtyForward}"
                           clearDirty="#{clearDirtyForward}"/>
     </div>

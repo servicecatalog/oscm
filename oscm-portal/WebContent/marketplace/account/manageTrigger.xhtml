@@ -1,31 +1,32 @@
 <!-- Copyright FUJITSU LIMITED 2020-->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:t="http://myfaces.apache.org/tomahawk"
-  template="../templates/modalDialogBootstrap.xhtml">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:t="http://myfaces.apache.org/tomahawk"
+                template="../templates/modalDialogBootstrap.xhtml">
 
   <!-- Mandatory parameters: dialogId -->
 
-  <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img" />
+  <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
 
   <ui:define name="dialogScripts">
-    <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();AdmUtils.deselectRow();" />
-    <c:set var="modalFocusElement" value="#{dialogId}Form:triggerName" />
+    <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();AdmUtils.deselectRow();"/>
+    <c:set var="modalFocusElement" value="#{dialogId}Form:triggerName"/>
   </ui:define>
 
   <ui:define name="dialogTitle">
     <h2>
-      <h:outputText value="#{dialogTitle}" />
+      <h:outputText value="#{dialogTitle}"/>
     </h2>
   </ui:define>
 
   <ui:define name="dialogDescription">
     <a4j:outputPanel rendered="#{not empty dialogDescription}">
       <h3>
-        <h:outputText value="#{dialogDescription}" />
+        <h:outputText value="#{dialogDescription}"/>
       </h3>
     </a4j:outputPanel>
   </ui:define>
@@ -33,132 +34,137 @@
   <ui:define name="dialogContent">
 
     <a4j:outputPanel id="#{dialogId}Grid" layout="block" styleClass="responsive-dialog pt-2"
-      rendered="#{triggerDefinitionBean.administrator}">
+                     rendered="#{triggerDefinitionBean.administrator}">
       <ui:fragment>
         <h:form id="#{dialogId}Form" styleClass="responsive">
 
-
-          <c:set var="reqBtnName" value="#{dialogId}Form:confirmedDeleteButton" />
+          <c:set var="reqBtnName" value="#{dialogId}Form:confirmedDeleteButton"/>
 
           <!-- trigger name -->
           <div class="row mb-2">
+            <div class="col-md-2 col-sm-12">
+              <adm:outputLabel for="triggerName" value="#{msg['triggerDefinition.displayName']}"
+                               required="true"/>
+            </div>
+            <div class="col-md-7 col-sm-12">
+              <div class="row">
+                <div class="col-md-11 col-10 pr-0">
+                  <h:inputText id="triggerName" label="#{msg['triggerDefinition.displayName']}"
+                               value="#{triggerDefinitionBean.selectedTriggerDefinition.name}"
+                               maxlength="#{appBean.idLen}"
+                               onchange="setDirty(true)" required="true" styleClass="form-control form-control-xs">
+                    <f:converter converterId="trimConverter"/>
+                  </h:inputText>
+                </div>
+                <div class="col-md-1 col-2 pl-0"></div>
+              </div>
+            </div>
             <div class="col-md-3 col-sm-12">
-              <adm:outputLabel for="triggerName" value="#{msg['triggerDefinition.displayName']}" required="true"></adm:outputLabel>
+              <adm:message id="triggerNameErrorMsg" for="triggerName"/>
             </div>
-            <div class="col-md-6 col-sm-12">
-              <h:inputText styleClass="w-100 field" id="triggerName" label="#{msg['triggerDefinition.displayName']}"
-                value="#{triggerDefinitionBean.selectedTriggerDefinition.name}" maxlength="#{appBean.idLen}"
-                onchange="setDirty(true)" required="true">
-                <f:converter converterId="trimConverter" />
-              </h:inputText>
-              
-            </div>
-             <div class="col-md-3 col-sm-12">
-              <adm:message id="triggerNameErrorMsg" for="triggerName" />
-            </div>        
           </div>
 
           <!-- trigger type      Note: required does not work with tomahawk -->
-          <div class="row mb-2">
-            <adm:labelAndSelectBootstrap styleClass="field w-100" id="triggerType" required="true"
-              value="#{triggerDefinitionBean.selectedTriggerDefinition.type}" render="suspend"
-              label="#{msg['triggerDefinition.type']}" listenerBean="#{triggerDefinitionBean}"
-              disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}">
-              <adm:selectItemPleaseSelect itemValue="#{null}" />
-              <f:selectItems value="#{triggerDefinitionBean.triggerTypeValues}" />
-              <f:converter converterId="enumConverter" />
-            </adm:labelAndSelectBootstrap>
-          </div>
+          <adm:formSelect selectStyle="custom-select custom-select-xs" id="triggerType" required="true"
+                          value="#{triggerDefinitionBean.selectedTriggerDefinition.type}" render="suspend"
+                          label="#{msg['triggerDefinition.type']}" listenerBean="#{triggerDefinitionBean}"
+                          disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}">
+            <adm:selectItemPleaseSelect itemValue="#{null}"/>
+            <f:selectItems value="#{triggerDefinitionBean.triggerTypeValues}"/>
+            <f:converter converterId="enumConverter"/>
+          </adm:formSelect>
 
           <!-- target type      Note: required does not work with tomahawk -->
-          <div class="row mb-2">
-            <adm:labelAndSelectBootstrap styleClass="field w-100" id="targetType"
-              value="#{triggerDefinitionBean.selectedTriggerDefinition.targetType}"
-              label="#{msg['triggerDefinition.targetType']}"
-              disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}">
-              <f:selectItems value="#{triggerDefinitionBean.triggerTargetTypeValues}" />
-            </adm:labelAndSelectBootstrap>
-          </div>
+          <adm:formSelect selectStyle="custom-select form-select-xs" id="targetType"
+                          value="#{triggerDefinitionBean.selectedTriggerDefinition.targetType}"
+                          label="#{msg['triggerDefinition.targetType']}"
+                          disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}">
+            <f:selectItems value="#{triggerDefinitionBean.triggerTargetTypeValues}"/>
+          </adm:formSelect>
 
           <!-- target URL -->
           <div class="row mb-2">
-            <div class="col-md-3 col-sm-12">
-              <adm:outputLabel for="targetURL" value="#{msg['triggerDefinition.target']}" required="true"></adm:outputLabel>
+            <div class="col-md-2 col-sm-12">
+              <adm:outputLabel for="targetURL" value="#{msg['triggerDefinition.target']}"
+                               required="true"></adm:outputLabel>
               <!-- styleClass="col-sm-2 col-form-label" -->
             </div>
-            <div class="col-md-6 col-sm-12">
-              <h:inputText styleClass="field w-100" id="targetURL" label="#{msg['triggerDefinition.target']}"
-                value="#{triggerDefinitionBean.selectedTriggerDefinition.target}" onchange="setDirty(true)"
-                required="true" maxlength="#{appBean.descriptionLen}"
-                disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}">
-                <f:validator validatorId="url" />
-                <f:converter converterId="trimConverter" />
-              </h:inputText>
-
+            <div class="col-md-7 col-sm-12">
+              <div class="row">
+                <div class="col-md-11 col-10 pr-0">
+                  <h:inputText styleClass="form-control form-control-xs" id="targetURL" onchange="setDirty(true)"
+                               label="#{msg['triggerDefinition.target']}" maxlength="#{appBean.descriptionLen}"
+                               value="#{triggerDefinitionBean.selectedTriggerDefinition.target}" required="true"
+                               disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}">
+                    <f:validator validatorId="url"/>
+                    <f:converter converterId="trimConverter"/>
+                  </h:inputText>
+                </div>
+                <div class="col-md-1 col-2 pl-0"></div>
+              </div>
             </div>
-             <div class="col-md-3 col-sm-12">
+            <div class="col-md-3 col-sm-12">
               <adm:message id="targetURLErrorMsg" for="targetURL"/>
             </div>
           </div>
-          
-          
 
           <!-- suspend action check box -->
-          <h:outputText value="" />
+          <h:outputText value=""/>
           <t:panelGroup colspan="2">
-            <h:panelGroup />
+            <h:panelGroup/>
           </t:panelGroup>
 
           <h:selectBooleanCheckbox id="suspend"
-            disabled="#{!triggerDefinitionBean.suspendTrigger or triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}"
-            value="#{triggerDefinitionBean.selectedTriggerDefinition.suspendProcess}" />
-          <h:outputText value="#{msg['triggerDefinition.suspendProcess']}" />
-          <br />
-          <br />
-     
+                                   disabled="#{!triggerDefinitionBean.suspendTrigger or triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}"
+                                   value="#{triggerDefinitionBean.selectedTriggerDefinition.suspendProcess}"/>
+          <h:outputText value="#{msg['triggerDefinition.suspendProcess']}"/>
+          <br/>
+          <br/>
+
           <!-- hidden buttons -->
           <h:commandButton id="hiddenSaveBtn" style="display:none;" value="#{msg['button.save']}"
-            action="#{triggerDefinitionBean.save}" onclick="setDirty(false);">
+                           action="#{triggerDefinitionBean.save}" onclick="setDirty(false);">
             <f:ajax execute="@form"
-              render=":#{dialogId}modalErrorMasterPanel @form :triggerDefinitionListForm :globalMessagesHolder"
-              onevent="MessageTrigger#{dialogId}.save.onEvent" onerror="MessageTrigger#{dialogId}.save.onError" />
+                    render=":#{dialogId}modalErrorMasterPanel @form :triggerDefinitionListForm :globalMessagesHolder"
+                    onevent="MessageTrigger#{dialogId}.save.onEvent" onerror="MessageTrigger#{dialogId}.save.onError"/>
           </h:commandButton>
 
           <h:commandButton id="confirmedDeleteButton" style="display:none;" value="#{msg['button.delete']}"
-            action="#{triggerDefinitionBean.delete}" onclick="setDirty(false);#{rich:component('confirmPanel')}.hide();">
+                           action="#{triggerDefinitionBean.delete}"
+                           onclick="setDirty(false);#{rich:component('confirmPanel')}.hide();">
             <f:ajax execute="@form" render="@form :triggerDefinitionListForm :globalMessagesHolder"
-              onevent="MessageTrigger#{dialogId}.del.onEvent" onerror="MessageTrigger#{dialogId}.del.onError" />
+                    onevent="MessageTrigger#{dialogId}.del.onEvent" onerror="MessageTrigger#{dialogId}.del.onError"/>
           </h:commandButton>
 
-          <!-- hidden buttons -->
+          <div class="row row-justify-space">
 
-          <div class="row no-gutters border-top pt-2">
-
-            <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary mx-1" id="#{dialogId}Save"
-              onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('hiddenSaveBtn')}.click(); return false;"
-              value="#{msg['button.save']}" />
-
-            <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary mr-1" id="#{dialogId}DeleteButton"
-              value="#{msg['button.delete']}" rendered="#{!triggerDefinitionBean.newTriggerDefinition}"
-              disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}"
-              onclick="#{rich:component('confirmPanel')}.show();return false;" />
-
-            <h:commandButton id="cancelButton" styleClass="btn-sm btn-secondary"
-              onclick="
+            <h:commandButton id="cancelButton" styleClass="btn-sm btn-outline-secondary ml-3"
+                             onclick="
                     AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
                     AdmUtils.clearHiddenErrorPanel();
                     AdmUtils.deselectRow();
                     setDirty(false);
                     #{rich:component(dialogId)}.hide();"
-              value="#{msg['button.cancel']}">
-              <f:ajax execute="@this" render="@form :globalMessagesHolder" />
-              <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+                             value="#{msg['button.cancel']}">
+              <f:ajax execute="@this" render="@form :globalMessagesHolder"/>
+              <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
             </h:commandButton>
+
+            <mp:buttonBootstrap styleClass="btn btn-sm btn-outline-secondary" id="#{dialogId}DeleteButton"
+                                value="#{msg['button.delete']}"
+                                rendered="#{!triggerDefinitionBean.newTriggerDefinition}"
+                                disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}"
+                                onclick="#{rich:component('confirmPanel')}.show();return false;"/>
+
+            <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary mr-3" id="#{dialogId}Save"
+                                onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('hiddenSaveBtn')}.click(); return false;"
+                                value="#{msg['button.save']}"/>
           </div>
 
           <mp:confirmPanelBootstrap header="#{msg['marketplace.account.processes.manageTrigger.remove.title']}"
-            text1="#{msg['confirm.trigger.definition.delete']}" text2="#{msg['marketplace.areyousure']}"
-            submitId="confirmedDeleteButton" isFirstModal="false" />
+                                    text1="#{msg['confirm.trigger.definition.delete']}"
+                                    text2="#{msg['marketplace.areyousure']}"
+                                    submitId="confirmedDeleteButton" isFirstModal="false"/>
 
           <script type="text/javascript">
       var #{dialogId}ErrorFlag = #{facesContext.maximumSeverity.ordinal == 0};
@@ -197,7 +203,10 @@
           }
         }
       }
-    </script>
+
+
+
+          </script>
         </h:form>
 
       </ui:fragment>
