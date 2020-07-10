@@ -40,6 +40,9 @@ public class SkinBean extends BaseBean implements Serializable {
       "<img class=\"img-fluid\" id=\"marketplaceStageDefault\" src=\"{0}"
           + Marketplace.MARKETPLACE_ROOT
           + "/img/flash.png\" style=\"border-style: none;\" />";
+  
+  public static final String MARKETPLACE_STAGE_BRANDED =
+          "<div class=\"responsive-container\">{0}</div>";
 
   public static final String MARKETPLACE_MOBILE_STAGE_DEFAULT =
       "<img class=\"img-fluid\" id=\"marketplaceMobileStageDefault\" src=\"{0}"
@@ -143,18 +146,11 @@ public class SkinBean extends BaseBean implements Serializable {
       // No localized resource found for the mpl stage
       marketplaceStage = MessageFormat.format(MARKETPLACE_STAGE_DEFAULT, getRequestContextPath());
     } else {
-      marketplaceStage = appendResponsiveDiv(marketplaceStage);
+      marketplaceStage = MessageFormat.format(MARKETPLACE_STAGE_BRANDED, marketplaceStage);
     }
     return marketplaceStage;
   }
 
-  private String appendResponsiveDiv(String mpStage) {
-    StringBuilder brandedStageBuilder = new StringBuilder();
-    brandedStageBuilder.append("<div class=\"responsive-container\">");
-    brandedStageBuilder.append(mpStage);
-    brandedStageBuilder.append("</div>");
-    return brandedStageBuilder.toString();
-  }
   /**
    * Retrieves the content of the mpl mobile stage from the brand service. If there was no localized
    * resource defined for the mobile stage content, a default will be returned. The locale used to
