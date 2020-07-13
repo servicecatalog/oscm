@@ -24,7 +24,7 @@
       <h:form id="showReloginForm" action="" method="post">
         <mp:buttonBootstrap id="${modalId}OkButton" value="#{msg['button.ok']}" bean="#{userBean}" action="logoff"
                             oncomplete="AdmUtils.showProgress(false);#{rich:component(modalId)}.hide();return false;"
-                            styleClass="btn btn-secondary w-100"/>
+                            styleClass="btn btn-secondary"/>
       </h:form>
     </a4j:outputPanel>
   </rich:popupPanel>
