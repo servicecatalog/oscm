@@ -36,8 +36,8 @@ The customization of the Bootstrap UI components is accomplished via Sass Variab
 You can modify the variables located inside the file: _myVariables.scss and  then re-compile the sources to generate a modified “darkCustom.css”
 These Sass variables override the default Bootstrap values. (Remember to remove the !default tag from them). 
 
-### Base Sass Variables Template: _myVariables.scss
-The [_myVariables](scss/_myVariables.scss) file contains a minimum set of variables used for the Default Bootstrap Theme for the marketplace UI. It includes a green color theme (including custom color shades for the Bootstrap list groups), and a small number of variables such as $body-bg and the $font-family-base used for Bootstrap Fonts of specific headings. 
+### Base Sass Variables Template: _myvariables.scss
+The [_myvariables](scss/_myvariables.scss) file contains a minimum set of variables used for the Default Bootstrap Theme for the marketplace UI. It includes a green color theme (including custom color shades for the Bootstrap list groups), and a small number of variables such as $body-bg and the $font-family-base used for Bootstrap Fonts of specific headings. 
 
 You can simply modify the color theme, by changing the variable $main-color in _myVariables.scss and recompiling the source files. All the colors get automatically adjusted depending on the $main-color variable. But you could also override other theme colors, such as the $primary or $secondary theme, or add an additional color in the themes colors map. (please see: https://getbootstrap.com/docs/4.3/getting-started/theming/ for more information).
 
@@ -49,10 +49,10 @@ A specific customization case (useful for the customer) is the .gridLayoutForCar
 If you wish to have another grid layout, you can modify the numbers in the mixins appropriately.
 (For more information about the Grid layout of Bootstrap, please see: https://getbootstrap.com/docs/4.0/layout/grid/)
 
-### Advanced Sass Variables Template: _myVariables.scss
+### Advanced Sass Variables Template: _myvariables.scss
 
 An extended variables file that serves as an example of custom Bootstrap UI components is here available for download:
-[_myVariables.scss](advanced/_myvariables.scss)
+[_myvariables.scss](advanced/_myvariables.scss)
 
 Simply replace your _myVariables.scss located in the "scss" folder with _myVariables.scss  that you have downloaded with the above link.
 
