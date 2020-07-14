@@ -74,7 +74,7 @@
                 </h:selectOneMenu>
               </div>
               <div class="col-md-2">
-                <a4j:outputPanel id="bcInformation" layout="block" class="">
+                <a4j:outputPanel id="billingInformation" layout="block" class="">
                   <mp:message for="selectBillingContact"
                               rendered="#{empty upgradeWizardConversation.model.selectedBillingContact}"/>
                   <a4j:outputPanel layout="block" rendered="true" styleClass="row align-items-center">
@@ -88,7 +88,7 @@
             </div>
             <div class="row p-1">
                 <div class="col-md-7 offset-md-3 px-2">
-                  <a4j:outputPanel id="billingInformation" layout="block" styleClass="bg-light-secondary rounded">
+                  <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-light-secondary rounded">
                     <ui:fragment
                         rendered="#{not empty upgradeWizardConversation.model.selectedBillingContact}">
                       <div class="row ml-1">
@@ -134,7 +134,7 @@
                 </h:selectOneMenu>
               </div>
               <div class="col-md-2">
-                <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-light-secondary rounded">
+                <a4j:outputPanel id="paymentInformation" layout="block" styleClass="bg-light-secondary rounded">
                   <mp:message for="selectPaymentInfo"
                               rendered="#{empty upgradeWizardConversation.model.selectedPaymentInfo}"/>
                   <div class="row align-items-center">
@@ -146,7 +146,7 @@
             </div>
             <div class="row p-1">
                 <div class="col-md-7 offset-md-3 px-2">
-                  <a4j:outputPanel id="paymentInformation" layout="block" styleClass="bg-light-secondary rounded">
+                  <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-light-secondary rounded">
                     <ui:fragment
                         rendered="#{not empty upgradeWizardConversation.model.selectedPaymentInfo}">
                       <div class="row ml-1">
