@@ -49,9 +49,11 @@ A specific customization case (useful for the customer) is the .gridLayoutForCar
 If you wish to have another grid layout, you can modify the numbers in the mixins appropriately.
 (For more information about the Grid layout of Bootstrap, please see: https://getbootstrap.com/docs/4.0/layout/grid/)
 
-### Extended Sass Variables Template: _myVariablesExtended.scss
+### Advanced Sass Variables Template: _myVariables.scss
 
 An extended variables file that serves as an example of custom Bootstrap UI components is here available for download: _myVariablesExtended.scss
+Simply replace your _myVariables.scss located in the "scss" folder with _myVariables.scss  that you have downloaded with the above link.
+
 The variables are structured per UI component and the explanation is below:
 
 #### Global options.
