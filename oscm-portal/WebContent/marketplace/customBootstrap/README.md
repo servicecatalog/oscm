@@ -37,7 +37,7 @@ You can modify the variables located inside the file: _myVariables.scss and  the
 These Sass variables override the default Bootstrap values. (Remember to remove the !default tag from them). 
 
 ### Base Sass Variables Template: _myVariables.scss
-This file contains a minimum set of variables used for the Default Bootstrap Theme for the marketplace UI. It includes a green color theme (including custom color shades for the Bootstrap list groups), and a small number of variables such as $body-bg and the $font-family-base used for Bootstrap Fonts of specific headings. 
+The [_myVariables](scss/_myVariables.scss) file contains a minimum set of variables used for the Default Bootstrap Theme for the marketplace UI. It includes a green color theme (including custom color shades for the Bootstrap list groups), and a small number of variables such as $body-bg and the $font-family-base used for Bootstrap Fonts of specific headings. 
 
 You can simply modify the color theme, by changing the variable $main-color in _myVariables.scss and recompiling the source files. All the colors get automatically adjusted depending on the $main-color variable. But you could also override other theme colors, such as the $primary or $secondary theme, or add an additional color in the themes colors map. (please see: https://getbootstrap.com/docs/4.3/getting-started/theming/ for more information).
 
@@ -81,5 +81,5 @@ Similarly, the following sections about “Cards”, “List Groups”, “Butto
 
 
 ### File mp.scss for adjusting theming of mp.css.
-A minimum set of variables for the easier customization of mp.css has also been included via the Sass Variables importing mechanism. The variables that can be customized are: 1) colors such as $primary color, $warning, etc. 2) the $font-family-sans-serif and 3)the font sizes and line-heights of headings. 
+A minimum set of variables for the easier customization of [mp.css](../scss/_variables.scss) has also been included via the Sass Variables importing mechanism. The variables that can be customized are: 1) colors such as $primary color, $warning, etc. 2) the $font-family-sans-serif and 3)the font sizes and line-heights of headings. 
 In future updates, there might be additional variables that are customizeable.
