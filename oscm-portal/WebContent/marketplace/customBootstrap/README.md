@@ -1,4 +1,4 @@
-# Bootstrap Customization Guide
+# OSCM Customization Guide with Bootstrap
 
 ## Introduction
 The new public marketplace UI has been re-designed based on the Bootstrap framework version 4.3.1.  
