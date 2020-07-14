@@ -53,7 +53,7 @@ If you wish to have another grid layout, you can modify the numbers in the mixin
 
 An extended variables file that serves as an example of custom Bootstrap UI components is here available for download:
 [_myVariables.scss](advanced/_myvariables.scss)
-_myVariablesExtended.scss
+
 Simply replace your _myVariables.scss located in the "scss" folder with _myVariables.scss  that you have downloaded with the above link.
 
 The variables are structured per UI component and the explanation is below:
