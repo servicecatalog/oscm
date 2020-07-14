@@ -52,7 +52,7 @@ If you wish to have another grid layout, you can modify the numbers in the mixin
 ### Advanced Sass Variables Template: _myVariables.scss
 
 An extended variables file that serves as an example of custom Bootstrap UI components is here available for download:
-[https://github.com/servicecatalog/oscm/blob/docu_customize_bootstrap/oscm-portal/WebContent/marketplace/customBootstrap/advanced/_myvariables.scss]
+[_myVariables.scss] (https://github.com/servicecatalog/oscm/blob/docu_customize_bootstrap/oscm-portal/WebContent/marketplace/customBootstrap/advanced/_myvariables.scss)
 _myVariablesExtended.scss
 Simply replace your _myVariables.scss located in the "scss" folder with _myVariables.scss  that you have downloaded with the above link.
 
