@@ -8,25 +8,16 @@
 
   <mp:outputStepBootstrap value="#{msg['payment.select.label']}"/>
   <!-- Address -->
-  <div class="row p-1">
-    <div class="col-sm-8"></div>
-    <div class="col-sm-4">
-      <h:outputLink value="#" id="newBillingContact" styleClass="btn btn-sm btn-outline-secondary w-100"
-                    onclick="newBillingContact(); return false;" rendered="#{userBean.loggedInAndAdmin}">
-        <h:outputText value="#{msg['payment.new.BillingContact.title']}"/>
-      </h:outputLink>
-    </div>
-  </div>
   <div class="row">
-    <div class="col-md-8 col-sm-12">
+    <div class="col-md-9 col-sm-12">
       <div class="row p-1 align-items-center">
         <div class="col-md-3 col-sm-12">
           <h:outputText id="label1" value="#{msg['payment.billingContact']}:"/>
           <h:outputText value=" *" styleClass="mandatory"/>
         </div>
-        <div class="col-md-9 col-sm-12">
-          <h:selectOneMenu id="selectBillingContact" styleClass="custom-select" converter="#{billingContactConverter}"
-                           required="#{!empty param['payment:next']}"
+        <div class="col-md-9 col-sm-12 align-items-center">
+          <h:selectOneMenu id="selectBillingContact" styleClass="custom-select"
+                           required="#{!empty param['payment:next']}" converter="#{billingContactConverter}"
                            value="#{subscriptionWizardConversation.selectedBillingContact}" disabled="false"
                            rendered="#{subscriptionWizardConversation.billingContactVisible}"
                            onchange="setDirtyOnManageSubscriptionModelAddress(true);">
@@ -40,39 +31,42 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4 col-sm-12">
-      <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-light-secondary rounded">
+    <div class="col-md-3 col-sm-12 align-self-center">
+      <a4j:outputPanel id="bcInformation" layout="block">
         <mp:message for="selectBillingContact"
                     rendered="#{empty subscriptionWizardConversation.model.selectedBillingContact}"/>
-        <ui:fragment rendered="#{not empty subscriptionWizardConversation.model.selectedBillingContact}">
-          <a4j:outputPanel layout="block" styleClass="m-1">
-            <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.email}" id="email"/>
-          </a4j:outputPanel>
-          <a4j:outputPanel layout="block" styleClass="m-1">
-            <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.companyName}"
-                          id="companyName"/>
-          </a4j:outputPanel>
-          <a4j:outputPanel layout="block" styleClass="m-1">
-            <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.address}" id="address"/>
-          </a4j:outputPanel>
-        </ui:fragment>
-      </a4j:outputPanel>
-    </div>
-  </div>
-  <!-- Payment -->
-  <div class="row p-1">
-    <div class="col-sm-8"></div>
-    <div class="col-sm-4">
-      <a4j:outputPanel layout="block" rendered="#{availableSubsAndAdmin}">
-        <h:outputLink value="" id="newPaymentInfo"
-                      onclick="newPaymentItem('#{subscriptionWizardConversation.model.service.key}'); return false;">
-          <h:outputText value="#{msg['payment.new.PaymentOption.title']}"/>
+        <h:outputLink value="#" id="newBillingContact" styleClass="btn btn-sm btn-outline-secondary w-sm-100 float-right"
+                      onclick="newBillingContact(); return false;" rendered="#{userBean.loggedInAndAdmin}">
+          <h:outputText value="#{msg['payment.new.BillingContact.title']}"/>
         </h:outputLink>
       </a4j:outputPanel>
     </div>
   </div>
+  <div class="row p-1">
+    <div class="col-md-9 col-sm-12">
+      <div class="col-md-9 offset-md-3 px-2">
+        <a4j:outputPanel id="billingInformation" layout="block" styleClass="bg-light-secondary rounded">
+          <ui:fragment rendered="#{not empty subscriptionWizardConversation.model.selectedBillingContact}">
+            <a4j:outputPanel layout="block" styleClass="m-1">
+              <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.email}" id="email"/>
+            </a4j:outputPanel>
+            <a4j:outputPanel layout="block" styleClass="m-1">
+              <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.companyName}"
+                            id="companyName"/>
+            </a4j:outputPanel>
+            <a4j:outputPanel layout="block" styleClass="m-1">
+              <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.address}"
+                            id="address"/>
+            </a4j:outputPanel>
+          </ui:fragment>
+        </a4j:outputPanel>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment -->
   <div class="row">
-    <div class="col-md-8 col-sm-12">
+    <div class="col-md-9 col-sm-12">
       <div class="row p-1 align-items-center">
         <div class="col-md-3 col-sm-12">
           <h:outputText id="label2" value="#{msg['payment.paymentOption']}:"/>
@@ -80,7 +74,7 @@
         </div>
         <div class="col-md-9 col-sm-12">
           <h:selectOneMenu id="selectPaymentInfo" styleClass="custom-select" disabled="false"
-                           required="#{!empty param['payment:next']}"  converter="#{paymentTypeConverter}"
+                           required="#{!empty param['payment:next']}" converter="#{paymentTypeConverter}"
                            value="#{subscriptionWizardConversation.selectedPaymentInfo}"
                            rendered="#{paymentInfoVisible}"
                            onchange="setDirtyOnManageSubscriptionModelPayment(true);">
@@ -94,24 +88,38 @@
         </div>
       </div>
     </div>
-    <div class="col-md-4 col-sm-12">
-      <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-light-secondary rounded">
+    <div class="col-md-3 col-sm-12 align-self-center">
+      <a4j:outputPanel id="piInformation" layout="block">
         <mp:message for="selectPaymentInfo"
                     rendered="#{empty subscriptionWizardConversation.model.selectedPaymentInfo}"/>
-        <ui:fragment
-            rendered="#{not empty subscriptionWizardConversation.model.selectedPaymentInfo}">
-          <a4j:outputPanel layout="block" styleClass="m-1">
-            <h:outputText
-                value="#{subscriptionWizardConversation.model.selectedPaymentInfo.providerName}"
-                id="provider"/>
-          </a4j:outputPanel>
-          <a4j:outputPanel layout="block" styleClass="m-1">
-            <h:outputText
-                value="#{subscriptionWizardConversation.model.selectedPaymentInfo.accountNumber}"
-                id="account"/>
-          </a4j:outputPanel>
-        </ui:fragment>
+        <a4j:outputPanel layout="block" rendered="#{availableSubsAndAdmin}">
+          <h:outputLink value="" id="newPaymentInfo" styleClass="btn btn-sm btn-outline-secondary w-sm-100 float-right"
+                        onclick="newPaymentItem('#{subscriptionWizardConversation.model.service.key}'); return false;">
+            <h:outputText value="#{msg['payment.new.PaymentOption.title']}"/>
+          </h:outputLink>
+        </a4j:outputPanel>
       </a4j:outputPanel>
+    </div>
+  </div>
+  <div class="row p-1">
+    <div class="col-md-9 col-sm-12">
+      <div class="col-md-9 offset-md-3 px-2">
+        <a4j:outputPanel id="paymentInformation" layout="block" styleClass="bg-light-secondary rounded">
+          <ui:fragment
+              rendered="#{not empty subscriptionWizardConversation.model.selectedPaymentInfo}">
+            <a4j:outputPanel layout="block" styleClass="m-1">
+              <h:outputText
+                  value="#{subscriptionWizardConversation.model.selectedPaymentInfo.providerName}"
+                  id="provider"/>
+            </a4j:outputPanel>
+            <a4j:outputPanel layout="block" styleClass="m-1">
+              <h:outputText
+                  value="#{subscriptionWizardConversation.model.selectedPaymentInfo.accountNumber}"
+                  id="account"/>
+            </a4j:outputPanel>
+          </ui:fragment>
+        </a4j:outputPanel>
+      </div>
     </div>
   </div>
 </ui:composition>

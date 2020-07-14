@@ -67,22 +67,21 @@
           <div id="user" class="tab-pane fade show active pt-4" role="tabpanel" aria-labelledby="nav-user-tab">
             <h:form id="userForm">
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-9">
                   <h2>
                     <adm:outputStep value="#{msg['organization.edit.userProfile']}"/>
+                    <mp:pixelline
+                        rendered="#{not organizationBean.currentUser.remoteLdapActive and userBean.internalAuthMode}"/>
                   </h2>
                 </div>
-                <a4j:outputPanel layout="block" styleClass="row col-md-6 justify-content-end"
+                <a4j:outputPanel layout="block" styleClass="row col-md-3 justify-content-end"
                                  rendered="#{not organizationBean.currentUser.remoteLdapActive and userBean.internalAuthMode}">
                   <adm:buttonCustomizedOnClickBootstrap id="changePwdButton" value="#{msg['button.changePassword']}"
                                                         onclick="showLoginPanel('');return false;"
-                                                        buttonStyleClass="btn btn-outline-secondary"
+                                                        buttonStyleClass="btn btn-sm btn-outline-secondary w-sm-100"
                                                         buttonType="execute"/>
                 </a4j:outputPanel>
               </div>
-
-              <mp:pixelline
-                  rendered="#{not organizationBean.currentUser.remoteLdapActive and userBean.internalAuthMode}"/>
 
               <mp:formLabel id="userId" label="#{msg['user.userId']}" label2="#{organizationBean.currentUser.userId}"/>
 

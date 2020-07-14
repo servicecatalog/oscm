@@ -57,17 +57,7 @@
             <hr class="mt-1 mb-3"/>
 
             <div class="row align-items-center pb-2">
-              <div class="col-md-9"></div>
-              <a4j:outputPanel layout="block" styleClass="col-md-3" rendered="true">
-                <h:outputLink value="#" id="newBillingContact" onclick="newBillingContact(); return false;"
-                              rendered="#{userBean.loggedInAndAdmin}" styleClass="w-100 btn btn-sm btn-outline-secondary">
-                  <h:outputText value="#{msg['payment.new.BillingContact.title']}"/>
-                </h:outputLink>
-              </a4j:outputPanel>
-            </div>
-
-            <div class="row align-items-center pb-2">
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <h:outputText id="label1" value="#{msg['payment.billingContact']}:"/>
                 <h:outputText value=" *" styleClass="mandatory"/>
               </div>
@@ -83,34 +73,38 @@
                                  var="bc" itemLabel="#{bc.id}" itemValue="#{bc}"/>
                 </h:selectOneMenu>
               </div>
-              <div class="col-md-3">
-                <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-light-secondary rounded">
+              <div class="col-md-2">
+                <a4j:outputPanel id="bcInformation" layout="block" class="">
                   <mp:message for="selectBillingContact"
                               rendered="#{empty upgradeWizardConversation.model.selectedBillingContact}"/>
-                  <ui:fragment
-                      rendered="#{not empty upgradeWizardConversation.model.selectedBillingContact}">
-                    <div class="row ml-1">
-                      <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.email}"
-                                    id="email"/>
-                    </div>
-                    <div class="row ml-1">
-                      <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.companyName}"
-                                    id="companyName" styleClass="preWrapping"/>
-                    </div>
-                    <div class="row ml-1">
-                      <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.address}"
-                                    id="address" styleClass="preWrapping"/>
-                    </div>
-                  </ui:fragment>
+                  <a4j:outputPanel layout="block" rendered="true" styleClass="row align-items-center">
+                    <h:outputLink value="#" id="newBillingContact" onclick="newBillingContact(); return false;"
+                                  rendered="#{userBean.loggedInAndAdmin}" styleClass="w-sm-100 btn btn-sm btn-outline-secondary">
+                      <h:outputText value="#{msg['payment.new.BillingContact.title']}"/>
+                    </h:outputLink>
+                  </a4j:outputPanel>
                 </a4j:outputPanel>
-
               </div>
             </div>
-
-            <div class="row align-items-center pb-2">
-              <div class="col-12">
-                <h:outputText id="noBillingContact" value="#{msg['organization.payment.noBillingContact']}"
-                              rendered="#{not userBean.loggedInAndAdmin and empty billingContactBean.billingContacts}"/>
+            <div class="row p-1">
+                <div class="col-md-7 offset-md-3 px-2">
+                  <a4j:outputPanel id="billingInformation" layout="block" styleClass="bg-light-secondary rounded">
+                    <ui:fragment
+                        rendered="#{not empty upgradeWizardConversation.model.selectedBillingContact}">
+                      <div class="row ml-1">
+                        <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.email}"
+                                      id="email"/>
+                      </div>
+                      <div class="row ml-1">
+                        <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.companyName}"
+                                      id="companyName" styleClass="preWrapping"/>
+                      </div>
+                      <div class="row ml-1">
+                        <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.address}"
+                                      id="address" styleClass="preWrapping"/>
+                      </div>
+                    </ui:fragment>
+                  </a4j:outputPanel>
               </div>
             </div>
 
@@ -124,7 +118,7 @@
               </a4j:outputPanel>
             </div>
             <div class="row align-items-center pb-2">
-              <div class="col-md-2">
+              <div class="col-md-3">
                 <h:outputText id="label2" value="#{msg['payment.paymentOption']}:"/>
                 <h:outputText value=" *" styleClass="mandatory"/>
               </div>
@@ -139,23 +133,33 @@
                       var="pi" itemLabel="#{pi.id}" itemValue="#{pi}"/>
                 </h:selectOneMenu>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-2">
                 <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-light-secondary rounded">
                   <mp:message for="selectPaymentInfo"
                               rendered="#{empty upgradeWizardConversation.model.selectedPaymentInfo}"/>
-                  <ui:fragment
-                      rendered="#{not empty upgradeWizardConversation.model.selectedPaymentInfo}">
-                    <div class="row ml-1">
-                      <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.providerName}"
-                                    id="provider"/>
-                    </div>
-                    <div class="row ml-1">
-                      <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.accountNumber}"
-                                    id="account"/>
-                    </div>
-                  </ui:fragment>
+                  <div class="row align-items-center">
+                    <h:outputText id="noBillingContact" value="#{msg['organization.payment.noBillingContact']}"
+                                  rendered="#{not userBean.loggedInAndAdmin and empty billingContactBean.billingContacts}"/>
+                  </div>
                 </a4j:outputPanel>
               </div>
+            </div>
+            <div class="row p-1">
+                <div class="col-md-7 offset-md-3 px-2">
+                  <a4j:outputPanel id="paymentInformation" layout="block" styleClass="bg-light-secondary rounded">
+                    <ui:fragment
+                        rendered="#{not empty upgradeWizardConversation.model.selectedPaymentInfo}">
+                      <div class="row ml-1">
+                        <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.providerName}"
+                                      id="provider"/>
+                      </div>
+                      <div class="row ml-1">
+                        <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.accountNumber}"
+                                      id="account"/>
+                      </div>
+                    </ui:fragment>
+                  </a4j:outputPanel>
+                </div>
             </div>
             <div class="row align-items-center pb-2">
               <div class="col-12">

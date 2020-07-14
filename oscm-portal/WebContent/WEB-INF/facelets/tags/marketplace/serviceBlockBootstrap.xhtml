@@ -29,8 +29,10 @@
       <div class="col-auto mb-2">
         <div class="row align-items-center">
           <div class="col-auto pr-1">
-            <h:graphicImage id="#{fieldId}Image"
-                            value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
+            <div class="box-logo">
+              <h:graphicImage id="#{fieldId}Image"
+                              value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
+            </div>
           </div>
           <div class="col-8 col-lg text-left">
             <ui:fragment rendered="#{service ne null}">

@@ -50,7 +50,7 @@
                               oncomplete="AdmUtils.showProgress(false);#{rich:component(modalId)}.hide();return false;"/>
         </c:otherwise>
       </c:choose>
-      <mp:buttonBootstrap id="${modalId}OkButton" value="#{msg['button.yes']}" styleClass="btn btn-sm btn-secondary"
+      <mp:buttonBootstrap id="${modalId}OkButton" value="#{msg['button.yes']}" styleClass="btn btn-sm btn-secondary mr-3"
                           onclick="AdmUtils.showProgress(true);#{rich:element(submitId)}.click(); return false;"/>
     </a4j:outputPanel>
   </rich:popupPanel>

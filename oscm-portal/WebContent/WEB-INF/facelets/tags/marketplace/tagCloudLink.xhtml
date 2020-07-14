@@ -7,19 +7,19 @@
   <c:choose>
     <c:when test="#{empty preview}">
       <h:commandLink style="font-size:#{tag.weight}px;" disabled="false" id="cloudlink#{status.index}"
-                     styleClass="tagCloud tag #{tag.name eq servicePagingBean.filterTagForDisplay ? 'bg-secondary text-white p-1 rounded-pill' : ''}"
+                     styleClass="tagCloud tag #{tag.name eq servicePagingBean.filterTagForDisplay ? 'tagCloud-selected' : ''}"
                      value="" action="#{serviceListingBean.showServiceList}">
         <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value="#{tag.language},#{tag.name}"/>
         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
         <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
         <h:outputText
-            styleClass="#{tag.name eq servicePagingBean.filterTagForDisplay ? 'bg-secondary text-white p-1 rounded-pill' : ''}"
+            styleClass="#{tag.name eq servicePagingBean.filterTagForDisplay ? 'tagCloud-selected' : ''}"
             value="#{tag.name}" escape="true"/>
       </h:commandLink>
     </c:when>
     <c:otherwise>
       <h:outputLink style="font-size:#{tag.weight}px;" disabled="true" id="cloudlink#{status.index}"
-                    styleClass="tagCloud tag preview #{tag.name eq servicePagingBean.filterTagForDisplay ? 'bg-secondary text-white p-1 rounded-pill' : ''}"
+                    styleClass="tagCloud tag preview #{tag.name eq servicePagingBean.filterTagForDisplay ? 'tagCloud-selected' : ''}"
                     value="">
         <h:outputText value="#{tag.name}" escape="true"/>
       </h:outputLink>

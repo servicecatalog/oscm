@@ -2132,6 +2132,19 @@ background:url(../img/page/box_shadow_bottom.png) bottom left no-repeat; */
   text-decoration: none;
   background: none; }
 
+.tagCloud.tag:hover {
+  padding: 0.25rem;
+  background: #6bdb84;
+  border-radius: 1rem; }
+
+/* individual tag in tag cloud */
+.tagCloud-selected {
+  padding: 0.25rem;
+  color: #fff;
+  background: green;
+  text-decoration: none;
+  border-radius: 1rem; }
+
 /* tag color definitions dependent on label size.
 IE7 and other non-supporting browsers use the default color defined by  .tagCloud.tag */
 .tagCloud.tag[style*="24"] {
@@ -3437,8 +3450,8 @@ div.responsive-table-panel {
 
 .custom-select-xs {
   height: calc(1.5em + 0.2rem + 2px);
-  padding-top: 0.15rem;
-  padding-bottom: 0.25rem;
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
   padding-left: 0.5rem;
   font-size: 0.875rem; }
 
@@ -3809,18 +3822,9 @@ div#headerrightareaBootstrap, rightarea a {
 
   .RespTable td:last-child {
     border-bottom: 1px #1d4d33 solid; } }
-@media (min-width: 901px) {
-  .show-service-row {
-    display: none; } }
-@media (max-width: 900px) {
-  .column-service-hide {
-    display: none; } }
-@media (min-width: 601px) {
-  .show-unit-row {
-    display: none; } }
-@media (max-width: 600px) {
-  .column-unit-hide {
-    display: none; } }
+@media (max-width: 576px) {
+  .w-sm-100 {
+    width: 100%; } }
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 12.1 Table radio button
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */

@@ -59,7 +59,7 @@
             </div>
           </div>
 
-        <!-- Company name label and field -->
+          <!-- Company name label and field -->
           <div class="row mb-1 mt-2">
             <div class="col-md-4 col-sm-12">
               <adm:outputLabel value="#{msg['billingContact.organizationName']}" required="#{empty param[reqBtnName]}"/>
@@ -128,27 +128,27 @@
 
           <hr class="mt-3 mb-1"/>
           <a4j:outputPanel layout="block" styleClass="row row-justify-space">
-
-            <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ml-3"
-                             onclick="
+            <div>
+              <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ml-3"
+                               onclick="
                     AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
                     AdmUtils.clearHiddenErrorPanel();
                     AdmUtils.deselectRow();
                     setDirty(false);
                     #{rich:component(dialogId)}.hide();"
-                             value="#{msg['button.cancel']}">
-              <f:ajax execute="@this" render="@form"/>
-              <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
-            </h:commandButton>
+                               value="#{msg['button.cancel']}">
+                <f:ajax execute="@this" render="@form"/>
+                <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+              </h:commandButton>
 
-            <h:commandButton styleClass="d-none" id="confirmedDeleteButton"
-                             onclick="setDirty(false);" value="#{msg['button.delete']}"
-                             action="#{billingContactEditBean.deleteBillingContact}" immediate="true"/>
+              <h:commandButton styleClass="d-none" id="confirmedDeleteButton"
+                               onclick="setDirty(false);" value="#{msg['button.delete']}"
+                               action="#{billingContactEditBean.deleteBillingContact}" immediate="true"/>
 
-            <h:commandButton id="deleteButton" value="#{msg['button.delete']}"
-                             styleClass="btn btn-sm btn-outline-secondary"
-                             onclick="#{rich:component('confirmPanel')}.show();return false;"/>
-
+              <h:commandButton id="deleteButton" value="#{msg['button.delete']}"
+                               styleClass="btn btn-sm btn-outline-secondary ml-3"
+                               onclick="#{rich:component('confirmPanel')}.show();return false;"/>
+            </div>
             <mp:confirmPanelBootstrap header="#{msg['marketplace.payment.deleteBillingContact.title']}"
                                       text1="#{msg['marketplace.payment.billingContact.deleteMsg']}"
                                       text2="#{msg['marketplace.areyousure']}"
@@ -178,6 +178,7 @@
                   setDirty(false);
               }
             }
+
           </script>
         </h:form>
       </ui:fragment>
