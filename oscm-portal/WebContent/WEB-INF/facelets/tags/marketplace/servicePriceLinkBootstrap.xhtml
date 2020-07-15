@@ -10,7 +10,7 @@
         <h2 class="servicePrice">
           <h:form>
             <h:commandLink id="externalPriceModelLink" action="#{bean.display}" target="_blank"
-                           styleClass="text-decoration-none" value="#{msg['subscription.priceModel.information.link']}">
+                           styleClass="#{stylePrice}" value="#{msg['subscription.priceModel.information.link']}">
             </h:commandLink>
           </h:form>
         </h2>
@@ -22,7 +22,7 @@
         <h2 class="servicePrice">'&#160;'</h2>
       </c:when>
       <c:otherwise>
-        <h:outputLink id="priceModelModalLink" value="#" styleClass="text-decoration-none"
+        <h:outputLink id="priceModelModalLink" value="#" styleClass="btn btn-sm btn-outline-secondary w-100"
                       onclick="AdmUtils.copyFormContent('configurationForm:parameterConfigTable','configurationForm2:parameterTable');#{rich:component('pricePanel')}.show(); setDirty(false); return false;">
           <h:outputText value="#{msg['subscription.priceModel.information.link']}"/>
         </h:outputLink>

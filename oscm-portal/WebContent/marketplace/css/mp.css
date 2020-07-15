@@ -646,7 +646,7 @@ input#inputSearch {
   float: left;
   padding: 6px 0;
   color: #FFF;
-  font: 400 14px "OpenSansCondensedBold", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif;
+  font: 400 14px "OpenSansCondensedBold", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
   cursor: pointer; }
 
 /* highlight for selected navigation item */
@@ -1057,7 +1057,8 @@ div.col4span {
 .box-logo {
   background: url(../img/service_icon_default.png) no-repeat center 0;
   text-align: center;
-  height: 80px; }
+  height: 80px;
+  width: 80px; }
 
 .serviceBox2span .box_logo {
   margin: 30px 0 25px;
@@ -1189,7 +1190,9 @@ h2.priceUnit, h1.priceUnit {
   color: #222;
   font-size: 13px;
   font-weight: 400;
-  display: inline; }
+  display: inline;
+  padding-left: 0.30rem;
+  padding-top: 0.30rem; }
 
 /* service price on home page and service overview */
 .servicePriceHome {
@@ -2129,6 +2132,19 @@ background:url(../img/page/box_shadow_bottom.png) bottom left no-repeat; */
   text-decoration: none;
   background: none; }
 
+.tagCloud.tag:hover {
+  padding: 0.25rem;
+  background: #6bdb84;
+  border-radius: 1rem; }
+
+/* individual tag in tag cloud */
+.tagCloud-selected {
+  padding: 0.25rem;
+  color: #fff;
+  background: green;
+  text-decoration: none;
+  border-radius: 1rem; }
+
 /* tag color definitions dependent on label size.
 IE7 and other non-supporting browsers use the default color defined by  .tagCloud.tag */
 .tagCloud.tag[style*="24"] {
@@ -2673,7 +2689,7 @@ div.pagenate div.pagingBar .previous {
   float: left;
   border: 0;
   font-size: 12px;
-  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif;
+  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
   white-space: nowrap; }
 
 .button {
@@ -2735,7 +2751,7 @@ div.pagenate div.pagingBar .previous {
   float: left;
   border: 0;
   white-space: nowrap;
-  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif; }
+  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; }
 
 .bigbutton {
   background-position: left 0;
@@ -3425,6 +3441,20 @@ div.responsive-table-panel {
   font: 20px 'Helvetica';
   text-transform: uppercase; }
 
+.form-control-xs {
+  height: calc(1.5em + 0.2rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem; }
+
+.custom-select-xs {
+  height: calc(1.5em + 0.2rem + 2px);
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  padding-left: 0.5rem;
+  font-size: 0.875rem; }
+
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -3562,9 +3592,9 @@ div#headerrightareaBootstrap, rightarea a {
   .aside {
     float: none; } }
 .cat-item {
-  border-radius: 0px !important;
   margin: -2px 0px 0px 0px;
-  max-height: 30px;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
   font-size: 0.8rem;
   vertical-align: middle !important;
   text-align: center; }
@@ -3685,6 +3715,7 @@ div#headerrightareaBootstrap, rightarea a {
   transform: translate(-50%, -50%);
   width: 90% !important;
   max-width: 560px;
+  min-height: 180px !important;
   max-height: 580px; }
 
 .responsive-dialog-container > div {
@@ -3791,18 +3822,9 @@ div#headerrightareaBootstrap, rightarea a {
 
   .RespTable td:last-child {
     border-bottom: 1px #1d4d33 solid; } }
-@media (min-width: 901px) {
-  .show-service-row {
-    display: none; } }
-@media (max-width: 900px) {
-  .column-service-hide {
-    display: none; } }
-@media (min-width: 601px) {
-  .show-unit-row {
-    display: none; } }
-@media (max-width: 600px) {
-  .column-unit-hide {
-    display: none; } }
+@media (max-width: 576px) {
+  .w-sm-100 {
+    width: 100%; } }
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 12.1 Table radio button
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */

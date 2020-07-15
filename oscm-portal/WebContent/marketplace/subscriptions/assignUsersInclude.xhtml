@@ -34,20 +34,24 @@
       <ui:param name="iconWidth" value="5%"/>
       <ui:param name="statePrefix" value="assign"/>
     </ui:include>
-    <div class="row no-gutters my-2">
-      <a4j:commandButton style="display: none" id="hiddenModalAssignUsersSaveAndHide" value="#{msg['button.save']}"
+
+    <hr class="mt-3 mb-1"/>
+    <div class="row row-justify-space">
+      <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
+                          value="#{msg['button.cancel']}" styleClass="btn btn-sm btn-outline-secondary ml-3"/>
+
+      <a4j:commandButton styleClass="d-none" id="hiddenModalAssignUsersSaveAndHide" value="#{msg['button.save']}"
                          action="#{manageSubscriptionCtrl.assignUsers}"
                          render="@form,#{dialogId}modalErrorMasterPanel"
                          oncomplete="AdmUtils.showProgress(false);
                 if(!#{facesContext.maximumSeverity.ordinal > 0}){
-                  #{rich:component(dialogId)}.hide();                 
+                  #{rich:component(dialogId)}.hide();
                 }"/>
+
       <mp:buttonBootstrap id="saveButton"
                           onclick="setOnSubmit(true);setDirty(false);AdmUtils.showProgress(true);
               #{rich:element('hiddenModalAssignUsersSaveAndHide')}.click();return false;"
-                          value="#{msg['button.assign']}" styleClass="btn-sm btn-secondary"/>
-      <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
-                          value="#{msg['button.cancel']}" styleClass="btn-sm btn-secondary mx-2"/>
+                          value="#{msg['button.assign']}" styleClass="btn btn-sm btn-secondary mr-3"/>
     </div>
   </h:form>
 </ui:composition>

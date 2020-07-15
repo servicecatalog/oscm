@@ -222,7 +222,7 @@
           </a4j:outputPanel>
 
           <a4j:outputPanel styleClass="row row-justify-space">
-            <mp:buttonBootstrap id="cancelButton" value="#{msg['button.cancel']}" styleClass="btn btn-secondary ml-3"
+            <mp:buttonBootstrap id="cancelButton" value="#{msg['button.cancel']}" styleClass="btn btn-outline-secondary ml-3"
                                 onclick="if(getDirty()) {#{rich:component('confirmPanel')}.show();} else {cancelAction();} return false;"/>
             <mp:buttonBootstrap id="createButton" value="#{msg['button.save']}" bean="#{manageGroupCtrl}"
                                 action="save" styleClass="btn btn-secondary mr-3"/>

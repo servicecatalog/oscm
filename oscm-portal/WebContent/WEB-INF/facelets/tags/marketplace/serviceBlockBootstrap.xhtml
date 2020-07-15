@@ -3,8 +3,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
->
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
   <c:if test="#{empty showTags}">
     <c:set var="showTags" value="false"/>
   </c:if>
@@ -29,8 +29,10 @@
       <div class="col-auto mb-2">
         <div class="row align-items-center">
           <div class="col-auto pr-1">
-            <h:graphicImage id="#{fieldId}Image"
-                            value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
+            <div class="box-logo">
+              <h:graphicImage id="#{fieldId}Image"
+                              value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
+            </div>
           </div>
           <div class="col-8 col-lg text-left">
             <ui:fragment rendered="#{service ne null}">
@@ -75,8 +77,8 @@
                              service="#{service}"/>
           </c:if>
           <c:if test="#{showPriceLink}">
-            <mp:servicePriceLinkBootstrap styleClass="servicePriceDetails #{stylePrice}" service="#{service}"
-                                          bean="#{subscriptionBean}"/>
+            <mp:servicePriceLinkBootstrap styleClass="servicePriceDetails" service="#{service}"
+                                          bean="#{subscriptionBean}" stylePrice="#{stylePrice}"/>
           </c:if>
         </div>
         <c:if test="#{insert}">

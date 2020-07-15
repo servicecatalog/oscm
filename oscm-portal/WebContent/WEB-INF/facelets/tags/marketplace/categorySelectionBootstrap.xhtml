@@ -9,7 +9,7 @@
     <div class="cat-browseAll-btn">
       <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}"
         value="#{msg['button.browseAll']}"
-        class="btn-sm btn-secondary btn-lg text-center btn-block text-wrap">
+        class="btn btn-sm btn-secondary btn-lg text-center btn-block text-wrap">
         <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value="" />
         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value="" />
         <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />
@@ -21,7 +21,6 @@
         <c:set var="listItem" value="list-group-item list-group-item-action list-group-item-secondary cat-item" />
         <c:set var="activeListItem"
           value="list-group-item list-group-item-action list-group-item-secondary btn-primary active text-center w-100 cat-item" />
-
 
       <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
           <!-- Selected category -->

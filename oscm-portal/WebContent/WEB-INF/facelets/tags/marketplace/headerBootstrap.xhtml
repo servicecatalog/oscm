@@ -81,7 +81,7 @@
             </li>
           </ui:fragment>
         </ul>
-        <ul class="order-lg-last nav navbar-nav mb-2">
+        <ul class="order-lg-last nav navbar-nav">
           <li>
             <ui:fragment rendered="#{user eq null}">
               <!-- login if user is empty -->
@@ -93,7 +93,7 @@
               <c:if test="#{not userBean.internalAuthMode}">
                 <a4j:region>
                   <h:form id="formLogin">
-                    <h:outputLink id="loginLink" class=" order-lg-4 nav-link">
+                    <h:outputLink id="loginLink" class="order-lg-4 nav-link">
                       <h:outputText value=" #{msg['login']}"/>
                       <i class="fa fa-fw fa-sign-in"/>
                       <f:param name="login" value="oidc"/>
@@ -108,7 +108,7 @@
                                                data-target="#userDrop"><i class="fa fa-user"/>
                 <h:outputText id="welcome"/>
                 #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
-                <div id="userDrop" class="dropdown-menu dropdown-menu-right">
+                <div id="userDrop" class="dropdown-menu dropdown-menu-right mb-1">
                   <p class="px-4 py-sm-2 mb-1">
                     #{msg['marketplace.logging']} <strong><br>#{user.userId}</br></strong>
                   </p>

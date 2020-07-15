@@ -35,20 +35,22 @@
         <h:outputText value="#{text2}"/>
       </h2>
     </div>
-    <a4j:outputPanel layout="block" styleClass="row no-gutters border-top pt-2 row-justify-space">
+
+    <hr class="mt-3 mb-1"/>
+    <a4j:outputPanel layout="block" styleClass="row row-justify-space">
       <c:choose>
         <c:when test="#{empty cancelAction}">
           <mp:buttonBootstrap id="${modalId}CancelButton" value="#{msg['button.no']}"
-                              styleClass="btn-sm btn-secondary mx-1"
+                              styleClass="btn btn-sm btn-outline-secondary ml-3"
                               onclick="#{rich:component(modalId)}.hide();return false;"/>
         </c:when>
         <c:otherwise>
           <mp:buttonBootstrap id="${modalId}CancelButtonWithAction" value="#{msg['button.no']}"
-                              bean="#{bean}" action="#{cancelAction}" styleClass="btn-sm btn-secondary mx-1"
+                              bean="#{bean}" action="#{cancelAction}" styleClass="btn btn-sm btn-secondary mr-3"
                               oncomplete="AdmUtils.showProgress(false);#{rich:component(modalId)}.hide();return false;"/>
         </c:otherwise>
       </c:choose>
-      <mp:buttonBootstrap id="${modalId}OkButton" value="#{msg['button.yes']}" styleClass="btn-sm btn-secondary"
+      <mp:buttonBootstrap id="${modalId}OkButton" value="#{msg['button.yes']}" styleClass="btn btn-sm btn-secondary mr-3"
                           onclick="AdmUtils.showProgress(true);#{rich:element(submitId)}.click(); return false;"/>
     </a4j:outputPanel>
   </rich:popupPanel>

@@ -10,8 +10,8 @@
 
   </c:if>
   <div class="row m-0">
-    <a4j:outputPanel layout="block" styleClass="box-logo col-auto">
-      <a4j:outputPanel layout="block" styleClass="box_image" onclick="#{onClickHandler}">
+    <a4j:outputPanel layout="block" styleClass="col-auto mt-3">
+      <a4j:outputPanel layout="block" styleClass="box-logo" onclick="#{onClickHandler}">
         <h:graphicImage id="#{fieldId}Image"
                         value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{subscription.serviceKey}"/>
       </a4j:outputPanel>
@@ -74,17 +74,17 @@
       </div>
     </div>
   </div>
-  <div class="col mt-1">
-    <div class="mb-2">
+  <div class="row mt-1 mb-3 px-3">
+    <div class="col-md-9">
       <h:outputText id="#{fieldId}AccessInfo" styleClass="mb-2" value="#{subscription.serviceAccessInfo}"
-                    rendered="#{subscription.accessViaAccessInfo}" escape="false"/>
+                    rendered="#{subscription.accessViaAccessInfo}" escape="false"/><br/>
       <strong>
         <h:outputText id="AccessInfoFormPart" value="#{subscription.serviceAccessInfoFormPart}"
                       rendered="#{not empty subscription.serviceAccessInfoFormPart}" escape="false"/>
       </strong>
     </div>
-    <div class="my-2">
-      <mp:serviceLicense service="#{service}"/>
+    <div class="col-md-3">
+      <mp:serviceLicenseBootstrap service="#{service}" styleClass="btn btn-sm btn-outline-secondary w-100"/>
     </div>
   </div>
 </ui:composition>

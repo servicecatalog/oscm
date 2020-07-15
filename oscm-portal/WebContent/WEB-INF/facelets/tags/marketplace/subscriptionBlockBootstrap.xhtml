@@ -43,7 +43,7 @@
     <adm:outputLabel value="#{msg['subscription.users']}" styleClass="mx-3"/>
    </div>
    <div class="col-7 pl-0">
-    <h:outputText id="#{fieldId}Users" value="#{subscription.numberOfAssignedUsers}"/>
+    <h:outputText id="#{fieldId}Users" value="#{subscription.numberOfAssignedUsers}" styleClass="font-weight-bolder"/>
    </div>
   </div>
   <!-- status info -->
@@ -53,7 +53,7 @@
    </div>
    <div class="col-7 pl-0">
     <ui:include src="../../../../marketplace/subscriptions/status.xhtml">
-     <ui:param name="sub" value="#{subscription}"/>
+     <ui:param name="sub" value="#{subscription}" textStyle="font-weight-bolder"/>
     </ui:include>
    </div>
   </div>
@@ -63,7 +63,7 @@
     <adm:outputLabel value="#{msg['subscriptions.table.reference']}" styleClass="mx-3"/>
    </div>
    <div class="col-7 p-0">
-    <h:outputText value="#{subscription.purchaseOrderNumber}"/>
+    <h:outputText value="#{subscription.purchaseOrderNumber}" styleClass="font-weight-bolder"/>
    </div>
   </div>
   <!-- activation -->
@@ -72,7 +72,7 @@
     <adm:outputLabel value="#{msg['subscription.activationDate']}" styleClass="mx-3"/>
    </div>
    <div class="col-7 p-0">
-    <h:outputText value="#{subscription.activationDate}">
+    <h:outputText value="#{subscription.activationDate}" styleClass="font-weight-bolder">
      <f:convertDateTime/>
     </h:outputText>
    </div>
@@ -83,7 +83,7 @@
     <adm:outputLabel value="#{msg['subscription.service']}" styleClass="mx-3"/>
    </div>
    <div class="col-7 p-0">
-    <h:outputText value="#{subscription.serviceName}"/>
+    <h:outputText value="#{subscription.serviceName}" styleClass="font-weight-bolder"/>
    </div>
   </div>
  </div>

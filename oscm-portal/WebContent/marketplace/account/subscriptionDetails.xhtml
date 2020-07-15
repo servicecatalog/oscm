@@ -109,7 +109,7 @@
             <h:commandButton style="display:none;" id="confirmedUnsubscribeButton" value="#{msg['button.unsubscribe']}"
                              action="#{manageSubscriptionCtrl.unsubscribe}"/>
             <mp:buttonBootstrap id="unsubscribeButton" value="#{msg['button.unsubscribe']}"
-                                styleClass="btn-sm btn-secondary my-1 "
+                                styleClass="btn btn-sm btn-secondary my-1 "
                                 onclick="setDirty(false);#{rich:component('unsubscribeConfirmPl')}.show();return false;"
                                 disabled="#{manageSubscriptionModel.notTerminable}"/>
           </h:form>
@@ -211,13 +211,13 @@
                           <mp:buttonBootstrap id="editRoles" value="#{msg['button.editRoles']}"
                                               render="editRolesPanelTitle"
                                               bean="#{manageSubscriptionCtrl}" action="setPopupTargetEditRoles"
-                                              styleClass="btn-sm btn-secondary my-1"
+                                              styleClass="btn btn-sm btn-secondary my-1"
                                               disabled="#{manageSubscriptionCtrl.model.usersTabDisabled}"
                                               oncomplete="AdmUtils.showProgress(false);RichFaces.$('editRolesPanel').show();"/>
                         </ui:fragment>
                         <h:commandButton id="assignUsers" value="#{msg['button.assignUsers']}" type="button"
                                          onclick="AdmUtils.showProgress(true);updateUnassignedUsersContent();"
-                                         styleClass="btn-sm btn-secondary m-1"
+                                         styleClass="btn btn-sm btn-secondary m-1"
                                          disabled="#{manageSubscriptionCtrl.model.usersTabDisabled}"/>
                         <a4j:jsFunction name="updateUnassignedUsersContent"
                                         action="#{manageSubscriptionCtrl.setPopupTargetAssignUsers}"
@@ -267,7 +267,6 @@
               <div class="tab-pane fade " id="configurationTab" role="tabpanel" aria-labelledby="configurationTabLink">
                 <a4j:outputPanel>
                   <c:set var="dialogId" value="selectOwnerPanel"/>
-
                   <c:set var="dialogHelpId" value="subscription_selectOwners"/>
                   <c:set var="dialogTitle" value="#{manageSubscriptionModel.modalTitle}"/>
                   <c:set var="targetCtrl" value="./subscriptions/selectOwnersInclude.xhtml"/>
@@ -329,7 +328,7 @@
                               <div class="col-4">
                                 <h:commandButton id="assignSubOwner" render="configurationForm"
                                                  rendered="#{not manageSubscriptionModel.cfgTabDisabled}"
-                                                 type="button" styleClass="btn-sm btn-secondary w-100"
+                                                 type="button" styleClass="btn btn-sm btn-secondary w-100"
                                                  disabled="#{manageSubscriptionModel.cfgTabDisabled}"
                                                  value="#{msg['button.change']}"
                                                  onclick="if(getDirty()==true){setPageDirty();};initializeSubscriptionOwners();"/>
@@ -362,7 +361,7 @@
                             </div>
                             <div class="col-4">
                               <h:commandButton render="configurationForm" type="button"
-                                               styleClass="btn-sm btn-secondary w-100"
+                                               styleClass="btn btn-sm btn-secondary w-100"
                                                rendered="#{not manageSubscriptionModel.cfgTabDisabled and (userBean.isOrganizationAdmin or userBean.isUnitAdmin)}"
                                                onclick="if(getDirty()==true){setPageDirty();};setPopupTargetSelectUnits(); return false;"
                                                value="#{msg['button.assign']}" id="editUnit"/>

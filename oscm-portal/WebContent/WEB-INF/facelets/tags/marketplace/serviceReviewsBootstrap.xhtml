@@ -25,7 +25,7 @@
             <ui:param name="dialogId" value="writeReviewPanel"/>
           </ui:include>
           <button id="btnWriteFeedback" type="button" onclick="#{rich:component('writeReviewPanel')}.show();"
-                  class="btn-sm btn-secondary">
+                  class="btn btn-sm btn-secondary">
             #{serviceDetailsCtrl.hasReviewForLoggedInUser ? msg['service.reviews.manage'] : msg['service.reviews.write']}
           </button>
         </c:if>

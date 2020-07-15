@@ -41,14 +41,16 @@
                   #{rich:component(dialogId)}.hide();
                 }" />
 
-        <div class="row mt-2 no-gutters">
-          <mp:buttonBootstrap id="saveButton" styleClass="btn-sm btn-secondary"
+
+        <hr class="mt-3 mb-1"/>
+        <div class="row row-justify-space">
+          <mp:buttonBootstrap id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ml-3"
+                              onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
+                              value="#{msg['button.cancel']}"/>
+          <mp:buttonBootstrap id="saveButton" styleClass="btn btn-sm btn-secondary mr-3"
                               onclick="if(getDirty()==true){setPageDirty();}setOnSubmit(true);AdmUtils.showProgress(true);
         #{rich:element('hiddenModalSelectOwnerSaveAndHide')}.click();return false;"
                               value="#{msg['button.ok']}" />
-          <mp:buttonBootstrap id="cancelButton" styleClass="btn-sm btn-secondary mx-2"
-                              onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
-                              value="#{msg['button.cancel']}"/>
         </div>
 
       </a4j:outputPanel>
