@@ -2,7 +2,7 @@
 
 ## Introduction
 The new public marketplace UI has been re-designed based on the Bootstrap framework version 4.3.1.  
-The default stylesheet for the marketplace: “mp.css” is still used for the customization of the marketplace UI, but now there are two additional Template Stylesheets, located in the “customBootstrap” folder: 1) a custom Bootstrap stylesheet (which is a full compiled & customized Bootstrap version) with a dark navigation bar named: “darkCustom.css”, and 2) a dark footer stylesheet, named “darkFooter.css”. The light versions of those stylesheets (named lightCustom.css, lightFooter.css) are also included in the branding package.
+The default stylesheet for the marketplace: **“mp.css”** is still used for the customization of the marketplace UI, but now there are two additional Template Stylesheets, located in the “customBootstrap” folder: 1) a custom Bootstrap stylesheet (which is a full compiled & customized Bootstrap version) with a dark navigation bar named: **“darkCustom.css”**, and 2) a dark footer stylesheet, named **“darkFooter.css”**. The light versions of those stylesheets (named lightCustom.css, lightFooter.css) are also included in the branding package.
 
 ### Prerequisites:
 
@@ -13,7 +13,9 @@ The default stylesheet for the marketplace: “mp.css” is still used for the c
 -	You need the downloaded Bootstrap source files v4.3.1 (let s assume that they are extracted in a folder named: “bootstrap/scss”)
 -	The import statements in “darkCustom.scss” and “darkFooter.scss” must refer to the correct relative paths where the bootstrap source files are located.
 Example of such an import statement:
+ ````
  @import "../../../bootstrap/scss/variables";)
+ ```
 -	All generated css files (“darkCustom.css”, etc., explained in the next sections) are hosted on a server and preserve the same directory structure as in the provided branding package.
 -	The URL of the branded mp.css is uploaded just like before in the "Customize Branding" page, and the location of “darkCustom.css” and “darkFooter.css” are automatically derived from the location of mp.css.
 
