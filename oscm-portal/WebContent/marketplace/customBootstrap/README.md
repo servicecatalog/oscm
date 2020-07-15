@@ -14,7 +14,7 @@ The default stylesheet for the marketplace: **“mp.css”** is still used for t
 -	The import statements in “darkCustom.scss” and “darkFooter.scss” must refer to the correct relative paths where the bootstrap source files are located.
 Example of such an import statement:
  ```
- @import "../../../bootstrap/scss/variables";)
+ @import "../../../bootstrap/scss/variables";
 ```
 -	All generated css files (“darkCustom.css”, etc., explained in the next sections) are hosted on a server and preserve the same directory structure as in the provided branding package.
 -	The URL of the branded mp.css is uploaded just like before in the "Customize Branding" page, and the location of “darkCustom.css” and “darkFooter.css” are automatically derived from the location of mp.css.
