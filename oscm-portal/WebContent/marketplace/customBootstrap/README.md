@@ -2,11 +2,11 @@
 
 ## Introduction
 The new public marketplace UI has been re-designed based on the Bootstrap framework version 4.3.1.  
-The default stylesheet for the marketplace: **“mp.css”** is still used for the customization of the marketplace UI, but now there are two additional Template Stylesheets, located in the “customBootstrap” folder: 1) a custom Bootstrap stylesheet (which is a full compiled & customized Bootstrap version) with a dark navigation bar named: **“darkCustom.css”**, and 2) a dark footer stylesheet, named **“darkFooter.css”**. The light versions of those stylesheets (named lightCustom.css, lightFooter.css) are also included in the branding package.
+The default stylesheet for the marketplace: *mp.css* is still used for the customization of the marketplace UI, but now there are two additional Template Stylesheets, located in the “customBootstrap” folder: 1) a custom Bootstrap stylesheet (which is a full compiled & customized Bootstrap version) with a dark navigation bar named: *darkCustom.css*, and 2) a dark footer stylesheet, named *darkFooter.css*. The light versions of those stylesheets (named lightCustom.css, lightFooter.css) are also included in the branding package.
 
 ### Prerequisites:
 
--	You have downloaded the provided branding package. The branding package can be downloaded as a ZIP file in the administration portal as an Operator in the “Customize layout” page by clicking the button “Download branding package”. The branding package contains two folders containing Sass source files: the “scss” folder, containing source files of mp.css, and the “customBootstrap/scss” folder containing the theme source files for the custom Bootstrap, explained later on.
+-	You have downloaded the provided branding package. The branding package can be downloaded as a ZIP file in the administration portal as an Operator in the *“Customize layout”* page by clicking the button *“Download branding package”*. The branding package contains two folders containing Sass source files: the *“scss”* folder, containing source files of mp.css, and the *“customBootstrap/scss”* folder containing the theme source files for the custom Bootstrap, explained later on.
 -	You have configured a Sass Compiler (a CSS pre-procesor) in order to compile your Sass source files with the file extension “.scss” and generate CSS stylesheets.  For more information on Sass and how to configure it, see the following [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).  
  A simple option is to use Ruby.
 -	You need the downloaded Bootstrap source files v4.3.1 (let s assume that they are extracted in a folder named: “bootstrap/scss”)
@@ -40,9 +40,9 @@ These Sass variables override the default Bootstrap values. (Remember to remove 
 ### Base Sass Variables Template: _myvariables.scss
 The [_myvariables](scss/_myvariables.scss) file contains a minimum set of variables used for the Default Bootstrap Theme for the marketplace UI. It includes a green color theme (including custom color shades for the Bootstrap list groups), and a small number of variables such as $body-bg and the $font-family-base used for Bootstrap Fonts of specific headings. 
 
-You can simply modify the color theme, by changing the variable $main-color in _myVariables.scss and recompiling the source files. All the colors get automatically adjusted depending on the $main-color variable. But you could also override other theme colors, such as the $primary or $secondary theme, or add an additional color in the themes colors map. (please see: https://getbootstrap.com/docs/4.3/getting-started/theming/ for more information).
+You can simply modify the color theme, by changing the variable *$main-color* in _myVariables.scss and recompiling the source files. All the colors get automatically adjusted depending on the *$main-color* variable. But you could also override other theme colors, such as the *$primary* or *$secondary* theme, or add an additional color in the themes colors map. (please see: https://getbootstrap.com/docs/4.3/getting-started/theming/ for more information).
 
-Similarly, you can modify the $font-family-base variable to modify the font-family, or use a Google font instead. (Please note that you have to modify also the $font-family-base-sans-serif variable in the _variables.scss which is imported in mp.scss).
+Similarly, you can modify the *$font-family-base* variable to modify the font-family, or use a Google font instead. (Please note that you have to modify also the *$font-family-base-sans-serif* variable in the *_variables.scss* which is imported in *mp.scss*).
 If you need to adjust or add specific Boostrap styles, you can do so after importing “myVariables” directly in [darkCustom.scss](scss/darkCustom.scss) (but before importing bootstrap), by either writing normal css or Scss code syntax. Remember to re-compile your source files for the changes to take effect.
 
 #### Specific Case: Cards Customization:
@@ -55,7 +55,7 @@ If you wish to have another grid layout, you can modify the numbers in the mixin
 An extended variables file that serves as an example of custom Bootstrap UI components is here available for download:
 [_myvariables.scss](advanced/_myvariables.scss)
 
-Simply replace your _myVariables.scss located in the "scss" folder with _myVariables.scss  that you have downloaded with the above link.
+Simply replace your _myVariables.scss located in the "scss" folder with *_myvariables.scss*  that you have downloaded with the above link.
 
 The variables are structured per UI component and the explanation is below:
 
@@ -64,7 +64,7 @@ This section defines the enablement or disablement of general options like shado
 
 
 #### Fonts
-The template includes a commented-out option if you wish to use a Google Font. $font-family-base is the variable used for fonts, and $font-size-base defines a variable for font sizes.
+The template includes a commented-out option if you wish to use a Google Font. *$font-family-base* is the variable used for fonts, and *$font-size-base* defines a variable for font sizes.
 
 #### Navbar 
 You can modify the padding of navbars.
