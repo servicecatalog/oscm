@@ -29,7 +29,7 @@ For more information about the Theming mechanism of Bootstrap via Sass in genera
 Another option is to use a Tool on the Internet to generate a Bootstrap template. There are several tools available that allow the easy and visual customization of Bootstrap UI components. Two examples of such tools are:
 1.	Themestr.app themer or customizer: https://themestr.app/
 2.	Bootstrap Builder: https://bootstrap.build/
-There is also a list of pre-defined Bootstrap themes that are free to use and licensed under the MIT license:
+3. There is also a list of pre-defined Bootstrap themes that are free to use and licensed under the MIT license:
 https://bootswatch.com/
 However, please note that these themes would not work out-of-the-box in the marketplace UI and would need to be adjusted.
 
