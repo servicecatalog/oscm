@@ -46,7 +46,7 @@ Similarly, you can modify the $font-family-base variable to modify the font-fami
 If you need to adjust or add specific Boostrap styles, you can do so after importing “myVariables” directly in [darkCustom.scss](scss/darkCustom.scss) (but before importing bootstrap), by either writing normal css or Scss code syntax. Remember to re-compile your source files for the changes to take effect.
 
 #### Specific Case: Cards Customization:
-A specific customization case (useful for the customer) is the .gridLayoutForCard which allows you to customize the grid layout for the service cards that appear in the custom landing page, by using Sass mixins for the columns. The example illustrates the div with class: col-xl-4 col-md-6 col-sm-12 mb-3
+A specific customization case (useful for the customer) is the .gridLayoutForCard which allows you to customize the grid layout for the service cards that appear in the public landing page, by using Sass mixins for the columns. The example illustrates the div with class: *col-xl-4 col-md-6 col-sm-12 mb-3*
 If you wish to have another grid layout, you can modify the numbers in the mixins appropriately.
 (For more information about the Grid layout of Bootstrap, please see: https://getbootstrap.com/docs/4.0/layout/grid/)
 
