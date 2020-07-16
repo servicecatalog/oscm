@@ -1,24 +1,24 @@
 <!-- Copyright FUJITSU LIMITED 2020 -->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-                xmlns:t="http://myfaces.apache.org/tomahawk">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace">
+
   <mp:outputStepBootstrap value="#{msg['subscription.confirm.terms.title']}" required="true"/>
-  <div class="row" >
+  <div class="row">
     <div class="col-auto ">
       <h:selectBooleanCheckbox id="agreeCheckbox" value="#{subscriptionWizardConversation.model.agreed}"
                                validator="#{booleanValidator.validateTrue}" required="true"
-                               requiredMessage="#{msg['error.subscription.license']}" />
-      <h:outputText id="licenseAcceptStart" value=" #{msg['subscription.add.license.acceptStart']}" />
+                               requiredMessage="#{msg['error.subscription.license']}"/>
+      <h:outputText id="licenseAcceptStart" value=" #{msg['subscription.add.license.acceptStart']}"/>
       <mp:serviceLicense linkText="#{msg['subscription.add.license']}"
-                         service="#{subscriptionWizardConversation.model.service.VO}" />
+                         service="#{subscriptionWizardConversation.model.service.VO}"/>
       <h:outputText id="pmAccept" value=" #{msg['subscription.add.priceModel.accept']}"
-                    rendered="#{subscriptionWizardConversation.model.service.priceModel.external}" />
-      <h:outputText id="licenseAcceptEnd" value="#{msg['subscription.add.license.acceptEnd']}" />
+                    rendered="#{subscriptionWizardConversation.model.service.priceModel.external}"/>
+      <h:outputText id="licenseAcceptEnd" value="#{msg['subscription.add.license.acceptEnd']}"/>
     </div>
     <div class="col-auto">
-      <mp:message for="agreeCheckbox" />
+      <mp:message for="agreeCheckbox"/>
     </div>
   </div>
 </ui:composition>
