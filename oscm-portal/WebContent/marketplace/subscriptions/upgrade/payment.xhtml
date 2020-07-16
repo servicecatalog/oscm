@@ -73,11 +73,11 @@
                                  var="bc" itemLabel="#{bc.id}" itemValue="#{bc}"/>
                 </h:selectOneMenu>
               </div>
-              <div class="col-auto align-self-center">
-                <a4j:outputPanel id="billingInformation" layout="block" class="">
+              <div class="col-md-2 align-self-center">
+                <a4j:outputPanel id="billingInformation" layout="block" styleClass="text-center">
                   <mp:message for="selectBillingContact"
                               rendered="#{empty upgradeWizardConversation.model.selectedBillingContact}"/>
-                  <a4j:outputPanel layout="block" rendered="true" styleClass="row align-items-center">
+                  <a4j:outputPanel layout="block" rendered="true" styleClass="row align-items-center text-center">
                     <h:outputLink value="#" id="newBillingContact" onclick="newBillingContact(); return false;"
                                   rendered="#{userBean.loggedInAndAdmin}" styleClass="w-sm-100 btn btn-sm btn-outline-secondary">
                       <h:outputText value="#{msg['payment.new.BillingContact.title']}"/>
@@ -131,11 +131,11 @@
                       var="pi" itemLabel="#{pi.id}" itemValue="#{pi}"/>
                 </h:selectOneMenu>
               </div>
-              <div class="col-auto align-self-center">
-                <a4j:outputPanel id="paymentInformation" layout="block" styleClass="bg-light-secondary rounded">
+              <div class="col-md-2 align-self-center">
+                <a4j:outputPanel id="paymentInformation" layout="block" styleClass="text-center">
                   <mp:message for="selectPaymentInfo"
                               rendered="#{empty upgradeWizardConversation.model.selectedPaymentInfo}"/>
-                  <a4j:outputPanel layout="block" rendered="#{availableSubsAndAdmin}" class="row align-items-center">
+                  <a4j:outputPanel layout="block" rendered="#{availableSubsAndAdmin}" class="row align-items-center text-center">
                     <h:outputLink value="" id="newPaymentInfo" styleClass="w-sm-100 btn btn-sm btn-outline-secondary"
                                   onclick="newPaymentItem('#{upgradeWizardConversation.model.service.key}'); return false;">
                       <h:outputText value="#{msg['payment.new.PaymentOption.title']}"/>

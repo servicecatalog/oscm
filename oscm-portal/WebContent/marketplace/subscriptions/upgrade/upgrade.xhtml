@@ -70,7 +70,7 @@
                     <ui:param name="cancelHandler"
                               value="AdmUtils.blurButton('configurationForm:btnConfigureLabel');setDirty(false);#{rich:component(dialogId)}.hide();"/>
                   </ui:include>
-                  <a4j:outputPanel styleClass="buttonWrapper">
+                  <a4j:outputPanel styleClass="buttonWrapper text-center">
                     <a4j:commandLink id="btnConfigure" styleClass="btn btn-sm btn-outline-secondary"
                                      oncomplete="if(#{upgradeWizardConversation.model.showExternalConfigurator}){#{rich:component('configurator')}.show();configurator.activateFallbackTimer();window.scrollTo(0,document.body.scrollHeight);};"
                                      action="#{upgradeWizardConversation.actionLoadIframe}"

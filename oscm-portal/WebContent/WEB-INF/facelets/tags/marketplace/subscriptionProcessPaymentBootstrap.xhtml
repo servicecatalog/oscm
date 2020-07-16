@@ -31,8 +31,8 @@
         </div>
       </div>
     </div>
-    <div class="col-auto align-self-center">
-      <a4j:outputPanel id="billingInformation" layout="block">
+    <div class="col-md-3 align-self-center">
+      <a4j:outputPanel id="billingInformation" layout="block" styleClass="text-center">
         <mp:message for="selectBillingContact"
                     rendered="#{empty subscriptionWizardConversation.model.selectedBillingContact}"/>
         <h:outputLink value="#" id="newBillingContact" styleClass="btn btn-sm btn-outline-secondary w-sm-100"
@@ -88,11 +88,11 @@
         </div>
       </div>
     </div>
-    <div class="col-auto align-self-center">
+    <div class="col-md-3 align-self-center">
       <a4j:outputPanel id="paymentInformation" layout="block">
         <mp:message for="selectPaymentInfo"
                     rendered="#{empty subscriptionWizardConversation.model.selectedPaymentInfo}"/>
-        <a4j:outputPanel layout="block" rendered="#{availableSubsAndAdmin}">
+        <a4j:outputPanel layout="block" rendered="#{availableSubsAndAdmin}" styleClass="text-center">
           <h:outputLink value="" id="newPaymentInfo" styleClass="btn btn-sm btn-outline-secondary w-sm-100"
                         onclick="newPaymentItem('#{subscriptionWizardConversation.model.service.key}'); return false;">
             <h:outputText value="#{msg['payment.new.PaymentOption.title']}"/>
