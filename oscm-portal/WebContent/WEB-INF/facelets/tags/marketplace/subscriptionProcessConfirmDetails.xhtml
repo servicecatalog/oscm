@@ -1,7 +1,7 @@
 <!-- Copyright FUJITSU LIMITED 2020 -->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 xmlns:t="http://myfaces.apache.org/tomahawk">
 
@@ -11,22 +11,22 @@
   <div class="col bg-light-secondary rounded">
     <t:panelGrid columns="2" border="0" cellspacing="0" cellpadding="0"
                  columnClasses="labelAndValuePanelCol1,labelAndValuePanelCol2">
-      <h:outputText value="#{msg['subscription.subscriptionId']}" id="subscriptionIdLabel" styleClass="label" />
+      <h:outputText value="#{msg['subscription.subscriptionId']}" id="subscriptionIdLabel" styleClass="label"/>
       <h:outputText value="#{subscriptionWizardConversation.model.subscription.subscriptionId}"
-                    id="subscriptionIdValue" styleClass="stringInMultiLine font-weight-bold" />
+                    id="subscriptionIdValue" styleClass="stringInMultiLine font-weight-bold"/>
 
       <h:outputText value="#{msg['subscription.purchaseOrderNumber']}" id="purchaseOrderNumberLabel"
-                    styleClass="label" />
+                    styleClass="label"/>
       <h:outputText value="#{subscriptionWizardConversation.model.subscription.purchaseOrderNumber}"
-                    id="purchaseOrderNumberValue" styleClass="stringInMultiLine font-weight-bold" />
+                    id="purchaseOrderNumberValue" styleClass="stringInMultiLine font-weight-bold"/>
 
-      <h:outputText value="#{msg['unit.organizationalUnit']}" id="unitIdLabel" styleClass="label" />
+      <h:outputText value="#{msg['unit.organizationalUnit']}" id="unitIdLabel" styleClass="label"/>
       <h:outputText value="#{subscriptionWizardConversation.subscriptionUnitCtrl.model.selectedUnitName}"
-                    id="unitIdValue" styleClass="stringInMultiLine font-weight-bold" />
+                    id="unitIdValue" styleClass="stringInMultiLine font-weight-bold"/>
 
       <c:forEach items="#{subscriptionWizardConversation.model.subscriptionUdaRows}" var="subUda"
                  varStatus="v">
-        <h:outputText value="#{subUda.udaNameToShow}" id="subUda#{v.index}Label" styleClass="label" />
+        <h:outputText value="#{subUda.udaNameToShow}" id="subUda#{v.index}Label" styleClass="label"/>
         <h:outputText value="#{subUda.udaValue}" id="subUda#{v.index}Value"
                       rendered="#{not subUda.inputEncrypted}"/>
         <h:outputText value="*****" id="secretSubUda#{v.index}Value"
@@ -38,13 +38,13 @@
   <!-- configuration summary -->
   <ui:fragment rendered="#{not empty subscriptionWizardConversation.model.serviceParameters}">
     <div class="row">
-      <div class="col-md-9 col-sm-8 mt-2">
-        <mp:outputStepBootstrap value="#{msg['parameter.table.header']}" />
+      <div class="col-sm-9 col-sm-8 mt-2">
+        <mp:outputStepBootstrap value="#{msg['parameter.table.header']}"/>
       </div>
-      <div class="col-md-3 col-sm-4 mt-2 align-self-center">
-        <h:outputLink id="editConfigurationLink" styleClass="btn btn-sm btn-outline-secondary w-100"
+      <div class="col-sm-2 mt-2 align-self-center text-center">
+        <h:outputLink id="editConfigurationLink" styleClass="btn btn-sm btn-outline-secondary w-sm-100"
                       onclick="setDirty(false);if(AdmUtils.isNotDirtyOrConfirmed()) {#{rich:element('hiddenConfigurationChange')}.click();} return false;">
-          <h:outputText value="#{msg['subscription.confirm.serviceConfiguration.change']}" />
+          <h:outputText value="#{msg['subscription.confirm.serviceConfiguration.change']}"/>
         </h:outputLink>
         <h:commandButton id="hiddenConfigurationChange" onclick="showExternalConfigurator();" immediate="true"
                          action="#{subscriptionWizardConversation.gotoConfiguration}" styleClass="d-none"/>
@@ -52,11 +52,11 @@
     </div>
     <div class="col py-2 bg-white rounded mb-2">
       <ui:include src="../../../../marketplace/account/paramtable.xhtml">
-        <ui:param name="inputList" value="#{subscriptionWizardConversation.model.serviceParameters}" />
-        <ui:param name="formName" value="confirmForm" />
-        <ui:param name="showPrices" value="#{subscriptionWizardConversation.model.showServicePrices}" />
-        <ui:param name="bean" value="#{subscriptionWizardConversation}" />
-        <ui:param name="isOneTimeMarked" value="false" />
+        <ui:param name="inputList" value="#{subscriptionWizardConversation.model.serviceParameters}"/>
+        <ui:param name="formName" value="confirmForm"/>
+        <ui:param name="showPrices" value="#{subscriptionWizardConversation.model.showServicePrices}"/>
+        <ui:param name="bean" value="#{subscriptionWizardConversation}"/>
+        <ui:param name="isOneTimeMarked" value="false"/>
       </ui:include>
     </div>
   </ui:fragment>

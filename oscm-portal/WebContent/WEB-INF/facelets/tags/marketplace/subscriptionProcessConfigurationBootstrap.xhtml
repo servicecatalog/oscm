@@ -37,7 +37,7 @@
              value="AdmUtils.blurButton('configurationForm:btnConfigureLabel');setDirty(false);#{rich:component(dialogId)}.hide();"/>
   </ui:include>
   <a4j:outputPanel styleClass="buttonWrapper">
-   <a4j:commandLink id="btnConfigure" styleClass="button" style="text-decoration: none;"
+   <a4j:commandLink id="btnConfigure" styleClass="btn btn-sm btn-outline-secondary"
                     oncomplete="if(#{subscriptionWizardConversation.model.showExternalConfigurator}){#{rich:component('configurator')}.show();configurator.activateFallbackTimer();window.scrollTo(0,document.body.scrollHeight);};"
                     action="#{subscriptionWizardConversation.actionLoadIframe}"
                     render="configurationForm:externalToolDialog,subcribe_configurationWarning,configurationForm:configRqScript,hiddenErrorPanel">
