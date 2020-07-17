@@ -45,18 +45,18 @@
         </div>
 
         <!-- Page selection -->
-        <div class="col-auto px-1">
+        <div class="col-auto px-0">
           <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
             <!-- Current page -->
             <c:if test="#{selpage eq servicePagingBean.selectedPage}">
-              <button type="button" class="btn btn-sm btn-outline-secondary active px-1">
+              <h:outputLink value="" class="pagingNofServices btn btn-sm btn-outline-secondary active px-1">
                 #{selpage}
-              </button>
+              </h:outputLink>
             </c:if>
             <!-- Other pages -->
             <c:if test="#{selpage ne servicePagingBean.selectedPage}">
               <h:outputLink id="link#{prefix}Page#{selpage}" value=""
-                            class="btn btn-sm btn-outline-secondary px-1"
+                            class="pagingNofServices btn btn-sm btn-outline-secondary px-1"
                             onclick="#{rich:element('selectPage')}.value='#{selpage}';#{rich:element('selectPagingButton')}.click();return false;">
                 #{selpage}
               </h:outputLink>
