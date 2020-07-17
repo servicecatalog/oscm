@@ -29,7 +29,7 @@
         <!--  Previous button -->
         <div class="col-auto px-1">
           <c:if test="#{servicePagingBean.previousAvailable}">
-            <h:outputLink id="pagePrevious#{prefix}" styleClass="btn btn-sm btn-secondary text-white"
+            <h:outputLink id="pagePrevious#{prefix}" styleClass="btn btn-sm btn-outline-secondary"
                           onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage - 1}';#{rich:element('selectPagingButton')}.click();return false;">
               <i class="fa fa-arrow-left"></i>
               <h:outputText value="#{msg['paging.previous']}" styleClass="bigDisplay"/>
@@ -49,14 +49,14 @@
           <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
             <!-- Current page -->
             <c:if test="#{selpage eq servicePagingBean.selectedPage}">
-              <button type="button" class="btn btn-sm btn-outline-secondary px-1" disabled="disabled">
+              <button type="button" class="btn btn-sm btn-outline-secondary active px-1">
                 #{selpage}
               </button>
             </c:if>
             <!-- Other pages -->
             <c:if test="#{selpage ne servicePagingBean.selectedPage}">
               <h:outputLink id="link#{prefix}Page#{selpage}" value=""
-                            class="btn btn-sm btn-secondary text-white px-1"
+                            class="btn btn-sm btn-outline-secondary px-1"
                             onclick="#{rich:element('selectPage')}.value='#{selpage}';#{rich:element('selectPagingButton')}.click();return false;">
                 #{selpage}
               </h:outputLink>
@@ -67,7 +67,7 @@
         <!-- Next selection -->
         <div class="col-auto px-1">
           <c:if test="#{servicePagingBean.nextAvailable}">
-            <h:outputLink styleClass="btn btn-sm btn-secondary text-white"
+            <h:outputLink styleClass="btn btn-sm btn-outline-secondary"
                           onclick="#{rich:element('selectPage')}.value='#{servicePagingBean.selectedPage + 1}';#{rich:element('selectPagingButton')}.click();return false;"
                           id="pageNext#{prefix}">
               <h:outputText value="#{msg['paging.next']}" styleClass="bigDisplay"/>
@@ -95,13 +95,13 @@
           <div class="col-auto pl-0">
             <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
               <c:if test="#{size eq servicePagingBean.pageSize}">
-                <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary disabled px-1"
+                <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary active px-1"
                               id="pagingSize#{prefix}#{size}" value="">
                   #{size}
                 </h:outputLink>
               </c:if>
               <c:if test="#{size ne servicePagingBean.pageSize}">
-                <h:outputLink styleClass="pagingNofServices btn btn-sm btn-secondary text-white px-1"
+                <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary px-1"
                               id="pagingSize#{prefix}#{size}" value=""
                               onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
                   #{size}
