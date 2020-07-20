@@ -1,38 +1,53 @@
+%message-shared {
+   padding: 15px !important;
+   display: block;
+}
+
+.success {
+  @extend %message-shared;
+  color: $white;
+  background: #73B573 no-repeat !important;
+}
+
+.error {
+  @extend %message-shared;
+  color: $white;
+  background: #CB243F no-repeat !important;
+  margin-bottom: 5px;
+}
+
+.warning {
+  @extend %message-shared;
+  background: #E7B51D no-repeat !important;
+}
+
+
+/* per wrapper stylying, setting background colors, text colors*/
+.suspended {
+  @extend %message-shared;
+  color: $white;
+  background: #5E6D7B no-repeat !important;
+  display: none;
+}
+
+
+
 /* MSGS Stylying >>> */
 #globalMessagesHolder .rf-msgs {
   margin-bottom: 25px;
 }
 
-.error, .warning, .success, .suspended {
-  padding: 15px !important;
-  display: block;
-}
 
-/* per wrapper stylying, setting background colors, text colors*/
-.suspended {
-  color: #FFF;
-  background: #5E6D7B no-repeat !important;
-  display: none;
-}
 
-.error {
-  color: #FFF;
-  background: #CB243F no-repeat !important;
-  margin-bottom: 5px;
-}
+
+
+
 
 .error dl {
   margin: 0px !important;
 }
 
-.warning {
-  background: #E7B51D no-repeat !important;
-}
 
-.success {
-  color: #FFF;
-  background: #73B573 no-repeat !important;
-}
 
 /*
     define no default background image coming from richfaces,
@@ -41,7 +56,7 @@
 .success span.rf-msgs-inf, .suspended span.rf-msgs-inf, .error span.rf-msgs-err, .warning span.rf-msgs-inf, .warning dt
   {
   background-image: none;
-  color: #FFFFFF;
+  color: $white;
   font-size: 13px;
   line-height: 18px;
   margin-bottom: 3px;
