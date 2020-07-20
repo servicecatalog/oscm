@@ -1,0 +1,496 @@
+*/
+
+/*
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+1. Font Definitions
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+ */
+
+/* usage example for custom fonts.
+	see "Apache License Version 2.txt" in font folder for open sans usage license .
+*/
+#tabDescription .bold-larger {
+  font-size: larger;
+  font-weight: $bold-font-weight;
+}
+
+#tabDescription .bold-smaller {
+  font-size: smaller;
+  font-weight: $bold-font-weight;
+}
+
+#tabDescription .red-bold {
+  color: $warning-color;
+  font-weight: $bold-font-weight;
+}
+
+#tabDescription .red-bold-larger {
+  color: $warning-color;
+  font-size: larger;
+  font-weight: $bold-font-weight;
+}
+
+#tabDescription .red-bold-smaller {
+  color: $warning-color;
+  font-size: smaller;
+  font-weight: $bold-font-weight;
+}
+
+#tabDescription .disabled {
+  color: #C6C6C6;
+}
+
+@font-face {
+  font-family: 'OpenSansRegular';
+  src: url('../fonts/OpenSans-Regular-webfont.eot');
+  src: url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/OpenSans-Regular-webfont.woff') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf')
+    format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg#../fonts/OpenSansRegular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSansCondensedBold';
+  src: url('../fonts/OpenSans-CondBold-webfont.eot');
+  src: url('../fonts/OpenSans-CondBold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/OpenSans-CondBold-webfont.woff') format('woff'), url('../fonts/OpenSans-CondBold-webfont.ttf')
+    format('truetype'), url('../fonts/OpenSans-CondBold-webfont.svg#OpenSansCondensedBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSansSemiBold';
+  src: url('../fonts/OpenSans-Semibold-webfont.eot');
+  src: url('../fonts/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/OpenSans-Semibold-webfont.woff') format('woff'), url('../fonts/OpenSans-Semibold-webfont.ttf')
+    format('truetype'), url('../fonts/OpenSans-Semibold-webfont.svg#OpenSansCondensedLight') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/*
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+2. Standard Elements
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+ */
+body {
+  font-size: 81.25% !important; /* 13px */
+  font-family: $font-family-sans-serif;
+  margin: 0px;
+  position: relative;
+  text-align: left;
+  line-height: 1.4;
+}
+
+textarea, input, option, select, .rich-tabpanel-content {
+  font-size: 100%;
+  font-family: $font-family-sans-serif;
+}
+
+input, select, textarea {
+  border: 1px solid #CCC;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.rich-tab-header {
+  font: normal 14px/100% "OpenSansSemiBold", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif
+    !important;
+}
+
+* html table {
+  font-size: 100%;
+}
+
+*:first-child+html body {
+  letter-spacing: 0;
+}
+
+
+
+a {
+  text-decoration: none;
+  &:hover {
+  text-decoration: underline;
+}
+
+    &:link {
+  color: #456;
+}
+&:visited {
+  color: #456;
+}
+&:active {
+  color: #CCC;
+}
+  
+  
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+ /* font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; */
+  line-height: $line-height-base; 
+}
+
+h1 {
+  font-size: $h1-font-size;
+}
+
+h2 {
+  font-size: $h2-font-size;
+}
+
+h3 {
+  font-size: $h3-font-size;
+}
+
+h4, h5, h6 {
+  font-size: $h4-font-size;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1.75em;
+  padding: 0;
+  line-height: 1.5;
+}
+
+ul {
+  margin-top: 0;
+  margin-bottom: 1.75em;
+  margin-left: 0;
+  padding: 0 0 0 2.8em;
+}
+
+li {
+  margin-top: 0;
+  margin-bottom: 0.75em;
+  margin-left: 0;
+  padding: 0;
+  line-height: 1.3;
+}
+
+li ul {
+  margin-top: 0;
+  margin-bottom: 0em;
+  padding-top: 0.75em;
+}
+
+dl {
+  margin-bottom: 1.75em;
+}
+
+*:first-child+html dl {
+  zoom: 1;
+}
+
+dt {
+  line-height: 1.75;
+}
+
+form {
+  margin: 0;
+  padding: 0;
+}
+
+textarea {
+  margin: 0 0 1.75em;
+}
+
+input[type="radio"], input[type="checkbox"] {
+  width: 2rem !important;
+  vertical-align: middle;
+}
+
+table {
+  margin: 0;
+}
+
+table td {
+  vertical-align: top;
+  border-collapse: collapse;
+  word-break: normal;
+  border-spacing: 0;
+}
+
+table td, div {
+  word-wrap: break-word;
+  word-break: normal;
+}
+
+
+
+.maincontents textarea {
+  padding: 4px;
+}
+
+.mandatory, .discount {
+  color: #EE0101;
+}
+
+.upLabel {
+  vertical-align: super;
+  font-size: 8pt;
+}
+
+.contentsarea .error, .contentsarea .warning, .contentsarea .success, .contentsarea .suspended {
+  margin-top: 0;
+}
+
+.contentsarea .configurationWarning .warning {
+  margin-top: 35px;
+}
+
+.right {
+  float: right;
+}
+
+.discount {
+  display: block;
+  margin: 0 0 8px 0;
+}
+
+.suspendedNotMessage {
+  padding: 1px 15px 1px 15px !important;
+}
+
+
+
+/* prewrapping definitions for various standards/browsers */
+.preWrapping {
+  white-space: pre-wrap; /* css-3 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+.label {
+  white-space: nowrap;
+  min-width: 100px;
+}
+
+.left {
+  float: left;
+}
+
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+
+.clearfix {
+  display: inline-block;
+}
+
+* html .clearfix {
+  height: 1%;
+}
+
+.clearfix {
+  display: block;
+}
+
+.clearfix.block {
+  margin: 0;
+  position: relative;
+}
+
+.nowrap_hidden {
+  -moz-binding: url(/ellipsis-xbl#ellipsis);
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: normal;
+  text-overflow: ellipsis;
+}
+
+.pixelline {
+  width: 100%;
+  height: 1px;
+  padding: 0;
+  margin: 0 0 10px;
+  background: transparent url(../img/mp_icon_sprite.png) 0 -381px repeat-x;
+}
+
+/* Shortened text with ... */
+.shortenedText {
+  overflow: hidden;
+  word-wrap: normal;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ellipsizedOutputLabel {
+  max-width: 120px;
+}
+
+
+
+
+
+
+
+/*
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+5. Page Layout
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+ */
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+5.1 Main Layout
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+.stage {
+  width: 100%;
+  min-width: 980px;
+}
+
+#stageResponsive {
+  /* width: 100%; */
+}
+
+#marketplaceStageDefault {
+  background: url(../img/transparentPixel.png) no-repeat;
+  width: 100%;
+}
+
+.bodyarea {
+  position: relative;
+  width: 980px;
+  margin: auto;
+  padding-bottom: 60px;
+  text-align: left;
+  z-index: 900;
+}
+
+.bodyarea:after {
+  content: ".";
+  display: block;
+  clear: both;
+  width: 0;
+  height: 0;
+  line-height: 0;
+  visibility: hidden;
+}
+
+* html .bodyarea {
+  display: inline-block;
+}
+
+div.col1span, div.col2span, div.col3span, div.col4span {
+  float: left;
+  margin-right: 9px;
+}
+
+div.lastcol {
+  margin-right: 0;
+}
+
+div.marginCenter {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+div.firstcol {
+  margin-left: 0;
+}
+
+.maincontents div.lastcol {
+  margin-right: 0;
+}
+
+.maincontents {
+  float: left;
+  width: 582px;
+}
+
+body.body4span .maincontents {
+  width: 781px;
+}
+
+body.body5span .maincontents {
+  width: 980px;
+  float: none;
+}
+
+.contentsarea {
+  float: right;
+  width: 781px;
+}
+
+body.body4span .contentsarea {
+  width: 781px;
+}
+
+body.body5span .contentsarea {
+  width: 980px;
+  float: none;
+}
+
+div.grid2span {
+  width: 383px;
+}
+
+div.grid3span {
+  width: 582px;
+}
+
+div.grid4span {
+  width: 781px;
+}
+
+div.grid5span {
+  width: 980px;
+}
+
+div.col1span {
+  width: 184px;
+}
+
+div.col2span {
+  width: 386px;
+}
+
+div.col3span {
+  width: 582px;
+}
+
+div.col4span {
+  width: 781px;
+}
+
+.marginBottomDefault {
+  margin: 0 0 8px;
+}
+
+*:first-child+html .grid4span+.pagenate {
+  margin: 16px 0 0;
+}
+
+#contentPanelDiv.landing .contentsarea {
+  width: 100%;
+  float: none;
+}
+
+#contentPanelDiv.landing .contentsarea .maincontents {
+  width: 100%;
+}
+
+#contentPanelDiv.landing .contentsarea .grid4span {
+  width: 100%;
+}

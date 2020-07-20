@@ -1,0 +1,27 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+11.6 Footer
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+.bootstrap_footer {
+  background: #B3B7BC;
+  border-bottom: 1px solid #4c4c4c;
+  width: 100%;
+  color: $white;
+
+  a {
+    color: $white;
+  }
+
+  ul {
+    font-size: 93%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: inline;
+    margin: 0;
+    margin-left: 16px;
+  }
+}

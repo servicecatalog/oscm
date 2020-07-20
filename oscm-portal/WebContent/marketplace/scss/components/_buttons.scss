@@ -1,0 +1,152 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+8.1 Regular Navigation Buttons
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/*  standard button definitions */
+.button, .buttonDisabled, .buttonDisabled span, .button span {
+  background: url(../img/mp_button_sprite.png) no-repeat;
+  margin: 0 4px 0 0;
+  padding: 0 0 0 4px;
+  display: block;
+  float: left;
+  border: 0;
+  font-size: 12px;
+  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+  white-space: nowrap;
+}
+
+.button {
+  background-position: left -290px;
+  cursor: pointer;
+
+  &:visited {
+    background-position: left -290px;
+  }
+
+  &:active {
+    background-position: left -320px;
+  }
+}
+
+.buttonDisabled {
+  background-position: left -411px;
+}
+
+/* left hand side */
+.button span, .buttonDisabled span {
+  padding: 2px 12px 3px 8px;
+  margin: 0 -4px 0 0;
+  float: left;
+  display: inline-block;
+  min-width: 60px;
+  text-align: center;
+}
+
+.button span {
+  color: #456;
+  background-position: right -290px;
+  cursor: pointer;
+}
+
+.button:visited span {
+  background-position: right -290px;
+}
+
+.button:active span {
+  background-position: right -320px;
+}
+
+.buttonDisabled span {
+  color: #666;
+  background-position: right -411px;
+  text-decoration: none;
+  cursor: default;
+}
+
+.jqUpload .hover span.button span, .button:hover span {
+  background-position: right -320px;
+}
+
+.jqUpload .hover span.button, .button:hover {
+  background-position: left -320px;
+  text-decoration: none;
+}
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+8.2 Big Buttons
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/*  big button definitions */
+.bigbutton, .bigbuttonDisabled, .bigbuttonDisabled span, .bigbutton span {
+  display: block;
+  background: url(../img/mp_button_sprite.png) no-repeat;
+  margin: 0 10px 0 0;
+  padding: 0 0 0 4px;
+  float: left;
+  border: 0;
+  white-space: nowrap;
+  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+}
+
+.bigbutton {
+  background-position: left 0;
+  cursor: pointer;
+}
+
+/* right edge */
+.bigbutton:visited {
+  background-position: left 0;
+  text-decoration: none;
+}
+
+.bigbutton:hover {
+  background-position: left -60px;
+  text-decoration: none;
+}
+
+.bigbutton:active {
+  background-position: left -120px;
+}
+
+.bigbuttonDisabled {
+  background-position: left -231px;
+}
+
+/* left hand side */
+.bigbutton span, .bigbuttonDisabled span {
+  margin: 0 -4px 0 0;
+  padding: 3px 14px 7px 10px;
+  float: left;
+}
+
+.bigbutton span {
+  color: #456;
+  background-position: right 0;
+  cursor: pointer;
+}
+
+.bigbutton:visited span {
+  background-position: right 0;
+}
+
+.bigbutton:hover span {
+  background-position: right -60px;
+  color: #333;
+}
+
+.bigbutton:active span {
+  background-position: right -120px;
+}
+
+.bigbuttonDisabled span {
+  background-position: right -231px;
+  text-decoration: none;
+  color: #666;
+  cursor: default;
+}
+
+
+/* Get it now button */
+#buyme {
+  margin: 2rem 2.5rem 1.5rem 0rem;
+}

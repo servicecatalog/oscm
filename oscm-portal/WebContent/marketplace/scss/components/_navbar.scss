@@ -1,0 +1,44 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+11.2 Navigation bar
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+.navbar-toggler-icon {
+  vertical-align: bottom !important;
+}
+
+.navbar-nav {
+  text-align: left;
+}
+
+.navbar-nav li {
+  margin: 0 !important;
+}
+
+.navbar-margin {
+  margin-top: 2.7rem;
+}
+
+.btn-toggler>.close-nav {
+  display: inline;
+}
+
+.btn-toggler.collapsed>.close-nav, .btn-toggler:not(.collapsed )>.open-nav {
+  display: none;
+}
+
+.h6 {
+  margin-bottom: 0.0rem;
+}
+
+.navbar-brand {
+  padding-left: .2rem;
+}
+
+.navbar-brand img {
+  vertical-align: baseline;
+}
+
+@media ( max-width : 767px) {
+  .navbar {
+    padding: 0rem;
+  }
+}

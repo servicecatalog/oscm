@@ -1,0 +1,253 @@
+/*
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+3. Header
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+3.1 Header Layout Definitions
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/* main header area containing logo and search bar */
+
+div {
+  &.header {
+    clear: left;
+    width: 980px;
+    margin: 0 auto 1px;
+    text-align: left;
+    position: relative;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      img {
+        border: none;
+      }
+    }
+  }
+
+  &.headertop {
+    width: 980px;
+    background: #CFD4D9;
+    float: left;
+    margin: 0 0 1px;
+  }
+
+  &#headerrightarea {
+    display: block;
+    float: right;
+    width: 626px;
+    margin: 16px 16px 0 0;
+    width: 570px;
+    color: #333 !important;
+    font-size: 110%;
+  }
+}
+
+/* wrapper block for search and login functions */
+
+rightarea a {
+  color: #333 !important;
+  font-size: 110%;
+}
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+3.2 Corporate Logo
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/* logo wrapper */
+
+#corporatesymbol {
+  a:hover {
+    text-decoration: none;
+  }
+
+  margin: 11px 10px 7px 11px;
+  width: 94px;
+  float: left;
+
+  p {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    line-height: 1;
+  }
+
+  img {
+    background: transparent url(../img/mp_logo.png) right top no-repeat;
+    border: 0;
+    cursor: pointer;
+    width: 94px;
+    height: 43px;
+  }
+}
+
+/* wrapper for login/logout block*/
+
+#headnavi {
+  display: block;
+  width: 298px;
+  margin: 6px 15px 0 0;
+  text-align: right;
+  overflow: hidden;
+  white-space: nowrap;
+
+  .dd-country-selector ul.dropdown-box {
+    display: none;
+  }
+
+  a {
+    background: transparent url(../img/mp_icon_sprite.png) left -382px no-repeat;
+    padding-left: 15px;
+  }
+
+  form a {
+    padding: 0;
+    background: none;
+  }
+
+  img {
+    cursor: pointer;
+  }
+}
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+3.5 Header Navigation
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/* top navigation wrapper */
+
+#headerbottom {
+  clear: both;
+  position: relative;
+  display: block;
+  background: #B3B7BC;
+  width: 980px;
+}
+
+#globalnav {
+  padding: 0;
+
+  li {
+    &.glbnavlist {
+      text-transform: uppercase;
+      color: #7a7a7a;
+      float: left;
+      display: block;
+      line-height: 1;
+      margin: 0;
+      padding: 0;
+      z-index: 1;
+
+      a.glbnavtitle {
+        border-right: 1px solid #EEE;
+        display: block;
+        float: left;
+        padding: 6px 0;
+        color: #FFF;
+        font: 400 14px "OpenSansCondensedBold", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+        cursor: pointer;
+      }
+    }
+
+    &.selected {
+      background: transparent url(../img/page/mainnav-back-btnover.png) repeat-x left top;
+
+      a {
+        color: #000 !important;
+      }
+    }
+
+    &.glbnavlist {
+      a.glbnavtitle span {
+        display: block;
+        float: left;
+        padding: 2px 13px 2px 13px;
+        margin: 0;
+      }
+
+      &:hover a.glbnavtitle {
+        background: transparent url(../img/page/mainnav-back-btnover.png) repeat-x left top;
+        color: #333 !important;
+      }
+    }
+
+    &.end.glbnavlist {
+      float: right;
+
+      a.glbnavtitle {
+        border: none;
+        border-left: 1px solid #EEE;
+      }
+    }
+  }
+}
+
+/* navigation list elements */
+
+/* highlight for selected navigation item */
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+11.1 Header section
+     Styling for Bootstrap header.
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+div {
+  &.headerBootstrap {
+    clear: left;
+    width: 100%;
+    margin: 0 auto 1px;
+    text-align: left;
+    position: relative;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      img {
+        border: none;
+      }
+    }
+  }
+
+  &.headertopBootstrap {
+    width: 100%;
+    background: #CFD4D9;
+    float: left;
+    margin: 0 0 1px;
+  }
+
+  &#headerrightareaBootstrap {
+    display: block;
+    float: right;
+    width: 626px;
+    margin: 16px 16px 0 0;
+    width: 60%;
+    color: #333 !important;
+    font-size: 110%;
+  }
+}
+
+/* wrapper block for search and login functions */
+
+rightarea a {
+  color: #333 !important;
+  font-size: 110%;
+}
+
+#headerbottomBootstrap {
+  clear: both;
+  position: relative;
+  display: block;
+  background: #B3B7BC;
+  width: 100%;
+}
