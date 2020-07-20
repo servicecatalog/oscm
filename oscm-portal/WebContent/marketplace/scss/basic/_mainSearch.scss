@@ -1,0 +1,71 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+3.4 Main Search Box
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+input#Search, #subListForm\:search {
+  font-size: 108%;
+  border: none;
+  width: 200px;
+  height: 1.2em;
+  margin: 3px 0;
+  color: #7e8795;
+  padding: 2px 3px 2px 3px;
+  background: transparent;
+  vertical-align: middle;
+  overflow: hidden;
+  width: 200px;
+}
+
+input#Search:focus, #subListForm\:search:focus {
+  color: #333333;
+}
+
+input#inputSearch {
+    width: 86%;
+}
+
+/* search field wrapper*/
+#headsearch, #subListForm\:subscriptionSearch {
+  float: right;
+  border-style: none;
+  width: 270px;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  background: url("../img/page/search-bg.png") no-repeat top right;
+  text-align: right;
+}
+
+#headsearch form, #subListForm\:subscriptionSearch>span>div {
+  display: block;
+  margin: 0;
+  padding: 0 0 0 15px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+#subListForm\:subscriptionSearch>span {
+  float: left;
+  width: inherit;
+}
+
+#subListForm\:subscriptionSearch>span>div {
+  float: left;
+}
+
+#subListForm\:submitLink {
+  float: right !important;
+}
+
+#subListForm\:search {
+  width: 220px;
+}
+
+/*search button image*/
+.searchButton {
+  background: transparent url(../img/mp_icon_sprite.png) 0 -330px no-repeat !important;
+  border: 0;
+  cursor: pointer;
+  height: 26px;
+  width: 27px;
+  margin: 2px 1px;
+}

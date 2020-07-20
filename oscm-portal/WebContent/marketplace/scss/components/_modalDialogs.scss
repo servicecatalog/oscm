@@ -1,0 +1,49 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+11.8 Modal dialog
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+.responsive-dialog-container {
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%);
+  width: 90% !important;
+  max-width: 560px;
+  min-height: 180px !important;
+  max-height: 580px;
+}
+
+.responsive-dialog-container>div {
+  width: 100% !important;
+}
+.responsive-dialog-container>.rf-pp-shdw {
+  display: none;
+}
+
+.responsive-login-container {
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%);
+  width: 90% !important;
+  max-width: 350px;
+  min-width: 330px;
+  max-height: 580px;
+}
+
+.responsive-login-container>div {
+  width: 100% !important;
+}
+.responsive-login-container>.rf-pp-shdw {
+  display: none;
+}
+
+.responsive-dialog {
+  max-width: 560px;
+  width: 100%;
+}
+
+.close-dialog-btn {
+  background: transparent url(../img/mp_icon_sprite.png) -29px -330px no-repeat;
+  border: 0;
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+}

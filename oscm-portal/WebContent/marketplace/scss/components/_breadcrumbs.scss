@@ -1,0 +1,74 @@
+/*
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+7. Navigation
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+ */
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+7.1 Breadcrumbs
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/* breadrumb wrapper */
+
+#location {
+  width: 100%;
+  background: #f7f7f7;
+  border: 1px solid #eeeeee;
+  padding: 0;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  text-align: left;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+
+  ol {
+    padding: 7px 10px 7px;
+    margin: 0;
+    list-style: none;
+    font-size: 93%;
+    width: 88%;
+  }
+
+  li {
+    display: inline;
+    margin: 0;
+    margin-right: 2px;
+
+    a {
+      margin-right: 2px;
+    }
+
+    span {
+      margin-right: 5px;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #location {
+    margin-top: 75px !important;
+
+    ol {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  #location {
+    margin-top: 15px !important;
+
+    ol {
+      width: 88%;
+    }
+  }
+}
+
+/*  breadcrumbs link button items */
+
+ol.location-inside {
+  border: 1px solid #FFF;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
