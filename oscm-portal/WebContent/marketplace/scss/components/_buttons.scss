@@ -91,22 +91,24 @@
 .bigbutton {
   background-position: left 0;
   cursor: pointer;
+  
+  /* right edge */
+  &:visited {
+    background-position: left 0;
+    text-decoration: none;   
+  }
+
+  &:hover {
+    background-position: left -60px;
+    text-decoration: none;
+  }
+
+  &:active {
+    background-position: left -120px;
+  }
+    
 }
 
-/* right edge */
-.bigbutton:visited {
-  background-position: left 0;
-  text-decoration: none;
-}
-
-.bigbutton:hover {
-  background-position: left -60px;
-  text-decoration: none;
-}
-
-.bigbutton:active {
-  background-position: left -120px;
-}
 
 .bigbuttonDisabled {
   background-position: left -231px;
