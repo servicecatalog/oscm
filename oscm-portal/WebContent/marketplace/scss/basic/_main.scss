@@ -365,56 +365,60 @@ table td, div {
   padding-bottom: 60px;
   text-align: left;
   z-index: 900;
-}
 
-.bodyarea:after {
-  content: ".";
-  display: block;
-  clear: both;
-  width: 0;
-  height: 0;
-  line-height: 0;
-  visibility: hidden;
+  &:after {
+    content: ".";
+    display: block;
+    clear: both;
+    width: 0;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+  }
 }
 
 * html .bodyarea {
   display: inline-block;
 }
 
-div.col1span, div.col2span, div.col3span, div.col4span {
-  float: left;
-  margin-right: 9px;
-}
+div {
+  &.col1span, &.col2span, &.col3span, &.col4span {
+    float: left;
+    margin-right: 9px;
+  }
 
-div.lastcol {
-  margin-right: 0;
-}
+  &.lastcol {
+    margin-right: 0;
+  }
 
-div.marginCenter {
-  margin-left: 2px;
-  margin-right: 2px;
-}
+  &.marginCenter {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
 
-div.firstcol {
-  margin-left: 0;
-}
-
-.maincontents div.lastcol {
-  margin-right: 0;
+  &.firstcol {
+    margin-left: 0;
+  }
 }
 
 .maincontents {
+  div.lastcol {
+    margin-right: 0;
+  }
+
   float: left;
   width: 582px;
 }
 
-body.body4span .maincontents {
-  width: 781px;
-}
+body {
+  &.body4span .maincontents {
+    width: 781px;
+  }
 
-body.body5span .maincontents {
-  width: 980px;
-  float: none;
+  &.body5span .maincontents {
+    width: 980px;
+    float: none;
+  }
 }
 
 .contentsarea {
@@ -422,64 +426,64 @@ body.body5span .maincontents {
   width: 781px;
 }
 
-body.body4span .contentsarea {
-  width: 781px;
+body {
+  &.body4span .contentsarea {
+    width: 781px;
+  }
+
+  &.body5span .contentsarea {
+    width: 980px;
+    float: none;
+  }
 }
 
-body.body5span .contentsarea {
-  width: 980px;
-  float: none;
-}
+div {
+  &.grid2span {
+    width: 383px;
+  }
 
-div.grid2span {
-  width: 383px;
-}
+  &.grid3span {
+    width: 582px;
+  }
 
-div.grid3span {
-  width: 582px;
-}
+  &.grid4span {
+    width: 781px;
+  }
 
-div.grid4span {
-  width: 781px;
-}
+  &.grid5span {
+    width: 980px;
+  }
 
-div.grid5span {
-  width: 980px;
-}
+  &.col1span {
+    width: 184px;
+  }
 
-div.col1span {
-  width: 184px;
-}
+  &.col2span {
+    width: 386px;
+  }
 
-div.col2span {
-  width: 386px;
-}
+  &.col3span {
+    width: 582px;
+  }
 
-div.col3span {
-  width: 582px;
-}
-
-div.col4span {
-  width: 781px;
+  &.col4span {
+    width: 781px;
+  }
 }
 
 .marginBottomDefault {
   margin: 0 0 8px;
 }
 
-*:first-child+html .grid4span+.pagenate {
+*:first-child + html .grid4span + .pagenate {
   margin: 16px 0 0;
 }
 
 #contentPanelDiv.landing .contentsarea {
   width: 100%;
   float: none;
-}
 
-#contentPanelDiv.landing .contentsarea .maincontents {
-  width: 100%;
-}
-
-#contentPanelDiv.landing .contentsarea .grid4span {
-  width: 100%;
+  .maincontents, .grid4span {
+    width: 100%;
+  }
 }
