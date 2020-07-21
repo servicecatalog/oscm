@@ -84,13 +84,13 @@
   padding-left: 10px;
 }
 
-.box_content {
+/* .box_content {
   width: 450px;
   border: 0;
   border-right: 1px;
   border-color: #b8b8b8;
   border-style: solid;
-}
+} */
 
 /* main title within content box */
 .box_title {
@@ -109,8 +109,7 @@
 .col2span .box_title, .landing .box_title {
   width: 166%;
   margin-left: -58%;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  @include box-sizing(border-box);
   padding: 0px;
   text-overflow: ellipsis;
   word-wrap: normal;
