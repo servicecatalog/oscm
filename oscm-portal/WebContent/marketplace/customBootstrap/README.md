@@ -1,7 +1,8 @@
 # OSCM Customization Guide with Bootstrap
 
 ## Introduction
-The new public marketplace UI has been re-designed based on the Bootstrap framework.  
+The new public marketplace UI has been re-designed based on the [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/introduction/) framework.  
+
 The default stylesheet for the marketplace: *mp.css* is still used for the customization of the marketplace UI, but now there are two additional Template Stylesheets, located in the “customBootstrap” folder: 1) a custom Bootstrap stylesheet (which is a full compiled & customized Bootstrap version) with a dark navigation bar named: *darkCustom.css*, and 2) a dark footer stylesheet, named *darkFooter.css*. The light versions of those stylesheets (named lightCustom.css, lightFooter.css) are also included in the branding package.
 
 ### Prerequisites:
