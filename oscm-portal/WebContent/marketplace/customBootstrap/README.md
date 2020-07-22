@@ -1,15 +1,20 @@
 # OSCM Customization Guide with Bootstrap
 
 ## Introduction
-The new public marketplace UI has been re-designed based on the Bootstrap framework version 4.3.1.  
+The new public marketplace UI has been re-designed based on the Bootstrap framework.  
 The default stylesheet for the marketplace: *mp.css* is still used for the customization of the marketplace UI, but now there are two additional Template Stylesheets, located in the “customBootstrap” folder: 1) a custom Bootstrap stylesheet (which is a full compiled & customized Bootstrap version) with a dark navigation bar named: *darkCustom.css*, and 2) a dark footer stylesheet, named *darkFooter.css*. The light versions of those stylesheets (named lightCustom.css, lightFooter.css) are also included in the branding package.
 
 ### Prerequisites:
 
--	You have downloaded the provided branding package. The branding package can be downloaded as a ZIP file in the administration portal as an Operator in the *“Customize layout”* page by clicking the button *“Download branding package”*. The branding package contains two folders containing Sass source files: the *“scss”* folder, containing source files of mp.css, and the *“customBootstrap/scss”* folder containing the theme source files for the custom Bootstrap, explained later on.
+-	You have downloaded the provided branding package. 
+
+The branding package can be downloaded as a ZIP file in the administration portal as an Operator in the *“Customize layout”* page by clicking the button *“Download branding package”*. The branding package contains two folders containing Sass source files: the *“scss”* folder, containing source files of mp.css, and the *“customBootstrap/scss”* folder containing the theme source files for the custom Bootstrap, explained later on.
+
 -	You have configured a Sass Compiler (a CSS pre-procesor) in order to compile your Sass source files with the file extension “.scss” and generate CSS stylesheets.  For more information on Sass and how to configure it, see the following [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).  
  A simple option is to use Ruby.
+
 -	You need the downloaded Bootstrap source files v4.3.1 (let s assume that they are extracted in a folder named: “bootstrap/scss”)
+
 -	The import statements in “darkCustom.scss” and “darkFooter.scss” must refer to the correct relative paths where the bootstrap source files are located.
 Example of such an import statement:
  ```
