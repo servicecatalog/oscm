@@ -74,13 +74,15 @@
               <h:outputText value="#{msg['category.categoryId']}" />
             </f:facet>
             <c:set var="checkboxId" value="categoriesForm:categoriesTable:#{rowKey}:deleteCategory" />
-            <h:inputText id="categoryId" label="#{msg['category.categoryId']}" onchange="setDirty(true)"
-              value="#{rowItem.category.categoryId}" styleClass="fieldS" maxlength="#{appBean.idLen}"
-              required="#{!empty param['categoriesForm:confirmedButton'] and empty param[checkboxId]}">
-              <f:validator validatorId="idChar" />
-              <f:converter converterId="trimConverter" />
-            </h:inputText>
-            <adm:message id="categoryIddErrorMsg" for="categoryId" />
+            <a4j:outputPanel layout="block" style="width: max-content;">
+              <h:inputText id="categoryId" label="#{msg['category.categoryId']}" onchange="setDirty(true)"
+                           value="#{rowItem.category.categoryId}" styleClass="fieldS" maxlength="#{appBean.idLen}"
+                           required="#{!empty param['categoriesForm:confirmedButton'] and empty param[checkboxId]}">
+                <f:validator validatorId="idChar" />
+                <f:converter converterId="trimConverter" />
+              </h:inputText>
+              <adm:message id="categoryIddErrorMsg" for="categoryId" />
+            </a4j:outputPanel>
           </rich:column>
           <rich:column>
             <f:facet name="header">
