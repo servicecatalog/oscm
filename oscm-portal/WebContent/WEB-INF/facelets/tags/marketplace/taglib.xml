@@ -179,10 +179,6 @@
     <source>pixelline.xhtml</source>
   </tag>
   <tag>
-    <tag-name>categorySelection</tag-name>
-    <source>categorySelection.xhtml</source>
-  </tag>
-  <tag>
     <tag-name>keepAlive</tag-name>
     <source>keepAlive.xhtml</source>
   </tag>
