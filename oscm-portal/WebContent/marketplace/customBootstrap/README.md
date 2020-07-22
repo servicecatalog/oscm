@@ -10,9 +10,9 @@ The default stylesheet for the marketplace: *mp.css* is still used for the custo
 
 The branding package can be downloaded as a ZIP file in the administration portal as an Operator in the *“Customize layout”* page by clicking the button *“Download branding package”*. The branding package contains two folders containing Sass source files: the *“scss”* folder, containing source files of mp.css, and the *“customBootstrap/scss”* folder containing the theme source files for the custom Bootstrap, explained later on.
 
--	You have configured a Sass Compiler (a CSS pre-procesor) in order to compile your Sass source files with the file extension “.scss” and generate CSS stylesheets.  
+-	You have configured a Sass Compiler (a CSS pre-processor).
 
-For more information on Sass and how to configure it, see the following [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).  
+A Sass Compiler lets you compile your Sass source files with the file extension “.scss” and generate CSS stylesheets. For more information on Sass and how to configure it, see the following [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).  
  A simple option is to use Ruby.
 
 -	You need the downloaded Bootstrap source files v4.3.1 (let s assume that they are extracted in a folder named: “bootstrap/scss”)
