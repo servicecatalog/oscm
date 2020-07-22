@@ -1,3 +1,7 @@
+//$img_url_default: "../img/service_icon_default.png" !default; 
+//background-image: url($img_url_default);
+
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 5.2 Content Boxes
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
@@ -58,10 +62,13 @@
 
 /* service icon / logo background bootstrap */
 .box-logo {
-  background: url(../img/service_icon_default.png) no-repeat center 0;
   text-align: center;
   height: 80px;
   width: 80px;
+}
+
+.box-logo .fallback-img-box {
+  background: url(../img/service_icon_default.png) no-repeat center 0;
 }
 
 .serviceBox2span .box_logo {
@@ -84,13 +91,13 @@
   padding-left: 10px;
 }
 
-/* .box_content {
+ .box_content {
   width: 450px;
   border: 0;
   border-right: 1px;
   border-color: #b8b8b8;
   border-style: solid;
-} */
+} 
 
 /* main title within content box */
 .box_title {
