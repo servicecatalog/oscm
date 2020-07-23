@@ -97,3 +97,145 @@
 .table-radio-btn tbody tr td {
     border: none;
 }
+
+
+
+
+/*  table headers */
+.rowTitle th {
+  @include box-sizing(border-box);
+  height: 30px;
+  margin: 0;
+  text-align: left;
+  background: $rich_table_bg_repeat repeat-x;
+  vertical-align: top;
+}
+
+.rowTitle th:hover {
+  background: $rich_table_hover repeat-x;
+  color: #666;
+}
+
+.rowTitle th>div {
+  padding: 2px 0;
+}
+
+.rowTitle th img {
+  margin: 3px 5px 0 0;
+  width: 13px;
+  height: 13px;
+}
+
+/* float fix for table sorting icons */
+.tablePanel div, .extdt-innerdiv div {
+  position: relative;
+}
+
+/* table header sorting icons */
+img[src$="sort"] {
+  background: none;
+}
+
+img[src$="sortAscending"] {
+  background: transparent $mp_icon_sprite no-repeat scroll 0 -437px;
+}
+
+img[src$="sortDescending"] {
+  background: transparent $mp_icon_sprite no-repeat scroll -14px -437px;
+}
+
+/* colors for alternating rows in data tables */
+.rowEven {
+  padding-left: 10px;
+  background: #eee;
+}
+
+.rowOdd {
+  padding-left: 10px;
+  background: #FFF;
+}
+
+.wrapColumns .shortenedText span {
+  white-space: nowrap !important;
+}
+
+.wrapColumns .extdt-cell-div {
+  white-space: normal;
+}
+
+.wrapColumns span {
+  white-space: pre-wrap !important;
+}
+
+.column-break-word {
+
+}
+
+.column-break-operation {
+  min-width: 74px;
+  max-width: 150px;
+}
+
+.column-break-subscription {
+  min-width: 109px;
+  max-width: 150px;
+}
+
+.column-break-executionDate {
+  min-width: 146px;
+  max-width: 150px;
+}
+
+.column-break-userId {
+  min-width: 101px;
+  max-width: 150px;
+}
+
+.column-break-status {
+  min-width: 83px;
+  max-width: 150px;
+}
+
+.column-break-statusDesc {
+  min-width: 122px;
+  max-width: 150px;
+}
+
+.column-break-process {
+  min-width: 66px;
+  max-width: 150px;
+}
+
+.column-break-desc {
+  min-width: 97px;
+  max-width: 150px;
+}
+
+.column-break-creationDate {
+  min-width: 125px;
+  max-width: 150px;
+}
+
+.column-break-reason {
+  min-width: 87px;
+  max-width: 150px;
+}
+
+.column-break-word150 {
+  min-width: 50px;
+  max-width: 150px;
+}
+
+/* fixed minimum height table */
+.minimumSizeTable {
+  margin-top: 10px;
+  min-height: 220px;
+}
+
+.organitionNameColumn {
+  width: 100px;
+}
+
+.userTablePanel {
+  margin-top: 15px;
+}

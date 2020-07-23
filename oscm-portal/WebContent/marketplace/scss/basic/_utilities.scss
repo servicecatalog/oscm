@@ -13,3 +13,16 @@
 .text-underline {
   text-decoration: underline !important;
 }
+
+.text-align-center {
+  text-align: -webkit-center;
+}
+
+.row-justify-space {
+  justify-content: space-between;
+}
+
+.mt-auto {
+  text-align: right;
+  padding-top: 32px;
+}
