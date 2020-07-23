@@ -1,7 +1,3 @@
-//$img_url_default: "../img/service_icon_default.png" !default; 
-//background-image: url($img_url_default);
-
-
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 5.2 Content Boxes
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
@@ -54,7 +50,7 @@
 }
 /* service icon / logo background */
 .box_logo {
-  background: url(../img/service_icon_default.png) no-repeat center 0;
+  background: $service_icon_default no-repeat center 0;
   height: 110px;
   width: 174px;
   text-align: center;
@@ -68,7 +64,7 @@
 }
 
 .box-logo .fallback-img-box {
-  background: url(../img/service_icon_default.png) no-repeat center 0;
+  background: $service_icon_default no-repeat center 0;
 }
 
 .serviceBox2span .box_logo {

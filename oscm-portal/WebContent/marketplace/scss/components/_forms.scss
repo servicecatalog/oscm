@@ -143,14 +143,14 @@ form .formHighlight input, form .formHighlight textarea {
 
 /* hint background for form hints */
 .hintArrow {
-  background: url(../img/hintArrow.png) no-repeat;
+  background: $hint_arrow no-repeat;
   width: 170px;
   height: 40px;
 }
 
 /* hint close button for form hints */
 .hintClose {
-  background: url(../img/hintClose-x.png) no-repeat;
+  background: $hint_close_x no-repeat;
   width: 9px;
   height: 9px;
   position: absolute;
@@ -178,7 +178,7 @@ form .formHighlight input, form .formHighlight textarea {
 
 /* question mark icon indicating hint availability */
 .hintMarker {
-  background: transparent url(../img/mp_icon_sprite.png) no-repeat scroll -34px -263px;
+  background: transparent $mp_icon_sprite no-repeat scroll -34px -263px;
   width: 16px;
   height: 16px;
   cursor: pointer;

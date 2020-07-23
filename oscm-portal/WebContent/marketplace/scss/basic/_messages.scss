@@ -74,7 +74,7 @@
   width: 25px;
   height: 25px;
   margin: 0px 10px 0 -20px;
-  background: url(../img/mp_icon_sprite.png);
+  background: $mp_icon_sprite;
 }
 
 .success span.rf-msgs-inf:before {
@@ -95,6 +95,6 @@
 }
 /* field validation error indicator */
 .errorMsg .rf-msg-err {
-  background-image: url("../../img/sta_err_16.png")
+  background-image: $msg_error;
 }
 /* MSGS Stylying <<< */

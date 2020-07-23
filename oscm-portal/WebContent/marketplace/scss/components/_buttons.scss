@@ -4,7 +4,7 @@
 
 /*  standard button definitions */
 .button, .buttonDisabled, .buttonDisabled span, .button span {
-  background: url(../img/mp_button_sprite.png) no-repeat;
+  background: $mp_button_sprite no-repeat;
   margin: 0 4px 0 0;
   padding: 0 0 0 4px;
   display: block;
@@ -79,7 +79,7 @@
 /*  big button definitions */
 .bigbutton, .bigbuttonDisabled, .bigbuttonDisabled span, .bigbutton span {
   display: block;
-  background: url(../img/mp_button_sprite.png) no-repeat;
+  background: $mp_button_sprite no-repeat;
   margin: 0 10px 0 0;
   padding: 0 0 0 4px;
   float: left;

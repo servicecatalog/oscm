@@ -319,7 +319,7 @@ table td, div {
   height: 1px;
   padding: 0;
   margin: 0 0 10px;
-  background: transparent url(../img/mp_icon_sprite.png) 0 -381px repeat-x;
+  background: transparent $mp_icon_sprite 0 -381px repeat-x;
 }
 
 /* Shortened text with ... */
@@ -354,7 +354,7 @@ table td, div {
 }
 
 #marketplaceStageDefault {
-  background: url(../img/transparentPixel.png) no-repeat;
+  background: $transparent_pixel no-repeat;
   width: 100%;
 }
 

@@ -7,8 +7,9 @@
 
 @import "../scss/basic/colors";
 @import "../scss/basic/mixins";
-@import "../scss/basic/header";
+//@import "../scss/basic/header";
 @import "../scss/basic/footer";
+@import "../scss/basic/aside";
 @import "../scss/basic/main";
 @import "../scss/basic/mainSearch";
 @import "../scss/basic/contentBox";
@@ -19,7 +20,6 @@
 @import "../scss/components/breadcrumbs";
 @import "../scss/components/buttons";
 @import "../scss/components/cards";
-@import "../scss/components/categorySelect";
 @import "../scss/components/forms";
 @import "../scss/components/modalDialogs";
 @import "../scss/components/navbar";
@@ -120,7 +120,7 @@ Copyright 2010-2012 FUJITSU LIMITED
   .loginLock {
     width: 129px;
     height: 129px;
-    background: url("../img/lock.png") no-repeat;
+    background: $lock no-repeat;
     float: right;
   }
 }
@@ -408,7 +408,7 @@ h2.priceUnit, h1.priceUnit {
 /* close button on modal panel */
 .closeButton {
   float: right;
-  background: transparent url(../img/mp_icon_sprite.png) -29px -330px no-repeat;
+  background: transparent $mp_icon_sprite -29px -330px no-repeat;
   border: 0;
   cursor: pointer;
   height: 15px;
@@ -512,7 +512,7 @@ h2.priceUnit, h1.priceUnit {
 }
 
 .pager .button, .pager .button span {
-  background: url('../img/mp_button_sprite_thin.png') no-repeat;
+  background: $mp_button_sprite_thin no-repeat;
 }
 
 .pager .button {
@@ -524,7 +524,7 @@ h2.priceUnit, h1.priceUnit {
 }
 
 .pager .button:hover {
-  background: url("../img/mp_button_sprite_thin.png") no-repeat scroll 0% 0% transparent;
+  background: $mp_button_sprite_thin no-repeat scroll 0% 0% transparent;
   background-position: left -26px;
   text-decoration: none;
 }
@@ -546,7 +546,7 @@ h2.priceUnit, h1.priceUnit {
 
 .arrow_start, .arrow_start_disabled, .arrow_back, .arrow_back_disabled, .arrow_next, .arrow_next_disabled, .arrow_last,
   .arrow_last_disabled {
-  background: url("../img/pagerArrows.png") no-repeat;
+  background: $pager_arrows no-repeat;
   width: 15px;
   height: 15px;
   margin-bottom: 0;
@@ -634,7 +634,7 @@ h2.priceUnit, h1.priceUnit {
 }
 
 span.upload, span.upload .option {
-  background: url("../img/uploadButton.png") no-repeat scroll 0 0 transparent;
+  background: $upload_button no-repeat scroll 0 0 transparent;
   color: #000000;
   cursor: default;
   font-weight: normal;
@@ -841,7 +841,7 @@ table.smallPanel {
 
 /* define rating star sprite */
 .ratingStars {
-  background: url(../img/mp_stars_sprite.png) no-repeat;
+  background: $rating_stars_url no-repeat;
 }
 
 /* rating star sizing */
@@ -998,7 +998,7 @@ table.smallPanel {
 
 /* show for subscription errors */
 .subscriptionError {
-  background: transparent url(../img/mp_icon_sprite.png) no-repeat 0 -579px;
+  background: transparent $mp_icon_sprite no-repeat 0 -579px;
   color: #CB243F;
   height: 17px;
   width: 20px;
@@ -1006,19 +1006,19 @@ table.smallPanel {
 
 /* show for subscription active/ready */
 .subscriptionActive, .serverSubscriptionActive {
-  background: transparent url(../img/mp_icon_sprite.png) no-repeat 0 -655px;
+  background: transparent $mp_icon_sprite no-repeat 0 -655px;
   color: #999;
 }
 
 /* show for subscription suspended/pending/waiting_for_approval/pending_update */
 .subscriptionPending, .serverSubscriptionSuspended, .subscriptionWaitingForApproval, .subscriptionPendingUpd {
-  background: transparent url(../img/mp_icon_sprite.png) no-repeat scroll 0 -731px;
+  background: transparent $mp_icon_sprite no-repeat scroll 0 -731px;
   color: #999;
 }
 
 .provisioningProgress {
   margin-top: 10px;
-  background: transparent url(../img/info.png) no-repeat;
+  background: transparent $info no-repeat;
 }
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 6.7 Subscription Confirmation Information Box
@@ -1060,99 +1060,6 @@ table.smallPanel {
   vertical-align: super;
   font-size: 10px;
 }
-
-
-
-
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-7.3 Left Sidebar Navigation
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-
-/* side menu wrapper */
-.aside {
-  float: left;
-}
-
-.aside .innerframe {
-  padding: 0 0 6px;
-}
-
-.aside a:hover {
-  text-decoration: none;
-}
-
-/* button panel at bottom of the left navigation panel */
-.aside .menuButtonPanel {
-  text-align: center;
-}
-
-.aside .menuButtonPanel>span {
-  margin: 5px 0;
-}
-
-.aside .menuButtonPanel span {
-  display: inline-block;
-}
-
-/* individual menu elements e.g. in "available editions" and "account" */
-.aside .menubox {
-  margin-top: -1px;
-  background: #f2f2f2;
-  border: solid 1px #C8C8C8;
-}
-
-/* menu elements and menu title */
-.aside .heading  h4, .aside .menubox h4 {
-  color: #555555;
-  margin: 0;
-  padding: 12px 10px;
-}
-
-.aside .menubox #menuArrow {
-  background: url(../img/page/left_nav_arrow.png) 0 0 no-repeat;
-  position: absolute;
-  width: 11px;
-  height: 21px;
-  top: -1px;
-  right: -11px;
-}
-
-/* side menu elements wrapper */
-div.accd1span {
-  width: 184px;
-  background: url(../img/page/box_shadow_bottom.png) bottom left no-repeat;
-  padding: 0 0 4px;
-}
-
-/* side menu heading wrapper */
-div.accdsection .heading {
-  padding: 0 1px;
-  min-height: 38px;
-  background: url(../img/page/tab-top-bg-1col.png) no-repeat left top;
-}
-
-div.accdsection h4#header, div.accdsection h4#menu0 {
-  font-weight: 400;
-  font-size: 18px;
-}
-
-/* active menu element */
-.aside .menuActive {
-  background: #FFF;
-  position: relative;
-}
-
-/* standard menu element */
-.aside .menuStyle {
-  background: none repeat scroll 0 0 #f2f2f2;
-  cursor: pointer;
-}
-
-/* menu element rollover */
-.aside .menuStyleOver {
-  background: none repeat scroll 0 0 #ddd;
-}
-
 
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -1247,7 +1154,7 @@ div.scrolltop p img {
 /* "top of page" link button */
 #linkPageTop {
   float: right;
-  background: transparent url(../img/mp_icon_sprite.png) right -400px no-repeat;
+  background: transparent $mp_icon_sprite right -400px no-repeat;
   padding-right: 20px;
   height: 16px;
 }
@@ -1255,7 +1162,7 @@ div.scrolltop p img {
 /* "browse all services" link button on home page */
 #linkBrowseAll {
   float: left;
-  background: transparent url(../img/mp_icon_sprite.png) left -384px no-repeat;
+  background: transparent $mp_icon_sprite left -384px no-repeat;
   padding-left: 20px;
   height: 16px;
 }
@@ -1372,7 +1279,7 @@ div.scrolltop p img {
   width: 100%;
   height: 100%;
   cursor: wait;
-  background: url(../img/transparentPixel.png) no-repeat;
+  background: $transparent_pixel no-repeat;
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -1400,7 +1307,7 @@ div.scrolltop p img {
   width: 6px;
   height: 11px;
   margin: 0 4px;
-  background: transparent url(../img/mp_icon_sprite.png) -28px -437px repeat-x;
+  background: transparent $mp_icon_sprite -28px -437px repeat-x;
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -1411,7 +1318,7 @@ div.scrolltop p img {
 .deassignButton {
   width: 19px;
   height: 19px;
-  background: transparent url(../img/mp_icon_sprite.png) -15px -360px no-repeat !important;
+  background: transparent $mp_icon_sprite -15px -360px no-repeat !important;
   border: 0;
   cursor: pointer;
 }
@@ -1419,7 +1326,7 @@ div.scrolltop p img {
 /* edit entry e.g. user details */
 .editPen {
   margin: 2px 2px 0px;
-  background: transparent url(../img/mp_icon_sprite.png) 2px -364px no-repeat !important;
+  background: transparent $mp_icon_sprite 2px -364px no-repeat !important;
   border: 0;
   cursor: pointer;
   height: 16px;
@@ -1429,7 +1336,7 @@ div.scrolltop p img {
 .deleteButton {
   width: 13px;
   height: 13px;
-  background: transparent url(../img/cross.png) 2px 1px no-repeat !important;
+  background: transparent $cross 2px 1px no-repeat !important;
   border: 0;
   cursor: pointer;
   zoom: 1.5\9;
@@ -1446,7 +1353,7 @@ div.scrolltop p img {
 
 /* error icon on incorrect form input */
 .messageMarkerError {
-  background: url(../img/mp_icon_sprite.png) 0 -263px no-repeat;
+  background: $mp_icon_sprite 0 -263px no-repeat;
   margin: 0;
   width: 17px;
   height: 17px;
@@ -1455,7 +1362,7 @@ div.scrolltop p img {
 
 /*  form input success */
 .messageMarkerInfo {
-  background: transparent url(../img/mp_icon_sprite.png) -17px -263px no-repeat;
+  background: transparent $mp_icon_sprite -17px -263px no-repeat;
   margin: 0;
   width: 17px;
   height: 17px;
@@ -1463,7 +1370,7 @@ div.scrolltop p img {
 }
 
 .tick {
-  background: transparent url(../img/mp_icon_sprite.png) -44px -500px no-repeat;
+  background: transparent $mp_icon_sprite -44px -500px no-repeat;
   width: 15px;
   height: 15px;
 }
@@ -1613,7 +1520,7 @@ div.scrolltop p img {
   border: 0 !important;
   display: none;
   margin: 2px 4px 0 -6px;
-  background: url(../../img/glyphicons-halflings.png) 0 0 no-repeat;
+  background: $glyphicons_halflings 0 0 no-repeat;
   display: inline-block;
   *display: inline;
   zoom: 1;
@@ -1709,11 +1616,11 @@ div.scrolltop p img {
 }
 
 thead.rf-dt-thd .rf-dt-shdr, thead.rf-dt-thd .rf-dt-hdr, .rf-edt-hdr tbody>tr {
-  background: url("../img/page/richTableHeader-bg-repeat.png") repeat-x;
+  background: $rich_table_bg_repeat repeat-x;
 }
 
 thead .rf-dt-flt {
-  background: url("../img/page/richTableHeader-bg-repeat.png") 0px -19px;
+  background: $rich_table_bg_repeat 0px -19px;
 }
 
 .rf-dt-shdr-c.rf-dt-c-srt:HOVER {
@@ -1740,7 +1647,7 @@ thead .rf-dt-flt {
 
 .rf-dt-flt-cnt .rf-dt-flt-i {
   width: 90%;
-  background: #FFF url(../img/filter.png) no-repeat right center !important;
+  background: #FFF $filter no-repeat right center !important;
   padding-right: 15px;
   color: #777;
 }
@@ -1752,14 +1659,14 @@ thead .rf-dt-flt {
 }
 
 .rf-dt-srt.rf-dt-srt-btn.rf-dt-srt-asc, .rf-edt-srt.rf-edt-srt-btn.rf-edt-srt-asc {
-  background: transparent url(../img/mp_icon_sprite.png) no-repeat scroll 0 -437px;
+  background: transparent $mp_icon_sprite no-repeat scroll 0 -437px;
   width: 13px;
   height: 13px;
   margin: 4px 10px 0 0;
 }
 
 .rf-dt-srt.rf-dt-srt-btn.rf-dt-srt-des, .rf-edt-srt.rf-edt-srt-btn.rf-edt-srt-des {
-  background: transparent url(../img/mp_icon_sprite.png) no-repeat scroll -14px -437px;
+  background: transparent $mp_icon_sprite no-repeat scroll -14px -437px;
   width: 15px;
   height: 15px;
   margin: 4px 10px 0 0;
@@ -1780,7 +1687,7 @@ thead .rf-dt-flt {
 
 #paymentOptionListForm thead .rf-dt-shdr-c:HOVER, #billingContactListForm thead .rf-dt-shdr-c:HOVER, #processListForm thead .rf-dt-shdr-c:HOVER,
   #operationsListForm thead .rf-dt-shdr-c:HOVER, #triggerDefinitionListForm thead .rf-dt-shdr-c:HOVER {
-  background: url('../img/page/richTableHeader-bg-repeat-hover.png');
+  background: $rich_table_hover;
 }
 
 #paymentOptionListForm .rf-dt-c, #billingContactListForm .rf-dt-c, #triggerDefinitionListForm .rf-dt-c {
@@ -1799,7 +1706,7 @@ thead .rf-dt-flt {
 
 /* Buttons */
 input.button, a.button {
-  background: url('../img/mp_button_sprite.png') !important;
+  background: $mp_icon_sprite !important;
   min-width: 80px;
   border: 1px solid #a7acb1 !important;
   height: 27px;
@@ -1846,7 +1753,7 @@ tbody>tr.rf-dt-nd, tbody>tr.rf-dt-nd .rf-dt-nd-c {
 }
 
 .rf-dt-shdr th.rf-dt-shdr-c:HOVER {
-  background: url('../img/page/richTableHeader-bg-repeat-hover.png');
+  background: $rich_table_hover;
 }
 
 tr.rf-dt-shdr, tr.rf-dt-shdr:HOVER {
@@ -2235,11 +2142,6 @@ div.responsive-table-panel {
   padding-right: 10px;
 }
 
-.mt-auto {
-  text-align: right;
-  padding-top: 32px;
-}
-
 .con-flow-root {
   display: flow-root;
 }
@@ -2254,18 +2156,4 @@ div.responsive-table-panel {
   position: relative;
   font-size: 1rem;
   min-width: 0px
-}
-
-.row-justify-space {
-  justify-content: space-between;
-}
-
-.text-align-center {
-  text-align: -webkit-center;
-}
-
-/** Footer ***/
-
-#sidebarCollapse {
-  margin-top: 0.5rem !important;
 }
