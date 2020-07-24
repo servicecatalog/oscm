@@ -74,7 +74,7 @@ div#headerrightarea, rightarea a {
 }
 
 #corporatesymbol img {
-  background: transparent url(../img/mp_logo.png) right top no-repeat;
+  background: transparent $mp_logo_url right top no-repeat;
   border: 0;
   cursor: pointer;
   width: 94px;

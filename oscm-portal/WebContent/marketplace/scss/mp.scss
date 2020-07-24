@@ -366,7 +366,7 @@ h2.priceUnit, h1.priceUnit {
 
 /* modal panel content */
 .rich-mpnl-content {
-  background-color: #FFFFFF;
+  background-color: $white;
   padding: 10px;
   text-align: left;
   border-width: 1px;
@@ -783,14 +783,14 @@ table.smallPanel {
   margin-top: 3px;
   margin-bottom: 5px;
   margin-left: 0;
-  background-color: #f2f2f2;
+  background-color: $light_gray;
   resize: none;
 }
 
 .review_title {
   width: 98%;
   margin-left: 0;
-  background-color: #f2f2f2;
+  background-color: $light_gray;
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -1184,7 +1184,7 @@ div.scrolltop p img {
 /* active tab in tab navigation block*/
 .rich-tab-active {
   color: #456;
-  background: #FFF;
+  background: $white;
   cursor: default;
 }
 
@@ -1290,7 +1290,7 @@ div.scrolltop p img {
 /* steps in stepped process */
 .progress span {
   padding: 5px;
-  border: 1px solid #FFF;
+  border: 1px solid $white;
   color: #666;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -1386,11 +1386,11 @@ div.scrolltop p img {
   border-bottom: 1px solid #4c4c4c;
   width: 100%;
   min-width: 980px;
-  color: #fff;
+  color: $white;
 }
 
 .footer a {
-  color: #fff;
+  color: $white;
 }
 
 /* footer enclosed block */
@@ -1643,12 +1643,12 @@ thead .rf-dt-flt {
 
 #editUserForm .rf-dt-r.rowOdd:HOVER, #userForm .rf-dt-r.rowOdd:HOVER, #paymentOptionListForm .rf-dt-r.rowOdd:HOVER,
   #groupForm .rf-dt-r.rowOdd:HOVER .rowOdd:HOVER {
-  background: #FFF;
+  background: $white;
 }
 
 .rf-dt-flt-cnt .rf-dt-flt-i {
   width: 90%;
-  background: #FFF $filter no-repeat right center !important;
+  background: $white $filter no-repeat right center !important;
   padding-right: 15px;
   color: #777;
 }
@@ -1819,8 +1819,8 @@ thead th.clickable-header:HOVER {
 
 #subListForm .rf-dt-shdr-c {
   background-clip: padding-box !important;
-  border-bottom: 1px solid #D2D2D2 !important;
-  border-right: 1px solid #D2D2D2 !important;
+  border-bottom: 1px solid $color_alto_approx !important;
+  border-right: 1px solid $color_alto_approx !important;
 }
 
 #subscriptionService.subscriptionServiceDetailsBlock {
@@ -1833,7 +1833,7 @@ thead th.clickable-header:HOVER {
 }
 
 #triggerSubListForm .triggers-title, #triggerSubListForm .triggers-column-header, #triggerSubListForm table {
-  background: #F8F8F8;
+  background: $color_alabaster_approx;
   border: none;
 }
 
@@ -1906,7 +1906,7 @@ thead th.clickable-header:HOVER {
 .div-for-input {
   width: 85%;
   position: relative;
-  background-color: #fff;
+  background-color: $white;
   height: 16px;
   padding: 1px 2px 3px 2px !important;
   border: solid 1px #CCC;

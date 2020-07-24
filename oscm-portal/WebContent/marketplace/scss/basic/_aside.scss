@@ -31,13 +31,13 @@
 /* individual menu elements e.g. in "available editions" and "account" */
 .aside .menubox {
   margin-top: -1px;
-  background: #f2f2f2;
+  background: $light_gray;
   border: solid 1px #C8C8C8;
 }
 
 /* menu elements and menu title */
 .aside .heading  h4, .aside .menubox h4 {
-  color: #555555;
+  color: $color_dorado_approx;
   margin: 0;
   padding: 12px 10px;
 }
@@ -72,13 +72,13 @@ div.accdsection h4#header, div.accdsection h4#menu0 {
 
 /* active menu element */
 .aside .menuActive {
-  background: #FFF;
+  background: $white;
   position: relative;
 }
 
 /* standard menu element */
 .aside .menuStyle {
-  background: none repeat scroll 0 0 #f2f2f2;
+  background: none repeat scroll 0 0 $light_gray;
   cursor: pointer;
 }
 

@@ -2,14 +2,14 @@
 5.2 Content Boxes
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .box {
-  background: #F8F8F8;
+  background: $color_alabaster_approx;
   -moz-border-radius: 4px;
   border-radius: 4px;
   padding: 10px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid $white;
   
   input, select, textarea {
-     background: #FFF;
+     background: $white;
   }
   
   .right {
@@ -126,7 +126,7 @@
 /*  initialize scrolling on horizontal scrollable content */
 .box_horizontalScroll {
   padding: 0;
-  background: #ffffff;
+  background: $white;
 }
 
 .box div.box_horizontalScroll.horizontalScrollAuto {
@@ -143,7 +143,7 @@ div.box div.step {
 
 /* content area within a tabbed block */
 .rich-tabpanel-content {
-  background-color: #FFFFFF;
+  background-color: $white;
   border-bottom-width: 0;
   border-left-width: 0;
   border-right-width: 0;
