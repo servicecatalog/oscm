@@ -10,12 +10,14 @@
   min-width: 30px;
 }
 
-.text-underline {
-  text-decoration: underline !important;
-}
+.text {
+  &-underline {
+     text-decoration: underline !important;
+  }
 
-.text-align-center {
-  text-align: -webkit-center;
+  &-align-center {
+    text-align: -webkit-center;
+  }
 }
 
 .row-justify-space {

@@ -8,7 +8,6 @@
 @import "../scss/basic/colors";
 @import "../scss/basic/image_urls";
 @import "../scss/basic/mixins";
-//@import "../scss/basic/header";
 @import "../scss/basic/footer";
 @import "../scss/basic/aside";
 @import "../scss/basic/main";
@@ -1031,7 +1030,7 @@ table.smallPanel {
   -moz-border-radius: 4px;
   border-radius: 4px;
   background: #EEE;
-  border: 1px solid #DDD;
+  border: 1px solid $gray;
   text-align: left;
   margin: 0;
   padding: 10px 10px;
@@ -1197,7 +1196,7 @@ div.scrolltop p img {
 
 .rich-tab-inactive:hover {
   color: #4f4f4f;
-  background: #DDD;
+  background: $gray;
 }
 
 /* spacing between tabs */

@@ -4,7 +4,7 @@
   @include transition(all 300ms linear);
   
   &:hover {
-     background: #DDD;
+     background: $gray;
      cursor: pointer;
   }
 }

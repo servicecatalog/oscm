@@ -10,33 +10,6 @@
 	see "Apache License Version 2.txt" in font folder for open sans usage license .
 */
 
-#tabDescription {
-	.bold-larger {
-	    font-size: larger;
-		font-weight: $bold-font-weight;
-	}
-	.bold-smaller {
-		font-size: smaller;
-		font-weight: $bold-font-weight;
-	}
-	.red-bold {
-		color: $warning-color;
-		font-weight: $bold-font-weight;
-	}
-	.red-bold-larger {
-		color: $warning-color;
-		font-size: larger;
-		font-weight: $bold-font-weight;
-	}
-	.red-bold-smaller {
-		color: $warning-color;
-		font-size: smaller;
-		font-weight: $bold-font-weight;
-	}
-	.disabled {
-		color: $color_silver_approx;
-	}
-}
 
 @font-face {
   font-family: 'OpenSansRegular';

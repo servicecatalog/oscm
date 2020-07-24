@@ -24,7 +24,7 @@ input#inputSearch {
 }
 
 /* search field wrapper*/
-#headsearch, #subListForm\:subscriptionSearch {
+#subListForm\:subscriptionSearch {
   float: right;
   border-style: none;
   width: 270px;
@@ -35,7 +35,7 @@ input#inputSearch {
   text-align: right;
 }
 
-#headsearch form, #subListForm\:subscriptionSearch>span>div {
+#subListForm\:subscriptionSearch>span>div {
   display: block;
   margin: 0;
   padding: 0 0 0 15px;
