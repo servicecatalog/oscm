@@ -48,23 +48,12 @@
 .box div.lastcol {
   margin-right: 0;
 }
-/* service icon / logo background */
-.box_logo {
-  background: $service_icon_default no-repeat center 0;
-  height: 110px;
-  width: 174px;
-  text-align: center;
-}
 
 /* service icon / logo background bootstrap */
 .box-logo {
   text-align: center;
   height: 80px;
   width: 80px;
-}
-
-.box-logo .fallback-img-box {
-  background: $service_icon_default no-repeat center 0;
 }
 
 .serviceBox2span .box_logo {
