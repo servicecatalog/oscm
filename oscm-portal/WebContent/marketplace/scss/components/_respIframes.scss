@@ -5,44 +5,45 @@
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 */
 .responsive-container {
-  position: relative;
-  overflow: hidden;
-  padding-bottom: 31.25%;
-  height: 0;
+	position: relative;
+	overflow: hidden;
+	padding-bottom: 31.25%;
+	height: 0;
+	
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100% !important;
+		height: 100% !important;
+		border: 0;
+	}
+	embed {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100% !important;
+		height: 100% !important;
+		border: 0;
+	}
 }
 
-.responsive-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  border: 0;
-}
+.responsive {
+  &-img {
+     max-width: 100%;
+     object-fit: cover;
+     width: 100%;
+  }
 
-.responsive-container embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  border: 0;
-}
+  &-spacer {
+     margin-top: 5.5em;
+  }
 
-.responsive-img {
-  max-width: 100%;
-  object-fit: cover;
-  width: 100%;
-}
-
-.responsive-spacer {
-  margin-top: 5.5em;
-}
-
-.responsive-iframe {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 500px;
-  border: none;
+  &-iframe {
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 500px;
+    border: none;
+  }
 }

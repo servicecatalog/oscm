@@ -1,0 +1,93 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+7.3 Left Sidebar Navigation
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/* side menu wrapper */
+.aside {
+  float: left;
+}
+
+.aside .innerframe {
+  padding: 0 0 6px;
+}
+
+.aside a:hover {
+  text-decoration: none;
+}
+
+/* button panel at bottom of the left navigation panel */
+.aside .menuButtonPanel {
+  text-align: center;
+}
+
+.aside .menuButtonPanel>span {
+  margin: 5px 0;
+}
+
+.aside .menuButtonPanel span {
+  display: inline-block;
+}
+
+/* individual menu elements e.g. in "available editions" and "account" */
+.aside .menubox {
+  margin-top: -1px;
+  background: $light_gray;
+  border: solid 1px #C8C8C8;
+}
+
+/* menu elements and menu title */
+.aside .heading  h4, .aside .menubox h4 {
+  color: $color_dorado_approx;
+  margin: 0;
+  padding: 12px 10px;
+}
+
+.aside .menubox #menuArrow {
+  background: $left_nav_arrow 0 0 no-repeat;
+  position: absolute;
+  width: 11px;
+  height: 21px;
+  top: -1px;
+  right: -11px;
+}
+
+/* side menu elements wrapper */
+div.accd1span {
+  width: 184px;
+  background: $box_shadow_bottom bottom left no-repeat;
+  padding: 0 0 4px;
+}
+
+/* side menu heading wrapper */
+div.accdsection .heading {
+  padding: 0 1px;
+  min-height: 38px;
+  background: $tab_top_bg no-repeat left top;
+}
+
+div.accdsection h4#header, div.accdsection h4#menu0 {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+/* active menu element */
+.aside .menuActive {
+  background: $white;
+  position: relative;
+}
+
+/* standard menu element */
+.aside .menuStyle {
+  background: none repeat scroll 0 0 $light_gray;
+  cursor: pointer;
+}
+
+/* menu element rollover */
+.aside .menuStyleOver {
+  background: none repeat scroll 0 0 $gray;
+}
+
+
+#sidebarCollapse {
+  margin-top: 0.5rem !important;
+}

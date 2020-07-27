@@ -10,34 +10,6 @@
 	see "Apache License Version 2.txt" in font folder for open sans usage license .
 */
 
-#tabDescription {
-	.bold-larger {
-	    font-size: larger;
-		font-weight: $bold-font-weight;
-	}
-	.bold-smaller {
-		font-size: smaller;
-		font-weight: $bold-font-weight;
-	}
-	.red-bold {
-		color: $warning-color;
-		font-weight: $bold-font-weight;
-	}
-	.red-bold-larger {
-		color: $warning-color;
-		font-size: larger;
-		font-weight: $bold-font-weight;
-	}
-	.red-bold-smaller {
-		color: $warning-color;
-		font-size: smaller;
-		font-weight: $bold-font-weight;
-	}
-	.disabled {
-		color: $color_silver_approx;
-	}
-}
-
 @font-face {
   font-family: 'OpenSansRegular';
   src: url('../fonts/OpenSans-Regular-webfont.eot');
@@ -230,7 +202,7 @@ table td, div {
 }
 
 .mandatory, .discount {
-  color: #EE0101;
+  color: $color_red_approx;
 }
 
 .upLabel {
@@ -319,7 +291,7 @@ table td, div {
   height: 1px;
   padding: 0;
   margin: 0 0 10px;
-  background: transparent url(../img/mp_icon_sprite.png) 0 -381px repeat-x;
+  background: transparent $mp_icon_sprite 0 -381px repeat-x;
 }
 
 /* Shortened text with ... */
@@ -354,7 +326,8 @@ table td, div {
 }
 
 #marketplaceStageDefault {
-  background: url(../img/transparentPixel.png) no-repeat;
+  background: $transparent_pixel no-repeat;
+>>>>>>> branch 'sassify_mp_css' of https://github.com/servicecatalog/oscm.git
   width: 100%;
 }
 

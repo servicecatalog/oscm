@@ -24,18 +24,19 @@ input#inputSearch {
 }
 
 /* search field wrapper*/
-#headsearch, #subListForm\:subscriptionSearch {
+
+#subListForm\:subscriptionSearch {
   float: right;
   border-style: none;
   width: 270px;
   height: 34px;
   margin: 0;
   padding: 0;
-  background: url("../img/page/search-bg.png") no-repeat top right;
+  background: $search_bg no-repeat top right;
   text-align: right;
 }
 
-#headsearch form, #subListForm\:subscriptionSearch>span>div {
+#subListForm\:subscriptionSearch>span>div {
   display: block;
   margin: 0;
   padding: 0 0 0 15px;
@@ -62,7 +63,7 @@ input#inputSearch {
 
 /*search button image*/
 .searchButton {
-  background: transparent url(../img/mp_icon_sprite.png) 0 -330px no-repeat !important;
+  background: transparent $mp_icon_sprite 0 -330px no-repeat !important;
   border: 0;
   cursor: pointer;
   height: 26px;

@@ -5,23 +5,24 @@
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 */
 
-/* Table Container */
 .table_container {
   display: flow-root;
 }
 
-/* Styles for Bootstrap Table Classes */
-.table-striped > tbody > tr:nth-of-type(odd) > td{
-  padding-left: 10px;
-  background: #FFF;
-}
-.table-striped > tbody > tr:nth-of-type(even) > td{
-  padding-left: 10px;
-  background: #eee;
+.table-striped > tbody > tr {
+  &:nth-of-type(odd) > td {
+    padding-left: 10px;
+    background: $white;
+  }
+
+  &:nth-of-type(even) > td {
+    padding-left: 10px;
+    background: #eee;
+  }
 }
 
 .table-hover tbody tr:hover td {
-   background:  #f8f9fa;
+  background: #f8f9fa;
 }
 
 .col-icon {
@@ -33,69 +34,85 @@
   width: 120px;
 }
 
-.editIconStyle {
-    margin: 2px 2px 0px;
-    border: 0;
-    cursor: pointer;
-    height: 16px;
-    width: 16px;
-}
-
 @media all and (max-width: 575px) {
-  .RespTable, .RespTable thead, .RespTable tbody, .RespTable tr, .RespTable th, .RespTable td {
+  .RespTable {
     display: block;
-  }
-  .RespTable td {
-    border-right: none;
-    position: relative;
-    padding-left: 50%;
-    white-space: normal;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: #D2D2D2;
-  }
-  .RespTable thead {
-    position: absolute;
-    top: -1111px;
-    left: -1111px;
-  }
-  .RespTable td:before {
-    position: absolute;
-    text-aligh: left;
-    top: 6px;
-    left: 6px;
-    padding-right: 10px;
-    font-weight: bold;
-    width: 45%;
-    vertical-align: middle;
-  }
-  .RespTable td:before {
-    content: attr(data-label) ;
-  }
-  .RespTable td:nth-child(1) {
-    font-weight: bold;
-  }
-  .RespTable td:last-child {
-    border-bottom: 1px #1d4d33 solid;
+
+    thead, tbody, tr, th {
+      display: block;
+    }
+
+    td {
+      display: block;
+      border-right: none;
+      position: relative;
+      padding-left: 50%;
+      white-space: normal;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: #d2d2d2;
+    }
+
+    thead {
+      position: absolute;
+      top: -1111px;
+      left: -1111px;
+    }
+
+    td {
+      &:before {
+        position: absolute;
+        text-aligh: left;
+        top: 6px;
+        left: 6px;
+        padding-right: 10px;
+        font-weight: bold;
+        width: 45%;
+        vertical-align: middle;
+        content: attr(data-label);
+      }
+
+      &:nth-child(1) {
+        font-weight: bold;
+      }
+
+      &:last-child {
+        border-bottom: 1px #1d4d33 solid;
+      }
+    }
   }
 }
 
-@media ( max-width : 576px) {
-  .w-sm-100 {
-    width: 100%;
+@media (min-width: 901px) {
+  .show-service-row {
+    display: none;
   }
 }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-12.1 Table radio button
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+@media (max-width: 900px) {
+  .column-service-hide {
+    display: none;
+  }
+}
+
+@media (min-width: 601px) {
+  .show-unit-row {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .column-unit-hide {
+    display: none;
+  }
+}
 
 .table-radio-btn tbody tr {
-    background: transparent !important;
-}
+  background: transparent !important;
 
-.table-radio-btn tbody tr td {
+  td {
     border: none;
+  }
 }
 
 
@@ -152,7 +169,7 @@ img[src$="sortDescending"] {
 
 .rowOdd {
   padding-left: 10px;
-  background: #FFF;
+  background: $white;
 }
 
 .wrapColumns .shortenedText span {
@@ -167,63 +184,61 @@ img[src$="sortDescending"] {
   white-space: pre-wrap !important;
 }
 
-.column-break-word {
+.column-break {
+  &-operation {
+    min-width: 74px;
+    max-width: 150px;
+  }
 
-}
+  &-subscription {
+    min-width: 109px;
+    max-width: 150px;
+  }
 
-.column-break-operation {
-  min-width: 74px;
-  max-width: 150px;
-}
+  &-executionDate {
+    min-width: 146px;
+    max-width: 150px;
+  }
 
-.column-break-subscription {
-  min-width: 109px;
-  max-width: 150px;
-}
+  &-userId {
+    min-width: 101px;
+    max-width: 150px;
+  }
 
-.column-break-executionDate {
-  min-width: 146px;
-  max-width: 150px;
-}
+  &-status {
+    min-width: 83px;
+    max-width: 150px;
+  }
 
-.column-break-userId {
-  min-width: 101px;
-  max-width: 150px;
-}
+  &-statusDesc {
+    min-width: 122px;
+    max-width: 150px;
+  }
 
-.column-break-status {
-  min-width: 83px;
-  max-width: 150px;
-}
+  &-process {
+    min-width: 66px;
+    max-width: 150px;
+  }
 
-.column-break-statusDesc {
-  min-width: 122px;
-  max-width: 150px;
-}
+  &-desc {
+    min-width: 97px;
+    max-width: 150px;
+  }
 
-.column-break-process {
-  min-width: 66px;
-  max-width: 150px;
-}
+  &-creationDate {
+    min-width: 125px;
+    max-width: 150px;
+  }
 
-.column-break-desc {
-  min-width: 97px;
-  max-width: 150px;
-}
+  &-reason {
+    min-width: 87px;
+    max-width: 150px;
+  }
 
-.column-break-creationDate {
-  min-width: 125px;
-  max-width: 150px;
-}
-
-.column-break-reason {
-  min-width: 87px;
-  max-width: 150px;
-}
-
-.column-break-word150 {
-  min-width: 50px;
-  max-width: 150px;
+  &-word150 {
+    min-width: 50px;
+    max-width: 150px;
+  }
 }
 
 /* fixed minimum height table */
