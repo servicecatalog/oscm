@@ -1,0 +1,100 @@
+%message-shared {
+   padding: 15px !important;
+   display: block;
+}
+
+.success {
+  @extend %message-shared;
+  color: $white;
+  background: #73B573 no-repeat !important;
+}
+
+.error {
+  @extend %message-shared;
+  color: $white;
+  background: #CB243F no-repeat !important;
+  margin-bottom: 5px;
+}
+
+.warning {
+  @extend %message-shared;
+  background: #E7B51D no-repeat !important;
+}
+
+
+/* per wrapper stylying, setting background colors, text colors*/
+.suspended {
+  @extend %message-shared;
+  color: $white;
+  background: #5E6D7B no-repeat !important;
+  display: none;
+}
+
+
+
+/* MSGS Stylying >>> */
+#globalMessagesHolder .rf-msgs {
+  margin-bottom: 25px;
+}
+
+
+
+
+
+
+
+.error dl {
+  margin: 0px !important;
+}
+
+
+
+/*
+    define no default background image coming from richfaces,
+    set color of the text
+ */
+.success span.rf-msgs-inf, .suspended span.rf-msgs-inf, .error span.rf-msgs-err, .warning span.rf-msgs-inf, .warning dt
+  {
+  background-image: none;
+  color: $white;
+  font-size: 13px;
+  line-height: 18px;
+  margin-bottom: 3px;
+}
+
+.warning dt {
+  color: #000000
+}
+
+/* prepend sprite and its style */
+.success span.rf-msgs-inf:before, .suspended span.rf-msgs-inf:before, .error span.rf-msgs-err:before, .warning span.rf-msgs-inf:before,
+  .warning dt:before {
+  content: "";
+  float: left;
+  width: 25px;
+  height: 25px;
+  margin: 0px 10px 0 -20px;
+  background: $mp_icon_sprite;
+}
+
+.success span.rf-msgs-inf:before {
+  background-position: -9px -75px;
+}
+
+.suspended span.rf-msgs-inf:before {
+  background-position: -8px -205px;
+}
+
+.error span.rf-msgs-err:before {
+  background-position: -9px -10px;
+}
+
+.warning span.rf-msgs-inf:before, .warning dt:before {
+  margin: 0 20px 0 0;
+  background-position: -9px -141px;
+}
+/* field validation error indicator */
+.errorMsg .rf-msg-err {
+  background-image: $msg_error;
+}
+/* MSGS Stylying <<< */

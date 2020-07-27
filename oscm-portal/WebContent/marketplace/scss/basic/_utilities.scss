@@ -1,0 +1,30 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+11.7 Additional utility classes
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+.bg-light-secondary {
+  background: $white;
+}
+
+.w-30px {
+  width: 30px;
+  min-width: 30px;
+}
+
+.text {
+  &-underline {
+     text-decoration: underline !important;
+  }
+
+  &-align-center {
+    text-align: -webkit-center;
+  }
+}
+
+.row-justify-space {
+  justify-content: space-between;
+}
+
+.mt-auto {
+  text-align: right;
+  padding-top: 32px;
+}

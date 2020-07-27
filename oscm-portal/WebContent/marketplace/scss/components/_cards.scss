@@ -1,0 +1,35 @@
+.selectable {
+  background: $white;
+  cursor: pointer;
+  @include transition(all 300ms linear);
+  
+  &:hover {
+     background: $gray;
+     cursor: pointer;
+  }
+}
+
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+11.4 Cards
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+.topPadding {
+  padding-top: 32px;
+}
+
+.imgContainer {
+  overflow: hidden;
+  
+  img {
+     margin-right: 15px;
+     float: left;
+     border: 1px solid #eee;
+  }
+  
+  h3, p {
+     margin-left: 15px;
+     display: block;
+     margin: 2px 0 0 0;
+  }
+}

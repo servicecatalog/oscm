@@ -1,0 +1,27 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+11.6 Footer
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+.bootstrap_footer {
+  background: $color_bombay_approx;
+  border-bottom: 1px solid $color_dorado_approx;
+  width: 100%;
+  color: $white;
+
+  a {
+    color: $white;
+  }
+
+  ul {
+    font-size: 93%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: inline;
+    margin: 0;
+    margin-left: 16px;
+  }
+}

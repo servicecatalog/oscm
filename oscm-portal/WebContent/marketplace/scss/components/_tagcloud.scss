@@ -1,0 +1,128 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+7.2 Tag Cloud Navigation
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/* tag cloud list  */
+.submenu ul {
+  font-size: 93%;
+  padding-bottom: 16px;
+  padding-left: 0;
+  width: 100%;
+  margin: 0;
+}
+
+.submenu .tasks {
+  background: $white;
+}
+
+.submenu {
+  display: block;
+  float: none;
+  width: 184px;
+  /*
+hide it or display when tags are disabled:
+background:url(../img/page/box_shadow_bottom.png) bottom left no-repeat; */
+  padding: 0 0 8px;
+}
+
+/* wrapper for tag cloud including "browse all services" button */
+.tagCloudBrowseAll {
+
+}
+
+/* tag cloud tags outer wrapper */
+.tagCloudOuter {
+  padding: 8px;
+}
+
+/* tag cloud tags enclosed block wrapper */
+.tagCloud {
+  color: $interior-color;
+  text-decoration: none;
+  background: none repeat scroll 0% 0% transparent;
+  overflow: hidden;
+  line-height: 1.3;
+}
+
+/* individual tag in tag cloud */
+.tagCloud.tag {
+  padding: 6px;
+  color: #456;
+  text-decoration: none;
+  background: none;
+}
+
+.tagCloud.tag:hover {
+  padding: 0.25rem;
+  background: $secondary-color;
+  border-radius: 1rem;
+}
+
+/* individual tag in tag cloud */
+.tagCloud-selected {
+  padding: 0.25rem;
+  color: $interior-color;
+  background: $primary-color;
+  text-decoration: none;
+  border-radius: 1rem;
+}
+
+/* tag color definitions dependent on label size.
+IE7 and other non-supporting browsers use the default color defined by  .tagCloud.tag */
+.tagCloud.tag[style*="24"] {
+  color: #677683;
+}
+
+.tagCloud.tag[style*="23"] {
+  color: #687683;
+}
+
+.tagCloud.tag[style*="22"] {
+  color: #697884;
+}
+
+.tagCloud.tag[style*="21"] {
+  color: #6A7884;
+}
+
+.tagCloud.tag[style*="20"] {
+  color: #6B7A85;
+}
+
+.tagCloud.tag[style*="19"] {
+  color: #6C7A85;
+}
+
+.tagCloud.tag[style*="18"] {
+  color: #6D7C86;
+}
+
+.tagCloud.tag[style*="17"] {
+  color: #6E7C86;
+}
+
+.tagCloud.tag[style*="16"] {
+  color: #6F7E88;
+}
+
+.tagCloud.tag[style*="15"] {
+  color: #707E88;
+}
+
+.tagCloud.tag[style*="14"] {
+  color: #718089;
+}
+
+.tagCloud.tag[style*="13"] {
+  color: #728089;
+}
+
+.tagCloud.tag[style*="12"] {
+  color: #738290;
+}
+
+.tagCloud .tag:hover {
+  font-size: 8px;
+  color: #666;
+  text-decoration: underline;
+}

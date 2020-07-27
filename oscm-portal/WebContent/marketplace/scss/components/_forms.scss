@@ -1,0 +1,263 @@
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+4. Forms
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+*/
+
+/* form highlights on selected input element */
+form .formHighlight, .rowOver * {
+  background-color: #CCDCEE;
+}
+
+form .formHighlight input, form .formHighlight textarea {
+  border: 1px solid #E7B51D;
+  background: $white;
+}
+
+/* form rollover */
+.rowOver * {
+  cursor: pointer;
+}
+
+.rowCellOver * {
+  background-color: #CCDCEE;
+}
+
+.wrapColumns .extdt-cell-div {
+  white-space: normal;
+}
+
+.column-break-word {
+
+}
+
+.gridCol1 {
+  width: 479px;
+}
+
+.gridCol1, .gridCol2 {
+  vertical-align: top;
+  text-align: left;
+  padding: 0 10px;
+}
+
+.labelAsSpan {
+  position: relative;
+  float: left;
+  width: 154px;
+}
+
+.labelInsideOfTab {
+  position: relative;
+  float: left;
+  width: 120px;
+  padding-left: 10px;
+}
+
+.labelValuePairInsideOfTab {
+  position: relative;
+  float: left;
+  width: 100%;
+}
+
+.labelAndValuePanel {
+  width: 100%;
+  padding: 0 0 10px 0;
+}
+
+.labelAndValuePanel td {
+  padding-top: 8px;
+}
+
+/* form table with input hints definitions */
+.hintAndMessageTable {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+#configurationForm .hintAndMessageTable .errorMsg {
+  margin-left: 10px;
+}
+
+#configurationForm .hintAndMessageTable .rich-message-label {
+  display: inline-block;
+  margin: -20px 0px 0px 40px;
+}
+
+.hintAndMessageTable td {
+  padding: 0;
+}
+
+*+.labelAndValuePanel {
+  margin: 10px 0;
+}
+
+.labelAndValuePanelCol1 {
+  width: 154px;
+}
+
+.labelAndValuePanelCol2 input {
+  width: 100%;
+  padding-left: 4px;
+}
+
+.labelAndValuePanelCol2 textarea {
+  width: 287px;
+}
+
+.labelAndValuePanelCol2 select {
+  width: 296px;
+}
+
+.labelAndValuePanelCol2 {
+  width: 300px;
+}
+
+.labelAndValuePanelCol1, .labelAndValuePanelCol2, .labelAndValuePanelCol3 {
+  padding: 8px 10px;
+}
+
+.labelAndValuePanelCol3 .hintAndMessageTable div {
+  position: absolute !important;
+}
+
+.rich-message-marker {
+  padding: 0 4px 0 0;
+  vertical-align: middle;
+}
+
+.rich-message-marker img {
+  vertical-align: text-bottom;
+}
+
+.tableColumnCheckBox {
+  text-align: left;
+}
+
+.rich-tabpanel-content-position .hintAndMessageTable td {
+  padding: 0 !important;
+}
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+4.1 Form Hints
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/* hint background for form hints */
+.hintArrow {
+  background: $hint_arrow no-repeat;
+  width: 170px;
+  height: 40px;
+}
+
+/* hint close button for form hints */
+.hintClose {
+  background: $hint_close_x no-repeat;
+  width: 9px;
+  height: 9px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+
+/* question mark icon indicating hint available */
+.hint {
+  background: none repeat-x scroll left top #FFFFDD;
+  border: 1px solid #CCCCCC;
+  border-radius: 3px;
+  -moz-border-radius: 4px;
+  padding: 14px 12px;
+  position: absolute !important;
+  top: -10px;
+  left: -6px;
+  z-index: 1100;
+  width: 260px;
+  min-height: 21px;
+  cursor: pointer;
+  word-break: normal;
+}
+
+/* question mark icon indicating hint availability */
+.hintMarker {
+  background: transparent $mp_icon_sprite no-repeat scroll -34px -263px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  float: left;
+  padding: 0;
+  margin: 2px 0 0 -20px;
+}
+
+/* hint box arrow */
+.hintArrow {
+  position: absolute;
+  top: 0;
+  left: -13px;
+  z-index: -100;
+}
+
+/* hint close icon position */
+.hintClose-x {
+  cursor: pointer;
+  height: 9px;
+  padding: 4px 4px 0 0;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: -10;
+  text-align: center;
+  width: 9px
+}
+
+#editForm .rich-message-marker img {
+  margin-left: -5px;
+}
+
+.smallPanelCol1 input {
+  margin: 0 0 0 10px;
+}
+
+.popover {
+  z-index: 20000;
+}
+
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+4.3 Registration form
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/* positioning of "mandatory" notice */
+#registrationForm .footnote {
+  position: relative;
+  float: right;
+  bottom: 6px;
+  text-align: right;
+  margin-right: 4px;
+}
+
+#registrationForm .labelAndValuePanelCol2 input[type=checkbox] {
+  margin-left: 0;
+  margin-right: 5px;
+  padding-left: 0;
+  width: 16px;
+}
+
+#registrationForm .labelAndValuePanelCol2 select {
+  width: 294px;
+}
+
+#registrationForm .labelAndValuePanelCol2 div#outline {
+  width: 291px;
+}
+
+#chpasswordForm #outline {
+  width: 202px;
+  margin: 8px 0px 2px 0px;
+}
+
+#chpasswordForm .hintMarker {
+  margin: 2px 0px 0px -15px;
+}
+
+#chpasswordForm .passwordStrength {
+  margin-left: 20%;
+}
