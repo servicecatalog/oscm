@@ -4099,7 +4099,6 @@ public class ServiceProvisioningServiceBean
     return vo;
   }
 
-  @Override
   public Map<String, VOImageResource> loadImagesForSupplier(
       List<String> serviceIds, String supplierId) throws ObjectNotFoundException {
 
