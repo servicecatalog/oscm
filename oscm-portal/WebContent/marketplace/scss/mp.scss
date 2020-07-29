@@ -773,7 +773,7 @@ table.smallPanel {
 .reviewComment {
   margin-bottom: 1.75em;
   line-height: 1.75;
-  font-family: Arial, sans-serif;
+  font-family: $font-family-arial;
   font-size: 13px;
 }
 
@@ -973,7 +973,7 @@ table.smallPanel {
 /* supplier/organization display line */
 .supplier {
   color: #484d52;
-  font: italic 400 110% "Times New Roman", Times, Serif;
+  font: italic 400 110% $font-family-times;
   white-space: nowrap;
 }
 
