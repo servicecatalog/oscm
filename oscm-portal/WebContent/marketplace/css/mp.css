@@ -1132,6 +1132,10 @@ form .formHighlight input, form .formHighlight textarea {
 #chpasswordForm .passwordStrength {
   margin-left: 20%; }
 
+.form-control:focus, .custom-select:focus, .btn:focus, .custom-file-input:focus, .page-link:focus {
+  border-color: green;
+  box-shadow: 0 0 0 0.2rem rgba(0, 128, 0, 0.25); }
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 11.8 Modal dialog
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
