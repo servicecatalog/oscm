@@ -11,7 +11,7 @@
   float: left;
   border: 0;
   font-size: 12px;
-  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+  font: 400 12px/190% $font-family-sans-serif;
   white-space: nowrap;
 }
 
@@ -85,7 +85,7 @@
   float: left;
   border: 0;
   white-space: nowrap;
-  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+  font: 400 24px/180% $font-family-sans-serif;
 }
 
 .bigbutton {

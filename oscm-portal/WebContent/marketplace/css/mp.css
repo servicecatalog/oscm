@@ -151,7 +151,7 @@ textarea {
   resize: vertical; }
 
 .rich-tab-header {
-  font: normal 14px/100% "OpenSansSemiBold", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif !important; }
+  font: normal 14px/100% "OpenSansSemiBold", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif !important; }
 
 * html table {
   font-size: 100%; }
@@ -783,7 +783,7 @@ ol.location-inside {
   float: left;
   border: 0;
   font-size: 12px;
-  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif;
+  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif;
   white-space: nowrap; }
 
 .button {
@@ -842,7 +842,7 @@ ol.location-inside {
   float: left;
   border: 0;
   white-space: nowrap;
-  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif; }
+  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif; }
 
 .bigbutton {
   background-position: left 0;
