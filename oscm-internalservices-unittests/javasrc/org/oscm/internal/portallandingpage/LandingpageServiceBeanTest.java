@@ -58,8 +58,10 @@ public class LandingpageServiceBeanTest {
     service.setServiceId("test");
     service.setKey(123456789);
     services.add(service);
+    byte[] bytes = new byte[] {11, 22, 33, 44};
 
     ImageResource imageResource = new ImageResource(123456789, ImageType.SERVICE_IMAGE);
+    imageResource.setBuffer(bytes);
 
     DomainObject<?> product = new Product();
 
@@ -71,5 +73,6 @@ public class LandingpageServiceBeanTest {
 
     // then
     assertEquals(ImageType.SERVICE_IMAGE, result.get(service).getImageType());
+    assertEquals(bytes, result.get(service).getBuffer());
   }
 }
