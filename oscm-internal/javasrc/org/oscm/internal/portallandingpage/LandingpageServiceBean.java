@@ -1,41 +1,70 @@
-/*******************************************************************************
- *  Copyright FUJITSU LIMITED 2018
- *******************************************************************************/
-
+/**
+ * ***************************************************************************** Copyright FUJITSU
+ * LIMITED 2018 *****************************************************************************
+ */
 package org.oscm.internal.portallandingpage;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
 
+import org.oscm.dataservice.local.DataService;
+import org.oscm.domobjects.ImageResource;
+import org.oscm.domobjects.Product;
+import org.oscm.i18nservice.local.ImageResourceServiceLocal;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;
-import org.oscm.landingpageService.local.LandingpageServiceLocal;
+import org.oscm.internal.types.enumtypes.ImageType;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.vo.VOImageResource;
 import org.oscm.internal.vo.VOService;
+import org.oscm.landingpageService.local.LandingpageServiceLocal;
 
 @Stateless
 @Remote(LandingpageService.class)
-@Interceptors({ InvocationDateContainer.class, ExceptionMapper.class })
+@Interceptors({InvocationDateContainer.class, ExceptionMapper.class})
 public class LandingpageServiceBean implements LandingpageService {
 
-    @EJB
-    LandingpageServiceLocal landingpageService;
+  @EJB LandingpageServiceLocal landingpageService;
 
-    public List<VOService> servicesForLandingpage(String marketplaceId,
-            String locale) {
-        List<VOService> services = null;
-        try {
-            services = landingpageService.servicesForPublicLandingpage(marketplaceId,
-                    locale);
-        } catch (ObjectNotFoundException onf) {
-            services = Collections.emptyList();
-        }
-        return services;
+  @EJB DataService ds;
+
+  @EJB ImageResourceServiceLocal irsl;
+
+  public List<VOService> servicesForLandingpage(String marketplaceId, String locale) {
+    List<VOService> services = null;
+    try {
+      services = landingpageService.servicesForPublicLandingpage(marketplaceId, locale);
+    } catch (ObjectNotFoundException onf) {
+      services = Collections.emptyList();
     }
+    return services;
+  }
 
+  public Map<VOService, VOImageResource> fillInServiceImages(List<VOService> services) {
+    Map<VOService, VOImageResource> images = new HashMap<VOService, VOImageResource>();
+    for (VOService service : services) {
+      VOImageResource vo = null;
+
+      Product product = ds.find(Product.class, service.getKey());
+
+      if (product != null) {
+        ImageResource imageResource = irsl.read(product.getKey(), ImageType.SERVICE_IMAGE);
+        if (imageResource != null) {
+          vo = new VOImageResource();
+          vo.setBuffer(imageResource.getBuffer());
+          vo.setContentType(imageResource.getContentType());
+          vo.setImageType(ImageType.SERVICE_IMAGE);
+          images.put(service, vo);
+        }
+      }
+    }
+    return images;
+  }
 }
