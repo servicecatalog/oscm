@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Currency;
@@ -4099,37 +4098,6 @@ public class ServiceProvisioningServiceBean
     return vo;
   }
 
-  public Map<String, VOImageResource> loadImagesForSupplier(
-      List<String> serviceIds, String supplierId) throws ObjectNotFoundException {
-
-    ArgumentValidator.notNull("supplierId", supplierId);
-    Map<String, VOImageResource> images = new HashMap<String, VOImageResource>();
-    for (String serviceId : serviceIds) {
-      VOImageResource vo = null;
-
-      Product product = new Product();
-      product.setProductId(serviceId);
-      Organization supplier = new Organization();
-      supplier.setOrganizationId(supplierId);
-      // looking for supplier by id
-      supplier = (Organization) dm.getReferenceByBusinessKey(supplier);
-      product.setVendor(supplier);
-      product = (Product) dm.find(product);
-
-      if (product != null) {
-        ImageResource imageResource = irm.read(product.getKey(), ImageType.SERVICE_IMAGE);
-        if (imageResource != null) {
-          vo = new VOImageResource();
-          vo.setBuffer(imageResource.getBuffer());
-          vo.setContentType(imageResource.getContentType());
-          vo.setImageType(ImageType.SERVICE_IMAGE);
-        }
-      }
-      images.put(serviceId, vo);
-    }
-    return images;
-  }
-
   @Override
   public VOImageResource loadImageForSupplier(String serviceId, String supplierId)
       throws ObjectNotFoundException {
@@ -4137,7 +4105,28 @@ public class ServiceProvisioningServiceBean
     ArgumentValidator.notNull("serviceId", serviceId);
     ArgumentValidator.notNull("supplierId", supplierId);
 
-    return loadImagesForSupplier(Arrays.asList(serviceId), supplierId).get(serviceId);
+    VOImageResource vo = null;
+
+    Product product = new Product();
+    product.setProductId(serviceId);
+    Organization supplier = new Organization();
+    supplier.setOrganizationId(supplierId);
+    // looking for supplier by id
+    supplier = (Organization) dm.getReferenceByBusinessKey(supplier);
+    product.setVendor(supplier);
+    product = (Product) dm.find(product);
+
+    if (product != null) {
+      ImageResource imageResource = irm.read(product.getKey(), ImageType.SERVICE_IMAGE);
+      if (imageResource != null) {
+        vo = new VOImageResource();
+        vo.setBuffer(imageResource.getBuffer());
+        vo.setContentType(imageResource.getContentType());
+        vo.setImageType(ImageType.SERVICE_IMAGE);
+      }
+    }
+
+    return vo;
   }
 
   /**

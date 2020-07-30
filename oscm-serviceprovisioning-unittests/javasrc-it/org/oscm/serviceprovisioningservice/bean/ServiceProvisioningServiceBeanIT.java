@@ -18,7 +18,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.concurrent.Callable;
 
 import javax.ejb.EJBAccessException;
@@ -2993,70 +2992,6 @@ public class ServiceProvisioningServiceBeanIT extends ServiceProvisioningService
     Assert.assertEquals(imageResource.getContentType(), loadImage.getContentType());
     Assert.assertEquals(content, loadImage.getBuffer());
     Assert.assertEquals(imageResource.getImageType(), loadImage.getImageType());
-  }
-
-  /**
-   * Test of looking for image for public service catalog of the supplier without customer login.
-   *
-   * @throws Exception
-   */
-  @Test
-  public void testLoadImagesForSupplier() throws Exception {
-
-    // given
-    VOTechnicalService tp = createTechnicalProduct(svcProv);
-    VOServiceDetails product = new VOServiceDetails();
-    product.setServiceId("test");
-    ArrayList<String> productIds = new ArrayList<String>();
-    productIds.add("test");
-
-    VOImageResource imageResource = new VOImageResource();
-    byte[] content =
-        BaseAdmUmTest.getFileAsByteArray(ServiceProvisioningServiceBeanIT.class, "icon1.png");
-    imageResource.setBuffer(content);
-    imageResource.setContentType("image/png");
-    imageResource.setImageType(ImageType.SERVICE_IMAGE);
-    container.login(supplierUserKey, ROLE_SERVICE_MANAGER);
-    product = svcProv.createService(tp, product, imageResource);
-    String serviceId = product.getServiceId();
-    productIds.add(serviceId);
-
-    // when
-    Map<String, VOImageResource> images = svcProv.loadImagesForSupplier(productIds, supplierOrgId);
-
-    // then
-    Assert.assertNotNull(images.get(serviceId));
-    Assert.assertEquals(imageResource.getContentType(), images.get(serviceId).getContentType());
-    Assert.assertEquals(content, images.get(serviceId).getBuffer());
-    Assert.assertEquals(imageResource.getImageType(), images.get(serviceId).getImageType());
-  }
-
-  /**
-   * Negative test of looking for image for public service catalog of the supplier without customer
-   * login. ID is not existed supplier.
-   *
-   * @throws Exception
-   */
-  @Test(expected = ObjectNotFoundException.class)
-  public void testLoadImagesForSupplierNotFound() throws Exception {
-
-    // given
-    VOTechnicalService tp = createTechnicalProduct(svcProv);
-    VOServiceDetails product = new VOServiceDetails();
-    product.setServiceId("test");
-    ArrayList<String> productIds = new ArrayList<String>();
-    productIds.add("test");
-    VOImageResource imageResource = new VOImageResource();
-    byte[] content =
-        BaseAdmUmTest.getFileAsByteArray(ServiceProvisioningServiceBeanIT.class, "icon1.png");
-    imageResource.setBuffer(content);
-    imageResource.setContentType("image/png");
-    imageResource.setImageType(ImageType.SERVICE_IMAGE);
-    container.login(supplierUserKey, ROLE_SERVICE_MANAGER);
-    product = svcProv.createService(tp, product, imageResource);
-
-    // execute
-    svcProv.loadImagesForSupplier(productIds, "NotExisteId");
   }
 
   @Test(expected = ObjectNotFoundException.class)

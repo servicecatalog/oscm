@@ -5,13 +5,18 @@
 package org.oscm.ui.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
+
 import org.oscm.converter.WhiteSpaceConverter;
 import org.oscm.internal.types.enumtypes.LandingpageType;
 import org.oscm.internal.types.enumtypes.OfferingType;
@@ -21,6 +26,7 @@ import org.oscm.internal.types.exception.InvalidPhraseException;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
 import org.oscm.internal.vo.ListCriteria;
+import org.oscm.internal.vo.VOImageResource;
 import org.oscm.internal.vo.VOService;
 import org.oscm.internal.vo.VOServiceListResult;
 import org.oscm.ui.beans.marketplace.CategorySelectionBean;
@@ -32,6 +38,7 @@ import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.converter.TrimConverter;
 import org.oscm.ui.dialog.mp.landingpage.EnterpriseLandingpageModel;
 import org.oscm.ui.model.Service;
+import org.oscm.ui.model.ServiceWithImage;
 
 /**
  * The ServicesListBean is responsible for serving serviceLists.
@@ -48,8 +55,8 @@ public class ServiceListingBean extends BaseBean implements Serializable {
   /** This list contains all services selected by SearchServiceBean.searchServices. */
   private List<Service> searchResult;
 
-  /** Contains the services which should be listed on the landing page. */
-  private List<Service> landingPageServices;
+  /** Contains the services with images which should be listed on the landing page. */
+  private List<ServiceWithImage> landingPageServicesWithImages;
 
   /** Contains the services which should be listed on the enterprise landing page. */
   EnterpriseLandingpageModel enterpriseLandingpageModel;
@@ -107,23 +114,31 @@ public class ServiceListingBean extends BaseBean implements Serializable {
   }
 
   /**
-   * Returns the list of services which should be listed on the landing page.
+   * Returns the list of services with images which should be listed on the landing page.
    *
-   * @return the services which should be listed on the landing page.
+   * @return the services with images which should be listed on the landing page.
    */
-  public List<Service> getServicesForLandingPage() {
-    if (landingPageServices == null) {
+  public List<ServiceWithImage> getServicesForLandingPage() {
+    if (landingPageServicesWithImages == null) {
       try {
+        landingPageServicesWithImages = new ArrayList<>();
         String locale = JSFUtils.getViewLocale().getLanguage();
         List<VOService> result =
             getShowLandingpage().servicesForLandingpage(getMarketplaceId(), locale);
         updateServiceListContainsChargeableResellerService(result);
-        landingPageServices = DEFAULT_VOSERVICE_MAPPER.map(result);
+        Map<VOService, VOImageResource> serviceMap =
+            getShowLandingpage().fillInServiceImages(result);
+
+        for (Entry<VOService, VOImageResource> entry : serviceMap.entrySet()) {
+          ServiceWithImage swi = new ServiceWithImage(entry.getKey(), entry.getValue());
+          landingPageServicesWithImages.add(swi);
+        }
+
       } catch (SaaSApplicationException e) {
         ExceptionHandler.execute(e);
       }
     }
-    return landingPageServices;
+    return landingPageServicesWithImages;
   }
 
   /**
