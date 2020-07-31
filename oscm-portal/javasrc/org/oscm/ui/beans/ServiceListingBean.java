@@ -10,7 +10,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -129,11 +128,16 @@ public class ServiceListingBean extends BaseBean implements Serializable {
         Map<VOService, VOImageResource> serviceMap =
             getShowLandingpage().fillInServiceImages(result);
 
-        for (Entry<VOService, VOImageResource> entry : serviceMap.entrySet()) {
-          ServiceWithImage swi = new ServiceWithImage(entry.getKey(), entry.getValue());
+        for (VOService service : result) {
+          VOImageResource image = serviceMap.get(service);
+          ServiceWithImage swi;
+          if (image != null) {
+            swi = new ServiceWithImage(service, image);
+          } else {
+            swi = new ServiceWithImage(service);
+          }
           landingPageServicesWithImages.add(swi);
         }
-
       } catch (SaaSApplicationException e) {
         ExceptionHandler.execute(e);
       }
