@@ -1,0 +1,49 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+11.8 Bootstrap grid
+     Styling for containers and columns.
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: 5px;
+  margin-left: 0px;
+}
+
+@media ( max-width : 767px) {
+  /* CSS goes here */
+  .container-fluid {
+    padding-left: 0.4em;
+    padding-right: 0.4em;
+  }
+}
+
+@media ( min-width : 768px) {
+  /* CSS goes here */
+  .container-fluid {
+    padding-left: 3em;
+    padding-right: 3em;
+    margin-right: 0.3em;
+    margin-left: 0.3em;
+  }
+}
+
+.col-lg-4.col-md-6.col-sm-12.mb-4 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.con-flow-root {
+  display: flow-root;
+}
+
+.con-tab {
+  background: $interior-color;
+  border-radius: 0px 5px 10px 10px;
+  padding: 1rem;
+}
+
+.con-tooltip-icon {
+  position: relative;
+  font-size: 1rem;
+  min-width: 0px
+}

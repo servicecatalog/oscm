@@ -1,5 +1,5 @@
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-7.3 Left Sidebar Navigation
+11.4 Aside Menu
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* side menu wrapper */
@@ -90,4 +90,17 @@ div.accdsection h4#header, div.accdsection h4#menu0 {
 
 #sidebarCollapse {
   margin-top: 0.5rem !important;
+}
+
+
+@media screen and (min-width: 768px) {
+  .custom-collapse .collapse {
+    display: block;
+  }
+}
+
+@media ( max-width : 767px) {
+  .aside {
+    float: none;
+  }
 }

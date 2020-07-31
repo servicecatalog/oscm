@@ -1,39 +1,6 @@
 /* 
- *  Copyright FUJITSU LIMITED 2020
+ *  Copyright 2010-2012 FUJITSU LIMITED
  */
-
-@charset "utf-8";
-@import "variables";
-
-@import "../scss/basic/colors";
-@import "../scss/basic/image_urls";
-@import "../scss/basic/mixins";
-@import "../scss/basic/typography";
-@import "../scss/basic/footer";
-@import "../scss/basic/aside";
-@import "../scss/basic/main";
-@import "../scss/basic/mainSearch";
-@import "../scss/basic/contentBox";
-@import "../scss/basic/messages";
-@import "../scss/basic/utilities";
-
-
-@import "../scss/components/breadcrumbs";
-@import "../scss/components/buttons";
-@import "../scss/components/cards";
-@import "../scss/components/forms";
-@import "../scss/components/modalDialogs";
-@import "../scss/components/navbar";
-@import "../scss/components/paginaNavigation";
-@import "../scss/components/respIframes";
-@import "../scss/components/tables";
-@import "../scss/components/tagcloud";
-
-/* --------------------------------------------------------------------
-
-Copyright 2010-2012 FUJITSU LIMITED
-
--------------------------------------------------------------------- */
 
 /*
 	Contents
@@ -41,33 +8,29 @@ Copyright 2010-2012 FUJITSU LIMITED
   1. Font Definitions
 
   2. Standard Elements
-
-  3. Header
-    3.1 Header Layout Definitions
-    3.2 Corporate Logo
+ 
+  3. Page Layout
+    3.1 Main Layout
+    3.2 Main Search Box
     3.3 Login
-    3.4 Main Search Box
-    3.5 Header Navigation
+    3.4 Additional utility classes
+    3.5 Footer
 
-  4. Forms
-    4.1 Form Grids
-    4.2 Form Hints
-    4.3 Registration form
+  4. Content boxes
+    4.1 Content Boxes
+    4.2 Service Content Boxes
+    4.2.1 Service Section
+    4.2.2 Service Header
+    
+  5. Page Elements
+    5.1 Page Title
+    5.2 Table Elements
+    5.3 Modal Panels
+    5.4 Pager
+    5.5 Table Filter
+    5.6  Browse Buttons
 
-  5. Page Layout
-    5.1 Main Layout
-    5.2 Content Boxes
-    5.3 Page Title
-    5.4 Service Content Boxes
-    5.4.1 Service Section
-    5.4.2 Service Header
-    5.5 Table  Elements
-    5.6 Modal Panels
-    5.7 Pager
-    5.8 Table Filter
-    5.9  Browse Buttons
-
-  6 Content Details
+  6. Content Details
     6.1 Popup Panels
     6.2 Product Review
     6.3 Star Ratings
@@ -75,61 +38,66 @@ Copyright 2010-2012 FUJITSU LIMITED
     6.5 Supplier
     6.6 Subscriptions
     6.7 Subscription Confirmation Information Box
-    6.8  Recommended Price Information Box
+    6.8 Recommended Price Information Box
 
-  7 Navigation
+  7. Navigation
+    7.1 Related Services Sidebar
+    7.2 Service Overview Navigation
+    7.3 Page Jump Navigation
+    7.4 Tab Panel
+  
+  8. Progress Bar
+    8.1 Progress Bar 
+    8.2 Process Progress Status
+ 9. UI Graphics
+    9.1 UI Graphics 
+    9.2 Miscellaneous Graphics
 
-    7.3 Left Sidebar Navigation
-      7.3.1 Category Sidebar
-      7.3.2 Related Services Sidebar
-    7.4 Service Overview Navigation
-    7.5 Page Jump Navigation
+  10. UI Components
+    10.1 Buttons
+    10.1.1 Regular Navigation Buttons
+    10.1.2 Big Buttons
+    10.2 Forms
+     10.2.1 Form Grids
+     10.2.2 Form Hints
+     10.2.3 Registration form  
+    10.3 Tag Cloud Navigation
+    10.4 Pagination
 
-    7.7 Tab Panel
-
-  8 UI Elements
-    8.1 Regular Navigation Buttons
-
-    8.3 Progress Bar
-    8.4 Process Progress Status
-    8.5 UI Graphics
-    8.6 Miscellaneous Graphics
-
-
-
-  11 Bootstrap Elements
-
+    
+  11 Bootstrap UI Components 
+    11.1 Cards  
     11.2 Navigation bar
-    11.3 Aside Menu
+    11.3 Breadcrumbs
+    11.4 Aside Menu
+    11.5 Modal Dialogs
+    11.6 Responsive iframes, embeds and images
+    11.7 Bootstrap tables
+    11.8 Bootstrap grid.
 
-    11.5 Bootstrap grid
+    */
+
+
+@charset "utf-8";
+@import "variables";
+
+@import "../scss/basic/colors";
+@import "../scss/basic/image_urls";
+@import "../scss/basic/mixins";
+
+@import "../scss/basic/typography";
+@import "../scss/basic/main";
+@import "../scss/basic/messages";
+@import "../scss/basic/mainSearch";
+@import "../scss/basic/login";
+
+@import "../scss/basic/contentBox";
+@import "../scss/basic/serviceContentBox";
+@import "../scss/basic/utilities";
+@import "../scss/basic/footer";
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-3.3 Login
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-#loginGrid 
-{  
-  div {
-     word-break: normal;
-     word-wrap: normal;
-  }
-
-  .col1span {
-    width: 272px;
-  }
-
-  .loginLock {
-    width: 129px;
-    height: 129px;
-    background: $lock no-repeat;
-    float: right;
-  }
-}
-
-
-
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-5.3 Page Title
+5.1 Page Title
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* title displayed between breadcrumbs and content boxes */
@@ -143,174 +111,9 @@ Copyright 2010-2012 FUJITSU LIMITED
 
 }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-5.4 Service Content Boxes
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-
-/* serviceBox2span represents two column list of boxes. 50% width */
-.serviceBox2span .left {
-  width: 33%;
-  float: left;
-  padding: 0 4px;
-  
-}
-
-/* second column content */
-.serviceBox2span .center {
-  width: 66%;
-  float: left;
-  padding: 0 10px;
-  @include box-sizing(border-box);
-}
-
-/* text box content in each panel on the user's account page*/
-.serviceBox2span .accountBox {
-  height: 104px;
-  overflow: hidden;
-}
-
-/* service price on home page and service overview */
-h2.servicePrice, h1.servicePrice {
-  color: #222;
-  margin: 0px;
-}
-
-h2.servicePrice {
-  font-size: 1.4em;
-  display: inline;
-}
-
-/* price currency */
-h2.priceUnit, h1.priceUnit {
-  color: #222;
-  font-size: 13px;
-  font-weight: 400;
-  display: inline;
-  padding-left: 0.30rem;
-  padding-top: 0.30rem;
-}
-
-/* service price on home page and service overview */
-.servicePriceHome {
-  float: left;
-  margin: -3px 0 3px !important;
-  position: relative;
-}
-
-.servicePriceForCard {
-  float: left;
-  margin: 8px 0 3px !important;
-  position: relative;
-  font-size: 0.75rem;
-}
-
-/* button to show details of service on home page */
-.serviceShowDetailsButton {
-  float: right;
-}
-
-/* wrapper for service price details on service overview page */
-.servicePriceDetails {
-  margin-bottom: 1rem;
-  margin-top: 2rem;
-}
-
-/* serviceBox4span represents single column list of boxes. 100% width */
-/* first column content */
-.serviceBox4span .left {
-  width: 100px;
-  float: left;
-  margin-right: 15px;
-}
-
-/* second column content */
-.serviceBox4span .center {
-  width: 440px;
-  float: left;
-  margin-right: 0;
-}
-
-/* first & second column spread */
-.serviceBox4span .leftCenter {
-  width: 560px;
-  float: left;
-  margin-right: 15px;
-}
-
-/* first & second column spread with dividing line to third column*/
-.serviceBox4span .leftCenterBorder {
-  width: 560px;
-  float: left;
-  padding-right: 14px;
-  border-right: 1px solid #b8b8b8;
-  min-height: 28px;
-}
-
-.serviceBox4span .leftCenterBorder .button, .serviceBox4span .leftCenterBorder .buttonDisabled {
-  float: right;
-  margin-right: 200px;
-}
-
-/* third column content */
-.serviceBox4span .right {
-  width: 140px;
-  float: left;
-  margin-left: 0;
-  padding-left: 15px;
-  margin-right: 0;
-}
-
-/* third column content with dividing line to second column*/
-.serviceBox4span .rightBorder {
-  width: 140px;
-  float: left;
-  margin-left: 0;
-  padding-left: 14px;
-  margin-right: 0;
-  border-left: 1px solid;
-  border-left-color: #b8b8b8;
-}
-
-/* third column content without dividing line to second column*/
-.serviceBox4span .rightNoBorder {
-  width: 140px;
-  float: left;
-  margin: 0;
-  padding-left: 0;
-}
-
-/* the space between buttons */
-.rightSpace {
-  margin-right: 10px !important;
-}
-
-/* the space between button and checkbox */
-.space {
-  margin-right: 10px !important;
-}
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-5.4.1 Service Section
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.serviceSection {
-  width: 33.333%;
-  display: inline-block;
-  vertical-align: top;
-  margin: 0 0 0 -4px;
-  padding: 10px;
-  @include box-sizing(border-box);
-}
-
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-5.4.2 Service Header
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.serviceHeader {
-  font-size: 1.7em;
-  margin: 0 0 1em;
-}
-
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-5.5 Table  Elements
+5.2 Table Elements
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* table sorting icons positioning */
@@ -343,7 +146,7 @@ h2.priceUnit, h1.priceUnit {
 
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-5.6 Modal Panels
+5.3 Modal Panels
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* semi transparent background for modal panels */
@@ -452,7 +255,7 @@ h2.priceUnit, h1.priceUnit {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-5.7 Pager
+5.4 Pager
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .buttonImg.smallExecute {
   display: none;
@@ -591,7 +394,7 @@ h2.priceUnit, h1.priceUnit {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-5.8 Table Filter
+5.5 Table Filter
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .rich-filter-input {
   font-size: 12px;
@@ -602,7 +405,7 @@ h2.priceUnit, h1.priceUnit {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-5.9  Browse Buttons
+5.6 Browse Buttons
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .jqUpload {
   position: relative;
@@ -650,25 +453,6 @@ span.upload .option {
   margin-left: 4px;
 }
 
-.jqUpload .button {
-  border: 0 none;
-  color: #333333;
-  display: block;
-  float: left;
-  font-size: 9pt;
-  line-height: 22px;
-  margin: 0 2px 0 0;
-  padding: 0px 0px 0px 16px;
-  text-decoration: none;
-}
-
-.jqUpload .button span {
-  height: 28px;
-  display: block;
-  padding: 0 12px 0 0;
-  float: right;
-}
-
 .custom-file-label:after {
   content: "\f093";
   font-family: FontAwesome;
@@ -681,7 +465,7 @@ span.upload .option {
 /*
  ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-6 Content Details
+6. Content Details
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -961,11 +745,7 @@ table.smallPanel {
   display: inline;
 }
 
-.priceModelForm {
-  height: 600px;
-  overflow: auto;
-  width: 615px;
-}
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 6.5 Supplier
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
@@ -1062,9 +842,14 @@ table.smallPanel {
   font-size: 10px;
 }
 
+/*
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+7. Navigation
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-		7.3.2 Related Services  Sidebar
+		7.1 Related Services Sidebar
 		-	each individual item is styled with the menubox tag
 		---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
@@ -1083,7 +868,7 @@ table.smallPanel {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-7.4 Service Overview Navigation
+7.2 Service Overview Navigation
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* description tags*/
@@ -1125,7 +910,7 @@ table.smallPanel {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-7.5 Page Jump Navigation
+7.3 Page Jump Navigation
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /*  bottom of content  link button navigation wrapper */
@@ -1170,7 +955,7 @@ div.scrolltop p img {
 
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-7.7 Tab Panel
+7.4 Tab Panel
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .rich-tab-inactive, .rich-tab-active {
   border: 1px solid #CCC;
@@ -1244,7 +1029,7 @@ div.scrolltop p img {
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-8 UI Elements
+8 Progress Bar
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
  */
 .buttonWrapper {
@@ -1270,7 +1055,7 @@ div.scrolltop p img {
 
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-8.3 Progress Bar
+8.1 Progress Bar
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .progressOverlay {
   position: fixed;
@@ -1284,7 +1069,7 @@ div.scrolltop p img {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-8.4 Process Progress Status
+8.2 Process Progress Status
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* steps in stepped process */
@@ -1311,8 +1096,14 @@ div.scrolltop p img {
   background: transparent $mp_icon_sprite -28px -437px repeat-x;
 }
 
+/*
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+9. UI Graphics
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-8.5 UI Graphics
+9.1 UI Graphics
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* deassign user from service */
@@ -1349,7 +1140,7 @@ div.scrolltop p img {
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-8.6 Miscellaneous Graphics
+9.2 Miscellaneous Graphics
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* error icon on incorrect form input */
@@ -1376,55 +1167,6 @@ div.scrolltop p img {
   height: 15px;
 }
 
-/*
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-9 Footer
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.footer {
-  background: #B3B7BC;
-  border-bottom: 1px solid #4c4c4c;
-  width: 100%;
-  min-width: 980px;
-  color: $white;
-}
-
-.footer a {
-  color: $white;
-}
-
-/* footer enclosed block */
-#footerinner {
-  display: inline-block;
-  width: 980px;
-  margin: 0 auto;
-  padding: 4px 0 25px 0;
-  text-align: left;
-}
-
-/* footer link button navigation wrapper */
-#permanentmenu {
-  float: left;
-  width: auto;
-}
-
-/* footer link button navigation*/
-.footer ul {
-  font-size: 93%;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer li {
-  display: inline;
-  margin: 0;
-  margin-left: 16px;
-}
-
-.footer li.firstchild {
-  margin-left: 0;
-}
 
 /* align footer to page bottom by minimal distance to start of content panel
    (Note: We set it to page bottom, not to screen bottom. We don't want sticky footers as they reduce the visible content area)
@@ -1463,10 +1205,6 @@ div.scrolltop p img {
   padding: 2px 0 1px 10px;
 }
 
-#tabSupplier .rowspacer {
-  padding: 0 0 10px 15px;
-  width: 720px;
-}
 
 .subscrOwner td {
   vertical-align: bottom;
@@ -1769,19 +1507,6 @@ th.rf-dt-shdr-c {
   padding-top: 5px;
 }
 
-#tabSupplier #supplierAddress {
-  white-space: pre;
-}
-
-.configuration-dialog {
-  width: 800px;
-  height: 600px;
-}
-
-.configuration-dialog #extconf {
-  display: block;
-  height: 100%;
-}
 
 .field.nonResizableElement {
   resize: none;
@@ -2025,9 +1750,6 @@ form .formHighlight div.div-for-input {
   padding-bottom: 25px;
 }
 
-#tabExternalPriceModel>div>form.form-in-tab {
-  padding-bottom: 25px;
-}
 
 div.responsive-table-panel {
   margin-top: 10px;
@@ -2058,47 +1780,6 @@ div.responsive-table-panel {
   text-transform: uppercase;
 }
 
-.form-control-xs {
-  height: calc(1.5em + 0.2rem + 2px);
-  padding: 0.25rem 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  border-radius: 0.2rem;
-}
-
-.custom-select-xs {
-  height: calc(1.5em + 0.2rem + 2px);
-  padding-top: 0.1rem;
-  padding-bottom: 0.1rem;
-  padding-left: 0.5rem;
-  font-size: 0.875rem;
-}
-
-/*
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-11. Bootstrap Elements
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-*/
-
-
-
-
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-11.3 Aside Menu
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-@media screen and (min-width: 768px) {
-  .custom-collapse .collapse {
-    display: block;
-  }
-}
-
-@media ( max-width : 767px) {
-  .aside {
-    float: none;
-  }
-}
-
 .cat-item {
   margin: -2px 0px 0px 0px;
   padding-top: 0.15rem;
@@ -2108,53 +1789,16 @@ div.responsive-table-panel {
   text-align: center;
 }
 
+@import "../scss/components/buttons";
+@import "../scss/components/forms";
+@import "../scss/components/tagcloud";
+@import "../scss/components/paginaNavigation";
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-11.5 Bootstrap grid
-     Styling for containers and columns.
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.container {
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-right: 5px;
-  margin-left: 0px;
-}
-
-@media ( max-width : 767px) {
-  /* CSS goes here */
-  .container-fluid {
-    padding-left: 0.4em;
-    padding-right: 0.4em;
-  }
-}
-
-@media ( min-width : 768px) {
-  /* CSS goes here */
-  .container-fluid {
-    padding-left: 3em;
-    padding-right: 3em;
-    margin-right: 0.3em;
-    margin-left: 0.3em;
-  }
-}
-
-.col-lg-4.col-md-6.col-sm-12.mb-4 {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.con-flow-root {
-  display: flow-root;
-}
-
-.con-tab {
-  background: $interior-color;
-  border-radius: 0px 5px 10px 10px;
-  padding: 1rem;
-}
-
-.con-tooltip-icon {
-  position: relative;
-  font-size: 1rem;
-  min-width: 0px
-}
+@import "../scss/components/cards";
+@import "../scss/components/navbar";
+@import "../scss/components/breadcrumbs";
+@import "../scss/components/aside";
+@import "../scss/components/modalDialogs";
+@import "../scss/components/respIframes";
+@import "../scss/components/tables";
+@import "../scss/components/grid";
