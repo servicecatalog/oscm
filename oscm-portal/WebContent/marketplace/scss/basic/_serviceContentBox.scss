@@ -1,0 +1,165 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+4.2 Service Content Boxes
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/* serviceBox2span represents two column list of boxes. 50% width */
+.serviceBox2span .left {
+  width: 33%;
+  float: left;
+  padding: 0 4px;
+  
+}
+
+/* second column content */
+.serviceBox2span .center {
+  width: 66%;
+  float: left;
+  padding: 0 10px;
+  @include box-sizing(border-box);
+}
+
+/* text box content in each panel on the user's account page*/
+.serviceBox2span .accountBox {
+  height: 104px;
+  overflow: hidden;
+}
+
+/* service price on home page and service overview */
+h2.servicePrice, h1.servicePrice {
+  color: #222;
+  margin: 0px;
+}
+
+h2.servicePrice {
+  font-size: 1.4em;
+  display: inline;
+}
+
+/* price currency */
+h2.priceUnit, h1.priceUnit {
+  color: #222;
+  font-size: 13px;
+  font-weight: 400;
+  display: inline;
+  padding-left: 0.30rem;
+  padding-top: 0.30rem;
+}
+
+/* service price on home page and service overview */
+.servicePriceHome {
+  float: left;
+  margin: -3px 0 3px !important;
+  position: relative;
+}
+
+.servicePriceForCard {
+  float: left;
+  margin: 8px 0 3px !important;
+  position: relative;
+  font-size: 0.75rem;
+}
+
+/* button to show details of service on home page */
+.serviceShowDetailsButton {
+  float: right;
+}
+
+/* wrapper for service price details on service overview page */
+.servicePriceDetails {
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+/* serviceBox4span represents single column list of boxes. 100% width */
+/* first column content */
+.serviceBox4span .left {
+  width: 100px;
+  float: left;
+  margin-right: 15px;
+}
+
+/* second column content */
+.serviceBox4span .center {
+  width: 440px;
+  float: left;
+  margin-right: 0;
+}
+
+/* first & second column spread */
+.serviceBox4span .leftCenter {
+  width: 560px;
+  float: left;
+  margin-right: 15px;
+}
+
+/* first & second column spread with dividing line to third column*/
+.serviceBox4span .leftCenterBorder {
+  width: 560px;
+  float: left;
+  padding-right: 14px;
+  border-right: 1px solid #b8b8b8;
+  min-height: 28px;
+}
+
+.serviceBox4span .leftCenterBorder .button, .serviceBox4span .leftCenterBorder .buttonDisabled {
+  float: right;
+  margin-right: 200px;
+}
+
+/* third column content */
+.serviceBox4span .right {
+  width: 140px;
+  float: left;
+  margin-left: 0;
+  padding-left: 15px;
+  margin-right: 0;
+}
+
+/* third column content with dividing line to second column*/
+.serviceBox4span .rightBorder {
+  width: 140px;
+  float: left;
+  margin-left: 0;
+  padding-left: 14px;
+  margin-right: 0;
+  border-left: 1px solid;
+  border-left-color: #b8b8b8;
+}
+
+/* third column content without dividing line to second column*/
+.serviceBox4span .rightNoBorder {
+  width: 140px;
+  float: left;
+  margin: 0;
+  padding-left: 0;
+}
+
+/* the space between buttons */
+.rightSpace {
+  margin-right: 10px !important;
+}
+
+/* the space between button and checkbox */
+.space {
+  margin-right: 10px !important;
+}
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+4.2.1 Service Section
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+.serviceSection {
+  width: 33.333%;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 0 0 -4px;
+  padding: 10px;
+  @include box-sizing(border-box);
+}
+
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+4.2.2 Service Header
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+.serviceHeader {
+  font-size: 1.7em;
+  margin: 0 0 1em;
+}
