@@ -45,5 +45,5 @@ public interface LandingpageService {
    *     and the value the VOImageResource
    * @throws ObjectNotFoundException if the supplier is not found
    */
-  public Map<VOService, VOImageResource> fillInServiceImages(List<VOService> services);
+  public Map<Long, VOImageResource> fillInServiceImages(List<VOService> services);
 }

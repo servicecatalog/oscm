@@ -47,8 +47,8 @@ public class LandingpageServiceBean implements LandingpageService {
     return services;
   }
 
-  public Map<VOService, VOImageResource> fillInServiceImages(List<VOService> services) {
-    Map<VOService, VOImageResource> images = new HashMap<VOService, VOImageResource>();
+  public Map<Long, VOImageResource> fillInServiceImages(List<VOService> services) {
+    Map<Long, VOImageResource> images = new HashMap<Long, VOImageResource>();
     for (VOService service : services) {
       VOImageResource vo = null;
 
@@ -61,7 +61,7 @@ public class LandingpageServiceBean implements LandingpageService {
           vo.setBuffer(imageResource.getBuffer());
           vo.setContentType(imageResource.getContentType());
           vo.setImageType(ImageType.SERVICE_IMAGE);
-          images.put(service, vo);
+          images.put(service.getKey(), vo);
         }
       }
     }

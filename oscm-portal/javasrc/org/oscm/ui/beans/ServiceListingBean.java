@@ -125,11 +125,10 @@ public class ServiceListingBean extends BaseBean implements Serializable {
         List<VOService> result =
             getShowLandingpage().servicesForLandingpage(getMarketplaceId(), locale);
         updateServiceListContainsChargeableResellerService(result);
-        Map<VOService, VOImageResource> serviceMap =
-            getShowLandingpage().fillInServiceImages(result);
+        Map<Long, VOImageResource> serviceMap = getShowLandingpage().fillInServiceImages(result);
 
         for (VOService service : result) {
-          VOImageResource image = serviceMap.get(service);
+          VOImageResource image = serviceMap.get(service.getKey());
           ServiceWithImage swi;
           if (image != null) {
             swi = new ServiceWithImage(service, image);

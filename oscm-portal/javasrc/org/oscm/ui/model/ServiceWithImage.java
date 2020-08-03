@@ -31,7 +31,7 @@ public class ServiceWithImage extends Service {
     super(vo);
     this.img = img;
     this.imageContent =
-        "data:image/png;base64," + new String(Base64.getEncoder().encode(img.getBuffer()));
+        "data:image/png;base64," + Base64.getEncoder().encodeToString(img.getBuffer());
   }
 
   public VOImageResource getImg() {

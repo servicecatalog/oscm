@@ -69,10 +69,10 @@ public class LandingpageServiceBeanTest {
     doReturn(imageResource).when(irsl).read(anyLong(), anyObject());
 
     // when
-    Map<VOService, VOImageResource> result = bean.fillInServiceImages(services);
+    Map<Long, VOImageResource> result = bean.fillInServiceImages(services);
 
     // then
-    assertEquals(ImageType.SERVICE_IMAGE, result.get(service).getImageType());
-    assertEquals(bytes, result.get(service).getBuffer());
+    assertEquals(ImageType.SERVICE_IMAGE, result.get(service.getKey()).getImageType());
+    assertEquals(bytes, result.get(service.getKey()).getBuffer());
   }
 }
