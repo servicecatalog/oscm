@@ -9,16 +9,19 @@
  */
 package org.oscm.ui.model;
 
+import java.util.Base64;
+
 import org.oscm.internal.vo.VOImageResource;
 import org.oscm.internal.vo.VOService;
 
 /** @author worf */
 public class ServiceWithImage extends Service {
 
-  /** */
   private static final long serialVersionUID = -6959389722812528100L;
-  /** */
+
   private VOImageResource img;
+
+  private String imageContent;
 
   public ServiceWithImage(VOService vo) {
     super(vo);
@@ -27,6 +30,8 @@ public class ServiceWithImage extends Service {
   public ServiceWithImage(VOService vo, VOImageResource img) {
     super(vo);
     this.img = img;
+    this.imageContent =
+        "data:image/png;base64," + new String(Base64.getEncoder().encode(img.getBuffer()));
   }
 
   public VOImageResource getImg() {
@@ -35,5 +40,13 @@ public class ServiceWithImage extends Service {
 
   public void setImg(VOImageResource img) {
     this.img = img;
+  }
+
+  public String getImageContent() {
+    return imageContent;
+  }
+
+  public void setImageContent(String imageContent) {
+    this.imageContent = imageContent;
   }
 }
