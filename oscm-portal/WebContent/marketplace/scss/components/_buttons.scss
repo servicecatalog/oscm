@@ -1,5 +1,11 @@
+/*
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+10. UI Components
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-8.1 Regular Navigation Buttons
+10.1.1 Regular Navigation Buttons
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /*  standard button definitions */
@@ -11,7 +17,7 @@
   float: left;
   border: 0;
   font-size: 12px;
-  font: 400 12px/190% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+  font: 400 12px/190% $font-family-sans-serif;
   white-space: nowrap;
 }
 
@@ -73,7 +79,7 @@
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-8.2 Big Buttons
+10.1.2 Big Buttons
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /*  big button definitions */
@@ -85,7 +91,7 @@
   float: left;
   border: 0;
   white-space: nowrap;
-  font: 400 24px/180% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+  font: 400 24px/180% $font-family-sans-serif;
 }
 
 .bigbutton {
@@ -151,4 +157,27 @@
 /* Get it now button */
 #buyme {
   margin: 2rem 2.5rem 1.5rem 0rem;
+}
+
+/* Button panels */
+.buttonWrapper {
+
+}
+
+/* wrapper for button arrays */
+.buttonPanel {
+  margin: 4px 0 3px 10px;
+  position: relative;
+}
+
+
+/*  button spacing for button array buttons */
+.bottomButtonPanel .button {
+  margin: 0 10px 0 0 !important;
+}
+
+.assignUserButton {
+  float: right;
+  margin-bottom: 5px;
+  margin-right: -5px;
 }

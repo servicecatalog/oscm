@@ -1,15 +1,15 @@
 @charset "UTF-8";
-$bold-font-weight: bold;
+
 $primary-color: green;
 $secondary-color: #6bdb84;
 $warning-color: red;
 $interior-color: #fff;
 
+$bold-font-weight: bold;
 $font-family-sans-serif: "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
-
-// Same font as bootstrap file.
-//@import url(https://fonts.googleapis.com/css?family=Quicksand:200,300,400,700);
-//$font-family-sans-serif:Quicksand;
+$font-family-semibold: "OpenSansSemiBold", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
+$font-family-arial: Arial, sans-serif;
+$font-family-times: "Times New Roman", Times, Serif;
 
 $h1-font-size: 163% !default;
 $h2-font-size: 133% !default;

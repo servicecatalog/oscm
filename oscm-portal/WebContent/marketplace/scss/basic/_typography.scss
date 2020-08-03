@@ -1,0 +1,14 @@
+/*
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+1. Font Definitions
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+ */
+
+/* usage example for custom fonts.
+	see "Apache License Version 2.txt" in font folder for open sans usage license .
+*/
+
+@include font-face(OpenSansRegular, "../fonts/OpenSans-Regular-webfont");
+@include font-face(OpenSansCondensedBold, "../fonts/OpenSans-CondBold-webfont");
+@include font-face(OpenSansSemiBold, "../fonts/OpenSans-Semibold-webfont");

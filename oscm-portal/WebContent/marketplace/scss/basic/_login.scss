@@ -1,0 +1,23 @@
+/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+3.3 Login
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+#loginGrid 
+{  
+  div {
+     word-break: normal;
+     word-wrap: normal;
+  }
+
+  .col1span {
+    width: 272px;
+  }
+
+  .loginLock {
+    width: 129px;
+    height: 129px;
+    background: $lock no-repeat;
+    float: right;
+  }
+}
+
+

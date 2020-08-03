@@ -1,6 +1,6 @@
 /*----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-4. Forms
+10.2 Forms
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 */
 
@@ -138,7 +138,7 @@ form .formHighlight input, form .formHighlight textarea {
   padding: 0 !important;
 }
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-4.1 Form Hints
+10.2.1 Form Hints
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* hint background for form hints */
@@ -222,7 +222,7 @@ form .formHighlight input, form .formHighlight textarea {
 
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-4.3 Registration form
+10.2.3 Registration form
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* positioning of "mandatory" notice */
@@ -260,4 +260,25 @@ form .formHighlight input, form .formHighlight textarea {
 
 #chpasswordForm .passwordStrength {
   margin-left: 20%;
+}
+
+.form-control-xs {
+  height: calc(1.5em + 0.2rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-radius: 0.2rem;
+}
+
+.custom-select-xs {
+  height: calc(1.5em + 0.2rem + 2px);
+  padding-top: 0.1rem;
+  padding-bottom: 0.1rem;
+  padding-left: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.form-control:focus, .custom-select:focus, .btn:focus, .custom-file-input:focus, .page-link:focus {
+  border-color: $primary-color;
+  box-shadow: 0 0 0 0.2rem rgba($primary-color, 0.25);
 }
