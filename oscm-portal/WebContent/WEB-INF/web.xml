@@ -6,17 +6,16 @@
          id="WebApp_ID" version="3.1">
 
   <display-name>Business Enablement Services</display-name>
-
-
+ 
   <!-- CONTEXT PARAMETERS -->
   <context-param>
     <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
     <param-value>.xhtml</param-value>
   </context-param>
-    <context-param>
-        <param-name>org.richfaces.queue.global.enabled</param-name>
-        <param-value>true</param-value>
-    </context-param>
+  <context-param>
+    <param-name>org.richfaces.queue.global.enabled</param-name>
+    <param-value>true</param-value>
+  </context-param>
   <context-param>
     <!-- Setting this to true will cause the FaceletViewHandler to print out debug information in an easy to use screen when 
       an error occurs during the rendering process. -->
@@ -66,9 +65,6 @@
     <param-value>false</param-value>
   </context-param>
 
-<!--  Testing-->
-
-
   <context-param>
     <param-name>org.richfaces.resourceMapping.enabled</param-name>
     <param-value>true</param-value>
@@ -78,8 +74,6 @@
     <param-name>org.richfaces.resourceMapping.packedStages</param-name>
     <param-value>None</param-value>
   </context-param>
-
-<!--  End testing-->
 
   <!-- SERVLETS -->
   <servlet>
@@ -102,9 +96,8 @@
   </servlet-mapping>
 
 
-
   <!-- SERVLET FILTER -->
-   <filter>
+  <filter>
     <display-name>CharacterEncodingFilter</display-name>
     <filter-name>CharacterEncodingFilter</filter-name>
     <filter-class>org.oscm.ui.filter.CharacterEncodingFilter</filter-class>
@@ -120,7 +113,9 @@
     <filter-class>org.oscm.ui.filter.DisableUrlSessionFilter</filter-class>
     <init-param>
       <param-name>exclude-url-pattern</param-name>
-      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|.*/org.richfaces.resources|.*/javax.faces.resource/.*|^/public/.*)</param-value>
+      <param-value>
+        (.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|.*/org.richfaces.resources|.*/javax.faces.resource/.*|^/public/.*)
+      </param-value>
     </init-param>
   </filter>
   <filter>
@@ -158,7 +153,8 @@
     <filter-class>org.oscm.ui.filter.MarketplaceContextFilter</filter-class>
     <init-param>
       <param-name>public-url-pattern</param-name>
-      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)</param-value>
+      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)
+      </param-value>
     </init-param>
   </filter>
   <filter>
@@ -167,7 +163,8 @@
     <filter-class>org.oscm.ui.filter.OidcFilter</filter-class>
     <init-param>
       <param-name>exclude-url-pattern</param-name>
-      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/bootstrap/js/.*|.*/faq/.*|^/public/.*)</param-value>
+      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/bootstrap/js/.*|.*/faq/.*|^/public/.*)
+      </param-value>
     </init-param>
     <init-param>
       <param-name>public-mpl-url-pattern</param-name>
@@ -181,7 +178,8 @@
     <init-param>
       <param-name>exclude-url-pattern</param-name>
       <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/faq/.*|^/slogout.jsf|^/public/
-        .*|^/marketplace/terms/.*|.*/marketplace/img/.*|^/marketplace/recoverPassword.jsf|^/marketplace/confirmStartPwdRecovery.jsf|^/marketplace/insufficientAuthorities.jsf)</param-value>
+        .*|^/marketplace/terms/.*|.*/marketplace/img/.*|^/marketplace/recoverPassword.jsf|^/marketplace/confirmStartPwdRecovery.jsf|^/marketplace/insufficientAuthorities.jsf)
+      </param-value>
     </init-param>
   </filter>
   <filter>
@@ -190,7 +188,9 @@
     <filter-class>org.oscm.ui.filter.AuthorizationFilter</filter-class>
     <init-param>
       <param-name>public-url-pattern</param-name>
-      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*</param-value>
+      <param-value>
+        (^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*
+      </param-value>
     </init-param>
   </filter>
   <filter>
@@ -216,9 +216,9 @@
     <init-param>
       <description>Set the size limit for uploaded files.
         Format: 10 - 10 bytes
-                10k - 10 KB
-                10m - 10 MB
-                1g - 1 GB
+        10k - 10 KB
+        10m - 10 MB
+        1g - 1 GB
       </description>
       <param-name>uploadMaxFileSize</param-name>
       <param-value>20m</param-value>
@@ -228,13 +228,14 @@
     <filter-name>RichFacesFirefox11Filter</filter-name>
     <filter-class>org.oscm.ui.filter.RichFacesFirefox11Filter</filter-class>
   </filter>
-    <filter>
+  <filter>
     <display-name>Role-based filter</display-name>
     <filter-name>RoleBasedFilter</filter-name>
     <filter-class>org.oscm.ui.filter.RoleBasedFilter</filter-class>
     <init-param>
       <param-name>public-url-pattern</param-name>
-      <param-value>(^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*
+      <param-value>
+        (^/a4j/.*|^/slogout.jsf|^/public/.*|^/marketplace/terms/.*|^/marketplace/[^/\?#]*([\?#].*)?)|^/javax.faces.resource/.*
       </param-value>
     </init-param>
   </filter>
@@ -297,7 +298,7 @@
     <filter-name>NonexistentConversationFilter</filter-name>
     <servlet-name>Faces Servlet</servlet-name>
     <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
   </filter-mapping>
   <filter-mapping>
@@ -338,7 +339,7 @@
     <filter-name>RichFacesFirefox11Filter</filter-name>
     <url-pattern>/a4j/*</url-pattern>
   </filter-mapping>
- <filter-mapping>
+  <filter-mapping>
     <filter-name>RoleBasedFilter</filter-name>
     <url-pattern>/marketplace/*</url-pattern>
   </filter-mapping>
