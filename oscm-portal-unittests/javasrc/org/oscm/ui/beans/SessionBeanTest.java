@@ -34,9 +34,9 @@ public class SessionBeanTest {
 
   private static final String WHITE_LABEL_PATH = "/oscm-portal";
   private static final String WHITE_LABEL_URL =
-      "http://localhost:8180/oscm-portal/marketplace/css/mp.css";
+      "http://localhost:8180/oscm-portal/marketplace/css/mp.min.css";
 
-  private static final String WHITE_LABEL_URI = "/oscm-portal/marketplace/css/mp.css";
+  private static final String WHITE_LABEL_URI = "/oscm-portal/marketplace/css/mp.min.css";
 
   private static final String WHITE_LABEL_BASE_URI = "/marketplace";
 
