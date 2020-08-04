@@ -3,7 +3,7 @@
 
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://www.oracle.com/webfolder/technetwork/jsc/xml/ns/javaee/web-app_3_1.xsd"
-         id="WebApp_ID" version="3.0">
+         id="WebApp_ID" version="3.1">
 
   <display-name>Business Enablement Services</display-name>
 
@@ -28,16 +28,12 @@
     <param-value>server</param-value>
   </context-param>
   <context-param>
-    <param-name>org.richfaces.skin</param-name>
-    <param-value>template</param-value>
-  </context-param>
-  <context-param>
     <param-name>org.richfaces.enableControlSkinning</param-name>
     <param-value>false</param-value>
   </context-param>
   <context-param>
     <param-name>org.richfaces.enableControlSkinningClasses</param-name>
-    <param-value>true</param-value>
+    <param-value>false</param-value>
   </context-param>
   <context-param>
     <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
@@ -49,12 +45,10 @@
   </context-param>
   <!-- The following two parameters are set to reduce memory consumption. -->
   <context-param>
-    <description></description>
     <param-name>com.sun.faces.numberOfViewsInSession</param-name>
     <param-value>4</param-value>
   </context-param>
   <context-param>
-    <description></description>
     <param-name>com.sun.faces.numberOfLogicalViews</param-name>
     <param-value>4</param-value>
   </context-param>
@@ -63,7 +57,7 @@
     <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
     <param-value>-1</param-value>
   </context-param>
-  <context-param> 
+  <context-param>
     <param-name>com.sun.faces.enableRestoreView11Compatibility</param-name>
     <param-value>true</param-value>
   </context-param>
@@ -71,6 +65,21 @@
     <param-name>org.richfaces.push.jms.enabled</param-name>
     <param-value>false</param-value>
   </context-param>
+
+<!--  Testing-->
+
+
+  <context-param>
+    <param-name>org.richfaces.resourceMapping.enabled</param-name>
+    <param-value>true</param-value>
+  </context-param>
+
+  <context-param>
+    <param-name>org.richfaces.resourceMapping.packedStages</param-name>
+    <param-value>None</param-value>
+  </context-param>
+
+<!--  End testing-->
 
   <!-- SERVLETS -->
   <servlet>
@@ -96,11 +105,11 @@
 
   <!-- SERVLET FILTER -->
    <filter>
-    <display-name>CharacterEncodingFilter</display-name> 
+    <display-name>CharacterEncodingFilter</display-name>
     <filter-name>CharacterEncodingFilter</filter-name>
     <filter-class>org.oscm.ui.filter.CharacterEncodingFilter</filter-class>
   </filter>
-  
+
   <filter>
     <display-name>Oidc Logout Filter</display-name>
     <filter-name>OidcLogoutFilter</filter-name>
@@ -124,7 +133,7 @@
     <filter-name>css</filter-name>
     <filter-class>org.oscm.ui.filter.CssFilter</filter-class>
   </filter>
-   
+
   <filter>
     <display-name>Illegal Request Parameter Filter</display-name>
     <filter-name>IllegalRequestParameterFilter</filter-name>
@@ -142,7 +151,7 @@
       <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*)</param-value>
     </init-param>
   </filter>
- 
+
   <filter>
     <display-name>Marketplace Context Filter</display-name>
     <filter-name>mpCtx</filter-name>
@@ -229,9 +238,9 @@
       </param-value>
     </init-param>
   </filter>
-  <filter>  
-    <filter-name>DisableUrlFilter</filter-name>  
-    <filter-class>org.oscm.ui.filter.DisableUrlFilter</filter-class>  
+  <filter>
+    <filter-name>DisableUrlFilter</filter-name>
+    <filter-class>org.oscm.ui.filter.DisableUrlFilter</filter-class>
   </filter>
 
   <!-- SERVLET FILTER MAPPINGS -->
@@ -256,11 +265,11 @@
   <filter-mapping>
     <filter-name>css</filter-name>
     <url-pattern>/public/*</url-pattern>
-  </filter-mapping> 
+  </filter-mapping>
   <filter-mapping>
     <filter-name>OidcLogoutFilter</filter-name>
     <url-pattern>/*</url-pattern>
-  </filter-mapping> 
+  </filter-mapping>
   <filter-mapping>
     <filter-name>OidcFilter</filter-name>
     <url-pattern>/*</url-pattern>
