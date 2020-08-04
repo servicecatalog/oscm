@@ -10,6 +10,7 @@
 package org.oscm.webtest.authentication;
 
 import javax.security.auth.login.LoginException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -31,6 +32,23 @@ public class OIDCAuthenticationContext implements AuthenticationContext {
   @Override
   public void loginPortal(String user, String password)
       throws InterruptedException, LoginException {
+    int loginAttempts = 0;
+    boolean loginSuccess;
+    do {
+      loginSuccess = login(user, password);
+      loginAttempts++;
+    } while (loginAttempts <= 3 && !loginSuccess);
+    if (!loginSuccess) {
+      logger.info("Logging to OSCM Portal with user: " + user + " failed.");
+      throw new LoginException(
+          "Expected portal title: "
+              + PortalHtmlElements.PORTAL_TITLE
+              + " but it was: "
+              + driver.getTitle());
+    }
+  }
+
+  private boolean login(String user, String password) throws InterruptedException, LoginException {
     WebElement loginInput = driver.findElement(By.id(AzureHtmlElements.AZURE_INPUT_LOGIN));
     loginInput.sendKeys(user);
     logger.info("User login input entered: " + user);
@@ -51,13 +69,9 @@ public class OIDCAuthenticationContext implements AuthenticationContext {
     final String title = driver.getTitle();
     if (title.contains(PortalHtmlElements.PORTAL_TITLE) || title.contains("Marketplace")) {
       logger.info("Logged in to OSCM Portal with user: " + user);
+      return true;
     } else {
-      logger.info("Logging to OSCM Portal with user: " + user + " failed.");
-      throw new LoginException(
-          "Expected portal title: "
-              + PortalHtmlElements.PORTAL_TITLE
-              + " but it was: "
-              + driver.getTitle());
+      return false;
     }
   }
 
