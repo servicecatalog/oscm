@@ -156,7 +156,7 @@
 
  <c:set var="bootstrapUrl" value="#{sessionBean.customBootstrapUrl}" />
  
- <link href="${bootstrapUrl}/css/darkFooter.css" rel="stylesheet"
+ <link href="${bootstrapUrl}/css/darkFooter.min.css" rel="stylesheet"
         type="text/css"/>
 
   <footer class="bootstrap_footer">
@@ -207,7 +207,8 @@
       document.getElementById('formLogin:loginLink').click();
     }
     });
-    
+
+    AdmUtils.preventDefaultSubmitOnEnter();
     AdmUtils.sortSelect();
 
   </script>
@@ -220,8 +221,13 @@
           src="${facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+  <link href="#{facesContext.externalContext.requestContextPath}/css/mpOverrides.min.css" rel="stylesheet" type="text/css"
+        media="screen,projection,print"/>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"/>
+  <link type="text/css" rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <h:outputScript src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"/>
 
 </h:body>
 </html>

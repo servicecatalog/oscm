@@ -402,7 +402,7 @@ public class SessionBean implements Serializable {
     if (customBootstrapUrl == null) {
       String boostrapUrl = getCustomBootstrapUrl();
       if (!"/marketplace/customBootstrap".equals(boostrapUrl)) {
-        boolean isAvailable = testUrl(boostrapUrl + "/css/darkCustom.css");
+        boolean isAvailable = testUrl(boostrapUrl + "/css/darkCustom.min.css");
         if (isAvailable) {
           setCustomBootstrapUrl(boostrapUrl);
           return;
@@ -454,7 +454,7 @@ public class SessionBean implements Serializable {
 
   public String getWhiteLabelBrandingUrl() {
     return getFacesContext().getExternalContext().getRequestContextPath()
-        + "/marketplace/css/mp.css";
+        + "/marketplace/css/mp.min.css";
   }
 
   public String getDefaultBootstrapUrl() {
