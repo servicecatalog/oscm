@@ -485,7 +485,7 @@ public class UserBean extends BaseBean implements Serializable {
       Object sb = session.getAttribute(Constants.SESS_ATTR_SESSION_BEAN);
       if (sb != null) {
         SessionBean sessionBean = (SessionBean) sb;
-        sessionBean.setMarketplaceBrandUrl(null);
+        sessionBean.addToMpBrandsMap(null);
         // try to read selected service key from cookie
         if (SessionBean.isValidServiceKey(sessionBean.getSelectedServiceKeyForCustomer())) {
           String svcKeyFromCookie =

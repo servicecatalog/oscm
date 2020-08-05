@@ -12,10 +12,9 @@ package org.oscm.ui.beans;
 import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
 import static org.oscm.ui.common.Constants.SESSION_PARAM_SAML_LOGOUT_REQUEST;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +44,7 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.common.ADMStringUtils;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.JSFUtils;
+import org.oscm.ui.common.RequestUrlHandler;
 import org.oscm.ui.common.ServiceAccess;
 import org.oscm.ui.common.TableHeightMap;
 import org.oscm.ui.common.UiDelegate;
@@ -421,12 +421,11 @@ public class SessionBean implements Serializable {
     return true;
   }
 
-  protected boolean testUrl(String urlString) {
-
+  protected boolean testUrl(String url) {
     try {
-      URL url = new URL(urlString);
+      RequestUrlHandler.isUrlAccessible(url);
       return true;
-    } catch (MalformedURLException e) { // TODO Auto-generated catch block
+    } catch (IOException e) {
       return false;
     }
   }
