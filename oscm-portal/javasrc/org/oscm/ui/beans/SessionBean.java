@@ -12,9 +12,10 @@ package org.oscm.ui.beans;
 import static org.oscm.ui.common.Constants.REQ_PARAM_TENANT_ID;
 import static org.oscm.ui.common.Constants.SESSION_PARAM_SAML_LOGOUT_REQUEST;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +45,6 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.common.ADMStringUtils;
 import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.JSFUtils;
-import org.oscm.ui.common.RequestUrlHandler;
 import org.oscm.ui.common.ServiceAccess;
 import org.oscm.ui.common.TableHeightMap;
 import org.oscm.ui.common.UiDelegate;
@@ -66,7 +66,17 @@ public class SessionBean implements Serializable {
   @EJB private MarketplaceCacheService mkpCache;
   @EJB private MarketplaceService mkpService;
 
-  protected String customBootstrapUrl = null;
+  private String mpBrandUrl = null;
+
+  /** @return the mpBrandUrl */
+  public String getMpBrandUrl() {
+    return mpBrandUrl;
+  }
+
+  /** @param mpBrandUrl the mpBrandUrl to set */
+  public void setMpBrandUrl(String mpBrandUrl) {
+    this.mpBrandUrl = mpBrandUrl;
+  }
 
   static final Pattern CSS_PATH_PATTERN = Pattern.compile("(.*)/css/[^/]*\\.css$");
 
@@ -348,21 +358,9 @@ public class SessionBean implements Serializable {
     }
   }
 
-  public String getMarketplaceBrandUrl() {
-    String marketplaceBrandUrl = brandUrlMidMapping.get(getMarketplaceId());
-    if (marketplaceBrandUrl == null) {
-      try {
-        marketplaceBrandUrl = getMarketplaceService().getBrandingUrl(getMarketplaceId());
-        if (marketplaceBrandUrl == null) {
-          marketplaceBrandUrl = getWhiteLabelBrandingUrl();
-        }
-      } catch (ObjectNotFoundException e) {
-        marketplaceBrandUrl = getWhiteLabelBrandingUrl();
-      }
-      setMarketplaceBrandUrl(marketplaceBrandUrl);
-      checkCustomBootstrapAvailable();
-    }
-    return marketplaceBrandUrl;
+  public String deriveBootstrapUrlFromMpCssUrl(String mpCssUrl) {
+    String bootstrapUrl = removeCSSPath(mpCssUrl) + "/customBootstrap";
+    return bootstrapUrl;
   }
 
   public String getMarketplaceBrandBaseUrl() {
@@ -376,47 +374,59 @@ public class SessionBean implements Serializable {
     return "/marketplace";
   }
 
-  public String getCustomBootstrapUrl() {
-    String baseUrl = getMarketplaceBrandBaseUrl();
-    if ("/marketplace".equals(baseUrl)) {
-      return getDefaultBootstrapUrl();
-    }
+  public String getBrandBaseUrl() {
 
-    return getUrl(baseUrl, "customBootstrap");
-  }
+    String mId = getMarketplaceId();
 
-  public void setCustomBootstrapUrl(String customBootstrapUrl) {
-    this.customBootstrapUrl = customBootstrapUrl;
-  }
-
-  private String getUrl(String baseUrl, String uri) {
-    final StringBuffer url = new StringBuffer(baseUrl);
-    if (!baseUrl.endsWith("/")) {
-      url.append("/");
-    }
-    url.append(uri);
-    return url.toString();
-  }
-
-  private void checkCustomBootstrapAvailable() {
-    if (customBootstrapUrl == null) {
-      String boostrapUrl = getCustomBootstrapUrl();
-      if (!"/marketplace/customBootstrap".equals(boostrapUrl)) {
-        boolean isAvailable = testUrl(boostrapUrl + "/css/darkCustom.min.css");
-        if (isAvailable) {
-          setCustomBootstrapUrl(boostrapUrl);
-          return;
+    String brandBaseUrl = null;
+    String mpBrandUrl = brandUrlMidMapping.get(mId);
+    if (mpBrandUrl == null) {
+      try {
+        mpBrandUrl = getMarketplaceService().getBrandingUrl(mId);
+        if (mpBrandUrl == null) {
+          // Default case
+          // White label url: /marketplace/css/mp.css
+          // Default Bootstrap URL: /marketplace/css/darkCustom.css
+          brandBaseUrl = getDefaultBaseUrl();
+          mpBrandUrl = getWhiteLabelBrandingUrl();
         }
+      } catch (ObjectNotFoundException e) {
+        // Default case
+        // White label url: /marketplace/css/mp.css
+        // Default Bootstrap URL: /marketplace/css/darkCustom.css
+        brandBaseUrl = getDefaultBaseUrl();
+        mpBrandUrl = getWhiteLabelBrandingUrl();
       }
-      setCustomBootstrapUrl("/customBootstrap");
     }
+
+    if (isCustomBranded(mpBrandUrl)) {
+      if (isDefaultBootstrapAvailable(mpBrandUrl)) {
+        brandBaseUrl = removeCSSPath(mpBrandUrl);
+      } else {
+        brandBaseUrl = getDefaultBaseUrl();
+      }
+    }
+
+    setMpBrandUrl(mpBrandUrl);
+    addToMpBrandsMap(mpBrandUrl);
+
+    return brandBaseUrl;
   }
 
-  protected boolean testUrl(String url) {
+  private boolean isDefaultBootstrapAvailable(String baseUrl) {
+    if (!"/marketplace/customBootstrap".equals(baseUrl)) {
+      return testUrl(baseUrl + "/customBootstrap/css/darkCustom.min.css");
+    }
+
+    return true;
+  }
+
+  protected boolean testUrl(String urlString) {
+
     try {
-      RequestUrlHandler.isUrlAccessible(url);
+      URL url = new URL(urlString);
       return true;
-    } catch (IOException e) {
+    } catch (MalformedURLException e) { // TODO Auto-generated catch block
       return false;
     }
   }
@@ -426,13 +436,12 @@ public class SessionBean implements Serializable {
     return matcher.replaceAll("$1");
   }
 
-  boolean isCustomBranded(String mId) {
-    final String brandUrl = brandUrlMidMapping.get(mId);
+  boolean isCustomBranded(String brandUrl) {
     final String appCtx = getFacesContext().getExternalContext().getRequestContextPath();
     return (brandUrl != null && !brandUrl.startsWith(appCtx));
   }
 
-  public void setMarketplaceBrandUrl(String marketplaceBrandUrl) {
+  public void addToMpBrandsMap(String marketplaceBrandUrl) {
     brandUrlMidMapping.put(getMarketplaceId(), marketplaceBrandUrl);
   }
 
@@ -455,6 +464,10 @@ public class SessionBean implements Serializable {
   public String getWhiteLabelBrandingUrl() {
     return getFacesContext().getExternalContext().getRequestContextPath()
         + "/marketplace/css/mp.min.css";
+  }
+
+  public String getDefaultBaseUrl() {
+    return getFacesContext().getExternalContext().getRequestContextPath() + "/marketplace";
   }
 
   public String getDefaultBootstrapUrl() {
