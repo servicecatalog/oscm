@@ -68,16 +68,6 @@ public class SessionBean implements Serializable {
 
   private String mpBrandUrl = null;
 
-  /** @return the mpBrandUrl */
-  public String getMpBrandUrl() {
-    return mpBrandUrl;
-  }
-
-  /** @param mpBrandUrl the mpBrandUrl to set */
-  public void setMpBrandUrl(String mpBrandUrl) {
-    this.mpBrandUrl = mpBrandUrl;
-  }
-
   static final Pattern CSS_PATH_PATTERN = Pattern.compile("(.*)/css/[^/]*\\.css$");
 
   /** The key of the last edited user group. */
@@ -358,6 +348,14 @@ public class SessionBean implements Serializable {
     }
   }
 
+  public String getMpBrandUrl() {
+    return mpBrandUrl;
+  }
+
+  public void setMpBrandUrl(String mpBrandUrl) {
+    this.mpBrandUrl = mpBrandUrl;
+  }
+
   public String getMarketplaceBrandBaseUrl() {
     String mId = getMarketplaceId();
     final String brandUrl = brandUrlMidMapping.get(mId);
@@ -370,7 +368,7 @@ public class SessionBean implements Serializable {
     return "/marketplace";
   }
 
-  public String getBrandBaseUrl() {
+  public String getBootstrapBrandBaseUrl() {
 
     String mId = getMarketplaceId();
 
@@ -403,9 +401,9 @@ public class SessionBean implements Serializable {
     return brandBaseUrl;
   }
 
-  protected boolean isDefaultBootstrapAvailable(String baseUrl) {
-    if (!"/marketplace/customBootstrap".equals(baseUrl)) {
-      return testUrl(baseUrl + "/customBootstrap/css/darkCustom.min.css");
+  protected boolean isDefaultBootstrapAvailable(String brandBaseUrl) {
+    if (!"/marketplace/customBootstrap".equals(brandBaseUrl)) {
+      return testUrl(brandBaseUrl + "/customBootstrap/css/darkCustom.min.css");
     }
 
     return true;
