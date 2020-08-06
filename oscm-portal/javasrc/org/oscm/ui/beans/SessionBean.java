@@ -380,16 +380,10 @@ public class SessionBean implements Serializable {
       try {
         mpBrandUrl = getMarketplaceService().getBrandingUrl(mId);
         if (mpBrandUrl == null) {
-          // Default case
-          // White label url: /marketplace/css/mp.css
-          // Default Bootstrap URL: /marketplace/css/darkCustom.css
           brandBaseUrl = getDefaultBaseUrl();
           mpBrandUrl = getWhiteLabelBrandingUrl();
         }
       } catch (ObjectNotFoundException e) {
-        // Default case
-        // White label url: /marketplace/css/mp.css
-        // Default Bootstrap URL: /marketplace/css/darkCustom.css
         brandBaseUrl = getDefaultBaseUrl();
         mpBrandUrl = getWhiteLabelBrandingUrl();
       }
