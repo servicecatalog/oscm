@@ -10,7 +10,6 @@
 package org.oscm.ui.model;
 
 import java.util.Base64;
-
 import org.oscm.internal.vo.VOImageResource;
 import org.oscm.internal.vo.VOService;
 

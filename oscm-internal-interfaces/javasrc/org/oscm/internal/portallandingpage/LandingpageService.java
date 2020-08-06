@@ -6,9 +6,7 @@ package org.oscm.internal.portallandingpage;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.ejb.Remote;
-
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.vo.VOImageResource;
 import org.oscm.internal.vo.VOService;

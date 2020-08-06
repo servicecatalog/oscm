@@ -10,12 +10,10 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
-
 import org.oscm.converter.WhiteSpaceConverter;
 import org.oscm.internal.types.enumtypes.LandingpageType;
 import org.oscm.internal.types.enumtypes.OfferingType;

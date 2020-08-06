@@ -11,12 +11,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.interceptor.Interceptors;
-
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.ImageResource;
 import org.oscm.domobjects.Product;
