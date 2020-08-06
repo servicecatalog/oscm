@@ -358,15 +358,11 @@ public class SessionBean implements Serializable {
     }
   }
 
-  public String deriveBootstrapUrlFromMpCssUrl(String mpCssUrl) {
-    String bootstrapUrl = removeCSSPath(mpCssUrl) + "/customBootstrap";
-    return bootstrapUrl;
-  }
-
   public String getMarketplaceBrandBaseUrl() {
     String mId = getMarketplaceId();
-    if (isCustomBranded(mId)) {
-      final String brandUrl = brandUrlMidMapping.get(mId);
+    final String brandUrl = brandUrlMidMapping.get(mId);
+    if (isCustomBranded(brandUrl)) {
+
       if (CSS_PATH_PATTERN.matcher(brandUrl).find()) {
         return removeCSSPath(brandUrl);
       }
@@ -413,7 +409,7 @@ public class SessionBean implements Serializable {
     return brandBaseUrl;
   }
 
-  private boolean isDefaultBootstrapAvailable(String baseUrl) {
+  protected boolean isDefaultBootstrapAvailable(String baseUrl) {
     if (!"/marketplace/customBootstrap".equals(baseUrl)) {
       return testUrl(baseUrl + "/customBootstrap/css/darkCustom.min.css");
     }
@@ -435,7 +431,7 @@ public class SessionBean implements Serializable {
     return matcher.replaceAll("$1");
   }
 
-  boolean isCustomBranded(String brandUrl) {
+  private boolean isCustomBranded(String brandUrl) {
     final String appCtx = getFacesContext().getExternalContext().getRequestContextPath();
     return (brandUrl != null && !brandUrl.startsWith(appCtx));
   }
