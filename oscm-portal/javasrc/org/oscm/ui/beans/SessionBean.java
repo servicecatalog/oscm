@@ -385,12 +385,12 @@ public class SessionBean implements Serializable {
         bootstrapBrandBaseUrl = getDefaultBaseUrl();
         mpBrandUrl = getWhiteLabelBrandingUrl();
       }
+    }
 
-      if (isCustomBranded(mpBrandUrl)) {
-        bootstrapBrandBaseUrl = removeCSSPath(mpBrandUrl);
-        if (!isDefaultBootstrapAvailable(bootstrapBrandBaseUrl)) {
-          bootstrapBrandBaseUrl = getDefaultBaseUrl();
-        }
+    if (isCustomBranded(mpBrandUrl)) {
+      bootstrapBrandBaseUrl = removeCSSPath(mpBrandUrl);
+      if (!isDefaultBootstrapAvailable(bootstrapBrandBaseUrl)) {
+        bootstrapBrandBaseUrl = getDefaultBaseUrl();
       }
     }
 
