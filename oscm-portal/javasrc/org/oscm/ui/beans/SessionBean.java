@@ -64,7 +64,8 @@ public class SessionBean implements Serializable {
   @EJB private MarketplaceCacheService mkpCache;
   @EJB private MarketplaceService mkpService;
 
-  protected String customBootstrapUrl = null;
+  private String mpBrandUrl = null;
+  private String bootstrapBrandBaseUrl = null;
 
   static final Pattern CSS_PATH_PATTERN = Pattern.compile("(.*)/css/[^/]*\\.css$");
 
@@ -346,27 +347,19 @@ public class SessionBean implements Serializable {
     }
   }
 
-  public String getMarketplaceBrandUrl() {
-    String marketplaceBrandUrl = brandUrlMidMapping.get(getMarketplaceId());
-    if (marketplaceBrandUrl == null) {
-      try {
-        marketplaceBrandUrl = getMarketplaceService().getBrandingUrl(getMarketplaceId());
-        if (marketplaceBrandUrl == null) {
-          marketplaceBrandUrl = getWhiteLabelBrandingUrl();
-        }
-      } catch (ObjectNotFoundException e) {
-        marketplaceBrandUrl = getWhiteLabelBrandingUrl();
-      }
-      setMarketplaceBrandUrl(marketplaceBrandUrl);
-      checkCustomBootstrapAvailable();
-    }
-    return marketplaceBrandUrl;
+  public String getMpBrandUrl() {
+    return mpBrandUrl;
+  }
+
+  public void setMpBrandUrl(String mpBrandUrl) {
+    this.mpBrandUrl = mpBrandUrl;
   }
 
   public String getMarketplaceBrandBaseUrl() {
     String mId = getMarketplaceId();
-    if (isCustomBranded(mId)) {
-      final String brandUrl = brandUrlMidMapping.get(mId);
+    final String brandUrl = brandUrlMidMapping.get(mId);
+    if (isCustomBranded(brandUrl)) {
+
       if (CSS_PATH_PATTERN.matcher(brandUrl).find()) {
         return removeCSSPath(brandUrl);
       }
@@ -374,40 +367,43 @@ public class SessionBean implements Serializable {
     return "/marketplace";
   }
 
-  public String getCustomBootstrapUrl() {
-    String baseUrl = getMarketplaceBrandBaseUrl();
-    if ("/marketplace".equals(baseUrl)) {
-      return getDefaultBootstrapUrl();
-    }
+  public String getBootstrapBrandBaseUrl() {
 
-    return getUrl(baseUrl, "customBootstrap");
-  }
+    String mId = getMarketplaceId();
 
-  public void setCustomBootstrapUrl(String customBootstrapUrl) {
-    this.customBootstrapUrl = customBootstrapUrl;
-  }
-
-  private String getUrl(String baseUrl, String uri) {
-    final StringBuffer url = new StringBuffer(baseUrl);
-    if (!baseUrl.endsWith("/")) {
-      url.append("/");
-    }
-    url.append(uri);
-    return url.toString();
-  }
-
-  private void checkCustomBootstrapAvailable() {
-    if (customBootstrapUrl == null) {
-      String boostrapUrl = getCustomBootstrapUrl();
-      if (!"/marketplace/customBootstrap".equals(boostrapUrl)) {
-        boolean isAvailable = testUrl(boostrapUrl + "/css/darkCustom.min.css");
-        if (isAvailable) {
-          setCustomBootstrapUrl(boostrapUrl);
-          return;
+    String mpBrandUrl = brandUrlMidMapping.get(mId);
+    if (mpBrandUrl == null) {
+      try {
+        mpBrandUrl = getMarketplaceService().getBrandingUrl(mId);
+        if (mpBrandUrl == null) {
+          bootstrapBrandBaseUrl = getDefaultBaseUrl();
+          mpBrandUrl = getWhiteLabelBrandingUrl();
         }
+      } catch (ObjectNotFoundException e) {
+        bootstrapBrandBaseUrl = getDefaultBaseUrl();
+        mpBrandUrl = getWhiteLabelBrandingUrl();
       }
-      setCustomBootstrapUrl("/customBootstrap");
     }
+
+    if (isCustomBranded(mpBrandUrl)) {
+      bootstrapBrandBaseUrl = removeCSSPath(mpBrandUrl);
+      if (!isDefaultBootstrapAvailable(bootstrapBrandBaseUrl)) {
+        bootstrapBrandBaseUrl = getDefaultBaseUrl();
+      }
+    }
+
+    setMpBrandUrl(mpBrandUrl);
+    addToMpBrandsMap(mpBrandUrl);
+
+    return bootstrapBrandBaseUrl;
+  }
+
+  protected boolean isDefaultBootstrapAvailable(String brandBaseUrl) {
+    if (!"/marketplace".equals(brandBaseUrl)) {
+      return testUrl(brandBaseUrl + "/customBootstrap/css/darkCustom.min.css");
+    }
+
+    return true;
   }
 
   protected boolean testUrl(String url) {
@@ -424,13 +420,12 @@ public class SessionBean implements Serializable {
     return matcher.replaceAll("$1");
   }
 
-  boolean isCustomBranded(String mId) {
-    final String brandUrl = brandUrlMidMapping.get(mId);
+  private boolean isCustomBranded(String brandUrl) {
     final String appCtx = getFacesContext().getExternalContext().getRequestContextPath();
     return (brandUrl != null && !brandUrl.startsWith(appCtx));
   }
 
-  public void setMarketplaceBrandUrl(String marketplaceBrandUrl) {
+  public void addToMpBrandsMap(String marketplaceBrandUrl) {
     brandUrlMidMapping.put(getMarketplaceId(), marketplaceBrandUrl);
   }
 
@@ -455,9 +450,8 @@ public class SessionBean implements Serializable {
         + "/marketplace/css/mp.min.css";
   }
 
-  public String getDefaultBootstrapUrl() {
-    return getFacesContext().getExternalContext().getRequestContextPath()
-        + "/marketplace/customBootstrap";
+  public String getDefaultBaseUrl() {
+    return getFacesContext().getExternalContext().getRequestContextPath() + "/marketplace";
   }
 
   /**

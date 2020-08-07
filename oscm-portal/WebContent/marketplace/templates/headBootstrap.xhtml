@@ -31,14 +31,12 @@
     </c:if>
   </h:outputScript>
 
-  <!-- IMPORTANT: Keep order -> 1. sessionBean.marketplaceBrandUrl 2. sessionBean.customBootstrapUrl  -->
-  <c:set var="brandUrl" value="#{sessionBean.marketplaceBrandUrl}"/>
-  <c:set var="bootstrapUrl" value="#{sessionBean.customBootstrapUrl}"/>
+ <c:set var="bootstrapBrandBaseUrl" value="#{sessionBean.bootstrapBrandBaseUrl}"/>
 
   <!-- Bootstrap libraries -->
    <link href="${facesContext.externalContext.requestContextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet"
         type="text/css"/>
-  <link href="${bootstrapUrl}/css/darkCustom.min.css" rel="stylesheet" type="text/css"/>
-  <link href="${brandUrl}" rel="stylesheet" type="text/css" media="screen,projection,print"/>
+  <link href="${bootstrapBrandBaseUrl}/customBootstrap/css/darkCustom.min.css" rel="stylesheet" type="text/css"/>
+  <link href="#{sessionBean.mpBrandUrl}" rel="stylesheet" type="text/css" media="screen,projection,print"/>
 </ui:composition>
 

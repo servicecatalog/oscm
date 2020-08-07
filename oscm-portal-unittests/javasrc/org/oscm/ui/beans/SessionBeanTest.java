@@ -38,6 +38,7 @@ public class SessionBeanTest {
 
   private static final String WHITE_LABEL_BASE_URI = "/marketplace";
 
+  private static final String DEFAULT_BRANDING_BASE_URL = "/oscm-portal/marketplace";
   private static final String BRANDING_BASE_URL = "https://localhost:8443/branding";
 
   private static final String BRANDING_URL = BRANDING_BASE_URL + "/css/mp_custom.css";
@@ -48,7 +49,6 @@ public class SessionBeanTest {
   private Cookie[] cookies;
 
   private FacesContext fcContextMock;
-  protected boolean hasCustomBootstrap = false;
 
   @Before
   public void setUp() throws Exception {
@@ -72,7 +72,6 @@ public class SessionBeanTest {
     doReturn(marketplaceServiceMock).when(sessionBean).getMarketplaceService();
     cookies = new Cookie[1];
     doReturn(cookies).when(req).getCookies();
-    doReturn(new Boolean(hasCustomBootstrap)).when(sessionBean).testUrl(Matchers.anyString());
   }
 
   @Test
@@ -134,15 +133,20 @@ public class SessionBeanTest {
 
   @Test
   public void testGetMarketplaceBrandUrl_BrandingUrlSet() throws Exception {
+    // given
     doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-    String result = sessionBean.getMarketplaceBrandUrl();
+    sessionBean.getBootstrapBrandBaseUrl();
+
+    // when
+    String result = sessionBean.getMpBrandUrl();
     assertEquals(BRANDING_URL, result);
   }
 
   @Test
   public void testGetMarketplaceBrandUrl_NullBrandingUrl() throws Exception {
     doReturn(null).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-    String result = sessionBean.getMarketplaceBrandUrl();
+    sessionBean.getBootstrapBrandBaseUrl();
+    String result = sessionBean.getMpBrandUrl();
     assertEquals(WHITE_LABEL_URI, result);
   }
 
@@ -151,7 +155,9 @@ public class SessionBeanTest {
     doThrow(new ObjectNotFoundException())
         .when(marketplaceServiceMock)
         .getBrandingUrl(MARKETPLACE_ID);
-    String result = sessionBean.getMarketplaceBrandUrl();
+
+    sessionBean.getBootstrapBrandBaseUrl();
+    String result = sessionBean.getMpBrandUrl();
     assertEquals(WHITE_LABEL_URI, result);
   }
 
@@ -159,7 +165,7 @@ public class SessionBeanTest {
   public void getMarketplaceBrandBaseUrl_whitelabel() throws Exception {
     // given
     doReturn(WHITE_LABEL_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-    sessionBean.setMarketplaceBrandUrl(WHITE_LABEL_URI);
+    sessionBean.addToMpBrandsMap(WHITE_LABEL_URI);
 
     // when
     String result = sessionBean.getMarketplaceBrandBaseUrl();
@@ -172,7 +178,7 @@ public class SessionBeanTest {
   public void getMarketplaceBrandBaseUrl_branded() throws Exception {
     // given
     doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-    sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
+    sessionBean.addToMpBrandsMap(BRANDING_URL);
 
     // when
     String result = sessionBean.getMarketplaceBrandBaseUrl();
@@ -185,7 +191,7 @@ public class SessionBeanTest {
   public void getMarketplaceBrandBaseUrl_null_set() throws Exception {
     // given
     doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-    sessionBean.setMarketplaceBrandUrl(null);
+    sessionBean.addToMpBrandsMap(null);
 
     // when
     String result = sessionBean.getMarketplaceBrandBaseUrl();
@@ -200,7 +206,7 @@ public class SessionBeanTest {
     final String brUrl = BRANDING_BASE_URL + "/css/error.jsp";
 
     doReturn(brUrl).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-    sessionBean.setMarketplaceBrandUrl(brUrl);
+    sessionBean.addToMpBrandsMap(brUrl);
 
     // when
     String result = sessionBean.getMarketplaceBrandBaseUrl();
@@ -215,7 +221,7 @@ public class SessionBeanTest {
     final String brUrl = BRANDING_BASE_URL + "/css1/error.css";
 
     doReturn(brUrl).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-    sessionBean.setMarketplaceBrandUrl(brUrl);
+    sessionBean.addToMpBrandsMap(brUrl);
 
     // when
     String result = sessionBean.getMarketplaceBrandBaseUrl();
@@ -286,37 +292,53 @@ public class SessionBeanTest {
   }
 
   @Test
-  public void getCustomBootstrap() {
-    sessionBean.customBootstrapUrl = null;
-    String url = sessionBean.getCustomBootstrapUrl();
-    assertEquals(url, "/oscm-portal/marketplace/customBootstrap", url);
+  public void getBootstrapBrandBaseUrl() {
+    String url = sessionBean.getBootstrapBrandBaseUrl();
+    assertEquals(url, "/oscm-portal/marketplace", url);
   }
 
   @Test
-  public void getCustomBootstrap_brandedWithBootstrap() throws ObjectNotFoundException {
+  public void getBootstrapBrandBaseUrl_brandedWithBootstrapAvailable()
+      throws ObjectNotFoundException {
     // given
-    givenCustomBootstrapAvailable();
+    givenCustomBootstrapAvailable(true);
 
     doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-    sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
+    sessionBean.addToMpBrandsMap(BRANDING_URL);
     // when
-    String url = sessionBean.getCustomBootstrapUrl();
+    String url = sessionBean.getBootstrapBrandBaseUrl();
 
-    assertEquals(url, BRANDING_BASE_URL + "/customBootstrap", url);
+    assertEquals(url, BRANDING_BASE_URL, url);
   }
 
   @Test
-  public void getCustomBootstrap_brandedWitoutBootstrap() throws ObjectNotFoundException {
+  public void getBootstrapBrandBaseUrl_brandedWithBootstrapNotAvailable()
+      throws ObjectNotFoundException {
     // given
-    givenCustomBootstrapNotAvailable();
+    givenCustomBootstrapAvailable(false);
 
     doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
-    sessionBean.setMarketplaceBrandUrl(BRANDING_URL);
+    sessionBean.addToMpBrandsMap(BRANDING_URL);
+    // when
+    String brandBaseUrl = sessionBean.getBootstrapBrandBaseUrl();
+
+    assertEquals(brandBaseUrl, DEFAULT_BRANDING_BASE_URL, brandBaseUrl);
+  }
+
+  @Test
+  public void getBootstrapBrandBaseUrl_brandedWitoutBootstrap() throws ObjectNotFoundException {
+    // given
+    givenCustomBootstrapAvailable(false);
+
+    doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+    sessionBean.addToMpBrandsMap(BRANDING_URL);
 
     // when
-    String url = sessionBean.getCustomBootstrapUrl();
+    String brandBaseUrl = sessionBean.getBootstrapBrandBaseUrl();
+    String mpBrandUrl = sessionBean.getMpBrandUrl();
 
-    assertEquals(url, BRANDING_BASE_URL + "/customBootstrap", url);
+    assertEquals(brandBaseUrl, DEFAULT_BRANDING_BASE_URL);
+    assertEquals(mpBrandUrl, BRANDING_URL);
   }
 
   private void setCurrentLocale(Locale locale) {
@@ -326,13 +348,7 @@ public class SessionBeanTest {
     fcContextMock.setViewRoot(root);
   }
 
-  private void givenCustomBootstrapAvailable() {
-    hasCustomBootstrap = true;
-    sessionBean.customBootstrapUrl = null;
-  }
-
-  private void givenCustomBootstrapNotAvailable() {
-    hasCustomBootstrap = true;
-    sessionBean.customBootstrapUrl = null;
+  private void givenCustomBootstrapAvailable(boolean hasBootstrap) {
+    doReturn(new Boolean(hasBootstrap)).when(sessionBean).testUrl(Matchers.anyString());
   }
 }

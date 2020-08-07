@@ -154,9 +154,9 @@
          value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}"/>
 
 
- <c:set var="bootstrapUrl" value="#{sessionBean.customBootstrapUrl}" />
+ <c:set var="bootstrapBrandBaseUrl" value="#{sessionBean.bootstrapBrandBaseUrl}" />
  
- <link href="${bootstrapUrl}/css/darkFooter.min.css" rel="stylesheet"
+ <link href="${bootstrapBrandBaseUrl}/customBootstrap/css/darkFooter.min.css" rel="stylesheet"
         type="text/css"/>
 
   <footer class="bootstrap_footer">
