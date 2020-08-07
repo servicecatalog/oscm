@@ -9,9 +9,6 @@
  */
 package org.oscm.portal;
 
-import static org.junit.Assert.*;
-
-import javax.security.auth.login.LoginException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.*;
@@ -19,6 +16,8 @@ import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.oscm.webtest.*;
+
+import static org.junit.Assert.*;
 
 /** Integration web test to create an organization. */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -122,7 +121,7 @@ public class PortalOrganizationWT {
   }
 
   @Test
-  public void test03ChangePassword() throws LoginException, InterruptedException {
+  public void test03ChangePassword() throws Exception {
     if (authMode.equals("OIDC")) {
       logger.info("OIDC MODE SKIPPING TEST");
     } else {

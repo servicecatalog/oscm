@@ -22,7 +22,7 @@ public interface AuthenticationContext {
    * @param userPwd user's password
    * @throws LoginException
    */
-  void loginPortal(String userId, String userPwd) throws LoginException, InterruptedException;
+  void loginPortal(String userId, String userPwd) throws Exception;
 
-  void loginMarketplace(String userId, String userPwd) throws LoginException, InterruptedException;
+  void loginMarketplace(String userId, String userPwd) throws Exception;
 }

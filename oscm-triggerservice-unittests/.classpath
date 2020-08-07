@@ -35,7 +35,7 @@
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/geronimo-jta_1.1_spec-1.1.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/redhat-hibernate/javalib/classmate-1.3.0.jar"/>
 	<classpathentry kind="src" path="javasrc-it"/>
-	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/guava-18.0.jar"/>
+	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/guava-26.0-jre.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/libraries/junit/javalib/hamcrest-2.2.jar"/>

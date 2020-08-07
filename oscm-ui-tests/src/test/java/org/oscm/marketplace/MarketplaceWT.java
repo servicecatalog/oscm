@@ -9,9 +9,6 @@
  */
 package org.oscm.marketplace;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -19,6 +16,9 @@ import org.openqa.selenium.By;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.*;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplaceWT {
@@ -66,9 +66,10 @@ public class MarketplaceWT {
   }
 
   @Test
-  public void test03_cloudTag() {
+  public void test03_cloudTag() throws InterruptedException {
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_SERVICES);
 
+    Thread.sleep(100);
     assertTrue(tester.verifyFoundElement(By.linkText("cloud tag")));
   }
 

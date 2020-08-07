@@ -9,7 +9,6 @@
  */
 package org.oscm.webtest;
 
-import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -57,7 +56,7 @@ public class PortalTester extends WebTester {
    * @throws Exception
    */
   public void loginPortal(String user, String password)
-      throws LoginException, InterruptedException {
+          throws Exception {
     authenticationCtx.loginPortal(user, password);
     log(String.format("Login to portal as %s", user));
   }
@@ -87,6 +86,7 @@ public class PortalTester extends WebTester {
         prop.get(AUTH_MODE).equals("OIDC")
             ? AzureHtmlElements.AZURE_TITLE_LOGIN
             : PortalHtmlElements.PORTAL_TITLE;
+    Thread.sleep(1000);
     String actualTitle = driver.getTitle();
     if (actualTitle == null || !actualTitle.contentEquals(expectedTitle)) {
       log(
@@ -127,10 +127,8 @@ public class PortalTester extends WebTester {
       throws Exception {
     visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
 
-    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
-    driver
-        .findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK_TEXT))
-        .click();
+      driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
+      driver.findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK)).click();
 
     authenticationCtx.loginMarketplace(user, password);
   }
@@ -157,6 +155,7 @@ public class PortalTester extends WebTester {
     driver
         .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_USER_TOGGLE_BUTTON))
         .click();
+    log(("Clicked user buttton"));
     driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGOUT_LINK)).click();
   }
 

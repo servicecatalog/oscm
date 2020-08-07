@@ -955,7 +955,7 @@ public class MarketplaceServiceWSTest {
 
     setup.createTechnicalService();
 
-    brandingUrl = WSProperties.load().getBaseUrl() + "/oscm-portal/marketplace/css/mp.css";
+    brandingUrl = WSProperties.load().getBaseUrl() + "/oscm-portal/marketplace/css/mp.min.css";
   }
 
   private VOMarketplace createAndValidateMarketplace(VOMarketplace transientMarketplace)
