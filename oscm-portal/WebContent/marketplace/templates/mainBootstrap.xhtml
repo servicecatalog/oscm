@@ -154,10 +154,9 @@
          value="#{empty translationBean.imprintSessionLocale ? defaultImprintUrl : translationBean.imprintSessionLocale}"/>
 
 
-  <c:set var="bootstrapUrl" value="#{sessionBean.customBootstrapUrl}" />
+  <c:set var="bootstrapBrandBaseUrl" value="#{sessionBean.bootstrapBrandBaseUrl}"/>
 
-  <link href="${bootstrapUrl}/css/darkFooter.min.css" rel="stylesheet"
-        type="text/css"/>
+  <link href="${bootstrapBrandBaseUrl}/customBootstrap/css/darkFooter.min.css" rel="stylesheet"
 
   <footer class="bootstrap_footer">
 
@@ -211,16 +210,18 @@
     AdmUtils.preventDefaultSubmitOnEnter();
     AdmUtils.sortSelect();
 
+
   </script>
   <h:outputText escape="false" value="#{trackingCodeCtrl.trackingCodeForCurrentMarketplace}"/>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script type="text/javascript"
           src="#{facesContext.externalContext.requestContextPath}/scripts/missingViewState.patch.js"></script>
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script type="text/javascript"
           src="${facesContext.externalContext.requestContextPath}/bootstrap/js/bootstrap.min.js"></script>
-  <link href="#{facesContext.externalContext.requestContextPath}/css/mpOverrides.min.css" rel="stylesheet" type="text/css"
-        media="screen,projection,print"/>
+  <link href="#{facesContext.externalContext.requestContextPath}/css/mpOverrides.min.css" rel="stylesheet"
+        type="text/css" media="screen,projection,print"/>
   <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>

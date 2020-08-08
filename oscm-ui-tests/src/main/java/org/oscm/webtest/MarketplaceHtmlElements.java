@@ -14,7 +14,7 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_NAVBAR_LOGIN_LINK = "//*[@id=\"formLogin:loginLink\"]";
   public static final String MARKETPLACE_NAVBAR_LOGOUT_LINK = "formLogout:logout";
   public static final String MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK = "servicesLink";
-  public static final String MARKETPLACE_NAVBAR_TOGGLE_BUTTON = "navbarToggleButton";
+  public static final String MARKETPLACE_NAVBAR_TOGGLE_BUTTON = "//*[@id=\"navbarToggleButton\"]";
   public static final String MARKETPLACE_NAVBAR_USER_TOGGLE_BUTTON = "navbarUserToggle";
 
   public static final String MARKETPLACE_HOME_LINKTEXT = "//a[contains(text(),'Home')]";
