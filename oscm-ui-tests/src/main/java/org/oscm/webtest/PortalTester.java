@@ -55,8 +55,7 @@ public class PortalTester extends WebTester {
    * @throws InterruptedException
    * @throws Exception
    */
-  public void loginPortal(String user, String password)
-          throws Exception {
+  public void loginPortal(String user, String password) throws Exception {
     authenticationCtx.loginPortal(user, password);
     log(String.format("Login to portal as %s", user));
   }
@@ -127,8 +126,15 @@ public class PortalTester extends WebTester {
       throws Exception {
     visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
 
-      driver.findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
+    if (driver
+            .findElements(By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON))
+            .size()
+        != 0) {
+      driver
+          .findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON))
+          .click();
       driver.findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK)).click();
+    }
 
     authenticationCtx.loginMarketplace(user, password);
   }

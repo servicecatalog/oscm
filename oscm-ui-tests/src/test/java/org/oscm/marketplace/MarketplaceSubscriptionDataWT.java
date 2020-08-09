@@ -9,10 +9,6 @@
  */
 package org.oscm.marketplace;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.Collection;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -27,6 +23,11 @@ import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.MarketplacePathSegments;
 import org.oscm.webtest.PortalTester;
 import org.oscm.webtest.WebTester;
+
+import java.util.Arrays;
+import java.util.Collection;
+
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class MarketplaceSubscriptionDataWT {
@@ -69,7 +70,6 @@ public class MarketplaceSubscriptionDataWT {
     String userid = tester.getProperty(PortalTester.BES_ADMIN_USER_ID);
     String userpassword = tester.getProperty(PortalTester.BES_ADMIN_USER_PWD);
     tester.loginMarketplace(userid, userpassword, PlaygroundSuiteTest.marketPlaceId);
-    ;
   }
 
   @AfterClass
