@@ -49,9 +49,17 @@ public class OIDCAuthenticationContext implements AuthenticationContext {
   }
 
   private boolean login(String user, String password) throws InterruptedException, LoginException {
-    WebElement loginInput = driver.findElement(By.id(AzureHtmlElements.AZURE_INPUT_LOGIN));
-    loginInput.sendKeys(user);
-    logger.info("User login input entered: " + user);
+    try {
+      WebElement loginInput = driver.findElement(By.id(AzureHtmlElements.AZURE_INPUT_LOGIN));
+      loginInput.sendKeys(user);
+      logger.info("User login input entered: " + user);
+    }
+    catch(org.openqa.selenium.StaleElementReferenceException ex)
+    {
+      WebElement loginInput = driver.findElement(By.id(AzureHtmlElements.AZURE_INPUT_LOGIN));
+      loginInput.sendKeys(user);
+      logger.info("User login input entered: " + user);
+    }
     Thread.sleep(1000);
     driver.findElement(By.id(AzureHtmlElements.AZURE_BUTTON_NEXT)).click();
     logger.info("Proceeding to password input");
