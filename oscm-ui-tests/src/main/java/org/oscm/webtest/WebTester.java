@@ -76,7 +76,7 @@ public class WebTester {
     options.addArguments("--no-sandbox", "--lang=en");
 
     System.setProperty("webdriver.chrome.driver", prop.getProperty(CHROME_DRIVER_PATH));
-    System.setProperty("webdriver.chrome.logfile", "/usr/local/bin/chromedriver.log");
+    System.setProperty("webdriver.chrome.logfile", "/logs/chromedriver.log");
     System.setProperty("webdriver.chrome.verboseLogging", "true");
 
     driver = new ChromeDriver(options);
