@@ -17,6 +17,8 @@ import org.junit.runners.MethodSorters;
 import org.openqa.selenium.By;
 import org.oscm.webtest.*;
 
+import javax.security.auth.login.LoginException;
+
 import static org.junit.Assert.*;
 
 /** Integration web test to create an organization. */
@@ -121,7 +123,7 @@ public class PortalOrganizationWT {
   }
 
   @Test
-  public void test03ChangePassword() throws Exception {
+  public void test03ChangePassword() throws LoginException, InterruptedException {
     if (authMode.equals("OIDC")) {
       logger.info("OIDC MODE SKIPPING TEST");
     } else {

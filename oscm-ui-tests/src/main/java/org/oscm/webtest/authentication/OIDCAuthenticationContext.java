@@ -12,6 +12,7 @@ package org.oscm.webtest.authentication;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.oscm.webtest.AzureHtmlElements;
@@ -48,18 +49,17 @@ public class OIDCAuthenticationContext implements AuthenticationContext {
     }
   }
 
-  private boolean login(String user, String password) throws InterruptedException, LoginException {
+  private boolean login(String user, String password) throws InterruptedException {
     try {
       WebElement loginInput = driver.findElement(By.id(AzureHtmlElements.AZURE_INPUT_LOGIN));
       loginInput.sendKeys(user);
-      logger.info("User login input entered: " + user);
     }
-    catch(org.openqa.selenium.StaleElementReferenceException ex)
+    catch(StaleElementReferenceException ex)
     {
       WebElement loginInput = driver.findElement(By.id(AzureHtmlElements.AZURE_INPUT_LOGIN));
       loginInput.sendKeys(user);
-      logger.info("User login input entered: " + user);
     }
+    logger.info("User login input entered: " + user);
     Thread.sleep(1000);
     driver.findElement(By.id(AzureHtmlElements.AZURE_BUTTON_NEXT)).click();
     logger.info("Proceeding to password input");

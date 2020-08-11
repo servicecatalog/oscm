@@ -17,6 +17,8 @@ import org.oscm.identity.ApiIdentityClient;
 import org.oscm.identity.IdentityConfiguration;
 import org.oscm.identity.exception.IdentityClientException;
 
+import javax.security.auth.login.LoginException;
+
 /**
  * Helper class for integration web tests using selenium and java mail.
  *
@@ -55,7 +57,7 @@ public class PortalTester extends WebTester {
    * @throws InterruptedException
    * @throws Exception
    */
-  public void loginPortal(String user, String password) throws Exception {
+  public void loginPortal(String user, String password) throws LoginException, InterruptedException {
     authenticationCtx.loginPortal(user, password);
     log(String.format("Login to portal as %s", user));
   }
