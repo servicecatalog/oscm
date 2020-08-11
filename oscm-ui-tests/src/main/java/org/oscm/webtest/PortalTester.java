@@ -129,13 +129,13 @@ public class PortalTester extends WebTester {
     visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
 
     if (driver
-            .findElements(By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON))
+            .findElements(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON))
             .size()
         != 0) {
       driver
-          .findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON))
+          .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON))
           .click();
-      driver.findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK)).click();
+      driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK_Text)).click();
     }
 
     authenticationCtx.loginMarketplace(user, password);
@@ -159,7 +159,7 @@ public class PortalTester extends WebTester {
    * is a logged in user and that the driverApp is at a marketplace page.
    */
   public void logoutMarketplace() {
-    driver.findElement(By.xpath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
+    driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
     driver
         .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_USER_TOGGLE_BUTTON))
         .click();
