@@ -20,7 +20,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-dataservice"/>
 	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all-1.8.5.jar"/>
 	<classpathentry kind="src" path="/oscm-psp-extsvc"/>
-	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/guava-18.0.jar"/>
+	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/guava-26.0-jre.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/wss4j-ws-security-common-2.1.7.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/wss4j-ws-security-dom-2.1.7.jar"/>

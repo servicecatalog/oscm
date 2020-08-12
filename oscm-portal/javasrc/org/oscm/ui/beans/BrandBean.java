@@ -80,7 +80,7 @@ public class BrandBean extends BaseBean implements Serializable {
 
   protected String getWhiteLabelBrandingUrl() {
     return getFacesContext().getExternalContext().getRequestContextPath()
-        + "/marketplace/css/mp.css";
+        + "/marketplace/css/mp.min.css";
   }
 
   /**

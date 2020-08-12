@@ -45,7 +45,7 @@ public class BrandBeanTest {
 
   private static final String INVALID_URL = "http://thisisaunittest.com";
 
-  private static final String WHITE_LABEL_URL = WHITE_LABEL_PATH + "/marketplace/css/mp.css";
+  private static final String WHITE_LABEL_URL = WHITE_LABEL_PATH + "/marketplace/css/mp.min.css";
   private static final String VALID_BRANDING_URL = WHITE_LABEL_URL;
 
   private List<FacesMessage> facesMessages = new ArrayList<FacesMessage>();

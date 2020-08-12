@@ -31,10 +31,10 @@
     </c:if>
   </h:outputScript>
 
- <c:set var="bootstrapBrandBaseUrl" value="#{sessionBean.bootstrapBrandBaseUrl}"/>
+  <c:set var="bootstrapBrandBaseUrl" value="#{sessionBean.bootstrapBrandBaseUrl}"/>
 
   <!-- Bootstrap libraries -->
-   <link href="${facesContext.externalContext.requestContextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet"
+  <link href="${facesContext.externalContext.requestContextPath}/bootstrap/css/bootstrap.min.css" rel="stylesheet"
         type="text/css"/>
   <link href="${bootstrapBrandBaseUrl}/customBootstrap/css/darkCustom.min.css" rel="stylesheet" type="text/css"/>
   <link href="#{sessionBean.mpBrandUrl}" rel="stylesheet" type="text/css" media="screen,projection,print"/>
