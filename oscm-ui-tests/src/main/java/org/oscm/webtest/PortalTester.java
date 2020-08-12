@@ -9,6 +9,7 @@
  */
 package org.oscm.webtest;
 
+import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -16,8 +17,6 @@ import org.oscm.email.MaildevReader;
 import org.oscm.identity.ApiIdentityClient;
 import org.oscm.identity.IdentityConfiguration;
 import org.oscm.identity.exception.IdentityClientException;
-
-import javax.security.auth.login.LoginException;
 
 /**
  * Helper class for integration web tests using selenium and java mail.
@@ -57,7 +56,8 @@ public class PortalTester extends WebTester {
    * @throws InterruptedException
    * @throws Exception
    */
-  public void loginPortal(String user, String password) throws LoginException, InterruptedException {
+  public void loginPortal(String user, String password)
+      throws LoginException, InterruptedException {
     authenticationCtx.loginPortal(user, password);
     log(String.format("Login to portal as %s", user));
   }
@@ -128,14 +128,12 @@ public class PortalTester extends WebTester {
       throws Exception {
     visitMarketplace(MarketplacePathSegments.MARKETPLACE_LANDING_PAGE_ID + supplierOrgId);
 
-    if (driver
-            .findElements(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON))
-            .size()
+    if (driver.findElements(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).size()
         != 0) {
+      driver.findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON)).click();
       driver
-          .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON))
+          .findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK_TEXT))
           .click();
-      driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK_TEXT)).click();
     }
 
     authenticationCtx.loginMarketplace(user, password);
