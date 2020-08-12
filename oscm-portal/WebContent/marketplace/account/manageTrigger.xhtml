@@ -130,7 +130,7 @@
                                 value="#{msg['button.save']}"/>
 
             <div>
-              <mp:buttonBootstrap styleClass="btn btn-sm btn-outline-secondary mr-3"
+              <mp:buttonBootstrap styleClass="btn btn-sm btn-outline-secondary mr-3" id="#{dialogId}Delete"
                                   value="#{msg['button.delete']}"
                                   rendered="#{!triggerDefinitionBean.newTriggerDefinition}"
                                   disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}"
