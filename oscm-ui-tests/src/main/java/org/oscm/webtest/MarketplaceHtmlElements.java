@@ -16,6 +16,7 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_NAVBAR_BROWSE_SERVICES_LINK = "servicesLink";
   public static final String MARKETPLACE_NAVBAR_TOGGLE_BUTTON = "navbarToggleButton";
   public static final String MARKETPLACE_NAVBAR_USER_TOGGLE_BUTTON = "navbarUserToggle";
+  public static final String MARKETPLACE_NAVBAR_ACCOUNT_LINK = "//*[@id=\"userDrop\"]/a[1]";
 
   public static final String GOTO_MARKETPLACE_DROPDOWN_MARKETPLACE =
       "gotoMarketplaceForm:marketplaceInner";

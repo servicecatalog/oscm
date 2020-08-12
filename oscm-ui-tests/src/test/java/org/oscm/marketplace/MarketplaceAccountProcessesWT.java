@@ -18,14 +18,13 @@ import org.junit.runners.MethodSorters;
 import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.MarketplaceHtmlElements;
-import org.oscm.webtest.MarketplacePathSegments;
 import org.oscm.webtest.PortalTester;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class MarketplaceAccountProcesses {
+public class MarketplaceAccountProcessesWT {
 
   private static PortalTester tester;
 
@@ -40,10 +39,48 @@ public class MarketplaceAccountProcesses {
   }
 
   @Test
-  public void test01createTrigger() {
+  public void test01createTriggerToRemove() throws InterruptedException {
 
-    tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_ACCOUNT);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_USER_TOGGLE_BUTTON);
+    tester.clickElementXPath(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_ACCOUNT_LINK);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_NAV_LINK);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_ADD_TRIGGER);
+    tester.writeValue(
+            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_NAME,
+            "Trigger to be removed");
+    tester.selectDropdown(
+            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_TYPE, "SUBSCRIBE_TO_SERVICE");
+    tester.selectDropdown(
+            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_TARGET, "WEB_SERVICE");
+    tester.writeValue(
+            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_URL,
+            "https://trigger/to/be/removed.com");
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_SUSPEND);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_SAVE);
+
+    Thread.sleep(1000);
+    tester.readContentOfMessage();
+    assertTrue(
+            tester.readInfoMessage().contains("The trigger definition has been successfully created."));
+  }
+
+  @Test
+  public void test02deleteTrigger() throws InterruptedException {
+
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_EDIT);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_DELETE);
+    tester.clickElement(
+            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENTS_DELETE_BILLING_CONFIRM);
+
+    Thread.sleep(1000);
+    tester.readContentOfMessage();
+    assertTrue(tester.readInfoMessage().contains("The trigger definition has been deleted."));
+  }
+
+  @Test
+  public void test03createTrigger() throws InterruptedException {
+
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_ADD_TRIGGER);
     tester.writeValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_NAME,
@@ -58,67 +95,34 @@ public class MarketplaceAccountProcesses {
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_SUSPEND);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_SAVE);
 
+    Thread.sleep(1000);
     tester.readContentOfMessage();
     assertTrue(
         tester.readInfoMessage().contains("The trigger definition has been successfully created."));
   }
 
   @Test
-  public void test02checkTrigger() {
+  public void test04checkTrigger() throws InterruptedException {
 
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_EDIT);
-    String triggerName =
-        tester.readText(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_EDIT);
 
-    assertEquals("Trigger register user", triggerName);
+    Thread.sleep(1000);
+    assertEquals(
+        "Trigger register user",
+        tester.readValue(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_NAME));
   }
 
   @Test
-  public void test03editTrigger() {
+  public void test05editTrigger() throws InterruptedException {
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_EDIT);
     tester.writeValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_NAME,
         "[EDIT] Trigger register user");
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_SAVE);
 
+    Thread.sleep(1000);
     tester.readContentOfMessage();
     assertTrue(
         tester.readInfoMessage().contains("The trigger definition has been successfully saved."));
-  }
-
-  @Test
-  public void test04createTriggerToRemove() {
-
-    tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_ACCOUNT);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_NAV_LINK);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_ADD_TRIGGER);
-    tester.writeValue(
-        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_NAME,
-        "Trigger to be removed");
-    tester.selectDropdown(
-        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_TYPE, "SUBSCRIBE_TO_SERVICE");
-    tester.selectDropdown(
-        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_TARGET, "WEB_SERVICE");
-    tester.writeValue(
-        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_URL,
-        "https://trigger/to/be/removed.com");
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_SUSPEND);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_SAVE);
-
-    tester.readContentOfMessage();
-    assertTrue(
-        tester.readInfoMessage().contains("The trigger definition has been successfully created."));
-  }
-
-  @Test
-  public void test05deleteTrigger() {
-
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_EDIT);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_DELETE);
-    tester.clickElement(
-        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENTS_DELETE_BILLING_CONFIRM);
-
-    tester.readContentOfMessage();
-    assertTrue(tester.readInfoMessage().contains("The trigger definition has been deleted."));
   }
 }
