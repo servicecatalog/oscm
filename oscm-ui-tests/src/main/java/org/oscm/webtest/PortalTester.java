@@ -135,7 +135,7 @@ public class PortalTester extends WebTester {
       driver
           .findElement(By.id(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_TOGGLE_BUTTON))
           .click();
-      driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK_Text)).click();
+      driver.findElement(By.linkText(MarketplaceHtmlElements.MARKETPLACE_NAVBAR_LOGIN_LINK_TEXT)).click();
     }
 
     authenticationCtx.loginMarketplace(user, password);
