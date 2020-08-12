@@ -35,6 +35,7 @@ import org.oscm.webtest.WebTester;
   MarketplaceWT.class,
   MarketplaceAccountPersonalWT.class,
   MarketplaceAccountPaymentWT.class,
+  MarketplaceAccountProcessesWT.class,
   MarketplaceSubscriptionDataWT.class,
   MarketplaceSubscriptionTableWT.class,
   MarketplaceServiceDetailsWT.class,
