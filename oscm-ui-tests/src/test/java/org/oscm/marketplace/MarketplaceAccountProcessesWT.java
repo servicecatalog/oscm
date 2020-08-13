@@ -9,6 +9,9 @@
  */
 package org.oscm.marketplace;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Rule;
@@ -19,9 +22,6 @@ import org.oscm.portal.JUnitHelper;
 import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.MarketplaceHtmlElements;
 import org.oscm.webtest.PortalTester;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MarketplaceAccountProcessesWT {
@@ -47,22 +47,22 @@ public class MarketplaceAccountProcessesWT {
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_NAV_LINK);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_ADD_TRIGGER);
     tester.writeValue(
-            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_NAME,
-            "Trigger to be removed");
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_NAME,
+        "Trigger to be removed");
     tester.selectDropdown(
-            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_TYPE, "SUBSCRIBE_TO_SERVICE");
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_TYPE, "SUBSCRIBE_TO_SERVICE");
     tester.selectDropdown(
-            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_TARGET, "WEB_SERVICE");
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_TARGET, "WEB_SERVICE");
     tester.writeValue(
-            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_URL,
-            "https://trigger/to/be/removed.com");
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_URL,
+        "https://trigger/to/be/removed.com");
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_SUSPEND);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_SAVE);
 
     Thread.sleep(1000);
     tester.readContentOfMessage();
     assertTrue(
-            tester.readInfoMessage().contains("The trigger definition has been successfully created."));
+        tester.readInfoMessage().contains("The trigger definition has been successfully created."));
   }
 
   @Test
@@ -71,7 +71,7 @@ public class MarketplaceAccountProcessesWT {
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_EDIT);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROCESSES_TRIGGER_DELETE);
     tester.clickElement(
-            MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENTS_DELETE_BILLING_CONFIRM);
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PAYMENTS_DELETE_BILLING_CONFIRM);
 
     Thread.sleep(1000);
     tester.readContentOfMessage();
