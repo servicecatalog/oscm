@@ -41,114 +41,117 @@
   </div>
 
   <a4j:outputPanel id="contentPanelDiv" layout="block">
-  <a id="top" name="top"/>
+    <a id="top" name="top"/>
 
-  <!-- header -->
-  <mp:headerBootstrap user="#{userBean.loggedInUser}"
-                      loginHandler="showLoginPanel('#{defaultLoginRedirect}');return false;"/>
-  <ui:include src="../login.xhtml">
-    <ui:param name="canCloseLogin" value="#{not isMplRestricted}"/>
-  </ui:include>
+    <!-- header -->
+    <mp:headerBootstrap user="#{userBean.loggedInUser}"
+                        loginHandler="showLoginPanel('#{defaultLoginRedirect}');return false;"/>
+    <ui:include src="../login.xhtml">
+      <ui:param name="canCloseLogin" value="#{not isMplRestricted}"/>
+    </ui:include>
 
-  <!-- body -->
-  <div class="container-fluid navbar-margin">
+    <!-- body -->
+    <div class="container-fluid navbar-margin">
 
-  <adm:initialize initializingMethod="#{appBean.userLocaleUpdated}"/>
-  <ui:insert name="feature"/>
-  <ui:insert name="breadcrumbs"/>
+      <adm:initialize initializingMethod="#{appBean.userLocaleUpdated}"/>
+      <ui:insert name="feature"/>
+      <ui:insert name="breadcrumbs"/>
 
-  <div class="aside pr-md-3">
-    <ui:insert name="aside"/>
-  </div>
+      <div class="aside pr-md-3">
+        <ui:insert name="aside"/>
+      </div>
 
 
-  <!-- Include for content which is the only element in the body area (no navigation etc.) -->
-  <a4j:outputPanel layout="block" styleClass="box" rendered="#{isSingleContentPage}">
+      <!-- Include for content which is the only element in the body area (no navigation etc.) -->
+      <a4j:outputPanel layout="block" styleClass="box" rendered="#{isSingleContentPage}">
 
-    <ui:insert name="singlecontent"/>
-  </a4j:outputPanel>
+        <ui:insert name="singlecontent"/>
+      </a4j:outputPanel>
 
-  <a4j:outputPanel id="localeErrorPanel" layout="block" styleClass="errorPanel" style="display:block"
-                   rendered="#{appBean.errorPanelForLocaleShow}">
-    <dl class="rich-messages box warning my-2">
-      <dt>
+      <a4j:outputPanel id="localeErrorPanel" layout="block" styleClass="errorPanel" style="display:block"
+                       rendered="#{appBean.errorPanelForLocaleShow}">
+        <dl class="rich-messages box warning my-2">
+          <dt>
               <span class="rich-messages-label">
                 <h:outputFormat value="#{msg['warning.supportedlanguage.locale.deactivated']}">
                   <f:param value="#{appBean.oldUserLocale}"/>
                 </h:outputFormat>
               </span>
-      </dt>
-    </dl>
-  </a4j:outputPanel>
-
-  <!-- error message container -->
-  <a4j:outputPanel id="globalMessagesHolder" class="con-flow-root">
-    <a4j:outputPanel id="errorPanel" layout="block" styleClass="errorPanel">
-    </a4j:outputPanel>
-
-    <!-- progress message -->
-    <a4j:outputPanel id="progressPanel" layout="block" rendered="#{facesContext.maximumSeverity.ordinal == 0}">
-      <rich:messages infoClass="infoMsg" layout="list" id="progressMessages" styleClass="box suspended my-2"
-                     for="progressPanel" ajaxRendered="false"/>
-    </a4j:outputPanel>
-
-    <!-- info messages -->
-    <a4j:outputPanel id="infoPanelHolder">
-      <a4j:outputPanel id="infoPanel" layout="block" rendered="#{facesContext.maximumSeverity.ordinal == 0}">
-        <rich:messages infoClass="infoMsg" passedLabel="" layout="list" id="infoMessages"
-                       styleClass="box success my-2" globalOnly="true" ajaxRendered="false"/>
+          </dt>
+        </dl>
       </a4j:outputPanel>
-    </a4j:outputPanel>
-    <a4j:outputPanel id="hiddenInfoPanel" layout="block">
-    </a4j:outputPanel>
 
-    <!-- if we find an error during the processing of the body,
-     we must add the corresponding message to the error container above -->
-    <!-- error messages -->
-    <a4j:outputPanel id="hiddenErrorPanel" layout="block" styleClass="errorPanel">
-      <!-- filter error messages -->
-      <c:if test="#{not empty errorKey and not sessionBean.errorMessageDuplicate}">
-        <dl class="rich-messages box error" id="errorMessages1">
-          <dt>
-            <h:outputFormat value="#{msg[errorKey]}">
-              <f:param value="#{errorParam0}"/>
-              <f:param value="#{errorParam1}"/>
-              <f:param value="#{errorParam2}"/>
-              <f:param value="#{errorParam3}"/>
-              <f:param value="#{errorParam4}"/>
-            </h:outputFormat>
-          </dt>
-        </dl>
-      </c:if>
-      <!-- JSF error messages -->
-      <rich:messages id="errorMessages" globalOnly="true" ajaxRendered="false" styleClass="box error my-2"
-                     rendered="#{facesContext.maximumSeverity.ordinal > 0}"/>
-      <!-- warning messages -->
-      <c:if test="#{not empty warningKey}">
-        <dl class="rich-messages box warning" id="warningMessages1">
-          <dt>
-            <h:outputFormat value="#{msg[warningKey]}">
-              <f:param value="#{warningParam0}"/>
-              <f:param value="#{warningParam1}"/>
-              <f:param value="#{warningParam2}"/>
-              <f:param value="#{warningParam3}"/>
-              <f:param value="#{warningParam4}"/>
-            </h:outputFormat>
-          </dt>
-        </dl>
-      </c:if>
+      <!-- error message container -->
+      <a4j:outputPanel id="globalMessagesHolder" class="con-flow-root">
+        <a4j:outputPanel id="errorPanel" layout="block" styleClass="errorPanel">
+        </a4j:outputPanel>
 
-    </a4j:outputPanel>
-  </a4j:outputPanel>
+        <!-- progress message -->
+        <a4j:outputPanel id="progressPanel" layout="block" rendered="#{facesContext.maximumSeverity.ordinal == 0}">
+          <rich:messages infoClass="infoMsg" layout="list" id="progressMessages" styleClass="box suspended my-2"
+                         for="progressPanel" ajaxRendered="false"/>
+        </a4j:outputPanel>
 
-  <a name="content" id="content"></a>
+        <!-- info messages -->
+        <a4j:outputPanel id="infoPanelHolder">
+          <a4j:outputPanel id="infoPanel" layout="block" rendered="#{facesContext.maximumSeverity.ordinal == 0}">
+            <rich:messages infoClass="infoMsg" passedLabel="" layout="list" id="infoMessages"
+                           styleClass="box success my-2" globalOnly="true" ajaxRendered="false"/>
+          </a4j:outputPanel>
+        </a4j:outputPanel>
+        <a4j:outputPanel id="hiddenInfoPanel" layout="block">
+        </a4j:outputPanel>
+
+        <!-- if we find an error during the processing of the body,
+         we must add the corresponding message to the error container above -->
+        <!-- error messages -->
+        <a4j:outputPanel id="hiddenErrorPanel" layout="block" styleClass="errorPanel">
+          <!-- filter error messages -->
+          <c:if test="#{not empty errorKey and not sessionBean.errorMessageDuplicate}">
+            <dl class="rich-messages box error" id="errorMessages1">
+              <dt>
+                <h:outputFormat value="#{msg[errorKey]}">
+                  <f:param value="#{errorParam0}"/>
+                  <f:param value="#{errorParam1}"/>
+                  <f:param value="#{errorParam2}"/>
+                  <f:param value="#{errorParam3}"/>
+                  <f:param value="#{errorParam4}"/>
+                </h:outputFormat>
+              </dt>
+            </dl>
+          </c:if>
+          <!-- JSF error messages -->
+          <rich:messages id="errorMessages" globalOnly="true" ajaxRendered="false" styleClass="box error my-2"
+                         rendered="#{facesContext.maximumSeverity.ordinal > 0}"/>
+          <!-- warning messages -->
+          <c:if test="#{not empty warningKey}">
+            <dl class="rich-messages box warning" id="warningMessages1">
+              <dt>
+                <h:outputFormat value="#{msg[warningKey]}">
+                  <f:param value="#{warningParam0}"/>
+                  <f:param value="#{warningParam1}"/>
+                  <f:param value="#{warningParam2}"/>
+                  <f:param value="#{warningParam3}"/>
+                  <f:param value="#{warningParam4}"/>
+                </h:outputFormat>
+              </dt>
+            </dl>
+          </c:if>
+
+        </a4j:outputPanel>
+      </a4j:outputPanel>
+
+      <a name="content" id="content"></a>
 
   <ui:insert name="contentstitle"/>
 
   <a4j:outputPanel styleClass="row" layout="block">
-    <a4j:outputPanel class="col">
+    <a4j:outputPanel styleClass="col">
       <ui:insert name="contents"/>
     </a4j:outputPanel>
+  </a4j:outputPanel>
+
+    </div>
   </a4j:outputPanel>
 
   <!-- footer -->
@@ -212,7 +215,6 @@
 
     AdmUtils.preventDefaultSubmitOnEnter();
     AdmUtils.sortSelect();
-
 
 
   </script>
