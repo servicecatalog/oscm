@@ -52,7 +52,7 @@
     <c:set var="sortIconAscending" value="#{mpImgUrl}/transparentPixel.png?id=sortAscending"/>
     <c:set var="sortIconDescending" value="#{mpImgUrl}/transparentPixel.png?id=sortDescending"/>
 
-    <a4j:outputPanel layout="block">
+    <a4j:outputPanel layout="block" styleClass="d-none">
       <ui:include src="billingContact.xhtml">
         <ui:param name="dialogId" value="billingContactPanel"/>
         <ui:param name="additionalRender" value=":billingContactTableForm :infoPanelHolder"/>

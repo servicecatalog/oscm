@@ -3,7 +3,6 @@
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* breadrumb wrapper */
-
 #location {
   width: 100%;
   background: #f7f7f7;
@@ -40,10 +39,11 @@
 
 @media (min-width: 768px) {
   #location {
-    margin-top: 75px !important;
+    margin-top: 55px !important;
 
     ol {
       width: 100%;
+      background: #e3e3e3;
     }
   }
 }
@@ -54,14 +54,13 @@
 
     ol {
       width: 88%;
+      background: #e3e3e3;
     }
   }
 }
 
 /*  breadcrumbs link button items */
-
 ol.location-inside {
-  border: 1px solid $white;
   -moz-border-radius: 3px;
   border-radius: 3px;
 }

@@ -109,7 +109,11 @@
 2. Standard Elements
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
  */
+html {
+  height: 100%; }
+
 body {
+  height: 100%;
   font-size: 81.25% !important;
   /* 13px */
   font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif;
@@ -150,7 +154,7 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  /* font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif; */
+  /* font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; */
   line-height: 1.5; }
 
 h1 {
@@ -868,7 +872,9 @@ h2.priceUnit, h1.priceUnit {
   background: #b3b7bc;
   border-bottom: 1px solid #555555;
   width: 100%;
-  color: #fff; }
+  color: #fff;
+  position: absolute;
+  bottom: 0px; }
   .bootstrap_footer a {
     color: #fff; }
   .bootstrap_footer ul {
@@ -2971,17 +2977,18 @@ div.pagenate div.pagingBar .previous {
 
 @media (min-width: 768px) {
   #location {
-    margin-top: 75px !important; }
+    margin-top: 55px !important; }
     #location ol {
-      width: 100%; } }
+      width: 100%;
+      background: #e3e3e3; } }
 @media (max-width: 767px) {
   #location {
     margin-top: 15px !important; }
     #location ol {
-      width: 88%; } }
+      width: 88%;
+      background: #e3e3e3; } }
 /*  breadcrumbs link button items */
 ol.location-inside {
-  border: 1px solid #fff;
   -moz-border-radius: 3px;
   border-radius: 3px; }
 
