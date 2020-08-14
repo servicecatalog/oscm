@@ -23,9 +23,10 @@
   top: 50% !important;
   transform: translate(-50%, -50%);
   width: 90% !important;
-  max-width: 450px;
+  max-width: 400px;
   min-width: 330px;
-  max-height: 580px!important;
+  max-height: 580px;
+  height: fit-content !important;
 }
 
 .responsive-login-container>div {
