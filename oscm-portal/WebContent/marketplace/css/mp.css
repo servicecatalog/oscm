@@ -3080,7 +3080,8 @@ div.accdsection h4#header, div.accdsection h4#menu0 {
   width: 90% !important;
   max-width: 560px;
   min-height: 180px !important;
-  max-height: 580px; }
+  max-height: 580px;
+  height: fit-content !important; }
 
 .responsive-dialog-container > div {
   width: 100% !important; }
