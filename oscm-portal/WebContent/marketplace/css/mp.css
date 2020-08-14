@@ -872,9 +872,7 @@ h2.priceUnit, h1.priceUnit {
   background: #b3b7bc;
   border-bottom: 1px solid #555555;
   width: 100%;
-  color: #fff;
-  position: absolute;
-  bottom: 0px; }
+  color: #fff; }
   .bootstrap_footer a {
     color: #fff; }
   .bootstrap_footer ul {
@@ -1778,7 +1776,7 @@ div.scrolltop p img {
    (Note: We set it to page bottom, not to screen bottom. We don't want sticky footers as they reduce the visible content area)
 */
 #contentPanelDiv {
-  min-height: calc(100vh - 7rem); }
+  min-height: calc(100vh - 3.1rem); }
 
 /* marketplace copyright information wrapper */
 #creditline {
@@ -2952,7 +2950,7 @@ div.pagenate div.pagingBar .previous {
 /* breadrumb wrapper */
 #location {
   width: 100%;
-  background: #f7f7f7;
+  background: #e9ecef;
   border: 1px solid #eeeeee;
   padding: 0;
   margin-bottom: 15px;
@@ -2979,14 +2977,12 @@ div.pagenate div.pagingBar .previous {
   #location {
     margin-top: 55px !important; }
     #location ol {
-      width: 100%;
-      background: #e3e3e3; } }
+      width: 100%; } }
 @media (max-width: 767px) {
   #location {
     margin-top: 15px !important; }
     #location ol {
-      width: 88%;
-      background: #e3e3e3; } }
+      width: 88%; } }
 /*  breadcrumbs link button items */
 ol.location-inside {
   -moz-border-radius: 3px;

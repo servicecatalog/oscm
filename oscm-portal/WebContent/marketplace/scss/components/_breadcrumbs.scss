@@ -5,7 +5,7 @@
 /* breadrumb wrapper */
 #location {
   width: 100%;
-  background: #f7f7f7;
+  background: #e9ecef;
   border: 1px solid #eeeeee;
   padding: 0;
   margin-bottom: 15px;
@@ -40,10 +40,8 @@
 @media (min-width: 768px) {
   #location {
     margin-top: 55px !important;
-
     ol {
       width: 100%;
-      background: #e3e3e3;
     }
   }
 }
@@ -51,10 +49,8 @@
 @media (max-width: 767px) {
   #location {
     margin-top: 15px !important;
-
     ol {
       width: 88%;
-      background: #e3e3e3;
     }
   }
 }
