@@ -5,7 +5,12 @@
 2. Standard Elements
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
  */
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   font-size: 81.25% !important; /* 13px */
   font-family: $font-family-sans-serif;
   margin: 0px;

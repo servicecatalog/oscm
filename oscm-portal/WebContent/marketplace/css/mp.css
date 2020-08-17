@@ -109,7 +109,11 @@
 2. Standard Elements
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
  */
+html {
+  height: 100%; }
+
 body {
+  height: 100%;
   font-size: 81.25% !important;
   /* 13px */
   font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif;
@@ -150,7 +154,7 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-  /* font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", '´╝¡´╝│ ´╝░Òé┤ÒéÀÒââÒé»', 'ÒâÆÒâ®Òé«ÒâÄÞºÆÒé┤ Pro W3', sans-serif; */
+  /* font: normal 100% "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif; */
   line-height: 1.5; }
 
 h1 {
@@ -1772,7 +1776,7 @@ div.scrolltop p img {
    (Note: We set it to page bottom, not to screen bottom. We don't want sticky footers as they reduce the visible content area)
 */
 #contentPanelDiv {
-  min-height: calc(100vh - 7rem); }
+  min-height: calc(100vh - 3.1rem); }
 
 /* marketplace copyright information wrapper */
 #creditline {
@@ -2946,7 +2950,7 @@ div.pagenate div.pagingBar .previous {
 /* breadrumb wrapper */
 #location {
   width: 100%;
-  background: #f7f7f7;
+  background: #e9ecef;
   border: 1px solid #eeeeee;
   padding: 0;
   margin-bottom: 15px;
@@ -2971,7 +2975,7 @@ div.pagenate div.pagingBar .previous {
 
 @media (min-width: 768px) {
   #location {
-    margin-top: 75px !important; }
+    margin-top: 55px !important; }
     #location ol {
       width: 100%; } }
 @media (max-width: 767px) {
@@ -2981,7 +2985,6 @@ div.pagenate div.pagingBar .previous {
       width: 88%; } }
 /*  breadcrumbs link button items */
 ol.location-inside {
-  border: 1px solid #fff;
   -moz-border-radius: 3px;
   border-radius: 3px; }
 
@@ -3077,7 +3080,8 @@ div.accdsection h4#header, div.accdsection h4#menu0 {
   width: 90% !important;
   max-width: 560px;
   min-height: 180px !important;
-  max-height: 580px; }
+  max-height: 580px;
+  height: fit-content !important; }
 
 .responsive-dialog-container > div {
   width: 100% !important; }
@@ -3090,9 +3094,10 @@ div.accdsection h4#header, div.accdsection h4#menu0 {
   top: 50% !important;
   transform: translate(-50%, -50%);
   width: 90% !important;
-  max-width: 350px;
+  max-width: 400px;
   min-width: 330px;
-  max-height: 580px; }
+  max-height: 580px;
+  height: fit-content !important; }
 
 .responsive-login-container > div {
   width: 100% !important; }
