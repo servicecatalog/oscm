@@ -3,12 +3,12 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
   <title>#{msg['marketplace.header.title']}</title>
 
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="x-ua-compatible" content="IE=edge"/>
 
   <script src="#{facesContext.externalContext.requestContextPath}/scripts/admUtils.min.js" type="text/javascript"></script>
 
@@ -17,8 +17,7 @@
     function getUnloadMessage() { return "#{appBean.getJSMessageByKey('confirm.unsavedChanges.lost')}"; }
     function getIe7UploadValidationMessage() { return "#{appBean.getJSMessageByKey('error.upload.filename')}"; }
     function setDirty(flag) { if ((onSubmitFlag &amp;&amp; (!flag)) || (!onSubmitFlag)) { window.onbeforeunload = (flag)
-    ?
-    getUnloadMessage : null; } }
+                              ? getUnloadMessage : null; } }
     function getDirty() { return null != window.onbeforeunload; }
     function setOnSubmit(flag) { onSubmitFlag = flag; }
     AdmUtils.setFocusBackgroundColor('#FDECB2');

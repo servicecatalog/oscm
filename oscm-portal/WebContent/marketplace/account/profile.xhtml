@@ -24,12 +24,6 @@
     <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.profile.title"/>
   </ui:define>
 
-  <ui:define name="contentstitle">
-    <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix">
-      <br/>
-    </a4j:outputPanel>
-  </ui:define>
-
   <ui:define name="contents">
     <h:form id="validateCurrentUserRolesForm">
       <a4j:jsFunction name="validateCurrentUserRoles" data="#{organizationBean.currentUserRolesChanged}"
@@ -39,7 +33,7 @@
       </a4j:jsFunction>
     </h:form>
 
-    <a4j:outputPanel id="all" styleClass="my-2 p-3 bg-light" layout="block">
+    <a4j:outputPanel id="all" styleClass="con-flow-root my-2 px-3 pt-3 bg-light" layout="block">
       <mp:outputStep value="#{msg['marketplace.account.profile.title']}"/>
 
       <h:inputHidden value="#{sessionBean.selectedTab}"/>
@@ -306,7 +300,6 @@
         document.addEventListener("DOMContentLoaded", function(){
           $(this).scrollTop(0);
         });
-
       </script>
 
       <mp:reloginConfirmPanel/>
