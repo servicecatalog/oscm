@@ -1,96 +1,171 @@
-# OSCM Customization Guide with Bootstrap
+# OSCM Marketplace Customization Guide with Bootstrap and Sass
 
 ## Introduction
-The new public marketplace UI has been re-designed based on the [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/introduction/) framework.  
 
-The default stylesheet for the marketplace: *mp.css* is still used for the customization of the marketplace UI, but now there are two additional Template Stylesheets, located in the “customBootstrap” folder: 1) a custom Bootstrap stylesheet (which is a full compiled & customized Bootstrap version) with a dark navigation bar named: *darkCustom.css*, and 2) a dark footer stylesheet, named *darkFooter.css*. The light versions of those stylesheets (named lightCustom.css, lightFooter.css) are also included in the branding package.
+The current marketplace UI of OSCM is based on the [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/introduction/) framework. The default stylesheet, `mp.css`, is used for the customization of the marketplace layout and branding. Additional template stylesheets are provided in the `customBootstrap` folder of the OSCM branding package:
 
-### Prerequisites:
+-   `darkCustom.css`: a custom Bootstrap stylesheet (a fully compiled and customized version) with a dark navigation bar.
 
--	You have downloaded the provided branding package. 
+-   `darkFooter.css`: a stylesheet to obtain a dark footer.
 
-The branding package can be downloaded as a ZIP file in the administration portal as an Operator in the *“Customize layout”* page by clicking the button *“Download branding package”*. The branding package contains two folders containing Sass source files: the *“scss”* folder, containing source files of mp.css, and the *“customBootstrap/scss”* folder containing the theme source files for the custom Bootstrap, explained later on.
+-   `lightCustom.css`: a custom Bootstrap stylesheet with a light navigation bar.
 
--	You have configured a Sass Compiler (a CSS pre-processor).
+-   `lightFooter.css`: a stylesheet to obtain a light footer.
 
-A Sass Compiler lets you compile your Sass source files with the file extension “.scss” and generate CSS stylesheets. For more information on Sass and how to configure it, see the following [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).  
- A simple option is to use Ruby.
+The following sections describe how to proceed to customize the marketplace UI based on Bootstrap, Sass (Syntactically Awesome Stylesheets), and the OSCM branding package.
 
--	You need the downloaded Bootstrap source files v4.3.1 (let s assume that they are extracted in a folder named: “bootstrap/scss”)
-
--	The import statements in “darkCustom.scss” and “darkFooter.scss” must refer to the correct relative paths where the bootstrap source files are located.
-
-Example of such an import statement:
- ```
- @import "../../../bootstrap/scss/variables";
-```
--	All generated css files (“darkCustom.css”, etc., explained in the next sections) are hosted on a server and preserve the same directory structure as in the provided branding package.
-
--	The URL of the branded mp.css is uploaded just like before in the "Customize Branding" page, and the location of “darkCustom.css” and “darkFooter.css” are automatically derived from the location of mp.css.
+For more information about the theming mechanism of Bootstrap via Sass in general, refer to [https://getbootstrap.com/docs/4.3/getting-started/theming/](https://getbootstrap.com/docs/4.3/getting-started/theming/). Another useful guide about how to customize Bootstrap is [http://bootstrap.themes.guide/how-to-customize-bootstrap.html](http://bootstrap.themes.guide/how-to-customize-bootstrap.html).
 
 
+## Prerequisites:
 
-### Useful Links:
-For more information about the Theming mechanism of Bootstrap via Sass in general, please refer to the source: https://getbootstrap.com/docs/4.3/getting-started/theming/ 
--	Another useful guide of how to customize Bootstrap is: 
--	http://bootstrap.themes.guide/how-to-customize-bootstrap.html
+The following prerequisites need to be fulfilled for customizing the marketplace UI:
 
-Another option is to use a Tool on the Internet to generate a Bootstrap template. There are several tools available that allow the easy and visual customization of Bootstrap UI components. Two examples of such tools are:
-1.	Themestr.app themer or customizer: https://themestr.app/
-2.	Bootstrap Builder: https://bootstrap.build/
-3. There is also a list of pre-defined Bootstrap themes that are free to use and licensed under the MIT license:
-https://bootswatch.com/
-However, please note that these themes would not work out-of-the-box in the marketplace UI and would need to be adjusted.
+-   Download the OSCM branding package provided with OSCM.
 
-## Customization Guide
-The customization of the Bootstrap UI components is accomplished via Sass Variables. 
-You can modify the variables located inside the file: _myVariables.scss and  then re-compile the sources to generate a modified “darkCustom.css”
-These Sass variables override the default Bootstrap values. (Remember to remove the !default tag from them). 
+	The branding package can be downloaded as a ZIP file by the marketplace owner in the administration portal on the **Customize layout** page using the **Download branding package** *option*.
 
-### Base Sass Variables Template: _myvariables.scss
-The [_myvariables](scss/_myvariables.scss) file contains a minimum set of variables used for the Default Bootstrap Theme for the marketplace UI. It includes a green color theme (including custom color shades for the Bootstrap list groups), and a small number of variables such as $body-bg and the $font-family-base used for Bootstrap Fonts of specific headings. 
+	The branding package includes the following folders containing Sass source files for OSCM customization:
 
-You can simply modify the color theme, by changing the variable *$main-color* in _myVariables.scss and recompiling the source files. All the colors get automatically adjusted depending on the *$main-color* variable. But you could also override other theme colors, such as the *$primary* or *$secondary* theme, or add an additional color in the themes colors map. (please see: https://getbootstrap.com/docs/4.3/getting-started/theming/ for more information).
+	- `scss`: Contains the source files of mp.css
 
-Similarly, you can modify the *$font-family-base* variable to modify the font-family, or use a Google font instead. (Please note that you have to modify also the *$font-family-base-sans-serif* variable in the *_variables.scss* which is imported in *mp.scss*).
-If you need to adjust or add specific Boostrap styles, you can do so after importing “myVariables” directly in [darkCustom.scss](scss/darkCustom.scss) (but before importing bootstrap), by either writing normal css or Scss code syntax. Remember to re-compile your source files for the changes to take effect.
+	-   `customBootstrap/scss`: Contains the theme source files for the custom Bootstrap stylesheets, explained in detail below.
 
-#### Specific Case: Cards Customization:
-A specific customization case (useful for the customer) is the .gridLayoutForCard which allows you to customize the grid layout for the service cards that appear in the public landing page, by using Sass mixins for the columns. The example illustrates the div with class: *col-xl-4 col-md-6 col-sm-12 mb-3*
-If you wish to have another grid layout, you can modify the numbers in the mixins appropriately.
-(For more information about the Grid layout of Bootstrap, please see: https://getbootstrap.com/docs/4.0/layout/grid/)
+	The branding package also includes the required Bootstrap files, v4.3.1, in the `bootstrap` folder.
 
-### Advanced Sass Variables Template: _myvariables.scss
+- Make sure that the import statements in the `.scss` files in the `scss` and `customBootstrap/scss` folders of the branding package have the correct relative paths to the Bootstrap source files in the `bootstrap` folder.
 
-An extended variables file that serves as an example of custom Bootstrap UI components is here available for download:
-[_myvariables.scss](advanced/_myvariables.scss)
+  Example:
 
-Simply replace your _myVariables.scss located in the "scss" folder with *_myvariables.scss*  that you have downloaded with the above link.
+  `@import "../../bootstrap/scss/variables";`
 
-The variables are structured per UI component and the explanation is below:
+- Install and configure a Sass Compiler (CSS pre-processor).
 
-#### Global options.
-This section defines the enablement or disablement of general options like shadows, gradients, or border-radius for UI components such as buttons and list groups.
+  A Sass Compiler lets you compile your Sass source files (extension `.scss`) and generate CSS stylesheets. A simple option is to use Ruby. For more information on this option, refer to this [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).
+  
+  Another option is to use a tool available in the Internet to generate a Bootstrap template. Several tools are available that allow for an easy and visual customization of Bootstrap UI components, for example:
+	
+	- Themestr.app themer or customizer: [https://themestr.app/](https://themestr.app/)
+	
+	-   Bootstrap Builder: [https://bootstrap.build/](https://bootstrap.build/)Pre-defined 
+	
+	Bootstrap themes, that are free to use and licensed under the MIT license, can be found here: [https://bootswatch.com/](https://bootswatch.com/). Note, however, that these themes will not work out-of-the-box for the OSCM marketplace UI and need to be adjusted.
 
+## Customizing Bootstrap UI Components
 
-#### Fonts
-The template includes a commented-out option if you wish to use a Google Font. *$font-family-base* is the variable used for fonts, and *$font-size-base* defines a variable for font sizes.
+The customization of the Bootstrap components of the marketplace UI is accomplished by means of Sass variables.
 
-#### Navbar 
-You can modify the padding of navbars.
+The Sass variables and their values are defined in the separate files in the OSCM branding package.
 
-#### Dropdowns 
-Variables that affect Dropdown menus, such as the Dropdown appearing in the Navigation bar, or in the “Sorting” Dropdown of  the pagination.
-For example, you can override the link-hover color or background hover color of a Dropdown, increase the border radius or increase the spaces between items.
+The `customBootstrap\scss` folder contains the following variable files for the stylesheets in the same folder:
 
-#### Breadcrumbs
-Similarly, this section defines parameters that affect the marketplace breadcrumb.
+-   `_myVariables.scss`: defines the variables for the `darkCustom` and `darkFooter` stylesheets.
 
-In darkCustom.scss there is also a section with styles about the breadcrumb. The reason for this is that mp.css also includes some styles for breadcrumbs and you can override these with the !important rule.
+-   `_lightVariables.scss`: defines the variables for the `lightCustom` and `lightFooter` stylesheets.
 
-Similarly, the following sections about “Cards”, “List Groups”, “Buttons”, “Image Thumbnails”, “Popovers” and “Inputs” showcase some configurable variables for all these Bootstrap UI components.
+The `scss` folder contains the following variable file for the `mp.css` stylesheet:
+
+-   `_variables.scss`
+
+The general customization procedure is the following:
+
+1.  Modify the variables in the variable file as desired. Remove the `!default` tag, if it is present. The tag denotes default Bootstrap values.
+
+2.  Re-compile the source (`.scss` file) of the corresponding stylesheet.
+
+The following sections provide some details on customizations you can carry out in the individual `.scss` files.
 
 
-### File mp.scss for adjusting theming of mp.css.
-A minimum set of variables for the easier customization of [mp.css](../scss/_variables.scss) has also been included via the Sass Variables importing mechanism. The variables that can be customized are: 1) colors such as $primary color, $warning, etc. 2) the $font-family-sans-serif and 3)the font sizes and line-heights of headings. 
-In future updates, there might be additional variables that are customizeable.
+### Basic Sass Variables Template: \_myvariables.scss
+
+The [`_myvariables.scss`](scss/_myvariables.scss) file in the `customBootstrap\scss` folder contains a minimum set of variables used for the default Bootstrap theme for the marketplace UI. It includes a green color theme (with custom color shades for the Bootstrap list groups) and variables such as `$body-bg` and `$font-family-base` for Bootstrap fonts of specific headings.
+
+You can simply modify the color theme by changing the `$main-color` variable in `_myVariables.scss` and recompiling the source files. All the colors are automatically adjusted depending on the `$main-color` variable.
+
+You can also override other theme colors, such as the `$primary` or `$secondary` color, or add colors to the theme color map. Refer to [https://getbootstrap.com/docs/4.3/getting-started/theming/](https://getbootstrap.com/docs/4.3/getting-started/theming/) for more information.
+
+Similarly, you can modify the `$font-family-base` variable to change the font-family or use a Google font. Be aware that you also need to modify the `$font-family-base-sans-serif` variable in the `_variables.scss` file, which is imported into the `mp.css` style sheet.
+
+If you would like to adjust or add specific Boostrap styles, you can do so directly in the [`darkCustom.scss`](scss/darkCustom.scss) file after importing `_myVariables` but before importing `bootstrap`. Use the standard css or Scss syntax.
+
+Remember to re-compile your source files for any changes to take effect.
+
+**Customizing Cards**
+
+A specific and quite useful customization option is `.gridLayoutForCard`. It determines the grid layout for the service cards on the marketplace using Sass mixins for the columns. The example illustrates the div with class: `col-xl-4 col-md-6 col-sm-12 mb-3`
+
+To obtain a different grid layout, modify the numbers in the mixins accordingly. For more information about the grid layout of Bootstrap, refer to [https://getbootstrap.com/docs/4.0/layout/grid/](https://getbootstrap.com/docs/4.0/layout/grid/).
+
+### Advanced Sass Variables Template: \_myvariables.scss
+
+An extended version of the `_myvariables.scss` file, that serves as an example of custom Bootstrap UI components, is available for download [here](advanced/_myvariables.scss).
+
+In order to use it, simply replace the `_myVariables.scss` file in the `customBootstrap\scss` folder with the downloaded file.
+
+The variables are sorted by UI components and explained in the following sections.
+
+**Global options**
+
+This section enables or disables general features like shadows, gradients, or the border radius for UI components such as buttons and list groups.
+
+**Fonts**
+
+This section includes commented lines to import and use a Google Font. `$font-family-base` is the variable used for fonts, `$font-size-base` defines font sizes.
+
+**Navbar**
+
+In this section, you can modify the padding of navigation bars.
+
+**Dropdowns**
+
+This section defines variables that affect dropdown menus, such as the one in the navigation bar, or the "sorting" dropdown for pagination. You can, for example, override the link hover color or the background hover color of the dropdowns, increase the border radius, or enlarge the space between items.
+
+
+**Breadcrumbs**
+
+This section defines parameters that affect the marketplace breadcrumbs.
+
+`darkCustom.scss` also contains a section with styles for breadcrumbs. The reason is that the `mp.css` stylesheet also includes some styles for breadcrumbs, which you can override with the `!important` rule.
+
+**More Components**
+
+The subsequent sections in the file show configurable variables for further Bootstratp UI components: Cards, List Groups, Buttons, Image Thumbnails, Popovers, and Inputs.
+
+### Adjusting the Theming of mp.css: \_variables.scss
+
+The [`_variables.scss`](../scss/_variables.scss) file in the `scss` folder contains a minimum set of variables to facilitate the customization of `mp.css`. The variables that can be adjusted include:
+
+- Colors such as the primary or warning color.
+- The font family, `$font-family-sans-serif`.
+- Font sizes and line heights for headings.
+
+Future updates may add more variables for customization.
+
+## Deploying the Customized Stylesheets
+
+After you have completed your customizations and recompiled the stylesheets, proceed as follows to get them deployed and effective:
+
+1. Create an archive (ZIP) containing your customized files.
+
+   The customized branding must be in the same structure as the branding package you downloaded in the OSCM administration portal.
+
+2. Provide this archive to the platform operator so that he can deploy your customized branding package to the relevant container.
+
+3. Ask the platform operator for the URL of the customized style sheet.
+
+4. In the OSCM administration portal, go to the **Customize layout** page.
+
+5. Select the marketplace for which you want to customize the layout. In the **Style sheet URL** field, enter the URL provided by the platform operator pointing to your customized style sheet.
+
+   By default, the URL is as follows:
+
+   `https://<host_fqdn>:8443/<folder-name>/css/mp.css`
+
+   `<host_fqdn>` is the fully qualified name or IP address of the host used to access the platform, `8443` is the port. `<folder-name>` is the name of the folder containing the customized files.
+
+   The location of the `darkCustom.css` and `darkFooter.css` files is automatically derived from the location of `mp.css`.
+
+9.  Click **Save** to make the new layout and branding of your marketplace available.
+
+The new layout becomes effective for a user the next time he logs in to the marketplace. Anonymous users need to close and reopen their Web browser.
+
