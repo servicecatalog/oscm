@@ -19,6 +19,8 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;
 import javax.wsdl.WSDLException;
@@ -346,6 +348,10 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     public void validateCommunication(TechnicalProduct techProduct)
             throws TechnicalServiceNotAliveException {
 
+        FacesMessage message =
+                new FacesMessage("Provisioning service URL is not responding, " +
+                        "check that the given link is correct and if there is a connection to the service.");
+
         if (techProduct.getAccessType() == ServiceAccessType.EXTERNAL) {
             return;
         }
@@ -358,6 +364,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
         try {
             getPort(techProduct).sendPing("ping");
         } catch (TechnicalServiceNotAliveException e) {
+            FacesContext.getCurrentInstance().addMessage(null, message);
             throw e;
         } catch (Throwable e) {
             throw convertThrowable(e);
@@ -367,7 +374,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
 
     /**
      * Check if the product instance is able to handle BES side user management.
-     * 
+     *
      * @param subscription
      *            the subscription of the product to check
      * @return <code>true</code> in case the product can handle user management
@@ -381,14 +388,14 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     /**
      * Create the ProvisioningServiceStub object for the technical product of
      * the given subscription
-     * 
+     *
      * @param subscription
      *            the subscription with the technical product for which the stub
      *            is created
      * @return the created ProvisioningServiceStub
      * @throws TechnicalServiceNotAliveException
      *             Thrown in case the ProvisioningServiceStub creation failed.
-     * 
+     *
      */
     private ProvisioningServiceAdapter getPort(Subscription subscription)
             throws TechnicalServiceNotAliveException {
@@ -410,7 +417,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     /**
      * Create the ProvisioningService port object for the given technical
      * product and endpoint.
-     * 
+     *
      * @param techProduct
      *            the technical product for which the stub is created
      * @return the created ProvisioningServiceStub
@@ -429,7 +436,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     /**
      * Throw a TechnicalProductOperationFailed exception if the result is null
      * or the return code is not OK
-     * 
+     *
      * @param subscription
      *            the subscription of the technical product which was called
      * @param result
@@ -464,7 +471,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     /**
      * Convert a {@link WebServiceException} into a
      * {@link TechnicalServiceOperationException} and return it.
-     * 
+     *
      * @param subscription
      *            the subscription of the technical product which was called
      * @param e
@@ -485,7 +492,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
 
     /**
      * Checks if the cause of the webexception is a timeout.
-     * 
+     *
      * @param e
      *            the webexception.
      * @return true if a timeout was the cause of the exception.
@@ -497,7 +504,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     /**
      * Create a new technical service not alive exception with the reason
      * "timeout"
-     * 
+     *
      * @param e
      *            the webexception
      * @return a new TechnicalServiceNotAliveException with timeout as reason.
@@ -516,7 +523,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     /**
      * Convert a {@link Throwable} into a
      * {@link TechnicalServiceNotAliveException} and return it.
-     * 
+     *
      * @param e
      *            the {@link Throwable} to convert
      * @return the {@link TechnicalServiceNotAliveException} to throw
@@ -532,7 +539,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     /**
      * Initializes an InstanceRequest instance with the data needed for the
      * product instance creation.
-     * 
+     *
      * @param subscription
      *            the subscription to create the product instance for
      * @return the InstanceRequest instance
@@ -564,7 +571,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
      * Maps the given list of UsageLicenses to a list of User instances. Sets
      * user (name, id, ...) and subscription (admin, applicationUserId) specific
      * data.
-     * 
+     *
      * @param usageLicenses
      *            the UsageLicenes to map
      * @return a list of User instances
@@ -653,7 +660,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
      * Creates the operation service adapter that delegates to the real the
      * port. If a provisioning user is specified, basic authentication will be
      * used.
-     * 
+     *
      * @param op
      *            the {@link TechnicalProductOperation} to get the action url
      *            from
@@ -729,7 +736,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     /**
      * Validates the {@link InstanceInfo} returned by
      * {@link #createInstance(Subscription)}.
-     * 
+     *
      * @param info
      *            the {@link InstanceInfo} to validate
      * @param sub
@@ -795,7 +802,7 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     /**
      * Validates the applicationUserId of each {@link User} - it must not be
      * longer than 255 characters.
-     * 
+     *
      * @param userList
      *            the list of {@link User}s to validate
      * @param sub
