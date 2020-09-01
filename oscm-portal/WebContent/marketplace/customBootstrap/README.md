@@ -1,7 +1,5 @@
 # OSCM Marketplace Customization Guide with Bootstrap and Sass
 
-[TOC]
-
 ## Introduction
 
 The current marketplace UI of OSCM is based on the [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/introduction/) framework. The default stylesheet, `mp.css`, is used for the customization of the marketplace layout and branding. Additional template stylesheets are provided in the `customBootstrap` folder of the OSCM branding package:
