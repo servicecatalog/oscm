@@ -1,4 +1,4 @@
-# OSCM Marketplace Customization Guide with Bootstrap and Sass
+# Marketplace Customization Guide with Bootstrap and Sass
 
 ## Introduction
 
@@ -21,11 +21,11 @@ For more information about the theming mechanism of Bootstrap via Sass in genera
 
 The following prerequisites need to be fulfilled for customizing the marketplace UI:
 
--   Download the OSCM branding package provided with OSCM.
+-   Download the branding package provided with OSCM.
 
-	The branding package can be downloaded as a ZIP file by the marketplace owner in the administration portal on the **Customize layout** page using the **Download branding package** *option*.
+	The branding package can be downloaded as a ZIP file by the marketplace owner in the administration portal on the **Customize layout** page using the **Download branding package** option.
 
-	The branding package includes the following folders containing Sass source files for OSCM customization:
+	The branding package includes the following folders containing Sass source files for customization:
 
 	- `scss`: Contains the source files of mp.css
 
