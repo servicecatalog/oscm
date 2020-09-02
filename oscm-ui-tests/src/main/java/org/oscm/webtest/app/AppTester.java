@@ -262,7 +262,7 @@ public class AppTester extends WebTester {
 
   public void testConnection() {
     driver
-        .findElement(By.xpath("//input[@id='configurationSettings:j_idt52:2:pingButton']"))
+        .findElement(By.xpath("//input[@id='configurationSettings:j_idt52:3:pingButton']"))
         .click();
 
     logger.info("Clicked test connection hyperlink");

@@ -75,13 +75,13 @@ public class AppAzureControllerWT {
     tester.loginAppConfig(userID, userPassword);
 
     tester.changeOrganizationID(
-        "//input[@id='configurationSettings:j_idt52:1:configurationValue']",
+        "//input[@id='configurationSettings:j_idt52:2:configurationValue']",
         PlaygroundSuiteTest.supplierOrgId);
 
     assertEquals(
         PlaygroundSuiteTest.supplierOrgId,
         tester.readDefaultValue(
-            "//input[@id='configurationSettings:j_idt52:1:configurationValue']"));
+            "//input[@id='configurationSettings:j_idt52:2:configurationValue']"));
   }
 
   @Test
