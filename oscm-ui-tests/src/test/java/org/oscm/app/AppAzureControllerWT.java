@@ -9,6 +9,9 @@
  */
 package org.oscm.app;
 
+import static org.junit.Assert.assertEquals;
+
+import javax.security.auth.login.LoginException;
 import org.junit.*;
 import org.junit.rules.TestWatcher;
 import org.junit.runners.MethodSorters;
@@ -17,10 +20,6 @@ import org.oscm.portal.PlaygroundSuiteTest;
 import org.oscm.webtest.app.AppControllerTester;
 import org.oscm.webtest.app.AppPathSegments;
 import org.oscm.webtest.app.AppTester;
-
-import javax.security.auth.login.LoginException;
-
-import static org.junit.Assert.assertEquals;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AppAzureControllerWT {
