@@ -2318,3 +2318,11 @@ AdmUtils.sessionTab = function(tabId, navId) {
      $(tabSession).tab('show');
   });
 }
+
+AdmUtils.busyCursor = function() {
+ $("body").css("cursor", "progress");
+}
+
+AdmUtils.defaultCursor = function() {
+ $("body").css("cursor", "default");
+}

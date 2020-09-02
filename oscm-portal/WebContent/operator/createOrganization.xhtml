@@ -56,8 +56,8 @@
               valueChangeListener="#{operatorOrgBean.newSupplierRoleChanged}" immediate="true">
               <a4j:ajax render="createOrganizationPanel" immediate="true" bypassUpdates="true" event="click"
                 onbeforedomupdate="var e=#{rich:element('operatorRevenueShare')};if (e!=null){AdmUtils.storeValue(e);} return false;"
-                onbegin="AdmUtils.storeFormState('#editForm');"
-                oncomplete="setDirty(true);AdmUtils.setUIElements();var e=#{rich:element('operatorRevenueShare')};if(e!=null){AdmUtils.restoreValue(e);} AdmUtils.restoreFormState(); return false;" />
+                onbegin="AdmUtils.busyCursor; AdmUtils.storeFormState('#editForm');"
+                oncomplete="setDirty(true);AdmUtils.setUIElements();var e=#{rich:element('operatorRevenueShare')};if(e!=null){AdmUtils.restoreValue(e);} AdmUtils.restoreFormState(); AdmUtils.defaultCursor; return false;" />
             </h:selectBooleanCheckbox>
             <h:outputLabel value="#{msg['organization.role.name.supplier']}" />
           </t:div>
@@ -69,8 +69,8 @@
               value="#{operatorOrgBean.newTechnologyProvider}" disabled="false"
               valueChangeListener="#{operatorOrgBean.newTechnologyProviderRoleChanged}" immediate="true">
               <a4j:ajax render="createOrganizationPanel" immediate="true" bypassUpdates="true" event="click"
-                onbegin="AdmUtils.storeFormState('#editForm');"
-                oncomplete="setDirty(true);AdmUtils.setUIElements(); AdmUtils.restoreFormState();" />
+                onbegin="AdmUtils.busyCursor; AdmUtils.storeFormState('#editForm');"
+                oncomplete="setDirty(true);AdmUtils.setUIElements(); AdmUtils.restoreFormState(); AdmUtils.defaultCursor; " />
             </h:selectBooleanCheckbox>
             <h:outputLabel value="#{msg['organization.role.name.technologyProvider']}" />
           </t:div>
@@ -81,8 +81,8 @@
             <h:selectBooleanCheckbox id="checkboxRoleReseller" value="#{operatorOrgBean.newReseller}" disabled="false"
               valueChangeListener="#{operatorOrgBean.newResellerRoleChanged}" immediate="true">
               <a4j:ajax render="createOrganizationPanel" immediate="true" bypassUpdates="true" event="click"
-                onbegin="AdmUtils.storeFormState('#editForm');"
-                oncomplete="setDirty(true);AdmUtils.setUIElements(); AdmUtils.restoreFormState();" />
+                onbegin="AdmUtils.busyCursor; AdmUtils.storeFormState('#editForm');"
+                oncomplete="setDirty(true);AdmUtils.setUIElements(); AdmUtils.restoreFormState(); AdmUtils.defaultCursor; " />
             </h:selectBooleanCheckbox>
             <h:outputLabel value="#{msg['organization.role.name.reseller']}" />
           </t:div>
@@ -93,8 +93,8 @@
             <h:selectBooleanCheckbox id="checkboxRoleBroker" value="#{operatorOrgBean.newBroker}" disabled="false"
               valueChangeListener="#{operatorOrgBean.newBrokerRoleChanged}" immediate="true">
               <a4j:ajax render="createOrganizationPanel" immediate="true" bypassUpdates="true" event="click"
-                onbegin="AdmUtils.storeFormState('#editForm');"
-                oncomplete="setDirty(true);AdmUtils.setUIElements(); AdmUtils.restoreFormState();" />
+                onbegin="AdmUtils.busyCursor; AdmUtils.storeFormState('#editForm');"
+                oncomplete="setDirty(true);AdmUtils.setUIElements(); AdmUtils.restoreFormState(); AdmUtils.defaultCursor; " />
             </h:selectBooleanCheckbox>
             <h:outputLabel value="#{msg['organization.role.name.broker']}" />
           </t:div>
