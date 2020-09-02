@@ -9,11 +9,10 @@
  */
 package org.oscm.webtest.app;
 
+import javax.security.auth.login.LoginException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.oscm.webtest.WebTester;
-
-import javax.security.auth.login.LoginException;
 
 /** Helper class for integration web tests for oscm-app/default.jsf */
 public class AppTester extends WebTester {
@@ -171,7 +170,8 @@ public class AppTester extends WebTester {
     field.clear();
     field.sendKeys(value);
     Thread.sleep(5000);
-    logger.info(String.format("Change organization ID into: %s for Azure Controller", value, index));
+    logger.info(
+        String.format("Change organization ID into: %s for Azure Controller", value, index));
 
     driver.findElement(By.name("configurationSettings:j_idt62")).click();
     logger.info("Clicked save configuration button in controllers configurations");
