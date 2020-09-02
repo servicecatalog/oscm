@@ -257,12 +257,14 @@
     <copy file="${ivy.lib.dir}/cssparser-0.9.18.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/"
       overwrite="true" />
     <copy file="${ivy.lib.dir}/guava-26.0-jre.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true" />
-    <copy file="${ivy.lib.dir}/richfaces-a4j-4.5.17.Final.jar" tofile="${root.dir}/libraries/jboss-richfaces/javalib/richfaces-a4j-4.5.17.Final.jar"
-      overwrite="true" />
-    <copy file="${ivy.lib.dir}/richfaces-4.5.17.Final.jar" tofile="${root.dir}/libraries/jboss-richfaces/javalib/richfaces-rich-4.5.17.Final.jar"
-      overwrite="true" />
-    <copy file="${ivy.lib.dir}/richfaces-core-4.5.17.Final.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/"
-      overwrite="true" />
+    <copy file="${ivy.lib.dir}/richfaces-a4j-4.6.13.ayg.jar" tofile="${root.dir}/libraries/jboss-richfaces/javalib/richfaces-a4j-4.6.13.ayg.jar"
+          overwrite="true" />
+    <copy file="${ivy.lib.dir}/richfaces-4.6.13.ayg.jar" tofile="${root.dir}/libraries/jboss-richfaces/javalib/richfaces-4.6.13.ayg.jar"
+          overwrite="true" />
+    <copy file="${ivy.lib.dir}/richfaces-build-resources-4.6.13.ayg.jar" tofile="${root.dir}/libraries/jboss-richfaces/javalib/richfaces-build-resources-4.6.13.ayg.jar"
+          overwrite="true" />
+    <copy file="${ivy.lib.dir}/richfaces-core-4.6.13.ayg.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/"
+          overwrite="true" />
     <copy file="${ivy.lib.dir}/sac-1.3.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/javax.ws.rs-api-2.0.1.jar" todir="${root.dir}/libraries/jersey/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/jolokia-core-1.1.1.jar" todir="${root.dir}/libraries/jolokia/WebContent/WEB-INF/lib/"
