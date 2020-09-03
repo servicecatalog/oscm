@@ -103,6 +103,7 @@
 
 
       <a4j:outputPanel id="formPanel" layout="block">
+        <adm:panelGrid>
           <adm:labelAndInputText id="operatorRevenueShare" label="#{msg['supplier.operatorRevenueShare']}"
             value="#{operatorOrgBean.newOrganization.operatorRevenueShare}" maxlength="#{appBean.percentValueLen}"
             converterId="bigDecimal.converter" validatorId="revenueShareValue" required="true" rendered="#{isSupplierOrg}" >
@@ -165,6 +166,7 @@
             <adm:selectItemPleaseSelect itemValue="" />
             <f:selectItems value="#{operatorOrgBean.selectableMarketplaces}" />
           </adm:labelAndSelect>
+        </adm:panelGrid>
       </a4j:outputPanel>
         <script>
 			//<![CDATA[
