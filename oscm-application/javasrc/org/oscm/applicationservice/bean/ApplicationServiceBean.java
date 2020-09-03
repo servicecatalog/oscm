@@ -101,6 +101,9 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     @EJB(beanInterface = DataService.class)
     DataService ds;
 
+    @EJB
+    protected DataService dataManager;
+
     @Inject
     Producer kafkaProducer;
 
@@ -348,10 +351,6 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
     public void validateCommunication(TechnicalProduct techProduct)
             throws TechnicalServiceNotAliveException {
 
-        FacesMessage message =
-                new FacesMessage("Provisioning service URL is not responding, " +
-                        "check that the given link is correct and if there is a connection to the service.");
-
         if (techProduct.getAccessType() == ServiceAccessType.EXTERNAL) {
             return;
         }
@@ -364,6 +363,11 @@ public class ApplicationServiceBean implements ApplicationServiceLocal {
         try {
             getPort(techProduct).sendPing("ping");
         } catch (TechnicalServiceNotAliveException e) {
+            String localeString = dataManager.getCurrentUser().getLocale();
+            String infoNotAlive = localizer.getLocalizedTextFromBundle(
+                    LocalizedObjectTypes.INFO_DESC, null, localeString, "INFO_DESC.0");
+            FacesMessage message =
+                    new FacesMessage(infoNotAlive);
             FacesContext.getCurrentInstance().addMessage(null, message);
             throw e;
         } catch (Throwable e) {

@@ -36,6 +36,9 @@ public enum LocalizedObjectTypes {
   /** Identifies the description of a product related event event. */
   EVENT_DESC(InformationSource.DATABASE_AND_RESOURCE_BUNDLE, "PlatformLocalizations"),
 
+  /** Identifies a description of the errors that occur. */
+  INFO_DESC(InformationSource.DATABASE_AND_RESOURCE_BUNDLE, "PlatformLocalizations"),
+
   /** Identifies the information to be used in the mail header. */
   MAIL_CONTENT(InformationSource.RESOURCE_BUNDLE, "Mail"),
 
