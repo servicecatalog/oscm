@@ -2311,18 +2311,10 @@ AdmUtils.showTooltips = function() {
 }
 
 AdmUtils.sessionTab = function(tabId, navId) {
- tabSession = document.getElementById(tabId);
- nav = document.getElementById(navId);
+ var tabSession = document.getElementById(tabId);
+ var nav = document.getElementById(navId);
  $(nav).ready(function(){
    if(tabSession != null)
      $(tabSession).tab('show');
   });
-}
-
-AdmUtils.busyCursor = function() {
- $("body").css("cursor", "progress");
-}
-
-AdmUtils.defaultCursor = function() {
- $("body").css("cursor", "default");
 }
