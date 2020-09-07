@@ -10,7 +10,6 @@
 }
 
 @media ( max-width : 767px) {
-  /* CSS goes here */
   .container-fluid {
     padding-left: 0.4em;
     padding-right: 0.4em;
@@ -18,10 +17,9 @@
 }
 
 @media ( min-width : 768px) {
-  /* CSS goes here */
   .container-fluid {
-    padding-left: 3em;
-    padding-right: 3em;
+    padding-left: 1em;
+    padding-right: 1em; 
     margin-right: 0.3em;
     margin-left: 0.3em;
   }
