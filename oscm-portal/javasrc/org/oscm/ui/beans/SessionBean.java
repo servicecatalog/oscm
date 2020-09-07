@@ -61,6 +61,7 @@ public class SessionBean implements Serializable {
   private Long subscribeToServiceKey;
   private transient MarketplaceService marketplaceService = null;
   private Boolean selfRegistrationEnabled = null;
+  
   @EJB private MarketplaceCacheService mkpCache;
   @EJB private MarketplaceService mkpService;
 
@@ -135,6 +136,7 @@ public class SessionBean implements Serializable {
   private PriceModel selectedExternalPriceModel;
   private String samlLogoutRequest;
   private String tenantID;
+  protected Map<String, Boolean> accessibleMap = new HashMap<String, Boolean>();
 
   public boolean isMyOperationsOnly() {
     return myOperationsOnly;
@@ -399,8 +401,15 @@ public class SessionBean implements Serializable {
   }
 
   protected boolean isDefaultBootstrapAvailable(String brandBaseUrl) {
+
     if (!"/marketplace".equals(brandBaseUrl)) {
-      return testUrl(brandBaseUrl + "/customBootstrap/css/darkCustom.min.css");
+      Boolean accessible = accessibleMap.get(brandBaseUrl);
+      if (accessible != null) {
+        return accessible.booleanValue();
+      }
+      Boolean ok = new Boolean(testUrl(brandBaseUrl + "/customBootstrap/css/darkCustom.min.css"));
+      accessibleMap.put(brandBaseUrl, ok);
+      return ok.booleanValue();
     }
 
     return true;

@@ -6,18 +6,23 @@ package org.oscm.ui.beans;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.Locale;
+
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -309,6 +314,31 @@ public class SessionBeanTest {
     String url = sessionBean.getBootstrapBrandBaseUrl();
 
     assertEquals(url, BRANDING_BASE_URL, url);
+  }
+
+  @Test
+  public void isDefaultBootstrapAvailable_cached_Bug_1067() throws ObjectNotFoundException {
+    // given
+    givenCustomBootstrapAvailable(true);
+
+    doReturn(BRANDING_URL).when(marketplaceServiceMock).getBrandingUrl(MARKETPLACE_ID);
+    assertTrue(sessionBean.accessibleMap.isEmpty());
+
+    // when
+    boolean b = sessionBean.isDefaultBootstrapAvailable("myBaseUrl");
+
+    // then
+    assertTrue(b);
+    verify(sessionBean, times(1)).testUrl("myBaseUrl/customBootstrap/css/darkCustom.min.css");
+
+    // when
+    b = sessionBean.isDefaultBootstrapAvailable("myBaseUrl");
+
+    // then
+    assertTrue(b);
+    verify(sessionBean, times(1)).testUrl("myBaseUrl/customBootstrap/css/darkCustom.min.css");
+    assertNotNull(sessionBean.accessibleMap.get("myBaseUrl"));
+    assertTrue(sessionBean.accessibleMap.get("myBaseUrl").booleanValue());
   }
 
   @Test
