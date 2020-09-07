@@ -27,8 +27,13 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.oscm.logging.Log4jLogger;
+import org.oscm.logging.LoggerFactory;
+import org.oscm.types.enumtypes.LogMessageIdentifier;
+
 /** Validate if the url is accessible. */
 public class RequestUrlHandler {
+  private static final Log4jLogger logger = LoggerFactory.getLogger(RequestUrlHandler.class);
 
   public static boolean isUrlAccessible(String url) throws IOException {
     boolean result = false;
@@ -42,7 +47,8 @@ public class RequestUrlHandler {
       result = (200 <= rc && 300 > rc);
 
     } catch (Exception e) {
-      // assume not accessible.
+      logger.logError(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.ERROR);
+      e.printStackTrace();
     }
     return result;
   }
