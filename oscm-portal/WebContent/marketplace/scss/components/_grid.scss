@@ -9,22 +9,6 @@
   margin-left: 0px;
 }
 
-@media ( max-width : 767px) {
-  .container-fluid {
-    padding-left: 0.4em;
-    padding-right: 0.4em;
-  }
-}
-
-@media ( min-width : 768px) {
-  .container-fluid {
-    padding-left: 1em;
-    padding-right: 1em; 
-    margin-right: 0.3em;
-    margin-left: 0.3em;
-  }
-}
-
 .col-lg-4.col-md-6.col-sm-12.mb-4 {
   padding-left: 10px;
   padding-right: 10px;

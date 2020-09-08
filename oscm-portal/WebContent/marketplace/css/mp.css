@@ -2925,10 +2925,10 @@ div.pagenate div.pagingBar .previous {
 
 @media (max-width: 767px) {
   .navbar-margin {
-    margin-top: 1.8rem; } }
+    margin-top: 1.3rem; } }
 @media (min-width: 768px) {
   .navbar-margin {
-    margin-top: 2.7rem; } }
+    margin-top: 2rem; } }
 .btn-toggler > .close-nav {
   display: inline; }
 
@@ -2978,12 +2978,12 @@ div.pagenate div.pagingBar .previous {
 
 @media (min-width: 768px) {
   #location {
-    margin-top: auto !important; }
+    margin-top: 2.7rem !important; }
     #location ol {
       width: 100%; } }
 @media (max-width: 767px) {
   #location {
-    margin-top: auto !important; }
+    margin-top: 1.8rem !important; }
     #location ol {
       width: 88%; } }
 /*  breadcrumbs link button items */
@@ -3343,16 +3343,6 @@ img[src$="sortDescending"] {
   margin-right: 5px;
   margin-left: 0px; }
 
-@media (max-width: 767px) {
-  .container-fluid {
-    padding-left: 0.4em;
-    padding-right: 0.4em; } }
-@media (min-width: 768px) {
-  .container-fluid {
-    padding-left: 1em;
-    padding-right: 1em;
-    margin-right: 0.3em;
-    margin-left: 0.3em; } }
 .col-lg-4.col-md-6.col-sm-12.mb-4 {
   padding-left: 10px;
   padding-right: 10px; }
