@@ -13,8 +13,17 @@
   margin: 0 !important;
 }
 
-.navbar-margin {
-  margin-top: 2.7rem;
+
+@media ( max-width : 767px) {
+  .navbar-margin {
+    margin-top: 1.3rem;
+  }
+}
+
+@media ( min-width : 768px) {
+  .navbar-margin {
+    margin-top: 2rem;
+  }
 }
 
 .btn-toggler>.close-nav {
