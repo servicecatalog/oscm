@@ -2923,9 +2923,12 @@ div.pagenate div.pagingBar .previous {
 .navbar-nav li {
   margin: 0 !important; }
 
-.navbar-margin {
-  margin-top: 2.7rem; }
-
+@media (max-width: 767px) {
+  .navbar-margin {
+    margin-top: 1.8rem; } }
+@media (min-width: 768px) {
+  .navbar-margin {
+    margin-top: 2.7rem; } }
 .btn-toggler > .close-nav {
   display: inline; }
 
@@ -2975,12 +2978,12 @@ div.pagenate div.pagingBar .previous {
 
 @media (min-width: 768px) {
   #location {
-    margin-top: 55px !important; }
+    margin-top: auto !important; }
     #location ol {
       width: 100%; } }
 @media (max-width: 767px) {
   #location {
-    margin-top: 15px !important; }
+    margin-top: auto !important; }
     #location ol {
       width: 88%; } }
 /*  breadcrumbs link button items */
@@ -3341,15 +3344,13 @@ img[src$="sortDescending"] {
   margin-left: 0px; }
 
 @media (max-width: 767px) {
-  /* CSS goes here */
   .container-fluid {
     padding-left: 0.4em;
     padding-right: 0.4em; } }
 @media (min-width: 768px) {
-  /* CSS goes here */
   .container-fluid {
-    padding-left: 3em;
-    padding-right: 3em;
+    padding-left: 1em;
+    padding-right: 1em;
     margin-right: 0.3em;
     margin-left: 0.3em; } }
 .col-lg-4.col-md-6.col-sm-12.mb-4 {
