@@ -16,7 +16,6 @@ package org.oscm.ui.common;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-
 import org.junit.Test;
 
 /** @author Mao */
