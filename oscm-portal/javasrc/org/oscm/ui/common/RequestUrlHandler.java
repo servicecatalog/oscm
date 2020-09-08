@@ -20,14 +20,12 @@ import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
-
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
@@ -36,7 +34,7 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 public class RequestUrlHandler {
   private static final Log4jLogger logger = LoggerFactory.getLogger(RequestUrlHandler.class);
 
-  public static boolean isUrlAccessible(String url) throws MalformedURLException  {
+  public static boolean isUrlAccessible(String url) throws MalformedURLException {
     boolean result = false;
     if (url == null || url.length() <= 0) {
       return false;

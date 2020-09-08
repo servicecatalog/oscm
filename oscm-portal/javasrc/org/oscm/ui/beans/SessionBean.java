@@ -61,7 +61,7 @@ public class SessionBean implements Serializable {
   private Long subscribeToServiceKey;
   private transient MarketplaceService marketplaceService = null;
   private Boolean selfRegistrationEnabled = null;
-  
+
   @EJB private MarketplaceCacheService mkpCache;
   @EJB private MarketplaceService mkpService;
 
