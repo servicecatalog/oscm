@@ -15,6 +15,7 @@ package org.oscm.ui.common;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -35,7 +36,7 @@ import org.oscm.types.enumtypes.LogMessageIdentifier;
 public class RequestUrlHandler {
   private static final Log4jLogger logger = LoggerFactory.getLogger(RequestUrlHandler.class);
 
-  public static boolean isUrlAccessible(String url) throws IOException {
+  public static boolean isUrlAccessible(String url) throws MalformedURLException  {
     boolean result = false;
     if (url == null || url.length() <= 0) {
       return false;
