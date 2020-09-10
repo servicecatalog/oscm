@@ -79,16 +79,7 @@
           })
       });
     </script>
-    <a4j:outputPanel>
-      <ui:include src="../organizationUnitPanel.xhtml">
-        <ui:param name="dialogId" value="organizationUnitPanel"/>
-        <ui:param name="title"
-                  value="#{manageSubscriptionModel.subscription.subscriptionId}"/>
-        <ui:param name="bean" value="#{manageSubscriptionCtrl}"/>
-        <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();"/>
-      </ui:include>
 
-    </a4j:outputPanel>
     <ui:fragment rendered="#{empty manageSubscriptionModel.subscription}">
       <script type="text/javascript">
         window.location="#{facesContext.externalContext.requestContextPath}/marketplace/account/subscriptions.jsf";
@@ -641,6 +632,16 @@
       </a4j:outputPanel>
     </a4j:outputPanel>
 
+    <a4j:outputPanel>
+      <ui:include src="../organizationUnitPanel.xhtml">
+        <ui:param name="dialogId" value="organizationUnitPanel"/>
+        <ui:param name="title"
+                  value="#{manageSubscriptionModel.subscription.subscriptionId}"/>
+        <ui:param name="bean" value="#{manageSubscriptionCtrl}"/>
+        <c:set var="cancelHandler" value="setDirty(false);#{rich:component(dialogId)}.hide();"/>
+      </ui:include>
+
+    </a4j:outputPanel>
     <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
                   rendered="#{manageSubscriptionModel.service.reseller and manageSubscriptionModel.service.priceModel.chargeable}"/>
 
