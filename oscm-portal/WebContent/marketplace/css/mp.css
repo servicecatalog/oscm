@@ -1898,8 +1898,8 @@ div.scrolltop p img {
   text-align: left !important; }
 
 .rf-pp-cntr, .rf-pp-shdw, .rf-pp-cnt-scrlr {
-  height: inherit !important;
-  width: inherit !important;
+  height: auto !important;
+  width: auto !important;
   overflow: inherit !important; }
 
 .body4span .rf-pp-shade, .body5span .rf-pp-shade {

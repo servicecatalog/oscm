@@ -1761,8 +1761,8 @@ div.rf-cp-b{
 /* autocomplete styling */
 
 .rf-pp-cntr, .rf-pp-shdw, .rf-pp-cnt-scrlr {
-	height: inherit !important;
-	width: inherit !important;
+	height: auto !important;
+	width: auto !important;
 	overflow: hidden !important;
 }
 
