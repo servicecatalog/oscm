@@ -3083,8 +3083,7 @@ div.accdsection h4#header, div.accdsection h4#menu0 {
   width: 90% !important;
   max-width: 560px;
   min-height: 180px !important;
-  max-height: 580px;
-  height: fit-content !important; }
+  max-height: 580px;}
 
 .responsive-dialog-container > div {
   width: 100% !important; }
@@ -3099,8 +3098,7 @@ div.accdsection h4#header, div.accdsection h4#menu0 {
   width: 90% !important;
   max-width: 400px;
   min-width: 330px;
-  max-height: 580px;
-  height: fit-content !important; }
+  max-height: 580px;}
 
 .responsive-login-container > div {
   width: 100% !important; }
