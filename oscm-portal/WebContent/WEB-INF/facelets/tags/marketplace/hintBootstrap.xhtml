@@ -7,9 +7,9 @@
  <c:set var="hintMsgId" value="#{pageId}.hint.#{for}"/>
  <c:set var="hintMsg" value="#{(not empty hintText)?hintText:(msg[hintMsgId])}"/>
 
- <div>
-  <a href="javascript:void(0);" class="btn #{styleHint}" data-toggle="popover"
-     data-content="#{hintMsg}" data-container="&num;#{hintId}" id="#{hintId}"><i class="fa fa-question-circle"/></a>
+ <div id="#{hintId}Parent">
+  <a href="#" class="btn #{styleHint}" data-toggle="popover"
+     data-placement="right" data-content="#{hintMsg}" id="#{hintId}" data-container="&num;#{hintId}Parent"><i class="fa fa-question-circle"/></a>
  </div>
 
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
