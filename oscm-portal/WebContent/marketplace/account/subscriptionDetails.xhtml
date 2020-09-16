@@ -7,7 +7,7 @@
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 template="../templates/mainBootstrap.xhtml">
 
-  <ui:include src="hintLibsInclude.xhtml">
+
   <ui:define name="pageId">
     <c:set var="pageId" value="marketplace.account.subscriptionsDetails"/>
     <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
@@ -27,6 +27,7 @@
   </ui:define>
 
   <ui:define name="contents">
+    <ui:include src="hintLibsInclude.xhtml">
     <script type="text/javascript">
       $(document).ready(function() {
           $('#list-tab a[href="##{sessionBean.selectedTab}"]').tab('show')

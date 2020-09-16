@@ -7,7 +7,7 @@
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 xmlns:rich="http://richfaces.org/rich" template="../templates/mainBootstrap.xhtml">
 
-  <ui:include src="hintLibsInclude.xhtml">
+  
   <ui:define name="pageId">
     <c:set var="pageId" value="marketplace.account.profile"/>
     <c:set var="focusElement" value="salutation"/>
@@ -26,6 +26,7 @@
   </ui:define>
 
   <ui:define name="contents">
+    <ui:include src="hintLibsInclude.xhtml">
     <h:form id="validateCurrentUserRolesForm">
       <a4j:jsFunction name="validateCurrentUserRoles" data="#{organizationBean.currentUserRolesChanged}"
                       oncomplete="if(event.data==true){#{rich:component('reLogining')}.show();}
