@@ -27,8 +27,6 @@
   </ui:define>
 
   <ui:define name="contents">
-    <mp:hintBootstrapLibs />
-    
     <script type="text/javascript">
       $(document).ready(function() {
           $('#list-tab a[href="##{sessionBean.selectedTab}"]').tab('show')
@@ -83,6 +81,7 @@
       });
     </script>
 
+    <ui:include src="hintBootstrapLibs.xhtml" />
     <ui:fragment rendered="#{empty manageSubscriptionModel.subscription}">
       <script type="text/javascript">
         window.location="#{facesContext.externalContext.requestContextPath}/marketplace/account/subscriptions.jsf";
