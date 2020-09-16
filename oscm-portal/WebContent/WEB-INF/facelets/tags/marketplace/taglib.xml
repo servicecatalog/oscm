@@ -22,6 +22,11 @@
     <tag-name>hint</tag-name>
     <source>hint.xhtml</source>
   </tag>
+  
+   <tag>
+    <tag-name>hintBootstrapLibs</tag-name>
+    <source>hintBootstrapLibs.xhtml</source>
+  </tag>
   <tag>
     <tag-name>labelAndInputText</tag-name>
     <source>labelAndInputText.xhtml</source>

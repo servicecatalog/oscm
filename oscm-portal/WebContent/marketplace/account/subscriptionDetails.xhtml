@@ -27,7 +27,8 @@
   </ui:define>
 
   <ui:define name="contents">
-    <ui:include src="hintLibsInclude.xhtml" />
+    <mp:hintBootstrapLibs />
+    
     <script type="text/javascript">
       $(document).ready(function() {
           $('#list-tab a[href="##{sessionBean.selectedTab}"]').tab('show')

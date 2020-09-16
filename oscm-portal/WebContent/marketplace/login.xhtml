@@ -7,6 +7,7 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
+  <mp:hintBootstrapLibs />
   <c:set var="action" value="#{facesContext.externalContext.requestContextPath}"/>
   <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
   <c:set var="serviceLogin" value="#{(userBean.serviceLoginType eq 'global')? true : false}"/>

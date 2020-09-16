@@ -26,7 +26,7 @@
   </ui:define>
 
   <ui:define name="contents">
-    <ui:include src="hintLibsInclude.xhtml" />
+    <mp:hintLibs/>
     <h:form id="validateCurrentUserRolesForm">
       <a4j:jsFunction name="validateCurrentUserRoles" data="#{organizationBean.currentUserRolesChanged}"
                       oncomplete="if(event.data==true){#{rich:component('reLogining')}.show();}
