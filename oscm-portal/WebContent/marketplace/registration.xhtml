@@ -25,7 +25,7 @@
     </mp:bootstrapBreadcrumbs>
   </ui:define>
 
-  <ui:define name="contents">
+  <ui:define name="contents"> 
     <rich:jQuery selector="document"
                  query="ready(function() {
         jQuery('input#registrationForm\\:verificationCode').focus(
@@ -268,5 +268,7 @@
         </h:form>
       </a4j:outputPanel>
     </a4j:outputPanel>
+    
+    <mp:hintBootstrapLibs />
   </ui:define>
 </ui:composition>

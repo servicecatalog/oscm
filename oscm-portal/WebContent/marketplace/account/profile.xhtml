@@ -25,6 +25,7 @@
   </ui:define>
 
   <ui:define name="contents">
+  
     <h:form id="validateCurrentUserRolesForm">
       <a4j:jsFunction name="validateCurrentUserRoles" data="#{organizationBean.currentUserRolesChanged}"
                       oncomplete="if(event.data==true){#{rich:component('reLogining')}.show();}
@@ -309,6 +310,8 @@
           type="text/css" media="all"/>
 
     <script>AdmUtils.sessionTab('#{sessionBean.selectedTab}', 'nav-tab');</script>
+    
+    <mp:hintBootstrapLibs /> 
 
   </ui:define>
 </ui:composition>
