@@ -2301,12 +2301,19 @@ AdmUtils.sortSelect = function() {
 }
 
 AdmUtils.showTooltips = function() {
- var is_touch_device = ("ontouchstart" in window) || window.DocumentTouch && document instanceof DocumentTouch;
  $(document).ready(function(){
    $('[data-toggle="popover"]').popover({
-     html : true, container: 'body',
-     trigger: is_touch_device ? "click" : "hover"
+     html : true, 
+     trigger: "hover click"
    });
+   
+   $('body').on('click', function (e) {
+	    $('[data-toggle="popover"]').each(function () {
+	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+	            $(this).popover('hide');
+	        }
+	    });
+	});
  });
 }
 

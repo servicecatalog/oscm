@@ -80,6 +80,7 @@
       });
     </script>
 
+   
     <ui:fragment rendered="#{empty manageSubscriptionModel.subscription}">
       <script type="text/javascript">
         window.location="#{facesContext.externalContext.requestContextPath}/marketplace/account/subscriptions.jsf";
@@ -327,7 +328,7 @@
                             </div>
                           </div>
                           <div class="col-md-1 col-2 pl-0">
-                            <mp:hintBootstrap for="organizationalUnitSelect"/>
+                            <mp:hintBootstrap for="subscriptionOwnerSelection"/>
                           </div>
                         </div>
                       </div>
@@ -645,5 +646,6 @@
     <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
                   rendered="#{manageSubscriptionModel.service.reseller and manageSubscriptionModel.service.priceModel.chargeable}"/>
 
+    <mp:hintBootstrapLibs /> 
   </ui:define>
 </ui:composition>

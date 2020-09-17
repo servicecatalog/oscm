@@ -21,8 +21,7 @@
     function getDirty() { return null != window.onbeforeunload; }
     function setOnSubmit(flag) { onSubmitFlag = flag; }
     AdmUtils.setFocusBackgroundColor('#FDECB2');
-    AdmUtils.showTooltips();
-
+    
     <c:if
         test="#{(not empty firstErrorElement or facesContext.maximumSeverity.ordinal > 0) and (empty dirty or dirty == 'true')}">
       setDirty(true);
