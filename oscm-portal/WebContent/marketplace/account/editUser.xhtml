@@ -28,7 +28,7 @@
   </ui:define>
 
   <ui:define name="contents">
-    <mp:hintBootstrapLibs />
+   
     <c:set var="sortIcon" value="/marketplace/img/transparentPixel.png?id=sort"/>
     <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
     <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
@@ -273,6 +273,8 @@
 
     <link href="#{facesContext.externalContext.requestContextPath}/css/dataTable.css" rel="stylesheet"
           type="text/css" media="all"/>
+          
+    <mp:hintBootstrapLibs />       
   </ui:define>
 
 </ui:composition>

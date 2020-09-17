@@ -81,7 +81,7 @@
       });
     </script>
 
-    <ui:include src="hintBootstrapLibs.xhtml" />
+   
     <ui:fragment rendered="#{empty manageSubscriptionModel.subscription}">
       <script type="text/javascript">
         window.location="#{facesContext.externalContext.requestContextPath}/marketplace/account/subscriptions.jsf";
@@ -647,5 +647,6 @@
     <h:outputText styleClass="recommendedPrice right" value="#{msg['service.recommendedRetailPrice']}"
                   rendered="#{manageSubscriptionModel.service.reseller and manageSubscriptionModel.service.priceModel.chargeable}"/>
 
+    <mp:hintBootstrapLibs /> 
   </ui:define>
 </ui:composition>
