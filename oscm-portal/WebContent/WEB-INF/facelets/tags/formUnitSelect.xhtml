@@ -33,14 +33,14 @@
         <div class="col-md-11 col-10 pr-0">
           <div class="row align-items-center">
             <!-- Panel with unit name and select button -->
-            <div class="col-#{outputWidth}">
+            <a4j:outputPanel layout="block" class="col-#{outputWidth}" id="unitNameDisplay">
               <h:outputText value="#{value}" styleClass="font-weight-bolder"/>
-            </div>
+            </a4j:outputPanel>
 
             <div class="col-#{buttonWidth}">
               <c:if test="#{not disabled}">
                 <a4j:commandLink styleClass="w-100 #{buttonStyle}" id="selectOrgUnitBtn" immediate="true" role="button"
-                                 render="organizationUnitPanel organizationUnitPanelForm"
+                                 render="organizationUnitPanel organizationUnitPanelForm unitNameDisplay"
                                  value="#{msg['button.select']}"
                                  action="#{subscriptionWizardConversation.subscriptionUnitCtrl.initializeUnitListForModifySubscription}"
                                  oncomplete="AdmUtils.showProgress(false);AdmUtils.initFocus();RichFaces.$('organizationUnitPanel').show();">
