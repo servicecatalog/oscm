@@ -413,8 +413,8 @@
     <copy todir="${root.dir}/libraries/bootstrap/javalib">
       <fileset dir="${root.dir}/libraries/bootstrap/javalib/work/META-INF/resources/webjars/bootstrap/4.3.1"/>
     </copy>
-  	<mkdir dir="${root.dir}/oscm-portal/WebContent/bootstrap"/>
-    <copy todir="${root.dir}/oscm-portal/WebContent/bootstrap">
+  	<mkdir dir="${root.dir}/oscm-portal/WebContent/marketplace/bootstrap"/>
+    <copy todir="${root.dir}/oscm-portal/WebContent/marketplace/bootstrap">
       <fileset dir="${root.dir}/libraries/bootstrap/javalib/work/META-INF/resources/webjars/bootstrap/4.3.1"/>
     </copy>
     <antcall target="cleanDir">

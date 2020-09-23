@@ -1,7 +1,7 @@
 {
 "version": 3,
 "mappings": "AAAA,+CAA+C;AAO/C,gBAAiB;EAChB,UAAU,ECRJ,OAAM;EDSZ,aAAa,EAAC,iBAAiB;EAC/B,KAAK,EAAE,IAAI;EACX,KAAK,EE0jC8B,IAAM;;AFvjC1C,mBAAmB;EAAE,KAAK,EEujCU,IAAM;;AFrjC1C,oBAAqB;EACpB,SAAS,EAAE,GAAG;EACd,UAAU,EAAE,IAAI;EAChB,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;;AAGV,oBAAqB;EACpB,OAAO,EAAE,MAAM;EACf,MAAM,EAAE,CAAC;EACT,WAAW,EAAE,IAAI",
-"sources": ["../scss/lightFooter.scss","../scss/_lightVariables.scss","../../../bootstrap/scss/_variables.scss"],
+"sources": ["../scss/lightFooter.scss","../scss/_lightVariables.scss","../../bootstrap/scss/_variables.scss"],
 "names": [],
 "file": "lightFooter.css"
 }

@@ -1,8 +1,8 @@
 @charset "UTF-8";
 /* import only the necessary Bootstrap files */
-@import "../../../bootstrap/scss/functions"; 
-@import "../../../bootstrap/scss/variables";
-@import "../../../bootstrap/scss/mixins/grid";
+@import "../../bootstrap/scss/functions"; 
+@import "../../bootstrap/scss/variables";
+@import "../../bootstrap/scss/mixins/grid";
 
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
 @import "myvariables";
@@ -87,4 +87,4 @@ button, input,textarea {
 }  
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
-@import "../../../bootstrap/scss/bootstrap";
+@import "../../bootstrap/scss/bootstrap";
