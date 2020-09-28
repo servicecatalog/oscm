@@ -29,27 +29,21 @@ Koala will create a `koala-config.json` file under you project directory. You ca
 
 Edit the `mappings` section as follows:
 
-`// The mappings of source directory and output directory
+```
+// The mappings of source directory and output directory
+	
 
-&quot;mappings&quot;: [
-
-{
-
-&quot;src&quot;: &quot;customBootstrap/scss&quot;,
-
-&quot;dest&quot;: &quot;customBootstrap/css&quot;
-
-},
-
-{
-
-&quot;src&quot;: &quot;scss&quot;,
-
-&quot;dest&quot;: &quot;css&quot;
-
-}
-
-],`
+     "mappings": [
+		 {
+		 	"src": "customBootstrap/scss",
+		 	"dest": "customBootstrap/css"
+		 },
+            {
+		 	"src": "scss",
+		 	"dest": "css"
+		 } 
+	],
+```
 
 And now right-click on the project: `branding-package` and then `Reload` to reload the project with the modified `koala-config.json` configuration file.
 
