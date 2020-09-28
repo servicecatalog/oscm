@@ -12,7 +12,7 @@ Koala runs on Windows, Linux and Mac. Install it on Windows by following the Ins
 
 ![Drag and Drop](img/Koala1.png)
 
-Now the &quot;branding-package&quot; project file structure appears:
+Now the `branding-package` project file structure appears:
 ![Project structure](img/Koala2.png)
 
 Notice that by default the output path (grey files with edit icon) of the generated `.css` files is the same directory as the one of the `.scss` files.
@@ -63,12 +63,12 @@ The custom output directories are updated:
 
 ![Auto Compile](img/Koala6.png)
 
-**Step 5:** Compile the minified (compressed) versions: &quot;darkCustom.min.css&quot; and &quot;mp.min.css&quot;.
+**Step 5:** Compile the minified (compressed) versions: `darkCustom.min.css` and `mp.min.css`.
 
 Open `koala-config.json` by navigating to: &quot;Project Settings&quot; --\&gt; &quot;Edit settings&quot;.
 
 if you have .css in the ignores property, remove it:
-&quot;ignores&quot;: []
+```&quot;ignores&quot;: []```
 
 Now all CSS files and their compile options appear when selecting the &quot;CSS&quot; tab on the bottom right of the window.
 
@@ -76,7 +76,7 @@ Now all CSS files and their compile options appear when selecting the &quot;CSS&
 
 If not already defined so, set the output path of `darkCustom.css` to `darkCustom.min.css` in the same directory. Similarly set the minified output files for all .css files.
 
-Lastly compile `darkCustom.css` to `darkCustom.min.css`. Select &quot;darkCustom.css&quot;, then select the `yuicompress` Output Style, and click on the `Compile` button.
+Lastly compile `darkCustom.css` to `darkCustom.min.css`. Select `darkCustom.css` then select the `yuicompress` Output Style, and click on the `Compile` button.
 
 ![yuicompress](img/Koala8.png)
 
