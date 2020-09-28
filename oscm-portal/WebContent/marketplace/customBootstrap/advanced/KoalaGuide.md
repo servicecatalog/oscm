@@ -21,7 +21,7 @@ We will change the output directories in the next step by using project settings
 
 **Step 3:** Output the generated `.css` files into the `customBootstrap/css` folder (the output directory for custom bootstrap) and `css` folder (the output directory for `mp.css`), by using the project configuration settings.
 
-Right-click on the `branding-package` project and choose `Project Settings-\&gt;New settings-\&gt; For Sass`.
+Right-click on the `branding-package` project and choose `Project Settings --> New settings --> For Sass`.
 
 ![New Settings](img/Koala3.png)
 
@@ -59,7 +59,7 @@ The custom output directories are updated:
 
 **Step 5:** Compile the minified (compressed) versions: `darkCustom.min.css` and `mp.min.css`.
 
-Open `koala-config.json` by navigating to: `Project Settings -\&gt; Edit settings`.
+Open `koala-config.json` by navigating to: `Project Settings --> Edit settings`.
 
 if you have .css in the ignores property, remove it:
 ```"ignores": []```
