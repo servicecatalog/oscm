@@ -8,7 +8,7 @@ It also supports other pre-processor languages such as Compass, Less or CoffeeSc
 
 Koala runs on Windows, Linux and Mac. Install it on Windows by following the Installation wizard steps. Koala can be directly used after installation.
 
-**Step 2:** Open the Koala GUI and drag-and-drop the extracted branding-package folder into the window (or click on the + icon).
+**Step 2:** Open the Koala GUI and drag-and-drop the extracted branding-package folder into the window (or click on the `+` icon).
 
 ![Drag and Drop](img/Koala1.png)
 
@@ -21,7 +21,7 @@ We will change the output directories in the next step by using project settings
 
 **Step 3:** Output the generated `.css` files into the `customBootstrap/css` folder (the output directory for custom bootstrap) and `css` folder (the output directory for `mp.css`), by using the project configuration settings.
 
-Right-click on the `branding-package` project and choose &quot;Project Settings&quot; --\&gt; &quot;New settings&quot; --\&gt; For Sass&quot;.
+Right-click on the `branding-package` project and choose `Project Settings-\&gt;New settings-\&gt; For Sass`.
 
 ![New Settings](img/Koala3.png)
 
@@ -53,16 +53,16 @@ The custom output directories are updated:
 
 ![Custom dirs](img/Koala5.png)
 
-**Step 4:** Set the &quot;Auto Compile&quot; Option&quot; to automatically compile the files when they change.
+**Step 4:** Set the &quot;Auto Compile&quot; Option to automatically compile the files when they change.
 
 ![Auto Compile](img/Koala6.png)
 
 **Step 5:** Compile the minified (compressed) versions: `darkCustom.min.css` and `mp.min.css`.
 
-Open `koala-config.json` by navigating to: &quot;Project Settings&quot; --\&gt; &quot;Edit settings&quot;.
+Open `koala-config.json` by navigating to: `Project Settings -\&gt; Edit settings`.
 
 if you have .css in the ignores property, remove it:
-```&quot;ignores&quot;: []```
+```"ignores": []```
 
 Now all CSS files and their compile options appear when selecting the &quot;CSS&quot; tab on the bottom right of the window.
 
