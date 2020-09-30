@@ -18,16 +18,6 @@ $body-bg: #fff;
 // Dropdowns
 $dropdown-link-active-bg: $primary;
 
-//$navbar-dark-color:  $navbar-light-color;
-//$navbar-dark-hover-color: $navbar-light-hover-color;
-//$navbar-dark-active-color: $navbar-light-active-color;
-//$navbar-dark-disabled-color: $navbar-light-disabled-color;
-//$navbar-dark-toggler-border-color: $navbar-light-toggler-border-color;
-
-
-//$navbar-dark-hover-color:           rgba($secondary, .75);
-//$navbar-dark-disabled-color:        rgba($secondary, .25);
-
 // Navbar Links Colors
 $navbar-dark-hover-color:  darken($secondary, 10%);
 $navbar-dark-active-color: darken($secondary, 15%);
