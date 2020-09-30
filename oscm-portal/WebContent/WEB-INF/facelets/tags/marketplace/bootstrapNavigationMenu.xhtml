@@ -13,7 +13,7 @@
       <div class="list-group collapse navbar-collapse" id="sidebarCollapse">
         <!--  Header Row -->
         <h:outputLink id="link0" value="#"
-                      styleClass="#{menuHeaderStyle} #{selected eq first? 'active' : ''}"
+                      styleClass="#{menuHeaderStyle} #{selected eq first? 'text-primary' : ''}"
                       onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.showProgress(true);location.href='#{bean['link'][0]}';return true;}else{return false;}">
           <h3 id="menu0">
             <h:outputText value="#{msg[first]}"/>
