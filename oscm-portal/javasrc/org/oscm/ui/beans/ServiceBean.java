@@ -35,15 +35,8 @@ import org.oscm.internal.types.enumtypes.ParameterValueType;
 import org.oscm.internal.types.enumtypes.PerformanceHint;
 import org.oscm.internal.types.enumtypes.PriceModelType;
 import org.oscm.internal.types.enumtypes.ServiceStatus;
-import org.oscm.internal.types.exception.ConcurrentModificationException;
+import org.oscm.internal.types.exception.*;
 import org.oscm.internal.types.exception.DomainObjectException.ClassEnum;
-import org.oscm.internal.types.exception.ImageException;
-import org.oscm.internal.types.exception.ObjectNotFoundException;
-import org.oscm.internal.types.exception.OperationNotPermittedException;
-import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
-import org.oscm.internal.types.exception.PublishingToMarketplaceNotPermittedException;
-import org.oscm.internal.types.exception.SaaSApplicationException;
-import org.oscm.internal.types.exception.ServiceStateException;
 import org.oscm.internal.vo.VOCatalogEntry;
 import org.oscm.internal.vo.VOCategory;
 import org.oscm.internal.vo.VOCompatibleService;
@@ -86,6 +79,7 @@ public class ServiceBean extends BaseBean implements Serializable {
 
     private static final String SERVICE_NO_LONGER_EXISTS = "error.service.noLonger.exists";
     private static final String SERVICE_DELETED = "error.service.deleted";
+    private static final String SERVICE_NOT_ALIVE = "error.service.notAlive";
     private static final String CANNOT_DELETE_ACTIVE_SERVICE = "error.service.cannot.delete.active";
 
     private List<VOTechnicalService> availableTechServices;
@@ -978,6 +972,9 @@ public class ServiceBean extends BaseBean implements Serializable {
             } else
                 throw e;
 
+        } catch (RuntimeException e) {
+            addMessage(null, FacesMessage.SEVERITY_ERROR,
+                    SERVICE_NOT_ALIVE);
         } finally {
             // clear caches (enforce reread next time)
             servicesForDeActivation = null;

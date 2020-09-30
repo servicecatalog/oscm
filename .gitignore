@@ -20,6 +20,8 @@ temp/
 logs/
 .settings/
 .idea/
+.metadata/
+out/
 
 oscm-billing-external-interfaces/javares/
 oscm-common/javares/
