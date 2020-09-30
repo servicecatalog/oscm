@@ -14,6 +14,10 @@
 
   </description>
 
+  <condition property="exec_file" value="sass.bat" else="sass" >
+    <os family="windows" />
+  </condition>
+
   <tstamp>
     <format property="timestamp" pattern="yyyyMMddHHmmss" timezone="GMT+0" />
   </tstamp>
@@ -59,6 +63,9 @@
   <property name="artifacts.testing.ant-logs.dir" location="${artifacts.testing.dir}/ant-logs" />
   <property name="buildid.prefix" value="private-build-on-${hostname}" />
 
+  <property name="css-dest" location="${workspace.dir}/oscm-portal/WebContent/marketplace/css"/>
+  <property name="scss-dest" location="${workspace.dir}/oscm-portal/WebContent/marketplace/scss"/>
+  <property name="yui" value="${workspace.dir}/oscm-build/lib/yuicompressor-2.4.7.jar" description="YUICompressor" />
 
   <!-- string to lower case-->
   <scriptdef name="lc" language="javascript">
@@ -138,6 +145,7 @@
 
   <target name="_dependencies">
     <dependencyresolver workspacedir="${dependency.resolver.dir}" projects="${projects}" />
+    <antcall target="convertSassFilesToCss" />
   </target>
 
   <macrodef name="buildproject">
@@ -268,7 +276,7 @@
   <target name="package" depends="_log, _dependencies" description="Resolves dependencies, compiles and packages">
     <buildproject target="package" />
   </target>
-  
+
   <target name="package_without_doc" depends="_log, _dependencies" description="Resolves dependencies, compiles and packages">
     <buildproject target="package" />
   </target>
@@ -422,10 +430,43 @@
     </fail>
   </target>
 
+  <target name="convertSassFilesToCss">
+    <echo message="Cleaning directory at ${workspace.dir}/oscm-portal/WebContent/marketplace/css" />
+    <delete dir="${css-dest}"/>
+    <mkdir dir="${css-dest}" />
+    <echo message="Running sass executable against sass files and compiling to CSS directory [${css-dest}] " />
+    <apply executable="${exec_file}" dest="${css-dest}" verbose="true" force="true" failonerror="true">
+      <srcfile />
+      <targetfile />
+      <fileset dir="${scss-dest}" includes="**/*.scss, **/*.sass" excludes="**/_*" />
+      <firstmatchmapper>
+        <globmapper from="*.sass" to="*.css" />
+        <globmapper from="*.scss" to="*.css" />
+      </firstmatchmapper>
+    </apply>
+    <echo message="Done compiling scss files!" />
+    <antcall target="minifyCSSFiles" />
+  </target>
+
+  <target name="minifyCSSFiles" description="Minimize CSS files">
+    <echo>Minifying CSS Files</echo>
+    <apply executable="java" parallel="false">
+      <fileset dir="${css-dest}" includes="**/*.css" excludes="**/_*, *.min.css"  />
+      <arg line="-jar" />
+      <arg path="${yui}" />
+      <srcfile />
+      <arg value="-o" />
+      <chainedmapper>
+        <mapper type="glob" from="*.css" to="*.min.css"/>
+        <globmapper from="*" to="${css-dest}/*"/>
+      </chainedmapper>
+      <targetfile />
+    </apply>
+  </target>
+
   <target name="osslist">
     <osslist workspace="${workspace.dir}" licensesDir="${basedir}/result/licenses" outputDir="${basedir}/result/osslist" outputFileName="osslist.txt" />
   </target>
-
 
   <!-- Generate the schema files for birt designer -->
   <target name="wsdlForBirt">
@@ -458,15 +499,6 @@
     <copy failonerror="false" todir="${artifacts.properties.dir}" file="${result.dir}/work/oscm-portal/syntax_Messages.properties.log" />
 
     <copy failonerror="false" todir="${artifacts.delivery.dir}">
-
-
-
-
-
-
-
-
-
       <fileset file="${result.package.dir}/oscm-reports/oscm-reports.zip" />
     </copy>
 

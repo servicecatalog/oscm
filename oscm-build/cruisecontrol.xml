@@ -1,157 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright FUJITSU LIMITED 2018-->
- 
+
 <project name="CruiseControl Script" basedir=".">
 
-	<description>This script is the entry point for cruise control. The targets define the scope of the build.
+  <description>This script is the entry point for cruise control. The targets define the scope of the build.
   </description>
-	<target name="runAllWebtestsOnBuildCodeAndPreparedGlassfish" depends="bootstrap,_webTests, _copyResultArtifacts" />
+  <target name="runAllWebtestsOnBuildCodeAndPreparedGlassfish" depends="bootstrap,_webTests, _copyResultArtifacts"/>
 
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runJUnitTestsBuild"
-			depends="bootstrap, _libraries, _clean, _package_without_doc, _unittests, _copyResultArtifacts" />
+  <!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
+  <target name="runJUnitTestsBuild"
+          depends="bootstrap, _libraries, _clean, _package_without_doc, _unittests, _copyResultArtifacts"/>
 
-	<target name="runTravisUT"  depends="bootstrap,_libraries">
-		<ant antfile="build.xml" target="travisunittests" />
-	</target>
-	<target name="runTravisIT" depends="bootstrap,_libraries">
-		<ant antfile="build.xml" target="integrationtests" />
-	</target>
+  <target name="runTravisUT" depends="bootstrap,_libraries">
+    <ant antfile="build.xml" target="travisunittests"/>
+  </target>
+  <target name="runTravisIT" depends="bootstrap,_libraries">
+    <ant antfile="build.xml" target="integrationtests"/>
+  </target>
 
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="prepareForDocker" depends="bootstrap,_libraries, _clean, _package" />
+  <!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
+  <target name="prepareForDocker" depends="bootstrap,_libraries, _clean, _package"/>
 
-	<!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
-	<target name="runIntegrationTests"
-			depends="bootstrap, _libraries, _clean, _package_without_doc, _integrationtests, _copyResultArtifacts" />
+  <!-- Called by cruise control. All targets for cc start with runXYZ, all internal targets start with underscore -->
+  <target name="runIntegrationTests"
+          depends="bootstrap, _libraries, _clean, _package_without_doc, _integrationtests, _copyResultArtifacts"/>
 
-	<target name="runWebserviceTests"
-			depends="bootstrap, _runWebserviceTests" />
+  <target name="runWebserviceTests"
+          depends="bootstrap, _runWebserviceTests"/>
 
-	<target name="_runWebserviceTests"
-			depends="_libraries, _clean, _webserviceTests, _copyResultArtifacts" />
+  <target name="_runWebserviceTests"
+          depends="_libraries, _clean, _webserviceTests, _copyResultArtifacts"/>
 
-	<target name="_webserviceTests">
-		<echo message="***** Run webservice tests without cleaning former results *****" />
-		<ant antfile="build.xml" target="webservicetests" />
-	</target>
+  <target name="_webserviceTests">
+    <echo message="***** Run webservice tests without cleaning former results *****"/>
+    <ant antfile="build.xml" target="webservicetests"/>
+  </target>
 
-	<target name="_webserviceSAMLTests">
-		<echo message="***** Run webservice tests without cleaning former results *****" />
-		<ant antfile="build.xml" target="webservicesamltests" />
-	</target>
+  <target name="_webserviceSAMLTests">
+    <echo message="***** Run webservice tests without cleaning former results *****"/>
+    <ant antfile="build.xml" target="webservicesamltests"/>
+  </target>
 
-	<target name="_clean">
-		<echo message="***** Clean old result directory  *****" />
-		<ant antfile="build.xml" target="clean" />
-	</target>
+  <target name="_clean">
+    <echo message="***** Clean old result directory  *****"/>
+    <ant antfile="build.xml" target="clean"/>
+  </target>
 
-	<target name="bootstrap" description="Used to install the ivy task jar">
-		<mkdir dir="${user.home}/.ant/lib"/>
-		<get dest="${user.home}/.ant/lib/ivy.jar" src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
-	</target>
+  <target name="bootstrap" description="Used to install the ivy task jar">
+    <mkdir dir="${user.home}/.ant/lib"/>
+    <get dest="${user.home}/.ant/lib/ivy.jar"
+         src="https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
+  </target>
 
-    <target name="_libraries">
-        <ant antfile="ivy-build.xml">
-            <property name="root.dir" value="${basedir}/.." />
-        </ant>
-    </target>
+  <target name="_libraries">
+    <ant antfile="ivy-build.xml">
+      <property name="root.dir" value="${basedir}/.."/>
+    </ant>
+  </target>
 
-    <target name="_package">
-		<echo message="***** Build BES without running unit tests  *****" />
-		<ant antfile="build.xml" target="package" />
-	</target>
-	
-	<target name="_package_without_doc">
-		<echo message="***** Build BES without unit tests and doc  *****" />
-		<ant antfile="build.xml" target="package_without_doc" />
-	</target>
+  <target name="_package">
+    <echo message="***** Build BES without running unit tests  *****"/>
+    <ant antfile="build.xml" target="package"/>
+  </target>
 
-	<target name="_unittests">
-		<echo message="***** Run junit tests  *****" />
-		<ant antfile="build.xml" target="unittests" />
-	</target>
+  <target name="_package_without_doc">
+    <echo message="***** Build BES without unit tests and doc  *****"/>
+    <ant antfile="build.xml" target="package_without_doc"/>
+  </target>
 
-	<target name="_integrationtests" depends="_initTestDB">
-		<echo message="***** Run integration tests  *****" />
-		<ant antfile="build.xml" target="integrationtests" />
-	</target>
+  <target name="_unittests">
+    <echo message="***** Run junit tests  *****"/>
+    <ant antfile="build.xml" target="unittests"/>
+  </target>
 
-	<target name="_initTestDB">
-		<echo message="***** NOPE *****" />
-	</target>
+  <target name="_integrationtests" depends="_initTestDB">
+    <echo message="***** Run integration tests  *****"/>
+    <ant antfile="build.xml" target="integrationtests"/>
+  </target>
 
-	<target name="_webTests">
-		<echo message="***** Wait for BES *****" />
+  <target name="_initTestDB">
+    <echo message="***** NOPE *****"/>
+  </target>
 
-		<echo message="***** Run webtests *****" />
-		<ant dir="../oscm-portal-webtests" antfile="run_alltests.xml" target="run" />
-	</target>
+  <target name="_webTests">
+    <echo message="***** Wait for BES *****"/>
 
-	<target name="_webTestPart1">
-		<echo message="***** Wait for BES *****" />
+    <echo message="***** Run webtests *****"/>
+    <ant dir="../oscm-portal-webtests" antfile="run_alltests.xml" target="run"/>
+  </target>
 
-		<echo message="***** Run webtests *****" />
-		<ant dir="../oscm-portal-webtests" antfile="run_part1.xml" target="run" />
-	</target>
+  <target name="_webTestPart1">
+    <echo message="***** Wait for BES *****"/>
 
-	<target name="_webTestPart2">
-		<echo message="***** Wait for BES *****" />
+    <echo message="***** Run webtests *****"/>
+    <ant dir="../oscm-portal-webtests" antfile="run_part1.xml" target="run"/>
+  </target>
 
-		<echo message="***** Run webtests *****" />
-		<ant dir="../oscm-portal-webtests" antfile="run_part2.xml" target="run" />
-	</target>
+  <target name="_webTestPart2">
+    <echo message="***** Wait for BES *****"/>
 
-	<target name="_webTestPartSAML">
-		<echo message="***** Wait for BES *****" />
+    <echo message="***** Run webtests *****"/>
+    <ant dir="../oscm-portal-webtests" antfile="run_part2.xml" target="run"/>
+  </target>
 
-		<echo message="***** Run webtests partSAML*****" />
-		<ant dir="../oscm-portal-webtests" antfile="run_partSAML.xml" target="run" />
-	</target>
+  <target name="_webTestPartSAML">
+    <echo message="***** Wait for BES *****"/>
 
-	<target name="_copyWebtestResults">
-		<echo message="***** Copy webtests results from webtests project to target project *****" />
-		<ant antfile="build.xml" target="copyWebtestResults" />
-	</target>
+    <echo message="***** Run webtests partSAML*****"/>
+    <ant dir="../oscm-portal-webtests" antfile="run_partSAML.xml" target="run"/>
+  </target>
 
-	<target name="_copyWebtestSAMLResults">
-		<echo message="***** Copy webtests SAML results from webtests project to target project *****" />
-		<ant antfile="build.xml" target="copyWebtestSAMLResults" />
-	</target>
+  <target name="_copyWebtestResults">
+    <echo message="***** Copy webtests results from webtests project to target project *****"/>
+    <ant antfile="build.xml" target="copyWebtestResults"/>
+  </target>
 
-	<target name="_coverageWebtests">
-		<echo message="***** Calculate coverage of webtests *****" />
-		<ant antfile="build.xml" target="coverageWebtests" />
-	</target>
+  <target name="_copyWebtestSAMLResults">
+    <echo message="***** Copy webtests SAML results from webtests project to target project *****"/>
+    <ant antfile="build.xml" target="copyWebtestSAMLResults"/>
+  </target>
 
-	<target name="_combineCoverage">
-		<echo message="***** Combine coverage of junit tests and webtests *****" />
-		<ant antfile="build.xml" target="combineCoverage" />
-	</target>
+  <target name="_coverageWebtests">
+    <echo message="***** Calculate coverage of webtests *****"/>
+    <ant antfile="build.xml" target="coverageWebtests"/>
+  </target>
 
-	<target name="_copyResultArtifacts">
-		<echo message="***** Copies the result artifacts to build module *****" />
-		<ant antfile="build.xml" target="copyResultArtifacts" />
-	</target>
+  <target name="_combineCoverage">
+    <echo message="***** Combine coverage of junit tests and webtests *****"/>
+    <ant antfile="build.xml" target="combineCoverage"/>
+  </target>
 
-	<target name="_webTestPlayground">
-		<echo message="***** Wait for BES *****" />
+  <target name="_copyResultArtifacts">
+    <echo message="***** Copies the result artifacts to build module *****"/>
+    <ant antfile="build.xml" target="copyResultArtifacts"/>
+  </target>
 
-		<echo message="***** Run webtests *****" />
-		<ant dir="../oscm-portal-webtests" antfile="run_playground.xml" target="run" />
-	</target>
-	
-	<target name="_webTestAccount">
-        <echo message="***** Wait for BES *****" />
+  <target name="_webTestPlayground">
+    <echo message="***** Wait for BES *****"/>
 
-        <echo message="***** Run webtests *****" />
-        <ant dir="../oscm-portal-webtests" antfile="run_account_tests.xml" target="run" />
-    </target>
-	
-	<target name="_webTestMarketplace">
-        <echo message="***** Wait for BES *****" />
+    <echo message="***** Run webtests *****"/>
+    <ant dir="../oscm-portal-webtests" antfile="run_playground.xml" target="run"/>
+  </target>
 
-        <echo message="***** Run webtests *****" />
-        <ant dir="../oscm-portal-webtests" antfile="run_marketplace.xml" target="run" />
-    </target>
+  <target name="_webTestAccount">
+    <echo message="***** Wait for BES *****"/>
+
+    <echo message="***** Run webtests *****"/>
+    <ant dir="../oscm-portal-webtests" antfile="run_account_tests.xml" target="run"/>
+  </target>
+
+  <target name="_webTestMarketplace">
+    <echo message="***** Wait for BES *****"/>
+
+    <echo message="***** Run webtests *****"/>
+    <ant dir="../oscm-portal-webtests" antfile="run_marketplace.xml" target="run"/>
+  </target>
 </project>
