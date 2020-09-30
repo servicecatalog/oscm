@@ -9,11 +9,11 @@
 	background: $dark;
 	border-bottom:1px solid #4c4c4c;
 	width: 100%;
-	color: $white;
+	color: $footer-link-color;
 	font-family: $headings-font-family;
 }
 
-.bootstrap_footer a{ color: $white; }
+.bootstrap_footer a{ color: $footer-link-color; }
 
 .bootstrap_footer ul { 
 	font-size: 93%; 
@@ -26,6 +26,4 @@
 	display: inline;
 	margin: 0; 
 	margin-left: 16px;
-}	
-	
-
+}

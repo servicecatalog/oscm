@@ -1,0 +1,32 @@
+$main-color: $green;
+
+$secondary: $main-color;
+$primary: $main-color;
+$dark: $gray-800;
+
+$footer-link-color: $white;
+
+$theme-colors: (
+   "primary": $primary,
+   "secondary": $secondary,
+   "dark": $dark
+);
+
+// Body
+$body-bg: #fff;
+
+// Dropdowns
+$dropdown-link-active-bg: $primary;
+
+// Inputs
+$input-focus-border-color: $primary;
+$input-group-addon-border-color: $primary;
+
+// List groups
+$list-group-active-color: $primary;
+
+// Custom colors for list groups.
+$lightened-color: lighten(desaturate($secondary, 0.03), 23.33);
+
+$hover-color: darken($secondary, 2%);
+$darkened-color: darken($secondary, 6.5%);
