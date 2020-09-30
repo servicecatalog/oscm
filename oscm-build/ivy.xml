@@ -396,9 +396,10 @@
     <!-- OIDC related libs -->
 	  <dependency org="com.auth0" name="java-jwt" rev="3.8.1" transitive="false"/>
 	  
-	<!-- Bootstrap sources -->
-	<dependency org="org.webjars" name="bootstrap" rev="4.3.1"/>
-	
+	  <!-- Bootstrap sources -->
+	  <dependency org="org.webjars" name="bootstrap" rev="4.3.1"/>
+    <dependency org="com.yahoo.platform.yui" name="yuicompressor" rev="2.4.7"/>
+
     <exclude org="org.netbeans.api"/>
     <exclude org="*" ext="*" type="source"/>
     <exclude org="*" ext="*" type="javadoc"/>
