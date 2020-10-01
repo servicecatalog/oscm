@@ -16,11 +16,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import java.util.Locale;
+
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -327,14 +329,14 @@ public class SessionBeanTest {
 
     // then
     assertTrue(b);
-    verify(sessionBean, times(1)).testUrl("myBaseUrl/customBootstrap/css/darkCustom.min.css");
+    verify(sessionBean, times(1)).testUrl("myBaseUrl/customBootstrap/css/customTheme.min.css");
 
     // when
     b = sessionBean.isDefaultBootstrapAvailable("myBaseUrl");
 
     // then
     assertTrue(b);
-    verify(sessionBean, times(1)).testUrl("myBaseUrl/customBootstrap/css/darkCustom.min.css");
+    verify(sessionBean, times(1)).testUrl("myBaseUrl/customBootstrap/css/customTheme.min.css");
     assertNotNull(sessionBean.accessibleMap.get("myBaseUrl"));
     assertTrue(sessionBean.accessibleMap.get("myBaseUrl").booleanValue());
   }
