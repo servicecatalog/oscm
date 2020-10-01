@@ -57,7 +57,7 @@ The custom output directories are updated:
 
 ![Auto Compile](img/Koala6.png)
 
-**Step 5:** Compile the minified (compressed) versions: `darkCustom.min.css` and `mp.min.css`.
+**Step 5:** Compile the minified (compressed) versions: `customTheme.min.css` and `mp.min.css`.
 
 Open `koala-config.json` by navigating to: `Project Settings --> Edit settings`.
 
@@ -68,9 +68,9 @@ Now all CSS files and their compile options appear when selecting the &quot;CSS&
 
 ![CSS minified outputs](img/Koala7.png)
 
-If not already defined so, set the output path of `darkCustom.css` to `darkCustom.min.css` in the same directory. Similarly set the minified output files for all .css files.
+If not already defined so, set the output path of `customTheme.css` to `customTheme.min.css` in the same directory. Similarly set the minified output files for all .css files.
 
-Lastly compile `darkCustom.css` to `darkCustom.min.css`. Select `darkCustom.css` then select the `yuicompress` Output Style, and click on the `Compile` button.
+Lastly compile `customTheme.css` to `customTheme.min.css`. Select `customTheme.css` then select the `yuicompress` Output Style, and click on the `Compile` button.
 
 ![yuicompress](img/Koala8.png)
 

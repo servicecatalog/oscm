@@ -6,7 +6,7 @@ The current marketplace UI of OSCM is based on the [Bootstrap](https://getboots
 
 -   `customTheme.min.css`: a custom Bootstrap stylesheet (a fully compiled and customized version) with a dark navigation bar.
 
--   `customFooter.min.css`: a stylesheet to obtain a custom (dark) footer.
+-   `customFooter.min.css`: a stylesheet to obtain a custom dark-background footer.
 
 The pages of the marketplace UI use the `mp.min.css`, `customTheme.min.css`, and `customFooter.min.css` stylesheets. 
 
@@ -88,7 +88,7 @@ You can also override other theme colors, such as the `$primary` or `$seconda
 
 Similarly, you can modify the `$font-family-base` variable to change the font-family or use a Google font. Be aware that you also need to modify the `$font-family-base-sans-serif` variable in the `_variables.scss` file, which is imported into the `mp.css` style sheet.
 
-If you would like to adjust or add specific Boostrap styles, you can do so directly in the [`darkCustom.scss`](scss/darkCustom.scss) file after importing `_myVariables` but before importing `bootstrap`. Use the standard css or Scss syntax.
+If you would like to adjust or add specific Boostrap styles, you can do so directly in the [`customTheme.scss`](scss/customTheme.scss) file after importing `_myVariables` but before importing `bootstrap`. Use the standard css or Scss syntax.
 
 Remember to re-compile your source files for any changes to take effect.
 
@@ -127,7 +127,7 @@ This section defines variables that affect dropdown menus, such as the one in th
 
 This section defines parameters that affect the marketplace breadcrumbs.
 
-`darkCustom.scss` also contains a section with styles for breadcrumbs. The reason is that the `mp.css` stylesheet also includes some styles for breadcrumbs, which you can override with the `!important` rule.
+`customTheme.scss` also contains a section with styles for breadcrumbs. The reason is that the `mp.css` stylesheet also includes some styles for breadcrumbs, which you can override with the `!important` rule.
 
 **More Components**
 
@@ -165,7 +165,7 @@ After you have completed your customizations and recompiled the stylesheets, pro
 
    `<host_fqdn>` is the fully qualified name or IP address of the host used to access the platform, `8443` is the port. `<folder-name>` is the name of the folder containing the customized files.
 
-   The location of the `darkCustom.css` and `darkFooter.css` files is automatically derived from the location of `mp.css`.
+   The location of the `customTheme.css` and `customFooter.css` files is automatically derived from the location of `mp.css`.
 
 9.  Click **Save** to make the new layout and branding of your marketplace available.
 
