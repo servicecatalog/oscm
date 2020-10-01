@@ -145,7 +145,7 @@
 
   <target name="_dependencies">
     <dependencyresolver workspacedir="${dependency.resolver.dir}" projects="${projects}" />
-    <antcall target="convertSassFilesToCss" />
+    <antcall target="minifyCSSFiles" /> />
   </target>
 
   <macrodef name="buildproject">
@@ -428,24 +428,6 @@
         </and>
       </condition>
     </fail>
-  </target>
-
-  <target name="convertSassFilesToCss">
-    <echo message="Cleaning directory at ${workspace.dir}/oscm-portal/WebContent/marketplace/css" />
-    <delete dir="${css-dest}"/>
-    <mkdir dir="${css-dest}" />
-    <echo message="Running sass executable against sass files and compiling to CSS directory [${css-dest}] " />
-    <apply executable="${exec_file}" dest="${css-dest}" verbose="true" force="true" failonerror="true">
-      <srcfile />
-      <targetfile />
-      <fileset dir="${scss-dest}" includes="**/*.scss, **/*.sass" excludes="**/_*" />
-      <firstmatchmapper>
-        <globmapper from="*.sass" to="*.css" />
-        <globmapper from="*.scss" to="*.css" />
-      </firstmatchmapper>
-    </apply>
-    <echo message="Done compiling scss files!" />
-    <antcall target="minifyCSSFiles" />
   </target>
 
   <target name="minifyCSSFiles" description="Minimize CSS files">
