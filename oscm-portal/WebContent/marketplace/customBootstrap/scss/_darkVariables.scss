@@ -22,8 +22,14 @@ $dropdown-link-active-bg: $primary;
 $input-focus-border-color: $primary;
 $input-group-addon-border-color: $primary;
 
-// List groups
-$list-group-active-color: $primary;
+// Text color for Account Menu header.
+#link0 {
+  color: $light;
+  
+  &:hover  { 
+    color: $navbar-dark-hover-color;
+  }
+}  
 
 // Custom colors for list groups.
 $lightened-color: lighten(desaturate($secondary, 0.03), 23.33);
