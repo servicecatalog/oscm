@@ -4,39 +4,32 @@
 /* change the fonts, and primary theme color to green  */
 /* -------begin customization-------- */
 /* change the fonts, and primary theme color to green  */
+#link0 {
+  color: #f8f9fa; }
+  #link0:hover {
+    color: rgba(255, 255, 255, 0.75); }
+
 @media (max-width: 767.98px) {
   .navbar {
     padding: 0rem; } }
 /* Container-fluid */
 @media (min-width: 768px) {
   .container-fluid {
-    padding-left: 3em;
-    padding-right: 3em;
+    padding-left: 1em;
+    padding-right: 1em;
     margin-right: 0.3em;
     margin-left: 0.3em; } }
 @media (max-width: 767.98px) {
   .container-fluid {
     padding-left: 0.4em;
     padding-right: 0.4em; } }
+/* import only the necessary Bootstrap files */
 html, body {
   max-width: 100%;
   overflow-x: hidden; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif !important; }
-
-.breadcrumb {
-  padding: 0.75rem 1rem !important; }
-  .breadcrumb .breadcrumb-item {
-    padding-left: 0.5rem !important; }
-    .breadcrumb .breadcrumb-item a {
-      color: rgba(255, 255, 255, 0.5); }
-    .breadcrumb .breadcrumb-item a:hover {
-      color: #28a745;
-      text-decoration: none; }
-    .breadcrumb .breadcrumb-item a:visited {
-      color: #23923d;
-      text-decoration: none; }
 
 button, input, textarea {
   font-family: "OpenSansRegular", Arial, Verdana, "Lucida Grande", "ＭＳ Ｐゴシック", "ヒラギノ角ゴ Pro W3", sans-serif; }
@@ -68,6 +61,19 @@ button, input, textarea {
     .gridLayoutForCard {
       flex: 0 0 25%;
       max-width: 25%; } }
+
+.breadcrumb {
+  padding: 0.75rem 1rem !important; }
+  .breadcrumb .breadcrumb-item {
+    padding-left: 0.5rem !important; }
+    .breadcrumb .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.5); }
+    .breadcrumb .breadcrumb-item a:hover {
+      color: #28a745;
+      text-decoration: none; }
+    .breadcrumb .breadcrumb-item a:visited {
+      color: #23923d;
+      text-decoration: none; }
 
 .list-group-item-secondary {
   background-color: #6bdb84 !important; }
@@ -5020,6 +5026,18 @@ button.bg-dark:focus {
     width: 100%;
     height: 100%;
     border: 0; }
+
+.embed-responsive-21by9::before {
+  padding-top: 42.8571428571%; }
+
+.embed-responsive-16by9::before {
+  padding-top: 56.25%; }
+
+.embed-responsive-4by3::before {
+  padding-top: 75%; }
+
+.embed-responsive-1by1::before {
+  padding-top: 100%; }
 
 .embed-responsive-21by9::before {
   padding-top: 42.8571428571%; }

@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": ";AAAA,+CAA+C;ACC/C,wCAAwC;AAAA,yDAAyD;ADMjG,iBAAkB;EACjB,UAAU,ECHJ,OAAS;EDIf,aAAa,EAAC,iBAAiB;EAC/B,KAAK,EAAE,IAAI;EACX,KAAK,EEskC8B,IAAM;EFrkCzC,WAAW,ECUM,2FAAiB;;ADPnC,mBAAmB;EAAE,KAAK,EEkkCU,IAAM;;AFhkC1C,oBAAqB;EACpB,SAAS,EAAE,GAAG;EACd,UAAU,EAAE,IAAI;EAChB,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;;AAGV,oBAAqB;EACpB,OAAO,EAAE,MAAM;EACf,MAAM,EAAE,CAAC;EACT,WAAW,EAAE,IAAI",
-"sources": ["../scss/darkFooter.scss","../scss/_myvariables.scss","../../bootstrap/scss/_variables.scss"],
+"mappings": ";AAAA,+CAA+C;ACA/C,wCAAwC;AAAA,yDAAyD;ACyBjG,MAAO;EACL,KAAK,ECk9B6B,OAAS;EDh9B3C,YAAS;IACP,KAAK,EC0rB2B,yBAAiB;;AHhtBrD,iBAAkB;EACjB,UAAU,EEJJ,OAAS;EFKf,aAAa,EAAC,iBAAiB;EAC/B,KAAK,EAAE,IAAI;EACX,KAAK,EELc,IAAM;EFMzB,WAAW,EIPM,2FAAiB;;AJUnC,mBAAmB;EAAE,KAAK,EETN,IAAM;;AFW1B,oBAAqB;EACpB,SAAS,EAAE,GAAG;EACd,UAAU,EAAE,IAAI;EAChB,OAAO,EAAE,CAAC;EACV,MAAM,EAAE,CAAC;;AAGV,oBAAqB;EACpB,OAAO,EAAE,MAAM;EACf,MAAM,EAAE,CAAC;EACT,WAAW,EAAE,IAAI",
+"sources": ["../scss/darkFooter.scss","../scss/_myvariables.scss","../scss/_darkVariables.scss","../../bootstrap/scss/_variables.scss","../scss/_fontsVariables.scss"],
 "names": [],
 "file": "darkFooter.css"
 }
