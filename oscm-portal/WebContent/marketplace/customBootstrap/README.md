@@ -59,9 +59,11 @@ The Sass variables and their values are defined in the separate files in the OSC
 
 The `customBootstrap\scss` folder contains the following variable files for the stylesheets in the same folder:
 
--   `_myVariables.scss`: defines the variables for the `darkCustom` and `darkFooter` stylesheets.
+-   `_myVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets.
 
--   `_lightVariables.scss`: defines the variables for the `lightCustom` and `lightFooter` stylesheets.
+-   `_darkVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets (with a dark navigation bar).
+
+-   `_lightVariables.scss`: defines the variables for switching to a light navigation bar `customTheme` and `customFooter` stylesheets. In `_myVariables.scss` simply replace the `@import "darkVariables";` with `@import "lightVariables";`, do the same in `customFooter.scss` and recompile the stylesheets.
 
 The `scss` folder contains the following variable file for the `mp.css` stylesheet:
 
