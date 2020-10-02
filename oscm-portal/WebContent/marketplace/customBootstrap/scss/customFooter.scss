@@ -3,16 +3,17 @@
 @import "../../bootstrap/scss/variables";
 
 
-@import "lightVariables";
+@import "myvariables";
 
-bootstrap_footer {
+.bootstrap_footer {
 	background: $dark;
 	border-bottom:1px solid #4c4c4c;
 	width: 100%;
-	color: $black;
+	color: $footer-link-color;
+	font-family: $headings-font-family;
 }
 
-.bootstrap_footer a{ color: $black; }
+.bootstrap_footer a{ color: $footer-link-color; }
 
 .bootstrap_footer ul { 
 	font-size: 93%; 
@@ -25,4 +26,4 @@ bootstrap_footer {
 	display: inline;
 	margin: 0; 
 	margin-left: 16px;
-}	
+}

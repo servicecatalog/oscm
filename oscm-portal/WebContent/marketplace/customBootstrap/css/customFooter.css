@@ -2,6 +2,11 @@
 /* import only the necessary Bootstrap files */
 /* -------begin customization-------- */
 /* change the fonts, and primary theme color to green  */
+#link0 {
+  color: #f8f9fa; }
+  #link0:hover {
+    color: rgba(255, 255, 255, 0.75); }
+
 .bootstrap_footer {
   background: #343a40;
   border-bottom: 1px solid #4c4c4c;
@@ -23,4 +28,4 @@
   margin: 0;
   margin-left: 16px; }
 
-/*# sourceMappingURL=darkFooter.css.map */
+/*# sourceMappingURL=customFooter.css.map */

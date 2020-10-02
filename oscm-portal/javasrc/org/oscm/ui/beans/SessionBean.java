@@ -407,7 +407,7 @@ public class SessionBean implements Serializable {
       if (accessible != null) {
         return accessible.booleanValue();
       }
-      Boolean ok = new Boolean(testUrl(brandBaseUrl + "/customBootstrap/css/darkCustom.min.css"));
+      Boolean ok = new Boolean(testUrl(brandBaseUrl + "/customBootstrap/css/customTheme.min.css"));
       accessibleMap.put(brandBaseUrl, ok);
       return ok.booleanValue();
     }

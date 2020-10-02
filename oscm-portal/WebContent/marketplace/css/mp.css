@@ -865,26 +865,7 @@ h2.priceUnit, h1.priceUnit {
   text-align: right;
   padding-top: 32px; }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-3.5 Footer
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.bootstrap_footer {
-  background: #b3b7bc;
-  border-bottom: 1px solid #555555;
-  width: 100%;
-  color: #fff; }
-  .bootstrap_footer a {
-    color: #fff; }
-  .bootstrap_footer ul {
-    font-size: 93%;
-    list-style: none;
-    padding: 0;
-    margin: 0; }
-  .bootstrap_footer li {
-    display: inline;
-    margin: 0;
-    margin-left: 16px; }
-
+/* @import "../scss/basic/footer"; */
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 5.1 Page Title
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
@@ -3083,7 +3064,7 @@ div.accdsection h4#header, div.accdsection h4#menu0 {
   width: 90% !important;
   max-width: 560px;
   min-height: 180px !important;
-  max-height: 580px;}
+  max-height: 580px; }
 
 .responsive-dialog-container > div {
   width: 100% !important; }
@@ -3098,7 +3079,7 @@ div.accdsection h4#header, div.accdsection h4#menu0 {
   width: 90% !important;
   max-width: 400px;
   min-width: 330px;
-  max-height: 580px;}
+  max-height: 580px; }
 
 .responsive-login-container > div {
   width: 100% !important; }
