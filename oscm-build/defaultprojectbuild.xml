@@ -189,7 +189,6 @@
   <target name="package_hook" />
 
   <target name="package" if="package.file.exists" depends="_init, compile, wsdl, javadoc, _licenses, package_hook">
-    <echo message="Done package build!" />
     <mkdir dir="${result.package.dir}" />
     <licensespackage packagefile="${package.file}" licensesdir="${result.dir}/licenses" outputdir="${result.licenses.dir}" />
     <resourcepackage packagefile="${package.file}" outputdir="${result.package.dir}" />

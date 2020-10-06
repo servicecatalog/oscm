@@ -63,8 +63,7 @@
   <property name="artifacts.testing.ant-logs.dir" location="${artifacts.testing.dir}/ant-logs" />
   <property name="buildid.prefix" value="private-build-on-${hostname}" />
 
-  <property name="css-dest" location="${workspace.dir}/oscm-portal/WebContent/marketplace/css"/>
-  <property name="scss-dest" location="${workspace.dir}/oscm-portal/WebContent/marketplace/scss"/>
+  <property name="mp-dest" location="${workspace.dir}/oscm-portal/WebContent/marketplace"/>
   <property name="yui" value="${workspace.dir}/oscm-build/lib/yuicompressor-2.4.7.jar" description="YUICompressor" />
 
   <!-- string to lower case-->
@@ -431,34 +430,48 @@
   </target>
 
   <target name="convertSassFilesToCss">
-    <echo message="Cleaning directory at ${workspace.dir}/oscm-portal/WebContent/marketplace/css" />
-    <delete dir="${css-dest}"/>
-    <mkdir dir="${css-dest}" />
-    <echo message="Running sass executable against sass files and compiling to CSS directory [${css-dest}] " />
-    <apply executable="${exec_file}" dest="${css-dest}" verbose="true" force="true" failonerror="true">
+    <echo message="Cleaning directory at ${workspace.dir}/oscm-portal/WebContent/marketplace" />
+    <delete dir="${mp-dest}/css"/>
+    <mkdir dir="${mp-dest}/css" />
+    <delete dir="${mp-dest}/customBootstrap/css"/>
+    <mkdir dir="${mp-dest}/customBootstrap/css" />
+    <echo message="Running sass executable against sass files and compiling to CSS directory [${mp-dest}] " />
+    <echo message="This step requires dart-sass installed on windows" />
+    <apply executable="${exec_file}" dest="${mp-dest}/css" verbose="true" force="true" failonerror="true">
       <srcfile />
       <targetfile />
-      <fileset dir="${scss-dest}" includes="**/*.scss, **/*.sass" excludes="**/_*" />
+      <fileset dir="${mp-dest}/scss" includes="*.scss, *.sass" excludes="_*" />
       <firstmatchmapper>
-        <globmapper from="*.sass" to="*.css" />
         <globmapper from="*.scss" to="*.css" />
+        <globmapper from="*.sass" to="*.css" />
+        <flattenmapper/>
       </firstmatchmapper>
     </apply>
-    <echo message="Done compiling scss files!" />
+    <apply executable="${exec_file}" dest="${mp-dest}/customBootstrap/css" verbose="true" force="true" failonerror="true">
+      <srcfile />
+      <targetfile />
+      <fileset dir="${mp-dest}/customBootstrap/scss" includes="*.scss, *.sass" excludes="_*" />
+      <firstmatchmapper>
+        <globmapper from="*.scss" to="*.css" />
+        <globmapper from="*.sass" to="*.css" />
+        <flattenmapper/>
+      </firstmatchmapper>
+    </apply>
+    <echo message="Sass files compiled correctly!" />
     <antcall target="minifyCSSFiles" />
   </target>
 
   <target name="minifyCSSFiles" description="Minimize CSS files">
     <echo>Minifying CSS Files</echo>
     <apply executable="java" parallel="false">
-      <fileset dir="${css-dest}" includes="**/*.css" excludes="**/_*, *.min.css"  />
+      <fileset dir="${mp-dest}" includes="**/**/*.css" excludes="**/**/_*, **/**/*.min.css"  />
       <arg line="-jar" />
       <arg path="${yui}" />
       <srcfile />
       <arg value="-o" />
       <chainedmapper>
-        <mapper type="glob" from="*.css" to="*.min.css"/>
-        <globmapper from="*" to="${css-dest}/*"/>
+        <globmapper from="*.css" to="*.min.css"/>
+        <globmapper from="*" to="${mp-dest}/*"/>
       </chainedmapper>
       <targetfile />
     </apply>
