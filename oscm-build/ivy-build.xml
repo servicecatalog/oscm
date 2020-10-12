@@ -417,8 +417,18 @@
     <copy todir="${root.dir}/oscm-portal/WebContent/marketplace/bootstrap">
       <fileset dir="${root.dir}/libraries/bootstrap/javalib/work/META-INF/resources/webjars/bootstrap/4.3.1"/>
     </copy>
+    
+    <unzip src="${ivy.lib.dir}/font-awesome-4.7.0.jar" dest="${root.dir}/libraries/font-awesome/javalib/work" />
+    <copy todir="${root.dir}/libraries/font-awesome/javalib">
+      <fileset dir="${root.dir}/libraries/font-awesome/javalib/work/META-INF/resources/webjars/font-awesome/4.7.0"/>
+    </copy>
+    <mkdir dir="${root.dir}/oscm-portal/WebContent/marketplace/font-awesome"/>
+    <copy todir="${root.dir}/oscm-portal/WebContent/marketplace/font-awesome">
+      <fileset dir="${root.dir}/libraries/font-awesome/javalib/work/META-INF/resources/webjars/font-awesome/4.7.0"/>
+    </copy>
     <antcall target="cleanDir">
-      <param name="directory" value="${root.dir}/libraries/bootstrap/javalib/work" />
+      <param name="bootstrapDir" value="${root.dir}/libraries/bootstrap/javalib/work" />
+      <param name="fontAwesomeDir" value="${root.dir}/libraries/font-awesome/javalib/work" />
     </antcall>
   </target>
 
