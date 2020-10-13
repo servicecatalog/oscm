@@ -12,8 +12,10 @@
 
   <link href="${facesContext.externalContext.requestContextPath}/marketplace/bootstrap/css/bootstrap.min.css" rel="stylesheet"
         type="text/css"/>
+        
+  <c:set var="bootstrapBrandBaseUrl" value="#{sessionBean.bootstrapBrandBaseUrl}"/>
   <link type="text/css" rel="stylesheet"
-        href="${facesContext.externalContext.requestContextPath}/marketplace/font-awesome/css/font-awesome.min.css"/>
+        href="${bootstrapBrandBaseUrl}/font-awesome/css/font-awesome.min.css"/>
 </h:head>
 
 <h:body styleClass="mt-5 container border rounded">
