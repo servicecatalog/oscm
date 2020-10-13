@@ -113,7 +113,12 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>9.3-1104-jdbc41</version>
+      <version>9.4-1203-jdbc42</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.servicecatalog.oscm-commons</groupId>
+      <artifactId>oscm-common</artifactId>
+      <version>master-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
