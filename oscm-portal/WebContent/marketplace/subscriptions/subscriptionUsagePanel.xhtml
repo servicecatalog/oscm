@@ -22,7 +22,6 @@
         <div id="subscriptionDetailsPanel" class="tab-pane fade show active py-2" role="tabpanel"
              aria-labelledby="nav-detail-tab">
           <h:form id="subscriptionDetailsPanelForm">
-            <span id="anchor"></span>
             <mp:notice rendered="#{subscription.showProvisioningWarning}"
                        noticeText="#{subscription.provisioningWarning}"/>
 
@@ -58,20 +57,20 @@
                       </div>
 
                       <a4j:outputPanel layout="block" id="executeDescriptionDiv" styleClass="py-1">
-                        #{sub.operationDescription}
+                        #{subscription.operationDescription}
                       </a4j:outputPanel>
 
                       <!-- input fields for parameters -->
                       <c:forEach items="#{subscription.operationParameters}" var="op" varStatus="opStatus">
                         <mp:formInput id="input#{op.id}" label="#{op.name}" value="#{op.value}"
                                       required="#{op.mandatory}" rendered="#{op.renderInput}"
-                                      maxlength="#{appBean.nameLen}"
+                                      maxlength="#{appBean.nameLen}" inputStyle="form-control"
                                       converterId="trimConverter" labelEllipsisRequired="true">
                           <f:ajax event="change"/>
                         </mp:formInput>
                         <mp:formSelect id="select#{op.id}" label="#{op.name}" value="#{op.value}"
                                        required="#{op.mandatory}" rendered="#{op.renderSelect}"
-                                       labelEllipsisRequired="true">
+                                       labelEllipsisRequired="true" selectStyle="custom-select">
                           <f:selectItems value="#{op.values}"/>
                         </mp:formSelect>
                       </c:forEach>
@@ -150,12 +149,11 @@
             Loading...
           </button>
           <script>
-       var dots = window.setInterval( function() {
-         var wait = document.getElementById("wait");
-         if ( wait.innerHTML.length > 2 ) {
-           wait.style.display = 'none';
-        } }, 350);
-
+           var dots = window.setInterval( function() {
+             var wait = document.getElementById("wait");
+             if ( wait.innerHTML.length > 2 ) {
+               wait.style.display = 'none';
+            } }, 350);
           </script>
           <iframe id="customData" src="#{mySubscriptionsCtrl.customTabUrlWithParameters}"
                   class="responsive-iframe" onload="$('#loading').hide();clearInterval(dots);"/>
