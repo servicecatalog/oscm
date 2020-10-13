@@ -29,7 +29,7 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
 	-   `customBootstrap/scss`: Contains the theme source files for the custom Bootstrap stylesheets, explained in detail below.
 	
-	-   `font-awesome`: Contains a local copy of font-awesome v4.7.0 with WebFonts and CSS. It is useful only if you wish to customize the font-awesome icons yourself. For more details look [here](https://fontawesome.com/how-to-use/on-the-web/setup/hosting-font-awesome-yourself)
+	-   `font-awesome`: Contains a local copy of font-awesome v4.7.0 with WebFonts and CSS. It is useful only if you wish to customize the font-awesome icons yourself. For more details look this [font-awesome documentation](https://fontawesome.com/how-to-use/on-the-web/setup/hosting-font-awesome-yourself).
 
 	The branding package also includes the required Bootstrap files, v4.3.1, in the `bootstrap` folder.
 
