@@ -28,6 +28,8 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 	- `scss`: Contains the source files of mp.css
 
 	-   `customBootstrap/scss`: Contains the theme source files for the custom Bootstrap stylesheets, explained in detail below.
+	
+	-   `font-awesome`: Contains a local copy of font-awesome v4.7.0 with WebFonts and CSS. It is useful only if you wish to customize the font-awesome icons yourself. For more details look this [here](https://fontawesome.com/how-to-use/on-the-web/setup/hosting-font-awesome-yourself).
 
 	The branding package also includes the required Bootstrap files, v4.3.1, in the `bootstrap` folder.
 
@@ -80,7 +82,7 @@ The following sections provide some details on customizations you can carry out 
 
 ### Basic Sass Variables Template: \_myvariables.scss
 
-The [`_myvariables.scss`](scss/_myvariables.scss) file in the `customBootstrap\scss` folder contains a minimum set of variables used for the default Bootstrap theme for the marketplace UI. It includes a green color theme (with custom color shades for the Bootstrap list groups) and variables such as `$body-bg` and `$font-family-base` for Bootstrap fonts of specific headings.
+The [`_myvariables.scss`](scss/_myvariables.scss) file (split in [`_darkVariables.scss`](scss/_darkVariables.scss) and [`_fontsVariables.scss`](scss/_fontsVariables.scss) in the `customBootstrap\scss` folder contains a minimum set of variables used for the default dark Bootstrap theme for the marketplace UI. It includes a green color theme (with custom color shades for the Bootstrap list groups) and variables such as `$body-bg` and `$font-family-base` for Bootstrap fonts of specific headings.
 
 You can simply modify the color theme by changing the `$main-color` variable in `_myVariables.scss` and recompiling the source files. All the colors are automatically adjusted depending on the `$main-color` variable.
 
