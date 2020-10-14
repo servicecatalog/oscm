@@ -64,7 +64,12 @@
   <property name="buildid.prefix" value="private-build-on-${hostname}" />
 
   <property name="mp-dest" location="${workspace.dir}/oscm-portal/WebContent/marketplace"/>
-  <property name="yui" value="${workspace.dir}/oscm-build/lib/yuicompressor-2.4.7.jar" description="YUICompressor" />
+  <path id="yui.classpath">
+    <fileset dir="${workspace.dir}/libraries/jboss-richfaces/javalib/">
+      <include name="**/yui*compressor*.jar" />
+    </fileset>
+  </path>
+  <property name="yui.path" refid="yui.classpath" />
 
   <!-- string to lower case-->
   <scriptdef name="lc" language="javascript">
@@ -436,7 +441,7 @@
     <delete dir="${mp-dest}/customBootstrap/css"/>
     <mkdir dir="${mp-dest}/customBootstrap/css" />
     <echo message="Running sass executable against sass files and compiling to CSS directory [${mp-dest}] " />
-    <echo message="This step requires dart-sass installed on windows" />
+    <echo message="This step requires dart-sass installed on OS" />
     <apply executable="${exec_file}" dest="${mp-dest}/css" verbose="true" force="true" failonerror="true">
       <srcfile />
       <targetfile />
@@ -466,7 +471,7 @@
     <apply executable="java" parallel="false">
       <fileset dir="${mp-dest}" includes="**/**/*.css" excludes="**/**/_*, **/**/*.min.css"  />
       <arg line="-jar" />
-      <arg path="${yui}" />
+      <arg path="${yui.path}" />
       <srcfile />
       <arg value="-o" />
       <chainedmapper>
