@@ -372,6 +372,10 @@ public class SessionBean implements Serializable {
   public String getBootstrapBrandBaseUrl() {
 
     String mId = getMarketplaceId();
+    if (mId == null) {
+      bootstrapBrandBaseUrl = getDefaultBaseUrl();
+      return bootstrapBrandBaseUrl;
+    }
 
     String mpBrandUrl = brandUrlMidMapping.get(mId);
     if (mpBrandUrl == null) {
