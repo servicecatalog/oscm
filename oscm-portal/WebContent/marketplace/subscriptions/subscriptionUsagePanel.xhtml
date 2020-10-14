@@ -12,10 +12,10 @@
         <a class="nav-item nav-link active" id="tabDetails" data-toggle="tab" href="#subscriptionDetailsPanel"
            role="tab"
            aria-controls="subscriptionDetailsPanel">#{msg['subscriptions.table.details']}</a>
-        <ui:fragment render="#{not empty subscription.customTabName}">
+        <c:if test="#{not empty subscription.customTabName}">
           <a class="nav-item nav-link" id="customTab" data-toggle="tab" href="#loadCustom" aria-controls="loadCustom"
              aria-selected="false" role="tab">#{subscription.customTabName}</a>
-        </ui:fragment>
+        </c:if>
       </div>
 
       <div class="tab-content bg-light-secondary p-2" id="myTabContent">
@@ -56,7 +56,7 @@
                         </div>
                       </div>
 
-                      <a4j:outputPanel layout="block" id="executeDescriptionDiv" styleClass="py-1">
+                      <a4j:outputPanel layout="block" id="executeDescriptionDiv" styleClass="py-1 font-weight-bold">
                         #{subscription.operationDescription}
                       </a4j:outputPanel>
 
@@ -75,8 +75,8 @@
                         </mp:formSelect>
                       </c:forEach>
 
-                      <a4j:jsFunction name="selectOperation" action="#{mySubscriptionsCtrl.operationChanged}"
-                                      render="operations :executeForm" oncomplete="AdmUtils.showProgress(false);">
+                      <a4j:jsFunction name="selectOperation" action="#{mySubscriptionsCtrl.operationChanged}" limitRender="true"
+                                      render="operations, :executeForm" oncomplete="AdmUtils.showProgress(false);">
                         <a4j:param name="param1" assignTo="#{mySubscriptionsCtrl.model.subscriptionIdForOperation}"/>
                         <a4j:param name="param2" assignTo="#{subscription.selectedOperationId}"/>
                         <a4j:param name="param3" assignTo="#{mySubscriptionsCtrl.selectId}"/>
@@ -145,7 +145,7 @@
         </div>
         <div id="loadCustom" class="tab-pane fade py-4" role="tabpanel" aria-labelledby="nav-loading-tab">
           <button id="wait" class="btn btn-primary pd-2" type="button" disabled="">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"/>
             Loading...
           </button>
           <script>
@@ -155,8 +155,10 @@
                wait.style.display = 'none';
             } }, 350);
           </script>
-          <iframe id="customData" src="#{mySubscriptionsCtrl.customTabUrlWithParameters}"
-                  class="responsive-iframe" onload="$('#loading').hide();clearInterval(dots);"/>
+          <h:panelGroup id="customIFrame" rendered="#{not empty subscription.customTabName}">
+            <iframe id="customData" src="#{mySubscriptionsCtrl.customTabUrlWithParameters}"
+                    title="#{subscription.customTabName}" class="responsive-iframe"></iframe>
+          </h:panelGroup>
         </div>
       </div>
     </c:if>
