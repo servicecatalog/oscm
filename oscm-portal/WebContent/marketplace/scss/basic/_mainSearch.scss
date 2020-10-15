@@ -7,7 +7,7 @@ input#Search, #subListForm\:search {
   width: 200px;
   height: 1.2em;
   margin: 3px 0;
-  color: #7e8795;
+  color: $color_slate_gray_approx;
   padding: 2px 3px 2px 3px;
   background: transparent;
   vertical-align: middle;
@@ -16,7 +16,7 @@ input#Search, #subListForm\:search {
 }
 
 input#Search:focus, #subListForm\:search:focus {
-  color: #333333;
+  color: $color_mine_shaft_approx;
 }
 
 input#inputSearch {

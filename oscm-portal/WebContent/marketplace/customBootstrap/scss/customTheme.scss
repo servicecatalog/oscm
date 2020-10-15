@@ -37,12 +37,12 @@
 
 .list-group-item-secondary:hover {
    background-color: $hover-color !important;
-   color: #fff !important;
+   color: $white !important;
 }
 
 .list-group-item-secondary.active {
    background-color: $darkened-color !important;
-   color: #fff !important;
+   color: $white !important;
 }  
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */

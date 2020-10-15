@@ -50,7 +50,7 @@
       white-space: normal;
       border-bottom-width: 1px;
       border-bottom-style: solid;
-      border-bottom-color: #d2d2d2;
+      border-bottom-color: $color_alto_approx;
     }
 
     thead {
@@ -77,7 +77,7 @@
       }
 
       &:last-child {
-        border-bottom: 1px #1d4d33 solid;
+        border-bottom: 1px $color_everglade_approx solid;
       }
     }
   }
@@ -130,7 +130,7 @@
 
 .rowTitle th:hover {
   background: $rich_table_hover repeat-x;
-  color: #666;
+  color: $color_dove_gray_approx;
 }
 
 .rowTitle th>div {

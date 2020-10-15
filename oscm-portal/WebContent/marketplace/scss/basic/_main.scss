@@ -25,7 +25,7 @@ textarea, input, option, select, .rich-tabpanel-content {
 }
 
 input, select, textarea {
-  border: 1px solid #CCC;
+  border: 1px solid $color_silver_approx;
 }
 
 textarea {
@@ -54,13 +54,13 @@ a {
 }
 
     &:link {
-  color: #456;
+  color: $color_fiord_approx;
 }
 &:visited {
-  color: #456;
+  color: $color_fiord_approx;
 }
 &:active {
-  color: #CCC;
+  color: $color_silver_approx;
 }
   
   
