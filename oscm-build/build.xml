@@ -149,7 +149,6 @@
 
   <target name="_dependencies">
     <dependencyresolver workspacedir="${dependency.resolver.dir}" projects="${projects}" />
-    <antcall target="convertSassFilesToCss" />
   </target>
 
   <macrodef name="buildproject">
