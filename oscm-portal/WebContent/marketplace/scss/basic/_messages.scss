@@ -6,48 +6,37 @@
 .success {
   @extend %message-shared;
   color: $white;
-  background: #73B573 no-repeat !important;
+  background: $success_bg_color no-repeat !important;
 }
 
 .error {
   @extend %message-shared;
   color: $white;
-  background: #CB243F no-repeat !important;
+  background: $color_cardinal_approx no-repeat !important;
   margin-bottom: 5px;
 }
 
 .warning {
   @extend %message-shared;
-  background: #E7B51D no-repeat !important;
+  background: $warning_bg_color no-repeat !important;
 }
-
 
 /* per wrapper stylying, setting background colors, text colors*/
 .suspended {
   @extend %message-shared;
   color: $white;
-  background: #5E6D7B no-repeat !important;
+  background: $suspended_bg_color no-repeat !important;
   display: none;
 }
-
-
 
 /* MSGS Stylying >>> */
 #globalMessagesHolder .rf-msgs {
   margin-bottom: 25px;
 }
 
-
-
-
-
-
-
 .error dl {
   margin: 0px !important;
 }
-
-
 
 /*
     define no default background image coming from richfaces,
@@ -63,7 +52,7 @@
 }
 
 .warning dt {
-  color: #000000
+  color: $black
 }
 
 /* prepend sprite and its style */

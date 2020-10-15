@@ -49,7 +49,7 @@
 }
 
 .button span {
-  color: #456;
+  color: $color_fiord_approx;
   background-position: right -290px;
   cursor: pointer;
 }
@@ -63,7 +63,7 @@
 }
 
 .buttonDisabled span {
-  color: #666;
+  color: $color_dove_gray_approx;
   background-position: right -411px;
   text-decoration: none;
   cursor: default;
@@ -128,7 +128,7 @@
 }
 
 .bigbutton span {
-  color: #456;
+  color: $color_fiord_approx;
   background-position: right 0;
   cursor: pointer;
 }
@@ -139,7 +139,7 @@
 
 .bigbutton:hover span {
   background-position: right -60px;
-  color: #333;
+  color: $color_mine_shaft_approx;
 }
 
 .bigbutton:active span {
@@ -149,7 +149,7 @@
 .bigbuttonDisabled span {
   background-position: right -231px;
   text-decoration: none;
-  color: #666;
+  color: $color_dove_gray_approx;
   cursor: default;
 }
 

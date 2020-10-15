@@ -28,7 +28,7 @@ div.pagenate div.pagingBar {
   padding: 20px 9px;
   width: 761px;
   background-color: $white;
-  border: 1px solid #CCC;
+  border: 1px solid $color_silver_approx;
   border-left: none;
   border-right: none;
 }
@@ -91,15 +91,15 @@ ul.pagingElement li *, div.pagingOptions li * {
 
 /* default selector buttons */
 ul.pagingElement li a {
-  background: #F5F6F7;
-  border: solid 1px #E5E5E5;
-  color: #999;
+  background: $color_athens_gray_approx;
+  border: solid 1px $color_mercury_approx;
+  color: $color_dusty_gray_approx;
 }
 
 div.pagingOptions li a {
-  background: #F5F6F7;
-  border: solid 1px #E5E5E5;
-  color: #999;
+  background: $color_athens_gray_approx;
+  border: solid 1px $color_mercury_approx;
+  color: $color_dusty_gray_approx;
 }
 
 @media ( max-width : 767px) {
@@ -146,8 +146,8 @@ div.pagingOptions li a {
 /* chosen selector button */
 ul.pagingElement li strong.current, div.pagingOptions li strong.current {
   background: $white none;
-  color: #000000;
-  border: solid 1px #E8E8E8;
+  color: $black;
+  border: solid 1px $color_mercury_approx;
   font-weight: normal;
 }
 
@@ -155,7 +155,7 @@ ul.pagingElement li strong.current, div.pagingOptions li strong.current {
 7.6.2 Pagina Next / Previous Buttons
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 div.pagenate div.pagingBar p.disabled {
-  color: #ccc;
+  color: $color_silver_approx;
 }
 
 div.pagenate div.pagingBar .next, div.pagenate div.pagingBar .previous {
