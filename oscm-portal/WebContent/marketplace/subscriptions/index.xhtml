@@ -45,7 +45,7 @@
       <a4j:param name="param1" assignTo="#{mySubscriptionsCtrl.model.selectedSubscriptionId}"/>
      </a4j:jsFunction>
      <mp:outputStep id="pageHeader" value="#{msg['subscriptions.table.availableForUsage']}"/>
-     <h:link fragment="anchor" styleClass="invisible-jumper"/>
+     <h:link fragment="myTabContent" styleClass="invisible-jumper"/>
      <mp:subscriptionFinderBootstrap formId="subListForm"
                                      searchPhraseProperty="#{mySubscriptionsCtrl.model.fullTextSearchFilterValue}"
                                      renderElementList="subListForm subListPager subListPagerScripts :pagerPanel :subscriptionsListScripts subscriptionDetailsPanel"/>
