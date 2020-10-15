@@ -18,7 +18,7 @@
  </ui:define>
 
  <ui:define name="contentstitle">
-  <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix text-left">
+  <a4j:outputPanel layout="block" styleClass="contentstitle indent1col clearfix text-left ml-md-3 my-3">
    <h:outputText value="#{msg['marketplace.subscriptions.title']}"/>
   </a4j:outputPanel>
  </ui:define>
@@ -45,7 +45,7 @@
       <a4j:param name="param1" assignTo="#{mySubscriptionsCtrl.model.selectedSubscriptionId}"/>
      </a4j:jsFunction>
      <mp:outputStep id="pageHeader" value="#{msg['subscriptions.table.availableForUsage']}"/>
-     <h:link fragment="anchor" styleClass="invisible-jumper"/>
+     <h:link fragment="myTabContent" styleClass="invisible-jumper"/>
      <mp:subscriptionFinderBootstrap formId="subListForm"
                                      searchPhraseProperty="#{mySubscriptionsCtrl.model.fullTextSearchFilterValue}"
                                      renderElementList="subListForm subListPager subListPagerScripts :pagerPanel :subscriptionsListScripts subscriptionDetailsPanel"/>
