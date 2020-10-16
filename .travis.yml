@@ -10,7 +10,10 @@ env:
     - COMUPTERNAME=travis
     - HOSTNAME=travis
 
-install: scripts/getLibraries.sh
+install:
+  - npm install npm@latest -g
+  - npm install -g sass
+  - scripts/getLibraries.sh
 
 jobs:
   include:

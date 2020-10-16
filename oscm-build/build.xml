@@ -336,6 +336,7 @@
   </target>
 
   <target name="travisunittests" depends="_log, _dependencies" description="Resolves dependencies, runs unittests">
+    <antcall target="convertSassFilesToCss" />
     <buildproject target="travistests" />
     <createtestreport />
     <antcall target="merge"/>
