@@ -244,7 +244,7 @@
     <copy file="${ivy.lib.dir}/org.jacoco.ant-0.7.8.jar" tofile="${root.dir}/libraries/jacoco/javalib/org.jacoco.ant-0.7.8.jar"
       overwrite="true" />
     <copy file="${ivy.lib.dir}/org.jacoco.core-0.7.8.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true" />
-    <copy file="${ivy.lib.dir}/asm-all-3.3.1.jar" todir="${root.dir}/libraries/asm/javalib/" overwrite="true"></copy>
+    <copy file="${ivy.lib.dir}/asm-all-3.3.1.jar" todir="${root.dir}/libraries/asm/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/asm-debug-all-5.1.jar" todir="${root.dir}/libraries/jacoco/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/org.jacoco.report-0.7.8.jar" todir="${root.dir}/libraries/jacoco/javalib/"
       overwrite="true" />
@@ -256,6 +256,7 @@
       overwrite="true" />
     <copy file="${ivy.lib.dir}/cssparser-0.9.18.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/"
       overwrite="true" />
+    <copy file="${ivy.lib.dir}/yuicompressor-2.4.7.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/guava-26.0-jre.jar" todir="${root.dir}/libraries/jboss-richfaces/javalib/" overwrite="true" />
     <copy file="${ivy.lib.dir}/richfaces-a4j-4.6.13.ayg.jar" tofile="${root.dir}/libraries/jboss-richfaces/javalib/richfaces-a4j-4.6.13.ayg.jar"
           overwrite="true" />
@@ -406,14 +407,13 @@
       overwrite="true" />
 
     <copy file="${ivy.lib.dir}/commons-lang-2.6.jar" todir="${root.dir}/libraries/apache-lang/javalib" overwrite="true" />
-  	
     <copy file="${ivy.lib.dir}/java-jwt-3.8.1.jar" todir="${root.dir}/libraries/oidc/javalib" overwrite="true" />
-  	
+
     <unzip src="${ivy.lib.dir}/bootstrap-4.3.1.jar" dest="${root.dir}/libraries/bootstrap/javalib/work" />
     <copy todir="${root.dir}/libraries/bootstrap/javalib">
       <fileset dir="${root.dir}/libraries/bootstrap/javalib/work/META-INF/resources/webjars/bootstrap/4.3.1"/>
     </copy>
-  	<mkdir dir="${root.dir}/oscm-portal/WebContent/marketplace/bootstrap"/>
+    <mkdir dir="${root.dir}/oscm-portal/WebContent/marketplace/bootstrap"/>
     <copy todir="${root.dir}/oscm-portal/WebContent/marketplace/bootstrap">
       <fileset dir="${root.dir}/libraries/bootstrap/javalib/work/META-INF/resources/webjars/bootstrap/4.3.1"/>
     </copy>
@@ -421,7 +421,6 @@
       <param name="directory" value="${root.dir}/libraries/bootstrap/javalib/work" />
     </antcall>
   </target>
-
 
   <target name="getAndUnzip">
     <get dest="${to}" src="${from}" />
