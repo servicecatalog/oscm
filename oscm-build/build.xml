@@ -281,6 +281,7 @@
   </target>
 
   <target name="package_without_doc" depends="_log, _dependencies" description="Resolves dependencies, compiles and packages">
+    <antcall target="convertSassFilesToCss" />
     <buildproject target="package" />
   </target>
 
@@ -378,6 +379,7 @@
   </target>
 
   <target name="webservicetests" depends="_log, _dependencies" description="Resolves dependencies, compiles and runs the web service tests without clean. Requires a running version of BES.">
+    <antcall target="convertSassFilesToCss" />
     <buildproject target="webservicetests" />
     <createwstestreport />
     <antcall target="checkUnitResult">
@@ -469,7 +471,7 @@
   <target name="minifyCSSFiles" description="Minimize CSS files">
     <echo>Minifying CSS Files</echo>
     <apply executable="java" parallel="false">
-      <fileset dir="${mp-dest}" includes="**/**/*.css" excludes="**/**/_*, **/**/*.min.css"  />
+      <fileset dir="${mp-dest}" includes="**/**/*.css" excludes="**/**/_*, **/**/*.min.css, /bootstrap"  />
       <arg line="-jar" />
       <arg path="${yui.path}" />
       <srcfile />
