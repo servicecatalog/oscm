@@ -21,11 +21,12 @@
 
   <target name="BUILD.BES" description="Builds the MI and BES and other minor packages">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.cruisecontrol.file}" target="bootstrap"/>
-    <antcall target="sass" />
+    <antcall target="compileScss" />
     <antcall target="BUILD.BeforeHook" />
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package_without_doc">
       <property name="projects" value="oscm-ear,oscm-portal,oscm-portal-help,oscm-security,oscm-devruntime,oscm-reports, oscm-operatorsvc-client" />
     </ant>
+    <antcall target="informationAboutNotInstalledSass" />
   </target>
 
   <target name="checkHook">
@@ -41,8 +42,12 @@
     </condition>
   </target>
 
-  <target name="sass" if="isSassInstalled" depends="checkSass">
+  <target name="compileScss" if="isSassInstalled" depends="checkSass">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="convertSassFilesToCss"/>
+  </target>
+
+  <target name="informationAboutNotInstalledSass" if="isSassInstalled" depends="checkSass">
+    <echo message="WARNING! The **sass** environment variable was not found, therefore the .scss files were not compiled!" />
   </target>
 
   <target name="BUILD.BeforeHook" if="ishookdeployed" depends="checkHook">
