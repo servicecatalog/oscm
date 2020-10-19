@@ -46,8 +46,8 @@
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="convertSassFilesToCss"/>
   </target>
 
-  <target name="informationAboutNotInstalledSass" if="isSassInstalled" depends="checkSass">
-    <echo message="WARNING! The **sass** environment variable was not found, therefore the .scss files were not compiled!" />
+  <target name="informationAboutNotInstalledSass" unless="isSassInstalled" depends="checkSass">
+    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="sassFilesNotCompiled"/>
   </target>
 
   <target name="BUILD.BeforeHook" if="ishookdeployed" depends="checkHook">
