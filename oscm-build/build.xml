@@ -281,7 +281,6 @@
   </target>
 
   <target name="package_without_doc" depends="_log, _dependencies" description="Resolves dependencies, compiles and packages">
-    <antcall target="convertSassFilesToCss" />
     <buildproject target="package" />
   </target>
 
