@@ -30,4 +30,7 @@ oscm-extsvc-notification/javares/
 oscm-extsvc-provisioning/javares/
 oscm-psp-extsvc/javares/
 oscm-portal/WebContent/bootstrap/
+oscm-portal/WebContent/marketplace/css
+oscm-portal/WebContent/marketplace/bootstrap/
+oscm-portal/WebContent/marketplace/customBootstrap/css
 libraries/bootstrap/

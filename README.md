@@ -42,7 +42,9 @@ or higher.
 2. Create any domain and at least one user account in it.
 
 #### Building the application
-1. If your network requires a proxy to access the internet you need to specify following arguments to JVM running Ant: 
+1. Install `sass` and add it to your PATH - for details see [sass-lang](https://sass-lang.com/install)
+
+2. If your network requires a proxy to access the internet you need to specify following arguments to JVM running Ant: 
    ```
    -Dhttp.proxyHost=<proxy-host> 
    -Dhttp.proxyPort=<proxy-port> 
@@ -51,9 +53,9 @@ or higher.
    ```
    Fill the placeholders `<proxy-host>` and `<proxy-port>` with the respective host and port number where the proxy is provided.
 
-2. Add the following scripts to Ant view in your IDE: `/oscm-devruntime/build-oscmaas.xml`
+3. Add the following scripts to Ant view in your IDE: `/oscm-devruntime/build-oscmaas.xml`
 
-3. Run targets `Build.LIB`, `Build.BES`
+4. Run targets `Build.LIB`, `Build.BES`
 
 After the build has finished successfully you'll find the deployable artifacts in`/oscm-build/result/package`. 
 You may want to deploy and test your modifications in a running OSCM environment. Simply copy or replace your build artifact into the respective container.
