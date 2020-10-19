@@ -378,7 +378,6 @@
   </target>
 
   <target name="webservicetests" depends="_log, _dependencies" description="Resolves dependencies, compiles and runs the web service tests without clean. Requires a running version of BES.">
-    <antcall target="convertSassFilesToCss" />
     <buildproject target="webservicetests" />
     <createwstestreport />
     <antcall target="checkUnitResult">
