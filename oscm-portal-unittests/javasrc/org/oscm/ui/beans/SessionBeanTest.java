@@ -301,6 +301,18 @@ public class SessionBeanTest {
   }
 
   @Test
+  public void getBootstrapBrandBaseUrl_NullMarketplaceId() {
+    // given
+    doReturn(null).when(sessionBean).getMarketplaceId();
+
+    // when
+    String url = sessionBean.getBootstrapBrandBaseUrl();
+
+    // then
+    assertEquals(url, "/oscm-portal/marketplace", url);
+  }
+
+  @Test
   public void getBootstrapBrandBaseUrl_brandedWithBootstrapAvailable()
       throws ObjectNotFoundException {
     // given
