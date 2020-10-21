@@ -26,7 +26,7 @@
 
 /* service price on home page and service overview */
 h2.servicePrice, h1.servicePrice {
-  color: #222;
+  color: $almost_black;
   margin: 0px;
 }
 
@@ -37,7 +37,7 @@ h2.servicePrice {
 
 /* price currency */
 h2.priceUnit, h1.priceUnit {
-  color: #222;
+  color: $almost_black;
   font-size: 13px;
   font-weight: 400;
   display: inline;
@@ -97,7 +97,7 @@ h2.priceUnit, h1.priceUnit {
   width: 560px;
   float: left;
   padding-right: 14px;
-  border-right: 1px solid #b8b8b8;
+  border-right: 1px solid $color_nobel_approx;
   min-height: 28px;
 }
 
@@ -123,7 +123,7 @@ h2.priceUnit, h1.priceUnit {
   padding-left: 14px;
   margin-right: 0;
   border-left: 1px solid;
-  border-left-color: #b8b8b8;
+  border-left-color: $color_nobel_approx;
 }
 
 /* third column content without dividing line to second column*/

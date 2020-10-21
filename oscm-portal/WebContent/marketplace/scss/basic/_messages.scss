@@ -12,7 +12,7 @@
 .error {
   @extend %message-shared;
   color: $white;
-  background: $color_cardinal_approx no-repeat !important;
+  background: $error_bg_color no-repeat !important;
   margin-bottom: 5px;
 }
 
