@@ -979,7 +979,7 @@ div.scrolltop p img {
 }
 
 .rich-tab-inactive:hover {
-  color: #4f4f4f;
+  color: $color_emperor_approx;
   background: $gray;
 }
 
@@ -1081,7 +1081,7 @@ div.scrolltop p img {
 
 /* current position in stepped process */
 .progress .current {
-  border: 1px solid #456;
+  border: 1px solid $color_fiord_approx;
   background: $color_gold_tips_approx;
   color: $color_mine_shaft_approx;
 }
