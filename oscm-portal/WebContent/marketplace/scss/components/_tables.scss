@@ -17,7 +17,7 @@
 
   &:nth-of-type(even) > td {
     padding-left: 10px;
-    background: #eee;
+    background: $color_gallery_approx;
   }
 }
 
@@ -164,7 +164,7 @@ img[src$="sortDescending"] {
 /* colors for alternating rows in data tables */
 .rowEven {
   padding-left: 10px;
-  background: #eee;
+  background: $color_gallery_approx;
 }
 
 .rowOdd {

@@ -808,7 +808,7 @@ table.smallPanel {
 .infoArea {
   -moz-border-radius: 4px;
   border-radius: 4px;
-  background: #EEE;
+  background: $color_gallery_approx;
   border: 1px solid $gray;
   text-align: left;
   margin: 0;
@@ -1434,7 +1434,7 @@ thead .rf-dt-flt {
 #paymentOptionListForm .rf-dt thead tr, #billingContactListForm .rf-dt thead tr, #triggerDefinitionListForm .rf-dt thead tr,
   #operationsListForm .rf-dt thead tr, #processListForm .rf-dt thead {
   height: 30px;
-  border-bottom: solid 1px #C8C8C8;
+  border-bottom: solid 1px $color_darker_silver_approx;
 }
 
 .rf-dt thead {
@@ -1494,7 +1494,7 @@ tbody>tr.rf-dt-nd, tbody>tr.rf-dt-nd .rf-dt-nd-c {
 }
 
 tr.rf-dt-shdr, tr.rf-dt-shdr:HOVER {
-  border-bottom: solid 1px #C8C8C8;
+  border-bottom: solid 1px $color_darker_silver_approx;
 }
 
 .rf-dt-shdr-c input.rich-filter-input {
