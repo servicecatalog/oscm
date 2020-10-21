@@ -161,7 +161,7 @@ form .formHighlight input, form .formHighlight textarea {
 
 /* question mark icon indicating hint available */
 .hint {
-  background: none repeat-x scroll left top #FFFFDD;
+  background: none repeat-x scroll left top $color_half_and_half_approx;
   border: 1px solid $color_silver_approx;
   border-radius: 3px;
   -moz-border-radius: 4px;

@@ -956,7 +956,7 @@ div.scrolltop p img {
 7.4 Tab Panel
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .rich-tab-inactive, .rich-tab-active {
-  border: 1px solid #CCC;
+  border: 1px solid $color_silver_approx;
   border-bottom: none;
   font-weight: bold;
   padding: 7px 19px;
@@ -1082,7 +1082,7 @@ div.scrolltop p img {
 /* current position in stepped process */
 .progress .current {
   border: 1px solid #456;
-  background: #E7B51D;
+  background: $color_gold_tips_approx;
   color: $color_mine_shaft_approx;
 }
 
@@ -1193,7 +1193,7 @@ div.scrolltop p img {
 #providerTitle, #brokerTitle, #resellerTitle {
   line-height: 2;
   padding-top: 10px;
-  border-left: 5px solid #E7B51D;
+  border-left: 5px solid $color_gold_tips_approx;
   padding: 2px 0 1px 4px;
   font-size: 150%;
   font-weight: bold;
@@ -1369,12 +1369,12 @@ thead .rf-dt-flt {
 }
 
 .rf-dt-r:HOVER {
-  background: #f8f9fa;
+  background: $color_light_athens_gray_appro;
 }
 
 #editUserForm .rf-dt-r.rowEven:HOVER, #userForm .rf-dt-r.rowEven:HOVER, #paymentOptionListForm .rf-dt-r.rowEven:HOVER,
   #groupForm .rf-dt-r.rowEven:HOVER .rowEven:HOVER {
-  background: #f8f9fa;
+  background: $color_light_athens_gray_appro;
 }
 
 #editUserForm .rf-dt-r.rowOdd:HOVER, #userForm .rf-dt-r.rowOdd:HOVER, #paymentOptionListForm .rf-dt-r.rowOdd:HOVER,
@@ -1419,7 +1419,7 @@ thead .rf-dt-flt {
 
 #billingContactListForm tbody .rf-dt-r:HOVER, #triggerDefinitionListForm tbody .rf-dt-r:HOVER, #processListForm tbody .rf-dt-r:HOVER,
   #operationsListForm tbody .rf-dt-r:HOVER {
-  background: #CCDCEE;
+  background: $color_link_water_approx;
 }
 
 #paymentOptionListForm thead .rf-dt-shdr-c:HOVER, #billingContactListForm thead .rf-dt-shdr-c:HOVER, #processListForm thead .rf-dt-shdr-c:HOVER,
@@ -1533,7 +1533,7 @@ thead th.clickable-header {
 }
 
 thead th.clickable-header:HOVER {
-  background: #f8f9fa;
+  background: $color_light_athens_gray_approx;
 }
 
 #triggerSubListForm  .rf-dt-shdr-c {
@@ -1656,7 +1656,7 @@ thead th.clickable-header:HOVER {
 }
 
 form .formHighlight div.div-for-input {
-  border: 1px solid #E7B51D;
+  border: 1px solid $color_gold_tips_approx;
 }
 
 #subListForm .input-filter-icon {
