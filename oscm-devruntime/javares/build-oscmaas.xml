@@ -38,7 +38,7 @@
   <target name="checkSass">
     <property environment="env" />
     <condition property="isSassInstalled">
-      <available file="sass" filepath="${env.Path}" property="sass.present"/>
+      <available file="sass" filepath="${env.Path}, ${env.PATH}" property="sass.present"/>
     </condition>
   </target>
 
