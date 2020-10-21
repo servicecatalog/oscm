@@ -32,5 +32,7 @@ oscm-psp-extsvc/javares/
 oscm-portal/WebContent/bootstrap/
 oscm-portal/WebContent/marketplace/css
 oscm-portal/WebContent/marketplace/bootstrap/
+oscm-portal/WebContent/marketplace/font-awesome/
 oscm-portal/WebContent/marketplace/customBootstrap/css
+libraries/font-awesome/
 libraries/bootstrap/

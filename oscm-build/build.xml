@@ -469,7 +469,7 @@
   <target name="minifyCSSFiles" description="Minimize CSS files">
     <echo>Minifying CSS Files</echo>
     <apply executable="java" parallel="false">
-      <fileset dir="${mp-dest}" includes="**/**/*.css" excludes="**/**/_*, **/**/*.min.css, /bootstrap"  />
+      <fileset dir="${mp-dest}" includes="**/**/*.css" excludes="**/**/_*, **/**/*.min.css, /bootstrap/*"  />
       <arg line="-jar" />
       <arg path="${yui.path}" />
       <srcfile />
