@@ -47,7 +47,7 @@ background:url(../img/page/box_shadow_bottom.png) bottom left no-repeat; */
 /* individual tag in tag cloud */
 .tagCloud.tag {
   padding: 6px;
-  color: #456;
+  color: $color_fiord_approx;
   text-decoration: none;
   background: none;
 }
@@ -70,7 +70,7 @@ background:url(../img/page/box_shadow_bottom.png) bottom left no-repeat; */
 /* tag color definitions dependent on label size.
 IE7 and other non-supporting browsers use the default color defined by  .tagCloud.tag */
 .tagCloud.tag[style*="24"] {
-  color: #677683;
+  color: $color_pale_sky_approx;
 }
 
 .tagCloud.tag[style*="23"] {
@@ -114,7 +114,7 @@ IE7 and other non-supporting browsers use the default color defined by  .tagClou
 }
 
 .tagCloud.tag[style*="13"] {
-  color: #728089;
+  color: $color_rolling_stone_approx;
 }
 
 .tagCloud.tag[style*="12"] {
@@ -123,6 +123,6 @@ IE7 and other non-supporting browsers use the default color defined by  .tagClou
 
 .tagCloud .tag:hover {
   font-size: 8px;
-  color: #666;
+  color: $color_dove_gray_approx;
   text-decoration: underline;
 }

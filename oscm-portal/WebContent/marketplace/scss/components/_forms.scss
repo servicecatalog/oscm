@@ -6,11 +6,11 @@
 
 /* form highlights on selected input element */
 form .formHighlight, .rowOver * {
-  background-color: #CCDCEE;
+  background-color: $color_link_water_approx;
 }
 
 form .formHighlight input, form .formHighlight textarea {
-  border: 1px solid #E7B51D;
+  border: 1px solid $warning_bg_color;
   background: $white;
 }
 
@@ -20,7 +20,7 @@ form .formHighlight input, form .formHighlight textarea {
 }
 
 .rowCellOver * {
-  background-color: #CCDCEE;
+  background-color: $color_link_water_approx;
 }
 
 .wrapColumns .extdt-cell-div {
@@ -161,8 +161,8 @@ form .formHighlight input, form .formHighlight textarea {
 
 /* question mark icon indicating hint available */
 .hint {
-  background: none repeat-x scroll left top #FFFFDD;
-  border: 1px solid #CCCCCC;
+  background: none repeat-x scroll left top $color_half_and_half_approx;
+  border: 1px solid $color_silver_approx;
   border-radius: 3px;
   -moz-border-radius: 4px;
   padding: 14px 12px;

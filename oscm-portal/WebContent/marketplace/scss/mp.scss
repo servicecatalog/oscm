@@ -149,7 +149,7 @@
 
 /* semi transparent background for modal panels */
 .rich-mpnl-mask-div {
-  background-color: #444444;
+  background-color: $color_tundora_approx;
 }
 
 .rich-modalpanel, .rich-mpnl-mask-div-transparent {
@@ -173,10 +173,10 @@
   border-width: 1px;
   -moz-border-radius: 4px !important;
   border-radius: 4px !important;
-  border: solid 1px #B8B8B8;
-  -moz-box-shadow: 0px 1px 10px 2px #333;
-  -webkit-box-shadow: 0px 1px 10px 2px #333;
-  box-shadow: 0px 1px 10px 2px #333;
+  border: solid 1px $color_nobel_approx;
+  -moz-box-shadow: 0px 1px 10px 2px $color_mine_shaft_approx;
+  -webkit-box-shadow: 0px 1px 10px 2px $color_mine_shaft_approx;
+  box-shadow: 0px 1px 10px 2px $color_mine_shaft_approx;
 }
 
 /* generic div positioning within modal panel content, fixes problems with floated sort icons */
@@ -195,7 +195,7 @@
 .rich-mpnl-shadow {
   display: none;
   /* IE filters/hacks to show and simulate box shadow */
-  background: #333;
+  background: $color_mine_shaft_approx;
   top: -7px;
   left: -8px;
   padding: 2px;
@@ -262,7 +262,7 @@
 .pager {
   width: 100%;
   text-align: right;
-  color: #666;
+  color: $color_dove_gray_approx;
   font-weight: 300;
 }
 
@@ -288,7 +288,7 @@
 }
 
 .pager .divider {
-  color: #AAA;
+  color: $color_silver_chalice_approx;
   font-size: 16px;
   letter-spacing: 2px;
   margin: 0 5px;
@@ -355,7 +355,7 @@
 }
 
 .arrow_start:hover, .arrow_back:hover, .arrow_next:hover, .arrow_last:hover {
-  background-color: #CCC;
+  background-color: $color_silver_approx;
   border-radius: 2px;
 }
 
@@ -397,7 +397,7 @@
 .rich-filter-input {
   font-size: 12px;
   margin: 0 auto;
-  color: #777;
+  color: $color_boulder_approx;
   width: 85%;
   position: relative;
 }
@@ -437,7 +437,7 @@
 
 span.upload, span.upload .option {
   background: $upload_button no-repeat scroll 0 0 transparent;
-  color: #000000;
+  color: $black;
   cursor: default;
   font-weight: normal;
   height: 32px;
@@ -674,11 +674,11 @@ table.smallPanel {
 }
 
 .ratingTextNormal {
-  color: #000000;
+  color: $black;
 }
 
 .ratingTextWarning {
-  color: #a00000;
+  color: $color_bright_red_approx;
 }
 
 /* star rating sprite position details
@@ -750,7 +750,7 @@ table.smallPanel {
 
 /* supplier/organization display line */
 .supplier {
-  color: #484d52;
+  color: $color_river_bed_approx;
   font: italic 400 110% $font-family-times;
   white-space: nowrap;
 }
@@ -778,7 +778,7 @@ table.smallPanel {
 /* show for subscription errors */
 .subscriptionError {
   background: transparent $mp_icon_sprite no-repeat 0 -579px;
-  color: #CB243F;
+  color: $color_cardinal_approx;
   height: 17px;
   width: 20px;
 }
@@ -786,13 +786,13 @@ table.smallPanel {
 /* show for subscription active/ready */
 .subscriptionActive, .serverSubscriptionActive {
   background: transparent $mp_icon_sprite no-repeat 0 -655px;
-  color: #999;
+  color: $color_dusty_gray_approx;
 }
 
 /* show for subscription suspended/pending/waiting_for_approval/pending_update */
 .subscriptionPending, .serverSubscriptionSuspended, .subscriptionWaitingForApproval, .subscriptionPendingUpd {
   background: transparent $mp_icon_sprite no-repeat scroll 0 -731px;
-  color: #999;
+  color: $color_dusty_gray_approx;
 }
 
 .provisioningProgress {
@@ -808,7 +808,7 @@ table.smallPanel {
 .infoArea {
   -moz-border-radius: 4px;
   border-radius: 4px;
-  background: #EEE;
+  background: $color_gallery_approx;
   border: 1px solid $gray;
   text-align: left;
   margin: 0;
@@ -828,7 +828,7 @@ table.smallPanel {
 .recommendedPrice {
   clear: both;
   display: block;
-  color: #000;
+  color: $black;
   padding-top: 10px;
   padding-bottom: 10px;
   font-size: 12px;
@@ -858,7 +858,7 @@ table.smallPanel {
 }
 
 .relatedServiceName {
-  color: #000 !important;
+  color: $black !important;
 }
 
 .relatedServicePrice {
@@ -889,7 +889,7 @@ table.smallPanel {
 
 /* service tag appearance */
 .serviceTags a {
-  color: #234;
+  color: $color_big_stone_approx;
   overflow: hidden;
   font: 400 14px/1.5 "OpenSansRegular", Arial, Verdana, "Lucida Grande", sans-serif;
 }
@@ -897,7 +897,7 @@ table.smallPanel {
 .serviceRating {
   line-height: 1.75;
   text-align: left;
-  color: #AAAAAA;
+  color: $color_silver_chalice_approx;
   font-size: 13px;
   font-weight: 400;
 }
@@ -956,7 +956,7 @@ div.scrolltop p img {
 7.4 Tab Panel
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .rich-tab-inactive, .rich-tab-active {
-  border: 1px solid #CCC;
+  border: 1px solid $color_silver_approx;
   border-bottom: none;
   font-weight: bold;
   padding: 7px 19px;
@@ -966,20 +966,20 @@ div.scrolltop p img {
 
 /* active tab in tab navigation block*/
 .rich-tab-active {
-  color: #456;
+  color: $color_fiord_approx;
   background: $white;
   cursor: default;
 }
 
 /* inactive tabs in tab navigation block */
 .rich-tab-inactive {
-  background: #C6CCD1;
-  color: #666;
+  background: $color_loblolly_approx;
+  color: $color_dove_gray_approx;
   cursor: pointer;
 }
 
 .rich-tab-inactive:hover {
-  color: #4f4f4f;
+  color: $color_emperor_approx;
   background: $gray;
 }
 
@@ -1020,8 +1020,8 @@ div.scrolltop p img {
 
 /*  border line between tabs and content */
 .rich-tab-bottom-line {
-  border-bottom: 1px solid #CCC;
-  background: #F7F7F7;
+  border-bottom: 1px solid $color_silver_approx;
+  background: $color_wild_sand_approx;
 }
 
 /*
@@ -1074,16 +1074,16 @@ div.scrolltop p img {
 .progress span {
   padding: 5px;
   border: 1px solid $white;
-  color: #666;
+  color: $color_dove_gray_approx;
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
 
 /* current position in stepped process */
 .progress .current {
-  border: 1px solid #456;
-  background: #E7B51D;
-  color: #333;
+  border: 1px solid $color_fiord_approx;
+  background: $color_gold_tips_approx;
+  color: $color_mine_shaft_approx;
 }
 
 /* arrow indicator for progress flow */
@@ -1193,7 +1193,7 @@ div.scrolltop p img {
 #providerTitle, #brokerTitle, #resellerTitle {
   line-height: 2;
   padding-top: 10px;
-  border-left: 5px solid #E7B51D;
+  border-left: 5px solid $color_gold_tips_approx;
   padding: 2px 0 1px 4px;
   font-size: 150%;
   font-weight: bold;
@@ -1328,12 +1328,12 @@ div.scrolltop p img {
 }
 
 .body4span .rf-pp-shade, .body5span .rf-pp-shade {
-  background-color: #333;
+  background-color: $color_mine_shaft_approx;
   opacity: 0.5;
 }
 
 .body4span .rf-pp-cntr, .body5span .rf-pp-cntr {
-  box-shadow: 0px 1px 10px 2px #333;
+  box-shadow: 0px 1px 10px 2px $color_mine_shaft_approx;
   text-align: left;
 }
 
@@ -1343,7 +1343,7 @@ div.scrolltop p img {
 
 .rf-dt-shdr .rf-dt-shdr-c, .rf-edt-hdr-c-cnt.rf-edt-c-srt {
   text-align: left;
-  color: #333;
+  color: $color_mine_shaft_approx;
   border-bottom-width: 0px;
   position: relative;
 }
@@ -1361,7 +1361,7 @@ thead .rf-dt-flt {
 }
 
 .rf-dt-shdr-c.rf-dt-c-srt:HOVER {
-  color: #666;
+  color: $color_dove_gray_approx;
 }
 
 .rf-dt-flt .rf-dt-flt-c {
@@ -1369,12 +1369,12 @@ thead .rf-dt-flt {
 }
 
 .rf-dt-r:HOVER {
-  background: #f8f9fa;
+  background: $color_light_athens_gray_approx;
 }
 
 #editUserForm .rf-dt-r.rowEven:HOVER, #userForm .rf-dt-r.rowEven:HOVER, #paymentOptionListForm .rf-dt-r.rowEven:HOVER,
   #groupForm .rf-dt-r.rowEven:HOVER .rowEven:HOVER {
-  background: #f8f9fa;
+  background: $color_light_athens_gray_approx;
 }
 
 #editUserForm .rf-dt-r.rowOdd:HOVER, #userForm .rf-dt-r.rowOdd:HOVER, #paymentOptionListForm .rf-dt-r.rowOdd:HOVER,
@@ -1386,7 +1386,7 @@ thead .rf-dt-flt {
   width: 90%;
   background: $white $filter no-repeat right center !important;
   padding-right: 15px;
-  color: #777;
+  color: $color_boulder_approx;
 }
 
 .rf-dt-srt.rf-dt-srt-btn {
@@ -1419,7 +1419,7 @@ thead .rf-dt-flt {
 
 #billingContactListForm tbody .rf-dt-r:HOVER, #triggerDefinitionListForm tbody .rf-dt-r:HOVER, #processListForm tbody .rf-dt-r:HOVER,
   #operationsListForm tbody .rf-dt-r:HOVER {
-  background: #CCDCEE;
+  background: $color_link_water_approx;
 }
 
 #paymentOptionListForm thead .rf-dt-shdr-c:HOVER, #billingContactListForm thead .rf-dt-shdr-c:HOVER, #processListForm thead .rf-dt-shdr-c:HOVER,
@@ -1434,7 +1434,7 @@ thead .rf-dt-flt {
 #paymentOptionListForm .rf-dt thead tr, #billingContactListForm .rf-dt thead tr, #triggerDefinitionListForm .rf-dt thead tr,
   #operationsListForm .rf-dt thead tr, #processListForm .rf-dt thead {
   height: 30px;
-  border-bottom: solid 1px #C8C8C8;
+  border-bottom: solid 1px $color_darker_silver_approx;
 }
 
 .rf-dt thead {
@@ -1445,18 +1445,18 @@ thead .rf-dt-flt {
 input.button, a.button {
   background: $mp_icon_sprite !important;
   min-width: 80px;
-  border: 1px solid #a7acb1 !important;
+  border: 1px solid $color_gray_chateau_approx !important;
   height: 27px;
   border-radius: 6px !important;
   background-position: -3px -2px !important;
-  color: #44556a;
+  color: $color_darker_fiord_approx;
   margin-right: 10px;
 }
 
 input.button[disabled="disabled"], input.button[disabled="disabled"]:HOVER {
   background-position: right -412px !important;
   border: 1px solid !important;
-  color: #666;
+  color: $color_dove_gray_approx;
   padding: 0px 10px 0px 10px;
 }
 
@@ -1494,7 +1494,7 @@ tbody>tr.rf-dt-nd, tbody>tr.rf-dt-nd .rf-dt-nd-c {
 }
 
 tr.rf-dt-shdr, tr.rf-dt-shdr:HOVER {
-  border-bottom: solid 1px #C8C8C8;
+  border-bottom: solid 1px $color_darker_silver_approx;
 }
 
 .rf-dt-shdr-c input.rich-filter-input {
@@ -1533,7 +1533,7 @@ thead th.clickable-header {
 }
 
 thead th.clickable-header:HOVER {
-  background: #f8f9fa;
+  background: $color_light_athens_gray_approx;
 }
 
 #triggerSubListForm  .rf-dt-shdr-c {
@@ -1632,7 +1632,7 @@ thead th.clickable-header:HOVER {
   background-color: $white;
   height: 16px;
   padding: 1px 2px 3px 2px !important;
-  border: solid 1px #CCC;
+  border: solid 1px $color_silver_approx;
   margin-top: 2px;
   display: block;
 }
@@ -1656,7 +1656,7 @@ thead th.clickable-header:HOVER {
 }
 
 form .formHighlight div.div-for-input {
-  border: 1px solid #E7B51D;
+  border: 1px solid $color_gold_tips_approx;
 }
 
 #subListForm .input-filter-icon {
