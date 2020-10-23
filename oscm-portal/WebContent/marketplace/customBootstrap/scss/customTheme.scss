@@ -7,6 +7,18 @@
 @import "myvariables";
 @import "customBreakpoints";
 @import "commonStyles";
+
+
+@import "./components/colors";
+@import "./components/variables";
+@import "./components/image_urls";
+@import "./components/mixins";
+@import "./components/aside";
+/*@import "./components/breadcrumbs"; */
+@import "./components/cards";
+@import "./components/grid";
+@import "./components/navbar";
+
 	
 // Breadcrumbs
 .breadcrumb {
