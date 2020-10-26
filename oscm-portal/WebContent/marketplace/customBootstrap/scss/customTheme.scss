@@ -18,23 +18,7 @@
 @import "./components/grid";
 @import "./components/navbar";
 @import "./components/respIframes";
-
-
-// List groups ==================================================================
-.list-group-item-secondary {
-    @extend .list-group-item-secondary;
-    background-color: $lightened-color !important;
-} 
-
-.list-group-item-secondary:hover {
-   background-color: $hover-color !important;
-   color: $white !important;
-}
-
-.list-group-item-secondary.active {
-   background-color: $darkened-color !important;
-   color: $white !important;
-}  
+@import "./components/listgroups";
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "../../bootstrap/scss/bootstrap";
