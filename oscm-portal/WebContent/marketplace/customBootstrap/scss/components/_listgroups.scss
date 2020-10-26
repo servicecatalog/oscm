@@ -1,0 +1,14 @@
+.list-group-item-secondary {
+    @extend .list-group-item-secondary;
+    background-color: $lightened-color !important;
+} 
+
+.list-group-item-secondary:hover {
+   background-color: $hover-color !important;
+   color: $white !important;
+}
+
+.list-group-item-secondary.active {
+   background-color: $darkened-color !important;
+   color: $white !important;
+}  
