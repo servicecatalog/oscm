@@ -19,12 +19,10 @@
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "../../bootstrap/scss/bootstrap";
 
-
-
-
 @import "./components/cards";
 @import "./components/navbar";
 @import "./components/aside";
 @import "./components/grid";
 @import "./components/forms";
 @import "./components/respIframes";
+@import "./components/tables";
