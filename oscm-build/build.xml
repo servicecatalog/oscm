@@ -474,10 +474,7 @@
       <arg path="${yui.path}" />
       <srcfile />
       <arg value="-o" />
-      <chainedmapper>
-        <globmapper from="*.css" to="*.min.css"/>
-        <globmapper from="*" to="${mp-dest}/*"/>
-      </chainedmapper>
+      <mapper type="glob" from="*.css" to="${mp-dest}/*.min.css"/>
       <targetfile />
     </apply>
   </target>
