@@ -24,7 +24,7 @@
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="convertSassFilesToCss"/>
     <antcall target="BUILD.BeforeHook" />
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package_without_doc">
-      <property name="projects" value="oscm-ear,oscm-portal,oscm-portal-help,oscm-security,oscm-devruntime,oscm-reports, oscm-operatorsvc-client" />     
+      <property name="projects" value="oscm-ear,oscm-portal,oscm-portal-help,oscm-security,oscm-devruntime,oscm-reports, oscm-operatorsvc-client, oscm-jmx-internal" />     
     </ant>
   </target>
   
