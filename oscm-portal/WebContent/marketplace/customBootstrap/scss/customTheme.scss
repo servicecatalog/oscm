@@ -7,43 +7,23 @@
 @import "myvariables";
 @import "customBreakpoints";
 @import "commonStyles";
-	
-// Breadcrumbs
-.breadcrumb {
-  padding: $breadcrumb-padding-y $breadcrumb-padding-x !important; 
-  .breadcrumb-item {
-  padding-left: $breadcrumb-item-padding !important;
-  a {
-    color: $navbar-dark-color;
-  }
 
-  a:hover {
-    color: $secondary;
-    text-decoration: none;
-  }
-  
-  a:visited {
-    color: darken($secondary, 5%);
-    text-decoration: none;
-  }
-}
-} 
+@import "./basic/colors"; 
+@import "./basic/mixins";
+@import "./basic/image_urls";
 
-// List groups ==================================================================
-.list-group-item-secondary {
-    @extend .list-group-item-secondary;
-    background-color: $lightened-color !important;
-} 
 
-.list-group-item-secondary:hover {
-   background-color: $hover-color !important;
-   color: $white !important;
-}
-
-.list-group-item-secondary.active {
-   background-color: $darkened-color !important;
-   color: $white !important;
-}  
+@import "./components/breadcrumbs";
+@import "./components/listgroups";
 
 /* -------end customization-------- *//* finally, import Bootstrap to set the changes! */
 @import "../../bootstrap/scss/bootstrap";
+
+@import "./components/cards";
+@import "./components/navbar";
+@import "./components/aside";
+@import "./components/grid";
+@import "./components/forms";
+@import "./components/respIframes";
+@import "./components/tables";
+@import "./components/modalDialogs";

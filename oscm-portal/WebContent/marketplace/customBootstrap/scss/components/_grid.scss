@@ -1,7 +1,6 @@
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-11.8 Bootstrap grid
-     Styling for containers and columns.
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+// Bootstrap grid
+// Styling for containers and columns.
+
 .container {
   padding-left: 15px;
   padding-right: 15px;
@@ -34,7 +33,7 @@
 }
 
 .con-tab {
-  background: $interior-color;
+  background: $white;
   border-radius: 0px 5px 10px 10px;
   padding: 1rem;
 }

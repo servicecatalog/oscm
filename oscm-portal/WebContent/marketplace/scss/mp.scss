@@ -62,17 +62,7 @@
      10.2.3 Registration form  
     10.3 Tag Cloud Navigation
     10.4 Pagination
-
-    
-  11 Bootstrap UI Components 
-    11.1 Cards  
-    11.2 Navigation bar
-    11.3 Breadcrumbs
-    11.4 Aside Menu
-    11.5 Modal Dialogs
-    11.6 Responsive iframes, embeds and images
-    11.7 Bootstrap tables
-    11.8 Bootstrap grid.
+    10.5 Tables
 
     */
 
@@ -1791,12 +1781,4 @@ div.responsive-table-panel {
 @import "../scss/components/forms";
 @import "../scss/components/tagcloud";
 @import "../scss/components/paginaNavigation";
-
-@import "../scss/components/cards";
-@import "../scss/components/navbar";
-@import "../scss/components/breadcrumbs";
-@import "../scss/components/aside";
-@import "../scss/components/modalDialogs";
-@import "../scss/components/respIframes";
 @import "../scss/components/tables";
-@import "../scss/components/grid";
