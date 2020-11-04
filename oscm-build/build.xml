@@ -469,15 +469,12 @@
   <target name="minifyCSSFiles" description="Minimize CSS files">
     <echo>Minifying CSS Files</echo>
     <apply executable="java" parallel="false">
-      <fileset dir="${mp-dest}" includes="**/**/*.css" excludes="**/**/_*, **/**/*.min.css"  />
+      <fileset dir="${mp-dest}" includes="**/**/*.css" excludes="**/**/_*, **/**/*.min.css, bootstrap/css/*, font-awesome/css/*"/>
       <arg line="-jar" />
       <arg path="${yui.path}" />
       <srcfile />
       <arg value="-o" />
-      <chainedmapper>
-        <globmapper from="*.css" to="*.min.css"/>
-        <globmapper from="*" to="${mp-dest}/*"/>
-      </chainedmapper>
+      <mapper type="glob" from="*.css" to="${mp-dest}/*.min.css"/>
       <targetfile />
     </apply>
   </target>

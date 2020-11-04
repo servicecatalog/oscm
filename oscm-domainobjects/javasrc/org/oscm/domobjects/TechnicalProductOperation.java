@@ -28,6 +28,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.oscm.domobjects.annotations.BusinessKey;
 import org.oscm.domobjects.enums.LocalizedObjectTypes;
+import static org.oscm.types.enumtypes.OperationParameterType.REQUEST_SELECT;
 
 /**
  * @author weiser
@@ -126,7 +127,7 @@ public class TechnicalProductOperation extends
 
     public boolean isRequestParameterValuesRequired() {
         for (OperationParameter op : getParameters()) {
-            if (op.getType().isRequestValues()) {
+            if (op.getType().equals(REQUEST_SELECT)) {
                 return true;
             }
         }

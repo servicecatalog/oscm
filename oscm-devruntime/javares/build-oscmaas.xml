@@ -18,25 +18,43 @@
     <copy file="${root.dir}/oscm-build/ivy-settings.xml" todir="." />
 	<ant antfile="${root.dir}/oscm-build/ivy-build.xml"/>
   </target>
-  
+
   <target name="BUILD.BES" description="Builds the MI and BES and other minor packages">
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.cruisecontrol.file}" target="bootstrap"/>
-    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="convertSassFilesToCss"/>
+    <antcall target="compileScss" />
     <antcall target="BUILD.BeforeHook" />
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package_without_doc">
       <property name="projects" value="oscm-ear,oscm-portal,oscm-portal-help,oscm-security,oscm-devruntime,oscm-reports, oscm-operatorsvc-client, oscm-jmx-internal" />     
     </ant>
+    <antcall target="informationAboutNotInstalledSass" />
   </target>
-  
+
   <target name="checkHook">
     <condition property="ishookdeployed">
       <available file="${custom.build.hook}" property="custom.build.hook" value="${custom.build.hook}"/>
     </condition>
   </target>
-  
+
+  <target name="checkSass">
+    <property environment="env" />
+    <condition property="isSassInstalled">
+      <available file="sass" filepath="${env.PATH}, ${env.Path}" property="sass.present"/>
+    </condition>
+  </target>
+
+  <target name="compileScss" if="isSassInstalled" depends="checkSass">
+    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="convertSassFilesToCss"/>
+  </target>
+
+  <target name="informationAboutNotInstalledSass" unless="isSassInstalled" depends="checkSass">
+    <echo level="warn">=============================================================================================</echo>
+    <echo level="warn">The **sass** environment variable was not found, therefore the .scss files were not compiled!</echo>
+    <echo level="warn">=============================================================================================</echo>
+  </target>
+
   <target name="BUILD.BeforeHook" if="ishookdeployed" depends="checkHook">
     <dirname property="custom.build.dir" file="${custom.build.hook}"/>
     <ant dir="${custom.build.dir}" antfile="${custom.build.hook}" target="customBuildHook"/>
-  </target> 
+  </target>
 
 </project>
