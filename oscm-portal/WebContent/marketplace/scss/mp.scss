@@ -43,7 +43,6 @@
     7.1 Related Services Sidebar
     7.2 Service Overview Navigation
     7.3 Page Jump Navigation
-    7.4 Tab Panel
   
   8. Progress Bar
     8.1 Progress Bar 
@@ -99,103 +98,18 @@
 
 }
 
-
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 5.2 Table Elements
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-
-/* table sorting icons positioning */
-.extdt-header-sort-img, .rich-sort-icon {
-  position: absolute;
-  right: 0px;
-}
-
-/* fix for unrequired extended table features */
-.extdt-hdrop, .extdt-hsep, .extdt-menu-div-out {
-  display: none;
-}
-
-/* set the min-height for the table headers*/
-.extdt-hsep {
-  min-height: 1px;
-}
-
-/* generic height of table cell. Fixed height to prevent  flicker on some browsers*/
-.extdt-cell {
-  height: 20px;
-  vertical-align: middle;
-}
 
 /* generic style to set top aligned content in various tables*/
 .alignTop {
   vertical-align: top;
 }
 
-
-
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 5.3 Modal Panels
 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-
-/* semi transparent background for modal panels */
-.rich-mpnl-mask-div {
-  background-color: $color_tundora_approx;
-}
-
-.rich-modalpanel, .rich-mpnl-mask-div-transparent {
-  background-color: transparent !important;
-}
-
-.rich-mpnl-mask-div-opaque {
-  opacity: 0.6;
-  filter: alpha(opacity = 60);
-}
-
-.dr-mpnl-pnl {
-  overflow: auto !important
-}
-
-/* modal panel content */
-.rich-mpnl-content {
-  background-color: $white;
-  padding: 10px;
-  text-align: left;
-  border-width: 1px;
-  -moz-border-radius: 4px !important;
-  border-radius: 4px !important;
-  border: solid 1px $color_nobel_approx;
-  -moz-box-shadow: 0px 1px 10px 2px $color_mine_shaft_approx;
-  -webkit-box-shadow: 0px 1px 10px 2px $color_mine_shaft_approx;
-  box-shadow: 0px 1px 10px 2px $color_mine_shaft_approx;
-}
-
-/* generic div positioning within modal panel content, fixes problems with floated sort icons */
-.rich-mpnl-content div {
-  position: relative;
-}
-
-/* modal panel headline */
-.rich-mpnl-content h1 {
-  font-weight: normal;
-  margin-bottom: 0px;
-  padding: 0px;
-  font-size: 150%;
-}
-
-.rich-mpnl-shadow {
-  display: none;
-  /* IE filters/hacks to show and simulate box shadow */
-  background: $color_mine_shaft_approx;
-  top: -7px;
-  left: -8px;
-  padding: 2px;
-  position: absolute;
-  z-index: -1;
-  filter: alpha(opacity = 10);
-  filter: progid:DXImageTransform.Microsoft.Blur(pixelradius=6);
-  -ms-filter: progid:DXImageTransform.Microsoft.Blur(pixelradius=6);
-  display: inline\9 /* hack to show shadow layer on  IE7-8,  neither of which support the box-shadow property */
-}
 
 /* close button on modal panel */
 .closeButton {
@@ -207,39 +121,8 @@
   width: 15px;
 }
 
-/* add scrolling functionality to modal panel */
-.dr-mpnl-pnl {
-  overflow: auto !important
-}
-
-.rich-mpnl-body {
-  height: 92%;
-  width: 99%;
-  padding: 0;
-}
-
-.rich-mpnl-body .content {
-  padding: 10px;
-}
-
-.rich-mpnl-panel {
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-}
-
-.rich-mp-container {
-  left: 0 !important;
-  top: 50% !important;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.dataTablePanel {
-  overflow-x: hidden;
-  overflow-y: auto;
-  width: 300px;
-  max-height: 247px;
+.rf-pp-cnt {
+ padding: 15px !important;
 }
 
 /* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -941,88 +824,12 @@ div.scrolltop p img {
   height: 16px;
 }
 
-
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-7.4 Tab Panel
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.rich-tab-inactive, .rich-tab-active {
-  border: 1px solid $color_silver_approx;
-  border-bottom: none;
-  font-weight: bold;
-  padding: 7px 19px;
-  -mozkit-border-radius: 2px 2px 0 0;
-  border-radius: 2px 2px 0 0;
-}
-
-/* active tab in tab navigation block*/
-.rich-tab-active {
-  color: $color_fiord_approx;
-  background: $white;
-  cursor: default;
-}
-
-/* inactive tabs in tab navigation block */
-.rich-tab-inactive {
-  background: $color_loblolly_approx;
-  color: $color_dove_gray_approx;
-  cursor: pointer;
-}
-
-.rich-tab-inactive:hover {
-  color: $color_emperor_approx;
-  background: $gray;
-}
-
-/* spacing between tabs */
-.rich-tabhdr-cell-inactive+td, .rich-tabhdr-cell-active+td, .rich-tabhdr-side-border {
-  width: 2px;
-  padding: 0px;
-  /* if set to zero, set display to "none" to fix chrome table bug */
-  /*display:none;*/
-}
-
-/*  appearance of left and right edges of tabs  */
-.rich-tabhdr-side-border {
-  display: none;
-}
-
-/*  individual tab positioning  */
-.rich-tabhdr-cell-inactive table, .rich-tabhdr-cell-active table {
-  top: 1px !important;
-}
-
-.rich-tabhdr-cell-disabled, .rich-tabhdr-cell-inactive {
-  padding-top: 0px;
-}
-
-/*  wrapper for tab array block  */
-.rich-tab-bottom-line {
-  padding-left: 10px;
-}
-
-.rich-tabhdr-side-cell {
-  border-top-style: none;
-}
-
-.rich-tab-bottom-line img {
-  display: none;
-}
-
-/*  border line between tabs and content */
-.rich-tab-bottom-line {
-  border-bottom: 1px solid $color_silver_approx;
-  background: $color_wild_sand_approx;
-}
-
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 8 Progress Bar
 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
  */
-.buttonWrapper {
-
-}
 
 /* wrapper for button arrays */
 .buttonPanel {
@@ -1155,7 +962,6 @@ div.scrolltop p img {
   height: 15px;
 }
 
-
 /* align footer to page bottom by minimal distance to start of content panel
    (Note: We set it to page bottom, not to screen bottom. We don't want sticky footers as they reduce the visible content area)
 */
@@ -1192,7 +998,6 @@ div.scrolltop p img {
 #supplierName, #brokerName {
   padding: 2px 0 1px 10px;
 }
-
 
 .subscrOwner td {
   vertical-align: bottom;
@@ -1305,16 +1110,6 @@ div.scrolltop p img {
 .userGroupsLabel {
   width: 300px;
   display: inline-block;
-}
-
-.rf-pp-cntr {
-  text-align: left !important;
-}
-
-.rf-pp-cntr, .rf-pp-shdw, .rf-pp-cnt-scrlr {
-  height: auto !important;
-  width: auto !important;
-  overflow: inherit !important;
 }
 
 .body4span .rf-pp-shade, .body5span .rf-pp-shade {
