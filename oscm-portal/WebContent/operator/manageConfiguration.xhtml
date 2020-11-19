@@ -1,62 +1,87 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-  xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/main.xhtml">
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:t="http://myfaces.apache.org/tomahawk" template="../templates/main.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="operator.manageConfiguration" />
+    <c:set var="pageId" value="operator.manageConfiguration"/>
   </ui:define>
   <ui:define name="body">
 
-    <adm:outputStep value="#{msg['operator.manageConfiguration.header']}" />
+    <adm:outputStep value="#{msg['operator.manageConfiguration.header']}"/>
     <h:form id="configurationSettings">
-      <a4j:outputPanel layout="block" styleClass="tablePanel">
-        <adm:dataTable tableId="settingTable" value="#{configurationSettingsBean.configurationSettings}"
-          label="#{msg['operator.manageConfiguration.header']}">
-          <rich:column width="35%">
-            <f:facet name="header">
-              <h:outputText value="#{msg['operator.manageConfiguration.key']}" />
-            </f:facet>
-            <h:outputText value="#{rowItem.informationId.keyName}" />
-            <h:outputText value=" *" styleClass="mandatory" rendered="#{rowItem.informationId.mandatory}" />
-          </rich:column>
-          <rich:column width="65%">
-            <f:facet name="header">
-              <h:outputText value="#{msg['uda.value']}" />
-            </f:facet>
-            <t:div style="white-space:nowrap;">
-              <h:inputSecret id="configurationValuePassword" onchange="setDirty(true)" value="#{rowItem.value}"
-                maxlength="#{appBean.descriptionLen}" required="#{rowItem.informationId.mandatory}" 
-                label="#{rowItem.informationId.keyName}"  redisplay="true"
-                minValue="#{rowItem.informationId.minValue}" maxValue="#{rowItem.informationId.maxValue}"
-                rendered="#{!rowItem.informationId.readonly and rowItem.informationId.type == 'password'}" style="width:100%">
-                <f:validator validatorId="confValue"/>
-              </h:inputSecret>
-              <h:inputText id="configurationValue" onchange="setDirty(true)" value="#{rowItem.value}"
-                maxlength="#{appBean.descriptionLen}" required="#{rowItem.informationId.mandatory}" 
-                dataType="#{rowItem.informationId.type}" label="#{rowItem.informationId.keyName}" 
-                minValue="#{rowItem.informationId.minValue}" maxValue="#{rowItem.informationId.maxValue}"
-                rendered="#{!rowItem.informationId.readonly and rowItem.informationId.type != 'password'}" style="width:100%">
-                <f:validator validatorId="confValue"/>
-              </h:inputText>
-              <h:outputText value="*****" styleClass="label" rendered="#{rowItem.informationId.readonly and rowItem.informationId.type == 'password'}"/>
-              <h:outputText value="#{rowItem.value}" styleClass="label" rendered="#{rowItem.informationId.readonly and rowItem.informationId.type != 'password'}"/>
-            </t:div>
-            <t:div styleClass="errorPanelTr">
-              <adm:message for="configurationValue" />
-            </t:div>
-          </rich:column>
-        </adm:dataTable>
-      </a4j:outputPanel>
+      <rich:extendedDataTable id="settingTable" value="#{configurationSettingsBean.configurationSettings}"
+                              var="rowItem" styleClass="w-fill-available" headerClass="rowTitle"
+                              columnClasses="wrapColumns" rowClasses="rowOdd,rowEven ">
+        <rich:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg['operator.manageConfiguration.key']}"/>
+          </f:facet>
+          <h:outputText value="#{rowItem.informationId.keyName}"/>
+          <h:outputText value=" *" styleClass="mandatory" rendered="#{rowItem.informationId.mandatory}"/>
+        </rich:column>
+        <rich:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg['uda.value']}"/>
+          </f:facet>
+          <t:div style="white-space:nowrap;">
+            <h:inputSecret id="configurationValuePassword" onchange="setDirty(true)" value="#{rowItem.value}"
+                           maxlength="#{appBean.descriptionLen}" required="#{rowItem.informationId.mandatory}"
+                           label="#{rowItem.informationId.keyName}" redisplay="true"
+                           minValue="#{rowItem.informationId.minValue}" maxValue="#{rowItem.informationId.maxValue}"
+                           rendered="#{!rowItem.informationId.readonly and rowItem.informationId.type == 'password'}"
+                           style="width:100%">
+              <f:validator validatorId="confValue"/>
+            </h:inputSecret>
+            <h:inputText id="configurationValue" onchange="setDirty(true)" value="#{rowItem.value}"
+                         maxlength="#{appBean.descriptionLen}" required="#{rowItem.informationId.mandatory}"
+                         dataType="#{rowItem.informationId.type}" label="#{rowItem.informationId.keyName}"
+                         minValue="#{rowItem.informationId.minValue}" maxValue="#{rowItem.informationId.maxValue}"
+                         rendered="#{!rowItem.informationId.readonly and rowItem.informationId.type != 'password'}"
+                         style="width:100%">
+              <f:validator validatorId="confValue"/>
+            </h:inputText>
+            <h:outputText value="*****" styleClass="label"
+                          rendered="#{rowItem.informationId.readonly and rowItem.informationId.type == 'password'}"/>
+            <h:outputText value="#{rowItem.value}" styleClass="label"
+                          rendered="#{rowItem.informationId.readonly and rowItem.informationId.type != 'password'}"/>
+          </t:div>
+          <t:div styleClass="errorPanelTr">
+            <adm:message for="configurationValue"/>
+          </t:div>
+        </rich:column>
+      </rich:extendedDataTable>
 
       <adm:buttonPanel>
-        <adm:button id="saveButton" value="#{msg['button.save']}" bean="#{configurationSettingsBean}" action="save" buttonType="save"  />
+        <adm:button id="saveButton" value="#{msg['button.save']}" bean="#{configurationSettingsBean}" action="save"
+                    buttonType="save"/>
       </adm:buttonPanel>
 
+      <script type="text/javascript">
+        function countColumnSize() {
+          var tableWidth = $('#contentPanel_header').width();
+          var firstColumn = $('.rf-edt-c-j_idt491').width();
+          if(firstColumn === 100) {
+            firstColumn = 380;
+            $('.rf-edt-c-j_idt491').width( 380 + "px" );
+          }
+          var columnWidth = tableWidth - firstColumn - 54;
+          $('.rf-edt-c-j_idt495').width( columnWidth + "px" );
+        };
+
+        let resizeObserver = new ResizeObserver(() => {
+          countColumnSize();
+        });
+
+        elem = $(".rf-edt-c-j_idt491")[0];
+        resizeObserver.observe(elem);
+        window.onload = countColumnSize;
+        window.addEventListener("resize", countColumnSize);
+      </script>
     </h:form>
   </ui:define>
 </ui:composition>
