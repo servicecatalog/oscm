@@ -75,8 +75,9 @@
                         </mp:formSelect>
                       </c:forEach>
 
-                      <a4j:jsFunction name="selectOperation" action="#{mySubscriptionsCtrl.operationChanged}" limitRender="true"
-                                      render="operations, :executeForm" oncomplete="AdmUtils.showProgress(false);">
+                      <a4j:jsFunction name="selectOperation" action="#{mySubscriptionsCtrl.operationChanged}"
+                                      limitRender="true" oncomplete="AdmUtils.showProgress(false);"
+                                      render="operations, :executeForm">
                         <a4j:param name="param1" assignTo="#{mySubscriptionsCtrl.model.subscriptionIdForOperation}"/>
                         <a4j:param name="param2" assignTo="#{subscription.selectedOperationId}"/>
                         <a4j:param name="param3" assignTo="#{mySubscriptionsCtrl.selectId}"/>
@@ -144,20 +145,22 @@
           </script>
         </div>
         <div id="loadCustom" class="tab-pane fade py-4" role="tabpanel" aria-labelledby="nav-loading-tab">
-          <button id="wait" class="btn btn-primary pd-2" type="button" disabled="">
-            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"/>
-            Loading...
-          </button>
+          <div id="wait" class="pl-5">
+            <div class="spinner-border float-left text-primary" role="status">
+              <span class="sr-only"/>
+            </div>
+            <p class="font-weight-bolder float-left py-2 pl-3">#{msg['subscription.loading.data']}</p>
+          </div>
           <script>
-           var dots = window.setInterval( function() {
-             var wait = document.getElementById("wait");
-             if ( wait.innerHTML.length > 2 ) {
-               wait.style.display = 'none';
-            } }, 350);
+            function onMyFrameLoad() {
+              var wait = document.getElementById("wait");
+              wait.style.display = 'none';
+            };
           </script>
           <h:panelGroup id="customIFrame" rendered="#{not empty subscription.customTabName}">
             <iframe id="customData" src="#{mySubscriptionsCtrl.customTabUrlWithParameters}"
-                    title="#{subscription.customTabName}" class="responsive-iframe"></iframe>
+                    title="#{subscription.customTabName}" class="responsive-iframe" onload="onMyFrameLoad();">
+            </iframe>
           </h:panelGroup>
         </div>
       </div>
