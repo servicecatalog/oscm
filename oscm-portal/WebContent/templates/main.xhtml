@@ -206,8 +206,6 @@
       }
       AdmUtils.setInfoPanel("progressMessages");
       AdmUtils.setInfoPanel("infoMessages");
-      AdmUtils.initResize(eNav, resizeCallback);
-      AdmUtils.resize();
       <c:if test="#{sessionBean.ie}">
         AdmUtils.observe(window, "resize", AdmUtils.resizeDelayed); // avoid events during resize
       </c:if>

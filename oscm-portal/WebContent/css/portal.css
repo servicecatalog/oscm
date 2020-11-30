@@ -2432,3 +2432,7 @@ table.dataTable > tbody > td:hover {
   background-color: #CBD7F5;
   cursor: pointer;
 }
+
+.display-flex {
+  display: flex;
+}
