@@ -20,7 +20,7 @@
     <h:form id="selectForm">
       <adm:outputStep value="#{msg['organization.manageSuppliers.selectTechnicalService']}"/>
       <adm:panelGrid>
-        <adm:outputLabel value="#{label}"/>
+        <adm:outputLabel value="#{techServiceBean.selectedTechnicalServiceKeyReadonly}"/>
         <h:panelGroup>
           <b:selectOneMenu select2="true" styleClass="select" id="techServiceId" onclick="AdmUtils.storeValue(this);"
                            immediate="true" value="#{techServiceBean.selectedTechnicalServiceKeyReadonly}">
