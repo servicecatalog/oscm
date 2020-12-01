@@ -1,12 +1,4 @@
-/*
- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-10. UI Components
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-10.1.1 Regular Navigation Buttons
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+/* ---- 10.1.1 Regular Navigation Buttons	---- ---- ---- ---- ---- ---- ---- */
 
 /*  standard button definitions */
 .button, .buttonDisabled, .buttonDisabled span, .button span {
@@ -24,11 +16,9 @@
 .button {
   background-position: left -290px;
   cursor: pointer;
-
   &:visited {
     background-position: left -290px;
   }
-
   &:active {
     background-position: left -320px;
   }
@@ -78,9 +68,7 @@
   text-decoration: none;
 }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-10.1.2 Big Buttons
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+/* ---- 10.1.2 Big Buttons	---- ---- ---- ---- ---- ---- ---- ---- ---- ---- */
 
 /*  big button definitions */
 .bigbutton, .bigbuttonDisabled, .bigbuttonDisabled span, .bigbutton span {
@@ -97,24 +85,19 @@
 .bigbutton {
   background-position: left 0;
   cursor: pointer;
-  
   /* right edge */
   &:visited {
     background-position: left 0;
     text-decoration: none;   
   }
-
   &:hover {
     background-position: left -60px;
     text-decoration: none;
   }
-
   &:active {
     background-position: left -120px;
   }
-    
 }
-
 
 .bigbuttonDisabled {
   background-position: left -231px;
@@ -153,15 +136,9 @@
   cursor: default;
 }
 
-
 /* Get it now button */
 #buyme {
   margin: 2rem 2.5rem 1.5rem 0rem;
-}
-
-/* Button panels */
-.buttonWrapper {
-
 }
 
 /* wrapper for button arrays */
@@ -169,7 +146,6 @@
   margin: 4px 0 3px 10px;
   position: relative;
 }
-
 
 /*  button spacing for button array buttons */
 .bottomButtonPanel .button {

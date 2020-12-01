@@ -1,13 +1,8 @@
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-4.2 Service Content Boxes
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-
 /* serviceBox2span represents two column list of boxes. 50% width */
 .serviceBox2span .left {
   width: 33%;
   float: left;
   padding: 0 4px;
-  
 }
 
 /* second column content */
@@ -144,9 +139,7 @@ h2.priceUnit, h1.priceUnit {
   margin-right: 10px !important;
 }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-4.2.1 Service Section
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+/* ---- 4.2.1 Service Section	---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .serviceSection {
   width: 33.333%;
   display: inline-block;
@@ -156,9 +149,7 @@ h2.priceUnit, h1.priceUnit {
   @include box-sizing(border-box);
 }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-4.2.2 Service Header
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+/* ---- 4.2.2 Service Header	---- ---- ---- ---- ---- ---- ---- ---- ----  */
 .serviceHeader {
   font-size: 1.7em;
   margin: 0 0 1em;
