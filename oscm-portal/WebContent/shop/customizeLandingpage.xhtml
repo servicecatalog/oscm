@@ -1,48 +1,54 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:rich="http://richfaces.org/rich"
-                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" template="../templates/mainBootsfaces.xhtml">
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:b="http://bootsfaces.net/ui" template="../templates/mainBootsfaces.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.customizeLandingpage" />
-    <c:set var="focusElementID" value="customizeLandingpageForm:marketplaceInner" />
-    <c:set var="dirty" value="false" />
+    <c:set var="pageId" value="marketplace.customizeLandingpage"/>
+    <c:set var="focusElementID" value="customizeLandingpageForm:marketplaceInner"/>
+    <c:set var="dirty" value="false"/>
   </ui:define>
 
   <ui:define name="body">
-    <adm:initialize initializingMethod="#{customizeLandingpageCtrl.initializeCustomizeLandingpage}" />
+    <adm:initialize initializingMethod="#{customizeLandingpageCtrl.initializeCustomizeLandingpage}"/>
     <h:form id="customizeLandingpageForm">
-      <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectMarketplace']}" />
-      <adm:bootsfacesSelectMenu   id="marketplace"
-                                  value="#{customizeLandingpageModel.selectedMarketplace}"
-                                  onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
-                                  oncomplete="javascsript:AdmUtils.setUIElements();"
-                                  label="#{msg['service.marketplace']}">
-        <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
-                     render="customizeLandingpageForm,landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel" />
-        <adm:selectItemPleaseSelect itemValue="" />
-                <f:selectItems value="#{customizeLandingpageModel.marketplaces}" />
-      </adm:bootsfacesSelectMenu>
-      <adm:message id="marketplaceErrorMsg" for="marketplace" />
+      <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectMarketplace']}"/>
+      <adm:panelGrid>
+        <adm:outputLabel value="#{msg['service.marketplace']}"/>
+        <h:panelGroup>
+          <b:selectOneMenu select2="true" styleClass="select" id="marketplace"
+                           value="#{customizeLandingpageModel.selectedMarketplace}"
+                           onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
+                           oncomplete="javascsript:AdmUtils.setUIElements();">
+            <f:ajax event="change" listener="#{customizeLandingpageCtrl.marketplaceChanged}"
+                    render="customizeLandingpageForm,landingpageTypePanel,defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel"/>
+            <adm:selectItemPleaseSelect itemValue=""/>
+            <f:selectItems value="#{customizeLandingpageModel.marketplaces}"/>
+          </b:selectOneMenu>
+        </h:panelGroup>
+      </adm:panelGrid>
+      <adm:message id="marketplaceErrorMsg" for="marketplace"/>
 
       <a4j:outputPanel id="landingpageTypePanel">
-        <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectLandingpageType']}" />
-        <h:inputHidden id="landingPageTypeInitial" value="#{customizeLandingpageModel.landingpageType}" />
+        <adm:outputStep value="#{msg['marketplace.customizeLandingpage.selectLandingpageType']}"/>
+        <h:inputHidden id="landingPageTypeInitial" value="#{customizeLandingpageModel.landingpageType}"/>
         <adm:panelGrid>
           <t:panelGroup colspan="3">
             <h:selectOneRadio id="landingpageTypeSelect" value="#{customizeLandingpageModel.landingpageType}"
-              disabled="#{customizeLandingpageCtrl.fieldsDisabled}" layout="pageDirection"
-              valueChangeListener="#{customizeLandingpageCtrl.landingpageTypeChanged}">
-              <f:selectItem itemValue="PUBLIC" itemLabel="#{msg['marketplace.customizeLandingpage.radio.manual']}" />
+                              disabled="#{customizeLandingpageCtrl.fieldsDisabled}" layout="pageDirection"
+                              valueChangeListener="#{customizeLandingpageCtrl.landingpageTypeChanged}">
+              <f:selectItem itemValue="PUBLIC" itemLabel="#{msg['marketplace.customizeLandingpage.radio.manual']}"/>
               <f:selectItem itemValue="ENTERPRISE"
-                itemLabel="#{msg['marketplace.customizeLandingpage.radio.categories']}" />
+                            itemLabel="#{msg['marketplace.customizeLandingpage.radio.categories']}"/>
               <a4j:ajax event="click"
-                render="defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel"
-                onbeforesubmit="if(!checkType(this)) {return false;}" oncomplete="setOnlyPMTypeDirty();AdmUtils.setUIElements();" />
+                        render="defineCustomFeaturedServices,buttonPanel,mainTmplMessagesPanel"
+                        onbeforesubmit="if(!checkType(this)) {return false;}"
+                        oncomplete="setOnlyPMTypeDirty();AdmUtils.setUIElements();"/>
             </h:selectOneRadio>
           </t:panelGroup>
         </adm:panelGrid>
@@ -62,26 +68,27 @@
         return true;
       }
       </script>
-      
+
       <a4j:outputPanel id="defineCustomFeaturedServices">
         <ui:include src="customFeaturedServices.xhtml"/>
       </a4j:outputPanel>
-      
+
       <a4j:outputPanel id="buttonPanel">
         <adm:buttonPanel>
           <adm:button id="saveBtn" value="#{msg['button.save']}" bean="#{customizeLandingpageCtrl}" action="save"
-            disabled="#{customizeLandingpageCtrl.fieldsDisabled}" buttonType="save" />
+                      disabled="#{customizeLandingpageCtrl.fieldsDisabled}" buttonType="save"/>
           <adm:buttonCustomizedOnClick id="resetBtn" value="#{msg['button.reset']}" bean="#{customizeLandingpageCtrl}"
-            action="reset" disabled="#{customizeLandingpageCtrl.fieldsDisabled}"
-            onclick="#{rich:component('confirmPanel')}.show()" progress="false" buttonType="reset"
-            rendered="#{not customizeLandingpageCtrl.hideManualChoicePanels}" />
+                                       action="reset" disabled="#{customizeLandingpageCtrl.fieldsDisabled}"
+                                       onclick="#{rich:component('confirmPanel')}.show()" progress="false"
+                                       buttonType="reset"
+                                       rendered="#{not customizeLandingpageCtrl.hideManualChoicePanels}"/>
           <h:commandButton id="confirmedResetBtn" action="#{customizeLandingpageCtrl.resetToDefault}"
-            oncomplete="#{rich:component('confirmPanel')}.hide()" style="display:none" />
+                           oncomplete="#{rich:component('confirmPanel')}.hide()" style="display:none"/>
         </adm:buttonPanel>
       </a4j:outputPanel>
     </h:form>
 
-    <adm:confirmPanel text="#{msg['marketplace.customizeLandingpage.confirm.reset']}" submitId="confirmedResetBtn" />
+    <adm:confirmPanel text="#{msg['marketplace.customizeLandingpage.confirm.reset']}" submitId="confirmedResetBtn"/>
   </ui:define>
 
 </ui:composition>

@@ -1,124 +1,136 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-                template="../templates/mainBootsfaces.xhtml">
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:b="http://bootsfaces.net/ui" template="../templates/mainBootsfaces.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="organization.manageSuppliers" />
+    <c:set var="pageId" value="organization.manageSuppliers"/>
 
     <c:if test="#{not organizationBean.showConfirm}">
-      <c:set var="focusElementID" value="selectForm:techServiceIdInner" />
+      <c:set var="focusElementID" value="selectForm:techServiceIdInner"/>
     </c:if>
   </ui:define>
   <ui:define name="body">
 
     <h:form id="selectForm">
-      <adm:outputStep value="#{msg['organization.manageSuppliers.selectTechnicalService']}" />
-      <adm:bootsfacesSelectMenu   id="techServiceId"
-                                  onclick="AdmUtils.storeValue(this);"
-                                  label="#{msg['techService.techServiceId']}"
-                                  immediate="true"
-                                  value="#{techServiceBean.selectedTechnicalServiceKeyReadonly}">
-        <f:ajax event="change" listener="#{organizationBean.technicalServiceChanged}"
-                render="selectForm, addSupplierForm, removeSuppliersForm" />
-        <adm:selectItemPleaseSelect itemValue="0" />
-        <c:forEach items="#{techServiceBean.technicalServices}" var="techService">
-          <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}" />
-        </c:forEach>
-      </adm:bootsfacesSelectMenu>
-        <adm:message for="techServiceId" />
+      <adm:outputStep value="#{msg['organization.manageSuppliers.selectTechnicalService']}"/>
+      <adm:panelGrid>
+        <adm:outputLabel value="#{label}"/>
+        <h:panelGroup>
+          <b:selectOneMenu select2="true" styleClass="select" id="techServiceId" onclick="AdmUtils.storeValue(this);"
+                           immediate="true" value="#{techServiceBean.selectedTechnicalServiceKeyReadonly}">
+            <f:ajax event="change" listener="#{organizationBean.technicalServiceChanged}"
+                    render="selectForm, addSupplierForm, removeSuppliersForm"/>
+            <adm:selectItemPleaseSelect itemValue="0"/>
+            <c:forEach items="#{techServiceBean.technicalServices}" var="techService">
+              <f:selectItem itemLabel="#{techService.technicalServiceId}" itemValue="#{techService.key}"/>
+            </c:forEach>
+          </b:selectOneMenu>
+        </h:panelGroup>
+      </adm:panelGrid>
+      <adm:message for="techServiceId"/>
     </h:form>
 
     <h:form id="addSupplierForm">
-      <h:inputHidden value="#{organizationBean.token}" />
-      <adm:outputStep value="#{msg['organization.manageSuppliers.addNewSupplier']}" />
+      <h:inputHidden value="#{organizationBean.token}"/>
+      <adm:outputStep value="#{msg['organization.manageSuppliers.addNewSupplier']}"/>
 
       <adm:panelGrid>
         <adm:labelAndInputText id="supplierId" label="#{msg['organization.manageSuppliers.supplierId']}" required="true"
-          value="#{organizationBean.supplierIdToAdd}" styleClass="field" maxlength="#{appBean.idLen}"
-          disabled="#{empty techServiceBean.selectedTechnicalService}" validatorId="idChar" converterId="trimConverter" />
+                               value="#{organizationBean.supplierIdToAdd}" styleClass="field"
+                               maxlength="#{appBean.idLen}"
+                               disabled="#{empty techServiceBean.selectedTechnicalService}" validatorId="idChar"
+                               converterId="trimConverter"/>
       </adm:panelGrid>
 
       <adm:buttonPanel>
         <adm:button id="addSupplierButton" value="#{msg['button.add']}" bean="#{organizationBean}"
-          action="addSuppliersForTechnicalService" disabled="#{empty techServiceBean.selectedTechnicalService}"
-          buttonType="add" />
+                    action="addSuppliersForTechnicalService"
+                    disabled="#{empty techServiceBean.selectedTechnicalService}"
+                    buttonType="add"/>
       </adm:buttonPanel>
     </h:form>
 
     <h:form id="removeSuppliersForm"
-      rendered="#{(not empty techServiceBean.selectedTechnicalService) and (organizationBean.existSuppliersForTechnicalService)}">
-      <adm:outputStep value="#{msg['organization.manageSuppliers.table.title']}" />
+            rendered="#{(not empty techServiceBean.selectedTechnicalService) and (organizationBean.existSuppliersForTechnicalService)}">
+      <adm:outputStep value="#{msg['organization.manageSuppliers.table.title']}"/>
 
       <a4j:outputPanel layout="block" styleClass="tablePanel">
         <adm:dataTable tableId="supplierTable" value="#{organizationBean.suppliersForTechnicalService}"
-          height="#{sessionBean.tableHeightMap[270]}px" label="#{msg['organization.manageSuppliers.table.header']}">
+                       height="#{sessionBean.tableHeightMap[270]}px"
+                       label="#{msg['organization.manageSuppliers.table.header']}">
           <rich:column styleClass="checkBoxColumn">
             <h:selectBooleanCheckbox id="checkboxId" value="#{rowItem.selected}" onchange="setDirty(true)"
-              immediate="true">
-              <a4j:ajax render="removeSuppliersForm:deleteButtonPanel" event="click" />
+                                     immediate="true">
+              <a4j:ajax render="removeSuppliersForm:deleteButtonPanel" event="click"/>
             </h:selectBooleanCheckbox>
           </rich:column>
           <rich:column>
             <f:facet name="header">
-              <h:outputText value="#{msg['organization.organizationId']}" />
+              <h:outputText value="#{msg['organization.organizationId']}"/>
             </f:facet>
-            <h:outputText id="organizationId" value="#{rowItem.organizationId}" />
+            <h:outputText id="organizationId" value="#{rowItem.organizationId}"/>
           </rich:column>
           <rich:column>
             <f:facet name="header">
-              <h:outputText value="#{msg['organization.name']}" />
+              <h:outputText value="#{msg['organization.name']}"/>
             </f:facet>
-            <h:outputText id="name" value="#{rowItem.name}" />
+            <h:outputText id="name" value="#{rowItem.name}"/>
           </rich:column>
           <rich:column>
             <f:facet name="header">
-              <h:outputText value="#{msg['organization.address']}" />
+              <h:outputText value="#{msg['organization.address']}"/>
             </f:facet>
-            <h:outputText id="address" value="#{rowItem.address}" />
+            <h:outputText id="address" value="#{rowItem.address}"/>
           </rich:column>
         </adm:dataTable>
       </a4j:outputPanel>
 
-      <h:inputHidden id="confirmed" value="#{organizationBean.confirmed}" />
-      <h:inputHidden value="#{organizationBean.token}" />
+      <h:inputHidden id="confirmed" value="#{organizationBean.confirmed}"/>
+      <h:inputHidden value="#{organizationBean.token}"/>
       <h:commandButton style="display:none;" id="confirmedButton" onclick="setDirty(false);"
-        value="#{msg['button.delete']}" action="#{organizationBean.removeSuppliersFromTechnicalService}" />
+                       value="#{msg['button.delete']}"
+                       action="#{organizationBean.removeSuppliersFromTechnicalService}"/>
       <adm:buttonPanel>
         <adm:buttonCustomizedOnClick id="deleteButton" value="#{msg['button.delete']}"
-          onclick="#{rich:element('confirmedButton')}.click();return false;"
-          disabled="#{not organizationBean.deleteSupplierEnabled}" buttonType="delete" />
+                                     onclick="#{rich:element('confirmedButton')}.click();return false;"
+                                     disabled="#{not organizationBean.deleteSupplierEnabled}" buttonType="delete"/>
       </adm:buttonPanel>
     </h:form>
 
-    <rich:popupPanel id="confirmPanel" onhide="setFocusToInputField();" show="#{organizationBean.showConfirm}" minWidth="400"
-      autosized="true">
+    <rich:popupPanel id="confirmPanel" onhide="setFocusToInputField();" show="#{organizationBean.showConfirm}"
+                     minWidth="400"
+                     autosized="true">
       <f:facet name="header">
-        <h:outputText value="#{msg['confirm.title']}" />
+        <h:outputText value="#{msg['confirm.title']}"/>
       </f:facet>
 
       <a4j:outputPanel id="confirmInstanceIds" layout="block" style="padding: 0px 15px 20px 10px;"
-        rendered="#{not empty organizationBean.instanceIdsForSuppliers}">
+                       rendered="#{not empty organizationBean.instanceIdsForSuppliers}">
 
-        <h:outputText value="#{msg['confirm.suppliers.remove.instanceIds']}" />
+        <h:outputText value="#{msg['confirm.suppliers.remove.instanceIds']}"/>
         <h:inputTextarea id="instanceIdsToDelete" rows="5" style="width:100%; background:#FFFFFF;" readonly="true"
-          value="#{organizationBean.instanceIdsForSuppliers}" onfocus="AdmUtils.setFocusBackgroundColor('#FFFFFF');"
-          onblur="AdmUtils.setFocusBackgroundColor('#{skinBean.properties.focusBackgroundColor}');" />
+                         value="#{organizationBean.instanceIdsForSuppliers}"
+                         onfocus="AdmUtils.setFocusBackgroundColor('#FFFFFF');"
+                         onblur="AdmUtils.setFocusBackgroundColor('#{skinBean.properties.focusBackgroundColor}');"/>
 
       </a4j:outputPanel>
       <a4j:outputPanel id="confirmDetails" layout="block" style="padding:10px;">
-        <h:outputText value="#{msg['confirm.suppliers.remove']}" />
+        <h:outputText value="#{msg['confirm.suppliers.remove']}"/>
       </a4j:outputPanel>
 
       <adm:buttonPanel columns="2" styleClass="buttonPanel relative">
         <adm:buttonCustomizedOnClick id="confirmSaveButton" value="#{msg['button.yes']}" bean="#{organizationBean}"
-          onclick="#{rich:element('confirmed')}.value='true';#{rich:element('confirmedButton')}.click();return false;" buttonType="confirm" />
+                                     onclick="#{rich:element('confirmed')}.value='true';#{rich:element('confirmedButton')}.click();return false;"
+                                     buttonType="confirm"/>
         <adm:buttonCustomizedOnClick id="confirmCancelButton" value="#{msg['button.no']}"
-          onclick="#{rich:component('confirmPanel')}.hide();return false;" buttonType="cancel" />
+                                     onclick="#{rich:component('confirmPanel')}.hide();return false;"
+                                     buttonType="cancel"/>
       </adm:buttonPanel>
     </rich:popupPanel>
 

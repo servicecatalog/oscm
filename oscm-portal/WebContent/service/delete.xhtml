@@ -1,56 +1,61 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 template="../templates/mainBootsfaces.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="dirty" value="false" /><c:set var="pageId" value="service.delete"/>
-    <c:set var="focusElementID" value="selectForm:serviceIdInner" />
+    <c:set var="dirty" value="false"/>
+    <c:set var="pageId" value="service.delete"/>
+    <c:set var="focusElementID" value="selectForm:serviceIdInner"/>
   </ui:define>
   <ui:define name="body">
 
     <adm:outputStep value="#{msg['service.delete.step1']}"/>
 
-      <h:form id="selectForm">
-        <adm:bootsfacesSelectMenu   id="serviceId"
-                                    onchange="this.form.submit();"
-                                    value="#{serviceBean.selectedServiceKey}"
-                                    label="#{msg['service.serviceId']}">
-          <adm:selectItemPleaseSelect itemValue="0" />
-          <c:forEach items="#{serviceBean.serviceNames}" var="service">
-            <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
-          </c:forEach>
-        </adm:bootsfacesSelectMenu>
-      </h:form>
-    <h:outputText value="" />
+    <h:form id="selectForm">
+      <adm:panelGrid>
+        <adm:outputLabel value="#{msg['service.serviceId']}"/>
+        <h:panelGroup>
+          <b:selectOneMenu select2="true" styleClass="select" id="serviceId"
+                           onchange="this.form.submit();" value="#{serviceBean.selectedServiceKey}">
+            <adm:selectItemPleaseSelect itemValue="0"/>
+            <c:forEach items="#{serviceBean.serviceNames}" var="service">
+              <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}"/>
+            </c:forEach>
+          </b:selectOneMenu>
+        </h:panelGroup>
+      </adm:panelGrid>
+    </h:form>
+    <h:outputText value=""/>
 
     <adm:panelGrid>
-      <adm:outputLabel value="#{msg['techService.techServiceId']}" />
+      <adm:outputLabel value="#{msg['techService.techServiceId']}"/>
       <h:panelGroup>
-        <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel" />
+        <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel"/>
       </h:panelGroup>
-      <h:outputText value="" />
-    </adm:panelGrid>  
-    
+      <h:outputText value=""/>
+    </adm:panelGrid>
+
     <h:form id="deleteForm">
       <h:commandButton style="display:none;"
-        id="confirmedButton"
-        value="#{msg['button.delete']}" 
-        action="#{serviceBean.delete}"/>
+                       id="confirmedButton"
+                       value="#{msg['button.delete']}"
+                       action="#{serviceBean.delete}"/>
       <adm:buttonPanel columns="1">
         <adm:buttonCustomizedOnClick
-          buttonType = "delete"
-          id="deleteButton"
-          value="#{msg['button.delete']}"
-          onclick="#{rich:component('confirmPanel')}.show()"
-          disabled="#{serviceBean.deleteDisabled}"/>
+            buttonType="delete"
+            id="deleteButton"
+            value="#{msg['button.delete']}"
+            onclick="#{rich:component('confirmPanel')}.show()"
+            disabled="#{serviceBean.deleteDisabled}"/>
       </adm:buttonPanel>
     </h:form>
-    
+
     <adm:confirmPanel text="#{msg['confirm.service.delete']}"/>
-  
+
   </ui:define>
 </ui:composition>
