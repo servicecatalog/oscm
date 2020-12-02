@@ -125,7 +125,8 @@ textarea {
 }
 
 input[type="radio"], input[type="checkbox"] {
-  width: 2rem !important;
+  margin-left: 1rem;
+  margin-right: 1rem;
   vertical-align: middle;
 }
 

@@ -56,7 +56,7 @@
                      onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
                      noDataLabel=" " onrowclick="AdmUtils.showProgress(true); validateSubscriptionStatus('#{sub.key}')">
 
-     <rich:column width="#{iconWidth}" styleClass="tableColumnCheckBox">
+     <rich:column styleClass="tableColumnCheckBox" style="width: 44px">
        <h:graphicImage value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{sub.serviceKey}"
                        id="editSubImage#{sub.subscriptionId}" styleClass="sub-table-image"/>
       </rich:column>

@@ -23,8 +23,6 @@
 
   <!-- Base prices section -->
   <mp:outputStepBootstrap value="#{msg['subscription.priceModel.basePrices.label']}" class="mt-2"/>
-  <h:outputText styleClass="recommendedPriceHint" value=" #{msg['service.recommendedRetailPriceHint']}"
-                rendered="#{model.service.reseller and model.service.priceModel.chargeable}"/>
 
   <c:if test="#{not empty model.discount}">
     <a4j:outputPanel id="discount" layout="block" styleClass="discount" rendered="#{empty rendered or rendered}">

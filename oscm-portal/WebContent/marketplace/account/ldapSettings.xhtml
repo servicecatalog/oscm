@@ -65,7 +65,7 @@
               <h:form id="importForm" enctype="multipart/form-data">
                 <adm:button id="importConfirmButton" value="#{msg['button.import']}" bean="#{ldapConfigurationCtrl}"
                             action="importSettings" buttonType="fileUpload" style="display:none;"/>
-                <a4j:outputPanel styleClass="d-flex float-right input-group mb-3">
+                <a4j:outputPanel styleClass="float-right input-group mb-3">
                   <t:div class="custom-file mr-1">
                     <t:inputFileUpload id="file" label="#{msg['common.filename']}"
                                        onchange="jQuery('.custom-file-label').text(this.value);"

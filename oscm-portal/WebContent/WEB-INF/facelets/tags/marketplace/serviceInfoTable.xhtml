@@ -1,49 +1,51 @@
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:rich="http://richfaces.org/rich"
-                xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
-                xmlns:a4j="http://richfaces.org/a4j"
->
-      <div class="list-group list-group-horizontal-sm text-center" id="list-tab" role="tablist">
-        <a class="list-group-item list-group-item-secondary list-group-item-action active" id="descriptionLink" data-toggle="list" href="#description" role="tab" aria-controls="description">#{msg['service.description']}</a>
-        <c:if test="#{serviceDetailsModel.selectedService.priceModel.chargeable}">
-        <a class="list-group-item list-group-item-secondary list-group-item-action" id="priceModelLink" data-toggle="list" href="#priceModel" role="tab" aria-controls="priceModel">#{msg['service.priceModel']}</a>
-        </c:if>
-        <c:if test="#{serviceDetailsModel.selectedService.priceModel.external}">
-        <a class="list-group-item list-group-item-secondary list-group-item-action" id="externalPriceModelLink" data-toggle="list" href="#externalPriceModel" role="tab" aria-controls="externalPriceModel">#{msg['service.priceModel']}</a>
-        </c:if>
-        <a class="list-group-item list-group-item-secondary list-group-item-action" id="supplierLink" data-toggle="list" href="#supplier" role="tab" aria-controls="supplier">#{msg['service.supplier']}</a>
-    </div>
-    <div class="mt-1 px-2 text-justify">
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="descriptionLink">
-          <h:outputText value="#{serviceDetailsModel.selectedService.description}"  escape="false" />
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+  <div class="list-group list-group-horizontal-sm text-center" id="list-tab" role="tablist">
+    <a class="list-group-item list-group-item-secondary list-group-item-action active" id="descriptionLink"
+       data-toggle="list" href="#description" role="tab" aria-controls="description">#{msg['service.description']}</a>
+    <c:if test="#{serviceDetailsModel.selectedService.priceModel.chargeable}">
+      <a class="list-group-item list-group-item-secondary list-group-item-action" id="priceModelLink" data-toggle="list"
+         href="#priceModel" role="tab" aria-controls="priceModel">#{msg['service.priceModel']}</a>
+    </c:if>
+    <c:if test="#{serviceDetailsModel.selectedService.priceModel.external}">
+      <a class="list-group-item list-group-item-secondary list-group-item-action" id="externalPriceModelLink"
+         data-toggle="list" href="#externalPriceModel" role="tab" aria-controls="externalPriceModel">#{msg['service.priceModel']}</a>
+    </c:if>
+    <a class="list-group-item list-group-item-secondary list-group-item-action" id="supplierLink" data-toggle="list"
+       href="#supplier" role="tab" aria-controls="supplier">#{msg['service.supplier']}</a>
+  </div>
+  <div class="mt-1 px-2 text-justify">
+    <div class="tab-content d-flex" id="nav-tabContent">
+      <div class="tab-pane fade show active mt-2" id="description" role="tabpanel" aria-labelledby="descriptionLink">
+        <h:outputText value="#{serviceDetailsModel.selectedService.description}" escape="false"/>
+      </div>
+      <c:if test="#{serviceDetailsModel.selectedService.priceModel.chargeable}">
+        <div class="tab-pane fade" id="priceModel" role="tabpanel" aria-labelledby="priceModelLink">
+          <ui:include src="../../../../marketplace/subscriptions/priceModelDetails.xhtml">
+            <ui:param name="priceModel" value="#{serviceDetailsModel.selectedService.priceModel}"/>
+            <ui:param name="model" value="#{serviceDetailsModel}"/>
+          </ui:include>
         </div>
-        <c:if test="#{serviceDetailsModel.selectedService.priceModel.chargeable}">
-          <div class="tab-pane fade" id="priceModel" role="tabpanel" aria-labelledby="priceModelLink">
-            <ui:include src="../../../../marketplace/subscriptions/priceModelDetails.xhtml">
-              <ui:param name="priceModel" value="#{serviceDetailsModel.selectedService.priceModel}" />
-              <ui:param name="model" value="#{serviceDetailsModel}" />
-            </ui:include>
-          </div>
-        </c:if>
-        <c:if test="#{serviceDetailsModel.selectedService.priceModel.external}">
-          <div class="tab-pane fade" id="externalPriceModel" role="tabpanel" aria-labelledby="externalPriceModelLink">
-                        <ui:include src="../../../../priceModel/showExternalPriceModel.xhtml">
-                          <ui:param name="controller" value="#{serviceDetailsCtrl}" />
-                          <ui:param name="disabled" value="#{empty serviceDetailsCtrl.model.priceModelContent}" />
-                        </ui:include>
-          </div>
-        </c:if>
-        <div class="tab-pane fade" id="supplier" role="tabpanel" aria-labelledby="supplierLink">
-            <ui:include src="../../../../marketplace/serviceDetailsAddress.xhtml">
-              <ui:param name="reportIssueVisible" value="false" />
-              <ui:param name="service" value="#{serviceDetailsModel.selectedService}" />
-              <ui:param name="model" value="#{serviceDetailsModel}" />
-            </ui:include>
+      </c:if>
+      <c:if test="#{serviceDetailsModel.selectedService.priceModel.external}">
+        <div class="tab-pane fade" id="externalPriceModel" role="tabpanel" aria-labelledby="externalPriceModelLink">
+          <ui:include src="../../../../priceModel/showExternalPriceModel.xhtml">
+            <ui:param name="controller" value="#{serviceDetailsCtrl}"/>
+            <ui:param name="disabled" value="#{empty serviceDetailsCtrl.model.priceModelContent}"/>
+          </ui:include>
         </div>
+      </c:if>
+      <div class="tab-pane fade" id="supplier" role="tabpanel" aria-labelledby="supplierLink">
+        <ui:include src="../../../../marketplace/serviceDetailsAddress.xhtml">
+          <ui:param name="reportIssueVisible" value="false"/>
+          <ui:param name="service" value="#{serviceDetailsModel.selectedService}"/>
+          <ui:param name="model" value="#{serviceDetailsModel}"/>
+        </ui:include>
       </div>
     </div>
+  </div>
 
 </ui:composition>
