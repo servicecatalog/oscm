@@ -1,10 +1,3 @@
-/*
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-10.5 Tables
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-*/
-
 /*  table headers */
 .rowTitle th {
   @include box-sizing(border-box);
@@ -140,4 +133,137 @@ img[src$="sortDescending"] {
 
 .userTablePanel {
   margin-top: 15px;
+}
+
+.groupTableTitle th img {
+  margin-right: 5px;
+}
+
+.userGroupsLabel {
+  width: 300px;
+  display: inline-block;
+}
+
+#paymentOptionListForm .tablePanel, #billingContactListForm .tablePanel, #triggerDefinitionListForm .tablePanel,
+  #processListForm .tablePanel, #operationsListForm .tablePanel {
+  max-height: 220px;
+  overflow-y: auto;
+  height: 220px;
+}
+
+.field.nonResizableElement {
+  resize: none;
+}
+
+.sort-icons {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.non-clickable-element {
+  pointer-events: none;
+}
+
+.sort-command-link {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+#subscriptionService.subscriptionServiceDetailsBlock {
+  display: block;
+  max-width: 80%;
+}
+
+.table-with-selectable-rows .rowOdd, .table-with-selectable-rows .rowEven {
+  cursor: pointer;
+}
+
+.add-unit-to-subscription-dialog {
+  width: 650px;
+  padding: 10px;
+}
+
+.add-unit-to-subscription-dialog table.rf-dt {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.radio-outside-table {
+  margin: 20px 0 10px 0;
+  display: block;
+}
+
+.radio-outside-table input {
+  float: left;
+}
+
+.radio-outside-table label {
+  display: block;
+  float: left;
+  margin-left: 10px;
+}
+
+.add-unit-to-subscription-dialog .formHighlight td, .add-unit-to-subscription-dialog tr.formHighlight {
+  background-color: transparent;
+}
+
+.add-unit-to-subscription-dialog td.content-column, #selectOwnerPanelForm td.content-column {
+  padding-top: 8px;
+}
+
+#configurationForm .hintAndMessageTable td>span.rf-msg.errorMsg {
+  float: left;
+}
+
+#configurationForm .hintAndMessageTable td {
+  min-width: 50px;
+}
+
+.table-column-with-max-width {
+  max-width: 80px !important;
+}
+
+.column-max-width {
+  max-width: 200px !important;
+}
+
+.tableBottomMargin {
+  margin-bottom: 20px;
+}
+
+div.responsive-table-panel {
+  margin-top: 10px;
+}
+
+.assign-panel tr>td, .assign-panel tr>th {
+  vertical-align: middle;
+}
+
+.visibleServiceTablePager td {
+  padding-top: 0px;
+}
+
+.serviceTableColumnCheckBox {
+  text-align: left;
+}
+
+.serviceTableTitle {
+  padding-top: 8px;
+}
+
+.rich-filter-input {
+  font-size: 12px;
+  margin: 0 auto;
+  color: #777;
+  width: 85%;
+  position: relative;
+}
+
+/* generic style to set top aligned content in various tables*/
+.alignTop {
+  vertical-align: top;
 }
