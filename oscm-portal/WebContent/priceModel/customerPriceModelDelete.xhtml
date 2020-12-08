@@ -1,75 +1,81 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-                template="../templates/mainBootsfaces.xhtml">
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:b="http://bootsfaces.net/ui" template="../templates/mainBootsfaces.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="priceModel.customer.delete" />
-    <c:set var="focusElementID" value="customerPriceModelDeleteForm:customerSelectionInner" />
+    <c:set var="pageId" value="priceModel.customer.delete"/>
+    <c:set var="focusElementID" value="customerPriceModelDeleteForm:customerSelectionInner"/>
   </ui:define>
 
   <ui:define name="body">
-    <adm:initialize initializingMethod="#{deleteCustomerPriceModelCtrl.initialize}" />
+    <adm:initialize initializingMethod="#{deleteCustomerPriceModelCtrl.initialize}"/>
 
     <h:form id="customerPriceModelDeleteForm">
-      <adm:outputStep value="#{msg['priceModel.customer.select']}" />
-      <adm:bootsfacesSelectMenu   id="customerSelection"
-                                  onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
-                                  value="#{deleteCustomerPriceModelModel.selectedOrgId}"
-                                  disabled="#{deleteCustomerPriceModelCtrl.selectDisabled}"
-                                  oncomplete="javascsript:AdmUtils.setUIElements();AdmUtils.hideMessages();"
-                                  label="#{msg['priceModel.checkbox.customer.label']}">
-        <f:ajax event="change" listener="#{deleteCustomerPriceModelCtrl.selectedOrgIdChanged}"
-                render="tablePanel" />
-        <f:selectItems value="#{deleteCustomerPriceModelModel.customers}" />
-      </adm:bootsfacesSelectMenu>
-        <adm:message for="customerSelection" />
+      <adm:outputStep value="#{msg['priceModel.customer.select']}"/>
+      <adm:panelGrid>
+        <adm:outputLabel value="#{msg['priceModel.checkbox.customer.label']}"/>
+        <h:panelGroup>
+          <b:selectOneMenu select2="true" styleClass="select" id="customerSelection"
+                           onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
+                           value="#{deleteCustomerPriceModelModel.selectedOrgId}"
+                           disabled="#{deleteCustomerPriceModelCtrl.selectDisabled}"
+                           oncomplete="javascsript:AdmUtils.setUIElements();AdmUtils.hideMessages();">
+            <f:ajax event="change" listener="#{deleteCustomerPriceModelCtrl.selectedOrgIdChanged}"
+                    render="tablePanel"/>
+            <f:selectItems value="#{deleteCustomerPriceModelModel.customers}"/>
+          </b:selectOneMenu>
+        </h:panelGroup>
+      </adm:panelGrid>
+      <adm:message for="customerSelection"/>
 
-      <adm:outputStep value="#{msg['priceModel.customer.delete.service.select']}" />
+      <adm:outputStep value="#{msg['priceModel.customer.delete.service.select']}"/>
 
       <a4j:outputPanel id="tablePanel" layout="block" styleClass="tablePanel">
         <adm:dataTable tableId="deleteCustPM" value="#{deleteCustomerPriceModelModel.services}"
-          height="#{sessionBean.tableHeightMap[220]}px" columnClasses="smallCell,smallCell"
-          label="#{msg['priceModel.customer.delete.table.header']}">
+                       height="#{sessionBean.tableHeightMap[220]}px" columnClasses="smallCell,smallCell"
+                       label="#{msg['priceModel.customer.delete.table.header']}">
 
           <!-- Selection -->
           <rich:column width="10%" filterevent="keyup" style="text-align:center">
             <f:facet name="header">
               <h:selectBooleanCheckbox style="float:left;" id="deleteAll"
-                value="#{deleteCustomerPriceModelModel.allSelected}">
+                                       value="#{deleteCustomerPriceModelModel.allSelected}">
                 <a4j:ajax event="click" listener="#{deleteCustomerPriceModelCtrl.selectOrDeselectAllServices}"
-                   render="tablePanel,deleteButton" oncomplete="setDirty(true);" />
+                          render="tablePanel,deleteButton" oncomplete="setDirty(true);"/>
               </h:selectBooleanCheckbox>
             </f:facet>
             <h:selectBooleanCheckbox id="markForDelete" value="#{rowItem.selected}">
-              <a4j:ajax event="click" render="deleteButton" oncomplete="setDirty(true);" />
+              <a4j:ajax event="click" render="deleteButton" oncomplete="setDirty(true);"/>
             </h:selectBooleanCheckbox>
           </rich:column>
 
           <!-- Service Id -->
           <rich:column width="90%" filterevent="keyup">
             <f:facet name="header">
-              <h:outputText value="#{msg['priceModel.services']}" />
+              <h:outputText value="#{msg['priceModel.services']}"/>
             </f:facet>
-            <h:outputText id="serviceId" value="#{rowItem.id}" />
+            <h:outputText id="serviceId" value="#{rowItem.id}"/>
           </rich:column>
         </adm:dataTable>
       </a4j:outputPanel>
 
       <h:commandButton style="display:none;" id="confirmedButton" value="#{msg['button.delete']}"
-        action="#{deleteCustomerPriceModelCtrl.delete}" />
+                       action="#{deleteCustomerPriceModelCtrl.delete}"/>
       <adm:buttonPanel>
         <adm:buttonCustomizedOnClick id="deleteButton" value="#{msg['button.delete']}"
-          onclick="#{rich:component('confirmPanel')}.show()" disabled="#{deleteCustomerPriceModelCtrl.deleteDisabled}"
-          buttonType="delete" />
+                                     onclick="#{rich:component('confirmPanel')}.show()"
+                                     disabled="#{deleteCustomerPriceModelCtrl.deleteDisabled}"
+                                     buttonType="delete"/>
       </adm:buttonPanel>
     </h:form>
 
-    <adm:confirmPanel text="#{msg['confirm.priceModel.delete']}" />
+    <adm:confirmPanel text="#{msg['confirm.priceModel.delete']}"/>
 
   </ui:define>
 </ui:composition>

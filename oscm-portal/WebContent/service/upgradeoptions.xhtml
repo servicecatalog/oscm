@@ -1,103 +1,111 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:rich="http://richfaces.org/rich" xmlns:a4j="http://richfaces.org/a4j"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 template="../templates/mainBootsfaces.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="service.upgradeOptions" />
-    <c:set var="focusElementID" value="editForm:srcServiceIdInner" />
+    <c:set var="pageId" value="service.upgradeOptions"/>
+    <c:set var="focusElementID" value="editForm:srcServiceIdInner"/>
   </ui:define>
   <ui:define name="body">
 
     <h:form id="selectForm">
-      <h:inputHidden id="selectedKey" value="#{serviceBean.selectedServiceKey}" />
+      <h:inputHidden id="selectedKey" value="#{serviceBean.selectedServiceKey}"/>
     </h:form>
 
     <h:form id="editForm">
-      <script type = "text/javascript">BootsFacesUtils.preventChangeSelectionForDropDown();</script>
-      <adm:outputStep value="#{msg['service.upgradeOptions.step1']}" />
-        <adm:bootsfacesSelectMenu   id="srcServiceId"
-                                    onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"
-                                    value="#{serviceBean.selectedServiceKeyReadOnly}"
-                                    label="#{msg['service.serviceId']}">
-          <adm:selectItemPleaseSelect itemValue="0" />
-          <c:forEach items="#{serviceBean.serviceNames}" var="service">
-            <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}" />
-          </c:forEach>
-        </adm:bootsfacesSelectMenu>
-        <adm:message for="selectedServiceId" />
+      <script type="text/javascript">BootsFacesUtils.preventChangeSelectionForDropDown();</script>
+      <adm:outputStep value="#{msg['service.upgradeOptions.step1']}"/>
+      <adm:panelGrid>
+        <adm:outputLabel value="#{msg['service.serviceId']}"/>
+        <h:panelGroup>
+          <b:selectOneMenu select2="true" styleClass="select" id="selectedServiceId"
+                           onchange="BootsFacesUtils.changeSelectionIndexAtDropDown(this);"
+                           value="#{serviceBean.selectedServiceKeyReadOnly}">
+            <adm:selectItemPleaseSelect itemValue="0"/>
+            <c:forEach items="#{serviceBean.serviceNames}" var="service">
+              <f:selectItem itemLabel="#{service.serviceId}" itemValue="#{service.key}"/>
+            </c:forEach>
+          </b:selectOneMenu>
+        </h:panelGroup>
+      </adm:panelGrid>
+      <adm:message for="selectedServiceId"/>
 
       <adm:panelGrid>
-      <adm:outputLabel value="#{msg['techService.techServiceId']}" />
+        <adm:outputLabel value="#{msg['techService.techServiceId']}"/>
         <h:panelGroup>
-          <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel" />
+          <h:outputText value="#{serviceBean.selectedService.technicalId}" styleClass="bootsfacesLabel"/>
         </h:panelGroup>
-        <h:outputText value="" />
+        <h:outputText value=""/>
 
-        <adm:outputLabel value="#{msg['service.marketplace']}" />
+        <adm:outputLabel value="#{msg['service.marketplace']}"/>
         <h:panelGroup>
           <h:outputText
-            value="#{(serviceBean.selectedServiceKeyReadOnly ne 0) ? marketplaceBean.selectedMarketplaceName : ''}"
-            styleClass="bootsfacesLabel" />
+              value="#{(serviceBean.selectedServiceKeyReadOnly ne 0) ? marketplaceBean.selectedMarketplaceName : ''}"
+              styleClass="bootsfacesLabel"/>
         </h:panelGroup>
-        <h:outputText value="" />
+        <h:outputText value=""/>
       </adm:panelGrid>
 
-      <adm:outputStep value="#{msg['service.upgradeOptions.step2']}" />
+      <adm:outputStep value="#{msg['service.upgradeOptions.step2']}"/>
       <a4j:outputPanel layout="block" styleClass="tablePanel">
         <adm:dataTable tableId="serviceTable" value="#{serviceBean.possibleCompatibleServices}"
-          height="#{sessionBean.tableHeightMap[320]}px" label="#{msg['service.upgradeOptions.table.header']}">
+                       height="#{sessionBean.tableHeightMap[320]}px"
+                       label="#{msg['service.upgradeOptions.table.header']}">
           <rich:column>
             <h:selectBooleanCheckbox id="selected" onchange="setDirty(true)" value="#{rowItem.selected}"
-              disabled="#{serviceBean.editDisabled}" />
+                                     disabled="#{serviceBean.editDisabled}"/>
           </rich:column>
           <rich:column>
             <f:facet name="header">
-              <h:outputText value="#{msg['service.serviceId']}" />
+              <h:outputText value="#{msg['service.serviceId']}"/>
             </f:facet>
-            <h:outputText id="serviceId" value="#{rowItem.serviceId}" />
+            <h:outputText id="serviceId" value="#{rowItem.serviceId}"/>
           </rich:column>
           <rich:column>
             <f:facet name="header">
-              <h:outputText value="#{msg['service.marketplace']}" />
+              <h:outputText value="#{msg['service.marketplace']}"/>
             </f:facet>
-            <h:outputText id="marketplaceName" value="#{rowItem.marketplaceName}" />
+            <h:outputText id="marketplaceName" value="#{rowItem.marketplaceName}"/>
           </rich:column>
           <rich:column>
             <f:facet name="header">
-              <h:outputText value="#{msg['service.nameForCustomer']}" />
+              <h:outputText value="#{msg['service.nameForCustomer']}"/>
             </f:facet>
-            <h:outputText id="version" value="#{rowItem.nameToDisplay}" />
+            <h:outputText id="version" value="#{rowItem.nameToDisplay}"/>
           </rich:column>
           <rich:column>
             <f:facet name="header">
-              <h:outputText value="#{msg['service.shortDescription']}" />
+              <h:outputText value="#{msg['service.shortDescription']}"/>
             </f:facet>
-            <adm:outputLarge labelStyleClass="bootsfacesLabel" style="border-style: none;" value="#{rowItem.shortDescription}" />
+            <adm:outputLarge labelStyleClass="bootsfacesLabel" style="border-style: none;"
+                             value="#{rowItem.shortDescription}"/>
           </rich:column>
         </adm:dataTable>
       </a4j:outputPanel>
 
       <adm:buttonPanel columns="1">
-        <h:commandButton style="display:none;" id="confirmedButton" onclick="setDirty(false);" value="#{msg['button.save']}"
-          action="#{serviceBean.saveUpgradeOptions}" />
+        <h:commandButton style="display:none;" id="confirmedButton" onclick="setDirty(false);"
+                         value="#{msg['button.save']}"
+                         action="#{serviceBean.saveUpgradeOptions}"/>
 
         <!-- button: save page -->
         <adm:buttonCustomizedOnClick
-          disabled="#{serviceBean.editDisabled or empty serviceBean.possibleCompatibleServices}"
-          value="#{msg['button.save']}" id="saveButton" buttonType="save"
-          onclick="#{rich:element('saveButtonHidden')}.click(); return false;" />
+            disabled="#{serviceBean.editDisabled or empty serviceBean.possibleCompatibleServices}"
+            value="#{msg['button.save']}" id="saveButton" buttonType="save"
+            onclick="#{rich:element('saveButtonHidden')}.click(); return false;"/>
         <a4j:commandButton style="display:none;" id="saveButtonHidden" value="#{msg['button.save']}"
-          oncomplete="AdmUtils.showProgress(false);if(#{serviceBean.showConfirm}) {RichFaces.$('confirmPanel').show();} else { #{rich:element('confirmedButton')}.click();}">
+                           oncomplete="AdmUtils.showProgress(false);if(#{serviceBean.showConfirm}) {RichFaces.$('confirmPanel').show();} else { #{rich:element('confirmedButton')}.click();}">
         </a4j:commandButton>
       </adm:buttonPanel>
     </h:form>
 
-    <adm:confirmPanel text="#{msg['confirm.upgrade.perunit']}" />
+    <adm:confirmPanel text="#{msg['confirm.upgrade.perunit']}"/>
 
   </ui:define>
 </ui:composition>
