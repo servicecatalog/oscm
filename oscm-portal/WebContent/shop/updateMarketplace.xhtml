@@ -1,170 +1,189 @@
 <!-- Copyright FUJITSU LIMITED 2020-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" template="../templates/mainBootsfaces.xhtml">
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:b="http://bootsfaces.net/ui" template="../templates/mainBootsfaces.xhtml">
+
   <ui:define name="pageId">
-    <c:set var="dirty" value="false" />
-    <c:set var="pageId" value="marketplace.update" />
-    <c:set var="focusElementID" value="marketplaceSelectForm:selectMarketplaceIdInner" />
+    <c:set var="dirty" value="false"/>
+    <c:set var="pageId" value="marketplace.update"/>
+    <c:set var="focusElementID" value="marketplaceSelectForm:selectMarketplaceIdInner"/>
   </ui:define>
   <ui:define name="body">
     <adm:outputStep value="#{msg['marketplace.update.step1']}"/>
     <h:form id="marketplaceSelectForm">
-      <adm:bootsfacesSelectMenu   id="selectMarketplaceId"
-                                  onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
-                                  label="#{msg['service.marketplace']}"
-                                  value="#{updateMarketplaceBean.model.marketplaceId}">
-        <f:ajax event="change" listener="#{updateMarketplaceBean.marketplaceChanged}"
-                render="marketplaceSelectForm,updateForm" />
-        <adm:selectItemPleaseSelect itemValue="" />
-        <f:selectItems value="#{updateMarketplaceBean.selectableMarketplaces}" />
-      </adm:bootsfacesSelectMenu>
-      <adm:message for="selectMarketplaceId" />
+
+      <adm:panelGrid>
+        <adm:outputLabel value="#{msg['service.marketplace']}"/>
+        <h:panelGroup>
+          <b:selectOneMenu select2="true" styleClass="select" id="selectMarketplaceId"
+                           onchange="BootsFacesUtils.preventChangeSelectionForDropDown();"
+                           value="#{updateMarketplaceBean.model.marketplaceId}">
+            <f:ajax event="change" listener="#{updateMarketplaceBean.marketplaceChanged}"
+                    render="marketplaceSelectForm,updateForm"/>
+            <adm:selectItemPleaseSelect itemValue=""/>
+            <f:selectItems value="#{updateMarketplaceBean.selectableMarketplaces}"/>
+          </b:selectOneMenu>
+        </h:panelGroup>
+      </adm:panelGrid>
+      <adm:message for="selectMarketplaceId"/>
     </h:form>
 
     <h:form id="updateForm">
-      <adm:outputStep value="#{msg['marketplace.update.step2']}" />
+      <adm:outputStep value="#{msg['marketplace.update.step2']}"/>
 
       <a4j:outputPanel layout="block" styleClass="grid5span clearfix">
         <!-- Separate panel grid avoids duplicate error IDs trouble for rich messages binding -->
         <c:if test="#{updateMarketplaceBean.model.organizationSelectVisible}">
           <adm:panelGrid>
-            <adm:selectOrganization render="@form, updateForm" disabled="#{updateMarketplaceBean.model.editDisabled}" inline="true" id="orgSelector" />
-             <h:panelGroup />
+            <adm:selectOrganization render="@form, updateForm" disabled="#{updateMarketplaceBean.model.editDisabled}"
+                                    inline="true" id="orgSelector"/>
+            <h:panelGroup/>
             <h:outputText value="#{msg['marketplace.update.changeOwnerWarning']}"
-              class="labelAndValuePanelCol2 labelWarning" />
-            <h:panelGroup />
+                          class="labelAndValuePanelCol2 labelWarning"/>
+            <h:panelGroup/>
           </adm:panelGrid>
         </c:if>
-        
+
         <c:if test="#{updateMarketplaceBean.model.tenantSelectVisible}">
-        <adm:panelGrid>
-            <adm:labelAndInputText id="tenantId" label="#{msg['tenant.tenantID']}" disabled="true" value="#{updateMarketplaceBean.model.tenantId}"/>
+          <adm:panelGrid>
+            <adm:labelAndInputText id="tenantId" label="#{msg['tenant.tenantID']}" disabled="true"
+                                   value="#{updateMarketplaceBean.model.tenantId}"/>
           </adm:panelGrid>
         </c:if>
-        
-        <adm:panelGrid>            
+
+        <adm:panelGrid>
           <adm:labelAndInputText id="marketplaceName" label="#{msg['marketplace.name']}"
-            disabled="#{updateMarketplaceBean.model.propertiesDisabled}" value="#{updateMarketplaceBean.model.name}"
-            renderRequired="true" displayRequired="true" maxlength="#{appBean.idLen}" required="true"
-            converterId="trimConverter" />
+                                 disabled="#{updateMarketplaceBean.model.propertiesDisabled}"
+                                 value="#{updateMarketplaceBean.model.name}"
+                                 renderRequired="true" displayRequired="true" maxlength="#{appBean.idLen}"
+                                 required="true"
+                                 converterId="trimConverter"/>
 
           <h:panelGroup>
-            <adm:outputLabel value="#{msg['marketplace.id']}" />
+            <adm:outputLabel value="#{msg['marketplace.id']}"/>
           </h:panelGroup>
           <h:panelGroup>
-            <h:outputText id="marketplaceId" value="#{updateMarketplaceBean.model.marketplaceId}" />
+            <h:outputText id="marketplaceId" value="#{updateMarketplaceBean.model.marketplaceId}"/>
           </h:panelGroup>
-          <h:panelGroup />
+          <h:panelGroup/>
 
 
-          <adm:outputLabel value="#{msg['marketplace.update.settings']}" />
+          <adm:outputLabel value="#{msg['marketplace.update.settings']}"/>
           <h:panelGroup>
             <h:selectBooleanCheckbox id="taggingEnabled" disabled="#{updateMarketplaceBean.model.propertiesDisabled}"
-              value="#{updateMarketplaceBean.model.taggingEnabled}" onchange="setDirty(true)">
+                                     value="#{updateMarketplaceBean.model.taggingEnabled}" onchange="setDirty(true)">
             </h:selectBooleanCheckbox>
-            <h:outputLabel value="#{msg['marketplace.taggingEnabled']}" />
+            <h:outputLabel value="#{msg['marketplace.taggingEnabled']}"/>
           </h:panelGroup>
-          <h:panelGroup />
+          <h:panelGroup/>
 
-          <h:panelGroup />
+          <h:panelGroup/>
           <h:panelGroup>
             <h:selectBooleanCheckbox id="reviewEnabled" disabled="#{updateMarketplaceBean.model.propertiesDisabled}"
-              value="#{updateMarketplaceBean.model.reviewEnabled}" onchange="setDirty(true)">
+                                     value="#{updateMarketplaceBean.model.reviewEnabled}" onchange="setDirty(true)">
             </h:selectBooleanCheckbox>
-            <h:outputLabel value="#{msg['marketplace.reviewEnabled']}" />
+            <h:outputLabel value="#{msg['marketplace.reviewEnabled']}"/>
           </h:panelGroup>
-          <h:panelGroup />
+          <h:panelGroup/>
 
-          <h:panelGroup />
+          <h:panelGroup/>
           <h:panelGroup>
             <h:selectBooleanCheckbox id="closed" disabled="#{updateMarketplaceBean.model.propertiesDisabled}"
-              value="#{updateMarketplaceBean.model.closed}" onchange="setDirty(true)">
+                                     value="#{updateMarketplaceBean.model.closed}" onchange="setDirty(true)">
             </h:selectBooleanCheckbox>
-            <h:outputLabel value="#{msg['marketplace.publishingRules.closed']}" />
+            <h:outputLabel value="#{msg['marketplace.publishingRules.closed']}"/>
           </h:panelGroup>
-          <h:panelGroup />
+          <h:panelGroup/>
 
-          <h:panelGroup />
+          <h:panelGroup/>
           <h:panelGroup>
             <h:selectBooleanCheckbox id="categoriesEnabled" disabled="#{updateMarketplaceBean.model.propertiesDisabled}"
-              value="#{updateMarketplaceBean.model.categoriesEnabled}" onchange="setDirty(true)">
+                                     value="#{updateMarketplaceBean.model.categoriesEnabled}" onchange="setDirty(true)">
             </h:selectBooleanCheckbox>
-            <h:outputLabel value="#{msg['marketplace.categoriesEnabled']}" />
+            <h:outputLabel value="#{msg['marketplace.categoriesEnabled']}"/>
           </h:panelGroup>
-          <h:panelGroup />
+          <h:panelGroup/>
         </adm:panelGrid>
       </a4j:outputPanel>
 
 
-      <adm:outputStep value="#{msg['marketplace.update.step3.readonly']}" rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}"/>
-      <adm:outputStep value="#{msg['marketplace.update.step3.notReadonly']}" rendered="#{not updateMarketplaceBean.model.revenueSharesReadOnly}"/>
+      <adm:outputStep value="#{msg['marketplace.update.step3.readonly']}"
+                      rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}"/>
+      <adm:outputStep value="#{msg['marketplace.update.step3.notReadonly']}"
+                      rendered="#{not updateMarketplaceBean.model.revenueSharesReadOnly}"/>
       <a4j:outputPanel layout="block" styleClass="grid5span clearfix">
         <adm:panelGrid>
           <adm:labelAndInputText id="marketplaceRevenueShare"
-            label="#{msg['marketplace.update.marketplaceRevenueShare']}"
-            value="#{updateMarketplaceBean.model.marketplaceRevenueShare}"
-            disabled="#{not updateMarketplaceBean.model.organizationSelectVisible}"
-            rendered="#{not updateMarketplaceBean.model.revenueSharesReadOnly}" required="true" renderRequired="true"
-            displayRequired="true" maxlength="#{appBean.percentValueLen}" validatorId="revenueShareValue"
-            converterId="bigDecimal.converter" />
+                                 label="#{msg['marketplace.update.marketplaceRevenueShare']}"
+                                 value="#{updateMarketplaceBean.model.marketplaceRevenueShare}"
+                                 disabled="#{not updateMarketplaceBean.model.organizationSelectVisible}"
+                                 rendered="#{not updateMarketplaceBean.model.revenueSharesReadOnly}" required="true"
+                                 renderRequired="true"
+                                 displayRequired="true" maxlength="#{appBean.percentValueLen}"
+                                 validatorId="revenueShareValue"
+                                 converterId="bigDecimal.converter"/>
           <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}">
-            <adm:outputLabel value="#{msg['marketplace.view.marketplaceRevenueShare']}" required="false" />
+            <adm:outputLabel value="#{msg['marketplace.view.marketplaceRevenueShare']}" required="false"/>
           </h:panelGroup>
           <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}">
             <h:outputText value="#{updateMarketplaceBean.model.marketplaceRevenueShare}"
-              id="marketplaceRevenueShareReadOnly"
-              rendered="#{updateMarketplaceBean.model.marketplaceRevenueShareVisible}">
-              <f:converter converterId="bigDecimal.converter" />
+                          id="marketplaceRevenueShareReadOnly"
+                          rendered="#{updateMarketplaceBean.model.marketplaceRevenueShareVisible}">
+              <f:converter converterId="bigDecimal.converter"/>
             </h:outputText>
-            <h:outputText value="%" rendered="#{updateMarketplaceBean.model.marketplaceRevenueShareVisible}" />
+            <h:outputText value="%" rendered="#{updateMarketplaceBean.model.marketplaceRevenueShareVisible}"/>
           </h:panelGroup>
-          <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}" />
+          <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}"/>
 
           <adm:labelAndInputText id="brokerRevenueShare" label="#{msg['marketplace.update.brokerRevenueShare']}"
-            value="#{updateMarketplaceBean.model.brokerRevenueShare}"
-            disabled="#{not updateMarketplaceBean.model.organizationSelectVisible}"
-            rendered="#{not updateMarketplaceBean.model.revenueSharesReadOnly}" required="true" renderRequired="true"
-            displayRequired="true" maxlength="#{appBean.percentValueLen}" validatorId="revenueShareValue"
-            converterId="bigDecimal.converter" />
+                                 value="#{updateMarketplaceBean.model.brokerRevenueShare}"
+                                 disabled="#{not updateMarketplaceBean.model.organizationSelectVisible}"
+                                 rendered="#{not updateMarketplaceBean.model.revenueSharesReadOnly}" required="true"
+                                 renderRequired="true"
+                                 displayRequired="true" maxlength="#{appBean.percentValueLen}"
+                                 validatorId="revenueShareValue"
+                                 converterId="bigDecimal.converter"/>
           <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}">
-            <adm:outputLabel value="#{msg['marketplace.view.brokerRevenueShare']}" required="false" />
+            <adm:outputLabel value="#{msg['marketplace.view.brokerRevenueShare']}" required="false"/>
           </h:panelGroup>
           <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}">
             <h:outputText value="#{updateMarketplaceBean.model.brokerRevenueShare}" id="brokerRevenueShareReadOnly"
-              rendered="#{updateMarketplaceBean.model.brokerRevenueShareVisible}">
-              <f:converter converterId="bigDecimal.converter" />
+                          rendered="#{updateMarketplaceBean.model.brokerRevenueShareVisible}">
+              <f:converter converterId="bigDecimal.converter"/>
             </h:outputText>
-            <h:outputText value="%" rendered="#{updateMarketplaceBean.model.brokerRevenueShareVisible}" />
+            <h:outputText value="%" rendered="#{updateMarketplaceBean.model.brokerRevenueShareVisible}"/>
           </h:panelGroup>
-          <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}" />
+          <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}"/>
 
           <adm:labelAndInputText id="resellerRevenueShare" label="#{msg['marketplace.update.resellerRevenueShare']}"
-            value="#{updateMarketplaceBean.model.resellerRevenueShare}"
-            disabled="#{not updateMarketplaceBean.model.organizationSelectVisible}"
-            rendered="#{not updateMarketplaceBean.model.revenueSharesReadOnly}" required="true" renderRequired="true"
-            displayRequired="true" maxlength="#{appBean.percentValueLen}" validatorId="revenueShareValue"
-            converterId="bigDecimal.converter" />
+                                 value="#{updateMarketplaceBean.model.resellerRevenueShare}"
+                                 disabled="#{not updateMarketplaceBean.model.organizationSelectVisible}"
+                                 rendered="#{not updateMarketplaceBean.model.revenueSharesReadOnly}" required="true"
+                                 renderRequired="true"
+                                 displayRequired="true" maxlength="#{appBean.percentValueLen}"
+                                 validatorId="revenueShareValue"
+                                 converterId="bigDecimal.converter"/>
           <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}">
-            <adm:outputLabel value="#{msg['marketplace.view.resellerRevenueShare']}" required="false" />
+            <adm:outputLabel value="#{msg['marketplace.view.resellerRevenueShare']}" required="false"/>
           </h:panelGroup>
           <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}">
             <h:outputText value="#{updateMarketplaceBean.model.resellerRevenueShare}" id="resellerRevenueShareReadOnly"
-              rendered="#{updateMarketplaceBean.model.resellerRevenueShareVisible}">
-              <f:converter converterId="bigDecimal.converter" />
+                          rendered="#{updateMarketplaceBean.model.resellerRevenueShareVisible}">
+              <f:converter converterId="bigDecimal.converter"/>
             </h:outputText>
-            <h:outputText value="%" rendered="#{updateMarketplaceBean.model.resellerRevenueShareVisible}" />
+            <h:outputText value="%" rendered="#{updateMarketplaceBean.model.resellerRevenueShareVisible}"/>
           </h:panelGroup>
-          <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}" />
+          <h:panelGroup rendered="#{updateMarketplaceBean.model.revenueSharesReadOnly}"/>
         </adm:panelGrid>
       </a4j:outputPanel>
 
       <adm:buttonPanel columns="1">
         <adm:button id="saveButton" value="#{msg['button.save']}" bean="#{updateMarketplaceBean}" buttonType="save"
-          action="updateMarketplace" disabled="#{updateMarketplaceBean.model.editDisabled}" />
+                    action="updateMarketplace" disabled="#{updateMarketplaceBean.model.editDisabled}"/>
       </adm:buttonPanel>
     </h:form>
   </ui:define>

@@ -29,7 +29,6 @@
   display: none;
 }
 
-/* MSGS Stylying >>> */
 #globalMessagesHolder .rf-msgs {
   margin-bottom: 25px;
 }
@@ -42,8 +41,7 @@
     define no default background image coming from richfaces,
     set color of the text
  */
-.success span.rf-msgs-inf, .suspended span.rf-msgs-inf, .error span.rf-msgs-err, .warning span.rf-msgs-inf, .warning dt
-  {
+.success span.rf-msgs-inf, .suspended span.rf-msgs-inf, .error span.rf-msgs-err, .warning span.rf-msgs-inf, .warning dt {
   background-image: none;
   color: $white;
   font-size: 13px;
@@ -82,8 +80,8 @@
   margin: 0 20px 0 0;
   background-position: -9px -141px;
 }
+
 /* field validation error indicator */
 .errorMsg .rf-msg-err {
   background-image: $msg_error;
 }
-/* MSGS Stylying <<< */

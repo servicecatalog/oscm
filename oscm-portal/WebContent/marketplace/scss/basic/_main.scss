@@ -1,10 +1,3 @@
-
-/*
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-2. Standard Elements
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
- */
 html {
   height: 100%;
 }
@@ -33,8 +26,7 @@ textarea {
 }
 
 .rich-tab-header {
-  font: normal 14px/100% $font-family-semibold
-    !important;
+  font: normal 14px/100% $font-family-semibold !important;
 }
 
 * html table {
@@ -45,27 +37,21 @@ textarea {
   letter-spacing: 0;
 }
 
-
-
 a {
   text-decoration: none;
   &:hover {
-  text-decoration: underline;
+    text-decoration: underline;
+  }
+  &:link {
+    color: $color_fiord_approx;
+  }
+  &:visited {
+    color: $color_fiord_approx;
+  }
+  &:active {
+    color: $color_silver_approx;
+  }
 }
-
-    &:link {
-  color: $color_fiord_approx;
-}
-&:visited {
-  color: $color_fiord_approx;
-}
-&:active {
-  color: $color_silver_approx;
-}
-  
-  
-}
-
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
@@ -159,8 +145,6 @@ table td, div {
   word-break: normal;
 }
 
-
-
 .maincontents textarea {
   padding: 4px;
 }
@@ -194,8 +178,6 @@ table td, div {
 .suspendedNotMessage {
   padding: 1px 15px 1px 15px !important;
 }
-
-
 
 /* prewrapping definitions for various standards/browsers */
 .preWrapping {
@@ -270,156 +252,4 @@ table td, div {
 
 .ellipsizedOutputLabel {
   max-width: 120px;
-}
-
-
-
-/*
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-3. Page Layout
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
- */
-
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-3.1 Main Layout
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
-.stage {
-  width: 100%;
-  min-width: 980px;
-}
-
-#marketplaceStageDefault {
-  background: $transparent_pixel no-repeat;
-  width: 100%;
-}
-
-.bodyarea {
-  position: relative;
-  width: 980px;
-  margin: auto;
-  padding-bottom: 60px;
-  text-align: left;
-  z-index: 900;
-
-  &:after {
-    content: ".";
-    display: block;
-    clear: both;
-    width: 0;
-    height: 0;
-    line-height: 0;
-    visibility: hidden;
-  }
-}
-
-* html .bodyarea {
-  display: inline-block;
-}
-
-div {
-  &.col1span, &.col2span, &.col3span, &.col4span {
-    float: left;
-    margin-right: 9px;
-  }
-
-  &.lastcol {
-    margin-right: 0;
-  }
-
-  &.marginCenter {
-    margin-left: 2px;
-    margin-right: 2px;
-  }
-
-  &.firstcol {
-    margin-left: 0;
-  }
-}
-
-.maincontents {
-  div.lastcol {
-    margin-right: 0;
-  }
-
-  float: left;
-  width: 582px;
-}
-
-body {
-  &.body4span .maincontents {
-    width: 781px;
-  }
-
-  &.body5span .maincontents {
-    width: 980px;
-    float: none;
-  }
-}
-
-.contentsarea {
-  float: right;
-  width: 781px;
-}
-
-body {
-  &.body4span .contentsarea {
-    width: 781px;
-  }
-
-  &.body5span .contentsarea {
-    width: 980px;
-    float: none;
-  }
-}
-
-div {
-  &.grid2span {
-    width: 383px;
-  }
-
-  &.grid3span {
-    width: 582px;
-  }
-
-  &.grid4span {
-    width: 781px;
-  }
-
-  &.grid5span {
-    width: 980px;
-  }
-
-  &.col1span {
-    width: 184px;
-  }
-
-  &.col2span {
-    width: 386px;
-  }
-
-  &.col3span {
-    width: 582px;
-  }
-
-  &.col4span {
-    width: 781px;
-  }
-}
-
-.marginBottomDefault {
-  margin: 0 0 8px;
-}
-
-*:first-child + html .grid4span + .pagenate {
-  margin: 16px 0 0;
-}
-
-#contentPanelDiv.landing .contentsarea {
-  width: 100%;
-  float: none;
-
-  .maincontents, .grid4span {
-    width: 100%;
-  }
 }

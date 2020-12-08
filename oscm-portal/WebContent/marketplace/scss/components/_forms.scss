@@ -1,9 +1,3 @@
-/*----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-10.2 Forms
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-*/
-
 /* form highlights on selected input element */
 form .formHighlight, .rowOver * {
   background-color: $color_link_water_approx;
@@ -25,10 +19,6 @@ form .formHighlight input, form .formHighlight textarea {
 
 .wrapColumns .extdt-cell-div {
   white-space: normal;
-}
-
-.column-break-word {
-
 }
 
 .gridCol1 {
@@ -137,9 +127,8 @@ form .formHighlight input, form .formHighlight textarea {
 .rich-tabpanel-content-position .hintAndMessageTable td {
   padding: 0 !important;
 }
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-10.2.1 Form Hints
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+
+/* ---- 10.2.1 Form Hints ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* hint background for form hints */
 .hintArrow {
@@ -157,7 +146,6 @@ form .formHighlight input, form .formHighlight textarea {
   top: 5px;
   right: 5px;
 }
-
 
 /* question mark icon indicating hint available */
 .hint {
@@ -224,9 +212,7 @@ form .formHighlight input, form .formHighlight textarea {
   min-width: 200px;
 }
 
-/* ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-10.2.3 Registration form
----- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----  */
+/* ---- 10.2.2 Registration form ---- ---- ---- ---- ---- ---- ---- ----  */
 
 /* positioning of "mandatory" notice */
 #registrationForm .footnote {
@@ -265,3 +251,34 @@ form .formHighlight input, form .formHighlight textarea {
   margin-left: 20%;
 }
 
+/* ---- 10.2.3 Trigger form ---- ---- ---- ---- ---- ---- ---- ----  */
+
+#triggerSubListForm {
+  margin-bottom: 30px;
+}
+
+#triggerSubListForm .triggers-title, #triggerSubListForm .triggers-column-header, #triggerSubListForm table {
+  background: $color_alabaster_approx;
+  border: none;
+}
+
+#triggerSubListForm .triggers-title {
+  font-size: 133%;
+  font-weight: normal;
+}
+
+#triggerSubListForm .trigger-table-header, #triggerSubListForm .trigger-row {
+  background: transparent;
+}
+
+#triggerSubListForm .trigger-cell {
+  border: none;
+}
+
+#subListForm .sub-table-image {
+  width: 30px;
+}
+
+#subscriptionUsagePanelForm {
+  margin-top: 30px;
+}

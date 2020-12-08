@@ -1,33 +1,37 @@
 <!-- Copyright FUJITSU LIMITED 2020-->
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://xmlns.jcp.org/jsf/core"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:b="http://bootsfaces.net/ui"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 template="../templates/mainBootsfaces.xhtml">
 
   <ui:define name="pageId">
-    <c:set var="pageId" value="marketplace.gotoMarketplace" />
-    <c:set var="focusElement" value="gotoMarketplaceForm:marketplace" />
+    <c:set var="pageId" value="marketplace.gotoMarketplace"/>
+    <c:set var="focusElement" value="gotoMarketplaceForm:marketplace"/>
   </ui:define>
-
 
   <ui:define name="body">
     <h:form id="gotoMarketplaceForm">
-      <adm:outputStep value="#{msg['marketplace.gotoMarketplace.step']}" />
-      <adm:bootsfacesSelectMenu   id="marketplace"
-                                  value="#{gotoMarketplaceBean.selectedMarketplace}"
-                                  immediate="true"
-                                  label="#{msg['service.marketplace']}">
-        <f:ajax event="change" listener="#{gotoMarketplaceBean.processValueChange}" render="goForm, gotoMarketplaceForm"/>
-        <adm:selectItemPleaseSelect itemValue="" />
-        <f:selectItems value="#{gotoMarketplaceBean.marketplaces}" />
-      </adm:bootsfacesSelectMenu>
+      <adm:outputStep value="#{msg['marketplace.gotoMarketplace.step']}"/>
+      <adm:panelGrid>
+        <adm:outputLabel value="#{msg['service.marketplace']}"/>
+        <h:panelGroup>
+          <b:selectOneMenu select2="true" styleClass="select" id="marketplace" immediate="true"
+                           value="#{gotoMarketplaceBean.selectedMarketplace}">
+            <f:ajax event="change" listener="#{gotoMarketplaceBean.processValueChange}"
+                    render="goForm, gotoMarketplaceForm"/>
+            <adm:selectItemPleaseSelect itemValue=""/>
+            <f:selectItems value="#{gotoMarketplaceBean.marketplaces}"/>
+          </b:selectOneMenu>
+        </h:panelGroup>
+      </adm:panelGrid>
     </h:form>
     <h:form id="goForm">
       <adm:buttonPanel>
         <adm:button id="gotoBtn" value="#{msg['button.goto']}" bean="#{gotoMarketplaceBean}" action="gotoMarketplace"
-          disabled="#{not gotoMarketplaceBean.buttonEnabled}" />
+                    disabled="#{not gotoMarketplaceBean.buttonEnabled}"/>
       </adm:buttonPanel>
     </h:form>
   </ui:define>
