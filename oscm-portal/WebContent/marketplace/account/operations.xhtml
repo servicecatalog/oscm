@@ -133,27 +133,31 @@
 
       <a4j:outputPanel id="scriptPanel">
         <script>
-       AdmUtils
-         .setAllServiceCheckbox(
-           'operationsTable',
-           'operationCheckbox',
-           '#{fn:length(operationRecordModel.operationRecords)}',
-           'allOperationCheckbox');
+         AdmUtils
+           .setAllServiceCheckbox(
+             'operationsTable',
+             'operationCheckbox',
+             '#{fn:length(operationRecordModel.operationRecords)}',
+             'allOperationCheckbox');
         </script>
 
         <script>
-       $(document).ready(function() {
-        $('#operationsTable').DataTable({
-         responsive: true,
-         "aaSorting": [],
-         columnDefs: [{orderable: false, targets: 0}],
-         columnDefs: [{orderable: false, targets: 1}],
-         renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
-          tableClass: 'table'
-         })
-        });
-       });
+         $(document).ready(function() {
+          $('#operationsTable').DataTable({
+           responsive: true,
+           "aaSorting": [],
+           columnDefs: [{orderable: false, targets: 0}],
+           columnDefs: [{orderable: false, targets: 1}],
+           renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+            tableClass: 'table'
+           })
+          });
+         });
         </script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css"/>
       </a4j:outputPanel>
 
     </a4j:outputPanel>

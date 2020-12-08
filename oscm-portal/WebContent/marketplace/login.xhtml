@@ -7,7 +7,6 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
 
-  <mp:hintBootstrapLibs />
   <c:set var="action" value="#{facesContext.externalContext.requestContextPath}"/>
   <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
   <c:set var="serviceLogin" value="#{(userBean.serviceLoginType eq 'global')? true : false}"/>
@@ -162,9 +161,12 @@
             </a4j:outputPanel>
           </c:if>
         </ui:fragment>
+        <script>AdmUtils.showTooltips();</script>
       </a4j:outputPanel>
     </a4j:outputPanel>
   </rich:popupPanel>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script type="text/javascript">
     function showLoginPanel(redirectTarget) {
         AdmUtils.showMplLoginPanel(redirectTarget, #{not empty userBean.loggedInUser}, '#{facesContext.externalContext.requestContextPath}');
