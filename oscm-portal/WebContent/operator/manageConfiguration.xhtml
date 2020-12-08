@@ -50,7 +50,7 @@
             <h:outputText value="#{rowItem.value}" styleClass="label"
                           rendered="#{rowItem.informationId.readonly and rowItem.informationId.type != 'password'}"/>
           </t:div>
-          <t:div styleClass="errorPanelTr">
+          <t:div styleClass="errorPanelTr display-flex" >
             <adm:message for="configurationValue"/>
           </t:div>
         </rich:column>

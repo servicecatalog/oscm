@@ -10,7 +10,6 @@ var selectedRow = null;
 var savedSelectClassName = null;
 var savedOverClassName = null;
 
-var resizeCallback = null;
 var focusButtonDivId = null;
 var shownHint = null;
 
@@ -193,27 +192,12 @@ AdmUtils.mouseOutCell = function(cell) {
 	}
 }
 
-AdmUtils.initResize = function(eNavPanel, callback) {
-	AdmUtils.eNavPanel = eNavPanel;
-	AdmUtils.resizeCallback = callback;
-}
-
 AdmUtils.resizeDelayed = function() {
 	if (AdmUtils.timeout) {
 		clearTimeout(AdmUtils.timeout);
 		AdmUtils.timeout = null;
 	}
 	AdmUtils.timeout = setTimeout(AdmUtils.resize, 1000);
-}
-
-AdmUtils.resize = function() {
-	var h = AdmUtils.eNavPanel.offsetHeight;
-	if (h < 10) {
-		h = 10; // min height
-	}
-	if (AdmUtils.resizeCallback != null) {
-		AdmUtils.resizeCallback(h);
-	}
 }
 
 AdmUtils.ie7UploadValidation = function(field) {
