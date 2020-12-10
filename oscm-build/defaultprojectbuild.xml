@@ -90,8 +90,7 @@
   	  <available file="${branding.version.file}" />
       <then>
       	<property file="${workspace.dir}/oscm-portal/javares/org/oscm/ui/resources/Messages_en.properties"/>
-      	<echo file="${branding.version.file}">${version.versionHeader}
-${buildid}</echo>
+      	<echo file="${branding.version.file}">${version.versionHeader} ${buildid}</echo>
       </then>
     </if>
 
