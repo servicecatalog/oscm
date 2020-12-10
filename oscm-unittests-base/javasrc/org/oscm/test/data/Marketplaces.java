@@ -327,7 +327,7 @@ public class Marketplaces {
     private static PublicLandingpage setDefaultLandingpage(
             Marketplace marketplace) {
         PublicLandingpage landingpage = new PublicLandingpage();
-        landingpage.setNumberServices(6);
+        landingpage.setNumberServices(8);
         landingpage.setFillinCriterion(FillinCriterion.ACTIVATION_DESCENDING);
         landingpage.setMarketplace(marketplace);
         marketplace.setPublicLandingpage(landingpage);
