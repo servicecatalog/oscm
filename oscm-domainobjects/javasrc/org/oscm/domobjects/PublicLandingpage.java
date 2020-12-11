@@ -35,7 +35,7 @@ public class PublicLandingpage extends
 
     public static final FillinCriterion DEFAULT_FILLINCRITERION = FillinCriterion
             .getDefault();
-    public static final int DEFAULT_NUMBERSERVICES = 6;
+    public static final int DEFAULT_NUMBERSERVICES = 8;
 
     public PublicLandingpage() {
         super();

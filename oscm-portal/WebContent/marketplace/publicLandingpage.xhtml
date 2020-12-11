@@ -19,7 +19,7 @@
 
     <mp:categorySelectionLandingBootstrap/>
     <div class="container-flex pl-0 mt-3">
-      <a4j:outputPanel styleClass="row" rendered="#{!isMplRestricted or not empty userBean.loggedInUser}">
+      <a4j:outputPanel styleClass="row alignServices" rendered="#{!isMplRestricted or not empty userBean.loggedInUser}">
         <c:forEach items="#{serviceListingBean.servicesForLandingPage}" var="service" varStatus="status">
           <mp:serviceCard fieldId="service#{status.index}" service="#{service}"/>
         </c:forEach>
