@@ -49,6 +49,7 @@
     <available property="resources.dir.exists" file="${resources.dir}" />
     <property name="package.file" location="${project.dir}/package.properties" />
     <available property="package.file.exists" file="${package.file}" />
+  	
 
     <property name="result.work.dir" location="${result.dir}/work/${project.name}" />
     <property name="result.work.classes.dir" location="${result.work.dir}/classes" />
@@ -82,6 +83,16 @@
 
     <mkdir dir="${result.log.dir}" />
     <record action="start" name="${result.log.file}" />
+  	
+  	<!-- Branding specific settings -->
+  	<property name="branding.version.file" location="${project.dir}/resources/branding/version.txt" />
+  	<if>
+  	  <available file="${branding.version.file}" />
+      <then>
+      	<property file="${workspace.dir}/oscm-portal/javares/org/oscm/ui/resources/Messages_en.properties"/>
+      	<echo file="${branding.version.file}">${version.versionHeader} ${buildid}</echo>
+      </then>
+    </if>
 
   </target>
 
