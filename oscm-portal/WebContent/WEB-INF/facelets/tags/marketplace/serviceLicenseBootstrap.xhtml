@@ -8,7 +8,7 @@
   <c:if test="#{empty linkText}">
     <c:set var="linkText" value="#{msg['priceModel.service.license']}"/>
   </c:if>
-  <h:outputLink id="openLicenseLink" value="#" class="#{styleClass} text-decoration-none"
+  <h:outputLink id="openLicenseLink" value="#" class="#{styleClass}"
                 onclick="#{rich:component('licenseAgreement')}.show(); setDirty(false); return false;">
     <h:outputText value="#{linkText}"/>
   </h:outputLink>
