@@ -16,7 +16,7 @@
         <a class="list-group-item list-group-item-secondary list-group-item-action" id="supplierLink" data-toggle="list" href="#supplier" role="tab" aria-controls="supplier">#{msg['service.supplier']}</a>
     </div>
     <div class="mt-1 px-2 text-justify">
-      <div class="tab-content" id="nav-tabContent">
+      <div class="tab-content d-flow-root" id="nav-tabContent">
         <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="descriptionLink">
           <h:outputText value="#{serviceDetailsModel.selectedService.description}"  escape="false" />
         </div>
