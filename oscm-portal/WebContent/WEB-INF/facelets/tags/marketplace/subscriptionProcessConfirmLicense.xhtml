@@ -11,8 +11,8 @@
                                validator="#{booleanValidator.validateTrue}" required="true"
                                requiredMessage="#{msg['error.subscription.license']}"/>
       <h:outputText id="licenseAcceptStart" value=" #{msg['subscription.add.license.acceptStart']}"/>
-      <mp:serviceLicense linkText="#{msg['subscription.add.license']}"
-                         service="#{subscriptionWizardConversation.model.service.VO}"/>
+      <mp:serviceLicenseBootstrap linkText="#{msg['subscription.add.license']}" styleClass="alert-link"
+                                  service="#{subscriptionWizardConversation.model.service.VO}"/>
       <h:outputText id="pmAccept" value=" #{msg['subscription.add.priceModel.accept']}"
                     rendered="#{subscriptionWizardConversation.model.service.priceModel.external}"/>
       <h:outputText id="licenseAcceptEnd" value="#{msg['subscription.add.license.acceptEnd']}"/>
