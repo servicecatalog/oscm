@@ -55,7 +55,7 @@
       <f:facet name="header">
         <h:outputText value="#{msg['service.parameter.value']}" />
       </f:facet>
-      <div class="parameterValueContainer">
+      <div class="parameterValueContainer text-center">
         <h:selectBooleanCheckbox styleClass="tableParameter" id="booleanValue" label="#{row.label}"
           onchange="setDirty(true)" value="#{row.booleanParameterValue}" disabled="#{readOnly}"
           rendered="#{row.parameterDefinition.valueTypeBoolean}">
@@ -118,19 +118,19 @@
           <c:set var="radioId" value="#{formName}:parameterConfigTable:#{rowKey}:radioOption" />
           <c:set var="style" value="margin-right:4px;" />
           <ui:fragment rendered="#{row.parameterOption.optionId == row.parameter.value and readOnly}">
-            <input class="tableParameter" type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
+            <input type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
               value="#{row.parameterOption.optionId}" onclick="#{onclick}" checked="checked" disabled="disabled" />
           </ui:fragment>
           <ui:fragment rendered="#{row.parameterOption.optionId == row.parameter.value and not readOnly}">
-            <input class="tableParameter" type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
+            <input type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
               value="#{row.parameterOption.optionId}" onclick="#{onclick}" checked="checked" />
           </ui:fragment>
           <ui:fragment rendered="#{row.parameterOption.optionId != row.parameter.value and readOnly}">
-            <input class="tableParameter" type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
+            <input type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
               value="#{row.parameterOption.optionId}" onclick="#{onclick}" disabled="disabled" />
           </ui:fragment>
           <ui:fragment rendered="#{row.parameterOption.optionId != row.parameter.value and not readOnly}">
-            <input class="tableParameter" type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
+            <input type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
               value="#{row.parameterOption.optionId}" onclick="#{onclick}" />
           </ui:fragment>
           <h:outputText value="#{row.parameterOption.optionDescription}" />
