@@ -253,9 +253,8 @@
                   <h:outputText id="status" value="#{msg[statusKey]}"/>
                 </rich:column>
 
-                <rich:column p:data-label="#{msg['triggerProcess.reason']}" width="#{restWidth}"
-                             sortBy="#{triggerProcess.reason}" styleClass="h-25px"
-                             sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
+                <rich:column p:data-label="#{msg['triggerProcess.reason']}" sortBy="#{triggerProcess.reason}"
+                             styleClass="h-25px" sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
                              sortIconDescending="#{sortIconDescending}">
                   <f:facet name="header">
                     <h:outputText value="#{msg['triggerProcess.reason']}"/>
