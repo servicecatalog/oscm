@@ -118,10 +118,8 @@
         </a4j:outputPanel>
       </div>
 
-      <c:set var="iconWidth" value="6%"/>
       <c:set var="smallWidth" value="20%"/>
       <c:set var="mediumWidth" value="20%"/>
-      <c:set var="restWidth" value="24%"/>
 
       <div class="pt-2">
         <h:form id="processListForm" styleClass="row">
@@ -163,7 +161,7 @@
 
           </h:panelGroup>
 
-          <a4j:outputPanel id="triggerProcessTablePanel" layout="block">
+          <a4j:outputPanel id="triggerProcessTablePanel" layout="block" styleClass="w-100">
 
             <c:set var="sortIcon" value="/marketplace/img/transparentPixel.png?id=sort"/>
             <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
@@ -172,25 +170,22 @@
             <div class="col-12">
               <rich:dataTable styleClass="RespTable w-100" id="triggerProcessTable"
                               value="#{triggerProcessBean.triggerProcessList}" var="triggerProcess"
-                              selectionMode="single"
-                              enableContextMenu="false" noDataLabel=" "
+                              selectionMode="single" enableContextMenu="false" noDataLabel=" "
                               rendered="#{(not empty triggerProcessBean.triggerProcessList)}" sortMode="single">
 
-                <rich:column p:data-label="#{msg['triggerProcess.select']}" width="#{iconWidth}"
-                             styleClass="tableColumnCheckBox"
-                             sortIcon="#{sortIcon}"
-                             sortIconAscending="#{sortIconAscending}"
-                             sortIconDescending="#{sortIconDescending}">
+                <rich:column p:data-label="#{msg['triggerProcess.select']}" headerClass="w-30px"
+                             styleClass="tableColumnCheckBox" sortIcon="#{sortIcon}"
+                             sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}">
 
                   <f:facet name="header">
-                    <h:selectBooleanCheckbox id="allCheckboxes"
+                    <h:selectBooleanCheckbox id="allCheckboxes"  styleClass="m-1"
                                              value="#{triggerProcessBean.selectAll}"
                                              onclick="AdmUtils.dataTableSelectCheckboxes('processListForm:triggerProcessTable', 'selected', this.checked, '#{fn:length(triggerProcessBean.triggerProcessList)}');this.blur();">
                       <a4j:ajax event="change" render=":manageProcessButtonPanel" onbegin="AdmUtils.showProgress(true)"
                                 oncomplete="AdmUtils.showProgress(false)"/>
                     </h:selectBooleanCheckbox>
                   </f:facet>
-                  <h:selectBooleanCheckbox id="selected#{triggerProcess.key}"
+                  <h:selectBooleanCheckbox id="selected#{triggerProcess.key}" styleClass="m-1"
                                            value="#{triggerProcess.selected}"
                                            onclick="AdmUtils.setAllServiceCheckbox('processListForm:triggerProcessTable', 'selected', '#{fn:length(triggerProcessBean.triggerProcessList)}', 'allCheckboxes');this.blur();">
                     <a4j:ajax event="change" render=":manageProcessButtonPanel" onbegin="AdmUtils.showProgress(true)"
@@ -200,10 +195,8 @@
                 </rich:column>
 
                 <rich:column p:data-label="#{msg['triggerProcess.key']}" width="#{smallWidth}"
-                             sortBy="#{triggerProcess.key}"
-                             sortOrder="descending"
-                             sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
-                             sortIconDescending="#{sortIconDescending}">
+                             sortBy="#{triggerProcess.key}" sortOrder="descending" sortIcon="#{sortIcon}"
+                             sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}">
                   <f:facet name="header">
                     <h:outputText value="#{msg['triggerProcess.key']}"/>
                   </f:facet>
@@ -261,7 +254,7 @@
                 </rich:column>
 
                 <rich:column p:data-label="#{msg['triggerProcess.reason']}" width="#{restWidth}"
-                             sortBy="#{triggerProcess.reason}"
+                             sortBy="#{triggerProcess.reason}" styleClass="h-25px"
                              sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"
                              sortIconDescending="#{sortIconDescending}">
                   <f:facet name="header">
