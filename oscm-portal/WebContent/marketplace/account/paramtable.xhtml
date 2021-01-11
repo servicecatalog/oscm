@@ -18,8 +18,6 @@
 
   <script type="text/javascript">
     var selectedRadioOptions = new Object();
-
-
   </script>
 
   <c:if test="#{empty isOneTimeMarked}">
@@ -118,8 +116,6 @@
         <ui:fragment rendered="#{row.parameterDefinition.valueTypeEnumeration and not row.option}">
           <script type="text/javascript">
             selectedRadioOptions['#{row.parameterDefinition.parameterId}'] = document.getElementById('#{formName}:parameterConfigTable:#{rowKey}:enumValue').value;
-
-
           </script>
         </ui:fragment>
         <!-- enumeration option-->
@@ -256,8 +252,6 @@
           }
       });
     });
-
-
   </script>
 
   <c:forEach items="#{inputList}" var="row" varStatus="v">
