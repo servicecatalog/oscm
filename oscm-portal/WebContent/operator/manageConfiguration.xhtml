@@ -17,14 +17,14 @@
       <rich:extendedDataTable id="settingTable" value="#{configurationSettingsBean.configurationSettings}"
                               var="rowItem" styleClass="w-fill-available" headerClass="rowTitle"
                               columnClasses="wrapColumns" rowClasses="rowOdd,rowEven ">
-        <rich:column>
+        <rich:column id="columnKey">
           <f:facet name="header">
             <h:outputText value="#{msg['operator.manageConfiguration.key']}"/>
           </f:facet>
           <h:outputText value="#{rowItem.informationId.keyName}"/>
           <h:outputText value=" *" styleClass="mandatory" rendered="#{rowItem.informationId.mandatory}"/>
         </rich:column>
-        <rich:column>
+        <rich:column id="columnValue">
           <f:facet name="header">
             <h:outputText value="#{msg['uda.value']}"/>
           </f:facet>
@@ -64,20 +64,20 @@
       <script type="text/javascript">
         function countColumnSize() {
           var tableWidth = $('#contentPanel_header').width();
-          var firstColumn = $('.rf-edt-c-j_idt491').width();
+          var firstColumn = $('.rf-edt-c-columnKey').width();
           if(firstColumn === 100) {
             firstColumn = 380;
-            $('.rf-edt-c-j_idt491').width( 380 + "px" );
+            $('.rf-edt-c-columnKey').width( 380 + "px" );
           }
           var columnWidth = tableWidth - firstColumn - 56;
-          $('.rf-edt-c-j_idt495').width( columnWidth + "px" );
+          $('.rf-edt-c-columnValue').width( columnWidth + "px" );
         };
 
         let resizeObserver = new ResizeObserver(() => {
           countColumnSize();
         });
 
-        elem = $(".rf-edt-c-j_idt491")[0];
+        elem = $('.rf-edt-c-columnKey')[0];
         resizeObserver.observe(elem);
         window.onload = countColumnSize;
         window.addEventListener("resize", countColumnSize);
