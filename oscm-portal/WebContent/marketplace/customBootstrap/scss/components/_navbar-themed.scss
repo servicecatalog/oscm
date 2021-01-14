@@ -1,0 +1,7 @@
+$toggled_theme: if($enable-dark-navbar, "dark", "light");
+ 
+.navbar-themed  {
+  @extend .bg-#{$toggled_theme};
+  @extend .navbar-#{$toggled_theme};
+}
+   
