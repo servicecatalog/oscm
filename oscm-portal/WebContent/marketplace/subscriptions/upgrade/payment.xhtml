@@ -19,7 +19,7 @@
 
         <mp:subscriptionProcessProgressBootstrap active="payment"/>
 
-        <div class="bg-light shadow mb-4 mt-1 p-3">
+        <div class="bg-themed shadow mb-4 mt-1 p-3">
           <mp:serviceBlockBootstrap service="#{upgradeWizardConversation.model.service}" fieldId="serviceDetail"
                                     showName="false" showPriceLink="true" stylePrice="btn btn-outline-secondary"
                                     subscriptionBean="#{upgradeWizardConversation}" notRated="true"/>
@@ -88,7 +88,7 @@
             </div>
             <div class="row p-1">
                 <div class="col-md-7 offset-md-3 px-2">
-                  <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-light-secondary rounded">
+                  <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-themed-secondary rounded">
                     <ui:fragment
                         rendered="#{not empty upgradeWizardConversation.model.selectedBillingContact}">
                       <div class="row ml-1">
@@ -146,7 +146,7 @@
             </div>
             <div class="row p-1">
                 <div class="col-md-7 offset-md-3 px-2">
-                  <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-light-secondary rounded">
+                  <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-themed-secondary rounded">
                     <ui:fragment
                         rendered="#{not empty upgradeWizardConversation.model.selectedPaymentInfo}">
                       <div class="row ml-1">

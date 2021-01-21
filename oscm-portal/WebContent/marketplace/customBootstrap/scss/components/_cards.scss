@@ -1,12 +1,12 @@
 // Bootstrap Cards
 
 .selectable {
-  background: $white;
+  background: $theme-card-bg;
   cursor: pointer;
   @include transition(all 300ms linear);
   
   &:hover {
-     background: $gray;
+     background: $theme-card-hover-bg;
      cursor: pointer;
   }
 }
