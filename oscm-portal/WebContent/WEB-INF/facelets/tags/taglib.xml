@@ -283,6 +283,14 @@
     <tag-name>hintBootstrap</tag-name>
     <source>hintBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>customInputForm</tag-name>
+    <source>customInputForm.xhtml</source>
+  </tag>
+  <tag>
+    <tag-name>customSelectForm</tag-name>
+    <source>customSelectForm.xhtml</source>
+  </tag>
 
   <function>
     <function-name>matchBegin</function-name>

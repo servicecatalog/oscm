@@ -2435,4 +2435,5 @@ table.dataTable > tbody > td:hover {
 
 .display-flex {
   display: flex;
+  width: fit-content;
 }

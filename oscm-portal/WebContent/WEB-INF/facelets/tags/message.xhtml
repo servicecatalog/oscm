@@ -12,7 +12,7 @@
   <c:if test="#{not empty leftPadding and leftPadding}">
     <c:set var="padStyle" value="padding-left:20px;"/>
   </c:if>
-  <rich:message styleClass="errorMsg" style="#{padStyle}" id="#{id}" for="#{for}"
+  <rich:message styleClass="errorMsg #{displayStyle}" style="#{padStyle}" id="#{id}" for="#{for}"
                 rendered="#{empty rendered or rendered}">
     <f:facet name="errorMarker">
       <h:graphicImage value="/img/sta_err_16.png"/>
