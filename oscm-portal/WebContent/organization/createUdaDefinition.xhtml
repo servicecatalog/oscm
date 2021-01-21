@@ -1,95 +1,105 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
-<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-                             "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:a4j="http://richfaces.org/a4j" xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
-                template="../templates/modalDialog.xhtml">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
+                xmlns:a4j="http://richfaces.org/a4j" template="../templates/modalDialog.xhtml">
 
   <ui:define name="dialogScripts">
-    <c:set var="cancelHandler" value="#{rich:component(dialogId)}.hide();" />
-    <c:set var="modalFocusElement" value="#createForm:createUdaIdInput" />
+    <c:set var="cancelHandler" value="#{rich:component(dialogId)}.hide();"/>
+    <c:set var="modalFocusElement" value="#createForm:createUdaIdInput"/>
   </ui:define>
 
   <ui:define name="dialogTitle">
-    <h:outputText id="#{dialogId}DialogTitle" value="#{msg['organization.manageUdas.create.title']}" />
+    <h:outputText id="#{dialogId}DialogTitle" value="#{msg['organization.manageUdas.create.title']}"/>
   </ui:define>
 
   <ui:define name="dialogDescription">
-    <br />
+    <br/>
   </ui:define>
 
   <ui:define name="dialogContent">
     <a4j:outputPanel id="createContentPanel">
       <h:form id="createForm">
-        <adm:spacer height="20" />
-        <adm:panelGrid>
-          <adm:labelAndInputText id="createUdaIdInput" label="#{msg['udaDefinition.udaId']}" required="true"
-            value="#{manageUdaDefinitionBean.newUda.udaId}" maxlength="#{appBean.idLen}" styleClass="fieldXS"
-            rendered="#{not empty manageUdaDefinitionBean.newUda}" validatorId="idChar" converterId="trimConverter" />
+        <adm:spacer height="20"/>
+        <adm:panelGrid columns="2" minColWidth="false">
+          <adm:customInputForm id="createUdaIdInput" label="#{msg['udaDefinition.udaId']}" required="true"
+                               value="#{manageUdaDefinitionBean.newUda.udaId}" maxlength="#{appBean.descriptionLen}"
+                               rendered="#{not empty manageUdaDefinitionBean.newUda}" validatorId="idChar"
+                               converterId="trimConverter" styleClass="field"/>
 
-          <adm:labelAndSelect id="language" styleClass="select"
-                              value="#{manageUdaDefinitionBean.newUda.language}"
-                              label="#{msg['udaDefinition.language']}" listenerBean="#{manageUdaDefinitionBean}">
-            <adm:localeItems />
-          </adm:labelAndSelect>
+          <adm:customSelectForm id="language" styleClass="selectL"
+                                value="#{manageUdaDefinitionBean.newUda.language}"
+                                label="#{msg['udaDefinition.language']}" listenerBean="#{manageUdaDefinitionBean}">
+            <adm:localeItems/>
+          </adm:customSelectForm>
 
-          <adm:labelAndInputText id="createUdaNameInput" label="#{msg['udaDefinition.attributeName']}"
-                                 value="#{manageUdaDefinitionBean.newUda.name}" maxlength="#{appBean.descriptionLen}"
-                                 converterId="trimConverter" styleClass="fieldXS"
-                                 rendered="#{not empty manageUdaDefinitionBean.newUda}" />
+          <adm:customInputForm id="createUdaNameInput" label="#{msg['udaDefinition.attributeName']}"
+                               value="#{manageUdaDefinitionBean.newUda.name}" maxlength="#{appBean.descriptionLen}"
+                               converterId="trimConverter" styleClass="field"
+                               rendered="#{not empty manageUdaDefinitionBean.newUda}"/>
 
-          <adm:labelAndInputText id="createUdaDefaultValueInput" label="#{msg['udaDefinition.defaultValue']}"
-                                 value="#{manageUdaDefinitionBean.newUda.defaultValue}" maxlength="#{appBean.descriptionLen}"
-                                 converterId="trimConverter" styleClass="fieldXS" rendered="#{not empty manageUdaDefinitionBean.newUda}" />
-                                 
-          <adm:labelAndInputText id="createUdaControllerIdInput" label="#{msg['udaDefinition.controllerId']}"
-                                 value="#{manageUdaDefinitionBean.newUda.controllerId}" maxlength="#{appBean.descriptionLen}"
-                                 converterId="trimConverter" styleClass="fieldXS" rendered="#{not empty manageUdaDefinitionBean.newUda}" />
+          <adm:customInputForm id="createUdaDefaultValueInput" label="#{msg['udaDefinition.defaultValue']}"
+                               value="#{manageUdaDefinitionBean.newUda.defaultValue}"
+                               maxlength="#{appBean.descriptionLen}" converterId="trimConverter" styleClass="field"
+                               rendered="#{not empty manageUdaDefinitionBean.newUda}"/>
 
-          <adm:outputLabel value="#{msg['udaDefinition.userOption']}" required="false" />
-          <a4j:outputPanel layout="block">
-            <h:selectBooleanCheckbox id="createUdaUserOptionCheckBox"
-              value="#{manageUdaDefinitionBean.newUda.userOption}" disabled="false">
-              <a4j:ajax event="click" render="createUdaMandatoryCheckBoxDiv"/>
-            </h:selectBooleanCheckbox>
-          </a4j:outputPanel>
-          <adm:message for="createUdaUserOptionCheckBox" />
-          <adm:outputLabel value="#{msg['udaDefinition.mandatory']}" required="false" />
-          <a4j:outputPanel id="createUdaMandatoryCheckBoxDiv" layout="block" >
-            <h:selectBooleanCheckbox id="createUdaMandatoryCheckBox" value="#{manageUdaDefinitionBean.newUda.mandatory}"
-              disabled="#{not manageUdaDefinitionBean.newUda.userOption}" />
-          </a4j:outputPanel>
-          <adm:message for="createUdaMandatoryCheckBox" />
+          <adm:customInputForm id="createUdaControllerIdInput" label="#{msg['udaDefinition.controllerId']}"
+                               value="#{manageUdaDefinitionBean.newUda.controllerId}"
+                               maxlength="#{appBean.descriptionLen}" converterId="trimConverter" styleClass="field"
+                               rendered="#{not empty manageUdaDefinitionBean.newUda}"/>
 
-          <adm:outputLabel value="#{msg['udaDefinition.encrypted']}" required="false" />
-          <a4j:outputPanel id="createUdaEncryptedCheckBoxDiv" layout="block" >
-            <h:selectBooleanCheckbox id="createUdaEncryptedCheckBox"
-                                     value="#{manageUdaDefinitionBean.newUda.encrypted}" />
-          </a4j:outputPanel>
-          <adm:message for="createUdaEncryptedCheckBox" />
+          <adm:outputLabel value="#{msg['udaDefinition.userOption']}" required="false"/>
+          <h:panelGroup>
+            <a4j:outputPanel layout="block">
+              <h:selectBooleanCheckbox id="createUdaUserOptionCheckBox"
+                                       value="#{manageUdaDefinitionBean.newUda.userOption}" disabled="false">
+                <a4j:ajax event="click" render="createUdaMandatoryCheckBoxDiv"/>
+              </h:selectBooleanCheckbox>
+            </a4j:outputPanel>
+            <adm:message for="createUdaUserOptionCheckBox" displayStyle="display-flex"/>
+          </h:panelGroup>
+          <adm:outputLabel value="#{msg['udaDefinition.mandatory']}" required="false"/>
+          <h:panelGroup>
+            <a4j:outputPanel id="createUdaMandatoryCheckBoxDiv" layout="block">
+              <h:selectBooleanCheckbox id="createUdaMandatoryCheckBox"
+                                       value="#{manageUdaDefinitionBean.newUda.mandatory}"
+                                       disabled="#{not manageUdaDefinitionBean.newUda.userOption}"/>
+            </a4j:outputPanel>
+            <adm:message for="createUdaMandatoryCheckBox" displayStyle="display-flex"/>
+          </h:panelGroup>
+
+          <adm:outputLabel value="#{msg['udaDefinition.encrypted']}" required="false"/>
+          <h:panelGroup>
+            <a4j:outputPanel id="createUdaEncryptedCheckBoxDiv" layout="block">
+              <h:selectBooleanCheckbox id="createUdaEncryptedCheckBox"
+                                       value="#{manageUdaDefinitionBean.newUda.encrypted}"/>
+            </a4j:outputPanel>
+            <adm:message for="createUdaEncryptedCheckBox" displayStyle="display-flex"/>
+          </h:panelGroup>
         </adm:panelGrid>
-        <adm:spacer height="20" />
+        <adm:spacer height="20"/>
 
         <adm:buttonPanel>
           <a4j:commandButton type="submit" style="display:none;" id="createUdaHiddenButton"
-            value="#{msg['button.save']}" action="#{manageUdaDefinitionBean.create}" render="#{dialogId}RenderErrorPanel"
-            oncomplete="
+                             value="#{msg['button.save']}" action="#{manageUdaDefinitionBean.create}"
+                             render="#{dialogId}RenderErrorPanel"
+                             oncomplete="
                 AdmUtils.showProgress(false);
                 if(!#{facesContext.maximumSeverity.ordinal > 0}) {
                     RichFaces.$('#{dialogId}').hide();
                     #{rich:element('refreshSubmitButton')}.click();
-                }" />
+                }"/>
 
           <h:outputLink styleClass="button" id="createPanelSaveButton"
-            onclick="setOnSubmit(true);setDirty(false);AdmUtils.showProgress(true);#{rich:element('createForm:createUdaHiddenButton')}.click();setOnSubmit(false);return false;">
-            <h:outputText style="white-space: nowrap;" value="#{msg['button.save']}" />
+                        onclick="setOnSubmit(true);setDirty(false);AdmUtils.showProgress(true);#{rich:element('createForm:createUdaHiddenButton')}.click();setOnSubmit(false);return false;">
+            <h:outputText style="white-space: nowrap;" value="#{msg['button.save']}"/>
           </h:outputLink>
 
-          <h:outputLink styleClass="button" id="createPanelCancelButton" 
-            onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;">
-            <h:outputText style="white-space: nowrap;" value="#{msg['button.cancel']}" />
+          <h:outputLink styleClass="button" id="createPanelCancelButton"
+                        onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;">
+            <h:outputText style="white-space: nowrap;" value="#{msg['button.cancel']}"/>
           </h:outputLink>
 
         </adm:buttonPanel>
@@ -98,7 +108,7 @@
 
       <h:form>
         <h:commandButton style="display:none;" id="refreshSubmitButton" onclick="setDirty(false);"
-          value="#{msg['button.save']}" action="#{manageUdaDefinitionBean.refreshSaveSuccessMessage}" />
+                         value="#{msg['button.save']}" action="#{manageUdaDefinitionBean.refreshSaveSuccessMessage}"/>
       </h:form>
 
     </a4j:outputPanel>

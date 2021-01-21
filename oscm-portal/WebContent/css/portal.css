@@ -553,7 +553,7 @@ textarea {
 	border:solid 1px #2e75d2 !important;
 }
 
-.field, .fieldS {
+.field {
 	width: 320px;
 }
 
@@ -2435,4 +2435,5 @@ table.dataTable > tbody > td:hover {
 
 .display-flex {
   display: flex;
+  width: fit-content;
 }
