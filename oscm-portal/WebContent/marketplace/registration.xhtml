@@ -76,7 +76,7 @@
     <a4j:outputPanel styleClass="row justify-content-center my-3">
       <mp:notice rendered="#{not userBean.selfRegistrationAllowed}"
                  noticeText="#{msg['ex.RegistrationException.SELFREGISTRATION_NOT_ALLOWED']}"/>
-      <a4j:outputPanel layout="block" styleClass="col-lg-10 col-md-11 col-sm-12 bg-light p-4 shadow mb-4"
+      <a4j:outputPanel layout="block" styleClass="col-lg-10 col-md-11 col-sm-12 bg-themed p-4 shadow mb-4"
                        rendered="#{userBean.selfRegistrationAllowed}">
 
         <h2>

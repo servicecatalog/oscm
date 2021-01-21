@@ -1,10 +1,21 @@
-$enable-dark-theme: true;
+$enable-dark-navigation: true;
+$enable-dark-theme: false;
+
+$used_theme: if($enable-dark-theme, $dark, $light);
 
 $main-color: $green;
 
 $secondary: $main-color;
 $primary: $main-color;
-$dark: $gray-800;
+
+// Use custom color scheme based on a base-color.
+//$dark: #DC143C;
+//$dark-lighter: lighten($dark, 3%);
+//$dark-lightest: lighten($dark, 20%);
+
+$dark: $gray-900;
+$dark-lighter: $gray-800;
+$dark-lightest: $gray-700;
 
 $footer-link-color: $white;
 
@@ -17,10 +28,48 @@ $theme-colors: (
 );
 
 // Body
-$body-bg: $white;
+$body-bg: if($enable-dark-theme, $dark, $white);
+@if $enable-dark-theme {
+  $body-color: $white;
+}
+
+// Breadcrumbs
+$breadcrumb-bg: $gray-700;
+
+// Copied from ./basic/colors
+$gray: #ddd;
+$color_athens_gray_approx: #e9ecef;
+$theme-breadcrumb-bg: if($enable-dark-theme, $breadcrumb-bg, $color_athens_gray_approx);
+
+// Cards
+$card-hover-color: $dark-lighter;
+$card-bg-color: $dark-lightest;
+
+$theme-card-bg: if($enable-dark-theme, $card-bg-color, $white);
+$theme-card-hover-bg: if($enable-dark-theme, $card-hover-color, $gray);
+
+// Headings
+//$headings-color: if($enable-dark-theme, $white, $black);
 
 // Dropdowns
 $dropdown-link-active-bg: $primary;
+
+// Colors only for dark theme
+@if $enable-dark-theme {
+$dropdown-bg: $dark-lightest;
+$dropdown-divider-bg: $dark-lighter;
+$dropdown-link-color: $white;
+$dropdown-link-hover-color: $white;
+$dropdown-link-hover-bg: $primary;
+$dropdown-color: $white;
+
+// Colors for list groups only for dark theme
+$list-group-bg:                     $dark-lighter;
+$list-group-border-color:           $dark-lightest;
+$list-group-hover-bg:               $primary;
+$list-group-disabled-bg:            $dark-lightest;
+$list-group-action-active-bg:       $primary;
+}
 
 // Inputs
 $input-focus-border-color: $primary;

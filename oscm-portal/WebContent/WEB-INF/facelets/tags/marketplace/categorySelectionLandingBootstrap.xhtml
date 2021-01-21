@@ -12,7 +12,7 @@
           <div class="collapse show navbar-collapse shadow" id="categoryDrop">
             <c:set var="listItem" value="btn btn-outline-secondary p-2 cat-item" />
             <c:forEach items="#{categorySelectionBean.categoriesForMarketplace}" var="cat" varStatus="count">
-              <div class="h-50 w-100 list-group bg-light text-center cat-item pb-0">
+              <div class="h-50 w-100 list-group bg-themed text-center cat-item pb-0">
                 <h:commandLink id="categoryLink#{count.index}" value="#{cat.displayName}" styleClass="#{listItem}"
                   action="#{categorySelectionBean.selectByCategory}" actionListener="#{serviceListingBean.reloadData}">
                   <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}"
