@@ -553,7 +553,7 @@ textarea {
 	border:solid 1px #2e75d2 !important;
 }
 
-.field {
+.field, .fieldS {
 	width: 320px;
 }
 
