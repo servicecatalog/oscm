@@ -9,7 +9,7 @@
   <h:inputHidden id="searchPhrase" value="#{searchPhraseProperty}"/>
   <input id="#{formId}:searchField" class="form-control form-control-sm rounded" placeholder="#{subSearchPlaceHolderText}"
          maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
-         onkeydown="AdmUtils.clickOnReturn(event,'#{formId}:submitLink');" onfocus="this.value = '';"/>
+         onkeydown="AdmUtils.clickOnReturn(event,'#{formId}:submitLink');"/>
   <div class="input-group-append">
    <a4j:commandLink id="submitLink" value=" " execute="@form" styleClass="btn btn-outline-secondary btn-sm rounded"
                     onclick="AdmUtils.IE9OnClick('#{formId}:searchField');AdmUtils.showProgress(true);
