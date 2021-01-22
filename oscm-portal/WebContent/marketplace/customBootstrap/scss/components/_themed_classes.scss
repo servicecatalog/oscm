@@ -10,4 +10,8 @@ $toggled_theme: if($enable-dark-theme, "dark", "light");
 .bg-themed {
   @extend .bg-#{$toggled_theme};
 }
+
+.border-themed {
+  @extend .border-#{$toggled_theme};
+}
    
