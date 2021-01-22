@@ -1,8 +1,6 @@
 $enable-dark-navigation: true;
 $enable-dark-theme: true;
 
-$used_theme: if($enable-dark-theme, $dark, $light);
-
 $main-color: $green;
 
 $secondary: $main-color;
@@ -19,7 +17,7 @@ $dark-lightest: $gray-700;
 
 $footer-link-color: $white;
 
-$interior-color: #fff;
+$interior-color: $white;
 
 $theme-colors: (
    "primary": $primary,
@@ -28,16 +26,14 @@ $theme-colors: (
 );
 
 // Body
-$body-bg: if($enable-dark-theme, $dark, $white);
-
-// Copied from ./basic/colors
-$gray: #ddd;
-$color_athens_gray_approx: #e9ecef;
-$theme-breadcrumb-bg: if($enable-dark-theme, $breadcrumb-bg, $color_athens_gray_approx);
+$body-bg: if($enable-dark-theme, $black, $white);
+$theme-breadcrumb-bg: if($enable-dark-theme, $body-bg, $color_athens_gray_approx);
+$theme-border-color: if($enable-dark-theme, $dark, $color_gallery_approx);
 
 // Cards
 $card-hover-color: $dark-lighter;
 $card-bg-color: $dark-lightest;
+//$card-cap-bg: $dark-lighter;
 
 $theme-card-bg: if($enable-dark-theme, $card-bg-color, $white);
 $theme-card-hover-bg: if($enable-dark-theme, $card-hover-color, $gray);
@@ -47,6 +43,10 @@ $theme-card-hover-bg: if($enable-dark-theme, $card-hover-color, $gray);
 
 // Link colors.
 $link-color: $secondary;
+$link-hover-color: $secondary;
+
+// Breadcrumbs
+$breadcrumb-active-color:  $secondary;
 
 // Dropdowns
 $dropdown-link-active-bg: $primary;
@@ -54,10 +54,12 @@ $dropdown-link-active-bg: $primary;
 // Colors only for dark theme
 @if $enable-dark-theme {
 // Body
-$body-color: $white;
+$body-color: $gray-100;
    
 // Breadcrumbs
 $breadcrumb-bg: $dark-lightest;
+
+$input-bg: $dark-lighter;
 
 // Dropdowns
 $dropdown-bg: $dark-lightest;
@@ -69,10 +71,15 @@ $dropdown-color: $white;
 
 // Colors for list groups only for dark theme
 $list-group-bg:                     $dark-lighter;
-$list-group-border-color:           $dark-lightest;
+$list-group-border-color:           $dark-lighter;
 $list-group-hover-bg:               $primary;
 $list-group-disabled-bg:            $dark-lightest;
 $list-group-action-active-bg:       $primary;
+
+
+.list-group-item {
+   color: $white !important;
+}
 }
 
 // Inputs
@@ -87,6 +94,10 @@ $input-group-addon-border-color: $primary;
     color: $navbar-dark-hover-color;
   }
 }  
+
+// Colors for aside menu.
+$aside-heading-color: if($enable-dark-theme, $light, $color_dorado_approx);
+
 
 // Custom colors for list groups.
 $lightened-color: lighten(desaturate($secondary, 0.03), 23.33);
