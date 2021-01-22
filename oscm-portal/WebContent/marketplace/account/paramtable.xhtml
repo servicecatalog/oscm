@@ -126,20 +126,20 @@
           <c:set var="style" value="margin-right:4px;"/>
           <div class="tableParameter">
             <ui:fragment rendered="#{row.parameterOption.optionId == row.parameter.value and readOnly}">
-              <input type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
+              <input type="radio" id="#{radioId}" class="ml-1" name="#{row.parameterOption.paramDefId}"
                      value="#{row.parameterOption.optionId}" onclick="#{onclick}" checked="checked"
                      disabled="disabled"/>
             </ui:fragment>
             <ui:fragment rendered="#{row.parameterOption.optionId == row.parameter.value and not readOnly}">
-              <input type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
+              <input type="radio" id="#{radioId}" class="ml-1" name="#{row.parameterOption.paramDefId}"
                      value="#{row.parameterOption.optionId}" onclick="#{onclick}" checked="checked"/>
             </ui:fragment>
             <ui:fragment rendered="#{row.parameterOption.optionId != row.parameter.value and readOnly}">
-              <input type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
+              <input type="radio" id="#{radioId}" class="ml-1" name="#{row.parameterOption.paramDefId}"
                      value="#{row.parameterOption.optionId}" onclick="#{onclick}" disabled="disabled"/>
             </ui:fragment>
             <ui:fragment rendered="#{row.parameterOption.optionId != row.parameter.value and not readOnly}">
-              <input type="radio" id="#{radioId}" name="#{row.parameterOption.paramDefId}"
+              <input type="radio" id="#{radioId}" class="ml-1" name="#{row.parameterOption.paramDefId}"
                      value="#{row.parameterOption.optionId}" onclick="#{onclick}"/>
             </ui:fragment>
             <h:outputText value="#{row.parameterOption.optionDescription}"/>
