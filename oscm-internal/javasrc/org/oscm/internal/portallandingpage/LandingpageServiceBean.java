@@ -22,6 +22,7 @@ import org.oscm.i18nservice.local.ImageResourceServiceLocal;
 import org.oscm.interceptor.ExceptionMapper;
 import org.oscm.interceptor.InvocationDateContainer;
 import org.oscm.internal.types.enumtypes.ImageType;
+import org.oscm.internal.types.enumtypes.ServiceType;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.vo.VOImageResource;
 import org.oscm.internal.vo.VOService;
@@ -56,7 +57,14 @@ public class LandingpageServiceBean implements LandingpageService {
       Product product = ds.find(Product.class, service.getKey());
 
       if (product != null) {
-        ImageResource imageResource = irsl.read(product.getKey(), ImageType.SERVICE_IMAGE);
+
+        long templateKey = product.getKey();
+
+        if(product.getType().equals(ServiceType.PARTNER_TEMPLATE)){
+          templateKey = product.getTemplate().getKey();
+        }
+
+        ImageResource imageResource = irsl.read(templateKey, ImageType.SERVICE_IMAGE);
         if (imageResource != null) {
           vo = new VOImageResource();
           vo.setBuffer(imageResource.getBuffer());
