@@ -26,7 +26,7 @@
         <a4j:outputPanel id="profile" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
                          rendered="#{empty appBean.hiddenUIElements['marketplace.navigation.Profile']}">
 
-          <div class="card h-100 selectable border-themed">
+          <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.profile.title']}</div>
             <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
@@ -61,7 +61,7 @@
         <a4j:outputPanel id="payments" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
                          rendered="#{userBean.loggedInAndAdmin and empty appBean.hiddenUIElements['marketplace.navigation.Payment'] and appBean.paymentInfoAvailable}">
 
-          <div class="card h-100 selectable border-themed">
+          <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.payments.title']}</div>
             <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
@@ -79,7 +79,7 @@
         <a4j:outputPanel id="subscriptions" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
                          rendered="#{(userBean.loggedInAndAdmin or userBean.loggedInAndSubscriptionManager or userBean.loggedInAndUnitAdmin) and empty appBean.hiddenUIElements['marketplace.navigation.Subscriptions']}">
 
-          <div class="card h-100 selectable border-themed">
+          <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.subscriptions.title']}</div>
             <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
@@ -98,7 +98,7 @@
         <a4j:outputPanel id="users" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
                          rendered="#{userBean.loggedInAndAdmin and empty appBean.hiddenUIElements['marketplace.navigation.Users']}">
 
-          <div class="card h-100 selectable border-themed">
+          <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.users.title']}</div>
             <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
@@ -119,7 +119,7 @@
         <a4j:outputPanel id="units" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
                          rendered="#{userBean.loggedInAndUnitAdmin and empty appBean.hiddenUIElements['marketplace.navigation.Units']}">
 
-          <div class="card h-100 selectable border-themed">
+          <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.units.title']}</div>
             <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
@@ -136,7 +136,7 @@
         <a4j:outputPanel id="reports" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
                          rendered="#{accountNavigationBean.reportingAvailable}">
 
-          <div class="card h-100 selectable border-themed">
+          <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.reports.title']}</div>
             <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
@@ -160,7 +160,7 @@
         <a4j:outputPanel id="processes" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
                          rendered="#{empty appBean.hiddenUIElements['marketplace.navigation.Processes']}">
 
-          <div class="card h-100 selectable border-themed">
+          <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.processes.title']}</div>
             <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
@@ -178,7 +178,7 @@
         <a4j:outputPanel id="operations" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
                          rendered="#{empty appBean.hiddenUIElements['marketplace.navigation.Operations']}">
 
-          <div class="card h-100 selectable border-themed">
+          <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.operations.title']}</div>
             <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
@@ -196,7 +196,7 @@
         <a4j:outputPanel id="administration" layout="block" styleClass="col-md-6 col-lg-4 marginBottomDefault"
                          rendered="#{userBean.administrationAccess and empty appBean.hiddenUIElements['marketplace.navigation.Administration']}">
 
-          <div class="card h-100 selectable border-themed">
+          <div class="card h-100 selectable">
             <div class="card-header">#{msg['marketplace.account.administration.title']}</div>
             <div class="card-body">
               <a4j:outputPanel layout="block" styleClass="accountBox">
