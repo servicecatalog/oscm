@@ -20,5 +20,11 @@
   </div>
   <h:inputHidden value="UTF-8" name="ie"/>
  </div>
- <script type="text/javascript">AdmUtils.IE9PlaceHolderFix('#{searchPhraseProperty}', '#{formId}:searchField');</script>
+ <script type="text/javascript">
+  AdmUtils.IE9PlaceHolderFix('#{searchPhraseProperty}', '#{formId}:searchField');
+  window.onunload = function() {
+   document.getElementById('subListForm:searchField').value = "";
+   document.getElementById('subListForm:submitLink').click();
+  };
+ </script>
 </ui:composition>
