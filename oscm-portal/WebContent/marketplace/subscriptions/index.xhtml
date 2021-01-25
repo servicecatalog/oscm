@@ -38,7 +38,7 @@
      </ui:include>
     </h:form>
 
-    <h:form id="subListForm">
+    <h:form id="subListForm" render="#{renderElementList}">
      <a4j:jsFunction name="validateSubscriptionStatus" action="#{mySubscriptionsCtrl.validateSubscriptionStatus}"
                      render=":hiddenErrorPanel @form :detailsAndCustomPanel"
                      oncomplete="jumpToSubscriptionDetails(); AdmUtils.showProgress(false);">
