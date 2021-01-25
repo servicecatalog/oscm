@@ -10,9 +10,9 @@
 package org.oscm.internal.portallandingpage;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
-import static org.mockito.Matchers.anyObject;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
@@ -28,6 +28,7 @@ import org.oscm.domobjects.ImageResource;
 import org.oscm.domobjects.Product;
 import org.oscm.i18nservice.local.ImageResourceServiceLocal;
 import org.oscm.internal.types.enumtypes.ImageType;
+import org.oscm.internal.types.enumtypes.ServiceType;
 import org.oscm.internal.types.exception.ObjectNotFoundException;
 import org.oscm.internal.vo.VOImageResource;
 import org.oscm.internal.vo.VOService;
@@ -52,20 +53,25 @@ public class LandingpageServiceBeanTest {
   public void fillInServiceImages() throws ObjectNotFoundException {
 
     // given
-    List<VOService> services = new ArrayList<VOService>();
+    List<VOService> services = new ArrayList<>();
     VOService service = new VOService();
     service.setServiceId("test");
     service.setKey(123456789);
+    service.setServiceType(ServiceType.TEMPLATE);
     services.add(service);
     byte[] bytes = new byte[] {11, 22, 33, 44};
 
     ImageResource imageResource = new ImageResource(123456789, ImageType.SERVICE_IMAGE);
     imageResource.setBuffer(bytes);
 
-    DomainObject<?> product = new Product();
+    Product product = new Product();
+    product.setType(ServiceType.PARTNER_TEMPLATE);
+    product.setProductId("partner");
+    product.setKey(10000000);
+    product.setTemplate(ds.getReference(Product.class, service.getKey()));
 
     doReturn(product).when(ds).find(any(), anyLong());
-    doReturn(imageResource).when(irsl).read(anyLong(), anyObject());
+    doReturn(imageResource).when(irsl).read(eq(123456789), anyObject());
 
     // when
     Map<Long, VOImageResource> result = bean.fillInServiceImages(services);
