@@ -7,6 +7,10 @@ $toggled_theme: if($enable-dark-theme, "dark", "light");
   @extend .navbar-#{$toggled_navigation_theme};
 }
 
+.bg-themed-navigation {
+  @extend .bg-#{$toggled_navigation_theme};
+}
+
 .bg-themed {
   @extend .bg-#{$toggled_theme};
 }
