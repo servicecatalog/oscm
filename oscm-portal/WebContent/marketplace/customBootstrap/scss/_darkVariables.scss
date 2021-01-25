@@ -20,19 +20,14 @@ $theme-colors: (
    "dark": $dark
 );
 
-// Body
-$body-bg: if($enable-dark-theme, $black, $white);
-$theme-breadcrumb-bg: if($enable-dark-theme, $body-bg, $color_athens_gray_approx);
-$theme-border-color: if($enable-dark-theme, $dark, $color_gallery_approx);
+@import "toggled_theme_vars";
+
 
 // Cards
 $card-hover-color: $dark-lighter;
 $card-bg-color: $dark-lightest;
 //$card-cap-bg: $dark-lighter;
 
-$theme-bg-color: if($enable-dark-theme, $dark-lightest, $white);
-$theme-card-bg: if($enable-dark-theme, $card-bg-color, $white);
-$theme-card-hover-bg: if($enable-dark-theme, $card-hover-color, $gray);
 
 // Link colors.
 $link-color: $secondary;
@@ -44,8 +39,6 @@ $breadcrumb-active-color:  $secondary;
 // Dropdowns
 $dropdown-link-active-bg: $primary;
 
-// Tables
-$theme_table_hover_color: if($enable-dark-theme, $dark, $color_light_athens_gray_approx);
 
 // Colors only for dark theme
 @if $enable-dark-theme {
@@ -108,10 +101,6 @@ $input-group-addon-border-color: $primary;
     color: $navbar-dark-hover-color;
   }
 }  
-
-// Colors for aside menu.
-$aside-heading-color: if($enable-dark-theme, $light, $color_dorado_approx);
-
 
 // Custom colors for list groups.
 $lightened-color: lighten(desaturate($secondary, 0.03), 23.33);

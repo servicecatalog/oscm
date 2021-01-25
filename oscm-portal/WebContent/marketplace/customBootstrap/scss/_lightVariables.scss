@@ -13,8 +13,7 @@ $theme-colors: (
    "secondary": $secondary
 );
 
-// Body
-$body-bg: #fff;
+@import "toggled_theme_vars";
 
 // Dropdowns
 $dropdown-link-active-bg: $primary;
