@@ -38,7 +38,7 @@
      </ui:include>
     </h:form>
 
-    <h:form id="subListForm" render="#{renderElementList}">
+    <h:form id="subListForm">
      <a4j:jsFunction name="validateSubscriptionStatus" action="#{mySubscriptionsCtrl.validateSubscriptionStatus}"
                      render=":hiddenErrorPanel @form :detailsAndCustomPanel"
                      oncomplete="jumpToSubscriptionDetails(); AdmUtils.showProgress(false);">
@@ -146,6 +146,12 @@
     	 $('.invisible-jumper')[0].click();
     };
   </script>
+  <script>
+   window.onbeforeunload = function() {
+    document.getElementById('subListForm:searchField').value = "";
+    document.getElementById('subListForm:submitLink').click();
+   };
+ </script>
   <link href="#{facesContext.externalContext.requestContextPath}/css/dataTable.css" rel="stylesheet"
         type="text/css" media="all"/>
  </ui:define>
