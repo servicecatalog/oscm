@@ -9,9 +9,9 @@
  //  ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 @charset "utf-8";
-@import "variables";
-
 @import "../scss/basic/colors";
+
+@import "variables";
 @import "../scss/basic/image_urls";
 @import "../scss/basic/mixins";
 
@@ -375,10 +375,6 @@ form .formHighlight div.div-for-input {
   cursor: pointer;
   height: 15px;
   width: 15px;
-}
-
-.rf-pp-cnt {
- padding: 15px !important;
 }
 
 #userForm .warning {
@@ -817,7 +813,7 @@ table.smallPanel {
 
 /* supplier/organization display line */
 .supplier {
-  color: $color_river_bed_approx;
+  color: $supplier_text_color;
   font: italic 400 110% $font-family-times;
   white-space: nowrap;
 }
@@ -1373,4 +1369,9 @@ thead th.clickable-header:HOVER {
   background-image:
     url("/oscm-portal/org.richfaces.resources/rfRes/colHdrGrad.png?v=4.5.0.Final&db=eAFjZJBjZDBiZBBhYGBgAgADawBq&ln=org.richfaces.images")
     !important;
+}
+  
+.table-bordered th, .table-bordered td {
+    background:  $theme_bg_color;
+    color: $theme_text_color;
 }

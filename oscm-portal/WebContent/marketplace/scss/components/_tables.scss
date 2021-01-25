@@ -6,11 +6,12 @@
   text-align: left;
   background: $rich_table_bg_repeat repeat-x;
   vertical-align: top;
+  color: $theme_text_color;
 }
 
 .rowTitle th:hover {
   background: $rich_table_hover repeat-x;
-  color: $color_dove_gray_approx;
+  color: $theme_table_hover_color;
 }
 
 .rowTitle th>div {
