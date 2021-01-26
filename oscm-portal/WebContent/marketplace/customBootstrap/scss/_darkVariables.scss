@@ -20,14 +20,11 @@ $theme-colors: (
    "dark": $dark
 );
 
-@import "toggled_theme_vars";
-
-
 // Cards
 $card-hover-color: $dark-lighter;
 $card-bg-color: $dark-lightest;
-//$card-cap-bg: $dark-lighter;
 
+@import "toggled_theme_vars";
 
 // Link colors.
 $link-color: $secondary;

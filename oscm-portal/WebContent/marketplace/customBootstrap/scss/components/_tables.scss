@@ -110,10 +110,4 @@
   }
 }
 
-@if $enable-dark-theme {
-   .table-bordered th, .table-bordered td {
-      background:  $theme_bg_color;
-      color: $theme_text_color;
-   }
-}
 
