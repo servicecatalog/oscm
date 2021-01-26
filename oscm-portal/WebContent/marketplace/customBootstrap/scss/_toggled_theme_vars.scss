@@ -1,0 +1,19 @@
+// Body
+$body-bg: if($enable-dark-theme, $black, $white);
+
+// Breadcrumbs
+$theme-breadcrumb-bg: if($enable-dark-theme, $body-bg, $color_athens_gray_approx);
+
+// General theme 
+$theme-border-color: if($enable-dark-theme, $dark, $color_gallery_approx);
+$theme-bg-color: if($enable-dark-theme, $dark-lightest, $white);
+
+// Cards
+$theme-card-bg: if($enable-dark-theme, $card-bg-color, $white);
+$theme-card-hover-bg: if($enable-dark-theme, $card-hover-color, $gray);
+
+// Colors for aside menu.
+$aside-heading-color: if($enable-dark-theme, $light, $color_dorado_approx);
+
+// Tables
+$theme_table_hover_color: if($enable-dark-theme, $dark, $color_light_athens_gray_approx);

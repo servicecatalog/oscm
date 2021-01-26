@@ -9,7 +9,7 @@
     <!-- billing address -->
     <div class="text-left mb-2">
       <mp:outputStepBootstrap value="#{msg['subscription.confirm.details.title']}"/>
-      <div class="col bg-light-secondary rounded p-3">
+      <div class="col bg-themed-secondary rounded p-3">
         <a4j:outputPanel layout="block" styleClass="font-weight-bold mb-2"
                          rendered="#{not empty subscriptionWizardConversation.model.selectedBillingContact}">
           <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.id}" id="billingId"/>
@@ -44,7 +44,7 @@
                          styleClass="d-none" immediate="true"/>
       </div>
     </div>
-    <div class="bg-light-secondary rounded p-3">
+    <div class="bg-themed-secondary rounded p-3">
         <div>
           <h:outputText value="#{subscriptionWizardConversation.model.selectedPaymentInfo.id}" id="paymentId"
                         styleClass="font-weight-bold"/>

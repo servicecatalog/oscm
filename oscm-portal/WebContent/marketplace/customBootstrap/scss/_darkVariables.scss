@@ -1,14 +1,18 @@
-$enable-dark-theme: true;
+$enable-dark-navigation: true;
+$enable-dark-theme: false;
 
 $main-color: $green;
 
 $secondary: $main-color;
 $primary: $main-color;
-$dark: $gray-800;
+
+$dark: $gray-900;
+$dark-lighter: $gray-800;
+$dark-lightest: $gray-700;
 
 $footer-link-color: $white;
 
-$interior-color: #fff;
+$interior-color: $white;
 
 $theme-colors: (
    "primary": $primary,
@@ -16,11 +20,71 @@ $theme-colors: (
    "dark": $dark
 );
 
-// Body
-$body-bg: $white;
+// Cards
+$card-hover-color: $dark-lighter;
+$card-bg-color: $dark-lightest;
+
+@import "toggled_theme_vars";
+
+// Link colors.
+$link-color: $secondary;
+$link-hover-color: $secondary;
+
+// Breadcrumbs
+$breadcrumb-active-color:  $secondary;
 
 // Dropdowns
 $dropdown-link-active-bg: $primary;
+
+
+// Colors only for dark theme
+@if $enable-dark-theme {
+// Body
+$body-color: $gray-100;
+   
+// Breadcrumbs
+$breadcrumb-bg: $dark-lightest;
+
+$input-bg: $dark-lighter;
+$custom-select-bg: $input-bg; 
+
+// Dropdowns
+$dropdown-bg: $dark-lightest;
+$dropdown-divider-bg: $dark-lighter;
+$dropdown-link-color: $white;
+$dropdown-link-hover-color: $white;
+$dropdown-link-hover-bg: $primary;
+$dropdown-color: $white;
+
+// Colors for list groups only for dark theme
+$list-group-bg:                     $dark-lighter;
+$list-group-border-color:           $dark-lighter;
+$list-group-hover-bg:               $primary;
+$list-group-disabled-bg:            $dark-lightest;
+$list-group-action-active-bg:       $primary;
+
+
+.list-group-item {
+   color: $white !important;
+}
+
+// MOdal dialogs
+.rf-pp-cnt {
+ color: $light !important;
+ background-color: $dark-lightest !important;
+}
+
+// Popovers
+$popover-bg: $dark-lighter;
+$popover-body-color: $light;
+
+// Modal dialogs
+$modal_dialog_text_color: $light;
+
+// Tables
+$table-bg: $dark-lightest;
+
+}
 
 // Inputs
 $input-focus-border-color: $primary;

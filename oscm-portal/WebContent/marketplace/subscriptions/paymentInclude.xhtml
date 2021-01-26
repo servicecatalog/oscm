@@ -87,7 +87,7 @@
       </div>
 
       <div class="col-md-4 col-sm-12">
-        <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-light-secondary rounded">
+        <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-themed-secondary rounded">
           <mp:message for="selectBillingContact" rendered="#{empty billingContactBean.selectedBillingContact}"/>
           <ui:fragment rendered="#{not empty billingContactBean.selectedBillingContact}">
             <a4j:outputPanel layout="block" styleClass="m-1">
@@ -142,7 +142,7 @@
         </div>
       </div>
       <div class="col-md-4 col-sm-12">
-        <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-light-secondary rounded">
+        <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-themed-secondary rounded">
           <mp:message for="selectPaymentInfo" rendered="#{empty selectedPaymentInfoForSubscription}"/>
           <ui:fragment rendered="#{not empty selectedPaymentInfoForSubscription}">
             <a4j:outputPanel layout="block" styleClass="m-1">

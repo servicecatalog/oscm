@@ -3,27 +3,14 @@
   padding: $breadcrumb-padding-y $breadcrumb-padding-x !important; 
   .breadcrumb-item {
   padding-left: $breadcrumb-item-padding !important;
-  a {
-    color: $navbar-dark-color;
-  }
-
-  a:hover {
-    color: $secondary;
-    text-decoration: none;
-  }
-  
-  a:visited {
-    color: darken($secondary, 5%);
-    text-decoration: none;
-  }
 }
 } 
 
 /* breadrumb wrapper */
 #location {
   width: 100%;
-  background: $color_athens_gray_approx;
-  border: 1px solid $color_gallery_approx;
+  background: $theme-breadcrumb-bg;
+  border: 1px solid $theme-border-color;
   padding: 0;
   margin-bottom: 15px;
   margin-top: 15px;

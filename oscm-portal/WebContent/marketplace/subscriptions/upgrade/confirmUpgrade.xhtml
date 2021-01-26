@@ -20,7 +20,7 @@
 
         <mp:subscriptionProcessProgressBootstrap active="confirmation"
                                                  showPayment="#{upgradeWizardConversation.model.service.priceModel.chargeable and not upgradeWizardConversation.paymentConfigurationHidden}"/>
-        <div class="bg-light shadow mb-4 mt-1  p-3">
+        <div class="bg-themed shadow mb-4 mt-1  p-3">
           <h2 id="serviceDetailConf" class="box_title">#{upgradeWizardConversation.model.service.nameToDisplay}</h2>
           <hr class="my-3"/>
           <mp:serviceBlockBootstrap service="#{upgradeWizardConversation.model.service}" fieldId="serviceDetail"
@@ -28,7 +28,7 @@
                                     subscriptionBean="#{upgradeWizardConversation}" notRated="true"/>
 
           <h:form id="confirmForm">
-            <div class="bg-light p-3 shadow mb-4">
+            <div class="bg-themed p-3 shadow mb-4">
               <c:if test="true">
                 <adm:keepDirty value="#{upgradeWizardConversation.model.dirty}"/>
               </c:if>
@@ -50,7 +50,7 @@
                 </div>
               </div>
 
-              <a4j:outputPanel layout="block" styleClass="bg-light-secondary rounded p-3">
+              <a4j:outputPanel layout="block" styleClass="bg-themed-secondary rounded p-3">
                 <div class="row">
                   <div class="col-5">
                     <h:outputText value="#{msg['subscription.subscriptionId']}:" id="subscriptionIdLabel"
@@ -105,7 +105,7 @@
                 <!-- billing address -->
                 <h2 class="box_title mt-3">#{msg['subscription.confirm.details.title']}</h2>
                 <hr class="mt-1 mb-2"/>
-                <a4j:outputPanel layout="block" styleClass="bg-light-secondary rounded p-3">
+                <a4j:outputPanel layout="block" styleClass="bg-themed-secondary rounded p-3">
                   <a4j:outputPanel layout="block" styleClass="row mb-2 ml-1"
                                    rendered="#{not empty upgradeWizardConversation.model.selectedBillingContact}">
                     <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.id}"
@@ -141,7 +141,7 @@
                   </div>
                 </div>
 
-                <a4j:outputPanel layout="block" styleClass="bg-light-secondary rounded p-3">
+                <a4j:outputPanel layout="block" styleClass="bg-themed-secondary rounded p-3">
                   <a4j:outputPanel layout="block" styleClass="row mb-2 ml-1">
                     <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.id}" id="paymentId"
                                   styleClass="font-weight-bold"/>
@@ -162,7 +162,7 @@
                 <h:outputText id="agreeRequired" value=" *" styleClass="mandatory d-inline-block"/>
               </h2>
               <hr class="mt-1 mb-2"/>
-              <a4j:outputPanel layout="block" styleClass="bg-light-secondary rounded pb-0">
+              <a4j:outputPanel layout="block" styleClass="bg-themed-secondary rounded pb-0">
                 <div class="alert alert-light" role="alert">
                   <h:selectBooleanCheckbox id="agreeCheckbox" value="#{upgradeWizardConversation.model.agreed}"
                                            validator="#{booleanValidator.validateTrue}" required="true"

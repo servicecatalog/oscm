@@ -1,3 +1,4 @@
+$enable-dark-navigation: false;
 $enable-dark-theme: false;
 
 $main-color: $green;
@@ -9,11 +10,18 @@ $footer-link-color: $main-color;
 
 $theme-colors: (
    "primary": $primary,
-   "secondary": $secondary
+   "secondary": $secondary,
+   "light": $light
 );
 
-// Body
-$body-bg: #fff;
+@import "toggled_theme_vars";
+
+// Link colors.
+$link-color: $secondary;
+$link-hover-color: $secondary;
+
+// Breadcrumbs
+$breadcrumb-active-color:  $secondary;
 
 // Dropdowns
 $dropdown-link-active-bg: $primary;

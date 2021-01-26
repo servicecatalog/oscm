@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+@import "toggled_theme_vars";
+
 $primary-color: green;
 $secondary-color: #6bdb84;
 $warning-color: red;
@@ -17,5 +19,3 @@ $h3-font-size: 108% !default;
 $h4-font-size: 100% !default;
 
 $line-height-base: 1.5;
-
-

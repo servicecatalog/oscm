@@ -7,7 +7,7 @@
 .table-striped > tbody > tr {
   &:nth-of-type(odd) > td {
     padding-left: 10px;
-    background: $white;
+    background: $theme-bg-color;
   }
 
   &:nth-of-type(even) > td {
@@ -17,7 +17,7 @@
 }
 
 .table-hover tbody tr:hover td {
-  background: $color_light_athens_gray_approx;
+  background: $theme_table_hover_color;
 }
 
 .col-icon {
@@ -109,4 +109,5 @@
     border: none;
   }
 }
+
 

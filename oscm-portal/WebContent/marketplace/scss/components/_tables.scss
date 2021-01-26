@@ -6,11 +6,12 @@
   text-align: left;
   background: $rich_table_bg_repeat repeat-x;
   vertical-align: top;
+  color: $theme_text_color;
 }
 
 .rowTitle th:hover {
   background: $rich_table_hover repeat-x;
-  color: $color_dove_gray_approx;
+  color: $theme_table_hover_color;
 }
 
 .rowTitle th>div {
@@ -266,4 +267,11 @@ div.responsive-table-panel {
 /* generic style to set top aligned content in various tables*/
 .alignTop {
   vertical-align: top;
+}
+
+@if $enable-dark-theme {
+   .table-bordered th, .table-bordered td {
+      background:  $theme_bg_color;
+      color: $theme_text_color;
+   }
 }

@@ -45,7 +45,7 @@
   <div class="row p-1">
     <div class="col-md-9 col-sm-12">
       <div class="col-md-9 offset-md-3 px-2">
-        <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-light-secondary rounded">
+        <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-themed-secondary rounded">
           <ui:fragment rendered="#{not empty subscriptionWizardConversation.model.selectedBillingContact}">
             <a4j:outputPanel layout="block" styleClass="m-1">
               <h:outputText value="#{subscriptionWizardConversation.model.selectedBillingContact.email}" id="email"/>
@@ -104,7 +104,7 @@
   <div class="row p-1">
     <div class="col-md-9 col-sm-12">
       <div class="col-md-9 offset-md-3 px-2">
-        <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-light-secondary rounded">
+        <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-themed-secondary rounded">
           <ui:fragment
               rendered="#{not empty subscriptionWizardConversation.model.selectedPaymentInfo}">
             <a4j:outputPanel layout="block" styleClass="m-1">

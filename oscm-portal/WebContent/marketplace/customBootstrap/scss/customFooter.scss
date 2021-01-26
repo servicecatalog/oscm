@@ -5,7 +5,7 @@
 
 @import "myvariables";
 
-$toggled-background: if($enable-dark-theme, $dark, $light);
+$toggled-background: if($enable-dark-navigation, $dark, $light);
 
 .bootstrap_footer {
 	background: $toggled-background;
