@@ -23,8 +23,8 @@
  <script type="text/javascript">
   AdmUtils.IE9PlaceHolderFix('#{searchPhraseProperty}', '#{formId}:searchField');
   window.onunload = function() {
-   document.getElementById('subListForm:searchField').value = "";
-   document.getElementById('subListForm:submitLink').click();
+   document.getElementById('#{formId}:searchField').value = "";
+   document.getElementById('#{formId}:submitLink').click();
   };
  </script>
 </ui:composition>
