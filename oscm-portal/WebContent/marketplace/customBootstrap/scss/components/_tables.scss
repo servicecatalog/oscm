@@ -7,17 +7,17 @@
 .table-striped > tbody > tr {
   &:nth-of-type(odd) > td {
     padding-left: 10px;
-    background: $theme-bg-color;
+    background: $theme-table-odd-color;
   }
 
   &:nth-of-type(even) > td {
     padding-left: 10px;
-    background: $color_gallery_approx;
+    background: $theme-table-even-color;
   }
 }
 
 .table-hover tbody tr:hover td {
-  background: $theme_table_hover_color;
+  background: $theme-table-hover-color;
 }
 
 .col-icon {
@@ -45,7 +45,7 @@
       white-space: normal;
       border-bottom-width: 1px;
       border-bottom-style: solid;
-      border-bottom-color: $color_alto_approx;
+      border-bottom-color: $theme-table-border-color;
     }
 
     thead {

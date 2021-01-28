@@ -1,7 +1,10 @@
 $enable-dark-theme: false;
-$dark: #343a40;
+$dark-lighter: #343a40;
+$dark-lightest: #495057;
 $light: #dee2e6;
-$theme_bg_color: if($enable-dark-theme, $dark, $white);
+$theme_bg_color: if($enable-dark-theme, $dark-lighter, $white);
 $theme_text_color: if($enable-dark-theme, $light, $almost_black);
 $supplier_text_color:  if($enable-dark-theme, $light, $color_river_bed_approx);
-$theme_table_hover_color: if($enable-dark-theme, $dark, $color_river_bed_approx);
+$theme_table_bg_color: if($enable-dark-theme, $dark-lighter, $white);
+$theme_table_border_color: if($enable-dark-theme, $dark-lightest, $color_alto_approx);
+$theme_table_hover_color: if($enable-dark-theme, $dark-lightest, $color_river_bed_approx);
