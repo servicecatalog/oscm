@@ -33,7 +33,7 @@
         </a4j:commandLink>
       </div>
       <div class="col-12">
-        <rich:dataTable height="220px" styleClass="w-100" rowKeyVar="index"
+        <rich:dataTable height="220px" styleClass="table-bordered table-striped w-100" rowKeyVar="index"
                         onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
                         headerClass="rowTitle" rowClasses="rowOdd,rowEven" id="paymentOptionListTable"
                         value="#{paymentInfoBean.paymentInfos}" var="paymentInfo" selectionMode="single"
