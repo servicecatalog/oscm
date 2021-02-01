@@ -15,8 +15,7 @@
 }
 
 .table-hover > tbody > tr:hover > td {
-  $hover-background: darken($theme-table-bg-color, 5%);
-  background-color: $hover-background;
+  background-color: $theme-table-hover-color;
 } 
 
 .col-icon {
