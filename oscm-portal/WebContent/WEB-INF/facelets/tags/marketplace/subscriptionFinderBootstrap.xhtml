@@ -22,9 +22,6 @@
  </div>
  <script type="text/javascript">
   AdmUtils.IE9PlaceHolderFix('#{searchPhraseProperty}', '#{formId}:searchField');
-  window.onunload = function() {
-   document.getElementById('#{formId}:searchField').value = "";
-   document.getElementById('#{formId}:submitLink').click();
-  };
+  AdmUtils.clearSearches('#{formId}:searchField', '#{formId}:submitLink');
  </script>
 </ui:composition>
