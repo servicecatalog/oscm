@@ -14,7 +14,7 @@
   background-color: $theme-table-even-color !important;
 }
 
-.table-hover tbody tr:hover td {
+.table-hover > tbody > tr:hover > td {
   $hover-background: darken($theme-table-bg-color, 5%);
   background-color: $hover-background;
 } 
