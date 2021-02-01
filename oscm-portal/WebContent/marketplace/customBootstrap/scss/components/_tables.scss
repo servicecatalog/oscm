@@ -4,24 +4,12 @@
   display: flow-root;
 }
 
-.table-striped > tbody > tr {
-  &:nth-of-type(odd) > td {
-    padding-left: 10px;
-    background: $theme-table-odd-color;
-  }
-
-  &:nth-of-type(even) > td {
-    padding-left: 10px;
-    background: $theme-table-even-color;
-  }
-}
-
-.table-striped > tbody:nth-child(odd)> tr > td {
+.table-striped > tbody > tr.rowOdd > td {
    padding-left: 10px;
    background-color: $theme-table-odd-color !important;
 }
 
-.table-striped > tbody:nth-child(even) > tr > td {
+.table-striped > tbody > tr.rowEven > td {
   padding-left: 10px;
   background-color: $theme-table-even-color !important;
 }
