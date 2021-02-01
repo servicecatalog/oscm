@@ -18,7 +18,7 @@
                onsubmit="jQuery('body').addClass('hourglass');"/>
 
     <rich:dataTable rows="10" id="groupListTable" value="#{userGroupListCtrl.model.groups}" var="group"
-                    styleClass="sortable table-hover table-bordered w-100" headerClass="rowTitle" render="pagerPanel"
+                    styleClass="sortable table-hover table-striped table-bordered w-100" headerClass="rowTitle" render="pagerPanel"
                     rowClasses="rowOdd,rowEven" columnClasses="wrapColumns" selectionMode="single"
                     onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
                     enableContextMenu="false" noDataLabel=" " sortMode="single">

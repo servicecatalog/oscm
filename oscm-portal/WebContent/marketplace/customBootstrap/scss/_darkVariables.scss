@@ -1,5 +1,5 @@
 $enable-dark-navigation: true;
-$enable-dark-theme: false;
+$enable-dark-theme: true;
 
 $main-color: $green;
 
@@ -85,11 +85,14 @@ $modal_dialog_text_color: $light;
 // Tables
 $table-bg: $dark-lightest;
 
-// Convert table img colors to white
-.editPen, .sort-icons > img, .rf-csttg-colps > img {
+// Convert table img colors to white 
+.editPen {
    filter: invert(1%) sepia(1%) saturate(1%) hue-rotate(1deg) brightness(1000%) contrast(80%) !important;
 }
 
+.sort-icons > img, .rf-csttg-colps > img {
+   filter: grayscale(1) invert(1);
+}
 }
 
 // Inputs
