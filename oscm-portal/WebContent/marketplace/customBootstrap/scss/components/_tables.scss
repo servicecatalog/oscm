@@ -16,9 +16,20 @@
   }
 }
 
-.table-hover tbody tr:hover td {
-  background: $theme-table-hover-color;
+.table-striped > tbody:nth-child(odd)> tr > td {
+   padding-left: 10px;
+   background-color: $theme-table-odd-color !important;
 }
+
+.table-striped > tbody:nth-child(even) > tr > td {
+  padding-left: 10px;
+  background-color: $theme-table-even-color !important;
+}
+
+.table-hover tbody tr:hover td {
+  $hover-background: darken($theme-table-bg-color, 5%);
+  background-color: $hover-background;
+} 
 
 .col-icon {
   width: 20px;
