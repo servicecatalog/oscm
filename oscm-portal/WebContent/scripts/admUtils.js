@@ -2314,5 +2314,5 @@ AdmUtils.clearSearches = function(searchId, buttonId) {
  window.onunload = function() {
    document.getElementById(searchId).value = "";
    document.getElementById(buttonId).click();
-  };
+ };
 }
