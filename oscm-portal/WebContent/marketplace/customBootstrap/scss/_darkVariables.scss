@@ -1,5 +1,5 @@
 $enable-dark-navigation: true;
-$enable-dark-theme: true;
+$enable-dark-theme: false;
 
 $main-color: $green;
 
@@ -90,7 +90,7 @@ $table-bg: $dark-lightest;
    filter: invert(1%) sepia(1%) saturate(1%) hue-rotate(1deg) brightness(1000%) contrast(80%) !important;
 }
 
-.sort-icons > img, .rf-csttg-colps > img {
+.sort-icons > img, .rf-csttg-colps > img, .rf-csttg-exp > img {
    filter: grayscale(1) invert(1);
 }
 }
