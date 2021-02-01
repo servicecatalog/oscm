@@ -14,6 +14,10 @@
   color: $theme_table_hover_color;
 }
 
+.rowTitle th:hover > div.input-group > input {
+    background-color: $white;
+}
+
 .rowTitle th>div {
   padding: 2px 0;
 }
