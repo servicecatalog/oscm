@@ -16,7 +16,7 @@ $theme-card-hover-bg: if($enable-dark-theme, $card-hover-color, $gray);
 $aside-heading-color: if($enable-dark-theme, $light, $color_dorado_approx);
 
 // Tables
-$theme-table-hover-color: if($enable-dark-theme, $dark-lightest, $color_light_athens_gray_approx);
+$theme-table-hover-color: if($enable-dark-theme, darken($dark-lightest-lightest, 10%), $color_light_athens_gray_approx);
 $theme-table-bg-color: $theme-bg-color;
 $theme-table-odd-color: if($enable-dark-theme, $dark-lightest-lightest, $white);
 $theme-table-even-color:  if($enable-dark-theme, $dark-lighter, $color_gallery_approx); 
