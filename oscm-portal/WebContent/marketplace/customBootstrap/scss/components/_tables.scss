@@ -70,7 +70,7 @@
       }
 
       &:last-child {
-        border-bottom: 1px $color_everglade_approx solid;
+        border-bottom: 1px $theme-table-border-bottom-color;
       }
     }
   }

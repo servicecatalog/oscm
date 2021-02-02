@@ -21,3 +21,4 @@ $theme-table-bg-color: $theme-bg-color;
 $theme-table-odd-color: if($enable-dark-theme, $dark-lightest, $white);
 $theme-table-even-color:  if($enable-dark-theme, $dark-lighter, $color_gallery_approx); 
 $theme-table-border-color: if($enable-dark-theme, darken($dark-lighter, 7%), $color_alto_approx);
+$theme-table-border-bottom-color: if($enable-dark-theme, darken($dark-lighter, 7%), $color_everglade_approx solid);
