@@ -10,11 +10,11 @@
     <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
   </ui:define>
 
-   <ui:define name="breadcrumbs">
+  <ui:define name="breadcrumbs">
     <mp:bootstrapBreadcrumbs menu="#{true}">
-     <mp:crumb labelPageId="marketplace.account"/>
+      <mp:crumb labelPageId="marketplace.account"/>
     </mp:bootstrapBreadcrumbs>
-   </ui:define>
+  </ui:define>
 
   <ui:define name="aside">
     <mp:bootstrapNavigationMenu bean="#{accountNavigationBean}" selected="marketplace.account.title"/>
@@ -142,10 +142,7 @@
               <a4j:outputPanel layout="block" styleClass="accountBox">
                 <c:forEach items="#{reportBean.filteredReports}" var="report" varStatus="v">
                   <a4j:outputPanel layout="block" styleClass="mb-2">
-                    <h:outputLink value="reports.jsf?sr=#{v.index}" id="reportLink#{v.index}">
-                      <h:outputText value="#{report.localizedReportName}"/>
-                      <br/>
-                    </h:outputLink>
+                    <h:outputText value="#{report.localizedReportName}"/>
                   </a4j:outputPanel>
                 </c:forEach>
               </a4j:outputPanel>
