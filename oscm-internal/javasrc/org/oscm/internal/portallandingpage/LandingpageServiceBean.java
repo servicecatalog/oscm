@@ -7,10 +7,8 @@
  */
 package org.oscm.internal.portallandingpage;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -58,13 +56,13 @@ public class LandingpageServiceBean implements LandingpageService {
 
       if (product != null) {
 
-        long templateKey = product.getKey();
+        AtomicLong templateKey = new AtomicLong(product.getKey());
 
-        if(product.getType().equals(ServiceType.PARTNER_TEMPLATE)){
-          templateKey = product.getTemplate().getKey();
-        }
+        Optional.ofNullable(product.getType())
+            .filter(ServiceType.PARTNER_TEMPLATE::equals)
+            .ifPresent(isPartner -> templateKey.set(product.getTemplate().getKey()));
 
-        ImageResource imageResource = irsl.read(templateKey, ImageType.SERVICE_IMAGE);
+        ImageResource imageResource = irsl.read(templateKey.get(), ImageType.SERVICE_IMAGE);
         if (imageResource != null) {
           vo = new VOImageResource();
           vo.setBuffer(imageResource.getBuffer());
