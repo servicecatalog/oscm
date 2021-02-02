@@ -9,6 +9,13 @@
  */
 package org.oscm.internal.portallandingpage;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.dataservice.local.DataService;
@@ -19,14 +26,6 @@ import org.oscm.internal.types.enumtypes.ImageType;
 import org.oscm.internal.types.enumtypes.ServiceType;
 import org.oscm.internal.vo.VOImageResource;
 import org.oscm.internal.vo.VOService;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.*;
-import static org.mockito.Mockito.*;
 
 public class LandingpageServiceBeanTest {
 
@@ -55,7 +54,7 @@ public class LandingpageServiceBeanTest {
     service.setKey(123456789);
     service.setServiceType(ServiceType.TEMPLATE);
     services.add(service);
-    byte[] bytes = new byte[]{11, 22, 33, 44};
+    byte[] bytes = new byte[] {11, 22, 33, 44};
 
     ImageResource imageResource = new ImageResource(123456789, ImageType.SERVICE_IMAGE);
     imageResource.setBuffer(bytes);
@@ -86,7 +85,7 @@ public class LandingpageServiceBeanTest {
     service.setKey(123456789);
     service.setServiceType(ServiceType.TEMPLATE);
     services.add(service);
-    byte[] bytes = new byte[]{11, 22, 33, 44};
+    byte[] bytes = new byte[] {11, 22, 33, 44};
 
     ImageResource imageResource = new ImageResource(123456789, ImageType.SERVICE_IMAGE);
     imageResource.setBuffer(bytes);
