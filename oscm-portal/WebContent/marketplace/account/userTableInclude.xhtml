@@ -32,7 +32,7 @@
         rendered="#{(showCheckBox eq 'true') }"
         sortBy="#{user.selected}"
         sortOrder="#{tableState.sortOrders[colAssign]}">
-        <h:selectBooleanCheckbox id="assignCheckbox" value="#{user.selected}" onclick="setDirty(true);">
+        <h:selectBooleanCheckbox id="assignCheckbox" value="#{user.selected}" onclick="setDirty(true);" class="m-1">
           <f:ajax event="change"/>
         </h:selectBooleanCheckbox>
       </rich:column>
