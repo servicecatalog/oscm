@@ -51,7 +51,7 @@
                                      renderElementList="subListForm subListPager subListPagerScripts :pagerPanel :subscriptionsListScripts subscriptionDetailsPanel"/>
      <rich:dataTable rows="10" id="subscriptionsList" value="#{mySubscriptionsCtrl.model}" var="sub"
                      headerClass="rowTitle sortable" columnHeaderClass="rowTitle sortable"
-                     styleClass="sortable table-with-selectable-rows w-100"
+                     styleClass="sortable table-with-selectable-rows table-hover table-bordered table-striped w-100"
                      headerCellClass="rowTitle sortable" columnClasses="wrapColumns" rowClasses="rowOdd,rowEven"
                      onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
                      noDataLabel=" " onrowclick="AdmUtils.showProgress(true); validateSubscriptionStatus('#{sub.key}')">

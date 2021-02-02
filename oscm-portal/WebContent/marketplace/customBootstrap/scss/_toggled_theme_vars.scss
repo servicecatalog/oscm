@@ -16,4 +16,9 @@ $theme-card-hover-bg: if($enable-dark-theme, $card-hover-color, $gray);
 $aside-heading-color: if($enable-dark-theme, $light, $color_dorado_approx);
 
 // Tables
-$theme_table_hover_color: if($enable-dark-theme, $dark, $color_light_athens_gray_approx);
+$theme-table-hover-color: if($enable-dark-theme, lighten($dark-lightest, 30%), $color_light_athens_gray_approx);
+$theme-table-bg-color: $theme-bg-color;
+$theme-table-odd-color: if($enable-dark-theme, $dark-lightest, $white);
+$theme-table-even-color:  if($enable-dark-theme, $dark-lighter, $color_gallery_approx); 
+$theme-table-border-color: if($enable-dark-theme, darken($dark-lighter, 7%), $color_alto_approx);
+$theme-table-border-bottom-color: if($enable-dark-theme, darken($dark-lighter, 7%), $color_everglade_approx solid);
