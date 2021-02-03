@@ -4,6 +4,9 @@ $body-bg: if($enable-dark-theme, $black, $white);
 // Breadcrumbs
 $theme-breadcrumb-bg: if($enable-dark-theme, $body-bg, $color_athens_gray_approx);
 
+// Breadcrumbs
+$breadcrumb-active-color: if($enable-dark-theme, lighten($secondary, 20%), $secondary);
+
 // General theme 
 $theme-border-color: if($enable-dark-theme, $dark, $color_gallery_approx);
 $theme-bg-color: if($enable-dark-theme, $dark-lightest, $white);
