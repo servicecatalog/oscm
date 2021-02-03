@@ -1,7 +1,7 @@
 $enable-dark-theme: false;
 $dark-lighter: #343a40;
 $dark-lightest: #495057;
-$light: #dee2e6;
+$light: #e9ecef;
 $theme_bg_color: if($enable-dark-theme, $dark-lighter, $white);
 $theme_text_color: if($enable-dark-theme, $light, $almost_black);
 $supplier_text_color:  if($enable-dark-theme, $light, $color_river_bed_approx);
