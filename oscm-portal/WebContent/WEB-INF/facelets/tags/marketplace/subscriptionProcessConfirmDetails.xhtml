@@ -41,7 +41,7 @@
       <div class="col-sm-9 mt-2">
         <mp:outputStepBootstrap value="#{msg['parameter.table.header']}"/>
       </div>
-      <div class="col-sm-2 mt-2 align-self-center text-center">
+      <div class="col-sm-3 mt-2 align-self-center text-center">
         <h:outputLink id="editConfigurationLink" styleClass="btn btn-sm btn-outline-secondary w-sm-100"
                       onclick="setDirty(false);if(AdmUtils.isNotDirtyOrConfirmed()) {#{rich:element('hiddenConfigurationChange')}.click();} return false;">
           <h:outputText value="#{msg['subscription.confirm.serviceConfiguration.change']}"/>
