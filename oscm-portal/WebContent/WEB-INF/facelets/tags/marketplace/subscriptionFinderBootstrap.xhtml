@@ -8,8 +8,8 @@
  <div id="subscriptionSearch" class="input-group mb-3 float-right" style="max-width: 350px">
   <h:inputHidden id="searchPhrase" value="#{searchPhraseProperty}"/>
   <input id="#{formId}:searchField" class="form-control form-control-sm rounded" placeholder="#{subSearchPlaceHolderText}"
-         maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
-         onkeydown="AdmUtils.clickOnReturn(event,'#{formId}:submitLink');" onfocus="this.value = '';"/>
+         maxlength="#{servicePagingBean.maxLengthSearchPhrase}" onfocus="this.value = '';"
+         onkeydown="AdmUtils.clickOnReturn(event,'#{formId}:submitLink');" value="#{searchPhraseProperty}"/>
   <div class="input-group-append">
    <a4j:commandLink id="submitLink" value=" " execute="@form" styleClass="btn btn-outline-secondary btn-sm rounded"
                     onclick="AdmUtils.IE9OnClick('#{formId}:searchField');AdmUtils.showProgress(true);
@@ -20,5 +20,8 @@
   </div>
   <h:inputHidden value="UTF-8" name="ie"/>
  </div>
- <script type="text/javascript">AdmUtils.IE9PlaceHolderFix('#{searchPhraseProperty}', '#{formId}:searchField');</script>
+ <script type="text/javascript">
+  AdmUtils.IE9PlaceHolderFix('#{searchPhraseProperty}', '#{formId}:searchField');
+  AdmUtils.clearSearches('#{formId}:searchField', '#{formId}:submitLink');
+ </script>
 </ui:composition>
