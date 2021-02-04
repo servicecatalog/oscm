@@ -11,7 +11,7 @@ env:
     - HOSTNAME=travis
 
 install:
-  - npm install npm@latest -g
+  - npm install npm@latest-6 -g
   - npm install -g sass
   - scripts/getLibraries.sh
 
