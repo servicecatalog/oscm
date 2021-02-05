@@ -19,7 +19,9 @@
     <adm:keepAlive interval="#{appBean.interval}"/>
     <div id="w_004_h_e_logo">
       <h:form>
-        <a4j:commandButton style="float: left; height: 34px;" oncomplete="#{rich:component('version')}.show()" render="version" image="../img/oscm.png" />
+        <a4j:commandLink styleClass="logo-button" oncomplete="#{rich:component('version')}.show()" render="version">
+          <h:graphicImage url="../img/oscm.png"/>
+        </a4j:commandLink>
       </h:form>
       <c:if test="#{not empty showUserId}">
         <!-- username/logout -->

@@ -2437,3 +2437,8 @@ table.dataTable > tbody > td:hover {
   display: flex;
   width: fit-content;
 }
+
+.logo-button {
+  float: left;
+  height: 34px;
+}
