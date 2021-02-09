@@ -28,11 +28,6 @@ $card-bg-color: $dark-lightest;
 
 @import "toggled_theme_vars";
 
-// Link colors.
-$link-color: $secondary;
-$link-hover-color: $secondary;
-
-
 // Dropdowns
 $dropdown-link-active-bg: $primary;
 
@@ -45,8 +40,12 @@ $body-color: $gray-100;
 // Breadcrumbs
 $breadcrumb-bg: $dark-lightest;
 
+// Inputs
 $input-bg: $dark-lighter;
 $custom-select-bg: $input-bg; 
+
+$input-focus-bg: $input-bg;
+$input-focus-color: $white;
 
 // Dropdowns
 $dropdown-bg: $dark-lightest;
@@ -65,7 +64,7 @@ $list-group-action-active-bg:       $primary;
 
 
 .list-group-item {
-   color: $white !important;
+   color: $light;
 }
 
 // Modal dialogs
