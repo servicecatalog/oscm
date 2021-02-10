@@ -1,3 +1,5 @@
+@import "./basic/color_contrast_utilities";
+
 $enable-dark-navigation: true;
 $enable-dark-theme: false;
 
@@ -5,6 +7,10 @@ $main-color: $green;
 
 $secondary: $main-color;
 $primary: $main-color;
+
+$main-color-for-theme: if($enable-dark-theme, adjust-color-contrast($main-color, $dark), $main-color);
+$adjusted-primary: $main-color-for-theme;
+$adjusted-secondary: $main-color-for-theme;
 
 $dark: $gray-900;
 $dark-lighter: $gray-800;

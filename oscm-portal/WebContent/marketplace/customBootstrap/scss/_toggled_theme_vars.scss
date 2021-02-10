@@ -9,7 +9,6 @@ $theme-border-color: if($enable-dark-theme, $dark, $color_gallery_approx);
 $theme-bg-color: if($enable-dark-theme, $dark-lightest, $white);
 
 // Link colors.
-$adjusted-secondary: if($enable-dark-theme, lighten($secondary, 20%), $secondary);
 $link-color: $adjusted-secondary;
 $link-hover-color: $link-color;
 
