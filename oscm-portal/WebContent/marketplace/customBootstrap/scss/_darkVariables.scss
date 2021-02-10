@@ -73,6 +73,10 @@ $list-group-action-active-bg:       $primary;
    color: $light;
 }
 
+.list-group-item-dark {
+  color: color-yiq(theme-color-level($dark, -9));
+}
+
 // Modal dialogs
 .rf-pp-cnt {
  color: $light !important;
