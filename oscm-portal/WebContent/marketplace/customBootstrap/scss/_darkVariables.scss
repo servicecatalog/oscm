@@ -8,10 +8,6 @@ $main-color: $green;
 $secondary: $main-color;
 $primary: $main-color;
 
-$main-color-for-theme: if($enable-dark-theme, adjust-color-contrast($main-color, $dark), $main-color);
-$adjusted-primary: $main-color-for-theme;
-$adjusted-secondary: $main-color-for-theme;
-
 $dark: $gray-900;
 $dark-lighter: $gray-800;
 $dark-lightest: $gray-700;
@@ -74,7 +70,7 @@ $list-group-action-active-bg:       $primary;
 }
 
 .list-group-item-dark {
-  color: color-yiq(theme-color-level($dark, -9));
+  color: color-yiq($dark);
 }
 
 // Modal dialogs
