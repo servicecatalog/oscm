@@ -1,7 +1,6 @@
 $toggled_navigation_theme: if($enable-dark-navigation, "dark", "light");
 $toggled_theme: if($enable-dark-theme, "dark", "light");
 
- 
 .navbar-themed  {
   @extend .bg-#{$toggled_navigation_theme};
   @extend .navbar-#{$toggled_navigation_theme};
@@ -18,4 +17,19 @@ $toggled_theme: if($enable-dark-theme, "dark", "light");
 .border-themed {
   @extend .border-#{$toggled_theme};
 }
-   
+
+.btn-primary {
+    @include button-variant($adjusted-primary, darken($adjusted-primary, 7.5%), darken($adjusted-primary, 10%), lighten($adjusted-primary,5%), lighten($adjusted-primary, 10%), darken($adjusted-primary,30%));
+}
+    
+.btn-outline-primary {
+    @include button-outline-variant($adjusted-primary, #222222, lighten($adjusted-primary,5%), $adjusted-primary);
+}
+
+.btn-secondary {
+    @include button-variant($adjusted-secondary, darken($adjusted-secondary, 7.5%), darken($adjusted-secondary, 10%), lighten($adjusted-secondary,5%), lighten($adjusted-secondary, 10%), darken($adjusted-secondary,30%));
+}
+    
+.btn-outline-secondary {
+    @include button-outline-variant($adjusted-secondary, #222222, lighten($adjusted-secondary,5%), $adjusted-secondary);
+}
