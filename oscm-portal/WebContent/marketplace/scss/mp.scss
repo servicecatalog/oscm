@@ -858,8 +858,12 @@ table.smallPanel {
   color: $color_dusty_gray_approx;
 }
 
-td:hover .subscriptionPending, td:hover .serverSubscriptionSuspended, td:hover .subscriptionWaitingForApproval, td:hover .subscriptionPendingUpd {
-  color: color-yiq($theme_table_hover_color) !important;
+td:hover .subscriptionStatus {
+  color: $theme_subscription_status_hover_color;
+}
+
+.subscriptionStatus span:hover {
+  color: $theme_subscription_status_hover_color;
 }
 .provisioningProgress {
   margin-top: 10px;
