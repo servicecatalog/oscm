@@ -865,7 +865,7 @@ td:hover .subscriptionPending, td:hover .serverSubscriptionSuspended, td:hover .
   color: $color_dusty_gray_approx;
 }
 
-.subscriptionPending:hover, .serverSubscriptionSuspended:hover, .subscriptionWaitingForApproval:hover, .subscriptionPendingUpd:hover {
+td:hover .subscriptionPending, td:hover .serverSubscriptionSuspended, td:hover .subscriptionWaitingForApproval, td:hover .subscriptionPendingUpd {
   color: color-yiq($theme_table_hover_color) !important;
 }
 .provisioningProgress {
