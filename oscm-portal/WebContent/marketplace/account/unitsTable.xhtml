@@ -43,12 +43,11 @@
           <h:outputText value="#{msg['group.groupName']}"/>
           <adm:filterInputBootstrap inputId="filterGroupName" inputValue="#{tableState.filterValues['colGroupName']}"
                                     render="groupListTable@body, pagerPanel"/>
-        
+        </f:facet>
         <a4j:outputPanel layout="block" id="groupNameText"
                          styleClass="stringInMultiLine preserveWhitespaces">
           <h:outputText id="groupName" value="#{group.groupName}"/>
         </a4j:outputPanel>
-        </f:facet>
       </rich:column>
 
       <rich:column id="colGroupReferenceId" width="#{moreWidth}" sortBy="#{group.groupReferenceId}"
@@ -61,12 +60,11 @@
           <h:outputText value="#{msg['group.referenceId']}"/>
           <adm:filterInputBootstrap inputId="filterGroupReferenceId" render="groupListTable@body, pagerPanel"
                                     inputValue="#{tableState.filterValues['colGroupReferenceId']}"/>
-        
+        </f:facet>
         <a4j:outputPanel layout="block" id="groupReferenceIdText"
                          styleClass="stringInMultiLine preserveWhitespaces">
           <h:outputText id="groupReferenceId" value="#{group.groupReferenceId}" title="#{group.groupReferenceId}"/>
         </a4j:outputPanel>
-        </f:facet>
       </rich:column>
 
       <rich:column id="colGroupDescription" width="#{normalWidth}" sortBy="#{group.groupDescription}"
@@ -79,12 +77,11 @@
           <h:outputText value="#{msg['group.groupDescription']}"/>
           <adm:filterInputBootstrap inputId="filterGroupDescription" render="groupListTable@body, pagerPanel"
                                     inputValue="#{tableState.filterValues['colGroupDescription']}"/>
-        
+        </f:facet>
         <a4j:outputPanel layout="block" id="groupDescriptionText"
                          styleClass="clippedOutputLabel shortenedText preserveWhitespaces">
           <h:outputText id="groupDescription" value="#{group.groupDescription}" title="#{group.groupDescription}"/>
         </a4j:outputPanel>
-        </f:facet>
       </rich:column>
 
       <rich:column id="colNumberOfUsers" sortBy="#{group.userNum}" sortIcon="#{sortIcon}"
@@ -95,11 +92,11 @@
         <f:facet name="header">
           <h:outputText value="#{msg['group.numberOfUsers']}"/>
           <adm:filterInputBootstrap inputId="filterUserNum" render="groupListTable@body, pagerPanel"
-                                    inputValue="#{tableState.filterValues['colNumberOfUsers']}"/>      
+                                    inputValue="#{tableState.filterValues['colNumberOfUsers']}"/>
+        </f:facet>
         <a4j:outputPanel layout="block" id="groupUserNumber">
           <h:outputText id="numberOfUsers" value="#{group.userNum}"/>
         </a4j:outputPanel>
-        </f:facet>
       </rich:column>
 
       <rich:column id="colDeleteGroup" width="#{iconWidth}" rendered="#{showDeleteButtons}"
