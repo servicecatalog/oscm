@@ -18,6 +18,8 @@ $toggled_theme: if($enable-dark-theme, "dark", "light");
   @extend .border-#{$toggled_theme};
 }
 
+@if $enable-dark-theme {
+  
 .btn-primary {
     @include button-variant($adjusted-primary, darken($adjusted-primary, 7.5%), darken($adjusted-primary, 10%), lighten($adjusted-primary,5%), lighten($adjusted-primary, 10%), darken($adjusted-primary,30%));
 }
@@ -32,4 +34,5 @@ $toggled_theme: if($enable-dark-theme, "dark", "light");
     
 .btn-outline-secondary {
     @include button-outline-variant($adjusted-secondary, #222222, lighten($adjusted-secondary,5%), $adjusted-secondary);
+}
 }
