@@ -19,20 +19,17 @@ $toggled_theme: if($enable-dark-theme, "dark", "light");
 }
 
 @if $enable-dark-theme {
-  
-.btn-primary {
-    @include button-variant($adjusted-primary, darken($adjusted-primary, 7.5%), darken($adjusted-primary, 10%), lighten($adjusted-primary,5%), lighten($adjusted-primary, 10%), darken($adjusted-primary,30%));
-}
-    
-.btn-outline-primary {
-    @include button-outline-variant($adjusted-primary, #222222, lighten($adjusted-primary,5%), $adjusted-primary);
-}
+  .btn-primary {
+     @include button-variant($adjusted-primary, $adjusted-primary);
+  }
+  .btn-secondary {
+     @include button-variant($adjusted-secondary, $adjusted-secondary);
+  }
 
-.btn-secondary {
-    @include button-variant($adjusted-secondary, darken($adjusted-secondary, 7.5%), darken($adjusted-secondary, 10%), lighten($adjusted-secondary,5%), lighten($adjusted-secondary, 10%), darken($adjusted-secondary,30%));
-}
-    
-.btn-outline-secondary {
-    @include button-outline-variant($adjusted-secondary, #222222, lighten($adjusted-secondary,5%), $adjusted-secondary);
-}
+  .btn-outline-primary {
+    @include button-variant($adjusted-primary, $adjusted-primary);
+  }
+  .btn-outline-secondary {
+    @include button-variant($adjusted-secondary, $adjusted-secondary);
+  }
 }
