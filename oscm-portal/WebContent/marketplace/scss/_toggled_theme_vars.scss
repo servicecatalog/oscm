@@ -7,4 +7,5 @@ $theme_text_color: if($enable-dark-theme, $light, $almost_black);
 $supplier_text_color:  if($enable-dark-theme, $light, $color_river_bed_approx);
 $theme_table_bg_color: if($enable-dark-theme, $dark-lighter, $white);
 $theme_table_border_color: if($enable-dark-theme, darken($dark-lighter, 7%), $color_alto_approx);
-$theme_table_hover_color: if($enable-dark-theme, $dark-lightest, $color_river_bed_approx);
+$theme_table_hover_color: if($enable-dark-theme, lighten($dark-lightest, 30%), $color_river_bed_approx);
+$theme_subscription_status_hover_color: if($enable-dark-theme, $almost_black, $color_dusty_gray_approx);

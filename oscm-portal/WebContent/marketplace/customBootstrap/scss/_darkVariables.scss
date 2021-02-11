@@ -13,11 +13,13 @@ $dark-lightest: $gray-700;
 $footer-link-color: $white;
 
 $interior-color: $white;
+$light: $gray-200;
 
 $theme-colors: (
    "primary": $primary,
    "secondary": $secondary,
-   "dark": $dark
+   "dark": $dark,
+   "light": $light
 );
 
 // Cards
@@ -45,8 +47,12 @@ $body-color: $gray-100;
 // Breadcrumbs
 $breadcrumb-bg: $dark-lightest;
 
+// Inputs
 $input-bg: $dark-lighter;
 $custom-select-bg: $input-bg; 
+
+$input-focus-bg: $input-bg;
+$input-focus-color: $white;
 
 // Dropdowns
 $dropdown-bg: $dark-lightest;
@@ -65,7 +71,7 @@ $list-group-action-active-bg:       $primary;
 
 
 .list-group-item {
-   color: $white !important;
+   color: $light;
 }
 
 // Modal dialogs

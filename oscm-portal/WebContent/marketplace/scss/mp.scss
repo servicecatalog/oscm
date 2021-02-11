@@ -852,6 +852,13 @@ table.smallPanel {
   color: $color_dusty_gray_approx;
 }
 
+td:hover .subscriptionStatus {
+  color: $theme_subscription_status_hover_color;
+}
+td:hover .subscriptionPending, td:hover .serverSubscriptionSuspended, td:hover .subscriptionWaitingForApproval, td:hover .subscriptionPendingUpd {
+  color: $theme_subscription_status_hover_color;
+}
+
 /* show for subscription suspended/pending/waiting_for_approval/pending_update */
 .subscriptionPending, .serverSubscriptionSuspended, .subscriptionWaitingForApproval, .subscriptionPendingUpd {
   background: transparent $mp_icon_sprite no-repeat scroll 0 -731px;
