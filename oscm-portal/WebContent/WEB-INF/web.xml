@@ -168,7 +168,7 @@
     <filter-class>org.oscm.ui.filter.OidcFilter</filter-class>
     <init-param>
       <param-name>exclude-url-pattern</param-name>
-      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/bootstrap/js/.*|.*/faq/.*|^/public/.*)
+      <param-value>(.*/a4j/.*|.*/img/.*|.*/css/.*|.*/fonts/.*|.*/scripts/.*|.*/bootstrap/js/.*|.*/org.richfaces.resources/.*|.*/faq/.*|^/public/.*)
       </param-value>
     </init-param>
     <init-param>
