@@ -862,6 +862,10 @@ td:hover .subscriptionStatus {
   color: $theme_subscription_status_hover_color;
 }
 
+td:hover .subscriptionPending, td:hover .serverSubscriptionSuspended, td:hover .subscriptionWaitingForApproval, td:hover .subscriptionPendingUpd {
+  color: $theme_subscription_status_hover_color;
+}
+
 .subscriptionStatus span:hover {
   color: $theme_subscription_status_hover_color;
 }
