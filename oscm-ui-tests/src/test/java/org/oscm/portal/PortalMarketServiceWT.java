@@ -144,7 +144,6 @@ public class PortalMarketServiceWT {
   public void test04activeService() throws Exception {
 
     tester.visitPortal(PortalPathSegments.ACTIVE_MARKETSERVICE);
-    tester.waitForElement(By.id(PortalHtmlElements.DEACTIVATION_SERVICE_TABLE), 5);
 
     String serviceXpath = "//input[@id='input_serviceDeActivationForm:j_idt491:0:active']";
     if (tester.getDriver().findElements(By.xpath(serviceXpath)).size() != 0) {
@@ -152,7 +151,7 @@ public class PortalMarketServiceWT {
         tester.getDriver().findElement(By.xpath(serviceXpath)).click();
       }
     } else {
-      String serviceOIDCXpath = "//input[@id='input_serviceDeActivationForm:j_idt492:0:active']";
+      String serviceOIDCXpath = "//input[@id='input_serviceDeActivationForm:j_idt493:0:active']";
       if (!tester.getDriver().findElement(By.xpath(serviceOIDCXpath)).isSelected()) {
         tester.getDriver().findElement(By.xpath(serviceOIDCXpath)).click();
       }
