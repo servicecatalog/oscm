@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -78,6 +79,10 @@ public class WebTester {
 
     driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(IMPLICIT_WAIT, TimeUnit.SECONDS);
+    Capabilities caps = ((RemoteWebDriver) driver).getCapabilities();
+    String browserName = caps.getBrowserName();
+    String browserVersion = caps.getVersion();
+    logger.info(browserName + ": " + browserVersion);
     setWaitingTime(IMPLICIT_WAIT);
     setAuthenticationContext();
   }
