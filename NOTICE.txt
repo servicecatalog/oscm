@@ -118,6 +118,7 @@ This software includes the following software licensed under Apache 2.0 license:
   * j2ep
   * j2objc-annotations-1.1
   * j2objc-annotations-1.3
+  * CabParser-2.15
   * jackson-annotations-2.11.3
   * jackson-annotations-2.12.1
   * jackson-annotations-2.8.4
@@ -1488,8 +1489,7 @@ This software includes the following software licensed under EPL 1.0 license:
 
   * ecj-3.12.3 (source code is available at "http://search.maven.org/#search|ga|1|1%3Aade950992eb3caf6ab4f1a88706c755f0bf213d9")
   * junit-4.13.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3Acdd00374f1fee76b11e2a9d127405aa3f6be5b6a")
-  * org.apache.sling.commons.json-2.0.6 (source code is available at "https://repo1.maven.org/maven2/org/apache/sling/org.apache.sling.commons.json/2.0.6")
-  * BIRT 4.5.0 (source code is available at "https://download.eclipse.org/birt/downloads/build.php?build=R-R1-4_5_0-201506092134")
+  * org.apache.sling.commons.json-2.0.6 (source code is available at "")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
 
@@ -2484,10 +2484,9 @@ THE FOREGOING LIMITATIONS SHALL APPLY TO THE MAXIMUM EXTENT PERMITTED BY APPLICA
 -------------------------------------------------------
 This software includes the following software licensed under GPL 2 with Classpath Exception license:
 
-  * OpenJDK 1.8.0_u232 (source code is available at "")
+  * java-1.8.0-openjdk-1.8.0.282.b08-1.el7_9.x86_64 (source code is available at "https://vault.centos.org/7.9.2009/updates/Source/SPackages/")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
-
 License Text:
 
 The GNU General Public License (GPL)
