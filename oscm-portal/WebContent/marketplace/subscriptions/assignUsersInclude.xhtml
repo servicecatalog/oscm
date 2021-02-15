@@ -38,7 +38,7 @@
     <hr class="mt-3 mb-1"/>
     <div class="row row-justify-space">
       <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
-                          value="#{msg['button.cancel']}" styleClass="btn btn-sm btn-outline-secondary ml-3"/>
+                          value="#{msg['button.cancel']}" styleClass="btn btn-sm btn-outline-secondary ms-3"/>
 
       <a4j:commandButton styleClass="d-none" id="hiddenModalAssignUsersSaveAndHide" value="#{msg['button.save']}"
                          action="#{manageSubscriptionCtrl.assignUsers}"
@@ -51,7 +51,7 @@
       <mp:buttonBootstrap id="saveButton"
                           onclick="setOnSubmit(true);setDirty(false);AdmUtils.showProgress(true);
               #{rich:element('hiddenModalAssignUsersSaveAndHide')}.click();return false;"
-                          value="#{msg['button.assign']}" styleClass="btn btn-sm btn-secondary mr-3"/>
+                          value="#{msg['button.assign']}" styleClass="btn btn-sm btn-secondary me-3"/>
     </div>
   </h:form>
 </ui:composition>

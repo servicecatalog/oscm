@@ -24,7 +24,7 @@
       <h:form id="#{dialogId}Form">
         <!-- Service Name -->
         <div class="row my-2">
-          <div class="col-3 pr-1">
+          <div class="col-3 pe-1">
             <adm:outputLabel value="#{msg['supplier.support.service']}" required="true" renderRequired="false"/>
           </div>
           <div class="col-9">
@@ -33,7 +33,7 @@
         </div>
         <!-- Subscription Name -->
         <div class="row my-2">
-          <div class="col-3 pr-1">
+          <div class="col-3 pe-1">
             <adm:outputLabel value="#{msg['supplier.support.subscription']}" required="true" renderRequired="false"/>
           </div>
           <div class="col-9">
@@ -74,14 +74,14 @@
 
         <hr class="mt-3 mb-1"/>
         <div class="row row-justify-space">
-          <h:outputLink styleClass="btn btn-sm btn-outline-secondary ml-3 text-light text-decoration-none"
+          <h:outputLink styleClass="btn btn-sm btn-outline-secondary ms-3 text-light text-decoration-none"
                         id="#{dialogId}CancelButton" onclick="#{cancelHandler}">
             <h:outputText value="#{msg['button.cancel']}"/>
           </h:outputLink>
           <a4j:commandLink id="#{dialogId}SendButton"
                            action="#{reportIssueBean.reportIssue (manageSubscriptionModel.subscription.subscriptionId)}"
                            render="@form,#{dialogId}modalErrorMasterPanel"
-                           styleClass="btn btn-sm btn-secondary text-light text-decoration-none mr-3"
+                           styleClass="btn btn-sm btn-secondary text-light text-decoration-none me-3"
                            onclick="setDirty(false);AdmUtils.showProgress(true);"
                            oncomplete="AdmUtils.showProgress(false);
                 if(!#{facesContext.maximumSeverity.ordinal > 0})

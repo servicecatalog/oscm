@@ -34,7 +34,7 @@
 
           <div class="list-group list-group-horizontal-sm text-center" id="nav-tab" role="tablist">
             <a class="list-group-item list-group-item-secondary list-group-item-action col-lg-3 col-md-5 col-sm-12 active" id="tabConf"
-               href="#conf" role="tab" aria-controls="conf" data-toggle="tab">#{msg['subscription.configuration']}</a>
+               href="#conf" role="tab" aria-controls="conf" data-bs-toggle="tab">#{msg['subscription.configuration']}</a>
           </div>
 
           <div class="tab-content con-tab" id="myTabContent">
@@ -98,10 +98,10 @@
                 <!-- navigate back to subscription details using navigation rules -->
                 <a4j:outputPanel styleClass="row row-justify-space">
                   <mp:buttonBootstrap id="previousUpgrade" value="#{msg['button.previous']}" keepDirty="false"
-                                      bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ml-3"
+                                      bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ms-3"
                                       action="previous"/>
                   <mp:buttonBootstrap id="next" value="#{msg['button.next']}" bean="#{upgradeWizardConversation}"
-                                      action="selectService" keepDirty="true" styleClass="btn btn-secondary mr-3"/>
+                                      action="selectService" keepDirty="true" styleClass="btn btn-secondary me-3"/>
                 </a4j:outputPanel>
               </h:form>
             </div>

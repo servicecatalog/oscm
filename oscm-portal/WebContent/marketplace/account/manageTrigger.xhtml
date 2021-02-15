@@ -125,18 +125,18 @@
 
           <hr class="mt-3 mb-1"/>
           <div class="row row-justify-space">
-            <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary ml-3" id="#{dialogId}Save"
+            <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary ms-3" id="#{dialogId}Save"
                                 onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('hiddenSaveBtn')}.click(); return false;"
                                 value="#{msg['button.save']}"/>
 
             <div>
-              <mp:buttonBootstrap styleClass="btn btn-sm btn-outline-secondary mr-3" id="#{dialogId}Delete"
+              <mp:buttonBootstrap styleClass="btn btn-sm btn-outline-secondary me-3" id="#{dialogId}Delete"
                                   value="#{msg['button.delete']}"
                                   rendered="#{!triggerDefinitionBean.newTriggerDefinition}"
                                   disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}"
                                   onclick="#{rich:component('confirmPanel')}.show();return false;"/>
 
-              <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary mr-3"
+              <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary me-3"
                                onclick="AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
                                         AdmUtils.clearHiddenErrorPanel(); AdmUtils.deselectRow();
                                         setDirty(false); #{rich:component(dialogId)}.hide();"

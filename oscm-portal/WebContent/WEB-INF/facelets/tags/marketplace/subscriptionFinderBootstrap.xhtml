@@ -5,7 +5,7 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
  <c:set var="subSearchPlaceHolderText" value="#{msg['marketplace.searchSubscriptions']}"/>
- <div id="subscriptionSearch" class="input-group mb-3 float-right" style="max-width: 350px">
+ <div id="subscriptionSearch" class="input-group mb-3 float-end" style="max-width: 350px">
   <h:inputHidden id="searchPhrase" value="#{searchPhraseProperty}"/>
   <input id="#{formId}:searchField" class="form-control form-control-sm rounded" placeholder="#{subSearchPlaceHolderText}"
          maxlength="#{servicePagingBean.maxLengthSearchPhrase}" onfocus="this.value = '';"

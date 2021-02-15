@@ -237,17 +237,17 @@
                                 action="resetPwd"
                                 disabled="#{updateUserCtrl.resetPwdDisabled}"
                                 rendered="#{updateUserCtrl.resetPwdRendered}"
-                                styleClass="btn btn-outline-secondary ml-2"/>
+                                styleClass="btn btn-outline-secondary ms-2"/>
             <mp:buttonBootstrap id="deleteButton" value="#{msg['button.delete']}"
                                 onclick="#{rich:component('confirmPanel')}.show();return false;"
                                 disabled="#{updateUserCtrl.deleteDisabled}"
-                                styleClass="btn btn-outline-secondary ml-2"/>
+                                styleClass="btn btn-outline-secondary ms-2"/>
             <h:commandButton id="saveButton" value="#{msg['button.save']}" action="#{updateUserCtrl.save}"
                              class="d-none"/>
             <adm:buttonCustomizedOnClickBootstrap id="saveButtonLink" onclick="validateCurrentUserRoles();return false;"
                                                   value="#{msg['button.save']}"
                                                   disabled="#{updateUserCtrl.saveDisabled}"
-                                                  buttonStyleClass="btn btn-secondary float-right"
+                                                  buttonStyleClass="btn btn-secondary float-end"
                                                   buttonType="execute"/>
           </a4j:outputPanel>
           <h:inputHidden value="#{updateUserModel.token}"/>
