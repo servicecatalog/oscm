@@ -32,7 +32,7 @@
     </a4j:outputPanel>
   </c:if>
 
-  <div class="row ml-0">
+  <div class="row ms-0">
     <div class="col-sm-5">
       <adm:outputLabel value="#{msg['priceModel.label.freePeriod']}"
                        rendered="#{priceModel.chargeable and priceModel.freePeriod > 0}"/>
@@ -47,7 +47,7 @@
   </div>
 
   <!-- CURRENCY -->
-  <div class="row ml-0">
+  <div class="row ms-0">
     <div class="col-sm-5">
       <adm:outputLabel value="#{msg['priceModel.text.currency.label']}"/>
     </div>
@@ -60,7 +60,7 @@
   </div>
 
   <!-- PERIOD -->
-  <div class="row ml-0">
+  <div class="row ms-0">
     <div class="col-sm-5">
       <adm:outputLabel value="#{msg['priceModel.pricingPeriod']}" rendered="#{priceModel.chargeable}"/>
       <c:set var="key" value="PricingPeriod.#{priceModel.period}"/>
@@ -74,7 +74,7 @@
   </div>
 
   <!-- PERIOD CALCULATION MODE -->
-  <div class="row ml-0">
+  <div class="row ms-0">
     <div class="col-sm-5">
       <adm:outputLabel value="#{msg['priceModel.period.calculation.label']}" rendered="#{priceModel.type=='PER_UNIT'}"/>
     </div>
@@ -90,7 +90,7 @@
   </div>
 
   <!-- ONE TIME FEE -->
-  <div class="row ml-0">
+  <div class="row ms-0">
     <div class="col-sm-5">
       <adm:outputLabel value="#{msg['priceModel.edit.oneTimeFee.label']}"/>
     </div>
@@ -105,7 +105,7 @@
   </div>
 
   <!-- RECURRING CHARGE PER SUBSCRIPTION -->
-  <div class="row ml-0">
+  <div class="row ms-0">
     <div class="col-sm-5">
       <adm:outputLabel value="#{msg['priceModel.combobox.chargePerSubscription.label']}"/>
     </div>
@@ -120,7 +120,7 @@
   </div>
 
   <!-- RECURRING CHARGE PER USER -->
-  <div class="row ml-0">
+  <div class="row ms-0">
     <div class="col-sm-5">
       <adm:outputLabel value="#{msg['priceModel.combobox.chargePerUser.label']}" rendered="#{not model.directAccess}"/>
     </div>

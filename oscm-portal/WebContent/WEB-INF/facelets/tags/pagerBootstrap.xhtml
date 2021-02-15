@@ -47,7 +47,7 @@
 
   <a4j:outputPanel id="#{pagerId}Panel">
    <c:set var="pageValue" value="#{pagerId}pageValue"/>
-   <div class="input-group px-2 d-inline-flex float-right" style="max-width: 120px;">
+   <div class="input-group px-2 d-inline-flex float-end" style="max-width: 120px;">
     <h:inputText id="#{pagerId}pageValue" styleClass="form-control form-control-sm" maxlength="9"
                  placeholder="#{msg['common.pager']}"
                  onkeypress="if((event.which &lt; 48 || event.which &gt; 57) &amp;&amp; event.which != 8) return false;"/>

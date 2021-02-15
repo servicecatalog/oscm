@@ -21,7 +21,7 @@
       </h:outputFormat>
      </h3>
      <!-- usage link -->
-     <h:outputLink styleClass="btn btn-secondary float-right" target="#{subscription.target}"
+     <h:outputLink styleClass="btn btn-secondary float-end" target="#{subscription.target}"
                    id="#{fieldId}ServiceUrl" value="#{subscription.accessUrl}"
                    rendered="#{not subscription.accessViaAccessInfo and (subscription.statusActive or subscription.statusPendingUpd)}">
       <h:outputText value="#{subscription.accessUrl}"/>

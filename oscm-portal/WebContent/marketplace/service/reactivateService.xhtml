@@ -29,11 +29,11 @@
                       render=":#{dialogId}RerenderPanel :#{dialogId}modalErrorMasterPanel #{additionalRender} @form @this @parent"/>
             </h:commandButton>
 
-            <mp:buttonLink id="#{dialogId}cancelButton" styleClass="btn btn-sm btn-outline-secondary ml-3"
+            <mp:buttonLink id="#{dialogId}cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3"
                            onclick="#{rich:component(dialogId)}.hide();return false;"
                            value="#{msg['button.cancel']}"/>
 
-            <mp:buttonLink id="#{dialogId}Reactivate" styleClass="btn btn-sm btn-secondary mr-3"
+            <mp:buttonLink id="#{dialogId}Reactivate" styleClass="btn btn-sm btn-secondary me-3"
                            onclick="#{rich:element('hiddenReactivateButton')}.click(); return false;"
                            value="#{msg['button.service.reactivate']}"/>
 

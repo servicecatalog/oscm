@@ -91,15 +91,15 @@
                   <a4j:outputPanel id="bcInformation" layout="block" styleClass="bg-themed-secondary rounded">
                     <ui:fragment
                         rendered="#{not empty upgradeWizardConversation.model.selectedBillingContact}">
-                      <div class="row ml-1">
+                      <div class="row ms-1">
                         <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.email}"
                                       id="email"/>
                       </div>
-                      <div class="row ml-1">
+                      <div class="row ms-1">
                         <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.companyName}"
                                       id="companyName" styleClass="preWrapping"/>
                       </div>
-                      <div class="row ml-1">
+                      <div class="row ms-1">
                         <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.address}"
                                       id="address" styleClass="preWrapping"/>
                       </div>
@@ -149,11 +149,11 @@
                   <a4j:outputPanel id="piInformation" layout="block" styleClass="bg-themed-secondary rounded">
                     <ui:fragment
                         rendered="#{not empty upgradeWizardConversation.model.selectedPaymentInfo}">
-                      <div class="row ml-1">
+                      <div class="row ms-1">
                         <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.providerName}"
                                       id="provider"/>
                       </div>
-                      <div class="row ml-1">
+                      <div class="row ms-1">
                         <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.accountNumber}"
                                       id="account"/>
                       </div>
@@ -172,9 +172,9 @@
 
             <a4j:outputPanel styleClass="row row-justify-space">
               <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" action="previous"
-                                  bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ml-3"
+                                  bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ms-3"
                                   rendered="true" keepDirty="true" clearDirty="#{clearDirtyBack}"/>
-              <mp:buttonBootstrap id="next" value="#{msg['button.next']}" styleClass="btn btn-secondary mr-3"
+              <mp:buttonBootstrap id="next" value="#{msg['button.next']}" styleClass="btn btn-secondary me-3"
                                   bean="#{upgradeWizardConversation}" action="next" keepDirty="true"
                                   disabled="#{emptyEnabledPaymentTypes}" clearDirty="#{clearDirtyForward}"/>
             </a4j:outputPanel>

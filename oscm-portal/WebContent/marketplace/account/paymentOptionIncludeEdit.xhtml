@@ -37,7 +37,7 @@
       <hr class="mt-5 mb-2"/>
       <a4j:outputPanel layout="block" styleClass="row row-justify-space">
 
-        <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ml-3"
+        <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3"
                          onclick="
                     AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
                     AdmUtils.clearHiddenErrorPanel();
@@ -59,7 +59,7 @@
                                   text2="#{msg['marketplace.areyousure']}"
                                   submitId="confirmedPaymentDeleteButton" isFirstModal="false"/>
 
-        <h:commandButton styleClass="btn btn-sm btn-secondary mr-3" id="hiddenSetDisplayName" value="#{msg['button.save']}"
+        <h:commandButton styleClass="btn btn-sm btn-secondary me-3" id="hiddenSetDisplayName" value="#{msg['button.save']}"
                          onclick="AdmUtils.showProgress(true);setOnSubmit(true);setDirty(false);"
                          action="#{paymentInfoEditBean.updatePaymentInfo}">
           <f:ajax execute="@form" render=":#{dialogId}modalErrorMasterPanel #{additionalRender} @form"

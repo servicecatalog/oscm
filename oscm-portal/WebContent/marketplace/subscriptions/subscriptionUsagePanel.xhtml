@@ -9,11 +9,11 @@
     <c:if test="#{not empty subscription}">
       <h:inputHidden value="#{sessionBean.selectedTab}"/>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="tabDetails" data-toggle="tab" href="#subscriptionDetailsPanel"
+        <a class="nav-item nav-link active" id="tabDetails" data-bs-toggle="tab" href="#subscriptionDetailsPanel"
            role="tab"
            aria-controls="subscriptionDetailsPanel">#{msg['subscriptions.table.details']}</a>
         <c:if test="#{not empty subscription.customTabName}">
-          <a class="nav-item nav-link" id="customTab" data-toggle="tab" href="#loadCustom" aria-controls="loadCustom"
+          <a class="nav-item nav-link" id="customTab" data-bs-toggle="tab" href="#loadCustom" aria-controls="loadCustom"
              aria-selected="false" role="tab">#{subscription.customTabName}</a>
         </c:if>
       </div>
@@ -40,8 +40,8 @@
                     <!-- buttons and operations -->
                     <h:form id="executeForm">
                       <div class="row p-2">
-                        <div class="input-group pl-2">
-                          <h:selectOneMenu styleClass="custom-select pl-2" id="execute"
+                        <div class="input-group ps-2">
+                          <h:selectOneMenu styleClass="custom-select ps-2" id="execute"
                                            value="#{subscription.selectedOperationId}"
                                            onchange="AdmUtils.showProgress(true);AdmUtils.hideMessages(); selectOperation('#{subscription.subscriptionId}', this.value, 'execute');">
                             <f:selectItem itemLabel="#{msg['common.pleaseSelect']}" itemValue=""/>
@@ -49,7 +49,7 @@
                           </h:selectOneMenu>
                           <div class="input-group-append">
                             <mp:buttonBootstrap id="executeButton" value="#{msg['button.execute']}"
-                                                styleClass="m-0 btn btn-secondary pr-2"
+                                                styleClass="m-0 btn btn-secondary pe-2"
                                                 disabled="#{subscription.executeDisabled or !subscription.statusActive}"
                                                 onclick="AdmUtils.hideMessages();AdmUtils.showProgress(true); executeOperation('#{subscription.subscriptionId}'); setTimeout(function() {window.location.reload(true)}, 3000);return false;"/>
                           </div>
@@ -115,7 +115,7 @@
             <a4j:outputPanel layout="block" styleClass="right clearfix py-2">
               <mp:buttonBootstrap id="useSubscription#{subscription.subscriptionId}" value="#{msg['button.useService']}"
                                   rendered="#{subscription.showUseServiceButton}"
-                                  styleClass="btn btn-secondary float-right"
+                                  styleClass="btn btn-secondary float-end"
                                   onclick="startService('#{subscription.target}', '#{subscription.accessUrl}');return false;">
               </mp:buttonBootstrap>
             </a4j:outputPanel>
@@ -145,11 +145,11 @@
           </script>
         </div>
         <div id="loadCustom" class="tab-pane fade py-4" role="tabpanel" aria-labelledby="nav-loading-tab">
-          <div id="wait" class="pl-5">
-            <div class="spinner-border float-left text-primary" role="status">
+          <div id="wait" class="ps-5">
+            <div class="spinner-border float-start text-primary" role="status">
               <span class="sr-only"/>
             </div>
-            <p class="font-weight-bolder float-left py-2 pl-3">#{msg['subscription.loading.data']}</p>
+            <p class="font-weight-bolder float-start py-2 ps-3">#{msg['subscription.loading.data']}</p>
           </div>
           <script>
             function onMyFrameLoad() {
