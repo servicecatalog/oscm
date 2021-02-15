@@ -397,7 +397,7 @@
 	  <dependency org="com.auth0" name="java-jwt" rev="3.8.1" transitive="false"/>
 	  
 	  <!-- Bootstrap sources -->
-	  <dependency org="org.webjars" name="bootstrap" rev="4.3.1"/>
+	  <dependency org="org.webjars" name="bootstrap" rev="5.0.0-beta1"/>
     <dependency org="org.webjars" name="font-awesome" rev="4.7.0"/>
     <dependency org="com.yahoo.platform.yui" name="yuicompressor" rev="2.4.7"/>
 
