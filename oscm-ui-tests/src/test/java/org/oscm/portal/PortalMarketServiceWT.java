@@ -145,7 +145,7 @@ public class PortalMarketServiceWT {
 
     tester.visitPortal(PortalPathSegments.ACTIVE_MARKETSERVICE);
 
-    String serviceXpath = "//input[@id='input_serviceDeActivationForm:j_idt491:0:active']";
+    String serviceXpath = "//input[@id='input_serviceDeActivationForm:j_idt492:0:active']";
     if (tester.getDriver().findElements(By.xpath(serviceXpath)).size() != 0) {
       if (!tester.getDriver().findElement(By.xpath(serviceXpath)).isSelected()) {
         tester.getDriver().findElement(By.xpath(serviceXpath)).click();
@@ -156,7 +156,7 @@ public class PortalMarketServiceWT {
         tester.getDriver().findElement(By.xpath(serviceOIDCXpath)).click();
       }
     }
-    serviceXpath = "//input[@id='input_serviceDeActivationForm:j_idt491:1:active']";
+    serviceXpath = "//input[@id='input_serviceDeActivationForm:j_idt492:1:active']";
     if (tester.getDriver().findElements(By.xpath(serviceXpath)).size() != 0) {
       if (!tester.getDriver().findElement(By.xpath(serviceXpath)).isSelected()) {
         tester.getDriver().findElement(By.xpath(serviceXpath)).click();
