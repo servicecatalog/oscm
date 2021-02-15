@@ -1,7 +1,6 @@
+Copyright 2021 FUJITSU LIMITED
+
 Open Service Catalog Manager
-
-Copyright 2020 FUJITSU LIMITED
-
 
 -------------------------------------------------------
 This software includes the following software licensed under Apache 2.0 license:
@@ -14,21 +13,9 @@ This software includes the following software licensed under Apache 2.0 license:
   * activemq-protobuf-1.1
   * activemq-ra-5.15.8
   * adal4j-1.1.3
-  * tomcat-annotations-api-7.0.76
-  * commons-collections-3.2.1
-  * apache-commons-daemon
-  * commons-dbcp-1.4
-  * commons-logging-1.1.2
-  * apache-commons-logging
-  * commons-pool-1.6
   * asm-1.0.2
-  * avalon-framework-impl-4.3
-  * CabParser-2.15
-  * avalon-logkit-2.1
   * aws-java-sdk-core-1.11.37
   * aws-java-sdk-ec2-1.11.37
-  * axis-1.4
-  * axis-jaxrpc-1.4
   * azure-core-0.9.7
   * azure-mgmt-compute-0.9.7
   * azure-mgmt-network-0.9.7
@@ -39,20 +26,22 @@ This software includes the following software licensed under Apache 2.0 license:
   * bootstrap
   * bval-core-1.1.2
   * bval-jsr-1.1.2
+  * byte-buddy-1.10.17
   * catalina-ant
-  * tomcat-catalina-ha-7.0.76
+  * tomcat-catalina-ha-8.5.41
   * tomcat-storeconfig-8.5.41
-  * tomcat-tribes-7.0.76
-  * tomcat-catalina-7.0.76
+  * tomcat-tribes-8.5.41
+  * catalina
   * classmate-1.3.0
   * commons-beanutils-1.8.3
   * commons-beanutils-1.9.3
+  * commons-beanutils-1.9.4
   * commons-cli-1.2
   * commons-codec-1.10
   * commons-collections-3.2.2
+  * commons-configuration-1.10
   * commons-csv-1.0
-  * commons-daemon-1.0.13
-  * commons-dbcp
+  * commons-daemon-1.1.0
   * commons-dbcp2-2.1
   * commons-digester-1.8.1
   * commons-digester-1.8
@@ -66,11 +55,9 @@ This software includes the following software licensed under Apache 2.0 license:
   * commons-lang3-3.3.2
   * commons-lang3-3.5
   * commons-lang3-3.8
+  * commons-logging-1.1.1
   * commons-logging-1.1.3
   * commons-logging-1.2
-  * commons-logging-adapters
-  * commons-logging-api
-  * commons-pool
   * commons-pool2-2.3
   * commons-pool2-2.4.2
   * commons-validator-1.4.0
@@ -99,26 +86,29 @@ This software includes the following software licensed under Apache 2.0 license:
   * cxf-rt-ws-policy-3.1.17
   * cxf-rt-ws-security-3.1.17
   * cxf-rt-wsdl-3.1.17
-  * ecj-4.5.2
-  * eclipse-ecj
   * tomcat-el-api-8.5.41
   * error_prone_annotations-2.2.0
+  * error_prone_annotations-2.3.2
+  * error_prone_annotations-2.3.4
   * failureaccess-1.0.1
+  * FastInfoset-1.2.15
   * fluent-hc-4.3.1
   * geronimo-connector-3.1.4
   * geronimo-javamail_1.4_mail-1.9.0-alpha-2
-  * geronimo-jms_1.1_spec-1.1.1
   * geronimo-jsonb_1.0_spec-1.0
   * geronimo-jta_1.1_spec-1.1.1
   * geronimo-transaction-3.1.4
   * gson-2.2.4
   * gson-2.6.2
   * com-google-gson-RELEASE113
-  * guava-18.0
   * guava-19.0
+  * guava-26.0-jre
   * guava-27.1-jre
+  * guava-28.1-jre
+  * guava-29.0-jre
   * hawtbuf-1.11
   * httpclient-4.3.6
+  * httpclient-4.5.1
   * httpclient-4.5.2
   * httpclient-4.5.6
   * httpcore-4.3.3
@@ -127,11 +117,15 @@ This software includes the following software licensed under Apache 2.0 license:
   * httpcore-4.4.4
   * j2ep
   * j2objc-annotations-1.1
-  * jackson-annotations-2.11.1
+  * j2objc-annotations-1.3
+  * CabParser-2.15
+  * jackson-annotations-2.11.3
+  * jackson-annotations-2.12.1
   * jackson-annotations-2.8.4
   * jackson-annotations-2.9.0
   * jackson-annotations-2.9.4
-  * jackson-core-2.11.1
+  * jackson-core-2.11.3
+  * jackson-core-2.12.1
   * jackson-core-2.6.6
   * jackson-core-2.7.3
   * jackson-core-2.8.4
@@ -139,7 +133,8 @@ This software includes the following software licensed under Apache 2.0 license:
   * jackson-core-2.9.9
   * jackson-core-asl-1.9.2
   * jackson-core-2.9.4
-  * jackson-databind-2.11.1
+  * jackson-databind-2.11.3
+  * jackson-databind-2.12.1
   * jackson-databind-2.6.6
   * jackson-databind-2.7.3
   * jackson-databind-2.8.4
@@ -156,17 +151,18 @@ This software includes the following software licensed under Apache 2.0 license:
   * jackson-module-jaxb-annotations-2.8.4
   * jackson-module-jaxb-annotations-2.9.9
   * jandex-2.0.0.Final
-  * tomcat-jasper-el-7.0.76
-  * jasper-jdt
-  * tomcat-jasper-7.0.76
+  * jandex-2.1.3.Final
+  * tomcat-jasper-el-8.5.41
+  * jasper
   * tomcat-jaspic-api-8.5.41
   * jasypt-1.9.2
   * java-support-7.1.1
   * javaee-api-7.0-1
-  * javassist-3.18.1-GA
   * javassist-3.20.0-GA
   * javassist-3.22.0-GA
-  * jaxp_parser_impl
+  * javassist-3.24.0-GA
+  * javassist-3.27.0-GA
+  * jboss-logging-3.4.1.Final
   * jboss-logging-3.3.0.Final
   * joda-time-2.7
   * joda-time-2.8.1
@@ -179,8 +175,10 @@ This software includes the following software licensed under Apache 2.0 license:
   * jsr305-3.0.2
   * kafka-clients-0.10.2.1
   * log4j-api-2.13.0
+  * log4j-api-2.13.3
   * log4j-core-2.13.0
   * log4j-core-2.13.2
+  * log4j-core-2.13.3
   * log4j-slf4j-impl-2.13.0
   * lucene-analyzers-common-5.3.1
   * lucene-backward-codecs-5.3.1
@@ -235,12 +233,6 @@ This software includes the following software licensed under Apache 2.0 license:
   * openwebbeans-jsf-1.7.6
   * openwebbeans-spi-1.7.6
   * openwebbeans-web-1.7.6
-  * commons-codec-1.6
-  * org.eclipse.core.jobs-0.3
-  * org.eclipse.equinox.app-0.3
-  * org.eclipse.equinox.common-0.3
-  * org.eclipse.equinox.preferences-0.3
-  * org.eclipse.equinox.registry-0.3
   * poi-3.9
   * quartz-openejb-shade-2.2.1
   * serializer-2.7.2
@@ -248,6 +240,13 @@ This software includes the following software licensed under Apache 2.0 license:
   * snakeyaml-1.23
   * solr-core-5.3.1
   * solr-solrj-5.3.1
+  * spring-aop-4.2.3.RELEASE
+  * spring-beans-4.2.3.RELEASE
+  * spring-context-4.2.3.RELEASE
+  * spring-core-4.3.21.RELEASE
+  * spring-expression-4.2.3.RELEASE
+  * spring-web-4.2.3.RELEASE
+  * spring-webmvc-4.2.3.RELEASE
   * swagger-annotations-2.0.9
   * swagger-core-2.0.9
   * swagger-integration-2.0.9
@@ -258,17 +257,18 @@ This software includes the following software licensed under Apache 2.0 license:
   * taglibs-standard-jstlel-1.2.5
   * taglibs-standard-spec-1.2.5
   * tomahawk20-1.1.14
-  * tomcat-api-7.0.76
-  * tomcat-coyote-7.0.76
+  * tomcat-api-8.5.41
+  * tomcat-coyote-8.5.41
   * tomcat-dbcp-8.5.41
-  * tomcat-el-api
   * tomcat-i18n-es
+  * tomcat-i18n-fr
+  * tomcat-i18n-ja
   * tomcat-i18n-ru-8.5.41
+  * tomcat-jdbc
   * tomcat-jni-8.5.41
-  * tomcat-jsp-api
-  * tomcat-servlet-api
+  * tomee-juli-7.1.1
   * tomcat-util-scan-8.5.41
-  * tomcat-util-7.0.76
+  * tomcat-util-8.5.41
   * tomcat-websocket-8.5.41
   * tomee-catalina-7.1.1
   * tomee-common-7.1.1
@@ -279,6 +279,8 @@ This software includes the following software licensed under Apache 2.0 license:
   * tomee-webapp-7.1.1
   * tomee-webservices-7.1.1
   * validation-api-1.1.0.Final
+  * velocity-1.5
+  * websocket-api
   * woodstox-core-asl-4.4.1
   * wss4j-bindings-2.1.9
   * wss4j-policy-2.1.9
@@ -287,18 +289,13 @@ This software includes the following software licensed under Apache 2.0 license:
   * wss4j-ws-security-policy-stax-2.1.9
   * wss4j-ws-security-stax-2.1.9
   * xalan-2.7.2
-  * serializer-2.7.1
-  * xalan-2.7.1
   * xbean-asm6-shaded-4.8
   * xbean-asm7-shaded-4.14
   * xbean-bundleutils-4.14
   * xbean-finder-shaded-4.14
   * xbean-naming-4.14
   * xbean-reflect-4.14
-  * xercesImpl-2.11.0
   * xml-apis-1.4.01
-  * xml-apis-ext-1.3.04
-  * xml-apis-2.0.2
   * xml-resolver-1.2
   * xmlschema-core-2.2.3
   * xmlsec-2.0.6
@@ -512,7 +509,7 @@ License Text:
 -------------------------------------------------------
 This software includes the following software licensed under Apache license:
 
-  * commons-discovery-0.2
+  * commons-collections-3.1
   * httpclient-4.3.1
   * httpclient-cache-4.3.1
   * httpcore-4.3
@@ -594,7 +591,9 @@ This software includes the following software licensed under BSD license:
   * antlr-2.7.7
   * howl-1.0.1-1
   * hsqldb-2.3.2
+  * postgresql-9.1-901-1.jdbc4
   * serp-1.15.1
+  * yuicompressor-2.4.7
 
 License Text:
 
@@ -630,31 +629,27 @@ OF SUCH DAMAGE.
 This software includes the following software licensed under CDDL license:
 
   * aopalliance-repackaged-2.5.0-b32 (source code is available at "http://search.maven.org/#search|ga|1|1%3A6af37c3f8ec6f9e9653ec837eb508da28ce443cd")
-  * dsn-1.4.6 (source code is available at "")
-  * gimap-1.4.6 (source code is available at "")
   * hk2-api-2.5.0-b32 (source code is available at "http://search.maven.org/#search|ga|1|1%3A6a576c9653832ce610b80a2f389374ef19d96171")
   * hk2-locator-2.5.0-b32 (source code is available at "http://search.maven.org/#search|ga|1|1%3A195474f8ad0a8d130e9ea949a771bcf1215fc33b")
   * hk2-utils-2.5.0-b32 (source code is available at "http://search.maven.org/#search|ga|1|1%3A5108a926988c4ceda7f1e681dddfe3101454a002")
-  * imap-1.4.6 (source code is available at "")
+  * javax.activation-api-1.2.0 (source code is available at "http://search.maven.org/#search|ga|1|1%3A85262acf3ca9816f9537ca47d5adeabaead7cb16")
   * javax.annotation-api-1.2 (source code is available at "http://search.maven.org/#search|ga|1|1%3A479c1e06db31c432330183f5cae684163f186146")
   * javax.faces-2.2.12 (source code is available at "http://search.maven.org/#search|ga|1|1%3A3e0cd82d568c90b5daf12530801152707f4192b5")
   * javax.inject-2.5.0-b32 (source code is available at "http://search.maven.org/#search|ga|1|1%3Ab2fa50c8186a38728c35fe6a9da57ce4cc806923")
-  * javax.mail-api-1.4.6 (source code is available at "")
-  * javax.mail-1.4.6 (source code is available at "")
+  * javax.servlet-api-3.1.0 (source code is available at "http://search.maven.org/#search|ga|1|1%3A3cd63d075497751784b2fa84be59432f4905bf7c")
   * jaxb-core-2.3.0 (source code is available at "http://search.maven.org/#search|ga|1|1%3Ad044c784e41d026778693fb44a8026c1fd9a7506")
   * jaxb-impl-2.3.0 (source code is available at "http://search.maven.org/#search|ga|1|1%3A3a3c6a62719d967175b76b63925f1fb495f11437")
+  * jaxb-runtime-2.3.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3Add6dda9da676a54c5b36ca2806ff95ee017d8738")
   * jboss-transaction-api_1.1_spec-1.0.1.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A18f0e1d42f010a8b53aa447bf274a706d5148852")
+  * jboss-transaction-api_1.2_spec-1.1.1.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3Aa8485cab9484dda36e9a8c319e76b5cc18797b58")
   * jersey-client-2.25.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A4d563b1f93352ee9fad597e9e1daf2c6159993c6")
   * jersey-common-2.25.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A2438ce68d4907046095ab54aa83a6092951b4bbb")
   * jersey-entity-filtering-2.25.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A4a5805060f796ec2c9bb1ba0ce91c1db6d889524")
   * jersey-guava-2.25.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3Aa2bb4f8208e134cf2cf71dfb8824e42942f7bd06")
   * jersey-media-json-jackson-2.25.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A19d1e4276eb7b6386640c344d9e5c01eba7eae5d")
-  * mail-1.4.6 (source code is available at "")
-  * mailapi-1.4.6 (source code is available at "")
+  * jstl-1.2 (source code is available at "http://search.maven.org/#search|ga|1|1%3A74aca283cd4f4b4f3e425f5820cda58f44409547")
   * osgi-resource-locator-1.0.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A4ed2b2d4738aed5786cfa64cba5a332779c4c708")
-  * pop3-1.4.6 (source code is available at "")
-  * servlet (source code is available at "")
-  * smtp-1.4.6 (source code is available at "")
+  * txw2-2.3.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3Aa09d2c48d3285f206fafbffe0e50619284e92126")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
 
@@ -1046,12 +1041,16 @@ of liability.
 -------------------------------------------------------
 This software includes the following software licensed under CDDL 1.1 license:
 
+  * dom4j-2.1.3 (source code is available at "http://search.maven.org/#search|ga|1|1%3Aa75914155a9f5808963170ec20653668a2ffd2fd")
+  * istack-commons-runtime-3.0.7 (source code is available at "http://search.maven.org/#search|ga|1|1%3Ac197c86ceec7318b1284bffb49b54226ca774003")
   * javax.ws.rs-api-2.0.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A104e9c2b5583cfcfeac0402316221648d6d8ea6b")
   * jaxb-api-2.3.0 (source code is available at "http://search.maven.org/#search|ga|1|1%3A99f802e0cb3e953ba3d6e698795c4aeb98d37c48")
+  * jaxb-api-2.3.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A8531ad5ac454cc2deb9d4d32c40c4d7451939b5d")
   * jersey-bundle-1.18.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3Acb8113ab1cca74cfff42e6814c74141eacfe0267")
   * mimepull-1.9 (source code is available at "http://search.maven.org/#search|ga|1|1%3A818e6cceef03485cffeaf4f87ac0537623bbd1ce")
   * saaj-impl-1.3.23 (source code is available at "http://search.maven.org/#search|ga|1|1%3Afbebd2a0ceeb7daa633d579687f98eb90b1097d2")
   * stax-ex-1.7.4 (source code is available at "http://search.maven.org/#search|ga|1|1%3Aed36eef83c093301ce329f09e55249af676c808f")
+  * stax-ex-1.8 (source code is available at "http://search.maven.org/#search|ga|1|1%3A8cc35f73da321c29973191f2cf143d29d26a1df7")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
 
@@ -1446,6 +1445,8 @@ This software includes the following software licensed under EDL 1.0 license:
   * commonj.sdo-2.1.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3A90d4c89ce0a69f58619f1a247bbf420122139ff5")
   * eclipselink-2.6.4 (source code is available at "http://search.maven.org/#search|ga|1|1%3A526cc0ddb69c01784e7e9b0a048f39dc313403cb")
   * hibernate-jpa-2.1-api-1.0.0.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A5e731d961297e5a07290bfaf3db1fbc8bbbf405a")
+  * hibernate-jpa-2.1-api-1.0.2.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A52afb5762c704a6b586e27742470c08f91877fc1")
+  * javax.persistence-api-2.2 (source code is available at "http://search.maven.org/#search|ga|1|1%3A25665ac8c0b62f50e6488173233239120fc52c96")
   * sxc-jaxb-core-0.8 (source code is available at "http://search.maven.org/#search|ga|1|1%3A5fad2be537981e047436b4e7d98b56f0e2c04a22")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
@@ -1486,7 +1487,9 @@ OF THE POSSIBILITY OF SUCH DAMAGE.
 -------------------------------------------------------
 This software includes the following software licensed under EPL 1.0 license:
 
-  * BIRT 4.5.0 (source code is available at "https://download.eclipse.org/birt/downloads/build.php?build=R-R1-4_5_0-201506092134")
+  * ecj-3.12.3 (source code is available at "http://search.maven.org/#search|ga|1|1%3Aade950992eb3caf6ab4f1a88706c755f0bf213d9")
+  * junit-4.13.1 (source code is available at "http://search.maven.org/#search|ga|1|1%3Acdd00374f1fee76b11e2a9d127405aa3f6be5b6a")
+  * org.apache.sling.commons.json-2.0.6 (source code is available at "")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
 
@@ -1631,11 +1634,13 @@ software and any associated documentation will at all times remain with copyrigh
 This software includes the following software licensed under MIT license:
 
   * animal-sniffer-annotations-1.17
+  * animal-sniffer-annotations-1.18
+  * checker-qual-2.11.1
   * checker-qual-2.5.2
+  * checker-qual-2.8.1
   * classgraph-4.6.32
-  * commons-cli-1.0-2.0
-  * dom4j-1.6.1-2.0
   * java-jwt-3.8.1
+  * lombok-1.18.12
   * lombok-1.18.8
   * openstack4j-3.1.0
   * openstack4j-core-3.1.0
@@ -1644,7 +1649,9 @@ This software includes the following software licensed under MIT license:
   * slf4j-api-1.7.21
   * slf4j-api-1.7.25
   * slf4j-api-1.7.26
+  * slf4j-api-1.7.30
   * slf4j-jdk14-1.7.21
+  * slf4j-simple-1.7.30
   * slf4j-simple-1.7.7
 
 License Text:
@@ -1665,7 +1672,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 -------------------------------------------------------
 This software includes the following software licensed under LGPL license:
 
-  * cssparser-0.9.14 (source code is available at "http://search.maven.org/#search|ga|1|1%3A25f3d437b3cd4d4e6fab904d18967c64e4ab671d")
+  * bsh-core-2.0b4 (source code is available at "")
   * cssparser-0.9.18 (source code is available at "http://search.maven.org/#search|ga|1|1%3A61c015378d27b5e245a5deb7a324c7e716b4706a")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
@@ -1843,16 +1850,20 @@ Library.
 This software includes the following software licensed under LGPL 2.1 license:
 
   * hibernate-commons-annotations-5.0.1.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A71e1cff3fcb20d3b3af4f3363c3ddb24d33c6879")
+  * hibernate-commons-annotations-5.1.2.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3Ae59ffdbc6ad09eeb33507b39ffcf287679a498c8")
   * hibernate-core-5.0.9.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A7e06db0b4365876419daafc9b40c9088ba40f64d")
+  * hibernate-core-5.4.23.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3Aa0a0eaafeab33ebd42a1df1390070a3bd26db7c0")
   * hibernate-entitymanager-5.0.9.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A9eed86e58baf4a3fb9d5156cf03e59051e2bc6c5")
+  * hibernate-entitymanager-5.4.23.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3Aa6a0e96a1e904fd878e829f7011cca82e35be497")
   * hibernate-search-engine-5.5.4.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A8e152348710039bad26a72c339469ba8a96143c6")
   * hibernate-search-orm-5.5.4.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A93c9323903a672be8ebc1cbfb03186508c522ba1")
   * richfaces-4.5.17.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3Abd032771401b7cdd04e08e14a52e516a8b7adb37")
+  * richfaces-4.6.13.ayg (source code is available at "http://search.maven.org/#search|ga|1|1%3A0dca2e7cc144b830bc4a4d1c213dc345ac73d6eb")
   * richfaces-a4j-4.5.17.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A7241574c23bd883712373c1ffe093f8dcc8c2bf6")
-  * richfaces-a4j-4.5.0.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A2b8d9282ded976a79f2038d35ceab58beb97744a")
-  * richfaces-4.5.0.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A24e9f3328602121e55d13ba2c958df1dfbc7a051")
-  * richfaces-core-4.5.0.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3A11bb98a615013619de6b02fc1ac5e3e00d3069a8")
+  * richfaces-a4j-4.6.13.ayg (source code is available at "http://search.maven.org/#search|ga|1|1%3A3cace6e9b98fa27e74c140196711af9a44fbf17b")
+  * richfaces-build-resources-4.6.13.ayg (source code is available at "http://search.maven.org/#search|ga|1|1%3A19743ab07bc630d9390b38609f0defeb9bd5a816")
   * richfaces-core-4.5.17.Final (source code is available at "http://search.maven.org/#search|ga|1|1%3Ad0fb1b6d1bb616ca9a08dc7250b2d50a846c8f40")
+  * richfaces-core-4.6.13.ayg (source code is available at "http://search.maven.org/#search|ga|1|1%3A791bce45d59531f7227e77533764fe24cfb37f25")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
 
@@ -1915,7 +1926,7 @@ modified by someone else and passed on, the recipients should know
 that what they have is not the original version, so that the original
 author's reputation will not be affected by problems that might be
 introduced by others.
-
+
   Finally, software patents pose a constant threat to the existence of
 any free program.  We wish to make sure that a company cannot
 effectively restrict the users of a free program by obtaining a
@@ -1971,7 +1982,7 @@ modification follow.  Pay close attention to the difference between a
 "work based on the library" and a "work that uses the library".  The
 former contains code derived from the library, whereas the latter must
 be combined with the library in order to run.
-
+
                   GNU LESSER GENERAL PUBLIC LICENSE
    TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
@@ -2018,7 +2029,7 @@ Library.
   You may charge a fee for the physical act of transferring a copy,
 and you may at your option offer warranty protection in exchange for a
 fee.
-
+
   2. You may modify your copy or copies of the Library or any portion
 of it, thus forming a work based on the Library, and copy and
 distribute such modifications or work under the terms of Section 1
@@ -2076,7 +2087,7 @@ instead of to this License.  (If a newer version than version 2 of the
 ordinary GNU General Public License has appeared, then you can specify
 that version instead if you wish.)  Do not make any other change in
 these notices.
-
+
   Once this change is made in a given copy, it is irreversible for
 that copy, so the ordinary GNU General Public License applies to all
 subsequent copies and derivative works made from that copy.
@@ -2127,7 +2138,7 @@ Library will still fall under Section 6.)
 distribute the object code for the work under the terms of Section 6.
 Any executables containing that work also fall under Section 6,
 whether or not they are linked directly with the Library itself.
-
+
   6. As an exception to the Sections above, you may also combine or
 link a "work that uses the Library" with the Library to produce a
 work containing portions of the Library, and distribute that work
@@ -2189,7 +2200,7 @@ restrictions of other proprietary libraries that do not normally
 accompany the operating system.  Such a contradiction means you cannot
 use both them and the Library together in an executable that you
 distribute.
-
+
   7. You may place library facilities that are a work based on the
 Library side-by-side in a single library together with other library
 facilities not covered by this License, and distribute such a combined
@@ -2230,7 +2241,7 @@ subject to these terms and conditions.  You may not impose any further
 restrictions on the recipients' exercise of the rights granted herein.
 You are not responsible for enforcing compliance by third parties with
 this License.
-
+
   11. If, as a consequence of a court judgment or allegation of patent
 infringement or for any other reason (not limited to patent issues),
 conditions are imposed on you (whether by court order, agreement or
@@ -2282,7 +2293,7 @@ conditions either of that version or of any later version published by
 the Free Software Foundation.  If the Library does not specify a
 license version number, you may choose any version ever published by
 the Free Software Foundation.
-
+
   14. If you wish to incorporate parts of the Library into other free
 programs whose distribution conditions are incompatible with these,
 write to the author to ask for permission.  For software which is
@@ -2316,7 +2327,7 @@ SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
 DAMAGES.
 
                      END OF TERMS AND CONDITIONS
-
+
            How to Apply These Terms to Your New Libraries
 
   If you develop a new library, and you want it to be of the greatest
@@ -2473,10 +2484,9 @@ THE FOREGOING LIMITATIONS SHALL APPLY TO THE MAXIMUM EXTENT PERMITTED BY APPLICA
 -------------------------------------------------------
 This software includes the following software licensed under GPL 2 with Classpath Exception license:
 
-  * OpenJDK 1.8.0_u262-b10 (source code is available at "http://openjdk.java.net/projects/jdk8u/")
+  * java-1.8.0-openjdk-1.8.0.282.b08-1.el7_9.x86_64 (source code is available at "https://vault.centos.org/7.9.2009/updates/Source/SPackages/")
 
 In case the source code and license text are not available on those locations anymore, you can request them by adding an issue to the Open Service Catalog Manager GitHub repository, currently available at: https://github.com/servicecatalog/oscm.");
-
 License Text:
 
 The GNU General Public License (GPL)
