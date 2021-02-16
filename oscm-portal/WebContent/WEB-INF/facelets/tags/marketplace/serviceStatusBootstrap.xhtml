@@ -20,23 +20,23 @@
     <a4j:outputPanel id="serviceStatusDisplay" class="row no-gutters align-content-center">
       <c:if test="#{serviceActivationBean.serviceSuspended}">
         <a4j:outputPanel id="serviceStatusColor" layout="block"
-                         styleClass="serverSubscriptionSuspended pr-1 align-self-center">
+                         styleClass="serverSubscriptionSuspended pe-1 align-self-center">
           <h:outputText id="serviceStatusLabel" value="#{msg[serviceActivationBean.statusKey]}  "
-                        styleClass="ml-3"/>
+                        styleClass="ms-3"/>
         </a4j:outputPanel>
       </c:if>
 
       <c:if test="#{serviceActivationBean.serviceActive}">
         <a4j:outputPanel id="serviceStatusColor" layout="block"
-                         styleClass="serverSubscriptionActive pr-1 align-self-center">
+                         styleClass="serverSubscriptionActive pe-1 align-self-center">
           <h:outputText id="serviceStatusLabel" value="#{msg[serviceActivationBean.statusKey]}  "
-                        styleClass="ml-3"/>
+                        styleClass="ms-3"/>
         </a4j:outputPanel>
       </c:if>
 
       <c:if test="#{serviceActivationBean.reactivationLinkVisible}">
         <h:form id="reactivateSelectForm">
-          <a4j:commandLink id="reactivateService"  styleClass="btn btn-sm btn-outline-secondary mr-2"
+          <a4j:commandLink id="reactivateService"  styleClass="btn btn-sm btn-outline-secondary me-2"
                            render="reactivateServicePanel :reactivateServicePanelForm"
                            oncomplete="RichFaces.$('reactivateServicePanel').show();return false;">
             <h:outputText value="#{msg['button.service.reactivateLink']}"/>
@@ -46,7 +46,7 @@
 
       <c:if test="#{serviceActivationBean.deactivationLinkVisible}">
         <h:form id="deactivateServiceForm">
-          <a4j:commandLink id="deactivateService" styleClass="btn btn-sm btn-outline-secondary mr-2"
+          <a4j:commandLink id="deactivateService" styleClass="btn btn-sm btn-outline-secondary me-2"
                            render="deactivateServicePanel :deactivateServicePanelForm"
                            oncomplete="RichFaces.$('deactivateServicePanel').show();return false;">
             <h:outputText value="#{msg['button.service.deactivateLink']}"/>

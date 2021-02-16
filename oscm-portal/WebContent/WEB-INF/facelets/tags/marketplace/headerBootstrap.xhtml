@@ -14,13 +14,13 @@
           <h:graphicImage value="${logoimg}" alt="My Logo"/>
         </a>
       </div>
-      <button id="navbarToggleButton" class="navbar-toggler" type="button" data-toggle="collapse"
+      <button id="navbarToggleButton" class="navbar-toggler" type="button" data-bs-toggle="collapse"
               data-target="#navbar" aria-controls="navbar">
         <span class="navbar-toggler-icon"/>
       </button>
 
       <div class="collapse navbar-collapse" id="navbar">
-        <ul class="order-sm-first order-lg-3 nav navbar-nav ml-auto">
+        <ul class="order-sm-first order-lg-3 nav navbar-nav ms-auto">
           <ui:fragment rendered="true">
             <!-- search  -->
             <h:form id="searchForm" class=" form-inline my-2 my-lg-0">
@@ -28,13 +28,13 @@
               <h:inputHidden value="all_www" name="restrict"/>
               <h:inputHidden id="searchPhrase" value="#{servicePagingBean.searchPhrase}"/>
               <c:if test="#{empty servicePagingBean.searchPhrase}">
-                <input class="form-control mr-1 inputSearch" id="inputSearch"
+                <input class="form-control me-1 inputSearch" id="inputSearch"
                        placeholder="#{msg['marketplace.search']}" size="30"
                        maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
                        onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');" onfocus="this.value = '';"/>
               </c:if>
               <c:if test="#{not empty servicePagingBean.searchPhrase}">
-                <input class="form-control w-sm-75 mr-1 inputSearch" id="inputSearch"
+                <input class="form-control w-sm-75 me-1 inputSearch" id="inputSearch"
                        value="#{servicePagingBean.searchPhrase}" placeholder="#{msg['marketplace.search']}" size="30"
                        maxlength="#{servicePagingBean.maxLengthSearchPhrase}"
                        onkeydown="AdmUtils.clickOnReturn(event,'searchForm:hiddenLink');"/>
@@ -105,7 +105,7 @@
             </ui:fragment>
             <ui:fragment rendered="#{user ne null}">
               <li class="nav-item dropdown"><a class="order-lg-4 nav-link dropdown-toggle waves-effect waves-light"
-                                               href="#" id="navbarUserToggle" data-toggle="dropdown"
+                                               href="#" id="navbarUserToggle" data-bs-toggle="dropdown"
                                                data-target="#userDrop"><i class="fa fa-user"/>
                 <h:outputText id="welcome"/>
                 #{msg['OPERATIONS_ORGANIZATION_USER']} </a>

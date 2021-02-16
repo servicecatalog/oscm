@@ -8,7 +8,7 @@
  <c:set var="hintMsg" value="#{(not empty hintText)?hintText:(msg[hintMsgId])}"/>
 
  <div id="#{hintId}Parent">
-  <a href="#" class="btn #{styleHint}" data-toggle="popover"
+  <a href="#" class="btn #{styleHint}" data-bs-toggle="popover"
      data-placement="right" data-content="#{hintMsg}" id="#{hintId}" data-container="&num;#{hintId}Parent"><i class="fa fa-question-circle"/></a>
  </div>
 
