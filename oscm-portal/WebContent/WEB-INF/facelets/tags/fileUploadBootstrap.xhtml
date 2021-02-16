@@ -7,7 +7,7 @@
  <ui:param name="key" value="#{empty label ? 'common.filename' : label}"/>
  <adm:outputLabel value="#{msg[key]}" rendered="#{(empty rendered or rendered) and (empty labels)}" required="true"/>
 
- <div class="custom-file mr-1">
+ <div class="custom-file me-1">
   <h:inputFile id="file" label="#{msg['common.filename']}" disabled="#{disabled}"
                onchange="jQuery('.custom-file-label').text(this.value);setDirty(true)"
                value="#{value}" size="48" styleClass="fileChooser d-none"
