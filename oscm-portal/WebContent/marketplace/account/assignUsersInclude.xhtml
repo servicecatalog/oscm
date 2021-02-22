@@ -81,15 +81,15 @@
       <a4j:commandButton styleClass="d-none" id="hiddenModalCancelAndHide" value="#{msg['button.save']}"
                          action="#{controller.assignUsersCancel}"/>
 
-      <mp:buttonBootstrap id="cancelUpdateButton" styleClass="btn btn-outline-secondary ms-3"
+      <mp:buttonBootstrap id="cancelUpdateButton" styleClass="btn btn-outline-secondary ms-3 w-auto"
                           onclick="setDirty(#{rich:element('configDirty')}.value=='true');#{rich:component(dialogId)}.hide();#{rich:element('hiddenModalCancelAndHide')}.click();return false;"
                           value="#{msg['button.cancel']}"/>
 
-      <mp:buttonBootstrap id="updateButton" rendered="#{not addGroup}" styleClass="btn btn-outline-secondary"
+      <mp:buttonBootstrap id="updateButton" rendered="#{not addGroup}" styleClass="btn btn-outline-secondary w-auto"
                           onclick="setOnSubmit(true);AdmUtils.showProgress(true);#{rich:element('hiddenModalSaveAndHide')}.click();return false;"
                           value="#{msg['button.assign']}"/>
 
-      <mp:buttonBootstrap id="saveButton" rendered="#{addGroup}" styleClass="btn btn-secondary me-3 float-end"
+      <mp:buttonBootstrap id="saveButton" rendered="#{addGroup}" styleClass="btn btn-secondary me-3 w-auto float-end"
                           onclick="if(#{rich:element('configDirty')}.value=='true')setDirty(true);AdmUtils.showProgress(true);#{rich:element('hiddenModalSaveAndHide')}.click();return false;"
                           value="#{msg['button.assign']}"/>
     </a4j:outputPanel>

@@ -20,7 +20,7 @@
     <a4j:outputPanel layout="block" id="rerenderPanel">
 
       <div class="row border-bottom no-gutters justify-content-between">
-        <h1>
+        <h1 class="w-auto">
           <c:choose>
             <c:when test="#{serviceLogin}">
               <h:outputText
@@ -36,7 +36,7 @@
         </h1>
 
         <c:if test="#{not serviceLogin}">
-          <h:form id="cancelModelPanelForm">
+          <h:form id="cancelModelPanelForm" class="w-auto">
             <a4j:jsFunction name="cancelDialog" action="#{userBean.cancel}"/>
             <mp:closeModalDialogButton id="cancelButton"
                                        rendered="#{(empty canCloseLogin or canCloseLogin) and not userBean.passwordChangeRequired}"

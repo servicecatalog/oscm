@@ -25,7 +25,7 @@
   </f:facet>
 
   <a4j:outputPanel layout="block" styleClass="tablePanel table_padding stringInMultiLine preserveWhitespaces">
-   <h:selectOneMenu id="#{selectorId}" inputId="#{property}" styleClass="roles-list custom-select custom-select-sm"
+   <h:selectOneMenu id="#{selectorId}" inputId="#{property}" styleClass="roles-list form-select form-select-sm"
                     value="#{record[property]}" rendered="#{itemsRendered}" onchange="#{onchange}">
     <a4j:ajax event="change" listener="#{updateUserCtrl.selectSubscriptionRole}" execute="@this"/>
     <f:selectItems value="#{items}"/>

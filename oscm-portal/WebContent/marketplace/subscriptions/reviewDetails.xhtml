@@ -40,7 +40,7 @@
   </ui:define>
 
   <ui:define name="dialogTitle">
-    <h1>
+    <h1 class="w-auto">
       <h:outputText
           value="#{serviceDetailsCtrl.hasReviewForLoggedInUser ? msg['service.reviews.manage'] : msg['service.reviews.write']}"/>
     </h1>
@@ -101,7 +101,7 @@
         <!-- visible buttons -->
         <a4j:outputPanel styleClass="bottomButtonPanel row row-justify-space">
           <mp:buttonBootstrap id="btnCancel" value="#{msg['service.reviews.button.cancel']}"
-                              styleClass="btn btn-outline-secondary ms-3"
+                              styleClass="btn btn-outline-secondary ms-3 w-auto"
                               onclick="AdmUtils.showProgress(true);setDirty(false);#{rich:element('btnHiddenCancel')}.click();resetCommentForm();"/>
           <c:if test="#{not manageReviewCtrl.isNewReview}">
             <adm:buttonBootstrap id="btnRemove" value="#{msg['service.reviews.button.remove']}" action="removeReview"
@@ -109,7 +109,7 @@
                                  oncomplete="AdmUtils.showProgress(false);setDirty(false);resetCommentForm();"/>
           </c:if>
 
-          <mp:buttonBootstrap id="btnPublishLink" styleClass="btn btn-secondary me-3 float-end"
+          <mp:buttonBootstrap id="btnPublishLink" styleClass="btn btn-secondary me-3 float-end w-auto"
                               onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('hiddenSaveBtn')}.click(); return false;"
                               value="#{msg['button.save']}"/>
         </a4j:outputPanel>

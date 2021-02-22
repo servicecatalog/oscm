@@ -40,7 +40,7 @@
       <div class="col-lg-9">
         <div class="bg-themed px-3 py-1 shadow mb-3">
           <div class="row justify-content-between no-gutters border-bottom mb-2">
-            <h1 class="m-2">#{serviceDetailsModel.selectedService.nameToDisplay}</h1>
+            <h1 class="m-2 w-auto">#{serviceDetailsModel.selectedService.nameToDisplay}</h1>
             <mp:serviceStatusBootstrap serviceActivationBean="#{serviceActivationBean}"/>
           </div>
           <div class="px-2">
@@ -48,7 +48,7 @@
                                       fieldId="serviceDetail" showTags="true" showName="false">
               <c:if test="#{(userBean.loggedInUser eq null) or (userBean.loggedInAndAllowedToSubscribe)}">
                 <h:link id="getItForLoggedUser" outcome="addSubscription"/>
-                <button id="buyme" type="button" class="btn btn-outline-secondary btn-block"
+                <button id="buyme" type="button" class="btn btn-outline-secondary btn-block mx-auto"
                         onclick="if (#{serviceDetailsModel.selectedService.external}) {
                         window.open('#{serviceDetailsCtrl.serviceUrl}', 'Service');
                      } else if (#{userBean.loggedInAndAllowedToSubscribe}) {
