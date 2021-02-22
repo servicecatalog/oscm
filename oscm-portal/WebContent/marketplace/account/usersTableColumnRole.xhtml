@@ -27,7 +27,7 @@
     <a4j:outputPanel layout="block" styleClass="tablePanel table_padding stringInMultiLine preserveWhitespaces"
                      id="rolePanel">
       <h:selectOneMenu id="unitRole" onchange="saveChangedRole('#{user.userId}', $(this).val());setDirty(true);"
-                       styleClass="roles-list custom-select custom-select-sm" value="#{user.roleInUnit}">
+                       styleClass="roles-list form-select form-select-sm" value="#{user.roleInUnit}">
         <f:selectItems value="#{manageGroupCtrl.manageGroupModel.roles}"/>
       </h:selectOneMenu>
 

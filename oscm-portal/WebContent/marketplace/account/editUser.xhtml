@@ -51,7 +51,7 @@
           <hr/>
 
           <mp:formSelect id="salutation" label="#{msg['user.salutation']}" value="#{updateUserModel.salutation.value}"
-                         selectStyle="custom-select" disabled="#{updateUserModel.salutation.readOnly}">
+                         selectStyle="form-select" disabled="#{updateUserModel.salutation.readOnly}">
             <adm:salutationItems/>
           </mp:formSelect>
 
@@ -71,7 +71,7 @@
                         required="#{updateUserModel.userId.required}" value="#{updateUserModel.userId.value}"/>
 
           <mp:formSelect id="locale" label="#{msg['user.locale']}" value="#{updateUserModel.locale.value}"
-                         selectStyle="custom-select" disabled="#{updateUserModel.locale.readOnly}" showHint="true">
+                         selectStyle="form-select" disabled="#{updateUserModel.locale.readOnly}" showHint="true">
             <adm:localeItems/>
             <f:validator validatorId="SupportedLanguageValidator"/>
           </mp:formSelect>
@@ -148,7 +148,7 @@
                                                 onkeyup="AdmUtils.setFirstPage(#{rich:element('userGroupsPager')});"/>
                     </f:facet>
                     <h:selectOneMenu id="unitRole" onchange="setDirty(true)" value="#{rowItem.selectedRole}"
-                                     styleClass="roles-list custom-select custom-select-sm">
+                                     styleClass="roles-list form-select form-select-sm">
                       <f:selectItems value="#{rowItem.roles}"/>
                     </h:selectOneMenu>
                   </rich:column>
@@ -223,7 +223,7 @@
             </a4j:outputPanel>
           </a4j:outputPanel>
 
-          <hr class="py-2"/>
+          <hr class="my-2"/>
 
           <h:commandButton styleClass="d-none" id="confirmedDeleteButton" onclick="setDirty(false);"
                            value="#{msg['button.delete']}" action="#{updateUserCtrl.delete}"/>

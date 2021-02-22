@@ -197,7 +197,7 @@
                       </h2>
                     </div>
                     <div class="col-auto">
-                      <div class="row no-gutters">
+                      <div class="row no-gutters me-1">
                         <ui:fragment
                             rendered="#{not empty manageSubscriptionModel.serviceRoles and not empty manageSubscriptionModel.assignedUsers}">
                           <mp:buttonBootstrap id="editRoles" value="#{msg['button.editRoles']}"
@@ -360,7 +360,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-1 col-2 pls0">
+                        <div class="col-md-1 col-2 ps-0">
                           <mp:hintBootstrap for="organizationalUnitSelect"/>
                         </div>
                       </div>
@@ -424,13 +424,13 @@
 
                   <div class="no-gutters row border-top my-2 justify-content-end">
                     <mp:buttonBootstrap id="saveConfigurationButton" value="#{msg['button.save']}"
-                                        styleClass="btn btn-secondary my-2"
+                                        styleClass="btn btn-secondary me-2 w-auto"
                                         bean="#{manageSubscriptionCtrl}"
                                         rendered="#{not manageSubscriptionModel.showOwnerWarning}"
                                         action="modify" disabled="#{manageSubscriptionModel.cfgTabDisabled}"/>
                     <mp:buttonBootstrap id="saveConfigurationButtonWithWarning" value="#{msg['button.save']}"
                                         onclick="#{rich:component('confirmOwnerPanel')}.show();return false;"
-                                        styleClass="btn btn-secondary my-2"
+                                        styleClass="btn btn-secondary mt-2 me-3 w-auto"
                                         rendered="#{manageSubscriptionModel.showOwnerWarning}"
                                         disabled="#{manageSubscriptionModel.cfgTabDisabled}"/>
 

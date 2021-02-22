@@ -46,9 +46,9 @@
 
           <a4j:outputPanel styleClass="row row-justify-space">
             <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);location.href='users.jsf';return false;"
-                                value="#{msg['button.cancel']}" styleClass="btn btn-outline-secondary ms-3"/>
+                                value="#{msg['button.cancel']}" styleClass="btn btn-outline-secondary ms-3 w-auto"/>
             <mp:buttonBootstrap id="createButton" value="#{msg['button.save']}" bean="#{addGroupCtrl}" action="create"
-                                styleClass="btn btn-secondary me-3"/>
+                                styleClass="btn btn-secondary me-3 w-auto"/>
           </a4j:outputPanel>
         </h:form>
 

@@ -39,3 +39,5 @@ $lightened-color: lighten(desaturate($secondary, 0.03), 23.33);
 
 $hover-color: darken($secondary, 2%);
 $darkened-color: darken($secondary, 6.5%);
+
+$enable-grid-classes: false;

@@ -14,7 +14,7 @@
     <div class="row justify-content-around">
 
       <!--  Number of services and filter tag info -->
-      <div class="row my-2 align-items-left align-self-center d-none d-sm-block ms-0">
+      <div class="row my-2 align-items-left align-self-center d-none d-sm-block ms-0 w-auto">
         <span id="listInfo#{prefix}" class="pagerListInfo label ps-1">
           <h:outputFormat value="#{msg['catalog.selectedTag.pageInfo']}" escape="true">
             <f:param value="#{servicePagingBean.firstOnPage}"/>
@@ -25,7 +25,7 @@
       </div>
 
       <!-- Select page container -->
-      <div class="row my-2 align-self-center ms-0">
+      <div class="row my-2 align-self-center ms-0 w-auto">
         <!--  Previous button -->
         <div class="col-auto px-1">
           <c:if test="#{servicePagingBean.previousAvailable}">
@@ -45,7 +45,7 @@
         </div>
 
         <!-- Page selection -->
-        <div class="col-auto px-0">
+        <div class="col-auto px-0 w-auto">
           <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
             <!-- Current page -->
             <c:if test="#{selpage eq servicePagingBean.selectedPage}">
@@ -83,37 +83,34 @@
         </div>
       </div>
 
-      <!-- Right menu container -->
-      <div class="row">
-        <!-- Page size container -->
-        <div class="row align-items-center">
-          <!-- Show  -->
-          <div class="col-auto">
-            <h:outputText value="#{msg['paging.show']}" styleClass="pagerListInfo bigDisplay pe-0"/>
-          </div>
-          <!-- Page size buttons -->
-          <div class="col-auto ps-0">
-            <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
-              <c:if test="#{size eq servicePagingBean.pageSize}">
-                <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary active px-1"
-                              id="pagingSize#{prefix}#{size}" value="">
-                  #{size}
-                </h:outputLink>
-              </c:if>
-              <c:if test="#{size ne servicePagingBean.pageSize}">
-                <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary px-1"
-                              id="pagingSize#{prefix}#{size}" value=""
-                              onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
-                  #{size}
-                </h:outputLink>
-              </c:if>
-            </c:forEach>
-          </div>
+      <!-- Page size container -->
+      <div class="row align-items-center w-auto">
+        <!-- Show  -->
+        <div class="col-auto">
+          <h:outputText value="#{msg['paging.show']}" styleClass="pagerListInfo bigDisplay pe-0"/>
+        </div>
+        <!-- Page size buttons -->
+        <div class="col-auto ps-0">
+          <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
+            <c:if test="#{size eq servicePagingBean.pageSize}">
+              <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary active px-1"
+                            id="pagingSize#{prefix}#{size}" value="">
+                #{size}
+              </h:outputLink>
+            </c:if>
+            <c:if test="#{size ne servicePagingBean.pageSize}">
+              <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary px-1"
+                            id="pagingSize#{prefix}#{size}" value=""
+                            onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
+                #{size}
+              </h:outputLink>
+            </c:if>
+          </c:forEach>
         </div>
       </div>
 
       <!-- Sorting select menu -->
-      <nav class="navbar navbar-expand-lg bg-themed serviceSorting">
+      <nav class="navbar navbar-expand-lg bg-themed serviceSorting w-auto">
         <div class="col-auto my-1 pe-0 me-1">
           <div class="dropdown ">
             <a class="btn btn-sm btn-outline-secondary dropdown-toggle" href="#" id="navbarSortToggle#{prefix}"

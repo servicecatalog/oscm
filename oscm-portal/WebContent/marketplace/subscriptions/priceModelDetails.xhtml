@@ -10,14 +10,14 @@
   <!-- Input parameter: priceModel (the price model that should be displayed) -->
   <c:if test="#{empty rendered or rendered}">
     <div class="row no-gutters border-bottom">
-      <h1>
+      <h1 class="w-auto">
         <h:outputText value="#{msg['marketplace.services.overview']}"/>
       </h1>
-      <h:outputText styleClass="priceSubtext" value="#{msg['priceModel.noVat']}"/>
+      <h:outputText styleClass="priceSubtext w-auto" value="#{msg['priceModel.noVat']}"/>
     </div>
   </c:if>
 
-  <a4j:outputPanel layout="block" styleClass="priceModelDescription">
+  <a4j:outputPanel layout="block" styleClass="priceModelDescription mt-2">
     <h:outputText value="#{priceModel.description}" escape="false"/>
   </a4j:outputPanel>
 

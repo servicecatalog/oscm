@@ -14,7 +14,7 @@
   font-size: 0.875rem;
 }
 
-.form-control:focus, .custom-select:focus, .btn:focus, .custom-file-input:focus, .page-link:focus {
+.form-control:focus, .form-select:focus, .btn:focus, .custom-file-input:focus, .page-link:focus {
   border-color: $secondary;
   box-shadow: 0 0 0 0.2rem rgba($secondary, 0.25);
 }

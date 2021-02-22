@@ -184,10 +184,10 @@
 
               <a4j:outputPanel styleClass="row row-justify-space">
                 <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" immediate="true" keepDirty="true"
-                                    bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ms-3"
+                                    bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ms-3 w-auto"
                                     action="previousFromConfirmPage"/>
 
-                <mp:buttonBootstrap id="confirm" value="#{msg['button.confirm']}" styleClass="btn btn-secondary me-3"
+                <mp:buttonBootstrap id="confirm" value="#{msg['button.confirm']}" styleClass="btn btn-secondary me-3 w-auto"
                                     bean="#{upgradeWizardConversation}" action="upgrade" big="true"/>
               </a4j:outputPanel>
             </div>

@@ -13,7 +13,7 @@
   </ui:define>
 
   <ui:define name="dialogTitle">
-    <h2>
+    <h2 class="w-auto">
       <h:outputText value="#{msg['service.reviews.delete.title']}"/>
     </h2>
   </ui:define>
@@ -49,10 +49,10 @@
 
           <a4j:outputPanel styleClass="row row-justify-space">
             <mp:buttonBootstrap id="cancelButton" onclick="#{cancelHandler}" value="#{msg['button.cancel']}"
-                                styleClass="btn btn-outline-secondary ms-3"/>
+                                styleClass="btn btn-outline-secondary ms-3 w-auto"/>
 
             <mp:buttonBootstrap id="deleteButton" value="#{msg['button.delete']}"
-                                styleClass="btn btn-outline-secondary me-3" bean="#{manageReviewCtrl}"
+                                styleClass="btn btn-outline-secondary me-3 w-auto" bean="#{manageReviewCtrl}"
                                 action="removeReviewByMarketplaceAdmin" render="#{dialogId}RerenderPanel"
                                 oncomplete="AdmUtils.showProgress(false);"/>
           </a4j:outputPanel>
