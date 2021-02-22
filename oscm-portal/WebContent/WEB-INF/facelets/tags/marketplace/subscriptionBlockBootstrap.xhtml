@@ -5,13 +5,13 @@
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
- <div class="text-left ps-3">
+ <div class="text-start ps-3">
   <div class="row pt-2">
    <a4j:outputPanel layout="block" styleClass="m-1" onclick="#{onClickHandler}">
     <h:graphicImage id="#{fieldId}Image" value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{subscription.serviceKey}"/>
    </a4j:outputPanel>
 
-   <div class="text-left p-2">
+   <div class="text-start p-2">
     <a4j:outputPanel layout="block" styleClass="center">
      <!-- subscription id -->
      <h2 id="#{fieldId}SubscriptionId" class="box_title">#{subscription.subscriptionId}</h2>
