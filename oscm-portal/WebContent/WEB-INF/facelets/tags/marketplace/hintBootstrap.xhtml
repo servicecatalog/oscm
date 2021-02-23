@@ -3,14 +3,16 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
- <c:set var="hintId" value="#{for}Hint"/>
- <c:set var="hintMsgId" value="#{pageId}.hint.#{for}"/>
- <c:set var="hintMsg" value="#{(not empty hintText)?hintText:(msg[hintMsgId])}"/>
+  <c:set var="hintId" value="#{for}Hint"/>
+  <c:set var="hintMsgId" value="#{pageId}.hint.#{for}"/>
+  <c:set var="hintMsg" value="#{(not empty hintText)?hintText:(msg[hintMsgId])}"/>
 
- <div id="#{hintId}Parent">
-  <a href="#" class="btn #{styleHint}" data-bs-toggle="popover"
-     data-bs-placement="right" data-bs-content="#{hintMsg}" id="#{hintId}" data-bs-container="&num;#{hintId}Parent"><i class="fa fa-question-circle"/></a>
- </div>
+  <div id="#{hintId}Parent">
+    <a tabindex="0" class="btn #{styleHint}" data-bs-toggle="popover" data-bs-trigger="hover focus"
+       data-bs-content="#{hintMsg}" id="#{hintId}" data-bs-container="&num;#{hintId}Parent">
+     <i class="fa fa-question-circle"/>
+    </a>
+  </div>
 
 </ui:composition>
 
