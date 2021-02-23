@@ -2284,6 +2284,16 @@ AdmUtils.sortSelect = function() {
 	});
 }
 
+AdmUtils.showTooltips = function() {
+ $(document).ready(function(){
+   $('[data-bs-toggle="popover"]').popover({
+     html : true,
+     container: 'body',
+     trigger: "hover click"
+   });
+ });
+}
+
 AdmUtils.sessionTab = function(tabId, navId) {
  var tabSession = document.getElementById(tabId);
  var nav = document.getElementById(navId);
