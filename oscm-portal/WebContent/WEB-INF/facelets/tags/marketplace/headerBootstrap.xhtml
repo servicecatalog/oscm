@@ -15,7 +15,7 @@
         </a>
       </div>
       <button id="navbarToggleButton" class="navbar-toggler" type="button" data-bs-toggle="collapse"
-              data-target="#navbar" aria-controls="navbar">
+              data-bs-target="#navbar" aria-controls="navbar">
         <span class="navbar-toggler-icon"/>
       </button>
 
@@ -108,7 +108,7 @@
             <ui:fragment rendered="#{user ne null}">
               <li class="nav-item dropdown"><a class="order-lg-4 nav-link dropdown-toggle waves-effect waves-light"
                                                href="#" id="navbarUserToggle" data-bs-toggle="dropdown"
-                                               data-target="#userDrop"><i class="fa fa-user"/>
+                                               data-bs-target="#userDrop"><i class="fa fa-user"/>
                 <h:outputText id="welcome"/>
                 #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
                 <div id="userDrop" class="dropdown-menu dropdown-menu-end mb-1">
@@ -144,6 +144,5 @@
 
   <script type="text/javascript">
     AdmUtils.IE9PlaceHolderFix('#{servicePagingBean.searchPhrase}', 'inputSearch');
-
   </script>
 </ui:composition>
