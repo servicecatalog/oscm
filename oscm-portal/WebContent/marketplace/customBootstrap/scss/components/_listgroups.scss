@@ -6,12 +6,10 @@
 
 .list-group-item-secondary:hover {
    background-color: $hover-color !important;
-   color: $white !important;
    color: color-yiq($hover-color) !important;
 }
 
 .list-group-item-secondary.active {
    background-color: $darkened-color !important;
-   color: $white !important;
    color: color-yiq($darkened-color) !important;
 }  
