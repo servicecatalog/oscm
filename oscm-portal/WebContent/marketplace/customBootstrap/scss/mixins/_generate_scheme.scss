@@ -1,0 +1,25 @@
+//$color-palette: (); 
+
+ $lightest-color: $white;
+ $light-color: $custom-theme-color-100;
+ $dark-color: $custom-theme-color-700;
+ $darkest-color: $custom-theme-color-900;
+  
+  $color-palette: (
+   "primary": $primary,
+   "secondary": $secondary,
+   "foreground": (
+    "base": $theme-foreground-color,
+    "lightest": $lightest-color
+    )  
+   ,
+   "background": (
+    "base": $theme-background-color,
+    "light": $light-color,
+    "dark": $dark-color,
+    "darkest": $darkest-color
+  ) 
+   );
+   
+// @debug map-merge($color-palette, $basic_colors);
+ /*$color-palette: generate-shades-for-color("background", $theme-background-color); */
