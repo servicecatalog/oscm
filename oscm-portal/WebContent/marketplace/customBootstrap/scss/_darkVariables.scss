@@ -1,21 +1,33 @@
 @import "./basic/color_contrast_utilities";
 
 $enable-dark-navigation: true;
-$enable-dark-theme: false;
+$enable-dark-theme: true;
 
 $main-color: $green;
 
-$secondary: $main-color;
-$primary: $main-color;
+@import "./basic/generate_theme_shades";
+@import "./mixins/color_scheme";
+@import "color_scheme_vars";
+@import "./mixins/generate_scheme";
 
-$dark: $gray-900;
-$dark-lighter: $gray-800;
-$dark-lightest: $gray-700;
+$color-scheme-foreground-base: color-scheme-get("foreground", "base");
+$color-scheme-foreground-lightest: color-scheme-get("foreground", "lightest");
 
-$footer-link-color: $white;
+$color-scheme-background-base: color-scheme-get("background", "base");
+$color-scheme-background-light: color-scheme-get("background", "light");
+$color-scheme-background-dark: color-scheme-get("background", "dark");
+$color-scheme-background-darkest: color-scheme-get("background", "darkest");
 
-$interior-color: $white;
-$light: $gray-200;
+$primary: color-scheme-get("primary");
+
+$dark: $color-scheme-background-dark;
+
+$footer-link-color: $color-scheme-foreground-lightest;
+$interior-color: $color-scheme-foreground-lightest;
+
+$light: $color-scheme-foreground-base;
+
+
 
 $theme-colors: (
    "primary": $primary,
@@ -25,8 +37,8 @@ $theme-colors: (
 );
 
 // Cards
-$card-hover-color: $dark-lighter;
-$card-bg-color: $dark-lightest;
+$card-hover-color: $color-scheme-background-dark;
+$card-bg-color: $color-scheme-background-base;
 
 @import "toggled_theme_vars";
 
@@ -37,36 +49,37 @@ $dropdown-link-active-bg: $primary;
 // Colors only for dark theme
 @if $enable-dark-theme {
 // Body
-$body-color: $gray-100;
+$body-color: $color-scheme-foreground-base;
    
 // Breadcrumbs
-$breadcrumb-bg: $dark-lightest;
+$breadcrumb-bg: $color-scheme-background-base;
 
 // Inputs
-$input-bg: $dark-lighter;
+$input-bg: $color-scheme-background-dark;
 $custom-select-bg: $input-bg; 
 
 $input-focus-bg: $input-bg;
 $input-focus-color: $white;
 
 // Dropdowns
-$dropdown-bg: $dark-lightest;
-$dropdown-divider-bg: $dark-lighter;
+$dropdown-bg: $color-scheme-background-base;
+$dropdown-divider-bg: $color-scheme-background-dark;
+
 $dropdown-link-color: $white;
 $dropdown-link-hover-color: $white;
 $dropdown-link-hover-bg: $primary;
 $dropdown-color: $white;
 
 // Colors for list groups only for dark theme
-$list-group-bg:                     $dark-lighter;
-$list-group-border-color:           $dark-lighter;
+$list-group-bg:                     $color-scheme-background-dark;
+$list-group-border-color:           $color-scheme-background-dark;
 $list-group-hover-bg:               $primary;
-$list-group-disabled-bg:            $dark-lightest;
+$list-group-disabled-bg:            $color-scheme-background-base;
 $list-group-action-active-bg:       $primary;
 
 
 .list-group-item {
-   color: $light;
+   color: $color-scheme-foreground-base;
 }
 
 .list-group-item-dark {
@@ -75,19 +88,19 @@ $list-group-action-active-bg:       $primary;
 
 // Modal dialogs
 .rf-pp-cnt {
- color: $light !important;
- background-color: $dark-lightest !important;
+ color: $color-scheme-foreground-base !important;
+ background-color: $color-scheme-background-base !important;
 }
 
 // Popovers
-$popover-bg: $dark-lighter;
+$popover-bg: $color-scheme-background-dark;
 $popover-body-color: $light;
 
 // Modal dialogs
 $modal_dialog_text_color: $light;
 
 // Tables
-$table-bg: $dark-lightest;
+$table-bg: $color-scheme-background-base;
 
 // Convert table img colors to white 
 .editPen {
@@ -105,7 +118,7 @@ $input-group-addon-border-color: $primary;
 
 // Text color for Account Menu header.
 #link0 {
-  color: $light;
+  color: $color-scheme-foreground-base;
   
   &:hover  { 
     color: $navbar-dark-hover-color;

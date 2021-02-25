@@ -1,5 +1,5 @@
 // Body
-$body-bg: if($enable-dark-theme, $black, $white);
+$body-bg: if($enable-dark-theme, $color-scheme-background-darkest, $white);
 
 // Breadcrumbs
 $theme-breadcrumb-bg: if($enable-dark-theme, $body-bg, $color_athens_gray_approx);
@@ -9,7 +9,7 @@ $breadcrumb-active-color: if($enable-dark-theme, lighten($secondary, 20%), $seco
 
 // General theme 
 $theme-border-color: if($enable-dark-theme, $dark, $color_gallery_approx);
-$theme-bg-color: if($enable-dark-theme, $dark-lightest, $white);
+$theme-bg-color: if($enable-dark-theme, $color-scheme-background-base, $white);
 
 $main-color-for-theme: if($enable-dark-theme, adjust-color-contrast($main-color, $dark), $main-color);
 $adjusted-primary: $main-color-for-theme;
@@ -27,9 +27,9 @@ $theme-card-hover-bg: if($enable-dark-theme, $card-hover-color, $gray);
 $aside-heading-color: if($enable-dark-theme, $light, $color_dorado_approx);
 
 // Tables
-$theme-table-hover-color: if($enable-dark-theme, lighten($dark-lightest, 30%), $color_light_athens_gray_approx);
+$theme-table-hover-color: if($enable-dark-theme, lighten($color-scheme-background-base, 30%), $color_light_athens_gray_approx);
 $theme-table-bg-color: $theme-bg-color;
-$theme-table-odd-color: if($enable-dark-theme, $dark-lightest, $white);
-$theme-table-even-color:  if($enable-dark-theme, $dark-lighter, $color_gallery_approx); 
-$theme-table-border-color: if($enable-dark-theme, darken($dark-lighter, 7%), $color_alto_approx);
-$theme-table-border-bottom-color: if($enable-dark-theme, darken($dark-lighter, 7%), $color_everglade_approx solid);
+$theme-table-odd-color: if($enable-dark-theme, $color-scheme-background-base, $white);
+$theme-table-even-color:  if($enable-dark-theme, $color-scheme-background-dark, $color_gallery_approx); 
+$theme-table-border-color: if($enable-dark-theme, darken($color-scheme-background-dark, 7%), $color_alto_approx);
+$theme-table-border-bottom-color: if($enable-dark-theme, darken($color-scheme-background-dark, 7%), $color_everglade_approx solid);
