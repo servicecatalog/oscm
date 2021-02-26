@@ -834,8 +834,8 @@ table.smallPanel {
 }
 
 /* current subscriptton status wrapper (ready/error/pending)*/
-.subscriptionStatus {
-
+.subscriptionStatus:hover {
+    color: color-yiq($theme_table_hover_color);
 }
 
 /* show for subscription errors */
@@ -863,6 +863,14 @@ td:hover .subscriptionPending, td:hover .serverSubscriptionSuspended, td:hover .
 .subscriptionPending, .serverSubscriptionSuspended, .subscriptionWaitingForApproval, .subscriptionPendingUpd {
   background: transparent $mp_icon_sprite no-repeat scroll 0 -731px;
   color: $color_dusty_gray_approx;
+}
+
+td:hover .subscriptionStatus {
+  color: $theme_subscription_status_hover_color;
+}
+
+td:hover .subscriptionPending, td:hover .serverSubscriptionSuspended, td:hover .subscriptionWaitingForApproval, td:hover .subscriptionPendingUpd {
+  color: $theme_subscription_status_hover_color;
 }
 
 .provisioningProgress {
