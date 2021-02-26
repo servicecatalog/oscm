@@ -27,8 +27,6 @@ $interior-color: $color-scheme-foreground-lightest;
 
 $light: $color-scheme-foreground-base;
 
-
-
 $theme-colors: (
    "primary": $primary,
    "secondary": $secondary,
@@ -80,10 +78,6 @@ $list-group-action-active-bg:       $primary;
 
 .list-group-item {
    color: $color-scheme-foreground-base;
-}
-
-.list-group-item-dark {
-  color: color-yiq($dark);
 }
 
 // Modal dialogs

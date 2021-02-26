@@ -19,6 +19,7 @@ $adjusted-secondary: $main-color-for-theme;
 $link-color: $adjusted-secondary;
 $link-hover-color: $link-color;
 
+
 // Cards
 $theme-card-bg: if($enable-dark-theme, $card-bg-color, $white);
 $theme-card-hover-bg: if($enable-dark-theme, $card-hover-color, $gray);
