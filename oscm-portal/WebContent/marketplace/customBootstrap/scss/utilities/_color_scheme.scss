@@ -19,16 +19,6 @@
   @return map-merge($palette, $shades-map-for-color);
 }
 
-@function color-scheme-get($color-name, $color-tone: null) {
-  // color tone is optional
-  @if ($color-tone != null) {
-     @return map-get(map-get($color-palette, $color-name), $color-tone);
-  } 
-  @else {  
-     @return map-get($color-palette, $color-name);
-  }
-} 
-
 @function generate-color-scheme($primary, $secondary, $theme-foreground-color, $theme-background-color) {
    $basic-palette:  map-merge(
   (
@@ -47,3 +37,12 @@
 }
 
 
+@function color-scheme-get($color-name, $color-tone: null) {
+  // color tone is optional
+  @if ($color-tone != null) {
+     @return map-get(map-get($color-palette, $color-name), $color-tone);
+  } 
+  @else {  
+     @return map-get($color-palette, $color-name);
+  }
+} 
