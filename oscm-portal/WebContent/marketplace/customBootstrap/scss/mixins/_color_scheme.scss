@@ -1,9 +1,0 @@
-$custom-color-key: 'base' !default;
-
-
-@mixin color-set($color-palette, $color-name, $color-value) {
-  $color_map: ( $color-name: $color-value);
-   @debug map-merge($color-palette, $color_map);
-}
-
-
