@@ -5,10 +5,12 @@ $enable-dark-theme: true;
 
 $main-color: $green;
 
-@import "./basic/generate_theme_shades";
-@import "./mixins/color_scheme";
+
 @import "color_scheme_vars";
 @import "./mixins/generate_scheme";
+
+$color-palette: generate-scheme();
+
 
 $color-scheme-foreground-base: color-scheme-get("foreground", "base");
 $color-scheme-foreground-lightest: color-scheme-get("foreground", "lightest");

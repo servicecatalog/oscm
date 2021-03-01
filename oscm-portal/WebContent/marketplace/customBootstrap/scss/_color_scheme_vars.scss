@@ -1,12 +1,13 @@
 // Define base background-color for theme.
 
-@import "./basic/generate_theme_shades"; 
+// @import "./basic/generate_theme_shades"; 
 
 // Define secondary color for theme
 $secondary: $main-color;
 $primary: $main-color;
 
 // Define the background color for the theme
+$blue: #00008b;
 $theme-background-color: $blue;
 
 // Define the foreground color for the theme

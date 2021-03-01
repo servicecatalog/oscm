@@ -1,39 +1,25 @@
-//$theme-color-interval: 20%;
-/*
-$base-background-color: $green;
-$custom-theme-color: $base-background-color;
+@function palette-color-level($color, $level: 0) {
+  $palette-color-interval: 20%;
+  
+  $color-base: if($level > 0, $black, $white);
+  $level: abs($level);
+  @return mix($color-base, $color, $level * $palette-color-interval);
+}
 
-$blue: #007bff;
-Dark blue
-$blue: #00008b;
-$custom-theme-color-100: mix(white, $blue, 80%); //theme-color-level($custom-theme-color, 4);
-$custom-theme-color-200: mix(white, $blue, 60%); //theme-color-level($custom-theme-color, 3);
-$custom-theme-color-300: mix(white, $blue, 40%); //theme-color-level($custom-theme-color, 2);
-$custom-theme-color-400: mix(white, $blue, 20%); //theme-color-level($custom-theme-color, 1);
 
-$custom-theme-color-500: $blue; //theme-color-level($custom-theme-color, 0);
-
-$custom-theme-color-600: mix(black, $blue, 20%); //theme-color-level($custom-theme-color, -1);
-$custom-theme-color-700: mix(black, $blue, 40%); //theme-color-level($custom-theme-color, -2);
-$custom-theme-color-800: mix(black, $blue, 60%); //theme-color-level($custom-theme-color, -3);
-$custom-theme-color-900: mix(black, $blue, 80%); //theme-color-level($custom-theme-color, -4); */
-
-/*$custom-theme-color-100: #3395ff;
-$custom-theme-color-700: #0056b3;
-$custom-theme-color-900: #003d80; */
 
 $blue: #00008b;
 
 $base-background-color: $blue;
 
-$custom-theme-color-100: mix(white, $base-background-color, 80%); 
-$custom-theme-color-200: mix(white, $base-background-color, 60%); 
-$custom-theme-color-300: mix(white, $base-background-color, 40%); 
-$custom-theme-color-400: mix(white, $base-background-color, 20%);
+$custom-theme-color-100: palette-color-level($base-background-color, 4);
+$custom-theme-color-200: palette-color-level($base-background-color, 3);
+$custom-theme-color-300: palette-color-level($base-background-color, 2);
+$custom-theme-color-400: palette-color-level($base-background-color, 1);
 
-$custom-theme-color-500: $base-background-color;
+$custom-theme-color-500: palette-color-level($base-background-color, 0);
 
-$custom-theme-color-600: mix(black, $base-background-color, 20%); 
-$custom-theme-color-700: mix(black, $base-background-color, 40%); 
-$custom-theme-color-800: mix(black, $base-background-color, 60%); 
-$custom-theme-color-900: mix(black, $base-background-color, 80%);
+$custom-theme-color-600: palette-color-level($base-background-color, -1); 
+$custom-theme-color-700: palette-color-level($base-background-color, -2);
+$custom-theme-color-800: palette-color-level($base-background-color, -3);
+$custom-theme-color-900: palette-color-level($base-background-color, -4);

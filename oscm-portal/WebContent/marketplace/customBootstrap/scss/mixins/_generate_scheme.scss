@@ -1,25 +1,53 @@
-//$color-palette: (); 
-
  $lightest-color: $white;
- $light-color: $custom-theme-color-100;
- $dark-color: $custom-theme-color-700;
- $darkest-color: $custom-theme-color-900;
-  
-  $color-palette: (
+ 
+ $basic-palette: (
    "primary": $primary,
    "secondary": $secondary,
    "foreground": (
     "base": $theme-foreground-color,
     "lightest": $lightest-color
     )  
-   ,
-   "background": (
-    "base": $theme-background-color,
-    "light": $light-color,
-    "dark": $dark-color,
-    "darkest": $darkest-color
-  ) 
    );
-   
-// @debug map-merge($color-palette, $basic_colors);
- /*$color-palette: generate-shades-for-color("background", $theme-background-color); */
+
+@function generate-shades-for-color($palette, $color-name, $base-color) {
+  $light-color: mix($white, $base-color, 80%); 
+  $dark-color: mix($black, $base-color, 40%);
+  $darkest-color: mix($black, $base-color, 80%);
+  
+  $shades-map-for-color: ( $color-name: (
+        'base': $base-color,
+        'light': $light-color,
+        'dark': $dark-color,
+        'darkest': $darkest-color
+        )
+    );
+  
+  @return map-merge($palette, $shades-map-for-color);
+}
+
+@function color-scheme-get($color-name, $color-tone: null) {
+  // color tone is optional
+  @if ($color-tone != null) {
+     @return map-get(map-get($color-palette, $color-name), $color-tone);
+  } 
+  @else {  
+     @return map-get($color-palette, $color-name);
+  }
+} 
+
+@function generate-scheme() {
+ $base-background-color: $blue;
+ $color-palette: generate-shades-for-color($basic-palette, "background", $base-background-color);
+ @return $color-palette;
+}
+
+
+@function generate-color-scheme($primary, $secondary, $theme-foreground-color, $theme-background-color) {
+  
+
+ 
+  $palette: generate-shades-for-color($basic-palette, "background", $theme-background-color);
+  @return $palette; 
+}
+
+
