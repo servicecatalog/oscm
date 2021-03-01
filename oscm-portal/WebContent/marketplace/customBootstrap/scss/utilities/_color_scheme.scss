@@ -6,12 +6,14 @@
 @function generate-shades-for-color($palette, $color-name, $base-color) {
   $light-color: mix($white, $base-color, 80%); 
   $dark-color: mix($black, $base-color, 40%);
+  $darker-color: mix($black, $base-color, 60%);
   $darkest-color: mix($black, $base-color, 80%);
   
   $shades-map-for-color: ( $color-name: (
         'base': $base-color,
         'light': $light-color,
         'dark': $dark-color,
+        'darker': $darker-color,
         'darkest': $darkest-color
         )
     );
