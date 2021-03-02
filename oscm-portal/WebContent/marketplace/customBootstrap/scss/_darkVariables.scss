@@ -1,13 +1,13 @@
 @import "./basic/color_contrast_utilities";
 
 $enable-dark-navigation: true;
-$enable-dark-theme: true;
+$enable-dark-theme: false;
 
 $main-color: $green;
 
 
 @import "./utilities/color_scheme";
-@import "./utilities/generate_dark_scheme_vars";
+@import "./utilities/generate_light_scheme_vars";
 
 $color-scheme-foreground-base: color-scheme-get("foreground", "base");
 $color-scheme-foreground-lightest: color-scheme-get("foreground", "lightest");
@@ -58,7 +58,7 @@ $input-bg: $color-scheme-background-dark;
 $custom-select-bg: $input-bg; 
 
 $input-focus-bg: $input-bg;
-$input-focus-color: $white;
+$input-focus-color:  $color-scheme-foreground-base;
 
 // Dropdowns
 $dropdown-bg: $color-scheme-background-base;
@@ -67,7 +67,7 @@ $dropdown-divider-bg: $color-scheme-background-dark;
 $dropdown-link-color: $white;
 $dropdown-link-hover-color: $white;
 $dropdown-link-hover-bg: $primary;
-$dropdown-color: $white;
+$dropdown-color: $color-scheme-foreground-base;
 
 // Colors for list groups only for dark theme
 $list-group-bg:                     $color-scheme-background-dark;

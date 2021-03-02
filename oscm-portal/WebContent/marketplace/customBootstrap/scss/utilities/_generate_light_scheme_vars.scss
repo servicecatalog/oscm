@@ -3,7 +3,7 @@ $secondary: $main-color;
 $primary: $main-color;
 
 // Define the background color for the theme
-$theme-background-color: $gray-100;
+$theme-background-color: $white;
 
 // Define the foreground color for the theme
 $theme-foreground-color: $black;
@@ -11,5 +11,4 @@ $theme-foreground-color: $black;
 // Generate a color palette based on the four user-defined colors: 
 // primary, secondary, foreground, background
 
-$background-color-interval: 3%;
-$color-palette: generate-color-scheme($primary, $secondary, $theme-foreground-color, $theme-background-color, $background-color-interval);
+$color-palette: generate-light-color-scheme($primary, $secondary, $theme-foreground-color, $theme-background-color);
