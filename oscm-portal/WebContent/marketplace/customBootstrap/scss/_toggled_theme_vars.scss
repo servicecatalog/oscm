@@ -21,16 +21,16 @@ $link-hover-color: $link-color;
 
 
 // Cards
-$theme-card-bg: if($enable-dark-theme, $card-bg-color, $white);
-$theme-card-hover-bg: if($enable-dark-theme, $card-hover-color, $gray);
+$theme-card-bg: $card-bg-color;
+$theme-card-hover-bg: $card-hover-color;
 
 // Colors for aside menu.
-$aside-heading-color: if($enable-dark-theme, $light, $color_dorado_approx);
+$aside-heading-color: $light;
 
 // Tables
-$theme-table-hover-color: if($enable-dark-theme, lighten($color-scheme-background-base, 30%), $color_light_athens_gray_approx);
+$theme-table-hover-color: lighten($color-scheme-background-base, 30%);
 $theme-table-bg-color: $theme-bg-color;
-$theme-table-odd-color: if($enable-dark-theme, $color-scheme-background-base, $white);
-$theme-table-even-color:  if($enable-dark-theme, $color-scheme-background-dark, $color_gallery_approx); 
-$theme-table-border-color: if($enable-dark-theme, darken($color-scheme-background-dark, 7%), $color_alto_approx);
-$theme-table-border-bottom-color: if($enable-dark-theme, darken($color-scheme-background-dark, 7%), $color_everglade_approx solid);
+$theme-table-odd-color: $color-scheme-background-base;
+$theme-table-even-color:  $color-scheme-background-dark; 
+$theme-table-border-color: darken($color-scheme-background-dark, 7%);
+$theme-table-border-bottom-color: darken($color-scheme-background-dark, 7%);

@@ -1,13 +1,13 @@
- $lightest-color: $white;
+
  
  $basic-palette: ();
    
 
-@function generate-shades-for-color($palette, $color-name, $base-color) {
-  $light-color: mix($white, $base-color, 80%); 
-  $dark-color: mix($black, $base-color, 40%);
-  $darker-color: mix($black, $base-color, 60%);
-  $darkest-color: mix($black, $base-color, 80%);
+@function generate-shades-for-color($palette, $color-name, $base-color, $palette-color-interval) {
+  $light-color: mix($white, $base-color, 4 * $palette-color-interval); 
+  $dark-color: mix($black, $base-color, 2 * $palette-color-interval);
+  $darker-color: mix($black, $base-color, 3 * $palette-color-interval);
+  $darkest-color: mix($black, $base-color, 4 * $palette-color-interval);
   
   $shades-map-for-color: ( $color-name: (
         'base': $base-color,
@@ -21,20 +21,22 @@
   @return map-merge($palette, $shades-map-for-color);
 }
 
-@function generate-color-scheme($primary, $secondary, $theme-foreground-color, $theme-background-color) {
+@function generate-color-scheme($primary, $secondary, $theme-foreground-color, $theme-background-color, $palette-color-interval) {
+   $foreground-lightest-color:  mix($white, $theme-foreground-color, 80%); 
+   
    $basic-palette:  map-merge(
   (
    "primary": $primary,
    "secondary": $secondary,
    "foreground": (
     "base": $theme-foreground-color,
-    "lightest": $lightest-color
+    "lightest": $foreground-lightest-color
     ))  ,
   $basic-palette
 );
 
  
-  $color-palette: generate-shades-for-color($basic-palette, "background", $theme-background-color);
+  $color-palette: generate-shades-for-color($basic-palette, "background", $theme-background-color, 20%);
    @return $color-palette;
 }
 

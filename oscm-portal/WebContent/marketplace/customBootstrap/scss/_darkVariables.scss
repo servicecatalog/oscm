@@ -7,7 +7,7 @@ $main-color: $green;
 
 
 @import "./utilities/color_scheme";
-@import "./utilities/generate_scheme_vars";
+@import "./utilities/generate_dark_scheme_vars";
 
 $color-scheme-foreground-base: color-scheme-get("foreground", "base");
 $color-scheme-foreground-lightest: color-scheme-get("foreground", "lightest");
@@ -26,7 +26,7 @@ $dark: $color-scheme-background-darker;
 $footer-link-color: $color-scheme-foreground-lightest;
 $interior-color: $color-scheme-foreground-lightest;
 
-$light: $color-scheme-foreground-base;
+$light: $color-scheme-background-light;
 
 $theme-colors: (
    "primary": $primary,
