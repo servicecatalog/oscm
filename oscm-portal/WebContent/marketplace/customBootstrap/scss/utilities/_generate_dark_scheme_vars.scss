@@ -2,8 +2,8 @@
 
 $main-color-for-theme: adjust-color-contrast($main-color, $dark);
 
-$secondary: $main-color;
-$primary: $main-color;
+$secondary: $main-color-for-theme;
+$primary: $main-color-for-theme;
 
 // Define the background color for the theme
 // Test: red background color.

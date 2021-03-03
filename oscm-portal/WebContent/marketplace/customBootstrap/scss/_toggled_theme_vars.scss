@@ -1,5 +1,5 @@
 // Body
-$body-bg: if($enable-dark-theme, $color-scheme-background-darkest, $white);
+$body-bg: $color-scheme-background-biggest-contrast;
 
 // Breadcrumbs
 $theme-breadcrumb-bg: if($enable-dark-theme, $body-bg, $color_athens_gray_approx);
@@ -11,12 +11,8 @@ $breadcrumb-active-color: if($enable-dark-theme, lighten($secondary, 20%), $seco
 $theme-border-color: if($enable-dark-theme, $dark, $color_gallery_approx);
 $theme-bg-color: if($enable-dark-theme, $color-scheme-background-base, $white);
 
-$main-color-for-theme: if($enable-dark-theme, adjust-color-contrast($main-color, $dark), $main-color);
-$adjusted-primary: $main-color-for-theme;
-$adjusted-secondary: $main-color-for-theme;
-
 // Link colors.
-$link-color: $adjusted-secondary;
+$link-color: $secondary;
 $link-hover-color: $link-color;
 
 
@@ -25,7 +21,7 @@ $theme-card-bg: $card-bg-color;
 $theme-card-hover-bg: $card-hover-color;
 
 // Colors for aside menu.
-$aside-heading-color: $light;
+$aside-heading-color: $color-scheme-foreground-base;
 
 // Tables
 $theme-table-hover-color: lighten($color-scheme-background-base, 30%);

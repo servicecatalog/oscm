@@ -16,17 +16,16 @@ $color-scheme-background-base: color-scheme-get("background", "base");
 $color-scheme-background-light: color-scheme-get("background", "light");
 $color-scheme-background-dark: color-scheme-get("background", "dark");
 $color-scheme-background-darker: color-scheme-get("background", "darker");
-$color-scheme-background-darkest: color-scheme-get("background", "darkest");
+$color-scheme-background-biggest-contrast: color-scheme-get("background", "biggest-contrast");
 
 $primary: color-scheme-get("primary");
 $secondary: color-scheme-get("secondary");
 
 $dark: $color-scheme-background-darker;
+$light: $color-scheme-background-light;
 
 $footer-link-color: $color-scheme-foreground-lightest;
 $interior-color: $color-scheme-foreground-lightest;
-
-$light: $color-scheme-background-light;
 
 $theme-colors: (
    "primary": $primary,
@@ -113,7 +112,7 @@ $input-group-addon-border-color: $primary;
 
 // Text color for Account Menu header.
 #link0 {
-  color: $color-scheme-foreground-base;
+  color: $light;
   
   &:hover  { 
     color: $navbar-dark-hover-color;

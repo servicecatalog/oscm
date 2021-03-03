@@ -7,14 +7,14 @@
   $light-color: mix($white, $base-color, 4 * $palette-color-interval); 
   $dark-color: mix($black, $base-color, 2 * $palette-color-interval);
   $darker-color: mix($black, $base-color, 3 * $palette-color-interval);
-  $darkest-color: mix($black, $base-color, 4 * $palette-color-interval);
+  $biggest-contrast-color: mix($black, $base-color, 4 * $palette-color-interval);
   
   $shades-map-for-color: ( $color-name: (
         'base': $base-color,
         'light': $light-color,
         'dark': $dark-color,
         'darker': $darker-color,
-        'darkest': $darkest-color
+        'biggest-contrast': $biggest-contrast-color
         )
     );
   
@@ -22,17 +22,17 @@
 }
 
 @function generate-light-shades-for-color($palette, $color-name, $base-color) {
-  $light-color: mix($white, $base-color, 80%); 
+  $light-color: mix($white, $base-color, 5%); 
   $dark-color: mix($black, $base-color, 10%);
-  $darker-color: mix($black, $base-color, 60%);
-  $darkest-color: mix($black,$base-color, 80%);
+  $darker-color: mix($black, $base-color, 80%);
+  $biggest-contrast-color: mix($white,$base-color, 80%);
   
   $shades-map-for-color: ( $color-name: (
         'base': $base-color,
         'light': $light-color,
         'dark': $dark-color,
         'darker': $darker-color,
-        'darkest': $darkest-color
+        'biggest-contrast': $biggest-contrast-color
         )
     );
   
