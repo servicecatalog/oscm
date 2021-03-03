@@ -154,4 +154,5 @@
   <UnitRoleAssignment />
   <Tenant /> 
   <TenantSetting />
+  <DisplaySetting /> 
 </dataset>
