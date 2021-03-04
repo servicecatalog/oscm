@@ -1,7 +1,7 @@
 CREATE TABLE displaysettings (
     tkey bigint NOT NULL,
     version INTEGER DEFAULT 0 NOT NULL,
-    userId character varying(255) NOT NULL,
+    userTKey BIGINT NOT NULL,
     objectId character varying(64) NOT NULL,
     value bytea NOT NULL );  
     

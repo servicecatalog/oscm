@@ -19,13 +19,13 @@ import org.oscm.domobjects.annotations.BusinessKey;
 
 /** @author goebel */
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userId"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userTKey"}))
 @NamedQueries({
   @NamedQuery(
       name = "DisplaySettings.findByBusinessKey",
-      query = "SELECT d FROM DisplaySettings d WHERE d.dataContainer.userId = " + ":userId")
+      query = "SELECT d FROM DisplaySettings d WHERE d.dataContainer.userTKey = " + ":userTKey")
 })
-@BusinessKey(attributes = {"userId"})
+@BusinessKey(attributes = {"userTKey"})
 public class DisplaySettings extends DomainObjectWithVersioning<DisplaySettingsData> {
 
   /** */
@@ -36,12 +36,12 @@ public class DisplaySettings extends DomainObjectWithVersioning<DisplaySettingsD
     dataContainer = new DisplaySettingsData();
   }
 
-  public void setUserId(String userId) {
-    dataContainer.setUserId(userId);
+  public void setUserTKey(long userId) {
+    dataContainer.setUserTKey(userId);
   }
 
-  public String getUserId() {
-    return dataContainer.getUserId();
+  public long getUserTKey() {
+    return dataContainer.getUserTKey();
   }
 
   public void setData(String data) {
