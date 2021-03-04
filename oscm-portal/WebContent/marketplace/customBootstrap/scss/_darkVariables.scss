@@ -1,7 +1,6 @@
 @import "./basic/color_contrast_utilities";
 
 $enable-dark-navigation: true;
-$enable-dark-theme: false;
 
 $main-color: $green;
 
@@ -37,7 +36,6 @@ $theme-colors: (
 
 // Cards
 $card-hover-color: $color-scheme-background-darker;
-$card-bg-color: $color-scheme-background-dark;
 
 @import "toggled_theme_vars";
 

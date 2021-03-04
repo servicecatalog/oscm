@@ -25,7 +25,7 @@
 
 @function generate-light-shades-for-color($palette, $color-name, $base-color) {
   $light-color: mix($white, $base-color, 5%); 
-  $dark-color: mix($black, $base-color, 2%);
+  $dark-color: mix($black, $base-color, 5%);
   $darker-color: mix($black, $base-color, 10%);
   $darkest-color: mix($black, $base-color, 80%);
   $biggest-contrast-color: mix($white,$base-color, 80%);

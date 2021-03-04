@@ -2,10 +2,10 @@
 $body-bg: $color-scheme-background-biggest-contrast;
 
 // Breadcrumbs
-$theme-breadcrumb-bg: if($enable-dark-theme, $body-bg, $color_athens_gray_approx);
+$theme-breadcrumb-bg: if($enable-dark-theme, $body-bg, $color-scheme-background-dark);
 
 // Breadcrumbs
-$breadcrumb-active-color: if($enable-dark-theme, lighten($secondary, 20%), $secondary);
+$breadcrumb-active-color: $secondary;
 
 // General theme 
 $theme-border-color: if($enable-dark-theme, $dark, $color_gallery_approx);
@@ -17,6 +17,8 @@ $link-hover-color: $link-color;
 
 
 // Cards
+$card-bg-color: if($enable-dark-theme, $color-scheme-background-dark, $color-scheme-background-light);
+
 $theme-card-bg: $card-bg-color;
 $theme-card-hover-bg: $card-hover-color;
 
