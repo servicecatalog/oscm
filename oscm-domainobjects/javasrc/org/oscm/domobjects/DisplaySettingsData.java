@@ -20,7 +20,7 @@ public class DisplaySettingsData extends DomainDataContainer implements Serializ
   private static final long serialVersionUID = -8837450327201421421L;
 
   @Column(nullable = false)
-  private String userId;
+  private long userTKey;
 
   @Column(nullable = false)
   private String data;
@@ -33,11 +33,11 @@ public class DisplaySettingsData extends DomainDataContainer implements Serializ
     return data;
   }
 
-  public void setUserId(String userId) {
-    this.userId = userId;
+  public void setUserTKey(long userTKey) {
+    this.userTKey = userTKey;
   }
 
-  public String getUserId() {
-    return this.userId;
+  public long getUserTKey() {
+    return this.userTKey;
   }
 }
