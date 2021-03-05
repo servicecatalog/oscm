@@ -17,7 +17,7 @@ $link-hover-color: $link-color;
 
 
 // Cards
-$card-bg-color: if($enable-dark-theme, $color-scheme-background-dark, $color-scheme-background-light);
+$card-bg-color: if($enable-dark-theme, $color-scheme-background-dark, $color-scheme-background-biggest-contrast);
 
 $theme-card-bg: $card-bg-color;
 $theme-card-hover-bg: $card-hover-color;
