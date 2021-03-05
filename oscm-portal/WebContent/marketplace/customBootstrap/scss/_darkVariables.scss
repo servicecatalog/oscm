@@ -4,7 +4,6 @@ $enable-dark-navigation: true;
 
 $main-color: $green;
 
-
 @import "./utilities/color_scheme";
 @import "./utilities/generate_light_scheme_vars";
 
@@ -119,7 +118,7 @@ $input-group-addon-border-color: $primary;
 
 // Text color for Account Menu header.
 #link0 {
-  color: $light;
+  color: $color-scheme-foreground-base;
   
   &:hover  { 
     color: $navbar-dark-hover-color;
