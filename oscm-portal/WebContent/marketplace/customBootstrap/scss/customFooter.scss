@@ -7,6 +7,8 @@
 
 $toggled-background: if($enable-dark-navigation, $dark, $light);
 
+$footer-link-color: if($enable-dark-navigation, $color-scheme-foreground-lightest, $secondary);
+
 .bootstrap_footer {
 	background: $toggled-background;
 	border-bottom:1px solid #4c4c4c;

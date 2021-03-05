@@ -1,0 +1,18 @@
+$enable-dark-theme: true;
+// Define primary and secondary color for theme
+$main-color-for-theme: adjust-color-contrast($main-color, $dark);
+
+$secondary: $main-color-for-theme;
+$primary: $main-color-for-theme;
+
+// Define the background color for the theme
+$theme-background-color: $gray-600;
+
+// Define the foreground color for the theme
+$theme-foreground-color: $white;
+
+// Generate a color palette based on the four user-defined colors: 
+// primary, secondary, foreground, background
+
+$background-color-interval: 20%;
+$color-palette: generate-color-scheme($primary, $secondary, $theme-foreground-color, $theme-background-color, $background-color-interval);

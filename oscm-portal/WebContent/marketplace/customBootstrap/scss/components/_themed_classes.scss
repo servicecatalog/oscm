@@ -17,19 +17,3 @@ $toggled_theme: if($enable-dark-theme, "dark", "light");
 .border-themed {
   @extend .border-#{$toggled_theme};
 }
-
-@if $enable-dark-theme {
-  .btn-primary {
-     @include button-variant($adjusted-primary, $adjusted-primary);
-  }
-  .btn-secondary {
-     @include button-variant($adjusted-secondary, $adjusted-secondary);
-  }
-
-  .btn-outline-primary {
-    @include button-variant($adjusted-primary, $adjusted-primary);
-  }
-  .btn-outline-secondary {
-    @include button-variant($adjusted-secondary, $adjusted-secondary);
-  }
-}

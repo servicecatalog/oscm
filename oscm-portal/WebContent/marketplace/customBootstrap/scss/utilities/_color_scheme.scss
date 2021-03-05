@@ -1,0 +1,93 @@
+
+ 
+ $basic-palette: ();
+   
+
+@function generate-shades-for-color($palette, $color-name, $base-color, $palette-color-interval) {
+  $light-color: mix($white, $base-color, 4 * $palette-color-interval); 
+  $dark-color: mix($black, $base-color, 2 * $palette-color-interval);
+  $darker-color: mix($black, $base-color, 3 * $palette-color-interval);
+  $darkest-color: mix($black, $base-color, 3 * $palette-color-interval);
+  $biggest-contrast-color: mix($black, $base-color, 4 * $palette-color-interval);
+  
+  $shades-map-for-color: ( $color-name: (
+        'base': $base-color,
+        'light': $light-color,
+        'dark': $dark-color,
+        'darker': $darker-color,
+        'darkest': $darkest-color,
+        'biggest-contrast': $biggest-contrast-color
+        )
+    );
+  
+  @return map-merge($palette, $shades-map-for-color);
+}
+
+@function generate-light-shades-for-color($palette, $color-name, $base-color) {
+  $light-color: mix($white, $base-color, 5%); 
+  $dark-color: mix($black, $base-color, 5%);
+  $darker-color: mix($black, $base-color, 10%);
+  $darkest-color: mix($black, $base-color, 80%);
+  $biggest-contrast-color: mix($white,$base-color, 80%);
+  
+  $shades-map-for-color: ( $color-name: (
+        'base': $base-color,
+        'light': $light-color,
+        'dark': $dark-color,
+        'darker': $darker-color,
+        'darkest': $darkest-color,
+        'biggest-contrast': $biggest-contrast-color
+        )
+    );
+  
+  @return map-merge($palette, $shades-map-for-color);
+}
+
+@function generate-color-scheme($primary, $secondary, $theme-foreground-color, $theme-background-color, $palette-color-interval) {
+   $foreground-lightest-color:  $white;
+   
+   $basic-palette:  map-merge(
+  (
+   "primary": $primary,
+   "secondary": $secondary,
+   "foreground": (
+    "base": $theme-foreground-color,
+    "lightest": $foreground-lightest-color
+    ))  ,
+  $basic-palette
+);
+
+ 
+  $color-palette: generate-shades-for-color($basic-palette, "background", $theme-background-color, 20%);
+   @return $color-palette;
+}
+
+@function generate-light-color-scheme($primary, $secondary, $theme-foreground-color, $theme-background-color) {
+   $foreground-lightest-color:  mix($white, $theme-foreground-color, 80%); 
+   
+   $basic-palette:  map-merge(
+  (
+   "primary": $primary,
+   "secondary": $secondary,
+   "foreground": (
+    "base": $theme-foreground-color,
+    "lightest": $foreground-lightest-color
+    ))  ,
+  $basic-palette
+);
+
+ 
+  $color-palette: generate-light-shades-for-color($basic-palette, "background", $theme-background-color);
+   @return $color-palette;
+}
+
+
+@function color-scheme-get($color-name, $color-tone: null) {
+  // color tone is optional
+  @if ($color-tone != null) {
+     @return map-get(map-get($color-palette, $color-name), $color-tone);
+  } 
+  @else {  
+     @return map-get($color-palette, $color-name);
+  }
+} 

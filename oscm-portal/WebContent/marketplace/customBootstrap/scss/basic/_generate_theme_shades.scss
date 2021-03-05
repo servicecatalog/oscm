@@ -1,0 +1,25 @@
+@function palette-color-level($color, $level: 0) {
+  $palette-color-interval: 20%;
+  
+  $color-base: if($level > 0, $black, $white);
+  $level: abs($level);
+  @return mix($color-base, $color, $level * $palette-color-interval);
+}
+
+
+
+$blue: #00008b;
+
+$base-background-color: $blue;
+
+$custom-theme-color-100: palette-color-level($base-background-color, 4);
+$custom-theme-color-200: palette-color-level($base-background-color, 3);
+$custom-theme-color-300: palette-color-level($base-background-color, 2);
+$custom-theme-color-400: palette-color-level($base-background-color, 1);
+
+$custom-theme-color-500: palette-color-level($base-background-color, 0);
+
+$custom-theme-color-600: palette-color-level($base-background-color, -1); 
+$custom-theme-color-700: palette-color-level($base-background-color, -2);
+$custom-theme-color-800: palette-color-level($base-background-color, -3);
+$custom-theme-color-900: palette-color-level($base-background-color, -4);
