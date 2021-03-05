@@ -117,7 +117,7 @@ $input-focus-border-color: $primary;
 $input-group-addon-border-color: $primary;
 
 // Text color for Account Menu header.
-$account-header-color: if ($enable-dark-navigation, $light, $dark);
+$account-header-color: if($enable-dark-navigation, $light, $dark);
 #link0 {
   color: $account-header-color;
   
