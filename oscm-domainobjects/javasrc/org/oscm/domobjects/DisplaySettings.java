@@ -36,8 +36,8 @@ public class DisplaySettings extends DomainObjectWithVersioning<DisplaySettingsD
     dataContainer = new DisplaySettingsData();
   }
 
-  public void setUserTKey(long userId) {
-    dataContainer.setUserTKey(userId);
+  public void setUserTKey(long userTKey) {
+    dataContainer.setUserTKey(userTKey);
   }
 
   public long getUserTKey() {
