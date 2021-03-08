@@ -23,7 +23,7 @@ $secondary: color-scheme-get("secondary");
 $dark: $color-scheme-background-darkest;
 $light: $color-scheme-background-light;
 
-// Navbar Links Colors
+// Navbar Links Colors 
 $navbar-light-hover-color:  darken($secondary, 10%);
 $navbar-light-active-color: darken($secondary, 15%);
 
