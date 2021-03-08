@@ -5,9 +5,9 @@
 
 @import "myvariables";
 
-$toggled-background: if($enable-dark-navigation, $dark, $light);
+$toggled-background: var(--oscm-navbar-color);
 
-$footer-link-color: if($enable-dark-navigation, $color-scheme-foreground-lightest, $secondary);
+$footer-link-color: var(--oscm-rv-color);
 
 .bootstrap_footer {
 	background: $toggled-background;

@@ -1,12 +1,13 @@
 // Bootstrap Cards
 
 .selectable {
-  background: $theme-card-bg;
+  background: var(--oscm-main-color-800);
   cursor: pointer;
   @include transition(all 300ms linear);
   
   &:hover {
-     background: $theme-card-hover-bg;
+     background: var(--oscm-main-color-800);
+     filter: brightness(0.8);
      cursor: pointer;
   }
 }
@@ -21,12 +22,22 @@
   img {
      margin-right: 15px;
      float: left;
-     border: 1px solid $color_gallery_approx;
+     border: 1px solid var(--oscm-main-color-700);
   }
   
   h3, p {
      margin-left: 15px;
      display: block;
      margin: 2px 0 0 0;
+  }
+}
+
+.card-header {
+  background: var(--oscm-main-color-900);
+
+  &:hover {
+       background: var(--oscm-main-color-800);
+       filter: brightness(0.7);
+       cursor: pointer;
   }
 }

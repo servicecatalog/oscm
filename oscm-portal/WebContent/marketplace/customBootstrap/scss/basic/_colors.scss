@@ -1,9 +1,79 @@
-$gray: #ddd;
-$light_gray: #f2f2f2;
-$color_alto_approx: #d2d2d2;
-$color_athens_gray_approx: #e9ecef;
-$color_everglade_approx: #1d4d33;
-$color_light_athens_gray_approx: #f8f9fa;
-$color_gallery_approx: #eee;
-$color_dorado_approx: #555555;
-$color_darker_silver_approx: #c8c8c8;
+:root {
+ --oscm-main:                          38, 38, 38;
+ --oscm-primary:                       13, 110, 253;
+
+  --bs-primary:                        var(--oscm-primary);
+  --bs-secondary:                      var(--oscm-primary);
+  --bs-light:                          #f8f9fa;
+  --bs-dark:                           #212529;
+  --body-bg:                           #f8f9fa;
+  --oscm-grey:                         #a3a3a3;
+  --oscm-text-color:                   var(--bs-dark);
+  --oscm-bg-color:                     var(--bs-light);
+  --oscm-rv-color:                     var(--bs-dark);
+  --oscm-border-color:                 rgba(var(--oscm-main), 0.125);
+  --oscm-dropdown-color:               var(--bs-white);
+  --oscm-navbar-color:                 var(--bs-dark);
+  --oscm-light-color:                  var(--bs-white);
+  --oscm-main-color-700:               #e9ecef;
+  --oscm-main-color-800:               #fff;
+  --oscm-main-color-900:               rgba(var(--oscm-main), 0.03);
+  --oscm-table-bg-color:               var(--bs-white);
+  --oscm-table-hover-color:            rgba(var(--oscm-main), 0.3);
+  --oscm-table-row-odd-color:          rgba(var(--oscm-main), 0.1);
+  --oscm-table-row-even-color:         var(--bs-white);
+}
+
+:root[data-theme="dark"] {
+ --oscm-main:                          38, 38, 38;
+ --oscm-primary:                       220, 53, 70;
+
+ --bs-primary:                         var(--oscm-primary);
+ --bs-secondary:                       var(--oscm-primary);
+ --bs-light:                           #f8f9fa;
+ --bs-dark:                            #212529;
+ --body-bg:                            rgba(var(--oscm-main), 0.8);
+ --oscm-grey:                          #a3a3a3;
+ --oscm-text-color:                    var(--bs-white);
+ --oscm-bg-color:                      var(--oscm-main);
+ --oscm-rv-color:                      var(--bs-white);
+ --oscm-border-color:                  rgba(var(--oscm-main), 0.125);
+ --oscm-dropdown-color:                rgba(var(--oscm-main), 1);
+ --oscm-navbar-color:                  var(--bs-dark);
+ --oscm-light-color:                   rgba(var(--bs-bg-color), 0.2);
+ --oscm-main-color-700:                rgba(var(--oscm-main), 0.7);
+ --oscm-main-color-800:                rgba(var(--oscm-main), 0.8);
+ --oscm-main-color-900:                rgba(var(--oscm-main), 0.9);
+ --oscm-table-bg-color:                var(var(--oscm-main), 0.7);
+ --oscm-table-hover-color:             rgba(var(--oscm-main), 0.3);
+ --oscm-table-row-odd-color:           rgba(var(--oscm-main), 0.8);
+ --oscm-table-row-even-color:          var(var(--oscm-main), 0.7);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+   --oscm-main:                        38, 38, 38;
+   --oscm-primary:                     220, 53, 70;
+
+   --bs-primary:                       var(--oscm-primary);
+   --bs-secondary:                     var(--oscm-primary);
+   --bs-light:                         #f8f9fa;
+   --bs-dark:                          #212529;
+   --body-bg:                          rgba(var(--oscm-main), 0.8);
+   --oscm-grey:                        #a3a3a3;
+   --oscm-text-color:                  var(--bs-white);
+   --oscm-bg-color:                    var(--oscm-main);
+   --oscm-rv-color:                    var(--bs-white);
+   --oscm-border-color:                rgba(var(--oscm-main), 0.125);
+   --oscm-dropdown-color:              rgba(var(--oscm-main), 1);
+   --oscm-navbar-color:                var(--bs-dark);
+   --oscm-light-color:                 rgba(var(--bs-bg-color), 0.2);
+   --oscm-main-color-700:              rgba(var(--oscm-main), 0.7);
+   --oscm-main-color-800:              rgba(var(--oscm-main), 0.8);
+   --oscm-main-color-900:              rgba(var(--oscm-main), 0.9);
+   --oscm-table-bg-color:              var(var(--oscm-main), 0.7);
+   --oscm-table-hover-color:           rgba(var(--oscm-main), 0.3);
+   --oscm-table-row-odd-color:         rgba(var(--oscm-main), 0.8);
+   --oscm-table-row-even-color:        var(var(--oscm-main), 0.7);
+  }
+}

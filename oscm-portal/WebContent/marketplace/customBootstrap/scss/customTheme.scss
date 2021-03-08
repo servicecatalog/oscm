@@ -12,8 +12,6 @@
 @import "./basic/mixins";
 @import "./basic/image_urls";
 
-@import "./components/themed_classes";
-
 @import "./components/breadcrumbs";
 @import "./components/listgroups";
 
@@ -28,3 +26,5 @@
 @import "./components/respIframes";
 @import "./components/tables";
 @import "./components/modalDialogs";
+
+@import "./utilities/toggle";

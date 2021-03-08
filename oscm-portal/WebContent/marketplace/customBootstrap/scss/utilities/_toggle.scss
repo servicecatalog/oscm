@@ -1,0 +1,63 @@
+.toggle-theme-switch {
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--bs-white);
+  background: none;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  border: 0;
+
+  & svg {
+    height: var(--btcpay-theme-switch-icon-size);
+    width: var(--btcpay-theme-switch-icon-size);
+  }
+
+  & path {
+    stroke-width: .5px;
+    fill: none;
+  }
+
+  &:hover,
+  &:focus {
+    & .toggle-theme-switch-light {
+      fill: var(--bs-white);
+    }
+
+    & .toggle-theme-switch-dark {
+      fill: var(--bs-dark);
+    }
+  }
+}
+
+.toggle-theme-switch-dark {
+  display: inline-block;
+  stroke: var(--bs-dark);
+
+  @nest :root[data-theme="dark"] & {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @nest :root:not([data-theme="dark"]) & {
+      display: inline-block;
+    }
+  }
+}
+
+.toggle-theme-switch-light {
+  display: none;
+  stroke: var(--bs-white);
+
+  @nest :root[data-theme="dark"] & {
+    display: inline-block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @nest :root:not([data-theme="light"]) & {
+      display: inline-block;
+    }
+  }
+}
