@@ -41,7 +41,7 @@
 }
 
 .aside .menubox #menuArrow {
-  background: $left_nav_arrow 0 0 no-repeat;
+  background: var(--oscm-main) 0 0 no-repeat;
   position: absolute;
   width: 11px;
   height: 21px;
@@ -52,7 +52,7 @@
 /* side menu elements wrapper */
 div.accd1span {
   width: 184px;
-  background: $box_shadow_bottom bottom left no-repeat;
+  background: var(--oscm-main) bottom left no-repeat;
   padding: 0 0 4px;
 }
 
@@ -60,7 +60,7 @@ div.accd1span {
 div.accdsection .heading {
   padding: 0 1px;
   min-height: 38px;
-  background: $tab_top_bg no-repeat left top;
+  background: var(--oscm-main) no-repeat left top;
 }
 
 div.accdsection h4#header, div.accdsection h4#menu0 {
