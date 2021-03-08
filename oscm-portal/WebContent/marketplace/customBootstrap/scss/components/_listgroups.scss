@@ -1,15 +1,15 @@
 .list-group-item-secondary {
     @extend .list-group-item-secondary;
-    background-color: $lightened-color !important;
-    color: color-yiq($lightened-color) !important;
+    background-color: var(--body-bg) !important;
+    color: var(--oscm-text-color);
 } 
 
 .list-group-item-secondary:hover {
-   background-color: $hover-color !important;
-   color: color-yiq($hover-color) !important;
+   background-color: var(--oscm-table-hover-color) !important;
+   color: var(--oscm-rv-color) !important;
 }
 
 .list-group-item-secondary.active {
-   background-color: $darkened-color !important;
-   color: color-yiq($darkened-color) !important;
+   background-color: var(--oscm-table-row-odd-color) !important;
+   color: var(--oscm-rv-color) !important;
 }  
