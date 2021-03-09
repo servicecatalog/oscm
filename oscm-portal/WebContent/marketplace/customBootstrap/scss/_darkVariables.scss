@@ -56,7 +56,7 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
  $darkened-color:                      rgb(var(--oscm-primary));
 
 .list-group-item {
-  color:                               var(--oscm-text-color);
+  color:                               rgb(var(--oscm-dark));
   background-color:                    var(--oscm-main-color-800);
 }
 
@@ -179,7 +179,7 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
   color:                               var(--oscm-rv-color);
 }
 
-.custom-control {
+.form-control {
   color:                               var(--oscm-rv-color) !important;
 }
 
