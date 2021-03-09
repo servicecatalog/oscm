@@ -1245,6 +1245,7 @@ div.scrolltop p img {
   color: $theme_text_color;
   border-bottom-width: 0px;
   position: relative;
+  background: $main-color;
 }
 
 .rf-dt-flt .rf-dt-flt-c .rf-dt-flt-cnt {
@@ -1259,7 +1260,7 @@ thead .rf-dt-flt {
   background: $rich_table_bg_repeat 0px -19px;
 }
 
-.rf-dt-shdr-c.rf-dt-c-srt:HOVER {
+.rf-dt-shdr-c.rf-dt-c-srt:hover {
   color: $color_dove_gray_approx;
 }
 

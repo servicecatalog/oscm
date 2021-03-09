@@ -25,7 +25,7 @@
 
 /* tag cloud tags enclosed block wrapper */
 .tagCloud {
-  color: $interior-color;
+  color: $theme_text_color;
   text-decoration: none;
   background: none repeat scroll 0% 0% transparent;
   overflow: hidden;
@@ -35,7 +35,7 @@
 /* individual tag in tag cloud */
 .tagCloud.tag {
   padding: 6px;
-  color: $color_fiord_approx;
+  color: $theme_text_color;
   text-decoration: none;
   background: none;
 }
