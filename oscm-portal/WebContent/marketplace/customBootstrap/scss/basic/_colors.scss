@@ -1,5 +1,5 @@
 :root {
- --oscm-main:                          255, 255, 255;
+ --oscm-main:                          238,238,238;
  --oscm-primary:                       13, 110, 253;
 
  --oscm-white:                         255, 255, 255;
@@ -11,7 +11,7 @@
  --oscm-navbar-color:                  28, 28, 28;
  --oscm-navbar-links-color:            217, 218, 219;
 
- --body-bg:                            rgb(var(--oscm-white));
+ --body-bg:                            rgba(var(--oscm-main), 0.1);
  --oscm-text-color:                    rgb(var(--oscm-dark-color));
  --oscm-bg-color:                      rgb(var(--oscm-light-color));
  --oscm-rv-color:                      rgb(var(--oscm-dark-color));
@@ -38,8 +38,8 @@
  --oscm-dark-color:                    33, 33, 33;
  --oscm-grey:                          163, 163, 163;
 
- --oscm-navbar-color:                  rgb(var(--oscm-dark-color));
- --oscm-navbar-links-color:            rgb(var(--oscm-light-color));
+ --oscm-navbar-color:                  28, 28, 28;
+ --oscm-navbar-links-color:            217, 218, 219;
 
  --body-bg:                            rgba(var(--oscm-main), 0.8);
  --oscm-text-color:                    rgb(var(--oscm-light-color));
@@ -67,8 +67,8 @@
    --oscm-dark-color:                  33, 33, 33;
    --oscm-grey:                        163, 163, 163;
 
-   --oscm-navbar-color:                rgb(var(--oscm-dark-color));
-   --oscm-navbar-links-color:          rgb(var(--oscm-light-color));
+  --oscm-navbar-color:                 28, 28, 28;
+  --oscm-navbar-links-color:           217, 218, 219;
 
    --body-bg:                          rgba(var(--oscm-main), 0.8);
    --oscm-text-color:                  rgb(var(--oscm-light-color));
