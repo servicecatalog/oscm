@@ -6,26 +6,26 @@ $bg-light:                             var(--body-bg);
 $custom-select-bg:                     var(--oscm-main-color-800);
 
 $breadcrumb-bg:                        var(--oscm-main-color-700);
-$breadcrumb-active-color:              rgb(var(--bs-primary));
+$breadcrumb-active-color:              rgb(var(--oscm-primary));
 
 // Dropdowns
 $dropdown-bg:                          var(--oscm-dropdown-color);
 $dropdown-divider-bg:                  var(--oscm-border-color);
 $dropdown-link-color:                  var(--oscm-text-color);
 $dropdown-color:                       var(--oscm-text-color);
-$dropdown-link-active-bg:              rgb(var(--bs-primary));
-$dropdown-link-hover-bg:               rgb(var(--bs-primary));
-$dropdown-link-hover-color:            var(--bs-white);
+$dropdown-link-active-bg:              rgb(var(--oscm-primary));
+$dropdown-link-hover-bg:               rgb(var(--oscm-primary));
+$dropdown-link-hover-color:            rgb(var(--oscm-white));
 
 // Colors for list groups only for dark theme
 $list-group-bg:                        var(--oscm-main-color-800);
 $list-group-border-color:              var(--oscm-border-color);
 $list-group-disabled-bg:               var(--oscm-main-color-700);
-$list-group-hover-bg:                  rgb(var(--bs-primary));
-$list-group-action-active-bg:          rgb(var(--bs-primary));
+$list-group-hover-bg:                  rgb(var(--oscm-primary));
+$list-group-action-active-bg:          rgb(var(--oscm-primary));
 
-$link-color:                           rgb(var(--bs-primary));
-$link-hover-color:                     rgb(var(--bs-primary));
+$link-color:                           rgb(var(--oscm-primary));
+$link-hover-color:                     rgb(var(--oscm-primary));
 
 // Popovers
 $popover-bg:                           var(--oscm-main-color-800);
@@ -47,13 +47,13 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
  $input-bg:                            var(--oscm-main-color-800);
  $input-focus-bg:                      var(--oscm-main-color-800);
  $input-focus-color:                   var(--oscm-rv-color);
- $input-focus-border-color:            rgb(var(--bs-primary));
- $input-group-addon-border-color:      rgb(var(--bs-primary));
+ $input-focus-border-color:            rgb(var(--oscm-primary));
+ $input-group-addon-border-color:      rgb(var(--oscm-primary));
 
- $lightened-color:                     rgba(var(--bs-primary), 0.5);
+ $lightened-color:                     rgba(var(--oscm-primary), 0.5);
 
- $hover-color:                         rgb(var(--bs-primary));
- $darkened-color:                      rgb(var(--bs-primary));
+ $hover-color:                         rgb(var(--oscm-primary));
+ $darkened-color:                      rgb(var(--oscm-primary));
 
 .list-group-item {
   color:                               var(--oscm-text-color);
@@ -84,75 +84,75 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
  }
 
 .btn-primary, .btn-secondary {
-  background-color:                    rgb(var(--bs-primary)) !important;
-  border-color:                        rgb(var(--bs-primary)) !important;
-  color:                               var(--bs-white) !important;
+  background-color:                    rgb(var(--oscm-primary)) !important;
+  border-color:                        rgb(var(--oscm-primary)) !important;
+  color:                               rgb(var(--oscm-white)) !important;
   &:hover {
-    background-color:                  rgb(var(--bs-primary));
+    background-color:                  rgb(var(--oscm-primary));
     filter:                            brightness(0.8);
   }
   &:focus {
-    background-color:                  rgb(var(--bs-primary));
-    color:                             var(--bs-white) !important;
-    box-shadow:                        rgba(var(--bs-primary), 0.7);
+    background-color:                  rgb(var(--oscm-primary));
+    color:                             rgb(var(--oscm-white)) !important;
+    box-shadow:                        rgba(var(--oscm-primary), 0.7);
   }
 }
 
 .btn-primary.disabled, .btn-secondary.disabled,
 .btn-primary:disabled, .btn-secondary:disabled {
-  background-color:                    rgba(var(--bs-primary), 0.7);
-  border-color:                        rgba(var(--bs-primary), 0.7);
+  background-color:                    rgba(var(--oscm-primary), 0.7);
+  border-color:                        rgba(var(--oscm-primary), 0.7);
 }
 
 .btn-outline-primary, .btn-outline-secondary {
-  color:                               rgb(var(--bs-primary)) !important;
-  border-color:                        rgb(var(--bs-primary)) !important;
+  color:                               rgb(var(--oscm-primary)) !important;
+  border-color:                        rgb(var(--oscm-primary)) !important;
   &:hover {
-    color:                             var(--bs-white) !important;
-    background-color:                  rgb(var(--bs-primary));
+    color:                             rgb(var(--oscm-white)) !important;
+    background-color:                  rgb(var(--oscm-primary));
   }
   &:focus {
-     background-color:                 rgb(var(--bs-primary));
-     color:                            var(--bs-white) !important;
-     box-shadow:                       rgba(var(--bs-primary), 0.7);
+     background-color:                 rgb(var(--oscm-primary));
+     color:                            rgb(var(--oscm-white)) !important;
+     box-shadow:                       rgba(var(--oscm-primary), 0.7);
   }
 }
 
 .btn-outline-primary.active, .btn-outline-secondary.active,
 .btn-outline-primary:active, .btn-outline-secondary:active,
 .btn-outline-secondary:not(:disabled):not(.disabled).active {
-  background-color:                    rgb(var(--bs-primary));
-  color:                               var(--bs-white) !important;
-  border-color:                        rgb(var(--bs-primary));
+  background-color:                    rgb(var(--oscm-primary));
+  color:                               rgb(var(--oscm-white)) !important;
+  border-color:                        rgb(var(--oscm-primary));
 }
 
 .btn-outline-primary.disabled, .btn-outline-secondary.disabled,
 .btn-outline-primary:disabled, .btn-outline-secondary:disabled {
-  color:                               rgba(var(--bs-primary), 0.7);
-  border-color:                        rgba(var(--bs-primary), 0.7);
+  color:                               rgba(var(--oscm-primary), 0.7);
+  border-color:                        rgba(var(--oscm-primary), 0.7);
 }
 
 .text-primary, .text-secondary {
-  color:                               rgb(var(--bs-primary)) !important;
+  color:                               rgb(var(--oscm-primary)) !important;
 }
 
 .list-group-item-secondary {
-  color:                               var(--bs-dark);
-  background-color:                    rgba(var(--bs-primary), 0.7) !important;
+  color:                               rgb(var(--oscm-dark));
+  background-color:                    rgba(var(--oscm-primary), 0.7) !important;
   &:hover {
-     background-color:                 rgb(var(--bs-primary)) !important;
-     color:                            var(--bs-white) !important;
+     background-color:                 rgb(var(--oscm-primary)) !important;
+     color:                            rgb(var(--oscm-white)) !important;
      filter:                           brightness(0.8);
   }
 }
 
 .list-group-item-secondary.active {
-  background-color:                    rgb(var(--bs-primary)) !important;
-  color:                               var(--bs-white) !important;
+  background-color:                    rgb(var(--oscm-primary)) !important;
+  color:                               rgb(var(--oscm-white)) !important;
   filter:                              brightness(0.9);
   &:hover {
-     background-color:                 rgb(var(--bs-primary));
-     color:                            var(--bs-white) !important;
+     background-color:                 rgb(var(--oscm-primary));
+     color:                            rgb(var(--oscm-white)) !important;
      filter:                           brightness(0.8);
   }
 }
@@ -163,7 +163,7 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 
 .bootstrap_footer {
   background-color:                    var(--oscm-navbar-color) !important;
-  color:                               var(--bs-white) !important;
+  color:                               rgb(var(--oscm-white)) !important;
 }
 
 .bg-themed {
@@ -180,8 +180,8 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 }
 
 select.decorated option:hover {
-  box-shadow:                          rgb(var(--bs-primary));
-  color:                               var(--bs-white);
+  box-shadow:                          rgb(var(--oscm-primary));
+  color:                               rgb(var(--oscm-white));
 }
 
 .form-control {
@@ -189,7 +189,7 @@ select.decorated option:hover {
 }
 
 .border-secondary {
-  border-color:                        rgb(var(--bs-primary)) !important;
+  border-color:                        rgb(var(--oscm-primary)) !important;
 }
 
 body {

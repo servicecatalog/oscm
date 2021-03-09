@@ -51,10 +51,9 @@
 }
 
 .nav-link {
-  color: var(--oscm-text-color);
+  color: rgb(var(--oscm-navbar-links-color));
 }
 
 .navbar-themed  {
   background-color:                    var(--oscm-navbar-color) !important;
-  color:                               var(--bs-white);
 }

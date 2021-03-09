@@ -3,7 +3,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--bs-white);
+  color: rgb(var(--oscm-white));
   background: none;
   cursor: pointer;
   height: 40px;
@@ -23,18 +23,18 @@
   &:hover,
   &:focus {
     & .toggle-theme-switch-light {
-      fill: var(--bs-white);
+      fill: rgb(var(--oscm-white));
     }
 
     & .toggle-theme-switch-dark {
-      fill: var(--bs-dark);
+      fill: rgb(var(--oscm-dark));
     }
   }
 }
 
 .toggle-theme-switch-dark {
   display: inline-block;
-  stroke: var(--bs-dark);
+  stroke: rgb(var(--oscm-dark));
 
   @nest :root[data-theme="dark"] & {
     display: none;
@@ -49,7 +49,7 @@
 
 .toggle-theme-switch-light {
   display: none;
-  stroke: var(--bs-white);
+  stroke: rgb(var(--oscm-white));
 
   @nest :root[data-theme="dark"] & {
     display: inline-block;
