@@ -5,7 +5,7 @@
 
 @import "myvariables";
 
-$toggled-background: var(--oscm-navbar-color);
+$toggled-background: rgb(var(--oscm-navbar-color));
 
 $footer-link-color: rgb(var(--oscm-navbar-links-color));
 
