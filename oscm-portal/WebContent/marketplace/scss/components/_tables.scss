@@ -150,6 +150,7 @@ img[src$="sortDescending"] {
 }
 
 #subListForm .rf-dt-shdr-c {
+  background: $theme_table_bg_color;
   background-clip: padding-box !important;
   border-bottom: 1px solid $theme_table_border_color !important;
   border-right: 1px solid $theme_table_border_color !important;
