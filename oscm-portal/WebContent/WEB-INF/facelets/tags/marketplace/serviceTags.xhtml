@@ -1,21 +1,23 @@
 <!-- Copyright FUJITSU LIMITED 2018-->
 <!DOCTYPE html>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
-  <c:set var="tagsRendered" value="#{marketplaceConfigurationBean.currentConfiguration.taggingEnabled}" />
+                xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:fn="http://xmlns.jcp.org/jsp/jstl/functions">
+  <c:set var="tagsRendered" value="#{marketplaceConfigurationBean.currentConfiguration.taggingEnabled}"/>
   <a4j:outputPanel id="#{fieldId}" layout="block" styleClass="#{styleClass} serviceTags smartLinks" style="#{style}"
-    rendered="#{tagsRendered and service ne null and fn:length(service.tags) > 0}">
+                   rendered="#{tagsRendered and service ne null and fn:length(service.tags) > 0}">
     <h:form>
-      <h:outputText value="#{msg['service.tags']}: " escape="true" />
+      <h:outputText value="#{msg['service.tags']}: " escape="true"/>
       <c:forEach items="#{service.tags}" var="tag" varStatus="status">
-        <h:commandLink value="#{tag}" onclick="AdmUtils.stopEvent(event);" action="#{serviceListingBean.showServiceList}">
-          <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value="#{tag}" />
-          <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value="" />
-          <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />
+        <h:commandLink value="#{tag}" onclick="AdmUtils.stopEvent(event);"
+                       action="#{serviceListingBean.showServiceList}" styleClass="text-themed">
+          <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value="#{tag}"/>
+          <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value=""/>
+          <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value=""/>
         </h:commandLink>
         <c:if test="${not status.last}">
-          <h:outputText value=", " />
+          <h:outputText value=", "/>
         </c:if>
       </c:forEach>
     </h:form>

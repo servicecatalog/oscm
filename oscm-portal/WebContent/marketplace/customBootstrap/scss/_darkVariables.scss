@@ -65,9 +65,9 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 }
 
 // Modal dialogs
-.rf-pp-cnt {
+.rf-pp-cnt, .rf-pp-cnt-scrlr {
  color:                                var(--oscm-text-color) !important;
- background-color:                     var(--oscm-dropdown-color) !important;
+ background-color:                     rgb(var(--oscm-main)) !important;
 }
 
 .sort-icons > img, .rf-csttg-colps > img, .rf-csttg-exp > img {
