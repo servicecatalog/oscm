@@ -2,52 +2,54 @@
  --oscm-main:                          38, 38, 38;
  --oscm-primary:                       13, 110, 253;
 
+ --oscm-light-color:                   248, 248, 248;
+ --oscm-dark-color:                    33, 33, 33;
+
   --bs-primary:                        var(--oscm-primary);
   --bs-secondary:                      var(--oscm-primary);
-  --bs-light:                          #f8f9fa;
-  --bs-dark:                           #212529;
   --body-bg:                           #f8f9fa;
   --oscm-grey:                         #a3a3a3;
-  --oscm-text-color:                   var(--bs-dark);
-  --oscm-bg-color:                     var(--bs-light);
-  --oscm-rv-color:                     var(--bs-dark);
+  --oscm-text-color:                   var(--oscm-dark-color);
+  --oscm-bg-color:                     var(--oscm-light-color);
+  --oscm-rv-color:                     var(--oscm-dark-color);
   --oscm-border-color:                 rgba(var(--oscm-main), 0.125);
-  --oscm-dropdown-color:               var(--bs-white);
-  --oscm-navbar-color:                 var(--bs-dark);
-  --oscm-light-color:                  var(--bs-white);
+  --oscm-dropdown-color:               var(--oscm-light-color);
+  --oscm-navbar-color:                 var(--oscm-dark-color);
+  --oscm-light-color:                  var(--oscm-light-color);
   --oscm-main-color-700:               #e9ecef;
   --oscm-main-color-800:               #fff;
   --oscm-main-color-900:               rgba(var(--oscm-main), 0.03);
-  --oscm-table-bg-color:               var(--bs-white);
+  --oscm-table-bg-color:               var(--oscm-light-color);
   --oscm-table-hover-color:            rgba(var(--oscm-main), 0.3);
   --oscm-table-row-odd-color:          rgba(var(--oscm-main), 0.1);
-  --oscm-table-row-even-color:         var(--bs-white);
+  --oscm-table-row-even-color:         var(--oscm-light-color);
 }
 
 :root[data-theme="dark"] {
  --oscm-main:                          38, 38, 38;
  --oscm-primary:                       220, 53, 70;
 
+ --oscm-light-color:                   248, 248, 248;
+ --oscm-dark-color:                    33, 33, 33;
+ --oscm-grey:                          #a3a3a3;
+
  --bs-primary:                         var(--oscm-primary);
  --bs-secondary:                       var(--oscm-primary);
- --bs-light:                           #f8f9fa;
- --bs-dark:                            #212529;
  --body-bg:                            rgba(var(--oscm-main), 0.8);
- --oscm-grey:                          #a3a3a3;
- --oscm-text-color:                    var(--bs-white);
+ --oscm-text-color:                    var(--oscm-light-color);
  --oscm-bg-color:                      var(--oscm-main);
- --oscm-rv-color:                      var(--bs-white);
+ --oscm-rv-color:                      var(--oscm-light-color);
  --oscm-border-color:                  rgba(var(--oscm-main), 0.125);
  --oscm-dropdown-color:                rgba(var(--oscm-main), 1);
- --oscm-navbar-color:                  var(--bs-dark);
+ --oscm-navbar-color:                  var(--oscm-dark-color);
  --oscm-light-color:                   rgba(var(--bs-bg-color), 0.2);
  --oscm-main-color-700:                rgba(var(--oscm-main), 0.7);
  --oscm-main-color-800:                rgba(var(--oscm-main), 0.8);
  --oscm-main-color-900:                rgba(var(--oscm-main), 0.9);
- --oscm-table-bg-color:                var(var(--oscm-main), 0.7);
+ --oscm-table-bg-color:                rgba(var(--oscm-main), 0.7);
  --oscm-table-hover-color:             rgba(var(--oscm-main), 0.3);
  --oscm-table-row-odd-color:           rgba(var(--oscm-main), 0.8);
- --oscm-table-row-even-color:          var(var(--oscm-main), 0.7);
+ --oscm-table-row-even-color:          rgba(var(--oscm-main), 0.7);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -55,25 +57,26 @@
    --oscm-main:                        38, 38, 38;
    --oscm-primary:                     220, 53, 70;
 
+   --oscm-light-color:                 248, 248, 248;
+   --oscm-dark-color:                  33, 33, 33;
+
    --bs-primary:                       var(--oscm-primary);
    --bs-secondary:                     var(--oscm-primary);
-   --bs-light:                         #f8f9fa;
-   --bs-dark:                          #212529;
    --body-bg:                          rgba(var(--oscm-main), 0.8);
    --oscm-grey:                        #a3a3a3;
-   --oscm-text-color:                  var(--bs-white);
+   --oscm-text-color:                  var(--oscm-light-color);
    --oscm-bg-color:                    var(--oscm-main);
-   --oscm-rv-color:                    var(--bs-white);
+   --oscm-rv-color:                    var(--oscm-light-color);
    --oscm-border-color:                rgba(var(--oscm-main), 0.125);
    --oscm-dropdown-color:              rgba(var(--oscm-main), 1);
-   --oscm-navbar-color:                var(--bs-dark);
+   --oscm-navbar-color:                var(--oscm-dark-color);
    --oscm-light-color:                 rgba(var(--bs-bg-color), 0.2);
    --oscm-main-color-700:              rgba(var(--oscm-main), 0.7);
    --oscm-main-color-800:              rgba(var(--oscm-main), 0.8);
    --oscm-main-color-900:              rgba(var(--oscm-main), 0.9);
-   --oscm-table-bg-color:              var(var(--oscm-main), 0.7);
+   --oscm-table-bg-color:              rgba(var(--oscm-main), 0.7);
    --oscm-table-hover-color:           rgba(var(--oscm-main), 0.3);
    --oscm-table-row-odd-color:         rgba(var(--oscm-main), 0.8);
-   --oscm-table-row-even-color:        var(var(--oscm-main), 0.7);
+   --oscm-table-row-even-color:        rgba(var(--oscm-main), 0.7);
   }
 }
