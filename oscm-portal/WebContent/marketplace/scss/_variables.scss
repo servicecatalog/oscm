@@ -1,11 +1,22 @@
 @charset "UTF-8";
 
-@import "toggled_theme_vars";
+@import "../customBootstrap/scss/basic/colors";
 
-$primary-color: green;
-$secondary-color: #6bdb84;
+$primary-color: rgb(var(--oscm-primary));
+$secondary-color: rgb(var(--oscm-primary));
 $warning-color: red;
-$interior-color: #fff;
+$interior-color: rgb(var(--oscm-white));
+
+$dark-lighter: #343a40;
+$dark-lightest: #495057;
+$light: #e9ecef;
+$theme_bg_color: var(--oscm-main-color-800);
+$theme_text_color: var(--oscm-text-color);
+$supplier_text_color:  var(--oscm-text-color);
+$theme_table_bg_color: var(--oscm-table-bg-color);
+$theme_table_border_color: var(--oscm-main-color-900);
+$theme_table_hover_color: var(--oscm-table-hover-color);
+$theme_subscription_status_hover_color: var(--oscm-main-color-700);
 
 $bold-font-weight: bold;
 $font-family-sans-serif: "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;

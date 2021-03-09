@@ -279,14 +279,12 @@ div.responsive-table-panel {
   vertical-align: top;
 }
 
-@if $enable-dark-theme {
-   .table-bordered th, .table-bordered td {
-      background:  $theme_table_bg_color;
-      color: $theme_text_color;
-      border: 1px solid $theme_table_border_color;
-   }
-   
-   .rf-dt {
-      border: none !important;
-   }
+.table-bordered th, .table-bordered td {
+   background:  $theme_table_bg_color;
+   color: $theme_text_color;
+   border: 1px solid $theme_table_border_color;
+}
+
+.rf-dt {
+   border: none !important;
 }
