@@ -177,6 +177,10 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 .form-control {
   background-color:                    var(--oscm-input-color);
   color:                               var(--oscm-rv-color) !important;
+  &:active {
+     background-color:                    var(--oscm-input-color);
+     color:                               var(--oscm-rv-color) !important;
+   }
 }
 
 .form-control.active {

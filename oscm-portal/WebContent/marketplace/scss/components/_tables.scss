@@ -10,8 +10,8 @@
 }
 
 .rowTitle th:hover {
-  background: $rich_table_hover repeat-x;
-  color: $theme_table_hover_color;
+  background-color: $theme_table_hover_color;
+  color: $theme_text_color;
 }
 
 .rowTitle th:hover > div.input-group > input {
