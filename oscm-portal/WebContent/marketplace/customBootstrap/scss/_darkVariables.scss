@@ -28,7 +28,7 @@ $link-color:                           rgb(var(--oscm-primary));
 $link-hover-color:                     rgb(var(--oscm-primary));
 
 // Popovers
-$popover-bg:                           var(--oscm-main-color-800);
+$popover-bg:                           var(--oscm-input-color);
 $popover-body-color:                   var(--oscm-rv-color);
 
 // Modal dialogs
@@ -65,7 +65,7 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 }
 
 // Modal dialogs
-.rf-pp-cnt, .rf-pp-cnt-scrlr {
+.rf-pp-cnt, .rf-pp-cntr {
  color:                                var(--oscm-text-color) !important;
  background-color:                     rgb(var(--oscm-main)) !important;
 }
@@ -137,8 +137,8 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 }
 
 .list-group-item-secondary {
-  color:                               rgb(var(--oscm-dark-color));
-  background-color:                    rgba(var(--oscm-primary), 0.7) !important;
+  color:                               rgb(var(--oscm-text-color));
+  background-color:                    rgba(var(--oscm-primary), 0.8) !important;
   &:hover {
      background-color:                 rgb(var(--oscm-primary)) !important;
      color:                            rgb(var(--oscm-white)) !important;
@@ -178,8 +178,8 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
   background-color:                    var(--oscm-input-color);
   color:                               var(--oscm-rv-color) !important;
   &:active {
-     background-color:                    var(--oscm-input-color);
-     color:                               var(--oscm-rv-color) !important;
+     background-color:                 var(--oscm-input-color);
+     color:                            var(--oscm-rv-color) !important;
    }
 }
 
@@ -197,10 +197,14 @@ body {
   color:                               var(--oscm-text-color);
 }
 
+hr {
+  border-color:                        var(--oscm-border-color);
+}
+
 .border {
   border:                              1px solid var(--oscm-main-color-800) !important;
 }
 
 .bg-themed-navigation {
-  background-color: rgb(var(--oscm-dark-color));
+  background-color:                    rgb(var(--oscm-dark-color));
 }
