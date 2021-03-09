@@ -76,7 +76,7 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 
  // Text color for Account Menu header.
  #link0 {
-   color:                              var(--oscm-light-color);
+   color:                              rgb(var(--oscm-light-color));
 
    &:hover  {
      color:                            $navbar-dark-hover-color;
@@ -171,20 +171,15 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 }
 
 .text-themed {
-  color:                               var(--oscm-rv-color) !important;
+  color:                               var(--oscm-text-color) !important;
 }
 
-.form-select {
+.custom-select {
   background-color:                    var(--oscm-main-color-800);
   color:                               var(--oscm-rv-color);
 }
 
-select.decorated option:hover {
-  box-shadow:                          rgb(var(--oscm-primary));
-  color:                               rgb(var(--oscm-white));
-}
-
-.form-control {
+.custom-control {
   color:                               var(--oscm-rv-color) !important;
 }
 
@@ -194,10 +189,6 @@ select.decorated option:hover {
 
 body {
   background-color:                    var(--body-bg);
-  color:                               var(--oscm-text-color);
-}
-
-.text-themed {
   color:                               var(--oscm-text-color);
 }
 
