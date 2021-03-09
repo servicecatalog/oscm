@@ -119,7 +119,8 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 }
 
 .btn-outline-primary.active, .btn-outline-secondary.active,
-.btn-outline-primary:active, .btn-outline-secondary:active{
+.btn-outline-primary:active, .btn-outline-secondary:active,
+.btn-outline-secondary:not(:disabled):not(.disabled).active {
   background-color:                    rgb(var(--bs-primary));
   color:                               var(--bs-white) !important;
   border-color:                        rgb(var(--bs-primary));
@@ -160,11 +161,6 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
   color:                               var(--oscm-rv-color) !important;
 }
 
-.navbar-themed  {
-  background-color:                    var(--oscm-navbar-color) !important;
-  color:                               var(--bs-white);
-}
-
 .bootstrap_footer {
   background-color:                    var(--oscm-navbar-color) !important;
   color:                               var(--bs-white) !important;
@@ -198,6 +194,11 @@ select.decorated option:hover {
 
 body {
   background-color:                    var(--body-bg);
+  color:                               var(--oscm-text-color);
+}
+
+.text-themed {
+  color:                               var(--oscm-text-color);
 }
 
 .border {

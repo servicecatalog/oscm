@@ -49,3 +49,12 @@
     padding: 0rem;
   }
 }
+
+.nav-link {
+  color: var(--oscm-text-color);
+}
+
+.navbar-themed  {
+  background-color:                    var(--oscm-navbar-color) !important;
+  color:                               var(--bs-white);
+}

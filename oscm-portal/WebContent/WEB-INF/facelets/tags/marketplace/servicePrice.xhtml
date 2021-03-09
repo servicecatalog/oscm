@@ -6,11 +6,11 @@
     <c:set var="showUnit" value="true" />
   </c:if>
   <a4j:outputPanel layout="block" styleClass="#{styleClass}" style="#{style}">
-    <h2 class="servicePrice">#{empty service.priceText ? '&#160;' : service.priceText}<h:outputText
+    <h2 class="servicePrice text-themed">#{empty service.priceText ? '&#160;' : service.priceText}<h:outputText
       styleClass="recommendedPriceHint" value=" #{msg['service.recommendedRetailPriceHint']}"
       rendered="#{service.reseller and service.priceModel.chargeable}" /></h2>
     <c:if test="#{showUnit}">
-      <h2 class="priceUnit">#{empty service.priceUnitText ? '&#160;' : service.priceUnitText}</h2>
+      <h2 class="priceUnit text-themed">#{empty service.priceUnitText ? '&#160;' : service.priceUnitText}</h2>
     </c:if>
   </a4j:outputPanel>
 </ui:composition>
