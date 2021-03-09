@@ -15,7 +15,7 @@
 }
 
 .rowTitle th:hover > div.input-group > input {
-    background-color: $white;
+    background-color: $theme_table_hover_color;
 }
 
 .rowTitle th>div {
@@ -49,12 +49,12 @@ img[src$="sortDescending"] {
 /* colors for alternating rows in data tables */
 .rowEven {
   padding-left: 10px;
-  background: $color_gallery_approx;
+  background-color: $theme_table_row_even_color !important;
 }
 
 .rowOdd {
   padding-left: 10px;
-  background: $white;
+  background-color: $theme_table_row_odd_color !important;
 }
 
 .wrapColumns .shortenedText span {

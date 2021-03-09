@@ -15,7 +15,7 @@
  --oscm-text-color:                    rgb(var(--oscm-dark-color));
  --oscm-bg-color:                      rgb(var(--oscm-light-color));
  --oscm-rv-color:                      rgb(var(--oscm-dark-color));
- --oscm-border-color:                  rgba(var(--oscm-main), 0.125);
+ --oscm-border-color:                  rgba(var(--oscm-dark-color), 0.125);
  --oscm-dropdown-color:                rgb(var(--oscm-light-color));
  --oscm-input-color:                   rgb(var(--oscm-white));
 
@@ -23,7 +23,7 @@
  --oscm-main-color-800:                rgba(var(--oscm-main), 0.8);
  --oscm-main-color-900:                rgba(var(--oscm-main), 0.9);
 
- --oscm-table-bg-color:                rgb(var(--oscm-light-color));
+ --oscm-table-bg-color:                rgb(var(--oscm-white));
  --oscm-table-hover-color:             rgba(var(--oscm-main), 0.3);
  --oscm-table-row-odd-color:           rgba(var(--oscm-main), 0.1);
  --oscm-table-row-even-color:          rgb(var(--oscm-light-color));
@@ -49,9 +49,11 @@
  --oscm-border-color:                  rgba(var(--oscm-main), 0.125);
  --oscm-dropdown-color:                rgb(var(--oscm-main));
  --oscm-input-color:                   rgb(var(--oscm-dark));
+
  --oscm-main-color-700:                rgba(var(--oscm-main), 0.7);
  --oscm-main-color-800:                rgba(var(--oscm-main), 0.8);
  --oscm-main-color-900:                rgba(var(--oscm-main), 0.9);
+
  --oscm-table-bg-color:                rgba(var(--oscm-main), 0.7);
  --oscm-table-hover-color:             rgba(var(--oscm-main), 0.3);
  --oscm-table-row-odd-color:           rgba(var(--oscm-main), 0.8);
@@ -79,9 +81,11 @@
    --oscm-border-color:                rgba(var(--oscm-main), 0.125);
    --oscm-dropdown-color:              rgb(var(--oscm-main));
    --oscm-input-color:                 rgb(var(--oscm-dark));
+   
    --oscm-main-color-700:              rgba(var(--oscm-main), 0.7);
    --oscm-main-color-800:              rgba(var(--oscm-main), 0.8);
    --oscm-main-color-900:              rgba(var(--oscm-main), 0.9);
+
    --oscm-table-bg-color:              rgba(var(--oscm-main), 0.7);
    --oscm-table-hover-color:           rgba(var(--oscm-main), 0.3);
    --oscm-table-row-odd-color:         rgba(var(--oscm-main), 0.8);
