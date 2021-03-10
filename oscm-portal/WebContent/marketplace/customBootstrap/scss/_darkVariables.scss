@@ -43,17 +43,17 @@ $theme-table-even-color:               var(--oscm-table-row-even-color);
 $theme-table-border-color:             var(--oscm-main-color-700);
 $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 
- // Inputs
- $input-bg:                            var(--oscm-main-color-800);
- $input-focus-bg:                      var(--oscm-main-color-800);
- $input-focus-color:                   var(--oscm-rv-color);
- $input-focus-border-color:            rgb(var(--oscm-primary));
- $input-group-addon-border-color:      rgb(var(--oscm-primary));
+// Inputs
+$input-bg:                             var(--oscm-main-color-800);
+$input-focus-bg:                       var(--oscm-main-color-800);
+$input-focus-color:                    var(--oscm-rv-color);
+$input-focus-border-color:             rgb(var(--oscm-primary));
+$input-group-addon-border-color:       rgb(var(--oscm-primary));
 
- $lightened-color:                     rgba(var(--oscm-primary), 0.5);
+$lightened-color:                      rgba(var(--oscm-primary), 0.5);
 
- $hover-color:                         rgb(var(--oscm-primary));
- $darkened-color:                      rgb(var(--oscm-primary));
+$hover-color:                          rgb(var(--oscm-primary));
+$darkened-color:                       rgb(var(--oscm-primary));
 
 .list-group-item {
   color:                               rgb(var(--oscm-text-color));
@@ -67,7 +67,7 @@ $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 // Modal dialogs
 .rf-pp-cnt, .rf-pp-cntr {
  color:                                var(--oscm-text-color) !important;
- background-color:                     rgb(var(--oscm-main)) !important;
+ background-color:                     var(--oscm-input-color) !important;
 }
 
 .sort-icons > img, .rf-csttg-colps > img, .rf-csttg-exp > img {

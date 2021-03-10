@@ -1,19 +1,15 @@
 .toggle-theme-switch {
 
   display: inline-flex;
+  position: inherit;
   align-items: center;
   justify-content: center;
-  color: rgb(var(--oscm-white));
+  color: var(--oscm-rv-color);
   background: none;
   cursor: pointer;
-  height: 40px;
-  width: 40px;
+  height: 20px;
+  width: 20px;
   border: 0;
-
-  & svg {
-    height: var(--btcpay-theme-switch-icon-size);
-    width: var(--btcpay-theme-switch-icon-size);
-  }
 
   & path {
     stroke-width: .5px;
