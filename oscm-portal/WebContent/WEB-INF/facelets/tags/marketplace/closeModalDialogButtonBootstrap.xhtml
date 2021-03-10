@@ -7,6 +7,8 @@
     <c:set var="rendered" value="true" />
   </c:if>
 
-    <h:commandButton id="#{id}" styleClass="close-dialog-btn" rendered="#{rendered}" onclick="#{onclick}" />
+  <h:commandButton id="#{id}" styleClass="close-dialog-btn" rendered="#{rendered}" onclick="#{onclick}">
+    <i class="fa fa-times"/>
+  </h:commandButton>
 
 </ui:composition>

@@ -61,9 +61,12 @@
 
 .navbar-toggler {
   border: 1px solid rgb(var(--oscm-navbar-links-color));
+  padding: 0px;
 }
 
 .navbar-toggler-icon {
   color: rgb(var(--oscm-navbar-links-color));
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  width: auto;
+  height: auto;
 }
