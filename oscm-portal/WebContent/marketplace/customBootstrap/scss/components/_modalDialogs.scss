@@ -38,14 +38,17 @@
 }
 
 .close-dialog-btn {
-  content: "\f00d";
-  font-family: FontAwesome;
-  background-color: yellow;
-  color: white;
+  background-color: goldenrod;
   border: 0;
   cursor: pointer;
   height: 15px;
   width: 15px;
+}
+
+.close-dialog-btn:after {
+  content: "\f00d";
+  font-family: FontAwesome;
+  color: white;
 }
 
 .rf-pp-cnt {
