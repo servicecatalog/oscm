@@ -38,7 +38,10 @@
 }
 
 .close-dialog-btn {
-  background: transparent var(--oscm-primary) -29px -330px no-repeat;
+  content: "\f00d";
+  font-family: FontAwesome;
+  background-color: yellow;
+  color: white;
   border: 0;
   cursor: pointer;
   height: 15px;

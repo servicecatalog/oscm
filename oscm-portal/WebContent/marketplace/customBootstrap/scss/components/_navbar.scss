@@ -58,3 +58,12 @@
 .nav-link {
   color: rgb(var(--oscm-navbar-links-color));
 }
+
+.navbar-toggler {
+  border: 1px solid rgb(var(--oscm-navbar-links-color));
+}
+
+.navbar-toggler-icon {
+  color: rgb(var(--oscm-navbar-links-color));
+  font-size: 1.5rem;
+}
