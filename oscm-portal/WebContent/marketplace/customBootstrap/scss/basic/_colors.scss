@@ -1,6 +1,6 @@
 :root {
  --oscm-main:                          238,238,238;
- --oscm-primary:                       13, 110, 253;
+ --oscm-primary:                       7, 168, 93;
 
  --oscm-white:                         255, 255, 255;
  --oscm-black:                         0, 0, 0;
@@ -19,6 +19,9 @@
  --oscm-dropdown-color:                rgb(var(--oscm-light-color));
  --oscm-input-color:                   rgb(var(--oscm-white));
 
+ --oscm-main-color-100:                rgba(var(--oscm-main), 0.1);
+ --oscm-main-color-200:                rgba(var(--oscm-main), 0.3);
+ --oscm-main-color-300:                rgba(var(--oscm-main), 0.3);
  --oscm-main-color-400:                rgba(var(--oscm-main), 0.4);
  --oscm-main-color-500:                rgba(var(--oscm-main), 0.5);
  --oscm-main-color-600:                rgba(var(--oscm-main), 0.6);
@@ -34,7 +37,7 @@
 
 :root[data-theme="dark"] {
  --oscm-main:                          38, 38, 38;
- --oscm-primary:                       220, 53, 70;
+ --oscm-primary:                       7, 168, 93;
 
  --oscm-white:                         255, 255, 255;
  --oscm-black:                         0, 0, 0;
@@ -53,6 +56,9 @@
  --oscm-dropdown-color:                rgb(var(--oscm-main));
  --oscm-input-color:                   rgb(var(--oscm-dark-color));
 
+ --oscm-main-color-100:                rgba(var(--oscm-main), 0.1);
+ --oscm-main-color-200:                rgba(var(--oscm-main), 0.3);
+ --oscm-main-color-300:                rgba(var(--oscm-main), 0.3);
  --oscm-main-color-400:                rgba(var(--oscm-main), 0.4);
  --oscm-main-color-500:                rgba(var(--oscm-main), 0.5);
  --oscm-main-color-600:                rgba(var(--oscm-main), 0.6);
@@ -69,7 +75,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
    --oscm-main:                        38, 38, 38;
-   --oscm-primary:                     220, 53, 70;
+   --oscm-primary:                     7, 168, 93;
 
    --oscm-white:                       255, 255, 255;
    --oscm-black:                       0, 0, 0;
@@ -88,6 +94,9 @@
    --oscm-dropdown-color:              rgb(var(--oscm-main));
    --oscm-input-color:                 rgb(var(--oscm-dark-color));
 
+   --oscm-main-color-100:              rgba(var(--oscm-main), 0.1);
+   --oscm-main-color-200:              rgba(var(--oscm-main), 0.3);
+   --oscm-main-color-300:              rgba(var(--oscm-main), 0.3);
    --oscm-main-color-400:              rgba(var(--oscm-main), 0.4);
    --oscm-main-color-500:              rgba(var(--oscm-main), 0.5);
    --oscm-main-color-600:              rgba(var(--oscm-main), 0.6);
