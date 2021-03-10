@@ -5,7 +5,7 @@ $bg-body:                              var(--body-bg);
 $bg-light:                             var(--body-bg);
 $custom-select-bg:                     var(--oscm-main-color-800);
 
-$breadcrumb-bg:                        var(--oscm-main-color-700);
+$breadcrumb-bg:                        var(--oscm-main-color-500);
 $breadcrumb-active-color:              rgb(var(--oscm-primary));
 
 // Dropdowns
@@ -162,7 +162,7 @@ $darkened-color:                       rgb(var(--oscm-primary));
 }
 
 .bg-themed {
-  background-color:                    var(--oscm-main-color-700) !important;
+  background-color:                    var(--oscm-main-color-400) !important;
 }
 
 .text-themed {
