@@ -38,13 +38,11 @@
 }
 
 .close-dialog-btn {
-  background-color: goldenrod;
+  background: transparent $mp_icon_sprite -29px -330px no-repeat;
   border: 0;
   cursor: pointer;
   height: 15px;
   width: 15px;
-  color: white;
-  display: inline-block;
 }
 
 .rf-pp-cnt {
