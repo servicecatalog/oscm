@@ -76,7 +76,7 @@ $darkened-color:                       rgb(var(--oscm-primary));
 
  // Text color for Account Menu header.
  #link0 {
-   color:                              rgb(var(--oscm-light-color));
+   color:                              rgb(var(--oscm-main-second));
 
    &:hover  {
      color:                            $navbar-dark-hover-color;
@@ -206,5 +206,5 @@ hr {
 }
 
 .bg-themed-navigation {
-  background-color:                    rgb(var(--oscm-dark-color));
+  background-color:                    rgb(var(--oscm-main-third));
 }
