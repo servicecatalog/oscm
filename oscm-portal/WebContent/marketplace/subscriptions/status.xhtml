@@ -10,18 +10,18 @@
     <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{texStyle} ml-3 position-relative"/>
   </a4j:outputPanel>
   <a4j:outputPanel layout="block" styleClass="subscriptionStatus subscriptionPending" rendered="#{sub.statusPending}">
-    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3"/>
+    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3 text-themed"/>
   </a4j:outputPanel>
   <a4j:outputPanel layout="block" styleClass="subscriptionStatus subscriptionActive" rendered="#{sub.statusActive}">
-    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3"/>
+    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3 text-themed"/>
   </a4j:outputPanel>
   <a4j:outputPanel layout="block" styleClass="subscriptionStatus subscriptionPendingUpd"
                    rendered="#{sub.statusPendingUpd}">
-    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3"/>
+    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3 text-themed"/>
   </a4j:outputPanel>
   <a4j:outputPanel layout="block" styleClass="subscriptionStatus subscriptionWaitingForApproval"
                    rendered="#{sub.statusWaitingForApproval}">
-    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3"/>
+    <h:outputText value="#{msg[sub.statusTextKey]}" styleClass="#{textStyle} ml-3 text-themed"/>
   </a4j:outputPanel>
 
 </ui:composition>
