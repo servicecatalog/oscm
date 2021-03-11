@@ -2,8 +2,7 @@ CREATE TABLE displaysettings (
     tkey bigint NOT NULL,
     version INTEGER DEFAULT 0 NOT NULL,
     userTKey BIGINT NOT NULL,
-    objectId character varying(64) NOT NULL,
-    value bytea NOT NULL );  
+    data character varying(32735) NOT NULL );  
     
 ALTER TABLE displaysettings ADD CONSTRAINT displaysettings_pk PRIMARY KEY (tkey);
 

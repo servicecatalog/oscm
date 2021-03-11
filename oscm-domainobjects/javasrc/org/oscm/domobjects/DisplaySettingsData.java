@@ -12,23 +12,26 @@ package org.oscm.domobjects;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
 /** @author goebel */
+@Embeddable
 public class DisplaySettingsData extends DomainDataContainer implements Serializable {
 
   /** */
   private static final long serialVersionUID = -8837450327201421421L;
-
+ 
   @Column(nullable = false)
   private long userTKey;
 
   @Column(nullable = false)
-  private String data;
+  private String data = "";
 
   public void setData(String data) {
     this.data = data;
   }
-
+  
+  @Column(nullable = false)
   public String getData() {
     return data;
   }

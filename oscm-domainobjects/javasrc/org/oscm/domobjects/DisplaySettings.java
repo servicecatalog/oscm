@@ -21,9 +21,7 @@ import org.oscm.domobjects.annotations.BusinessKey;
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userTKey"}))
 @NamedQueries({
-  @NamedQuery(
-      name = "DisplaySettings.findByBusinessKey",
-      query = "SELECT d FROM DisplaySettings d WHERE d.dataContainer.userTKey = " + ":userTKey")
+  @NamedQuery(name = "DisplaySettings.findByBusinessKey", query = "SELECT d FROM DisplaySettings d WHERE d.dataContainer.userTKey =:userTKey")
 })
 @BusinessKey(attributes = {"userTKey"})
 public class DisplaySettings extends DomainObjectWithVersioning<DisplaySettingsData> {
