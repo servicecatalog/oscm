@@ -699,10 +699,12 @@ public class OrganizationBean extends BaseBean implements Serializable {
 
   void loadDisplaySettings() {
     String settings = getUserService().getDisplaySettings(currentUser.getKey());
+    DisplaySettings ds = new DisplaySettings();
     if (settings.length() > 0) {
-      DisplaySettings ds = JsonData.fromJson(settings, DisplaySettings.class);
-      currentUser.setDisplaySettings(ds);
+       ds = JsonData.fromJson(settings, DisplaySettings.class);
     }
+    currentUser.setDisplaySettings(ds);
+    
   }
 
   public User refreshCurrentUser() {
