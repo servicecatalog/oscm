@@ -29,7 +29,7 @@
  --oscm-main-color-800:                rgba(var(--oscm-main), 0.8);
  --oscm-main-color-900:                rgba(var(--oscm-main), 0.9);
 
- --oscm-table-bg-color:                rgb(var(--oscm-white));
+ --oscm-table-bg-color:                rgba(var(--oscm-main), 0.9);
  --oscm-table-border-color:            rgba(var(--oscm-main-third), 0.125);
  --oscm-table-hover-color:             rgba(var(--oscm-main), 0.3);
  --oscm-table-background-color:        rgb(var(--oscm-white));
@@ -68,12 +68,12 @@
  --oscm-main-color-800:                rgba(var(--oscm-main), 0.8);
  --oscm-main-color-900:                rgba(var(--oscm-main), 0.9);
 
- --oscm-table-bg-color:                rgb(var(--oscm-main));
- --oscm-table-border-color:            rgba(var(--oscm-black), 0.5);
+ --oscm-table-bg-color:                rgba(var(--oscm-main), 0.9);
+ --oscm-table-border-color:            rgba(var(--oscm-main), 0.5);
  --oscm-table-hover-color:             rgba(var(--oscm-main), 0.9);
- --oscm-table-background-color:      rgba(var(--oscm-black), 0.5);
- --oscm-table-row-odd-color:           rgba(var(--oscm-main), 0.4);
- --oscm-table-row-even-color:          rgba(var(--oscm-main), 0.7);
+ --oscm-table-background-color:        rgba(var(--oscm-main), 0.1);
+ --oscm-table-row-odd-color:           rgba(var(--oscm-main), 0.1);
+ --oscm-table-row-even-color:          rgba(var(--oscm-main), 0.8);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -108,11 +108,11 @@
    --oscm-main-color-800:              rgba(var(--oscm-main), 0.8);
    --oscm-main-color-900:              rgba(var(--oscm-main), 0.9);
 
-   --oscm-table-bg-color:              rgba(var(--oscm-main));
-   --oscm-table-border-color:          rgba(var(--oscm-black), 0.5);
+   --oscm-table-bg-color:              rgba(var(--oscm-main), 0.9);
+   --oscm-table-border-color:          rgba(var(--oscm-main), 0.5);
    --oscm-table-hover-color:           rgba(var(--oscm-main), 0.9);
-   --oscm-table-background-color:      rgba(var(--oscm-black), 0.5);
-   --oscm-table-row-odd-color:         rgba(var(--oscm-main), 0.4);
-   --oscm-table-row-even-color:        rgba(var(--oscm-main), 0.6);
+   --oscm-table-background-color:      rgba(var(--oscm-main), 0.1);
+   --oscm-table-row-odd-color:         rgba(var(--oscm-main), 0.1);
+   --oscm-table-row-even-color:        rgba(var(--oscm-main), 0.8);
   }
 }
