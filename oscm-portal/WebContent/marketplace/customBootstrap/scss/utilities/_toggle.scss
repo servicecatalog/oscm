@@ -23,14 +23,14 @@
     }
 
     & .toggle-theme-switch-dark {
-      fill: rgb(var(--oscm-main-third));
+      fill: rgb(var(--oscm-black));
     }
   }
 }
 
 .toggle-theme-switch-dark {
   display: inline-block;
-  stroke: rgb(var(--oscm-main-third));
+  stroke: rgb(var(--oscm-black));
 
   @nest :root[data-theme="dark"] & {
     display: none;
