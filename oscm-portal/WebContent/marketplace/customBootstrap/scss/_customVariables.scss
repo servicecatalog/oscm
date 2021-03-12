@@ -1,0 +1,214 @@
+@import "./basic/colors";
+
+$body-color:                           var(--oscm-text-color);
+$bg-body:                              var(--body-bg);
+$bg-light:                             var(--body-bg);
+$custom-select-bg:                     var(--oscm-main-color-800);
+
+$breadcrumb-bg:                        var(--oscm-main-color-500);
+$breadcrumb-active-color:              rgb(var(--oscm-primary));
+
+// Dropdowns
+$dropdown-bg:                          var(--oscm-dropdown-color);
+$dropdown-divider-bg:                  var(--oscm-border-color);
+$dropdown-link-color:                  var(--oscm-text-color);
+$dropdown-color:                       var(--oscm-text-color);
+$dropdown-link-active-bg:              rgb(var(--oscm-primary));
+$dropdown-link-hover-bg:               rgb(var(--oscm-primary));
+$dropdown-link-hover-color:            rgb(var(--oscm-white));
+
+// Colors for list groups only for dark theme
+$list-group-bg:                        var(--oscm-main-color-800);
+$list-group-border-color:              var(--oscm-border-color);
+$list-group-disabled-bg:               var(--oscm-main-color-700);
+$list-group-hover-bg:                  rgb(var(--oscm-primary));
+$list-group-action-active-bg:          rgb(var(--oscm-primary));
+
+$link-color:                           rgb(var(--oscm-primary));
+$link-hover-color:                     rgb(var(--oscm-primary));
+
+// Popovers
+$popover-bg:                           var(--oscm-input-color);
+$popover-body-color:                   var(--oscm-rv-color);
+
+// Modal dialogs
+$modal_dialog_text_color:              var(--oscm-rv-color);
+
+// Tables
+$table-bg:                             var(--oscm-main-color-700);
+$theme-table-hover-color:              var(rgba(var(--oscm-main), 0.3));
+$theme-table-bg-color:                 var(--oscm-table-bg-color);
+$theme-table-odd-color:                var(--oscm-table-row-odd-color);
+$theme-table-even-color:               var(--oscm-table-row-even-color);
+$theme-table-border-color:             var(--oscm-main-color-700);
+$theme-table-border-bottom-color:      var(--oscm-main-color-700);
+
+// Inputs
+$input-bg:                             var(--oscm-main-color-800);
+$input-focus-bg:                       var(--oscm-main-color-800);
+$input-focus-color:                    var(--oscm-rv-color);
+$input-focus-border-color:             rgb(var(--oscm-primary));
+$input-group-addon-border-color:       rgb(var(--oscm-primary));
+
+$lightened-color:                      rgba(var(--oscm-primary), 0.5);
+
+$hover-color:                          rgb(var(--oscm-primary));
+$darkened-color:                       rgb(var(--oscm-primary));
+
+.list-group-item {
+  color:                               rgb(var(--oscm-text-color));
+  background-color:                    var(--oscm-main-color-400);
+}
+
+.list-group-item-dark {
+  color:                               var(--oscm-text-color);
+}
+
+// Modal dialogs
+.rf-pp-cnt, .rf-pp-cntr {
+ color:                                var(--oscm-text-color) !important;
+ background-color:                     var(--oscm-input-color) !important;
+}
+
+.sort-icons > img, .rf-csttg-colps > img, .rf-csttg-exp > img {
+    filter: grayscale(1) invert(1);
+ }
+
+ // Text color for Account Menu header.
+ #link0 {
+   color:                              rgb(var(--oscm-navbar-links-color));
+
+   &:hover  {
+     color:                            $navbar-dark-hover-color;
+   }
+ }
+
+.btn-primary, .btn-secondary {
+  background-color:                    rgb(var(--oscm-primary)) !important;
+  border-color:                        rgb(var(--oscm-primary)) !important;
+  color:                               rgb(var(--oscm-white)) !important;
+  &:hover {
+    background-color:                  rgb(var(--oscm-primary));
+    filter:                            brightness(0.8);
+  }
+  &:focus {
+    background-color:                  rgb(var(--oscm-primary));
+    color:                             rgb(var(--oscm-white)) !important;
+    box-shadow:                        rgba(var(--oscm-primary), 0.7);
+  }
+}
+
+.btn-primary.disabled, .btn-secondary.disabled,
+.btn-primary:disabled, .btn-secondary:disabled {
+  background-color:                    rgba(var(--oscm-primary), 0.7);
+  border-color:                        rgba(var(--oscm-primary), 0.7);
+}
+
+.btn-outline-primary, .btn-outline-secondary {
+  color:                               rgb(var(--oscm-primary)) !important;
+  border-color:                        rgb(var(--oscm-primary)) !important;
+  &:hover {
+    color:                             rgb(var(--oscm-white)) !important;
+    background-color:                  rgb(var(--oscm-primary));
+  }
+  &:focus {
+     background-color:                 rgb(var(--oscm-primary));
+     color:                            rgb(var(--oscm-white)) !important;
+     box-shadow:                       rgba(var(--oscm-primary), 0.7);
+  }
+}
+
+.btn-outline-primary.active, .btn-outline-secondary.active,
+.btn-outline-primary:active, .btn-outline-secondary:active,
+.btn-outline-secondary:not(:disabled):not(.disabled).active {
+  background-color:                    rgb(var(--oscm-primary));
+  color:                               rgb(var(--oscm-white)) !important;
+  border-color:                        rgb(var(--oscm-primary));
+}
+
+.btn-outline-primary.disabled, .btn-outline-secondary.disabled,
+.btn-outline-primary:disabled, .btn-outline-secondary:disabled {
+  color:                               rgba(var(--oscm-primary), 0.7);
+  border-color:                        rgba(var(--oscm-primary), 0.7);
+}
+
+.text-primary, .text-secondary {
+  color:                               rgb(var(--oscm-primary)) !important;
+}
+
+.list-group-item-secondary {
+  color:                               rgb(var(--oscm-text-color));
+  background-color:                    rgba(var(--oscm-primary), 0.8) !important;
+  &:hover {
+     background-color:                 rgb(var(--oscm-primary)) !important;
+     color:                            rgb(var(--oscm-white)) !important;
+     filter:                           brightness(0.8);
+  }
+}
+
+.list-group-item-secondary.active {
+  background-color:                    rgb(var(--oscm-primary)) !important;
+  color:                               rgb(var(--oscm-white)) !important;
+  filter:                              brightness(0.9);
+  &:hover {
+     background-color:                 rgb(var(--oscm-primary));
+     color:                            rgb(var(--oscm-white)) !important;
+     filter:                           brightness(0.8);
+  }
+}
+
+.list-group-item-action:hover, .list-group-item-action:focus {
+  color:                               var(--oscm-rv-color) !important;
+}
+
+.bg-themed {
+  background-color:                    var(--oscm-main-color-400) !important;
+}
+
+.text-themed {
+  color:                               var(--oscm-text-color) !important;
+}
+
+.custom-select {
+  background-color:                    var(--oscm-input-color);
+  color:                               var(--oscm-rv-color);
+}
+
+.form-control {
+  background-color:                    var(--oscm-input-color);
+  color:                               var(--oscm-rv-color) !important;
+  &:active {
+     background-color:                 var(--oscm-input-color);
+     color:                            var(--oscm-rv-color) !important;
+  }
+}
+
+.form-control.active {
+  background-color:                    var(--oscm-input-color);
+  color:                               var(--oscm-rv-color) !important;
+}
+
+.border-secondary {
+  border-color:                        rgb(var(--oscm-primary)) !important;
+}
+
+body {
+  background-color:                    var(--body-bg);
+  color:                               var(--oscm-text-color);
+}
+
+hr {
+  border-color:                        var(--oscm-border-color);
+}
+
+.border {
+  border:                              1px solid var(--oscm-main-color-800) !important;
+}
+
+.bg-themed-navigation {
+  background-color:                    rgb(var(--oscm-navbar-color));
+}
+
+.editPen { 
+  filter:                              var(--oscm-filter);
+}

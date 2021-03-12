@@ -16,7 +16,7 @@
 
 .table-hover > tbody > tr:hover > td {
   background-color: $theme-table-hover-color;
-  color: color-yiq($theme-table-hover-color) !important;
+  color: var(--oscm-rv-color) !important;
 } 
 
 .col-icon {

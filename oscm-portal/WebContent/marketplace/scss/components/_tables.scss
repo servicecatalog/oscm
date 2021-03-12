@@ -4,18 +4,18 @@
   height: 30px;
   margin: 0;
   text-align: left;
-  background: $rich_table_bg_repeat repeat-x;
+  background: $theme_table_bg_color;
   vertical-align: top;
   color: $theme_text_color;
 }
 
 .rowTitle th:hover {
-  background: $rich_table_hover repeat-x;
-  color: $theme_table_hover_color;
+  background-color: $theme_table_hover_color;
+  color: $theme_text_color;
 }
 
 .rowTitle th:hover > div.input-group > input {
-    background-color: $white;
+    background-color: $theme_table_hover_color;
 }
 
 .rowTitle th>div {
@@ -49,12 +49,12 @@ img[src$="sortDescending"] {
 /* colors for alternating rows in data tables */
 .rowEven {
   padding-left: 10px;
-  background: $color_gallery_approx;
+  background-color: $theme_table_row_even_color !important;
 }
 
 .rowOdd {
   padding-left: 10px;
-  background: $white;
+  background-color: $theme_table_row_odd_color !important;
 }
 
 .wrapColumns .shortenedText span {
@@ -150,9 +150,8 @@ img[src$="sortDescending"] {
 }
 
 #subListForm .rf-dt-shdr-c {
+  background: $theme_table_bg_color;
   background-clip: padding-box !important;
-  border-bottom: 1px solid $theme_table_border_color !important;
-  border-right: 1px solid $theme_table_border_color !important;
 }
 
 #paymentOptionListForm .tablePanel, #billingContactListForm .tablePanel, #triggerDefinitionListForm .tablePanel,
@@ -279,14 +278,13 @@ div.responsive-table-panel {
   vertical-align: top;
 }
 
-@if $enable-dark-theme {
-   .table-bordered th, .table-bordered td {
-      background:  $theme_table_bg_color;
-      color: $theme_text_color;
-      border: 1px solid $theme_table_border_color;
-   }
-   
-   .rf-dt {
-      border: none !important;
-   }
+.table-bordered th, .table-bordered td {
+   background-color: $main-color;
+   color: $theme_text_color;
+   border: 1px solid $theme_border_color;
+}
+
+.rf-dt {
+   border: none !important;
+   background-color: $theme_table_background_color !important;
 }

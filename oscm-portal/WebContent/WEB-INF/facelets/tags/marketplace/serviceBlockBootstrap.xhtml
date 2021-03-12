@@ -42,7 +42,7 @@
                     onclick="#{onClickHandler}">#{service.nameToDisplay}</h2>
               </ui:fragment>
               <ui:fragment rendered="#{showSupplier}">
-                <h3 id="#{fieldId}Supplier" class="supplier shortenedText">
+                <h3 id="#{fieldId}Supplier" class="supplier shortenedText text-themed">
                   <h:outputFormat value="#{msg['service.by']}" title="#{service.sellerName}">
                     <f:param value="#{service.sellerName}"/>
                   </h:outputFormat>

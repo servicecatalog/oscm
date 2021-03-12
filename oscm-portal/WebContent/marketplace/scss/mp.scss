@@ -1245,21 +1245,18 @@ div.scrolltop p img {
   color: $theme_text_color;
   border-bottom-width: 0px;
   position: relative;
+  background: $main-color;
 }
 
 .rf-dt-flt .rf-dt-flt-c .rf-dt-flt-cnt {
   text-align: left;
 }
 
-thead.rf-dt-thd .rf-dt-shdr, thead.rf-dt-thd .rf-dt-hdr, .rf-edt-hdr tbody>tr {
-  background: $rich_table_bg_repeat repeat-x;
-}
-
 thead .rf-dt-flt {
   background: $rich_table_bg_repeat 0px -19px;
 }
 
-.rf-dt-shdr-c.rf-dt-c-srt:HOVER {
+.rf-dt-shdr-c.rf-dt-c-srt:hover {
   color: $color_dove_gray_approx;
 }
 
@@ -1267,17 +1264,17 @@ thead .rf-dt-flt {
   padding: 0px 4px 0px 4px;
 }
 
-.rf-dt-r:HOVER {
-  background: $color_light_athens_gray_approx;
+.rf-dt-r:hover {
+  background: $theme_table_hover_color;
 }
 
-#editUserForm .rf-dt-r.rowEven:HOVER, #userForm .rf-dt-r.rowEven:HOVER, #paymentOptionListForm .rf-dt-r.rowEven:HOVER,
-  #groupForm .rf-dt-r.rowEven:HOVER .rowEven:HOVER {
-  background: $color_light_athens_gray_approx;
+#editUserForm .rf-dt-r.rowEven:hover, #userForm .rf-dt-r.rowEven:hover, #paymentOptionListForm .rf-dt-r.rowEven:hover,
+  #groupForm .rf-dt-r.rowEven:hover .rowEven:hover {
+  background: $theme_table_hover_color;
 }
 
-#editUserForm .rf-dt-r.rowOdd:HOVER, #userForm .rf-dt-r.rowOdd:HOVER, #paymentOptionListForm .rf-dt-r.rowOdd:HOVER,
-  #groupForm .rf-dt-r.rowOdd:HOVER .rowOdd:HOVER {
+#editUserForm .rf-dt-r.rowOdd:hover, #userForm .rf-dt-r.rowOdd:hover, #paymentOptionListForm .rf-dt-r.rowOdd:hover,
+  #groupForm .rf-dt-r.rowOdd:hover .rowOdd:hover {
   background: $white;
 }
 
@@ -1316,14 +1313,14 @@ thead .rf-dt-flt {
   position: relative;
 }
 
-#billingContactListForm tbody .rf-dt-r:HOVER, #triggerDefinitionListForm tbody .rf-dt-r:HOVER, #processListForm tbody .rf-dt-r:HOVER,
-  #operationsListForm tbody .rf-dt-r:HOVER {
-  background: $color_link_water_approx;
+#billingContactListForm tbody .rf-dt-r:hover, #triggerDefinitionListForm tbody .rf-dt-r:hover, #processListForm tbody .rf-dt-r:hover,
+  #operationsListForm tbody .rf-dt-r:hover {
+  background: $theme_table_hover_color;
 }
 
-#paymentOptionListForm thead .rf-dt-shdr-c:HOVER, #billingContactListForm thead .rf-dt-shdr-c:HOVER, #processListForm thead .rf-dt-shdr-c:HOVER,
-  #operationsListForm thead .rf-dt-shdr-c:HOVER, #triggerDefinitionListForm thead .rf-dt-shdr-c:HOVER {
-  background: $rich_table_hover;
+#paymentOptionListForm thead .rf-dt-shdr-c:hover, #billingContactListForm thead .rf-dt-shdr-c:hover, #processListForm thead .rf-dt-shdr-c:hover,
+  #operationsListForm thead .rf-dt-shdr-c:hover, #triggerDefinitionListForm thead .rf-dt-shdr-c:hover {
+  background: $theme_table_hover_color;
 }
 
 #paymentOptionListForm .rf-dt-c, #billingContactListForm .rf-dt-c, #triggerDefinitionListForm .rf-dt-c {
@@ -1346,11 +1343,11 @@ tbody>tr.rf-dt-nd, tbody>tr.rf-dt-nd .rf-dt-nd-c {
   height: 30px;
 }
 
-.rf-dt-shdr th.rf-dt-shdr-c:HOVER {
+.rf-dt-shdr th.rf-dt-shdr-c:hover {
   background: $rich_table_hover;
 }
 
-tr.rf-dt-shdr, tr.rf-dt-shdr:HOVER {
+tr.rf-dt-shdr, tr.rf-dt-shdr:hover {
   border-bottom: solid 1px $color_darker_silver_approx;
 }
 
@@ -1366,7 +1363,7 @@ thead th.clickable-header {
   position: relative;
 }
 
-thead th.clickable-header:HOVER {
+thead th.clickable-header:hover {
   background: $color_light_athens_gray_approx;
 }
 

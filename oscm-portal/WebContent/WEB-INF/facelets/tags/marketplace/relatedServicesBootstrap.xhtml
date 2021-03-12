@@ -25,8 +25,8 @@
       <c:forEach items="#{bean.relatedServices}" var="service" varStatus="status">
         <c:set var="itemAction" value="AdmUtils.showProgress(true);#{rich:element('relatedServiceKey')}.value=#{service.key};#{rich:element('showRelatedService')}.click();return false;"/>
         <div class="#{service eq bean.selectedService ? activeItem : item}" onclick="#{service eq bean.selectedService ? '': itemAction}">
-          <h4 id="selectedServiceH3#{status.index}" class="relatedServiceName">#{service.nameToDisplay}</h4>
-          <h4 id="supplier#{status.index}" class="relatedServicePrice">#{service.priceToDisplay}</h4>
+          <h4 id="selectedServiceH3#{status.index}" class="relatedServiceName text-themed">#{service.nameToDisplay}</h4>
+          <h4 id="supplier#{status.index}" class="relatedServicePrice text-themed">#{service.priceToDisplay}</h4>
         </div>
       </c:forEach>
 

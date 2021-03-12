@@ -49,3 +49,24 @@
     padding: 0rem;
   }
 }
+
+.navbar-themed {
+  background-color: rgb(var(--oscm-navbar-color)) !important;
+  color: rgb(var(--oscm-navbar-links-color));
+}
+
+.nav-link {
+  color: rgb(var(--oscm-navbar-links-color));
+}
+
+.navbar-toggler {
+  border: 1px solid rgb(var(--oscm-navbar-links-color));
+  padding: 0px;
+}
+
+.navbar-toggler-icon {
+  color: rgb(var(--oscm-navbar-links-color));
+  font-size: 1.8rem;
+  height: auto;
+  padding: 0.2rem;
+}

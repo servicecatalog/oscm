@@ -25,7 +25,7 @@
 
 /* tag cloud tags enclosed block wrapper */
 .tagCloud {
-  color: $interior-color;
+  color: $theme_text_color;
   text-decoration: none;
   background: none repeat scroll 0% 0% transparent;
   overflow: hidden;
@@ -35,7 +35,7 @@
 /* individual tag in tag cloud */
 .tagCloud.tag {
   padding: 6px;
-  color: $color_fiord_approx;
+  color: $theme_text_color;
   text-decoration: none;
   background: none;
 }
@@ -44,6 +44,7 @@
   padding: 0.25rem;
   background: $secondary-color;
   border-radius: 1rem;
+  color: $interior-color;
 }
 
 /* individual tag in tag cloud */
@@ -58,59 +59,59 @@
 /* tag color definitions dependent on label size.
 IE7 and other non-supporting browsers use the default color defined by  .tagCloud.tag */
 .tagCloud.tag[style*="24"] {
-  color: $color_pale_sky_approx;
+  color: rgba(var(--oscm-text-color), 0.95);
 }
 
 .tagCloud.tag[style*="23"] {
-  color: #687683;
+  color: rgba(var(--oscm-text-color), 0.93);
 }
 
 .tagCloud.tag[style*="22"] {
-  color: #697884;
+  color: rgba(var(--oscm-text-color), 0.91);
 }
 
 .tagCloud.tag[style*="21"] {
-  color: #6A7884;
+  color: rgba(var(--oscm-text-color), 0.94);
 }
 
 .tagCloud.tag[style*="20"] {
-  color: #6B7A85;
+  color: rgba(var(--oscm-text-color), 0.92);
 }
 
 .tagCloud.tag[style*="19"] {
-  color: #6C7A85;
+  color: rgba(var(--oscm-text-color), 0.95);
 }
 
 .tagCloud.tag[style*="18"] {
-  color: #6D7C86;
+  color: rgba(var(--oscm-text-color), 0.93);
 }
 
 .tagCloud.tag[style*="17"] {
-  color: #6E7C86;
+  color: rgba(var(--oscm-text-color), 0.91);
 }
 
 .tagCloud.tag[style*="16"] {
-  color: #6F7E88;
+  color: rgba(var(--oscm-text-color), 0.94);
 }
 
 .tagCloud.tag[style*="15"] {
-  color: #707E88;
+  color: rgba(var(--oscm-text-color), 0.92);
 }
 
 .tagCloud.tag[style*="14"] {
-  color: #718089;
+  color: rgba(var(--oscm-text-color), 0.95);
 }
 
 .tagCloud.tag[style*="13"] {
-  color: $color_rolling_stone_approx;
+  color: rgba(var(--oscm-text-color), 0.93);
 }
 
 .tagCloud.tag[style*="12"] {
-  color: #738290;
+  color: rgba(var(--oscm-text-color), 0.91);
 }
 
 .tagCloud .tag:hover {
   font-size: 8px;
-  color: $color_dove_gray_approx;
+  color: $interior-color;
   text-decoration: underline;
 }

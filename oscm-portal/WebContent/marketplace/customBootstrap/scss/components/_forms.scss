@@ -15,6 +15,7 @@
 }
 
 .form-control:focus, .custom-select:focus, .btn:focus, .custom-file-input:focus, .page-link:focus {
-  border-color: $secondary;
-  box-shadow: 0 0 0 0.2rem rgba($secondary, 0.25);
+  border-color: rgb(var(--oscm-primary));
+  background-color: var(--oscm-input-color);
+  box-shadow: 0 0 0 0.2rem rgba(var(--oscm-primary), 0.5);
 }

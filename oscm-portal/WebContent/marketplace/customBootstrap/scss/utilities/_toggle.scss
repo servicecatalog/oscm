@@ -1,0 +1,59 @@
+.toggle-theme-switch {
+
+  display: inline-flex;
+  position: inherit;
+  align-items: center;
+  justify-content: center;
+  color: var(--oscm-rv-color);
+  background: none;
+  cursor: pointer;
+  height: 20px;
+  width: 20px;
+  border: 0;
+
+  & path {
+    stroke-width: .5px;
+    fill: none;
+  }
+
+  &:hover,
+  &:focus {
+    & .toggle-theme-switch-light {
+      fill: rgb(var(--oscm-white));
+    }
+
+    & .toggle-theme-switch-dark {
+      fill: rgb(var(--oscm-black));
+    }
+  }
+}
+
+.toggle-theme-switch-dark {
+  display: inline-block;
+  stroke: rgb(var(--oscm-black));
+
+  @nest :root[data-theme="dark"] & {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @nest :root:not([data-theme="dark"]) & {
+      display: inline-block;
+    }
+  }
+}
+
+.toggle-theme-switch-light {
+  display: none;
+  stroke: rgb(var(--oscm-white));
+
+  @nest :root[data-theme="dark"] & {
+    display: inline-block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    @nest :root:not([data-theme="light"]) & {
+      display: inline-block;
+    }
+  }
+}
