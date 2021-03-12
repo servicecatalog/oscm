@@ -3,7 +3,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
   xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
   xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j"
-  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage" xmlns:b="http://bootsfaces.net/ui"
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
   xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
   xmlns:rich="http://richfaces.org/rich" template="../templates/mainBootstrap.xhtml">
 
@@ -103,20 +103,19 @@
                 <adm:outputStep value="Display Settings" />
               </h2>
               <hr />
-             
+
               <h:panelGroup styleClass="radio-outside-table">
                 <h:selectOneRadio id="selectOneRadioMode"
-                  value="#{organizationBean.currentUser.displaySetting.darkMode}">
+                  value="#{organizationBean.currentUser.displaySettings.darkMode}">
                   <f:selectItem itemValue="true" itemLabel="Dark Mode" />
                   <f:selectItem itemValue="false" itemLabel="Light Mode" />
                 </h:selectOneRadio>
               </h:panelGroup>
-
-              <b:colorPicker value="#{organizationBean.currentUser.displaySetting.primaryColor}" opacity="true"
-                format="rgb" label="Primary Color" />
-              <b:colorPicker value="#{organizationBean.currentUser.displaySetting.secondaryColor}" opacity="true"
-                format="rgb" label="Secondary Color" />
-
+                
+              <mp:colorPicker id="primary" label="Primary Color" color="#{organizationBean.currentUser.displaySettings.primaryColor}"/>
+              
+              <mp:colorPicker id="secondary" label="Secondary Color"
+                  color="#{organizationBean.currentUser.displaySettings.secondaryColor}"/>
             </c:if>
             <hr />
             <a4j:outputPanel styleClass="row justify-content-end">
@@ -317,7 +316,6 @@
 
     <script>AdmUtils.sessionTab('#{sessionBean.selectedTab}', 'nav-tab');</script>
 
-    <mp:hintBootstrapLibs />
 
   </ui:define>
 </ui:composition>

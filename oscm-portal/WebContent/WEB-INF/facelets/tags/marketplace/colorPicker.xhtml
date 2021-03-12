@@ -1,0 +1,26 @@
+<!-- Copyright FUJITSU LIMITED 2021 -->
+<!DOCTYPE html >
+<ui:component xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:a="http://xmlns.jcp.org/jsf/passthrough" xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+  xmlns:adm="http://www.fujitsu.com/global/services/software/interstage">
+  <cc:interface>
+    <cc:attribute name="value" type="java.lang.String" required="true" />
+    <cc:clientBehavior name="clientEvent" targets="colorInput" event="change" />
+  </cc:interface>
+
+  <cc:implementation>
+    <div class="row align-items-center pb-2">
+      <div class="col m-2">
+        <adm:outputLabel value="#{label}" />
+      </div>
+      <div class="col m-1">
+        <h:inputText id="#{id}ColorInput" a:type="color" value="#{color}">
+          <label for="#{id}ColorInput">#{label}</label>
+        </h:inputText>
+      </div>
+      <div class="col m-1"></div>
+      <div class="col m-1"></div>
+    </div>
+  </cc:implementation>
+</ui:component>
+
