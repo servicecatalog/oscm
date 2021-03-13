@@ -100,21 +100,20 @@
 
               <p />
               <h2>
-                <adm:outputStep value="Display Settings" />
+                <adm:outputStep value="#{msg['user.displaySettings.theming']}" />
               </h2>
               <hr />
 
-              <h:panelGroup styleClass="radio-outside-table">
+              <h:panelGroup styleClass="radio-inside-table">
                 <h:selectOneRadio id="selectOneRadioMode"
                   value="#{organizationBean.currentUser.displaySettings.darkMode}">
-                  <f:selectItem itemValue="true" itemLabel="Dark Mode" />
-                  <f:selectItem itemValue="false" itemLabel="Light Mode" />
+                  <f:selectItem itemValue="true" itemLabel="#{msg['user.displaySettings.dark']}" />
+                  <f:selectItem itemValue="false" itemLabel="#{msg['user.displaySettings.light']}" />
                 </h:selectOneRadio>
               </h:panelGroup>
                 
-              <mp:colorPicker id="primary" label="Primary Color" color="#{organizationBean.currentUser.displaySettings.primaryColor}"/>
-              
-              <mp:colorPicker id="secondary" label="Secondary Color"
+              <mp:colorPicker id="primary" label="#{msg['user.displaySettings.primaryColor']}" color="#{organizationBean.currentUser.displaySettings.primaryColor}"/>
+              <mp:colorPicker id="secondary" label="#{msg['user.displaySettings.secondaryColor']}"
                   color="#{organizationBean.currentUser.displaySettings.secondaryColor}"/>
             </c:if>
             <hr />
