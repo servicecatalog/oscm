@@ -27,6 +27,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doNothing;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -177,6 +178,7 @@ public class MarketplaceContextFilterTest {
             }
         })).when(mpCtxFilter).forward(any(String.class),
                 any(HttpServletRequest.class), any(HttpServletResponse.class));
+        doNothing().when(mpCtxFilter).loadDisplaySettings(any(), any());
     }
 
     private VOUserDetails fakeUserLogin(final String orgId) {

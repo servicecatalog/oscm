@@ -162,16 +162,12 @@
         document.documentElement.setAttribute(THEME_ATTR, mode);
       }
     };
-
-    setColorMode(initialColorMode);
-
-    document.querySelectorAll(".toggle-theme-switch").forEach(function (link) {
-      link.addEventListener("click", function (e) {
-        e.preventDefault();
-        const current = document.documentElement.getAttribute(THEME_ATTR) || COLOR_MODES[0];
-        const mode = current === COLOR_MODES[0] ? COLOR_MODES[1] : COLOR_MODES[0];
-        setColorMode(mode);
-      });
-    });
+    
+    if (#{sessionScope.userDisplaySettings != null ? sessionScope.userDisplaySettings.darkMode : 'false' }) {
+    	setColorMode(COLOR_MODES[1]);	
+    } else {
+    	setColorMode(COLOR_MODES[0]);  
+    }
+    
   </script>
 </ui:composition>

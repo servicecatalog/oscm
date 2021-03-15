@@ -32,6 +32,8 @@
     <class>org.oscm.domobjects.Discount</class>
     <class>org.oscm.domobjects.DiscountData</class>
     <class>org.oscm.domobjects.DiscountHistory</class>
+    <class>org.oscm.domobjects.DisplaySettings</class>
+    <class>org.oscm.domobjects.DisplaySettingsData</class>      
     <class>org.oscm.domobjects.DomainDataContainer</class>
     <class>org.oscm.domobjects.DomainHistoryObject</class>
     <class>org.oscm.domobjects.DomainObject</class>

@@ -13,7 +13,14 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.text.Collator;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Properties;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -22,18 +29,42 @@ import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.Part;
+
 import org.oscm.converter.PropertiesLoader;
 import org.oscm.internal.types.enumtypes.ImageType;
 import org.oscm.internal.types.enumtypes.UdaConfigurationType;
-import org.oscm.internal.types.exception.*;
+import org.oscm.internal.types.exception.AddMarketingPermissionException;
+import org.oscm.internal.types.exception.ConcurrentModificationException;
+import org.oscm.internal.types.exception.DeletionConstraintException;
+import org.oscm.internal.types.exception.MailOperationException;
+import org.oscm.internal.types.exception.MarketingPermissionNotFoundException;
+import org.oscm.internal.types.exception.MarketplaceRemovedException;
+import org.oscm.internal.types.exception.NonUniqueBusinessKeyException;
+import org.oscm.internal.types.exception.ObjectNotFoundException;
+import org.oscm.internal.types.exception.OperationNotPermittedException;
+import org.oscm.internal.types.exception.OperationPendingException;
+import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
+import org.oscm.internal.types.exception.RegistrationException;
+import org.oscm.internal.types.exception.SaaSApplicationException;
+import org.oscm.internal.types.exception.TechnicalServiceNotAliveException;
+import org.oscm.internal.types.exception.TechnicalServiceOperationException;
+import org.oscm.internal.types.exception.ValidationException;
 import org.oscm.internal.usergroupmgmt.POUserGroup;
-import org.oscm.internal.vo.*;
+import org.oscm.internal.vo.LdapProperties;
+import org.oscm.internal.vo.VODiscount;
+import org.oscm.internal.vo.VOOrganization;
+import org.oscm.internal.vo.VOTechnicalService;
+import org.oscm.internal.vo.VOUda;
+import org.oscm.internal.vo.VOUdaDefinition;
+import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.ui.common.ExceptionHandler;
 import org.oscm.ui.common.ImageUploader;
 import org.oscm.ui.common.JSFUtils;
+import org.oscm.ui.model.DisplaySettings;
+import org.oscm.ui.model.JsonData;
 import org.oscm.ui.model.Organization;
 import org.oscm.ui.model.TechnicalService;
 import org.oscm.ui.model.UdaRow;
@@ -298,9 +329,11 @@ public class OrganizationBean extends BaseBean implements Serializable {
     if (currentUser != null) {
       user = currentUser.getVOUserDetails();
     }
+    storeDisplaySettings();
     getAccountingService()
         .updateAccountInformation(
             organization, user, getMarketplaceId(), getImageUploader().getVOImageResource());
+
     currentUser = null;
     if (user != null) {
       // update the value object in the session
@@ -409,6 +442,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
   }
 
   /** Called by the value changed listener of the technical service selectionOneMenu. */
+  @SuppressWarnings("boxing")
   public void technicalServiceChanged(AjaxBehaviorEvent event) {
     Long newServiceKey = (Long) ((UIOutput) event.getSource()).getValue();
     techServiceBean.setSelectedTechnicalServiceKeyWithExceptionAndRefresh(newServiceKey);
@@ -636,6 +670,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
     if (currentUser == null) {
       currentUser = new User(getIdService().getCurrentUserDetails());
       initializeGroups();
+      loadDisplaySettings();
     }
     return currentUser;
   }
@@ -653,6 +688,24 @@ public class OrganizationBean extends BaseBean implements Serializable {
     }
     currentUser.setGroupsToDisplay(groupsToDisplay.toString());
     currentUser.setUserGroup(groups);
+  }
+
+  void storeDisplaySettings() throws ValidationException, ConcurrentModificationException {
+    if (null != currentUser && JsonData.isModified(currentUser.getDisplaySettings())) {
+      String setting = JsonData.toJson(currentUser.getDisplaySettings());
+      getUserService().setDisplaySettings(currentUser.getKey(), setting);
+      getSession().setAttribute("userDisplaySettings", currentUser.getDisplaySettings());
+    }
+  }
+
+  void loadDisplaySettings() {
+    String settings = getUserService().getDisplaySettings(currentUser.getKey());
+    DisplaySettings ds = new DisplaySettings();
+    if (settings.length() > 0) {
+       ds = JsonData.fromJson(settings, DisplaySettings.class);
+    }
+    currentUser.setDisplaySettings(ds);
+    
   }
 
   public User refreshCurrentUser() {

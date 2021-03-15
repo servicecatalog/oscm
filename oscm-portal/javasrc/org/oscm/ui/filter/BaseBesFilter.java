@@ -33,6 +33,7 @@ import org.oscm.internal.types.enumtypes.UserRoleType;
 import org.oscm.internal.types.exception.NotExistentTenantException;
 import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
 import org.oscm.internal.types.exception.WrongTenantConfigurationException;
+import org.oscm.internal.usermanagement.UserService;
 import org.oscm.internal.vo.VOUserDetails;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
@@ -45,6 +46,8 @@ import org.oscm.ui.common.Constants;
 import org.oscm.ui.common.EJBServiceAccess;
 import org.oscm.ui.common.JSFUtils;
 import org.oscm.ui.common.ServiceAccess;
+import org.oscm.ui.model.DisplaySettings;
+import org.oscm.ui.model.JsonData;
 import org.oscm.validator.ADMValidator;
 
 /** @author groch */
@@ -154,8 +157,31 @@ public abstract class BaseBesFilter implements Filter {
     ard.setUserDetails(
         (VOUserDetails) httpRequest.getSession().getAttribute(Constants.SESS_ATTR_USER));
 
+    loadDisplaySettings(ard, httpRequest);
     ard.setLandingPage(BesServletRequestReader.isLandingPage(httpRequest));
     return ard;
+  }
+
+  protected void loadDisplaySettings(AuthorizationRequestData ard, HttpServletRequest httpRequest) {
+    VOUserDetails user = ard.getUserDetails();
+    DisplaySettings ds = (DisplaySettings) httpRequest.getSession().getAttribute("userDisplaySettings");
+    if (user != null && ds == null) {
+      ds = new DisplaySettings();
+      try {
+        final String settings = getUserService(httpRequest).getDisplaySettings(user.getKey());
+        if (settings.length() > 0) {
+          ds = JsonData.fromJson(settings, DisplaySettings.class);
+        }
+      } finally {
+        httpRequest.getSession().setAttribute("userDisplaySettings", ds);
+      }
+    }
+  }
+
+  private UserService getUserService(
+      HttpServletRequest request) { // TODO Auto-generated method stub
+    ServiceAccess serviceAccess = ServiceAccess.getServiceAcccessFor(request.getSession());
+    return serviceAccess.getService(UserService.class);
   }
 
   /**
@@ -379,7 +405,7 @@ public abstract class BaseBesFilter implements Filter {
     }
     HttpSession session = request.getSession(true);
     session.setAttribute(Constants.SESS_ATTR_FORWARD_URL, forwardUrl);
-    session.setAttribute(Constants.SESS_ATTR_DEFAULT_TIMEOUT, session.getMaxInactiveInterval());
+    session.setAttribute(Constants.SESS_ATTR_DEFAULT_TIMEOUT, Integer.valueOf(session.getMaxInactiveInterval()));
   }
 
   private String copyParameters(HttpServletRequest request, String forwardUrl) {

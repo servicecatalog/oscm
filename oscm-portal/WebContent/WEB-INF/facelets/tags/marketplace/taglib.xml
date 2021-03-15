@@ -331,4 +331,8 @@
     <tag-name>servicePriceLinkBootstrap</tag-name>
     <source>servicePriceLinkBootstrap.xhtml</source>
   </tag>
+  <tag>
+    <tag-name>colorPicker</tag-name>
+    <source>colorPicker.xhtml</source>
+  </tag>
 </facelet-taglib>
