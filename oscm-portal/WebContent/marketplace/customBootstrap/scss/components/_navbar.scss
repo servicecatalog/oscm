@@ -51,8 +51,8 @@
 }
 
 .navbar-themed {
-  background-color: rgb(var(--oscm-navbar-color)) !important;
-  color: rgb(var(--oscm-navbar-links-color));
+  background-color: var(--oscm-navbar-color) !important;
+  color: var(--oscm-navbar-links-color);
 }
 
 .nav-link {
