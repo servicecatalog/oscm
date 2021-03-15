@@ -694,6 +694,7 @@ public class OrganizationBean extends BaseBean implements Serializable {
     if (null != currentUser && JsonData.isModified(currentUser.getDisplaySettings())) {
       String setting = JsonData.toJson(currentUser.getDisplaySettings());
       getUserService().setDisplaySettings(currentUser.getKey(), setting);
+      getSession().setAttribute("userDisplaySettings", currentUser.getDisplaySettings());
     }
   }
 
