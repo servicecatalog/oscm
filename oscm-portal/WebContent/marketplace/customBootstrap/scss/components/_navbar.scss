@@ -56,11 +56,11 @@
 }
 
 .nav-link {
-  color: rgb(var(--oscm-navbar-links-color));
+  color: var(--oscm-navbar-links-color);
 }
 
 .navbar-toggler {
-  border: 1px solid rgb(var(--oscm-navbar-links-color));
+  border: 1px solid var(--oscm-navbar-links-color);
   padding: 0px;
 }
 
