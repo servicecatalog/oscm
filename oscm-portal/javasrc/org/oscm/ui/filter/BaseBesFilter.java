@@ -164,7 +164,8 @@ public abstract class BaseBesFilter implements Filter {
 
   protected void loadDisplaySettings(AuthorizationRequestData ard, HttpServletRequest httpRequest) {
     VOUserDetails user = ard.getUserDetails();
-    DisplaySettings ds = (DisplaySettings) httpRequest.getSession().getAttribute("userDisplaySettings");
+    DisplaySettings ds =
+        (DisplaySettings) httpRequest.getSession().getAttribute("userDisplaySettings");
     if (user != null && ds == null) {
       ds = new DisplaySettings();
       try {
@@ -405,7 +406,8 @@ public abstract class BaseBesFilter implements Filter {
     }
     HttpSession session = request.getSession(true);
     session.setAttribute(Constants.SESS_ATTR_FORWARD_URL, forwardUrl);
-    session.setAttribute(Constants.SESS_ATTR_DEFAULT_TIMEOUT, Integer.valueOf(session.getMaxInactiveInterval()));
+    session.setAttribute(
+        Constants.SESS_ATTR_DEFAULT_TIMEOUT, Integer.valueOf(session.getMaxInactiveInterval()));
   }
 
   private String copyParameters(HttpServletRequest request, String forwardUrl) {

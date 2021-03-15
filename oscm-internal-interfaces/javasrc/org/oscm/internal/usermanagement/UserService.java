@@ -10,7 +10,6 @@
 package org.oscm.internal.usermanagement;
 
 import java.util.List;
-
 import org.oscm.internal.components.response.Response;
 import org.oscm.internal.types.exception.ConcurrentModificationException;
 import org.oscm.internal.types.exception.SaaSApplicationException;
@@ -187,8 +186,8 @@ public interface UserService {
    * @param userTKey - the user key
    * @param settings - the settings as string, max. 2000 chars
    * @throws ValidationException - if the settings are null, empty or exceeding the max lenght
-   * @throws ConcurrentModificationException - if settings have been created concurrently for the given
-   *     user
+   * @throws ConcurrentModificationException - if settings have been created concurrently for the
+   *     given user
    */
   void setDisplaySettings(long userTKey, String settings)
       throws ValidationException, ConcurrentModificationException;

@@ -20,7 +20,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -29,7 +28,6 @@ import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.Part;
-
 import org.oscm.converter.PropertiesLoader;
 import org.oscm.internal.types.enumtypes.ImageType;
 import org.oscm.internal.types.enumtypes.UdaConfigurationType;
@@ -702,10 +700,9 @@ public class OrganizationBean extends BaseBean implements Serializable {
     String settings = getUserService().getDisplaySettings(currentUser.getKey());
     DisplaySettings ds = new DisplaySettings();
     if (settings.length() > 0) {
-       ds = JsonData.fromJson(settings, DisplaySettings.class);
+      ds = JsonData.fromJson(settings, DisplaySettings.class);
     }
     currentUser.setDisplaySettings(ds);
-    
   }
 
   public User refreshCurrentUser() {

@@ -14,14 +14,15 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
 import org.oscm.domobjects.annotations.BusinessKey;
 
 /** @author goebel */
 @Entity
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userTKey"}))
 @NamedQueries({
-  @NamedQuery(name = "DisplaySettings.findByBusinessKey", query = "SELECT d FROM DisplaySettings d WHERE d.dataContainer.userTKey =:userTKey")
+  @NamedQuery(
+      name = "DisplaySettings.findByBusinessKey",
+      query = "SELECT d FROM DisplaySettings d WHERE d.dataContainer.userTKey =:userTKey")
 })
 @BusinessKey(attributes = {"userTKey"})
 public class DisplaySettings extends DomainObjectWithVersioning<DisplaySettingsData> {

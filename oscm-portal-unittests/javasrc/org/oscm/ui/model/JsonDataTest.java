@@ -20,15 +20,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
-
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /** @author goebel */
 public class JsonDataTest {

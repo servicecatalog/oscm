@@ -10,7 +10,6 @@
 package org.oscm.domobjects;
 
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
@@ -20,7 +19,7 @@ public class DisplaySettingsData extends DomainDataContainer implements Serializ
 
   /** */
   private static final long serialVersionUID = -8837450327201421421L;
- 
+
   @Column(nullable = false)
   private long userTKey;
 
@@ -30,7 +29,7 @@ public class DisplaySettingsData extends DomainDataContainer implements Serializ
   public void setData(String data) {
     this.data = data;
   }
-  
+
   @Column(nullable = false)
   public String getData() {
     return data;

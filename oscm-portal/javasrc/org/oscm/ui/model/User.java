@@ -12,20 +12,17 @@ package org.oscm.ui.model;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
-
 import javax.faces.event.ValueChangeEvent;
-
 import org.apache.commons.validator.GenericValidator;
-
-import org.oscm.string.Strings;
-import org.oscm.internal.usergroupmgmt.POUserGroup;
 import org.oscm.internal.types.enumtypes.OrganizationRoleType;
 import org.oscm.internal.types.enumtypes.Salutation;
 import org.oscm.internal.types.enumtypes.SettingType;
 import org.oscm.internal.types.enumtypes.UserAccountStatus;
 import org.oscm.internal.types.enumtypes.UserRoleType;
+import org.oscm.internal.usergroupmgmt.POUserGroup;
 import org.oscm.internal.vo.VOUsageLicense;
 import org.oscm.internal.vo.VOUserDetails;
+import org.oscm.string.Strings;
 
 /** Wrapper Class for VOUserDetails which holds additional view attributes. */
 public class User implements Serializable {

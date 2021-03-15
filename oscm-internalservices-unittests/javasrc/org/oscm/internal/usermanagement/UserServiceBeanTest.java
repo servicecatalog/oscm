@@ -46,9 +46,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import javax.ejb.SessionContext;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -667,7 +665,7 @@ public class UserServiceBeanTest {
 
     // when
     usb.setDisplaySettings(1000, "");
-    
+
     // given
     givenDisplaySettings();
 

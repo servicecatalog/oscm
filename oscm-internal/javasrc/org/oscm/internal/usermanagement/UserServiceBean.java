@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
@@ -27,7 +26,6 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
-
 import org.oscm.dataservice.local.DataService;
 import org.oscm.domobjects.DisplaySettings;
 import org.oscm.domobjects.PlatformUser;
@@ -349,7 +347,8 @@ public class UserServiceBean implements UserService {
   }
 
   private void removeOwnerIfUserCantOwnSubscription(PlatformUser user) {
-    @SuppressWarnings("deprecation") List<Subscription> subscriptions = slsl.getSubscriptionsForOwner(user);
+    @SuppressWarnings("deprecation")
+    List<Subscription> subscriptions = slsl.getSubscriptionsForOwner(user);
     for (Subscription subscription : subscriptions) {
       ssl.removeSubscriptionOwner(subscription);
     }
@@ -658,7 +657,8 @@ public class UserServiceBean implements UserService {
   }
 
   @Override
-  public void setDisplaySettings(long userTKey, String settings) throws ValidationException, ConcurrentModificationException {
+  public void setDisplaySettings(long userTKey, String settings)
+      throws ValidationException, ConcurrentModificationException {
     validateLength(settings, 2000);
     DisplaySettings doDS = new DisplaySettings();
     doDS.setUserTKey(userTKey);
@@ -669,7 +669,7 @@ public class UserServiceBean implements UserService {
       doDS.setData(settings);
       try {
         ds.persist(doDS);
-      } catch (NonUniqueBusinessKeyException e) { 
+      } catch (NonUniqueBusinessKeyException e) {
         throw new ConcurrentModificationException("DisplaySettings are outdated");
       }
     }

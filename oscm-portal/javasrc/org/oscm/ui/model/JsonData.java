@@ -9,16 +9,14 @@
  */
 package org.oscm.ui.model;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.Serializable;
-
 import org.oscm.internal.types.exception.SaaSSystemException;
 import org.oscm.logging.Log4jLogger;
 import org.oscm.logging.LoggerFactory;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /** @author goebel */
 public abstract class JsonData implements Serializable {
