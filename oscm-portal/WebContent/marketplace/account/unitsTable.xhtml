@@ -29,7 +29,7 @@
         </a4j:outputPanel>
         <div class="d-none d-lg-block text-center">
           <h:commandLink action="#{manageGroupCtrl.confirmIfUnitExists()}">
-            <img src="#{imgUrl}/transparentPixel.png" class="editPen" alt=""/>
+            <i class="fa fa-pencil-square-o editPen"/>
             <f:param name="groupId" value="#{group.key}"/>
           </h:commandLink>
         </div>
@@ -104,7 +104,7 @@
         <a4j:commandLink styleClass="btn btn-sm" id="deleteBt" action="#{userGroupListCtrl.determineDeleteGroup}"
                          title="#{msg['group.delete.title']}" rendered="#{not group.default}" render="deleteConfirmPl"
                          oncomplete="#{rich:component('deleteConfirmPl')}.show();return false;">
-          <i class="fa fa-trash-o"/>
+          <i class="fa fa-trash-o trash-color"/>
           <a4j:param name="groupKeyToDelete" value="#{group.key}"/>
           <a4j:param name="groupNameToDelete" value="#{group.groupName}"/>
         </a4j:commandLink>

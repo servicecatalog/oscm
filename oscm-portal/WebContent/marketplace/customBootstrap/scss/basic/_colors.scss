@@ -84,7 +84,6 @@
  --oscm-table-background-color:        hsla(var(--oscm-main), 0.1);
  --oscm-table-row-odd-color:           hsla(var(--oscm-main), 0.1);
  --oscm-table-row-even-color:          hsla(var(--oscm-main), 0.8);
- --oscm-filter:                        brightness(1000%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -130,6 +129,5 @@
    --oscm-table-background-color:      hsla(var(--oscm-main), 0.1);
    --oscm-table-row-odd-color:         hsla(var(--oscm-main), 0.1);
    --oscm-table-row-even-color:        hsla(var(--oscm-main), 0.8);
-   --oscm-filter:                      brightness(1000%);
   }
 }

@@ -90,8 +90,7 @@
                                 sortMode="single">
 
                   <rich:column headerClass="w-30px">
-                    <img src="#{imgUrl}/transparentPixel.png" id="editProcessTriggerImage" class="editPen"
-                         onclick="if(AdmUtils.isNotDirtyOrConfirmed()){selectProcessItem(#{triggerDefinition.key});}"/>
+                    <i id="editProcessTriggerImage" class="fa fa-pencil-square-o editPen" onclick="if(AdmUtils.isNotDirtyOrConfirmed()){selectProcessItem(#{triggerDefinition.key});}"/>
                   </rich:column>
 
                   <rich:column headerClass="w-50" sortBy="#{triggerDefinition.name}" sortOrder="ascending"

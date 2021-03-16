@@ -259,6 +259,11 @@ span.upload .option {
   background-position: right top;
   margin-left: 4px; }
 
+.custom-file-label {
+  background-color: var(--oscm-input-color);
+  color: var(--oscm-rv-color) !important;
+}
+
 .custom-file-label:after {
   content: "\f093";
   font-family: FontAwesome;
@@ -266,4 +271,4 @@ span.upload .option {
   color: $secondary-color;
   border-color: $secondary-color;
   border: 1px solid;
-  background-color: #fff; }
+  background-color: var(--oscm-input-color); }

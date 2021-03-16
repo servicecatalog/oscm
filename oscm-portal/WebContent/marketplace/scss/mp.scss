@@ -1115,13 +1115,7 @@ div.scrolltop p img {
   cursor: pointer;
   height: 16px;
   width: 16px;
-}
-
-.editPen:after {
-  content: "\f093";
-  font-family: FontAwesome;
-  cursor: pointer;
-  color: $primary-color;
+  font-size: larger !important;
 }
 
 .deleteButton {
@@ -1298,17 +1292,31 @@ thead .rf-dt-flt {
 }
 
 .rf-dt-srt.rf-dt-srt-btn.rf-dt-srt-asc, .rf-edt-srt.rf-edt-srt-btn.rf-edt-srt-asc {
-  background: transparent $mp_icon_sprite no-repeat scroll 0 -437px;
   width: 13px;
   height: 13px;
   margin: 4px 10px 0 0;
+  background: none;
+}
+
+.rf-dt-srt.rf-dt-srt-btn.rf-dt-srt-asc:after, .rf-dt-srt.rf-dt-srt-btn.rf-dt-srt-asc:after {
+  content: "\f0de";
+  font-family: FontAwesome;
+  cursor: pointer;
+  color: $secondary-color;
 }
 
 .rf-dt-srt.rf-dt-srt-btn.rf-dt-srt-des, .rf-edt-srt.rf-edt-srt-btn.rf-edt-srt-des {
-  background: transparent $mp_icon_sprite no-repeat scroll -14px -437px;
   width: 15px;
   height: 15px;
   margin: 4px 10px 0 0;
+  background: none;
+}
+
+.rf-dt-srt.rf-dt-srt-btn.rf-dt-srt-des:after, .rf-edt-srt.rf-edt-srt-btn.rf-edt-srt-des:after {
+  content: "\f0dd";
+  font-family: FontAwesome;
+  cursor: pointer;
+  color: $secondary-color;
 }
 
 .rf-dt-srt.rf-dt-srt-btn.rf-dt-srt-uns, .rf-edt-srt.rf-edt-srt-btn.rf-edt-srt-uns {

@@ -38,14 +38,6 @@ img[src$="sort"] {
   background: none;
 }
 
-img[src$="sortAscending"] {
-  background: transparent $mp_icon_sprite no-repeat scroll 0 -437px;
-}
-
-img[src$="sortDescending"] {
-  background: transparent $mp_icon_sprite no-repeat scroll -14px -437px;
-}
-
 /* colors for alternating rows in data tables */
 .rowEven {
   padding-left: 10px;
@@ -279,12 +271,16 @@ div.responsive-table-panel {
 }
 
 .table-bordered th, .table-bordered td {
-   background-color: $main-color;
-   color: $theme_text_color;
-   border: 1px solid $theme_border_color;
+  background-color: $main-color;
+  color: $theme_text_color;
+  border: 1px solid $theme_border_color;
 }
 
 .rf-dt {
-   border: none !important;
-   background-color: $theme_table_background_color !important;
+  border: none !important;
+  background-color: $theme_table_background_color !important;
+}
+
+.trash-color {
+  color: $warning-color;
 }

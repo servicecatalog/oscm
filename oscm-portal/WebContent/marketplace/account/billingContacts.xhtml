@@ -36,8 +36,7 @@
                         onRowMouseOver="AdmUtils.mouseOverRowCell(this);" onRowMouseOut="AdmUtils.mouseOutRowCell(this)"
                         enableContextMenu="false" noDataLabel=" " columnClasses="wrapColumns" sortMode="single">
           <rich:column headerClass="w-30px">
-            <img src="#{imgUrl}/transparentPixel.png" id="editBillingImage#{index}" class="editPen"
-                 onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.selectRow(this);selectBillingItem(#{billingContact.key});}"/>
+            <i id="editBillingImage#{index}" class="fa fa-pencil-square-o editPen" onclick="if(AdmUtils.isNotDirtyOrConfirmed()){AdmUtils.selectRow(this);selectBillingItem(#{billingContact.key});}"/>
           </rich:column>
           <rich:column sortBy="#{billingContact.id}" sortOrder="ascending" headerClass="w-25"
                        sortIcon="#{sortIcon}" sortIconAscending="#{sortIconAscending}"

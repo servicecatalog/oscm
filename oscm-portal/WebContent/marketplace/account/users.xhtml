@@ -25,8 +25,6 @@
   </ui:define>
 
   <ui:define name="contents">
-    <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
-    <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
 
     <a4j:outputPanel id="all" styleClass="con-flow-root my-2 px-3 pt-3 bg-themed" layout="block">
       <ui:fragment rendered="#{empty appBean.hiddenUIElements['organization.edit.userProfile']}">
@@ -92,8 +90,7 @@
                     </a4j:outputPanel>
                     <div class="d-none d-sm-block text-center">
                       <h:commandLink action="#{userBean.showDetails(user.userId)}">
-                        <img src="#{imgUrl}/transparentPixel.png" id="editUserImage#{user.userId}" class="editPen"
-                             alt=""/>
+                        <i id="editUserImage#{user.userId}" class="fa fa-pencil-square-o editPen"/>
                         <f:param name="userId" value="#{user.userId}"/>
                       </h:commandLink>
                     </div>

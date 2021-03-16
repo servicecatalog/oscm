@@ -57,6 +57,7 @@
               <h:commandLink styleClass="editPenStyle editPen"
                              action="#{subscriptionsCtrl.showSubscriptionDetails(sub.subscriptionId, sub.subscriptionKey)}"
                              render=":hiddenErrorPanel subListForm">
+                <i class="fa fa-pencil-square-o editPen"/>
                 <f:setPropertyActionListener target="#{subscriptionsCtrl.model.selectedSubscription}" value="#{sub}"/>
               </h:commandLink>
             </div>

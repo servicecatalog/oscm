@@ -15,10 +15,8 @@
     <f:setPropertyActionListener target="#{bean.sortProperty}" value="#{property}"/>
    </h:commandLink>
    <a4j:outputPanel id="#{property}sortIcons" styleClass="sort-icons non-clickable-element">
-    <h:graphicImage value="#{sortIconAscending}"
-                    rendered="#{bean.sortOrders[property] == 'ascending'}"/>
-    <h:graphicImage value="#{sortIconDescending}"
-                    rendered="#{bean.sortOrders[property] == 'descending'}"/>
+    <h:commandLink class="fa fa-sort-asc" rendered="#{bean.sortOrders[property] == 'ascending'}"/>
+    <h:commandLink class="fa fa-sort-desc" rendered="#{bean.sortOrders[property] == 'descending'}"/>
    </a4j:outputPanel>
    <hr class="my-1"/>
    <adm:filterInputBootstrap inputId="#{property}" inputValue="#{bean.filterValues[property]}"

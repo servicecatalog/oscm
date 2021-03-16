@@ -188,6 +188,12 @@ $darkened-color:                       hsl(var(--oscm-primary));
   color:                               var(--oscm-rv-color) !important;
 }
 
+.form-control:disabled, .form-control[readonly] {
+  background-color:                   var(--oscm-input-color);
+  color:                               var(--oscm-rv-color) !important;
+  opacity: 1;
+}
+
 .border-secondary {
   border-color:                        hsl(var(--oscm-primary)) !important;
 }
@@ -207,8 +213,4 @@ hr {
 
 .bg-themed-navigation {
   background-color:                    rgb(var(--oscm-navbar-color));
-}
-
-.editPen { 
-  filter:                              var(--oscm-filter);
 }
