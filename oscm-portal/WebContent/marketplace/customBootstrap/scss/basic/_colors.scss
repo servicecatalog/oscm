@@ -1,9 +1,10 @@
 :root {
  --oscm-main-h:                        0;
- --oscm-main-s:                        0%;
+ --oscm-main-s:                        1%;
  --oscm-main-l:                        93%;
- --oscm-main:                          238,238,238;
- --oscm-primary:                       7, 168, 93;
+ --oscm-primary-h:                     152;
+ --oscm-primary-s:                     92%;
+ --oscm-primary-l:                     34%;
 
  --oscm-main-input-color:              248, 248, 248;
  --oscm-main-font-color:               33, 33, 33;
@@ -13,7 +14,8 @@
  --oscm-white:                         255, 255, 255;
  --oscm-black:                         0, 0, 0;
 
- --osm-main:                           var(--oscm-main-h), var(--oscm-main-s), var(--oscm_main-l);
+ --oscm-main:                          var(--oscm-main-h), var(--oscm-main-s), var(--oscm-main-l);
+ --oscm-primary:                       var(--oscm-primary-h), var(--oscm-primary-s), var(--oscm-primary-l);
  --body-bg:                            hsla(var(--oscm-main), 0.1);
  --oscm-text-color:                    rgb(var(--oscm-main-font-color));
  --oscm-bg-color:                      rgb(var(--oscm-main-input-color));
@@ -42,9 +44,11 @@
 
 :root[data-theme="dark"] {
  --oscm-main-h:                        0;
- --oscm-main-s:                        0%;
+ --oscm-main-s:                        1%;
  --oscm-main-l:                        15%;
- --oscm-primary:                       7, 168, 93;
+ --oscm-primary-h:                     152;
+ --oscm-primary-s:                     92%;
+ --oscm-primary-l:                     34%;
 
  --oscm-main-font-color:               248, 248, 248;
  --oscm-main-input-color:              33, 33, 33;
@@ -54,7 +58,8 @@
  --oscm-white:                         255, 255, 255;
  --oscm-black:                         0, 0, 0;
 
- --osm-main:                           var(--oscm-main-h), var(--oscm-main-s), var(--oscm_main-l);
+ --oscm-main:                          var(--oscm-main-h), var(--oscm-main-s), var(--oscm-main-l);
+ --oscm-primary:                       var(--oscm-primary-h), var(--oscm-primary-s), var(--oscm-primary-l);
  --body-bg:                            hsla(var(--oscm-main), 0.8);
  --oscm-text-color:                    rgb(var(--oscm-main-font-color));
  --oscm-bg-color:                      hsl(var(--oscm-main));
@@ -85,9 +90,11 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
    --oscm-main-h:                      0;
-   --oscm-main-s:                      0%;
+   --oscm-main-s:                      1%;
    --oscm-main-l:                      15%;
-   --oscm-primary:                     7, 168, 93;
+   --oscm-primary-h:                   152;
+   --oscm-primary-s:                   92%;
+   --oscm-primary-l:                   34%;
 
    --oscm-main-font-color:             248, 248, 248;
    --oscm-main-input-color:            33, 33, 33;
@@ -97,7 +104,8 @@
    --oscm-white:                       255, 255, 255;
    --oscm-black:                       0, 0, 0;
 
-   --osm-main:                         var(--oscm-main-h), var(--oscm-main-s), var(--oscm_main-l);
+   --oscm-main:                        var(--oscm-main-h), var(--oscm-main-s), var(--oscm-main-l);
+   --oscm-primary:                     var(--oscm-primary-h), var(--oscm-primary-s), var(--oscm-primary-l);
    --body-bg:                          hsla(var(--oscm-main), 0.8);
    --oscm-text-color:                  rgb(var(--oscm-main-font-color));
    --oscm-bg-color:                    hsl(var(--oscm-main));
