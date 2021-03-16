@@ -37,7 +37,7 @@
  --oscm-table-hover-color:             hsla(var(--oscm-main), 0.3);
  --oscm-table-background-color:        rgb(var(--oscm-white));
  --oscm-table-row-odd-color:           hsla(var(--oscm-main), 0.1);
- --oscm-table-row-even-color:          hsl(var(--oscm-main);
+ --oscm-table-row-even-color:          hsl(var(--oscm-main));
 }
 
 :root[data-theme="dark"] {
@@ -57,10 +57,10 @@
  --osm-main:                           var(--oscm-main-h), var(--oscm-main-s), var(--oscm_main-l);
  --body-bg:                            hsla(var(--oscm-main), 0.8);
  --oscm-text-color:                    rgb(var(--oscm-main-font-color));
- --oscm-bg-color:                      hsl(var(--oscm-main);
+ --oscm-bg-color:                      hsl(var(--oscm-main));
  --oscm-rv-color:                      rgb(var(--oscm-main-font-color));
  --oscm-border-color:                  rgba(var(--oscm-white), 0.3);
- --oscm-dropdown-color:                hsl(var(--oscm-main);
+ --oscm-dropdown-color:                hsl(var(--oscm-main));
  --oscm-input-color:                   rgb(var(--oscm-main-input-color));
 
  --oscm-main-color-100:                hsla(var(--oscm-main), 0.1);
@@ -100,10 +100,10 @@
    --osm-main:                         var(--oscm-main-h), var(--oscm-main-s), var(--oscm_main-l);
    --body-bg:                          hsla(var(--oscm-main), 0.8);
    --oscm-text-color:                  rgb(var(--oscm-main-font-color));
-   --oscm-bg-color:                    hsl(var(--oscm-main);
+   --oscm-bg-color:                    hsl(var(--oscm-main));
    --oscm-rv-color:                    rgb(var(--oscm-main-font-color));
    --oscm-border-color:                rgba(var(--oscm-white), 0.3);
-   --oscm-dropdown-color:              hsl(var(--oscm-main);
+   --oscm-dropdown-color:              hsl(var(--oscm-main));
    --oscm-input-color:                 rgb(var(--oscm-main-input-color));
 
    --oscm-main-color-100:              hsla(var(--oscm-main), 0.1);
