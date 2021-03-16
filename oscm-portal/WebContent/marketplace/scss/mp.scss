@@ -1111,11 +1111,17 @@ div.scrolltop p img {
 /* edit entry e.g. user details */
 .editPen {
   margin: 2px 2px 0px;
-  background: transparent $mp_icon_sprite 2px -364px no-repeat !important;
   border: 0;
   cursor: pointer;
   height: 16px;
   width: 16px;
+}
+
+.editPen:after {
+  content: "\f093";
+  font-family: FontAwesome;
+  cursor: pointer;
+  color: $primary-color;
 }
 
 .deleteButton {
