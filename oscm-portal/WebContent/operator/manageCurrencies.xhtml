@@ -18,7 +18,7 @@
       <a4j:outputPanel layout="block" styleClass="tablePanel">
         <adm:dataTable tableId="currenciesTable" value="#{currenciesBean.supportedCurrencies}"
           label="#{msg['operator.manageCurrencies.supported']}">
-          <rich:column>
+          <rich:column sortOrder="#{currenciesBean.capitalsOrder}" sortType="custom">
             <f:facet name="header">
               <h:outputText value="#{msg['operator.manageCurrencies.currency']}" />
             </f:facet>
