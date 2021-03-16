@@ -36,7 +36,7 @@ $modal_dialog_text_color:              var(--oscm-rv-color);
 
 // Tables
 $table-bg:                             var(--oscm-main-color-700);
-$theme-table-hover-color:              var(rgba(var(--oscm-main), 0.3));
+$theme-table-hover-color:              var(hsla(var(--oscm-main), 0.3));
 $theme-table-bg-color:                 var(--oscm-table-bg-color);
 $theme-table-odd-color:                var(--oscm-table-row-odd-color);
 $theme-table-even-color:               var(--oscm-table-row-even-color);
