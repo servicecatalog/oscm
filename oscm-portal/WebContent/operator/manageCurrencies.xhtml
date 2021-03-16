@@ -15,20 +15,20 @@
   <ui:define name="body">
 
     <adm:outputStep value="#{msg['operator.manageCurrencies.supported']}"/>
-    <h:form id="currencies">
-      <a4j:outputPanel layout="block" styleClass="tablePanel">
-        <adm:dataTable tableId="currenciesTable" value="#{currenciesBean.supportedCurrencies}"
-                       label="#{msg['operator.manageCurrencies.supported']}">
-          <rich:column>
-            <f:facet name="header">
-              <a4j:commandLink value="#{msg['operator.manageCurrencies.currency']}" render="currenciesTable"
-                               action="#{currenciesBean.sortByCapitals}"/>
-            </f:facet>
-            <h:outputText value="#{rowItem}"/>
-          </rich:column>
-        </adm:dataTable>
-      </a4j:outputPanel>
+    <a4j:outputPanel layout="block" styleClass="tablePanel">
+      <adm:dataTable tableId="currenciesTable" value="#{currenciesBean.supportedCurrencies}"
+                     label="#{msg['operator.manageCurrencies.supported']}">
+        <rich:column>
+          <f:facet name="header">
+            <a4j:commandLink value="#{msg['operator.manageCurrencies.currency']}" render="currenciesTable"
+                             action="#{currenciesBean.sortByCapitals}"/>
+          </f:facet>
+          <h:outputText value="#{rowItem}"/>
+        </rich:column>
+      </adm:dataTable>
+    </a4j:outputPanel>
 
+    <h:form id="currencies">
       <adm:panelGrid>
         <adm:labelAndInputText id="currencyToManage" label="#{msg['operator.manageCurrencies.currencyISOCode']}"
                                value="#{currenciesBean.currencyToManage}" styleClass="fieldXS" maxlength="3"
