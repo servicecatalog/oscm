@@ -2,11 +2,11 @@
 
 @import "../customBootstrap/scss/basic/colors";
 
-$primary-color: rgb(var(--oscm-primary));
-$secondary-color: rgb(var(--oscm-primary));
+$primary-color: hsl(var(--oscm-primary));
+$secondary-color: hsl(var(--oscm-primary));
 $warning-color: red;
 $interior-color: rgb(var(--oscm-white));
-$main-color: rgb(var(--oscm-main));
+$main-color: hsl(var(--oscm-main));
 
 $dark-lighter: #343a40;
 $dark-lightest: #495057;
