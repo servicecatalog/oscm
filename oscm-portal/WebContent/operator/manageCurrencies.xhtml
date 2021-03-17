@@ -13,27 +13,30 @@
     <c:set var="focusElement" value="currencies:currencyToManage"/>
   </ui:define>
   <ui:define name="body">
+    <c:set var="sortIconAscending" value="/marketplace/img/transparentPixel.png?id=sortAscending"/>
+    <c:set var="sortIconDescending" value="/marketplace/img/transparentPixel.png?id=sortDescending"/>
 
     <adm:outputStep value="#{msg['operator.manageCurrencies.supported']}"/>
+
     <a4j:outputPanel layout="block" styleClass="tablePanel">
-      <adm:dataTable tableId="currenciesTable" value="#{currenciesBean.supportedCurrencies}"
-                     label="#{msg['operator.manageCurrencies.supported']}">
-        <rich:column sortOrder="#{currenciesBean.capitalsOrder}" sortType="custom">
+      <rich:dataTable id="currenciesTable" value="#{currenciesBean.supportedCurrencies}" var="currency"
+                      label="#{msg['operator.manageCurrencies.supported']}" sortMode="single"
+                      styleClass="w-100 table-bordered table-striped table-hover" rowClasses="rowOdd,rowEven">
+        <rich:column sortBy="#{currency}" sortIcon="#{sortIcon}"
+                     sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}">
           <f:facet name="header">
-            <a4j:commandLink value="#{msg['operator.manageCurrencies.currency']}" render="currenciesTable"
-                             action="#{currenciesBean.sortByCapitals}"/>
+            <h:outputText value="#{msg['operator.manageCurrencies.currency']}"/>
           </f:facet>
-          <h:outputText value="#{rowItem}"/>
+          <h:outputText value="#{currency}"/>
         </rich:column>
-      </adm:dataTable>
+      </rich:dataTable>
     </a4j:outputPanel>
 
     <h:form id="currencies">
       <adm:panelGrid>
         <adm:labelAndInputText id="currencyToManage" label="#{msg['operator.manageCurrencies.currencyISOCode']}"
                                value="#{currenciesBean.currencyToManage}" styleClass="fieldXS" maxlength="3"
-                               required="true"
-                               validatorId="currency"/>
+                               required="true" validatorId="currency"/>
       </adm:panelGrid>
 
       <adm:buttonPanel>

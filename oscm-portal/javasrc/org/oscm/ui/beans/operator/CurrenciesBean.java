@@ -21,7 +21,6 @@ import javax.faces.bean.ViewScoped;
 import org.oscm.ui.beans.BaseBean;
 import org.oscm.internal.types.exception.OrganizationAuthoritiesException;
 import org.oscm.internal.types.exception.ValidationException;
-import org.richfaces.component.SortOrder;
 
 /**
  * Bean for managing currencies settings.
@@ -37,7 +36,6 @@ public class CurrenciesBean extends BaseOperatorBean implements Serializable {
 
     private String currencyToManage;
     private List<String> supportedCurrencies;
-    private SortOrder capitalsOrder = SortOrder.unsorted;
 
     public String getCurrencyToManage() {
         return currencyToManage;
@@ -53,22 +51,6 @@ public class CurrenciesBean extends BaseOperatorBean implements Serializable {
                     .getSupportedCurrencies();
         }
         return supportedCurrencies;
-    }
-
-    public SortOrder getCapitalsOrder() {
-        return capitalsOrder;
-    }
-
-    public void setCapitalsOrder(SortOrder capitalsOrder) {
-        this.capitalsOrder = capitalsOrder;
-    }
-
-    public void sortByCapitals() {
-        if (capitalsOrder.equals(SortOrder.ascending)) {
-            setCapitalsOrder(SortOrder.descending);
-        } else {
-            setCapitalsOrder(SortOrder.ascending);
-        }
     }
 
     public String add() throws ValidationException,
