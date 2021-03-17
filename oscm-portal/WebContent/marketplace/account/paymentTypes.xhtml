@@ -69,7 +69,7 @@
                              onclick="if(AdmUtils.isNotDirtyOrConfirmed()){editDetailsPaymentInfo('#{paymentInfo.key}'})"
                              layout="block"
                              rendered="#{paymentInfoBean.collectionTypePSP eq paymentInfo.paymentType.collectionType}">
-              id="editPaymentImage#{index}"
+              <i class="fa fa-pencil-square-o editPen"/>
               <a4j:outputPanel layout="block">
                 <a4j:outputPanel layout="block">
                   <h:outputText value="#{paymentInfo.providerName}"/>
