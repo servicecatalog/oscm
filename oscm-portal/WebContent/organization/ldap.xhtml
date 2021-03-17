@@ -65,7 +65,7 @@
           <h:graphicImage value="../img/transparentPixel.png" styleClass="yes"
                           rendered="#{ldapSettings.platformDefault}"/>
         </rich:column>
-        <rich:column sortBy="#ldapSettings.settingKey}" sortOrder="ascending" sortIcon="#{sortIcon}"
+        <rich:column sortBy="#{ldapSettings.settingKey}" sortOrder="ascending" sortIcon="#{sortIcon}"
                      sortIconAscending="#{sortIconAscending}" sortIconDescending="#{sortIconDescending}">
           <f:facet name="header">
             <h:outputText value="#{msg['organization.ldapSettings.key']}"/>
