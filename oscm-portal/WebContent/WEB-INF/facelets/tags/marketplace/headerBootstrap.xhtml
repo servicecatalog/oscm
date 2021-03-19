@@ -164,13 +164,8 @@
        if (#{sessionScope.userDisplaySettings != null }) {
     	   
     	   var primaryColor="${sessionScope.userDisplaySettings.primaryColor}";
-    	   var rgbPrimary = hexToRgb(primaryColor).toString();
-    	   
-    	   var secondaryColor="${sessionScope.userDisplaySettings.secondaryColor}";
-    	   var rgbSecondary = hexToRgb(secondaryColor).toString();
-    	   
+    	   var rgbPrimary = hexToRgb(primaryColor).toString();	   
     	   document.documentElement.style.setProperty('--oscm-primary', rgbPrimary);
-    	   document.documentElement.style.setProperty('--oscm-secondary', rgbSecondary);
        }
       }
     };
