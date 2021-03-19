@@ -160,6 +160,18 @@
       if (COLOR_MODES.includes(mode)) {
         window.localStorage.setItem(STORE_ATTR, mode);
         document.documentElement.setAttribute(THEME_ATTR, mode);
+
+       if (#{sessionScope.userDisplaySettings != null }) {
+    	   
+    	   var primaryColor="${sessionScope.userDisplaySettings.primaryColor}";
+    	   var rgbPrimary = hexToRgb(primaryColor).toString();
+    	   
+    	   var secondaryColor="${sessionScope.userDisplaySettings.secondaryColor}";
+    	   var rgbSecondary = hexToRgb(secondaryColor).toString();
+    	   
+    	   document.documentElement.style.setProperty('--oscm-primary', rgbPrimary);
+    	   document.documentElement.style.setProperty('--oscm-secondary', rgbSecondary);
+       }
       }
     };
     
@@ -168,6 +180,14 @@
     } else {
     	setColorMode(COLOR_MODES[0]);  
     }
+    
+    function hexToRgb(hex) {
+    	  const normal = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+    	  if (normal) return normal.slice(1).map(e => parseInt(e, 16));
+    	  const shorthand = hex.match(/^#([0-9a-f])([0-9a-f])([0-9a-f])$/i);
+    	  if (shorthand) return shorthand.slice(1).map(e => 0x11 * parseInt(e, 16));
+    	  return null;
+    	}
     
   </script>
 </ui:composition>
