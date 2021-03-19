@@ -162,58 +162,71 @@
         document.documentElement.setAttribute(THEME_ATTR, mode);
 
        if (#{sessionScope.userDisplaySettings != null }) {
-    	  
-    	   var primaryColor="${sessionScope.userDisplaySettings.primaryColor}";
-    	   var hslPrimary = hexToHSL(primaryColor);
-     
-    	   document.documentElement.style.setProperty('--oscm-primary-h', hslPrimary['h']);
-    	   document.documentElement.style.setProperty('--oscm-primary-s', hslPrimary['s']);
-    	   document.documentElement.style.setProperty('--oscm-primary-l', hslPrimary['l']);
+         
+         var primaryColor="${sessionScope.userDisplaySettings.primaryColor}";
+         if (primaryColor != null) { 
+            var rgb = hexToRgb(primaryColor);     
+            alert(rgb);
+            var r = rgb[0];
+            var g = rgb[1];
+            var b = rgb[2];
+         
+            var hsl = rgbToHsl(r, g, b);
+
+            document.documentElement.style.setProperty('--oscm-primary-h', hsl[0].toString());
+            document.documentElement.style.setProperty('--oscm-primary-s', hsl[1] + "%");
+            document.documentElement.style.('--oscm-primary-l', hsl[2] + "%");
+         }
        }
       }
     };
     
     if (#{sessionScope.userDisplaySettings != null ? sessionScope.userDisplaySettings.darkMode : 'false' }) {
-    	setColorMode(COLOR_MODES[1]);	
+      setColorMode(COLOR_MODES[1]); 
     } else {
-    	setColorMode(COLOR_MODES[0]);  
+      setColorMode(COLOR_MODES[0]);  
     }
     
     function hexToRgb(hex) {
-    	  const normal = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
-    	  if (normal) return normal.slice(1).map(e => parseInt(e, 16));
-    	  const shorthand = hex.match(/^#([0-9a-f])([0-9a-f])([0-9a-f])$/i);
-    	  if (shorthand) return shorthand.slice(1).map(e => 0x11 * parseInt(e, 16));
-    	  return null;
+        const normal = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+        if (normal) return normal.slice(1).map(e => parseInt(e, 16));
+        const shorthand = hex.match(/^#([0-9a-f])([0-9a-f])([0-9a-f])$/i);
+        if (shorthand) return shorthand.slice(1).map(e => 0x11 * parseInt(e, 16));
+        return null;
+      }
+    
+    
+    function rgbToHsl(r, g, b) {
+    	  r /= 255, g /= 255, b /= 255;
+
+    	  var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    	  var h, s, l = (max + min) / 2;
+
+    	  if (max == min) {
+    	    h = s = 0; // achromatic
+    	  } else {
+    	    var d = max - min;
+    	    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+    	    switch (max) {
+    	      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+    	      case g: h = (b - r) / d + 2; break;
+    	      case b: h = (r - g) / d + 4; break;
+    	    }
+
+    	    h /= 6;
+    	  }
+	  
+    	  s = +(s * 100).toFixed(1);
+    	  l = +(l * 100).toFixed(1);
+    	  
+    	  return [ h, s, l ];
     	}
     
-    function hexToHSL(hex) {
-  	  var result = hex.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
-
-  	    r = parseInt(result[1], 16);
-  	    g = parseInt(result[2], 16);
-  	    b = parseInt(result[3], 16);
-  	    r /= 255, g /= 255, b /= 255;
-  	    var max = Math.max(r, g, b), min = Math.min(r, g, b);
-  	    var h, s, l = (max + min) / 2;
-  	    if(max == min){
-  	      h = s = 0; // achromatic
-  	    }else{
-  	      var d = max - min;
-  	      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-  	      switch(max){
-  	        case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-  	        case g: h = (b - r) / d + 2; break;
-  	        case b: h = (r - g) / d + 4; break;
-  	      }
-  	      h /= 6;
-  	    }
-  	  var HSL = new Object();
-  	  HSL['h']=h;
-  	  HSL['s']=s;
-  	  HSL['l']=l;
-  	  return HSL;
-  	}
+    
+    
+    
+    
     
   </script>
 </ui:composition>
