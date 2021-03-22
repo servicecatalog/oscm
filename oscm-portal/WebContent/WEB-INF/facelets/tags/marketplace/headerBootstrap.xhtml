@@ -161,17 +161,9 @@
         window.localStorage.setItem(STORE_ATTR, mode);
         document.documentElement.setAttribute(THEME_ATTR, mode);
 
-       if (#{sessionScope.userDisplaySettings != null }) {
-         
-         var primaryColor="${sessionScope.userDisplaySettings.primaryColor}";
-         if (primaryColor != null) { 
-            var hsl = hexToHSL(primaryColor);     
-            
-            document.documentElement.style.setProperty('--oscm-primary-h', hsl[0].toString());
-            document.documentElement.style.setProperty('--oscm-primary-s', hsl[1] + "%");
-            document.documentElement.style.('--oscm-primary-l', hsl[2] + "%");
+         if (#{sessionScope.userDisplaySettings != null }) {
+           setColorSchema()
          }
-       }
       }
     };
     
@@ -182,41 +174,61 @@
     }
     
     function hexToHSL(hex) {    
-      	var result = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
-      	r = parseInt(result[1], 16);
-        g = parseInt(result[2], 16);
-        b =  parseInt(result[3], 16);
-    	
-        r /= 255, g /= 255, b /= 255;
+      var result = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+      r = parseInt(result[1], 16);
+      g = parseInt(result[2], 16);
+      b =  parseInt(result[3], 16);
 
-    	  var max = Math.max(r, g, b), min = Math.min(r, g, b);
-    	  var h, s, l = (max + min) / 2;
+      r /= 255, g /= 255, b /= 255;
 
-    	  if (max == min) {
-    	    h = s = 0; // achromatic
-    	  } else {
-    	    var d = max - min;
-    	    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      var max = Math.max(r, g, b), min = Math.min(r, g, b);
+      var h, s, l = (max + min) / 2;
 
-    	    switch (max) {
-    	      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-    	      case g: h = (b - r) / d + 2; break;
-    	      case b: h = (r - g) / d + 4; break;
-    	    }
+      if (max == min) {
+        h = s = 0; // achromatic
+      } else {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
-    	    h /= 6;
-    	  }
-	  
-    	  s = +(s * 100).toFixed(1);
-    	  l = +(l * 100).toFixed(1);
-    	  
-    	  return [ h, s, l ];
-    	}
-    
-    
-    
-    
-    
-    
+        switch (max) {
+          case r: h = (g - b) / d + (g &lt; b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+
+        h /= 6;
+      }
+
+      h = Math.round(360*h);
+      s = Math.round(s*100);
+      l = Math.round(l*100);
+      console.log(h);
+      console.log(s);
+      console.log(l);
+
+      return [ h, s, l ];
+    }
+
+    function setColorSchema() {
+
+      let colorMap = new Map()
+      colorMap.set('${sessionScope.userDisplaySettings.primaryColor}', '--oscm-primary')
+      colorMap.set('${sessionScope.userDisplaySettings.fontColor}', '--oscm-main-font-color')
+      colorMap.set('${sessionScope.userDisplaySettings.navbarColor}', '--oscm-navbar-color')
+      colorMap.set('${sessionScope.userDisplaySettings.navbarLinkColor}', '--oscm-navbar-links-color')
+      colorMap.set('${sessionScope.userDisplaySettings.inputColor}', '--oscm-main-input-color')
+
+      for (let [key, value] of colorMap) {
+        console.log(key);
+        if (key != null) {
+          console.log(key);
+          var hsl = hexToHSL(key);
+
+          document.documentElement.style.setProperty(value + '-h', hsl[0].toString());
+          document.documentElement.style.setProperty(value + '-s', hsl[1] + "%");
+          document.documentElement.style.setProperty(value + '-l', hsl[2] + "%");
+        }
+      }
+    }
   </script>
 </ui:composition>

@@ -2,27 +2,44 @@
  --oscm-main-h:                        0;
  --oscm-main-s:                        1%;
  --oscm-main-l:                        93%;
+
  --oscm-primary-h:                     152;
  --oscm-primary-s:                     92%;
  --oscm-primary-l:                     34%;
 
- --oscm-main-input-color:              248, 248, 248;
- --oscm-main-font-color:               33, 33, 33;
- --oscm-navbar-color:                  28, 28, 28;
- --oscm-navbar-links-color:            217, 218, 219;
+ --oscm-main-input-color-h:            0;
+ --oscm-main-input-color-s:            1%;
+ --oscm-main-input-color-l:            97%;
+
+ --oscm-main-font-color-h:             0;
+ --oscm-main-font-color-s:             1%;
+ --oscm-main-font-color-l:             13%;
+
+ --oscm-navbar-color-h:                0;
+ --oscm-navbar-color-s:                1%;
+ --oscm-navbar-color-l:                11%;
+
+ --oscm-navbar-links-color-h:          210;
+ --oscm-navbar-links-color-s:          3%;
+ --oscm-navbar-links-color-l:          85%;
 
  --oscm-white:                         255, 255, 255;
  --oscm-black:                         0, 0, 0;
 
  --oscm-main:                          var(--oscm-main-h), var(--oscm-main-s), var(--oscm-main-l);
  --oscm-primary:                       var(--oscm-primary-h), var(--oscm-primary-s), var(--oscm-primary-l);
+ --oscm-main-input-color:              var(--oscm-main-input-color-h), var(--oscm-main-input-color-s), var(--oscm-main-input-color-l);
+ --oscm-main-font-color:               var(--oscm-main-font-color-h), var(--oscm-main-font-color-s), var(--oscm-main-font-color-l);
+ --oscm-navbar-color:                  var(--oscm-navbar-color-h), var(--oscm-navbar-color-s), var(--oscm-navbar-color-l);
+ --oscm-navbar-links-color:            var(--oscm-navbar-links-color-h), var(--oscm-navbar-links-color-s), var(--oscm-navbar-links-color-l);
+
  --body-bg:                            hsla(var(--oscm-main), 0.1);
- --oscm-text-color:                    rgb(var(--oscm-main-font-color));
- --oscm-bg-color:                      rgb(var(--oscm-main-input-color));
- --oscm-rv-color:                      rgb(var(--oscm-main-font-color));
+ --oscm-text-color:                    hsl(var(--oscm-main-font-color));
+ --oscm-bg-color:                      hsl(var(--oscm-main-input-color));
+ --oscm-rv-color:                      hsl(var(--oscm-main-font-color));
  --oscm-border-color:                  rgba(var(--oscm-black), 0.125);
- --oscm-dropdown-color:                rgb(var(--oscm-main-input-color));
- --oscm-input-color:                   rgb(var(--oscm-main-input-color));
+ --oscm-dropdown-color:                hsl(var(--oscm-main-input-color));
+ --oscm-input-color:                   hsl(var(--oscm-main-input-color));
 
  --oscm-main-color-100:                hsla(var(--oscm-main), 0.1);
  --oscm-main-color-200:                hsla(var(--oscm-main), 0.3);
@@ -46,27 +63,46 @@
  --oscm-main-h:                        0;
  --oscm-main-s:                        1%;
  --oscm-main-l:                        15%;
+
  --oscm-primary-h:                     152;
  --oscm-primary-s:                     92%;
  --oscm-primary-l:                     34%;
 
- --oscm-main-font-color:               248, 248, 248;
- --oscm-main-input-color:              33, 33, 33;
- --oscm-navbar-color:                  28, 28, 28;
- --oscm-navbar-links-color:            217, 218, 219;
+ --oscm-main-input-color-h:            0;
+ --oscm-main-input-color-s:            1%;
+ --oscm-main-input-color-l:            13%;
+
+ --oscm-main-font-color-h:             0;
+ --oscm-main-font-color-s:             1%;
+ --oscm-main-font-color-l:             97%;
+
+ --oscm-navbar-color-h:                0;
+ --oscm-navbar-color-s:                1%;
+ --oscm-navbar-color-l:                11%;
+
+ --oscm-navbar-links-color-h:          210;
+ --oscm-navbar-links-color-s:          3%;
+ --oscm-navbar-links-color-l:          85%;
 
  --oscm-white:                         255, 255, 255;
  --oscm-black:                         0, 0, 0;
 
  --oscm-main:                          var(--oscm-main-h), var(--oscm-main-s), var(--oscm-main-l);
  --oscm-primary:                       var(--oscm-primary-h), var(--oscm-primary-s), var(--oscm-primary-l);
+ --oscm-main-input-color:              var(--oscm-main-input-color-h), var(--oscm-main-input-color-s), var(--oscm-main-input-color-l);
+ --oscm-main-font-color:               var(--oscm-main-font-color-h), var(--oscm-main-font-color-s), var(--oscm-main-font-color-l);
+ --oscm-navbar-color:                  var(--oscm-navbar-color-h), var(--oscm-navbar-color-s), var(--oscm-navbar-color-l);
+ --oscm-navbar-links-color:            var(--oscm-navbar-links-color-h), var(--oscm-navbar-links-color-s), var(--oscm-navbar-links-color-l);
+
+ --oscm-main:                          var(--oscm-main-h), var(--oscm-main-s), var(--oscm-main-l);
+ --oscm-primary:                       var(--oscm-primary-h), var(--oscm-primary-s), var(--oscm-primary-l);
  --body-bg:                            hsla(var(--oscm-main), 0.8);
- --oscm-text-color:                    rgb(var(--oscm-main-font-color));
+ --oscm-text-color:                    hsl(var(--oscm-main-font-color));
  --oscm-bg-color:                      hsl(var(--oscm-main));
- --oscm-rv-color:                      rgb(var(--oscm-main-font-color));
+ --oscm-rv-color:                      hsl(var(--oscm-main-font-color));
  --oscm-border-color:                  rgba(var(--oscm-white), 0.3);
  --oscm-dropdown-color:                hsl(var(--oscm-main));
- --oscm-input-color:                   rgb(var(--oscm-main-input-color));
+ --oscm-input-color:                   hsl(var(--oscm-main-input-color));
 
  --oscm-main-color-100:                hsla(var(--oscm-main), 0.1);
  --oscm-main-color-200:                hsla(var(--oscm-main), 0.3);
@@ -92,27 +128,44 @@
    --oscm-main-h:                      0;
    --oscm-main-s:                      1%;
    --oscm-main-l:                      15%;
+
    --oscm-primary-h:                   152;
    --oscm-primary-s:                   92%;
    --oscm-primary-l:                   34%;
 
-   --oscm-main-font-color:             248, 248, 248;
-   --oscm-main-input-color:            33, 33, 33;
-   --oscm-navbar-color:                28, 28, 28;
-   --oscm-navbar-links-color:          217, 218, 219;
+   --oscm-main-input-color-h:          0;
+   --oscm-main-input-color-s:          1%;
+   --oscm-main-input-color-l:          13%;
+
+   --oscm-main-font-color-h:           0;
+   --oscm-main-font-color-s:           1%;
+   --oscm-main-font-color-l:           97%;
+
+   --oscm-navbar-color-h:              0;
+   --oscm-navbar-color-s:              1%;
+   --oscm-navbar-color-l:              11%;
+
+   --oscm-navbar-links-color-h:        210;
+   --oscm-navbar-links-color-s:        3%;
+   --oscm-navbar-links-color-l:        85%;
 
    --oscm-white:                       255, 255, 255;
    --oscm-black:                       0, 0, 0;
 
    --oscm-main:                        var(--oscm-main-h), var(--oscm-main-s), var(--oscm-main-l);
    --oscm-primary:                     var(--oscm-primary-h), var(--oscm-primary-s), var(--oscm-primary-l);
+   --oscm-main-input-color:            var(--oscm-main-input-color-h), var(--oscm-main-input-color-s), var(--oscm-main-input-color-l);
+   --oscm-main-font-color:             var(--oscm-main-font-color-h), var(--oscm-main-font-color-s), var(--oscm-main-font-color-l);
+   --oscm-navbar-color:                var(--oscm-navbar-color-h), var(--oscm-navbar-color-s), var(--oscm-navbar-color-l);
+   --oscm-navbar-links-color:          var(--oscm-navbar-links-color-h), var(--oscm-navbar-links-color-s), var(--oscm-navbar-links-color-l);
+
    --body-bg:                          hsla(var(--oscm-main), 0.8);
-   --oscm-text-color:                  rgb(var(--oscm-main-font-color));
+   --oscm-text-color:                  hsl(var(--oscm-main-font-color));
    --oscm-bg-color:                    hsl(var(--oscm-main));
-   --oscm-rv-color:                    rgb(var(--oscm-main-font-color));
+   --oscm-rv-color:                    hsl(var(--oscm-main-font-color));
    --oscm-border-color:                rgba(var(--oscm-white), 0.3);
    --oscm-dropdown-color:              hsl(var(--oscm-main));
-   --oscm-input-color:                 rgb(var(--oscm-main-input-color));
+   --oscm-input-color:                 hsl(var(--oscm-main-input-color));
 
    --oscm-main-color-100:              hsla(var(--oscm-main), 0.1);
    --oscm-main-color-200:              hsla(var(--oscm-main), 0.3);
