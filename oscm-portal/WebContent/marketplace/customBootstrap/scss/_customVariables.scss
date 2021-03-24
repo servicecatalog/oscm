@@ -76,7 +76,7 @@ $darkened-color:                       hsl(var(--oscm-primary));
 
  // Text color for Account Menu header.
  #link0 {
-   color:                              rgb(var(--oscm-navbar-links-color));
+   color:                              hsl(var(--oscm-navbar-links-color));
 
    &:hover  {
      color:                            $navbar-dark-hover-color;
@@ -206,7 +206,7 @@ hr {
 }
 
 .bg-themed-navigation {
-  background-color:                    rgb(var(--oscm-navbar-color));
+  background-color:                    hsl(var(--oscm-navbar-color));
 }
 
 .editPen { 

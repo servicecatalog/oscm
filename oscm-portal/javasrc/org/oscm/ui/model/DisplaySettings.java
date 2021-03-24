@@ -9,14 +9,19 @@
  */
 package org.oscm.ui.model;
 
-/** @author goebel */
+/**
+ * @author goebel
+ */
 public class DisplaySettings extends JsonData {
 
   private static final long serialVersionUID = 1L;
 
   boolean darkMode = false;
   String primaryColor = "";
-  String secondaryColor = "";
+  String fontColor = "";
+  String navbarColor = "";
+  String navbarLinkColor = "";
+  String inputColor = "";
 
   public boolean getDarkMode() {
     return darkMode;
@@ -34,11 +39,35 @@ public class DisplaySettings extends JsonData {
     this.primaryColor = primaryColor;
   }
 
-  public String getSecondaryColor() {
-    return secondaryColor;
+  public String getFontColor() {
+    return fontColor;
   }
 
-  public void setSecondaryColor(String secondaryColor) {
-    this.secondaryColor = secondaryColor;
+  public void setFontColor(String fontColor) {
+    this.fontColor = fontColor;
+  }
+
+  public String getNavbarColor() {
+    return navbarColor;
+  }
+
+  public void setNavbarColor(String navbarColor) {
+    this.navbarColor = navbarColor;
+  }
+
+  public String getNavbarLinkColor() {
+    return navbarLinkColor;
+  }
+
+  public void setNavbarLinkColor(String navbarLinkColor) {
+    this.navbarLinkColor = navbarLinkColor;
+  }
+
+  public String getInputColor() {
+    return inputColor;
+  }
+
+  public void setInputColor(String inputColor) {
+    this.inputColor = inputColor;
   }
 }
