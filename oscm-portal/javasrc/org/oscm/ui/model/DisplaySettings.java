@@ -9,9 +9,7 @@
  */
 package org.oscm.ui.model;
 
-/**
- * @author goebel
- */
+/** @author goebel */
 public class DisplaySettings extends JsonData {
 
   private static final long serialVersionUID = 1L;
