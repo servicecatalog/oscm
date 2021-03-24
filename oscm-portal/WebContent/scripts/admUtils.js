@@ -2317,25 +2317,6 @@ AdmUtils.clearSearches = function(searchId, buttonId) {
  };
 }
 
-AdmUtils.setColorSchema = function() {
-  let colorMap = new Map()
-  colorMap.set('${sessionScope.userDisplaySettings.primaryColor}', '--oscm-primary')
-  colorMap.set('${sessionScope.userDisplaySettings.fontColor}', '--oscm-main-font-color')
-  colorMap.set('${sessionScope.userDisplaySettings.navbarColor}', '--oscm-navbar-color')
-  colorMap.set('${sessionScope.userDisplaySettings.navbarLinkColor}', '--oscm-navbar-links-color')
-  colorMap.set('${sessionScope.userDisplaySettings.inputColor}', '--oscm-main-input-color')
-
-  for (let [key, value] of colorMap) {
-    if (key != null) {
-      var hsl = AdmUtils.hexToHSL(key);
-
-      document.documentElement.style.setProperty(value + '-h', hsl[0].toString());
-      document.documentElement.style.setProperty(value + '-s', hsl[1] + "%");
-      document.documentElement.style.setProperty(value + '-l', hsl[2] + "%");
-    }
-  }
-}
-
 AdmUtils.hexToHSL = function(hex) {    
   var result = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
   r = parseInt(result[1], 16);
