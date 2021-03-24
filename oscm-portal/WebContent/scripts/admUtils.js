@@ -2317,32 +2317,6 @@ AdmUtils.clearSearches = function(searchId, buttonId) {
  };
 }
 
-AdmUtils.setLightOrDarkColorScheme = function() {
-  const COLOR_MODES = ["light", "dark"];
-  const THEME_ATTR = "data-theme";
-  const STORE_ATTR = "storage-theme";
-  const systemColorMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? COLOR_MODES[1] : COLOR_MODES[0];
-  const userColorMode = window.localStorage.getItem(STORE_ATTR);
-  const initialColorMode = COLOR_MODES.includes(userColorMode) ? userColorMode : systemColorMode;
-
-  function setColorMode (mode) {
-    if (COLOR_MODES.includes(mode)) {
-      window.localStorage.setItem(STORE_ATTR, mode);
-      document.documentElement.setAttribute(THEME_ATTR, mode);
-
-       if (#{sessionScope.userDisplaySettings != null }) {
-         AdmUtils.setColorSchema();
-       }
-    }
-  };
-
-  if (#{sessionScope.userDisplaySettings != null ? sessionScope.userDisplaySettings.darkMode : 'false' }) {
-    setColorMode(COLOR_MODES[1]); 
-  } else {
-    setColorMode(COLOR_MODES[0]);  
-  }
-}
-
 AdmUtils.setColorSchema = function() {
   let colorMap = new Map()
   colorMap.set('${sessionScope.userDisplaySettings.primaryColor}', '--oscm-primary')
