@@ -148,49 +148,7 @@
 
   <script type="text/javascript">
     AdmUtils.IE9PlaceHolderFix('#{servicePagingBean.searchPhrase}', 'inputSearch');
+    AdmUtils.setLightOrDarkColorScheme();
 
-    const COLOR_MODES = ["light", "dark"];
-    const THEME_ATTR = "data-theme";
-    const STORE_ATTR = "storage-theme";
-    const systemColorMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? COLOR_MODES[1] : COLOR_MODES[0];
-    const userColorMode = window.localStorage.getItem(STORE_ATTR);
-    const initialColorMode = COLOR_MODES.includes(userColorMode) ? userColorMode : systemColorMode;
-
-    function setColorMode (mode) {
-      if (COLOR_MODES.includes(mode)) {
-        window.localStorage.setItem(STORE_ATTR, mode);
-        document.documentElement.setAttribute(THEME_ATTR, mode);
-
-         if (#{sessionScope.userDisplaySettings != null }) {
-           setColorSchema()
-         }
-      }
-    };
-    
-    if (#{sessionScope.userDisplaySettings != null ? sessionScope.userDisplaySettings.darkMode : 'false' }) {
-      setColorMode(COLOR_MODES[1]); 
-    } else {
-      setColorMode(COLOR_MODES[0]);  
-    }
-    
-    function setColorSchema() {
-
-      let colorMap = new Map()
-      colorMap.set('${sessionScope.userDisplaySettings.primaryColor}', '--oscm-primary')
-      colorMap.set('${sessionScope.userDisplaySettings.fontColor}', '--oscm-main-font-color')
-      colorMap.set('${sessionScope.userDisplaySettings.navbarColor}', '--oscm-navbar-color')
-      colorMap.set('${sessionScope.userDisplaySettings.navbarLinkColor}', '--oscm-navbar-links-color')
-      colorMap.set('${sessionScope.userDisplaySettings.inputColor}', '--oscm-main-input-color')
-
-      for (let [key, value] of colorMap) {
-        if (key != null) {
-          var hsl = AdmUtils.hexToHSL(key);
-
-          document.documentElement.style.setProperty(value + '-h', hsl[0].toString());
-          document.documentElement.style.setProperty(value + '-s', hsl[1] + "%");
-          document.documentElement.style.setProperty(value + '-l', hsl[2] + "%");
-        }
-      }
-    }
   </script>
 </ui:composition>

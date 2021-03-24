@@ -2317,35 +2317,80 @@ AdmUtils.clearSearches = function(searchId, buttonId) {
  };
 }
 
+AdmUtils.setLightOrDarkColorScheme = function() {
+  const COLOR_MODES = ["light", "dark"];
+  const THEME_ATTR = "data-theme";
+  const STORE_ATTR = "storage-theme";
+  const systemColorMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? COLOR_MODES[1] : COLOR_MODES[0];
+  const userColorMode = window.localStorage.getItem(STORE_ATTR);
+  const initialColorMode = COLOR_MODES.includes(userColorMode) ? userColorMode : systemColorMode;
+
+  function setColorMode (mode) {
+    if (COLOR_MODES.includes(mode)) {
+      window.localStorage.setItem(STORE_ATTR, mode);
+      document.documentElement.setAttribute(THEME_ATTR, mode);
+
+       if (#{sessionScope.userDisplaySettings != null }) {
+         AdmUtils.setColorSchema();
+       }
+    }
+  };
+
+  if (#{sessionScope.userDisplaySettings != null ? sessionScope.userDisplaySettings.darkMode : 'false' }) {
+    setColorMode(COLOR_MODES[1]); 
+  } else {
+    setColorMode(COLOR_MODES[0]);  
+  }
+}
+
+AdmUtils.setColorSchema = function() {
+  let colorMap = new Map()
+  colorMap.set('${sessionScope.userDisplaySettings.primaryColor}', '--oscm-primary')
+  colorMap.set('${sessionScope.userDisplaySettings.fontColor}', '--oscm-main-font-color')
+  colorMap.set('${sessionScope.userDisplaySettings.navbarColor}', '--oscm-navbar-color')
+  colorMap.set('${sessionScope.userDisplaySettings.navbarLinkColor}', '--oscm-navbar-links-color')
+  colorMap.set('${sessionScope.userDisplaySettings.inputColor}', '--oscm-main-input-color')
+
+  for (let [key, value] of colorMap) {
+    if (key != null) {
+      var hsl = AdmUtils.hexToHSL(key);
+
+      document.documentElement.style.setProperty(value + '-h', hsl[0].toString());
+      document.documentElement.style.setProperty(value + '-s', hsl[1] + "%");
+      document.documentElement.style.setProperty(value + '-l', hsl[2] + "%");
+    }
+  }
+}
+
 AdmUtils.hexToHSL = function(hex) {    
-    var result = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
-    r = parseInt(result[1], 16);
-    g = parseInt(result[2], 16);
-    b =  parseInt(result[3], 16);
+  var result = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+  r = parseInt(result[1], 16);
+  g = parseInt(result[2], 16);
+  b =  parseInt(result[3], 16);
 
-    r /= 255, g /= 255, b /= 255;
+  r /= 255, g /= 255, b /= 255;
 
-    var max = Math.max(r, g, b), min = Math.min(r, g, b);
-    var h, s, l = (max + min) / 2;
+  var max = Math.max(r, g, b), min = Math.min(r, g, b);
+  var h, s, l = (max + min) / 2;
 
-    if (max == min) {
-      h = s = 0; // achromatic
-    } else {
-      var d = max - min;
-      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  if (max == min) {
+    h = s = 0; // achromatic
+  } else {
+    var d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
-      switch (max) {
-        case r: h = (g - b) / d + (g &lt; b ? 6 : 0); break;
-        case g: h = (b - r) / d + 2; break;
-        case b: h = (r - g) / d + 4; break;
-      }
-
-      h /= 6;
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4;
     }
 
-    h = Math.round(360*h);
-    s = Math.round(s*100);
-    l = Math.round(l*100);
-
-    return [ h, s, l ];
+    h /= 6;
   }
+
+  h = Math.round(360*h);
+  s = Math.round(s*100);
+  l = Math.round(l*100);
+
+  return [ h, s, l ];
+}
