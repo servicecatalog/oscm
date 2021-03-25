@@ -36,7 +36,7 @@ $modal_dialog_text_color:              var(--oscm-rv-color);
 
 // Tables
 $table-bg:                             var(--oscm-main-color-700);
-$theme-table-hover-color:              var(hsla(var(--oscm-main), 0.3));
+$theme-table-hover-color:              var(hsla(var(--oscm-black), 0.3));
 $theme-table-bg-color:                 var(--oscm-table-bg-color);
 $theme-table-odd-color:                var(--oscm-table-row-odd-color);
 $theme-table-even-color:               var(--oscm-table-row-even-color);
@@ -44,8 +44,8 @@ $theme-table-border-color:             var(--oscm-main-color-700);
 $theme-table-border-bottom-color:      var(--oscm-main-color-700);
 
 // Inputs
-$input-bg:                             var(--oscm-main-color-800);
-$input-focus-bg:                       var(--oscm-main-color-800);
+$input-bg:                             var(--oscm-input-color);
+$input-focus-bg:                       var(--oscm-input-color);
 $input-focus-color:                    var(--oscm-rv-color);
 $input-focus-border-color:             hsl(var(--oscm-primary));
 $input-group-addon-border-color:       hsl(var(--oscm-primary));
@@ -77,6 +77,7 @@ $darkened-color:                       hsl(var(--oscm-primary));
  // Text color for Account Menu header.
  #link0 {
    color:                              hsl(var(--oscm-navbar-links-color));
+   background:                         var(--oscm-main-color-100);
 
    &:hover  {
      color:                            $navbar-dark-hover-color;

@@ -9,13 +9,12 @@
   color: $theme_text_color;
 }
 
-.rowTitle th:hover {
-  background-color: $theme_table_hover_color;
-  color: $theme_text_color;
+.rowTitle:hover {
+  background-color: var(--oscm-table-hover-color) !important;
 }
 
 .rowTitle th:hover > div.input-group > input {
-    background-color: $theme_table_hover_color;
+  background-color: hsl(var(--oscm-main));
 }
 
 .rowTitle th>div {
@@ -280,9 +279,9 @@ div.responsive-table-panel {
 }
 
 .table-bordered th, .table-bordered td {
-   background-color: $main-color;
    color: $theme_text_color;
    border: 1px solid $theme_border_color;
+   background: var(--oscm-table-bg-color);
 }
 
 .rf-dt {

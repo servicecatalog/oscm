@@ -1268,16 +1268,6 @@ thead .rf-dt-flt {
   background: $theme_table_hover_color;
 }
 
-#editUserForm .rf-dt-r.rowEven:hover, #userForm .rf-dt-r.rowEven:hover, #paymentOptionListForm .rf-dt-r.rowEven:hover,
-  #groupForm .rf-dt-r.rowEven:hover .rowEven:hover {
-  background: $theme_table_hover_color;
-}
-
-#editUserForm .rf-dt-r.rowOdd:hover, #userForm .rf-dt-r.rowOdd:hover, #paymentOptionListForm .rf-dt-r.rowOdd:hover,
-  #groupForm .rf-dt-r.rowOdd:hover .rowOdd:hover {
-  background: $white;
-}
-
 .rowEven:hover, .rowOdd:hover {
   background-color: $theme_table_hover_color !important;
 }
