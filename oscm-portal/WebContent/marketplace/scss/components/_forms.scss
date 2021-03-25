@@ -4,8 +4,7 @@ form .formHighlight, .rowOver * {
 }
 
 form .formHighlight input, form .formHighlight textarea {
-  border: 1px solid $warning_bg_color;
-  background: $white;
+  border: 1px solid $primary-color;
 }
 
 /* form rollover */

@@ -1278,6 +1278,10 @@ thead .rf-dt-flt {
   background: $white;
 }
 
+.rowEven:hover, .rowOdd:hover {
+  background-color: $main-color !important;
+}
+
 .rf-dt-flt-cnt .rf-dt-flt-i {
   width: 90%;
   background: $white $filter no-repeat right center !important;

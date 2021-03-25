@@ -169,6 +169,7 @@ img[src$="sortDescending"] {
   position: absolute;
   top: 5px;
   right: 5px;
+  filter: var(--oscm-filter);
 }
 
 .non-clickable-element {
