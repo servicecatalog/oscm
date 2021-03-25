@@ -9,7 +9,7 @@
 
  --oscm-main-input-color-h:            0;
  --oscm-main-input-color-s:            1%;
- --oscm-main-input-color-l:            97%;
+ --oscm-main-input-color-l:            100%;
 
  --oscm-main-font-color-h:             0;
  --oscm-main-font-color-s:             1%;
@@ -53,7 +53,7 @@
 
  --oscm-table-bg-color:                hsla(var(--oscm-main), 0.9);
  --oscm-table-border-color:            rgba(var(--oscm-black), 0.125);
- --oscm-table-hover-color:             hsla(var(--oscm-main), 0.3);
+ --oscm-table-hover-color:             hsl(var(--oscm-white);
  --oscm-table-background-color:        rgb(var(--oscm-white));
  --oscm-table-row-odd-color:           hsla(var(--oscm-main), 0.1);
  --oscm-table-row-even-color:          hsl(var(--oscm-main));

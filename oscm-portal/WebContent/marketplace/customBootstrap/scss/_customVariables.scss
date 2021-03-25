@@ -71,7 +71,7 @@ $darkened-color:                       hsl(var(--oscm-primary));
 }
 
 .sort-icons > img, .rf-csttg-colps > img, .rf-csttg-exp > img {
-    filter: grayscale(1) invert(1);
+ filter:                               var(--oscm-filter);
  }
 
  // Text color for Account Menu header.
