@@ -96,4 +96,28 @@ public class MarketplaceAccountPersonalWT {
     tester.readContentOfMessage();
     assertTrue(tester.readInfoMessage().contains("The attributes have been successfully saved"));
   }
+
+  @Test
+  public void test04ChangeColorInputs() {
+
+    tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_ACCOUNT);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON_ID);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_NAV);
+
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_PRIMARY_COLOR_INPUT, "#269534");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_FONT_COLOR_INPUT, "#071181");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_NAVBAR_COLOR_INPUT, "#bb1c37");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_NAVBAR_LINK_COLOR_INPUT, "#ffd9ec");
+    tester.writeValue(
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_INPUT_COLOR_INPUT, "#ffbbbb");
+
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_SAVE_BUTTON);
+
+    tester.readContentOfMessage();
+    assertTrue(tester.readInfoMessage().contains("The attributes have been successfully saved"));
+  }
 }
