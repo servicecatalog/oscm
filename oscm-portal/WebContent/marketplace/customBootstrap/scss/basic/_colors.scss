@@ -120,7 +120,7 @@
  --oscm-table-background-color:        hsla(var(--oscm-main), 0.1);
  --oscm-table-row-odd-color:           hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -20%));
  --oscm-table-row-even-color:          hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -10%));
- --oscm-filter:                        brightness(1000%) invert(1);
+ --oscm-filter:                        brightness(1000%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -183,6 +183,6 @@
    --oscm-table-background-color:      hsla(var(--oscm-main), 0.1);
    --oscm-table-row-odd-color:         hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -20%));
    --oscm-table-row-even-color:        hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -10%));
-   --oscm-filter:                      brightness(1000%) invert(1);
+   --oscm-filter:                      brightness(1000%);
   }
 }
