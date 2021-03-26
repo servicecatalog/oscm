@@ -281,10 +281,21 @@ div.responsive-table-panel {
 .table-bordered th, .table-bordered td {
    color: $theme_text_color;
    border: 1px solid $theme_border_color;
-   background: var(--oscm-table-bg-color);
 }
 
 .rf-dt {
    border: none !important;
    background-color: $theme_table_background_color !important;
+}
+
+.rf-dt-c {
+  color: $supplier_text_color !important;
+}
+
+.rf-cst-c {
+ background-color: $theme_table_background_color !important;
+}
+
+.rf-dt-ftr-c {
+  background-color: $theme_table_background_color !important;
 }

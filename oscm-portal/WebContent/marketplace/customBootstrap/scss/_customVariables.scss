@@ -36,7 +36,7 @@ $modal_dialog_text_color:              var(--oscm-rv-color);
 
 // Tables
 $table-bg:                             var(--oscm-main-color-700);
-$theme-table-hover-color:              var(hsla(var(--oscm-black), 0.3));
+$theme-table-hover-color:              var(--oscm-table-hover-color);
 $theme-table-bg-color:                 var(--oscm-table-bg-color);
 $theme-table-odd-color:                var(--oscm-table-row-odd-color);
 $theme-table-even-color:               var(--oscm-table-row-even-color);
@@ -77,25 +77,28 @@ $darkened-color:                       hsl(var(--oscm-primary));
  // Text color for Account Menu header.
  #link0 {
    color:                              hsl(var(--oscm-navbar-links-color));
-   background:                         var(--oscm-main-color-100);
+   background:                         hsl(var(--oscm-main-color-100));
 
    &:hover  {
      color:                            $navbar-dark-hover-color;
    }
  }
 
+a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-primary:focus {
+  color:                              hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -10%)) !important;
+}
+
 .btn-primary, .btn-secondary {
   background-color:                    hsl(var(--oscm-primary)) !important;
   border-color:                        hsl(var(--oscm-primary)) !important;
   color:                               rgb(var(--oscm-white)) !important;
   &:hover {
-    background-color:                  hsl(var(--oscm-primary));
-    filter:                            brightness(0.8);
+    background-color:                  hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -10%)) !important;
   }
   &:focus {
     background-color:                  hsl(var(--oscm-primary));
     color:                             rgb(var(--oscm-white)) !important;
-    box-shadow:                        hsla(var(--oscm-primary), 0.7);
+    box-shadow:                        hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -5%)) !important;
   }
 }
 
@@ -110,12 +113,12 @@ $darkened-color:                       hsl(var(--oscm-primary));
   border-color:                        hsl(var(--oscm-primary)) !important;
   &:hover {
     color:                             rgb(var(--oscm-white)) !important;
-    background-color:                  hsl(var(--oscm-primary));
+    background-color:                  hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -10%)) !important;
   }
   &:focus {
      background-color:                 hsl(var(--oscm-primary));
      color:                            rgb(var(--oscm-white)) !important;
-     box-shadow:                       hsla(var(--oscm-primary), 0.7);
+     box-shadow:                       hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -5%)) !important;
   }
 }
 
@@ -139,22 +142,19 @@ $darkened-color:                       hsl(var(--oscm-primary));
 
 .list-group-item-secondary {
   color:                               rgb(var(--oscm-text-color));
-  background-color:                    hsla(var(--oscm-primary), 0.8) !important;
+  background-color:                    hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - 5%)) !important;
   &:hover {
-     background-color:                 hsl(var(--oscm-primary)) !important;
+     background-color:                 hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -15%)) !important;
      color:                            rgb(var(--oscm-white)) !important;
-     filter:                           brightness(0.8);
   }
 }
 
 .list-group-item-secondary.active {
-  background-color:                    hsl(var(--oscm-primary)) !important;
+  background-color:                    hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -5%)) !important;
   color:                               rgb(var(--oscm-white)) !important;
-  filter:                              brightness(0.9);
   &:hover {
-     background-color:                 hsl(var(--oscm-primary));
+     background-color:                 hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -15%)) !important;
      color:                            rgb(var(--oscm-white)) !important;
-     filter:                           brightness(0.8);
   }
 }
 
@@ -173,6 +173,10 @@ $darkened-color:                       hsl(var(--oscm-primary));
 .custom-select {
   background-color:                    var(--oscm-input-color);
   color:                               var(--oscm-rv-color);
+}
+
+.custom-file-label {
+  background-color:                    var(--oscm-input-color);
 }
 
 .form-control {

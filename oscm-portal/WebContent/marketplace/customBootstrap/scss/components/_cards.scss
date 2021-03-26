@@ -36,8 +36,7 @@
   background: var(--oscm-main-color-900);
 
   &:hover {
-       background: var(--oscm-main-color-800);
-       filter: brightness(0.7);
+       background: var(--oscm-main-color-100);
        cursor: pointer;
   }
 }

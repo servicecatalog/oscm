@@ -48,12 +48,12 @@
  --oscm-main-color-500:                hsla(var(--oscm-main), 0.5);
  --oscm-main-color-600:                hsla(var(--oscm-main), 0.6);
  --oscm-main-color-700:                hsla(var(--oscm-main), 0.7);
- --oscm-main-color-800:                hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) + 25%));
+ --oscm-main-color-800:                hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -25%));
  --oscm-main-color-900:                hsla(var(--oscm-main), 0.9);
 
  --oscm-table-bg-color:                hsla(var(--oscm-main), 0.9);
  --oscm-table-border-color:            rgba(var(--oscm-black), 0.125);
- --oscm-table-hover-color:             hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) + 15%));
+ --oscm-table-hover-color:             hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -15%));
  --oscm-table-background-color:        rgb(var(--oscm-white));
  --oscm-table-row-odd-color:           hsla(var(--oscm-main), 0.1);
  --oscm-table-row-even-color:          hsl(var(--oscm-main));
@@ -96,7 +96,7 @@
 
  --oscm-main:                          var(--oscm-main-h), var(--oscm-main-s), var(--oscm-main-l);
  --oscm-primary:                       var(--oscm-primary-h), var(--oscm-primary-s), var(--oscm-primary-l);
- --body-bg:                            hsla(var(--oscm-main), 0.8);
+ --body-bg:                            hsl(var(--oscm-main));
  --oscm-text-color:                    hsl(var(--oscm-main-font-color));
  --oscm-bg-color:                      hsl(var(--oscm-main));
  --oscm-rv-color:                      hsl(var(--oscm-main-font-color));
@@ -104,23 +104,23 @@
  --oscm-dropdown-color:                hsl(var(--oscm-main));
  --oscm-input-color:                   hsl(var(--oscm-main-input-color));
 
- --oscm-main-color-100:                hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) + 5%));
+ --oscm-main-color-100:                hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -5%));
  --oscm-main-color-200:                hsla(var(--oscm-main), 0.2);
  --oscm-main-color-300:                hsla(var(--oscm-main), 0.3);
- --oscm-main-color-400:                hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) + 15%));
+ --oscm-main-color-400:                hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -15%));
  --oscm-main-color-500:                hsla(var(--oscm-main), 0.5);
  --oscm-main-color-600:                hsla(var(--oscm-main), 0.6);
  --oscm-main-color-700:                hsla(var(--oscm-main), 0.7);
- --oscm-main-color-800:                hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) + 25%));
- --oscm-main-color-900:                hsla(var(--oscm-main), 0.9);
+ --oscm-main-color-800:                hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -25%));
+ --oscm-main-color-900:                hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -20%));
 
  --oscm-table-bg-color:                hsla(var(--oscm-main), 0.8);
  --oscm-table-border-color:            hsla(var(--oscm-main), 0.5);
- --oscm-table-hover-color:             hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - 15%));
+ --oscm-table-hover-color:             hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -35%));
  --oscm-table-background-color:        hsla(var(--oscm-main), 0.1);
- --oscm-table-row-odd-color:           hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) + 80%));
- --oscm-table-row-even-color:          hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) + 20%));
- --oscm-filter:                        brightness(1000%);
+ --oscm-table-row-odd-color:           hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -20%));
+ --oscm-table-row-even-color:          hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -10%));
+ --oscm-filter:                        brightness(1000%) invert(1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -159,7 +159,7 @@
    --oscm-navbar-color:                var(--oscm-navbar-color-h), var(--oscm-navbar-color-s), var(--oscm-navbar-color-l);
    --oscm-navbar-links-color:          var(--oscm-navbar-links-color-h), var(--oscm-navbar-links-color-s), var(--oscm-navbar-links-color-l);
 
-   --body-bg:                          hsla(var(--oscm-main), 0.8);
+   --body-bg:                          hsl(var(--oscm-main));
    --oscm-text-color:                  hsl(var(--oscm-main-font-color));
    --oscm-bg-color:                    hsl(var(--oscm-main));
    --oscm-rv-color:                    hsl(var(--oscm-main-font-color));
@@ -167,22 +167,22 @@
    --oscm-dropdown-color:              hsl(var(--oscm-main));
    --oscm-input-color:                 hsl(var(--oscm-main-input-color));
 
-   --oscm-main-color-100:              hsla(var(--oscm-main), 0.1);
+   --oscm-main-color-100:              hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -5%));
    --oscm-main-color-200:              hsla(var(--oscm-main), 0.2);
    --oscm-main-color-300:              hsla(var(--oscm-main), 0.3);
-   --oscm-main-color-400:              hsla(var(--oscm-main), 0.4);
+   --oscm-main-color-400:              hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -15%));
    --oscm-main-color-500:              hsla(var(--oscm-main), 0.5);
    --oscm-main-color-600:              hsla(var(--oscm-main), 0.6);
    --oscm-main-color-700:              hsla(var(--oscm-main), 0.7);
-   --oscm-main-color-800:              hsla(var(--oscm-main), 0.8);
-   --oscm-main-color-900:              hsla(var(--oscm-main), 0.9);
+   --oscm-main-color-800:              hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -25%));
+   --oscm-main-color-900:              hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -20%));
 
    --oscm-table-bg-color:              hsla(var(--oscm-main), 0.8);
    --oscm-table-border-color:          hsla(var(--oscm-main), 0.5);
-   --oscm-table-hover-color:           hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - 15%));
+   --oscm-table-hover-color:           hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -35%));
    --oscm-table-background-color:      hsla(var(--oscm-main), 0.1);
-   --oscm-table-row-odd-color:         hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) + 80%));
-   --oscm-table-row-even-color:        hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) + 20%));
-   --oscm-filter:                      brightness(1000%);
+   --oscm-table-row-odd-color:         hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -20%));
+   --oscm-table-row-even-color:        hsla(var(--oscm-main-h),var(--oscm-main-s),calc(var(--oscm-main-l) - -10%));
+   --oscm-filter:                      brightness(1000%) invert(1);
   }
 }
