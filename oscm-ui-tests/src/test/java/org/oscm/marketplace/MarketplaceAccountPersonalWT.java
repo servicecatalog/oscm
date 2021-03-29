@@ -102,7 +102,7 @@ public class MarketplaceAccountPersonalWT {
 
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_ACCOUNT);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON_ID);
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_NAV);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_PERSONAL_NAV);
     Thread.sleep(500);
 
     tester.writeColorValue(
