@@ -299,13 +299,17 @@ public class WebTester {
 
   public void writeColorValue(String id, String value) {
     try {
-      JavascriptExecutor js = (JavascriptExecutor) driver;
       WebElement colorElement = driver.findElement(By.id(id));
-      js.executeScript("arguments[0].setAttribute('value', arguments[1]);", colorElement, value);
+      setAttribute(colorElement, value);
     } catch (StaleElementReferenceException e) {
     }
 
     log(String.format("Wrote color value: %s to element with id %s", value, id));
+  }
+
+  public void setAttribute(WebElement element, String attrValue) {
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    js.executeScript("arguments[0].setAttribute('value', arguments[1]);", element, attrValue);
   }
 
   /**
