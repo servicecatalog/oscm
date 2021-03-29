@@ -4,12 +4,13 @@
   background: var(--oscm-main-color-400);
   cursor: pointer;
   @include transition(all 300ms linear);
+  box-shadow: 4px 4px 10px 0px hsla(var(--oscm-main-font-color), 0.44);
   
   &:hover {
      background: var(--oscm-main-color-200);
      filter: brightness(0.8);
      cursor: pointer;
-     box-shadow: 0 0 0 0.2rem hsla(var(--oscm-primary), 0.5);
+     box-shadow: 4px 4px 10px 0px hsla(var(--oscm-primary), 0.54);
   }
 }
 
