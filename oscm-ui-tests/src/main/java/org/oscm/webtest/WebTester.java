@@ -298,9 +298,12 @@ public class WebTester {
   }
 
   public void writeColorValue(String id, String value) {
-    JavascriptExecutor js = (JavascriptExecutor) driver;
-    WebElement colorElement = driver.findElement(By.id(id));
-    js.executeScript("arguments[0].setAttribute('value', '#ff00dd')", colorElement);
+    try {
+      JavascriptExecutor js = (JavascriptExecutor) driver;
+      WebElement colorElement = driver.findElement(By.id(id));
+      js.executeScript("arguments[0].setAttribute('value', '#ff00dd');", colorElement);
+    } catch (StaleElementReferenceException e) {
+    }
 
     log(String.format("Wrote color value: %s to element with id %s", value, id));
   }
