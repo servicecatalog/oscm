@@ -300,10 +300,8 @@ public class WebTester {
   public void writeColorValue(String id, String value) {
     try {
       JavascriptExecutor js = (JavascriptExecutor) driver;
-      WebElement colorElement = driver.findElement(By.id(id));
-      js.executeScript(
-          "document.getElementById('userForm:fontColorInput').setAttribute('value', '#ff00dd');");
-
+      WebElement colorElement = driver.findElement(By.cssSelector("input[type='color']"));
+      js.executeScript("arguments[0].setAttribute('value', '#ff00dd');", colorElement);
     } catch (StaleElementReferenceException e) {
     }
 
