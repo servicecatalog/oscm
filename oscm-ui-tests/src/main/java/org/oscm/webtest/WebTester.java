@@ -297,6 +297,12 @@ public class WebTester {
     log(String.format("Wrote value: %s to element with id %s", value, id));
   }
 
+  /**
+   * writes the specified value to the html5 input color with the given id.
+   *
+   * @param id the id of the html5 input[type="color"]
+   * @param value the hex value of the color to write
+   */
   public void writeColorValue(String id, String value) {
     try {
       WebElement colorElement = driver.findElement(By.id(id));
