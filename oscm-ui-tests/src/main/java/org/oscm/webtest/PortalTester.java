@@ -137,7 +137,6 @@ public class PortalTester extends WebTester {
           .click();
     }
 
-    log(String.format("Login to marketplace with user: %s and pwd: %s", user, password));
     authenticationCtx.loginMarketplace(user, password);
   }
 
