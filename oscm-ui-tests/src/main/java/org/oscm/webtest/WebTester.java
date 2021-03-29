@@ -319,8 +319,8 @@ public class WebTester {
   }
 
   public String getRootPropertyValue(String cssPropertyName) {
-    WebElement documentElement = driver.findElement(By.xpath("/"));
-    String rootPropertyValue = documentElement.getCssValue(cssPropertyName);
+    WebElement rootElement = driver.findElement(By.cssSelector(":root"));
+    String rootPropertyValue = rootElement.getCssValue(cssPropertyName);
     log(String.format("Root property value: %s", rootPropertyValue));
     return rootPropertyValue;
   }
