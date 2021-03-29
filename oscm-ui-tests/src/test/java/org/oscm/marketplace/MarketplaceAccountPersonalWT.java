@@ -119,7 +119,7 @@ public class MarketplaceAccountPersonalWT {
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON);
 
     tester.readContentOfMessage();
-    assertTrue(tester.readInfoMessage().contains("The attributes have been successfully saved"));
+    assertTrue(tester.readInfoMessage().contains("Your profile has been successfully saved"));
 
     // Verify saved input color values.
     tester.verifyEqualElement(
