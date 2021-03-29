@@ -7,6 +7,7 @@
   
   &:hover {
      background: var(--oscm-main-color-200);
+     filter: brightness(0.8);
      cursor: pointer;
   }
 }

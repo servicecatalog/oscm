@@ -85,7 +85,7 @@ $darkened-color:                       hsl(var(--oscm-primary));
  }
 
 a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-primary:focus {
-  color:                              hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -10%)) !important;
+  color:                              hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -5%)) !important;
 }
 
 .btn-primary, .btn-secondary {
@@ -93,7 +93,7 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
   border-color:                        hsl(var(--oscm-primary)) !important;
   color:                               rgb(var(--oscm-white)) !important;
   &:hover {
-    background-color:                  hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -10%)) !important;
+    background-color:                  hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -5%)) !important;
   }
   &:focus {
     background-color:                  hsl(var(--oscm-primary));
@@ -113,7 +113,7 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
   border-color:                        hsl(var(--oscm-primary)) !important;
   &:hover {
     color:                             rgb(var(--oscm-white)) !important;
-    background-color:                  hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -10%)) !important;
+    background-color:                  hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -5%)) !important;
   }
   &:focus {
      background-color:                 hsl(var(--oscm-primary));
@@ -144,7 +144,7 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
   color:                               rgb(var(--oscm-text-color));
   background-color:                    hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - 5%)) !important;
   &:hover {
-     background-color:                 hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -15%)) !important;
+     background-color:                 hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -10%)) !important;
      color:                            rgb(var(--oscm-white)) !important;
   }
 }
@@ -153,7 +153,7 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
   background-color:                    hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -5%)) !important;
   color:                               rgb(var(--oscm-white)) !important;
   &:hover {
-     background-color:                 hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -15%)) !important;
+     background-color:                 hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -10%)) !important;
      color:                            rgb(var(--oscm-white)) !important;
   }
 }
