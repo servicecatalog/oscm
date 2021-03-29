@@ -316,6 +316,13 @@ public class WebTester {
   public void setAttribute(WebElement element, String attrValue) {
     JavascriptExecutor js = (JavascriptExecutor) driver;
     js.executeScript("arguments[0].setAttribute('value', arguments[1]);", element, attrValue);
+  
+
+  public String getRootPropertyValue(String attrName) {
+    WebElement documentElement = driver.findElement(By.xpath("/"));
+    String rootPropertyValue = documentElement.getAttribute(attrName);
+    log(String.format("Root property value: %s", rootPropertyValue));
+    return rootPropertyValue;
   }
 
   /**
