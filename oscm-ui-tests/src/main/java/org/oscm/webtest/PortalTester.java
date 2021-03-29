@@ -10,6 +10,7 @@
 package org.oscm.webtest;
 
 import javax.security.auth.login.LoginException;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -136,6 +137,7 @@ public class PortalTester extends WebTester {
           .click();
     }
 
+    log(String.format("Login to marketplace with user: %s and pwd: %s", user, password));
     authenticationCtx.loginMarketplace(user, password);
   }
 
@@ -222,7 +224,9 @@ public class PortalTester extends WebTester {
   }
 
   public void deleteSupplierGroup(String groupName) throws IdentityClientException {
-    identityClient.getGroups().stream()
+    identityClient
+        .getGroups()
+        .stream()
         .filter(groupInfo -> groupInfo.getName().contains(groupName))
         .forEach(
             groupInfo -> {
