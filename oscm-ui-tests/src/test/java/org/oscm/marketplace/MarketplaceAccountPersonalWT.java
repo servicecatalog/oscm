@@ -105,15 +105,15 @@ public class MarketplaceAccountPersonalWT {
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_NAV);
     Thread.sleep(500);
 
-    tester.writeValue(
+    tester.writeColorValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_PRIMARY_COLOR_INPUT, "#269534");
-    tester.writeValue(
+    tester.writeColorValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_FONT_COLOR_INPUT, "#071181");
-    tester.writeValue(
+    tester.writeColorValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_NAVBAR_COLOR_INPUT, "#bb1c37");
-    tester.writeValue(
+    tester.writeColorValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_NAVBAR_LINK_COLOR_INPUT, "#ffd9ec");
-    tester.writeValue(
+    tester.writeColorValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_INPUT_COLOR_INPUT, "#ffbbbb");
 
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_SAVE_BUTTON);

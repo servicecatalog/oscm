@@ -287,6 +287,12 @@ public class WebTester {
     log(String.format("Wrote value: %s to element with id %s", value, id));
   }
 
+  public void writeColorValue(String id, String value) {
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    WebElement colorElement = driver.findElement(By.id(id));
+    js.executeScript("arguments[0].setAttribute('value', '#ff00dd')", colorElement);
+  }
+
   /**
    * Takes the given value as input for the element with the given xpath.
    *
