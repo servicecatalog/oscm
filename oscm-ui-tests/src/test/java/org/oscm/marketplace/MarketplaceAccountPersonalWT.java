@@ -116,7 +116,7 @@ public class MarketplaceAccountPersonalWT {
     tester.writeColorValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_INPUT_COLOR_INPUT, "#ffbbbb");
 
-    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_SAVE_BUTTON);
+    tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON);
 
     tester.readContentOfMessage();
     assertTrue(tester.readInfoMessage().contains("The attributes have been successfully saved"));
