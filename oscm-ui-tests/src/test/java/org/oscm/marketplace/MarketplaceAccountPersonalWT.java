@@ -120,5 +120,17 @@ public class MarketplaceAccountPersonalWT {
 
     tester.readContentOfMessage();
     assertTrue(tester.readInfoMessage().contains("The attributes have been successfully saved"));
+
+    // Verify saved input color values.
+    tester.verifyEqualElement(
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_PRIMARY_COLOR_INPUT, "#269534");
+    tester.verifyEqualElement(
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_FONT_COLOR_INPUT, "#071181");
+    tester.verifyEqualElement(
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_NAVBAR_COLOR_INPUT, "#bb1c37");
+    tester.verifyEqualElement(
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_NAVBAR_LINK_COLOR_INPUT, "#ffd9ec");
+    tester.verifyEqualElement(
+        MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_INPUT_COLOR_INPUT, "#ffbbbb");
   }
 }
