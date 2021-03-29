@@ -6,8 +6,7 @@
   @include transition(all 300ms linear);
   
   &:hover {
-     background: var(--oscm-main-color-800);
-     filter: brightness(0.8);
+     background: var(--oscm-main-color-200);
      cursor: pointer;
   }
 }
@@ -36,7 +35,8 @@
   background: var(--oscm-main-color-900);
 
   &:hover {
-       background: var(--oscm-main-color-800);
-       cursor: pointer;
+    background: var(--oscm-main-color-200);
+    filter: brightness(0.8);
+    cursor: pointer;
   }
 }
