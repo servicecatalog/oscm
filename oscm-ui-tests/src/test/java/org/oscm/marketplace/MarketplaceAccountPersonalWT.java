@@ -98,11 +98,12 @@ public class MarketplaceAccountPersonalWT {
   }
 
   @Test
-  public void test04ChangeColorInputs() {
+  public void test04ChangeColorInputs() throws InterruptedException {
 
     tester.visitMarketplace(MarketplacePathSegments.MARKETPLACE_ACCOUNT);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_SHOW_BUTTON_ID);
     tester.clickElement(MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_ATTRIBUTE_NAV);
+    Thread.sleep(500);
 
     tester.writeValue(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_PRIMARY_COLOR_INPUT, "#269534");
