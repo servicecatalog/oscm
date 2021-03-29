@@ -118,7 +118,6 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
   &:focus {
      background-color:                 hsl(var(--oscm-primary));
      color:                            rgb(var(--oscm-white)) !important;
-     box-shadow:                       hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -5%)) !important;
   }
 }
 

@@ -9,6 +9,7 @@
      background: var(--oscm-main-color-200);
      filter: brightness(0.8);
      cursor: pointer;
+     box-shadow: 0 0 0 0.2rem hsla(var(--oscm-primary), 0.5);
   }
 }
 
