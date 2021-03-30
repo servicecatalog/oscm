@@ -214,6 +214,26 @@ public class WebTester {
     }
   }
 
+  public boolean verifyEqualCssProperty(String cssPropertyName, String value) {
+    WebElement rootElement = driver.findElement(By.cssSelector(":root"));
+    if (rootElement == null) return false;
+
+    String cssPropertyValue = rootElement.getCssValue(cssPropertyName);
+
+    if (cssPropertyValue != null && cssPropertyValue.equals(value)) {
+      log(
+          String.format(
+              "Root CSS property with name %s and value %s is valid", cssPropertyName, value));
+      return true;
+    } else {
+      logger.warn(
+          String.format(
+              "Root CSS property with name %s is invalid (%s != %s)",
+              cssPropertyName, value, cssPropertyValue));
+      return false;
+    }
+  }
+
   /**
    * Clicks the element with the given id.
    *
