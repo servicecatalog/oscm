@@ -42,6 +42,17 @@ public class MarketplaceHtmlElements {
   public static final String MARKETPLACE_ACCOUNT_PROFILE_LAST_NAME_FIELD = "userForm:lastName";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_EMAIL_FIELD = "userForm:email";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_LANGUAGE_DROPDOWN = "userForm:locale";
+
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_PRIMARY_COLOR_INPUT =
+      "userForm:primaryColorInput";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_FONT_COLOR_INPUT =
+      "userForm:fontColorInput";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_NAVBAR_COLOR_INPUT =
+      "userForm:navbarColorInput";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_NAVBAR_LINK_COLOR_INPUT =
+      "userForm:navbarLinkColorInput";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_INPUT_COLOR_INPUT = "userForm:inputColorInput";
+
   public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON =
       "userForm:saveUserButtonLink";
 
