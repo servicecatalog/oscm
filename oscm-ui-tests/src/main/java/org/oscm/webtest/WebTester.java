@@ -214,26 +214,6 @@ public class WebTester {
     }
   }
 
-  public boolean verifyEqualCssProperty(String cssPropertyName, String value) {
-    WebElement rootElement = driver.findElement(By.cssSelector(":root"));
-    if (rootElement == null) return false;
-
-    String cssPropertyValue = rootElement.getCssValue(cssPropertyName);
-
-    if (cssPropertyValue != null && cssPropertyValue.equals(value)) {
-      log(
-          String.format(
-              "Root CSS property with name %s and value %s is valid", cssPropertyName, value));
-      return true;
-    } else {
-      logger.warn(
-          String.format(
-              "Root CSS property with name %s is invalid (%s != %s)",
-              cssPropertyName, value, cssPropertyValue));
-      return false;
-    }
-  }
-
   /**
    * Clicks the element with the given id.
    *
@@ -336,13 +316,6 @@ public class WebTester {
   public void setAttribute(WebElement element, String attrValue) {
     JavascriptExecutor js = (JavascriptExecutor) driver;
     js.executeScript("arguments[0].setAttribute('value', arguments[1]);", element, attrValue);
-  }
-
-  public String getRootPropertyValue(String cssPropertyName) {
-    WebElement rootElement = driver.findElement(By.cssSelector(":root"));
-    String cssPropertyValue = rootElement.getCssValue(cssPropertyName);
-    log(String.format("Root property value: %s", cssPropertyValue));
-    return cssPropertyValue;
   }
 
   /**

@@ -141,8 +141,5 @@ public class MarketplaceAccountPersonalWT {
         navbarLinkColor);
     tester.verifyEqualElement(
         MarketplaceHtmlElements.MARKETPLACE_ACCOUNT_PROFILE_INPUT_COLOR_INPUT, inputBgColor);
-
-    // verify :root element properties
-    tester.getRootPropertyValue("--oscm-primary-h");
   }
 }
