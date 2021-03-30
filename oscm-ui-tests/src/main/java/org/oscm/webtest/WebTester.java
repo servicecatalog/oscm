@@ -308,6 +308,10 @@ public class WebTester {
       WebElement colorElement = driver.findElement(By.id(id));
       setAttribute(colorElement, value);
     } catch (StaleElementReferenceException e) {
+      log(String.format("Element with id %s is inaccessible", id));
+      logger.warn(
+          String.format(
+              "Element with id %s is inaccessible, caused by Exception: %s", id, e.getMessage()));
     }
 
     log(String.format("Wrote color value: %s to element with id %s", value, id));
