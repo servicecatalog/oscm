@@ -21,10 +21,13 @@ a.rf-ds-btn, a.rf-ds-nmb-btn {
 a.rf-ds-btn:hover, a.rf-ds-nmb-btn:hover {
   color: rgb(var(--oscm-white));
   background-color: hsla(var(--oscm-primary), 0.9);
+  background-image: none;
+  border: hsl(var(--oscm-primary));
 }
 
 .rf-ds-dis {
   color: hsla(var(--oscm-primary), 0.4) !important;
+  border-color: hsla(var(--oscm-primary), 0.4);
 }
 
 .rf-ds-dis:hover {
