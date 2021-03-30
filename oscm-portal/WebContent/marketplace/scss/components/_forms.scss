@@ -1,8 +1,4 @@
 /* form highlights on selected input element */
-form .formHighlight, .rowOver * {
-  background-color: $color_link_water_approx;
-}
-
 form .formHighlight input, form .formHighlight textarea {
   border: 1px solid $primary-color;
 }
