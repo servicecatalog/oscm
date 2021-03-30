@@ -51,7 +51,8 @@ public class MarketplaceHtmlElements {
       "userForm:navbarColorInput";
   public static final String MARKETPLACE_ACCOUNT_PROFILE_NAVBAR_LINK_COLOR_INPUT =
       "userForm:navbarLinkColorInput";
-  public static final String MARKETPLACE_ACCOUNT_PROFILE_INPUT_COLOR_INPUT = "userForm:inputColorInput";
+  public static final String MARKETPLACE_ACCOUNT_PROFILE_INPUT_COLOR_INPUT =
+      "userForm:inputColorInput";
 
   public static final String MARKETPLACE_ACCOUNT_PROFILE_USER_SAVE_BUTTON =
       "userForm:saveUserButtonLink";

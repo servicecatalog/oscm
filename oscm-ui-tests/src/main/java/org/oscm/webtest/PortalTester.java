@@ -10,7 +10,6 @@
 package org.oscm.webtest;
 
 import javax.security.auth.login.LoginException;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -223,9 +222,7 @@ public class PortalTester extends WebTester {
   }
 
   public void deleteSupplierGroup(String groupName) throws IdentityClientException {
-    identityClient
-        .getGroups()
-        .stream()
+    identityClient.getGroups().stream()
         .filter(groupInfo -> groupInfo.getName().contains(groupName))
         .forEach(
             groupInfo -> {
