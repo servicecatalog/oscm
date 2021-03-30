@@ -1,10 +1,41 @@
+.rf-ds {
+  background-color: transparent;
+  padding-top: 4px;
+}
+
 *.rf-dt-c {
   vertical-align: middle;
-  height: 2.5rem; }
+  height: 2.5rem;
+}
 
-*.rf-ds-btn {
+*.rf-ds-btn, a.rf-ds-nmb-btn {
   background-image: none;
-  background-color: transparent; }
+  background-color: transparent;
+  border-color: hsla(var(--oscm-primary), 0.9);
+}
 
-*.rf-ds-btn:hover {
-  background-color: grey; }
+a.rf-ds-btn, a.rf-ds-nmb-btn {
+  color: hsla(var(--oscm-primary), 0.9);
+}
+
+a.rf-ds-btn:hover, a.rf-ds-nmb-btn:hover {
+  color: rgb(var(--oscm-white));
+  background-color: hsla(var(--oscm-primary), 0.9);
+  background-image: none;
+  border: hsl(var(--oscm-primary));
+}
+
+.rf-ds-dis {
+  color: hsla(var(--oscm-primary), 0.4) !important;
+  border-color: hsla(var(--oscm-primary), 0.4);
+}
+
+.rf-ds-dis:hover {
+  background-color: transparent;
+}
+
+.rf-ds-act {
+  color: rgb(var(--oscm-white));
+  background: hsla(var(--oscm-primary), 0.7);
+  border-color: hsla(var(--oscm-primary), 0.9);
+}

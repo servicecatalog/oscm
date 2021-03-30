@@ -19,3 +19,8 @@
   background-color: var(--oscm-input-color);
   box-shadow: 0 0 0 0.2rem hsla(var(--oscm-primary), 0.5);
 }
+
+input {
+  background-color: var(--oscm-input-color);
+  color: var(--oscm-rv-color)!important;
+}

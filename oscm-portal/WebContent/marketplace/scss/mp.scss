@@ -1268,14 +1268,8 @@ thead .rf-dt-flt {
   background: $theme_table_hover_color;
 }
 
-#editUserForm .rf-dt-r.rowEven:hover, #userForm .rf-dt-r.rowEven:hover, #paymentOptionListForm .rf-dt-r.rowEven:hover,
-  #groupForm .rf-dt-r.rowEven:hover .rowEven:hover {
-  background: $theme_table_hover_color;
-}
-
-#editUserForm .rf-dt-r.rowOdd:hover, #userForm .rf-dt-r.rowOdd:hover, #paymentOptionListForm .rf-dt-r.rowOdd:hover,
-  #groupForm .rf-dt-r.rowOdd:hover .rowOdd:hover {
-  background: $white;
+.rowEven:hover, .rowOdd:hover {
+  background-color: $theme_table_hover_color !important;
 }
 
 .rf-dt-flt-cnt .rf-dt-flt-i {
@@ -1296,6 +1290,7 @@ thead .rf-dt-flt {
   width: 13px;
   height: 13px;
   margin: 4px 10px 0 0;
+  filter: var(--oscm-filter);
 }
 
 .rf-dt-srt.rf-dt-srt-btn.rf-dt-srt-des, .rf-edt-srt.rf-edt-srt-btn.rf-edt-srt-des {
@@ -1303,6 +1298,7 @@ thead .rf-dt-flt {
   width: 15px;
   height: 15px;
   margin: 4px 10px 0 0;
+  filter: var(--oscm-filter);
 }
 
 .rf-dt-srt.rf-dt-srt-btn.rf-dt-srt-uns, .rf-edt-srt.rf-edt-srt-btn.rf-edt-srt-uns {
@@ -1344,7 +1340,8 @@ tbody>tr.rf-dt-nd, tbody>tr.rf-dt-nd .rf-dt-nd-c {
 }
 
 .rf-dt-shdr th.rf-dt-shdr-c:hover {
-  background: $rich_table_hover;
+  background-color: $theme_table_hover_color;
+  color: $supplier_text_color;
 }
 
 tr.rf-dt-shdr, tr.rf-dt-shdr:hover {
