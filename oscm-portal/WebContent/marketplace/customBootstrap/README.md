@@ -190,13 +190,13 @@ You can pre-compile the `.scss` source files and re-deploy them in the usual way
 
 The variables which can be modified for the dynamic theming are located in `customBootstrap\scss\basic\_colors.scss` 
 The important variables for the theming are the following:
-- --oscm-bg
-- --oscm-primary
-- --oscm-main
-- --oscm-main-input-color
-- --oscm-main-font-color 
-- --oscm-navbar-color
-- --oscm-navbar-links-color
+- `--oscm-bg`
+- `--oscm-primary`
+- `--oscm-main`
+- `--oscm-main-input-color`
+- `--oscm-main-font-color` 
+- `--oscm-navbar-color`
+- `--oscm-navbar-links-color`
 
 The variables regarding the light theme are located under the `:root` element and those for the dark theme 
 under `:root[data-theme="dark"]`.
