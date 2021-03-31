@@ -174,7 +174,7 @@ The new layout becomes effective for a user the next time he logs in to the mark
 
 ## Customizing the Marketplace UI at Runtime
 
-In the Marketplace UI at the `Account->Profile` page you can modify a set of variables which allow you the dynamic theming of your marketplace. All variables are listed in the `Choose your color scheme` section.
+In the Marketplace UI at the `Account / Profile` page you can modify a set of variables which allow you the dynamic theming of your marketplace. All variables are listed in the `Choose your color scheme` section.
 
 These variables are: 
 1. `Dark / Light`: Choose between a dark or a light theme.
