@@ -26,7 +26,7 @@
 
 /* service price on home page and service overview */
 h2.servicePrice, h1.servicePrice {
-  color: $theme_text_color;
+  color: hsl(var(--oscm-main-font-color));
   margin: 0px;
 }
 

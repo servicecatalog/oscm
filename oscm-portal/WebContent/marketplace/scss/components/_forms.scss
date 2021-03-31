@@ -1,6 +1,6 @@
 /* form highlights on selected input element */
 form .formHighlight input, form .formHighlight textarea {
-  border: 1px solid $primary-color;
+  border: 1px solid hsl(var(--oscm-primary));
 }
 
 /* form rollover */

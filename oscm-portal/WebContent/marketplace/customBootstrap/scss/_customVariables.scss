@@ -1,18 +1,18 @@
 @import "./basic/colors";
 
-$body-color:                           var(--oscm-text-color);
-$bg-body:                              var(--body-bg);
-$bg-light:                             var(--body-bg);
+$body-color:                           hsl(var(--oscm-main-font-color));
+$bg-body:                              var(--oscm-bg-color);
+$bg-light:                             var(--oscm-bg-color);
 $custom-select-bg:                     var(--oscm-main-color-800);
 
-$breadcrumb-bg:                        var(--oscm-main-color-500);
+$breadcrumb-bg:                        var(--oscm-main-color-900);
 $breadcrumb-active-color:              hsl(var(--oscm-primary));
 
 // Dropdowns
 $dropdown-bg:                          var(--oscm-dropdown-color);
 $dropdown-divider-bg:                  var(--oscm-border-color);
-$dropdown-link-color:                  var(--oscm-text-color);
-$dropdown-color:                       var(--oscm-text-color);
+$dropdown-link-color:                  hsl(var(--oscm-main-font-color));
+$dropdown-color:                       hsl(var(--oscm-main-font-color));
 $dropdown-link-active-bg:              hsl(var(--oscm-primary));
 $dropdown-link-hover-bg:               hsl(var(--oscm-primary));
 $dropdown-link-hover-color:            rgb(var(--oscm-white));
@@ -20,7 +20,7 @@ $dropdown-link-hover-color:            rgb(var(--oscm-white));
 // Colors for list groups only for dark theme
 $list-group-bg:                        var(--oscm-main-color-800);
 $list-group-border-color:              var(--oscm-border-color);
-$list-group-disabled-bg:               var(--oscm-main-color-700);
+$list-group-disabled-bg:               var(--oscm-main-color-800);
 $list-group-hover-bg:                  hsl(var(--oscm-primary));
 $list-group-action-active-bg:          hsl(var(--oscm-primary));
 
@@ -28,25 +28,25 @@ $link-color:                           hsl(var(--oscm-primary));
 $link-hover-color:                     hsl(var(--oscm-primary));
 
 // Popovers
-$popover-bg:                           var(--oscm-input-color);
-$popover-body-color:                   var(--oscm-rv-color);
+$popover-bg:                           hsl(var(--oscm-main-input-color));
+$popover-body-color:                   hsl(var(--oscm-main-font-color));
 
 // Modal dialogs
-$modal_dialog_text_color:              var(--oscm-rv-color);
+$modal_dialog_text_color:              hsl(var(--oscm-main-font-color));
 
 // Tables
-$table-bg:                             var(--oscm-main-color-700);
+$table-bg:                             var(--oscm-table-bg-color);
 $theme-table-hover-color:              var(--oscm-table-hover-color);
 $theme-table-bg-color:                 var(--oscm-table-bg-color);
 $theme-table-odd-color:                var(--oscm-table-row-odd-color);
 $theme-table-even-color:               var(--oscm-table-row-even-color);
-$theme-table-border-color:             var(--oscm-main-color-700);
-$theme-table-border-bottom-color:      var(--oscm-main-color-700);
+$theme-table-border-color:             var(--oscm-table-border-color);
+$theme-table-border-bottom-color:      var(--oscm-table-border-color);
 
 // Inputs
-$input-bg:                             var(--oscm-input-color);
-$input-focus-bg:                       var(--oscm-input-color);
-$input-focus-color:                    var(--oscm-rv-color);
+$input-bg:                             hsl(var(--oscm-main-input-color));
+$input-focus-bg:                       hsl(var(--oscm-main-input-color));
+$input-focus-color:                    hsl(var(--oscm-main-font-color));
 $input-focus-border-color:             hsl(var(--oscm-primary));
 $input-group-addon-border-color:       hsl(var(--oscm-primary));
 
@@ -56,18 +56,18 @@ $hover-color:                          hsl(var(--oscm-primary));
 $darkened-color:                       hsl(var(--oscm-primary));
 
 .list-group-item {
-  color:                               rgb(var(--oscm-text-color));
+  color:                               hsl(var(--oscm-main-font-color));
   background-color:                    var(--oscm-main-color-400);
 }
 
 .list-group-item-dark {
-  color:                               var(--oscm-text-color);
+  color:                               hsl(var(--oscm-main-font-color));
 }
 
 // Modal dialogs
 .rf-pp-cnt, .rf-pp-cntr {
- color:                                var(--oscm-text-color) !important;
- background-color:                     var(--oscm-input-color) !important;
+ color:                                hsl(var(--oscm-main-font-color)) !important;
+ background-color:                     hsl(var(--oscm-main-input-color)) !important;
 }
 
 .sort-icons > img, .rf-csttg-colps > img, .rf-csttg-exp > img {
@@ -143,7 +143,7 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
 }
 
 .list-group-item-secondary {
-  color:                               rgb(var(--oscm-text-color));
+  color:                               hsl(var(--oscm-main-font-color));
   background-color:                    hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - 5%)) !important;
   &:hover {
      background-color:                 hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -10%)) !important;
@@ -161,7 +161,7 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
 }
 
 .list-group-item-action:hover, .list-group-item-action:focus {
-  color:                               var(--oscm-rv-color) !important;
+  color:                               hsl(var(--oscm-main-font-color)) !important;
 }
 
 .bg-themed {
@@ -169,30 +169,30 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
 }
 
 .text-themed {
-  color:                               var(--oscm-text-color) !important;
+  color:                               hsl(var(--oscm-main-font-color)) !important;
 }
 
 .custom-select {
-  background-color:                    var(--oscm-input-color);
-  color:                               var(--oscm-rv-color);
+  background-color:                    hsl(var(--oscm-main-input-color));
+  color:                               hsl(var(--oscm-main-font-color));
 }
 
 .custom-file-label {
-  background-color:                    var(--oscm-input-color);
+  background-color:                    hsl(var(--oscm-main-input-color));
 }
 
 .form-control {
-  background-color:                    var(--oscm-input-color);
-  color:                               var(--oscm-rv-color) !important;
+  background-color:                    hsl(var(--oscm-main-input-color));
+  color:                               hsl(var(--oscm-main-font-color)) !important;
   &:active {
-     background-color:                 var(--oscm-input-color);
-     color:                            var(--oscm-rv-color) !important;
+     background-color:                 hsl(var(--oscm-main-input-color));
+     color:                            hsl(var(--oscm-main-font-color)) !important;
   }
 }
 
 .form-control.active {
-  background-color:                    var(--oscm-input-color);
-  color:                               var(--oscm-rv-color) !important;
+  background-color:                    hsl(var(--oscm-main-input-color));
+  color:                               hsl(var(--oscm-main-font-color)) !important;
 }
 
 .border-secondary {
@@ -200,8 +200,8 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
 }
 
 body {
-  background-color:                    var(--body-bg);
-  color:                               var(--oscm-text-color);
+  background-color:                    var(--oscm-bg-color);
+  color:                               hsl(var(--oscm-main-font-color));
 }
 
 hr {

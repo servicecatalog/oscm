@@ -16,11 +16,11 @@
 
 .form-control:focus, .custom-select:focus, .btn:focus, .custom-file-input:focus, .page-link:focus {
   border-color: hsl(var(--oscm-primary));
-  background-color: var(--oscm-input-color);
+  background-color: hsl(var(--oscm-main-input-color));
   box-shadow: 0 0 0 0.2rem hsla(var(--oscm-primary), 0.5);
 }
 
 input {
-  background-color: var(--oscm-input-color);
-  color: var(--oscm-rv-color)!important;
+  background-color: hsl(var(--oscm-main-input-color));
+  color: hsl(var(--oscm-main-font-color))!important;
 }
