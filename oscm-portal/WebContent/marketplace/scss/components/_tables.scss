@@ -4,9 +4,9 @@
   height: 30px;
   margin: 0;
   text-align: left;
-  background: $theme_table_bg_color;
+  background: var(--oscm-table-bg-color);
   vertical-align: top;
-  color: $theme_text_color;
+  color: hsl(var(--oscm-main-font-color));
 }
 
 .rowTitle:hover {
@@ -48,12 +48,12 @@ img[src$="sortDescending"] {
 /* colors for alternating rows in data tables */
 .rowEven {
   padding-left: 10px;
-  background-color: $theme_table_row_even_color !important;
+  background-color: var(--oscm-table-row-even-color) !important;
 }
 
 .rowOdd {
   padding-left: 10px;
-  background-color: $theme_table_row_odd_color !important;
+  background-color: var(--oscm-table-row-odd-color) !important;
 }
 
 .wrapColumns .shortenedText span {
@@ -149,7 +149,7 @@ img[src$="sortDescending"] {
 }
 
 #subListForm .rf-dt-shdr-c {
-  background: $theme_table_bg_color;
+  background: var(--oscm-table-bg-color);
   background-clip: padding-box !important;
 }
 
@@ -279,23 +279,23 @@ div.responsive-table-panel {
 }
 
 .table-bordered th, .table-bordered td {
-   color: $theme_text_color;
-   border: 1px solid $theme_border_color;
+   color: hsl(var(--oscm-main-font-color));
+   border: 1px solid var(--oscm-border-color);
 }
 
 .rf-dt {
    border: none !important;
-   background-color: $theme_table_background_color !important;
+   background-color: var(--oscm-table-background-color) !important;
 }
 
 .rf-dt-c {
-  color: $supplier_text_color !important;
+  color: hsl(var(--oscm-main-font-color)) !important;
 }
 
 .rf-cst-c {
- background-color: $theme_table_background_color !important;
+ background-color: var(--oscm-table-background-color) !important;
 }
 
 .rf-dt-ftr-c {
-  background-color: $theme_table_background_color !important;
+  background-color: var(--oscm-table-background-color) !important;
 }

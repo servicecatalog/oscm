@@ -25,7 +25,7 @@
 
 /* tag cloud tags enclosed block wrapper */
 .tagCloud {
-  color: $theme_text_color;
+  color: hsl(var(--oscm-main-font-color));
   text-decoration: none;
   background: none repeat scroll 0% 0% transparent;
   overflow: hidden;
@@ -35,23 +35,23 @@
 /* individual tag in tag cloud */
 .tagCloud.tag {
   padding: 6px;
-  color: $theme_text_color;
+  color: hsl(var(--oscm-main-font-color));
   text-decoration: none;
   background: none;
 }
 
 .tagCloud.tag:hover {
   padding: 0.25rem;
-  background: $secondary-color;
+  background: hsl(var(--oscm-primary));
   border-radius: 1rem;
-  color: $interior-color;
+  color: rgb(var(--oscm-white));
 }
 
 /* individual tag in tag cloud */
 .tagCloud-selected {
   padding: 0.25rem;
-  color: $interior-color;
-  background: $primary-color;
+  color: rgb(var(--oscm-white));
+  background: hsl(var(--oscm-primary));
   text-decoration: none;
   border-radius: 1rem;
 }
@@ -59,59 +59,59 @@
 /* tag color definitions dependent on label size.
 IE7 and other non-supporting browsers use the default color defined by  .tagCloud.tag */
 .tagCloud.tag[style*="24"] {
-  color: rgba(var(--oscm-text-color), 0.95);
+  color: hsla(var(--oscm-main-font-color), 0.95);
 }
 
 .tagCloud.tag[style*="23"] {
-  color: rgba(var(--oscm-text-color), 0.93);
+  color: hsla(var(--oscm-main-font-color), 0.93);
 }
 
 .tagCloud.tag[style*="22"] {
-  color: rgba(var(--oscm-text-color), 0.91);
+  color: hsla(var(--oscm-main-font-color), 0.91);
 }
 
 .tagCloud.tag[style*="21"] {
-  color: rgba(var(--oscm-text-color), 0.94);
+  color: hsla(var(--oscm-main-font-color), 0.94);
 }
 
 .tagCloud.tag[style*="20"] {
-  color: rgba(var(--oscm-text-color), 0.92);
+  color: hsla(var(--oscm-main-font-color), 0.92);
 }
 
 .tagCloud.tag[style*="19"] {
-  color: rgba(var(--oscm-text-color), 0.95);
+  color: hsla(var(--oscm-main-font-color), 0.95);
 }
 
 .tagCloud.tag[style*="18"] {
-  color: rgba(var(--oscm-text-color), 0.93);
+  color: hsla(var(--oscm-main-font-color), 0.93);
 }
 
 .tagCloud.tag[style*="17"] {
-  color: rgba(var(--oscm-text-color), 0.91);
+  color: hsla(var(--oscm-main-font-color), 0.91);
 }
 
 .tagCloud.tag[style*="16"] {
-  color: rgba(var(--oscm-text-color), 0.94);
+  color: hsla(var(--oscm-main-font-color), 0.94);
 }
 
 .tagCloud.tag[style*="15"] {
-  color: rgba(var(--oscm-text-color), 0.92);
+  color: hsla(var(--oscm-main-font-color), 0.92);
 }
 
 .tagCloud.tag[style*="14"] {
-  color: rgba(var(--oscm-text-color), 0.95);
+  color: hsla(var(--oscm-main-font-color), 0.95);
 }
 
 .tagCloud.tag[style*="13"] {
-  color: rgba(var(--oscm-text-color), 0.93);
+  color: hsla(var(--oscm-main-font-color), 0.93);
 }
 
 .tagCloud.tag[style*="12"] {
-  color: rgba(var(--oscm-text-color), 0.91);
+  color: hsla(var(--oscm-main-font-color), 0.91);
 }
 
 .tagCloud .tag:hover {
   font-size: 8px;
-  color: $interior-color;
+  color: rgb(var(--oscm-white));
   text-decoration: underline;
 }

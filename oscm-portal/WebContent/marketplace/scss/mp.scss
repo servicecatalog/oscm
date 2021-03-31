@@ -813,7 +813,7 @@ table.smallPanel {
 
 /* supplier/organization display line */
 .supplier {
-  color: $supplier_text_color;
+  color: hsl(var(--oscm-main-font-color));
   font: italic 400 110% $font-family-times;
   white-space: nowrap;
 }
@@ -835,7 +835,7 @@ table.smallPanel {
 
 /* current subscriptton status wrapper (ready/error/pending)*/
 .subscriptionStatus:hover {
-    color: color-yiq($theme_table_hover_color);
+    color: color-yiq(var(--oscm-table-hover-color));
 }
 
 /* show for subscription errors */
@@ -853,10 +853,10 @@ table.smallPanel {
 }
 
 td:hover .subscriptionStatus {
-  color: $theme_subscription_status_hover_color;
+  color: var(--oscm-border-color);
 }
 td:hover .subscriptionPending, td:hover .serverSubscriptionSuspended, td:hover .subscriptionWaitingForApproval, td:hover .subscriptionPendingUpd {
-  color: $theme_subscription_status_hover_color;
+  color: var(--oscm-border-color);
 }
 
 /* show for subscription suspended/pending/waiting_for_approval/pending_update */
@@ -866,11 +866,11 @@ td:hover .subscriptionPending, td:hover .serverSubscriptionSuspended, td:hover .
 }
 
 td:hover .subscriptionStatus {
-  color: $theme_subscription_status_hover_color;
+  color: var(--oscm-border-color);
 }
 
 td:hover .subscriptionPending, td:hover .serverSubscriptionSuspended, td:hover .subscriptionWaitingForApproval, td:hover .subscriptionPendingUpd {
-  color: $theme_subscription_status_hover_color;
+  color: var(--oscm-border-color);
 }
 
 .provisioningProgress {
@@ -1242,10 +1242,10 @@ div.scrolltop p img {
 
 .rf-dt-shdr .rf-dt-shdr-c, .rf-edt-hdr-c-cnt.rf-edt-c-srt {
   text-align: left;
-  color: $theme_text_color;
+  color: hsl(var(--oscm-main-font-color));
   border-bottom-width: 0px;
   position: relative;
-  background: $main-color;
+  background: hsl(var(--oscm-main));
 }
 
 .rf-dt-flt .rf-dt-flt-c .rf-dt-flt-cnt {
@@ -1265,11 +1265,11 @@ thead .rf-dt-flt {
 }
 
 .rf-dt-r:hover {
-  background: $theme_table_hover_color;
+  background: var(--oscm-table-hover-color);
 }
 
 .rowEven:hover, .rowOdd:hover {
-  background-color: $theme_table_hover_color !important;
+  background-color: var(--oscm-table-hover-color) !important;
 }
 
 .rf-dt-flt-cnt .rf-dt-flt-i {
@@ -1311,12 +1311,12 @@ thead .rf-dt-flt {
 
 #billingContactListForm tbody .rf-dt-r:hover, #triggerDefinitionListForm tbody .rf-dt-r:hover, #processListForm tbody .rf-dt-r:hover,
   #operationsListForm tbody .rf-dt-r:hover {
-  background: $theme_table_hover_color;
+  background: var(--oscm-table-hover-color);
 }
 
 #paymentOptionListForm thead .rf-dt-shdr-c:hover, #billingContactListForm thead .rf-dt-shdr-c:hover, #processListForm thead .rf-dt-shdr-c:hover,
   #operationsListForm thead .rf-dt-shdr-c:hover, #triggerDefinitionListForm thead .rf-dt-shdr-c:hover {
-  background: $theme_table_hover_color;
+  background: var(--oscm-table-hover-color);
 }
 
 #paymentOptionListForm .rf-dt-c, #billingContactListForm .rf-dt-c, #triggerDefinitionListForm .rf-dt-c {
@@ -1340,8 +1340,8 @@ tbody>tr.rf-dt-nd, tbody>tr.rf-dt-nd .rf-dt-nd-c {
 }
 
 .rf-dt-shdr th.rf-dt-shdr-c:hover {
-  background-color: $theme_table_hover_color;
-  color: $supplier_text_color;
+  background-color: var(--oscm-table-hover-color);
+  color: hsl(var(--oscm-main-font-color));
 }
 
 tr.rf-dt-shdr, tr.rf-dt-shdr:hover {

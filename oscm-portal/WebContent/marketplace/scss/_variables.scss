@@ -2,26 +2,7 @@
 
 @import "../customBootstrap/scss/basic/colors";
 
-$primary-color: hsl(var(--oscm-primary));
-$secondary-color: hsl(var(--oscm-primary));
 $warning-color: red;
-$interior-color: rgb(var(--oscm-white));
-$main-color: hsl(var(--oscm-main));
-
-$dark-lighter: #343a40;
-$dark-lightest: #495057;
-$light: #e9ecef;
-$theme_bg_color: var(--oscm-main-color-800);
-$theme_text_color: var(--oscm-text-color);
-$theme_border_color: var(--oscm-border-color);
-$supplier_text_color:  var(--oscm-text-color);
-$theme_table_bg_color: var(--oscm-table-bg-color);
-$theme_table_border_color: var(--oscm-table-border-color);
-$theme_table_background_color: var(--oscm-table-background-color);
-$theme_table_hover_color: var(--oscm-table-hover-color);
-$theme_table_row_even_color: var(--oscm-table-row-even-color);
-$theme_table_row_odd_color: var(--oscm-table-row-odd-color);
-$theme_subscription_status_hover_color: var(--oscm-main-color-700);
 
 $bold-font-weight: bold;
 $font-family-sans-serif: "OpenSansRegular", Arial, Verdana, "Lucida Grande", 'ＭＳ Ｐゴシック', 'ヒラギノ角ゴ Pro W3', sans-serif;
