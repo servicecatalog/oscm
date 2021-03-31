@@ -61,9 +61,7 @@ The `customBootstrap\scss` folder contains the following variable files for the 
 
 -   `_myVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets.
 
--   `_darkVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets (with a dark navigation bar).
-
--   `_lightVariables.scss`: defines the variables for switching to a light navigation bar `customTheme` and `customFooter` stylesheets. In `_myVariables.scss` simply replace the `@import "darkVariables";` with `@import "lightVariables";`, do the same in `customFooter.scss` and recompile the stylesheets.
+-   `_customVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets.
 
 The `scss` folder contains the following variable file for the `mp.css` stylesheet:
 
