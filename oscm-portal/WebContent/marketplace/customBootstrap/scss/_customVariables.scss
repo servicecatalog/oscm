@@ -66,7 +66,7 @@ $darkened-color:                       hsl(var(--oscm-primary));
 
 // Modal dialogs
 .rf-pp-cnt, .rf-pp-cntr {
- color:                                var(--oscm-main-font-color) !important;
+ color:                                hsl(var(--oscm-main-font-color)) !important;
  background-color:                     hsl(var(--oscm-main-input-color)) !important;
 }
 
@@ -169,7 +169,7 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
 }
 
 .text-themed {
-  color:                               var(--oscm-main-font-color) !important;
+  color:                               hsl(var(--oscm-main-font-color)) !important;
 }
 
 .custom-select {
