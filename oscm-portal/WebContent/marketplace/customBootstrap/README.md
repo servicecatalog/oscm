@@ -47,11 +47,9 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
  Another option is to use a tool available in the Internet to generate a Bootstrap template. Several tools are available that allow for an easy and visual customization of Bootstrap UI components, for example:
 	
-	- Themestr.app themer or customizer: [https://themestr.app/](https://themestr.app/)
-	
-	-   Bootstrap Builder: [https://bootstrap.build/](https://bootstrap.build/)Pre-defined 
-	
-	Bootstrap themes, that are free to use and licensed under the MIT license, can be found here: [https://bootswatch.com/](https://bootswatch.com/). Note, however, that these themes will not work out-of-the-box for the OSCM marketplace UI and need to be adjusted.
+-  [Themestr.app](https://themestr.app/) themer or customizer.
+
+- [Bootstrap Builder:](https://bootstrap.build/) Pre-defined Bootstrap themes, that are free to use and licensed under the MIT license, can be found [here](https://bootswatch.com/). Note, however, that these themes will not work out-of-the-box for the OSCM marketplace UI and need to be adjusted.
 
 ## Customizing Bootstrap UI Components
 
