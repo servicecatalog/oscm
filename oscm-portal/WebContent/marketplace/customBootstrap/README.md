@@ -184,13 +184,14 @@ These variables are:
 5. `Navbar link color`: the color of links which appear in the navigation bars.
 6. `Input field background color`: the background color of form inputs.
 
-# Guide for modification of theme variables in the source files
+### Guide for modification of theme variables in the source files
 
-You can pre-compile the `.scss` files and re-deploy them in the usual way described above. 
+You can pre-compile the `.scss` files and re-deploy them in the usual way. 
 
-The variables which can be modified for the dynamic theming are the following:
+The variables which can be modified for the dynamic theming are located in `customBootstrap\scss\basic\_colors.scss` 
 
-
+The variables regarding the light theme are located under the `:root` element and those for the dark theme 
+under `:root[data-theme="dark"]`.
 
 
 
