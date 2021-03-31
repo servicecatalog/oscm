@@ -172,3 +172,25 @@ After you have completed your customizations and recompiled the stylesheets, pro
 
 The new layout becomes effective for a user the next time he logs in to the marketplace. Anonymous users need to close and reopen their Web browser.
 
+## Customizing the Marketplace UI at Runtime
+
+In the Marketplace UI at the `Account->Profile` page you can modify a set of variables which allow you the dynamic theming of your marketplace. All variables are listed in the `Choose your color scheme` section.
+
+These are: 
+1. Choose between a dark and light theme by selecting the respective radio button.
+2. Primary color: this is the color of buttons, list-group-items and other accent items.
+3. Foreground text: the color of the foreground text for the selected theme (such as text appearing in the cards, in the account menu, etc).
+4. Navbar background color: the background color of the navigation bar that appears in the header, footer and the Account menu.
+5. Navbar link color: the color of links which appear in the navigation bars.
+6. Input field background color: the background color of form inputs.
+
+# Guide for modification of theme variables in the source files
+
+You can pre-compile the `.scss` files and re-deploy them in the usual way described above. 
+
+The variables which can be modified for the dynamic theming are the following:
+
+
+
+
+
