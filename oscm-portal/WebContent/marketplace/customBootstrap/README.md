@@ -200,7 +200,7 @@ The most important variables for the theming (defined as hsl values) are the fol
 - `--oscm-bg-color`: the theme background color. It adjusts to `--oscm-main`. For dark themes, the background color `--oscm-bg-color` is a dark color variant, where as for light themes, `--oscm-bg-color` is a light version of `--oscm-main`.
 - `--oscm-primary`: the theme primary color. To affect it, modify the values: `--oscm-primary-h`, `--oscm-primary-s` and `--oscm-primary-l`.
 - `--oscm-main-font-color`: the foreground text color of the theme. To affect it, modify the h, s and l values.
-- `--oscm-main-100`, `--oscm-main-200`, `--oscm-main-400`, `--oscm-main-900`: shades of  `--oscm-main` with different degrees of lightness, ordered from the lightest to the darkest. To create darker or lighter shades of `--oscm-main`,  simply modify the last percent parameter, which is the lightness of the color.
+- `--oscm-main-100`, `--oscm-main-200`, `--oscm-main-400`, `--oscm-main-800`, `--oscm-main-900`: shades of  `--oscm-main` with different degrees of lightness, ordered from the lightest to the darkest. To create darker or lighter shades of `--oscm-main`,  simply modify the last percentage parameter, which is the lightness of the color.
 - `--oscm-main-input-color`: the background color of input fields.
 - `--oscm-navbar-color`: the navbar background color.
 - `--oscm-navbar-links-color`: the navbar link color.
