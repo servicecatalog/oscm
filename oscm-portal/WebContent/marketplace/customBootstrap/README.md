@@ -190,20 +190,17 @@ These variables are:
 You can pre-compile the `.scss` source files and re-deploy them in the usual way. 
 
 The variables which can be modified for the dynamic theming are located in `customBootstrap\scss\basic\_colors.scss` 
-The most important variables for the theming (defined as hsl values) are the following:
-- `--oscm-main`: the main theme background color. In order to define another value, modify the values 
-`--oscm-main-h` for the hue value, `--oscm-main-s` for saturation and `--oscm-main-l` for lightness.
-- `--oscm-bg-color`: the theme background color. It adjusts related to `--oscm-main`. For dark themes, the background color `--oscm-bg-color` is a dark color variant, where as for light themes, `--oscm-bg-color` is a light version of `--oscm-main`.
-- `--oscm-primary`: the theme primary color. To affect it, modify the values: `--oscm-primary-h`, `--oscm-primary-s` and `--oscm-primary-l`.
-- `--oscm-main-font-color`: the foreground text color of the theme. 
-- `--oscm-main-100`, `--oscm-main-200`, `--oscm-main-400`, `--oscm-main-900`: shades of  `--oscm-main` with different degrees of lightness, ordered from the lightest to the darkest.
-- `--oscm-main-input-color`: the background color of input fields.
-- `--oscm-navbar-color`: the navbar background color.
-- `--oscm-navbar-links-color`: the navbar link color.
-
 
 The variables regarding the light theme are located under the `:root` element and those for the dark theme 
 under `:root[data-theme="dark"]`.
 
-
-
+The most important variables for the theming (defined as hsl values) are the following:
+- `--oscm-main`: the main background color. The background color of the breadcrumbs, sections and account menu adjust to `--oscm-main`. To affect it, modify the values 
+`--oscm-main-h` for the hue value, `--oscm-main-s` for saturation and `--oscm-main-l` for lightness.
+- `--oscm-bg-color`: the theme background color. It adjusts to `--oscm-main`. For dark themes, the background color `--oscm-bg-color` is a dark color variant, where as for light themes, `--oscm-bg-color` is a light version of `--oscm-main`.
+- `--oscm-primary`: the theme primary color. To affect it, modify the values: `--oscm-primary-h`, `--oscm-primary-s` and `--oscm-primary-l`.
+- `--oscm-main-font-color`: the foreground text color of the theme. To affect it, modify the h, s and l values.
+- `--oscm-main-100`, `--oscm-main-200`, `--oscm-main-400`, `--oscm-main-900`: shades of  `--oscm-main` with different degrees of lightness, ordered from the lightest to the darkest. To create darker or lighter shades of `--oscm-main`,  simply modify the last percent parameter, which is the lightness of the color.
+- `--oscm-main-input-color`: the background color of input fields.
+- `--oscm-navbar-color`: the navbar background color.
+- `--oscm-navbar-links-color`: the navbar link color.
