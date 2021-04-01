@@ -191,7 +191,7 @@ You can pre-compile the `.scss` source files and re-deploy them in the usual way
 
 The variables which can be modified for the dynamic theming are located in `customBootstrap\scss\basic\_colors.scss` 
 The most important variables for the theming (defined as hsl values) are the following:
-- - `--oscm-main`: the main theme background color. In order to define another value, modify the values 
+- `--oscm-main`: the main theme background color. In order to define another value, modify the values 
 `--oscm-main-h` for the hue value, `--oscm-main-s` for saturation and `--oscm-main-l` for lightness.
 - `--oscm-bg-color`: the theme background color. It adjusts related to `--oscm-main`. For dark themes, the background color `--oscm-bg-color` is a dark color variant, where as for light themes, `--oscm-bg-color` is a light version of `--oscm-main`.
 - `--oscm-primary`: the theme primary color. To affect it, modify the values: `--oscm-primary-h`, `--oscm-primary-s` and `--oscm-primary-l`.
