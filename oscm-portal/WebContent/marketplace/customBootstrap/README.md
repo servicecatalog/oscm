@@ -187,7 +187,7 @@ These variables are:
 
 ### Guide for modification of theme variables in the source files
 
-You can pre-compile the `.scss` source files and re-deploy them in the usual way as described above. 
+You can pre-compile the `.scss` source files and re-deploy them in the usual way. 
 
 The variables which can be modified for the dynamic theming are located in `customBootstrap\scss\basic\_colors.scss` 
 The most important variables for the theming (defined as hsl values) are the following:
