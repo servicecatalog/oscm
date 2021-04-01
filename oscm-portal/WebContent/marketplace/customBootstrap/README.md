@@ -181,7 +181,7 @@ These variables are:
 1. `Dark / Light`: Choose between a dark or a light theme.
 2. `Primary color`: this is the color of buttons, list-group-items, links and other accent items.
 3. `Foreground text`: the color of the foreground text for the selected theme (such as text appearing in the different sections, in the account menu, etc).
-4. `Navbar background color`: the background color of the navigation bars that appears in the header, footer and the account menu.
+4. `Navbar background color`: the background color of the navigation bars for the header, footer and the account menu.
 5. `Navbar link color`: the color of links which appear in the navigation bars.
 6. `Input field background color`: the background color of form inputs.
 
@@ -190,14 +190,16 @@ These variables are:
 You can pre-compile the `.scss` source files and re-deploy them in the usual way as described above. 
 
 The variables which can be modified for the dynamic theming are located in `customBootstrap\scss\basic\_colors.scss` 
-The most important variables for the theming are the following:
-- `--oscm-bg`
-- `--oscm-primary`
-- `--oscm-main`
-- `--oscm-main-input-color`
-- `--oscm-main-font-color` 
-- `--oscm-navbar-color`
-- `--oscm-navbar-links-color`
+The most important variables for the theming (defined as hsl values) are the following:
+- `--oscm-bg`: the theme background color.
+- `--oscm-primary`: the theme primary color.
+- `--oscm-main`: 
+- `--oscm-main-font-color`: the foreground text color of the theme. 
+- `--oscm-main-100`, `--oscm-main-200`, `--oscm-main-400`, `--oscm-main-900`: shades of  `--oscm-main` with different degrees of lightness, ordered from the lightest to the darkest.
+- `--oscm-main-input-color`: the background color of input fields.
+- `--oscm-navbar-color`: the navbar background color.
+- `--oscm-navbar-links-color`: the navbar link color.
+
 
 The variables regarding the light theme are located under the `:root` element and those for the dark theme 
 under `:root[data-theme="dark"]`.
