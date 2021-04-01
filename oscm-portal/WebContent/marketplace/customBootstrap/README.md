@@ -179,9 +179,9 @@ In the Marketplace UI at the `Account / Profile` page you can modify a set of va
 
 These variables are: 
 1. `Dark / Light`: Choose between a dark or a light theme.
-2. `Primary color`: this is the color of buttons, list-group-items and other accent items.
-3. `Foreground text`: the color of the foreground text for the selected theme (such as text appearing in the cards, in the account menu, etc).
-4. `Navbar background color`: the background color of the navigation bar that appears in the header, footer and the Account menu.
+2. `Primary color`: this is the color of buttons, list-group-items, links and other accent items.
+3. `Foreground text`: the color of the foreground text for the selected theme (such as text appearing in the different sections, in the account menu, etc).
+4. `Navbar background color`: the background color of the navigation bars that appears in the header, footer and the account menu.
 5. `Navbar link color`: the color of links which appear in the navigation bars.
 6. `Input field background color`: the background color of form inputs.
 
@@ -190,7 +190,7 @@ These variables are:
 You can pre-compile the `.scss` source files and re-deploy them in the usual way as described above. 
 
 The variables which can be modified for the dynamic theming are located in `customBootstrap\scss\basic\_colors.scss` 
-The important variables for the theming are the following:
+The most important variables for the theming are the following:
 - `--oscm-bg`
 - `--oscm-primary`
 - `--oscm-main`
