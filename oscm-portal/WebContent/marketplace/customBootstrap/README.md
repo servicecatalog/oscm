@@ -39,19 +39,17 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
   `@import "../../bootstrap/scss/variables";`
 
-- Install and configure a Sass Compiler (CSS pre-processor).
+-   Install and configure a Sass Compiler (CSS pre-processor).
 
-> **_NOTE:_** This step is optional as the source files are re-compiled when the oscm-branding container is re-deployed.
+	A Sass Compiler lets you compile your Sass source files (extension `.scss`) and generate CSS stylesheets. A simple option is to use Ruby. For more information on this option, refer to this [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).
 
-  A Sass Compiler lets you compile your Sass source files (extension `.scss`) and generate CSS stylesheets. A simple option is to use Ruby. For more information on this option, refer to this [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).
+     A good tool for re-compiling the branding package with a simple GUI is the [Koala APP](http://koala-app.com/). For more details on how to re-compile the branding package with Koala refer to [KoalaGuide.md](advanced/KoalaGuide.md).
 
-  A good tool for re-compiling the branding package with a simple GUI is the [Koala APP](http://koala-app.com/). For more details on how to re-compile the branding package with Koala refer to [KoalaGuide.md](advanced/KoalaGuide.md).
-
- Another option is to use a tool available in the Internet to generate a Bootstrap template. Several tools are available that allow an easy and visual customization of Bootstrap UI components, for example:
+    Another option is to use a tool available in the Internet to generate a Bootstrap template. Several tools are available that allow an easy and visual customization of Bootstrap UI components, for example:
 	
--  [Themestr.app](https://themestr.app/) themer or customizer.
+      -  [Themestr.app](https://themestr.app/) themer or customizer.
 
-- [Bootstrap Builder:](https://bootstrap.build/) Pre-defined Bootstrap themes, that are free to use and licensed under the MIT license, can be found [here](https://bootswatch.com/). Note, however, that these themes will not work out-of-the-box for the OSCM marketplace UI and need to be adjusted.
+      - [Bootstrap Builder:](https://bootstrap.build/) Pre-defined Bootstrap themes, that are free to use and licensed under the MIT license, can be found [here](https://bootswatch.com/). Note, however, that these themes will not work out-of-the-box for the OSCM marketplace UI and need to be adjusted.
 
 - The latest feature of OSCM is the **Runtime theme customization**. This option works either in the usual way with a) pre-compilation of source files or b) at Runtime in Marketplace UI without the need of a Sass pre-compiler. The changes take effect immediately upon "Save" of the Profile page.
 
