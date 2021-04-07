@@ -15,7 +15,7 @@ The following sections describe how to proceed to customize the marketplace UI b
 For more information about the theming mechanism of Bootstrap via Sass in general, refer to [https://getbootstrap.com/docs/4.3/getting-started/theming/](https://getbootstrap.com/docs/4.3/getting-started/theming/). Another useful guide about how to customize Bootstrap is [http://bootstrap.themes.guide/how-to-customize-bootstrap.html](http://bootstrap.themes.guide/how-to-customize-bootstrap.html).
 
 
-## Prerequisites:
+## Prerequisites
 
 The following prerequisites need to be fulfilled for customizing the marketplace UI:
 
@@ -41,13 +41,7 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
 - Install and configure a Sass Compiler (CSS pre-processor).
 
----
-**NOTE**
-
-This step is optional as the source files are re-compiled when the oscm-branding container is redeployed.
-
----
-
+> **_NOTE:_**  This step is optional as the source files are re-compiled when the oscm-branding container is redeployed.
 
   A Sass Compiler lets you compile your Sass source files (extension `.scss`) and generate CSS stylesheets. A simple option is to use Ruby. For more information on this option, refer to this [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).
 
