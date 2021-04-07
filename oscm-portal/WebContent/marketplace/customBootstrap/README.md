@@ -35,9 +35,7 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
 - Make sure that the import statements in the `.scss` files in the `scss` and `customBootstrap/scss` folders of the branding package have the correct relative paths to the Bootstrap source files in the `bootstrap` folder.
 
-  Example:
-
- `@import "../../bootstrap/scss/variables";`
+  Example: `@import "../../bootstrap/scss/variables";`
 
 -   Install and configure a Sass Compiler (CSS pre-processor).
 
@@ -88,7 +86,7 @@ The [`_myvariables.scss`](scss/_myvariables.scss) file and [`_fontsVariables.sc
 
 You can modify the color theme variables as CSS custom properties in `_colors.scss` as described in [section](#modification-of-theme-variables-in-the-source-files) and recompiling the source files. For example, you can modify the CSS variable `--oscm-primary`. All the colors are automatically adjusted depending on the defined variables.
 
-You can also override Sass variables for the colors of specific components in `_customVariables.scss`, such as `$breadcrumb-bg`, `$dropdown-bg`, etc. Refer to [https://getbootstrap.com/docs/4.3/getting-started/theming/](https://getbootstrap.com/docs/4.3/getting-started/theming/) for more information.
+You can also override Sass variables for the colors of specific components in `_customVariables.scss`, such as `$breadcrumb-bg`, `$dropdown-bg`, etc. Refer to [https://getbootstrap.com/docs/4.3/getting-started/theming/](https://getbootstrap.com/docs/4.3/getting-started/theming/) for more information on Bootstrap theming in general.
 
 Similarly, you can modify the `$font-family-base` variable to change the font-family or use a Google font. Be aware that you also need to modify the `$font-family-base-sans-serif` variable in the `_variables.scss` file, which is imported into the `mp.css` style sheet.
 
@@ -141,7 +139,7 @@ The subsequent sections in the file show configurable variables for further Boot
 
 The [`_variables.scss`](../scss/_variables.scss) file in the `scss` folder contains a minimum set of variables to facilitate the customization of `mp.css`. The variables that can be adjusted include:
 
-- Colors such as the primary or warning color.
+- Colors such as the warning color.
 - The font family, `$font-family-sans-serif`.
 - Font sizes and line heights for headings.
 
@@ -191,12 +189,11 @@ These variables are:
 
 You can pre-compile the `.scss` source files and re-deploy them in the usual way. 
 
-The variables which can be modified for the dynamic theming are located in `customBootstrap\scss\basic\_colors.scss` 
+The variables (defined as CSS custom properties) for the dynamic theming are located in `customBootstrap\scss\basic\_colors.scss`. 
 
-The variables regarding the light theme are located under the `:root` element and those for the dark theme 
-under `:root[data-theme="dark"]`.
+The variables for the light theme are located under the `:root` element and those for the dark theme 
+under `:root[data-theme="dark"]`. The most important of them (defined as hsl values) are the following:
 
-The most important variables for the theming (defined as hsl values) are the following:
 - `--oscm-main`: the "main" background color. The background color of the breadcrumbs, sections such as the different page panels, and the items in the account menu depend on `--oscm-main`. To change its value, simply modify the values 
 `--oscm-main-h` for the hue value, `--oscm-main-s` for saturation and `--oscm-main-l` for lightness.
 - `--oscm-bg-color`: the theme background color. It adjusts to `--oscm-main`. For dark themes, it is a dark color variant, where as for light themes, it is a light version of `--oscm-main`.
