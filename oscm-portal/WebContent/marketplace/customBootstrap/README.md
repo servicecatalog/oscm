@@ -96,7 +96,7 @@ Remember to re-compile your source files for any changes to take effect.
 
 ### Advanced Variables Template: \_myvariables.scss
 
-You can find [here](advanced/advanced.md) a guide to advanced customization with an extened `_myvariables.scss` template file.
+You can find [here](advanced/advanced.md) a guide to advanced customization with an extended `_myvariables.scss` template.
 
 ### Adjusting the Theming of mp.css: \_variables.scss
 
