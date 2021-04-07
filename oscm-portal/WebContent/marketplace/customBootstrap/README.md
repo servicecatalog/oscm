@@ -94,9 +94,9 @@ If you would like to adjust or add specific Boostrap styles, you can do so direc
 
 Remember to re-compile your source files for any changes to take effect.
 
-### Advanced Customization
+### Advanced Variables Template: \_myvariables.scss
 
-You can find [here](advanced/advanced.md) a guide to advanced customization as well as a template file.
+You can find [here](advanced/advanced.md) a guide to advanced customization with an extened `_myvariables.scss` template file.
 
 ### Adjusting the Theming of mp.css: \_variables.scss
 
