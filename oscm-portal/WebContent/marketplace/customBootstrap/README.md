@@ -37,9 +37,12 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
   Example:
 
-  `@import "../../bootstrap/scss/variables";`
+ `@import "../../bootstrap/scss/variables";`
 
 -   Install and configure a Sass Compiler (CSS pre-processor).
+    ---
+    **_Note_**: This step is optional as the source files are re-compiled when the oscm-branding container is re-deployed.
+    ---
 
 	A Sass Compiler lets you compile your Sass source files (extension `.scss`) and generate CSS stylesheets. A simple option is to use Ruby. For more information on this option, refer to this [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).
 
