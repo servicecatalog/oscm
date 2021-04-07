@@ -55,7 +55,7 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
 - The latest feature of OSCM is the **Runtime theme customization**. This option works either in the usual way with a) pre-compilation of source files or b) at Runtime in Marketplace UI without the need of a Sass pre-compiler. The changes take effect immediately upon "Save" of the Profile page.
 
-Please refer to section ... for more details.
+Please refer to the section [Customizing the Marketplace UI at Runtime](#customizing-the-marketplace-ui-at-runtime) for more details.
 
 ## Customizing Bootstrap UI Components
 
