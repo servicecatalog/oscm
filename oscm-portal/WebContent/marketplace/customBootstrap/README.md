@@ -52,7 +52,7 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
       - [Bootstrap Builder:](https://bootstrap.build/) Pre-defined Bootstrap themes, that are free to use and licensed under the MIT license, can be found [here](https://bootswatch.com/). Note, however, that these themes will not work out-of-the-box for the OSCM marketplace UI and need to be adjusted.
 
-- The latest feature of OSCM is the **Runtime theme customization**. This option works either in the usual way with a) pre-compilation of source files or b) at Runtime in Marketplace UI without the need of a Sass pre-compiler. The changes take effect immediately upon "Save" of the Profile page. Please refer to the respective [section](#customizing-the-marketplace-ui-at-runtime) for more details.
+- Lastly, OSCM provides the option of the **Runtime theme customization**. This option works either in the usual way with a) pre-compilation of source files or b) at Runtime in Marketplace UI without the need of a Sass pre-compiler. The changes take effect immediately upon "Save" of the Profile page. Please refer to the respective [section](#customizing-the-marketplace-ui-at-runtime) for more details.
 
 ## Customizing Bootstrap UI Components
 
