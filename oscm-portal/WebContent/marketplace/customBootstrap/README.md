@@ -39,12 +39,8 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
   `@import "../../bootstrap/scss/variables";`
 
-- Install and configure a Sass Compiler (CSS pre-processor).
-
-> **_NOTE:_** This step is optional as the source files are re-compiled when the oscm-branding container is redeployed.
-
-<details>
-  <summary>Sass Compiler Tools</summary>
+- Install and configure a Sass Compiler (CSS pre-processor). <details>
+  <summary>Tools</summary>
   
  
   A Sass Compiler lets you compile your Sass source files (extension `.scss`) and generate CSS stylesheets. A simple option is to use Ruby. For more information on this option, refer to this [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).
@@ -57,6 +53,10 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
 - [Bootstrap Builder:](https://bootstrap.build/) Pre-defined Bootstrap themes, that are free to use and licensed under the MIT license, can be found [here](https://bootswatch.com/). Note, however, that these themes will not work out-of-the-box for the OSCM marketplace UI and need to be adjusted.
 </details>
+
+> **_NOTE:_** This step is optional as the source files are re-compiled when the oscm-branding container is redeployed.
+
+
 
 
 - The latest feature of OSCM is the **Runtime theme customization**. This option works either in the usual way with a) pre-compilation of source files, and b) at Runtime in Marketplace UI without the need of a Sass pre-compiler. The changes take effect immediately.
