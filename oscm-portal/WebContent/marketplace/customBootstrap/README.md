@@ -86,9 +86,9 @@ The following sections provide some details on customizations you can carry out 
 
 The [`_myvariables.scss`](scss/_myvariables.scss) file and [`_fontsVariables.scss`](scss/_fontsVariables.scss) in the `customBootstrap\scss` folder contains a minimum set of variables used for the default Bootstrap theme for the marketplace UI (which includes a light theme with a dark navigation bar and footer). It includes a green color theme (with custom color shades for the Bootstrap list groups) and variables such as `$bg-body` and `$font-family-base` for Bootstrap fonts of specific headings.
 
-You can simply modify the color theme by changing the `$main-color` variable in `_myVariables.scss` and recompiling the source files. All the colors are automatically adjusted depending on the `$main-color` variable.
+You can modify the color theme variables as CSS custom properties in `_colors.scss` as described in [section](#modification-of-theme-variables-in-the-source-files) and recompiling the source files. For example, you can modify the CSS variable `--oscm-primary`. All the colors are automatically adjusted depending on the defined variables.
 
-You can also override other theme colors, such as the `$primary` or `$secondary` color, or add colors to the theme color map. Refer to [https://getbootstrap.com/docs/4.3/getting-started/theming/](https://getbootstrap.com/docs/4.3/getting-started/theming/) for more information.
+You can also override Sass variables for the colors of specific components in `_customVariables.scss`, such as `$breadcrumb-bg`, `$dropdown-bg`, etc. Refer to [https://getbootstrap.com/docs/4.3/getting-started/theming/](https://getbootstrap.com/docs/4.3/getting-started/theming/) for more information.
 
 Similarly, you can modify the `$font-family-base` variable to change the font-family or use a Google font. Be aware that you also need to modify the `$font-family-base-sans-serif` variable in the `_variables.scss` file, which is imported into the `mp.css` style sheet.
 
