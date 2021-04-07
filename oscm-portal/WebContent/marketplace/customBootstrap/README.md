@@ -41,19 +41,19 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
 - Install and configure a Sass Compiler (CSS pre-processor).
 
-> **_NOTE:_**  <span style="color:blue">This step is optional as the source files are re-compiled when the oscm-branding container is redeployed.</span>
+> **_NOTE:_** This step is optional as the source files are re-compiled when the oscm-branding container is re-deployed.
 
   A Sass Compiler lets you compile your Sass source files (extension `.scss`) and generate CSS stylesheets. A simple option is to use Ruby. For more information on this option, refer to this [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).
 
   A good tool for re-compiling the branding package with a simple GUI is the [Koala APP](http://koala-app.com/). For more details on how to re-compile the branding package with Koala refer to [KoalaGuide.md](advanced/KoalaGuide.md).
 
- Another option is to use a tool available in the Internet to generate a Bootstrap template. Several tools are available that allow for an easy and visual customization of Bootstrap UI components, for example:
+ Another option is to use a tool available in the Internet to generate a Bootstrap template. Several tools are available that allow an easy and visual customization of Bootstrap UI components, for example:
 	
 -  [Themestr.app](https://themestr.app/) themer or customizer.
 
 - [Bootstrap Builder:](https://bootstrap.build/) Pre-defined Bootstrap themes, that are free to use and licensed under the MIT license, can be found [here](https://bootswatch.com/). Note, however, that these themes will not work out-of-the-box for the OSCM marketplace UI and need to be adjusted.
 
-- The latest feature of OSCM is the **Runtime theme customization**. This option works either in the usual way with a) pre-compilation of source files, and b) at Runtime in Marketplace UI without the need of a Sass pre-compiler. The changes take effect immediately.
+- The latest feature of OSCM is the **Runtime theme customization**. This option works either in the usual way with a) pre-compilation of source files or b) at Runtime in Marketplace UI without the need of a Sass pre-compiler. The changes take effect immediately upon "Save" of the Profile page.
 
 Please refer to section ... for more details.
 
@@ -180,11 +180,11 @@ The new layout becomes effective for a user the next time he logs in to the mark
 In the Marketplace UI at the `Account / Profile` page you can modify a set of variables which allow you the dynamic theming of your marketplace. All variables are listed in the `Choose your color scheme` section.
 
 These variables are: 
-1. `Dark / Light`: Choose between a dark or a light theme.
-2. `Primary color`: this is the color of buttons, list-group-items, links and other accent items.
-3. `Foreground text`: the color of the foreground text for the selected theme (such as text appearing in the different sections, in the account menu, etc).
+1. `Dark / Light`: Choose between a dark background or a light background theme.
+2. `Primary color`: this is the color of buttons, list-group-items, links and other items. Used to provide an "accent" color to your UI.
+3. `Foreground text`: the color of the foreground text (such as text appearing in the different sections, in the account menu, etc).
 4. `Navbar background color`: the background color of the navigation bars for the header, footer and the account menu.
-5. `Navbar link color`: the color of links which appear in the navigation bars.
+5. `Navbar link color`: the color of links which appear in the navigation bars for the header, footer and the account menu.
 6. `Input field background color`: the background color of form inputs.
 
 ### Guide for modification of theme variables in the source files
@@ -197,12 +197,12 @@ The variables regarding the light theme are located under the `:root` element an
 under `:root[data-theme="dark"]`.
 
 The most important variables for the theming (defined as hsl values) are the following:
-- `--oscm-main`: the main background color. The background color of the breadcrumbs, sections and account menu adjust to `--oscm-main`. To affect it, modify the values 
+- `--oscm-main`: the "main" background color. The background color of the breadcrumbs, sections such as the different page panels, and the items in the account menu depend on `--oscm-main`. To change its value, simply modify the values 
 `--oscm-main-h` for the hue value, `--oscm-main-s` for saturation and `--oscm-main-l` for lightness.
-- `--oscm-bg-color`: the theme background color. It adjusts to `--oscm-main`. For dark themes, the background color `--oscm-bg-color` is a dark color variant, where as for light themes, `--oscm-bg-color` is a light version of `--oscm-main`.
-- `--oscm-primary`: the theme primary color. To affect it, modify the values: `--oscm-primary-h`, `--oscm-primary-s` and `--oscm-primary-l`.
-- `--oscm-main-font-color`: the foreground text color of the theme. To affect it, modify the h, s and l values.
+- `--oscm-bg-color`: the theme background color. It adjusts to `--oscm-main`. For dark themes, it is a dark color variant, where as for light themes, it is a light version of `--oscm-main`.
+- `--oscm-primary`: the theme primary color. To change it, simply modify the values: `--oscm-primary-h`, `--oscm-primary-s` and `--oscm-primary-l`.
+- `--oscm-main-font-color`: the foreground text color of the theme. To change it, modify the respective the h, s and l values.
 - `--oscm-main-100`, `--oscm-main-200`, `--oscm-main-400`, `--oscm-main-800`, `--oscm-main-900`: shades of  `--oscm-main` with different degrees of lightness, ordered from the lightest to the darkest. To create darker or lighter shades of `--oscm-main`,  simply modify the last percentage parameter, which is the lightness of the color.
 - `--oscm-main-input-color`: the background color of input fields.
-- `--oscm-navbar-color`: the navbar background color.
-- `--oscm-navbar-links-color`: the navbar link color.
+- `--oscm-navbar-color`: the navbar background color (for the header, the footer and the account menu).
+- `--oscm-navbar-links-color`: the navbar link color (for the header, the footer and the account menu).
