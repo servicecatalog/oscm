@@ -68,6 +68,7 @@ The `customBootstrap\scss` folder contains the following variable files for the 
 -   `_myVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets.
 
 -   `_customVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets.
+-    `.\basic\_colors.scss`: defines the theme colors as CSS variables. Refer to the section about [theme variables modification](### Modification of theme variables in the source files) for more details.
 
 The `scss` folder contains the following variable file for the `mp.css` stylesheet:
 
@@ -187,7 +188,7 @@ These variables are:
 5. `Navbar link color`: the color of links which appear in the navigation bars for the header, footer and the account menu.
 6. `Input field background color`: the background color of form inputs.
 
-### Guide for modification of theme variables in the source files
+### Modification of theme variables in the source files
 
 You can pre-compile the `.scss` source files and re-deploy them in the usual way. 
 
@@ -201,7 +202,7 @@ The most important variables for the theming (defined as hsl values) are the fol
 `--oscm-main-h` for the hue value, `--oscm-main-s` for saturation and `--oscm-main-l` for lightness.
 - `--oscm-bg-color`: the theme background color. It adjusts to `--oscm-main`. For dark themes, it is a dark color variant, where as for light themes, it is a light version of `--oscm-main`.
 - `--oscm-primary`: the theme primary color. To change it, simply modify the values: `--oscm-primary-h`, `--oscm-primary-s` and `--oscm-primary-l`.
-- `--oscm-main-font-color`: the foreground text color of the theme. To change it, modify the respective the h, s and l values.
+- `--oscm-main-font-color`: the foreground text color of the theme. To change it, modify the h, s and l values.
 - `--oscm-main-100`, `--oscm-main-200`, `--oscm-main-400`, `--oscm-main-800`, `--oscm-main-900`: shades of  `--oscm-main` with different degrees of lightness, ordered from the lightest to the darkest. To create darker or lighter shades of `--oscm-main`,  simply modify the last percentage parameter, which is the lightness of the color.
 - `--oscm-main-input-color`: the background color of input fields.
 - `--oscm-navbar-color`: the navbar background color (for the header, the footer and the account menu).
