@@ -68,7 +68,7 @@ The `customBootstrap\scss` folder contains the following variable files for the 
 -   `_myVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets.
 
 -   `_customVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets.
--    `.\basic\_colors.scss`: defines the theme colors as CSS variables. Refer to the section about [theme variables modification](### Modification of theme variables in the source files) for more details.
+-    `.\basic\_colors.scss`: defines the theme colors as CSS variables. Refer to the section about [theme variables modification](#mts) for more details.
 
 The `scss` folder contains the following variable file for the `mp.css` stylesheet:
 
@@ -188,7 +188,7 @@ These variables are:
 5. `Navbar link color`: the color of links which appear in the navigation bars for the header, footer and the account menu.
 6. `Input field background color`: the background color of form inputs.
 
-### Modification of theme variables in the source files
+### Modification of theme variables in the source files {#mts}
 
 You can pre-compile the `.scss` source files and re-deploy them in the usual way. 
 
