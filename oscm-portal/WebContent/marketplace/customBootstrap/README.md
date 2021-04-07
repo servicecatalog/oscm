@@ -41,6 +41,14 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
 - Install and configure a Sass Compiler (CSS pre-processor).
 
+---
+**NOTE**
+
+This step is optional as the source files are re-compiled when the oscm-branding container is redeployed.
+
+---
+
+
   A Sass Compiler lets you compile your Sass source files (extension `.scss`) and generate CSS stylesheets. A simple option is to use Ruby. For more information on this option, refer to this [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).
 
   A good tool for re-compiling the branding package with a simple GUI is the [Koala APP](http://koala-app.com/). For more details on how to re-compile the branding package with Koala refer to [KoalaGuide.md](advanced/KoalaGuide.md).
