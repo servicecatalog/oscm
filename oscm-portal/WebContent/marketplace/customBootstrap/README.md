@@ -84,7 +84,7 @@ The following sections provide some details on customizations you can carry out 
 
 ### Basic Sass Variables Template: \_myvariables.scss
 
-The [`_myvariables.scss`](scss/_myvariables.scss) file and [`_fontsVariables.scss`](scss/_fontsVariables.scss) in the `customBootstrap\scss` folder contains a minimum set of variables used for the default Bootstrap theme for the marketplace UI (which includes a light theme with a dark navigation bar and footer). It includes a green color theme (with custom color shades for the Bootstrap list groups) and variables such as `$body-bg` and `$font-family-base` for Bootstrap fonts of specific headings.
+The [`_myvariables.scss`](scss/_myvariables.scss) file and [`_fontsVariables.scss`](scss/_fontsVariables.scss) in the `customBootstrap\scss` folder contains a minimum set of variables used for the default Bootstrap theme for the marketplace UI (which includes a light theme with a dark navigation bar and footer). It includes a green color theme (with custom color shades for the Bootstrap list groups) and variables such as `$bg-body` and `$font-family-base` for Bootstrap fonts of specific headings.
 
 You can simply modify the color theme by changing the `$main-color` variable in `_myVariables.scss` and recompiling the source files. All the colors are automatically adjusted depending on the `$main-color` variable.
 
