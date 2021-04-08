@@ -1,6 +1,7 @@
 /* -------begin customization-------- *//* change the fonts, and primary theme color to green  */
 @charset "UTF-8";
-@import "myvariables";
+@import "./basic/colors";
+@import "customVariables";
 
 // Global options.
 $enable-shadows: true;
@@ -21,8 +22,8 @@ $navbar-padding-x: 1.25rem;
 $navbar-padding-y: 0.6rem;
 
 // Dropdowns
-$dropdown-link-hover-bg: lighten($primary, 10%);
-$dropdown-link-hover-color: $light;
+$dropdown-link-hover-bg: hsla(var(--oscm-primary-h),var(--oscm-primary-s),calc(var(--oscm-primary-l) - 10%));
+$dropdown-link-hover-color: hsl(var(--oscm-main-font-color));
 $dropdown-border-radius: 1.5rem;
 $dropdown-spacer: 0.8rem;
 
@@ -31,10 +32,10 @@ $breadcrumb-padding-y:            1rem;
 $breadcrumb-padding-x:             1.25rem;    
 $breadcrumb-item-padding:           0.7rem;
 
-$breadcrumb-bg: $gray-100;
-$breadcrumb-active-color: $secondary;
+$breadcrumb-bg: var(--oscm-main-color-100);
+$breadcrumb-active-color:  hsl(var(--oscm-primary));
 $breadcrumb-divider:                quote(">");
-$breadcrumb-divider-color:           $secondary;
+$breadcrumb-divider-color:           hsl(var(--oscm-primary));
 $breadcrumb-active-color:           $breadcrumb-divider-color;
 $breadcrumb-border-radius:         1.25rem;
 
@@ -44,12 +45,12 @@ $card-spacer-x:  1.5rem;
 $card-spacer-y:  1.25rem;
 
 $card-border-radius: 8px 8px 8px 8px;
-//$card-cap-bg: $secondary;
+//$card-cap-bg: hsl(var(--oscm-primary));
 
-$card-bg: $gray-100;
+$card-bg: var(--oscm-main-color-100);
 $card-border-width: 1.5px;
-//$card-border-color: $gray-600;
-$card-cap-color: $secondary;
+//$card-border-color: var(--oscm-main-color-800);
+$card-cap-color: hsl(var(--oscm-primary));
 
 // List groups
 $list-group-border-radius:          1.5rem;
@@ -65,9 +66,9 @@ $thumbnail-border-radius: 50%;
 $thumbnail-border-color: rgba(0, 0, 0, 0.1);
 
 // Popovers
-$popover-bg: $secondary;
-$popover-body-color: $light;
+$popover-bg: hsl(var(--oscm-primary));
+$popover-body-color:  hsl(var(--oscm-main-font-color));
 
 // Inputs
-$input-focus-border-color: $primary;
-$input-group-addon-border-color: $primary;
+$input-focus-border-color: hsl(var(--oscm-primary));
+$input-group-addon-border-color: hsl(var(--oscm-primary));
