@@ -6,7 +6,7 @@ To obtain a different grid layout, modify the numbers in the mixins accordingly.
 
 ### Advanced Sass Variables Template: \_myvariables.scss
 
-An extended version of the `_myvariables.scss` file, that serves as an example of custom Bootstrap UI components, is available for download [here](advanced/_myvariables.scss).
+An extended version of the `_myvariables.scss` file, that serves as an example of custom Bootstrap UI components, is available for download [here](_myvariables.scss).
 
 In order to use it, simply replace the `_myVariables.scss` file in the `customBootstrap\scss` folder with the downloaded file.
 
