@@ -1,6 +1,6 @@
 # Marketplace Customization Guide with Bootstrap and Sass
 
-## Introduction
+## Introduction 
 
 The current marketplace UI of OSCM is based on the [Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/introduction/) framework. The default stylesheet, `mp.css`, is used for the customization of the marketplace layout and branding. Additional template stylesheets are provided in the `customBootstrap` folder of the OSCM branding package:
 
@@ -15,7 +15,7 @@ The following sections describe how to proceed to customize the marketplace UI b
 For more information about the theming mechanism of Bootstrap via Sass in general, refer to [https://getbootstrap.com/docs/4.3/getting-started/theming/](https://getbootstrap.com/docs/4.3/getting-started/theming/). Another useful guide about how to customize Bootstrap is [http://bootstrap.themes.guide/how-to-customize-bootstrap.html](http://bootstrap.themes.guide/how-to-customize-bootstrap.html).
 
 
-## Prerequisites:
+## Prerequisites
 
 The following prerequisites need to be fulfilled for customizing the marketplace UI:
 
@@ -35,23 +35,24 @@ The following prerequisites need to be fulfilled for customizing the marketplace
 
 - Make sure that the import statements in the `.scss` files in the `scss` and `customBootstrap/scss` folders of the branding package have the correct relative paths to the Bootstrap source files in the `bootstrap` folder.
 
-  Example:
+  Example: `@import "../../bootstrap/scss/variables";`
 
-  `@import "../../bootstrap/scss/variables";`
+-   Install and configure a Sass Compiler (CSS pre-processor).
 
-- Install and configure a Sass Compiler (CSS pre-processor).
+    > **_Note_**: This step is optional as the source files are re-compiled when the oscm-branding container is re-deployed.
+  
 
-  A Sass Compiler lets you compile your Sass source files (extension `.scss`) and generate CSS stylesheets. A simple option is to use Ruby. For more information on this option, refer to this [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).
+	A Sass Compiler lets you compile your Sass source files (extension `.scss`) and generate CSS stylesheets. A simple option is to use Ruby. For more information on this option, refer to this [README](https://github.com/servicecatalog/oscm/tree/master/oscm-portal/WebContent/marketplace/scss/README.md).
 
-  A good tool for re-compiling the branding package with a simple GUI is the [Koala APP](http://koala-app.com/). For more details on how to re-compile the branding package with Koala refer to [KoalaGuide.md](advanced/KoalaGuide.md).
+     A good tool for re-compiling the branding package with a simple GUI is the [Koala APP](http://koala-app.com/). For more details on how to re-compile the branding package with Koala refer to [KoalaGuide.md](advanced/KoalaGuide.md).
 
- Another option is to use a tool available in the Internet to generate a Bootstrap template. Several tools are available that allow for an easy and visual customization of Bootstrap UI components, for example:
+    Another option is to use a tool available in the Internet to generate a Bootstrap template. Several tools are available that allow an easy and visual customization of Bootstrap UI components, for example:
 	
-	- Themestr.app themer or customizer: [https://themestr.app/](https://themestr.app/)
-	
-	-   Bootstrap Builder: [https://bootstrap.build/](https://bootstrap.build/)Pre-defined 
-	
-	Bootstrap themes, that are free to use and licensed under the MIT license, can be found here: [https://bootswatch.com/](https://bootswatch.com/). Note, however, that these themes will not work out-of-the-box for the OSCM marketplace UI and need to be adjusted.
+      -  [Themestr.app](https://themestr.app/) themer or customizer.
+
+      - [Bootstrap Builder:](https://bootstrap.build/) Pre-defined Bootstrap themes, that are free to use and licensed under the MIT license, can be found [here](https://bootswatch.com/). Note, however, that these themes will not work out-of-the-box for the OSCM marketplace UI and need to be adjusted.
+
+- Lastly, OSCM provides the feature of the **Runtime theme customization**. This option works either in the usual way with a) pre-compilation of source files or b) at Runtime in Marketplace UI without the need of a Sass pre-compiler. The changes take effect immediately upon "Save" of the Profile page. Please refer to the respective [section](#customizing-the-marketplace-ui-at-runtime) for more details.
 
 ## Customizing Bootstrap UI Components
 
@@ -63,9 +64,8 @@ The `customBootstrap\scss` folder contains the following variable files for the 
 
 -   `_myVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets.
 
--   `_darkVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets (with a dark navigation bar).
-
--   `_lightVariables.scss`: defines the variables for switching to a light navigation bar `customTheme` and `customFooter` stylesheets. In `_myVariables.scss` simply replace the `@import "darkVariables";` with `@import "lightVariables";`, do the same in `customFooter.scss` and recompile the stylesheets.
+-   `_customVariables.scss`: defines the variables for the `customTheme` and `customFooter` stylesheets.
+-    `.\basic\_colors.scss`: defines the theme colors as custom CSS variables. Refer to the section about [theme variables modification](#modification-of-theme-variables-in-the-source-files) for more details.
 
 The `scss` folder contains the following variable file for the `mp.css` stylesheet:
 
@@ -82,11 +82,11 @@ The following sections provide some details on customizations you can carry out 
 
 ### Basic Sass Variables Template: \_myvariables.scss
 
-The [`_myvariables.scss`](scss/_myvariables.scss) file (split in [`_darkVariables.scss`](scss/_darkVariables.scss) and [`_fontsVariables.scss`](scss/_fontsVariables.scss) in the `customBootstrap\scss` folder contains a minimum set of variables used for the default dark Bootstrap theme for the marketplace UI. It includes a green color theme (with custom color shades for the Bootstrap list groups) and variables such as `$body-bg` and `$font-family-base` for Bootstrap fonts of specific headings.
+The [`_myvariables.scss`](scss/_myvariables.scss) file and [`_fontsVariables.scss`](scss/_fontsVariables.scss) in the `customBootstrap\scss` folder contains a minimum set of variables used for the default Bootstrap theme for the marketplace UI (which includes a light theme with a dark navigation bar and footer). It includes a green color theme (with custom color shades for the Bootstrap list groups) and variables such as `$bg-body` and `$font-family-base` for Bootstrap fonts of specific headings.
 
-You can simply modify the color theme by changing the `$main-color` variable in `_myVariables.scss` and recompiling the source files. All the colors are automatically adjusted depending on the `$main-color` variable.
+You can modify the color theme variables as CSS custom properties in `_colors.scss` as described in [section](#modification-of-theme-variables-in-the-source-files) and recompiling the source files. For example, you can modify the CSS variable `--oscm-primary`. All the colors are automatically adjusted depending on the defined variables.
 
-You can also override other theme colors, such as the `$primary` or `$secondary` color, or add colors to the theme color map. Refer to [https://getbootstrap.com/docs/4.3/getting-started/theming/](https://getbootstrap.com/docs/4.3/getting-started/theming/) for more information.
+You can also override Sass variables for the colors of specific components in `_customVariables.scss`, such as `$breadcrumb-bg`, `$dropdown-bg`, etc. Refer to [https://getbootstrap.com/docs/4.3/getting-started/theming/](https://getbootstrap.com/docs/4.3/getting-started/theming/) for more information on Bootstrap theming in general.
 
 Similarly, you can modify the `$font-family-base` variable to change the font-family or use a Google font. Be aware that you also need to modify the `$font-family-base-sans-serif` variable in the `_variables.scss` file, which is imported into the `mp.css` style sheet.
 
@@ -94,52 +94,15 @@ If you would like to adjust or add specific Boostrap styles, you can do so direc
 
 Remember to re-compile your source files for any changes to take effect.
 
-**Customizing Cards**
+### Advanced Variables Template: \_myvariables.scss
 
-A specific and quite useful customization option is `.gridLayoutForCard`. It determines the grid layout for the service cards on the marketplace using Sass mixins for the columns. The example illustrates the div with class: `col-xl-4 col-md-6 col-sm-12 mb-3`
-
-To obtain a different grid layout, modify the numbers in the mixins accordingly. For more information about the grid layout of Bootstrap, refer to [https://getbootstrap.com/docs/4.0/layout/grid/](https://getbootstrap.com/docs/4.0/layout/grid/).
-
-### Advanced Sass Variables Template: \_myvariables.scss
-
-An extended version of the `_myvariables.scss` file, that serves as an example of custom Bootstrap UI components, is available for download [here](advanced/_myvariables.scss).
-
-In order to use it, simply replace the `_myVariables.scss` file in the `customBootstrap\scss` folder with the downloaded file.
-
-The variables are sorted by UI components and explained in the following sections.
-
-**Global options**
-
-This section enables or disables general features like shadows, gradients, or the border radius for UI components such as buttons and list groups.
-
-**Fonts**
-
-This section includes commented lines to import and use a Google Font. `$font-family-base` is the variable used for fonts, `$font-size-base` defines font sizes.
-
-**Navbar**
-
-In this section, you can modify the padding of navigation bars.
-
-**Dropdowns**
-
-This section defines variables that affect dropdown menus, such as the one in the navigation bar, or the "sorting" dropdown for pagination. You can, for example, override the link hover color or the background hover color of the dropdowns, increase the border radius, or enlarge the space between items.
-
-
-**Breadcrumbs**
-
-This section defines parameters that affect the marketplace breadcrumbs.
-
-`customTheme.scss` also contains a section with styles for breadcrumbs. The reason is that the `mp.css` stylesheet also includes some styles for breadcrumbs, which you can override with the `!important` rule.
-
-**More Components**
-
-The subsequent sections in the file show configurable variables for further Bootstratp UI components: Cards, List Groups, Buttons, Image Thumbnails, Popovers, and Inputs.
+You can find [here](advanced/advanced.md) a guide to advanced customization with an extended `_myvariables.scss` template.
 
 ### Adjusting the Theming of mp.css: \_variables.scss
 
 The [`_variables.scss`](../scss/_variables.scss) file in the `scss` folder contains a minimum set of variables to facilitate the customization of `mp.css`. The variables that can be adjusted include:
 
-- Colors such as the primary or warning color.
+- Colors such as the warning color.
 - The font family, `$font-family-sans-serif`.
 - Font sizes and line heights for headings.
 
@@ -173,3 +136,33 @@ After you have completed your customizations and recompiled the stylesheets, pro
 
 The new layout becomes effective for a user the next time he logs in to the marketplace. Anonymous users need to close and reopen their Web browser.
 
+## Customizing the Marketplace UI at Runtime
+
+In the Marketplace UI at the `Account / Profile` page you can modify a set of variables which allow you the dynamic theming of your marketplace. All variables are listed in the `Choose your color scheme` section.
+
+These variables are: 
+1. `Dark / Light`: Choose between a dark background or a light background theme.
+2. `Primary color`: this is the color of buttons, list-group-items, links and other items. Used to provide an "accent" color to your UI.
+3. `Foreground text`: the color of the foreground text (such as text appearing in the different sections, in the account menu, etc).
+4. `Navbar background color`: the background color of the navigation bars for the header, footer and the account menu.
+5. `Navbar link color`: the color of links which appear in the navigation bars for the header, footer and the account menu.
+6. `Input field background color`: the background color of form inputs.
+
+### Modification of theme variables in the source files
+
+You can pre-compile the `.scss` source files and re-deploy them in the usual way. 
+
+The variables (defined as CSS custom properties) for the dynamic theming are located in `customBootstrap\scss\basic\_colors.scss`. 
+
+The variables for the light theme are located under the `:root` element and those for the dark theme 
+under `:root[data-theme="dark"]`. The most important of them (defined as hsl values) are the following:
+
+- `--oscm-main`: the "main" background color. The background color of the breadcrumbs, sections such as the different page panels, and the items in the account menu depend on `--oscm-main`. To change its value, simply modify the values 
+`--oscm-main-h` for the hue value, `--oscm-main-s` for saturation and `--oscm-main-l` for lightness.
+- `--oscm-bg-color`: the theme background color. It adjusts to `--oscm-main`. For dark themes, it is a dark color variant, where as for light themes, it is a light version of `--oscm-main`.
+- `--oscm-primary`: the theme primary color. To change it, simply modify the values: `--oscm-primary-h`, `--oscm-primary-s` and `--oscm-primary-l`.
+- `--oscm-main-font-color`: the foreground text color of the theme. To change it, modify the h, s and l values.
+- `--oscm-main-100`, `--oscm-main-200`, `--oscm-main-400`, `--oscm-main-800`, `--oscm-main-900`: shades of  `--oscm-main` with different degrees of lightness, ordered from the lightest to the darkest. To create darker or lighter shades of `--oscm-main`,  simply modify the last percentage parameter, which is the lightness of the color.
+- `--oscm-main-input-color`: the background color of input fields.
+- `--oscm-navbar-color`: the navbar background color (for the header, the footer and the account menu).
+- `--oscm-navbar-links-color`: the navbar link color (for the header, the footer and the account menu).
