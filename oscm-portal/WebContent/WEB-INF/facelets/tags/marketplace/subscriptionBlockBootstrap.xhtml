@@ -5,13 +5,13 @@
                 xmlns:adm="http://www.fujitsu.com/global/services/software/interstage"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
- <div class="text-left pl-3">
+ <div class="text-start ps-3">
   <div class="row pt-2">
    <a4j:outputPanel layout="block" styleClass="m-1" onclick="#{onClickHandler}">
     <h:graphicImage id="#{fieldId}Image" value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{subscription.serviceKey}"/>
    </a4j:outputPanel>
 
-   <div class="text-left p-2">
+   <div class="text-start p-2">
     <a4j:outputPanel layout="block" styleClass="center">
      <!-- subscription id -->
      <h2 id="#{fieldId}SubscriptionId" class="box_title">#{subscription.subscriptionId}</h2>
@@ -38,27 +38,27 @@
    </div>
   </div>
   <!-- number of assigned users -->
-  <div class="row pt-2 pl-1">
-   <div class="col-5 pl-0">
+  <div class="row pt-2 ps-1">
+   <div class="col-5 ps-0">
     <adm:outputLabel value="#{msg['subscription.users']}" styleClass="mx-3"/>
    </div>
-   <div class="col-7 pl-0">
+   <div class="col-7 ps-0">
     <h:outputText id="#{fieldId}Users" value="#{subscription.numberOfAssignedUsers}" styleClass="font-weight-bolder"/>
    </div>
   </div>
   <!-- status info -->
-  <div class="row pt-2 pl-1">
-   <div class="col-5 pl-0">
+  <div class="row pt-2 ps-1">
+   <div class="col-5 ps-0">
     <adm:outputLabel value="#{msg['subscription.status']}" styleClass="mx-3"/>
    </div>
-   <div class="col-7 pl-0">
+   <div class="col-7 ps-0">
     <ui:include src="../../../../marketplace/subscriptions/status.xhtml">
      <ui:param name="sub" value="#{subscription}" textStyle="font-weight-bolder"/>
     </ui:include>
    </div>
   </div>
   <!-- reference -->
-  <div class="row pt-2 pl-1">
+  <div class="row pt-2 ps-1">
    <div class="col-5 p-0">
     <adm:outputLabel value="#{msg['subscriptions.table.reference']}" styleClass="mx-3"/>
    </div>
@@ -67,7 +67,7 @@
    </div>
   </div>
   <!-- activation -->
-  <div class="row pt-2 pl-1">
+  <div class="row pt-2 ps-1">
    <div class="col-5 p-0">
     <adm:outputLabel value="#{msg['subscription.activationDate']}" styleClass="mx-3"/>
    </div>
@@ -78,7 +78,7 @@
    </div>
   </div>
   <!-- service -->
-  <div class="row pt-2 pl-1">
+  <div class="row pt-2 ps-1">
    <div class="col-5 p-0">
     <adm:outputLabel value="#{msg['subscription.service']}" styleClass="mx-3"/>
    </div>

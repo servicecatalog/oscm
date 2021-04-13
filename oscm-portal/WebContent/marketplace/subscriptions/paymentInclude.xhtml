@@ -59,7 +59,7 @@
             <h:outputText value=" *" styleClass="mandatory"/>
           </div>
           <div class="col-md-9 col-sm-12">
-            <h:selectOneMenu id="selectBillingContact" styleClass="custom-select"
+            <h:selectOneMenu id="selectBillingContact" styleClass="form-select"
                              required="#{!empty param['payment:next']}"
                              value="#{billingContactBean.selectedBillingContactKeyReadOnly}" disabled="#{isDisabled}"
                              valueChangeListener="#{billingContactBean.selectedBillingContactChanged}"
@@ -114,7 +114,7 @@
             <h:outputText value=" *" styleClass="mandatory"/>
           </div>
           <div class="col-md-9 col-sm-12">
-            <h:selectOneMenu id="selectPaymentInfo" styleClass="custom-select"
+            <h:selectOneMenu id="selectPaymentInfo" styleClass="form-select"
                              value="#{paymentInfoBean.selectedPaymentInfoForSubscriptionKeyReadOnly}"
                              disabled="#{isDisabled}" required="#{!empty param['payment:next']}"
                              valueChangeListener="#{paymentInfoBean.selectedPaymentInfoChanged}"

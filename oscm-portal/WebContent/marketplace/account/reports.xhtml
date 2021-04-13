@@ -29,7 +29,7 @@
       </a4j:outputPanel>
 
       <a4j:outputPanel layout="block" styleClass="tablePanel">
-        <h:selectOneMenu styleClass="custom-select" value="#{reportBean.selectedReportUrl}"
+        <h:selectOneMenu styleClass="form-select" value="#{reportBean.selectedReportUrl}"
                          onchange="startService(this)">
           <f:selectItem id="reportSelectBox" itemLabel="#{msg['marketplace.account.reports.noSelection']}"
                         itemValue=""/>
@@ -38,7 +38,7 @@
           </c:forEach>
         </h:selectOneMenu>
       </a4j:outputPanel>
-      <hr class="pt-1 pb-2"/>
+      <hr class="my-2"/>
 
       <a4j:outputPanel layout="block" styleClass="tablePanel">
         <c:if test="#{empty reportBean.selectedReportUrl}">

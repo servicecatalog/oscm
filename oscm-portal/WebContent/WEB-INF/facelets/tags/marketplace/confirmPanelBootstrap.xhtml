@@ -24,7 +24,7 @@
                    onbeforeshow="AdmUtils.setPageOverflow('hidden');" onhide="#{handleOnHideConfirmModal}">
 
     <img onclick="#{rich:component(modalId)}.hide();" src="#{imgUrl}/transparentPixel.png" class="closeButton"/>
-    <h1>
+    <h1 class="w-auto">
       <h:outputText value="#{header}"/>
     </h1>
     <div class="border-top py-2">
@@ -41,16 +41,16 @@
       <c:choose>
         <c:when test="#{empty cancelAction}">
           <mp:buttonBootstrap id="${modalId}CancelButton" value="#{msg['button.no']}"
-                              styleClass="btn btn-sm btn-outline-secondary ml-3"
+                              styleClass="btn btn-sm btn-outline-secondary ms-3 w-auto"
                               onclick="#{rich:component(modalId)}.hide();return false;"/>
         </c:when>
         <c:otherwise>
           <mp:buttonBootstrap id="${modalId}CancelButtonWithAction" value="#{msg['button.no']}"
-                              bean="#{bean}" action="#{cancelAction}" styleClass="btn btn-sm btn-secondary mr-3"
+                              bean="#{bean}" action="#{cancelAction}" styleClass="btn btn-sm btn-secondary me-3"
                               oncomplete="AdmUtils.showProgress(false);#{rich:component(modalId)}.hide();return false;"/>
         </c:otherwise>
       </c:choose>
-      <mp:buttonBootstrap id="${modalId}OkButton" value="#{msg['button.yes']}" styleClass="btn btn-sm btn-secondary mr-3"
+      <mp:buttonBootstrap id="${modalId}OkButton" value="#{msg['button.yes']}" styleClass="btn btn-sm btn-secondary me-3 w-auto"
                           onclick="AdmUtils.showProgress(true);#{rich:element(submitId)}.click(); return false;"/>
     </a4j:outputPanel>
   </rich:popupPanel>

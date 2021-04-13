@@ -16,7 +16,7 @@
   </ui:define>
 
   <ui:define name="dialogTitle">
-    <h2>
+    <h2 class="w-auto">
       <h:outputText value="#{dialogTitle}"/>
     </h2>
   </ui:define>
@@ -57,7 +57,7 @@
 
           <!-- trigger type      Note: required does not work with tomahawk -->
           <div class="row mb-2">
-            <adm:labelAndSelectBootstrap styleClass="custom-select custom-select-xs" id="triggerType" required="true"
+            <adm:labelAndSelectBootstrap styleClass="form-select form-select-xs" id="triggerType" required="true"
                                          value="#{triggerDefinitionBean.selectedTriggerDefinition.type}"
                                          render="suspend" label="#{msg['triggerDefinition.type']}"
                                          listenerBean="#{triggerDefinitionBean}"
@@ -70,7 +70,7 @@
 
           <!-- target type      Note: required does not work with tomahawk -->
           <div class="row mb-2">
-            <adm:labelAndSelectBootstrap styleClass="custom-select custom-select-xs" id="targetType"
+            <adm:labelAndSelectBootstrap styleClass="form-select form-select-xs" id="targetType"
                                          value="#{triggerDefinitionBean.selectedTriggerDefinition.targetType}"
                                          label="#{msg['triggerDefinition.targetType']}"
                                          disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}">
@@ -125,18 +125,21 @@
 
           <hr class="mt-3 mb-1"/>
           <div class="row row-justify-space">
-            <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary ms-3" id="#{dialogId}Save"
+
+            <mp:buttonBootstrap styleClass="btn btn-sm btn-secondary ms-3 w-auto" id="#{dialogId}Save"
                                 onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('hiddenSaveBtn')}.click(); return false;"
                                 value="#{msg['button.save']}"/>
 
-            <div>
-              <mp:buttonBootstrap styleClass="btn btn-sm btn-outline-secondary me-3" id="#{dialogId}Delete"
+
+            <div class="w-auto">
+              <mp:buttonBootstrap styleClass="btn btn-sm btn-outline-secondary me-3 w-auto" id="#{dialogId}Delete"
                                   value="#{msg['button.delete']}"
                                   rendered="#{!triggerDefinitionBean.newTriggerDefinition}"
                                   disabled="#{triggerDefinitionBean.selectedTriggerDefinition.hasTriggerProcess}"
                                   onclick="#{rich:component('confirmPanel')}.show();return false;"/>
 
-              <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary me-3"
+
+              <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary me-3 w-auto"
                                onclick="AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
                                         AdmUtils.clearHiddenErrorPanel(); AdmUtils.deselectRow();
                                         setDirty(false); #{rich:component(dialogId)}.hide();"
@@ -153,42 +156,42 @@
                                     submitId="confirmedDeleteButton" isFirstModal="false"/>
 
           <script type="text/javascript">
-      var #{dialogId}ErrorFlag = #{facesContext.maximumSeverity.ordinal == 0};
+            var #{dialogId}ErrorFlag = #{facesContext.maximumSeverity.ordinal == 0};
 
-      var MessageTrigger#{dialogId} = {
-        save: {
-          onError: function onError(error){
-            console.log('Error occurred while saving new trigger >> ' + error.description);
-            console.log(error);
-          },
-          onEvent: function onEvent(data){
-            if (data.status == "success") {
-                AdmUtils.showProgress(false);
-                setDirty(false);
-                if(#{dialogId}ErrorFlag){
-                  #{rich:component(dialogId)}.hide();
-                } else {
-                  AdmUtils.clearHiddenErrorPanel();
+            var MessageTrigger#{dialogId} = {
+              save: {
+                onError: function onError(error){
+                  console.log('Error occurred while saving new trigger >> ' + error.description);
+                  console.log(error);
+                },
+                onEvent: function onEvent(data){
+                  if (data.status == "success") {
+                      AdmUtils.showProgress(false);
+                      setDirty(false);
+                      if(#{dialogId}ErrorFlag){
+                        #{rich:component(dialogId)}.hide();
+                      } else {
+                        AdmUtils.clearHiddenErrorPanel();
+                      }
+                  }
                 }
-            }
-          }
-        },
-        del: {
-          onEvent: function onTriggerEventDelete(data){
-            if (data.status == "success") {
-              AdmUtils.showProgress(false);
-              setDirty(false);
-              if(#{dialogId}ErrorFlag){
-                #{rich:component(dialogId)}.hide();
+              },
+              del: {
+                onEvent: function onTriggerEventDelete(data){
+                  if (data.status == "success") {
+                    AdmUtils.showProgress(false);
+                    setDirty(false);
+                    if(#{dialogId}ErrorFlag){
+                      #{rich:component(dialogId)}.hide();
+                    }
+                  }
+                },
+                onError: function(error){
+                  console.log('Error occurred while deleting trigger >> ' + error.description);
+                  console.log(error);
+                }
               }
             }
-          },
-          onError: function(error){
-            console.log('Error occurred while deleting trigger >> ' + error.description);
-            console.log(error);
-          }
-        }
-      }
           </script>
         </h:form>
 

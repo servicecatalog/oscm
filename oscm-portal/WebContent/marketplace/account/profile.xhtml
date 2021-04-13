@@ -82,7 +82,7 @@
                           label2="#{organizationBean.currentUser.groupsToDisplay}"/>
 
             <mp:formSelect id="salutation" label="#{msg['user.salutation']}"
-                           value="#{organizationBean.currentUser.salutation}" selectStyle="custom-select">
+                           value="#{organizationBean.currentUser.salutation}" selectStyle="form-select">
               <adm:salutationItems/>
             </mp:formSelect>
 
@@ -98,7 +98,7 @@
                            converterId="trimConverter"/>
 
             <mp:formSelect id="locale" label="#{msg['user.locale']}" showHint="true"
-                           value="#{organizationBean.currentUser.locale}" selectStyle="custom-select">
+                           value="#{organizationBean.currentUser.locale}" selectStyle="form-select">
               <adm:localeItems/>
               <f:validator validatorId="SupportedLanguageValidator"/>
             </mp:formSelect>
@@ -175,8 +175,9 @@
                               value="#{organizationBean.organization.address}" converterId="trimConverter"
                               maxlength="#{appBean.descriptionLen}" areaStyle="form-control"/>
 
-            <mp:formSelect id="country" label="#{msg['common.country']}" selectStyle="custom-select"
+            <mp:formSelect id="country" label="#{msg['common.country']}" selectStyle="form-select"
                            value="#{organizationBean.organization.domicileCountry}" required="true">
+
               <adm:countryItems supportedCountries="#{countryBean.supportedCountryCodesForEditProfilePage}"/>
             </mp:formSelect>
 

@@ -43,7 +43,8 @@
 
           <a4j:outputPanel layout="block" styleClass="row justify-content-end bottomButtonPanel">
             <mp:buttonBootstrap id="searchButton" value="#{msg['button.search']}" bean="#{userImportBean}"
-                                action="searchUsers" buttonType="search" styleClass="btn btn-secondary me-3"/>
+
+                                action="searchUsers" buttonType="search" styleClass="btn btn-secondary me-3 w-auto"/>
           </a4j:outputPanel>
         </h:form>
 
@@ -149,9 +150,9 @@
 
             <a4j:outputPanel id="buttonPanel" layout="block" styleClass="row row-justify-space bottomButtonPanel">
               <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);location.href='users.jsf';return false;"
-                                  value="#{msg['button.cancel']}" styleClass="btn btn-outline-secondary ms-3"/>
+                                  value="#{msg['button.cancel']}" styleClass="btn btn-outline-secondary ms-3 w-auto"/>
               <mp:buttonBootstrap id="importButton" value="#{msg['button.import']}" bean="#{userImportBean}"
-                                  disabled="#{userImportBean.importDisabled}" styleClass="btn btn-secondary me-3"
+                                  disabled="#{userImportBean.importDisabled}" styleClass="btn btn-secondary me-3 w-auto"
                                   action="importUsers"/>
             </a4j:outputPanel>
           </h:form>

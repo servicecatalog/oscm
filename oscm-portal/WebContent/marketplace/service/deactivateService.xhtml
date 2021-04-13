@@ -14,7 +14,7 @@
   </ui:define>
 
   <ui:define name="dialogTitle">
-    <h2>
+    <h2 class="w-auto">
       <h:outputText id="#{dialogId}DialogTitle" value="#{msg['service.deactivate.title']}"/>
     </h2>
   </ui:define>
@@ -33,7 +33,7 @@
         <h:form id="#{dialogId}Form">
 
           <h:inputTextarea id="reasonTextArea" value="#{serviceActivationBean.suspensionReason}" required="true"
-                           title="#{msg['service.deactivate.text.tooltip']}" styleClass="form-control form-control-sm">
+                           title="#{msg['service.deactivate.text.tooltip']}" styleClass="form-control form-control-sm mb-1">
             <f:converter converterId="trimConverter"/>
           </h:inputTextarea>
           <mp:message id="reasonTextAreaErrorMsg" for="reasonTextArea"/>

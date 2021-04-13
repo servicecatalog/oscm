@@ -10,7 +10,7 @@
                 xmlns:mp="http://www.fujitsu.com/global/services/software/interstage/marketplace"
                 template="templates/modalDialogBootstrap.xhtml">
   <ui:define name="dialogTitle">
-    <h3>
+    <h3 class="w-auto">
       <h:outputText value="#{title}" />
     </h3>
   </ui:define>
@@ -94,13 +94,14 @@
           <!-- Ok/Cancel button -->
           <hr class="mt-3 mb-1"/>
           <div class="row row-justify-space">
-           <mp:buttonBootstrap id="#{dialogId}cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3"
+
+           <mp:buttonBootstrap id="#{dialogId}cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3 w-auto"
                                onclick="setDirty(false); #{rich:component(dialogId)}.hide(); return false;"
                                value="#{msg['button.cancel']}" />
            <mp:buttonBootstrap id="#{dialogId}okButton" render=":unitNameDisplay :saveConfigurationPanel :selectedUnitName"
                                bean="#{bean}" action="updateSelectedUnit" value="#{msg['button.ok']}"
                                oncomplete="setDirty(true);#{rich:component(dialogId)}.hide();AdmUtils.showProgress(false);"
-                               styleClass="btn-sm btn-secondary me-3"/>
+                               styleClass="btn-sm btn-secondary me-3 w-auto"/>
          </div>
         </h:form>
       </ui:fragment>

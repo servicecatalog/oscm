@@ -57,7 +57,7 @@
 
                   <adm:buttonBootstrap id="testButton" value="#{msg['button.testConnection']}"
                                        bean="#{ldapConfigurationCtrl}"
-                                       action="testConnection" styleClass="btn btn-secondary me-3"/>
+                                       action="testConnection" styleClass="btn btn-secondary me-3 w-auto"/>
                 </a4j:outputPanel>
               </h:form>
             </div>
@@ -68,10 +68,11 @@
                 <a4j:outputPanel styleClass="d-flex float-end input-group mb-3">
                   <t:div class="custom-file me-1">
                     <t:inputFileUpload id="file" label="#{msg['common.filename']}"
-                                       onchange="jQuery('.custom-file-label').text(this.value);"
+                                       onchange="jQuery('.form-label').text(this.value);"
                                        value="#{ldapConfigurationModel.file}" size="21" styleClass="fileChooser d-none"
                                        requiredMessage="#{msg['error.upload.fileNotNullNorEmpty']}"/>
-                    <h:outputLabel id="inputFile" class="custom-file-label btn text-start" for="file"/>
+
+                    <h:outputLabel id="inputFile" class="custom-file-label btn text-start w-100 m-0 p-0 h-100" for="file"/>
                   </t:div>
                   <div class="input-group-append">
                     <h:outputLink id="importButton" styleClass="btn btn-secondary" value="#"

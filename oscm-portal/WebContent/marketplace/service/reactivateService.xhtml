@@ -9,7 +9,7 @@
   <c:set var="imgUrl" value="#{facesContext.externalContext.requestContextPath}/marketplace/img"/>
 
   <ui:define name="dialogTitle">
-    <h2>
+    <h2 class="w-auto">
       <h:outputText id="#{dialogId}DialogTitle" value="#{msg['service.reactivate.title']}"/>
     </h2>
   </ui:define>
@@ -29,11 +29,11 @@
                       render=":#{dialogId}RerenderPanel :#{dialogId}modalErrorMasterPanel #{additionalRender} @form @this @parent"/>
             </h:commandButton>
 
-            <mp:buttonLink id="#{dialogId}cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3"
+            <mp:buttonLink id="#{dialogId}cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-1"
                            onclick="#{rich:component(dialogId)}.hide();return false;"
                            value="#{msg['button.cancel']}"/>
 
-            <mp:buttonLink id="#{dialogId}Reactivate" styleClass="btn btn-sm btn-secondary me-3"
+            <mp:buttonLink id="#{dialogId}Reactivate" styleClass="btn btn-sm btn-secondary me-1"
                            onclick="#{rich:element('hiddenReactivateButton')}.click(); return false;"
                            value="#{msg['button.service.reactivate']}"/>
 

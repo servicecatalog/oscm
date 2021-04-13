@@ -27,11 +27,12 @@
    <a4j:commandButton style="display: none" id="hiddenModalEditRolesSaveAndHide" value="#{msg['button.save']}"
                       action="#{manageSubscriptionCtrl.updateRoles}" render="@form,#{dialogId}modalErrorMasterPanel"
                       oncomplete="AdmUtils.showProgress(false);if(!#{facesContext.maximumSeverity.ordinal > 0}){#{rich:component(dialogId)}.hide();}"/>
-   <mp:buttonBootstrap id="#{dialogId}CancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3"
+
+   <mp:buttonBootstrap id="#{dialogId}CancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3 w-auto"
                        onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
                        value="#{msg['button.cancel']}"/>
    <mp:buttonBootstrap id="#{dialogId}SaveButton" value="#{msg['button.save']}"
-                       styleClass="btn btn-sm btn-secondary me-3"
+                       styleClass="btn btn-sm btn-secondary me-3 w-auto"
                        onclick="setOnSubmit(true);setDirty(false);AdmUtils.showProgress(true); #{rich:element('hiddenModalEditRolesSaveAndHide')}.click();return false;"/>
   </div>
 

@@ -62,7 +62,7 @@
                 <h:outputText value=" *" styleClass="mandatory"/>
               </div>
               <div class="col-md-7">
-                <h:selectOneMenu id="selectBillingContact" styleClass="custom-select" disabled="false"
+                <h:selectOneMenu id="selectBillingContact" styleClass="form-select" disabled="false"
                                  required="#{!empty param['payment:next']}"
                                  value="#{upgradeWizardConversation.selectedBillingContact}"
                                  rendered="#{upgradeWizardConversation.billingContactVisible}"
@@ -123,7 +123,7 @@
               <div class="col-md-7">
                 <h:selectOneMenu id="selectPaymentInfo" converter="#{paymentTypeConverter}"
                                  required="#{!empty param['payment:next']}" rendered="#{paymentInfoVisible}"
-                                 value="#{upgradeWizardConversation.selectedPaymentInfo}" styleClass="custom-select"
+                                 value="#{upgradeWizardConversation.selectedPaymentInfo}" styleClass="form-select"
                                  onchange="setDirtyOnManageSubscriptionModelPayment(true);" disabled="false">
                   <adm:selectItemPleaseSelect itemValue=""/>
                   <f:selectItems
@@ -172,9 +172,10 @@
 
             <a4j:outputPanel styleClass="row row-justify-space">
               <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" action="previous"
-                                  bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ms-3"
+                                  bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ms-3 w-auto"
                                   rendered="true" keepDirty="true" clearDirty="#{clearDirtyBack}"/>
-              <mp:buttonBootstrap id="next" value="#{msg['button.next']}" styleClass="btn btn-secondary me-3"
+
+              <mp:buttonBootstrap id="next" value="#{msg['button.next']}" styleClass="btn btn-secondary me-3 w-auto"
                                   bean="#{upgradeWizardConversation}" action="next" keepDirty="true"
                                   disabled="#{emptyEnabledPaymentTypes}" clearDirty="#{clearDirtyForward}"/>
             </a4j:outputPanel>

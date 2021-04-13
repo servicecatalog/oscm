@@ -18,7 +18,7 @@
   </ui:define>
 
   <ui:define name="dialogTitle">
-    <h2>
+    <h2 class="w-auto">
       <h:outputText
           value="#{msg['payment.new.BillingContact.title']}"/>
     </h2>
@@ -111,7 +111,7 @@
             <div class="col-md-8 col-sm-12">
               <h:inputTextarea id="address" label="#{msg['billingContact.address']}"
                                value="#{billingContactBean.billingContact.address}"
-                               onchange="setDirty(true)" rows="3" styleClass="form-control form-control-xs mb-0"
+                               onchange="setDirty(true)" rows="3" styleClass="form-control mb-0"
                                required="#{empty param[reqBtnName]}" maxlength="#{appBean.descriptionLen}">
                 <f:validateLength maximum="#{appBean.descriptionLen}"/>
                 <f:converter converterId="trimConverter"/>
@@ -127,7 +127,7 @@
 
           <hr class="mt-3 mb-1"/>
           <div class="row row-justify-space">
-            <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3"
+            <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3 w-auto"
                              onclick="AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
                                       AdmUtils.clearHiddenErrorPanel();
                                       AdmUtils.deselectRow();
@@ -136,7 +136,7 @@
               <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
             </h:commandButton>
 
-            <h:commandButton id="saveBillingContactButton" styleClass="btn btn-sm btn-secondary me-3"
+            <h:commandButton id="saveBillingContactButton" styleClass="btn btn-sm btn-secondary me-3 w-auto"
                              onclick="saveLineEndings();AdmUtils.showProgress(true);setDirty(false)"
                              value="#{msg['button.save']}" action="#{billingContactBean.saveBillingContact}">
               <f:ajax execute="@form"  onevent="#{dialogId}eventHandler"
