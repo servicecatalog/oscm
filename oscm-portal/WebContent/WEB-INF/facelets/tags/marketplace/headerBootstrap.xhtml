@@ -14,11 +14,9 @@
           <h:graphicImage value="${logoimg}" alt="My Logo"/>
         </a>
       </div>
-      <button id="navbarToggleButton" class="navbar-toggler" type="button" data-toggle="collapse"
-              data-target="#navbar" aria-controls="navbar">
-        <span class="navbar-toggler-icon">
-          <i class="fa fa-bars"/>
-        </span>
+      <button id="navbarToggleButton" class="navbar-toggler" type="button" data-bs-toggle="collapse"
+              data-bs-target="#navbar" aria-controls="navbar">
+        <span class="navbar-toggler-icon"/>
       </button>
 
       <div class="collapse navbar-collapse" id="navbar">
@@ -107,8 +105,13 @@
             </ui:fragment>
             <ui:fragment rendered="#{user ne null}">
               <li class="nav-item dropdown"><a class="order-lg-4 nav-link dropdown-toggle waves-effect waves-light"
+<<<<<<< Upstream, based on origin/master
                                                href="#" id="navbarUserToggle" data-toggle="dropdown"
                                                data-target="#userDrop"><i class="fa fa-user"/>
+=======
+                                               href="#" id="navbarUserToggle" data-bs-toggle="dropdown"
+                                               data-bs-target="#userDrop"><i class="fa fa-user"/>
+>>>>>>> ab76f7f Fixx hamburger menu
                 <h:outputText id="welcome"/>
                 #{msg['OPERATIONS_ORGANIZATION_USER']} </a>
                 <div id="userDrop" class="dropdown-menu dropdown-menu-end mb-1">
@@ -148,6 +151,7 @@
 
   <script type="text/javascript">
     AdmUtils.IE9PlaceHolderFix('#{servicePagingBean.searchPhrase}', 'inputSearch');
+<<<<<<< Upstream, based on origin/master
 
     const COLOR_MODES = ["light", "dark"];
     const THEME_ATTR = "data-theme";
@@ -192,5 +196,7 @@
         }
       }
     }
+=======
+>>>>>>> ab76f7f Fixx hamburger menu
   </script>
 </ui:composition>
