@@ -41,15 +41,18 @@
 
       <div class="list-group list-group-horizontal-sm text-center" id="nav-tab" role="tablist">
         <a class="list-group-item list-group-item-secondary list-group-item-action active" id="tabUser"
-           data-toggle="tab" href="#user" role="tab" aria-controls="user" onclick="setSelectedTab('tabUser');">#{msg['marketplace.account.profile.userTab']}</a>
+           data-bs-toggle="tab" href="#user" role="tab" aria-controls="user"
+           onclick="setSelectedTab('tabUser');">#{msg['marketplace.account.profile.userTab']}</a>
         <c:if
             test="#{userBean.isOrganizationAdmin and empty appBean.hiddenUIElements['organization.edit.organizationData']}">
-          <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabOrg" data-toggle="tab"
-             href="#org" aria-controls="org" aria-selected="false" role="tab" onclick="setSelectedTab('tabOrg');">#{msg['marketplace.account.profile.organizationTab']}</a>
+          <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabOrg" data-bs-toggle="tab"
+             href="#org" aria-controls="org" aria-selected="false"
+             role="tab" onclick="setSelectedTab('tabOrg');">#{msg['marketplace.account.profile.organizationTab']}</a>
         </c:if>
         <c:if test="#{userBean.isOrganizationAdmin}">
-          <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabAttr" data-toggle="tab"
-             aria-selected="false" role="tab" aria-controls="attr" href="#attr" onclick="setSelectedTab('tabAttr');">#{msg['marketplace.account.profile.attributeTab']}</a>
+          <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabAttr" data-bs-toggle="tab"
+             aria-selected="false" role="tab" aria-controls="attr"
+             href="#attr" onclick="setSelectedTab('tabAttr');">#{msg['marketplace.account.profile.attributeTab']}</a>
         </c:if>
       </div>
 
@@ -141,7 +144,7 @@
             <a4j:outputPanel styleClass="row justify-content-end">
               <adm:buttonBootstrap id="saveUserButton" value="#{msg['button.save']}" bean="#{organizationBean}"
                                    onclick="validateCurrentUserRoles();return false;"
-                                   styleClass="btn btn-secondary mr-4" action="save"/>
+                                   styleClass="btn btn-secondary me-4" action="save"/>
             </a4j:outputPanel>
           </h:form>
         </div>
@@ -181,7 +184,7 @@
             <a4j:outputPanel styleClass="row justify-content-end">
               <adm:buttonBootstrap id="saveOrgButton" value="#{msg['button.save']}" bean="#{organizationBean}"
                                    action="save" onclick="validateCurrentUserRoles();return false;"
-                                   styleClass="btn btn-secondary mr-4"/>
+                                   styleClass="btn btn-secondary me-4"/>
             </a4j:outputPanel>
           </h:form>
         </div>
@@ -290,7 +293,7 @@
                                           expandMode="client" expanded="#{false}" rows="1">
                   <rich:column colspan="4">
                     <div class="row d-lg-none py-1">
-                      <div class="col-4 pl-4">
+                      <div class="col-4 ps-4">
                         <h:outputText value="#{msg['marketplace.account.profile.attributes.vendor']}:"
                                       styleClass="font-weight-bold"/>
                       </div>
@@ -320,8 +323,7 @@
             <a4j:outputPanel styleClass="row justify-content-end">
               <adm:buttonBootstrap id="saveAttrButton" value="#{msg['button.save']}" bean="#{manageAttributesCtrl}"
                                    rendered="#{(not empty manageAttributesCtrl.model.attributes)}"
-                                   styleClass="btn btn-secondary mr-4"
-                                   action="saveAttributes"/>
+                                   styleClass="btn btn-secondary me-4" action="saveAttributes"/>
             </a4j:outputPanel>
           </h:form>
         </div>

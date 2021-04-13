@@ -106,20 +106,20 @@
                 <h2 class="box_title mt-3">#{msg['subscription.confirm.details.title']}</h2>
                 <hr class="mt-1 mb-2"/>
                 <a4j:outputPanel layout="block" styleClass="bg-themed-secondary rounded p-3">
-                  <a4j:outputPanel layout="block" styleClass="row mb-2 ml-1"
+                  <a4j:outputPanel layout="block" styleClass="row mb-2 ms-1"
                                    rendered="#{not empty upgradeWizardConversation.model.selectedBillingContact}">
                     <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.id}"
                                   id="billingId" styleClass="font-weight-bold"/>
                   </a4j:outputPanel>
-                  <div class="row ml-1">
+                  <div class="row ms-1">
                     <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.email}"
                                   id="billingEmail"/>
                   </div>
-                  <div class="row ml-1">
+                  <div class="row ms-1">
                     <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.companyName}"
                                   id="billingCompanyName" styleClass="preWrapping"/>
                   </div>
-                  <div class="row ml-1">
+                  <div class="row ms-1">
                     <h:outputText value="#{upgradeWizardConversation.model.selectedBillingContact.address}"
                                   id="billingAddress" styleClass="preWrapping"/>
                   </div>
@@ -142,15 +142,15 @@
                 </div>
 
                 <a4j:outputPanel layout="block" styleClass="bg-themed-secondary rounded p-3">
-                  <a4j:outputPanel layout="block" styleClass="row mb-2 ml-1">
+                  <a4j:outputPanel layout="block" styleClass="row mb-2 ms-1">
                     <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.id}" id="paymentId"
                                   styleClass="font-weight-bold"/>
                   </a4j:outputPanel>
-                  <div class="row ml-1">
+                  <div class="row ms-1">
                     <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.providerName}"
                                   id="paymentProvider"/>
                   </div>
-                  <div class="row ml-1">
+                  <div class="row ms-1">
                     <h:outputText value="#{upgradeWizardConversation.model.selectedPaymentInfo.accountNumber}"
                                   id="paymentAccount"/>
                   </div>
@@ -184,10 +184,10 @@
 
               <a4j:outputPanel styleClass="row row-justify-space">
                 <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" immediate="true" keepDirty="true"
-                                    bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ml-3"
+                                    bean="#{upgradeWizardConversation}" styleClass="btn btn-outline-secondary ms-3"
                                     action="previousFromConfirmPage"/>
 
-                <mp:buttonBootstrap id="confirm" value="#{msg['button.confirm']}" styleClass="btn btn-secondary mr-3"
+                <mp:buttonBootstrap id="confirm" value="#{msg['button.confirm']}" styleClass="btn btn-secondary me-3"
                                     bean="#{upgradeWizardConversation}" action="upgrade" big="true"/>
               </a4j:outputPanel>
             </div>

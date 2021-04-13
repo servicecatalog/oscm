@@ -127,7 +127,7 @@
 
           <hr class="mt-3 mb-1"/>
           <div class="row row-justify-space">
-            <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ml-3"
+            <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3"
                              onclick="AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
                                       AdmUtils.clearHiddenErrorPanel();
                                       AdmUtils.deselectRow();
@@ -136,7 +136,7 @@
               <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
             </h:commandButton>
 
-            <h:commandButton id="saveBillingContactButton" styleClass="btn btn-sm btn-secondary mr-3"
+            <h:commandButton id="saveBillingContactButton" styleClass="btn btn-sm btn-secondary me-3"
                              onclick="saveLineEndings();AdmUtils.showProgress(true);setDirty(false)"
                              value="#{msg['button.save']}" action="#{billingContactBean.saveBillingContact}">
               <f:ajax execute="@form"  onevent="#{dialogId}eventHandler"

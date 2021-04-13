@@ -101,7 +101,7 @@
         <!-- visible buttons -->
         <a4j:outputPanel styleClass="bottomButtonPanel row row-justify-space">
           <mp:buttonBootstrap id="btnCancel" value="#{msg['service.reviews.button.cancel']}"
-                              styleClass="btn btn-outline-secondary ml-3"
+                              styleClass="btn btn-outline-secondary ms-3"
                               onclick="AdmUtils.showProgress(true);setDirty(false);#{rich:element('btnHiddenCancel')}.click();resetCommentForm();"/>
           <c:if test="#{not manageReviewCtrl.isNewReview}">
             <adm:buttonBootstrap id="btnRemove" value="#{msg['service.reviews.button.remove']}" action="removeReview"
@@ -109,7 +109,7 @@
                                  oncomplete="AdmUtils.showProgress(false);setDirty(false);resetCommentForm();"/>
           </c:if>
 
-          <mp:buttonBootstrap id="btnPublishLink" styleClass="btn btn-secondary mr-3 float-right"
+          <mp:buttonBootstrap id="btnPublishLink" styleClass="btn btn-secondary me-3 float-end"
                               onclick="setDirty(false);AdmUtils.showProgress(true);#{rich:element('hiddenSaveBtn')}.click(); return false;"
                               value="#{msg['button.save']}"/>
         </a4j:outputPanel>

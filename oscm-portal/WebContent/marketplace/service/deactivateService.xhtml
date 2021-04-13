@@ -48,9 +48,9 @@
             </h:commandButton>
 
             <mp:buttonLink id="#{dialogId}cancelButton" onclick="#{rich:component(dialogId)}.hide();"
-                           value="#{msg['button.cancel']}" styleClass="btn btn-sm btn-outline-secondary ml-3"/>
+                           value="#{msg['button.cancel']}" styleClass="btn btn-sm btn-outline-secondary ms-3"/>
 
-            <mp:buttonLink id="#{dialogId}Deactivate" styleClass="btn btn-sm btn-secondary mr-3"
+            <mp:buttonLink id="#{dialogId}Deactivate" styleClass="btn btn-sm btn-secondary me-3"
                            onclick="#{rich:element('hiddenDeactivateBtn')}.click();"
                            value="#{msg['button.service.deactivate']}"/>
           </a4j:outputPanel>

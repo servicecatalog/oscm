@@ -17,21 +17,21 @@
       </h:commandButton>
     </h:form>
 
-    <div class="container-flex pl-0 mt-3">
+    <div class="container-flex ps-0 mt-3">
       <div class="list-group list-group-horizontal-sm text-center" id="service-tab" role="tablist">
         <c:if test="#{enterpriseLandingpageCtrl.showFirstCategory}">
           <a class="list-group-item list-group-item-secondary list-group-item-action active" id="firstCategory"
-             data-toggle="tab" href="#first" role="tab" aria-controls="first"
+             data-bs-toggle="tab" href="#first" role="tab" aria-controls="first"
              onclick="setSelectedTab('firstCategory');">#{enterpriseLandingpageCtrl.nameFirstCategoryShow}</a>
         </c:if>
         <c:if test="#{enterpriseLandingpageCtrl.showSecondCategory}">
           <a class="list-group-item list-group-item-secondary list-group-item-action" id="secondCategory"
-             data-toggle="tab" href="#second" role="tab" aria-controls="second"
+             data-bs-toggle="tab" href="#second" role="tab" aria-controls="second"
              onclick="setSelectedTab('secondCategory');">#{enterpriseLandingpageCtrl.nameSecondCategoryShow}</a>
         </c:if>
         <c:if test="#{enterpriseLandingpageCtrl.showThirdCategory}">
           <a class="list-group-item list-group-item-secondary list-group-item-action" id="thirdCategory"
-             data-toggle="tab" href="#third" role="tab" aria-controls="third"
+             data-bs-toggle="tab" href="#third" role="tab" aria-controls="third"
              onclick="setSelectedTab('thirdCategory');">#{enterpriseLandingpageCtrl.nameThirdCategoryShow}</a>
         </c:if>
       </div>
