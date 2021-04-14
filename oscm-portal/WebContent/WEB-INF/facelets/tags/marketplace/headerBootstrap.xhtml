@@ -107,10 +107,6 @@
             </ui:fragment>
             <ui:fragment rendered="#{user ne null}">
               <li class="nav-item dropdown"><a class="order-lg-4 nav-link dropdown-toggle waves-effect waves-light"
-
-                                               href="#" id="navbarUserToggle" data-bs-toggle="dropdown"
-                                               data-bs-target="#userDrop"><i class="fa fa-user"/>
-
                                                href="#" id="navbarUserToggle" data-bs-toggle="dropdown"
                                                data-bs-target="#userDrop"><i class="fa fa-user"/>
                 <h:outputText id="welcome"/>
@@ -119,7 +115,7 @@
                   <p class="px-4 py-sm-2 mb-1">
                     #{msg['marketplace.logging']} <strong><br>#{user.userId}</br></strong>
                   </p>
-                  <div class="form-check form-switch pl-1 d-none">
+                  <div class="form-check form-switch ps-1 d-none">
                     <input class="form-check-input toggle-theme-switch my-2" type="checkbox" id="toggle-switch"/>
                     <label class="form-check-label" for="toggle-switch">Color theme</label>
                   </div>
