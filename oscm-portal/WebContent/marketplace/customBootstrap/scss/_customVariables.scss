@@ -3,7 +3,6 @@
 $body-color:                           hsl(var(--oscm-main-font-color));
 $bg-body:                              var(--oscm-bg-color);
 $bg-light:                             var(--oscm-bg-color);
-$custom-select-bg:                     var(--oscm-main-color-800);
 
 $breadcrumb-bg:                        var(--oscm-main-color-900);
 $breadcrumb-active-color:              hsl(var(--oscm-primary));
@@ -172,7 +171,7 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
   color:                               hsl(var(--oscm-main-font-color)) !important;
 }
 
-.custom-select {
+.form-select {
   background-color:                    hsl(var(--oscm-main-input-color));
   color:                               hsl(var(--oscm-main-font-color));
 }
