@@ -44,10 +44,12 @@
             <hr class="mt-3 mb-1"/>
             <div class="row justify-content-between">
               <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" bean="#{subscriptionWizardConversation}"
-                                  action="previousFromConfirmPage" keepDirty="true" immediate="true" styleClass="btn btn-outline-secondary ml-3"/>
+                                  action="previousFromConfirmPage" keepDirty="true" immediate="true" styleClass="btn btn-outline-secondary ms-3 w-auto"/>
+
 
               <mp:buttonBootstrap id="confirm" value="#{msg['button.confirm']}" bean="#{subscriptionWizardConversation}"
-                                  action="subscribe" styleClass="btn btn-secondary mr-3"/>
+                                  action="subscribe" styleClass="btn btn-secondary me-3 w-auto"/>
+
             </div>
           </div>
         </h:form>

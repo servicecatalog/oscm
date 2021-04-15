@@ -42,7 +42,7 @@
         <ui:insert name="fullDialogContent"/>
       </c:if>
       <c:if test="#{!defineFullDialogContent}">
-        <div class="border-top pt-1">
+        <div class="border-top pt-3">
           <a4j:outputPanel id="#{dialogId}modalErrorMasterPanel">
             <a4j:outputPanel id="#{dialogId}modalErrorPanel" layout="block" styleClass="errorPanel"
                              rendered="#{(not empty errorKey) or (facesContext.maximumSeverity.ordinal > 0)}">

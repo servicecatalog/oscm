@@ -9,7 +9,7 @@
     <div class="cat-browseAll-btn">
       <h:commandButton id="browseAllBtn" action="#{serviceListingBean.showServiceList}"
         value="#{msg['button.browseAll']}"
-        class="btn btn-sm btn-secondary btn-lg text-center btn-block text-wrap">
+        class="btn btn-sm btn-secondary btn-lg text-center btn-block text-wrap w-100">
         <f:setPropertyActionListener target="#{servicePagingBean.filterTag}" value="" />
         <f:setPropertyActionListener target="#{categorySelectionBean.selectedCategoryId}" value="" />
         <f:setPropertyActionListener target="#{servicePagingBean.filterCategoryForDisplay}" value="" />

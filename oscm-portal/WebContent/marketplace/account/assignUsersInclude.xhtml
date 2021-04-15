@@ -21,7 +21,7 @@
                     rowClasses="rowOdd,rowEven" onRowMouseOver="AdmUtils.mouseOverRowCell(this);"
                     onRowMouseOut="AdmUtils.mouseOutRowCell(this)" noDataLabel=" ">
 
-      <rich:column id="assignCol" styleClass="tableColumnCheckBox pl-0">
+      <rich:column id="assignCol" styleClass="tableColumnCheckBox ps-0">
         <h:selectBooleanCheckbox id="assignCheckbox" value="#{user.selected}">
           <f:ajax event="change"/>
         </h:selectBooleanCheckbox>
@@ -81,15 +81,16 @@
       <a4j:commandButton styleClass="d-none" id="hiddenModalCancelAndHide" value="#{msg['button.save']}"
                          action="#{controller.assignUsersCancel}"/>
 
-      <mp:buttonBootstrap id="cancelUpdateButton" styleClass="btn btn-outline-secondary ml-3"
+      <mp:buttonBootstrap id="cancelUpdateButton" styleClass="btn btn-outline-secondary ms-3 w-auto"
                           onclick="setDirty(#{rich:element('configDirty')}.value=='true');#{rich:component(dialogId)}.hide();#{rich:element('hiddenModalCancelAndHide')}.click();return false;"
                           value="#{msg['button.cancel']}"/>
 
-      <mp:buttonBootstrap id="updateButton" rendered="#{not addGroup}" styleClass="btn btn-outline-secondary"
+      <mp:buttonBootstrap id="updateButton" rendered="#{not addGroup}" styleClass="btn btn-outline-secondary w-auto"
                           onclick="setOnSubmit(true);AdmUtils.showProgress(true);#{rich:element('hiddenModalSaveAndHide')}.click();return false;"
                           value="#{msg['button.assign']}"/>
 
-      <mp:buttonBootstrap id="saveButton" rendered="#{addGroup}" styleClass="btn btn-secondary mr-3 float-right"
+
+      <mp:buttonBootstrap id="saveButton" rendered="#{addGroup}" styleClass="btn btn-secondary me-3 w-auto float-end"
                           onclick="if(#{rich:element('configDirty')}.value=='true')setDirty(true);AdmUtils.showProgress(true);#{rich:element('hiddenModalSaveAndHide')}.click();return false;"
                           value="#{msg['button.assign']}"/>
     </a4j:outputPanel>

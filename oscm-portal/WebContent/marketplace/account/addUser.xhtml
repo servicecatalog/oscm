@@ -40,7 +40,7 @@
      <mp:outputStep value="#{msg['marketplace.account.adduser.title']}"/>
 
       <mp:formSelect id="salutation" label="#{msg['user.salutation']}"
-                     value="#{createUserCtrl.model.salutation.value}" selectStyle="custom-select">
+                     value="#{createUserCtrl.model.salutation.value}" selectStyle="form-select">
        <adm:salutationItems/>
       </mp:formSelect>
 
@@ -57,20 +57,20 @@
                     validatorId="userId" converterId="trimConverter" inputStyle="form-control"/>
 
       <mp:formSelect id="locale" label="#{msg['user.locale']}" value="#{createUserCtrl.model.locale.value}"
-                     selectStyle="custom-select" showHint="true">
+                     selectStyle="form-select" showHint="true">
        <adm:localeItems/>
        <f:validator validatorId="SupportedLanguageValidator"/>
       </mp:formSelect>
 
       <mp:message for="asAdmin"/>
 
-     <hr class="pt-2"/>
+     <hr />
 
      <a4j:outputPanel layout="block" styleClass="bottomButtonPanel row row-justify-space">
       <mp:buttonBootstrap id="cancelButton" onclick="setDirty(false);location.href='users.jsf';return false;"
-                          value="#{msg['button.cancel']}" styleClass="btn btn-outline-secondary ml-3"/>
+                          value="#{msg['button.cancel']}" styleClass="btn btn-outline-secondary ms-3 w-auto"/>
       <adm:buttonBootstrap id="createButton" value="#{msg['button.save']}" bean="#{createUserCtrl}" action="create"
-                           big="true" styleClass="btn btn-secondary mr-3"/>
+                           big="true" styleClass="btn btn-secondary me-3 w-auto"/>
      </a4j:outputPanel>
 
      <script type="application/javascript">

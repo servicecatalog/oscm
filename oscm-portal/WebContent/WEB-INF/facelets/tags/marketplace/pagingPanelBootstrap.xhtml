@@ -10,12 +10,12 @@
   <c:set var="lastPage" value="#{servicePagingBean.lastVisiblePage}"/>
 
 
-  <div class="pagingPanel container-fluid border shadow bg-themed ml-0 px-0">
+  <div class="pagingPanel container-fluid border shadow bg-themed ms-0 px-0">
     <div class="row justify-content-around">
 
       <!--  Number of services and filter tag info -->
-      <div class="row my-2 align-items-left align-self-center d-none d-sm-block ml-0">
-        <span id="listInfo#{prefix}" class="pagerListInfo label pl-1">
+      <div class="row my-2 align-items-left align-self-center d-none d-sm-block ms-0 w-auto">
+        <span id="listInfo#{prefix}" class="pagerListInfo label ps-1">
           <h:outputFormat value="#{msg['catalog.selectedTag.pageInfo']}" escape="true">
             <f:param value="#{servicePagingBean.firstOnPage}"/>
             <f:param value="#{servicePagingBean.lastOnPage}"/>
@@ -25,7 +25,7 @@
       </div>
 
       <!-- Select page container -->
-      <div class="row my-2 align-self-center ml-0">
+      <div class="row my-2 align-self-center ms-0 w-auto">
         <!--  Previous button -->
         <div class="col-auto px-1">
           <c:if test="#{servicePagingBean.previousAvailable}">
@@ -45,7 +45,7 @@
         </div>
 
         <!-- Page selection -->
-        <div class="col-auto px-0">
+        <div class="col-auto px-0 w-auto">
           <c:forEach items="#{servicePagingBean.visiblePages}" var="selpage" varStatus="status">
             <!-- Current page -->
             <c:if test="#{selpage eq servicePagingBean.selectedPage}">
@@ -83,45 +83,43 @@
         </div>
       </div>
 
-      <!-- Right menu container -->
-      <div class="row">
-        <!-- Page size container -->
-        <div class="row align-items-center">
-          <!-- Show  -->
-          <div class="col-auto">
-            <h:outputText value="#{msg['paging.show']}" styleClass="pagerListInfo bigDisplay pr-0"/>
-          </div>
-          <!-- Page size buttons -->
-          <div class="col-auto pl-0">
-            <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
-              <c:if test="#{size eq servicePagingBean.pageSize}">
-                <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary active px-1"
-                              id="pagingSize#{prefix}#{size}" value="">
-                  #{size}
-                </h:outputLink>
-              </c:if>
-              <c:if test="#{size ne servicePagingBean.pageSize}">
-                <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary px-1"
-                              id="pagingSize#{prefix}#{size}" value=""
-                              onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
-                  #{size}
-                </h:outputLink>
-              </c:if>
-            </c:forEach>
-          </div>
+      <!-- Page size container -->
+      <div class="row align-items-center w-auto">
+        <!-- Show  -->
+        <div class="col-auto">
+          <h:outputText value="#{msg['paging.show']}" styleClass="pagerListInfo bigDisplay pe-0"/>
+        </div>
+        <!-- Page size buttons -->
+        <div class="col-auto ps-0">
+          <c:forEach items="#{servicePagingBean.availablePagesSizes}" var="size" varStatus="status">
+            <c:if test="#{size eq servicePagingBean.pageSize}">
+              <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary active px-1"
+                            id="pagingSize#{prefix}#{size}" value="">
+                #{size}
+              </h:outputLink>
+            </c:if>
+            <c:if test="#{size ne servicePagingBean.pageSize}">
+              <h:outputLink styleClass="pagingNofServices btn btn-sm btn-outline-secondary px-1"
+                            id="pagingSize#{prefix}#{size}" value=""
+                            onclick="#{rich:element('pageSize')}.value='#{size}';#{rich:element('listButton')}.click();return false;">
+                #{size}
+              </h:outputLink>
+            </c:if>
+          </c:forEach>
         </div>
       </div>
 
       <!-- Sorting select menu -->
-      <nav class="navbar navbar-expand-lg serviceSorting">
-        <div class="col-auto my-1 pr-0 mr-1">
+
+      <nav class="navbar navbar-expand-lg bg-themed serviceSorting w-auto">
+        <div class="col-auto my-1 pe-0 me-1">
           <div class="dropdown ">
             <a class="btn btn-sm btn-outline-secondary dropdown-toggle" href="#" id="navbarSortToggle#{prefix}"
-               data-toggle="dropdown" data-target="#sortDrop#{prefix}">
+               data-bs-toggle="dropdown" data-bs-target="#sortDrop#{prefix}">
               <h:outputText value="Sorting"/>
             </a>
 
-            <div id="sortDrop#{prefix}" class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarSortToggleUp">
+            <div id="sortDrop#{prefix}" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarSortToggleUp">
               <p class="px-4 py-sm-2 mt-1 mb-2">
                 <strong>#{msg['catalog.sortorder.'.concat(servicePagingBean.sorting)]}</strong>
               </p>
