@@ -14,7 +14,7 @@
   font-size: 0.875rem;
 }
 
-.form-control:focus, .form-select:focus, .btn:focus, .custom-file-input:focus, .page-link:focus {
+.form-control:focus, .form-select:focus, .btn:focus, .page-link:focus {
   border-color: hsl(var(--oscm-primary));
   background-color: hsl(var(--oscm-main-input-color));
   box-shadow: 0 0 0 0.2rem hsla(var(--oscm-primary), 0.5);
