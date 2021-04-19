@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/servicecatalog/oscm.svg?branch=master)](https://travis-ci.org/servicecatalog/oscm)
+[![Build Status](https://travis-ci.com/servicecatalog/oscm.svg?branch=master)](https://travis-ci.com/servicecatalog/oscm)
 
 <p align="center"><h1><img height="52" src="https://avatars0.githubusercontent.com/u/14330878" alt="Open Service Catalog Manager"/>&nbsp;Open Service Catalog Manager</h1></p> 
 
