@@ -45,7 +45,7 @@
               <h:form id="ldapForm" enctype="multipart/form-data">
                 <a4j:outputPanel layout="block" styleClass="bottomButtonPanel row row-justify-space">
                   <adm:buttonBootstrap id="exportButton" value="#{msg['button.export']}" bean="#{ldapConfigurationCtrl}"
-                                       action="exportSettings" progress="false" styleClass="btn btn-secondary ml-3"
+                                       action="exportSettings" progress="false" styleClass="btn btn-secondary ms-3"
                                        disabled="#{ldapConfigurationCtrl.noSettingsDefined}"/>
 
                   <adm:buttonBootstrap id="resetConfirmButton" value="#{msg['button.reset']}" action="reset"
@@ -57,7 +57,7 @@
 
                   <adm:buttonBootstrap id="testButton" value="#{msg['button.testConnection']}"
                                        bean="#{ldapConfigurationCtrl}"
-                                       action="testConnection" styleClass="btn btn-secondary mr-3"/>
+                                       action="testConnection" styleClass="btn btn-secondary me-3 w-auto"/>
                 </a4j:outputPanel>
               </h:form>
             </div>
@@ -65,13 +65,14 @@
               <h:form id="importForm" enctype="multipart/form-data">
                 <adm:button id="importConfirmButton" value="#{msg['button.import']}" bean="#{ldapConfigurationCtrl}"
                             action="importSettings" buttonType="fileUpload" style="display:none;"/>
-                <a4j:outputPanel styleClass="d-flex float-right input-group mb-3">
-                  <t:div class="custom-file mr-1">
+                <a4j:outputPanel styleClass="d-flex float-end input-group mb-3">
+                  <t:div class="form-control me-1">
                     <t:inputFileUpload id="file" label="#{msg['common.filename']}"
-                                       onchange="jQuery('.custom-file-label').text(this.value);"
+                                       onchange="jQuery('.form-label').text(this.value);"
                                        value="#{ldapConfigurationModel.file}" size="21" styleClass="fileChooser d-none"
                                        requiredMessage="#{msg['error.upload.fileNotNullNorEmpty']}"/>
-                    <h:outputLabel id="inputFile" class="custom-file-label btn text-left" for="file"/>
+
+                    <h:outputLabel id="inputFile" class="form-label btn text-start w-100 m-0 p-0 h-100" for="file"/>
                   </t:div>
                   <div class="input-group-append">
                     <h:outputLink id="importButton" styleClass="btn btn-secondary" value="#"

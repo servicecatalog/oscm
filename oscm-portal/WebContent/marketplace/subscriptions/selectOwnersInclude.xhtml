@@ -44,10 +44,12 @@
 
         <hr class="mt-3 mb-1"/>
         <div class="row row-justify-space">
-          <mp:buttonBootstrap id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ml-3"
+
+          <mp:buttonBootstrap id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3 w-auto"
                               onclick="setDirty(false);#{rich:component(dialogId)}.hide();return false;"
                               value="#{msg['button.cancel']}"/>
-          <mp:buttonBootstrap id="saveButton" styleClass="btn btn-sm btn-secondary mr-3"
+
+          <mp:buttonBootstrap id="saveButton" styleClass="btn btn-sm btn-secondary me-3 w-auto"
                               onclick="if(getDirty()==true){setPageDirty();}setOnSubmit(true);AdmUtils.showProgress(true);
         #{rich:element('hiddenModalSelectOwnerSaveAndHide')}.click();return false;"
                               value="#{msg['button.ok']}" />

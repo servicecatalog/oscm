@@ -20,7 +20,7 @@
               <img id="#{fieldId}Image" class="img" src="#{service.imageContent}"/>
             </div>
           </div>
-          <div class="col-auto pl-1 align-self-center">
+          <div class="col-auto ps-1 align-self-center">
             <mp:ratingStarsBootstrap rating="#{service.rating}"/>
           </div>
         </div>
@@ -32,7 +32,7 @@
 
         <div class="mt-auto">
           <mp:servicePrice service="#{service}" styleClass="servicePriceForCard" showUnit="false"/>
-          <h:link data-toggle="tooltip" title="#{service.shortDescriptionLimited}"
+          <h:link data-bs-toggle="tooltip" title="#{service.shortDescriptionLimited}"
                   id="showServiceDetails#{status.index}" outcome="serviceDetails"
                   class="btn btn-outline-secondary stretched-link" value="#{msg['button.showDetails']}">
             <f:param name="selectedServiceKey" value="#{service.key}"/>

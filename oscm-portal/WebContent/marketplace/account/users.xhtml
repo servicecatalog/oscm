@@ -35,9 +35,9 @@
 
         <div class="list-group list-group-horizontal-sm text-center" id="userAndGroupTablePanel" role="tablist">
           <a class="list-group-item list-group-item-secondary list-group-item-action active" id="tabUser"
-             href="#user" role="tab" aria-controls="user" onclick="setSelectedTab('tabUser');" data-toggle="tab">
+             href="#user" role="tab" aria-controls="user" onclick="setSelectedTab('tabUser');" data-bs-toggle="tab">
             #{msg['subscription.users']}</a>
-          <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabGroups" data-toggle="tab"
+          <a class="list-group-item list-group-item-secondary list-group-item-action" id="tabGroups" data-bs-toggle="tab"
              href="#units" aria-controls="units" aria-selected="false"
              role="tab" onclick="setSelectedTab('tabGroups');">#{msg['subscription.users.Groups']}</a>
         </div>
@@ -58,7 +58,7 @@
                                          styleClass="btn btn-secondary"/>
                   </div>
                   <div class="col-md-7">
-                    <a4j:outputPanel styleClass="d-flex float-right input-group mb-3"
+                    <a4j:outputPanel styleClass="d-flex float-end input-group mb-3"
                                      rendered="#{not userBean.loggedInUser.remoteLdapActive}">
                       <adm:fileUploadBootstrap value="#{userBean.userImport}" labels="false" marketplace="true"
                                                required="false"/>

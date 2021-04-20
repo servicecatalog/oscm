@@ -61,10 +61,10 @@
           <div class="row justify-content-between">
             <mp:buttonBootstrap id="previous" value="#{msg['button.previous']}" bean="#{subscriptionWizardConversation}"
                                 rendered="true" keepDirty="true" clearDirty="#{clearDirtyBack}"
-                                action="previousFromPayment" styleClass="btn btn-outline-secondary ml-3"/>
+                                action="previousFromPayment" styleClass="btn btn-outline-secondary ms-3 w-auto"/>
             <mp:buttonBootstrap id="next" value="#{msg['button.next']}" bean="#{subscriptionWizardConversation}"
                                 disabled="#{emptyEnabledPaymentTypes}" keepDirty="true"  action="next"
-                                clearDirty="#{clearDirtyForward}" styleClass="btn btn-secondary mr-3"/>
+                                clearDirty="#{clearDirtyForward}" styleClass="btn btn-secondary me-3 w-auto"/>
           </div>
 
           <c:set var="availableSubsAndAdmin"

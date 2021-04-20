@@ -31,7 +31,7 @@
     </div>
     <div class="col-md-#{selectWidth} col-sm-12 my-1">
       <div class="row">
-        <div class="col-md-11 col-10 pr-0">
+        <div class="col-md-11 col-10 pe-0">
           <a4j:outputPanel styleClass="jqSelect" layout="block" rendered="#{empty rendered or rendered}">
             <a4j:outputPanel styleClass="select" rendered="#{renderPrefix}">
               <a4j:outputPanel id="#{id}Selected" styleClass="option"/>
@@ -71,7 +71,7 @@
             </c:if>
           </a4j:outputPanel>
         </div>
-        <div class="col-md-1 col-2 pl-0">
+        <div class="col-md-1 col-2 ps-0">
           <c:if test="#{(not empty showHint)}">
             <adm:hintBootstrap for="#{id}"/>
           </c:if>
@@ -81,12 +81,12 @@
     <div class="col-md-#{messageWidth} col-sm-12">
       <c:choose>
         <c:when test="#{(not empty showHint)}">
-          <div class="row pl-3">
+          <div class="row ps-3">
             <adm:message id="#{id}ErrorMsg" for="#{id}"/>
           </div>
         </c:when>
         <c:otherwise>
-          <a4j:outputPanel styleClass="row pl-3">
+          <a4j:outputPanel styleClass="row ps-3">
             <adm:message id="#{id}ErrorMsg" for="#{id}" rendered="#{empty rendered or rendered}"/>
           </a4j:outputPanel>
         </c:otherwise>

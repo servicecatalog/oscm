@@ -13,10 +13,10 @@
     <div class="row mb-2">
       <div class="col">
         <div class="row align-items-center m-0">
-          <div class="col-auto pr-1">
+          <div class="col-auto pe-1">
             <mp:ratingStarsBootstrap rating="#{rating}"/>
           </div>
-          <div class="col-auto pl-1">
+          <div class="col-auto ps-1">
             <h:outputText class="serviceRating" rendered="#{not sessionBean.nameSequenceReversed}"
                           value="#{msg['review.by']} #{empty review.po.firstName and empty review.po.lastName ? msg['review.name.unknown'] : review.po.firstName} #{review.po.lastName} #{msg['review.on']} "/>
             <h:outputText class="serviceRating" rendered="#{sessionBean.nameSequenceReversed}"

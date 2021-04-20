@@ -119,29 +119,29 @@
         <div class="col px-1">
           <div class="list-group list-group-horizontal-sm text-center" id="list-tab" role="tablist">
             <a class="tabControl list-group-item list-group-item-secondary list-group-item-action active"
-               id="userTabLink" data-toggle="list" href="#userTab" role="tab" aria-controls="userTab">#{msg['subscription.users']}</a>
+               id="userTabLink" data-bs-toggle="list" href="#userTab" role="tab" aria-controls="userTab">#{msg['subscription.users']}</a>
             <a class="tabControl list-group-item list-group-item-secondary list-group-item-action"
-               id="configurationTabLink" data-toggle="list" href="#configurationTab" role="tab"
+               id="configurationTabLink" data-bs-toggle="list" href="#configurationTab" role="tab"
                aria-controls="configurationTab">#{msg['subscription.configuration']}</a>
             <ui:fragment
                 rendered="#{manageSubscriptionModel.subscription.priceModel.chargeable and empty appBean.hiddenUIElements['marketplace.navigation.Payment'] and manageSubscriptionModel.paymentTabAvailable}">
               <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="paymentTabLink"
-                 data-toggle="list" href="#paymentTab" role="tab" aria-controls="paymentTab">#{msg['subscription.payment']}</a>
+                 data-bs-toggle="list" href="#paymentTab" role="tab" aria-controls="paymentTab">#{msg['subscription.payment']}</a>
             </ui:fragment>
             <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="upgradeTabLink"
-               data-toggle="list" href="#upgradeTab" role="tab" aria-controls="upgradeTab">#{msg['subscription.upgrade']}</a>
+               data-bs-toggle="list" href="#upgradeTab" role="tab" aria-controls="upgradeTab">#{msg['subscription.upgrade']}</a>
             <ui:fragment rendered="#{manageSubscriptionModel.priceModel.chargeable}">
               <a class="tabControl list-group-item list-group-item-secondary list-group-item-action"
-                 id="priceModelTabLink" data-toggle="list" href="#priceModelTab" role="tab"
+                 id="priceModelTabLink" data-bs-toggle="list" href="#priceModelTab" role="tab"
                  aria-controls="priceModelTab">#{msg['service.priceModel']}</a>
             </ui:fragment>
             <ui:fragment rendered="#{manageSubscriptionModel.priceModel.external}">
               <a class="tabControl list-group-item list-group-item-secondary list-group-item-action"
-                 id="priceModelExternalTabLink" data-toggle="list" href="#priceModelExternalTab" role="tab"
+                 id="priceModelExternalTabLink" data-bs-toggle="list" href="#priceModelExternalTab" role="tab"
                  aria-controls="priceModelExternalTab">#{msg['service.priceModel']}</a>
             </ui:fragment>
             <a class="tabControl list-group-item list-group-item-secondary list-group-item-action" id="supplierTabLink"
-               data-toggle="list" href="#supplierTab" role="tab"
+               data-bs-toggle="list" href="#supplierTab" role="tab"
                aria-controls="supplierTab">#{msg['service.supplier']}</a>
           </div>
           <div class="mt-1 text-justify">
@@ -197,7 +197,7 @@
                       </h2>
                     </div>
                     <div class="col-auto">
-                      <div class="row no-gutters">
+                      <div class="row no-gutters me-1">
                         <ui:fragment
                             rendered="#{not empty manageSubscriptionModel.serviceRoles and not empty manageSubscriptionModel.assignedUsers}">
                           <mp:buttonBootstrap id="editRoles" value="#{msg['button.editRoles']}"
@@ -306,7 +306,7 @@
                       </div>
                       <div class="col-md-7 col-sm-12 my-1">
                         <div class="row">
-                          <div class="col-md-11 col-10 pr-0">
+                          <div class="col-md-11 col-10 pe-0">
                             <div class="row align-items-center">
                               <div class="col-8">
                                 <a4j:outputPanel layout="block" id="selectedOwnerText"
@@ -327,7 +327,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-md-1 col-2 pl-0">
+                          <div class="col-md-1 col-2 ps-0">
                             <mp:hintBootstrap for="subscriptionOwnerSelection"/>
                           </div>
                         </div>
@@ -344,7 +344,7 @@
                     </div>
                     <div id="selectedUnitName" class="col-md-7 col-sm-12 my-1">
                       <div class="row">
-                        <div class="col-md-11 col-10 pr-0">
+                        <div class="col-md-11 col-10 pe-0">
                           <div class="row align-items-center">
                             <div class="col-8">
                               <h:outputText value="#{manageSubscriptionCtrl.model.unitNameToDisplay}"
@@ -360,7 +360,8 @@
                             </div>
                           </div>
                         </div>
-                        <div class="col-md-1 col-2 pl-0">
+
+                        <div class="col-md-1 col-2 ps-0">
                           <mp:hintBootstrap for="organizationalUnitSelect"/>
                         </div>
                       </div>
@@ -424,13 +425,13 @@
 
                   <div class="no-gutters row border-top my-2 justify-content-end">
                     <mp:buttonBootstrap id="saveConfigurationButton" value="#{msg['button.save']}"
-                                        styleClass="btn btn-secondary my-2"
+                                        styleClass="btn btn-secondary me-2 mt-2 w-auto"
                                         bean="#{manageSubscriptionCtrl}"
                                         rendered="#{not manageSubscriptionModel.showOwnerWarning}"
                                         action="modify" disabled="#{manageSubscriptionModel.cfgTabDisabled}"/>
                     <mp:buttonBootstrap id="saveConfigurationButtonWithWarning" value="#{msg['button.save']}"
                                         onclick="#{rich:component('confirmOwnerPanel')}.show();return false;"
-                                        styleClass="btn btn-secondary my-2"
+                                        styleClass="btn btn-secondary mt-2 me-3 w-auto"
                                         rendered="#{manageSubscriptionModel.showOwnerWarning}"
                                         disabled="#{manageSubscriptionModel.cfgTabDisabled}"/>
 
