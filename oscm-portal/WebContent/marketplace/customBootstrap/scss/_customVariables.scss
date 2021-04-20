@@ -27,7 +27,7 @@ $link-color:                           hsl(var(--oscm-primary));
 $link-hover-color:                     hsl(var(--oscm-primary));
 
 // Popovers
-$popover-bg:                           hsl(var(--oscm-main-input-color));
+$popover-bg:                           var(--oscm-main-color-400);
 $popover-body-color:                   hsl(var(--oscm-main-font-color));
 
 // Modal dialogs
