@@ -1938,7 +1938,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
           if (marketplaceId != null) {
             if (cs.isServiceProvider()) {
               cm.sendMail(
-                  getInitPasswordRecipientForUser(pu),
+                  getRecipientForUser(pu),
                   pu,
                   EmailType.USER_CREATED_WITH_MARKETPLACE_SAML_SP,
                   new Object[] {
@@ -1968,7 +1968,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
           } else {
             if (cs.isServiceProvider()) {
               cm.sendMail(
-                  getInitPasswordRecipientForUser(pu),
+                  getRecipientForUser(pu),
                   pu,
                   EmailType.USER_CREATED_SAML_SP,
                   new Object[] {
@@ -2023,7 +2023,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
         if (pu.hasManagerRole()) {
           if (marketplaceId != null) {
             cm.sendMail(
-                getInitPasswordRecipientForUser(pu),
+                getRecipientForUser(pu),
                 pu,
                 EmailType.USER_IMPORTED_WITH_MARKETPLACE,
                 new Object[] {
@@ -2038,7 +2038,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
 
           } else {
             cm.sendMail(
-                getInitPasswordRecipientForUser(pu),
+                getRecipientForUser(pu),
                 pu,
                 EmailType.USER_IMPORTED,
                 new Object[] {
@@ -2069,7 +2069,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
     }
   }
 
-  private String getInitPasswordRecipientForUser(PlatformUser pu) {
+  private String getRecipientForUser(PlatformUser pu) {
     String mailTo = SendMailControl.getMailTo();
     if (mailTo != null) {
       return mailTo;
