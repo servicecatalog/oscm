@@ -17,6 +17,7 @@ public class Constants {
     public static final String ENCODING = "UTF-8";
     public static final String MAIL_PROTOCOL_SMTP = "smtp";
 
+    public static final String MAIL_SMTP_HOST = "mail.smtp.host";
     public static final String MAIL_SMTP_AUTH = "mail.smtp.auth";
     public static final String MAIL_PASSWORD = "mail.smtp.password";
     public static final String MAIL_USER = "mail.user";

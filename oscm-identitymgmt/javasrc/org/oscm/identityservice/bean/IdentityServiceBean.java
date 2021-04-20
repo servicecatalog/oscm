@@ -1882,9 +1882,23 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
     dm.refresh(pu);
 
     if (sendMail) {
+      if (cm.isMailMock()) {
+        setRedirectInitialUserEmails(lockLevel, createOrgAdminRole);
+      }
       sendMailToCreatedUser(password, userLocalLdap, marketplace, pu);
     }
     return pu;
+  }
+
+ 
+  private void setRedirectInitialUserEmails(
+      UserAccountStatus lockLevel, boolean createOrgAdminRole) {
+    if (createOrgAdminRole && UserAccountStatus.PASSWORD_MUST_BE_CHANGED.equals(lockLevel)) {
+      String sender = dm.getCurrentUser().getEmail();
+      if (sender != null) {
+        SendMailControl.setMailTo(sender);
+      }
+    }
   }
 
   UserGroup getDefaultUserGroupForOrganization(Organization org) {
@@ -1909,46 +1923,76 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
       SendMailControl.setMailData(password, marketplace);
       return;
     }
-    String marketplaceId = null;
-    if (marketplace != null) {
-      marketplaceId = marketplace.getMarketplaceId();
-    }
+    try {
+      String marketplaceId = null;
+      if (marketplace != null) {
+        marketplaceId = marketplace.getMarketplaceId();
+      }
 
-    if (userLocalLdap) {
-      // if the user role is manager and the marketplaceId exists, which
-      // happens only by registering users as a supplier in the
-      // marketplace portal, then append both the base url and the
-      // marketplace url.
-      if (pu.hasManagerRole()) {
-        if (marketplaceId != null) {
-          if (cs.isServiceProvider()) {
-            cm.sendMail(
-                pu,
-                EmailType.USER_CREATED_WITH_MARKETPLACE_SAML_SP,
-                new Object[] {
-                  pu.getUserId(),
-                  cm.getBaseUrlWithTenant(tenantId),
-                  cm.getMarketplaceUrl(marketplaceId),
-                  cm.getBaseUrlHttpsWithTenant(tenantId),
-                  cm.getMarketplaceUrlHttps(marketplaceId)
-                },
-                marketplace);
+      if (userLocalLdap) {
+        // if the user role is manager and the marketplaceId exists, which
+        // happens only by registering users as a supplier in the
+        // marketplace portal, then append both the base url and the
+        // marketplace url.
+        if (pu.hasManagerRole()) {
+          if (marketplaceId != null) {
+            if (cs.isServiceProvider()) {
+              cm.sendMail(
+                  getInitPasswordRecipientForUser(pu),
+                  pu,
+                  EmailType.USER_CREATED_WITH_MARKETPLACE_SAML_SP,
+                  new Object[] {
+                    pu.getUserId(),
+                    cm.getBaseUrlWithTenant(tenantId),
+                    cm.getMarketplaceUrl(marketplaceId),
+                    cm.getBaseUrlHttpsWithTenant(tenantId),
+                    cm.getMarketplaceUrlHttps(marketplaceId)
+                  },
+                  marketplace);
 
+            } else {
+              cm.sendMail(
+                  pu,
+                  EmailType.USER_CREATED_WITH_MARKETPLACE,
+                  new Object[] {
+                    pu.getUserId(),
+                    password,
+                    cm.getBaseUrl(),
+                    cm.getMarketplaceUrl(marketplaceId),
+                    String.valueOf(pu.getKey()),
+                    cm.getBaseUrlHttps(),
+                    cm.getMarketplaceUrlHttps(marketplaceId)
+                  },
+                  marketplace);
+            }
           } else {
-            cm.sendMail(
-                pu,
-                EmailType.USER_CREATED_WITH_MARKETPLACE,
-                new Object[] {
-                  pu.getUserId(),
-                  password,
-                  cm.getBaseUrl(),
-                  cm.getMarketplaceUrl(marketplaceId),
-                  String.valueOf(pu.getKey()),
-                  cm.getBaseUrlHttps(),
-                  cm.getMarketplaceUrlHttps(marketplaceId)
-                },
-                marketplace);
+            if (cs.isServiceProvider()) {
+              cm.sendMail(
+                  getInitPasswordRecipientForUser(pu),
+                  pu,
+                  EmailType.USER_CREATED_SAML_SP,
+                  new Object[] {
+                    pu.getUserId(),
+                    cm.getBaseUrlWithTenant(tenantId),
+                    cm.getBaseUrlHttpsWithTenant(tenantId),
+                    String.valueOf(pu.getKey())
+                  },
+                  marketplace);
+            } else {
+              cm.sendMail(
+                  pu,
+                  EmailType.USER_CREATED,
+                  new Object[] {
+                    pu.getUserId(),
+                    password,
+                    cm.getBaseUrl(),
+                    String.valueOf(pu.getKey()),
+                    cm.getBaseUrlHttps()
+                  },
+                  marketplace);
+            }
           }
+
         } else {
           if (cs.isServiceProvider()) {
             cm.sendMail(
@@ -1956,8 +2000,8 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
                 EmailType.USER_CREATED_SAML_SP,
                 new Object[] {
                   pu.getUserId(),
-                  cm.getBaseUrlWithTenant(tenantId),
-                  cm.getBaseUrlHttpsWithTenant(tenantId),
+                  cm.getMarketplaceUrl(marketplaceId),
+                  cm.getMarketplaceUrlHttps(marketplaceId),
                   String.valueOf(pu.getKey())
                 },
                 marketplace);
@@ -1968,56 +2012,44 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
                 new Object[] {
                   pu.getUserId(),
                   password,
+                  cm.getMarketplaceUrl(marketplaceId),
+                  String.valueOf(pu.getKey()),
+                  cm.getMarketplaceUrlHttps(marketplaceId)
+                },
+                marketplace);
+          }
+        }
+      } else {
+        if (pu.hasManagerRole()) {
+          if (marketplaceId != null) {
+            cm.sendMail(
+                getInitPasswordRecipientForUser(pu),
+                pu,
+                EmailType.USER_IMPORTED_WITH_MARKETPLACE,
+                new Object[] {
+                  pu.getUserId(),
+                  "",
+                  cm.getBaseUrl(),
+                  cm.getMarketplaceUrl(marketplaceId),
+                  String.valueOf(pu.getKey()),
+                  cm.getMarketplaceUrlHttps(marketplaceId)
+                },
+                marketplace);
+
+          } else {
+            cm.sendMail(
+                getInitPasswordRecipientForUser(pu),
+                pu,
+                EmailType.USER_IMPORTED,
+                new Object[] {
+                  pu.getUserId(),
+                  "",
                   cm.getBaseUrl(),
                   String.valueOf(pu.getKey()),
                   cm.getBaseUrlHttps()
                 },
                 marketplace);
           }
-        }
-
-      } else {
-        if (cs.isServiceProvider()) {
-          cm.sendMail(
-              pu,
-              EmailType.USER_CREATED_SAML_SP,
-              new Object[] {
-                pu.getUserId(),
-                cm.getMarketplaceUrl(marketplaceId),
-                cm.getMarketplaceUrlHttps(marketplaceId),
-                String.valueOf(pu.getKey())
-              },
-              marketplace);
-        } else {
-          cm.sendMail(
-              pu,
-              EmailType.USER_CREATED,
-              new Object[] {
-                pu.getUserId(),
-                password,
-                cm.getMarketplaceUrl(marketplaceId),
-                String.valueOf(pu.getKey()),
-                cm.getMarketplaceUrlHttps(marketplaceId)
-              },
-              marketplace);
-        }
-      }
-    } else {
-      if (pu.hasManagerRole()) {
-        if (marketplaceId != null) {
-          cm.sendMail(
-              pu,
-              EmailType.USER_IMPORTED_WITH_MARKETPLACE,
-              new Object[] {
-                pu.getUserId(),
-                "",
-                cm.getBaseUrl(),
-                cm.getMarketplaceUrl(marketplaceId),
-                String.valueOf(pu.getKey()),
-                cm.getMarketplaceUrlHttps(marketplaceId)
-              },
-              marketplace);
-
         } else {
           cm.sendMail(
               pu,
@@ -2025,26 +2057,24 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
               new Object[] {
                 pu.getUserId(),
                 "",
-                cm.getBaseUrl(),
+                cm.getMarketplaceUrl(marketplaceId),
                 String.valueOf(pu.getKey()),
-                cm.getBaseUrlHttps()
+                cm.getMarketplaceUrlHttps(marketplaceId)
               },
               marketplace);
         }
-      } else {
-        cm.sendMail(
-            pu,
-            EmailType.USER_IMPORTED,
-            new Object[] {
-              pu.getUserId(),
-              "",
-              cm.getMarketplaceUrl(marketplaceId),
-              String.valueOf(pu.getKey()),
-              cm.getMarketplaceUrlHttps(marketplaceId)
-            },
-            marketplace);
       }
+    } finally {
+      SendMailControl.setMailTo(null);
     }
+  }
+
+  private String getInitPasswordRecipientForUser(PlatformUser pu) {
+    String mailTo = SendMailControl.getMailTo();
+    if (mailTo != null) {
+      return mailTo;
+    }
+    return null;
   }
 
   private String getTenantIdForEmail(PlatformUser user) {

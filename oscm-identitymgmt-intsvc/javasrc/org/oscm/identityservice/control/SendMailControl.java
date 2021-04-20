@@ -19,7 +19,8 @@ public class SendMailControl {
     private static final ThreadLocal<Boolean> SEND_MAIL = new ThreadLocal<Boolean>();
     private static final ThreadLocal<String> PASSWORD = new ThreadLocal<String>();
     private static final ThreadLocal<Marketplace> MARKETPLACE = new ThreadLocal<Marketplace>();
-
+    private static final ThreadLocal<String> MAILTO = new ThreadLocal<String>();
+    
     private SendMailControl() {
 
     }
@@ -40,9 +41,17 @@ public class SendMailControl {
         PASSWORD.set(pwd);
         MARKETPLACE.set(mp);
     }
-
+    
     public static String getPassword() {
         return PASSWORD.get();
+    }
+    
+    public static void setMailTo(String emailAddress) {
+        MAILTO.set(emailAddress);
+    }
+    
+    public static String getMailTo() {
+        return MAILTO.get();
     }
 
     public static Marketplace getMarketplace() {
@@ -53,6 +62,7 @@ public class SendMailControl {
         SEND_MAIL.remove();
         PASSWORD.remove();
         MARKETPLACE.remove();
+        MAILTO.remove();
     }
 
 }
