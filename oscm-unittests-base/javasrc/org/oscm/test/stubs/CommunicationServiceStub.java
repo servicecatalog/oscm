@@ -79,4 +79,26 @@ public class CommunicationServiceStub implements CommunicationServiceLocal {
     public String getBaseUrlHttpsWithTenant(String tenantId) throws MailOperationException {
         throw new UnsupportedOperationException();
     }
+
+  /* (non-Javadoc)
+   * @see org.oscm.communicationservice.local.CommunicationServiceLocal#sendMail(java.lang.String, org.oscm.domobjects.PlatformUser, org.oscm.types.enumtypes.EmailType, java.lang.Object[], org.oscm.domobjects.Marketplace)
+   */
+  @Override
+  public void sendMail(
+      String emailAddress,
+      PlatformUser targetUser,
+      EmailType type,
+      Object[] params,
+      Marketplace marketplace)
+      throws MailOperationException {
+   
+  }
+
+  /* (non-Javadoc)
+   * @see org.oscm.communicationservice.local.CommunicationServiceLocal#isMailMock()
+   */
+  @Override
+  public boolean isMailMock() {
+    return false;
+  }
 }
