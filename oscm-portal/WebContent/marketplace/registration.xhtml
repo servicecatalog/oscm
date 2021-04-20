@@ -95,7 +95,7 @@
           <input type="hidden" name="mId" id="mId" value="#{param['mId']}" class="mb-2"/>
 
           <adm:formSelect id="salutation" label="#{msg['user.salutation']}"
-                          value="#{registrationBean.user.salutation}" selectStyle="custom-select" renderPrefix="false">
+                          value="#{registrationBean.user.salutation}" selectStyle="form-select" renderPrefix="false">
             <adm:salutationItems/>
           </adm:formSelect>
 
@@ -109,15 +109,15 @@
             </div>
             <div class="col-md-7 col-sm-12 my-1">
               <div class="row">
-                <div class="col-md-11 col-10 pr-0">
-                  <h:inputText id="userEmail" label="#{msg['user.email']}" required="true" styleClass="custom-select"
+                <div class="col-md-11 col-10 pe-0">
+                  <h:inputText id="userEmail" label="#{msg['user.email']}" required="true" styleClass="form-select"
                                value="#{registrationBean.user.email}" maxlength="#{appBean.nameLen}"
                                onblur="if(#{registrationBean.internalMode}){AdmUtils.suggestUserId(this,#{rich:element('userId')});}">
                     <f:converter converterId="trimConverter"/>
                     <f:validator validatorId="email"/>
                   </h:inputText>
                 </div>
-                <div class="col-md-1 col-2 pl-0"></div>
+                <div class="col-md-1 col-2 ps-0"></div>
               </div>
             </div>
             <div class="col-md-3 col-sm-12">
@@ -138,14 +138,14 @@
               </div>
               <div class="col-md-7 col-sm-12 my-1">
                 <div class="row">
-                  <div class="col-md-11 col-10 pr-0">
+                  <div class="col-md-11 col-10 pe-0">
                     <adm:passwordBootstrap id="regPassword" required="true" strengthDemRequired="true"
                                            passwordStrengthId="passwordStrengthRegistration" styleClass="form-control"
                                            label="#{msg['public.registration.password']}" formName="registrationForm"
                                            length="#{appBean.nameLen}" beanValue="#{registrationBean.password}"
                                            validatorId="password"/>
                   </div>
-                  <div class="col-md-1 col-2 pl-0">
+                  <div class="col-md-1 col-2 ps-0">
                     <mp:hintBootstrap for="regPassword"/>
                   </div>
                 </div>
@@ -161,14 +161,14 @@
               </div>
               <div class="col-md-7 col-sm-12 my-1">
                 <div class="row">
-                  <div class="col-md-11 col-10 pr-0">
+                  <div class="col-md-11 col-10 pe-0">
                     <h:inputSecret id="regPassword2" label="#{msg['public.registration.password2']}" required="true"
                                    styleClass="form-control" maxlength="#{appBean.nameLen}" autocomplete="off"
                                    connectedTo="registrationForm:regPassword">
                       <f:validator validatorId="password"/>
                     </h:inputSecret>
                   </div>
-                  <div class="col-md-1 col-2 pl-0"></div>
+                  <div class="col-md-1 col-2 ps-0"></div>
                 </div>
               </div>
               <div class="col-md-3 col-sm-12">
@@ -186,7 +186,7 @@
                             maxlength="#{appBean.descriptionLen}" converterId="trimConverter"/>
 
           <mp:formSelect id="country" label="#{msg['common.country']}" required="true"
-                         value="#{registrationBean.organization.domicileCountry}" selectStyle="custom-select">
+                         value="#{registrationBean.organization.domicileCountry}" selectStyle="form-select">
             <adm:countryItems supportedCountries="#{countryBean.supportedCountryCodesForPublicRegistrationPage}"/>
           </mp:formSelect>
 
@@ -196,14 +196,14 @@
             </div>
             <div class="col-md-7 col-sm-12 my-1">
               <div class="row">
-                <div class="col-md-11 col-10 pr-0">
+                <div class="col-md-11 col-10 pe-0">
                   <h:inputText id="verificationCode" label="#{msg['public.registration.verification']}" required="true"
                                value="#{registrationBean.verificationCode}" styleClass="form-control"
                                maxlength="#{appBean.idLen}">
                     <f:validator validatorId="captcha"/>
                   </h:inputText>
                 </div>
-                <div class="col-md-1 col-2 pl-0">
+                <div class="col-md-1 col-2 ps-0">
                   <mp:hintBootstrap for="verificationCode"/>
                 </div>
               </div>
@@ -260,10 +260,10 @@
           <hr class="mt-3 mb-2"/>
           <a4j:outputPanel styleClass="row row-justify-space">
             <mp:buttonBootstrap id="cancelButton" value="#{msg['button.cancel']}"
-                                styleClass="btn btn-outline-secondary ml-3"
+                                styleClass="btn btn-outline-secondary ms-3 w-auto"
                                 onclick="AdmUtils.showProgress(true);setDirty(false); location.href='#{facesContext.externalContext.requestContextPath}#{registrationBean.getValueOf('MARKETPLACE_START_SITE')}';return false;"/>
             <mp:buttonBootstrap id="registerButton" value="#{msg['button.register']}" bean="#{registrationBean}"
-                                action="register" styleClass="btn btn-secondary mr-3"/>
+                                action="register" styleClass="btn btn-secondary me-3 w-auto"/>
           </a4j:outputPanel>
         </h:form>
       </a4j:outputPanel>

@@ -20,7 +20,7 @@
     <a4j:outputPanel layout="block" id="rerenderPanel">
 
       <div class="row border-bottom no-gutters justify-content-between">
-        <h1>
+        <h1 class="w-auto">
           <c:choose>
             <c:when test="#{serviceLogin}">
               <h:outputText
@@ -36,7 +36,7 @@
         </h1>
 
         <c:if test="#{not serviceLogin}">
-          <h:form id="cancelModelPanelForm">
+          <h:form id="cancelModelPanelForm" class="w-auto">
             <a4j:jsFunction name="cancelDialog" action="#{userBean.cancel}"/>
             <mp:closeModalDialogButton id="cancelButton"
                                        rendered="#{(empty canCloseLogin or canCloseLogin) and not userBean.passwordChangeRequired}"
@@ -83,24 +83,24 @@
 
             <adm:outputLabel for="currentPassword" value="#{msg['user.currentPassword']}" required="true"/>
             <div class="row my-2">
-              <div class="col-10 pr-0">
+              <div class="col-10 pe-0">
                 <h:inputSecret id="currentPassword" label="#{msg['user.currentPassword']}" required="true"
                                value="#{userBean.currentPassword}" styleClass="form-control form-control-sm"
                                maxlength="#{appBean.nameLen}" autocomplete="off"/>
               </div>
-              <div class="col-2 pl-0"></div>
+              <div class="col-2 ps-0"></div>
             </div>
             <mp:message for="currentPassword"/>
 
             <adm:outputLabel for="password" value="#{msg['user.newPassword']}" required="true"/>
 
             <div class="row my-2">
-              <div class="col-10 pr-0">
+              <div class="col-10 pe-0">
                 <adm:passwordBootstrap required="true" strengthDemRequired="true" passwordStrengthId="passwordStrengthLogin"
                                        length="#{appBean.nameLen}" label="#{msg['user.newPassword']}" validatorId="password"
                                        beanValue="#{userBean.password}" styleClass="form-control form-control-sm"/>
               </div>
-              <div class="col-2 pl-0">
+              <div class="col-2 ps-0">
                 <mp:hintBootstrap for="password" hintText="#{msg['login.changePassword.hint.password']}"
                                   styleHint="btn-sm pt-1"/>
               </div>
@@ -110,7 +110,7 @@
             <adm:outputLabel for="password2" value="#{msg['user.password2']}" required="true"/>
 
             <div class="row my-2">
-              <div class="col-10 pr-0">
+              <div class="col-10 pe-0">
                 <h:inputSecret id="password2" label="#{msg['user.password2']}" required="true"
                                value="#{userBean.password2}" styleClass="form-control form-control-sm"
                                onkeydown="AdmUtils.clickOnReturn(event,'passwordForm:changeButtonLink')" autocomplete="off"
@@ -118,7 +118,7 @@
                   <f:validator validatorId="password"/>
                 </h:inputSecret>
               </div>
-              <div class="col-2 pl-0"></div>
+              <div class="col-2 ps-0"></div>
             </div>
             <mp:message id="password2ErrorMsg" for="password2"/>
 
@@ -166,7 +166,7 @@
     </a4j:outputPanel>
   </rich:popupPanel>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"></script>
   <script type="text/javascript">
     function showLoginPanel(redirectTarget) {
         AdmUtils.showMplLoginPanel(redirectTarget, #{not empty userBean.loggedInUser}, '#{facesContext.externalContext.requestContextPath}');

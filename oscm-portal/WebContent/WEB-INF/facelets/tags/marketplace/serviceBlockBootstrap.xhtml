@@ -24,17 +24,17 @@
     <c:set var="insert" value="true"/>
   </c:if>
   <div class="row">
-    <div class="col-lg-9 col-md-12 pl-0">
+    <div class="col-lg-9 col-md-12 ps-2">
       <!-- Image, title, supplier container -->
       <div class="col-auto mb-2">
         <div class="row align-items-center">
-          <div class="col-auto pr-1">
+          <div class="col-auto pe-1">
             <div class="box-logo">
               <h:graphicImage id="#{fieldId}Image"
                               value="/image?type=SERVICE_IMAGE&amp;serviceKey=#{service.key}"/>
             </div>
           </div>
-          <div class="col-8 col-lg text-left">
+          <div class="col-8 col-lg text-start">
             <ui:fragment rendered="#{service ne null}">
               <ui:fragment rendered="#{showName}">
                 <h2 id="#{fieldId}Name" class="box_title shortenedText"
@@ -64,7 +64,7 @@
       </div>
     </div>
     <!-- Stars, price, details button container -->
-    <div class="col-lg-3 col-md-12">
+    <div class="col-lg-3 col-md-12 text-center">
       <div class="row justify-content-around">
         <div class="col-sm-auto col-md-auto col-lg-12">
           <c:if test="#{not notRated}">

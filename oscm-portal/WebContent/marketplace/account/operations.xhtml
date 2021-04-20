@@ -35,7 +35,7 @@
           <a4j:outputPanel id="manageOperationsButtonPanel" layout="block" styleClass="clearfix">
 
             <adm:buttonBootstrap id="deleteOperations" value="#{msg['button.delete']}"
-                                 styleClass="btn btn-secondary mr-4"
+                                 styleClass="btn btn-secondary me-4"
                                  disabled="#{operationRecordModel.buttonDisabled}">
               <a4j:ajax event="click" listener="#{operationRecordCtrl.deleteOperations}"
                         render=":operationsTablePanel,:manageOperationsButtonPanel,:scriptPanel"
@@ -93,7 +93,7 @@
               <tbody>
               <a4j:repeat value="${operationRecordModel.operationRecords}" var="item"
                           rendered="#{(not empty operationRecordModel.operationRecords)}">
-                <tr class="text-left">
+                <tr class="text-start">
                   <td class="text-center"></td>
                   <td class="text-center">
                     <h:selectBooleanCheckbox id="operationCheckbox" value="#{item.selected}"

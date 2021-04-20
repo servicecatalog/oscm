@@ -18,7 +18,7 @@
   </ui:define>
 
   <ui:define name="dialogTitle">
-    <h2>
+    <h2 class="w-auto">
       <h:outputText value="#{msg['payment.edit.BillingContact.title']}"/>
     </h2>
   </ui:define>
@@ -27,7 +27,7 @@
     <c:set var="dialogDescription"
            value="#{msg['marketplace.payment.edit.BillingContact.description']}"/>
     <a4j:outputPanel rendered="#{not empty dialogDescription}">
-      <h3>
+      <h3 class="w-auto">
         <h:outputText value="#{dialogDescription}"/>
       </h3>
     </a4j:outputPanel>
@@ -110,7 +110,7 @@
               <h:inputTextarea id="address" label="#{msg['billingContact.address']}"
                                value="#{billingContactEditBean.billingContact.address}"
                                maxlength="#{appBean.descriptionLen}"
-                               onchange="setDirty(true)" rows="3" styleClass="form-control form-control-xs mb-0"
+                               onchange="setDirty(true)" rows="3" styleClass="form-control mb-0"
                                required="#{empty param[reqBtnName]}">
                 <f:validateLength maximum="#{appBean.descriptionLen}"/>
                 <f:converter converterId="trimConverter"/>
@@ -128,8 +128,8 @@
 
           <hr class="mt-3 mb-1"/>
           <a4j:outputPanel layout="block" styleClass="row row-justify-space">
-            <div>
-              <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ml-3"
+            <div class="w-auto">
+              <h:commandButton id="cancelButton" styleClass="btn btn-sm btn-outline-secondary ms-3 w-auto"
                                onclick="
                     AdmUtils.clearModalErrorPanel('#{dialogId}modalErrorMasterPanel');
                     AdmUtils.clearHiddenErrorPanel();
@@ -146,21 +146,23 @@
                                action="#{billingContactEditBean.deleteBillingContact}" immediate="true"/>
 
               <h:commandButton id="deleteButton" value="#{msg['button.delete']}"
-                               styleClass="btn btn-sm btn-outline-secondary ml-3"
+                               styleClass="btn btn-sm btn-outline-secondary ms-3 w-auto"
                                onclick="#{rich:component('confirmPanel')}.show();return false;"/>
             </div>
-            <mp:confirmPanelBootstrap header="#{msg['marketplace.payment.deleteBillingContact.title']}"
-                                      text1="#{msg['marketplace.payment.billingContact.deleteMsg']}"
-                                      text2="#{msg['marketplace.areyousure']}"
-                                      submitId="confirmedDeleteButton" isFirstModal="false"/>
 
-            <h:commandButton styleClass="btn btn-sm btn-secondary mr-3" id="hiddenSetDisplayName"
+
+            <h:commandButton styleClass="btn btn-sm btn-secondary me-3 w-auto" id="hiddenSetDisplayName"
                              onclick="AdmUtils.showProgress(true);setOnSubmit(true);setDirty(false);"
                              action="#{billingContactEditBean.saveBillingContact}" value="#{msg['button.save']}">
               <f:ajax execute="@form" onevent="#{dialogId}eventHandler"
                       render="#{additionalRender} :#{dialogId}modalErrorMasterPanel @form "/>
               <f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
             </h:commandButton>
+
+            <mp:confirmPanelBootstrap header="#{msg['marketplace.payment.deleteBillingContact.title']}"
+                                      text1="#{msg['marketplace.payment.billingContact.deleteMsg']}"
+                                      text2="#{msg['marketplace.areyousure']}"
+                                      submitId="confirmedDeleteButton" isFirstModal="false"/>
           </a4j:outputPanel>
 
           <script type="text/javascript">

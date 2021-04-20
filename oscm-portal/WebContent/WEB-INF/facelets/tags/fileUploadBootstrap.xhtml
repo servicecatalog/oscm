@@ -7,13 +7,13 @@
  <ui:param name="key" value="#{empty label ? 'common.filename' : label}"/>
  <adm:outputLabel value="#{msg[key]}" rendered="#{(empty rendered or rendered) and (empty labels)}" required="true"/>
 
- <div class="custom-file mr-1">
+ <div class="form-control p-1 me-1">
   <h:inputFile id="file" label="#{msg['common.filename']}" disabled="#{disabled}"
-               onchange="jQuery('.custom-file-label').text(this.value);setDirty(true)"
+               onchange="jQuery('.form-label').text(this.value);setDirty(true)"
                value="#{value}" size="48" styleClass="fileChooser d-none"
                required="#{(empty required or required) and (empty rendered or rendered)}"
                rendered="#{empty rendered or rendered}" requiredMessage="#{msg['error.upload.fileNotNullNorEmpty']}"/>
-  <h:outputLabel id="inputFile" class="custom-file-label btn text-left" for="file"/>
+  <h:outputLabel id="inputFile" class="form-label btn text-start w-100 h-100 p-0 m-0" for="file"/>
  </div>
  <adm:message for="file" rendered="#{(empty rendered or rendered) and (empty labels)}"/>
 </ui:composition>
