@@ -1890,7 +1890,6 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
     return pu;
   }
 
- 
   private void setRedirectInitialUserEmails(
       UserAccountStatus lockLevel, boolean createOrgAdminRole) {
     if (createOrgAdminRole && UserAccountStatus.PASSWORD_MUST_BE_CHANGED.equals(lockLevel)) {
@@ -1952,6 +1951,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
 
             } else {
               cm.sendMail(
+                  getRecipientForUser(pu),
                   pu,
                   EmailType.USER_CREATED_WITH_MARKETPLACE,
                   new Object[] {
@@ -1980,6 +1980,7 @@ public class IdentityServiceBean implements IdentityService, IdentityServiceLoca
                   marketplace);
             } else {
               cm.sendMail(
+                  getRecipientForUser(pu),
                   pu,
                   EmailType.USER_CREATED,
                   new Object[] {

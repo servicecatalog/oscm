@@ -545,7 +545,8 @@ public class IdentityServiceBeanMailSendingTest {
     // verify that mail parameters are correct
     ArgumentCaptor<Object[]> ac = ArgumentCaptor.forClass(Object[].class);
     verify(cm, times(1))
-        .sendMail(eq(user), eq(EmailType.USER_CREATED), ac.capture(), any(Marketplace.class));
+        .sendMail(
+            eq(null), eq(user), eq(EmailType.USER_CREATED), ac.capture(), any(Marketplace.class));
     Object[] value = ac.getValue();
     assertEquals(user.getUserId(), value[0]);
     assertEquals("secret", value[1]);
@@ -620,6 +621,7 @@ public class IdentityServiceBeanMailSendingTest {
     ArgumentCaptor<Object[]> ac = ArgumentCaptor.forClass(Object[].class);
     verify(cm, times(1))
         .sendMail(
+            eq(null),
             eq(user),
             eq(EmailType.USER_CREATED_WITH_MARKETPLACE),
             ac.capture(),
