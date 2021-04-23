@@ -270,7 +270,7 @@
    
     <!-- Junit and Mockito -->
     <dependency org="junit" name="junit" rev="4.12" transitive="false"/>
-    <dependency org="org.mockito" name="mockito-all" rev="2.0.2-beta" transitive="false"/>
+    <dependency org="org.mockito" name="mockito-all" rev="1.10.19" transitive="false"/>
     <dependency org="org.powermock" name="powermock-module-junit4" rev="1.7.4" transitive="false"/>
     <dependency org="org.powermock"  name="powermock-module-junit4-common" rev="1.7.4" transitive="false"/>
     <dependency org="org.powermock"  name="powermock-api-mockito" rev="1.7.4" transitive="false" />

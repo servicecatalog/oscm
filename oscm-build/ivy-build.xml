@@ -277,7 +277,7 @@
     <copy file="${ivy.lib.dir}/junit-4.12.jar" todir="${root.dir}/libraries/junit/javalib/" overwrite="true" />
   	<copy file="${ivy.lib.dir}/hamcrest-2.2.jar" todir="${root.dir}/libraries/junit/javalib/" overwrite="true" />
    
-    <copy file="${ivy.lib.dir}/mockito-all-2.0.2-beta.jar" tofile="${root.dir}/libraries/mockito/javalib/mockito-all.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/mockito-all-1.10.19.jar" tofile="${root.dir}/libraries/mockito/javalib/mockito-all.jar" overwrite="true" />
     <copy file="${ivy.lib.dir}/powermock-module-junit4-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-module-junit4.jar" overwrite="true" />
     <copy file="${ivy.lib.dir}/powermock-module-junit4-common-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-module-junit4-common.jar" overwrite="true" />
     <copy file="${ivy.lib.dir}/powermock-api-mockito-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-api-mockito2.jar" overwrite="true" />
