@@ -17,7 +17,7 @@
 	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-core-2.13.0.jar"/>
 	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all.jar"/>
 	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-api-mockito-common.jar"/>
-	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-api-mockito.jar" sourcepath="C:/Users/goebel/.m2/repository/org/powermock/powermock-api-mockito/1.7.4/powermock-api-mockito-1.7.4-sources.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-api-mockito.jar"/>
 	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-api-support.jar"/>
 	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-core.jar"/>
 	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-module-junit4-common.jar"/>
