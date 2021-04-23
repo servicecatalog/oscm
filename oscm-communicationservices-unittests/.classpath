@@ -10,11 +10,18 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-internal"/>
-	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all-1.8.5.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/javaee-api-7.0-1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/libraries/apache-tomee/javalib/geronimo-javamail_1.4_mail-1.9.0-alpha-2.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-api-2.13.0.jar"/>
 	<classpathentry kind="lib" path="/libraries/apache-log4j/javalib/log4j-core-2.13.0.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-api-mockito-common.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-api-mockito.jar" sourcepath="C:/Users/goebel/.m2/repository/org/powermock/powermock-api-mockito/1.7.4/powermock-api-mockito-1.7.4-sources.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-api-support.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-core.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-module-junit4-common.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-module-junit4.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/powermock-reflect.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

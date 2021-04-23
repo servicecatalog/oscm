@@ -4,6 +4,20 @@
  */
 package org.oscm.communicationservice.bean;
 
+import static org.oscm.communicationservice.Constants.ENCODING;
+import static org.oscm.communicationservice.Constants.MAIL_PASSWORD;
+import static org.oscm.communicationservice.Constants.MAIL_PROTOCOL_SMTP;
+import static org.oscm.communicationservice.Constants.MAIL_RESOURCE;
+import static org.oscm.communicationservice.Constants.MAIL_SMTP_AUTH;
+import static org.oscm.communicationservice.Constants.MAIL_SMTP_HOST;
+import static org.oscm.communicationservice.Constants.MAIL_SMTP_USER;
+import static org.oscm.communicationservice.Constants.MAIL_TLS_ENABLED;
+import static org.oscm.communicationservice.Constants.RESOURCE_SUBJECT;
+import static org.oscm.communicationservice.Constants.RESOURCE_TEXT;
+import static org.oscm.communicationservice.Constants.RESOURCE_TEXT_FOOTER;
+import static org.oscm.communicationservice.Constants.RESOURCE_TEXT_HEADER;
+import static org.oscm.communicationservice.Constants.TENANT_ID;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
@@ -11,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+
 import javax.ejb.EJB;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -31,7 +46,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.commons.lang3.StringUtils;
-
 import org.oscm.communicationservice.data.SendMailStatus;
 import org.oscm.communicationservice.local.CommunicationServiceLocal;
 import org.oscm.configurationservice.local.ConfigurationServiceLocal;
@@ -50,20 +64,6 @@ import org.oscm.types.constants.Configuration;
 import org.oscm.types.enumtypes.EmailType;
 import org.oscm.types.enumtypes.LogMessageIdentifier;
 import org.oscm.validator.BLValidator;
-
-import static org.oscm.communicationservice.Constants.ENCODING;
-import static org.oscm.communicationservice.Constants.MAIL_PASSWORD;
-import static org.oscm.communicationservice.Constants.MAIL_PROTOCOL_SMTP;
-import static org.oscm.communicationservice.Constants.MAIL_RESOURCE;
-import static org.oscm.communicationservice.Constants.MAIL_SMTP_AUTH;
-import static org.oscm.communicationservice.Constants.MAIL_SMTP_USER;
-import static org.oscm.communicationservice.Constants.MAIL_SMTP_HOST;
-import static org.oscm.communicationservice.Constants.MAIL_TLS_ENABLED;
-import static org.oscm.communicationservice.Constants.RESOURCE_SUBJECT;
-import static org.oscm.communicationservice.Constants.RESOURCE_TEXT;
-import static org.oscm.communicationservice.Constants.RESOURCE_TEXT_FOOTER;
-import static org.oscm.communicationservice.Constants.RESOURCE_TEXT_HEADER;
-import static org.oscm.communicationservice.Constants.TENANT_ID;
 
 /** Session Bean implementation class CommunicationServiceBean */
 @Stateless
@@ -363,10 +363,10 @@ public class CommunicationServiceBean implements CommunicationServiceLocal {
     return (host != null && host.equalsIgnoreCase("oscm-maildev"));
   }
 
-  private Session lookupMailResource() {
+  protected Session lookupMailResource() {
     Session session = null;
     try {
-      Context context = new InitialContext();
+      Context context = newInitialContext();
       Object resource = context.lookup(MAIL_RESOURCE);
       if (resource instanceof Session) {
         session = (Session) resource;
@@ -376,15 +376,8 @@ public class CommunicationServiceBean implements CommunicationServiceLocal {
           properties.putIfAbsent(MAIL_TLS_ENABLED, "true");
           String username = session.getProperty(MAIL_SMTP_USER);
           String password = session.getProperty(MAIL_PASSWORD);
-          session =
-              Session.getInstance(
-                  session.getProperties(),
-                  new Authenticator() {
-                    @Override
-                    protected PasswordAuthentication getPasswordAuthentication() {
-                      return new PasswordAuthentication(username, password);
-                    }
-                  });
+
+          session = newAuthenticatedSession(properties, username, password);
         }
       }
     } catch (NamingException e) {
@@ -416,7 +409,7 @@ public class CommunicationServiceBean implements CommunicationServiceLocal {
     }
 
     try {
-      Address from = new InternetAddress(session.getProperty("mail.smtp.from"));
+      Address from = newInternetAddress(session.getProperty("mail.smtp.from"));
       msg.setFrom(from);
       msg.setReplyTo(new Address[] {from});
       msg.setSubject(subject, encoding);
@@ -439,7 +432,7 @@ public class CommunicationServiceBean implements CommunicationServiceLocal {
       Address[] to = new InternetAddress[mailAddresses.size()];
       int pos = 0;
       for (String recipient : mailAddresses) {
-        to[pos] = new InternetAddress(recipient);
+        to[pos] = newInternetAddress(recipient);
         pos++;
       }
       msg.addRecipients(Message.RecipientType.TO, to);
@@ -457,7 +450,7 @@ public class CommunicationServiceBean implements CommunicationServiceLocal {
     }
 
     try {
-      Transport.send(msg);
+      sendMessage(msg);
     } catch (MessagingException e) {
       MailOperationException mof = new MailOperationException("Mail could not be sent.", e);
       logger.logWarn(Log4jLogger.SYSTEM_LOG, e, LogMessageIdentifier.WARN_MAILING_FAILURE);
@@ -465,15 +458,6 @@ public class CommunicationServiceBean implements CommunicationServiceLocal {
     }
   }
 
-  /**
-   * Gets a text string for the given key from the mail resource bundle. If the params array is set,
-   * placeholders in this string will be replaced by the elements of the array.
-   *
-   * @param localeString the string representation of the locale which is used to access the
-   *     resource bundle
-   * @param key the key for the desired string.
-   * @param params an array of objects to be formatted and substituted.
-   */
   private String getText(
       String localeString, String key, Object[] params, Marketplace marketplace) {
 
@@ -494,5 +478,29 @@ public class CommunicationServiceBean implements CommunicationServiceLocal {
     while (url.length() > 0 && url.charAt(url.length() - 1) == '/') {
       url.replace(url.length() - 1, url.length(), "");
     }
+  }
+
+  protected InternetAddress newInternetAddress(String url) throws AddressException {
+    return new InternetAddress(url);
+  }
+
+  protected InitialContext newInitialContext() throws NamingException {
+    return new InitialContext();
+  }
+
+  protected void sendMessage(MimeMessage msg) throws MessagingException {
+    Transport.send(msg);
+  }
+
+  protected Session newAuthenticatedSession(
+      Properties properties, String username, String password) {
+    return Session.getInstance(
+        properties,
+        new Authenticator() {
+          @Override
+          protected PasswordAuthentication getPasswordAuthentication() {
+            return new PasswordAuthentication(username, password);
+          }
+        });
   }
 }

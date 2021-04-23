@@ -17,7 +17,7 @@
 	<classpathentry kind="lib" path="/libraries/apache-lucene/javalib/solr-solrj-5.3.1.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-hibernate-search/javalib/hibernate-search-engine-5.5.4.Final.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-hibernate-search/javalib/hibernate-search-orm-5.5.4.Final.jar"/>
-	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all-1.8.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-server-common"/>
