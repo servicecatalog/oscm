@@ -276,7 +276,17 @@
       overwrite="true" />
     <copy file="${ivy.lib.dir}/junit-4.12.jar" todir="${root.dir}/libraries/junit/javalib/" overwrite="true" />
   	<copy file="${ivy.lib.dir}/hamcrest-2.2.jar" todir="${root.dir}/libraries/junit/javalib/" overwrite="true" />
-    <copy file="${ivy.lib.dir}/mockito-all-1.8.5.jar" todir="${root.dir}/libraries/mockito/javalib/" overwrite="true" />
+   
+    <copy file="${ivy.lib.dir}/mockito-all-1.10.19.jar" tofile="${root.dir}/libraries/mockito/javalib/mockito-all.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/powermock-module-junit4-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-module-junit4.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/powermock-module-junit4-common-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-module-junit4-common.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/powermock-api-mockito-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-api-mockito2.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/powermock-core-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-core.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/powermock-api-support-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-api-support.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/powermock-api-mockito-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-api-mockito.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/powermock-api-mockito-common-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-api-mockito-common.jar" overwrite="true" />
+    <copy file="${ivy.lib.dir}/powermock-reflect-1.7.4.jar" tofile="${root.dir}/libraries/mockito/javalib/powermock-reflect.jar" overwrite="true" />
+    
     <copy file="${ivy.lib.dir}/omnifaces-1.10.jar" todir="${root.dir}/libraries/omnifaces/javalib/" overwrite="true" />
 
     <copy file="${ivy.lib.dir}/postgresql-9.4-1206-jdbc42.jar" todir="${root.dir}/libraries/postgresql-jdbc/javalib"

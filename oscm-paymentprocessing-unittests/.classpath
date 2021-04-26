@@ -25,7 +25,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-intsvc-base"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-psp-heidelpay"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-psp-extsvc"/>
-	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all-1.8.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n-intsvc"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n"/>
 	<classpathentry kind="lib" path="/libraries/wsdl4j/javalib/wsdl4j.jar"/>

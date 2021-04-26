@@ -20,7 +20,7 @@
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/richfaces-build-resources-4.6.13.ayg.jar"/>
 	<classpathentry kind="lib" path="/libraries/jboss-richfaces/javalib/sac-1.3.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-serviceprovisioning-intsvc"/>
-	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all-1.8.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-server-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-i18n-intsvc"/>
 	<classpathentry kind="lib" path="/libraries/apache-poi/javalib/poi-3.9.jar"/>

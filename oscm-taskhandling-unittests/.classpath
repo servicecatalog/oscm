@@ -7,7 +7,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-common"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-extsvc-notification"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-intsvc-base"/>
-	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all-1.8.5.jar"/>
+	<classpathentry kind="lib" path="/libraries/mockito/javalib/mockito-all.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-taskhandling"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/oscm-taskhandling-intsvc"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>

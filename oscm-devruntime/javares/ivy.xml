@@ -247,7 +247,7 @@
     <dependency org="org.eclipse.birt.runtime.3_7_1" name="org.w3c.css.sac" rev="1.3.0" transitive="false"/>
     <dependency org="org.eclipse.birt.runtime.3_7_1" name="org.w3c.dom.smil" rev="1.0.0" transitive="false"/>
     <dependency org="org.eclipse.birt.runtime.3_7_1" name="org.w3c.dom.svg" rev="1.1.0" transitive="false"/>
-    <!--<dependency org="org.apache.axis" name="axis-saaj" rev="1.4" transitive="false"/>-->
+   
     <dependency org="org.eclipse.birt.runtime" name="viewservlets" rev="4.3.1" transitive="false"/>
     <dependency org="org.eclipse.jdt.core.compiler" name="ecj" rev="4.5.1" transitive="false"/>
     <dependency org="org.jacoco" name="org.jacoco.agent" rev="0.7.8" transitive="false"/>
@@ -267,32 +267,32 @@
     <dependency org="org.jolokia" name="jolokia-core" rev="1.1.1" transitive="false"/>
     <dependency org="org.jolokia" name="jolokia-jsr160" rev="1.1.1" transitive="false"/>
     <dependency org="com.googlecode.json-simple" name="json-simple" rev="1.1" transitive="false"/>
+   
+    <!-- Junit and Mockito -->
     <dependency org="junit" name="junit" rev="4.12" transitive="false"/>
-	  <dependency org="org.hamcrest" name="hamcrest" rev="2.2" transitive="false"/>
+    <dependency org="org.mockito" name="mockito-all" rev="1.10.19" transitive="false"/>
+    <dependency org="org.powermock" name="powermock-module-junit4" rev="1.7.4" transitive="false"/>
+    <dependency org="org.powermock"  name="powermock-module-junit4-common" rev="1.7.4" transitive="false"/>
+    <dependency org="org.powermock"  name="powermock-api-mockito" rev="1.7.4" transitive="false" />
+    <dependency org="org.powermock"  name="powermock-api-mockito-common" rev="1.7.4" transitive="false" />
+    <dependency org="org.powermock"  name="powermock-core" rev="1.7.4" transitive="false" />
+    <dependency org="org.powermock"  name="powermock-api-support" rev="1.7.4" transitive="false" />
+    <dependency org="org.powermock"  name="powermock-reflect" rev="1.7.4" transitive="false" />
     
-    <dependency org="org.mockito" name="mockito-all" rev="1.8.5" transitive="false"/>
+    <dependency org="org.hamcrest" name="hamcrest" rev="2.2" transitive="false"/>
+    
     <dependency org="org.omnifaces" name="omnifaces" rev="1.10" transitive="false"/>
     <dependency org="ca.juliusdavies" name="not-yet-commons-ssl" rev="0.3.9" transitive="false"/>
     <dependency org="commons-codec" name="commons-codec" rev="1.7" transitive="false"/>
     <dependency org="org.owasp.esapi" name="esapi" rev="2.0.1" transitive="false"/>
+    
+    <!-- slf4j 1.7.5: Check if they can be removed -->
     <dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.7.5" transitive="false"/>
     <dependency org="org.slf4j" name="jul-to-slf4j" rev="1.7.5" transitive="false"/>
     <dependency org="org.slf4j" name="log4j-over-slf4j" rev="1.7.5" transitive="false"/>
     <dependency org="org.slf4j" name="slf4j-api" rev="1.7.5" transitive="false"/>
-    <dependency org="org.apache.velocity" name="velocity" rev="1.7" transitive="false"/>
-    <dependency org="org.apache.santuario" name="xmlsec" rev="1.5.4" transitive="false"/>
-    <dependency org="antlr" name="antlr" rev="2.7.7" transitive="false"/>
-    <dependency org="org.dom4j" name="dom4j" rev="2.1.3" transitive="false"/>
-    <dependency org="org.hibernate.common" name="hibernate-commons-annotations" rev="5.0.1.Final" transitive="false"/>
-    <dependency org="org.hibernate.javax.persistence" name="hibernate-jpa-2.1-api" rev="1.0.0.Final"
-                transitive="false"/>
-    <dependency org="org.jboss.spec.javax.transaction" name="jboss-transaction-api_1.1_spec" rev="1.0.1.Final"
-                transitive="false"/>
-    <dependency org="org.hibernate" name="hibernate-core" rev="5.0.9.Final" transitive="false"/>
-    <dependency org="org.hibernate" name="hibernate-entitymanager" rev="5.0.9.Final" transitive="false"/>
-    <dependency org="org.codehaus.sonar-plugins" name="sonar-ant-task" rev="1.1" transitive="false"/>
-    <dependency org="org.codehaus.sonar" name="sonar-ws-client" rev="4.5" transitive="false"/>
-
+   
+    <!-- slf4j 1.7.7 -->
     <dependency org="org.slf4j" name="jcl-over-slf4j" rev="1.7.7" transitive="false"/>
     <dependency org="org.slf4j" name="jul-to-slf4j" rev="1.7.7" transitive="false"/>
     <dependency org="org.slf4j" name="log4j-over-slf4j" rev="1.7.7" transitive="false"/>
@@ -308,6 +308,20 @@
     <dependency org="org.slf4j" name="slf4j-nop" rev="1.7.7" transitive="false"/>
     <dependency org="org.slf4j" name="slf4j-simple" rev="1.7.7" transitive="false"/>
     <dependency org="org.codehaus.sonar" name="sonar-plugin-api" rev="3.3" transitive="false"/>
+
+    <dependency org="org.apache.velocity" name="velocity" rev="1.7" transitive="false"/>
+    <dependency org="org.apache.santuario" name="xmlsec" rev="1.5.4" transitive="false"/>
+    <dependency org="antlr" name="antlr" rev="2.7.7" transitive="false"/>
+    <dependency org="org.dom4j" name="dom4j" rev="2.1.3" transitive="false"/>
+    <dependency org="org.hibernate.common" name="hibernate-commons-annotations" rev="5.0.1.Final" transitive="false"/>
+    <dependency org="org.hibernate.javax.persistence" name="hibernate-jpa-2.1-api" rev="1.0.0.Final"
+                transitive="false"/>
+    <dependency org="org.jboss.spec.javax.transaction" name="jboss-transaction-api_1.1_spec" rev="1.0.1.Final"
+                transitive="false"/>
+    <dependency org="org.hibernate" name="hibernate-core" rev="5.0.9.Final" transitive="false"/>
+    <dependency org="org.hibernate" name="hibernate-entitymanager" rev="5.0.9.Final" transitive="false"/>
+    <dependency org="org.codehaus.sonar-plugins" name="sonar-ant-task" rev="1.1" transitive="false"/>
+    <dependency org="org.codehaus.sonar" name="sonar-ws-client" rev="4.5" transitive="false"/>
 
     <dependency org="javax.servlet" name="javax.servlet-api" rev="3.1.0" transitive="false"/>
     <dependency org="javax.jms" name="javax.jms-api" rev="2.0.1" transitive="false"/>
@@ -342,7 +356,6 @@
     <dependency org="com.sun.xml.bind" name="jaxb-xjc" rev="2.2.10" transitive="false"/>
     <dependency org="com.sun.xml.bind" name="jaxb-jxc" rev="2.2.10" transitive="false"/>
 
-
     <dependency org="com.sun.xml.ws" name="jaxws-rt" rev="2.2.10" transitive="false"/>
     <dependency org="com.sun.xml.ws" name="jaxws-tools" rev="2.2.10" transitive="false"/>
     <dependency org="com.sun.xml.ws" name="policy" rev="2.4"/>
@@ -352,7 +365,6 @@
     <dependency org="javax.activation" name="activation" rev="1.1"/>
     <dependency org="com.sun.xml.bind" name="jaxb-core" rev="2.2.10-b140802.1033"/>
     <dependency org="com.sun.xml.stream.buffer" name="streambuffer" rev="1.5.4"/>
-
 
     <dependency org="com.sun.xml.messaging.saaj" name="saaj-impl" rev="1.3.25" transitive="false"/>
     <dependency org="wsdl4j" name="wsdl4j" rev="1.6.3" transitive="false"/>
@@ -395,12 +407,9 @@
     
     <!-- OIDC related libs -->
 	  <dependency org="com.auth0" name="java-jwt" rev="3.8.1" transitive="false"/>
-	  
-	  <!-- Bootstrap sources -->
 	  <dependency org="org.webjars" name="bootstrap" rev="5.0.0-beta3"/>
     <dependency org="org.webjars" name="font-awesome" rev="4.7.0"/>
     <dependency org="com.yahoo.platform.yui" name="yuicompressor" rev="2.4.7"/>
-
     <exclude org="org.netbeans.api"/>
     <exclude org="*" ext="*" type="source"/>
     <exclude org="*" ext="*" type="javadoc"/>
