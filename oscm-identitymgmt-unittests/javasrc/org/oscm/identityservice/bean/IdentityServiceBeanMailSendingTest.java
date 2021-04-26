@@ -32,9 +32,7 @@ import static org.oscm.types.constants.marketplace.Marketplace.MARKETPLACE_ROOT;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import javax.persistence.Query;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -29,7 +29,6 @@ import static org.powermock.api.mockito.PowerMockito.whenNew;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
-
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -37,7 +36,6 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

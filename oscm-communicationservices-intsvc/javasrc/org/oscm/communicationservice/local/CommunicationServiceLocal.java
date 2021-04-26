@@ -5,14 +5,13 @@
 package org.oscm.communicationservice.local;
 
 import javax.ejb.Local;
-
 import org.oscm.communicationservice.data.SendMailStatus;
 import org.oscm.domobjects.Marketplace;
 import org.oscm.domobjects.Organization;
 import org.oscm.domobjects.PlatformUser;
-import org.oscm.types.enumtypes.EmailType;
 import org.oscm.internal.types.exception.MailOperationException;
 import org.oscm.internal.types.exception.ValidationException;
+import org.oscm.types.enumtypes.EmailType;
 
 /**
  * Service interface providing functionality to send e-mails.
