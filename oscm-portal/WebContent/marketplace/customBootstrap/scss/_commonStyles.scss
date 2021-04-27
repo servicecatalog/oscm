@@ -2,9 +2,9 @@
 /* import only the necessary Bootstrap files */
 @import "../../bootstrap/scss/functions"; 
 @import "../../bootstrap/scss/variables";
-
 @import "../../bootstrap/scss/mixins/grid";
 
+$enable-grid-classes: false;
 html, body {
   max-width: 100%;
   overflow-x: hidden;
