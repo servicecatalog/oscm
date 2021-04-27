@@ -1,5 +1,6 @@
 @import "./basic/colors";
 
+$enable-grid-classes: false;
 $body-color:                           hsl(var(--oscm-main-font-color));
 $bg-body:                              var(--oscm-bg-color);
 $bg-light:                             var(--oscm-bg-color);
