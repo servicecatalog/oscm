@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="javalib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../oscm-build/result/package/oscm-internal-interfaces/oscm-internal-interfaces.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../oscm-build/result/package/oscm-serviceprovisioning/oscm-serviceprovisioning.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../oscm-build/result/package/oscm-serviceprovisioning-intsvc/oscm-serviceprovisioning-intsvc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../oscm-build/result/package/j2ep/j2ep.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../oscm-build/lib" />
+      <root url="file://$PROJECT_DIR$/../libraries/servicecatalog/oscm-extsvc-internal" />
+      <root url="file://$PROJECT_DIR$/../libraries/servicecatalog/oscm-extsvc" />
+      <root url="jar://$PROJECT_DIR$/../libraries/servicecatalog/oscm-common.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/../libraries/servicecatalog/oscm-extsvc" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/../libraries/servicecatalog/oscm-extsvc-internal" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/../oscm-build/lib" recursive="false" />
+  </library>
+</component>
