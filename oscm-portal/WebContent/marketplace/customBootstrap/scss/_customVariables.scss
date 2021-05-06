@@ -143,7 +143,7 @@ a.text-secondary:hover, a.text-secondary:focus, a.text-primary:hover, a.text-pri
 
 .list-group-item-secondary {
   color:                               hsl(var(--oscm-main-font-color));
-  background-color:                    hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -7%)) !important;
+  background-color:                    hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l) - -10%)) !important;
   &:hover {
      background-color:                 hsla(var(--oscm-primary-h), var(--oscm-primary-s), calc(var(--oscm-primary-l))) !important;
      color:                            rgb(var(--oscm-white)) !important;
