@@ -11,12 +11,16 @@
 
   <taskdef name="licensespackage" classname="org.oscm.build.ant.LicensesPackageTask" />
 
+  <taskdef name="ideamoduleconfiguration" classname="org.oscm.build.ant.IdeaModuleConfigurationTask" />
+ 
   <taskdef name="foreach" classname="org.oscm.build.ant.ForEachTask" />
   
   <taskdef name="copykey" classname="org.oscm.build.ant.CopyKeyTask" />
-
-  <taskdef name="sign" classname="org.oscm.build.ant.SignTask" />
   
+  <!--
+  <taskdef name="sign" classname="org.oscm.build.ant.SignTask" />
+  -->
+
   <taskdef name="propertiescompare" classname="org.oscm.build.ant.PropertiesCompareTask" />
 
   <taskdef name="propertiessyntaxcheck" classname="org.oscm.build.ant.PropertiesSyntaxCheckTask" />
@@ -30,6 +34,7 @@
   <typedef name="createKPI" classname="org.oscm.build.ant.CreateKPITask" />
   
   <typedef name="wsdlhandle" classname="org.oscm.build.ant.WsdlHandleTask" />
+  
   <typedef name="wsithandle" classname="org.oscm.build.ant.WsitHandleTask" />
 </antlib>
       

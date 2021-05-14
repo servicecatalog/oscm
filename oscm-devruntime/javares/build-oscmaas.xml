@@ -23,8 +23,9 @@
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.cruisecontrol.file}" target="bootstrap"/>
     <antcall target="compileScss" />
     <antcall target="BUILD.BeforeHook" />
+    <antcall target="BUILD.prepareIdeaWorkspace" />
     <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="package_without_doc">
-      <property name="projects" value="oscm-ear,oscm-portal,oscm-portal-help,oscm-security,oscm-devruntime,oscm-reports, oscm-operatorsvc-client, oscm-jmx-internal" />     
+      <property name="projects" value="oscm-ear,oscm-portal,oscm-portal-help,oscm-security,oscm-devruntime,oscm-reports, oscm-operatorsvc-client, oscm-jmx-internal, oscm-build-antextensions" />     
     </ant>
     <antcall target="informationAboutNotInstalledSass" />
   </target>
@@ -52,6 +53,10 @@
     <echo level="warn">=============================================================================================</echo>
   </target>
 
+  <target name="BUILD.prepareIdeaWorkspace" >
+    <ant dir="${adm.ue.buildscript.dir}" antfile="${adm.ue.buildscript.file}" target="prepareIdeaWorkspace"/>
+  </target>
+  
   <target name="BUILD.BeforeHook" if="ishookdeployed" depends="checkHook">
     <dirname property="custom.build.dir" file="${custom.build.hook}"/>
     <ant dir="${custom.build.dir}" antfile="${custom.build.hook}" target="customBuildHook"/>
