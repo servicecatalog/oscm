@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="oscm_libs">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/oscm-build/result/package" />
+      <root url="file://$PROJECT_DIR$/oscm-build/result/work/oscm-unittests-base" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/oscm-build/result/package" recursive="true" />
+  </library>
+</component>

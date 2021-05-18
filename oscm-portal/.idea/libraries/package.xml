@@ -7,7 +7,9 @@
       <root url="file://$PROJECT_DIR$/../libraries" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/javasrc" />
+    </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/../libraries" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/../oscm-build/result/package/j2ep" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/../oscm-build/result/package/oscm-internal" recursive="true" />

@@ -483,6 +483,10 @@
     <osslist workspace="${workspace.dir}" licensesDir="${basedir}/result/licenses" outputDir="${basedir}/result/osslist" outputFileName="osslist.txt" />
   </target>
 
+  <target name="prepareIdeaWorkspace">
+    <ideamoduleconfiguration workspace="${workspace.dir}" dirname="${root.dir}/.idea" filename="oscm.iml" />
+  </target>
+
   <!-- Generate the schema files for birt designer -->
   <target name="wsdlForBirt">
     <property name="result.report.dir" value="${result.dir}/birt" />

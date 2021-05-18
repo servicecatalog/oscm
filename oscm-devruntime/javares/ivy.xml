@@ -383,6 +383,7 @@
 
     <!-- Tomee libs -->
     <dependency org="org.apache.tomee" name="javaee-api" rev="7.0-1" transitive="false"/>
+    <dependency org="org.apache.tomee" name="openejb-api" rev="7.0.3" transitive="false"/>
     <dependency org="org.apache.tomee" name="openejb-core" rev="7.0.3" transitive="false"/>
     <dependency org="org.apache.tomee" name="openejb-cxf" rev="7.0.3" transitive="false"/>
     <dependency org="org.apache.tomee" name="openejb-client" rev="7.0.3" transitive="false"/>

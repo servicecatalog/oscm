@@ -381,6 +381,8 @@
       overwrite="true" />
     <copy file="${ivy.lib.dir}/geronimo-javamail_1.4_mail-1.9.0-alpha-2.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/geronimo-javamail_1.4_mail-1.9.0-alpha-2.jar"
       overwrite="true" />
+    <copy file="${ivy.lib.dir}/openejb-api-7.0.3.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/openejb-api-7.0.3.jar"
+          overwrite="true" />
     <copy file="${ivy.lib.dir}/openejb-core-7.0.3.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/openejb-core-7.0.3.jar"
       overwrite="true" />
     <copy file="${ivy.lib.dir}/openejb-cxf-7.0.3.jar" tofile="${root.dir}/libraries/apache-tomee/javalib/openejb-cxf-7.0.3.jar"

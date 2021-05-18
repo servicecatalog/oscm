@@ -10,7 +10,6 @@
       <root url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc-operation/javalib" />
       <root url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-app-extsvc/javalib" />
       <root url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-psp-extsvc/javalib" />
-      <root url="jar://$PROJECT_DIR$/libraries/wsdl4j/javalib/wsdl4j.jar!/" />
       <root url="file://$PROJECT_DIR$/libraries/jboss-richfaces/javalib" />
       <root url="file://$PROJECT_DIR$/libraries/javax/javalib" />
       <root url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc-notification/javalib" />
@@ -68,6 +67,10 @@
       <root url="jar://$PROJECT_DIR$/libraries/apache-ant-contrib/ant-contrib-1.0b3.jar!/" />
       <root url="file://$PROJECT_DIR$/libraries/apache-ant/javalib" />
       <root url="file://$PROJECT_DIR$/libraries/antlr/javalib" />
+      <root url="file://$PROJECT_DIR$/libraries/servicecatalog" />
+      <root url="file://$PROJECT_DIR$/libraries/javax/javalib" />
+      <root url="file://$PROJECT_DIR$/libraries/servicecatalog" />
+      <root url="file://$PROJECT_DIR$/libraries/apache-tomee/javalib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
@@ -98,6 +101,7 @@
     <jarDirectory url="file://$PROJECT_DIR$/libraries/apache-lucene/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/apache-poi/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/apache-tomee/javalib" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/libraries/apache-tomee/javalib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/apache-validator/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/apache-xerces/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/asm/javalib" recursive="true" />
@@ -108,7 +112,8 @@
     <jarDirectory url="file://$PROJECT_DIR$/libraries/jackson/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/jacoco/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/jakarta-oro/javalib" recursive="true" />
-    <jarDirectory url="file://$PROJECT_DIR$/libraries/javax/javalib" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DIR$/libraries/javax/javalib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/libraries/javax/javalib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/jboss-hibernate-search/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/jboss-richfaces/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/junit/javalib" recursive="true" />
@@ -119,23 +124,20 @@
     <jarDirectory url="file://$PROJECT_DIR$/libraries/postgresql-jdbc/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/redhat-hibernate/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-app-extsvc/javalib" recursive="true" />
-
     <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-billing-external-interfaces/javalib" recursive="true" />
-
     <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-billing-external-interfaces/javalib" recursive="true" />
-
     <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc-internal/javalib" recursive="true" />
-
+    <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc-internal/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc-notification/javalib" recursive="true" />
-
+    <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc-notification/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc-operation/javalib" recursive="true" />
-
+    <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc-operation/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc-provisioning/javalib" recursive="true" />
-
+    <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc-provisioning/javalib" recursive="true" />
+    <jarDirectory url="file://$PROJECT_DnnIR$/libraries/servicecatalog/oscm-extsvc/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-extsvc/javalib" recursive="true" />
-
     <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-psp-extsvc/javalib" recursive="true" />
-
+    <jarDirectory url="file://$PROJECT_DIR$/libraries/servicecatalog/oscm-psp-extsvc/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/slf4j-log4j/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/slf4j/javalib" recursive="true" />
     <jarDirectory url="file://$PROJECT_DIR$/libraries/wsdl4j/javalib" recursive="true" />
