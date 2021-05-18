@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<module type="JAVA_MODULE" version="4">
+  <component inherit-compiler-output="true" name="NewModuleRootManager">
+    <exclude-output/>
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/example-service/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/example-service/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/j2ep/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/j2ep/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/mock-psp-service/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-accountmgmt/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-accountmgmt-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-app-extsvc-2-0/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-application/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-application-intsvc/javares"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-application-unittests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-auditlog/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-billing/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-billing-adapter-service/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-billing-application/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-billing-external-interfaces/javares"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-billing-unittests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-brandmgmt/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-build-antextensions/javares"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-build-antextensions-unittests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-common/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-communicationservices/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-communicationservices-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-configservice/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-configservice-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-converter/javares"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-converter-unittests/javares"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-database-unittests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-dataservice/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-dataservice-intsvc/javares"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-dataservice-unittests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-devruntime/javares"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-devruntime-unittests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-domainobjects/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-eventmgmt/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-extsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-extsvc-internal/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-extsvc-internal-impl/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-extsvc-notification/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-extsvc-operation/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-extsvc-provisioning/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-file-billing-adapter/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-file-billing-adapter/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-file-billing-application/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-file-billing-application/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-i18n/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-i18n-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-identitymgmt/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-identitymgmt-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-integrationtests-parameter-configurator/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-integrationtests-parameter-configurator/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-internal/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-intsvc-base/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-jmx-internal/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-jmx-internal/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-kafka/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-marketplaceservice/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-marketplaceservice-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-operatorsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-operatorsvc-client/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-paymentprocessing/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-paymentprocessing-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-paypal-prototype/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-portal/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-portal/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-portal-help/WebContent"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-portal-unittests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-portal-webtests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-psp-extsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-psp-heidelpay/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-psp-heidelpay/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-pspresponse/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-pspresponse/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-reporting/javares"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-reporting-unittests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-reports/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-rest-api-common/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-rest-api-trigger/WebContent"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-review/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-security/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-server-common/javares"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-server-common-unittests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-server-util/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-serviceprovisioning/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-serviceprovisioning-intsvc/javares"/>
+      <sourceFolder isTestSource="true" url="file://$MODULE_DIR$/oscm-serviceprovisioning-unittests/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-sessionmgmt/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-sessionmgmt-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-startup/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-subscriptionmgmt/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-subscriptionmgmt-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-taskhandling/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-taskhandling-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-tenantmgmt/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-tenantmgmt-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-tenantprovisioning/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-timermgmt/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-triggerservice/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-triggerservice-intsvc/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-unittests-base/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-usergroupmgmt/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-vat/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-webservices/javares"/>
+      <sourceFolder isTestSource="false" url="file://$MODULE_DIR$/oscm-webservices-tests/javares"/>
+    </content>
+    <orderEntry jdkName="1.8" jdkType="JavaSDK" type="jdk"/>
+    <orderEntry forTests="false" type="sourceFolder"/>
+    <orderEntry exported="" level="project" name="oscm-build libs" type="library"/>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/libraries"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+        <jarDirectory recursive="false" url="file://$MODULE_DIR$/libraries"/>
+      </library>
+    </orderEntry>
+    <orderEntry exported="" level="project" name="oscm_libs" type="library"/>
+  </component>
+</module>
+
