@@ -8,12 +8,12 @@
 
 package org.oscm.build.ant;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.File;
+import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
 
@@ -26,7 +26,10 @@ public class IdeaModuleConfigurationTaskTest {
   @Before
   public void setup() throws Exception {
     final String root = System.getProperty("user.dir");
-    metaFileDir = new File(root + "/oscm-build-antextensions-unittests/javares");
+    metaFileDir = new File(root + "/javares");
+    if (!metaFileDir.exists()) {
+      metaFileDir = new File(root + "/oscm-build-antextensions-unittests/javares");
+    }
     task = new IdeaModuleConfigurationTask();
     task.setDirName(metaFileDir.getPath());
     task.setFileName("oscm.iml");
