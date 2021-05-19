@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -108,7 +109,6 @@ public class IdeaModuleConfigurationTask extends Task {
         appendSourceFolderRef(node, doc, prj, src);
       }
     }
-
     XMLHelper.writeToFS(doc, new File(metaFolder, file).getAbsolutePath());
   }
 
@@ -153,37 +153,54 @@ public class IdeaModuleConfigurationTask extends Task {
   }
 
   class Project {
-
-    File[] srcFolders;
+    List<String> srcPaths = new ArrayList<String>();
     final List<String> srcDirs =
         Arrays.asList(
-            new String[] {"javares", "javasrc", "javares-it", "javasrc-it", "WebContent"});
+            new String[] {
+              "main", "test", "javares", "javasrc", "javares-it", "javasrc-it", "WebContent"
+            });
+    final FilenameFilter filter =
+        new FilenameFilter() {
+          @Override
+          public boolean accept(File dir, String name) {
+            if (new File(dir, name).isDirectory()) {
+              return srcDirs.contains(name);
+            }
+            return false;
+          }
+        };
+
     private File prj;
 
     Project(File prj) {
       this.prj = prj;
+      String prjPath = prj.getPath();
 
-      srcFolders =
-          prj.listFiles(
-              new FilenameFilter() {
-                @Override
-                public boolean accept(File dir, String name) {
-                  if (new File(dir, name).isDirectory()) {
-                    return srcDirs.contains(name);
-                  }
-                  return false;
-                }
-              });
+      collectSrcPaths(prj, srcPaths);
+    }
+
+    void collectSrcPaths(File parent, List<String> paths) {
+      paths.addAll(
+          Arrays.stream(parent.listFiles(filter))
+              .map(f -> relPath(f))
+              .collect(Collectors.toList()));
+
+      File srcNode = new File(parent, "src");
+      if (srcNode.exists() && srcNode.isDirectory()) {
+        collectSrcPaths(srcNode, paths);
+      }
+    }
+
+    String relPath(File child) {
+      return prj.toURI().relativize(child.toURI()).getPath();
     }
 
     List<String> getSrcPaths() {
-      return Arrays.asList(srcFolders).stream()
-          .map(f -> folderPath(f))
-          .collect(Collectors.toList());
+      return srcPaths.stream().map(s -> folderPath(s)).collect(Collectors.toList());
     }
 
-    String folderPath(File child) {
-      return "file://$MODULE_DIR$/" + prj.getName() + "/" + child.getName();
+    String folderPath(String child) {
+      return "file://$MODULE_DIR$/" + prj.getName() + "/" + child;
     }
 
     boolean isTest() {

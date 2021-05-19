@@ -1,3 +1,12 @@
+/**
+ * *****************************************************************************
+ *
+ * <p>Copyright FUJITSU LIMITED 2021
+ *
+ * <p>Creation Date: 07.05.2021
+ *
+ * <p>*****************************************************************************
+ */
 package org.oscm.build.ant;
 
 import java.io.File;
@@ -62,14 +71,12 @@ public class XMLHelper {
     if (checkSchema) {
       builder.setErrorHandler(new DefaultErrorHandler());
     }
-
-    Document doc = builder.parse(new InputSource(new StringReader(string)));
-    return doc;
+    return builder.parse(new InputSource(new StringReader(string)));
   }
 
   public static List<Node> getChildrenByTag(Node parent, String tagName) {
     NodeList childs = parent.getChildNodes();
-    List<Node> children = new ArrayList<Node>();
+    List<Node> children = new ArrayList<>();
     for (int j = 0; j < childs.getLength(); j++) {
       if (tagName.equals(childs.item(j).getNodeName())) {
         children.add(childs.item(j));
