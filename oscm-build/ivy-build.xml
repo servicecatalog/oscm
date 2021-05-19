@@ -350,7 +350,6 @@
     <copy file="${ivy.lib.dir}/streambuffer-1.5.4.jar" tofile="${root.dir}/libraries/sun-metro/javalib/streambuffer-1.5.4.jar"
       overwrite="true" />
 
-
     <copy file="${ivy.lib.dir}/saaj-impl-1.3.25.jar" tofile="${root.dir}/libraries/sun-metro/javalib/saaj-impl.jar"
       overwrite="true" />
     <copy file="${ivy.lib.dir}/woodstox-core-asl-4.2.0.jar" tofile="${root.dir}/libraries/sun-metro/javalib/woodstox-core-asl.jar"

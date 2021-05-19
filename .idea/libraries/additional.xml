@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="additional">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/oscm-build/lib/wsdl4j-1.6.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libraries/jacoco/javalib/asm-debug-all-5.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

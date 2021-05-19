@@ -7,8 +7,6 @@
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/oscm-build/lib" />
-      <root url="jar://$PROJECT_DIR$/oscm-build/lib/jaxb-xjc-2.2.10.jar!/" />
-      <root url="jar://$PROJECT_DIR$/oscm-build/lib/mockito-all-1.10.19.jar!/" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/oscm-build/lib" recursive="true" />
   </library>

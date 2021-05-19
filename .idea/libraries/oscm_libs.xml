@@ -3,6 +3,8 @@
     <CLASSES>
       <root url="file://$PROJECT_DIR$/oscm-build/result/package" />
       <root url="file://$PROJECT_DIR$/oscm-build/result/work/oscm-unittests-base" />
+      <root url="file://$PROJECT_DIR$/oscm-build/result/work/oscm-psp-heidelpay/classes" />
+      <root url="file://$PROJECT_DIR$/oscm-build/result/work/example-service/classes" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
