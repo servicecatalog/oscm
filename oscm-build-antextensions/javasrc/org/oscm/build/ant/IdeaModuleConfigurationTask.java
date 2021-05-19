@@ -157,7 +157,7 @@ public class IdeaModuleConfigurationTask extends Task {
     final List<String> srcDirs =
         Arrays.asList(
             new String[] {
-              "main", "test", "javares", "javasrc", "javares-it", "javasrc-it", "WebContent"
+              "javares", "javasrc", "javares-it", "javasrc-it", "WebContent"
             });
     final FilenameFilter filter =
         new FilenameFilter() {
@@ -184,11 +184,6 @@ public class IdeaModuleConfigurationTask extends Task {
           Arrays.stream(parent.listFiles(filter))
               .map(f -> relPath(f))
               .collect(Collectors.toList()));
-
-      File srcNode = new File(parent, "src");
-      if (srcNode.exists() && srcNode.isDirectory()) {
-        collectSrcPaths(srcNode, paths);
-      }
     }
 
     String relPath(File child) {

@@ -53,8 +53,5 @@ public class IdeaModuleConfigurationTaskTest {
     assertTrue(result.contains("/oscm-build-antextensions-unittests/javares"));
     assertTrue(result.contains("/oscm-build-antextensions-unittests/javasrc"));
 
-    // then expect source references for a maven project
-    assertTrue(result.contains("/oscm-ui-tests/src/main"));
-    assertTrue(result.contains("/oscm-ui-tests/src/test"));
   }
 }
