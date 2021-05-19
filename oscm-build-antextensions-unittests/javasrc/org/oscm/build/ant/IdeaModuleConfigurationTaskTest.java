@@ -1,18 +1,15 @@
-/**
- * *****************************************************************************
+/*x********************************************************************************
  *
- * <p>Copyright FUJITSU LIMITED 2021
+ * Copyright FUJITSU LIMITED 2021
  *
- * <p>Creation Date: 07.05.2021
+ * Creation Date: 07.05.2021
  *
- * <p>*****************************************************************************
- */
+ *******************************************************************************x*/
+
 package org.oscm.build.ant;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
@@ -52,6 +49,5 @@ public class IdeaModuleConfigurationTaskTest {
     // then expect source references of this project
     assertTrue(result.contains("/oscm-build-antextensions-unittests/javares"));
     assertTrue(result.contains("/oscm-build-antextensions-unittests/javasrc"));
-
   }
 }

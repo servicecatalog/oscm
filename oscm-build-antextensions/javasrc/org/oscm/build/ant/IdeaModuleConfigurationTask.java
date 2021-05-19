@@ -1,12 +1,10 @@
-/**
- * *****************************************************************************
+/*x********************************************************************************
  *
- * <p>Copyright FUJITSU LIMITED 2021
+ * Copyright FUJITSU LIMITED 2021
  *
- * <p>Creation Date: 07.05.2021
+ * Creation Date: 07.05.2021
  *
- * <p>*****************************************************************************
- */
+ *******************************************************************************x*/
 package org.oscm.build.ant;
 
 import java.io.BufferedInputStream;
@@ -65,8 +63,9 @@ public class IdeaModuleConfigurationTask extends Task {
     if (fileName == null || !(fileName.endsWith(".iml"))) {
       throw new BuildException("No .iml file set");
     }
-    if (!(new File(dirName, fileName).exists())) {
-      System.out.printf("Skip IDEA modules. Metafile %s not found.\n", fileName);
+    final File metafile = new File(dirName, fileName);
+    if (!metafile.exists()) {
+      System.out.printf("Skip IDEA modules. Metafile %s not found.\n", metafile.getPath());
       return;
     }
 
@@ -103,7 +102,6 @@ public class IdeaModuleConfigurationTask extends Task {
 
     final EclipseProjectReader reader = new EclipseProjectReader(wsRoot);
     for (String name : reader.getProjectNames()) {
-
       Project prj = new Project(new File(wsRoot, name));
       for (String src : prj.getSrcPaths()) {
         appendSourceFolderRef(node, doc, prj, src);
@@ -120,11 +118,7 @@ public class IdeaModuleConfigurationTask extends Task {
   }
 
   private static String readFile(File sourceFile) throws IOException {
-    BufferedInputStream inBuf = null;
-    ByteArrayOutputStream outBuf = null;
-    try {
-      inBuf = new BufferedInputStream(new FileInputStream(sourceFile));
-      outBuf = new ByteArrayOutputStream();
+    try (BufferedInputStream inBuf = new BufferedInputStream(new FileInputStream(sourceFile)); ByteArrayOutputStream outBuf = new ByteArrayOutputStream()) {
       byte[] b = new byte[1024];
       int len;
       while ((len = inBuf.read(b)) != -1) {
@@ -132,16 +126,11 @@ public class IdeaModuleConfigurationTask extends Task {
       }
       outBuf.flush();
       return outBuf.toString("UTF-8");
-
-    } finally {
-      if (inBuf != null) inBuf.close();
-      if (outBuf != null) outBuf.close();
     }
   }
 
   @SuppressWarnings("boxing")
   private void removeOldSourceFolderRefs(Node node) {
-
     List<Node> nodes = XMLHelper.getChildrenByTag(node, "sourceFolder");
     System.out.printf("Remove %s sourceFolder nodes\n", nodes.size());
     for (Node n : nodes) {
@@ -152,13 +141,12 @@ public class IdeaModuleConfigurationTask extends Task {
     System.out.printf("Now %s sourceFolder nodes\n", nodes.size());
   }
 
-  class Project {
-    List<String> srcPaths = new ArrayList<String>();
+  @SuppressWarnings("Convert2MethodRef")
+  static class Project {
+    List<String> srcPaths = new ArrayList<>();
     final List<String> srcDirs =
         Arrays.asList(
-            new String[] {
-              "javares", "javasrc", "javares-it", "javasrc-it", "WebContent"
-            });
+            new String[] {"javares", "javasrc", "javares-it", "javasrc-it", "WebContent"});
     final FilenameFilter filter =
         new FilenameFilter() {
           @Override
@@ -174,8 +162,6 @@ public class IdeaModuleConfigurationTask extends Task {
 
     Project(File prj) {
       this.prj = prj;
-      String prjPath = prj.getPath();
-
       collectSrcPaths(prj, srcPaths);
     }
 
@@ -199,11 +185,7 @@ public class IdeaModuleConfigurationTask extends Task {
     }
 
     boolean isTest() {
-      return prj.getName().endsWith("-unittests");
-    }
-
-    File getDir() {
-      return prj;
+      return prj.getName().endsWith("-unittests") || prj.getName().endsWith("-tests");
     }
   }
 }
