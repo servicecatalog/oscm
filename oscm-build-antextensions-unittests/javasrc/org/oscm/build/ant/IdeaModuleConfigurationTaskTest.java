@@ -26,14 +26,16 @@ public class IdeaModuleConfigurationTaskTest {
   @Before
   public void setup() throws Exception {
     final String root = System.getProperty("user.dir");
-    metaFileDir = new File(root + "/javares");
+    metaFileDir = new File(root + "/oscm-build-antextensions-unittests/javares");
+    File ws = new File(root);
     if (!metaFileDir.exists()) {
-      metaFileDir = new File(root + "/oscm-build-antextensions-unittests/javares");
+      metaFileDir = new File(root + "/javares");
+      ws = new File(root).getParentFile();
     }
     task = new IdeaModuleConfigurationTask();
     task.setDirName(metaFileDir.getPath());
     task.setFileName("oscm.iml");
-    task.setWorkspace(new File(root));
+    task.setWorkspace(ws);
   }
 
   @Test
