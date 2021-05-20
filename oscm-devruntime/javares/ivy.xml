@@ -66,7 +66,7 @@
     <dependency org="org.apache.neethi" name="neethi" rev="2.0.4" transitive="false"/>
     <dependency org="org.apache.woden" name="woden-api" rev="1.0M8" transitive="false"/>
     <dependency org="org.apache.woden" name="woden-impl-dom" rev="1.0M8" transitive="false"/>
-    <dependency org="wsdl4j" name="wsdl4j" rev="1.6.2" transitive="false"/>
+    <dependency org="wsdl4j" name="wsdl4j" rev="1.6.3" transitive="false"/>
     <dependency org="org.codehaus.woodstox" name="wstx-asl" rev="3.2.4" transitive="false"/>
     <dependency org="org.apache.ws.commons.schema" name="XmlSchema" rev="1.4.3" transitive="false"/>
     <dependency org="net.bootsfaces" name="bootsfaces" rev="1.4.2" transitive="false"/>
@@ -367,7 +367,7 @@
     <dependency org="com.sun.xml.stream.buffer" name="streambuffer" rev="1.5.4"/>
 
     <dependency org="com.sun.xml.messaging.saaj" name="saaj-impl" rev="1.3.25" transitive="false"/>
-    <dependency org="wsdl4j" name="wsdl4j" rev="1.6.3" transitive="false"/>
+
     <dependency org="com.google.code.gson" name="gson" rev="2.6.2" transitive="false"/>
     <dependency org="org.ow2.asm" name="asm-debug-all" rev="5.1" transitive="false"/>
     <dependency org="asm" name="asm-all" rev="3.3.1"/>
@@ -383,6 +383,7 @@
 
     <!-- Tomee libs -->
     <dependency org="org.apache.tomee" name="javaee-api" rev="7.0-1" transitive="false"/>
+    <dependency org="org.apache.tomee" name="openejb-api" rev="7.0.3" transitive="false"/>
     <dependency org="org.apache.tomee" name="openejb-core" rev="7.0.3" transitive="false"/>
     <dependency org="org.apache.tomee" name="openejb-cxf" rev="7.0.3" transitive="false"/>
     <dependency org="org.apache.tomee" name="openejb-client" rev="7.0.3" transitive="false"/>

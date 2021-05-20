@@ -19,7 +19,9 @@ release/
 temp/
 logs/
 .settings/
-.idea/
+.idea/*
+!.idea/javalib/
+!.idea/libraries/
 .metadata/
 out/
 
