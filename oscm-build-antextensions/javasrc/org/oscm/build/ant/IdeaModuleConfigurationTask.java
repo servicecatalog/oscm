@@ -17,12 +17,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -118,7 +115,8 @@ public class IdeaModuleConfigurationTask extends Task {
   }
 
   private static String readFile(File sourceFile) throws IOException {
-    try (BufferedInputStream inBuf = new BufferedInputStream(new FileInputStream(sourceFile)); ByteArrayOutputStream outBuf = new ByteArrayOutputStream()) {
+    try (BufferedInputStream inBuf = new BufferedInputStream(new FileInputStream(sourceFile));
+        ByteArrayOutputStream outBuf = new ByteArrayOutputStream()) {
       byte[] b = new byte[1024];
       int len;
       while ((len = inBuf.read(b)) != -1) {

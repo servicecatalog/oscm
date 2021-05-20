@@ -9,6 +9,7 @@
  */
 package org.oscm.build.ant;
 
+import com.sun.org.apache.xml.internal.utils.DefaultErrorHandler;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,8 +35,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import com.sun.org.apache.xml.internal.utils.DefaultErrorHandler;
 
 /** @author goebel */
 public class XMLHelper {
