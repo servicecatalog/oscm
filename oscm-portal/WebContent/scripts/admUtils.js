@@ -2289,7 +2289,7 @@ AdmUtils.showTooltips = function() {
    $('[data-bs-toggle="popover"]').popover({
      html : true,
      container: 'body',
-     trigger: "hover click"
+     trigger: "hover focus"
    });
  });
 }
