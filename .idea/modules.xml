@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/oscm.iml" filepath="$PROJECT_DIR$/oscm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tools/oscm-client/oscm-client.iml" filepath="$PROJECT_DIR$/tools/oscm-client/oscm-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/oscm-ui-tests/oscm-ui-tests.iml" filepath="$PROJECT_DIR$/oscm-ui-tests/oscm-ui-tests.iml" />
+    </modules>
+  </component>
+</project>
