@@ -420,13 +420,13 @@
     <copy file="${ivy.lib.dir}/commons-lang-2.6.jar" todir="${root.dir}/libraries/apache-lang/javalib" overwrite="true" />
     <copy file="${ivy.lib.dir}/java-jwt-3.8.1.jar" todir="${root.dir}/libraries/oidc/javalib" overwrite="true" />
 
-    <unzip src="${ivy.lib.dir}/bootstrap-5.0.0-beta3.jar" dest="${root.dir}/libraries/bootstrap/javalib/work" />
+    <unzip src="${ivy.lib.dir}/bootstrap-5.0.1.jar" dest="${root.dir}/libraries/bootstrap/javalib/work" />
     <copy todir="${root.dir}/libraries/bootstrap/javalib">
-      <fileset dir="${root.dir}/libraries/bootstrap/javalib/work/META-INF/resources/webjars/bootstrap/5.0.0-beta3"/>
+      <fileset dir="${root.dir}/libraries/bootstrap/javalib/work/META-INF/resources/webjars/bootstrap/5.0.1"/>
     </copy>
     <mkdir dir="${root.dir}/oscm-portal/WebContent/marketplace/bootstrap"/>
     <copy todir="${root.dir}/oscm-portal/WebContent/marketplace/bootstrap">
-      <fileset dir="${root.dir}/libraries/bootstrap/javalib/work/META-INF/resources/webjars/bootstrap/5.0.0-beta3"/>
+      <fileset dir="${root.dir}/libraries/bootstrap/javalib/work/META-INF/resources/webjars/bootstrap/5.0.1"/>
     </copy>
     
     <unzip src="${ivy.lib.dir}/font-awesome-4.7.0.jar" dest="${root.dir}/libraries/font-awesome/javalib/work" />
