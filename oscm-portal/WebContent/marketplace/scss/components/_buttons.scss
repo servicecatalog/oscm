@@ -259,11 +259,3 @@ span.upload .option {
   background-position: right top;
   margin-left: 4px; }
 
-.form-label:after {
-  content: "\f093";
-  font-family: FontAwesome;
-  cursor: pointer;
-  color: hsl(var(--oscm-primary));
-  border-color: hsl(var(--oscm-primary));
-  border: 1px solid;
-  background-color: hsl(var(--oscm-main)); }

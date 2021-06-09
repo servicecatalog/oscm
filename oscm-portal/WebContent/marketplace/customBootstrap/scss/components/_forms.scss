@@ -24,3 +24,21 @@ input {
   background-color: hsl(var(--oscm-main-input-color));
   color: hsl(var(--oscm-main-font-color))!important;
 }
+
+.form-label:after {
+  content: "\f093";
+  font-family: FontAwesome;
+  cursor: pointer;
+  color: hsl(var(--oscm-primary));
+  border-color: hsl(var(--oscm-primary));
+  border: 1px solid;
+  background-color: hsl(var(--oscm-main)); 
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.375rem 0.75rem !important;
+  height: calc(1.5em + 0.77rem);
+  margin-right: -1px;
+  margin-top: -1px;
+}
