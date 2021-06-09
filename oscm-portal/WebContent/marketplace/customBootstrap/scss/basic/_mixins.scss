@@ -12,7 +12,6 @@
   transition: $args;
 }
 
-
 @mixin font-face($font-name, $file-name, $weight: normal, $style: normal) {
   @font-face {
     font-family: quote($font-name);
