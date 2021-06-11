@@ -65,5 +65,5 @@ For example:
 docker cp /workspace/oscm-build/result/package/oscm-portal/oscm-portal.war oscm-core:/opt/apache-tomee/webapps/
 ```
 
-#### Deploying the application
+#### Deploying the application 
 Find details [here](https://github.com/servicecatalog/oscm-dockerbuild).
