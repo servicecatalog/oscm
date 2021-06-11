@@ -25,7 +25,7 @@ input {
   color: hsl(var(--oscm-main-font-color))!important;
 }
 
-.form-label:after { 
+.form-label:after {
   content: "\f093";
   font-family: FontAwesome;
   cursor: pointer;
