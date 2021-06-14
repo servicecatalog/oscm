@@ -2310,8 +2310,14 @@ AdmUtils.clearSearches = function(searchId, buttonId) {
  };
 }
 
-AdmUtils.hexToHSL = function(hex) {    
+AdmUtils.hexToHSL = function(hex) {
+  if (hex == null) {
+    return null;
+  }
   var result = hex.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+  if (result == null) {
+    return null;
+  }
   r = parseInt(result[1], 16);
   g = parseInt(result[2], 16);
   b =  parseInt(result[3], 16);

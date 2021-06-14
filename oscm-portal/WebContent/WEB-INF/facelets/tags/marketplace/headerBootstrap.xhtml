@@ -185,12 +185,11 @@
       colorMap.set('--oscm-main-input-color', '${sessionScope.userDisplaySettings.inputColor}');
 
       for (let [key, value] of colorMap) {
-        if (value != null) {
           var hsl = AdmUtils.hexToHSL(value);
-
-          document.documentElement.style.setProperty(key + '-h', hsl[0].toString());
-          document.documentElement.style.setProperty(key + '-s', hsl[1] + "%");
-          document.documentElement.style.setProperty(key + '-l', hsl[2] + "%");
+          if (hsl != null) {  
+            document.documentElement.style.setProperty(key + '-h', hsl[0].toString());
+            document.documentElement.style.setProperty(key + '-s', hsl[1] + "%");
+            document.documentElement.style.setProperty(key + '-l', hsl[2] + "%");
         }
       }
     }
