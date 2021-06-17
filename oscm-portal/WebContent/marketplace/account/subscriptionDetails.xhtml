@@ -69,10 +69,12 @@
           $('#list-tab a').on('click', function(e) {
               e.preventDefault();
               if (AdmUtils.isNotDirtyOrConfirmed()) {
-                  restorePaymentTab();
-                  jsLeaveTabFunction();
-                  $(this).tab('show');
-                  return true;
+            	 if($('#paymentTab').length) {
+                    restorePaymentTab();
+            	 }
+                 jsLeaveTabFunction();
+                 $(this).tab('show');
+                 return true;
               } else {
                   return false;
               }
