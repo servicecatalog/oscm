@@ -1,0 +1,41 @@
+# This workflow will build a Java project with Ant
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-ant
+
+name: Java CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 8
+      uses: actions/setup-java@v2
+      with:
+        java-version: '8'
+        distribution: 'temurin'
+    - name: Setup node 12
+      uses: actions/setup-node@v2
+      with:
+          node-version: 12.x
+    - name: Install dart
+      run: npm install -g sass
+    - name: Prepare ivy
+      run: |
+        mkdir -p ./libraries/apache-ant-contrib/javalib/
+        chmod +rw ./libraries/apache-ant-contrib/javalib/
+    - name: wget ivy
+      uses: wei/wget@v1
+      with:
+        args: https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar -P ./libraries/apache-ant-contrib/javalib/
+    - name: Build OSCM with Ant
+      run: ant -lib ./libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:./parallel/build/libs/parallel-junit-0.1.jar -file ./oscm-build/cruisecontrol.xml runTravisUT
+      env: 
+        ANT_OPTS: -Xmx6g
