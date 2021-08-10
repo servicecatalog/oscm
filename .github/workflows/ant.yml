@@ -30,6 +30,6 @@ jobs:
     - name: wget ivy
       uses: wei/wget@v1
       with:
-        args: -P  -P ./libraries/apache-ant-contrib/javalib/ https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar
+        args: -P ./libraries/apache-ant-contrib/javalib/ https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar
     - name: Build OSCM with Ant
       run: ant -lib ./libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:./parallel/build/libs/parallel-junit-0.1.jar -file ./oscm-build/cruisecontrol.xml runTravisUT
