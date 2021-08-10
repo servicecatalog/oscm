@@ -27,6 +27,10 @@ jobs:
           node-version: 12.x
     - name: Install dart
       run: npm install -g sass
+    - name: Prepare ivy
+      run: |
+        mkdir -p /libraries/apache-ant-contrib/javalib/
+        chmod +rw /libraries/apache-ant-contrib/javalib/
     - name: wget ivy
       uses: wei/wget@v1
       with:
