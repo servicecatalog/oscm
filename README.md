@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/servicecatalog/oscm.svg?branch=master)](https://travis-ci.com/servicecatalog/oscm)
+![example workflow](https://github.com/servicecatalog/oscm/actions/workflows/ant.yml/badge.svg)
 
 <p align="center"><h1><img height="52" src="https://avatars0.githubusercontent.com/u/14330878" alt="Open Service Catalog Manager"/>&nbsp;Open Service Catalog Manager</h1></p> 
 
