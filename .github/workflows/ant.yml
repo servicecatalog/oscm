@@ -39,3 +39,8 @@ jobs:
       run: ant -lib ./libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:./parallel/build/libs/parallel-junit-0.1.jar -file ./oscm-build/cruisecontrol.xml runTravisUT
       env: 
         ANT_OPTS: -Xmx6g
+    - name: JUnit Report Action
+      uses: mikepenz/action-junit-report@v2.7.0
+      if: always() # always run even if the previous step fails
+      with:
+        report_paths: '**/oscm-build/result/*/test/TEST-*.xml'   
