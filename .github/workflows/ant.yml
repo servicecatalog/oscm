@@ -43,4 +43,14 @@ jobs:
       uses: mikepenz/action-junit-report@v2.7.0
       if: always() # always run even if the previous step fails
       with:
-        report_paths: '**/oscm-build/result/**/test/TEST-*.xml'   
+        report_paths: '**/oscm-build/result/**/test/TEST-*.xml'
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ github.event.repository.name }}-coveragereport
+        path: ./**/oscm-build/result/reports/coverage-junit
+    - name: Archive test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ github.event.repository.name }}-testresults
+        path: ./**/oscm-build/result/reports/test-junit
