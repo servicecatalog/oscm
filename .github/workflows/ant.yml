@@ -12,6 +12,11 @@ on:
 jobs:
   build:
 
+    env:
+        COMMIT_RANGE: ${{ github.event.pull_request.base.sha }}...${{ github.event.pull_request.head.sha }}
+        COMMIT: ${{ github.event.pull_request.head.sha }}
+        BRANCH: ${{ github.head_ref }} 
+    
     runs-on: ubuntu-latest
 
     steps:
@@ -35,12 +40,26 @@ jobs:
       uses: wei/wget@v1
       with:
         args: https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar -P ./libraries/apache-ant-contrib/javalib/
+    - name: Check copyright headers 
+      run: |
+           chmod +x ./scripts/*.sh
+           ./scripts/check_copyrights.sh
+      shell: bash 
+    - name: Code formatting   
+      run: ./scripts/format_code.sh
+      shell: bash
     - name: Build OSCM with Ant
       run: | 
         ant -lib ./libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:./parallel/build/libs/parallel-junit-0.1.jar -file ./oscm-build/cruisecontrol.xml runTravisUT
         bash <(curl -s https://codecov.io/bash) -f ./oscm-build/result/reports/coverage-junit/jUnitReport.xml  
       env: 
         ANT_OPTS: -Xmx6g
+    - name: Publish formatted code   
+      run: ./scripts/repush_formatted_code.sh
+      env:
+           COMMIT_RANGE: ${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}
+           COMMIT: ${{ github.event.pull_request.head.sha }}
+      shell: bash
     - name: JUnit Report Action
       uses: mikepenz/action-junit-report@v2.7.0
       if: always() # always run even if the previous step fails
