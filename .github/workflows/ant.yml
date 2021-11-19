@@ -36,7 +36,9 @@ jobs:
       with:
         args: https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar -P ./libraries/apache-ant-contrib/javalib/
     - name: Build OSCM with Ant
-      run: ant -lib ./libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:./parallel/build/libs/parallel-junit-0.1.jar -file ./oscm-build/cruisecontrol.xml runTravisUT
+      run: | 
+        ant -lib ./libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:./parallel/build/libs/parallel-junit-0.1.jar -file ./oscm-build/cruisecontrol.xml runTravisUT
+        bash <(curl -s https://codecov.io/bash) -f ./oscm-build/result/reports/coverage-junit/jUnitReport.xml  
       env: 
         ANT_OPTS: -Xmx6g
     - name: JUnit Report Action
@@ -44,6 +46,7 @@ jobs:
       if: always() # always run even if the previous step fails
       with:
         report_paths: '**/oscm-build/result/**/test/TEST-*.xml'
+      
     - name: Archive code coverage results
       uses: actions/upload-artifact@v2
       with:
