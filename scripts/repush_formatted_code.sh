@@ -4,16 +4,18 @@
 
 echo "PUSHING FORMATTED CODE BACK TO THE REPOSITORY..."
 
+
 git config --global user.email "oscm.automaton@gmail.com"
 git config --global user.name "OSCM Automaton"
 git config --global push.default simple
-git remote set-url origin https://${GITHUB_TOKEN}@github.com/servicecatalog/oscm.git
+git remote set-url origin https://${GH_TOKEN}@github.com/servicecatalog/oscm-rest-api.git
+
 determine_files_to_process
 
 if [[ ! -z "$GIT_DIFF_OUTPUT" ]] ; then
     git add *.java
     git commit -m "Applied code formatting [ci skip]"
-    git push origin HEAD:$TRAVIS_BRANCH
+    git push origin HEAD:$BRANCH
 else
     echo "NOTHING TO PUSH. ABORTING..."
 fi
