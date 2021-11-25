@@ -1,0 +1,85 @@
+# Copyright FUJITSU LIMITED 2021
+
+# This workflow will build a Java project with Ant
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-ant
+
+name: Master Build CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    env:
+      COMMIT: ${{ github.sha }}
+      BRANCH: master
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Workspace
+        if: env.GH_TOKEN == ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "GH_TOKEN=${GH_TOKEN}" >> $GITHUB_ENV
+      - name: Checkout Source
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ env.GH_TOKEN }}
+      - name: Install Java Runtime
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '8'
+      - name: Setup node 12
+        uses: actions/setup-node@v2
+        with:
+          node-version: 12.x
+      - name: Install dart
+        run: npm install -g sass
+      - name: Prepare ivy
+        run: |
+          mkdir -p ./libraries/apache-ant-contrib/javalib/
+          chmod +rw ./libraries/apache-ant-contrib/javalib/
+      - name: wget ivy
+        uses: wei/wget@v1
+        with:
+          args: https://repo1.maven.org/maven2/org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar -P ./libraries/apache-ant-contrib/javalib/
+      - run: |
+          chmod +x ./scripts/*.sh
+      - name: Check Copyright Headers
+        run: ./scripts/check_copyrights.sh
+        shell: bash
+      - name: Apply Code Formatting
+        run: ./scripts/format_code.sh
+        shell: bash
+      - name: Build OSCM with Ant
+        run: |
+          ant -lib ./libraries/apache-ant-contrib/javalib/ivy-2.4.0.jar:./parallel/build/libs/parallel-junit-0.1.jar -file ./oscm-build/cruisecontrol.xml runTravisUT
+          bash <(curl -s https://codecov.io/bash) -f ./oscm-build/result/reports/coverage-junit/jUnitReport.xml
+        env:
+          ANT_OPTS: -Xmx6g
+      - name: Publish formatted code
+        run: ./scripts/repush_formatted_code.sh
+        env:
+          COMMIT: ${{ github.sha }}
+          BRANCH: master
+          GH_TOKEN: ${{ env.GH_TOKEN }}
+        shell: bash
+      - name: JUnit Report Action
+        uses: mikepenz/action-junit-report@v2.7.0
+        if: always() # always run even if the previous step fails
+        with:
+          report_paths: '**/oscm-build/result/**/test/TEST-*.xml'
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.event.repository.name }}-coveragereport
+          path: ./**/oscm-build/result/reports/coverage-junit
+      - name: Archive test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.event.repository.name }}-testresults
+          path: ./**/oscm-build/result/reports/test-junit
