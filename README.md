@@ -17,7 +17,10 @@ All contributions are welcome - Open Service Catalog Manager uses the Apache 2.0
 ## Releases
 The latest releases can be found [here](https://github.com/servicecatalog/oscm/releases).
 
-## Getting started and building from sources
+## Getting Started
+Read [here](https://github.com/servicecatalog/oscm-dockerbuild) how to setup and get started.
+
+## Building from Sources
 Please follow this guide from top to bottom, this is the easiest way to avoid errors later on.
 
 #### Prerequisites
@@ -27,7 +30,7 @@ or higher.
 * [Apache Ivy 2.4.0](http://www.apache.org/dist/ant/ivy/2.4.0/) library.
 * [Eclipse ECJ 4.5.1](http://mvnrepository.com/artifact/org.eclipse.jdt.core.compiler/ecj/4.5.1) library.
 
-#### Setting up a workspace
+#### Setting up a Workspace
 1. Download the latest sources for [this](https://github.com/servicecatalog/oscm). 
 2. Import the project into your IDE. You should adjust some of the preferences:
   * Set the compiler level to the installed version of Java 1.8.
@@ -37,11 +40,11 @@ or higher.
   * Import them into your Eclipse IDE ([Help](https://github.com/servicecatalog/oscm/tree/master/oscm-devruntime/javares/codestyle/README.md))
   * Configure the formatting for non-Java files ([Rules and Help](https://github.com/servicecatalog/oscm/tree/master/oscm-devruntime/javares/codestyle/README.md))
 
-#### Setting up the mail server
+#### Setting up the Mail Server
 1. Download and install any mail server.
 2. Create any domain and at least one user account in it.
 
-#### Building the application
+#### Building the Application
 1. Install `sass` and add it to your PATH - for details see [sass-lang](https://sass-lang.com/install)
 
 2. If your network requires a proxy to access the internet you need to specify following arguments to JVM running Ant: 
@@ -64,6 +67,3 @@ For example:
 ```
 docker cp /workspace/oscm-build/result/package/oscm-portal/oscm-portal.war oscm-core:/opt/apache-tomee/webapps/
 ```
-
-#### Deploying the application
-Find details [here](https://github.com/servicecatalog/oscm-dockerbuild).
