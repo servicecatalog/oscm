@@ -16,9 +16,9 @@
   </ui:define>
 
   <ui:define name="breadcrumbs">
-    <mp:ootstrapBreadcrumbs>
+    <mp:BootstrapBreadcrumbs>
       <mp:crumb label="#{msg['user.registration']}"/>
-    </mp:ootstrapBreadcrumbs>
+    </mp:BootstrapBreadcrumbs>
   </ui:define>
 
   <ui:define name="contents">
@@ -56,10 +56,11 @@
                 <mp:pixelline/>
               </c:if>
 
-              <h:outputLink id="continueLink" styleClass="button"
+              <h:outputLink id="continueLink" styleClass="btn btn-secondary me-3 w-auto"
                             value="#{facesContext.externalContext.requestContextPath}/marketplace/redirect.jsf">
                 <span> <h:outputText value="#{msg['button.continue']}"/> </span>
               </h:outputLink>
+
             </a4j:outputPanel>
 
           </a4j:outputPanel>
