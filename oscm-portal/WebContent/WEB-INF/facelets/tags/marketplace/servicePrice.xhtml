@@ -6,6 +6,9 @@
     <c:set var="showUnit" value="true" />
   </c:if>
   <a4j:outputPanel layout="block" styleClass="#{styleClass}" style="#{style}">
+    <h2 class="servicePrice text-themed">#{service.bookingStartDate}, #{service.bookingNumberOfDays} Days</h2>
+  </a4j:outputPanel>
+  <a4j:outputPanel layout="block" styleClass="#{styleClass}" style="#{style}">
     <h2 class="servicePrice text-themed">#{empty service.priceText ? '&#160;' : service.priceText}<h:outputText
       styleClass="recommendedPriceHint" value=" #{msg['service.recommendedRetailPriceHint']}"
       rendered="#{service.reseller and service.priceModel.chargeable}" /></h2>
