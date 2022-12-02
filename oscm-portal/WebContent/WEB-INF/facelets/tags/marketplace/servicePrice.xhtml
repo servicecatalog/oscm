@@ -5,9 +5,13 @@
   <c:if test="#{empty showUnit}">
     <c:set var="showUnit" value="true" />
   </c:if>
-  <a4j:outputPanel layout="block" styleClass="#{styleClass}" style="#{style}">
-    <h2 class="servicePrice text-themed">#{service.bookingStartDate}, #{service.bookingNumberOfDays} Days</h2>
+   <a4j:outputPanel layout="block" styleClass="#{styleClass}" style="#{style}">
+    <span style="width:75px;" class="badge bg-success">Available</span>
+    <h3 class="servicePrice text-success">#{service.bookingNumberOfDays} Days</h3>
+    <h3 class="servicePrice text-success">#{service.bookingStartDate}</h3>
+    <h3 class="servicePrice fw-bold">#{service.pricePerDayText}</h3>
   </a4j:outputPanel>
+  <!--
   <a4j:outputPanel layout="block" styleClass="#{styleClass}" style="#{style}">
     <h2 class="servicePrice text-themed">#{empty service.priceText ? '&#160;' : service.priceText}<h:outputText
       styleClass="recommendedPriceHint" value=" #{msg['service.recommendedRetailPriceHint']}"
@@ -15,5 +19,5 @@
     <c:if test="#{showUnit}">
       <h2 class="priceUnit text-themed">#{empty service.priceUnitText ? '&#160;' : service.priceUnitText}</h2>
     </c:if>
-  </a4j:outputPanel>
+  </a4j:outputPanel> -->
 </ui:composition>
