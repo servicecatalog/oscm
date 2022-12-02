@@ -16,6 +16,9 @@
 
         <div class="row">
           <div class="col-auto">
+              <mp:servicePrice service="#{service}" styleClass="servicePriceForCard" showUnit="false"/>
+          </div>
+          <div class="col-auto">   
             <div class="box-logo">
               <img id="#{fieldId}Image" class="img" src="#{service.imageContent}"/>
             </div>
@@ -31,7 +34,6 @@
         </h3>
 
         <div class="mt-auto">
-          <mp:servicePrice service="#{service}" styleClass="servicePriceForCard" showUnit="false"/>
           <h:link data-bs-toggle="tooltip" title="#{service.shortDescriptionLimited}"
                   id="showServiceDetails#{status.index}" outcome="serviceDetails"
                   class="btn btn-outline-secondary stretched-link" value="#{msg['button.showDetails']}">

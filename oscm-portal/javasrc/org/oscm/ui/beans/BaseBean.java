@@ -404,6 +404,7 @@ public class BaseBean {
 
   public static final String LABEL_PRICE_MODEL_FREE = "priceModel.text.free";
   public static final String LABEL_PRICE_MODEL_PRICE = "priceModel.text.price";
+  public static final String LABEL_PRICE_MODEL_PRICE_PER_DAY = "priceModel.text.pricePerDay";
   public static final String LABEL_PRICE_MODEL_PER_SUB = "priceModel.text.perSubscription";
   public static final String LABEL_PRICE_MODEL_PER_USER = "priceModel.text.perUser";
   public static final String LABEL_PRICE_MODEL_SEE_DETAILS = "priceModel.text.seeDetails";

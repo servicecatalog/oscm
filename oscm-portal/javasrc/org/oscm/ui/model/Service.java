@@ -54,6 +54,7 @@ public class Service extends BaseBean implements Serializable {
   private boolean selected;
   private String priceText = null;
   private String priceUnitText = null;
+  private String pricePerDayText = null;
   private String bookingStartDate = null;
   private String bookingNumberOfDays = null;
   private List<VOCatalogEntry> catalogEntries;
@@ -366,6 +367,16 @@ public class Service extends BaseBean implements Serializable {
     return priceUnitText;
   }
 
+  public String getPricePerDayText() {
+    VOPriceModel priceModel = vo.getPriceModel();
+
+    pricePerDayText =
+        JSFUtils.getText(
+            BaseBean.LABEL_PRICE_MODEL_PRICE_PER_DAY,
+            new Object[] {"49", getCurrencySymbol(priceModel)});
+    return pricePerDayText;
+  }
+
   private void initPriceText() {
     if (vo.getAccessType() == ServiceAccessType.EXTERNAL) {
       priceText = JSFUtils.getText(BaseBean.LABEL_PRICE_MODEL_EXTERNAL, null);
@@ -522,6 +533,7 @@ public class Service extends BaseBean implements Serializable {
   }
 
   public String getBookingStartDate() {
+    // TODO return expired if booking end date is older than now
     if (vo != null) {
       List<VOParameter> serviceParams = vo.getParameters();
       for (VOParameter param : serviceParams) {
