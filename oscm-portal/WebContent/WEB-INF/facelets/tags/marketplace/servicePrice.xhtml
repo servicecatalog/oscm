@@ -6,7 +6,7 @@
     <c:set var="showUnit" value="true" />
   </c:if>
    <a4j:outputPanel layout="block" styleClass="#{styleClass}" style="#{style}">
-    <span style="width:75px;" class="badge bg-success">Available</span>
+    <span style="width:75px;" class="badge bg-success">#{service.availabilityText}</span>
     <h3 class="servicePrice text-success">#{service.bookingNumberOfDays} Days</h3>
     <h3 class="servicePrice text-success">#{service.bookingStartDate}</h3>
     <h3 class="servicePrice fw-bold">#{service.pricePerDayText}</h3>
