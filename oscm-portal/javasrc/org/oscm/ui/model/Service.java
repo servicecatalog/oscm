@@ -34,6 +34,7 @@ import org.oscm.internal.types.enumtypes.ServiceStatus;
 import org.oscm.internal.vo.VOCatalogEntry;
 import org.oscm.internal.vo.VOParameter;
 import org.oscm.internal.vo.VOPriceModel;
+import org.oscm.internal.vo.VOPricedEvent;
 import org.oscm.internal.vo.VOService;
 import org.oscm.internal.vo.VOServiceEntry;
 import org.oscm.ui.beans.BaseBean;
@@ -375,11 +376,11 @@ public class Service extends BaseBean implements Serializable {
     //    BigDecimal pricePerDay = BigDecimal.TEN;
     VOPriceModel priceModel = vo.getPriceModel();
     if (priceModel != null) {
-      //      List<VOPricedEvent> consideredEvents = priceModel.getConsideredEvents();
+      List<VOPricedEvent> consideredEvents = priceModel.getConsideredEvents();
       //      if (consideredEvents != null) {
       //        pricePerDay = consideredEvents.get(0).getEventPrice();
       //      }
-      //    }
+
       pricePerDayText =
           JSFUtils.getText(
               BaseBean.LABEL_PRICE_MODEL_PRICE_PER_DAY,
@@ -543,8 +544,7 @@ public class Service extends BaseBean implements Serializable {
     return "";
   }
 
-  public String getBookingStartDate() {
-    // TODO return expired if booking end date is older than now
+  public void initBookingStartDate() {
     if (vo != null) {
       List<VOParameter> serviceParams = vo.getParameters();
       for (VOParameter param : serviceParams) {
@@ -554,11 +554,36 @@ public class Service extends BaseBean implements Serializable {
         }
       }
     }
+  }
+
+  public String getBookingStartDate() {
+    if (bookingStartDate == null) {
+      initBookingStartDate();
+    }
     return bookingStartDate;
   }
 
-  public boolean isBookingDateExpired(String bookingStartDate, String bookingNumberOfDays) {
+  public void initBookingNumberOfDays() {
+    if (vo != null) {
+      List<VOParameter> serviceParams = vo.getParameters();
+      for (VOParameter param : serviceParams) {
+        if (BOOKING_NOF_DAYS.equals(param.getParameterDefinition().getParameterId())) {
+          bookingNumberOfDays = param.getValue();
+          break;
+        }
+      }
+    }
+  }
 
+  public String getBookingNumberOfDays() {
+    if (bookingNumberOfDays == null) {
+      initBookingNumberOfDays();
+    }
+    return bookingNumberOfDays;
+  }
+
+  public static boolean isBookingDateExpired(String bookingStartDate, String bookingNumberOfDays) {
+    // return expired if booking end date is older than now
     long noOfDays = Long.parseLong(bookingNumberOfDays);
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
@@ -574,19 +599,6 @@ public class Service extends BaseBean implements Serializable {
     return false;
   }
 
-  public String getBookingNumberOfDays() {
-    if (vo != null) {
-      List<VOParameter> serviceParams = vo.getParameters();
-      for (VOParameter param : serviceParams) {
-        if (BOOKING_NOF_DAYS.equals(param.getParameterDefinition().getParameterId())) {
-          bookingNumberOfDays = param.getValue();
-          break;
-        }
-      }
-    }
-    return bookingNumberOfDays;
-  }
-
   public String getAvailabilityText() {
     if (isBookingExpired()) {
       availabilityText = JSFUtils.getText(BaseBean.LABEL_PRICE_MODEL_BOOKING_EXPIRED, null);
@@ -597,6 +609,10 @@ public class Service extends BaseBean implements Serializable {
   }
 
   public boolean isBookingExpired() {
+    if (bookingStartDate == null || bookingNumberOfDays == null) {
+      initBookingStartDate();
+      initBookingNumberOfDays();
+    }
     if (bookingStartDate != null && bookingNumberOfDays != null) {
       if (isBookingDateExpired(bookingStartDate, bookingNumberOfDays)) {
         return true;
