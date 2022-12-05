@@ -48,8 +48,9 @@ public class Service extends BaseBean implements Serializable {
   private static final long serialVersionUID = 1L;
   private static final int MAX_LEN_LIMITED_SHORT_DESCRIPTION = 120;
   private static final int INDEX_LIMIT_SHORT_DESCRIPTION = 100;
-  private static final String BOOKINGDATE = "BOOKINGDATE";
-  private static final String BOOKING_NOF_DAYS = "BOOKING_NOF_DAYS";
+  private static final String SERVICE_PARAM_BOOKINGDATE = "BOOKINGDATE";
+  private static final String SERVICE_PARAM_BOOKING_NOF_DAYS = "BOOKING_NOF_DAYS";
+  private static final String EVENT_ID_DAYS_CHARGED = "DAYS_CHARGED";
 
   private final VOService vo;
 
@@ -372,19 +373,24 @@ public class Service extends BaseBean implements Serializable {
   }
 
   public String getPricePerDayText() {
-
-    //    BigDecimal pricePerDay = BigDecimal.TEN;
+    String eventPrice = "49";
     VOPriceModel priceModel = vo.getPriceModel();
     if (priceModel != null) {
       List<VOPricedEvent> consideredEvents = priceModel.getConsideredEvents();
-      //      if (consideredEvents != null) {
-      //        pricePerDay = consideredEvents.get(0).getEventPrice();
-      //      }
+      if (consideredEvents != null && consideredEvents.size() > 0) {
+        for (VOPricedEvent pricedEvent : consideredEvents) {
+          if (pricedEvent.getEventDefinition().getEventId() == EVENT_ID_DAYS_CHARGED) {
+            BigDecimal pricePerDay = pricedEvent.getEventPrice();
+            eventPrice = pricePerDay.toString();
+            break;
+          }
+        }
+      }
 
       pricePerDayText =
           JSFUtils.getText(
               BaseBean.LABEL_PRICE_MODEL_PRICE_PER_DAY,
-              new Object[] {"50", getCurrencySymbol(priceModel)});
+              new Object[] {eventPrice, getCurrencySymbol(priceModel)});
     }
     return pricePerDayText;
   }
@@ -548,7 +554,7 @@ public class Service extends BaseBean implements Serializable {
     if (vo != null) {
       List<VOParameter> serviceParams = vo.getParameters();
       for (VOParameter param : serviceParams) {
-        if (BOOKINGDATE.equals(param.getParameterDefinition().getParameterId())) {
+        if (SERVICE_PARAM_BOOKINGDATE.equals(param.getParameterDefinition().getParameterId())) {
           bookingStartDate = param.getValue();
           break;
         }
@@ -567,7 +573,8 @@ public class Service extends BaseBean implements Serializable {
     if (vo != null) {
       List<VOParameter> serviceParams = vo.getParameters();
       for (VOParameter param : serviceParams) {
-        if (BOOKING_NOF_DAYS.equals(param.getParameterDefinition().getParameterId())) {
+        if (SERVICE_PARAM_BOOKING_NOF_DAYS.equals(
+            param.getParameterDefinition().getParameterId())) {
           bookingNumberOfDays = param.getValue();
           break;
         }
