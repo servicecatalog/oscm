@@ -379,9 +379,9 @@ public class Service extends BaseBean implements Serializable {
       List<VOPricedEvent> consideredEvents = priceModel.getConsideredEvents();
       if (consideredEvents != null && consideredEvents.size() > 0) {
         for (VOPricedEvent pricedEvent : consideredEvents) {
-          if (pricedEvent.getEventDefinition().getEventId() == EVENT_ID_DAYS_CHARGED) {
+          if (pricedEvent.getEventDefinition().getEventId().equals(EVENT_ID_DAYS_CHARGED)) {
             BigDecimal pricePerDay = pricedEvent.getEventPrice();
-            eventPrice = pricePerDay.toString();
+            eventPrice = getDisplayPrice(pricePerDay);
             break;
           }
         }
