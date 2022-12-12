@@ -59,7 +59,6 @@ public class Service extends BaseBean implements Serializable {
   private String priceText = null;
   private String priceUnitText = null;
   private String pricePerDayText = null;
-  private String availabilityText = null;
   private String bookingStartDate = null;
   private String bookingNumberOfDays = null;
   private List<VOCatalogEntry> catalogEntries;
@@ -570,8 +569,8 @@ public class Service extends BaseBean implements Serializable {
   }
 
   public void initBookingNumberOfDays() {
-    if (vo != null) {
-      List<VOParameter> serviceParams = vo.getParameters();
+    if (this.vo != null) {
+      List<VOParameter> serviceParams = this.vo.getParameters();
       for (VOParameter param : serviceParams) {
         if (SERVICE_PARAM_BOOKING_NOF_DAYS.equals(
             param.getParameterDefinition().getParameterId())) {
@@ -589,43 +588,39 @@ public class Service extends BaseBean implements Serializable {
     return bookingNumberOfDays;
   }
 
-  public static boolean isBookingDateExpired(String bookingStartDate, String bookingNumberOfDays) {
+  public boolean isBookingExpired() {
     // return expired if booking end date is older than now
-    long noOfDays = Long.parseLong(bookingNumberOfDays);
+    String numberOfDays = getBookingNumberOfDays();
+    if (numberOfDays == null || numberOfDays.isEmpty()) {
+      return false;
+    }
+    long noOfDays = Long.parseLong(numberOfDays);
 
+    String startDate = getBookingStartDate();
+    if (startDate == null || startDate.isEmpty()) {
+      return false;
+    }
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
-    LocalDate bookingEndDate = LocalDate.parse(bookingStartDate, formatter);
+    LocalDate bookingStartLocalDate = LocalDate.parse(startDate, formatter);
 
-    bookingEndDate.plusDays(noOfDays);
+    LocalDate bookingExpirationDate = bookingStartLocalDate.plusDays(noOfDays);
     LocalDate currentDate = LocalDate.now();
 
-    if (bookingEndDate.isBefore(currentDate)) {
-      System.out.println("The booking end date is older than now.");
+    if (bookingExpirationDate.isBefore(currentDate)) {
+      System.out.println("The booking expiration date is older than the current date.");
       return true;
     }
     return false;
   }
 
   public String getAvailabilityText() {
+    String availabilityText = null;
     if (isBookingExpired()) {
       availabilityText = JSFUtils.getText(BaseBean.LABEL_PRICE_MODEL_BOOKING_EXPIRED, null);
     } else {
       availabilityText = JSFUtils.getText(BaseBean.LABEL_PRICE_MODEL_BOOKING_AVAILABLE, null);
     }
     return availabilityText;
-  }
-
-  public boolean isBookingExpired() {
-    if (bookingStartDate == null || bookingNumberOfDays == null) {
-      initBookingStartDate();
-      initBookingNumberOfDays();
-    }
-    if (bookingStartDate != null && bookingNumberOfDays != null) {
-      if (isBookingDateExpired(bookingStartDate, bookingNumberOfDays)) {
-        return true;
-      }
-    }
-    return false;
   }
 
   public void setSubscribable(boolean subscribable) {
